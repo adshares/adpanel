@@ -1,0 +1,156 @@
+/*
+  Dots / Icons / Navigation icon styling / Validation icon styling
+*/
+
+.adsh-circle {
+  $module: &;
+
+  width: 16px;
+	height: 16px;
+  border-radius: 50%;
+
+  &--small {
+    width: 10px;
+  	height: 10px;
+  }
+
+  &--x-small {
+    width: 5px;
+  	height: 5px;
+  }
+
+  &--blue {
+    background: pal(blue);
+  }
+
+  &--green {
+    background: pal(green);
+
+    &#{$module}--empty {
+      background: pal(green, light);
+      border: 1px solid pal(green);
+    }
+  }
+
+  &--with-icon {
+    position: relative;
+  }
+}
+
+.adsh-icon {
+  height: 18px;
+
+  &-prepend {
+    margin-right: 15px;
+  }
+
+  &-append {
+    margin-left: 15px;
+  }
+}
+
+.adsh-chevron {
+  // TODO shape
+  background-color: pal(navy);
+
+  &--absolute {
+    position: absolute;
+  }
+
+  &--left {
+    transform: rotate(90deg);
+  }
+
+  &--right {
+    transform: rotate(-90deg);
+  }
+
+  &--up {
+    transform: rotate(180deg);
+  }
+
+  &--valid {
+    // tick TODO
+  }
+
+  &--white {
+    background-color: pal(white);
+  }
+}
+
+.adsh-sort-triangle {
+  width: 5px;
+  height: 7px;
+  border-bottom: solid 6px pal(gray, mid-light);
+  border-left: solid 5px transparent;
+  border-right: solid 5px transparent;
+
+  &--active {
+    border-bottom: solid 6px pal(blue);
+  }
+
+  &--up {
+    transform: rotate(180deg);
+  }
+}
+
+/*
+  boxes
+*/
+
+.adsh-box {
+  border-radius: 2px;
+	background-color: pal(white);
+  padding: 13px 15px;
+
+  &--light {
+    background-color: pal(gray, x-light);
+    border: solid 1px pal(gray, light);
+  }
+}
+
+/*
+  background and text colors
+*/
+
+.adsh {
+  &-white {
+    color: pal(white);
+  }
+
+  &-navy {
+    color: pal(navy);
+  }
+
+  &-blue {
+    color: pal(blue);
+  }
+
+  &-green {
+    color: pal(green);
+  }
+
+  &-red {
+    color: pal(red);
+  }
+
+  &-bg-white {
+    background-color: pal(white);
+  }
+
+  &-bg-navy {
+    background-color: pal(navy);
+  }
+
+  &-bg-blue {
+    background-color: pal(blue);
+  }
+
+  &-bg-green {
+    background-color: pal(green);
+  }
+
+  &-bg-red {
+    background-color: pal(red);
+  }
+}

@@ -1,0 +1,10 @@
+.adsh-form {
+
+  &--input,
+  &--select {
+    border-radius: 2px;
+  	background-color: #f8f9fc;
+  	border: solid 1px #eceef3;
+    padding: 13px 13px 13px 18px;
+  }
+}

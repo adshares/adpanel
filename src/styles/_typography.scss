@@ -1,5 +1,5 @@
 .adsh-heading {
-  color: pal(navy)
+  color: pal(navy);
 
   &--hero {
     @include font(64, bold);
@@ -35,6 +35,7 @@
 
   &--large {
     @include font(14, semi);
+    line-height: 1.57;
   }
 
   &--small {

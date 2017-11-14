@@ -27,8 +27,14 @@
   font-weight: normal;
 }
 
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
 @mixin font-size($value: 16) {
   font-size: $value + px;
+  font-size: calculateRem($size);
 }
 
 @mixin font($font-size: 16, $font-weight: normal) {
