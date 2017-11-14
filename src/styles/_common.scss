@@ -113,44 +113,12 @@
   background and text colors
 */
 
-.adsh {
-  &-white {
-    color: pal(white);
+@each $color in $main_colors {
+  .adsh-#{$color} {
+    color: $color;
   }
 
-  &-navy {
-    color: pal(navy);
-  }
-
-  &-blue {
-    color: pal(blue);
-  }
-
-  &-green {
-    color: pal(green);
-  }
-
-  &-red {
-    color: pal(red);
-  }
-
-  &-bg-white {
-    background-color: pal(white);
-  }
-
-  &-bg-navy {
-    background-color: pal(navy);
-  }
-
-  &-bg-blue {
-    background-color: pal(blue);
-  }
-
-  &-bg-green {
-    background-color: pal(green);
-  }
-
-  &-bg-red {
-    background-color: pal(red);
+  .adsh-bg-#{$color} {
+    background-color: $color;
   }
 }

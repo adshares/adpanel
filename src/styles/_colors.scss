@@ -33,6 +33,9 @@ $palette-colors: (
   )
 );
 
+$main_colors: 'white', 'navy' 'blue', 'green', 'red';
+
+
 @function palette($palette, $tone: 'base') {
   @return map-get(map-get($palette-colors, $palette), $tone);
 }
