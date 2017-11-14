@@ -1,0 +1,37 @@
+// $fonts: (
+//   bold: 'AvenirNext-Bold',
+//   light: 'AvenirNext-Light',
+//   normal: 'AvenirNext-Regular',
+//   semi: 'AvenirNext-SemiBold',
+//   copy: 'AvenirRoman-Regular'
+// );
+//
+// @mixin font-face($font-name) {
+//   @font-face {
+//     font-family: $font-name;
+//     src: url('../fonts/#{$font-name}.eot');
+//     src: url('../fonts/#{$font-name}.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/#{$font-name}.ttf') format('truetype'),
+//          url('../fonts/#{$font-name}.svg##{$font-name}') format('svg');
+//   }
+// }
+//
+// @each $font-weight, $font-name in $fonts {
+//   @include font-face($font-name);
+// }
+//
+@mixin font-weight($font-weight) {
+  // font-family: map-get($fonts, $font-weight), sans-serif;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+@mixin font-size($value: 16) {
+  font-size: $value + px;
+}
+
+@mixin font($font-size: 16, $font-weight: normal) {
+  @include font-size($font-size);
+  @include font-weight($font-weight);
+}

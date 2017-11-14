@@ -1,0 +1,8 @@
+$zIndexes: (
+  testIndex: 999,
+  testIndex2: 1000
+);
+
+@function getIndex($zIndexName) {
+  @return map-get($zIndexes, $zIndexName);
+}
