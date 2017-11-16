@@ -1,0 +1,76 @@
+.adsh-heading {
+  color: pal(navy);
+
+  &--hero {
+    @include font(64, bold);
+    letter-spacing: 5px;
+    line-height: 1.11;
+  }
+
+  &--primary {
+    @include font(30, bold);
+  	letter-spacing: -0.1px;
+  }
+
+  &--secondary {
+    @include font(16, semi);
+  }
+
+  &--white {
+    color: pal(white);
+  }
+
+  &--faded {
+    color: pal(navy, faded);
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.adsh-copy {
+  color: pal(gray, semi-dark);
+  @include font(13, semi);
+
+  &--large {
+    @include font(14, semi);
+    line-height: 1.57;
+  }
+
+  &--small {
+    @include font(12, semi);
+  }
+
+  &--x-small {
+    @include font(10, bold);
+  }
+
+  &--light {
+    color: pal(gray);
+  }
+
+  &--dark {
+    color: pal(gray, dark);
+  }
+
+  &--x-dark {
+    color: pal(navy, light);
+  }
+
+  &--blue {
+    color: pal(blue);
+  }
+
+  &--red {
+    color: pal(red);
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

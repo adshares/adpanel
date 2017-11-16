@@ -1,0 +1,28 @@
+.adsh-button {
+  border-radius: 2px;
+  padding: 12px 25px;
+
+  &--wide {
+    padding: 12px 60px;
+  }
+
+  &--small {
+    padding: 6px 15px;
+  }
+
+  &--with-icon {
+    padding: 12px 25px 12px 18px;
+  }
+
+  &-block {
+    width: 100%;
+  }
+
+  &-block {
+    width: 100%;
+  }
+
+  &--faded {
+    opacity: 0.15;
+  }
+}

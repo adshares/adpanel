@@ -1,0 +1,39 @@
+$fonts: (
+  bold: 'Avenir-Bold',
+  light: 'Avenir-Light',
+  normal: 'Avenir-Regular',
+  semi: 'Avenir-SemiBold',
+  copy: 'Avenir-Roman'
+);
+
+@mixin font-face($font-name) {
+  @font-face {
+    font-family: $font-name;
+    src: url('/fonts/#{$font-name}.ttf') format('truetype');
+  }
+}
+
+@each $font-weight, $font-name in $fonts {
+  @include font-face($font-name);
+}
+
+@mixin font-weight($font-weight) {
+  font-family: map-get($fonts, $font-weight), sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 16;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($value: 16) {
+  font-size: $value + px;
+  font-size: calculateRem($value);
+}
+
+@mixin font($font-size: 16, $font-weight: normal) {
+  @include font-size($font-size);
+  @include font-weight($font-weight);
+}
