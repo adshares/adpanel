@@ -7,7 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component'
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service'
+import { AuthService } from './auth.service';
+import { RegisterComponent } from './register/register.component'
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AuthService } from './auth.service'
   ],
   declarations: [
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     CookieService,
