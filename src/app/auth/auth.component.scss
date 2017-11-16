@@ -1,0 +1,36 @@
+@import '../../styles.scss';
+
+.adsh-auth {
+  height: 100vh;
+  width: 100vw;
+  background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
+
+  &-wrapper {
+    height: 70vh;
+    width: 100vw;
+    @include center(vertical);
+  }
+
+  &__poster {
+    background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
+    height: 70vh;
+    padding: 40px;
+
+    &-wrapper {
+
+    }
+
+    &-advantages {
+      margin-top: 20px;
+    }
+  }
+
+  &__content {
+    height: 70vh;
+    padding: 40px;
+  }
+}
+
+.adsh-circle {
+  margin: 0 15px;
+}

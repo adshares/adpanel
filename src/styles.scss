@@ -1,12 +1,14 @@
+// containing mixins
+@import 'styles/mixins';
+@import 'styles/media-queries';
+@import 'styles/fonts';
+
 @import 'styles/buttons';
 @import 'styles/colors';
-@import 'styles/common';
-@import 'styles/fonts';
 @import 'styles/forms';
-@import 'styles/media-queries';
-// uses media-queries
 @import 'styles/flexbox';
-@import 'styles/mixins';
 @import 'styles/normalize';
 @import 'styles/typography';
 @import 'styles/z-index';
+
+@import 'styles/common';

@@ -115,10 +115,10 @@
 
 @each $color in $main_colors {
   .adsh-#{$color} {
-    color: $color;
+    color: pal($color);
   }
 
   .adsh-bg-#{$color} {
-    background-color: $color;
+    background-color: pal($color);
   }
 }

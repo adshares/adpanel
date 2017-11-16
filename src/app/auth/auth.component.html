@@ -1,18 +1,45 @@
-<div>
-    <div>
-        <div>
-            <h1>Blockchain Revolution in Advertising</h1>
+<section class="adsh-auth">
+    <div class="container
+                row
+                adsh-auth-wrapper">
+        <div class="col-xs-6
+                    adsh-auth__poster
+                    justify-between">
             <div>
-                <span>Low Fees</span>
-                <i></i>
-                <span>Censorship Resistant</span>
-                <i></i>
-                <span>AI Ready</span>
+                <h1 class="adsh-heading--hero
+                           adsh-white">
+                    <span class="adsh-blue">Blockchain</span>
+                    Revolution<br>in Advertising
+                </h1>
+                <div class="row
+                            align-center
+                            adsh-copy
+                            adsh-copy--uppercase
+                            adsh-blue
+                            adsh-auth__poster-advantages">
+                    <span>Low Fees</span>
+                    <div class="adsh-circle
+                                adsh-circle--x-small
+                                adsh-bg-blue"></div>
+                    <span>Censorship Resistant</span>
+                    <div class="adsh-circle
+                                adsh-circle--x-small
+                                adsh-bg-blue"></div>
+                    <span>AI Ready</span>
+                </div>
             </div>
-        </div>
-        <!-- logo -->
-        <img src="" alt="">
-    </div>
 
-    <router-outlet></router-outlet>
-</div>
+
+            <img src="assets/images/logo--white.png"
+                 srcset="assets/images/logo--white@2x.png 2x,
+                         assets/images/logo--white@3x.png 3x"
+                 alt="Adshares Logo">
+        </div>
+
+        <div class="col-xs-6
+                    adsh-auth__content
+                    adsh-bg-white">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+</section>
