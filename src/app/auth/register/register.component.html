@@ -1,70 +1,52 @@
 <section>
     <div>
-        <div>
-            <div>
-                <h1>Blockchain Revolution in Advertising</h1>
-                <div>
-                    <span>Low Fees</span>
-                    <i></i>
-                    <span>Censorship Resistant</span>
-                    <i></i>
-                    <span>AI Ready</span>
-                </div>
-            </div>
-            <!-- logo -->
-            <img src="" alt="">
-        </div>
+        <h2>Create Account</h2>
+        <p>We need your basic information for create your account.</p>
 
-        <div>
-            <h2></h2>
-            <p></p>
+        <form
+            #registrationForm="ngForm"
+            (ngSubmit)="register()">
+            <label for="email">Email Address</label>
+            <input
+                id="email"
+                type="email"
+                name="email"
+                ngModel
+                [email]="true"
+                #email="ngModel"
+                required>
+            <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
+            <span *ngIf="email.hasError('required') && formSubmitted">Email required!</span>
 
-            <form
-                #registrationForm="ngForm"
-                (ngSubmit)="register()">
-                <label for="email">Email Address</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    [ngModel]="userEmail"
-                    [email]="true"
-                    #email="ngModel"
-                    required>
-                <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
-                <span *ngIf="email.hasError('required') && formSubmitted">Email required!</span>
+            <label for="password">Password</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                ngModel
+                #password="ngModel"
+                minlength="8"
+                required>
+            <span *ngIf="password.hasError('minlength') && password.touched">
+                Minimum 8 signs required!
+            </span>
+            <span *ngIf="password.hasError('required') && formSubmited">Password required</span>
 
-                <label for="password">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    [ngModel]="password"
-                    #password="ngModel"
-                    minlength="8"
-                    required>
-                <span *ngIf="password.hasError('minlength') && password.touched">
-                    Minimum 8 signs required!
-                </span>
-                <span *ngIf="password.hasError('required') && formSubmited">Password required</span>
+            <label for="confirm-password">Confirm Password</label>
+            <input
+                id="confirm-password"
+                name="confirm-password"
+                type="password"
+                ngModel
+                #confirmPassword="ngModel"
+                required>
+            <!-- TODO user can go to confirmation when passwords don't match -->
+            <span *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords don't match!</span>
 
-                <label for="confirmpassword">Confirm Password</label>
-                <input
-                    id="confirmpassword"
-                    type="password"
-                    name="confirmpassword"
-                    [ngModel]="confirmPassword"
-                    #confirmPassword="ngModel"
-                    required>
+            <button type="submit">Sign Up</button>
+        </form>
 
-                <!-- TODO - there is something wrong here. After confirm email is wrong and you make it right, the error doesn't hide -->
-                <span *ngIf="confirmPassword !== password && confirmPassword.touched">Passwords don't match!</span>
-
-                <button type="submit">Sign Up</button>
-            </form>
-
-            <p>By clicking "Sign Up" I agree to Adshares <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a></p>
-            <p>Maybe you already have an account? <a routerLink="/auth/login">Sign In</a></p>
-        </div>
+        <p>By clicking "Sign Up" I agree to Adshares <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a></p>
+        <p>Maybe you already have an account? <a routerLink="/auth/login">Sign In</a></p>
     </div>
 </section>

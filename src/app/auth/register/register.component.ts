@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,11 +9,19 @@ import { AuthService } from '../auth.service'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   @ViewChild('registrationForm') registrationForm: NgForm;
   formSubmitted = false;
+  @ViewChild('email') email: string = '';
+  @ViewChild('password') password: string = '';
+  @ViewChild('confirmPassword') confirmPassword: string = '';
+
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    console.log(this.email, this.password, this.confirmPassword);
+  }
 
   register() {
     this.formSubmitted = true;
@@ -25,7 +33,7 @@ export class RegisterComponent {
     this.authService.registerUser(this.registrationForm.value.email, this.registrationForm.value.password)
       .subscribe(
         () => {
-          this.router.navigate(['confirm']);
+          this.router.navigate(['/auth/confirmation']);
         }
       );
   }
