@@ -12,7 +12,7 @@
             id="email"
             type="email"
             name="email"
-            [ngModel]="userEmail"
+            ngModel
             [email]="true"
             #email="ngModel"
             required>
@@ -24,7 +24,7 @@
             id="password"
             type="password"
             name="password"
-            [ngModel]="uesrPassword"
+            ngModel
             minlength="8"
             #password="ngModel"
             required>
