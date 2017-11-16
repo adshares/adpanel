@@ -44,3 +44,10 @@ a:active,
 a:hover {
   text-decoration: none !important;
 }
+
+button:focus,
+button:active,
+input,
+select {
+  outline: none !important;
+}

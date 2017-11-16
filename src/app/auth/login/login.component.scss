@@ -1,0 +1,18 @@
+.adsh-login {
+  &-wrapper {
+    height: calc(70vh - 80px - 60px);
+  }
+
+  &__remember {
+    margin-top: 30px;
+  }
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+form {
+  max-width: 320px;
+  margin-top: 60px;
+}

@@ -1,3 +1,37 @@
-<p>
-  confirmation works!
-</p>
+<div class="col
+            justify-between
+            adsh-confirmation-wrapper">
+  <div>
+    <a routerLink="/auth/login"
+       class="row
+              align-center">
+      <div class="adsh-circle
+                  adsh-circle--blue">
+        <div class="adsh-chevron
+                    adsh-chevron--left
+                    adsh-chevron--white"></div>
+      </div>
+      <span class="adsh-copy
+                   adsh-copy--large">Back to Home Screen</span>
+    </a>
+  </div>
+  <div class="col">
+    <h2 class="adsh-heading
+               adsh-heading--primary">We sent confirmation to your email address</h2>
+    <span class="adsh-copy
+                 adsh-copy--large
+                 adsh-blue">{{ email }}</span>
+    <button class="adsh-btn
+                   adsh-btn--wide
+                   adsh-blue">Resend</button>
+  </div>
+  <div class="adsh-box
+              adsh-box--light
+              adsh-box--large">
+    <p class="adsh-copy
+              adsh-copy--large">If you still have problem with confirmation or you don’t receive email from us, contact with our support.</p>
+    <p class="adsh-copy
+              adsh-copy--large
+              adsh-blue"><a href="mailto:support@adshares.com">support@adshares.com</a></p>
+  </div>
+</div>
