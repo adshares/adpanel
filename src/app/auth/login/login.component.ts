@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
 
@@ -9,49 +9,25 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
   formSubmited = false;
 
-  constructor(private cookieService: CookieService, private authService: AuthService) { }
-
-  ngOnInit() {
-    this.getSavedCredintials();
-  }
+  constructor(private authService: AuthService, private router: Router) { }
 
   login() {
     this.formSubmited = true;
-    // if (!this.loginForm.valid) {
-    //   return;
-    // }
-    console.log('login', this.loginForm);
 
-    this.authService.loginUser('aaa', 'bbb')
-      .subscribe(
-        () => {
-          this.saveCredintials
-        }
-      );
-  }
-
-  saveCredintials() {
-    if (!this.rememberUser.nativeElement.checked) {
+    if (!this.loginForm.valid) {
       return;
     }
 
-    this.cookieService.set('2', JSON.stringify(this.loginForm.value));
-  }
-
-  getSavedCredintials() {
-    const savedCredintials = this.cookieService.get('2');
-
-    if (savedCredintials) {
-      const parsedCredintials = JSON.parse(savedCredintials);
-
-      // this.loginForm.value({
-      //   parsedCredintials
-      // });
-    }
+    this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+      .subscribe(
+        () => {
+          this.router.navigate(['/advertiser']);
+        }
+      );
   }
 }

@@ -4,8 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './auth/register/register.component';
 
 const appRoutes: Routes = [
-  { path: 'auth/register', component: RegisterComponent }
-  { path: '**', redirectTo: '/auth/login' }
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -16,6 +15,4 @@ const appRoutes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule { }
