@@ -2,13 +2,13 @@
   color: pal(navy);
 
   &--hero {
-    @include font(64, bold);
+    @include font(64, semi);
     letter-spacing: 5px;
     line-height: 1.11;
   }
 
   &--primary {
-    @include font(30, bold);
+    @include font(30, semi);
   	letter-spacing: -0.1px;
   }
 
@@ -43,7 +43,7 @@
   }
 
   &--x-small {
-    @include font(10, bold);
+    @include font(10, semi);
   }
 
   &--light {

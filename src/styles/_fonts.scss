@@ -9,7 +9,7 @@ $fonts: (
 @mixin font-face($font-name) {
   @font-face {
     font-family: $font-name;
-    src: url('/fonts/#{$font-name}.ttf') format('truetype');
+    src: url('/assets/fonts/#{$font-name}.ttf') format('truetype');
   }
 }
 

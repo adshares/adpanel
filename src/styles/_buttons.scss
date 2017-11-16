@@ -1,6 +1,8 @@
-.adsh-button {
+.adsh-btn {
   border-radius: 2px;
   padding: 12px 25px;
+  @include font(14, semi);
+  color: pal(white);
 
   &--wide {
     padding: 12px 60px;
@@ -18,11 +20,11 @@
     width: 100%;
   }
 
-  &-block {
-    width: 100%;
-  }
-
   &--faded {
     opacity: 0.15;
+  }
+
+  &--submit {
+    margin-top: 36px;
   }
 }
