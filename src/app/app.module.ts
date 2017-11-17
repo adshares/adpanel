@@ -14,7 +14,7 @@ import { AdvertiserModule } from './advertiser/advertiser.module';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
     AppRoutingModule,
     AuthModule,
     AdvertiserModule
