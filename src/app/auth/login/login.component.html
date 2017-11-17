@@ -17,7 +17,7 @@
             #email="ngModel"
             required>
         <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
-        <span *ngIf="email.hasError('required') && formSubmited">Email required!</span>
+        <span *ngIf="email.hasError('required') && loginForm.submitted">Email required!</span>
 
         <label for="password">Password</label>
         <input
@@ -31,7 +31,7 @@
         <span *ngIf="password.hasError('minlength') && password.touched">
             Minimum 8 signs required!
         </span>
-        <span *ngIf="password.hasError('required') && formSubmited">Password required</span>
+        <span *ngIf="password.hasError('required') && loginForm.submitted">Password required</span>
 
         <input
             #rememberUser
