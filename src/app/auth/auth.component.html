@@ -9,12 +9,13 @@
             <div>
                 <h1 class="adsh-heading--hero
                            adsh-white">
-                    <span class="adsh-blue">Blockchain</span>
+                    <span class="adsh-heading--faded">Blockchain</span>
                     Revolution<br>in Advertising
                 </h1>
                 <div class="row
                             align-center
                             adsh-copy
+                            adsh-copy--bold
                             adsh-copy--uppercase
                             adsh-blue
                             adsh-auth__poster-advantages">
@@ -40,8 +41,9 @@
 
         <div class="col-xs-6
                     adsh-auth__content
-                    adsh-bg-white">
-          <router-outlet></router-outlet>
+                    adsh-bg-white"
+             [@fadeAnimation]="getRouterOutletState(o)">
+          <router-outlet #o="outlet"></router-outlet>
         </div>
     </div>
 </section>

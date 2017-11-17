@@ -34,3 +34,19 @@
 .adsh-circle {
   margin: 0 15px;
 }
+
+:host {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+
+  .adsh-auth__content {
+    position: relative;
+  }
+
+  /deep/ router-outlet ~ * {
+    position: absolute;
+    width: calc(100% - (40px * 2));
+    height: 100%;
+  }
+}
