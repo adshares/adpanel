@@ -51,3 +51,7 @@ input,
 select {
   outline: none !important;
 }
+
+a:-webkit-any-link {
+  color: pal(blue);
+}

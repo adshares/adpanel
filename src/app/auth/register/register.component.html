@@ -24,6 +24,7 @@
                   [email]="true"
                   #email="ngModel"
                   required>
+              <span *ngIf="email.valid" class="input-valid"></span>
               <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
               <span *ngIf="email.hasError('required') && formSubmitted">Email required!</span>
           </div>
@@ -41,6 +42,7 @@
                   #password="ngModel"
                   minlength="8"
                   required>
+              <span *ngIf="password.valid" class="input-valid"></span>
               <span *ngIf="password.hasError('minlength') && password.touched">
                   Minimum 8 signs required!
               </span>
@@ -49,17 +51,17 @@
 
           <div class="adsh-form-input__box">
               <label
-                  for="confirm-password"
+                  for="confirmPassword"
                   class="adsh-form-label">Confirm Password</label>
               <input
-                  id="confirm-password"
+                  id="confirmPassword"
                   class="adsh-form-input"
-                  name="confirm-password"
+                  name="confirmPassword"
                   type="password"
                   ngModel
                   #confirmPassword="ngModel"
                   required>
-              <!-- TODO user can go to confirmation when passwords don't match -->
+              <span *ngIf="confirmPassword.value === password.value && password.valid" class="input-valid"></span>
               <span *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords don't match!</span>
           </div>
 

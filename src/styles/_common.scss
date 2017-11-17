@@ -5,8 +5,8 @@
 .adsh-circle {
   $module: &;
 
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   position: relative;
 
@@ -36,6 +36,10 @@
   &--with-icon {
     position: relative;
   }
+
+  &--navigating {
+    margin-right: 10px;
+  }
 }
 
 .adsh-icon {
@@ -59,9 +63,9 @@
   	content: '';
   	display: inline-block;
   	height: 4px;
-  	left: 5px;
+  	left: 7px;
   	position: absolute;
-  	top: 4px;
+  	top: 5px;
   	transform: rotate(135deg);
   	vertical-align: top;
   	width: 4px;

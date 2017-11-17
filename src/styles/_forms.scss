@@ -1,7 +1,30 @@
+.checkmark {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: pal(green);
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 3px;
+    height: 6px;
+    border: solid pal(white);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
 .adsh-form {
   &-input__box {
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   &-label {
@@ -24,6 +47,10 @@
     margin-top: 35px;
   }
 
+  input + span.input-valid {
+    @extend .checkmark;
+  }
+
   input[type="checkbox"] {
     display: none;
   }
@@ -33,20 +60,15 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: pal(green, light);
-    border: 1px solid pal(green);
+    border: 1px solid pal(gray, mid-light);
     position: relative;
     margin-right: 10px;
-
-    &:checked {
-      background: pal(green);
-    }
   }
 
-  input[type=checkbox]:checked + label{
+  input[type=checkbox]:checked + label {
     background: pal(green);
 
-    &:after{
+    &:after {
       content: '';
       position: absolute;
       top: 3px;
