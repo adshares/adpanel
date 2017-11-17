@@ -1,0 +1,48 @@
+<div>
+    <h2>Hello! Welcome back do Adshares</h2>
+    <span>Please sign in to your account</span>
+</div>
+
+<div>
+    <form
+        #loginForm="ngForm"
+        (ngSubmit)="login()">
+        <label for="email">Email</label>
+        <input
+            id="email"
+            type="email"
+            name="email"
+            ngModel
+            [email]="true"
+            #email="ngModel"
+            required>
+        <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
+        <span *ngIf="email.hasError('required') && loginForm.submitted">Email required!</span>
+
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            name="password"
+            ngModel
+            minlength="8"
+            #password="ngModel"
+            required>
+        <span *ngIf="password.hasError('minlength') && password.touched">
+            Minimum 8 signs required!
+        </span>
+        <span *ngIf="password.hasError('required') && loginForm.submitted">Password required</span>
+
+        <input
+            #rememberUser
+            id="remember-user"
+            type="checkbox">
+        <label for="remember-user">Remember me</label>
+
+        <a routerLink="/auth/remind-password">Forgot Password?</a>
+
+        <button type="submit">Sign In</button>
+    </form>
+
+    <p>Don't have account? <a routerLink="/auth/register">Sign Up</a></p>
+</div>
