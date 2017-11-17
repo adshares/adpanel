@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="col
             justify-between
             adsh-login-wrapper">
@@ -47,6 +48,42 @@
                 </span>
                 <span *ngIf="password.hasError('required') && formSubmited">Password required</span>
             </div>
+=======
+<div>
+    <h2>Hello! Welcome back do Adshares</h2>
+    <span>Please sign in to your account</span>
+</div>
+
+<div>
+    <form
+        #loginForm="ngForm"
+        (ngSubmit)="login()">
+        <label for="email">Email</label>
+        <input
+            id="email"
+            type="email"
+            name="email"
+            ngModel
+            [email]="true"
+            #email="ngModel"
+            required>
+        <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
+        <span *ngIf="email.hasError('required') && loginForm.submitted">Email required!</span>
+
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            name="password"
+            ngModel
+            minlength="8"
+            #password="ngModel"
+            required>
+        <span *ngIf="password.hasError('minlength') && password.touched">
+            Minimum 8 signs required!
+        </span>
+        <span *ngIf="password.hasError('required') && loginForm.submitted">Password required</span>
+>>>>>>> 2a0da7388a64799697c53675f7362102a23770f9
 
             <div class="row
                         align-center

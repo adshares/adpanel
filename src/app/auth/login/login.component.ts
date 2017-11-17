@@ -12,13 +12,10 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
-  formSubmited = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
-    this.formSubmited = true;
-
     if (!this.loginForm.valid) {
       return;
     }
