@@ -1,3 +1,6 @@
+@import './media-queries';
+@import './fonts';
+
 // for :before, :after
 @mixin pseudo($display: block, $pos: absolute, $content: ''){
   content: $content;
