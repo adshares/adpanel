@@ -13,7 +13,6 @@ export class AuthService {
   }
 
   registerUser(email: string, password: string) {
-    // http TODO
     return this.http.put(`${environment.apiUrl}/user`, { email, password });
   }
 }
