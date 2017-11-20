@@ -1,8 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '../auth.service'
+import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component'
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,11 @@ export class RegisterComponent {
   formSubmitted = false;
 
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   register() {
     this.formSubmitted = true;
@@ -28,6 +34,7 @@ export class RegisterComponent {
     this.authService.registerUser(this.registrationForm.value.email, this.registrationForm.value.password)
       .subscribe(
         () => {
+          this.dialog.open(CustomizeAccountChooseDialogComponent);
           this.router.navigate(['/auth/confirmation']);
         }
       );
