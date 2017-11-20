@@ -1,5 +1,5 @@
 .container {
-  // TODO
+  padding: 0 10%;
 }
 
 
@@ -20,12 +20,16 @@
   flex: 0 1 auto;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: -0.5rem;
-  margin-left: -0.5rem;
 
   &.reverse {
     flex-direction: row-reverse;
   }
+}
+
+.col {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .col.reverse {
@@ -162,8 +166,8 @@
 .col-xl-offset-10,
 .col-xl-offset-11,
 .col-xl-offset-12 {
-  box-sizing: border-box;
-  flex: 0 0 auto;
+  // box-sizing: border-box;
+  // flex: 0 0 auto;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }

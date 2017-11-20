@@ -5,9 +5,10 @@
 .adsh-circle {
   $module: &;
 
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
+  position: relative;
 
   &--small {
     width: 10px;
@@ -35,6 +36,10 @@
   &--with-icon {
     position: relative;
   }
+
+  &--navigating {
+    margin-right: 10px;
+  }
 }
 
 .adsh-icon {
@@ -51,30 +56,39 @@
 
 .adsh-chevron {
   // TODO shape
-  background-color: pal(navy);
-
-  &--absolute {
-    position: absolute;
+  &:before {
+    border-color: pal(navy);
+    border-style: solid;
+  	border-width: 0.15em 0.15em 0 0;
+  	content: '';
+  	display: inline-block;
+  	height: 4px;
+  	left: 7px;
+  	position: absolute;
+  	top: 5px;
+  	transform: rotate(135deg);
+  	vertical-align: top;
+  	width: 4px;
   }
 
-  &--left {
-    transform: rotate(90deg);
+  &--left:before {
+    transform: rotate(225deg);
   }
 
-  &--right {
-    transform: rotate(-90deg);
+  &--right:before {
+    transform: rotate(45deg);
   }
 
-  &--up {
-    transform: rotate(180deg);
+  &--up:before {
+    transform: rotate(-45deg);
   }
 
   &--valid {
     // tick TODO
   }
 
-  &--white {
-    background-color: pal(white);
+  &--white:before {
+    border-color: pal(white);
   }
 }
 
@@ -103,6 +117,10 @@
   background-color: pal(white);
   padding: 13px 15px;
 
+  &--large {
+    padding: 20px 70px 20px 20px;
+  }
+
   &--light {
     background-color: pal(gray, x-light);
     border: solid 1px pal(gray, light);
@@ -115,10 +133,10 @@
 
 @each $color in $main_colors {
   .adsh-#{$color} {
-    color: $color;
+    color: pal($color);
   }
 
   .adsh-bg-#{$color} {
-    background-color: $color;
+    background-color: pal($color);
   }
 }

@@ -33,7 +33,7 @@ $palette-colors: (
   )
 );
 
-$main_colors: 'white', 'navy' 'blue', 'green', 'red';
+$main_colors: white, navy, blue, green, red;
 
 
 @function palette($palette, $tone: 'base') {

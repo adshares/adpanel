@@ -14,6 +14,15 @@ caption, tbody, tfoot, thead, tr, th, td {
   line-height: normal;
 }
 
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
 p {
   margin-top: 0;
 }
@@ -39,4 +48,15 @@ a:focus,
 a:active,
 a:hover {
   text-decoration: none !important;
+}
+
+button:focus,
+button:active,
+input,
+select {
+  outline: none !important;
+}
+
+a:-webkit-any-link {
+  color: pal(blue);
 }

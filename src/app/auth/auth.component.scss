@@ -1,0 +1,90 @@
+@import '../../styles.scss';
+
+.adsh-auth {
+  height: 100vh;
+  width: 100vw;
+  background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
+  position: relative;
+
+  &-wrapper {
+    height: 70vh;
+    min-height: 730px;
+    width: 100vw;
+    z-index: getIndex(authWrapper);
+  }
+
+  &__poster {
+    background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
+    height: 70vh;
+    min-height: 730px;
+    padding: 40px;
+
+    &-advantages {
+      margin-top: 20px;
+    }
+
+    &-logo {
+      width: 140px;
+    }
+  }
+
+  &__content {
+    height: 70vh;
+    min-height: 730px;
+    padding: 80px 40px 60px;
+  }
+
+  &-bubbles {
+    position: absolute;
+
+    &:nth-of-type(1) {
+      top: 5%;
+      left: 30%;
+    }
+
+    &:nth-of-type(2) {
+      top: 50%;
+      left: 40%;
+      z-index: getIndex(bubbleTop);
+    }
+
+    &:nth-of-type(3) {
+      bottom: 15%;
+      left: 3%;
+    }
+  }
+
+  &-wave {
+    position: absolute;
+
+    &-up {
+      top: 0;
+      right: 0;
+    }
+
+    &-down {
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+
+.adsh-circle {
+  margin: 0 15px;
+}
+
+:host {
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+
+  .adsh-auth__content {
+    position: relative;
+  }
+
+  /deep/ router-outlet ~ * {
+    position: absolute;
+    width: calc(100% - (40px * 2));
+    height: calc(100% - 120px);
+  }
+}

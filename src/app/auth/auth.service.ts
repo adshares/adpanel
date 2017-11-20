@@ -11,4 +11,8 @@ export class AuthService {
   loginUser(email: string, password: string) {
     return this.http.post(`${environment.apiUrl}/user`, { email, password });
   }
+
+  registerUser(email: string, password: string) {
+    return this.http.put(`${environment.apiUrl}/user`, { email, password });
+  }
 }

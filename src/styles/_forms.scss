@@ -1,10 +1,83 @@
-.adsh-form {
+.checkmark {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: pal(green);
 
-  &--input,
-  &--select {
+  &:after{
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 3px;
+    height: 6px;
+    border: solid pal(white);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.adsh-form {
+  &-input__box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  &-label {
+    @include font(12, medium);
+    color: pal(gray);
+    margin: 16px 0 7px;
+  }
+
+  &-input,
+  &-select {
     border-radius: 2px;
     background-color: #f8f9fc;
     border: solid 1px #eceef3;
     padding: 13px 13px 13px 18px;
+    max-width: 320px;
+    @include font(13, medium);
+  }
+
+  &-submit-btn {
+    margin-top: 35px;
+  }
+
+  input + span.input-valid {
+    @extend .checkmark;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  label.checkbox-label {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid pal(gray, mid-light);
+    position: relative;
+    margin-right: 10px;
+  }
+
+  input[type=checkbox]:checked + label {
+    background: pal(green);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      width: 3px;
+      height: 6px;
+      border: solid pal(white);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
   }
 }

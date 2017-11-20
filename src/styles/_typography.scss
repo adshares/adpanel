@@ -13,7 +13,7 @@
   }
 
   &--secondary {
-    @include font(16, semi);
+    @include font(16, bold);
   }
 
   &--white {
@@ -31,19 +31,19 @@
 
 .adsh-copy {
   color: pal(gray, semi-dark);
-  @include font(13, semi);
+  @include font(13, normal);
 
   &--large {
-    @include font(14, semi);
+    @include font(14, medium);
     line-height: 1.57;
   }
 
   &--small {
-    @include font(12, semi);
+    @include font(12, normal);
   }
 
   &--x-small {
-    @include font(10, bold);
+    @include font(10, normal);
   }
 
   &--light {
@@ -64,6 +64,10 @@
 
   &--red {
     color: pal(red);
+  }
+
+  &--bold {
+    @include font-weight(bold);
   }
 
   &--uppercase {
