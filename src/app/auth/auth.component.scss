@@ -8,14 +8,15 @@
 
   &-wrapper {
     height: 70vh;
+    min-height: 730px;
     width: 100vw;
-    @include center(vertical);
     z-index: getIndex(authWrapper);
   }
 
   &__poster {
     background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
     height: 70vh;
+    min-height: 730px;
     padding: 40px;
 
     &-advantages {
@@ -29,6 +30,7 @@
 
   &__content {
     height: 70vh;
+    min-height: 730px;
     padding: 80px 40px 60px;
   }
 
@@ -83,6 +85,6 @@
   /deep/ router-outlet ~ * {
     position: absolute;
     width: calc(100% - (40px * 2));
-    height: 100%;
+    height: calc(100% - 120px);
   }
 }
