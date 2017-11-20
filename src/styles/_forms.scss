@@ -28,7 +28,7 @@
   }
 
   &-label {
-    @include font(12, semi);
+    @include font(12, medium);
     color: pal(gray);
     margin: 16px 0 7px;
   }
@@ -40,7 +40,7 @@
     border: solid 1px #eceef3;
     padding: 13px 13px 13px 18px;
     max-width: 320px;
-    @include font(13, semi);
+    @include font(13, medium);
   }
 
   &-submit-btn {

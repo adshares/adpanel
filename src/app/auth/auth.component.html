@@ -1,4 +1,6 @@
-<section class="adsh-auth">
+<section class="adsh-auth
+                row
+                align-center">
     <div class="container
                 row
                 adsh-auth-wrapper">
@@ -9,12 +11,13 @@
             <div>
                 <h1 class="adsh-heading--hero
                            adsh-white">
-                    <span class="adsh-blue">Blockchain</span>
+                    <span class="adsh-heading--faded">Blockchain</span>
                     Revolution<br>in Advertising
                 </h1>
                 <div class="row
                             align-center
                             adsh-copy
+                            adsh-copy--bold
                             adsh-copy--uppercase
                             adsh-blue
                             adsh-auth__poster-advantages">
@@ -32,7 +35,7 @@
 
 
             <img
-                class="adsh-auth__poster-logo"
+                class="adsh-logo"
                 src="assets/images/logo--white.png"
                 srcset="assets/images/logo--white@2x.png 2x,
                          assets/images/logo--white@3x.png 3x"
@@ -41,8 +44,30 @@
 
         <div class="col-xs-6
                     adsh-auth__content
-                    adsh-bg-white">
-          <router-outlet></router-outlet>
+                    adsh-bg-white"
+             [@fadeAnimation]="getRouterOutletState(o)">
+          <router-outlet #o="outlet"></router-outlet>
         </div>
     </div>
+    <img class="adsh-auth-bubbles"
+         src="assets/images/bubbles1.svg"
+         alt="bubbles">
+    <img class="adsh-auth-bubbles"
+         src="assets/images/bubbles2.svg"
+         alt="bubbles">
+    <img class="adsh-auth-bubbles"
+         src="assets/images/bubbles3.svg"
+         alt="bubbles">
+    <img class="adsh-auth-wave
+                adsh-auth-wave-up"
+         src="assets/images/wave-up.png"
+         srcset="assets/images/wave-up@2x.png 2x,
+                 assets/images/wave-up@3x.png 3x"
+         alt="wave">
+    <img class="adsh-auth-wave
+                adsh-auth-wave-down"
+         src="assets/images/wave-down.png"
+         srcset="assets/images/wave-down@2x.png 2x,
+                 assets/images/wave-down@3x.png 3x"
+         alt="waves">
 </section>

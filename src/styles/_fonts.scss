@@ -1,15 +1,17 @@
 $fonts: (
-  bold: 'Avenir-Bold',
-  light: 'Avenir-Light',
-  normal: 'Avenir-Regular',
-  semi: 'Avenir-SemiBold',
-  copy: 'Avenir-Roman'
+  heavy: 'AvenirNext-Heavy',
+  bold: 'AvenirNext-Bold',
+  light: 'AvenirNext-UltraLight',
+  medium: 'AvenirNext-Medium',
+  normal: 'AvenirNext-Regular',
+  semi: 'AvenirNext-Demi',
+  copy: 'AvenirNext-Regular'
 );
 
 @mixin font-face($font-name) {
   @font-face {
     font-family: $font-name;
-    src: url('/assets/fonts/#{$font-name}.ttf') format('truetype');
+    src: url('/assets/fonts/#{$font-name}.otf') format('opentype');
   }
 }
 
