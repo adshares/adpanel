@@ -23,7 +23,9 @@
                     [email]="true"
                     #email="ngModel"
                     required>
-                <span *ngIf="email.valid" class="input-valid"></span>
+                <span
+                    *ngIf="email.valid"
+                    class="input-valid"></span>
                 <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
                 <span *ngIf="email.hasError('required') && formSubmited">Email required!</span>
             </div>
@@ -41,7 +43,9 @@
                     minlength="8"
                     #password="ngModel"
                     required>
-                <span *ngIf="password.valid" class="input-valid"></span>
+                <span
+                    *ngIf="password.valid"
+                    class="input-valid"></span>
                 <span *ngIf="password.hasError('minlength') && password.touched">
                     Minimum 8 signs required!
                 </span>
@@ -58,26 +62,35 @@
                         #rememberUser
                         id="remember-user"
                         type="checkbox">
-                    <label for="remember-user"
-                           class="checkbox-label"></label>
+                    <label
+                        for="remember-user"
+                        class="checkbox-label"></label>
                     <span class="adsh-copy
                                  adsh-copy--large
                                  adsh-copy--x-dark">Remember me</span>
                 </div>
 
-                <a class="adsh-copy
-                          adsh-copy--large"
-                   routerLink="/auth/remind-password">Forgot Password?</a>
+                <a
+                    class="adsh-copy
+                           adsh-copy--large"
+                    routerLink="/auth/remind-password">Forgot Password?</a>
             </div>
 
-            <button type="submit"
-                    class="adsh-btn
-                           adsh-btn--wide
-                           adsh-bg-blue
-                           adsh-form-submit-btn">Sign In</button>
+            <button
+                type="submit"
+                class="adsh-btn
+                       adsh-btn--wide
+                       adsh-bg-blue
+                       adsh-form-submit-btn">Sign In</button>
         </form>
     </div>
 
     <p class="adsh-copy
-              adsh-copy--large">Don't have account? <a class="adsh-blue" routerLink="/auth/register">Sign Up</a></p>
+              adsh-copy--large">Don't have account?
+        <a
+            class="adsh-blue"
+            routerLink="/auth/register">
+            Sign Up
+        </a>
+    </p>
 </div>
