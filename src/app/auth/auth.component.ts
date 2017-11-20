@@ -9,7 +9,6 @@ import { fadeAnimation } from '../animations/fade.animation';
 })
 
 export class AuthComponent implements OnInit {
-  testState = 'normal';
   constructor() { }
 
   ngOnInit() {
