@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 import { CustomizeAccountChooseDialogComponent } from '../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { WalletDialogComponent } from '../settings/dialogs/wallet-dialog/wallet-dialog.component';
+import { UserModel } from '../auth/store/user.model';
 
 @Component({
   selector: 'app-advertiser',
@@ -12,15 +15,21 @@ import { WalletDialogComponent } from '../settings/dialogs/wallet-dialog/wallet-
   styleUrls: ['./advertiser.component.scss']
 })
 export class AdvertiserComponent implements OnInit {
+  // userState: Observable<{UserModel}>[];
 
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private store: Store<{auth: { UserModel }}>
   ) { }
 
   ngOnInit() {
     const firstLogin = this.route.snapshot.queryParams['customize'];
+
+    const userState = this.store.select('auth');
+
+    console.log(userState);
 
     if (firstLogin) {
       // ExpressionChangedAfterItHasBeenCheckedError bug fix
