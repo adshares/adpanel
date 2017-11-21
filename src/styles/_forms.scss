@@ -95,22 +95,4 @@
   /* needed */
   appearance: none;
   outline: none;
-
-  :before {
-    position: absolute;
-    display: block;
-    left: 5px;
-    width: 18px;
-    height: 18px;
-    content: url('/assets/images/user.svg');
-  }
-
-  :after {
-    position: absolute;
-    display: block;
-    right: 5px;
-    width: 18px;
-    height: 18px;
-    content: url('/assets/images/chevron.svg');
-  }
 }
