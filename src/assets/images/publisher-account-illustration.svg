@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="154" height="117" viewBox="0 0 154 117">
+    <defs>
+        <rect id="a" width="60" height="89" x="48" y="25" rx="3"/>
+        <rect id="b" width="60" height="11" x="48" y="25" rx="2"/>
+        <rect id="c" width="28" height="11" x="106" y="45" rx="2"/>
+        <rect id="d" width="28" height="46" x="106" y="53" rx="2"/>
+        <rect id="e" width="28" height="11" x="22" y="45" rx="2"/>
+        <rect id="f" width="28" height="46" x="22" y="53" rx="2"/>
+        <rect id="g" width="60" height="22" x="48" y="53" rx="2"/>
+        <rect id="h" width="60" height="22" x="48" y="33" rx="2"/>
+        <rect id="i" width="43" height="12" x="56" y="81" rx="2"/>
+        <rect id="j" width="21" height="12" x="56" y="95" rx="2"/>
+        <rect id="k" width="20" height="12" x="79" y="95" rx="2"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <use fill="#DEEEF9" xlink:href="#a"/>
+            <rect width="58" height="87" x="49" y="26" stroke="#55A8FD" stroke-width="2" rx="3"/>
+        </g>
+        <g>
+            <use fill="#FFF" xlink:href="#b"/>
+            <rect width="58" height="9" x="49" y="26" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#FFF" xlink:href="#c"/>
+            <rect width="26" height="9" x="107" y="46" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#DEEEF9" xlink:href="#d"/>
+            <rect width="26" height="44" x="107" y="54" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#FFF" xlink:href="#e"/>
+            <rect width="26" height="9" x="23" y="46" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#DEEEF9" xlink:href="#f"/>
+            <rect width="26" height="44" x="23" y="54" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <path fill="#55A8FD" d="M52 30h1v1h-1zM55 30h1v1h-1zM57 30h1v1h-1z"/>
+        <g>
+            <use fill="#FFF" xlink:href="#g"/>
+            <rect width="58" height="20" x="49" y="54" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#DEEEF9" xlink:href="#h"/>
+            <rect width="58" height="20" x="49" y="34" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <path stroke="#55A8FD" stroke-linecap="square" stroke-width="2" d="M64 47h28M73 42h9"/>
+        <path stroke="#55A8FD" stroke-width="2" d="M93 60l4 3.755L93 68M62 60l-4 3.755L62 68"/>
+        <g>
+            <use fill="#FFF" xlink:href="#i"/>
+            <rect width="41" height="10" x="57" y="82" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#FFF" xlink:href="#j"/>
+            <rect width="19" height="10" x="57" y="96" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <use fill="#FFF" xlink:href="#k"/>
+            <rect width="18" height="10" x="80" y="96" stroke="#55A8FD" stroke-width="2" rx="2"/>
+        </g>
+        <g>
+            <circle cx="52" cy="6" r="6" fill="#55A8FD"/>
+            <circle cx="24.5" cy="33.5" r="3.5" fill="#ECEEF3"/>
+            <circle cx="30.5" cy="113.5" r="3.5" fill="#ECEEF3"/>
+            <circle cx="150.5" cy="78.5" r="3.5" fill="#ECEEF3"/>
+            <circle cx="117.5" cy="22.5" r="3.5" fill="#24D17E"/>
+            <circle cx="3.5" cy="78.5" r="3.5" fill="#24D17E"/>
+        </g>
+    </g>
+</svg>
