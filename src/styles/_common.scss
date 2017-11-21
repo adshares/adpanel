@@ -2,6 +2,11 @@
   Dots / Icons / Navigation icon styling / Validation icon styling
 */
 
+.adsh-logo {
+  max-width: 140px;
+  height: auto;
+}
+
 .adsh-circle {
   $module: &;
 
@@ -45,12 +50,16 @@
 .adsh-icon {
   height: 18px;
 
-  &-prepend {
+  &--prepend {
     margin-right: 15px;
   }
 
-  &-append {
+  &--append {
     margin-left: 15px;
+  }
+
+  &--small {
+    height: 10px;
   }
 }
 
@@ -90,6 +99,15 @@
   &--white:before {
     border-color: pal(white);
   }
+
+  &--gray:before {
+    border-color: pal(gray);
+  }
+
+  &--standalone {
+    position: initial;
+  }
+
 }
 
 .adsh-sort-triangle {
@@ -139,4 +157,21 @@
   .adsh-bg-#{$color} {
     background-color: pal($color);
   }
+}
+
+.adsh-bg-navy--light {
+  background-color: pal(navy, light);
+}
+
+
+/*
+  positioning
+*/
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
 }
