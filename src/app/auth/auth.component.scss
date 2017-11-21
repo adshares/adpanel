@@ -11,13 +11,20 @@
     min-height: 730px;
     width: 100vw;
     z-index: getIndex(authWrapper);
+    justify-content: center;
   }
 
   &__poster {
     background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
     height: 70vh;
     min-height: 730px;
+    max-width: 600px;
     padding: 40px;
+    display: none;
+
+    @include lg-up {
+      display: flex;
+    }
 
     &-advantages {
       margin-top: 20px;
@@ -27,6 +34,7 @@
   &__content {
     height: 70vh;
     min-height: 730px;
+    max-width: 600px;
     padding: 80px 40px 60px;
   }
 
@@ -42,6 +50,11 @@
       top: 50%;
       left: 40%;
       z-index: getIndex(bubbleTop);
+      display: none;
+
+      @include lg-up {
+        display: block;
+      }
     }
 
     &:nth-of-type(3) {

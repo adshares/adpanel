@@ -1,5 +1,18 @@
 .container {
-  padding: 0 10%;
+  padding: 0 15px;
+
+  @include sm-up {
+    padding: 0 30px;
+  }
+
+  @include md-up {
+    padding: 0 60px;
+  }
+
+  @include xl-up {
+    padding: 0 10%;
+    max-width: 1600px;
+  }
 }
 
 
@@ -173,7 +186,7 @@
 }
 
 
-$column_sizes: 11;
+$column_sizes: 12;
 $viewport_sizes: 'xs', 'sm', 'md', 'lg', 'xl';
 
 @each $viewport_size in $viewport_sizes {
@@ -184,87 +197,67 @@ $viewport_sizes: 'xs', 'sm', 'md', 'lg', 'xl';
   }
 }
 
-@each $viewport_size in $viewport_sizes {
-  @include xs-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
+@include xs-up {
+  @for $i from 0 through $column_sizes {
+    .col-xs-#{$i} {
+      flex-basis: $i/12 * 100%;
+      max-width: $i/12 * 100%;
+    }
 
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
+    .col-xs-offset-#{$i} {
+      margin-left: $i/12 * 100%;
     }
   }
 }
 
-@each $viewport_size in $viewport_sizes {
-  @include sm-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
+@include sm-up {
+  @for $i from 0 through $column_sizes {
+    .col-sm-#{$i} {
+      flex-basis: $i/12 * 100%;
+      max-width: $i/12 * 100%;
+    }
 
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
+    .col-sm-offset-#{$i} {
+      margin-left: $i/12 * 100%;
     }
   }
 }
 
-@each $viewport_size in $viewport_sizes {
-  @include md-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
+@include md-up {
+  @for $i from 0 through $column_sizes {
+    .col-md-#{$i} {
+      flex-basis: $i/12 * 100%;
+      max-width: $i/12 * 100%;
+    }
 
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
+    .col-md-offset-#{$i} {
+      margin-left: $i/12 * 100%;
     }
   }
 }
 
-@each $viewport_size in $viewport_sizes {
-  @include lg-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
+@include lg-up {
+  @for $i from 0 through $column_sizes {
+    .col-lg-#{$i} {
+      flex-basis: $i/12 * 100%;
+      max-width: $i/12 * 100%;
+    }
 
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
+    .col-lg-offset-#{$i} {
+      margin-left: $i/12 * 100%;
     }
   }
 }
 
-@each $viewport_size in $viewport_sizes {
-  @include xl-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
+@include xl-up {
+  @for $i from 0 through $column_sizes {
+    .col-xl-#{$i} {
+      flex-basis: $i/12 * 100%;
+      max-width: $i/12 * 100%;
+    }
 
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
+    .col-xl-offset-#{$i} {
+      margin-left: $i/12 * 100%;
     }
   }
 }
