@@ -1,15 +1,15 @@
 .container {
   padding: 0 15px;
 
-  @include sm-up {
+  @include media(sm-up) {
     padding: 0 30px;
   }
 
-  @include md-up {
+  @include media(md-up) {
     padding: 0 60px;
   }
 
-  @include xl-up {
+  @include media(xl-up) {
     padding: 0 10%;
     max-width: 1600px;
   }
@@ -187,77 +187,32 @@
 
 
 $column_sizes: 12;
-$viewport_sizes: 'xs', 'sm', 'md', 'lg', 'xl';
 
-@each $viewport_size in $viewport_sizes {
-  .col-#{$viewport_size} {
-    flex-grow: 1;
-    flex-basis: 0;
-    max-width: 100%;
-  }
-}
+@each $viewport_size, $viewport_size_fullname in $viewport_sizes_up {
+  @include media($viewport_size_fullname) {
+    @for $i from 0 through $column_sizes {
+      .col-#{$viewport_size}-#{$i} {
+        flex-basis: $i/12 * 100%;
+        max-width: $i/12 * 100%;
+      }
 
-@include xs-up {
-  @for $i from 0 through $column_sizes {
-    .col-xs-#{$i} {
-      flex-basis: $i/12 * 100%;
-      max-width: $i/12 * 100%;
+      .col-#{$viewport_size}-offset-#{$i} {
+        margin-left: $i/12 * 100%;
+      }
     }
 
-    .col-xs-offset-#{$i} {
-      margin-left: $i/12 * 100%;
+    .visible-#{$viewport_size} {
+      visibility: visible;
+      display: block;
     }
   }
 }
 
-@include sm-up {
-  @for $i from 0 through $column_sizes {
-    .col-sm-#{$i} {
-      flex-basis: $i/12 * 100%;
-      max-width: $i/12 * 100%;
-    }
-
-    .col-sm-offset-#{$i} {
-      margin-left: $i/12 * 100%;
-    }
-  }
-}
-
-@include md-up {
-  @for $i from 0 through $column_sizes {
-    .col-md-#{$i} {
-      flex-basis: $i/12 * 100%;
-      max-width: $i/12 * 100%;
-    }
-
-    .col-md-offset-#{$i} {
-      margin-left: $i/12 * 100%;
-    }
-  }
-}
-
-@include lg-up {
-  @for $i from 0 through $column_sizes {
-    .col-lg-#{$i} {
-      flex-basis: $i/12 * 100%;
-      max-width: $i/12 * 100%;
-    }
-
-    .col-lg-offset-#{$i} {
-      margin-left: $i/12 * 100%;
-    }
-  }
-}
-
-@include xl-up {
-  @for $i from 0 through $column_sizes {
-    .col-xl-#{$i} {
-      flex-basis: $i/12 * 100%;
-      max-width: $i/12 * 100%;
-    }
-
-    .col-xl-offset-#{$i} {
-      margin-left: $i/12 * 100%;
+@each $viewport_size, $viewport_size_fullname in $viewport_sizes_down-without-size {
+  @include media($viewport_size_fullname) {
+    .hidden-#{$viewport_size} {
+      visibility: hidden;
+      display: none;
     }
   }
 }

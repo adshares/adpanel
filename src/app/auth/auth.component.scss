@@ -20,11 +20,6 @@
     min-height: 730px;
     max-width: 600px;
     padding: 40px;
-    display: none;
-
-    @include lg-up {
-      display: flex;
-    }
 
     &-advantages {
       margin-top: 20px;
@@ -50,11 +45,6 @@
       top: 50%;
       left: 40%;
       z-index: getIndex(bubbleTop);
-      display: none;
-
-      @include lg-up {
-        display: block;
-      }
     }
 
     &:nth-of-type(3) {
