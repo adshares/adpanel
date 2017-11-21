@@ -1,3 +1,30 @@
-<p>
-  customize-account-choose-dialog works!
-</p>
+<mat-dialog-content>
+    <div (click)="dialogRef.close()">close icon</div>
+    <h1>Choose an Account Type</h1>
+
+    <div>
+        Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+    </div>
+
+    <div
+        [ngClass]="{ 'account-selected': accounts.advertiser.selected }"
+        (click)="accounts.advertiser.selected = !accounts.advertiser.selected">
+        <h5>I want to advertise!</h5>
+
+        <p>Etiam pretium dapibus congue. </p>
+
+        <p>ADVERTISER</p>
+    </div>
+
+    <div
+        [ngClass]="{ 'account-selected': accounts.publisher.selected }"
+        (click)="accounts.publisher.selected = !accounts.publisher.selected">
+        <h5>I want to offer space on my website!</h5>
+
+        <p>Etiam pretium dapibus congue. </p>
+
+        <p>PUBLISHER</p>
+    </div>
+
+    <button (click)="dialogRef.close(accounts)">Continue</button>
+</mat-dialog-content>
