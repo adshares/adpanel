@@ -11,13 +11,11 @@ import { AuthService } from '../auth.service'
 })
 export class RegisterComponent {
   @ViewChild('registrationForm') registrationForm: NgForm;
-  formSubmitted = false;
 
 
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
-    this.formSubmitted = true;
     const password = this.registrationForm.value.password
     const confirmPassword = this.registrationForm.value.confirmPassword
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { fadeAnimation } from '../animations/fade.animation';
+import { fadeAnimation } from '../common/animations/fade.animation';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +9,6 @@ import { fadeAnimation } from '../animations/fade.animation';
 })
 
 export class AuthComponent implements OnInit {
-  testState = 'normal';
   constructor() { }
 
   ngOnInit() {
