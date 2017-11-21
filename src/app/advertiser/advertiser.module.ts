@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AppCommonModule } from '../common/common.module';
 
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
+import { HeaderComponent } from '../common/components/header/header.component';
 
 @NgModule({
   imports: [
@@ -10,7 +12,8 @@ import { AdvertiserRoutingModule } from './advertiser-routing.module';
     AdvertiserRoutingModule
   ],
   declarations: [
-    AdvertiserComponent
+    AdvertiserComponent,
+    HeaderComponent
   ]
 })
 export class AdvertiserModule { }
