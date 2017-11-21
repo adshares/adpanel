@@ -64,7 +64,7 @@
                        adsh-icon--prepend"
                 src="assets/images/bell.svg">
             <div class="col">
-                <span class="adsh-adst">{{ currentBalanceAdst }}</span>
+                <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
                 <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
             </div>
             <img
