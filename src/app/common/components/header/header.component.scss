@@ -1,0 +1,58 @@
+@import '../../../../styles.scss';
+
+.adsh-header {
+  width: 100vw;
+  height: 86px;
+  background: pal(navy);
+
+  &-userselect {
+    img {
+      &:first-of-type {
+        top: calc((42px - 18px)/2);
+        left: 15px;
+      }
+      &:last-of-type {
+        top: calc((42px - 10px)/2);
+        right: 15px;
+      }
+    }
+  }
+}
+
+.adsh-navigation {
+  &__item {
+    margin: 0 5px;
+    height: 42px;
+    cursor: pointer;
+
+    .adsh-logo {
+      margin-right: 30px;
+    }
+
+    .adsh-chevron {
+      right: 10px;
+      top: 15px;
+    }
+
+    .adsh-circle {
+      top: 6px;
+      right: 6px;
+    }
+  }
+
+}
+
+.adsh-adst {
+  @include font(14, semi);
+  margin-bottom: 2px;
+}
+
+.adsh-usd {
+  @include font(9, semi);
+  color: pal(gray);
+}
+
+#notif-count {
+  @include center(both);
+  @include font(11, semi)
+}

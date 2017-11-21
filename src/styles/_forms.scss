@@ -7,7 +7,7 @@
   border-radius: 50%;
   background: pal(green);
 
-  &:after{
+  &:after {
     content: '';
     position: absolute;
     top: 3px;
@@ -79,5 +79,38 @@
       border-width: 0 2px 2px 0;
       transform: rotate(45deg);
     }
+  }
+}
+
+.adsh-select {
+  cursor: pointer;
+  border-radius: 2px;
+  color: pal(navy);
+  @include font(14, semi);
+  background: pal(white);
+  margin: 0 auto;
+  padding: 0 60px 0 40px;
+  height: 42px;
+  border: 0;
+  /* needed */
+  appearance: none;
+  outline: none;
+
+  :before {
+    position: absolute;
+    display: block;
+    left: 5px;
+    width: 18px;
+    height: 18px;
+    content: url('/assets/images/user.svg');
+  }
+
+  :after {
+    position: absolute;
+    display: block;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    content: url('/assets/images/chevron.svg');
   }
 }

@@ -1,3 +1,13 @@
-<p>
-  notifications works!
-</p>
+<div
+    class="row
+           adsh-notifications__bar"
+    [class.active]="notificationsBarEnabled">
+  <div class="col-xs-12">
+    <span>Notifications</span>
+  </div>
+</div>
+<div
+    (click)="disableNotificationsBar()"
+    class="adsh-notifications__background"
+    [class.active]="notificationsBarEnabled">
+</div>

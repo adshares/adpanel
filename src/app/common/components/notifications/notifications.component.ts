@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class NotificationsComponent implements OnInit {
+  @Input() notificationsBarEnabled: boolean;
+  @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter()
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  disableNotificationsBar() {
+    this.notificationsBarEnabled = false;
+    this.onDisableNotificationsBar.emit(false);
   }
 
 }

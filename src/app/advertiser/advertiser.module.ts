@@ -9,6 +9,7 @@ import { HeaderComponent } from '../common/components/header/header.component';
 @NgModule({
   imports: [
     CommonModule,
+    AppCommonModule,
     AdvertiserRoutingModule
   ],
   declarations: [
