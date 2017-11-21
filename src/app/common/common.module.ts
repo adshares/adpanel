@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HeaderComponent } from '../common/components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 
@@ -12,10 +13,12 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
     BrowserAnimationsModule
   ],
   declarations: [
+    HeaderComponent,
     NotificationsComponent,
     AdsharesTokenPipe
   ],
   exports: [
+    HeaderComponent,
     NotificationsComponent,
     AdsharesTokenPipe
   ]

@@ -38,8 +38,12 @@
       top: 6px;
       right: 6px;
     }
-  }
 
+    .notif-count {
+      @include center(both);
+      @include font(11, semi)
+    }
+  }
 }
 
 .adsh-adst {
@@ -50,9 +54,4 @@
 .adsh-usd {
   @include font(9, semi);
   color: pal(gray);
-}
-
-#notif-count {
-  @include center(both);
-  @include font(11, semi)
 }
