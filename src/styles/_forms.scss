@@ -67,6 +67,7 @@
 
   input[type=checkbox]:checked + label {
     background: pal(green);
+    border: 1px solid pal(green);
 
     &:after {
       content: '';
