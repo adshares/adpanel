@@ -50,32 +50,6 @@
 }
 
 $column_sizes: 12;
-$viewport_sizes: 'xs', 'sm', 'md', 'lg', 'xl';
-
-@each $viewport_size in $viewport_sizes {
-  .col-#{$viewport_size} {
-    flex-grow: 1;
-    flex-basis: 0;
-    max-width: 100%;
-  }
-}
-
-@each $viewport_size in $viewport_sizes {
-  @include xs-up {
-    @for $i from 0 through $column_sizes {
-      @each $viewport_size in $viewport_sizes {
-        .col-#{$viewport_size}-#{$i} {
-          flex-basis: $i/12 * 100%;
-          max-width: $i/12 * 100%;
-        }
-
-        .col-#{$viewport_size}-offset-#{$i} {
-          margin-left: $i/12 * 100%;
-        }
-      }
-    }
-  }
-}
 
 @each $viewport_size, $viewport_size_fullname in $viewport_sizes_up {
   @include media($viewport_size_fullname) {

@@ -2,7 +2,7 @@
     <div class="row adsh-copy adsh-copy--semi">
         <div class="col-xs-1 row align-center">
             <div
-                class="adsh-box adsh-box--small adsh-campaign-list__item-status"
+                class="adsh-box adsh-box--small adsh-campaign-list__item-status text-center"
                 [attr.data-status]="campaign.status">
                 <span>{{ campaign.status }}</span>
             </div>
@@ -11,7 +11,7 @@
             <h4 class="adsh-heading adsh-heading--secondary">{{ campaign.name }}</h4>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.budgetPerDay }}</p>
+            <p>{{ campaign.budgetPerDay | currency:USD }}/day</p>
         </div>
         <div class="col-xs-1 row align-center">
             <p>{{ campaign.clicks }}</p>
@@ -20,13 +20,13 @@
             <p>{{ campaign.impressions }}</p>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.ctr }}</p>
+            <p>{{ campaign.ctr | percent }}</p>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.averageCpc }}</p>
+            <p>{{ campaign.averageCpc | currency:USD }}</p>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.totalCost }}</p>
+            <p>{{ campaign.totalCost | currency:USD }}</p>
         </div>
         <div class="col-xs-1 row align-center row justify-center">
             <img src="/assets/images/chevron-right.svg" alt="">

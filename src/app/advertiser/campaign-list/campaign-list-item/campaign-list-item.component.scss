@@ -6,6 +6,7 @@
 
   &-status {
     @include font-weight(bold);
+    width: 75px;
 
     &[data-status="Active"] {
       color: pal(green);
@@ -13,11 +14,11 @@
     }
 
     &[data-status="Limited"] {
-      color: pal(gray);
-      background-color: pal(navy, faded);
+      color: pal(blue);
+      background-color: pal(blue, light);
     }
 
-    &[data-status="Archieved"] {
+    &[data-status="Archived"] {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
     }

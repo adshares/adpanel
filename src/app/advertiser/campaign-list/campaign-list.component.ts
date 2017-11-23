@@ -16,7 +16,7 @@ export class CampaignListComponent {
       20.48,
       275,
       81534,
-      0.30,
+      0.003,
       2.10,
       238.21
     ),
@@ -26,27 +26,27 @@ export class CampaignListComponent {
       20.48,
       275,
       81534,
-      0.30,
+      0.003,
       2.10,
       238.21
     ),
     new Campaign(
-      'Active',
+      'Limited',
       'August 2016 Global Remarketing',
       20.48,
       275,
       81534,
-      0.30,
+      0.003,
       2.10,
       238.21
     ),
     new Campaign(
-      'Active',
+      'Archived',
       'August 2017 Global Remarketing',
       20.48,
       275,
       81534,
-      0.30,
+      0.003,
       2.10,
       238.21
     )
