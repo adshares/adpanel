@@ -1,35 +1,76 @@
 <div class="adsh-campaign-list__item">
-    <div class="row align-center adsh-copy adsh-copy--semi">
-        <div class="col-xs-1 row align-center">
+    <div class="
+        row a
+        lign-center
+        adsh-copy
+        adsh-copy--semi">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <div
-                class="adsh-box adsh-box--small adsh-campaign-list__item-status text-center"
+                class="
+                    adsh-box
+                    adsh-box--small
+                    adsh-campaign-list__item-status
+                    text-center"
                 [attr.data-status]="campaign.status">
                 <span>{{ campaign.status }}</span>
             </div>
         </div>
-        <div class="col-xs-4 row align-center">
-            <h4 class="adsh-heading adsh-heading--secondary">{{ campaign.name }}</h4>
+        <div class="
+            col-xs-4
+            row
+            align-center">
+            <h4 class="
+                adsh-heading
+                adsh-heading--secondary">{{ campaign.name }}</h4>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.budgetPerDay | currency:USD }}/day</span>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.clicks }}</span>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.impressions }}</span>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.ctr | percent }}</span>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.averageCpc | currency:USD }}</span>
         </div>
-        <div class="col-xs-1 row align-center">
+        <div class="
+            col-xs-1
+            row
+            align-center">
             <span>{{ campaign.totalCost | currency:USD }}</span>
         </div>
-        <div class="col-xs-1 row align-center row justify-center adsh-campaign-list__item-campaign-details">
-            <img src="/assets/images/chevron-right.svg" alt="">
+        <div class="
+            col-xs-1
+            row
+            align-center
+            justify-center
+            adsh-campaign-list__item-campaign-details">
+            <img
+                src="/assets/images/chevron-right.svg"
+                alt="Go to campaign details icon">
         </div>
     </div>
 </div>
