@@ -1,4 +1,17 @@
 <app-header></app-header>
-<p>
-    Advertiser works
-</p>
+<section class="adsh-advertiser-wrapper">
+    <div class="container">
+        <div class="row justify-between">
+            <div class="col-xs-4">
+                <h1 class="adsh-heading adsh-heading--primary">My Campaigns</h1>
+                <p class="adsh-copy adsh-copy--large">Etiam pretium dapibus congue. Praesent a lorem erat.</p>
+            </div>
+            <div class="col-xs-8">
+                <app-chart-filter></app-chart-filter>
+            </div>
+        </div>
+
+        <app-campaign-list></app-campaign-list>
+        <app-funds-summary></app-funds-summary>
+    </div>
+</section>
