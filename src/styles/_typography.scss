@@ -12,7 +12,7 @@
   }
 
   &--secondary {
-    @include font(16, bold);
+    @include font(16, semi);
   }
 
   &--white {

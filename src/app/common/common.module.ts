@@ -9,6 +9,7 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
+import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 
 @NgModule({
   imports: [
@@ -20,14 +21,16 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
     NotificationsComponent,
     AdsharesTokenPipe,
     ChartFilterComponent,
-    FundsSummaryComponent
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ],
   exports: [
     HeaderComponent,
     NotificationsComponent,
     AdsharesTokenPipe,
     ChartFilterComponent,
-    FundsSummaryComponent
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ]
 })
 

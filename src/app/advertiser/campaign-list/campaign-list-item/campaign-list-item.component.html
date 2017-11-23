@@ -1,5 +1,5 @@
 <div class="adsh-campaign-list__item">
-    <div class="row adsh-copy adsh-copy--semi">
+    <div class="row align-center adsh-copy adsh-copy--semi">
         <div class="col-xs-1 row align-center">
             <div
                 class="adsh-box adsh-box--small adsh-campaign-list__item-status text-center"
@@ -11,24 +11,24 @@
             <h4 class="adsh-heading adsh-heading--secondary">{{ campaign.name }}</h4>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.budgetPerDay | currency:USD }}/day</p>
+            <span>{{ campaign.budgetPerDay | currency:USD }}/day</span>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.clicks }}</p>
+            <span>{{ campaign.clicks }}</span>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.impressions }}</p>
+            <span>{{ campaign.impressions }}</span>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.ctr | percent }}</p>
+            <span>{{ campaign.ctr | percent }}</span>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.averageCpc | currency:USD }}</p>
+            <span>{{ campaign.averageCpc | currency:USD }}</span>
         </div>
         <div class="col-xs-1 row align-center">
-            <p>{{ campaign.totalCost | currency:USD }}</p>
+            <span>{{ campaign.totalCost | currency:USD }}</span>
         </div>
-        <div class="col-xs-1 row align-center row justify-center">
+        <div class="col-xs-1 row align-center row justify-center adsh-campaign-list__item-campaign-details">
             <img src="/assets/images/chevron-right.svg" alt="">
         </div>
     </div>

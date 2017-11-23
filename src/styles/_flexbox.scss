@@ -9,9 +9,13 @@
     padding: 0 60px;
   }
 
+  @include media(lg-up) {
+    max-width: 1400px;
+  }
+
   @include media(xl-up) {
     padding: 0 10%;
-    max-width: 1600px;
+    max-width: 1700px;
   }
 }
 
