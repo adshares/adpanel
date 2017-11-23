@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Campaign } from '../../campaign.model'
 
 @Component({
   selector: 'app-campaign-list-item',
   templateUrl: './campaign-list-item.component.html',
   styleUrls: ['./campaign-list-item.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
-export class CampaignListItemComponent implements OnInit {
+export class CampaignListItemComponent {
+  @Input() campaign: Campaign;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

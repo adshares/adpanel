@@ -1,5 +1,5 @@
 export class Campaign {
-  constructor(
+  constructor (
     public status: string;
     public name: string;
     public budgetPerDay: number;

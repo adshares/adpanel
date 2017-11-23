@@ -1,17 +1,57 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { Campaign } from '../campaign.model'
 
 @Component({
   selector: 'app-campaign-list',
   templateUrl: './campaign-list.component.html',
   styleUrls: ['./campaign-list.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
-export class CampaignListComponent implements OnInit {
-  numbers = [1,2,3,4,5];
+export class CampaignListComponent {
+  abc: string = 'abc';
+  campaigns: Campaign[] = [
+    new Campaign(
+      'Active',
+      'August 2014 Global Remarketing',
+      20.48,
+      275,
+      81534,
+      0.30,
+      2.10,
+      238.21
+    ),
+    new Campaign(
+      'Active',
+      'August 2015 Global Remarketing',
+      20.48,
+      275,
+      81534,
+      0.30,
+      2.10,
+      238.21
+    ),
+    new Campaign(
+      'Active',
+      'August 2016 Global Remarketing',
+      20.48,
+      275,
+      81534,
+      0.30,
+      2.10,
+      238.21
+    ),
+    new Campaign(
+      'Active',
+      'August 2017 Global Remarketing',
+      20.48,
+      275,
+      81534,
+      0.30,
+      2.10,
+      238.21
+    )
+  ]
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

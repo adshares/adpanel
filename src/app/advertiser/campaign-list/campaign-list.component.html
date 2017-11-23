@@ -54,8 +54,8 @@
 
         <div>
             <app-campaign-list-item
-                *ngFor="let i of [1,2,3,4,5]">
-                {{ i }}
+                *ngFor="let campaign of campaigns"
+                [campaign]="campaign">
             </app-campaign-list-item>
         </div>
     </div>
