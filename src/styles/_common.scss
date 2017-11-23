@@ -137,13 +137,25 @@
   padding: 13px 15px;
 
   &--large {
-    padding: 25px 25px 25px 25px;
+    padding: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
   }
 
+  &--small {
+    padding: 5px 15px;
+  }
+
   &--short-right {
     padding-right: 20px 70px 20px 20px;
+  }
+
+  &--light-green {
+    background-color: pal(green, light);
+  }
+
+  &--light-navy {
+    background-color: pal(navy, faded);
   }
 
   &--light {

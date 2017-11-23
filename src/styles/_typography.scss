@@ -3,7 +3,6 @@
 
   &--hero {
     @include font(64, bold);
-    letter-spacing: 5px;
     line-height: 1.11;
   }
 
@@ -64,6 +63,10 @@
 
   &--red {
     color: pal(red);
+  }
+
+  &--semi {
+    @include font-weight(semi);
   }
 
   &--bold {

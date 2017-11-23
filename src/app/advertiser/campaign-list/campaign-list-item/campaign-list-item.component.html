@@ -1,7 +1,9 @@
 <div class="adsh-campaign-list__item">
     <div class="row adsh-copy adsh-copy--semi">
         <div class="col-xs-1 row align-center">
-            <div>
+            <div
+                class="adsh-box adsh-box--small adsh-campaign-list__item-status"
+                [attr.data-status]="campaign.status">
                 <span>{{ campaign.status }}</span>
             </div>
         </div>
