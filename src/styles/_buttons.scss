@@ -30,4 +30,8 @@
   &--submit {
     margin-top: 36px;
   }
+
+  &--white {
+    border: 1px solid pal(gray, light);
+  }
 }

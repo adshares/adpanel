@@ -1,9 +1,7 @@
 @import '../../../styles.scss';
 
-.adsh-advertiser {
-  &-wrapper {
-    padding: 70px 0;
-    min-height: 100vh;
-    background-color: pal(gray, ultra-light);
+.adsh-campaign-list {
+  &__sort {
+    margin-left: 5px;
   }
 }
