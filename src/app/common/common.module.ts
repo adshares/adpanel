@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
+import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 
 @NgModule({
   imports: [
@@ -12,10 +13,12 @@ import { CustomizeAccountChooseDialogComponent } from './dialog/customize-accoun
     MatDialogModule
   ],
   declarations: [
-    CustomizeAccountChooseDialogComponent
+    CustomizeAccountChooseDialogComponent,
+    AccountChooseDialogComponent
   ],
   entryComponents: [
-    CustomizeAccountChooseDialogComponent
+    CustomizeAccountChooseDialogComponent,
+    AccountChooseDialogComponent
   ],
 })
 

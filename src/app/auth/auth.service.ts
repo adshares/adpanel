@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import 'rxjs/Rx';
 
 import { environment } from '../../environments/environment';
 
@@ -10,7 +11,7 @@ export class AuthService {
 
   loginUser(email: string, password: string) {
     return this.http.post(`${environment.apiUrl}/user`, { email, password })
-      // .map((response: Response) => response.json());
+      .map((response: Response) => response.json());
   }
 
   registerUser(email: string, password: string) {
