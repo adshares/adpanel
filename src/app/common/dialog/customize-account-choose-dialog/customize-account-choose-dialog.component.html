@@ -1,30 +1,66 @@
-<mat-dialog-content>
-    <div (click)="dialogRef.close()">close icon</div>
-    <h1>Choose an Account Type</h1>
-
-    <div>
-        Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
-    </div>
-
+<mat-dialog-content class="text-center">
     <div
-        [ngClass]="{ 'account-selected': accounts.advertiser.selected }"
-        (click)="accounts.advertiser.selected = !accounts.advertiser.selected">
-        <h5>I want to advertise!</h5>
+        (click)="dialogRef.close()"
+        class="adsh-dialog-close"></div>
+    <h1 class="adsh-heading
+               adsh-heading--primary">Choose an Account Type</h1>
 
-        <p>Etiam pretium dapibus congue. </p>
+    <p class="adsh-copy
+              adsh-copy--large
+              adsh-customize-subheading">Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.</p>
 
-        <p>ADVERTISER</p>
+    <div class="row">
+        <div
+            [ngClass]="{ 'account-selected': accounts.advertiser.selected }"
+            (click)="accounts.advertiser.selected = !accounts.advertiser.selected"
+            class="col
+                   col-xs-12
+                   col-md-6
+                   justify-between
+                   adsh-customize__box">
+            <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration">
+            <div class="adsh-customize__box-description">
+                <h5 class="adsh-heading
+                           adsh-heading--secondary">I want to advertise!</h5>
+
+                <p class="adsh-copy
+                          adsh-copy--large">Etiam pretium dapibus congue.</p>
+            </div>
+            <p class="adsh-copy
+                      adsh-copy--x-small
+                      adsh-copy--uppercase
+                      adsh-copy--bold
+                      adsh-blue">ADVERTISER</p>
+        </div>
+
+        <div
+            [ngClass]="{ 'account-selected': accounts.publisher.selected }"
+            (click)="accounts.publisher.selected = !accounts.publisher.selected"
+            class="col
+                   col-xs-12
+                   col-md-6
+                   justify-between
+                   adsh-customize__box">
+            <img src="/assets/images/publisher-account-illustration.svg" alt="Publisher Account Illustration">
+            <div class="adsh-customize__box-description">
+              <h5 class="adsh-heading
+                         adsh-heading--secondary">I want to offer space on my website!</h5>
+
+              <p class="adsh-copy
+                        adsh-copy--large">Etiam pretium dapibus congue.</p>
+            </div>
+            <p class="adsh-copy
+                      adsh-copy--x-small
+                      adsh-copy--uppercase
+                      adsh-copy--bold
+                      adsh-blue">PUBLISHER</p>
+        </div>
     </div>
 
-    <div
-        [ngClass]="{ 'account-selected': accounts.publisher.selected }"
-        (click)="accounts.publisher.selected = !accounts.publisher.selected">
-        <h5>I want to offer space on my website!</h5>
-
-        <p>Etiam pretium dapibus congue. </p>
-
-        <p>PUBLISHER</p>
-    </div>
-
-    <button (click)="dialogRef.close(accounts)">Continue</button>
+    <button
+        (click)="dialogRef.close(accounts)"
+        class="adsh-btn
+               adsh-btn--wide
+               adsh-btn--submit
+               adsh-bg-blue">Continue</button>
 </mat-dialog-content>

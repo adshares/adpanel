@@ -3,17 +3,18 @@
 
   &--hero {
     @include font(64, bold);
-    letter-spacing: 5px;
     line-height: 1.11;
   }
 
   &--primary {
     @include font(30, bold);
   	letter-spacing: -0.1px;
+    margin: 10px 0;
   }
 
   &--secondary {
-    @include font(16, bold);
+    @include font(16, semi);
+    margin: 7px 0;
   }
 
   &--white {
@@ -34,7 +35,7 @@
   @include font(13, normal);
 
   &--large {
-    @include font(14, medium);
+    @include font(14, normal);
     line-height: 1.57;
   }
 
@@ -64,6 +65,10 @@
 
   &--red {
     color: pal(red);
+  }
+
+  &--semi {
+    @include font-weight(semi);
   }
 
   &--bold {

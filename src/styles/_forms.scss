@@ -7,7 +7,7 @@
   border-radius: 50%;
   background: pal(green);
 
-  &:after{
+  &:after {
     content: '';
     position: absolute;
     top: 3px;
@@ -67,6 +67,7 @@
 
   input[type=checkbox]:checked + label {
     background: pal(green);
+    border: 1px solid pal(green);
 
     &:after {
       content: '';
@@ -80,4 +81,19 @@
       transform: rotate(45deg);
     }
   }
+}
+
+.adsh-select {
+  cursor: pointer;
+  border-radius: 2px;
+  color: pal(navy);
+  @include font(14, semi);
+  background: pal(white);
+  margin: 0 auto;
+  padding: 0 60px 0 40px;
+  height: 42px;
+  border: 0;
+  /* needed */
+  appearance: none;
+  outline: none;
 }
