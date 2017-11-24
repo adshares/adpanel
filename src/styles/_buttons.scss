@@ -5,6 +5,7 @@
   @include font(14, medium);
   color: pal(white);
   background: transparent;
+  transition: background-color 0.2s ease;
 
   &--wide {
     padding: 12px 60px;
@@ -33,5 +34,29 @@
 
   &--white {
     border: 1px solid pal(gray, light);
+
+    &:hover {
+      background-color: pal(gray, ultra-light);
+    }
+  }
+
+  &--blue {
+    background-color: pal(blue);
+
+    &:hover {
+      background-color: darken(pal(blue), 2);
+    }
+  }
+
+  &--green {
+    background-color: pal(green);
+
+    &:hover {
+      background-color: darken(pal(green), 2);
+    }
+  }
+
+  &--no-border {
+    border: none;
   }
 }

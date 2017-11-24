@@ -9,6 +9,7 @@
   &--primary {
     @include font(30, bold);
   	letter-spacing: -0.1px;
+    margin: 10px 0;
   }
 
   &--secondary {
@@ -35,6 +36,7 @@
   &--large {
     @include font(14, medium);
     line-height: 1.57;
+    margin: 5px 0;
   }
 
   &--small {
