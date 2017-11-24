@@ -1,7 +1,7 @@
 export class UserModel {
-    constructor(
-      public email: string,
-      public icAdvertiser: boolean,
-      public isPublisher: boolean
-    ) { }
+  constructor(
+    public email: string,
+    public isAdvertiser: boolean,
+    public isPublisher: boolean
+  ) { }
 }

@@ -15,7 +15,7 @@ import { UserModel } from '../auth/store/user.model';
   styleUrls: ['./advertiser.component.scss']
 })
 export class AdvertiserComponent implements OnInit {
-  // userState: Observable<{UserModel}>[];
+  userState: Observable<{UserModel}>[];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,9 +27,9 @@ export class AdvertiserComponent implements OnInit {
   ngOnInit() {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
-    const userState = this.store.select('auth');
+    console.log('data', this.store.select('auth').subscribe((data) => console.log(data)));
 
-    console.log(userState);
+    // console.log(this.userState);
 
     if (firstLogin) {
       // ExpressionChangedAfterItHasBeenCheckedError bug fix
