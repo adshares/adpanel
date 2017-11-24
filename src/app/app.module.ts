@@ -9,7 +9,6 @@ import { PublisherModule } from './publisher/publisher.module';
 import { SettingsModule } from './settings/settings.module'
 import { AppComponent } from './app.component';
 
-
 @NgModule({
   declarations: [
     AppComponent

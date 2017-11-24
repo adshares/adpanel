@@ -23,7 +23,6 @@ export class AdvertiserComponent implements OnInit {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
     if (firstLogin) {
-      // ExpressionChangedAfterItHasBeenCheckedError bug fix
       setTimeout(() => this.handleChooseAccountDialog());
     }
   }
@@ -33,11 +32,11 @@ export class AdvertiserComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe(
-        (accounts) => this.hadleCustomizeDialog(accounts)
+        (accounts) => this.handleCustomizeDialog(accounts)
       );
   }
 
-  hadleCustomizeDialog(accounts) {
+  handleCustomizeDialog(accounts) {
     if (!accounts) {
       return;
     }

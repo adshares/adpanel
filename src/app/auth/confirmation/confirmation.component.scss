@@ -1,9 +1,17 @@
+@import '../../../styles.scss';
+
 .adsh-confirmation {
   &-wrapper {
-    height: calc(70vh - 80px - 60px);
+    height: 100%;
   }
 }
 
 h2 {
   margin-bottom: 20px;
+}
+
+p {
+  @include lg-up {
+    max-width: 80%;
+  }
 }

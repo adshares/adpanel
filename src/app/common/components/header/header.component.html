@@ -1,0 +1,101 @@
+<section class="adsh-header
+                container-fluid
+                row
+                align-center
+                justify-between">
+    <div class="row
+                align-center">
+        <div class="adsh-navigation__item
+                    row
+                    align-center">
+            <img
+                class="adsh-logo"
+                src="assets/images/logo--white.png"
+                srcset="assets/images/logo--white@2x.png 2x,
+                        assets/images/logo--white@3x.png 3x"
+                alt="Adshares Logo">
+        </div>
+
+        <div class="relative
+                     adsh-header-userselect">
+          <select
+              name="usertype"
+              v-model
+              class="adsh-select
+                     adsh-navigation__item">
+              <option value="Brazil">Brazil</option>
+              <option value="USA">USA</option>
+              <option value="Germany">Germany</option>
+          </select>
+          <img
+              class="adsh-icon
+                     absolute"
+              src="assets/images/user.svg">
+          <img
+              class="adsh-icon
+                     adsh-icon--small
+                     absolute"
+              src="assets/images/chevron--gray.svg">
+        </div>
+    </div>
+    <div class="row
+                align-center">
+        <button class="adsh-btn
+                       adsh-btn--with-icon
+                       adsh-btn--wide
+                       adsh-bg-blue
+                       adsh-navigation__item
+                       row
+                       align-center">
+          <img
+              class="adsh-icon
+                     adsh-icon--prepend"
+              src="assets/images/plus-circle.svg">
+          Create new Campaign
+        </button>
+        <div class="row
+                    align-center
+                    adsh-bg-navy--light
+                    relative
+                    adsh-navigation__item
+                    adsh-btn">
+            <img
+                class="adsh-icon
+                       adsh-icon--prepend"
+                src="assets/images/bell.svg">
+            <div class="col">
+                <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
+                <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
+            </div>
+            <img
+                class="adsh-icon
+                       adsh-icon--small
+                       adsh-icon--append"
+                src="assets/images/chevron--gray.svg">
+        </div>
+        <div class="adsh-bg-navy--light
+                    adsh-navigation__item
+                    adsh-btn
+                    adsh-btn--small
+                    row
+                    align-center
+                    relative"
+              (click)="toggleNotificationsBar(true)">
+            <img
+                class="adsh-icon"
+                src="assets/images/bell.svg">
+            <div class="adsh-circle
+                        adsh-bg-green
+                        absolute">
+                <span class="absolute
+                             notif-count">
+                    {{ notificationsCount }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-notifications
+    [notificationsBarEnabled]="notificationsBarEnabled"
+    (onDisableNotificationsBar)="toggleNotificationsBar($event)"></app-notifications>
