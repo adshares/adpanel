@@ -25,6 +25,10 @@
   	height: 5px;
   }
 
+  &.inactive {
+    border: 1px solid pal(gray, light);
+  }
+
   &--blue {
     background: pal(blue);
   }
@@ -45,6 +49,12 @@
   &--navigating {
     margin-right: 10px;
   }
+}
+
+.adsh-step-link-indicator {
+  width: 64px;
+  margin: 0 30px;
+  border: 1px dashed pal(gray, light);
 }
 
 .adsh-icon {

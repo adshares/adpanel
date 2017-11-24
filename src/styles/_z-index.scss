@@ -1,6 +1,7 @@
 $zIndexes: (
   authWrapper: 2,
-  bubbleTop: 3
+  bubbleTop: 3,
+  notificationsBackground: 10
 );
 
 @function getIndex($zIndexName) {
