@@ -1,0 +1,27 @@
+.adsh-dialog-close {
+  padding: 10px;
+  border: 1px solid pal(gray, light);
+  position: absolute;
+  top: 33px;
+  right: 33px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 4px;
+    left: 9px;
+    content: '';
+    width: 2px;
+    height: 12px;
+    display: block;
+    background-color: pal(navy, light);
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
