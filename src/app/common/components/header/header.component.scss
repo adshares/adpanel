@@ -6,6 +6,12 @@
   background: pal(navy);
 
   &-userselect {
+    width: 149px;
+
+    .adsh-select {
+      padding: 0 0 0 51px;
+    }
+
     img {
       &:first-of-type {
         top: calc((42px - 18px)/2);
@@ -13,7 +19,7 @@
       }
       &:last-of-type {
         top: calc((42px - 10px)/2);
-        right: 15px;
+        right: -51px;
       }
     }
   }

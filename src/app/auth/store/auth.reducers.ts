@@ -3,7 +3,7 @@ import * as AuthActions from './auth.actions';
 import { UserModel } from './user.model';
 
 const initialState = {
-  userData: new UserModel('', false, false)
+  userData: new UserModel('', true, false, false)
 };
 
 export function authReducers(state = initialState , action: AuthActions.AuthActions ) {

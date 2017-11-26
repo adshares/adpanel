@@ -17,16 +17,31 @@
         </div>
 
         <div class="relative
-                     adsh-header-userselect">
-          <select
-              name="usertype"
-              v-model
-              class="adsh-select
-                     adsh-navigation__item">
-              <option value="Brazil">Brazil</option>
-              <option value="USA">USA</option>
-              <option value="Germany">Germany</option>
-          </select>
+                    adsh-header-userselect">
+            <mat-select
+                class="
+                    adsh-select
+                    adsh-navigation__item"
+                [ngModel]="selectedRole">
+                <mat-option
+                    [value]="'Advertiser'"
+                    routerLink="['/advertiser']"
+                    *ngIf="!user.isAdmin">
+                    Advertiser
+                </mat-option>
+                <mat-option
+                    [value]="'Publisher'"
+                    [routerLink]="['/publisher']"
+                    *ngIf="!user.isAdmin">
+                    Publisher
+                </mat-option>
+                <mat-option
+                    [value]="'Admin'"
+                    *ngIf="user.isAdmin">
+                    Admin
+                </mat-option>
+            </mat-select>
+
           <img
               class="adsh-icon
                      absolute"

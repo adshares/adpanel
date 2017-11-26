@@ -27,7 +27,7 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<{auth: {UserModel}}>) { }
+    private store: Store<{auth}>) { }
 
   login() {
     if (!this.loginForm.valid) {
@@ -37,7 +37,12 @@ export class LoginComponent {
     this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((userReponse) => {
         this.store.dispatch(new AuthActions.LoginUser(
-          new UserModel(userReponse.email, userReponse.isAdvertiser, userReponse.isPublisher)
+          new UserModel(
+            userReponse.email,
+            userReponse.isAdvertiser,
+            userReponse.isPublisher,
+            userReponse.isAdmin
+           )
         ));
 
         this.showStartupPopups();
@@ -54,7 +59,7 @@ export class LoginComponent {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
     this.store.select('auth')
-      .subscribe((authStore: any) => this.userData = authStore.userData);
+      .subscribe((authStore) => this.userData = authStore.userData);
 
     if (firstLogin) {
       const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent);
