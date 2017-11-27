@@ -1,57 +1,67 @@
 import { Component } from '@angular/core';
 
-import { Campaign } from '../campaign.model'
+export interface Campaign {
+  status: string;
+  name: string;
+  budgetPerDay: number;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCpc: number;
+  totalCost: number;
+}
 
 @Component({
   selector: 'app-campaign-list',
   templateUrl: './campaign-list.component.html',
   styleUrls: ['./campaign-list.component.scss'],
 })
+
 export class CampaignListComponent {
-  abc: string = 'abc';
   campaigns: Campaign[] = [
-    new Campaign(
-      'Active',
-      'August 2014 Global Remarketing',
-      20.48,
-      275,
-      81534,
-      0.003,
-      2.10,
-      238.21
-    ),
-    new Campaign(
-      'Active',
-      'August 2015 Global Remarketing',
-      20.48,
-      275,
-      81534,
-      0.003,
-      2.10,
-      238.21
-    ),
-    new Campaign(
-      'Limited',
-      'August 2016 Global Remarketing',
-      20.48,
-      275,
-      81534,
-      0.003,
-      2.10,
-      238.21
-    ),
-    new Campaign(
-      'Archived',
-      'August 2017 Global Remarketing',
-      20.48,
-      275,
-      81534,
-      0.003,
-      2.10,
-      238.21
-    )
-  ]
+    {
+      status: 'Active',
+      name: 'August 2014 Global Remarketing',
+      budgetPerDay: 20.48,
+      clicks: 275,
+      impressions: 81534,
+      ctr: 0.003,
+      averageCpc: 2.10,
+      totalCost: 238.21
+    },
+    {
+      status: 'Active',
+      name: 'August 2015 Global Remarketing',
+      budgetPerDay: 20.48,
+      clicks: 275,
+      impressions: 81534,
+      ctr: 0.003,
+      averageCpc: 2.10,
+      totalCost: 238.21
+    },
+    {
+      status: 'Active',
+      name: 'August 2016 Global Remarketing',
+      budgetPerDay: 20.48,
+      clicks: 275,
+      impressions: 81534,
+      ctr: 0.003,
+      averageCpc: 2.10,
+      totalCost: 238.21
+    },
+    {
+      status: 'Active',
+      name: 'August 2017 Global Remarketing',
+      budgetPerDay: 20.48,
+      clicks: 275,
+      impressions: 81534,
+      ctr: 0.003,
+      averageCpc: 2.10,
+      totalCost: 238.21
+    },
+  ];
 
   constructor() { }
 
 }
+
