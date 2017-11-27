@@ -9,10 +9,11 @@
   &--primary {
     @include font(30, bold);
   	letter-spacing: -0.1px;
+    margin: 10px 0;
   }
 
   &--secondary {
-    @include font(16, bold);
+    @include font(16, semi);
   }
 
   &--white {
@@ -35,6 +36,7 @@
   &--large {
     @include font(14, medium);
     line-height: 1.57;
+    margin: 5px 0;
   }
 
   &--small {

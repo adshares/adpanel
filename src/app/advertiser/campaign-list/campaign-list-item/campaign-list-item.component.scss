@@ -1,0 +1,28 @@
+@import '../../../../styles.scss';
+
+.adsh-campaign-list__item {
+  padding: 20px 0;
+  border-top: 1px solid pal(gray, ultra-light);
+
+  &-status {
+    @include font-weight(bold);
+    width: 75px;
+
+    &[data-status="Active"] {
+      color: pal(green);
+      background-color: pal(green, light);
+    }
+
+    &[data-status="Limited"] {
+      color: pal(blue);
+      background-color: pal(blue, light);
+    }
+
+    &[data-status="Archived"] {
+      color: pal(gray);
+      background-color: pal(gray, ultra-light);
+    }
+  }
+}
+
+

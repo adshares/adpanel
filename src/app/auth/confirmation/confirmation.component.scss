@@ -11,7 +11,7 @@ h2 {
 }
 
 p {
-  @include lg-up {
+  @include media(lg-up) {
     max-width: 80%;
   }
 }
