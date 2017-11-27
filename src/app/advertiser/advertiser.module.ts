@@ -4,12 +4,12 @@ import { AppCommonModule } from '../common/common.module';
 
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
-import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
-import { CreateCampaignBasicInformationComponent } from './create-campaign/create-campaign-basic-information/create-campaign-basic-information.component';
-import { CreateCampaignAdditionalTargetingComponent } from './create-campaign/create-campaign-additional-targeting/create-campaign-additional-targeting.component';
-import { CreateCampaignCreateAdsComponent } from './create-campaign/create-campaign-create-ads/create-campaign-create-ads.component';
-import { CreateCampaignSummaryComponent } from './create-campaign/create-campaign-summary/create-campaign-summary.component';
-import { CreateCampaignNavigationComponent } from './create-campaign/create-campaign-navigation/create-campaign-navigation.component';
+import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
+import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-campaign-basic-info/edit-campaign-basic-information.component';
+import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
+import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
+import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
+import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 
 @NgModule({
   imports: [
@@ -19,20 +19,20 @@ import { CreateCampaignNavigationComponent } from './create-campaign/create-camp
   ],
   declarations: [
     AdvertiserComponent,
-    CreateCampaignComponent,
-    CreateCampaignBasicInformationComponent,
-    CreateCampaignAdditionalTargetingComponent,
-    CreateCampaignCreateAdsComponent,
-    CreateCampaignSummaryComponent,
-    CreateCampaignNavigationComponent
+    EditCampaignComponent,
+    EditCampaignBasicInformationComponent,
+    EditCampaignAdditionalTargetingComponent,
+    EditCampaignCreateAdsComponent,
+    EditCampaignSummaryComponent,
+    EditCampaignNavigationComponent
   ],
   exports: [
-    CreateCampaignComponent,
-    CreateCampaignBasicInformationComponent,
-    CreateCampaignAdditionalTargetingComponent,
-    CreateCampaignCreateAdsComponent,
-    CreateCampaignSummaryComponent,
-    CreateCampaignNavigationComponent
+    EditCampaignComponent,
+    EditCampaignBasicInformationComponent,
+    EditCampaignAdditionalTargetingComponent,
+    EditCampaignCreateAdsComponent,
+    EditCampaignSummaryComponent,
+    EditCampaignNavigationComponent
   ]
 })
 export class AdvertiserModule { }

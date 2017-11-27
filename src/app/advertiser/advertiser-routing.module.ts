@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdvertiserComponent } from './advertiser.component';
-import { CreateCampaignComponent } from './create-campaign/create-campaign.component';
-import { CreateCampaignBasicInformationComponent } from './create-campaign/create-campaign-basic-information/create-campaign-basic-information.component';
-import { CreateCampaignAdditionalTargetingComponent } from './create-campaign/create-campaign-additional-targeting/create-campaign-additional-targeting.component';
-import { CreateCampaignCreateAdsComponent } from './create-campaign/create-campaign-create-ads/create-campaign-create-ads.component';
-import { CreateCampaignSummaryComponent } from './create-campaign/create-campaign-summary/create-campaign-summary.component';
+import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
+import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-campaign-basic-info/edit-campaign-basic-information.component';
+import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
+import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
+import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 
 const advertiserRoutes: Routes = [
   {
@@ -15,12 +15,12 @@ const advertiserRoutes: Routes = [
     children: [
       {
         path: 'create-campaign',
-        component: CreateCampaignComponent,
+        component: EditCampaignComponent,
         children: [
-          { path: 'basic-information', component: CreateCampaignBasicInformationComponent },
-          { path: 'additional-targeting', component: CreateCampaignAdditionalTargetingComponent },
-          { path: 'create-ad', component: CreateCampaignCreateAdsComponent },
-          { path: 'summary', component: CreateCampaignSummaryComponent }
+          { path: 'basic-information', component: EditCampaignBasicInformationComponent },
+          { path: 'additional-targeting', component: EditCampaignAdditionalTargetingComponent },
+          { path: 'create-ad', component: EditCampaignCreateAdsComponent },
+          { path: 'summary', component: EditCampaignSummaryComponent }
         ]
       }
     ]

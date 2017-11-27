@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create-campaign-navigation',
-  templateUrl: './create-campaign-navigation.component.html',
-  styleUrls: ['./create-campaign-navigation.component.scss'],
+  selector: 'app-edit-campaign-navigation',
+  templateUrl: './edit-campaign-navigation.component.html',
+  styleUrls: ['./edit-campaign-navigation.component.scss'],
 })
-export class CreateCampaignNavigationComponent implements OnInit {
+export class EditCampaignNavigationComponent implements OnInit {
   steps = [
     { id: 1, name: 'Basic Information', link: 'basic-information' },
     { id: 2, name: 'Additional Information', link: 'additional-information' },
-    { id: 3, name: 'Create Ads', link: 'create-ads' },
+    { id: 3, name: 'Create Ads', link: 'edit-campaign-create-ads' },
     { id: 4, name: 'Summary', link: 'summary' }
   ];
 
