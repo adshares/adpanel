@@ -1,15 +1,40 @@
-<section class="adsh-create-campaign__navigation row align-center">
-    <div class="container row align-center justify-center">
-        <div class="adsh-circle adsh-circle--green adsh-circle--empty"></div>
-        <p class="adsh-copy adsh-copy--large">Basic Information</p>
-        <div class="adsh-step-link-indicator"></div>
-        <div class="adsh-circle inactive"></div>
-        <p class="adsh-copy adsh-copy--large">Additional Targeting</p>
-        <div class="adsh-step-link-indicator"></div>
-        <div class="adsh-circle inactive"></div>
-        <p class="adsh-copy adsh-copy--large">Create Ads</p>
-        <div class="adsh-step-link-indicator"></div>
-        <div class="adsh-circle inactive"></div>
-        <p class="adsh-copy adsh-copy--large">Summary</p>
+<section
+    class="
+        adsh-create-campaign__navigation
+        row
+        align-center"
+>
+    <div
+        class="
+            container
+            row
+            align-center
+            justify-center"
+    >
+        <div
+            *ngFor="let step of steps"
+            class="
+                adsh-create-campaign__navigation-step
+                row
+                align-center"
+        >
+            <div
+                class="adsh-circle"
+                [class.inactive]="currentStep < step.id"
+                [class.active]="currentStep == step.id"
+                [class.done]="currentStep > step.id"></div>
+            <p
+                class="
+                adsh-copy
+                adsh-copy--large"
+            >
+                {{ step.name }}
+                {{ step.id }}
+            </p>
+            <div class="adsh-step-link-indicator"></div>
+        </div>
     </div>
 </section>
+
+{{ currentStep }}
+

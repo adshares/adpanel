@@ -1,9 +1,10 @@
+@import '../../../../styles.scss';
+
 .adsh-create-campaign__navigation {
-  background: white;
+  background: pal(white);
   height: 64px;
 
   .adsh-circle {
     margin-right: 15px;
   }
 }
-

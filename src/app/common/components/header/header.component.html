@@ -40,7 +40,9 @@
     </div>
     <div class="row
                 align-center">
-        <a routerLink="/advertiser/create-campaign">
+        <a
+            routerLink="/advertiser/create-campaign/basic-information"
+            [queryParams]="{step: 1}">
             <button class="adsh-btn
                        adsh-btn--with-icon
                        adsh-btn--wide

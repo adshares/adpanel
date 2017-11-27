@@ -17,7 +17,6 @@ const advertiserRoutes: Routes = [
         path: 'create-campaign',
         component: CreateCampaignComponent,
         children: [
-          { path: '', redirectTo: 'basic-information', pathMatch: 'full'},
           { path: 'basic-information', component: CreateCampaignBasicInformationComponent },
           { path: 'additional-targeting', component: CreateCampaignAdditionalTargetingComponent },
           { path: 'create-ad', component: CreateCampaignCreateAdsComponent },
