@@ -9,7 +9,4 @@ export class ConfirmationAlertComponent {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
 }

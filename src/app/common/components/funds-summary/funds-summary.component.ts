@@ -9,7 +9,4 @@ export class FundsSummaryComponent {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
 }

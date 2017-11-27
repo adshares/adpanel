@@ -17,10 +17,6 @@ import { CampaignListItemComponent } from './campaign-list/campaign-list-item/ca
     AdvertiserComponent,
     CampaignListComponent,
     CampaignListItemComponent
-  ],
-  exports: [
-    CampaignListComponent,
-    CampaignListItemComponent
   ]
 })
 export class AdvertiserModule { }
