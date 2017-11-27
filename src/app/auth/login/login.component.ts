@@ -35,19 +35,19 @@ export class LoginComponent {
     }
 
     this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe((userReponse) => {
+      .subscribe((userResponse) => {
         this.store.dispatch(new AuthActions.LoginUser(
           new UserModel(
-            userReponse.email,
-            userReponse.isAdvertiser,
-            userReponse.isPublisher,
-            userReponse.isAdmin
+            userResponse.email,
+            userResponse.isAdvertiser,
+            userResponse.isPublisher,
+            userResponse.isAdmin
            )
         ));
 
         this.showStartupPopups();
 
-        if (userReponse.isAdvertiser) {
+        if (userResponse.isAdvertiser) {
           this.router.navigate(['/advertiser']);
         } else {
           this.router.navigate(['/publisher']);
