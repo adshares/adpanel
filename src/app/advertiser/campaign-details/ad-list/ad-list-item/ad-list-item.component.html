@@ -1,0 +1,60 @@
+<div class="adsh-ad-list__item">
+  <div class="
+        row
+        align-center
+        adsh-copy
+        adsh-copy--semi">
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <div
+        class="
+                    adsh-box
+                    adsh-box--small
+                    adsh-ad-list__item-status
+                    text-center"
+        [attr.data-status]="ad.status">
+        <span>{{ ad.status }}</span>
+      </div>
+    </div>
+    <div class="
+            col-xs-5
+            row
+            align-center">
+      <h4 class="
+                adsh-heading
+                adsh-heading--secondary">{{ ad.shortHeadline }}</h4>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.clicks }}</span>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.impressions }}</span>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.ctr | percent }}</span>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.averageCPC | currency:USD }}</span>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.cost | currency:USD }}</span>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,8 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
+import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
+import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
 @NgModule({
   imports: [
@@ -33,7 +35,12 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
     EditCampaignNavigationComponent
     AdvertiserComponent,
     DashboardComponent,
-    CampaignDetailsComponent
+    CampaignDetailsComponent,
+    AdListComponent,
+    AdListItemComponent
+  ],
+  exports: [
+    AdListItemComponent
   ]
 })
 export class AdvertiserModule { }

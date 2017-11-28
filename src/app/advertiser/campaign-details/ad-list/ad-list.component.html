@@ -1,125 +1,144 @@
 <section class="
     col
     adsh-campaign-list">
-    <div class="
+  <div class="
         adsh-box
         adsh-box--large">
-        <div class="
+    <div class="
             row
             adsh-copy
             adsh-copy--small">
-            <div class="col-xs-1
+      <div class="col-xs-1
                 row
                 align-center">Status
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--active
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-4
                 row
                 align-center">Campaign Title
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">Budget
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">Clicks
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">Impressions
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">CTR
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">Average CPC
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="
+        </div>
+      </div>
+      <div class="
                 col-xs-1
                 row
                 align-center">Cost
-                <div class="
+        <div class="
                     col
                     adsh-campaign-list__sort">
-                    <div class="adsh-sort-triangle"></div>
-                    <div class="
+          <div class="adsh-sort-triangle"></div>
+          <div class="
                         adsh-sort-triangle
                         adsh-sort-triangle--down"></div>
-                </div>
-            </div>
-            <div class="col-xs-1"></div>
         </div>
-
-        <div class="adsh-campaign-list__items">
-            <app-campaign-list-item
-                *ngFor="let campaign of campaigns"
-                [campaign]="campaign">
-            </app-campaign-list-item>
-        </div>
+      </div>
+      <div class="col-xs-1"></div>
     </div>
+
+    <div class="adsh-campaign-list__items">
+      <app-ad-list-item
+        *ngFor="let ad of adList"
+        [ad]="ad">
+      </app-ad-list-item>
+      <div class="row justify-center">
+        <button class="
+                    row
+                    align-center
+                    adsh-btn
+                    adsh-btn--large
+                    adsh-btn--white
+                    adsh-btn--no-border">
+          <img
+            src="assets/images/plus-circle--blue.svg"
+            alt="Add new icon"
+            class="
+                            adsh-icon
+                            adsh-icon--prepend">
+          <span class="
+                        adsh-heading
+                        adsh-heading--secondary">Create new Ad</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </section>

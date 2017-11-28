@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-campaign-list',
   templateUrl: './campaign-list.component.html',
@@ -7,8 +9,16 @@ import { Component } from '@angular/core';
 })
 
 export class CampaignListComponent {
+  private subscription;
+  campaigns: Object;
 
-  constructor() { }
+  constructor(private store: Store) {
+    this.subscription = store
+      .select('appStore', 'campaigns')
+      .subscribe(campaigns => {
+        this.campaigns = campaigns;
+      });
+  }
 
 }
 
