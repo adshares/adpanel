@@ -10,6 +10,12 @@ export interface Campaign {
   dateStart: Object;
   dateEnd?: Object;
 
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCPC: number;
+  cost: number;
+
   targeting?: {
     requires?: {
       language?: Array<string>;
