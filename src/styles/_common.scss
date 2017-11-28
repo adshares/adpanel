@@ -115,15 +115,16 @@
 .adsh-sort-triangle {
   width: 5px;
   height: 7px;
-  border-bottom: solid 6px pal(gray, mid-light);
-  border-left: solid 5px transparent;
-  border-right: solid 5px transparent;
+  border-bottom: solid 5px pal(gray, mid-light);
+  border-left: solid 4px transparent;
+  border-right: solid 4px transparent;
+  margin: 1px;
 
   &--active {
-    border-bottom: solid 6px pal(blue);
+    border-bottom: solid 5px pal(blue);
   }
 
-  &--up {
+  &--down {
     transform: rotate(180deg);
   }
 }
@@ -138,7 +139,25 @@
   padding: 13px 15px;
 
   &--large {
-    padding: 20px 70px 20px 20px;
+    padding: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &--small {
+    padding: 5px 10px;
+  }
+
+  &--short-right {
+    padding-right: 20px 70px 20px 20px;
+  }
+
+  &--light-green {
+    background-color: pal(green, light);
+  }
+
+  &--light-navy {
+    background-color: pal(navy, faded);
   }
 
   &--light {
