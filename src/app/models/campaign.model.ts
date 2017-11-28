@@ -1,6 +1,7 @@
 import { Ad } from "./ad.model";
 
 export interface Campaign {
+  id: number;
   status: string;
   name: string;
   targetUrl: string;
@@ -9,6 +10,12 @@ export interface Campaign {
   budget: number;
   dateStart: Object;
   dateEnd?: Object;
+
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCPC: number;
+  cost: number;
 
   targeting?: {
     requires?: {
@@ -27,5 +34,5 @@ export interface Campaign {
     }
   };
 
-  ads: Array<Ad>
+  ads: Array<Ad>;
 }
