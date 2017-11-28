@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-campaign-details',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaign-details.component.scss'],
 })
 export class CampaignDetailsComponent implements OnInit {
+  state: Observable;
 
-  constructor() { }
+  constructor(private store: Store) {
+    this.state = store.select('state');
+  }
 
   ngOnInit() {
   }
