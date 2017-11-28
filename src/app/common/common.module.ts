@@ -6,7 +6,11 @@ import { MatDialogModule } from '@angular/material';
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { HeaderComponent } from '../common/components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
+import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
+
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
+import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 
 @NgModule({
   imports: [
@@ -18,7 +22,10 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
     CustomizeAccountChooseDialogComponent,
     HeaderComponent,
     NotificationsComponent,
-    AdsharesTokenPipe
+    AdsharesTokenPipe,
+    ChartFilterComponent,
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ],
   entryComponents: [
     CustomizeAccountChooseDialogComponent
@@ -26,7 +33,10 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
   exports: [
     HeaderComponent,
     NotificationsComponent,
-    AdsharesTokenPipe
+    AdsharesTokenPipe,
+    ChartFilterComponent,
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ]
 })
 

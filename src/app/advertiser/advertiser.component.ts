@@ -11,7 +11,7 @@ import { WalletDialogComponent } from '../settings/dialogs/wallet-dialog/wallet-
   templateUrl: './advertiser.component.html',
   styleUrls: ['./advertiser.component.scss']
 })
-export class AdvertiserComponent implements OnInit {
+export class AdvertiserComponent {
 
   constructor(
     private route: ActivatedRoute,

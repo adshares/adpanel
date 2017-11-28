@@ -37,6 +37,7 @@
   &--large {
     @include font(14, normal);
     line-height: 1.57;
+    margin: 5px 0;
   }
 
   &--small {
