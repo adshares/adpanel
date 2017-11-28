@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
+import 'rxjs/add/operator/map';
 
 import * as AuthActions from '../store/auth.actions';
 import { AuthService } from '../auth.service';
@@ -10,13 +11,14 @@ import { UserModel } from '../../auth/store/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
+import { HandleSubscription } from '../../common/handle-subscription';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent extends HandleSubscription {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
@@ -27,25 +29,29 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<{auth}>) { }
+    private store: Store<{auth}>
+  ) {
+    super(null);
+  }
 
   login() {
     if (!this.loginForm.valid) {
       return;
     }
 
-    this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe((userResponse) => {
-        this.store.dispatch(new AuthActions.LoginUser(
-          new UserModel(
-            userResponse.email,
-            userResponse.isAdvertiser,
-            userResponse.isPublisher,
-            userResponse.isAdmin
-           )
-        ));
+    const loginSubscription = this.authService.loginUser(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+     )
+      .subscribe((userResponse: UserModel) => {
+        this.store.dispatch(new AuthActions.LoginUser(userResponse));
 
-        this.showStartupPopups();
+        const getUserSubscription = this.store.select('auth')
+          .subscribe((authStore) => {
+            this.userData = authStore.userData
+            this.showStartupPopups();
+          });
+        this.subscriptions.push(getUserSubscription);
 
         if (userResponse.isAdvertiser) {
           this.router.navigate(['/advertiser']);
@@ -53,19 +59,19 @@ export class LoginComponent {
           this.router.navigate(['/publisher']);
         }
       });
+    this.subscriptions.push(loginSubscription);
   }
 
   showStartupPopups() {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
-    this.store.select('auth')
-      .subscribe((authStore) => this.userData = authStore.userData);
-
     if (firstLogin) {
       const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent);
 
-      dialogRef.afterClosed()
+      const dialogSubscription = dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
+      this.subscriptions.push(dialogSubscription);
+
     } else if (this.userData.isAdvertiser && this.userData.isPublisher) {
       this.dialog.open(AccountChooseDialogComponent);
     }

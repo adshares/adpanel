@@ -1,8 +1,6 @@
-export class UserModel {
-  constructor(
-    public email: string,
-    public isAdvertiser: boolean,
-    public isPublisher: boolean,
-    public isAdmin: boolean
-  ) { }
+export interface UserModel {
+  email: string,
+  isAdvertiser: boolean,
+  isPublisher: boolean,
+  isAdmin: boolean
 }

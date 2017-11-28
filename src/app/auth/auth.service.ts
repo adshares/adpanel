@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
+import { UserModel } from './store/user.model';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,11 @@ export class AuthService {
 
   loginUser(email: string, password: string) {
     return this.http.post(`${environment.apiUrl}/user`, { email, password })
-      .map((response: Response) => response.json());
+      .map((response: Response) => {
+          const result: UserModel = response.json();
+
+          return result;
+      });
   }
 
   registerUser(email: string, password: string) {

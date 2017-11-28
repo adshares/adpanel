@@ -3,19 +3,22 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth.service'
+import { HandleSubscription } from '../../common/handle-subscription';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+    super(null);
+  }
 
   register() {
     const password = this.registrationForm.value.password
@@ -25,14 +28,16 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService.registerUser(
-      this.registrationForm.value.email,
-      this.registrationForm.value.password
-    )
-      .subscribe(
-        () => {
-          this.router.navigate(['/auth/confirmation']);
-        }
-      );
+    this.subscriptions.push(
+      this.authService.registerUser(
+        this.registrationForm.value.email,
+        this.registrationForm.value.password
+      )
+        .subscribe(
+          () => {
+            this.router.navigate(['/auth/confirmation']);
+          }
+        )
+     );
   }
 }
