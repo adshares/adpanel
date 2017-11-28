@@ -40,29 +40,33 @@
     </div>
     <div class="row
                 align-center">
-        <button class="adsh-btn
+        <a
+            routerLink="/advertiser/create-campaign/basic-information"
+            [queryParams]="{step: 1}">
+            <button class="adsh-btn
                        adsh-btn--with-icon
                        adsh-btn--wide
-                       adsh-btn--blue
+                       adsh-bg-blue
                        adsh-navigation__item
                        row
                        align-center">
-          <img
-              class="adsh-icon
-                     adsh-icon--prepend"
-              src="assets/images/plus-circle.svg">
-          Create new Campaign
-        </button>
+                <img class="
+                        adsh-icon
+                        adsh-icon--prepend"
+                    src="assets/images/plus-circle.svg">
+               Create new Campaign
+            </button>
+        </a>
         <div class="row
                     align-center
                     adsh-bg-navy--light
                     relative
                     adsh-navigation__item
                     adsh-btn">
-            <img
-                class="adsh-icon
-                       adsh-icon--prepend"
-                src="assets/images/credit-card--white.svg">
+            <img class="
+                adsh-icon
+                adsh-icon--prepend"
+                src="assets/images/bell.svg">
             <div class="col">
                 <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
                 <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
@@ -81,9 +85,8 @@
                     align-center
                     relative"
               (click)="toggleNotificationsBar(true)">
-            <img
-                class="adsh-icon"
-                src="assets/images/bell.svg">
+            <img class="adsh-icon"
+                 src="assets/images/bell.svg">
             <div class="adsh-circle
                         adsh-bg-green
                         absolute">

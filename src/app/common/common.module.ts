@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -14,6 +15,7 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     BrowserAnimationsModule
   ],
   declarations: [

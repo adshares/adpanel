@@ -1,0 +1,37 @@
+<section
+    class="
+        adsh-create-campaign__navigation
+        row
+        align-center"
+>
+    <div
+        class="
+            container
+            row
+            align-center
+            justify-center"
+    >
+        <div
+            *ngFor="let step of steps"
+            class="
+                adsh-create-campaign__navigation-step
+                row
+                align-center"
+        >
+            <div
+                class="adsh-circle"
+                [class.inactive]="currentStep < step.id"
+                [class.active]="currentStep == step.id"
+                [class.done]="currentStep > step.id"></div>
+            <p
+                class="
+                adsh-copy
+                adsh-copy--large"
+            >
+                {{ step.name }}
+                {{ step.id }}
+            </p>
+            <div class="adsh-step-link-indicator"></div>
+        </div>
+    </div>
+</section>
