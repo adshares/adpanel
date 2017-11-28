@@ -68,6 +68,6 @@ To run server mock install node easy mock:
 Then run
 `easymock` in server-mock directory
 
-To add new possible endpints add new json files in easy-mock direcotry with name consisting of url and method divided by underscore. Files should countain json response returned from server.
+To add new possible endpoints add new json files in easy-mock direcotry with name consisting of url and method name divided by underscore. Files should countain json response returned from server.
 
 For more info visit: https://github.com/CyberAgent/node-easymock
