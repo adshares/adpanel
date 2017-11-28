@@ -4,4 +4,10 @@ export interface Ad {
   type: string;
   imageDimensions?: string;
   imageSize?: number;
+
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCPC: number;
+  cost: number;
 }

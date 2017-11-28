@@ -1,4 +1,4 @@
-import { Ad } from "./ad.model";
+import { Ad } from './ad.model';
 
 export interface Campaign {
   id: number;
@@ -19,18 +19,18 @@ export interface Campaign {
 
   targeting?: {
     requires?: {
-      language?: Array<string>;
-      device?: Array<string>;
-      gender?: Array<string>;
-      operatingSystem?: Array<string>;
-      browser?: Array<string>;
+      languages?: Array<string>;
+      devices?: Array<string>;
+      genders?: Array<string>;
+      operatingSystems?: Array<string>;
+      browsers?: Array<string>;
     },
     excludes?: {
-      language?: Array<string>;
-      device?: Array<string>;
-      gender?: Array<string>;
-      operatingSystem?: Array<string>;
-      browser?: Array<string>;
+      languages?: Array<string>;
+      devices?: Array<string>;
+      genders?: Array<string>;
+      operatingSystems?: Array<string>;
+      browsers?: Array<string>;
     }
   };
 
