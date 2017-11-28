@@ -22,8 +22,6 @@ export class LoginComponent extends HandleSubscription {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
-  userData: UserModel;
-
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -46,12 +44,7 @@ export class LoginComponent extends HandleSubscription {
       .subscribe((userResponse: UserModel) => {
         this.store.dispatch(new AuthActions.LoginUser(userResponse));
 
-        const getUserSubscription = this.store.select('auth')
-          .subscribe((authStore) => {
-            this.userData = authStore.userData
-            this.showStartupPopups();
-          });
-        this.subscriptions.push(getUserSubscription);
+        this.showStartupPopups(userResponse);
 
         if (userResponse.isAdvertiser) {
           this.router.navigate(['/advertiser']);
@@ -62,7 +55,7 @@ export class LoginComponent extends HandleSubscription {
     this.subscriptions.push(loginSubscription);
   }
 
-  showStartupPopups() {
+  showStartupPopups(user: UserModel) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
     if (firstLogin) {
@@ -72,7 +65,7 @@ export class LoginComponent extends HandleSubscription {
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
       this.subscriptions.push(dialogSubscription);
 
-    } else if (this.userData.isAdvertiser && this.userData.isPublisher) {
+    } else if (user.isAdvertiser && user.isPublisher) {
       this.dialog.open(AccountChooseDialogComponent);
     }
   }

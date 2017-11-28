@@ -13,7 +13,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceAdst: number = 128.20;
   currentBalanceUSD: number = 1240.02;
   notificationsCount: number = 8;
-  user: UserModel;
   selectedRole: string = 'Admin';
 
   notificationsBarEnabled: boolean = false;
@@ -25,8 +24,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     const getUserSubscription = this.store.select('auth')
       .subscribe((authStore) => {
-        this.user = authStore.userData;
-        this.checkUserRole();
+        const userData = authStore.userData;
+
+        this.checkUserRole(userData);
       });
     this.subscriptions.push(getUserSubscription);
   }
@@ -35,11 +35,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.notificationsBarEnabled = status;
   }
 
-  checkUserRole() {
-    if (this.user.isAdmin) {
+  checkUserRole(user: UserModel) {
+    if (user.isAdmin) {
       return;
     }
 
-    this.selectedRole = this.user.isAdvertiser ? 'Advertiser' : 'Publisher';
+    this.selectedRole = user.isAdvertiser ? 'Advertiser' : 'Publisher';
   }
 }
