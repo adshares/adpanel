@@ -25,14 +25,6 @@ import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-n
     EditCampaignCreateAdsComponent,
     EditCampaignSummaryComponent,
     EditCampaignNavigationComponent
-  ],
-  exports: [
-    EditCampaignComponent,
-    EditCampaignBasicInformationComponent,
-    EditCampaignAdditionalTargetingComponent,
-    EditCampaignCreateAdsComponent,
-    EditCampaignSummaryComponent,
-    EditCampaignNavigationComponent
   ]
 })
 export class AdvertiserModule { }
