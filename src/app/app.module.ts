@@ -11,7 +11,7 @@ import { AdvertiserModule } from './advertiser/advertiser.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

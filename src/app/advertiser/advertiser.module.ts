@@ -13,6 +13,7 @@ import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-cr
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EditCampaignSummaryComponent,
     EditCampaignNavigationComponent
     AdvertiserComponent,
-    DashboardComponent
+    DashboardComponent,
+    CampaignDetailsComponent
   ]
 })
 export class AdvertiserModule { }

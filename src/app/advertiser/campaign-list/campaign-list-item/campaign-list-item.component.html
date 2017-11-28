@@ -30,7 +30,7 @@
             col-xs-1
             row
             align-center">
-            <span>{{ campaign.budgetPerDay | currency:USD }}/day</span>
+            <span>{{ campaign.budget | currency:USD }}/day</span>
         </div>
         <div class="
             col-xs-1
@@ -54,13 +54,13 @@
             col-xs-1
             row
             align-center">
-            <span>{{ campaign.averageCpc | currency:USD }}</span>
+            <span>{{ campaign.averageCPC | currency:USD }}</span>
         </div>
         <div class="
             col-xs-1
             row
             align-center">
-            <span>{{ campaign.totalCost | currency:USD }}</span>
+            <span>{{ campaign.cost | currency:USD }}</span>
         </div>
         <div class="
             col-xs-1
@@ -68,9 +68,11 @@
             align-center
             justify-center
             adsh-campaign-list__item-campaign-details">
-            <img
-                src="/assets/images/chevron-right.svg"
-                alt="Go to campaign details icon">
+            <a [routerLink]="['../campaign', campaign.id]">
+                <img
+                    src="/assets/images/chevron-right.svg"
+                    alt="Go to campaign details icon">
+            </a>
         </div>
     </div>
 </div>

@@ -5,20 +5,22 @@
   border-top: 1px solid pal(gray, ultra-light);
 
   &-status {
-    @include font-weight(bold);
+    @include font(10, bold);
+    text-transform: uppercase;
     width: 75px;
 
-    &[data-status="Active"] {
+    &[data-status="active"] {
       color: pal(green);
       background-color: pal(green, light);
     }
 
-    &[data-status="Limited"] {
+    &[data-status="limited"], {
       color: pal(blue);
       background-color: pal(blue, light);
     }
 
-    &[data-status="Archived"] {
+    &[data-status="archived"],
+    &[data-status="draft"] {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
     }

@@ -16,7 +16,7 @@ export class CampaignListComponent {
       targetUrl: 'www.adshares.net',
       bidStrategyName: 'CPC',
       bidStrategyValue: 0.2,
-      budget: 10000,
+      budget: 455,
       dateStart: new Date(),
 
       clicks: 213,
@@ -73,7 +73,7 @@ export class CampaignListComponent {
       targetUrl: 'www.adshares.net',
       bidStrategyName: 'CPC',
       bidStrategyValue: 0.2,
-      budget: 10000,
+      budget: 23,
       dateStart: new Date(),
 
       clicks: 23266,
