@@ -14,15 +14,18 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceUSD: number = 1240.02;
   notificationsCount: number = 8;
   selectedRole: string = 'Admin';
+  auth: Store<{userData}>;
 
   notificationsBarEnabled: boolean = false;
 
   constructor(private store: Store<{auth}>) {
     super(null);
+
+    this.auth = this.store.select('auth');
   }
 
   ngOnInit() {
-    const getUserSubscription = this.store.select('auth')
+    const getUserSubscription = this.auth
       .subscribe((authStore) => {
         const userData = authStore.userData;
 
