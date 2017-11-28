@@ -18,12 +18,12 @@
         align-center"
     >
       <img
-          class="adsh-logo"
-          src="assets/images/logo--white.png"
-          srcset="
-            assets/images/logo--white@2x.png 2x,
-            assets/images/logo--white@3x.png 3x"
-          alt="Adshares Logo"
+        class="adsh-logo"
+        src="assets/images/logo--white.png"
+        srcset="
+          assets/images/logo--white@2x.png 2x,
+          assets/images/logo--white@3x.png 3x"
+        alt="Adshares Logo"
       >
     </div>
 
@@ -33,45 +33,45 @@
         adsh-header-userselect"
     >
       <mat-select
-          class="
-              adsh-select
-              adsh-navigation__item"
-          [ngModel]="selectedRole"
+        class="
+          adsh-select
+          adsh-navigation__item"
+        [ngModel]="selectedRole"
       >
-          <mat-option
-              [value]="'Advertiser'"
-              routerLink="['/advertiser']"
-              *ngIf="!user.isAdmin"
-          >
-            Advertiser
-          </mat-option>
-          <mat-option
-              [value]="'Publisher'"
-              [routerLink]="['/publisher']"
-              *ngIf="!user.isAdmin"
-          >
-            Publisher
-          </mat-option>
-          <mat-option
-              [value]="'Admin'"
-              *ngIf="user.isAdmin"
-          >
-            Admin
-          </mat-option>
+        <mat-option
+          [value]="'Advertiser'"
+          routerLink="['/advertiser']"
+          *ngIf="!user.isAdmin"
+        >
+          Advertiser
+        </mat-option>
+        <mat-option
+          [value]="'Publisher'"
+          [routerLink]="['/publisher']"
+          *ngIf="!user.isAdmin"
+        >
+          Publisher
+        </mat-option>
+        <mat-option
+          [value]="'Admin'"
+          *ngIf="user.isAdmin"
+        >
+          Admin
+        </mat-option>
       </mat-select>
 
       <img
-          class="
-            adsh-icon
-            absolute"
-          src="assets/images/user.svg"
+        class="
+          adsh-icon
+          absolute"
+        src="assets/images/user.svg"
       >
       <img
-          class="
-            adsh-icon
-            adsh-icon--small
-            absolute"
-          src="assets/images/chevron--gray.svg">
+        class="
+          adsh-icon
+          adsh-icon--small
+          absolute"
+        src="assets/images/chevron--gray.svg">
     </div>
   </div>
   <div
@@ -107,21 +107,21 @@
         adsh-btn"
     >
       <img
-          class="
-            adsh-icon
-            adsh-icon--prepend"
-          src="assets/images/bell.svg"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+        src="assets/images/bell.svg"
       >
       <div class="col">
-          <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
-          <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
+        <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
+        <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
       </div>
       <img
-          class="
-            adsh-icon
-            adsh-icon--small
-            adsh-icon--append"
-          src="assets/images/chevron--gray.svg"
+        class="
+          adsh-icon
+          adsh-icon--small
+          adsh-icon--append"
+        src="assets/images/chevron--gray.svg"
       >
     </div>
     <div
@@ -136,8 +136,8 @@
       (click)="toggleNotificationsBar(true)"
     >
       <img
-          class="adsh-icon"
-          src="assets/images/bell.svg"
+        class="adsh-icon"
+        src="assets/images/bell.svg"
       >
       <div
         class="
