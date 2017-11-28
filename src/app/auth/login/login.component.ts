@@ -23,7 +23,7 @@ export class LoginComponent {
     this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe(
         () => {
-          this.router.navigate(['/advertiser']);
+          this.router.navigate(['/advertiser/dashboard']);
         }
       );
   }

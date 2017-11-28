@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="184px" height="141px" viewBox="0 0 184 141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 22@1x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M47,70.1962891 L46.9378472,61.0135365 L46.9378472,61.0135365 C46.9303712,59.9089923 47.8197207,59.0075218 48.9242649,59.0000458 C48.928777,59.0000153 48.9332892,59 48.9378014,59 L159,59 L159,59 C160.104569,59 161,59.8954305 161,61 L161,129 L161,129 C161,130.104569 160.104569,131 159,131 L49,131 L49,131 C47.8954305,131 47,130.104569 47,129 L47,98.8170724 L47,70.1962891 Z" id="path-1"></path>
+        <path d="M66.1035156,68.9560547 L150,68.9560547 L150,68.9560547 C151.104569,68.9560547 152,69.8514852 152,70.9560547 L152,129 L152,129 C152,130.104569 151.104569,131 150,131 L59,131 L59,131 C57.8954305,131 57,130.104569 57,129 L57,98.9586733" id="path-2"></path>
+        <rect id="path-3" x="26" y="69" width="47" height="30" rx="2"></rect>
+        <rect id="path-4" x="138" y="47" width="35" height="35" rx="2"></rect>
+        <mask id="mask-5" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="35" height="35" fill="white">
+            <use xlink:href="#path-4"></use>
+        </mask>
+        <circle id="path-6" cx="19" cy="19" r="19"></circle>
+        <circle id="path-7" cx="19" cy="19" r="7"></circle>
+        <path d="M29,34 C29,27.372583 25.627417,24 19,24 C12.372583,24 9,27.372583 9,34" id="path-8"></path>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="onboarding_empty_state" transform="translate(-615.000000, -353.000000)">
+            <g id="Chart" transform="translate(139.000000, 282.000000)">
+                <g id="Group-22" transform="translate(476.000000, 71.000000)">
+                    <g id="Group-Copy">
+                        <circle id="Oval" fill="#55A8FD" cx="53" cy="6" r="6"></circle>
+                        <circle id="Oval-Copy" fill="#ECEEF3" cx="25.5" cy="33.5" r="3.5"></circle>
+                        <circle id="Oval-Copy-5" fill="#ECEEF3" cx="180.5" cy="107.5" r="3.5"></circle>
+                        <circle id="Oval-Copy-3" fill="#ECEEF3" cx="11.5" cy="123.5" r="3.5"></circle>
+                        <circle id="Oval-Copy-4" fill="#ECEEF3" cx="151.5" cy="78.5" r="3.5"></circle>
+                        <circle id="Oval-Copy-2" fill="#24D17E" cx="118.5" cy="22.5" r="3.5"></circle>
+                        <circle id="Oval-Copy-6" fill="#24D17E" cx="3.5" cy="88.5" r="3.5"></circle>
+                    </g>
+                    <g id="Rectangle-10-Copy-2">
+                        <use fill="#DEEEF9" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#55A8FD" stroke-width="2" d="M47.9999771,70.1895208 L48,70.1962891 L48,129 C48,129.552285 48.4477153,130 49,130 L159,130 C159.552285,130 160,129.552285 160,129 L160,61 C160,60.4477153 159.552285,60 159,60 L48.9378014,60 L48.9310331,60.0000229 C48.378761,60.0037609 47.9340863,60.4544962 47.9378243,61.0067683 L47.9999771,70.1895208 Z"></path>
+                    </g>
+                    <path d="M37,130 L37,137 C37,138.656854 38.3431458,140 40,140 L168,140 C169.656854,140 171,138.656854 171,137 L171,130 L37,130 Z" id="Rectangle-10" stroke="#55A8FD" stroke-width="2"></path>
+                    <g id="Rectangle-10-Copy">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <path stroke="#55A8FD" stroke-width="2" d="M66.8451113,69.9560547 L58,99.1070454 L58,129 C58,129.552285 58.4477153,130 59,130 L150,130 C150.552285,130 151,129.552285 151,129 L151,70.9560547 C151,70.4037699 150.552285,69.9560547 150,69.9560547 L66.8451113,69.9560547 Z"></path>
+                    </g>
+                    <g id="Rectangle-11">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <rect stroke="#55A8FD" stroke-width="2" x="27" y="70" width="45" height="28" rx="2"></rect>
+                    </g>
+                    <path d="M35,78 L59.0831892,78" id="Line-4" stroke="#55A8FD" stroke-width="2" fill="#DEEEF9" stroke-linecap="square"></path>
+                    <path d="M35,84 L48.0831892,84" id="Line-4-Copy" stroke="#55A8FD" stroke-width="2" fill="#DEEEF9" stroke-linecap="square"></path>
+                    <use id="Rectangle-11-Copy" stroke="#55A8FD" mask="url(#mask-5)" stroke-width="4" stroke-dasharray="7" xlink:href="#path-4"></use>
+                    <path d="M65,40 L89.0831892,40" id="Line-4" stroke="#55A8FD" stroke-width="2" fill="#DEEEF9" stroke-linecap="square"></path>
+                    <path d="M65,46 L78.0831892,46" id="Line-4-Copy" stroke="#55A8FD" stroke-width="2" fill="#DEEEF9" stroke-linecap="square"></path>
+                    <g id="Group-23" transform="translate(86.000000, 82.000000)">
+                        <g id="Oval-2">
+                            <use fill="#DEEEF9" fill-rule="evenodd" xlink:href="#path-6"></use>
+                            <circle stroke="#55A8FD" stroke-width="2" cx="19" cy="19" r="18"></circle>
+                        </g>
+                        <g id="Oval-4">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                            <circle stroke="#55A8FD" stroke-width="2" cx="19" cy="19" r="6"></circle>
+                        </g>
+                        <g id="Oval-4-Copy">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-8"></use>
+                            <path stroke="#55A8FD" stroke-width="2" d="M27.9719258,33 C27.6592911,27.603568 24.7317479,25 19,25 C13.2682521,25 10.3407089,27.603568 10.0280742,33 L27.9719258,33 Z"></path>
+                        </g>
+                    </g>
+                    <ellipse id="Oval-5" fill="#FFFFFF" cx="105" cy="114" rx="7" ry="3"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

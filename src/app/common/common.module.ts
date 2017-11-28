@@ -6,7 +6,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from '../common/components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
+import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
+
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
+import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 
 @NgModule({
   imports: [
@@ -17,12 +21,18 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
   declarations: [
     HeaderComponent,
     NotificationsComponent,
-    AdsharesTokenPipe
+    AdsharesTokenPipe,
+    ChartFilterComponent,
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ],
   exports: [
     HeaderComponent,
     NotificationsComponent,
-    AdsharesTokenPipe
+    AdsharesTokenPipe,
+    ChartFilterComponent,
+    FundsSummaryComponent,
+    ConfirmationAlertComponent
   ]
 })
 
