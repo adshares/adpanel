@@ -28,16 +28,15 @@ export class RegisterComponent extends HandleSubscription {
       return;
     }
 
-    this.subscriptions.push(
-      this.authService.registerUser(
-        this.registrationForm.value.email,
-        this.registrationForm.value.password
-      )
-        .subscribe(
-          () => {
-            this.router.navigate(['/auth/confirmation']);
-          }
-        )
-     );
+    const registerSubscription = this.authService.registerUser(
+      this.registrationForm.value.email,
+      this.registrationForm.value.password
+    )
+      .subscribe(
+        () => {
+          this.router.navigate(['/auth/confirmation']);
+        }
+      );
+    this.subscriptions.push(registerSubscription);
   }
 }

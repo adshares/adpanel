@@ -23,13 +23,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.store.select('auth')
-        .subscribe((authStore) => {
-          this.user = authStore.userData;
-          this.checkUserRole();
-        })
-    );
+    const getUserSubscription = this.store.select('auth')
+      .subscribe((authStore) => {
+        this.user = authStore.userData;
+        this.checkUserRole();
+      });
+    this.subscriptions.push(getUserSubscription);
   }
 
   toggleNotificationsBar(status: boolean) {
