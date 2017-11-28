@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
+
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 import { HeaderComponent } from '../common/components/header/header.component';
@@ -17,7 +20,10 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
   imports: [
     CommonModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     CustomizeAccountChooseDialogComponent,
