@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./advertiser.component.scss']
 })
 export class AdvertiserComponent {
-  constructor() { }
+
 }
