@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { AppCommonModule } from '../common/common.module';
 
 import { AdvertiserComponent } from './advertiser.component';
@@ -14,11 +15,16 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { AdvertiserGuard } from './advertiser-guard.service';
+
 @NgModule({
   imports: [
     CommonModule,
     AppCommonModule,
     AdvertiserRoutingModule
+  ],
+  providers: [
+    AdvertiserGuard
   ],
   declarations: [
     AdvertiserComponent,

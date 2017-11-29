@@ -8,11 +8,13 @@ import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-c
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { AdvertiserGuard } from './advertiser-guard.service';
 
 const advertiserRoutes: Routes = [
   {
     path: 'advertiser',
     component: AdvertiserComponent,
+    canActivate: [AdvertiserGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent}
       {
