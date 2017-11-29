@@ -12,19 +12,25 @@
         class="
                     adsh-box
                     adsh-box--small
-                    adsh-ad-list__item-status
+                    adsh-status
                     text-center"
         [attr.data-status]="ad.status">
         <span>{{ ad.status }}</span>
       </div>
     </div>
     <div class="
-            col-xs-5
+            col-xs-4
             row
             align-center">
       <h4 class="
                 adsh-heading
                 adsh-heading--secondary">{{ ad.shortHeadline }}</h4>
+    </div>
+    <div class="
+            col-xs-1
+            row
+            align-center">
+      <span>{{ ad.budget | currency:USD }}/day</span>
     </div>
     <div class="
             col-xs-1

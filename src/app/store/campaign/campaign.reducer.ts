@@ -17,6 +17,7 @@ const initialState: {[key: string]} = {
       ctr: 0.03,
       averageCPC: 2.1,
       cost: 2435.23,
+      conversions: 802,
 
       targeting: {
         requires: {
@@ -40,6 +41,7 @@ const initialState: {[key: string]} = {
           shortHeadline: 'Adshares Dashboard Advertisement',
           type: 'image',
 
+          budget: 20,
           clicks: 100,
           impressions: 1233422132,
           ctr: 0.00001233,
@@ -51,6 +53,7 @@ const initialState: {[key: string]} = {
           shortHeadline: 'Adshares Website Advertisement',
           type: 'image',
 
+          budget: 20,
           clicks: 200,
           impressions: 21313545,
           ctr: 0.1233,
@@ -97,17 +100,20 @@ const initialState: {[key: string]} = {
           shortHeadline: 'Adshares Dashboard Advertisement',
           type: 'image',
 
+          budget: 20,
           clicks: 100,
           impressions: 1233422132,
           ctr: 0.00001233,
           averageCPC: 1.2,
           cost: 2435.23,
+          conversions: 220,
         },
         {
           status: 'active',
           shortHeadline: 'Adshares Website Advertisement',
           type: 'image',
 
+          budget: 20,
           clicks: 200,
           impressions: 21313545,
           ctr: 0.1233,

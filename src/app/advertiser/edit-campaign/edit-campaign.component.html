@@ -1,8 +1,11 @@
 <app-edit-campaign-navigation></app-edit-campaign-navigation>
 
 <div
-  class="container"
+  class="
+    container"
   [@fadeAnimation]="getRouterOutletState(o)"
 >
+  <div class="dashboard-view">
     <router-outlet #o="outlet"></router-outlet>
+  </div>
 </div>

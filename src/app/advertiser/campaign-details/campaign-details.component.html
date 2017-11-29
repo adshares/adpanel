@@ -1,9 +1,43 @@
-<section class="adsh-advertiser-wrapper">
+<section class="dashboard-view">
   <div class="container">
     <div
       class="
         row
-        justify-between"
+        align-center
+        breadcrumbs"
+    >
+      <a routerLink="/advertiser/dashboard">
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          My Campaigns
+        </p>
+      </a>
+      <div
+        class="
+          adsh-circle
+          adsh-circle--x-small
+          adsh-circle--navy
+          divider"
+      >
+      </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--smal
+          adsh-copy--x-dark
+          adsh-copy--semi"
+      >
+        {{ campaign.name }}
+      </p>
+    </div>
+    <div
+      class="
+        row
+        justify-between
+        align-center"
     >
       <div class="col-xs-4">
         <h1
@@ -11,19 +45,24 @@
             adsh-heading
             adsh-heading--primary"
         >
-          My Campaigns
+          {{ campaign.name }}
         </h1>
-        <p
-          class="
-          adsh-copy
-          adsh-copy--large"
-        >
-          Etiam pretium dapibus congue. Praesent a lorem erat.
-        </p>
       </div>
 
-      <div class="col-xs-8">
-        <app-chart-filter></app-chart-filter>
+      <div class="col-xs-8 justify-end">
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white"
+        >
+          <span
+            class="
+              adsh-copy
+              adsh-copy--dark"
+          >
+            Edit Campaign
+          </span>
+        </button>
       </div>
     </div>
 
@@ -35,10 +74,25 @@
       <div
         class="
           row
-          align-center"
+          align-center
+          adsh-copy"
       >
-        <div class="col-xs-2">
-          Campaign Status
+        <div
+          class="
+            col-xs-2
+            row
+            align-center"
+        >
+          <p>Campaign Status:</p>
+          <div
+            class="
+              adsh-box
+              adsh-box--small
+              adsh-status
+              text-center"
+            [attr.data-status]="campaign.status">
+            <span>{{ campaign.status }}</span>
+          </div>
         </div>
         <div
           class="
@@ -46,28 +100,104 @@
             row
             align-center"
         >
-          <div class="col-xs-2 col-xs-offset-2">
-            <p>Target URL:</p>
-            <p>www.adshares.com</p>
+          <div
+            class="
+              col-xs-2
+              col-xs-offset-2"
+          >
+            <p class="adsh-copy--small">
+              Target URL:
+            </p>
+            <p
+              class="
+                adsh-copy--dark
+                adsh-copy--semi"
+            >
+              {{ campaign.targetUrl }}
+            </p>
           </div>
           <div class="col-xs-2">
-            <p>Target URL:</p>
-            <p>www.adshares.com</p>
+            <p class="adsh-copy--small">
+              Bid Strategy
+            </p>
+            <p
+              class="
+                adsh-copy--dark
+                adsh-copy--semi"
+            >
+              {{ campaign.bidStrategyName }} (${{ campaign.bidStrategyValue }})
+            </p>
           </div>
           <div class="col-xs-2">
-            <p>Target URL:</p>
-            <p>www.adshares.com</p>
+            <p class="adsh-copy--small">
+              Budget
+            </p>
+            <p
+              class="
+                adsh-copy--dark
+                adsh-copy--semi"
+            >
+              {{ campaign.budget | currency:USD }}
+            </p>
           </div>
           <div class="col-xs-2">
-            <p>Target URL:</p>
-            <p>www.adshares.com</p>
+            <p class="adsh-copy--small">
+              Date of Start
+            </p>
+            <div
+              class="
+                row
+                align-center"
+            >
+              <img
+                class="
+                adsh-icon
+                adsh-icon--prepend"
+                src="assets/images/calendar.svg"
+                alt="Calendar Icon"
+              >
+              <p
+                class="
+                adsh-copy--dark
+                adsh-copy--semi"
+              >
+                {{ campaign.dateStart }}
+              </p>
+            </div>
+
           </div>
           <div class="col-xs-2">
-            <p>Target URL:</p>
-            <p>www.adshares.com</p>
+            <p class="adsh-copy--small">
+              Date of End
+            </p>
+            <div
+              class="
+                row
+                align-center"
+            >
+              <img
+                class="
+                adsh-icon
+                adsh-icon--prepend"
+                src="assets/images/calendar.svg"
+                alt="Calendar Icon"
+              >
+              <p
+                class="
+                adsh-copy--dark
+                adsh-copy--semi"
+              >
+                {{ campaign.dateEnd ? campaign.dateStart : '-' }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+
+
+    <div class="col-xs-8 col-xs-offset-4">
+      <app-chart-filter></app-chart-filter>
     </div>
 
     <!--mock chart-->
@@ -85,46 +215,150 @@
     <div
       class="
         row
-        justify-between">
+        justify-between
+        campaign-details-statistics"
+    >
       <div
         class="
-        adsh-box
-        adsh-box--large"
+          adsh-box
+          adsh-box--large"
       >
-        dsajkdsakjads
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          Budget
+        </p>
+        <p
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ campaign.budget | currency:USD }}/day
+        </p>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--x-small
+            adsh-blue"
+        >
+          - (-%)
+        </p>
       </div>
       <div
         class="
-        adsh-box
-        adsh-box--large"
+          adsh-box
+          adsh-box--large"
       >
-        dsajkdsakjads
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          Clicks
+        </p>
+        <p
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ campaign.clicks }}
+        </p>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--x-small
+            adsh-blue"
+        >
+          - (-%)
+        </p>
       </div>
       <div
         class="
-        adsh-box
-        adsh-box--large"
+          adsh-box
+          adsh-box--large"
       >
-        dsajkdsakjads
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          Cost
+        </p>
+        <p
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ campaign.cost | currency:USD  }}
+        </p>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--x-small
+            adsh-blue"
+        >
+          - (-%)
+        </p>
       </div>
       <div
         class="
-        adsh-box
-        adsh-box--large"
-      >
-        dsajkdsakjads
+          adsh-box
+          adsh-box--large">
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small">Conversions</p>
+        <p
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ campaign.conversions }}
+        </p>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--x-small
+            adsh-blue"
+        >
+          - (-%)
+        </p>
       </div>
       <div
         class="
-        adsh-box
-        adsh-box--large"
+          adsh-box
+          adsh-box--large"
       >
-        dsajkdsakjads
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          Cost/Conv
+        </p>
+        <p
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ campaign.cost / campaign.conversions | currency:USD  }}
+        </p>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--x-small
+            adsh-blue"
+        >
+          - (-%)
+        </p>
       </div>
     </div>
 
     <app-ad-list
-      [adList]="campaign.ads">
+      [adList]="campaign.ads"
+    >
     </app-ad-list>
   </div>
 </section>

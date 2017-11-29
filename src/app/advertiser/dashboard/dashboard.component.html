@@ -1,5 +1,7 @@
-<app-confirmation-alert></app-confirmation-alert>
-<section class="adsh-advertiser-wrapper">
+<section
+  class="
+    adsh-advertiser-wrapper
+    dashboard-view">
     <div class="container">
         <div class="
             row
@@ -38,7 +40,7 @@
                 align-center
                 justify-center
                 text-center
-                adsh-advertiser-create-new-campaign-wrapper">
+                create-new-campaign-wrapper">
                 <img
                     src="/assets/images/campaign.svg"
                     alt="Advertiser Account Illustration">
@@ -55,7 +57,11 @@
                         Morbi mollis posuere lacus, vel semper risus.
                     </p>
                 </div>
-                <button class="
+                <a
+                  routerLink="/advertiser/create-campaign/basic-information"
+                  [queryParams]="{step: 1}"
+                >
+                  <button class="
                     row
                     align-center
                     adsh-btn
@@ -63,15 +69,16 @@
                     adsh-btn--white
                     adsh-btn--no-border">
                     <img
-                        src="assets/images/plus-circle--blue.svg"
-                        alt="Add new icon"
-                        class="
+                      src="assets/images/plus-circle--blue.svg"
+                      alt="Add new icon"
+                      class="
                             adsh-icon
                             adsh-icon--prepend">
                     <span class="
                         adsh-heading
                         adsh-heading--secondary">Create now</span>
-                </button>
+                  </button>
+                </a>
             </div>
         </div>
 

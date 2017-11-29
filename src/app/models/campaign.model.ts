@@ -16,23 +16,24 @@ export interface Campaign {
   ctr: number;
   averageCPC: number;
   cost: number;
+  conversions: number;
 
   targeting?: {
     requires?: {
-      languages?: Array<string>;
-      devices?: Array<string>;
-      genders?: Array<string>;
-      operatingSystems?: Array<string>;
-      browsers?: Array<string>;
+      languages?: string[];
+      devices?: string[];
+      genders?: string[];
+      operatingSystems?: string[];
+      browsers?: string[];
     },
     excludes?: {
-      languages?: Array<string>;
-      devices?: Array<string>;
-      genders?: Array<string>;
-      operatingSystems?: Array<string>;
-      browsers?: Array<string>;
+      languages?: string[];
+      devices?: string[];
+      genders?: string[];
+      operatingSystems?: string[];
+      browsers?: string[];
     }
   };
 
-  ads: Array<Ad>;
+  ads: Ad[];
 }

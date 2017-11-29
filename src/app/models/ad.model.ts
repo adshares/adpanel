@@ -10,4 +10,5 @@ export interface Ad {
   ctr: number;
   averageCPC: number;
   cost: number;
+  budget: number;
 }

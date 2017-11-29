@@ -3,28 +3,6 @@
 .adsh-campaign-list__item {
   padding: 20px 0;
   border-top: 1px solid pal(gray, ultra-light);
-
-  &-status {
-    @include font(10, bold);
-    text-transform: uppercase;
-    width: 75px;
-
-    &[data-status="active"] {
-      color: pal(green);
-      background-color: pal(green, light);
-    }
-
-    &[data-status="limited"], {
-      color: pal(blue);
-      background-color: pal(blue, light);
-    }
-
-    &[data-status="archived"],
-    &[data-status="draft"] {
-      color: pal(gray);
-      background-color: pal(gray, ultra-light);
-    }
-  }
 }
 
 
