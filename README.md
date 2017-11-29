@@ -2,7 +2,7 @@
 
 ## INDENTS
 
-Styling an HTML file: HTML files use 4 space indents as reflected in .editorconfig.
+Files use 2 space indents as reflected in .editorconfig.
 
 HTML files attributes should be started in new line if there is more than 1 attribute, e.g.
 
@@ -10,17 +10,20 @@ HTML files attributes should be started in new line if there is more than 1 attr
 ```
 <p class="
     adsh-copy
-    adsh-copy--large">Lorem ipsum</p>
+    adsh-copy--large"
+>
+  Lorem ipsum
+</p>
 ```
 
 2 or more attributes:
 ```
 <span
     *ngIf="password.valid"
-    class="input-valid"></span>
+    class="input-valid"
+>
+</span>
 ```
-
-Other files use 2-space indents.
 
 ## STYLES
 
