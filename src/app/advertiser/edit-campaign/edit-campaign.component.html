@@ -1,5 +1,8 @@
 <app-edit-campaign-navigation></app-edit-campaign-navigation>
 
-<div class="container">
-    <router-outlet></router-outlet>
+<div
+  class="container"
+  [@fadeAnimation]="getRouterOutletState(o)"
+>
+    <router-outlet #o="outlet"></router-outlet>
 </div>

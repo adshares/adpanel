@@ -225,3 +225,11 @@
 .absolute {
   position: absolute;
 }
+
+// router animations
+
+router-outlet ~ * {
+  position: absolute;
+  width: 100%;
+  min-height: 100%
+}
