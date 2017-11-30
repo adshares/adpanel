@@ -1,105 +1,171 @@
-<div class="col
-            justify-between
-            adsh__registration-wrapper">
-    <div>
-        <h2 class="adsh-heading
-                   adsh-heading--primary">Create Account</h2>
-        <p class="adsh-copy
-                  adsh-copy--large">We need your basic information to create your account.</p>
+<div
+  class="
+    col
+    justify-between
+    adsh__registration-wrapper"
+>
+  <div>
+    <h2
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Create Account
+    </h2>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      We need your basic information to create your account.
+    </p>
 
-        <form
-            #registrationForm="ngForm"
-            (ngSubmit)="register()"
-            class="adsh-form">
-            <div class="adsh-form-input__box">
-                <label
-                    for="email"
-                    class="adsh-form-label">Email Address</label>
-                <input
-                    id="email"
-                    class="adsh-form-input"
-                    type="email"
-                    name="email"
-                    ngModel
-                    [email]="true"
-                    #email="ngModel"
-                    required>
-                <span
-                    *ngIf="email.valid"
-                    class="input-valid"></span>
-                <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
-                <span *ngIf="email.hasError('required') && registrationForm.submitted">Email required!</span>
-            </div>
+    <form
+      #registrationForm="ngForm"
+      (ngSubmit)="register()"
+      class="adsh-form"
+    >
+      <div class="adsh-form-input__box">
+        <label
+          for="email"
+          class="adsh-form-label"
+        >
+          Email Address
+        </label>
+        <input
+          id="email"
+          class="adsh-form-input"
+          type="email"
+          name="email"
+          ngModel
+          [email]="true"
+          #email="ngModel"
+          required
+        >
+        <span
+          *ngIf="email.valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="email.hasError('email') && email.touched"
+        >
+          Invalid email!
+        </span>
+        <span
+          class="error-msg"
+          *ngIf="email.hasError('required') && registrationForm.submitted"
+        >
+          Email required!
+        </span>
+      </div>
 
-            <div class="adsh-form-input__box">
-                <label
-                    for="password"
-                    class="adsh-form-label">Password</label>
-                <input
-                    id="password"
-                    class="adsh-form-input"
-                    name="password"
-                    type="password"
-                    ngModel
-                    #password="ngModel"
-                    minlength="8"
-                    required>
-                <span
-                    *ngIf="password.valid"
-                    class="input-valid"></span>
-                <span *ngIf="password.hasError('minlength') && password.touched">
-                    Minimum 8 signs required!
-                </span>
-                <span *ngIf="password.hasError('required') && registrationForm.submitted">Password required</span>
-            </div>
+      <div class="adsh-form-input__box">
+        <label
+          for="password"
+          class="adsh-form-label"
+        >
+          Password
+        </label>
+        <input
+          id="password"
+          class="adsh-form-input"
+          name="password"
+          type="password"
+          ngModel
+          #password="ngModel"
+          minlength="8"
+          required
+        >
+        <span
+          *ngIf="password.valid"
+          class="input-valid"
+        ></span>
+        <span class="error-msg" *ngIf="password.hasError('minlength') && password.touched">
+          Minimum 8 signs required!
+        </span>
+        <span
+          class="error-msg"
+          *ngIf="password.hasError('required') && registrationForm.submitted"
+        >
+          Password required
+        </span>
+      </div>
 
-            <div class="adsh-form-input__box">
-                <label
-                    for="confirmPassword"
-                    class="adsh-form-label">Confirm Password</label>
-                <input
-                    id="confirmPassword"
-                    class="adsh-form-input"
-                    name="confirmPassword"
-                    type="password"
-                    ngModel
-                    #confirmPassword="ngModel"
-                    required>
-                <span
-                    *ngIf="confirmPassword.value === password.value && password.valid"
-                    class="input-valid"></span>
-                <span *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords don't match!</span>
-            </div>
+      <div class="adsh-form-input__box">
+        <label
+          for="confirmPassword"
+          class="adsh-form-label"
+        >
+          Confirm Password
+        </label>
+        <input
+          id="confirmPassword"
+          class="adsh-form-input"
+          name="confirmPassword"
+          type="password"
+          ngModel
+          #confirmPassword="ngModel"
+          required
+        >
+        <span
+          *ngIf="confirmPassword.value === password.value && password.valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="confirmPassword.value !== password.value && confirmPassword.touched"
+        >
+          Passwords don't match!
+        </span>
+      </div>
 
-            <button
-                type="submit"
-                class="adsh-btn
-                       adsh-btn--wide
-                       adsh-btn--blue
-                       adsh-form-submit-btn">Register</button>
-        </form>
-        <p class="adsh-copy
-                  adsh-copy--small
-                  adsh__registration-consent">
-            By clicking "Register" I agree to Adshares
-            <a
-                class="adsh-blue"
-                href="#">Terms of Service
-            </a>
-            and
-            <a
-                class="adsh-blue"
-                href="#">Privacy Policy.
-            </a>
-        </p>
-    </div>
-    <div>
-        <p class="adsh-copy
-                  adsh-copy--large">Maybe you already have an account?
-            <a
-                class="adsh-blue"
-                routerLink="/auth/login">Log In
-            </a>
-        </p>
-    </div>
+      <button
+        type="submit"
+        class="
+          adsh-btn
+          adsh-btn--wide
+          adsh-btn--blue
+          adsh-form-submit-btn"
+      >
+        Register
+      </button>
+    </form>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--small
+        adsh__registration-consent"
+    >
+      By clicking "Register" I agree to Adshares
+      <a
+        class="adsh-blue"
+        href="#"
+      >
+        Terms of Service
+      </a>
+      and
+      <a
+        class="adsh-blue"
+        href="#"
+      >
+        Privacy Policy.
+      </a>
+    </p>
+  </div>
+  <div>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Maybe you already have an account?
+      <a
+        class="adsh-blue"
+        routerLink="/auth/login"
+      >
+        Log In
+      </a>
+    </p>
+  </div>
 </div>
