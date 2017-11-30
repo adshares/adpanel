@@ -195,6 +195,10 @@
     background-color: pal(gray, x-light);
     border: solid 1px pal(gray, light);
   }
+
+  &--light-border {
+    border: solid 1px pal(gray, light);
+  }
 }
 
 /*
