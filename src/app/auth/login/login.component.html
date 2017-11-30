@@ -53,7 +53,7 @@
           </span>
           <span
             class="error-msg"
-            *ngIf="email.hasError('required') && formSubmited"
+            *ngIf="email.hasError('required') && loginForm.submitted"
           >
             Email required!
           </span>
@@ -87,7 +87,7 @@
           </span>
           <span
             class="error-msg"
-            *ngIf="password.hasError('required') && formSubmited"
+            *ngIf="password.hasError('required') && loginForm.submitted"
           >
             Password required
           </span>
