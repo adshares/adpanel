@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as AuthActions from '../store/auth.actions';
+import * as AuthActions from '../../store/auth/auth.action';
 import { AuthService } from '../auth.service';
-import { UserModel } from '../../auth/store/user.model';
+import { UserModel } from '../../model/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
@@ -27,7 +27,7 @@ export class LoginComponent extends HandleSubscription {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<{auth}>
+    private store: Store<{store}>
   ) {
     super(null);
   }
