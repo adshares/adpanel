@@ -27,6 +27,31 @@
   	height: 5px;
   }
 
+  &.inactive {
+    border: 1px solid pal(gray, light);
+  }
+
+  &.active {
+    background: pal(green, light);
+    border: 1px solid pal(green);
+  }
+
+  &.done {
+    background: pal(green);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      width: 3px;
+      height: 6px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
   &--blue {
     background: pal(blue);
   }
@@ -47,6 +72,12 @@
   &--navigating {
     margin-right: 10px;
   }
+}
+
+.adsh-step-link-indicator {
+  width: 64px;
+  margin: 0 30px;
+  border: 1px dashed pal(gray, light);
 }
 
 .adsh-icon {
