@@ -21,7 +21,7 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
   imports: [
     CommonModule,
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
     MatDialogModule,
     MatSelectModule,
     FormsModule,

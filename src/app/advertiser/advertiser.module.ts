@@ -29,13 +29,13 @@ import { AdvertiserGuard } from './advertiser-guard.service';
   declarations: [
     AdvertiserComponent,
     CampaignListComponent,
-    CampaignListItemComponent
+    CampaignListItemComponent,
     EditCampaignComponent,
     EditCampaignBasicInformationComponent,
     EditCampaignAdditionalTargetingComponent,
     EditCampaignCreateAdsComponent,
     EditCampaignSummaryComponent,
-    EditCampaignNavigationComponent
+    EditCampaignNavigationComponent,
     AdvertiserComponent,
     DashboardComponent
   ]

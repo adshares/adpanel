@@ -16,7 +16,7 @@ const advertiserRoutes: Routes = [
     component: AdvertiserComponent,
     canActivate: [AdvertiserGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent}
+      { path: 'dashboard', component: DashboardComponent},
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
