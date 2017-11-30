@@ -27,8 +27,8 @@
                 <span
                     *ngIf="email.valid"
                     class="input-valid"></span>
-                <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
-                <span *ngIf="email.hasError('required') && registrationForm.submitted">Email required!</span>
+                <span class="error-msg" *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
+                <span class="error-msg" *ngIf="email.hasError('required') && registrationForm.submitted">Email required!</span>
             </div>
 
             <div class="adsh-form-input__box">
@@ -47,10 +47,10 @@
                 <span
                     *ngIf="password.valid"
                     class="input-valid"></span>
-                <span *ngIf="password.hasError('minlength') && password.touched">
+                <span class="error-msg" *ngIf="password.hasError('minlength') && password.touched">
                     Minimum 8 signs required!
                 </span>
-                <span *ngIf="password.hasError('required') && registrationForm.submitted">Password required</span>
+                <span class="error-msg" *ngIf="password.hasError('required') && registrationForm.submitted">Password required</span>
             </div>
 
             <div class="adsh-form-input__box">
@@ -68,7 +68,7 @@
                 <span
                     *ngIf="confirmPassword.value === password.value && password.valid"
                     class="input-valid"></span>
-                <span *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords don't match!</span>
+                <span class="error-msg" *ngIf="confirmPassword.value !== password.value && confirmPassword.touched">Passwords don't match!</span>
             </div>
 
             <button
