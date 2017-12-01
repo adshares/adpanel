@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { UserModel } from '../model/user.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable()
 export class PublisherGuard implements CanActivate {

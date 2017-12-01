@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UserModel } from '../../../model/user.model';
+import { UserModel } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../store/index';
-
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-header',

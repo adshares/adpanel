@@ -1,15 +1,7 @@
-import * as AuthActions from './auth.action';
+import * as AuthAction from './auth.action';
 
-import { UserModel } from '../../model/user.model';
-
-interface AuthState {
-  userData: {
-    email: string;
-    isAdvertiser: boolean;
-    isPublisher: boolean;
-    isAdmin: boolean;
-  }
-}
+import { UserModel } from '../../models/user.model';
+import { AuthState } from '../../models/auth-state.model';
 
 const initialState: AuthState = {
   userData: {
@@ -20,9 +12,9 @@ const initialState: AuthState = {
   }
 };
 
-function authReducers(state = initialState , action: AuthActions.actions ): AuthState {
+export function authReducers(state = initialState , action: AuthAction.actions ): AuthState {
   switch (action.type) {
-    case AuthActions.LOGIN_USER:
+    case AuthAction.LOGIN_USER:
       return {
         ...state,
         userData: action.payload
@@ -30,6 +22,4 @@ function authReducers(state = initialState , action: AuthActions.actions ): Auth
      default:
       return state;
   }
-}
-
-export {authReducers, AuthState};
+};
