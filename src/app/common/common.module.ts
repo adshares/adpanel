@@ -17,6 +17,7 @@ import { FundsSummaryComponent } from './components/funds-summary/funds-summary.
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 
+
 @NgModule({
   imports: [
     CommonModule,

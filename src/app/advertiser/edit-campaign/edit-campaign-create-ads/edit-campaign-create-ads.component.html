@@ -1,27 +1,106 @@
-<a
-  routerLink="../additional-targeting"
-  [queryParams]="{step: 2}"
->
-  <button
+<section class="homepage-view campaign-edit-create-ads">
+  <div
     class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-green"
+      text-center
+      campaign-edit-create-ads--narrow"
   >
-    Back
-  </button>
-</a>
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Create Ads
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
 
-<a
-  routerLink="../summary"
-  [queryParams]="{step: 4}"
->
-  <button
+  <div class="adsh-box">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+      </mat-expansion-panel>
+  </div>
+
+  <div
     class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-blue"
+      adsh-box
+      adsh-box--large"
   >
-    Save & Continue
-  </button>
-</a>
+    <button
+      class="
+        row
+        align-center
+        adsh-btn
+        adsh-btn--large
+        adsh-btn--white
+        adsh-btn--no-border"
+    >
+      <img
+        src="assets/images/plus-circle--blue.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
+      <span
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        Create new Ad
+      </span>
+    </button>
+  </div>
+
+
+  <div
+    class="
+    adsh-box
+    adsh-box--large
+    row
+    justify-between"
+  >
+    <a
+      routerLink="../additional-targeting"
+      [queryParams]="{step: 2}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <a
+      routerLink="../summary"
+      [queryParams]="{step: 4}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        Save & Continue
+      </button>
+    </a>
+
+  </div>
+</section>
+

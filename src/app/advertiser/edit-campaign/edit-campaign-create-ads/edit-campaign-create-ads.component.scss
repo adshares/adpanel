@@ -1,0 +1,13 @@
+.campaign-edit-create-ads {
+  max-width: 800px;
+  margin: 0 auto;
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+  }
+}

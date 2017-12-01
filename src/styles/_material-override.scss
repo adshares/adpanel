@@ -9,3 +9,7 @@
   position: relative;
   padding: 50px 70px 40px !important;
 }
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+}
