@@ -40,7 +40,7 @@
       >
         <mat-option
           [value]="'Advertiser'"
-          routerLink="['/advertiser']"
+          routerLink="['/advertiser/dashboard']"
           *ngIf="!(auth | async).userData.isAdmin"
         >
           Advertiser
@@ -82,24 +82,29 @@
       row
       align-center"
   >
-    <button
-      class="
-        adsh-btn
-        adsh-btn--with-icon
-        adsh-btn--wide
-        adsh-bg-blue
-        adsh-navigation__item
-        row
-        align-center"
+    <a
+      routerLink="/advertiser/create-campaign/basic-information"
+      [queryParams]="{step: 1}"
     >
-      <img
-          class="
-            adsh-icon
-            adsh-icon--prepend"
-          src="assets/images/plus-circle.svg"
+      <button
+        class="
+          adsh-btn
+          adsh-btn--with-icon
+          adsh-btn--wide
+          adsh-bg-blue
+          adsh-navigation__item
+          row
+          align-center"
       >
-        Create new Campaign
-    </button>
+        <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/plus-circle.svg"
+        >
+          Create new Campaign
+      </button>
+    </a>
     <div
       class="
         row
