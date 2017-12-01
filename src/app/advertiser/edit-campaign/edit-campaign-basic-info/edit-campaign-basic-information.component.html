@@ -1,13 +1,251 @@
-<a
-  routerLink="../additional-targeting"
-  [queryParams]="{step: 2}"
->
-  <button
+<section class="homepage-view campaign-edit-basic-information">
+  <div class="text-center">
+    <h1 class="adsh-heading adsh-heading--primary">Basic Information</h1>
+    <p class="adsh-copy adsh-copy--large">Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus. Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+  </div>
+
+
+  <div
     class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-blue"
+      adsh-box
+      adsh-box--large"
   >
-    Save & Continue
-  </button>
-</a>
+    <form class="adsh-form">
+      <div class="adsh-form-input__box">
+        <label
+          for="campaign-name"
+          class="adsh-form-label"
+        >
+          Campaign Name
+        </label>
+        <input
+          id="campaign-name"
+          class="adsh-form-input"
+          type="text"
+          name="campaign-name"
+          ngModel
+          required
+        >
+        <!--<span-->
+          <!--*ngIf="email.valid"-->
+          <!--class="input-valid"></span>-->
+        <!--<span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>-->
+        <!--<span *ngIf="email.hasError('required') && formSubmited">Email required!</span>-->
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for="campaign-target-url"
+          class="adsh-form-label"
+        >
+          Target URL
+        </label>
+        <input
+          id="campaign-target-url"
+          class="adsh-form-input"
+          type="url"
+          name="campaign-target-url"
+          ngModel
+          required
+        >
+        <!--<span-->
+          <!--*ngIf="password.valid"-->
+          <!--class="input-valid"></span>-->
+        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
+                    <!--Minimum 8 signs required!-->
+                <!--</span>-->
+        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for="campaign-bid-strategy"
+          class="adsh-form-label"
+        >
+          Bid Strategy
+        </label>
+        <div class="row">
+          <div class="col-xs-5">
+            <input
+              id="campaign-bid-strategy"
+              class="adsh-form-input"
+              type=""
+              name="campaign-bid-strategy"
+              ngModel
+              required
+            >
+          </div>
+          <div class="col-xs-7">
+            <input
+              id="campaign-bid-value"
+              class="adsh-form-input"
+              type="number"
+              name="campaign-bid-value"
+              ngModel
+              required
+            >
+          </div>
+          <p
+             class="
+               adsh-copy
+               adsh-copy--large
+               adsh-copy--light"
+          >
+            Choose how you’d like to set bids for your ads.
+          </p>
+        </div>
+
+        <!--<span-->
+        <!--*ngIf="password.valid"-->
+        <!--class="input-valid"></span>-->
+        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
+        <!--Minimum 8 signs required!-->
+        <!--</span>-->
+        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for=""
+          class="adsh-form-label"
+        >
+          Budget
+        </label>
+        <div class="row">
+          <div class="col-xs-5">
+            <input
+              id=""
+              class="adsh-form-input"
+              type=""
+              name=""
+              ngModel
+              required
+            >
+          </div>
+          <p
+            class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--light"
+          >
+            Adst / per day
+          </p>
+        </div>
+
+        <!--<span-->
+        <!--*ngIf="password.valid"-->
+        <!--class="input-valid"></span>-->
+        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
+        <!--Minimum 8 signs required!-->
+        <!--</span>-->
+        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+      </div>
+
+      <div class="adsh-form-input__box">
+        <div class="row">
+          <div class="col-xs-5">
+            <label
+              for=""
+              class="adsh-form-label"
+            >
+              Date of Start
+            </label>
+            <input
+              id=""
+              class="adsh-form-input"
+              type=""
+              name=""
+              ngModel
+              required
+            >
+          </div>
+          <div class="col-xs-5">
+            <div
+              class="
+                row
+                align-center
+                justify-between"
+            >
+              <label
+                for=""
+                class="adsh-form-label"
+              >
+                Date of End
+              </label>
+              <span
+                class="
+                adsh-copy
+                adsh-copy--x-small
+                adsh-blue
+                adsh-copy--uppercase
+                adsh-copy--semi"
+              >
+                Optional
+              </span>
+            </div>
+            <input
+              id=""
+              class="adsh-form-input"
+              type=""
+              name=""
+              ngModel
+              required>
+          </div>
+          <p
+            class="
+              adsh-copy
+              adsh-copy--large
+              adsh-copy--light"
+          >
+            Choose how you’d like to set bids for your ads.
+          </p>
+        </div>
+
+        <!--<span-->
+        <!--*ngIf="password.valid"-->
+        <!--class="input-valid"></span>-->
+        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
+        <!--Minimum 8 signs required!-->
+        <!--</span>-->
+        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+      </div>
+    </form>
+  </div>
+
+
+  <div
+    class="
+    adsh-box
+    adsh-box--large
+    row
+    justify-between"
+  >
+    <a
+      routerLink="../../dashboard"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back to Dashboard
+      </button>
+    </a>
+
+    <a
+      routerLink="../additional-targeting"
+      [queryParams]="{step: 2}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        Save & Continue
+      </button>
+    </a>
+
+  </div>
+</section>
+
