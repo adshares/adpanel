@@ -1,13 +1,162 @@
-<a
-  routerLink="../create-ad"
-  [queryParams]="{step: 3}"
+<section
+  class="
+  homepage-view
+  campaign-edit-summary"
 >
-  <button
+  <div
     class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-green"
+      text-center
+      campaign-edit-summary--narrow"
   >
-    Back
-  </button>
-</a>
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Summary
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3 class="adsh-heading adsh-heading--secondary">
+        1. Basic Information
+      </h3>
+      <a
+        routerLink="../basic-information"
+        [queryParams]="{step: 1, summary: true}"
+      >
+        <button
+          class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+        >
+          Back
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3 class="adsh-heading adsh-heading--secondary">
+        2. Additional Targeting
+      </h3>
+      <a
+        routerLink="../additional-targeting"
+        [queryParams]="{step: 2, summary: true}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Back
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3 class="adsh-heading adsh-heading--secondary">
+        3. Ads
+      </h3>
+      <a
+        routerLink="../create-ad"
+        [queryParams]="{step: 3, summary: true}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Back
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div
+    class="
+    adsh-box
+    adsh-box--large
+    row
+    justify-between"
+  >
+    <a
+      routerLink="../create-ad"
+      [queryParams]="{step: 3}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          Start Campaign
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
+

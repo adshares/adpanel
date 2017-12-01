@@ -247,8 +247,8 @@
     </a>
 
     <a
-      routerLink="../additional-targeting"
-      [queryParams]="{step: 2}"
+      [routerLink]="goesToSummary ? '../summary' : '../additional-targeting'"
+      [queryParams]="goesToSummary ? {step: 4} : {step: 2}"
     >
       <button
         class="
