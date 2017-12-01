@@ -84,18 +84,28 @@
 }
 
 .adsh-select {
+  position: relative;
+  width: auto;
   cursor: pointer;
   border-radius: 2px;
   color: pal(navy);
   @include font(14, semi);
   background: pal(white);
   margin: 0 auto;
-  padding: 0 60px 0 40px;
+  padding: 0 0 0 15px;
   height: 42px;
-  border: 0;
+  border: 1px solid pal(gray, x-light);
   /* needed */
   appearance: none;
   outline: none;
+
+  &:after {
+    position: absolute;
+    content: url('/assets/images/chevron.svg');
+    display: block;
+    @include center(vertical);
+    right: 15px;
+  }
 
   .mat-select-trigger {
     height: 100%;

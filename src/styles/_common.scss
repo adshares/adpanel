@@ -180,7 +180,7 @@
   }
 
   &--short-right {
-    padding-right: 20px 70px 20px 20px;
+    padding-right: 20px;
   }
 
   &--light-green {
@@ -198,6 +198,18 @@
 
   &--light-border {
     border: solid 1px pal(gray, light);
+  }
+
+  &--bordered {
+    border-width: 1px;
+  }
+
+  &--blue-border {
+    border-color: pal(blue);
+  }
+
+  &--dashed {
+    border-style: dashed;
   }
 }
 

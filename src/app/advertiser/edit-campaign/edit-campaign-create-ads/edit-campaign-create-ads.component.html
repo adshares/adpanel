@@ -18,21 +18,138 @@
     >
       Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
       Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      {{panelOpenState}}
+
     </p>
   </div>
 
   <div class="adsh-box">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+    <mat-expansion-panel
+      (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Number.
+        </mat-panel-title>
+        <mat-panel-description>
+          <h3 *ngIf="!panelOpenState">Title</h3>
+          <hr>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-      </mat-expansion-panel>
+      <div class="row">
+        <div class="col-xs-5">
+          <div class="adsh-form-input__box">
+            <label
+              for=""
+              class="adsh-form-label"
+            >
+              Short Headline
+            </label>
+            <input
+              id=""
+              class="adsh-form-input"
+              type=""
+              name=""
+              ngModel
+              required
+            >
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="adsh-form-input__box">
+            <label
+              for=""
+              class="adsh-form-label"
+            >
+              Ad Type
+            </label>
+            <mat-select class="adsh-select">
+              <mat-option
+                [value]="'Size1'"
+              >
+                Size1
+              </mat-option>
+              <mat-option
+                [value]="'Size2'"
+              >
+                Size2
+              </mat-option>
+              <mat-option
+                [value]="'Size3'"
+              >
+                Size3
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="adsh-form-input__box">
+            <label
+              for=""
+              class="adsh-form-label"
+            >
+              Size
+            </label>
+            <mat-select class="adsh-select">
+              <mat-option
+                [value]="'Size1'"
+              >
+                Size1
+              </mat-option>
+              <mat-option
+                [value]="'Size2'"
+              >
+                Size2
+              </mat-option>
+              <mat-option
+                [value]="'Size3'"
+              >
+                Size3
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="
+          row
+          align-center
+          justify-center
+          adsh-box
+          adsh-box--large
+          adsh-box--bordered
+          adsh-box--dashed
+          adsh-box--blue-border
+          drag-and-drop-box"
+      >
+        <img
+          src="/assets/images/ad-illustration.svg"
+          alt="Ad illustration"
+        >
+        <div>
+          <p
+            class="
+          adsh-copy
+          adsh-copy--semi
+          adsh-copy--dark"
+          >
+            Drag & Drop or
+            <a class="adsh-blue">
+              Browse
+            </a>
+          </p>
+          <p
+            class="
+          adsh-copy
+          adsh-copy--large"
+          >
+            We support JPG and PNG files. Make sure that your files is no more than 500 kb.
+          </p>
+        </div>
+      </div>
+    </mat-expansion-panel>
   </div>
 
   <div
@@ -88,19 +205,30 @@
       </button>
     </a>
 
-    <a
-      routerLink="../summary"
-      [queryParams]="{step: 4}"
-    >
-      <button
-        class="
-          adsh-btn
-          adsh-btn--blue"
+    <div>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a
+        routerLink="../summary"
+        [queryParams]="{step: 4}"
       >
-        Save & Continue
-      </button>
-    </a>
-
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          Save & Continue
+        </button>
+      </a>
+    </div>
   </div>
 </section>
 
