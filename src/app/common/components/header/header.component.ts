@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UserModel } from '../../../auth/store/user.model';
+import { UserModel } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
+import { AppState } from '../../../store/index';
 
 @Component({
   selector: 'app-header',
@@ -14,20 +15,20 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceUSD: number = 1240.02;
   notificationsCount: number = 8;
   selectedRole: string = 'Admin';
-  auth: Store<{userData}>;
+  state: Store<AppState>;
 
   notificationsBarEnabled: boolean = false;
 
-  constructor(private store: Store<{auth}>) {
+  constructor(private store: Store<{state}>) {
     super(null);
 
-    this.auth = this.store.select('auth');
+    this.state = this.store.select('state');
   }
 
   ngOnInit() {
-    const getUserSubscription = this.auth
-      .subscribe((authStore) => {
-        const userData = authStore.userData;
+    const getUserSubscription = this.state
+      .subscribe((state) => {
+        const userData = state.auth.userData;
 
         this.checkUserRole(userData);
       });
