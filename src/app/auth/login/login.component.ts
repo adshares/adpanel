@@ -5,13 +5,14 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as AuthActions from '../store/auth.actions';
+import * as AuthAction from '../../store/auth/auth.action';
 import { AuthService } from '../auth.service';
-import { UserModel } from '../../auth/store/user.model';
+import { UserModel } from '../../models/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from '../../common/handle-subscription';
+import { AppState } from '../../models/app-state.model';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent extends HandleSubscription {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<{auth}>
+    private store: Store<AppState>
   ) {
     super(null);
   }
@@ -42,7 +43,7 @@ export class LoginComponent extends HandleSubscription {
       this.loginForm.value.password
      )
       .subscribe((userResponse: UserModel) => {
-        this.store.dispatch(new AuthActions.LoginUser(userResponse));
+        this.store.dispatch(new AuthAction.LoginUser(userResponse));
 
         this.showStartupPopups(userResponse);
 

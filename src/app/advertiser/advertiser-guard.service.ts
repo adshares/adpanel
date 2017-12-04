@@ -1,27 +1,25 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { UserModel } from '../auth/store/user.model';
+import { UserModel } from '../models/user.model';
+import { AppState } from '../models/app-state.model';
 
 @Injectable()
 export class AdvertiserGuard implements CanActivate {
 
-  constructor(private router: Router, private store: Store<{auth}>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('auth')
+    return this.store.select('state', 'auth', 'userData')
       .take(1)
-      .map((authStore) => {
-        const user: UserModel = authStore.userData
-
-        if (user.isAdvertiser) {
+      .map((userData: UserModel) => {
+        if (userData.isAdvertiser) {
           return true;
         } else {
           // todo change link to one that will tell user to update profile roles
