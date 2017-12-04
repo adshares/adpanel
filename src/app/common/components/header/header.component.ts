@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { UserModel } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
+import { AppState } from '../../../models/app-state.model';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   notificationsBarEnabled: boolean = false;
 
-  constructor(private store: Store<{state}>) {
+  constructor(private store: Store<AppState>) {
     super(null);
 
     this.userDataState = this.store.select('state', 'auth', 'userData');

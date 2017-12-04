@@ -6,11 +6,12 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
 import { UserModel } from '../models/user.model';
+import { AppState } from '../models/app-state.model';
 
 @Injectable()
 export class AdvertiserGuard implements CanActivate {
 
-  constructor(private router: Router, private store: Store<{state}>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
