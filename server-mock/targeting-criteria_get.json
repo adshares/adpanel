@@ -1,0 +1,54 @@
+{"criteria": [
+    {
+        "label": "Language",
+        "key": "lang",
+        "values": [
+            {"label": "Polish", "value": "pl"},
+            {"label": "English", "value": "en"}
+        ],
+        "value_type": "string",
+        "allow_input": false
+    },
+    {
+        "label": "Site",
+        "key":"site",
+        "children": [
+            {
+                "label": "Site domain",
+                "key": "host",
+                "values": [
+                    {"label": "google.pl", "value": "google.pl"},
+                    {"label": "onet.pl", "": "onet.pl"}
+                ],
+                "value_type": "string",
+                "allow_input": true
+            }
+        ]
+    },
+    {
+        "label": "Screen",
+        "key":"screen",
+        "children": [
+            {
+                "label": "Width",
+                "key": "width",
+                "values": [
+                    {"label": "1200 or more", "value": "<1200,>"},
+                    {"label": "between 1200 and 1800", "value": "<1200,1800>"}
+                ],
+                "value_type": "number",
+                "allow_input": true
+            }
+        ]
+    },
+   {
+        "label": "Javascript support",
+        "key": "js_enabled",
+        "value_type": "boolean",
+        "values": [
+            {"label": "Yes", "value": "true"},
+            {"label": "No", "value": "false"}
+        ],
+        "allow_input": false
+    }
+]}

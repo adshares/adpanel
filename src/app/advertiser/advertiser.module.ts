@@ -15,16 +15,21 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
+
 import { AdvertiserGuard } from './advertiser-guard.service';
 
 @NgModule({
   imports: [
     CommonModule,
     AppCommonModule,
-    AdvertiserRoutingModule
+    AdvertiserRoutingModule,
+    MatExpansionModule,
+    MatMenuModule
   ],
   providers: [
-    AdvertiserGuard
+    AdvertiserGuard,
   ],
   declarations: [
     AdvertiserComponent,

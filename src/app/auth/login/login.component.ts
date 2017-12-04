@@ -47,7 +47,7 @@ export class LoginComponent extends HandleSubscription {
         this.showStartupPopups(userResponse);
 
         if (userResponse.isAdvertiser) {
-          this.router.navigate(['/advertiser']);
+          this.router.navigate(['/advertiser/dashboard']);
         } else {
           this.router.navigate(['/publisher']);
         }

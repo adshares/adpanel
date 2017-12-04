@@ -1,3 +1,26 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      1. Requires
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <p>
+    In this window, you can select the keywords that will help you choose the ads that are related to your site and meet your requirements.
+  </p>
+
+  <mat-menu #targetingOptionMenu="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let option of aditionalTargetingOptions">{{ option.label }}</button>
+  </mat-menu>
+
+  <button mat-icon-button [matMenuTriggerFor]="targetingOptionMenu">
+    Menu
+  </button>
+
+</mat-expansion-panel>
+
 <a
   routerLink="../basic-information"
   [queryParams]="{step: 1}"

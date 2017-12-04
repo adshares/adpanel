@@ -9,6 +9,7 @@ import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-cr
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { TargetingCriteriaResolver } from '../common/resolvers/targeting-criteria.resolver';
 
 const advertiserRoutes: Routes = [
   {
@@ -16,13 +17,18 @@ const advertiserRoutes: Routes = [
     component: AdvertiserComponent,
     canActivate: [AdvertiserGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent},
+      { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
+      { path: 'dashboard', component: DashboardComponent },
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
         children: [
           { path: 'basic-information', component: EditCampaignBasicInformationComponent },
-          { path: 'additional-targeting', component: EditCampaignAdditionalTargetingComponent },
+          {
+            path: 'additional-targeting',
+            component: EditCampaignAdditionalTargetingComponent,
+            resolve: { targetingOptions: TargetingCriteriaResolver }
+          },
           { path: 'create-ad', component: EditCampaignCreateAdsComponent },
           { path: 'summary', component: EditCampaignSummaryComponent }
         ]
