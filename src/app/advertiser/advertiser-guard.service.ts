@@ -15,12 +15,10 @@ export class AdvertiserGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state')
+    return this.store.select('state', 'auth', 'userData')
       .take(1)
-      .map((state) => {
-        const user: UserModel = state.auth.userData
-
-        if (user.isAdvertiser) {
+      .map((userData: UserModel) => {
+        if (userData.isAdvertiser) {
           return true;
         } else {
           // todo change link to one that will tell user to update profile roles

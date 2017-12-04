@@ -15,12 +15,10 @@ export class PublisherGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state')
+    return this.store.select('state', 'auth', 'userData')
       .take(1)
-      .map((state) => {
-        const user: UserModel = state.auth.userData;
-
-        if (user.isPublisher) {
+      .map((userData: UserModel) => {
+        if (userData.isPublisher) {
           return true;
         } else {
           // todo change link to one that will tell user to update profile roles
