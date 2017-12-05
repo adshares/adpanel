@@ -13,8 +13,8 @@
 </a>
 
 <a
-  routerLink="../create-ad"
-  [queryParams]="{step: 3}"
+  [routerLink]="goesToSummary ? '../summary' : '../create-ad'"
+  [queryParams]="goesToSummary ? {step: 4} : {step: 3}"
 >
   <button
     class="
