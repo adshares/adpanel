@@ -1,6 +1,6 @@
-// import { Campaign } from '../../models/campaign.model';
+import { Campaign } from '../../models/campaign.model';
 
-const initialState: {[key: string]} = {
+const initialState = {
   campaigns: [
     {
       id: 377892908378478,
@@ -122,9 +122,9 @@ const initialState: {[key: string]} = {
         },
       ]
     },
-  ];
+  ]
 };
 
-export function campaignReducers(state = initialState , action: AuthActions.AuthActions ) {
+export function campaignReducers(state = initialState) {
   return state;
 }

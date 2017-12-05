@@ -14,7 +14,7 @@ export class CampaignListComponent {
 
   constructor(private store: Store) {
     this.subscription = store
-      .select('appStore', 'campaigns')
+      .select('state', 'advertiser', 'campaigns')
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });

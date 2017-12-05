@@ -21,7 +21,7 @@ export class CampaignDetailsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.subscription = store
-      .select('appStore', 'campaigns')
+      .select('state', 'advertiser', 'campaigns')
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });

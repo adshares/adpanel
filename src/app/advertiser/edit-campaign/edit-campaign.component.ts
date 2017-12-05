@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { fadeAnimation } from "../../common/animations/fade.animation";
+import { Component } from '@angular/core';
+import { fadeAnimation } from '../../common/animations/fade.animation';
 
 @Component({
   selector: 'app-edit-campaign',
@@ -7,7 +7,7 @@ import { fadeAnimation } from "../../common/animations/fade.animation";
   styleUrls: ['./edit-campaign.component.scss'],
   animations: [fadeAnimation],
 })
-export class EditCampaignComponent implements OnInit {
+export class EditCampaignComponent {
 
   constructor() { }
 

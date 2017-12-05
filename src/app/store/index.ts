@@ -2,10 +2,20 @@ import { combineReducers, ActionReducer } from '@ngrx/store/';
 
 import { authReducers } from './auth/auth.reducer';
 import { AuthState } from '../models/auth-state.model';
+import { CampaignState } from '../models/campaign-state.model';
 import { AppState } from '../models/app-state.model';
 
-export interface reducersState {
-  auth: AuthState;
+import { campaignReducers } from './campaign/campaign.reducer';
+
+export interface ReducersState {
+  auth: AuthState,
+  advertiser: any
 };
 
-export const reducers: ActionReducer<reducersState> = combineReducers({auth: authReducers});
+export const reducers: ActionReducer<ReducersState> =
+  combineReducers(
+    {
+      auth: authReducers,
+      advertiser: campaignReducers
+    }
+  );
