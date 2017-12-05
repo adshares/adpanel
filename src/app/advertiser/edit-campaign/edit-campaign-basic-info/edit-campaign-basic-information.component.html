@@ -1,4 +1,8 @@
-<section class="homepage-view campaign-edit-basic-information">
+<section
+  class="
+    homepage-view
+    campaign-edit-basic-information"
+>
   <div class="text-center">
     <h1
       class="
@@ -18,83 +22,105 @@
   </div>
 
 
-  <div
-    class="
-      adsh-box
-      adsh-box--large"
+  <form
+    #editCampaignBasicInformationForm="ngForm"
+    (ngSubmit)="saveBasicInformation()"
+    class="adsh-form"
   >
-    <form class="adsh-form">
+    <div
+      class="
+        adsh-box
+        adsh-box--large"
+    >
       <div class="adsh-form-input__box">
         <label
-          for="campaign-name"
+          for="campaignName"
           class="adsh-form-label"
         >
           Campaign Name
         </label>
         <input
-          id="campaign-name"
-          class="adsh-form-input"
-          type="text"
-          name="campaign-name"
+          id="campaignName"
+          class="adsh-form-input adsh-form-input--full"
+          name="campaignName"
           ngModel
+          minlength="3"
+          #campaignName="ngModel"
           required
         >
-        <!--<span-->
-          <!--*ngIf="email.valid"-->
-          <!--class="input-valid"></span>-->
-        <!--<span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>-->
-        <!--<span *ngIf="email.hasError('required') && formSubmited">Email required!</span>-->
+        <span
+          *ngIf="campaignName.valid"
+          class="input-valid"
+        ></span>
+        <span class="error-msg" *ngIf="campaignName.hasError('required') && formSubmited">Campaign name required!</span>
       </div>
 
       <div class="adsh-form-input__box">
         <label
-          for="campaign-target-url"
+          for="campaignTargetURL"
           class="adsh-form-label"
         >
           Target URL
         </label>
         <input
-          id="campaign-target-url"
-          class="adsh-form-input"
+          id="campaignTargetURL"
+          class="adsh-form-input adsh-form-input--full"
           type="url"
-          name="campaign-target-url"
+          name="campaignTargetURL"
           ngModel
+          #campaignTargetURL="ngModel"
           required
         >
-        <!--<span-->
-          <!--*ngIf="password.valid"-->
-          <!--class="input-valid"></span>-->
-        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
-                    <!--Minimum 8 signs required!-->
-                <!--</span>-->
-        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+        <span
+          *ngIf="campaignTargetURL.valid"
+          class="input-valid"></span>
+        <span class="error-msg" *ngIf="campaignTargetURL.hasError('required') && formSubmited">Password required</span>
       </div>
 
       <div class="adsh-form-input__box">
-        <label
-          for="campaign-bid-strategy"
-          class="adsh-form-label"
-        >
-          Bid Strategy
-        </label>
         <div class="row">
-          <div class="col-xs-5">
-            <input
-              id="campaign-bid-strategy"
-              class="adsh-form-input"
-              type=""
-              name="campaign-bid-strategy"
+          <div class="col col-xs-5">
+            <label
+              for="campaignBidStrategy"
+              class="adsh-form-label"
+            >
+              Bid Strategy
+            </label>
+            <mat-select
+              class="adsh-select"
+              id="campaignBidStrategy"
+              name="campaignBidStrategy"
               ngModel
+              #campaignBidStrategy="ngModel"
               required
             >
+              <mat-option
+                value="CPC"
+              >
+                CPC
+              </mat-option>
+              <mat-option
+                value="CPM"
+              >
+                CPM
+              </mat-option>
+            </mat-select>
           </div>
-          <div class="col-xs-7">
+          <div class="col col-xs-7">
+            <label
+              for="campaignBidValue"
+              class="adsh-form-label"
+            >
+              Bid Value
+            </label>
             <input
-              id="campaign-bid-value"
+              id="campaignBidValue"
               class="adsh-form-input"
               type="number"
-              name="campaign-bid-value"
+              min="0"
+              name="campaignBidValue"
               ngModel
+              #campaignBidValue="ngModel"
               required
             >
           </div>
@@ -108,18 +134,18 @@
           </p>
         </div>
 
-        <!--<span-->
-        <!--*ngIf="password.valid"-->
-        <!--class="input-valid"></span>-->
-        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
-        <!--Minimum 8 signs required!-->
-        <!--</span>-->
-        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+        <span
+          *ngIf="campaignBidValue.valid"
+          class="input-valid"
+        ></span>
+        <span class="error-msg" *ngIf="campaignBidValue.hasError('required') && formSubmited">
+          Bid value required
+        </span>
       </div>
 
       <div class="adsh-form-input__box">
         <label
-          for=""
+          for="campaignBudget"
           class="adsh-form-label"
         >
           Budget
@@ -127,11 +153,13 @@
         <div class="row">
           <div class="col-xs-5">
             <input
-              id=""
+              id="campaignBudget"
               class="adsh-form-input"
-              type=""
-              name=""
+              type="number"
+              min="0"
+              name="campaignBudget"
               ngModel
+              #campaignBudget="ngModel"
               required
             >
           </div>
@@ -145,34 +173,31 @@
           </p>
         </div>
 
-        <!--<span-->
-        <!--*ngIf="password.valid"-->
-        <!--class="input-valid"></span>-->
-        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
-        <!--Minimum 8 signs required!-->
-        <!--</span>-->
-        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
+        <span
+          *ngIf="campaignBudget.valid"
+          class="input-valid"
+        ></span>
+        <span class="error-msg" *ngIf="campaignBudget.hasError('required') && formSubmitted">
+          Budget required
+        </span>
       </div>
 
       <div class="adsh-form-input__box">
         <div class="row">
-          <div class="col-xs-5">
+          <div class="col col-xs-5">
             <label
               for=""
               class="adsh-form-label"
             >
               Date of Start
             </label>
-            <input
-              id=""
-              class="adsh-form-input"
-              type=""
-              name=""
-              ngModel
-              required
-            >
+            <mat-form-field class="adsh-form-input adsh-form-input--datepicker">
+              <input (click)="dateStartPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateStartPicker" [formControl]="dateStart">
+              <mat-datepicker-toggle matSuffix [for]="dateStartPicker"></mat-datepicker-toggle>
+              <mat-datepicker #dateStartPicker></mat-datepicker>
+            </mat-form-field>
           </div>
-          <div class="col-xs-5">
+          <div class="col col-xs-5">
             <div
               class="
                 row
@@ -180,29 +205,26 @@
                 justify-between"
             >
               <label
-                for=""
                 class="adsh-form-label"
               >
                 Date of End
               </label>
               <span
                 class="
-                adsh-copy
-                adsh-copy--x-small
-                adsh-blue
-                adsh-copy--uppercase
-                adsh-copy--semi"
+                  adsh-copy
+                  adsh-copy--x-small
+                  adsh-blue
+                  adsh-copy--uppercase
+                  adsh-copy--semi"
               >
                 Optional
               </span>
             </div>
-            <input
-              id=""
-              class="adsh-form-input"
-              type=""
-              name=""
-              ngModel
-              required>
+            <mat-form-field class="adsh-form-input adsh-form-input--datepicker">
+              <input (click)="dateEndPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateEndPicker" [formControl]="dateEnd">
+              <mat-datepicker-toggle matSuffix [for]="dateEndPicker"></mat-datepicker-toggle>
+              <mat-datepicker #dateEndPicker></mat-datepicker>
+            </mat-form-field>
           </div>
           <p
             class="
@@ -213,52 +235,38 @@
             Choose how you’d like to set bids for your ads.
           </p>
         </div>
-
-        <!--<span-->
-        <!--*ngIf="password.valid"-->
-        <!--class="input-valid"></span>-->
-        <!--<span *ngIf="password.hasError('minlength') && password.touched">-->
-        <!--Minimum 8 signs required!-->
-        <!--</span>-->
-        <!--<span *ngIf="password.hasError('required') && formSubmited">Password required</span>-->
       </div>
-    </form>
-  </div>
+    </div>
 
-
-  <div
-    class="
-    adsh-box
-    adsh-box--large
-    row
-    justify-between"
-  >
-    <a
-      routerLink="../../dashboard"
+    <div
+      class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
     >
-      <button
-        class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+      <a
+        routerLink="../../dashboard"
       >
-        Back to Dashboard
-      </button>
-    </a>
-
-    <a
-      [routerLink]="goesToSummary ? '../summary' : '../additional-targeting'"
-      [queryParams]="goesToSummary ? {step: 4} : {step: 2}"
-    >
-      <button
-        class="
-          adsh-btn
-          adsh-btn--blue"
-      >
-        Save & Continue
-      </button>
-    </a>
-
-  </div>
+        <button
+          type="button"
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Back to Dashboard
+        </button>
+      </a>
+        <button
+          type="submit"
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          Save & Continue
+        </button>
+    </div>
+  </form>
 </section>
 

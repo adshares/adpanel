@@ -41,6 +41,14 @@
     padding: 13px 13px 13px 18px;
     max-width: 320px;
     @include font(13, medium);
+
+    &--full {
+      max-width: none;
+    }
+
+    &--datepicker {
+      max-width: 140px;
+    }
   }
 
   &-submit-btn {

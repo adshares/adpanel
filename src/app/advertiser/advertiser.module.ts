@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppCommonModule } from '../common/common.module';
 
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatInputModule } from '@angular/material';
 
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
@@ -32,7 +38,13 @@ const editCampaignComponents = [
   imports: [
     CommonModule,
     AppCommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatMomentDateModule,
+    MatDatepickerModule,
     AdvertiserRoutingModule
   ],
   providers: [
