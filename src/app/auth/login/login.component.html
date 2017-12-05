@@ -1,96 +1,161 @@
-<div class="col
+<div
+  class="
+    col
+    justify-between
+    adsh-login-wrapper"
+>
+  <div>
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Hello!
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        Please log in to your account.
+      </p>
+      <form
+        #loginForm="ngForm"
+        (ngSubmit)="login()"
+        class="adsh-form"
+      >
+        <div class="adsh-form-input__box">
+          <label
+            for="email"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="email"
+            class="adsh-form-input"
+            type="email"
+            name="email"
+            ngModel
+            [email]="true"
+            #email="ngModel"
+            required
+          >
+          <span
+            *ngIf="email.valid"
+            class="input-valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="email.hasError('email') && email.touched"
+          >
+            Invalid email!
+          </span>
+          <span
+            class="error-msg"
+            *ngIf="email.hasError('required') && loginForm.submitted"
+          >
+            Email required!
+          </span>
+        </div>
+
+        <div class="adsh-form-input__box">
+          <label
+              for="password"
+              class="adsh-form-label"
+          >
+            Password
+          </label>
+          <input
+              id="password"
+              class="adsh-form-input"
+              type="password"
+              name="password"
+              ngModel
+              minlength="8"
+              #password="ngModel"
+              required
+          >
+          <span
+              *ngIf="password.valid"
+              class="input-valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="password.hasError('minlength') && password.touched">
+              Minimum 8 signs required!
+          </span>
+          <span
+            class="error-msg"
+            *ngIf="password.hasError('required') && loginForm.submitted"
+          >
+            Password required
+          </span>
+        </div>
+
+        <div
+          class="
+            row
+            align-center
             justify-between
-            adsh-login-wrapper">
-    <div>
-        <h2 class="adsh-heading
-                   adsh-heading--primary">Hello!</h2>
-        <p class="adsh-copy
-                  adsh-copy--large">Please log in to your account.</p>
-        <form
-            #loginForm="ngForm"
-            (ngSubmit)="login()"
-            class="adsh-form">
-            <div class="adsh-form-input__box">
-                <label
-                    for="email"
-                    class="adsh-form-label">Email Address</label>
-                <input
-                    id="email"
-                    class="adsh-form-input"
-                    type="email"
-                    name="email"
-                    ngModel
-                    [email]="true"
-                    #email="ngModel"
-                    required>
-                <span
-                    *ngIf="email.valid"
-                    class="input-valid"></span>
-                <span *ngIf="email.hasError('email') && email.touched">Invalid email!</span>
-                <span *ngIf="email.hasError('required') && formSubmited">Email required!</span>
-            </div>
+            adsh-login__remember"
+        >
+          <div
+            class="
+              row
+              align-center"
+          >
+            <input
+              #rememberUser
+              id="remember-user"
+              type="checkbox"
+            >
+            <label
+              for="remember-user"
+              class="checkbox-label"
+            ></label>
+            <span
+              class="
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--x-dark"
+            >
+              Remember me
+            </span>
+          </div>
 
-            <div class="adsh-form-input__box">
-                <label
-                    for="password"
-                    class="adsh-form-label">Password</label>
-                <input
-                    id="password"
-                    class="adsh-form-input"
-                    type="password"
-                    name="password"
-                    ngModel
-                    minlength="8"
-                    #password="ngModel"
-                    required>
-                <span
-                    *ngIf="password.valid"
-                    class="input-valid"></span>
-                <span *ngIf="password.hasError('minlength') && password.touched">
-                    Minimum 8 signs required!
-                </span>
-                <span *ngIf="password.hasError('required') && formSubmited">Password required</span>
-            </div>
+          <a
+            class="adsh-copy
+                   adsh-copy--large"
+            routerLink="/auth/remind-password"
+          >
+            Forgot Password?
+          </a>
+        </div>
 
-            <div class="row
-                        align-center
-                        justify-between
-                        adsh-login__remember">
-                <div class="row
-                            align-center">
-                    <input
-                        #rememberUser
-                        id="remember-user"
-                        type="checkbox">
-                    <label
-                        for="remember-user"
-                        class="checkbox-label"></label>
-                    <span class="adsh-copy
-                                 adsh-copy--large
-                                 adsh-copy--x-dark">Remember me</span>
-                </div>
+        <button
+          type="submit"
+          class="
+            adsh-btn
+            adsh-btn--wide
+            adsh-btn--blue
+            adsh-form-submit-btn"
+        >
+          Log In
+        </button>
+      </form>
+  </div>
 
-                <a
-                    class="adsh-copy
-                           adsh-copy--large"
-                    routerLink="/auth/remind-password">Forgot Password?</a>
-            </div>
-
-            <button
-                type="submit"
-                class="adsh-btn
-                       adsh-btn--wide
-                       adsh-btn--blue
-                       adsh-form-submit-btn">Log In</button>
-        </form>
-    </div>
-
-    <p class="adsh-copy
-              adsh-copy--large">Don't have an account?
-        <a
-            class="adsh-blue"
-            routerLink="/auth/register">
-            Register
-        </a>
-    </p>
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large"
+  >
+    Don't have an account?
+    <a
+      class="adsh-blue"
+      routerLink="/auth/register">
+      Register
+    </a>
+  </p>
 </div>

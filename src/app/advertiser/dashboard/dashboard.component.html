@@ -1,87 +1,116 @@
+<app-confirmation-alert></app-confirmation-alert>
 <section
   class="
     adsh-advertiser-wrapper
-    dashboard-view">
-    <div class="container">
-        <div class="
-            row
-            justify-between">
-            <div class="col-xs-4">
-                <h1 class="
-                    adsh-heading
-                    adsh-heading--primary">My Campaigns</h1>
-                <p class="
-                    adsh-copy
-                    adsh-copy--large">Etiam pretium dapibus congue. Praesent a lorem erat.</p>
-            </div>
-            <div class="col-xs-8">
-                <app-chart-filter *ngIf="!campaigns"></app-chart-filter>
-            </div>
-        </div>
-
-        <div *ngIf="!campaigns">
-            <!--mock chart-->
-            <div class="
-                adsh-box
-                adsh-box--large">
-                <img
-                    src="/assets/images/placeholder.png"
-                    style="max-width: 100%">
-            </div>
-
-            <app-campaign-list></app-campaign-list>
-        </div>
-
-        <div *ngIf="campaigns">
-            <div class="
-                adsh-box
-                adsh-box--large
-                col
-                align-center
-                justify-center
-                text-center
-                create-new-campaign-wrapper">
-                <img
-                    src="/assets/images/campaign.svg"
-                    alt="Advertiser Account Illustration">
-                <div class="adsh-customize__box-description">
-                    <h2 class="
-                        adsh-heading
-                        adsh-heading--primary">Create your First Campaign</h2>
-
-                    <p class="
-                        adsh-copy
-                        adsh-copy--large">
-                        Etiam pretium dapibus congue.
-                        Praesent a lorem erat.
-                        Morbi mollis posuere lacus, vel semper risus.
-                    </p>
-                </div>
-                <a
-                  routerLink="/advertiser/create-campaign/basic-information"
-                  [queryParams]="{step: 1}"
-                >
-                  <button class="
-                    row
-                    align-center
-                    adsh-btn
-                    adsh-btn--large
-                    adsh-btn--white
-                    adsh-btn--no-border">
-                    <img
-                      src="assets/images/plus-circle--blue.svg"
-                      alt="Add new icon"
-                      class="
-                            adsh-icon
-                            adsh-icon--prepend">
-                    <span class="
-                        adsh-heading
-                        adsh-heading--secondary">Create now</span>
-                  </button>
-                </a>
-            </div>
-        </div>
-
-        <app-funds-summary></app-funds-summary>
+    dashboard-view"
+>
+  <div class="container">
+    <div
+      class="
+        row
+        justify-between"
+    >
+      <div class="col-xs-4">
+        <h1
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          My Campaigns
+        </h1>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large"
+        >
+          Etiam pretium dapibus congue. Praesent a lorem erat.
+        </p>
+      </div>
+      <div class="col-xs-8">
+        <app-chart-filter *ngIf="!campaigns"></app-chart-filter>
+      </div>
     </div>
+
+    <div *ngIf="!campaigns">
+        <!--mock chart-->
+      <div
+        class="
+          adsh-box
+          adsh-box--large"
+      >
+        <img
+          src="/assets/images/placeholder.png"
+          style="max-width: 100%">
+      </div>
+
+      <app-campaign-list></app-campaign-list>
+    </div>
+
+    <div *ngIf="campaigns">
+      <div
+        class="
+          adsh-box
+          adsh-box--large
+          col
+          align-center
+          justify-center
+          text-center
+          adsh-advertiser-create-new-campaign-wrapper"
+      >
+        <img
+          src="/assets/images/campaign.svg"
+          alt="Advertiser Account Illustration">
+        <div class="adsh-customize__box-description">
+          <h2
+            class="
+              adsh-heading
+              adsh-heading--primary"
+          >
+            Create your First Campaign
+          </h2>
+
+          <p
+            class="
+              adsh-copy
+              adsh-copy--large"
+          >
+            Etiam pretium dapibus congue.
+            Praesent a lorem erat.
+            Morbi mollis posuere lacus, vel semper risus.
+          </p>
+        </div>
+        <a
+          routerLink="/advertiser/create-campaign/basic-information"
+          [queryParams]="{step: 1}"
+        >
+          <button
+            class="
+              row
+              align-center
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--white
+              adsh-btn--no-border"
+          >
+            <img
+              src="assets/images/plus-circle--blue.svg"
+              alt="Add new icon"
+              class="
+                adsh-icon
+                adsh-icon--prepend"
+            >
+            <span
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              Create now
+            </span>
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <app-funds-summary></app-funds-summary>
+  </div>
 </section>

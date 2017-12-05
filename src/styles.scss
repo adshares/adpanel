@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 @import 'styles/mixins';
 @import 'styles/colors';
 
@@ -5,6 +7,7 @@
 @import 'styles/dashboard';
 @import 'styles/forms';
 @import 'styles/flexbox';
+@import 'styles/material-override';
 @import 'styles/normalize';
 @import 'styles/typography';
 @import 'styles/z-index';

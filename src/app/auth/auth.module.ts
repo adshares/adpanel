@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 
+
 @NgModule({
   imports: [
     CommonModule,

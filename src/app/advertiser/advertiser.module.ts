@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { AppCommonModule } from '../common/common.module';
 
 import { AdvertiserComponent } from './advertiser.component';
@@ -17,22 +18,27 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
+import { AdvertiserGuard } from './advertiser-guard.service';
+
 @NgModule({
   imports: [
     CommonModule,
     AppCommonModule,
     AdvertiserRoutingModule
   ],
+  providers: [
+    AdvertiserGuard
+  ],
   declarations: [
     AdvertiserComponent,
     CampaignListComponent,
-    CampaignListItemComponent
+    CampaignListItemComponent,
     EditCampaignComponent,
     EditCampaignBasicInformationComponent,
     EditCampaignAdditionalTargetingComponent,
     EditCampaignCreateAdsComponent,
     EditCampaignSummaryComponent,
-    EditCampaignNavigationComponent
+    EditCampaignNavigationComponent,
     AdvertiserComponent,
     DashboardComponent,
     CampaignDetailsComponent,

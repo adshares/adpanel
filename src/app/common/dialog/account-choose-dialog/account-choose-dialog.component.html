@@ -1,0 +1,83 @@
+<mat-dialog-content>
+    <h6
+      class="
+        adsh-copy
+        adsh-copy--small"
+    >
+      Continue as
+    </h6>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--light-border
+        row
+        align-center
+        justify-between
+        choose-account"
+    >
+      <div
+        class="
+          row
+          align-center"
+      >
+        <img
+          src="/assets/images/advertiser-account-illustration.svg"
+          alt="Advertiser Account Illustration"
+        >
+        <span
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          Advertiser
+        </span>
+      </div>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--wide
+          adsh-btn--blue"
+        (click)="dialogRef.close()"
+      >
+        Continue
+      </button>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--light-border
+        row
+        align-center
+        justify-between
+        choose-account"
+    >
+      <div
+        class="
+          row
+          align-center"
+      >
+        <img
+          src="/assets/images/publisher-account-illustration.svg"
+          alt="Publisher Account Illustration"
+        >
+        <span
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          Publisher
+        </span>
+      </div>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--wide
+          adsh-btn--blue"
+        (click)="redirectToPublisher()"
+      >
+        Continue
+      </button>
+    </div>
+</mat-dialog-content>

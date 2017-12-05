@@ -1,33 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store/';
 
-import { AppCommonModule } from './common/common.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppCommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
 import { AdvertiserModule } from './advertiser/advertiser.module';
+import { PublisherModule } from './publisher/publisher.module';
+import { SettingsModule } from './settings/settings.module'
+import { AppComponent } from './app.component';
+import { environment } from '../environments/environment';
 
-import { campaignReducers } from './store/campaign/campaign.reducer';
+import { reducers } from './store/index';
 
+const appModules = [
+  AppCommonModule,
+  AuthModule,
+  AdvertiserModule,
+  PublisherModule,
+  SettingsModule
+];
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
     AppRoutingModule,
-    AuthModule,
-    AdvertiserModule,
-    AppCommonModule,
-    StoreModule.forRoot({appStore: campaignReducers}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25
-    })
+    StoreModule.forRoot({ state: reducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    ...appModules
   ],
   providers: [],
   bootstrap: [AppComponent]

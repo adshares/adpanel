@@ -9,12 +9,15 @@ import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-cr
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { CampaignDetailsComponent } from "./campaign-details/campaign-details.component";
+import { AdvertiserGuard } from './advertiser-guard.service';
 
 const advertiserRoutes: Routes = [
   {
     path: 'advertiser',
     component: AdvertiserComponent,
+    canActivate: [AdvertiserGuard],
     children: [
+      { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
       { path: 'campaign/:id', component: CampaignDetailsComponent},
       {

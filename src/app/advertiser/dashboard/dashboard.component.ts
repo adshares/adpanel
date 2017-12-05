@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +6,5 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-
-  constructor(private store: Store) { }
 
 }

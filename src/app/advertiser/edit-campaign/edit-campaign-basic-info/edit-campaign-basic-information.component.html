@@ -1,14 +1,26 @@
-<p>
-  create-campaign-basic-information works!
-</p>
+<a
+  routerLink="../additional-targeting"
+  [queryParams]="{step: 2}"
+>
+  <button
+    class="
+      adsh-btn
+      adsh-btn--white
+      adsh-blue"
+  >
+    Back
+  </button>
+</a>
 
 <a
-    routerLink="../additional-targeting"
-    [queryParams]="{step: 2}"
+  routerLink="../summary"
+  [queryParams]="{step: 4}"
 >
-    <button class="
-        adsh-btn
-        adsh-btn--blue">
-        Save & Continue
-    </button>
+  <button
+    class="
+      adsh-btn
+      adsh-btn--blue"
+  >
+    Save & Continue
+  </button>
 </a>

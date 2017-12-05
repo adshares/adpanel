@@ -1,0 +1,11 @@
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0.9;
+}
+.cdk-overlay-dark-backdrop {
+    background: pal(navy);
+}
+
+.mat-dialog-container {
+  position: relative;
+  padding: 50px 70px 40px !important;
+}

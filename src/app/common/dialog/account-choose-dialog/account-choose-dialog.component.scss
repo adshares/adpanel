@@ -1,0 +1,21 @@
+@import '../../../../styles.scss';
+
+.choose-account {
+  @include media(md-up) {
+    width: 650px;
+  }
+
+  @include media(lg-up) {
+    width: 850px;
+  }
+
+  img {
+    padding: 0 50px 0 10px;
+    width: 130px;
+  }
+
+  &.adsh-box {
+    margin: 20px 0;
+  }
+}
+
