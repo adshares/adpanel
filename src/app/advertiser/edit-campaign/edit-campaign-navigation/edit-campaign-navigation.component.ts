@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EditCampaignNavigationComponent implements OnInit {
   steps = [
     { id: 1, name: 'Basic Information', link: 'basic-information' },
-    { id: 2, name: 'Additional Information', link: 'additional-information' },
+    { id: 2, name: 'Additional Targeting', link: 'additional-targeting' },
     { id: 3, name: 'Create Ads', link: 'edit-campaign-create-ads' },
     { id: 4, name: 'Summary', link: 'summary' }
   ];
