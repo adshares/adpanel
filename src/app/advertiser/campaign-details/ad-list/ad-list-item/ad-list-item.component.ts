@@ -1,16 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ad-list-item',
   templateUrl: './ad-list-item.component.html',
   styleUrls: ['./ad-list-item.component.scss'],
 })
-export class AdListItemComponent implements OnInit {
+export class AdListItemComponent  {
   @Input() ad;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

@@ -10,7 +10,7 @@ export class EditCampaignNavigationComponent implements OnInit {
   steps = [
     { id: 1, name: 'Basic Information', link: 'basic-information' },
     { id: 2, name: 'Additional Information', link: 'additional-information' },
-    { id: 3, name: 'Create Ads', link: 'edit-campaign-create-ads' },
+    { id: 3, name: 'Create Ads', link: 'edit-advertiser-create-ads' },
     { id: 4, name: 'Summary', link: 'summary' }
   ];
 

@@ -5,7 +5,7 @@ import { AuthState } from '../models/auth-state.model';
 import { CampaignState } from '../models/campaign-state.model';
 import { AppState } from '../models/app-state.model';
 
-import { campaignReducers } from './campaign/campaign.reducer';
+import { campaignReducers } from './advertiser/campaign.reducer';
 
 export interface ReducersState {
   auth: AuthState,

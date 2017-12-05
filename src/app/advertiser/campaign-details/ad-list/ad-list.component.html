@@ -1,115 +1,175 @@
-<section class="
+<section
+  class="
     col
-    adsh-ad-list">
-  <div class="
-        adsh-box
-        adsh-box--large">
-    <div class="
-            row
-            adsh-copy
-            adsh-copy--small">
-      <div class="col-xs-1
-                row
-                align-center">Status
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+    adsh-ad-list"
+>
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        adsh-copy
+        adsh-copy--small"
+    >
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Status
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--active
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--active
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-4
-                row
-                align-center">Campaign Title
+      <div
+        class="
+          col-xs-4
+          row
+          align-center"
+      >
+        Campaign Title
         <div class="
-                    col
-                    adsh-ad-list__sort">
+              col
+              adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">Budget
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Budget
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">Clicks
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Clicks
+        <div
+          class="
+            col
+            adsh-ad-list__sort">
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">Impressions
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Impressions
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">CTR
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        CTR
+        <div
+          class="
+            col
+            adsh-ad-list__sort">
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">Average CPC
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Average CPC
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
-      <div class="
-                col-xs-1
-                row
-                align-center">Cost
-        <div class="
-                    col
-                    adsh-ad-list__sort">
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        Cost
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
           <div class="adsh-sort-triangle"></div>
-          <div class="
-                        adsh-sort-triangle
-                        adsh-sort-triangle--down"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
         </div>
       </div>
       <div class="col-xs-1"></div>
@@ -120,6 +180,7 @@
         *ngFor="let ad of adList"
         [ad]="ad">
       </app-ad-list-item>
+
       <div class="row justify-center">
         <button class="
                     row
@@ -132,11 +193,16 @@
             src="assets/images/plus-circle--blue.svg"
             alt="Add new icon"
             class="
-                            adsh-icon
-                            adsh-icon--prepend">
-          <span class="
-                        adsh-heading
-                        adsh-heading--secondary">Create new Ad</span>
+              adsh-icon
+              adsh-icon--prepend"
+          >
+          <span
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+          >
+            Create new Ad
+          </span>
         </button>
       </div>
     </div>
