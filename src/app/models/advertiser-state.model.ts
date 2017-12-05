@@ -1,5 +1,5 @@
 import { Campaign } from './campaign.model';
 
-export interface CampaignState {
+export interface AdvertiserState {
   campaigns: Campaign[];
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
+import { AppState } from '../../models/app-state.model';
+import { Campaign } from '../../models/campaign.model';
 
 @Component({
   selector: 'app-campaign-details',
@@ -9,15 +11,13 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./campaign-details.component.scss'],
 })
 export class CampaignDetailsComponent implements OnInit {
-  campaigns: Object;
+  campaigns: Campaign[];
   campaign: Object;
   campaignId: number;
   private subscription;
-  private subscription1;
 
   constructor(
-    private store: Store,
-    private router: Router,
+    private store: Store<AppState>,
     private route: ActivatedRoute
   ) {
     this.subscription = store
@@ -25,9 +25,7 @@ export class CampaignDetailsComponent implements OnInit {
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });
-    this.subscription1 = this.route.paramMap.subscribe(route => {
-      this.campaignId = +route.params.id
-    })
+    this.campaignId = +this.route.snapshot.params.id;
   }
 
   ngOnInit() {

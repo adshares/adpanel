@@ -19,7 +19,7 @@ const advertiserRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
-      { path: 'advertiser/:id', component: CampaignDetailsComponent},
+      { path: 'campaign/:id', component: CampaignDetailsComponent},
       {
         path: 'create-advertiser',
         component: EditCampaignComponent,
