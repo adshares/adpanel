@@ -40,21 +40,21 @@
       >
         <mat-option
           [value]="'Advertiser'"
-          routerLink="['/advertiser']"
-          *ngIf="!(auth | async).userData.isAdmin"
+          routerLink="['/advertiser/dashboard']"
+          *ngIf="!(userDataState | async).isAdmin"
         >
           Advertiser
         </mat-option>
         <mat-option
           [value]="'Publisher'"
           [routerLink]="['/publisher']"
-          *ngIf="!(auth | async).userData.isAdmin"
+          *ngIf="!(userDataState | async).isAdmin"
         >
           Publisher
         </mat-option>
         <mat-option
           [value]="'Admin'"
-          *ngIf="(auth | async).userData.isAdmin"
+          *ngIf="(userDataState | async).isAdmin"
         >
           Admin
         </mat-option>

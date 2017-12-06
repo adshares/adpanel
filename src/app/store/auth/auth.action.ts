@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { UserModel } from './user.model'
+import { UserModel } from '../../models/user.model';
 
 export const LOGIN_USER = 'LOGIN_USER';
 
@@ -10,4 +10,4 @@ export class LoginUser implements Action {
   constructor(public payload: UserModel) { };
 }
 
-export type AuthActions = LoginUser;
+export type actions = LoginUser;

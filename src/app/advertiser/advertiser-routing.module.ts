@@ -16,6 +16,7 @@ const advertiserRoutes: Routes = [
     component: AdvertiserComponent,
     canActivate: [AdvertiserGuard],
     children: [
+      { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
       {
         path: 'create-campaign',
