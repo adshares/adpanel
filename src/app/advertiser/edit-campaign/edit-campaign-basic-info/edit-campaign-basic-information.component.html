@@ -163,14 +163,17 @@
               required
             >
           </div>
-          <p
-            class="
-            adsh-copy
-            adsh-copy--large
-            adsh-copy--light"
-          >
-            Adst / per day
-          </p>
+          <div class="col-xs-5">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--light"
+            >
+              Adst / per day
+            </p>
+          </div>
+
         </div>
 
         <span
@@ -191,7 +194,7 @@
             >
               Date of Start
             </label>
-            <mat-form-field class="adsh-form-input adsh-form-input--datepicker">
+            <mat-form-field class="adsh-form-input adsh-form-input--narrow adsh-form-input--datepicker">
               <input (click)="dateStartPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateStartPicker" [formControl]="dateStart">
               <mat-datepicker-toggle matSuffix [for]="dateStartPicker"></mat-datepicker-toggle>
               <mat-datepicker #dateStartPicker></mat-datepicker>
@@ -220,7 +223,7 @@
                 Optional
               </span>
             </div>
-            <mat-form-field class="adsh-form-input adsh-form-input--datepicker">
+            <mat-form-field class="adsh-form-input adsh-form-input--narrow adsh-form-input--datepicker">
               <input (click)="dateEndPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateEndPicker" [formControl]="dateEnd">
               <mat-datepicker-toggle matSuffix [for]="dateEndPicker"></mat-datepicker-toggle>
               <mat-datepicker #dateEndPicker></mat-datepicker>

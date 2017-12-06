@@ -3,6 +3,8 @@ import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
+import * as AdvertiserActions from '../../store/advertiser.actions';
+
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
@@ -51,11 +53,9 @@ export class EditCampaignBasicInformationComponent {
       budget: this.editCampaignBasicInformationForm.value.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
       dateEnd: moment(this.dateEnd.value._d).format('L') || null,
-    }
+    };
 
-    // dispatch an action that will save data to redux
-
-    // this.store.dispatch(new AdvertiserActions.SaveBasicInformation(basicInformation));
+    this.store.dispatch(new AdvertiserActions.SaveBasicInformation(basicInformation));
 
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
