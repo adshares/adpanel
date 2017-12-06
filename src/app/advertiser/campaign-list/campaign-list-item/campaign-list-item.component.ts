@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Campaign } from '../campaign-list.component';
+import { Campaign } from '../../../models/campaign.model';
 
 @Component({
   selector: 'app-campaign-list-item',

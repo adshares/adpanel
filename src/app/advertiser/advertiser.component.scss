@@ -1,17 +1,1 @@
 @import '../../styles.scss';
-
-.adsh-advertiser {
-  &-wrapper {
-    padding: 70px 0;
-    min-height: 100vh;
-    background-color: pal(gray, ultra-light);
-  }
-
-  &-create-new-campaign-wrapper {
-    padding: 80px 0 60px;
-
-    > * {
-      margin: 20px 0;
-    }
-  }
-}

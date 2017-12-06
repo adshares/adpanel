@@ -22,6 +22,9 @@ import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-cr
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
+import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
+import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
 import { AdvertiserGuard } from './advertiser-guard.service';
 
@@ -55,7 +58,13 @@ const editCampaignComponents = [
     CampaignListComponent,
     CampaignListItemComponent,
     ...editCampaignComponents,
-    DashboardComponent
+    DashboardComponent,
+    CampaignDetailsComponent,
+    AdListComponent,
+    AdListItemComponent
+  ],
+  exports: [
+    AdListItemComponent
   ]
 })
 export class AdvertiserModule { }
