@@ -19,8 +19,8 @@ export class EditCampaignBasicInformationComponent {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
   dateStart = new FormControl();
   dateEnd = new FormControl();
-  minDate = moment().format('L')
-  maxDate = moment().add(1, 'year').format('L')
+  minDate = moment().format('L');
+  maxDate = moment().add(1, 'year').format('L');
 
   goesToSummary: string;
 
@@ -32,14 +32,17 @@ export class EditCampaignBasicInformationComponent {
     this.route.queryParams.subscribe(params => {
       this.goesToSummary = params.summary;
     });
-  };
+  }
 
   saveCampaignBasicInformation() {
     if (!this.editCampaignBasicInformationForm.valid) {
       // return
     }
 
+    const id = Math.floor(Math.random() * 100000000) + 10000;
     const basicInformation = {
+      id: id,
+      status: 'draft',
       name: this.editCampaignBasicInformationForm.value.campaignName,
       targetURL: this.editCampaignBasicInformationForm.value.campaignTargetURL,
       bidStrategy: this.editCampaignBasicInformationForm.value.campaignBidStrategy,

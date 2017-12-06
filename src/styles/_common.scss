@@ -273,7 +273,7 @@ router-outlet ~ * {
     background-color: pal(green, light);
   }
 
-  &[data-status="limited"], {
+  &[data-status="limited"] {
     color: pal(blue);
     background-color: pal(blue, light);
   }
