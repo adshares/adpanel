@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AppState } from '../../../models/app-state.model';
 
-import * as AdvertiserActions from '../../store/advertiser.actions';
+import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
 import {default as _rollupMoment} from 'moment';
@@ -33,7 +34,7 @@ export class EditCampaignBasicInformationComponent {
     });
   };
 
-  saveBasicInformation() {
+  saveCampaignBasicInformation() {
     if (!this.editCampaignBasicInformationForm.valid) {
       // return
     }
@@ -45,10 +46,10 @@ export class EditCampaignBasicInformationComponent {
       bidValue: this.editCampaignBasicInformationForm.value.campaignBidValue,
       budget: this.editCampaignBasicInformationForm.value.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: moment(this.dateEnd.value._d).format('L') || null,
+      dateEnd: moment(this.dateEnd.value._d) ? moment(this.dateEnd.value._d).format('L') : null,
     };
 
-    this.store.dispatch(new AdvertiserActions.SaveBasicInformation(basicInformation));
+    this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
 
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;

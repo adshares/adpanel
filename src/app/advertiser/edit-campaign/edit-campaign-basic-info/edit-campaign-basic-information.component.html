@@ -24,7 +24,7 @@
 
   <form
     #editCampaignBasicInformationForm="ngForm"
-    (ngSubmit)="saveBasicInformation()"
+    (ngSubmit)="saveCampaignBasicInformation()"
     class="adsh-form"
   >
     <div
@@ -52,7 +52,7 @@
           *ngIf="campaignName.valid"
           class="input-valid"
         ></span>
-        <span class="error-msg" *ngIf="campaignName.hasError('required') && formSubmited">Campaign name required!</span>
+        <span class="error-msg" *ngIf="campaignName.hasError('required') && editCampaignBasicInformationForm.submitted">Campaign name required!</span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -74,7 +74,7 @@
         <span
           *ngIf="campaignTargetURL.valid"
           class="input-valid"></span>
-        <span class="error-msg" *ngIf="campaignTargetURL.hasError('required') && formSubmited">Password required</span>
+        <span class="error-msg" *ngIf="campaignTargetURL.hasError('required') && editCampaignBasicInformationForm.submitted">Password required</span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -105,6 +105,9 @@
                 CPM
               </mat-option>
             </mat-select>
+            <span class="error-msg" *ngIf="campaignBidStrategy.hasError('required') && editCampaignBasicInformationForm.submitted">
+              Bid Strategy required
+            </span>
           </div>
           <div class="col col-xs-7">
             <label
@@ -117,12 +120,19 @@
               id="campaignBidValue"
               class="adsh-form-input"
               type="number"
-              min="0"
+              min="0.01"
               name="campaignBidValue"
               ngModel
               #campaignBidValue="ngModel"
               required
             >
+            <span
+              *ngIf="campaignBidValue.valid"
+              class="input-valid"
+            ></span>
+            <span class="error-msg" *ngIf="campaignBidValue.hasError('required') && editCampaignBasicInformationForm.submitted">
+              Bid value required
+            </span>
           </div>
           <p
              class="
@@ -133,14 +143,6 @@
             Choose how you’d like to set bids for your ads.
           </p>
         </div>
-
-        <span
-          *ngIf="campaignBidValue.valid"
-          class="input-valid"
-        ></span>
-        <span class="error-msg" *ngIf="campaignBidValue.hasError('required') && formSubmited">
-          Bid value required
-        </span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -156,7 +158,7 @@
               id="campaignBudget"
               class="adsh-form-input"
               type="number"
-              min="0"
+              min="0.01"
               name="campaignBudget"
               ngModel
               #campaignBudget="ngModel"
@@ -173,14 +175,13 @@
               Adst / per day
             </p>
           </div>
-
         </div>
 
         <span
           *ngIf="campaignBudget.valid"
           class="input-valid"
         ></span>
-        <span class="error-msg" *ngIf="campaignBudget.hasError('required') && formSubmitted">
+        <span class="error-msg" *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted">
           Budget required
         </span>
       </div>
