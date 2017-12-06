@@ -29,8 +29,6 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 
 import { AdvertiserGuard } from './advertiser-guard.service';
 
-import { AdvertiserService } from './advertiser.service';
-
 const editCampaignComponents = [
   EditCampaignComponent,
   EditCampaignBasicInformationComponent,
@@ -56,7 +54,6 @@ const editCampaignComponents = [
   ],
   providers: [
     AdvertiserGuard,
-    AdvertiserService
   ],
   declarations: [
     AdvertiserComponent,

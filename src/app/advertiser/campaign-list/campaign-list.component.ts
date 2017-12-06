@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvertiserService } from '../advertiser.service';
+import { AdvertiserService } from '../../store/advertiser/advertiser.service';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
+import * as advertiserActions from '../../store/advertiser/advertiser.action';
 
 @Component({
   selector: 'app-campaign-list',
@@ -34,13 +35,15 @@ export class CampaignListComponent implements OnInit {
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });
+    console.log(this.campaigns)
   }
 
   ngOnInit() {
-    this.advertiserService.getCampaigns()
-      .subscribe(campaigns => {
-        this.campaigns = campaigns.campaigns;
-      })
+    // this.advertiserService.getCampaigns()
+    //   .subscribe(campaigns => {
+    //     this.campaigns = campaigns.campaigns;
+    //   })
+    this.store.dispatch(new advertiserActions.LoadCampaigns('campaigns'));
   }
 
 }

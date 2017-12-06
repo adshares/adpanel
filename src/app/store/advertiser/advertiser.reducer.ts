@@ -12,6 +12,11 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
         ...state,
         lastEditedCampaign: action.payload
       };
+    case AdvertiserActions.LOAD_CAMPAIGNS_SUCCESS:
+      return {
+        ...state,
+        campaigns: action.payload
+      };
     default:
       return state;
   }
