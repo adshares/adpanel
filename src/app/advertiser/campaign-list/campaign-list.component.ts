@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AdvertiserService } from '../advertiser.service';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
@@ -9,7 +10,7 @@ import { AppState } from '../../models/app-state.model';
   styleUrls: ['./campaign-list.component.scss'],
 })
 
-export class CampaignListComponent {
+export class CampaignListComponent implements OnInit {
   menuItems = [
     { title: 'Status', columnWidth: 'col-xs-1' },
     { title: 'Campaign Title', columnWidth: 'col-xs-4' },
@@ -24,12 +25,22 @@ export class CampaignListComponent {
   private subscription;
   campaigns: Object;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private advertiserService: AdvertiserService
+  ) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });
+  }
+
+  ngOnInit() {
+    this.advertiserService.getCampaigns()
+      .subscribe(campaigns => {
+        this.campaigns = campaigns.campaigns;
+      })
   }
 
 }

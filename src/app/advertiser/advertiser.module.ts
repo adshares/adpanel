@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -28,6 +29,8 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 
 import { AdvertiserGuard } from './advertiser-guard.service';
 
+import { AdvertiserService } from './advertiser.service';
+
 const editCampaignComponents = [
   EditCampaignComponent,
   EditCampaignBasicInformationComponent,
@@ -40,6 +43,7 @@ const editCampaignComponents = [
 @NgModule({
   imports: [
     CommonModule,
+    HttpModule,
     AppCommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -51,7 +55,8 @@ const editCampaignComponents = [
     AdvertiserRoutingModule
   ],
   providers: [
-    AdvertiserGuard
+    AdvertiserGuard,
+    AdvertiserService
   ],
   declarations: [
     AdvertiserComponent,
