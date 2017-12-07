@@ -3,7 +3,11 @@ import { AdvertiserService } from '../../store/advertiser/advertiser.service';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
+import { Campaign } from '../../models/campaign.model';
+
 import * as advertiserActions from '../../store/advertiser/advertiser.action';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-campaign-list',
@@ -23,8 +27,8 @@ export class CampaignListComponent implements OnInit {
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
-  private subscription;
-  campaigns: Object;
+  private subscription: Subscription;
+  campaigns: Campaign[];
 
   constructor(
     private store: Store<AppState>
