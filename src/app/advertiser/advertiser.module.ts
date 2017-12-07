@@ -44,9 +44,6 @@ import { AdvertiserGuard } from './advertiser-guard.service';
     CampaignDetailsComponent,
     AdListComponent,
     AdListItemComponent
-  ],
-  exports: [
-    AdListItemComponent
   ]
 })
 export class AdvertiserModule { }

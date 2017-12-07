@@ -21,7 +21,7 @@ const advertiserRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'campaign/:id', component: CampaignDetailsComponent},
       {
-        path: 'create-advertiser',
+        path: 'create-campaign',
         component: EditCampaignComponent,
         children: [
           { path: 'basic-information', component: EditCampaignBasicInformationComponent },

@@ -2,8 +2,6 @@ import { combineReducers, ActionReducer } from '@ngrx/store/';
 
 import { authReducers } from './auth/auth.reducer';
 import { AuthState } from '../models/auth-state.model';
-import { AdvertiserState } from '../models/advertiser-state.model';
-import { AppState } from '../models/app-state.model';
 
 import { campaignReducers } from './advertiser/campaign.reducer';
 

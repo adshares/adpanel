@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
+import { Campaign } from '../../models/campaign.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-campaign-list',
@@ -21,8 +23,8 @@ export class CampaignListComponent {
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
-  private subscription;
-  campaigns: Object;
+  private subscription: Observable;
+  campaigns: Campaign[];
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
