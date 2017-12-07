@@ -27,15 +27,13 @@ export class CampaignListComponent implements OnInit {
   campaigns: Object;
 
   constructor(
-    private store: Store<AppState>,
-    private advertiserService: AdvertiserService
+    private store: Store<AppState>
   ) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
       .subscribe(campaigns => {
         this.campaigns = campaigns;
       });
-    console.log(this.campaigns)
   }
 
   ngOnInit() {

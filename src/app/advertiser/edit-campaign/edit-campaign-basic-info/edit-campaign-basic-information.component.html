@@ -41,7 +41,9 @@
         </label>
         <input
           id="campaignName"
-          class="adsh-form-input adsh-form-input--full"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
           name="campaignName"
           ngModel
           minlength="3"
@@ -52,7 +54,12 @@
           *ngIf="campaignName.valid"
           class="input-valid"
         ></span>
-        <span class="error-msg" *ngIf="campaignName.hasError('required') && editCampaignBasicInformationForm.submitted">Campaign name required!</span>
+        <span
+          class="error-msg"
+          *ngIf="campaignName.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
+          Campaign name required!
+        </span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -64,7 +71,9 @@
         </label>
         <input
           id="campaignTargetURL"
-          class="adsh-form-input adsh-form-input--full"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
           type="url"
           name="campaignTargetURL"
           ngModel
@@ -74,7 +83,12 @@
         <span
           *ngIf="campaignTargetURL.valid"
           class="input-valid"></span>
-        <span class="error-msg" *ngIf="campaignTargetURL.hasError('required') && editCampaignBasicInformationForm.submitted">Password required</span>
+        <span
+          class="error-msg"
+          *ngIf="campaignTargetURL.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
+          Password required
+        </span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -105,7 +119,10 @@
                 CPM
               </mat-option>
             </mat-select>
-            <span class="error-msg" *ngIf="campaignBidStrategy.hasError('required') && editCampaignBasicInformationForm.submitted">
+            <span
+              class="error-msg"
+              *ngIf="campaignBidStrategy.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
               Bid Strategy required
             </span>
           </div>
@@ -130,7 +147,10 @@
               *ngIf="campaignBidValue.valid"
               class="input-valid"
             ></span>
-            <span class="error-msg" *ngIf="campaignBidValue.hasError('required') && editCampaignBasicInformationForm.submitted">
+            <span
+              class="error-msg"
+              *ngIf="campaignBidValue.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
               Bid value required
             </span>
           </div>
@@ -181,7 +201,10 @@
           *ngIf="campaignBudget.valid"
           class="input-valid"
         ></span>
-        <span class="error-msg" *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted">
+        <span
+          class="error-msg"
+          *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
           Budget required
         </span>
       </div>
@@ -195,9 +218,24 @@
             >
               Date of Start
             </label>
-            <mat-form-field class="adsh-form-input adsh-form-input--narrow adsh-form-input--datepicker">
-              <input (click)="dateStartPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateStartPicker" [formControl]="dateStart">
-              <mat-datepicker-toggle matSuffix [for]="dateStartPicker"></mat-datepicker-toggle>
+            <mat-form-field
+              class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--datepicker"
+            >
+              <input
+                (click)="dateStartPicker.open()"
+                matInput [min]="minDate"
+                [max]="maxDate"
+                [matDatepicker]="dateStartPicker"
+                [formControl]="dateStart"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dateStartPicker"
+              >
+              </mat-datepicker-toggle>
               <mat-datepicker #dateStartPicker></mat-datepicker>
             </mat-form-field>
           </div>
@@ -224,9 +262,25 @@
                 Optional
               </span>
             </div>
-            <mat-form-field class="adsh-form-input adsh-form-input--narrow adsh-form-input--datepicker">
-              <input (click)="dateEndPicker.open()" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dateEndPicker" [formControl]="dateEnd">
-              <mat-datepicker-toggle matSuffix [for]="dateEndPicker"></mat-datepicker-toggle>
+            <mat-form-field
+              class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--datepicker"
+            >
+              <input
+                (click)="dateEndPicker.open()"
+                matInput
+                [min]="minDate"
+                [max]="maxDate"
+                [matDatepicker]="dateEndPicker"
+                [formControl]="dateEnd"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dateEndPicker"
+              >
+              </mat-datepicker-toggle>
               <mat-datepicker #dateEndPicker></mat-datepicker>
             </mat-form-field>
           </div>
