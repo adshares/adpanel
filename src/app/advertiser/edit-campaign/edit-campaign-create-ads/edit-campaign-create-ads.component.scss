@@ -1,0 +1,12 @@
+@import '../../../../styles.scss';
+
+.progress-bar {
+  height: 5px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: pal(gray, semi-light);
+
+  &--active {
+    background-color: pal(blue);
+  }
+}
