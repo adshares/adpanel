@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
@@ -14,7 +15,7 @@ export class CampaignDetailsComponent implements OnInit {
   campaigns: Campaign[];
   campaign: Object;
   campaignId: number;
-  private subscription;
+  private subscription: Subscription;
 
   constructor(
     private store: Store<AppState>,
