@@ -8,9 +8,6 @@ import { fadeAnimation } from '../../common/animations/fade.animation';
   animations: [fadeAnimation],
 })
 export class EditCampaignComponent {
-
-  constructor() { }
-
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
   }

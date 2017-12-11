@@ -9,7 +9,4 @@ import { Campaign } from '../../../models/campaign.model';
 })
 export class CampaignListItemComponent {
   @Input() campaign: Campaign;
-
-  constructor() { }
-
 }

@@ -6,7 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./funds-summary.component.scss'],
 })
 export class FundsSummaryComponent {
-
-  constructor() { }
-
 }

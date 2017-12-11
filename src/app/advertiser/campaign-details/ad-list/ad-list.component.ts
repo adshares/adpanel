@@ -17,7 +17,4 @@ export class AdListComponent {
     { title: 'Average CPC', columnWidth: 'col-xs-1' },
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
-
-  constructor() { }
-
 }

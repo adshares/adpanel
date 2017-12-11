@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fadeAnimation } from "../common/animations/fade.animation";
+import { fadeAnimation } from '../common/animations/fade.animation';
 
 @Component({
   selector: 'app-advertiser',
@@ -9,8 +9,6 @@ import { fadeAnimation } from "../common/animations/fade.animation";
 
 })
 export class AdvertiserComponent {
-
-  constructor() { }
 
   public getRouterOutletState(outlet) {
     return outlet.isActivated ? outlet.activatedRoute : '';
