@@ -1,22 +1,15 @@
 import { Ad } from './ad.model';
+import { CampaignBasicInformation } from './campaign-basic-information.model';
 
 export interface Campaign {
-  id: number;
-  status: string;
-  name: string;
-  targetUrl: string;
-  bidStrategyName: string;
-  bidStrategyValue: number;
-  budget: number;
-  dateStart: Object;
-  dateEnd?: Object;
+  basicInformation: CampaignBasicInformation;
 
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  averageCPC: number;
-  cost: number;
-  conversions: number;
+  clicks?: number;
+  impressions?: number;
+  ctr?: number;
+  averageCPC?: number;
+  cost?: number;
+  conversions?: number;
 
   targeting?: {
     requires?: {
@@ -35,5 +28,5 @@ export interface Campaign {
     }
   };
 
-  ads: Ad[];
+  ads?: Ad[];
 }
