@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
+
+import * as advertiserActions from '../../store/advertiser/advertiser.action';
+
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -11,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./campaign-list.component.scss'],
 })
 
-export class CampaignListComponent {
+export class CampaignListComponent implements OnInit {
   menuItems = [
     { title: 'Status', columnWidth: 'col-xs-1' },
     { title: 'Campaign Title', columnWidth: 'col-xs-4' },
@@ -29,9 +32,11 @@ export class CampaignListComponent {
   constructor(private store: Store<AppState>) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => {
-        this.campaigns = campaigns;
-      });
+      .subscribe(campaigns => this.campaigns = campaigns);
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new advertiserActions.LoadCampaigns('campaigns'));
   }
 
 }

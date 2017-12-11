@@ -49,7 +49,11 @@
         </h1>
       </div>
 
-      <div class="col-xs-8 justify-end">
+      <div
+        class="
+          col-xs-8
+          justify-end"
+      >
         <button
           class="
             adsh-btn
@@ -126,7 +130,7 @@
                 adsh-copy--dark
                 adsh-copy--semi"
             >
-              {{ campaign.bidStrategyName }} (${{ campaign.bidStrategyValue }})
+              {{ campaign.bidStrategyName }} (${{ campaign.bidValue }})
             </p>
           </div>
           <div class="col-xs-2">
@@ -159,8 +163,8 @@
               >
               <p
                 class="
-                adsh-copy--dark
-                adsh-copy--semi"
+                  adsh-copy--dark
+                  adsh-copy--semi"
               >
                 {{ campaign.dateStart }}
               </p>
@@ -199,8 +203,8 @@
 
     <div
       class="
-      col-xs-8
-      col-xs-offset-4"
+        col-xs-8
+        col-xs-offset-4"
     >
       <app-chart-filter></app-chart-filter>
     </div>

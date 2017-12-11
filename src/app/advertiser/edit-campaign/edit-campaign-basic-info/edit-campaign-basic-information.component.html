@@ -1,26 +1,327 @@
-<a
-  routerLink="../additional-targeting"
-  [queryParams]="{step: 2}"
+<section
+  class="
+    homepage-view
+    campaign-edit-basic-information"
 >
-  <button
-    class="
-      adsh-btn
-      adsh-btn--white
-      adsh-blue"
-  >
-    Back
-  </button>
-</a>
+  <div class="text-center">
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Basic Information
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
 
-<a
-  routerLink="../summary"
-  [queryParams]="{step: 4}"
->
-  <button
-    class="
-      adsh-btn
-      adsh-btn--blue"
+
+  <form
+    #editCampaignBasicInformationForm="ngForm"
+    (ngSubmit)="saveCampaignBasicInformation()"
+    class="adsh-form"
   >
-    Save & Continue
-  </button>
-</a>
+    <div
+      class="
+        adsh-box
+        adsh-box--large"
+    >
+      <div class="adsh-form-input__box">
+        <label
+          for="campaignName"
+          class="adsh-form-label"
+        >
+          Campaign Name
+        </label>
+        <input
+          id="campaignName"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          name="campaignName"
+          ngModel
+          minlength="3"
+          #campaignName="ngModel"
+          required
+        >
+        <span
+          *ngIf="campaignName.valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="campaignName.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
+          Campaign name required!
+        </span>
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for="campaignTargetURL"
+          class="adsh-form-label"
+        >
+          Target URL
+        </label>
+        <input
+          id="campaignTargetURL"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          type="url"
+          name="campaignTargetURL"
+          ngModel
+          #campaignTargetURL="ngModel"
+          required
+        >
+        <span
+          *ngIf="campaignTargetURL.valid"
+          class="input-valid"></span>
+        <span
+          class="error-msg"
+          *ngIf="campaignTargetURL.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
+          Password required
+        </span>
+      </div>
+
+      <div class="adsh-form-input__box">
+        <div class="row">
+          <div class="col col-xs-5">
+            <label
+              for="campaignBidStrategy"
+              class="adsh-form-label"
+            >
+              Bid Strategy
+            </label>
+            <mat-select
+              class="adsh-select"
+              id="campaignBidStrategy"
+              name="campaignBidStrategy"
+              ngModel
+              #campaignBidStrategy="ngModel"
+              required
+            >
+              <mat-option
+                value="CPC"
+              >
+                CPC
+              </mat-option>
+              <mat-option
+                value="CPM"
+              >
+                CPM
+              </mat-option>
+            </mat-select>
+            <span
+              class="error-msg"
+              *ngIf="campaignBidStrategy.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
+              Bid Strategy required
+            </span>
+          </div>
+          <div class="col col-xs-7">
+            <label
+              for="campaignBidValue"
+              class="adsh-form-label"
+            >
+              Bid Value
+            </label>
+            <input
+              id="campaignBidValue"
+              class="adsh-form-input"
+              type="number"
+              min="0.01"
+              name="campaignBidValue"
+              ngModel
+              #campaignBidValue="ngModel"
+              required
+            >
+            <span
+              *ngIf="campaignBidValue.valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="campaignBidValue.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
+              Bid value required
+            </span>
+          </div>
+          <p
+             class="
+               adsh-copy
+               adsh-copy--large
+               adsh-copy--light"
+          >
+            Choose how you’d like to set bids for your ads.
+          </p>
+        </div>
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for="campaignBudget"
+          class="adsh-form-label"
+        >
+          Budget
+        </label>
+        <div class="row">
+          <div class="col-xs-5">
+            <input
+              id="campaignBudget"
+              class="adsh-form-input"
+              type="number"
+              min="0.01"
+              name="campaignBudget"
+              ngModel
+              #campaignBudget="ngModel"
+              required
+            >
+          </div>
+          <div class="col-xs-5">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--light"
+            >
+              Adst / per day
+            </p>
+          </div>
+        </div>
+
+        <span
+          *ngIf="campaignBudget.valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted"
+        >
+          Budget required
+        </span>
+      </div>
+
+      <div class="adsh-form-input__box">
+        <div class="row">
+          <div class="col col-xs-5">
+            <label
+              class="adsh-form-label"
+            >
+              Date of Start
+            </label>
+            <mat-form-field
+              class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--datepicker"
+            >
+              <input
+                (click)="dateStartPicker.open()"
+                matInput [min]="minDate"
+                [max]="maxDate"
+                [matDatepicker]="dateStartPicker"
+                [formControl]="dateStart"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dateStartPicker"
+              >
+              </mat-datepicker-toggle>
+              <mat-datepicker #dateStartPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-5">
+            <div
+              class="
+                row
+                align-center
+                justify-between"
+            >
+              <label
+                class="adsh-form-label"
+              >
+                Date of End
+              </label>
+              <span
+                class="
+                  adsh-copy
+                  adsh-copy--x-small
+                  adsh-blue
+                  adsh-copy--uppercase
+                  adsh-copy--semi"
+              >
+                Optional
+              </span>
+            </div>
+            <mat-form-field
+              class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--datepicker"
+            >
+              <input
+                (click)="dateEndPicker.open()"
+                matInput
+                [min]="minDate"
+                [max]="maxDate"
+                [matDatepicker]="dateEndPicker"
+                [formControl]="dateEnd"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dateEndPicker"
+              >
+              </mat-datepicker-toggle>
+              <mat-datepicker #dateEndPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <p
+            class="
+              adsh-copy
+              adsh-copy--large
+              adsh-copy--light"
+          >
+            Choose how you’d like to set bids for your ads.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        row
+        justify-between"
+    >
+      <a routerLink="../../dashboard">
+        <button
+          type="button"
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Back to Dashboard
+        </button>
+      </a>
+        <button
+          type="submit"
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          Save & Continue
+        </button>
+    </div>
+  </form>
+</section>
+
