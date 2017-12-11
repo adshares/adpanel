@@ -1,0 +1,94 @@
+<section class="preferences">
+  <div class="adsh-box adsh-box--large">
+    <div class="col">
+      <h2 class="adsh-heading adsh-heading--primary">Preferences</h2>
+      <p class="adsh-copy adsh-copy--large">
+        Here you can change the email address you use on Adshares and your password
+      </p>
+      <div class="row">
+        <div class="adsh-form-input__box">
+          <label
+            for="email"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="email"
+            class="adsh-form-input"
+            type="email"
+            name="email"
+            ngModel
+            [email]="true"
+            #email="ngModel"
+            required
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="adsh-form-input__box">
+          <label
+            for="currentPassword"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="currentPassword"
+            class="adsh-form-input"
+            type="currentPassword"
+            name="currentPassword"
+            ngModel
+            #currentPassword="ngModel"
+            required
+          >
+        </div>
+        <div class="adsh-form-input__box">
+          <label
+            for="newPassword"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="newPassword"
+            class="adsh-form-input"
+            type="newPassword"
+            name="newPassword"
+            ngModel
+            #newPassword="ngModel"
+            required
+          >
+        </div>
+        <div class="adsh-form-input__box">
+          <label
+            for="newPasswordConfirm"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="newPasswordConfirm"
+            class="adsh-form-input"
+            type="newPasswordConfirm"
+            name="newPasswordConfirm"
+            ngModel
+            #newPasswordConfirm="ngModel"
+            required
+          >
+        </div>
+        <button class="adsh-btn adsh-btn--blue">
+          Change
+        </button>
+      </div>
+      <div>
+        <p class="adsh-copy adsh-copy--large">
+          We do our best to give you a great experience - we'll be sad to see you leave us.
+          <button class="adsh-btn adsh-btn--white adsh-btn--no-border adsh-blue" ngClick="foo()">
+            Delete Account
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

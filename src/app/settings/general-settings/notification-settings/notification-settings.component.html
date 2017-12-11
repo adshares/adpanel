@@ -1,0 +1,36 @@
+<section class="notification-settings">
+  <div class="adsh-box adsh-box--large">
+    <div class="col">
+      <h2 class="adsh-heading adsh-heading--primary">Notification Settings</h2>
+      <p class="adsh-copy adsh-copy--large">
+        In addition to these alert, when necessary, we may send you communications about your advertising agreement with Adshares.
+      </p>
+      <ul class="notification-table adsh-copy">
+        <li class="row align-center">
+          <div class="col-xs-6">
+            Notification Topic
+          </div>
+          <div class="col-xs-4">
+            Notification Component
+          </div>
+          <div class="col-xs-2">
+            Email
+          </div>
+        </li>
+        <li class="row align-center" *ngFor="let notification of notificationItems">
+          <div class="col-xs-6">
+            <h5 class="adsh-heading adsh-heading--secondary">
+              {{ notification.topic }}
+            </h5>
+          </div>
+          <div class="col-xs-4">
+            x
+          </div>
+          <div class="col-xs-2">
+            x
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
