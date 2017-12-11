@@ -8,8 +8,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AdvertiserService {
 
-  constructor(private http: Http) {
-  }
+  constructor(private http: Http) {}
 
   getCampaigns(): any {
     return this.http.get(`${environment.apiUrl}/campaigns`)
