@@ -7,11 +7,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss'],
 })
 export class EditCampaignAdditionalTargetingComponent {
-  goesToSummary: string;
+  goesToSummary: boolean;
 
   constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      this.goesToSummary = params.summary;
-    });
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   };
 }

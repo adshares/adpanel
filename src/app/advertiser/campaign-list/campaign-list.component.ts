@@ -27,9 +27,7 @@ export class CampaignListComponent implements OnInit {
   private subscription: Subscription;
   campaigns: Object;
 
-  constructor(
-    private store: Store<AppState>
-  ) {
+  constructor(private store: Store<AppState>) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
       .subscribe(campaigns => this.campaigns = campaigns);

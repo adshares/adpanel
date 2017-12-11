@@ -7,8 +7,7 @@ import { AppState } from '../../../models/app-state.model';
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
-import {default as _rollupMoment} from 'moment';
-const moment = _rollupMoment || _moment;
+const moment = _moment;
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -36,7 +35,7 @@ export class EditCampaignBasicInformationComponent {
 
   saveCampaignBasicInformation() {
     if (!this.editCampaignBasicInformationForm.valid) {
-      // return
+      return;
     }
 
     const id = Math.floor(Math.random() * 100000000) + 10000;

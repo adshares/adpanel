@@ -29,6 +29,14 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 
 import { AdvertiserGuard } from './advertiser-guard.service';
 
+const matModules = [
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatMomentDateModule,
+  MatDatepickerModule,
+  MatInputModule
+];
+
 const editCampaignComponents = [
   EditCampaignComponent,
   EditCampaignBasicInformationComponent,
@@ -45,11 +53,7 @@ const editCampaignComponents = [
     AppCommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatMomentDateModule,
-    MatDatepickerModule,
+    ...matModules,
     AdvertiserRoutingModule
   ],
   providers: [
