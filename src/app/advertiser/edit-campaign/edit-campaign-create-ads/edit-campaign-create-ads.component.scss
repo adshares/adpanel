@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 .campaign-edit-create-ads {
   max-width: 800px;
   margin: 0 auto;
@@ -15,5 +17,16 @@
 .drag-and-drop-box {
   img {
     margin: 50px;
+  }
+}
+
+.progress-bar {
+  height: 5px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: pal(gray, semi-light);
+
+  &--active {
+    background-color: pal(blue);
   }
 }
