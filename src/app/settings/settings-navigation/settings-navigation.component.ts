@@ -15,7 +15,6 @@ export class SettingsNavigationComponent implements OnInit {
       values: [
         { name: 'Preferences'},
         { name: 'Notification settings'},
-        { name: '2 Step Authentication'}
       ]
     },
     {
