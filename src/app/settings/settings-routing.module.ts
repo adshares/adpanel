@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SettingsComponent } from './settings.component';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
-import { BillingHistoryComponent } from './billing/billing-history/billing-history.component';
+import { BillingComponent } from './billing/billing.component';
 
 const settingsRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ const settingsRoutes: Routes = [
       },
       {
         path: 'billing',
-        component: BillingHistoryComponent
+        component: BillingComponent
       }
     ]
   },

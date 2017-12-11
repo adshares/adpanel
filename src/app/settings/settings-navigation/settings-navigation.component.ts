@@ -27,12 +27,11 @@ export class SettingsNavigationComponent implements OnInit {
         { name: 'Billing History'}
       ]
     }
-  ]
+  ];
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.settings)
   }
 
 }

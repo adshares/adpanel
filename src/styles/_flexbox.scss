@@ -53,6 +53,10 @@
   flex-direction: column-reverse;
 }
 
+.no-wrap {
+  flex-wrap: nowrap;
+}
+
 $column_sizes: 12;
 
 @each $viewport_size, $viewport_size_fullname in $viewport_sizes_up {

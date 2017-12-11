@@ -6,6 +6,9 @@
   color: pal(white);
   background: transparent;
   transition: background-color 0.2s ease;
+  max-height: 42px;
+  display: flex;
+  align-items: center;
 
   &--wide {
     padding: 12px 60px;
