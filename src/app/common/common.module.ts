@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatOption } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
@@ -16,6 +17,7 @@ import { FundsSummaryComponent } from './components/funds-summary/funds-summary.
 
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
+
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
     AdsharesTokenPipe,
     ChartFilterComponent,
     FundsSummaryComponent,
-    ConfirmationAlertComponent
+    ConfirmationAlertComponent,
+    MatSelect,
+    MatOption
   ]
 })
 

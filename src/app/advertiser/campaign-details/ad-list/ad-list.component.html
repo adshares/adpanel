@@ -1,0 +1,77 @@
+<section
+  class="
+    col
+    adsh-ad-list"
+>
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        adsh-copy
+        adsh-copy--small"
+    >
+      <div
+        *ngFor="let menuItem of menuItems"
+        class="
+          row
+          align-center"
+        [ngClass]="menuItem.columnWidth"
+      >
+        {{ menuItem.title }}
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
+          <div class="adsh-sort-triangle"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adsh-ad-list__items">
+      <app-ad-list-item
+        *ngFor="let ad of adList"
+        [ad]="ad"
+      >
+      </app-ad-list-item>
+
+      <div
+        class="
+          row
+          justify-center"
+      >
+        <button class="
+                    row
+                    align-center
+                    adsh-btn
+                    adsh-btn--large
+                    adsh-btn--white
+                    adsh-btn--no-border">
+          <img
+            src="assets/images/plus-circle--blue.svg"
+            alt="Add new icon"
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+          >
+          <span
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+          >
+            Create new Ad
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
