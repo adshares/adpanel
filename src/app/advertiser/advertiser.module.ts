@@ -68,9 +68,6 @@ const editCampaignComponents = [
     CampaignDetailsComponent,
     AdListComponent,
     AdListItemComponent
-  ],
-  exports: [
-    AdListItemComponent
   ]
 })
 export class AdvertiserModule { }

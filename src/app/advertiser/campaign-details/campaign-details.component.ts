@@ -23,9 +23,8 @@ export class CampaignDetailsComponent implements OnInit {
   ) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => {
-        this.campaigns = campaigns;
-      });
+      .subscribe(campaigns => this.campaigns = campaigns);
+
     this.campaignId = +this.route.snapshot.params.id;
   }
 

@@ -72,8 +72,8 @@
 
     <div
       class="
-          adsh-box
-          adsh-box--large"
+        adsh-box
+        adsh-box--large"
     >
       <div
         class="
@@ -94,7 +94,8 @@
               adsh-box--small
               adsh-status
               text-center"
-            [attr.data-status]="campaign.status">
+            [attr.data-status]="campaign.status"
+          >
             <span>{{ campaign.status }}</span>
           </div>
         </div>
@@ -364,9 +365,7 @@
       </div>
     </div>
 
-    <app-ad-list
-      [adList]="campaign.ads"
-    >
+    <app-ad-list [adList]="campaign.ads">
     </app-ad-list>
   </div>
 </section>

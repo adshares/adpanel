@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvertiserService } from '../../store/advertiser/advertiser.service';
-import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
+import { Campaign } from '../../models/campaign.model';
+
 import * as advertiserActions from '../../store/advertiser/advertiser.action';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-campaign-list',
@@ -25,7 +27,7 @@ export class CampaignListComponent implements OnInit {
   ];
 
   private subscription: Subscription;
-  campaigns: Object;
+  campaigns: Campaign[];
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
