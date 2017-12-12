@@ -1,0 +1,50 @@
+<div class="col-xs-2">
+  <div class="
+         adsh-box
+         adsh-box--small
+         billing-table-status
+         text-center"
+       data-status="Active"
+  >
+    <span>
+      {{ billingHistoryItem.status | adsharesTokenValue }}
+    </span>
+  </div>
+</div>
+<div
+  class="
+    row
+    align-center
+    col-xs-2"
+>
+  <img
+    class="
+      adsh-icon
+      adsh-icon--prepend"
+    src="assets/images/calendar.svg"
+    alt="Calendar Icon"
+  >
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--semi
+      adsh-copy--x-dark"
+  >
+    {{ billingHistoryItem.date }}
+  </p>
+</div>
+<div class="col-xs-3">
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--semi
+      adsh-copy--x-dark"
+  >
+    {{ billingHistoryItem.address }}
+  </p>
+</div>
+<div class="col-xs-5">
+  {{ billingHistoryItem.link }}
+</div>
