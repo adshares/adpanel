@@ -12,6 +12,7 @@ import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/custo
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from '../../common/handle-subscription';
+import { AppState } from '../../models/app-state.model';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent extends HandleSubscription {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<{store}>
+    private store: Store<AppState>
   ) {
     super(null);
   }

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { UserModel } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
-import { AppState } from '../../../store/index';
+import { AppState } from '../../../models/app-state.model';
 
 @Component({
   selector: 'app-header',
@@ -15,23 +15,19 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceUSD: number = 1240.02;
   notificationsCount: number = 8;
   selectedRole: string = 'Admin';
-  state: Store<AppState>;
+  userDataState: Store<UserModel>;
 
   notificationsBarEnabled: boolean = false;
 
-  constructor(private store: Store<{state}>) {
+  constructor(private store: Store<AppState>) {
     super(null);
 
-    this.state = this.store.select('state');
+    this.userDataState = this.store.select('state', 'auth', 'userData');
   }
 
   ngOnInit() {
-    const getUserSubscription = this.state
-      .subscribe((state) => {
-        const userData = state.auth.userData;
-
-        this.checkUserRole(userData);
-      });
+    const getUserSubscription = this.userDataState
+      .subscribe((userData: UserModel) => this.checkUserRole(userData));
     this.subscriptions.push(getUserSubscription);
   }
 

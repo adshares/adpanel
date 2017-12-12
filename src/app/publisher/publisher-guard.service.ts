@@ -6,21 +6,20 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
 import { UserModel } from '../models/user.model';
+import { AppState } from '../models/app-state.model';
 
 @Injectable()
 export class PublisherGuard implements CanActivate {
 
-  constructor(private router: Router, private store: Store<{state}>) { }
+  constructor(private router: Router, private store: Store<AppState>) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state')
+    return this.store.select('state', 'auth', 'userData')
       .take(1)
-      .map((state) => {
-        const user: UserModel = state.auth.userData;
-
-        if (user.isPublisher) {
+      .map((userData: UserModel) => {
+        if (userData.isPublisher) {
           return true;
         } else {
           // todo change link to one that will tell user to update profile roles

@@ -1,0 +1,31 @@
+<input
+  type="text"
+  [(ngModel)]="searchTerm"
+  (input)="onSearchTermChange()"
+>
+
+<div
+  *ngIf="backAvailable"
+  (click)="changetViewModel(parentViewModel)"
+>
+  &lt; {{ parentOption.label }}
+</div>
+
+<div *ngFor="let option of viewModel">
+  <div (click)="handleOptionClick(option)">
+    {{ option.label }}
+
+    <span *ngIf="option.parentOptionLabel && searchTerm !== ''">
+      ({{ option.parentOptionLabel }})
+    </span>
+
+    <span *ngIf="option.selected">&emsp;V</span>
+  </div>
+</div>
+
+<div
+  *ngIf="optionsHasValue"
+  (click)="handleItemsChange()"
+>
+  Add Selected
+</div>

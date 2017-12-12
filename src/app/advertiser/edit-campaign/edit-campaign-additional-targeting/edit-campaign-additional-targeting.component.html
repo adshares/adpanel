@@ -1,25 +1,53 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      1. Requires
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+<section class="row">
+  <div class="col-xs-6">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          1. Requires
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-  <p>
-    In this window, you can select the keywords that will help you choose the ads that are related to your site and meet your requirements.
-  </p>
+      <p>
+        In this window, you can select the keywords that will help you choose the ads that are related to your site and meet your requirements.
+      </p>
 
-  <mat-menu #targetingOptionMenu="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let option of aditionalTargetingOptions">{{ option.label }}</button>
-  </mat-menu>
+      <app-targeting-select
+        [targetingOptions]="TargetingOptionsToAdd"
+        [addedItems]="addedItems"
+      ></app-targeting-select>
+    </mat-expansion-panel>
+  </div>
 
-  <button mat-icon-button [matMenuTriggerFor]="targetingOptionMenu">
-    Menu
-  </button>
+  <div class="col-xs-6">
+    <app-targeting-display [items]="addedItems"></app-targeting-display>
+  </div>
+</section>
 
-</mat-expansion-panel>
+<section class="row">
+  <div class="col-xs-6">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          2. Exclude
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <p>
+        Some missing text
+      </p>
+
+      <app-targeting-select
+        [targetingOptions]="TargetingOptionsToExclude"
+        [addedItems]="excludedItems"
+      ></app-targeting-select>
+
+    </mat-expansion-panel>
+  </div>
+
+  <div class="col-xs-6">
+    <app-targeting-display [items]="excludedItems"></app-targeting-display>
+  </div>
+</section>
 
 <a
   routerLink="../basic-information"

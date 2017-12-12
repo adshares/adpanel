@@ -1,0 +1,13 @@
+<mat-chip-list *ngFor="let groupedItems of viewModel">
+  <div>{{ groupedItems[0] }} are:</div>
+
+  <mat-chip
+    *ngFor="let item of groupedItems[1]"
+    [removable]="true"
+    (remove)="removeItem(item)"
+  >
+    {{ item.label }}
+
+    <div matChipRemove>X</div>
+  </mat-chip>
+</mat-chip-list>
