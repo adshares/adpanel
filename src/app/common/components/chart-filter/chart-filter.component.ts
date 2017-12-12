@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class ChartFilterComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }

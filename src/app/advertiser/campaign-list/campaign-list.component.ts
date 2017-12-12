@@ -1,15 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-export interface Campaign {
-  status: string;
-  name: string;
-  budgetPerDay: number;
-  clicks: number;
-  impressions: number;
-  ctr: number;
-  averageCpc: number;
-  totalCost: number;
-}
+import { Store } from '@ngrx/store';
+import { AppState } from '../../models/app-state.model';
+import { Campaign } from '../../models/campaign.model';
+
+import * as advertiserActions from '../../store/advertiser/advertiser.action';
+
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-campaign-list',
@@ -17,51 +14,30 @@ export interface Campaign {
   styleUrls: ['./campaign-list.component.scss'],
 })
 
-export class CampaignListComponent {
-  campaigns: Campaign[] = [
-    {
-      status: 'Active',
-      name: 'August 2014 Global Remarketing',
-      budgetPerDay: 20.48,
-      clicks: 275,
-      impressions: 81534,
-      ctr: 0.003,
-      averageCpc: 2.10,
-      totalCost: 238.21
-    },
-    {
-      status: 'Active',
-      name: 'August 2015 Global Remarketing',
-      budgetPerDay: 20.48,
-      clicks: 275,
-      impressions: 81534,
-      ctr: 0.003,
-      averageCpc: 2.10,
-      totalCost: 238.21
-    },
-    {
-      status: 'Active',
-      name: 'August 2016 Global Remarketing',
-      budgetPerDay: 20.48,
-      clicks: 275,
-      impressions: 81534,
-      ctr: 0.003,
-      averageCpc: 2.10,
-      totalCost: 238.21
-    },
-    {
-      status: 'Active',
-      name: 'August 2017 Global Remarketing',
-      budgetPerDay: 20.48,
-      clicks: 275,
-      impressions: 81534,
-      ctr: 0.003,
-      averageCpc: 2.10,
-      totalCost: 238.21
-    },
+export class CampaignListComponent implements OnInit {
+  menuItems = [
+    { title: 'Status', columnWidth: 'col-xs-1' },
+    { title: 'Campaign Title', columnWidth: 'col-xs-4' },
+    { title: 'Budget', columnWidth: 'col-xs-1' },
+    { title: 'Clicks', columnWidth: 'col-xs-1' },
+    { title: 'Impressions', columnWidth: 'col-xs-1' },
+    { title: 'CTR', columnWidth: 'col-xs-1' },
+    { title: 'Average CPC', columnWidth: 'col-xs-1' },
+    { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
-  constructor() { }
+  private subscription: Subscription;
+  campaigns: Campaign[];
+
+  constructor(private store: Store<AppState>) {
+    this.subscription = store
+      .select('state', 'advertiser', 'campaigns')
+      .subscribe(campaigns => this.campaigns = campaigns);
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new advertiserActions.LoadCampaigns('campaigns'));
+  }
 
 }
 

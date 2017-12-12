@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
 export class EditCampaignCreateAdsComponent {
-
+  panelOpenState: boolean = false;
 }

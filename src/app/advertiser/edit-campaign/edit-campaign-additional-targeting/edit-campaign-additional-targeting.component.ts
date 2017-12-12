@@ -9,6 +9,7 @@ import { cloneDeep } from '../../../common/utilis/helpers';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
 export class EditCampaignAdditionalTargetingComponent {
+  goesToSummary: boolean;
   TargetingOptionsToAdd: targetingOptionModel[];
   TargetingOptionsToExclude: targetingOptionModel[];
   addedItems: targetingOptionValue[] = [];
@@ -17,5 +18,7 @@ export class EditCampaignAdditionalTargetingComponent {
   constructor(private route: ActivatedRoute) {
     this.TargetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
     this.TargetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
 }

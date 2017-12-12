@@ -12,6 +12,11 @@ import { SettingsModule } from './settings/settings.module'
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
+import { AdvertiserService } from './store/advertiser/advertiser.service';
+
+import { EffectsModule } from '@ngrx/effects';
+import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
+
 import { reducers } from './store/index';
 
 const appModules = [
@@ -31,9 +36,14 @@ const appModules = [
     AppRoutingModule,
     StoreModule.forRoot({ state: reducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([
+      AdvertiserEffects
+    ]),
     ...appModules
   ],
-  providers: [],
+  providers: [
+    AdvertiserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
