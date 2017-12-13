@@ -1,31 +1,69 @@
-<input
-  type="text"
-  [(ngModel)]="searchTerm"
-  (input)="onSearchTermChange()"
->
+<div class="adsh-form-input__box">
+  <input
+    [(ngModel)]="searchTerm"
+    (input)="onSearchTermChange()"
+    class="
+      adsh-form-input
+      adsh-form-input--full"
+  >
+  <div class="search"></div>
+</div>
 
 <div
   *ngIf="backAvailable"
   (click)="changetViewModel(parentViewModel)"
+  class="
+    adsh-box
+    adsh-box--light-border"
 >
-  &lt; {{ parentOption.label }}
+  <img
+    src="/assets/images/chevron-right.svg"
+    alt="Campaign Details Icon"
+  >
+  <span
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--dark"
+  >
+    {{ parentOption.label }}
+  </span>
 </div>
 
 <div *ngFor="let option of viewModel">
-  <div (click)="handleOptionClick(option)">
-    {{ option.label }}
+  <div
+    (click)="handleOptionClick(option)"
+    class="
+      adsh-box
+      adsh-box--light-border
+      relative"
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--large
+        adsh-copy--dark"
+    >
+      {{ option.label }}
+    </span>
 
     <span *ngIf="option.parentOptionLabel && searchTerm !== ''">
       ({{ option.parentOptionLabel }})
     </span>
 
-    <span *ngIf="option.selected">&emsp;V</span>
+    <span
+      *ngIf="option.selected"
+      class="input-valid"
+    ></span>
   </div>
 </div>
 
-<div
+<button
   *ngIf="optionsHasValue"
   (click)="handleItemsChange()"
+  class="
+    adsh-btn
+    adsh-btn--blue"
 >
   Add Selected
-</div>
+</button>

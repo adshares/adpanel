@@ -1,13 +1,24 @@
 <mat-chip-list *ngFor="let groupedItems of viewModel">
-  <div>{{ groupedItems[0] }} are:</div>
+  <div class="adsh-copy">
+    {{ groupedItems[0] }}:
+  </div>
 
-  <mat-chip
-    *ngFor="let item of groupedItems[1]"
-    [removable]="true"
-    (remove)="removeItem(item)"
+  <div
+    class="
+      row
+      align-center
+      selected-chips
+      adsh-copy
+      adsh-copy--large"
   >
-    {{ item.label }}
+    <mat-chip
+      *ngFor="let item of groupedItems[1]"
+      [removable]="true"
+      (remove)="removeItem(item)"
+    >
+      {{ item.label }}
 
-    <div matChipRemove>X</div>
-  </mat-chip>
+      <div matChipRemove>x</div>
+    </mat-chip>
+  </div>
 </mat-chip-list>

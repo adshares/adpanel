@@ -15,6 +15,9 @@ export class EditCampaignAdditionalTargetingComponent {
   addedItems: targetingOptionValue[] = [];
   excludedItems: targetingOptionValue[] = [];
 
+  requirePanelOpenState: boolean;
+  excludePanelOpenState: boolean;
+
   constructor(private route: ActivatedRoute) {
     this.TargetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
     this.TargetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
