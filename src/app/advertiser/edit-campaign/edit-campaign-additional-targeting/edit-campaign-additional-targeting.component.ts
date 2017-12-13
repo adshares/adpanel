@@ -21,4 +21,14 @@ export class EditCampaignAdditionalTargetingComponent {
 
     this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
+
+  updateAddedItems(items) {
+    this.addedItems = [];
+    items.forEach((item) => this.addedItems.push(item));
+  }
+
+  updateExcludedItems(items) {
+    this.excludedItems = [];
+    items.forEach((item) => this.excludedItems.push(item));
+  }
 }
