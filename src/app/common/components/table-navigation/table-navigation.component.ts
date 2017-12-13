@@ -34,7 +34,6 @@ export class TableNavigationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.navigationName)
     switch (this.navigationName) {
       case 'adListNavigation':
         this.navigationItems = this.adListNavigationItems;
@@ -43,8 +42,6 @@ export class TableNavigationComponent implements OnInit {
         this.navigationItems = this.campaignListNavigationItems;
         break;
     }
-
-    console.log(this.navigationItems);
   }
 
 }
