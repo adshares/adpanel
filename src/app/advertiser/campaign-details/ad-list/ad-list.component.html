@@ -8,36 +8,15 @@
       adsh-box
       adsh-box--large"
   >
-    <div
+    <app-table-navigation
+      [navigationName]="'adListNavigation'"
       class="
         row
         adsh-copy
         adsh-copy--small"
     >
-      <!--<div-->
-        <!--*ngFor="let menuItem of menuItems"-->
-        <!--class="-->
-          <!--row-->
-          <!--align-center"-->
-        <!--[ngClass]="menuItem.columnWidth"-->
-      <!--&gt;-->
-        <!--{{ menuItem.title }}-->
-        <!--<div-->
-          <!--class="-->
-            <!--col-->
-            <!--adsh-ad-list__sort"-->
-        <!--&gt;-->
-          <!--<div class="adsh-sort-triangle"></div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--adsh-sort-triangle-->
-              <!--adsh-sort-triangle&#45;&#45;down"-->
-          <!--&gt;</div>-->
-        <!--</div>-->
-      <!--</div>-->
-      <app-table-navigation [navigationName]="'adListNavigationItems'">
-      </app-table-navigation>
-    </div>
+    </app-table-navigation>
+
 
     <div class="adsh-ad-list__items">
       <app-ad-list-item
