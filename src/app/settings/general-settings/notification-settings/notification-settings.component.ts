@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-notification-settings',
   templateUrl: './notification-settings.component.html',
-  styleUrls: ['./notification-settings.component.scss'],
+  styleUrls: ['./notification-settings.component.scss']
 })
-export class NotificationSettingsComponent implements OnInit {
+export class NotificationSettingsComponent {
   notificationItems = [
     {
       topic: 'Billing Alerts',
@@ -33,10 +33,5 @@ export class NotificationSettingsComponent implements OnInit {
       email: true,
     }
   ];
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

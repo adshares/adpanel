@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AppCommonModule } from '../common/common.module';
 import { FormsModule } from '@angular/forms';
 
-import { MatDialogModule } from '@angular/material';
 import { SettingsRoutingModule } from './settings-routing.module';
 
-// import { WalletDialogComponent } from './dialogs/wallet-dialog/wallet-dialog.component';
+import { WalletDialogComponent } from './dialogs/wallet-dialog/wallet-dialog.component';
 import { SettingsComponent } from './settings.component';
 import { BillingComponent } from './billing/billing.component';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
@@ -27,7 +26,7 @@ import { BillingHistoryWithdrawalComponent } from './billing/billing-history/bil
     MatSlideToggleModule
   ],
   declarations: [
-    // WalletDialogComponent,
+    WalletDialogComponent,
     SettingsComponent,
     BillingComponent,
     GeneralSettingsComponent,
@@ -38,8 +37,8 @@ import { BillingHistoryWithdrawalComponent } from './billing/billing-history/bil
     SettingsNavigationComponent,
     BillingHistoryWithdrawalComponent,
   ],
-  // entryComponents: [
-  //   WalletDialogComponent
-  // ]
+  entryComponents: [
+    WalletDialogComponent
+  ]
 })
 export class SettingsModule { }

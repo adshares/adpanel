@@ -10,14 +10,8 @@ const settingsRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     children: [
-      {
-        path: 'general',
-        component: GeneralSettingsComponent
-      },
-      {
-        path: 'billing',
-        component: BillingComponent
-      }
+      { path: 'general', component: GeneralSettingsComponent },
+      { path: 'billing', component: BillingComponent }
     ]
   },
 ];

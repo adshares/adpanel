@@ -1,16 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
-  styleUrls: ['./preferences.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./preferences.component.scss']
 })
-export class PreferencesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class PreferencesComponent {
 
 }

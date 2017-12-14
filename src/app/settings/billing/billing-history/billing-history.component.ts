@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component } from '@angular/core';
 import { BillingHistoryItemModel } from '../../../models/billing-history-item.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { BillingHistoryItemModel } from '../../../models/billing-history-item.mo
   templateUrl: './billing-history.component.html',
   styleUrls: ['./billing-history.component.scss'],
 })
-export class BillingHistoryComponent implements OnInit {
+export class BillingHistoryComponent {
   billingHistory: BillingHistoryItemModel[] = [
     {
       status: 349.80,
@@ -32,10 +32,5 @@ export class BillingHistoryComponent implements OnInit {
       address: '0x35-0xww9091j-x530',
       link: 'https://etherscan.io/address/0xde9190f9901',
     },
-  ];
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ]
 }
