@@ -13,6 +13,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent);
 @import 'styles/colors';
 
 @import 'styles/buttons';
+@import 'styles/dashboard';
 @import 'styles/forms';
 @import 'styles/flexbox';
 @import 'styles/material-override';

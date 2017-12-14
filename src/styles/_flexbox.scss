@@ -65,6 +65,8 @@ $column_sizes: 12;
       .col-#{$viewport_size}-#{$i} {
         flex-basis: $i/12 * 100%;
         max-width: $i/12 * 100%;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
       }
 
       .col-#{$viewport_size}-offset-#{$i} {

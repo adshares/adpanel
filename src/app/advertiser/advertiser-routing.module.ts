@@ -8,6 +8,7 @@ import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-c
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
 
 const advertiserRoutes: Routes = [
@@ -18,6 +19,7 @@ const advertiserRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
+      { path: 'campaign/:id', component: CampaignDetailsComponent},
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
@@ -29,7 +31,7 @@ const advertiserRoutes: Routes = [
         ]
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

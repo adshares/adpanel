@@ -56,6 +56,10 @@
     background: pal(blue);
   }
 
+  &--navy {
+    background: pal(navy);
+  }
+
   &--green {
     background: pal(green);
 
@@ -180,7 +184,7 @@
   }
 
   &--short-right {
-    padding-right: 20px 70px 20px 20px;
+    padding-right: 20px;
   }
 
   &--light-green {
@@ -198,6 +202,18 @@
 
   &--light-border {
     border: solid 1px pal(gray, light);
+  }
+
+  &--bordered {
+    border-width: 1px;
+  }
+
+  &--blue-border {
+    border-color: pal(blue);
+  }
+
+  &--dashed {
+    border-style: dashed;
   }
 }
 
@@ -230,4 +246,41 @@
 
 .absolute {
   position: absolute;
+}
+
+/*
+ router animations
+ */
+
+router-outlet ~ * {
+  position: absolute;
+  width: 100%;
+  min-height: 100%
+}
+
+
+/*
+  status
+*/
+
+.adsh-status {
+  @include font(10, bold);
+  text-transform: uppercase;
+  width: 75px;
+
+  &[data-status="active"] {
+    color: pal(green);
+    background-color: pal(green, light);
+  }
+
+  &[data-status="limited"] {
+    color: pal(blue);
+    background-color: pal(blue, light);
+  }
+
+  &[data-status="archived"],
+  &[data-status="draft"] {
+    color: pal(gray);
+    background-color: pal(gray, ultra-light);
+  }
 }

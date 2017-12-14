@@ -36,10 +36,10 @@
   }
 
   &--white {
-    border: 1px solid pal(gray, light);
+    background-color: pal(white);
 
     &:hover {
-      background-color: pal(gray, ultra-light);
+      background-color: darken(pal(white), 1.2);
     }
   }
 
