@@ -18,7 +18,6 @@ export class AdvertiserEffects {
     .map((action: advertiserActions.LoadCampaigns) => action.payload )
     .switchMap(() => this.service.getCampaigns())
     .map((campaigns) => {
-      console.log(campaigns)
       return new advertiserActions.LoadCampaignsSuccess(campaigns);
     });
 }
