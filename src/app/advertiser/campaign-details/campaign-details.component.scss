@@ -1,7 +1,9 @@
 .campaign-details-statistics {
   > div {
     flex-basis: calc(20% - 10px);
+    max-width: calc(20% - 10px);
     margin: 0 5px;
+    word-wrap: break-word;
 
     &:first-of-type {
       margin-left: 0;

@@ -18,10 +18,10 @@
           adsh-box--small
           adsh-status
           text-center"
-        [attr.data-status]="campaign.status"
+        [attr.data-status]="campaign.basicInformation.status"
       >
         <span>
-          {{ campaign.status }}
+          {{ campaign.basicInformation.status }}
         </span>
       </div>
     </div>
@@ -36,7 +36,7 @@
           adsh-heading
           adsh-heading--secondary"
       >
-        {{ campaign.name }}
+        {{ campaign.basicInformation.name }}
       </h4>
     </div>
     <div class="
@@ -44,7 +44,7 @@
         row
         align-center">
       <span>
-        {{ campaign.budget | currency:USD }}/day
+        {{ campaign.basicInformation.budget | currency:USD }}/day
       </span>
     </div>
     <div
@@ -105,7 +105,7 @@
         justify-center
         adsh-campaign-list__item-campaign-details"
     >
-      <a [routerLink]="['../campaign', campaign.id]">
+      <a [routerLink]="['../campaign', campaign.basicInformation.id]">
         <img
           src="/assets/images/chevron-right.svg"
           alt="Campaign Details Icon"
