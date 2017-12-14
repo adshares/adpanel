@@ -31,8 +31,6 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
-  constructor() { }
-
   ngOnInit() {
     switch (this.navigationName) {
       case 'adListNavigation':

@@ -19,7 +19,6 @@ import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
