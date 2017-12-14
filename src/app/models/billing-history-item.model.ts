@@ -1,6 +1,6 @@
 export interface BillingHistoryItemModel {
   status: number;
-  date: any;
+  date: Date;
   address: string;
   link: string;
 }
