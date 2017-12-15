@@ -17,7 +17,7 @@ import { FundsSummaryComponent } from './components/funds-summary/funds-summary.
 
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
-
+import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 
 @NgModule({
   imports: [
@@ -37,7 +37,8 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
     AdsharesTokenPipe,
     ChartFilterComponent,
     FundsSummaryComponent,
-    ConfirmationAlertComponent
+    ConfirmationAlertComponent,
+    TableNavigationComponent
   ],
   entryComponents: [
     CustomizeAccountChooseDialogComponent,
@@ -51,7 +52,8 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
     FundsSummaryComponent,
     ConfirmationAlertComponent,
     MatSelect,
-    MatOption
+    MatOption,
+    TableNavigationComponent
   ]
 })
 
