@@ -7,17 +7,21 @@
     class="
       row
       align-center
-      selected-chips
-      adsh-copy
-      adsh-copy--large"
+      selected-chips"
   >
     <mat-chip
       *ngFor="let item of groupedItems[1]"
       [removable]="true"
       (remove)="removeItem(item)"
     >
-      {{ item.label }}
-
+      <p
+        class="
+          adsh-copy
+          adsh-copy--x-dark
+          adsh-copy--semi"
+      >
+        {{ item.label }}
+      </p>
       <div matChipRemove>x</div>
     </mat-chip>
   </div>

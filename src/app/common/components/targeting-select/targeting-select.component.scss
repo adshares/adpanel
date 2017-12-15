@@ -1,3 +1,26 @@
 button {
   margin-top: 15px;
 }
+
+.inactive {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #d3d7dc;
+  position: absolute;
+  margin-right: 10px;
+  top: 17px;
+  right: 4px;
+}
+
+.search-icon {
+  top: 15px;
+  right: 15px;
+}
+
+.go-to-category {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

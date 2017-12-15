@@ -6,7 +6,13 @@
       adsh-form-input
       adsh-form-input--full"
   >
-  <div class="search"></div>
+  <img
+    src="/assets/images/search.svg"
+    alt="Search Icon"
+    class="
+      search-icon
+      absolute"
+  >
 </div>
 
 <div
@@ -17,7 +23,7 @@
     adsh-box--light-border"
 >
   <img
-    src="/assets/images/chevron-right.svg"
+    src="/assets/images/chevron--left.svg"
     alt="Campaign Details Icon"
   >
   <span
@@ -51,8 +57,21 @@
       ({{ option.parentOptionLabel }})
     </span>
 
+    <img
+      class="go-to-category"
+      *ngIf="!optionsHasValue"
+      src="/assets/images/chevron--right.svg"
+      alt="Go to category icon"
+    >
+
+    <span
+      *ngIf="optionsHasValue"
+      class="adsh-circle inactive"
+    ></span>
+
     <span
       *ngIf="option.selected"
+      [class.active]="isActive"
       class="input-valid"
     ></span>
   </div>
