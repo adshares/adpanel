@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './user-wallet.component.html',
   styleUrls: ['./user-wallet.component.scss']
 })
-export class UserWalletComponent {
-
-}
+export class UserWalletComponent {}

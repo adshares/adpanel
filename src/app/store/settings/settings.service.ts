@@ -16,8 +16,6 @@ export class SettingsService {
 
   getNotificationsSettings(): any {
     return this.http.get(`${environment.apiUrl}/notifications_settings`)
-      .map((response: Response) => {
-        return response.json();
-      });
+      .map((response: Response) => response.json());
   }
 }

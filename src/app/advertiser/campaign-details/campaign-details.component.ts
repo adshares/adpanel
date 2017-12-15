@@ -12,10 +12,10 @@ import { Campaign } from '../../models/campaign.model';
   styleUrls: ['./campaign-details.component.scss'],
 })
 export class CampaignDetailsComponent implements OnInit {
+  subscription: Subscription;
   campaigns: Campaign[];
   campaign: Campaign;
   campaignId: number;
-  private subscription: Subscription;
 
   constructor(
     private store: Store<AppState>,

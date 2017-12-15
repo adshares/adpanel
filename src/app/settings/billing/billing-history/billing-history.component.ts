@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./billing-history.component.scss'],
 })
 export class BillingHistoryComponent implements OnInit {
-  private subscription: Subscription;
+  subscription: Subscription;
   billingHistory: BillingHistoryItem[];
 
   constructor(private store: Store<AppState>, private service: SettingsService) {

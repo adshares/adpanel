@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss']
 })
-export class PreferencesComponent {
-
-}
+export class PreferencesComponent {}

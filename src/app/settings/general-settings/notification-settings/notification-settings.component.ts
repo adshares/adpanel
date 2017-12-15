@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
+import { NotificationSetting } from '../../../models/notification-setting.model';
 
 import * as settingsActions from '../../../store/settings/settings.actions';
 
@@ -13,8 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./notification-settings.component.scss']
 })
 export class NotificationSettingsComponent implements OnInit{
-  private subscription: Subscription;
-  notificationsSettings: any;
+  subscription: Subscription;
+  notificationsSettings: NotificationSetting[];
 
   constructor(private store: Store<AppState>) {
     this.subscription = store

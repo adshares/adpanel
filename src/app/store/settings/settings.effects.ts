@@ -12,8 +12,7 @@ export class SettingsEffects {
   constructor (
     private actions$: Actions,
     private service: SettingsService
-  ) {
-  }
+  ) {}
 
   @Effect()
   loadBillingHistory$: Observable<any> = this.actions$

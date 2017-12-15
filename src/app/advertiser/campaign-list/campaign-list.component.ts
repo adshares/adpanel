@@ -26,7 +26,7 @@ export class CampaignListComponent implements OnInit {
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
-  private subscription: Subscription;
+  subscription: Subscription;
   campaigns: Campaign[];
 
   constructor(private store: Store<AppState>) {

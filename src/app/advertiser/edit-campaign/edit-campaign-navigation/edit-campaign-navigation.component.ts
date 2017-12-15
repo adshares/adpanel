@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-edit-campaign-navigation',
@@ -15,13 +16,13 @@ export class EditCampaignNavigationComponent implements OnInit {
   ];
 
   currentStep: number;
-  private sub: any;
+  subscription: Subscription;
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.sub = this.route.queryParams.subscribe(params => {
+    this.subscription = this.route.queryParams.subscribe(params => {
       this.currentStep = params.step;
     });
   }
