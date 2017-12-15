@@ -10,12 +10,12 @@ export class AdvertiserEffects {
   constructor (
     private actions$: Actions,
     private service: AdvertiserService
-  ) {}
+  ) { }
 
   @Effect()
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
-    .map((action: advertiserActions.LoadCampaigns) => action.payload )
+    .map((action: advertiserActions.LoadCampaigns) => action.payload)
     .switchMap(() => this.service.getCampaigns())
     .map((campaigns) => {
       return new advertiserActions.LoadCampaignsSuccess(campaigns);

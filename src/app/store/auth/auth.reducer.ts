@@ -1,15 +1,10 @@
 import * as AuthAction from './auth.action';
 
-import { UserModel } from '../../models/user.model';
+import { User } from '../../models/user.model';
 import { AuthState } from '../../models/auth-state.model';
 
 const initialState: AuthState = {
-  userData: {
-    email: '',
-    isAdvertiser: true,
-    isPublisher: true,
-    isAdmin: false
-  }
+  userData: {} as User
 };
 
 export function authReducers(state = initialState , action: AuthAction.actions ): AuthState {

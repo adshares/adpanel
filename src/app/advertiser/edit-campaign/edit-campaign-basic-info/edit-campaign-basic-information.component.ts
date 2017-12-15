@@ -12,7 +12,7 @@ const moment = _moment;
 @Component({
   selector: 'app-edit-campaign-basic-information',
   templateUrl: './edit-campaign-basic-information.component.html',
-  styleUrls: ['./edit-campaign-basic-information.component.scss'],
+  styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
 export class EditCampaignBasicInformationComponent {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
@@ -28,27 +28,26 @@ export class EditCampaignBasicInformationComponent {
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
-    this.route.queryParams.subscribe(params => {
-      this.goesToSummary = params.summary;
-    });
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
 
   saveCampaignBasicInformation() {
-    if (!this.editCampaignBasicInformationForm.valid) {
+
+    if (!this.editCampaignBasicInformationForm.valid || !this.dateStart) {
       return;
     }
 
-    const id = Math.floor(Math.random() * 100000000) + 10000;
+    const campaignBasicInfoValue = this.editCampaignBasicInformationForm.value;
+
     const basicInformation = {
-      id: id,
       status: 'draft',
-      name: this.editCampaignBasicInformationForm.value.campaignName,
-      targetURL: this.editCampaignBasicInformationForm.value.campaignTargetURL,
-      bidStrategy: this.editCampaignBasicInformationForm.value.campaignBidStrategy,
-      bidValue: this.editCampaignBasicInformationForm.value.campaignBidValue,
-      budget: this.editCampaignBasicInformationForm.value.campaignBudget,
+      name: campaignBasicInfoValue.campaignName,
+      targetURL: campaignBasicInfoValue.campaignTargetURL,
+      bidStrategy: campaignBasicInfoValue.campaignBidStrategy,
+      bidValue: campaignBasicInfoValue.campaignBidValue,
+      budget: campaignBasicInfoValue.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: moment(this.dateEnd.value._d) ? moment(this.dateEnd.value._d).format('L') : null,
+      dateEnd: this.dateEnd.value ? moment(this.dateEnd.value._d).format('L') : null,
     };
 
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));

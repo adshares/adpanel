@@ -36,14 +36,12 @@ const appModules = [
     AppRoutingModule,
     StoreModule.forRoot({ state: reducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([
-      AdvertiserEffects
-    ]),
+    EffectsModule.forRoot([ AdvertiserEffects ]),
     ...appModules
   ],
   providers: [
     AdvertiserService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

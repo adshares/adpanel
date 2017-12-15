@@ -231,18 +231,30 @@
             >
               <input
                 (click)="dateStartPicker.open()"
-                matInput [min]="minDate"
+                matInput
+                [min]="minDate"
                 [max]="maxDate"
                 [matDatepicker]="dateStartPicker"
                 [formControl]="dateStart"
+                required
               >
               <mat-datepicker-toggle
                 matSuffix
                 [for]="dateStartPicker"
-              >
-              </mat-datepicker-toggle>
+              ></mat-datepicker-toggle>
               <mat-datepicker #dateStartPicker></mat-datepicker>
             </mat-form-field>
+
+            <span
+              *ngIf="dateStart.valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="dateStart.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
+              Start date required
+            </span>
           </div>
           <div
             class="

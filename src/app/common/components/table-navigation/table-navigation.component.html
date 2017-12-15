@@ -1,0 +1,21 @@
+<div
+  *ngFor="let menuItem of navigationItems"
+  class="
+    row
+    align-center"
+  [ngClass]="menuItem.columnWidth"
+>
+  {{ menuItem.title }}
+  <div
+    class="
+      col
+      adsh-ad-list__sort"
+  >
+    <div class="adsh-sort-triangle"></div>
+    <div
+      class="
+        adsh-sort-triangle
+        adsh-sort-triangle--down"
+    ></div>
+  </div>
+</div>

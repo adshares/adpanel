@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UserModel } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 
@@ -15,7 +15,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceUSD: number = 1240.02;
   notificationsCount: number = 8;
   selectedRole: string = 'Admin';
-  userDataState: Store<UserModel>;
+  userDataState: Store<User>;
 
   notificationsBarEnabled: boolean = false;
 
@@ -27,7 +27,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     const getUserSubscription = this.userDataState
-      .subscribe((userData: UserModel) => this.checkUserRole(userData));
+      .subscribe((userData: User) => this.checkUserRole(userData));
     this.subscriptions.push(getUserSubscription);
   }
 
@@ -35,7 +35,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.notificationsBarEnabled = status;
   }
 
-  checkUserRole(user: UserModel) {
+  checkUserRole(user: User) {
     if (user.isAdmin) {
       return;
     }
