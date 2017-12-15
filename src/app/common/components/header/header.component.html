@@ -11,21 +11,23 @@
       row
       align-center"
   >
-    <div
-      class="
-        adsh-navigation__item
-        row
-        align-center"
-    >
-      <img
-        class="adsh-logo"
-        src="assets/images/logo--white.png"
-        srcset="
-          assets/images/logo--white@2x.png 2x,
-          assets/images/logo--white@3x.png 3x"
-        alt="Adshares Logo"
+    <a [routerLink]="['/', selectedRole.toLowerCase(), 'dashboard']">
+      <div
+        class="
+          adsh-navigation__item
+          row
+          align-center"
       >
-    </div>
+          <img
+            class="adsh-logo"
+            src="assets/images/logo--white.png"
+            srcset="
+            assets/images/logo--white@2x.png 2x,
+            assets/images/logo--white@3x.png 3x"
+            alt="Adshares Logo"
+          >
+      </div>
+    </a>
 
     <div
       class="
