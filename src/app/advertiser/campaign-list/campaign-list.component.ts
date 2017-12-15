@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class CampaignListComponent implements OnInit {
 
-  private subscription: Subscription;
+  subscription: Subscription;
   campaigns: Campaign[];
 
   constructor(private store: Store<AppState>) {
