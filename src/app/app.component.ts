@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { fadeAnimation } from './common/animations/fade.animation';
 
 @Component({
@@ -7,7 +8,20 @@ import { fadeAnimation } from './common/animations/fade.animation';
   styleUrls: ['./app.component.scss'],
   animations: [fadeAnimation]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  constructor(private router: Router) {}
+
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (!(event instanceof NavigationEnd)) {
+        return;
+      }
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 200);
+    });
+  }
 }
