@@ -14,3 +14,26 @@
   box-shadow: none !important;
 }
 
+
+mat-chip:not(.mat-basic-chip) {
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 0 !important;
+  align-items: center;
+  cursor: default;
+}
+
+.mat-chip:not(.mat-basic-chip) {
+  background-color: pal(gray, x-light);
+  @include font(12, 500);
+}
+
+.mat-chip-list-wrapper {
+  flex-direction: column !important;
+  margin: 10px 25px;
+}
+
+.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+  margin: 5px !important;
+}

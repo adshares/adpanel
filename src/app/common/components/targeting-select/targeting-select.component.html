@@ -1,31 +1,88 @@
-<input
-  type="text"
-  [(ngModel)]="searchTerm"
-  (input)="onSearchTermChange()"
->
+<div class="adsh-form-input__box">
+  <input
+    [(ngModel)]="searchTerm"
+    (input)="onSearchTermChange()"
+    class="
+      adsh-form-input
+      adsh-form-input--full"
+  >
+  <img
+    src="/assets/images/search.svg"
+    alt="Search Icon"
+    class="
+      search-icon
+      absolute"
+  >
+</div>
 
 <div
   *ngIf="backAvailable"
   (click)="changeViewModel(parentViewModel)"
+  class="
+    adsh-box
+    adsh-box--light-border"
 >
-  &lt; {{ parentOption.label }}
+  <img
+    src="/assets/images/chevron--left.svg"
+    alt="Campaign Details Icon"
+  >
+  <span
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--dark"
+  >
+    {{ parentOption.label }}
+  </span>
 </div>
 
 <div *ngFor="let option of viewModel">
-  <div (click)="handleOptionClick(option)">
-    {{ option.label }}
+  <div
+    (click)="handleOptionClick(option)"
+    class="
+      adsh-box
+      adsh-box--light-border
+      relative"
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--large
+        adsh-copy--dark"
+    >
+      {{ option.label }}
+    </span>
 
     <span *ngIf="option.parentOptionLabel && searchTerm !== ''">
       ({{ option.parentOptionLabel }})
     </span>
 
-    <span *ngIf="option.selected">&emsp;V</span>
+    <img
+      class="go-to-category"
+      *ngIf="!optionsHasValue"
+      src="/assets/images/chevron--right.svg"
+      alt="Go to category icon"
+    >
+
+    <span
+      *ngIf="optionsHasValue"
+      class="adsh-circle inactive"
+    ></span>
+
+    <span
+      *ngIf="option.selected"
+      [class.active]="isActive"
+      class="input-valid"
+    ></span>
   </div>
 </div>
 
-<div
+<button
   *ngIf="optionsHasValue"
   (click)="handleItemsChange()"
+  class="
+    adsh-btn
+    adsh-btn--blue"
 >
   Add Selected
-</div>
+</button>
