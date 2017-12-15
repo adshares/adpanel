@@ -4,6 +4,7 @@ import { AdvertiserState } from './advertiser-state.model';
 export interface AppState {
   state: {
     auth: AuthState,
-    advertiser: AdvertiserState
+    advertiser: AdvertiserState,
+    settings: any
   };
 }
