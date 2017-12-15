@@ -5,7 +5,7 @@ import { AppState } from '../../../models/app-state.model';
 import { BillingHistoryItem } from '../../../models/billing-history-item.model';
 
 import * as settingsActions from '../../../store/settings/settings.actions';
-import { SettingsService } from '../../../store/settings/settings.service';
+import { SettingsService } from '../../settings.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
