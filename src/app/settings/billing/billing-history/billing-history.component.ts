@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
-import { BillingHistoryItemModel } from '../../../models/billing-history-item.model';
+import { BillingHistoryItem } from '../../../models/billing-history-item.model';
 
 import * as settingsActions from '../../../store/settings/settings.actions';
 import { SettingsService } from '../../../store/settings/settings.service';
@@ -14,9 +14,9 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './billing-history.component.html',
   styleUrls: ['./billing-history.component.scss'],
 })
-export class BillingHistoryComponent implements OnInit{
+export class BillingHistoryComponent implements OnInit {
   private subscription: Subscription;
-  billingHistory: BillingHistoryItemModel[];
+  billingHistory: BillingHistoryItem[];
 
   constructor(private store: Store<AppState>, private service: SettingsService) {
     this.subscription = store
@@ -26,8 +26,6 @@ export class BillingHistoryComponent implements OnInit{
 
   ngOnInit() {
     this.store.dispatch(new settingsActions.LoadBillingHistory(''));
-    console.log(this.service.getBillingHistory())
-    console.log(this.service.getNotificationsSettings())
-  }
+  };
 
 }

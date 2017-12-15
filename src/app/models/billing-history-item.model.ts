@@ -1,4 +1,4 @@
-export interface BillingHistoryItemModel {
+export interface BillingHistoryItem {
   status: number;
   date: Date;
   address: string;
