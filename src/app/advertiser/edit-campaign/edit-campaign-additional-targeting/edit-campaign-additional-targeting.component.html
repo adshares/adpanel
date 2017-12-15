@@ -38,12 +38,16 @@
               <app-targeting-select
                 [targetingOptions]="TargetingOptionsToAdd"
                 [addedItems]="addedItems"
+                (itemsChange)="updateAddedItems($event)"
               ></app-targeting-select>
             </div>
           </div>
 
           <div class="col-xs-6">
-            <app-targeting-display [items]="addedItems"></app-targeting-display>
+            <app-targeting-display
+              [items]="addedItems"
+              (itemsChange)="updateAddedItems($event)"
+            ></app-targeting-display>
           </div>
         </div>
       </mat-expansion-panel>
@@ -84,12 +88,16 @@
               <app-targeting-select
                 [targetingOptions]="TargetingOptionsToExclude"
                 [addedItems]="excludedItems"
+                (itemsChange)="updateExcludedItems($event)"
               ></app-targeting-select>
             </div>
           </div>
 
           <div class="col-xs-6">
-            <app-targeting-display [items]="excludedItems"></app-targeting-display>
+            <app-targeting-display
+              [items]="excludedItems"
+              (itemsChange)="updateExcludedItems($event)"
+            ></app-targeting-display>
           </div>
         </div>
       </mat-expansion-panel>

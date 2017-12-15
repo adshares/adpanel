@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, IterableDiffers } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { targetingOptionValue } from '../../../models/targeting-option.model';
 
 @Component({
@@ -6,21 +6,14 @@ import { targetingOptionValue } from '../../../models/targeting-option.model';
   templateUrl: './targeting-display.component.html',
   styleUrls: ['./targeting-display.component.scss']
 })
-export class TargetingDisplayComponent implements DoCheck {
+export class TargetingDisplayComponent implements OnChanges {
   @Input() items;
+  @Output()
+  itemsChange: EventEmitter<targetingOptionValue[]> = new EventEmitter<targetingOptionValue[]>();
   viewModel: [targetingOptionValue[]][] = [];
-  arrayDiffer: any;
 
-  constructor(private _differ: IterableDiffers) {
-    this.arrayDiffer = this._differ.find([]).create(null);
-  }
-
-  ngDoCheck() {
-    const itemsChanged = this.arrayDiffer.diff(this.items);
-
-    if (itemsChanged) {
-      this.prepareItemsToDisplay();
-    }
+  ngOnChanges() {
+    this.prepareItemsToDisplay();
   }
 
   prepareItemsToDisplay() {
@@ -31,7 +24,7 @@ export class TargetingDisplayComponent implements DoCheck {
         (viewModelItem) => viewModelItem[0] === item.parent_label
       );
 
-      if (viewModelParentLabelIndex >= 0 ) {
+      if (viewModelParentLabelIndex >= 0) {
         this.viewModel[viewModelParentLabelIndex][1].push(item);
       } else {
         this.viewModel.push([item.parent_label, [item]]);
@@ -44,5 +37,6 @@ export class TargetingDisplayComponent implements DoCheck {
 
     item.selected = false;
     this.items.splice(itemInItemsIndex, 1);
+    this.itemsChange.emit(this.items);
   }
 }

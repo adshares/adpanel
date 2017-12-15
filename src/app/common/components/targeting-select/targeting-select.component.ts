@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, Input, IterableDiffers } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { targetingOptionModel, targetingOptionValue } from '../../../models/targeting-option.model';
 
 @Component({
@@ -6,10 +6,12 @@ import { targetingOptionModel, targetingOptionValue } from '../../../models/targ
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent implements OnInit, DoCheck {
+export class TargetingSelectComponent implements OnInit, OnChanges {
   @Input() targetingOptions;
   @Input() addedItems;
-  arrayDiffer: any;
+  @Output()
+  itemsChange: EventEmitter<targetingOptionValue[]> = new EventEmitter<targetingOptionValue[]>();
+
   backAvailable: boolean = false;
   optionsHasValue: boolean = false;
   searchTerm: string = '';
@@ -19,24 +21,16 @@ export class TargetingSelectComponent implements OnInit, DoCheck {
   parentOption: targetingOptionModel;
   selectedItems: targetingOptionValue[] = [];
 
-  constructor(private differ: IterableDiffers) {
-    this.arrayDiffer = this.differ.find([]).create(null);
-  }
-
   ngOnInit() {
     this.viewModel = this.targetingOptions;
     this.prepareTargetingOptionsForSearch();
   }
 
-  ngDoCheck() {
-    const addedItemsChanged = this.arrayDiffer.diff(this.addedItems);
-
-    if (addedItemsChanged) {
-      this.selectedItems = this.selectedItems.filter((item) => item.selected);
-    }
+  ngOnChanges() {
+    this.selectedItems = this.selectedItems.filter((item) => item.selected);
   }
 
-  changetViewModel(options) {
+  changeViewModel(options) {
     this.viewModel = options;
 
     this.backAvailable = !this.targetingOptions.some(
@@ -56,27 +50,25 @@ export class TargetingSelectComponent implements OnInit, DoCheck {
     if (option.values || option.children) {
       const newOptions = option.children ? option.children : option.values;
 
-      this.changetViewModel(newOptions);
+      this.changeViewModel(newOptions);
     } else if (option.value) {
       this.toggleItem(option);
     }
   }
 
   toggleItem(option) {
+    const itemIndex = this.selectedItems.findIndex((item) => item.key === option.key);
     option.selected = !option.selected;
 
-    if (option.selected) {
+    if (option.selected && itemIndex < 0) {
       this.selectedItems.push(option);
-    } else {
-      const itemIndex = this.selectedItems.indexOf(option);
-
+    } else if (!option.secected && itemIndex >= 0) {
       this.selectedItems.splice(itemIndex, 1);
     }
   }
 
   handleItemsChange() {
-    // replace values of addedItems with selectedItem without loosing reference
-    [].splice.apply(this.addedItems, [0, this.addedItems.length].concat(this.selectedItems));
+    this.itemsChange.emit(this.selectedItems);
   }
 
   setBackViewModel(options, currOptions) {
@@ -118,7 +110,7 @@ export class TargetingSelectComponent implements OnInit, DoCheck {
     if (searchTerm !== '') {
       this.prepareSearchViewModel();
     } else {
-      this.changetViewModel(this.targetingOptions);
+      this.changeViewModel(this.targetingOptions);
     }
   }
 
@@ -130,7 +122,7 @@ export class TargetingSelectComponent implements OnInit, DoCheck {
     );
 
     if (searchViewModel.length > 0) {
-      this.changetViewModel(searchViewModel);
+      this.changeViewModel(searchViewModel);
     } else {
       this.viewModel = [];
     }
