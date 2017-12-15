@@ -5,6 +5,7 @@ import { AppState } from '../../../models/app-state.model';
 import { BillingHistoryItemModel } from '../../../models/billing-history-item.model';
 
 import * as settingsActions from '../../../store/settings/settings.actions';
+import { SettingsService } from '../../../store/settings/settings.service';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -17,7 +18,7 @@ export class BillingHistoryComponent implements OnInit{
   private subscription: Subscription;
   billingHistory: BillingHistoryItemModel[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private service: SettingsService) {
     this.subscription = store
       .select('state', 'settings', 'billingHistory')
       .subscribe(billingHistory => this.billingHistory = billingHistory);
@@ -25,5 +26,8 @@ export class BillingHistoryComponent implements OnInit{
 
   ngOnInit() {
     this.store.dispatch(new settingsActions.LoadBillingHistory(''));
+    console.log(this.service.getBillingHistory())
+    console.log(this.service.getNotificationsSettings())
   }
+
 }

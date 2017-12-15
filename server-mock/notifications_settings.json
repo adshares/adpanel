@@ -1,0 +1,27 @@
+[
+  {
+    "topic": "Billing Alerts",
+    "notification": "true",
+    "email": "false"
+  },
+  {
+    "topic": "Campaign Maintenance Alerts",
+    "notification": "true",
+    "email": "true"
+  },
+  {
+    "topic": "Newsletter",
+    "notification": "false",
+    "email": "false"
+  },
+  {
+    "topic": "Performance Suggestions",
+    "notification": "true",
+    "email": "true"
+  },
+  {
+    "topic": "Special Offers",
+    "notification": "true",
+    "email": "false"
+  }
+]
