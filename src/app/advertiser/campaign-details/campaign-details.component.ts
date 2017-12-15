@@ -13,7 +13,7 @@ import { Campaign } from '../../models/campaign.model';
 })
 export class CampaignDetailsComponent implements OnInit {
   campaigns: Campaign[];
-  campaign: Object;
+  campaign: Campaign;
   campaignId: number;
   private subscription: Subscription;
 
@@ -23,12 +23,14 @@ export class CampaignDetailsComponent implements OnInit {
   ) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => this.campaigns = campaigns);
+      .subscribe(campaigns => {
+        this.campaigns = campaigns
+      });
 
-    this.campaignId = +this.route.snapshot.params.id;
+    this.campaignId = this.route.snapshot.params.id;
   }
 
   ngOnInit() {
-    this.campaign = this.campaigns.find(campaign => campaign.id === this.campaignId);
+    this.campaign = this.campaigns.find(campaign => campaign.basicInformation.id === this.campaignId);
   }
 }
