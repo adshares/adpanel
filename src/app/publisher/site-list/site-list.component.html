@@ -1,0 +1,48 @@
+<section
+  class="
+    col
+    adsh-campaign-list"
+>
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        adsh-copy
+        adsh-copy--small"
+    >
+      <div
+        *ngFor="let menuItem of menuItems"
+        class="
+          row
+          align-center"
+        [ngClass]="menuItem.columnWidth"
+      >
+        {{ menuItem.title }}
+        <div
+          class="
+            col
+            adsh-ad-list__sort"
+        >
+          <div class="adsh-sort-triangle"></div>
+          <div
+            class="
+              adsh-sort-triangle
+              adsh-sort-triangle--down"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="adsh-campaign-list__items">
+      <!--<app-campaign-list-item-->
+        <!--*ngFor="let site of sites"-->
+        <!--[site]="site"-->
+      <!--&gt;-->
+      <!--</app-campaign-list-item>-->
+    </div>
+  </div>
+</section>

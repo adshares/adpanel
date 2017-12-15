@@ -1,0 +1,116 @@
+<div class="adsh-site-list__item">
+  <div
+    class="
+      row
+      align-center
+      adsh-copy
+      adsh-copy--semi"
+  >
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <div
+        class="
+          adsh-box
+          adsh-box--small
+          adsh-status
+          text-center"
+        [attr.data-status]="site.basicInformation.status"
+      >
+        <span>
+          {{ site.basicInformation.status }}
+        </span>
+      </div>
+    </div>
+    <div
+      class="
+        col-xs-4
+        row
+        align-center"
+    >
+      <h4
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        {{ site.basicInformation.name }}
+      </h4>
+    </div>
+    <div class="
+        col-xs-1
+        row
+        align-center">
+      <span>
+        {{ site.basicInformation.budget | currency:USD }}/day
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.clicks }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.impressions }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.ctr | percent }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.averageCPC | currency:USD }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.cost | currency:USD }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center
+        justify-center
+        adsh-site-list__item-site-details"
+    >
+      <a [routerLink]="['../site', site.basicInformation.id]">
+        <img
+          src="/assets/images/chevron-right.svg"
+          alt="Campaign Details Icon"
+        >
+      </a>
+    </div>
+  </div>
+</div>
