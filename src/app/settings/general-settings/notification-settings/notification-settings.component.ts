@@ -14,12 +14,14 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NotificationSettingsComponent implements OnInit{
   private subscription: Subscription;
-  notificationItems: any;
+  notificationsSettings: any;
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
-      .select('state', 'settings', 'notificationItems')
-      .subscribe(notificationItems => this.notificationItems = notificationItems);
+      .select('state', 'settings', 'notificationsSettings')
+      .subscribe(notificationsSettings => {
+        this.notificationsSettings = notificationsSettings
+      });
   }
 
   ngOnInit() {
