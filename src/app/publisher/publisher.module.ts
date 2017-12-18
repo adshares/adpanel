@@ -11,6 +11,7 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import { SiteListItemComponent } from './site-list/site-list-item/site-list-item.component';
 import { AdUnitsComponent } from './site-details/ad-units/ad-units.component';
+import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-dialog.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { AdUnitsComponent } from './site-details/ad-units/ad-units.component';
     SiteDetailsComponent,
     SiteListComponent,
     SiteListItemComponent,
-    AdUnitsComponent
+    AdUnitsComponent,
+    SiteCodeDialogComponent
   ]
 })
 export class PublisherModule { }

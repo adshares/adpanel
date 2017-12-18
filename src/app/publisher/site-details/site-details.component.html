@@ -58,7 +58,9 @@
       <p class="adsh-copy">
         List od Ad Units
       </p>
-      <app-ad-units [adUnit]="site.adUnits">
+      <app-ad-units
+        *ngFor="let adUnit of site.adUnits"
+        [adUnit]="adUnit">
       </app-ad-units>
     </div>
   </div>
