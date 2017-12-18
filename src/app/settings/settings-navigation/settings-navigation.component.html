@@ -1,0 +1,66 @@
+<section class="settings-navigation">
+  <div class="col total-funds adsh-box adsh-box--large adsh-bg-blue">
+    <h6
+      class="
+        adsh-copy
+        adsh-copy--small
+        adsh-white"
+    >
+      Total Funds:
+    </h6>
+    <span
+      class="
+        adsh-heading
+        adsh-heading--primary
+        adsh-white"
+    >
+      {{'0.00'| adsharesTokenValue }}
+    </span>
+    <span
+      class="
+        adsh-copy
+        adsh-copy--x-small
+        adsh-white"
+    >
+      + xx.xx (xx.x%)
+    </span>
+  </div>
+
+  <div
+    class="settings-category"
+    *ngFor="let settingsItem of settings"
+    routerLinkActive="active"
+  >
+    <a [routerLink]="['/settings', settingsItem.link]">
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        {{ settingsItem.title }}
+      </h3>
+    </a>
+    <p class="adsh-copy">
+      {{ settingsItem.description }}
+    </p>
+    <ul
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      <a [routerLink]="['/settings', settingsItem.link]">
+        <li *ngFor="let settingsValues of settingsItem.values">
+          <div class="row align-center">
+            <img
+              class="
+                adsh-icon
+                adsh-icon--prepend"
+              src="assets/images/user.svg"
+            >
+            {{ settingsValues.name }}
+          </div>
+        </li>
+      </a>
+    </ul>
+  </div>
+</section>
