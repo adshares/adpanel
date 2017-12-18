@@ -47,7 +47,7 @@
         </mat-option>
         <mat-option
           [value]="'Publisher'"
-          [routerLink]="['/publisher']"
+          routerLink="['/publisher/dashboard']"
           *ngIf="!(userDataState | async).isAdmin"
         >
           Publisher
