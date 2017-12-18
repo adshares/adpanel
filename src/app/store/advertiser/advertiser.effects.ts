@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Effect, Actions} from '@ngrx/effects';
+import { Injectable } from '@angular/core';
+import { Effect, Actions } from '@ngrx/effects';
 
 import * as advertiserActions from './advertiser.action';
 import { AdvertiserService } from './advertiser.service';

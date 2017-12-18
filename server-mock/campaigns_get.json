@@ -1,7 +1,6 @@
 [
   {
     "basicInformation": {
-      "id": "377892908378478",
       "status": "active",
       "name": "Campaign for Education",
       "targetUrl": "www.adshares.net",
@@ -11,6 +10,7 @@
       "dateStart": "date"
     },
 
+    "id": "377892908378478",
     "clicks": "213",
     "impressions": "12435",
     "ctr": "0.03",
@@ -63,7 +63,6 @@
   },
   {
     "basicInformation": {
-      "id": "183297987312987321987",
       "status": "active",
       "name": "Campaign for Education",
       "targetUrl": "www.adshares.net",
@@ -73,6 +72,7 @@
       "dateStart": "date"
     },
 
+    "id": "183297987312987321987",
     "clicks": "11",
     "impressions": "112",
     "ctr": "0.23",

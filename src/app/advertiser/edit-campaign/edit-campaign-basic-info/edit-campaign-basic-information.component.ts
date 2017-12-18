@@ -42,8 +42,8 @@ export class EditCampaignBasicInformationComponent {
     const basicInformation = {
       status: 'draft',
       name: campaignBasicInfoValue.campaignName,
-      targetURL: campaignBasicInfoValue.campaignTargetURL,
-      bidStrategy: campaignBasicInfoValue.campaignBidStrategy,
+      targetUrl: campaignBasicInfoValue.campaignTargetURL,
+      bidStrategyName: campaignBasicInfoValue.campaignBidStrategy,
       bidValue: campaignBasicInfoValue.campaignBidValue,
       budget: campaignBasicInfoValue.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),

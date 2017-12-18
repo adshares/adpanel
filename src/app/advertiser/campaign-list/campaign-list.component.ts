@@ -25,8 +25,7 @@ export class CampaignListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new advertiserActions.LoadCampaigns('campaigns'));
+    this.store.dispatch(new advertiserActions.LoadCampaigns(this.campaigns));
   }
-
 }
 

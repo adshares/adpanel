@@ -31,6 +31,6 @@ export class CampaignDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.campaign = this.campaigns.find(campaign => campaign.basicInformation.id === this.campaignId);
+    this.campaign = this.campaigns.find(campaign => campaign.id === this.campaignId);
   }
 }

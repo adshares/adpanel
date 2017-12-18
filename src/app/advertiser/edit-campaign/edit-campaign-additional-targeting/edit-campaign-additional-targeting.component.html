@@ -36,7 +36,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                [targetingOptions]="TargetingOptionsToAdd"
+                [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
               ></app-targeting-select>
@@ -86,7 +86,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                [targetingOptions]="TargetingOptionsToExclude"
+                [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 (itemsChange)="updateExcludedItems($event)"
               ></app-targeting-select>
@@ -131,8 +131,9 @@
     </a>
 
     <div>
-      <a>
+      <a routerLink="../../dashboard">
         <button
+          (click)="saveCampaignTargeting()"
           class="
             adsh-btn
             adsh-btn--white
@@ -146,6 +147,7 @@
         [queryParams]="goesToSummary ? {step: 4} : {step: 3}"
       >
         <button
+          (click)="saveCampaignTargeting()"
           class="
             adsh-btn
             adsh-btn--blue"

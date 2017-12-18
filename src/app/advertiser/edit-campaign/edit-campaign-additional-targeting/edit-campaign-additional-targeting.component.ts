@@ -10,8 +10,8 @@ import { cloneDeep } from '../../../common/utilis/helpers';
 })
 export class EditCampaignAdditionalTargetingComponent {
   goesToSummary: boolean;
-  TargetingOptionsToAdd: targetingOptionModel[];
-  TargetingOptionsToExclude: targetingOptionModel[];
+  targetingOptionsToAdd: targetingOptionModel[];
+  targetingOptionsToExclude: targetingOptionModel[];
   addedItems: targetingOptionValue[] = [];
   excludedItems: targetingOptionValue[] = [];
 
@@ -19,8 +19,8 @@ export class EditCampaignAdditionalTargetingComponent {
   excludePanelOpenState: boolean;
 
   constructor(private route: ActivatedRoute) {
-    this.TargetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
-    this.TargetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+    this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+    this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
 
     this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
@@ -33,5 +33,10 @@ export class EditCampaignAdditionalTargetingComponent {
   updateExcludedItems(items) {
     this.excludedItems = [];
     items.forEach((item) => this.excludedItems.push(item));
+  }
+
+  saveCampaignTargeting() {
+    console.log('added', this.addedItems);
+    console.log('excluded', this.excludedItems);
   }
 }

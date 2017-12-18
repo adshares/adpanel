@@ -12,7 +12,7 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
     case AdvertiserActions.SAVE_CAMPAIGN_BASIC_INFORMATION:
       return {
         ...state,
-        lastEditedCampaign: action.payload
+        lastEditedCampaign: { basicInformation: action.payload }
       };
     case AdvertiserActions.LOAD_CAMPAIGNS_SUCCESS:
       return {
