@@ -8,26 +8,7 @@
   >
     <div
       class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <div
-        class="
-          adsh-box
-          adsh-box--small
-          adsh-status
-          text-center"
-        [attr.data-status]="site.basicInformation.status"
-      >
-        <span>
-          {{ site.basicInformation.status }}
-        </span>
-      </div>
-    </div>
-    <div
-      class="
-        col-xs-4
+        col-xs-5
         row
         align-center"
     >
@@ -36,15 +17,15 @@
           adsh-heading
           adsh-heading--secondary"
       >
-        {{ site.basicInformation.name }}
+        {{ site.name }}
       </h4>
     </div>
     <div class="
-        col-xs-1
+        col-xs-2
         row
         align-center">
       <span>
-        {{ site.basicInformation.budget | currency:USD }}/day
+        {{ site.estimatedEarnings | currency:USD }}/day
       </span>
     </div>
     <div
@@ -74,7 +55,7 @@
         align-center"
     >
       <span>
-        {{ site.ctr | percent }}
+        {{ site.rpm | percent }}
       </span>
     </div>
     <div
@@ -91,21 +72,11 @@
       class="
         col-xs-1
         row
-        align-center"
-    >
-      <span>
-        {{ site.cost | currency:USD }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
         align-center
         justify-center
         adsh-site-list__item-site-details"
     >
-      <a [routerLink]="['../site', site.basicInformation.id]">
+      <a [routerLink]="['../site', site.id]">
         <img
           src="/assets/images/chevron-right.svg"
           alt="Campaign Details Icon"

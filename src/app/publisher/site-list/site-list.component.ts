@@ -1,25 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { HandleSubscription } from '../../common/handle-subscription';
+
+import { Store } from '@ngrx/store';
+import { AppState } from '../../models/app-state.model';
+import { Site } from '../../models/site.model';
+
+import * as publisherActions from '../../store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-site-list',
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss']
 })
-export class SiteListComponent implements OnInit {
-  menuItems = [
-    { title: 'Status', columnWidth: 'col-xs-1' },
-    { title: 'Campaign Title', columnWidth: 'col-xs-4' },
-    { title: 'Budget', columnWidth: 'col-xs-1' },
-    { title: 'Clicks', columnWidth: 'col-xs-1' },
-    { title: 'Impressions', columnWidth: 'col-xs-1' },
-    { title: 'CTR', columnWidth: 'col-xs-1' },
-    { title: 'Average CPC', columnWidth: 'col-xs-1' },
-    { title: 'Cost', columnWidth: 'col-xs-1' },
-  ];
+export class SiteListComponent extends HandleSubscription implements OnInit {
+  sites: Site[]
 
-  constructor() { }
+  constructor(private store: Store<AppState>) {
+    super(null);
+
+    const sitesSubscription = store
+      .select('state', 'publisher', 'sites')
+      .subscribe(sites => this.sites = sites);
+
+    this.subscriptions.push(sitesSubscription);
+  }
 
   ngOnInit() {
+    this.store.dispatch(new publisherActions.LoadSites('sites'));
   }
 
 }
