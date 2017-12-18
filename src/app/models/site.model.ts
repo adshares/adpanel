@@ -23,5 +23,5 @@ export interface Site {
     }
   };
 
-  adTypes?: object[];
+  adUnits?: object[];
 }

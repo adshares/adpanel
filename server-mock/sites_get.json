@@ -24,7 +24,7 @@
         "browsers": ""
       }
     },
-    "adTypes": [
+    "adUnits": [
       {
         "status": "active",
         "shortHeadline": "Adshares Dashboard Advertisement",
@@ -76,7 +76,7 @@
         "browsers": ""
       }
     },
-    "adTypes": [
+    "adUnits": [
       {
         "status": "active",
         "shortHeadline": "Adshares Dashboard Advertisement",

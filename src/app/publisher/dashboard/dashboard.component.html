@@ -1,7 +1,7 @@
 <app-confirmation-alert></app-confirmation-alert>
 <section
   class="
-    adsh-advertiser-wrapper
+    adsh-publisher-wrapper
     dashboard-view"
 >
   <div class="container">
@@ -16,7 +16,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          My Campaigns
+          My Sites
         </h1>
         <p
           class="
@@ -53,6 +53,7 @@
       <app-site-list></app-site-list>
     </div>
 
+
     <div *ngIf="sites">
       <div
         class="
@@ -62,18 +63,18 @@
           align-center
           justify-center
           text-center
-          adsh-advertiser-create-new-campaign-wrapper"
+          add-new-site-wrapper"
       >
         <img
-          src="/assets/images/campaign.svg"
-          alt="Advertiser Account Illustration">
+          src="/assets/images/add-new.svg"
+          alt="Publisher New Site Illustration">
         <div class="adsh-customize__box-description">
           <h2
             class="
               adsh-heading
               adsh-heading--primary"
           >
-            Create your First Campaign
+            Add your First Site
           </h2>
 
           <p
@@ -87,7 +88,7 @@
           </p>
         </div>
         <a
-          routerLink="/advertiser/create-campaign/basic-information"
+          routerLink="/publisher/create-site/basic-information"
           [queryParams]="{step: 1}"
         >
           <button
