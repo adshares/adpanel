@@ -1,87 +1,158 @@
-<section class="row">
-  <div class="col-xs-6">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          1. Requires
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+<section
+  class="
+    homepage-view
+    campaign-edit-additional-targeting"
+>
+  <mat-accordion
+    multi="true"
+    class="targeting-accordion"
+  >
+    <div class="adsh-box">
+      <mat-expansion-panel
+        (opened)="requirePanelOpenState = true"
+        (closed)="requirePanelOpenState = false"
+        [expanded]="true"
+      >
+        <mat-expansion-panel-header
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          <mat-panel-title>
+            1. Requires
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <p>
-        In this window, you can select the keywords that will help you choose the ads that are related to your site and meet your requirements.
-      </p>
+        <div class="row">
+          <div class="col-xs-6">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+            >
+              In this window, you can select the keywords that will help you
+              choose the ads that are related to your site and meet your requirements.
+            </p>
 
-      <app-targeting-select
-        [targetingOptions]="TargetingOptionsToAdd"
-        [addedItems]="addedItems"
-        (itemsChange)="updateAddedItems($event)"
-      ></app-targeting-select>
-    </mat-expansion-panel>
-  </div>
+            <div class="targeting-select-wrapper">
+              <app-targeting-select
+                [targetingOptions]="TargetingOptionsToAdd"
+                [addedItems]="addedItems"
+                (itemsChange)="updateAddedItems($event)"
+              ></app-targeting-select>
+            </div>
+          </div>
 
-  <div class="col-xs-6">
-    <app-targeting-display
-      [items]="addedItems"
-      (itemsChange)="updateAddedItems($event)"
-    ></app-targeting-display>
+          <div class="col-xs-6">
+            <app-targeting-display
+              [items]="addedItems"
+              (itemsChange)="updateAddedItems($event)"
+            ></app-targeting-display>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <app-targeting-display
+        [items]="addedItems"
+        *ngIf="!requirePanelOpenState"
+      ></app-targeting-display>
+    </div>
+
+
+    <div class="adsh-box">
+      <mat-expansion-panel
+        (opened)="excludePanelOpenState = true"
+        (closed)="excludePanelOpenState = false"
+      >
+        <mat-expansion-panel-header
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          <mat-panel-title>
+            2. Excludes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+            >
+              Some missing text
+            </p>
+
+            <div class="targeting-select-wrapper">
+              <app-targeting-select
+                [targetingOptions]="TargetingOptionsToExclude"
+                [addedItems]="excludedItems"
+                (itemsChange)="updateExcludedItems($event)"
+              ></app-targeting-select>
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <app-targeting-display
+              [items]="excludedItems"
+              (itemsChange)="updateExcludedItems($event)"
+            ></app-targeting-display>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <app-targeting-display
+        [items]="excludedItems"
+        *ngIf="!excludePanelOpenState"
+      ></app-targeting-display>
+    </div>
+  </mat-accordion>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../basic-information"
+      [queryParams]="{step: 1}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a
+        [routerLink]="goesToSummary ? '../summary' : '../create-ad'"
+        [queryParams]="goesToSummary ? {step: 4} : {step: 3}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          Save & Continue
+        </button>
+      </a>
+    </div>
   </div>
 </section>
-
-<section class="row">
-  <div class="col-xs-6">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          2. Exclude
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <p>
-        Some missing text
-      </p>
-
-      <app-targeting-select
-        [targetingOptions]="TargetingOptionsToExclude"
-        [addedItems]="excludedItems"
-        (itemsChange)="updateExcludedItems($event)"
-      ></app-targeting-select>
-
-    </mat-expansion-panel>
-  </div>
-
-  <div class="col-xs-6">
-    <app-targeting-display
-      [items]="excludedItems"
-      (itemsChange)="updateExcludedItems($event)"
-    ></app-targeting-display>
-  </div>
-</section>
-
-<a
-  routerLink="../basic-information"
-  [queryParams]="{step: 1}"
->
-  <button
-    class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-green"
-  >
-    Back
-  </button>
-</a>
-
-<a
-  [routerLink]="goesToSummary ? '../summary' : '../create-ad'"
-  [queryParams]="goesToSummary ? {step: 4} : {step: 3}"
->
-  <button
-    class="
-      adsh-btn
-      adsh-btn--white
-      adsh-bg-blue"
-  >
-    Save & Continue
-  </button>
-</a>
-
