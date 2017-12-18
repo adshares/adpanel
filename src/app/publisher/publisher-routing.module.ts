@@ -15,7 +15,7 @@ const publisherRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
-      { path: 'campaign/:id', component: SiteDetailsComponent}
+      { path: 'site/:id', component: SiteDetailsComponent}
     ]
   },
 ];

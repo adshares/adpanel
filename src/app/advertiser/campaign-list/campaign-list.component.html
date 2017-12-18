@@ -24,5 +24,31 @@
       >
       </app-campaign-list-item>
     </div>
+
+    <div
+      class="
+        row
+        justify-center"
+    >
+      <a
+        routerLink="/advertiser/create-campaign/basic-information"
+        [queryParams]="{step: 1}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/plus-circle--blue.svg"
+          >
+          Add new campaign
+        </button>
+      </a>
+    </div>
   </div>
 </section>
