@@ -3,7 +3,7 @@ import {Effect, Actions} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 
 import * as settingsActions from './settings.actions';
-import { SettingsService } from './settings.service';
+import { SettingsService } from '../../settings/settings.service';
 
 import 'rxjs/add/operator/switchMap';
 
