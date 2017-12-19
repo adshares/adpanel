@@ -1,86 +1,210 @@
-<div class="site-details container dashboard-view">
-  <div class="row align-center justify-between">
-    <div>
-      <button class="adsh-btn adsh-btn--white adsh-blue">
-        <img src="/assets/images/chevron--left.svg" alt="">
-        Back
-      </button>
-      <h2 class="adsh-heading adsh-heading--primary">{{ site.name }}</h2>
-    </div>
-    <button class="adsh-btn adsh-btn--white adsh-copy--x-dark">
-      <img class="adsh-icon adsh-icon--prepend" src="/assets/images/plus-circle--blue.png" alt="">
-      Edit Website
-    </button>
-  </div>
-
-  <div class="adsh-box adsh-box--large targeting row">
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-    <div class="col-xs-3">
-      test
-    </div>
-  </div>
-
-  <div class="adsh-box adsh-box--large charts">
-    <div class="row">
-      <div
-        class="col-xs-4"
-        *ngFor="let i of [1,2,3,4,5,6]"
-      >
-        <img
-          src="/assets/images/placeholder.png"
-          style="max-width: 100%; height: 150px; padding: 5px">
+<div class="dashboard-view">
+  <div
+    class="
+      site-details
+      container"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <div class="row">
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          <img
+            src="/assets/images/chevron--left.svg"
+            alt="Back"
+          >
+          Back
+        </button>
+        <h2
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          {{ site.name }}
+        </h2>
       </div>
-    </div>
-  </div>
-
-  <div class="adsh-box adsh-box--large ad-units">
-    <div class="col">
-      <p class="adsh-copy">
-        List od Ad Units
-      </p>
-      <app-ad-units
-        *ngFor="let adUnit of site.adUnits"
-        [adUnit]="adUnit">
-      </app-ad-units>
-    </div>
-  </div>
-
-  <div class="adsh-box adsh-box--large ad-units row justify-center">
-    <a routerLink="/publisher/dashboard">
       <button
         class="
           adsh-btn
           adsh-btn--white
-          adsh-blue"
+          adsh-copy--x-dark"
       >
         <img
           class="
             adsh-icon
             adsh-icon--prepend"
-          src="assets/images/plus-circle--blue.svg"
-        >
-        Create new Ad Unit
+          src="/assets/images/plus-circle--blue.png"
+          alt="Edit website">
+        Edit Website
       </button>
-    </a>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        targeting
+        row"
+    >
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.requires.languages"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.requires.devices"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.requires.genders"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.requires.operatingSystems"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.requires.browsers"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.excludes.devices"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.excludes.genders"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.excludes.operatingSystems"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div class="col-xs-2">
+        <div
+          class="
+            adsh-chip-box
+            adsh-chip-box--dark"
+          *ngFor="let item of site.targeting.excludes.browsers"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        charts"
+    >
+      <div class="row">
+        <div
+          class="col-xs-4"
+          *ngFor="let i of [1,2,3,4,5,6]"
+        >
+          <img
+            src="/assets/images/placeholder.png"
+            style="max-width: 100%; height: 150px; padding: 5px">
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        ad-units"
+    >
+      <div class="col">
+        <p class="adsh-copy">
+          List od Ad Units
+        </p>
+        <app-ad-units
+          *ngFor="let adUnit of site.adUnits"
+          [adUnit]="adUnit">
+        </app-ad-units>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        ad-units
+        row
+        justify-center"
+    >
+      <a routerLink="/publisher/dashboard">
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/plus-circle--blue.svg"
+          >
+          Create new Ad Unit
+        </button>
+      </a>
+    </div>
   </div>
 </div>

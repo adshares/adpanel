@@ -11,8 +11,8 @@
     "requires": {
       "languages": ["Polish", "English"],
       "devices": "",
-      "genders": "",
-      "operatingSystems": "",
+      "genders": ["Male", "Female"],
+      "operatingSystems": ["MacOSX", "Windows", "Linux"],
       "browsers": ""
     },
     "excludes": {
