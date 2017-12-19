@@ -13,4 +13,9 @@ export class PublisherService {
     return this.http.get(`${environment.apiUrl}/sites`)
       .map((response: Response) => response.json());
   }
+
+  getSite(): any {
+    return this.http.get(`${environment.apiUrl}/site`)
+      .map((response: Response) => response.json());
+  }
 }

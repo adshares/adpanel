@@ -30,6 +30,9 @@ import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-di
     SiteListItemComponent,
     AdUnitsComponent,
     SiteCodeDialogComponent
+  ],
+  entryComponents: [
+    SiteCodeDialogComponent
   ]
 })
 export class PublisherModule { }

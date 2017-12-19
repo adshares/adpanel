@@ -15,16 +15,9 @@ export class PublisherEffects {
   @Effect()
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
-    .map((action: publisherActions.LoadSites) => {
-    console.log('abc')
-      return action.payload
-    } )
-    .switchMap(() => {
-    console.log('dsakdsalkjsadlkjdsalkjdsalkjdsalkjsadlkjdsalkjadslkj')
-    return this.service.getSites()
-    })
+    .map((action: publisherActions.LoadSites) => action.payload)
+    .switchMap(() => this.service.getSites())
     .map((sites) => {
-      console.log('adsljkadslkjasdlkjdsa')
       return new publisherActions.LoadSitesSuccess(sites);
     });
 }

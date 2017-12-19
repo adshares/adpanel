@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { HandleSubscription } from '../../common/handle-subscription';
+import { AdvertiserService } from '../advertiser.service';
 
-import { Store } from '@ngrx/store';
-import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
 
 @Component({
@@ -11,26 +9,18 @@ import { Campaign } from '../../models/campaign.model';
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss'],
 })
-export class CampaignDetailsComponent implements OnInit {
-  subscription: Subscription;
-  campaigns: Campaign[];
+export class CampaignDetailsComponent extends HandleSubscription implements OnInit {
   campaign: Campaign;
-  campaignId: number;
 
   constructor(
-    private store: Store<AppState>,
-    private route: ActivatedRoute
+    private advertiserService: AdvertiserService
   ) {
-    this.subscription = store
-      .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => {
-        this.campaigns = campaigns
-      });
-
-    this.campaignId = this.route.snapshot.params.id;
+    super(null);
   }
 
   ngOnInit() {
-    this.campaign = this.campaigns.find(campaign => campaign.basicInformation.id === this.campaignId);
+    const campaignSubscription = this.advertiserService.getCampaign().subscribe(campaign => this.campaign = campaign);
+
+    this.subscriptions.push(campaignSubscription);
   }
 }

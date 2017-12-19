@@ -1,4 +1,5 @@
 export interface Site {
+  id: number;
   name: string;
   estimatedEarnings?: number;
   clicks?: number;

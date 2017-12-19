@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSelect, MatOption } from '@angular/material';
+import { MatSelect, MatOption, MatDialogContent } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
@@ -53,6 +53,7 @@ import { TableNavigationComponent } from './components/table-navigation/table-na
     ConfirmationAlertComponent,
     MatSelect,
     MatOption,
+    MatDialogContent,
     TableNavigationComponent
   ]
 })
