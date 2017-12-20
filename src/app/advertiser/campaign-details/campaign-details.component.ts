@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AdvertiserService } from '../advertiser.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Campaign } from '../../models/campaign.model';
 
@@ -9,18 +8,12 @@ import { Campaign } from '../../models/campaign.model';
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss'],
 })
-export class CampaignDetailsComponent extends HandleSubscription implements OnInit {
+export class CampaignDetailsComponent {
   campaign: Campaign;
 
   constructor(
-    private advertiserService: AdvertiserService
+    private route: ActivatedRoute,
   ) {
-    super(null);
-  }
-
-  ngOnInit() {
-    const campaignSubscription = this.advertiserService.getCampaign().subscribe(campaign => this.campaign = campaign);
-
-    this.subscriptions.push(campaignSubscription);
+    this.campaign = this.route.snapshot.data.campaign;
   }
 }

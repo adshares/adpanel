@@ -12,6 +12,7 @@ import { SiteListComponent } from './site-list/site-list.component';
 import { SiteListItemComponent } from './site-list/site-list-item/site-list-item.component';
 import { AdUnitsComponent } from './site-details/ad-units/ad-units.component';
 import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-dialog.component';
+import { SiteResolver } from './site.resolver';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-di
     PublisherRoutingModule
   ],
   providers: [
-    PublisherGuard
+    PublisherGuard,
+    SiteResolver
   ],
   declarations: [
     PublisherComponent,

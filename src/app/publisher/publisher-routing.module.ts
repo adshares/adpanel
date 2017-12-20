@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
 
 import { PublisherGuard } from './publisher-guard.service';
+import { SiteResolver } from './site.resolver';
 
 const publisherRoutes: Routes = [
   {
@@ -15,7 +16,13 @@ const publisherRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
-      { path: 'site/:id', component: SiteDetailsComponent}
+      {
+        path: 'site/:id',
+        component: SiteDetailsComponent,
+        resolve: {
+          site: SiteResolver
+        }
+      }
     ]
   },
 ];

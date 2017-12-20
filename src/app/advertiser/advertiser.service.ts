@@ -13,7 +13,7 @@ export class AdvertiserService {
     return this.http.get(`${environment.apiUrl}/campaigns`)
       .map((response: Response) => response.json());
   }
-  getCampaign(): any {
+  getCampaign(id): any {
     return this.http.get(`${environment.apiUrl}/campaign`)
       .map((response: Response) => response.json());
   }

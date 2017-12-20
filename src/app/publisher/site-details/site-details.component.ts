@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from '../../common/handle-subscription';
-import { PublisherService } from '../publisher.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Site } from '../../models/site.model';
 
@@ -9,18 +8,12 @@ import { Site } from '../../models/site.model';
   templateUrl: './site-details.component.html',
   styleUrls: ['./site-details.component.scss'],
 })
-export class SiteDetailsComponent extends HandleSubscription implements OnInit {
+export class SiteDetailsComponent {
   site: Site;
 
   constructor(
-    private publisherService: PublisherService,
+    private route: ActivatedRoute,
   ) {
-    super(null);
-  }
-
-  ngOnInit() {
-    const siteSubscription = this.publisherService.getSite().subscribe(site => this.site = site);
-
-    this.subscriptions.push(siteSubscription);
+    this.site = this.route.snapshot.data.site;
   }
 }

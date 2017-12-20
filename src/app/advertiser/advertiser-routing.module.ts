@@ -10,6 +10,7 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { CampaignResolver } from './campaign.resolver';
 
 const advertiserRoutes: Routes = [
   {
@@ -19,7 +20,13 @@ const advertiserRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent},
-      { path: 'campaign/:id', component: CampaignDetailsComponent},
+      {
+        path: 'campaign/:id',
+        component: CampaignDetailsComponent,
+        resolve: {
+          campaign: CampaignResolver
+        }
+      },
       {
         path: 'create-campaign',
         component: EditCampaignComponent,

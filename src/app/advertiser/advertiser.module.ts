@@ -28,6 +28,7 @@ import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { CampaignResolver } from './campaign.resolver';
 
 const matModules = [
   MatExpansionModule,
@@ -58,6 +59,7 @@ const editCampaignComponents = [
   ],
   providers: [
     AdvertiserGuard,
+    CampaignResolver
   ],
   declarations: [
     AdvertiserComponent,
