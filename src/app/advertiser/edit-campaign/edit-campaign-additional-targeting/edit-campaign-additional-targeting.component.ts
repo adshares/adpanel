@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Store } from '@ngrx/store';
 import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
 import { AppState } from '../../../models/app-state.model';
-import { targetingOptionModel, targetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilis/helpers';
 
 @Component({
@@ -13,10 +14,11 @@ import { cloneDeep } from '../../../common/utilis/helpers';
 })
 export class EditCampaignAdditionalTargetingComponent {
   goesToSummary: boolean;
-  targetingOptionsToAdd: targetingOptionModel[];
-  targetingOptionsToExclude: targetingOptionModel[];
-  addedItems: targetingOptionValue[] = [];
-  excludedItems: targetingOptionValue[] = [];
+
+  targetingOptionsToAdd: TargetingOptionModel[];
+  targetingOptionsToExclude: TargetingOptionModel[];
+  addedItems: TargetingOptionValue[] = [];
+  excludedItems: TargetingOptionValue[] = [];
 
   requirePanelOpenState: boolean;
   excludePanelOpenState: boolean;
@@ -29,13 +31,11 @@ export class EditCampaignAdditionalTargetingComponent {
   }
 
   updateAddedItems(items) {
-    this.addedItems = [];
-    items.forEach((item) => this.addedItems.push(item));
+    this.addedItems = [...items];
   }
 
   updateExcludedItems(items) {
-    this.excludedItems = [];
-    items.forEach((item) => this.excludedItems.push(item));
+    this.excludedItems = [...items];
   }
 
   saveCampaignTargeting() {
