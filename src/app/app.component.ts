@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { fadeAnimation } from './common/animations/fade.animation';
-import { APP_SETTINGS } from '../app-settings/app-settings';
+import { appSettings } from '../app-settings/app-settings';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
       }
       setTimeout(() => {
         window.scrollTo(0, 0);
-      }, APP_SETTINGS.routerTransitionDuration);
+      }, appSettings.ROUTER_TRANSITION_DURATION);
     });
   }
 }

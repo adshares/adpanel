@@ -1,5 +1,5 @@
 import { trigger, animate, transition, style, query } from '@angular/animations';
-import { APP_SETTINGS } from '../../../app-settings/app-settings';
+import { appSettings } from '../../../app-settings/app-settings';
 
 export const fadeAnimation =
   trigger('fadeAnimation', [
@@ -13,14 +13,14 @@ export const fadeAnimation =
       query(':leave',
         [
           style({ opacity: 1 }),
-          animate(`${APP_SETTINGS.routerTransitionDuration}ms`, style({ opacity: 0 }))
+          animate(`${appSettings.ROUTER_TRANSITION_DURATION}ms`, style({ opacity: 0 }))
         ],
         { optional: true }
       ),
       query(':enter',
         [
           style({ opacity: 0 }),
-          animate(`${APP_SETTINGS.routerTransitionDuration}ms`, style({ opacity: 1 }))
+          animate(`${appSettings.ROUTER_TRANSITION_DURATION}ms`, style({ opacity: 1 }))
         ],
         { optional: true }
       )
