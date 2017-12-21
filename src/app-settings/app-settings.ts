@@ -1,3 +1,3 @@
-export class CONSTANT {
-  public static routerTransitionDuration = 200;
+export const APP_SETTINGS = {
+  routerTransitionDuration: 200
 }
