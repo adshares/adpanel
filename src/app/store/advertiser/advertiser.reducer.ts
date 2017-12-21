@@ -19,6 +19,11 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
         ...state,
         campaigns: action.payload
       };
+    case AdvertiserActions.SAVE_CAMPAING_TARGETING:
+      return {
+        ...state,
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { targeting: action.payload })
+      }
     default:
       return state;
   }

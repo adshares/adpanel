@@ -1,4 +1,5 @@
 import { Ad } from './ad.model';
+import { targetingOptionValue } from './targeting-option.model';
 
 interface Campaign {
   basicInformation: CampaignBasicInformation;
@@ -26,12 +27,8 @@ interface CampaignBasicInformation {
 }
 
 interface CampaignTargeting {
-  requires?: {
-    [key: string]: string[]
-  },
-  excludes?: {
-    [key: string]: string[]
-  }
+  requires?: targetingOptionValue[],
+  excludes?: targetingOptionValue[]
 }
 
 export { Campaign, CampaignBasicInformation, CampaignTargeting }

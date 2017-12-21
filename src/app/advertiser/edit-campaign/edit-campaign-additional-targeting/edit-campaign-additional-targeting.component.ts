@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
+import { AppState } from '../../../models/app-state.model';
 import { targetingOptionModel, targetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilis/helpers';
 
@@ -18,7 +21,7 @@ export class EditCampaignAdditionalTargetingComponent {
   requirePanelOpenState: boolean;
   excludePanelOpenState: boolean;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private store: Store<AppState>) {
     this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
     this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
 
@@ -36,7 +39,10 @@ export class EditCampaignAdditionalTargetingComponent {
   }
 
   saveCampaignTargeting() {
-    console.log('added', this.addedItems);
-    console.log('excluded', this.excludedItems);
+    const choosedTargeting = {
+      requires: this.addedItems,
+      excludes: this.excludedItems
+    };
+    this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
   }
 }

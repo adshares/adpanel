@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { Campaign, CampaignBasicInformation, CampaignTargeting } from '../../models/campaign.model';
 
 export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
-export const SAVE_CAMPAING_TARGETING_INFO = 'Campaing targeting information saved';
+export const SAVE_CAMPAING_TARGETING = 'Campaing targeting information saved';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
 
@@ -11,8 +11,8 @@ export class SaveCampaignBasicInformation implements Action {
   constructor(public payload: CampaignBasicInformation) { };
 }
 
-export class SaveCampaignTargetingInfo implements Action {
-  readonly type = SAVE_CAMPAING_TARGETING_INFO;
+export class SaveCampaignTargeting implements Action {
+  readonly type = SAVE_CAMPAING_TARGETING;
   constructor(public payload: CampaignTargeting) { };
 }
 
