@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { targetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOptionValue } from '../../../models/targeting-option.model';
 
 @Component({
   selector: 'app-targeting-display',
@@ -9,8 +9,8 @@ import { targetingOptionValue } from '../../../models/targeting-option.model';
 export class TargetingDisplayComponent implements OnChanges {
   @Input() items;
   @Output()
-  itemsChange: EventEmitter<targetingOptionValue[]> = new EventEmitter<targetingOptionValue[]>();
-  viewModel: [targetingOptionValue[]][] = [];
+  itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
+  viewModel: [TargetingOptionValue[]][] = [];
 
   ngOnChanges() {
     this.prepareItemsToDisplay();
