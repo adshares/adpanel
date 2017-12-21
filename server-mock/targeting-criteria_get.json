@@ -1,0 +1,54 @@
+{"criteria": [
+    {
+        "label": "Language",
+        "key": "lang",
+        "values": [
+            {"label": "Polish", "value": "pl", "key": "lang_pol", "parent_label": "Language"},
+            {"label": "English", "value": "en", "key": "lang_en", "parent_label": "Language"}
+        ],
+        "value_type": "string",
+        "allow_input": false
+    },
+    {
+        "label": "Site",
+        "key":"site",
+        "children": [
+            {
+                "label": "Site domain",
+                "key": "host",
+                "values": [
+                    {"label": "google.pl", "value": "google.pl", "key": "host_google", "parent_label": "Site domain"},
+                    {"label": "onet.pl", "value": "onet.pl", "key": "host_onet", "parent_label": "Site domain"}
+                ],
+                "value_type": "string",
+                "allow_input": true
+            }
+        ]
+    },
+    {
+        "label": "Screen",
+        "key":"screen",
+        "children": [
+            {
+                "label": "Width",
+                "key": "width",
+                "values": [
+                    {"label": "1200 or more", "value": "<1200,>", "key": "width_1200", "parent_label": "width"},
+                    {"label": "between 1200 and 1800", "value": "<1200,1800>", "key": "width_1200_1800", "parent_label": "width"}
+                ],
+                "value_type": "number",
+                "allow_input": true
+            }
+        ]
+    },
+   {
+        "label": "Javascript support",
+        "key": "js_enabled",
+        "value_type": "boolean",
+        "values": [
+            {"label": "Yes", "value": "true", "key": "js_enabled_yes", "parent_label": "Javascript support"},
+            {"label": "No", "value": "false", "key": "js_enabled_no", "parent_label": "Javascript support"}
+        ],
+        "allow_input": false
+    }
+]}

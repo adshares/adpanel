@@ -4,6 +4,7 @@ import { CampaignBasicInformation } from './campaign-basic-information.model';
 export interface Campaign {
   basicInformation: CampaignBasicInformation;
 
+  id: number,
   clicks?: number;
   impressions?: number;
   ctr?: number;

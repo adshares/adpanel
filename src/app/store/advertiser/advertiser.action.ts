@@ -19,4 +19,4 @@ export class LoadCampaignsSuccess implements Action {
   constructor(public payload: any) { }
 }
 
-export type actions = SaveCampaignBasicInformation;
+export type actions = SaveCampaignBasicInformation | LoadCampaigns | LoadCampaignsSuccess;
