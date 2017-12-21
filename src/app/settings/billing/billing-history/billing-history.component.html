@@ -1,0 +1,72 @@
+<section class="notification-settings">
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div class="col">
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Notification Settings
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        In addition to these alerts, when necessary, we may send you communications about your advertising agreement with Adshares.
+      </p>
+      <ul
+        class="
+          billing-table
+          adsh-copy"
+      >
+        <li
+          class="
+            row
+            align-center"
+        >
+          <div class="col-xs-2">
+            Status
+          </div>
+          <div class="col-xs-2">
+            Date
+          </div>
+          <div class="col-xs-3">
+            Address
+          </div>
+          <div class="col-xs-5">
+            Link
+          </div>
+        </li>
+        <li *ngFor="let billingHistoryItem of billingHistory">
+          <app-billing-history-withdrawal
+            class="
+              row
+              align-center"
+            [billingHistoryItem]="billingHistoryItem"
+          >
+          </app-billing-history-withdrawal>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--white
+        adsh-blue"
+    >
+      <img
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+        src="assets/images/credit-card--blue.svg"
+      >
+      Save as PDF
+    </button>
+  </div>
+</section>

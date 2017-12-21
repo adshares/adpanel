@@ -5,10 +5,9 @@ import { fadeAnimation } from '../../common/animations/fade.animation';
   selector: 'app-edit-campaign',
   templateUrl: './edit-campaign.component.html',
   styleUrls: ['./edit-campaign.component.scss'],
-  animations: [fadeAnimation],
+  animations: [fadeAnimation]
 })
 export class EditCampaignComponent {
-  public getRouterOutletState(outlet) {
-    return outlet.isActivated ? outlet.activatedRoute : '';
-  }
+  getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
+
 }

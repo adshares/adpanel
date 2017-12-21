@@ -19,6 +19,7 @@ import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolv
 import { CommonService } from './common.service';
 import { TargetingSelectComponent } from './components/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting-display/targeting-display.component';
+import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 
 const matModules = [
   MatDialogModule,
@@ -34,9 +35,9 @@ const appComponents = [
   FundsSummaryComponent,
   ConfirmationAlertComponent,
   TargetingSelectComponent,
-  TargetingDisplayComponent
+  TargetingDisplayComponent,
+  TableNavigationComponent
 ];
-
 
 @NgModule({
   imports: [

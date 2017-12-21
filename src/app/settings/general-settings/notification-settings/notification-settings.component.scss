@@ -1,0 +1,14 @@
+@import '../../../../styles.scss';
+
+.notification-table {
+  max-width: 800px;
+  margin: 30px 0;
+
+  li {
+    padding: 10px 20px;
+
+    &:not(:first-of-type) {
+      border: 1px solid pal(gray, light);
+    }
+  }
+}

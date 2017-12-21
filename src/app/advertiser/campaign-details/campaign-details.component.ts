@@ -12,10 +12,10 @@ import { Campaign } from '../../models/campaign.model';
   styleUrls: ['./campaign-details.component.scss'],
 })
 export class CampaignDetailsComponent implements OnInit {
+  subscription: Subscription;
   campaigns: Campaign[];
   campaign: Campaign;
   campaignId: number;
-  private subscription: Subscription;
 
   constructor(
     private store: Store<AppState>,
@@ -23,12 +23,14 @@ export class CampaignDetailsComponent implements OnInit {
   ) {
     this.subscription = store
       .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => this.campaigns = campaigns);
+      .subscribe(campaigns => {
+        this.campaigns = campaigns
+      });
 
-    this.campaignId = +this.route.snapshot.params.id;
+    this.campaignId = this.route.snapshot.params.id;
   }
 
   ngOnInit() {
-    this.campaign = this.campaigns.find(campaign => campaign.id === this.campaignId);
+    this.campaign = this.campaigns.find(campaign => campaign.basicInformation.id === this.campaignId);
   }
 }
