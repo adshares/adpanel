@@ -1,0 +1,21 @@
+@import '../../../../styles';
+
+.ad-unit {
+  margin: 10px 0;
+  padding: 20px 0;
+  border-top: 1px solid pal(gray, light);
+}
+
+.thumbnail {
+  width: 130px;
+  height: auto;
+  max-height: 130px;
+  @include center(both);
+
+  &-wrapper {
+    width: 150px;
+    height: 150px;
+    background-color: pal(gray, ultra-light);
+    margin-right: 30px;
+  }
+}
