@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserModel } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
