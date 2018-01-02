@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
-import { Campaign } from '../models/campaign.model';
+import { Observable } from 'rxjs/Observable';
+import { Site } from '../models/site.model';
+
 
 @Injectable()
-export class AdvertiserService {
+export class PublisherService {
 
   constructor(private http: Http) {}
 
-  getCampaigns(): Observable<Campaign[]> {
-    return this.http.get(`${environment.apiUrl}/campaigns`)
+  getSites(): Observable<Site[]> {
+    return this.http.get(`${environment.apiUrl}/sites`)
       .map((response: Response) => response.json());
   }
-  getCampaign(id): Observable<Campaign> {
-    return this.http.get(`${environment.apiUrl}/campaign/${id}`)
+
+  getSite(id: number): Observable<Site> {
+    return this.http.get(`${environment.apiUrl}/site/${id}`)
       .map((response: Response) => response.json());
   }
 }

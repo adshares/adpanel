@@ -31,6 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { CampaignResolver } from './campaign.resolver';
 
 const matModules = [
   MatExpansionModule,
@@ -72,7 +73,8 @@ const advertiserComponents = [
     ...matModules
   ],
   providers: [
-    AdvertiserGuard
+    AdvertiserGuard,
+    CampaignResolver
   ],
   declarations: [
     ...advertiserComponents,

@@ -49,7 +49,7 @@
         </mat-option>
         <mat-option
           [value]="'Publisher'"
-          [routerLink]="['/publisher']"
+          routerLink="['/publisher/dashboard']"
           *ngIf="!(userDataState | async).isAdmin"
         >
           Publisher
@@ -98,7 +98,8 @@
               adsh-icon--prepend"
             src="assets/images/plus-circle.svg"
         >
-          Create new Campaign
+          <span *ngIf="selectedRole === 'Advertiser'">Create new Campaign</span>
+          <span *ngIf="selectedRole === 'Publisher'">Add new Site</span>
       </button>
     </a>
     <div

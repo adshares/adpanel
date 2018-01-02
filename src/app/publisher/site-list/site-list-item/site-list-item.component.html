@@ -1,0 +1,88 @@
+<div class="site-list__item">
+  <div
+    class="
+      row
+      align-center
+      adsh-copy
+      adsh-copy--semi"
+  >
+    <div
+      class="
+        col-xs-5
+        row
+        align-center"
+    >
+      <h4
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        {{ site.name }}
+      </h4>
+    </div>
+    <div
+      class="
+        col-xs-2
+        row
+        align-center">
+      <span>
+        {{ site.estimatedEarnings | currency:USD }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.clicks }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.impressions }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.rpm | percent }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center"
+    >
+      <span>
+        {{ site.averageCPC | currency:USD }}
+      </span>
+    </div>
+    <div
+      class="
+        col-xs-1
+        row
+        align-center
+        justify-center
+        adsh-site-list__item-site-details"
+    >
+      <a [routerLink]="['../site', site.id]">
+        <img
+          src="/assets/images/chevron-right.svg"
+          alt="Campaign Details Icon"
+        >
+      </a>
+    </div>
+  </div>
+</div>

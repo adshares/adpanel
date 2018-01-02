@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./table-navigation.component.scss']
 })
 export class TableNavigationComponent implements OnInit {
-  @Input() navigationName;
+  @Input() navigationName: string;
   navigationItems = [];
 
   adListNavigationItems = [
@@ -31,6 +31,15 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Cost', columnWidth: 'col-xs-1' },
   ];
 
+  siteListNavigationItems = [
+    { title: 'Website Name', columnWidth: 'col-xs-5' },
+    { title: 'Estimated Earnings', columnWidth: 'col-xs-2' },
+    { title: 'Clicks', columnWidth: 'col-xs-1' },
+    { title: 'Impressions', columnWidth: 'col-xs-1' },
+    { title: 'Page RPM', columnWidth: 'col-xs-1' },
+    { title: 'Average CPC', columnWidth: 'col-xs-1' },
+  ];
+
   ngOnInit() {
     switch (this.navigationName) {
       case 'adListNavigation':
@@ -38,6 +47,9 @@ export class TableNavigationComponent implements OnInit {
         break;
       case 'campaignListNavigation':
         this.navigationItems = this.campaignListNavigationItems;
+        break;
+      case 'siteListNavigation':
+        this.navigationItems = this.siteListNavigationItems;
         break;
     }
   }

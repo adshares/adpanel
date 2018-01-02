@@ -1,7 +1,7 @@
 <section
   class="
     col
-    adsh-campaign-list"
+    site-list"
 >
   <div
     class="
@@ -9,7 +9,7 @@
       adsh-box--large"
   >
     <app-table-navigation
-      [navigationName]="'campaignListNavigation'"
+      [navigationName]="'siteListNavigation'"
       class="
         row
         adsh-copy
@@ -17,28 +17,25 @@
     >
     </app-table-navigation>
 
-    <div class="adsh-campaign-list__items">
-      <app-campaign-list-item
-        *ngFor="let campaign of campaigns"
-        [campaign]="campaign"
+    <div class="site-list__items">
+      <app-site-list-item
+        *ngFor="let site of sites"
+        [site]="site"
       >
-      </app-campaign-list-item>
+      </app-site-list-item>
     </div>
-
     <div
       class="
         row
         justify-center"
     >
-      <a
-        routerLink="/advertiser/create-campaign/basic-information"
-        [queryParams]="{step: 1}"
-      >
+      <a routerLink="../create-site">
         <button
           class="
             adsh-btn
             adsh-btn--white
-            adsh-blue"
+            adsh-heading
+            adsh-heading--secondary"
         >
           <img
             class="
@@ -46,9 +43,10 @@
               adsh-icon--prepend"
             src="assets/images/plus-circle--blue.svg"
           >
-          Add new campaign
+            Add new site
         </button>
       </a>
     </div>
   </div>
 </section>
+

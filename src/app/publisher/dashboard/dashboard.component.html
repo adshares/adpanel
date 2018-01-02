@@ -1,7 +1,7 @@
 <app-confirmation-alert></app-confirmation-alert>
 <section
   class="
-    adsh-advertiser-wrapper
+    adsh-publisher-wrapper
     dashboard-view"
 >
   <div class="container">
@@ -16,7 +16,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          My Campaigns
+          My Sites
         </h1>
         <p
           class="
@@ -27,26 +27,34 @@
         </p>
       </div>
       <div class="col-xs-8">
-        <app-chart-filter *ngIf="!campaigns"></app-chart-filter>
+        <app-chart-filter *ngIf="!sites"></app-chart-filter>
       </div>
     </div>
 
-    <div *ngIf="!campaigns">
-        <!--mock chart-->
+    <div *ngIf="!sites">
+      <!--mock chart-->
       <div
         class="
           adsh-box
           adsh-box--large"
       >
-        <img
-          src="/assets/images/placeholder.png"
-          style="max-width: 100%">
+        <div class="row">
+          <div
+            class="col-xs-4"
+            *ngFor="let i of [1,2,3,4,5,6]"
+          >
+            <img
+              src="/assets/images/placeholder.png"
+              style="max-width: 100%; height: 150px; padding: 5px">
+          </div>
+        </div>
       </div>
 
-      <app-campaign-list></app-campaign-list>
+      <app-site-list></app-site-list>
     </div>
 
-    <div *ngIf="campaigns">
+
+    <div *ngIf="sites">
       <div
         class="
           adsh-box
@@ -55,18 +63,18 @@
           align-center
           justify-center
           text-center
-          adsh-advertiser-create-new-campaign-wrapper"
+          add-new-site-wrapper"
       >
         <img
           src="/assets/images/add-new.svg"
-          alt="Advertiser Account Illustration">
+          alt="Publisher New Site Illustration">
         <div class="adsh-customize__box-description">
           <h2
             class="
               adsh-heading
               adsh-heading--primary"
           >
-            Create your First Campaign
+            Add your First Site
           </h2>
 
           <p
@@ -80,7 +88,7 @@
           </p>
         </div>
         <a
-          routerLink="/advertiser/create-campaign/basic-information"
+          routerLink="/publisher/create-site/basic-information"
           [queryParams]="{step: 1}"
         >
           <button
@@ -110,7 +118,7 @@
         </a>
       </div>
     </div>
-
     <app-funds-summary></app-funds-summary>
+
   </div>
 </section>
