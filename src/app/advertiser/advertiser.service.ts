@@ -15,7 +15,7 @@ export class AdvertiserService {
       .map((response: Response) => response.json());
   }
   getCampaign(id): Observable<Campaign> {
-    return this.http.get(`${environment.apiUrl}/campaign`)
+    return this.http.get(`${environment.apiUrl}/campaign/${id}`)
       .map((response: Response) => response.json());
   }
 }

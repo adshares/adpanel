@@ -17,7 +17,7 @@ export class PublisherService {
   }
 
   getSite(id: number): Observable<Site> {
-    return this.http.get(`${environment.apiUrl}/site`)
+    return this.http.get(`${environment.apiUrl}/site/${id}`)
       .map((response: Response) => response.json());
   }
 }
