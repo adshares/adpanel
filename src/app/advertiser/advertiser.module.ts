@@ -6,11 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppCommonModule } from '../common/common.module';
 
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
@@ -27,6 +27,9 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
+
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './campaign.resolver';
 
@@ -35,7 +38,9 @@ const matModules = [
   MatFormFieldModule,
   MatMomentDateModule,
   MatDatepickerModule,
-  MatInputModule
+  MatInputModule,
+  MatMenuModule,
+  MatSelectModule
 ];
 
 const editCampaignComponents = [
@@ -47,29 +52,33 @@ const editCampaignComponents = [
   EditCampaignNavigationComponent
 ];
 
+const advertiserComponents = [
+  AdvertiserComponent,
+  CampaignListComponent,
+  CampaignListItemComponent,
+  DashboardComponent,
+  CampaignDetailsComponent,
+  AdListComponent,
+  AdListItemComponent
+]
+
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
     AppCommonModule,
+    AdvertiserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ...matModules,
-    AdvertiserRoutingModule
+    ...matModules
   ],
   providers: [
     AdvertiserGuard,
     CampaignResolver
   ],
   declarations: [
-    AdvertiserComponent,
-    CampaignListComponent,
-    CampaignListItemComponent,
-    ...editCampaignComponents,
-    DashboardComponent,
-    CampaignDetailsComponent,
-    AdListComponent,
-    AdListItemComponent
+    ...advertiserComponents,
+    ...editCampaignComponents
   ]
 })
 export class AdvertiserModule { }

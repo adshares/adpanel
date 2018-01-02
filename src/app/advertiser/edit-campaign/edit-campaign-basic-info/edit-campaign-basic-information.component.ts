@@ -56,6 +56,6 @@ export class EditCampaignBasicInformationComponent {
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
 
-    this.router.navigate([link, { step: param }]);
+    this.router.navigate([link], {queryParams: { step: param } });
   }
 }
