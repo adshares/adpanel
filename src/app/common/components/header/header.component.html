@@ -11,7 +11,7 @@
       row
       align-center"
   >
-    <a [routerLink]="['/', selectedRole.toLowerCase(), 'dashboard']">
+    <a [routerLink]="['/', activeUserType, 'dashboard']">
       <div
         class="
           adsh-navigation__item
@@ -38,18 +38,18 @@
         class="
           adsh-select
           adsh-navigation__item"
-        [ngModel]="selectedRole"
+        [ngModel]="activeUserType"
       >
         <mat-option
-          [value]="'Advertiser'"
-          routerLink="['/advertiser/dashboard']"
+          [value]="'advertiser'"
+          routerLink="/advertiser/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
         >
           Advertiser
         </mat-option>
         <mat-option
-          [value]="'Publisher'"
-          routerLink="['/publisher/dashboard']"
+          [value]="'publisher'"
+          routerLink="/publisher/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
         >
           Publisher
@@ -98,8 +98,8 @@
               adsh-icon--prepend"
             src="assets/images/plus-circle.svg"
         >
-          <span *ngIf="selectedRole === 'Advertiser'">Create new Campaign</span>
-          <span *ngIf="selectedRole === 'Publisher'">Add new Site</span>
+          <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
+          <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
       </button>
     </a>
     <div
