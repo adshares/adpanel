@@ -79,7 +79,7 @@
       align-center"
   >
     <a
-      routerLink="/advertiser/create-campaign/basic-information"
+      [routerLink]="activeUserType === 'advertiser' ? '/advertiser/create-campaign/basic-information' : '/publisher/add-site/basic-information'"
       [queryParams]="{step: 1}"
     >
       <button
