@@ -12,27 +12,25 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  currentBalanceAdst: number = 128.20;
-  currentBalanceUSD: number = 1240.02;
-  notificationsCount: number = 8;
-  selectedRole = 'Admin';
+  currentBalanceAdst = 128.20;
+  currentBalanceUSD = 1240.02;
+  notificationsCount = 8;
   userDataState: Store<UserModel>;
   activeUserType: string;
 
-  notificationsBarEnabled: boolean = false;
+  notificationsBarEnabled = false;
 
-  constructor(private store: Store<AppState>,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     super(null);
 
     this.userDataState = this.store.select('state', 'auth', 'userData');
   }
 
   ngOnInit() {
-    const getUserSubscription = this.userDataState
-      .subscribe((userData: UserModel) => this.checkUserRole(userData));
-    this.subscriptions.push(getUserSubscription);
 
     this.activeUserType = this.route.snapshot.routeConfig.path;
 
@@ -46,13 +44,5 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   toggleNotificationsBar(status: boolean) {
     this.notificationsBarEnabled = status;
-  }
-
-  checkUserRole(user: UserModel) {
-    if (user.isAdmin) {
-      return;
-    }
-
-    this.selectedRole = user.isAdvertiser ? 'Advertiser' : 'Publisher';
   }
 }
