@@ -131,28 +131,23 @@
     </a>
 
     <div>
-      <a>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
-        >
-          Save as Draft
-        </button>
-      </a>
-      <a
-        [routerLink]="goesToSummary ? '../summary' : '../create-ad'"
-        [queryParams]="goesToSummary ? {step: 4} : {step: 3}"
+      <button
+        (click)="saveCampaignAdditionalInformation(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
       >
-        <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
-        >
-          Save & Continue
-        </button>
-      </a>
+        Save as Draft
+      </button>
+      <button
+        (click)="saveCampaignAdditionalInformation(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        Save & Continue
+      </button>
     </div>
   </div>
 </section>

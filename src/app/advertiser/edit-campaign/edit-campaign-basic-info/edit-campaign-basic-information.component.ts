@@ -3,6 +3,8 @@ import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
+import { CanComponentDeactivate } from '../../advertiser-guard.service';
+import { Observable } from 'rxjs/Observable';
 
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
@@ -14,12 +16,13 @@ const moment = _moment;
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent {
+export class EditCampaignBasicInformationComponent implements CanComponentDeactivate {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
   dateStart = new FormControl();
   dateEnd = new FormControl();
   minDate = moment().format('L');
   maxDate = moment().add(1, 'year').format('L');
+  changesSaved = false;
 
   goesToSummary: string;
 
@@ -48,14 +51,21 @@ export class EditCampaignBasicInformationComponent {
       bidValue: this.editCampaignBasicInformationForm.value.campaignBidValue,
       budget: this.editCampaignBasicInformationForm.value.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: moment(this.dateEnd.value._d) ? moment(this.dateEnd.value._d).format('L') : null,
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
 
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
+    this.changesSaved = true;
 
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
-
     this.router.navigate([link], {queryParams: { step: param } });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.changesSaved) {
+      return confirm('Do you want to discard changes');
+    }
+    return true;
   }
 }
