@@ -35,6 +35,6 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
   }
 
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
-    return component.canDeactivate() ;
+    return component.canDeactivate();
   }
 }
