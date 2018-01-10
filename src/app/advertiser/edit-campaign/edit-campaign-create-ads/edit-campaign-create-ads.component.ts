@@ -9,7 +9,6 @@ import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-proces
 })
 export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess {
   panelOpenState = false;
-  changesSaved = false;
 
   constructor(private router: Router) {
     super();
