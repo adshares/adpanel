@@ -11,9 +11,7 @@ import { Site } from '../../models/site.model';
 export class SiteDetailsComponent {
   site: Site;
 
-  constructor(
-    private route: ActivatedRoute,
-  ) {
+  constructor(private route: ActivatedRoute) {
     this.site = this.route.snapshot.data.site;
   }
 }

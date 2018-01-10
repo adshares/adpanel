@@ -11,7 +11,10 @@ import { AppState } from '../models/app-state.model';
 @Injectable()
 export class AdvertiserGuard implements CanActivate {
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
