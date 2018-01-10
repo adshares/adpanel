@@ -208,28 +208,23 @@
     </a>
 
     <div class="row">
-      <a>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
-        >
-          Save as Draft
-        </button>
-      </a>
-      <a
-        routerLink="../summary"
-        [queryParams]="{step: 4}"
+      <button
+        (click)="saveCampaignAds(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
       >
-        <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
-        >
-          Save & Continue
-        </button>
-      </a>
+        Save as Draft
+      </button>
+      <button
+        (click)="saveCampaignAds(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        Save & Continue
+      </button>
     </div>
   </div>
 </section>

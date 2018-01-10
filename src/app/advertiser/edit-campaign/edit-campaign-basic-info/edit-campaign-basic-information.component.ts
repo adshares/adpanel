@@ -7,6 +7,7 @@ import { AppState } from '../../../models/app-state.model';
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 const moment = _moment;
 
 @Component({
@@ -14,7 +15,7 @@ const moment = _moment;
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent {
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
   dateStart = new FormControl();
   dateEnd = new FormControl();
@@ -28,6 +29,7 @@ export class EditCampaignBasicInformationComponent {
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
+    super();
     this.route.queryParams.subscribe(params => {
       this.goesToSummary = params.summary;
     });
@@ -48,14 +50,14 @@ export class EditCampaignBasicInformationComponent {
       bidValue: this.editCampaignBasicInformationForm.value.campaignBidValue,
       budget: this.editCampaignBasicInformationForm.value.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: moment(this.dateEnd.value._d) ? moment(this.dateEnd.value._d).format('L') : null,
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
 
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
+    this.changesSaved = true;
 
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
-
     this.router.navigate([link], {queryParams: { step: param } });
   }
 }
