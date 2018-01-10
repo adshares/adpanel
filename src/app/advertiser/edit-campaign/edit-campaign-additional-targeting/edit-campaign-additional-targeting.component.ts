@@ -2,21 +2,19 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilis/helpers';
-import { CanComponentDeactivate } from '../../advertiser-guard.service';
-import { Observable } from 'rxjs/Observable';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
   templateUrl: './edit-campaign-additional-targeting.component.html',
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
-export class EditCampaignAdditionalTargetingComponent implements CanComponentDeactivate {
+export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess {
   goesToSummary: boolean;
   TargetingOptionsToAdd: TargetingOptionModel[];
   TargetingOptionsToExclude: TargetingOptionModel[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
-  changesSaved = false;
 
   requirePanelOpenState: boolean;
   excludePanelOpenState: boolean;
@@ -25,6 +23,7 @@ export class EditCampaignAdditionalTargetingComponent implements CanComponentDea
     private route: ActivatedRoute,
     private router: Router
   ) {
+    super();
     this.TargetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
     this.TargetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
 
@@ -47,12 +46,5 @@ export class EditCampaignAdditionalTargetingComponent implements CanComponentDea
       const param = this.goesToSummary ? 4 : 3;
       this.router.navigate([link], {queryParams: { step: param } });
     }
-  }
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard changes');
-    }
-    return true;
   }
 }

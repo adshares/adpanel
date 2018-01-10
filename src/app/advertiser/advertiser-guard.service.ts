@@ -34,12 +34,7 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
       });
   }
 
-  canDeactivate(
-    component: CanComponentDeactivate,
-    route: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
     return component.canDeactivate() ;
   }
 }

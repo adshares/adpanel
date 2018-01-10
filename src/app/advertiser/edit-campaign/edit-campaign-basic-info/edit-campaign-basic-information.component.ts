@@ -3,12 +3,11 @@ import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
-import { CanComponentDeactivate } from '../../advertiser-guard.service';
-import { Observable } from 'rxjs/Observable';
 
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 const moment = _moment;
 
 @Component({
@@ -16,13 +15,12 @@ const moment = _moment;
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent implements CanComponentDeactivate {
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
   dateStart = new FormControl();
   dateEnd = new FormControl();
   minDate = moment().format('L');
   maxDate = moment().add(1, 'year').format('L');
-  changesSaved = false;
 
   goesToSummary: string;
 
@@ -31,6 +29,7 @@ export class EditCampaignBasicInformationComponent implements CanComponentDeacti
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
+    super();
     this.route.queryParams.subscribe(params => {
       this.goesToSummary = params.summary;
     });
@@ -60,12 +59,5 @@ export class EditCampaignBasicInformationComponent implements CanComponentDeacti
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
     this.router.navigate([link], {queryParams: { step: param } });
-  }
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard changes');
-    }
-    return true;
   }
 }

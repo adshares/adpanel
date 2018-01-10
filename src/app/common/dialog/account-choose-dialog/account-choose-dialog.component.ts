@@ -14,7 +14,7 @@ export class AccountChooseDialogComponent {
   ) { }
 
   redirectToPublisher() {
-    this.router.navigate(['/publisher']);
+    this.router.navigate(['/publisher/dashboard']);
     this.dialogRef.close();
   }
 }

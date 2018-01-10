@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { CanComponentDeactivate } from '../../advertiser-guard.service';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 @Component({
   selector: 'app-edit-campaign-create-ads',
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent implements CanComponentDeactivate {
+export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess {
   panelOpenState = false;
   changesSaved = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    super();
+  }
 
   saveCampaignAds(isDraft) {
     this.changesSaved = true;
@@ -20,12 +21,5 @@ export class EditCampaignCreateAdsComponent implements CanComponentDeactivate {
     if (!isDraft) {
       this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
     }
-  }
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard changes');
-    }
-    return true;
   }
 }
