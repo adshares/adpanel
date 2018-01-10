@@ -23,6 +23,8 @@ export class LoginComponent extends HandleSubscription {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
+  loading = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -31,12 +33,15 @@ export class LoginComponent extends HandleSubscription {
     private store: Store<AppState>
   ) {
     super(null);
+    console.log(this.loading)
   }
 
   login() {
     if (!this.loginForm.valid) {
       return;
     }
+
+    this.loading = true;
 
     const loginSubscription = this.authService.loginUser(
       this.loginForm.value.email,

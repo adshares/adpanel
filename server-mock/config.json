@@ -1,3 +1,4 @@
 {
-  "cors": true
+  "cors": true,
+  "simulated-lag": 2000
 }

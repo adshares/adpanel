@@ -134,14 +134,16 @@
         </div>
 
         <button
-          type="submit"
           class="
             adsh-btn
             adsh-btn--wide
             adsh-btn--blue
             adsh-form-submit-btn"
         >
-          Log In
+          <span *ngIf="loading ; else loading">Log In</span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </ng-template>
         </button>
       </form>
   </div>

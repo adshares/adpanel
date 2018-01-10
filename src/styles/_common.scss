@@ -299,3 +299,13 @@ router-outlet ~ * {
     background-color: pal(gray, ultra-light);
   }
 }
+
+/*
+  spinner
+*/
+
+.loading-wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}

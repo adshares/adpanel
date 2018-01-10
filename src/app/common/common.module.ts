@@ -6,6 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { MatSpinner } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
@@ -24,7 +27,8 @@ import { TableNavigationComponent } from './components/table-navigation/table-na
 const matModules = [
   MatDialogModule,
   MatSelectModule,
-  MatChipsModule
+  MatChipsModule,
+  MatProgressSpinnerModule
 ];
 
 const appComponents = [
@@ -51,7 +55,7 @@ const appComponents = [
   declarations: [
     CustomizeAccountChooseDialogComponent,
     AccountChooseDialogComponent,
-    ...appComponents
+    ...appComponents,
   ],
   providers: [
     TargetingCriteriaResolver,
@@ -62,7 +66,8 @@ const appComponents = [
     AccountChooseDialogComponent
   ],
   exports: [
-    ...appComponents
+    ...appComponents,
+    MatSpinner
   ]
 })
 
