@@ -33,7 +33,6 @@ export class LoginComponent extends HandleSubscription {
     private store: Store<AppState>
   ) {
     super(null);
-    console.log(this.isLoggingIn)
   }
 
   login() {
@@ -42,7 +41,6 @@ export class LoginComponent extends HandleSubscription {
     }
 
     this.isLoggingIn = true;
-    console.log(this.isLoggingIn)
 
     const loginSubscription = this.authService.loginUser(
       this.loginForm.value.email,
