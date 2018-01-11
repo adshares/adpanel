@@ -14,14 +14,8 @@
     }
 
     img {
-      &:first-of-type {
-        top: calc((42px - 18px)/2);
-        left: 15px;
-      }
-      &:last-of-type {
-        top: calc((42px - 10px)/2);
-        right: -51px;
-      }
+      top: calc((42px - 18px)/2);
+      left: 15px;
     }
   }
 }

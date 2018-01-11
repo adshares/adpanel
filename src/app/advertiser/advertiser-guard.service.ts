@@ -15,7 +15,10 @@ export interface CanComponentDeactivate {
 @Injectable()
 export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentDeactivate> {
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
@@ -35,6 +38,6 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
   }
 
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
-    return component.canDeactivate() ;
+    return component.canDeactivate();
   }
 }

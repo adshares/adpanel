@@ -6,9 +6,7 @@ import { Site } from '../models/site.model';
 
 @Injectable()
 export class SiteResolver implements Resolve<Site> {
-  constructor(
-    private publisherService: PublisherService
-  ) {}
+  constructor(private publisherService: PublisherService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Site> {
     return this.publisherService.getSite(route.params.id);
