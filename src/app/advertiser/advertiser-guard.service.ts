@@ -23,7 +23,7 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state', 'auth', 'userData')
+    return this.store.select('state', 'user', 'data')
       .take(1)
       .map((userData: UserModel) => {
         if (userData.isAdvertiser) {

@@ -19,7 +19,7 @@ export class NotificationSettingsComponent implements OnInit{
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
-      .select('state', 'settings', 'notificationsSettings')
+      .select('state', 'user', 'settings')
       .subscribe(notificationsSettings => {
         this.notificationsSettings = notificationsSettings
       });

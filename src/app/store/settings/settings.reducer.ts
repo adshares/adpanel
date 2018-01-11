@@ -1,6 +1,7 @@
 import * as SettingsActions from './settings.actions';
+import { SettingsState } from '../../models/settings-state.model';
 
-const initialState: any = {
+const initialState: SettingsState = {
   billingHistory: [],
   notificationsSettings: []
 };

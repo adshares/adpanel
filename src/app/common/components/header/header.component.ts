@@ -27,7 +27,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   ) {
     super(null);
 
-    this.userDataState = this.store.select('state', 'auth', 'userData');
+    this.userDataState = this.store.select('state', 'user', 'data');
   }
 
   ngOnInit() {
