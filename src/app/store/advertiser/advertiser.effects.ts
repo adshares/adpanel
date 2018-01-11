@@ -7,7 +7,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class AdvertiserEffects {
-  constructor (
+  constructor(
     private actions$: Actions,
     private service: AdvertiserService
   ) {}

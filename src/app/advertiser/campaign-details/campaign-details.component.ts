@@ -11,9 +11,7 @@ import { Campaign } from '../../models/campaign.model';
 export class CampaignDetailsComponent {
   campaign: Campaign;
 
-  constructor(
-    private route: ActivatedRoute,
-  ) {
+  constructor(private route: ActivatedRoute) {
     this.campaign = this.route.snapshot.data.campaign;
   }
 }
