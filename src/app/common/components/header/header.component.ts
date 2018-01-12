@@ -27,11 +27,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   ) {
     super(null);
 
-    this.userDataState = this.store.select('state', 'user', 'data');
+    this.userDataState = this.store.select('state', 'user', 'data', 'auth');
   }
 
   ngOnInit() {
-
     this.activeUserType = this.route.snapshot.routeConfig.path;
 
     this.router.events.subscribe((event) => {
