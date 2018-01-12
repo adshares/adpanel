@@ -14,10 +14,12 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 
 import { AdvertiserService } from './advertiser/advertiser.service';
+import { PublisherService } from './publisher/publisher.service';
 import { SettingsService } from './settings/settings.service';
 
 import { EffectsModule } from '@ngrx/effects';
 import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
+import { PublisherEffects } from './store/publisher/publisher.effects';
 import { SettingsEffects } from './store/settings/settings.effects';
 
 import { reducers } from './store/index';
@@ -42,12 +44,14 @@ const appModules = [
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       AdvertiserEffects,
+      PublisherEffects,
       SettingsEffects
     ]),
     ...appModules
   ],
   providers: [
     AdvertiserService,
+    PublisherService,
     SettingsService
   ],
   bootstrap: [ AppComponent ]

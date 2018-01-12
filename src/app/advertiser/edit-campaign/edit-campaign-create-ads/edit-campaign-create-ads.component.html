@@ -56,6 +56,7 @@
                 class="adsh-form-input"
                 type="text"
                 formControlName="shortHeadline"
+
               >
               <span
                 *ngIf="adForm.controls.shortHeadline.valid"
@@ -411,30 +412,24 @@
       </button>
     </a>
 
-    <div>
-      <a>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
-        >
-          Save as Draft
-        </button>
-      </a>
-      <!-- <a
-        routerLink="../summary"
-        [queryParams]="{step: 4}"
-      > -->
-        <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
-          (click)="saveCampaignAds()"
-        >
-          Save & Continue
-        </button>
-      <!-- </a> -->
+    <div class="row">
+      <button
+        (click)="saveCampaignAds(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Save as Draft
+      </button>
+      <button
+        (click)="saveCampaignAds(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        Save & Continue
+      </button>
     </div>
   </div>
 </section>

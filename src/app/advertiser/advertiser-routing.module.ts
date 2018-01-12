@@ -10,6 +10,7 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { CampaignResolver } from './campaign.resolver';
 import { TargetingCriteriaResolver } from '../common/resolvers/targeting-criteria.resolver';
 
 const advertiserRoutes: Routes = [
@@ -20,19 +21,34 @@ const advertiserRoutes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'campaign/:id', component: CampaignDetailsComponent},
+      {
+        path: 'campaign/:id',
+        component: CampaignDetailsComponent,
+        resolve: {
+          campaign: CampaignResolver
+        }
+      },
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
         children: [
-          { path: 'basic-information', component: EditCampaignBasicInformationComponent },
+          { path: 'basic-information',
+            component: EditCampaignBasicInformationComponent,
+            canDeactivate: [AdvertiserGuard] },
           {
             path: 'additional-targeting',
             component: EditCampaignAdditionalTargetingComponent,
+            canDeactivate: [AdvertiserGuard],
             resolve: { targetingOptions: TargetingCriteriaResolver }
           },
-          { path: 'create-ad', component: EditCampaignCreateAdsComponent },
-          { path: 'summary', component: EditCampaignSummaryComponent }
+          {
+            path: 'create-ad',
+            component: EditCampaignCreateAdsComponent,
+            canDeactivate: [AdvertiserGuard]
+          },
+          { path: 'summary',
+            component: EditCampaignSummaryComponent
+          }
         ]
       }
     ]

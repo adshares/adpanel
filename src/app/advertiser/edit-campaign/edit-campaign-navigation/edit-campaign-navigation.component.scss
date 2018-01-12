@@ -4,6 +4,12 @@
   background: pal(white);
   height: 64px;
 
+  &-step:last-of-type {
+    .adsh-step-link-indicator {
+      display: none;
+    }
+  }
+
   .adsh-circle {
     margin-right: 15px;
   }

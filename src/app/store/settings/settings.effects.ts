@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class SettingsEffects {
-  constructor (
+  constructor(
     private actions$: Actions,
     private service: SettingsService
   ) {}

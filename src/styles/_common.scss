@@ -217,6 +217,21 @@
   }
 }
 
+.adsh-chip-box {
+  background-color: pal(gray, x-light);
+  color: pal(gray, mid-dark);
+  @include font(11, semi);
+  text-transform: uppercase;
+  padding: 7px;
+  border-radius: 2px;
+  display: inline-table;
+  margin: 0 2px;
+
+  &--dark {
+    color: pal(navy);
+  }
+}
+
 /*
   background and text colors
 */
@@ -283,4 +298,8 @@ router-outlet ~ * {
     color: pal(gray);
     background-color: pal(gray, ultra-light);
   }
+}
+
+.adsh-ad-list__sort {
+  margin-left: 3px;
 }

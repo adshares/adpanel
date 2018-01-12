@@ -1,0 +1,52 @@
+<section
+  class="
+    col
+    site-list"
+>
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <app-table-navigation
+      [navigationName]="'siteListNavigation'"
+      class="
+        row
+        adsh-copy
+        adsh-copy--small"
+    >
+    </app-table-navigation>
+
+    <div class="site-list__items">
+      <app-site-list-item
+        *ngFor="let site of sites"
+        [site]="site"
+      >
+      </app-site-list-item>
+    </div>
+    <div
+      class="
+        row
+        justify-center"
+    >
+      <a routerLink="../create-site">
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/plus-circle--blue.svg"
+          >
+            Add new site
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
+

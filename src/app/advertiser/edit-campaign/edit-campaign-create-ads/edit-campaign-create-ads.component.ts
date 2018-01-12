@@ -15,6 +15,7 @@ import { environment } from '../../../../environments/environment';
 import { appSettings } from '../../../../app-settings/app-settings';
 import { cloneDeep } from '../../../common/utilis/helpers';
 import { AppState } from '../../../models/app-state.model';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 interface imagesStatus {
   overDrop: boolean[];
@@ -34,7 +35,7 @@ interface imagesStatus {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent implements OnInit {
+export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess implements OnInit {
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   adSizes: string[] = enumToArray(adSizesEnum);
@@ -55,7 +56,9 @@ export class EditCampaignCreateAdsComponent implements OnInit {
     private advertiserService: AdvertiserService,
     private router: Router,
     private store: Store<AppState>
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     // todo get real ads instead of below one
@@ -171,8 +174,9 @@ export class EditCampaignCreateAdsComponent implements OnInit {
     adForm.updateValueAndValidity();
   }
 
-  saveCampaignAds() {
+  saveCampaignAds(isDraft) {
     this.adsSubmitted = true;
+    this.changesSaved = true;
 
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
@@ -181,6 +185,10 @@ export class EditCampaignCreateAdsComponent implements OnInit {
     if (adsValid) {
       this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
       this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
+    }
+
+    if (!isDraft) {
+      this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
     }
   }
 }

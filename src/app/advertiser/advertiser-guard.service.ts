@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router, CanActivate, CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
@@ -8,10 +8,17 @@ import 'rxjs/add/operator/map';
 import { User } from '../models/user.model';
 import { AppState } from '../models/app-state.model';
 
-@Injectable()
-export class AdvertiserGuard implements CanActivate {
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean
+}
 
-  constructor(private router: Router, private store: Store<AppState>) { }
+@Injectable()
+export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentDeactivate> {
+
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
@@ -28,5 +35,9 @@ export class AdvertiserGuard implements CanActivate {
 
         return false;
       });
+  }
+
+  canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
+    return component.canDeactivate();
   }
 }

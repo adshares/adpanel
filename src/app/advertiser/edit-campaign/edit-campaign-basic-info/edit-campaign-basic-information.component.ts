@@ -8,6 +8,7 @@ import * as _moment from 'moment';
 import { AppState } from '../../../models/app-state.model';
 import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
+import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 const moment = _moment;
 
@@ -16,7 +17,7 @@ const moment = _moment;
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent {
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess {
   @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
   dateStart = new FormControl();
   dateEnd = new FormControl();
@@ -30,16 +31,20 @@ export class EditCampaignBasicInformationComponent {
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+    super();
+    this.route.queryParams.subscribe(params => {
+      this.goesToSummary = params.summary;
+    });
   }
 
   saveCampaignBasicInformation() {
-
     if (!this.editCampaignBasicInformationForm.valid || !this.dateStart) {
       return;
     }
 
     const campaignBasicInfoValue = this.editCampaignBasicInformationForm.value;
+    const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
+    const param = this.goesToSummary ? 4 : 2;
 
     const basicInformation = {
       status: campaignStatusesEnum.DRAFT,
@@ -49,13 +54,11 @@ export class EditCampaignBasicInformationComponent {
       bidValue: campaignBasicInfoValue.campaignBidValue,
       budget: campaignBasicInfoValue.campaignBudget,
       dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: this.dateEnd.value ? moment(this.dateEnd.value._d).format('L') : null,
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
 
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
-
-    const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
-    const param = this.goesToSummary ? 4 : 2;
+    this.changesSaved = true;
 
     this.router.navigate([link], {queryParams: { step: param } });
   }

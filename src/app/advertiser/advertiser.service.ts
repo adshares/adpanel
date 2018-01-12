@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../environments/environment';
 import { Campaign } from '../models/campaign.model';
 import 'rxjs/add/operator/map';
@@ -13,6 +14,10 @@ export class AdvertiserService {
 
   getCampaigns() {
     return this.http.get(`${environment.apiUrl}/campaigns`);
+  }
+
+  getCampaign(id): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/campaign/${id}`);
   }
 
   deleteAdImage(adId) {

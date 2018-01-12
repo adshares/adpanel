@@ -32,6 +32,7 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 import { TrustUrlPipe } from '../common/pipes/trust.pipe';
 import { TrustHtmlPipe } from '../common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { CampaignResolver } from './campaign.resolver';
 
 const matModules = [
   MatExpansionModule,
@@ -74,7 +75,8 @@ const advertiserComponents = [
     ...matModules
   ],
   providers: [
-    AdvertiserGuard
+    AdvertiserGuard,
+    CampaignResolver
   ],
   declarations: [
     TrustUrlPipe,
