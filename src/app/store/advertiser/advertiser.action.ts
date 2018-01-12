@@ -1,8 +1,9 @@
 import { Action } from '@ngrx/store';
-import { Campaign, CampaignBasicInformation, CampaignTargeting } from '../../models/campaign.model';
+import { Campaign, CampaignBasicInformation, CampaignTargeting, Ad } from '../../models/campaign.model';
 
 export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
 export const SAVE_CAMPAING_TARGETING = 'Campaing targeting information saved';
+export const SAVE_CAMPAING_ADS = 'Campaing ads saved';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
 
@@ -16,14 +17,24 @@ export class SaveCampaignTargeting implements Action {
   constructor(public payload: CampaignTargeting) { };
 }
 
+export class SaveCampaignAds implements Action {
+  readonly type = SAVE_CAMPAING_ADS;
+  constructor(public payload: Ad[]) { };
+}
+
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
-  constructor(public payload: Campaign[]) { }
+  constructor(public payload: Campaign[]) { };
 }
 
 export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
-  constructor(public payload: any) { }
+  constructor(public payload: any) { };
 }
 
-export type actions = SaveCampaignBasicInformation | LoadCampaigns | LoadCampaignsSuccess;
+export type actions =
+  SaveCampaignBasicInformation |
+  SaveCampaignTargeting |
+  SaveCampaignAds |
+  LoadCampaigns |
+  LoadCampaignsSuccess;

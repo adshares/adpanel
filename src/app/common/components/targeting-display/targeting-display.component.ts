@@ -1,4 +1,5 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+
 import { TargetingOptionValue } from '../../../models/targeting-option.model';
 
 @Component({
@@ -8,6 +9,7 @@ import { TargetingOptionValue } from '../../../models/targeting-option.model';
 })
 export class TargetingDisplayComponent implements OnChanges {
   @Input() items;
+  @Input() canRemove;
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: [TargetingOptionValue[]][] = [];

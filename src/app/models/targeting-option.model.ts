@@ -11,6 +11,7 @@ interface TargetingOptionValue {
   key: string,
   label: string,
   parent_label: string,
+  value: string,
   selected?: boolean,
   parentOptionLabel?: string
 }

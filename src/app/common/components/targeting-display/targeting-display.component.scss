@@ -1,3 +1,6 @@
-.selected-chips {
-  margin: 10px 0;
+.hide-remove {
+  .mat-chip-remove {
+    display: none;
+  }
 }
+

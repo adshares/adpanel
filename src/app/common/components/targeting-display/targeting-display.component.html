@@ -1,6 +1,6 @@
 <mat-chip-list *ngFor="let groupedItems of viewModel">
   <div class="adsh-copy">
-    {{ groupedItems[0] }}:
+    {{ groupedItems[0] }} are:
   </div>
 
   <div
@@ -11,7 +11,7 @@
   >
     <mat-chip
       *ngFor="let item of groupedItems[1]"
-      [removable]="true"
+      [ngClass]="{'hide-remove': !canRemove}"
       (remove)="removeItem(item)"
     >
       <p

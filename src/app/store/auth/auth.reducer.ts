@@ -2,9 +2,10 @@ import * as AuthAction from './auth.action';
 
 import { User } from '../../models/user.model';
 import { AuthState } from '../../models/auth-state.model';
+import { userInitialState } from '../../models/initial-state/user.js';
 
 const initialState: AuthState = {
-  userData: {} as User
+  userData: userInitialState
 };
 
 export function authReducers(state = initialState , action: AuthAction.actions ): AuthState {

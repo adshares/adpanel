@@ -2,11 +2,13 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-
-import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
+
+import { AppState } from '../../../models/app-state.model';
+import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
+import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
+
 const moment = _moment;
 
 @Component({
@@ -40,7 +42,7 @@ export class EditCampaignBasicInformationComponent {
     const campaignBasicInfoValue = this.editCampaignBasicInformationForm.value;
 
     const basicInformation = {
-      status: 'draft',
+      status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.campaignName,
       targetUrl: campaignBasicInfoValue.campaignTargetURL,
       bidStrategyName: campaignBasicInfoValue.campaignBidStrategy,

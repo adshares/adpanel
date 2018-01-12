@@ -1,12 +1,11 @@
-import { Ad } from './ad.model';
-import { targetingOptionValue } from './targeting-option.model';
+import { TargetingOptionValue } from './targeting-option.model';
 
 interface Campaign {
+  id: number;
   basicInformation: CampaignBasicInformation;
+
   targeting?: CampaignTargeting;
   ads?: Ad[];
-
-  id: number,
   clicks?: number;
   impressions?: number;
   ctr?: number;
@@ -16,19 +15,37 @@ interface Campaign {
 }
 
 interface CampaignBasicInformation {
-  status: string;
+  status: number;
   name: string;
   targetUrl: string;
   bidStrategyName: string;
   bidValue: number;
   budget: number;
   dateStart: Object;
+
   dateEnd?: Object;
 }
 
 interface CampaignTargeting {
-  requires?: targetingOptionValue[],
-  excludes?: targetingOptionValue[]
+  requires?: TargetingOptionValue[];
+  excludes?: TargetingOptionValue[];
 }
 
-export { Campaign, CampaignBasicInformation, CampaignTargeting }
+interface Ad {
+  id: number;
+  status: number;
+  shortHeadline: string;
+  type: number;
+  size: number;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCPC: number;
+  cost: number;
+  budget: number;
+
+  imageUrl?: string;
+  html?: string;
+}
+
+export { Campaign, CampaignBasicInformation, CampaignTargeting, Ad }

@@ -1,9 +1,10 @@
 import * as AdvertiserActions from './advertiser.action';
 import { AdvertiserState } from '../../models/advertiser-state.model';
 import { Campaign } from '../../models/campaign.model';
+import { campaignInitialState } from '../../models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
-  lastEditedCampaign: {} as Campaign,
+  lastEditedCampaign: campaignInitialState,
   campaigns: []
 };
 
@@ -23,6 +24,11 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { targeting: action.payload })
+      }
+    case AdvertiserActions.SAVE_CAMPAING_ADS:
+      return {
+        ...state,
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { ads: action.payload })
       }
     default:
       return state;
