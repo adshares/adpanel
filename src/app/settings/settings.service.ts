@@ -23,12 +23,12 @@ export class SettingsService {
     this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
   }
 
-  changeEmail(email) {
+  changeEmail(email): any {
     // request to backend to changeEmail
     console.log('email changed');
   }
 
-  changePassword(currentPassword, newPassword, newPasswordConfirm) {
+  changePassword(currentPassword, newPassword, newPasswordConfirm): any {
     // request to backend to check password
     console.log('password changed');
   }
