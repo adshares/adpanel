@@ -6,7 +6,7 @@ const initialState: SettingsState = {
   notificationsSettings: []
 };
 
-export function settingsReducer(state = initialState, action: SettingsActions.actions) {
+export function settingsReducers(state = initialState, action: SettingsActions.actions) {
   switch (action.type) {
     case SettingsActions.LOAD_BILLING_HISTORY_SUCCESS:
       return {

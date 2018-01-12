@@ -18,4 +18,9 @@ export class SettingsService {
     return this.http.get(`${environment.apiUrl}/notifications_settings`)
       .map((response: Response) => response.json());
   }
+
+  updateNotificationsSettings(newSettings: object): any {
+    this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
+  }
+
 }

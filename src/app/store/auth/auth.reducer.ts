@@ -2,7 +2,7 @@ import * as AuthAction from './auth.action';
 import { AuthState } from '../../models/auth-state.model';
 
 const initialState: AuthState = {
-  data: {
+  auth: {
     email: '',
     isAdvertiser: true,
     isPublisher: true,
@@ -15,7 +15,7 @@ export function authReducers(state = initialState , action: AuthAction.actions )
     case AuthAction.LOGIN_USER:
       return {
         ...state,
-        data: action.payload
+        auth: action.payload
       }
      default:
       return state;

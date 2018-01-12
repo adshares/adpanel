@@ -3,7 +3,7 @@ import { combineReducers, ActionReducer } from '@ngrx/store/';
 import { authReducers } from './auth/auth.reducer';
 import { advertiserReducers } from './advertiser/advertiser.reducer';
 import { publisherReducers } from './publisher/publisher.reducer';
-import { settingsReducer } from './settings/settings.reducer';
+import { settingsReducers } from './settings/settings.reducer';
 import { AuthState } from '../models/auth-state.model';
 import { AdvertiserState } from '../models/advertiser-state.model';
 import { PublisherState } from '../models/publisher-state.model';
@@ -24,7 +24,7 @@ export interface ReducersState {
 const userReducers: ActionReducer<UserReducersState> = combineReducers(
   {
     data: authReducers,
-    settings: settingsReducer
+    settings: settingsReducers
   }
 );
 
