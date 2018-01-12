@@ -19,86 +19,152 @@
       >
         Here you can change the email address you use on Adshares and your password
       </p>
-      <div class="row">
-        <div class="adsh-form-input__box">
-          <label
-            for="email"
-            class="adsh-form-label"
+      <form
+        #changeEmailForm="ngForm"
+        (ngSubmit)="onChangeEmail(email.value)"
+        class="adsh-form">
+        <div class="row align-start change-form">
+          <div class="adsh-form-input__box">
+            <label
+              for="email"
+              class="adsh-form-label"
+            >
+              Email Address
+            </label>
+            <input
+              id="email"
+              class="adsh-form-input"
+              type="email"
+              name="email"
+              ngModel
+              [email]="true"
+              #email="ngModel"
+              required
+            >
+            <span
+              *ngIf="email.valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="email.hasError('email') && email.touched && email.value !== ''"
+            >
+              Invalid email!
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="email.hasError('required') && changeEmailForm.submitted"
+            >
+              Email required
+            </span>
+          </div>
+          <button
+            class="
+              adsh-btn
+              adsh-btn--blue"
           >
-            Email Address
-          </label>
-          <input
-            id="email"
-            class="adsh-form-input"
-            type="email"
-            name="email"
-            ngModel
-            [email]="true"
-            #email="ngModel"
-            required
-          >
+            Change email
+          </button>
         </div>
-      </div>
-      <div class="row align-end">
-        <div class="adsh-form-input__box">
-          <label
-            for="currentPassword"
-            class="adsh-form-label"
+      </form>
+
+      <form
+        #changePasswordForm="ngForm"
+        (ngSubmit)="onChangePassword(currentPassword.value, newPassword.value, newPasswordConfirm.value)"
+        class="adsh-form">
+        <div class="row align-start change-form">
+          <div class="row">
+            <div class="adsh-form-input__box">
+              <label
+                for="currentPassword"
+                class="adsh-form-label"
+              >
+                Current Password
+              </label>
+              <input
+                id="currentPassword"
+                class="adsh-form-input"
+                type="password"
+                name="currentPassword"
+                ngModel
+                #currentPassword="ngModel"
+                required
+              >
+              <span
+                class="error-msg"
+                *ngIf="currentPassword.hasError('required') && changePasswordForm.submitted"
+              >
+                Current password required
+              </span>
+            </div>
+            <div class="adsh-form-input__box">
+              <label
+                for="newPassword"
+                class="adsh-form-label"
+              >
+                New Password
+              </label>
+              <input
+                id="newPassword"
+                class="adsh-form-input"
+                type="password"
+                name="newPassword"
+                ngModel
+                #newPassword="ngModel"
+                minlength="8"
+                required
+              >
+              <span
+                *ngIf="newPassword.valid"
+                class="input-valid"
+              ></span>
+              <span class="error-msg" *ngIf="newPassword.hasError('minlength') && newPassword.touched">
+              Minimum 8 signs required!
+            </span>
+              <span
+                class="error-msg"
+                *ngIf="newPassword.hasError('required') && changePasswordForm.submitted"
+              >
+              New password required
+            </span>
+            </div>
+            <div class="adsh-form-input__box">
+              <label
+                for="newPasswordConfirm"
+                class="adsh-form-label"
+              >
+                Confirm Password
+              </label>
+              <input
+                id="newPasswordConfirm"
+                class="adsh-form-input"
+                type="password"
+                name="newPasswordConfirm"
+                ngModel
+                #newPasswordConfirm="ngModel"
+                required
+              >
+              <span
+                *ngIf="newPasswordConfirm.value === newPassword.value && newPassword.valid"
+                class="input-valid"
+              ></span>
+              <span
+                class="error-msg"
+                *ngIf="newPasswordConfirm.value !== newPassword.value && newPasswordConfirm.touched"
+              >
+                Passwords don't match!
+              </span>
+            </div>
+          </div>
+          <button
+            class="
+              adsh-btn
+              adsh-btn--blue"
           >
-            Current Password
-          </label>
-          <input
-            id="currentPassword"
-            class="adsh-form-input"
-            type="password"
-            name="currentPassword"
-            ngModel
-            #currentPassword="ngModel"
-            required
-          >
+            Change password
+          </button>
         </div>
-        <div class="adsh-form-input__box">
-          <label
-            for="newPassword"
-            class="adsh-form-label"
-          >
-            New Password
-          </label>
-          <input
-            id="newPassword"
-            class="adsh-form-input"
-            type="password"
-            name="newPassword"
-            ngModel
-            #newPassword="ngModel"
-            required
-          >
-        </div>
-        <div class="adsh-form-input__box">
-          <label
-            for="newPasswordConfirm"
-            class="adsh-form-label"
-          >
-            Confirm Password
-          </label>
-          <input
-            id="newPasswordConfirm"
-            class="adsh-form-input"
-            type="password"
-            name="newPasswordConfirm"
-            ngModel
-            #newPasswordConfirm="ngModel"
-            required
-          >
-        </div>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
-        >
-          Change
-        </button>
-      </div>
+      </form>
       <div
         class="
           row

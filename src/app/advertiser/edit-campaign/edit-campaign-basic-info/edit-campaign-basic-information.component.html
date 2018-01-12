@@ -177,7 +177,7 @@
           Budget
         </label>
         <div class="row no-gutters">
-          <div class="col-xs-5">
+          <div class="col-xs-5 col">
             <input
               id="campaignBudget"
               class="adsh-form-input"
@@ -188,6 +188,16 @@
               #campaignBudget="ngModel"
               required
             >
+            <span
+              *ngIf="campaignBudget.valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted"
+            >
+             Budget required
+            </span>
           </div>
           <div class="col-xs-5">
             <p
@@ -200,17 +210,6 @@
             </p>
           </div>
         </div>
-
-        <span
-          *ngIf="campaignBudget.valid"
-          class="input-valid"
-        ></span>
-        <span
-          class="error-msg"
-          *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted"
-        >
-          Budget required
-        </span>
       </div>
 
       <div class="adsh-form-input__box">
@@ -255,9 +254,7 @@
                 align-center
                 justify-between"
             >
-              <label
-                class="adsh-form-label"
-              >
+              <label class="adsh-form-label">
                 Date of End
               </label>
               <span

@@ -1,5 +1,5 @@
 .preferences {
-  input {
+  .adsh-form-input__box {
     margin-right: 25px;
   }
 }
@@ -9,5 +9,11 @@
 
   button {
     margin-left: 20px;
+  }
+}
+
+.change-form {
+  button {
+    margin-top: 40px;
   }
 }
