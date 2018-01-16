@@ -7,8 +7,10 @@
   background: transparent;
   transition: background-color 0.2s ease;
   max-height: 52px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 
   &--wide {
     padding: 12px 60px;
@@ -45,6 +47,7 @@
 
   &--blue {
     background-color: pal(blue);
+    min-width: 160px;
 
     &:hover {
       background-color: darken(pal(blue), 2);

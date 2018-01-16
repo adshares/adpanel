@@ -303,3 +303,13 @@ router-outlet ~ * {
 .adsh-ad-list__sort {
   margin-left: 3px;
 }
+
+/*
+  spinner
+*/
+
+.loading-wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
