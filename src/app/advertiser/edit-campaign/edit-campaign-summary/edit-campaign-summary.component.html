@@ -229,6 +229,7 @@
           <app-targeting-display
             *ngIf="campaign.targeting"
             [items]="campaign.targeting.requires"
+            [isExclude]="false"
             [canRemove]="false"
           ></app-targeting-display>
         </div>
@@ -243,6 +244,7 @@
           <app-targeting-display
             *ngIf="campaign.targeting"
             [items]="campaign.targeting.excludes"
+            [isExclude]="true"
             [canRemove]="false"
           ></app-targeting-display>
         </div>
@@ -329,6 +331,7 @@
             adsh-btn
             adsh-btn--white
             adsh-blue"
+          (click)="saveCampaign(true)"
         >
           Save as Draft
         </button>
@@ -338,7 +341,7 @@
           class="
             adsh-btn
             adsh-btn--blue"
-          (click)="startCampaign()"
+          (click)="saveCampaign(false)"
         >
           Start Campaign
         </button>

@@ -16,6 +16,7 @@ import { appSettings } from '../../../../app-settings/app-settings';
 import { cloneDeep } from '../../../common/utilis/helpers';
 import { AppState } from '../../../models/app-state.model';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
+import { Campaign } from '../../../models/campaign.model';
 
 interface imagesStatus {
   overDrop: boolean[];
@@ -61,29 +62,39 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   ngOnInit() {
-    // todo get real ads instead of below one
-    this.ads.push(cloneDeep(adInitialState));
-    this.createForm();
-  }
-
-  createForm() {
-    this.ads.forEach((ad) => {
-      this.adForms.push(this.generateImageFormField(ad));
-    });
+    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'ads')
+      .subscribe((savedAds) => {
+        if (savedAds) {
+          savedAds.forEach((savedAd) => {
+            this.adForms.push(this.generateFormField(savedAd));
+            this.ads.push(cloneDeep(savedAd));
+          });
+        } else {
+          this.createEmptyAdd();
+        }
+      })
+      .unsubscribe();
   }
 
   createEmptyAdd() {
     this.ads.push(cloneDeep(adInitialState));
-    this.adForms.push(this.generateImageFormField(adInitialState));
+    this.adForms.push(this.generateFormField(adInitialState));
   }
 
-  generateImageFormField(ad) {
-    return new FormGroup({
+  generateFormField(ad) {
+    const attachmentField = ad.type === adTypesEnum.IMAGE ?
+      { name: ad.shortHeadline, src: ad.imageUrl || '', size: ad.size } : (ad.html || '');
+    const adTypeName = this.adTypes[ad.type];
+    const formGroup =  new FormGroup({
       shortHeadline: new FormControl(ad.shortHeadline, Validators.required),
       type: new FormControl(ad.type),
-      size: new FormControl(ad.size),
-      image: new FormControl({name: '', src: '', size: ''})
+      size: new FormControl(ad.size)
     });
+
+    formGroup.controls[adTypeName] = new FormControl(attachmentField);
+    formGroup.updateValueAndValidity();
+
+    return formGroup;
   }
 
   fileOverDropArea(isOverDrop, adIndex) {
@@ -126,8 +137,13 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     };
     image.onSuccess = (res) => {
       const parsedResponse = JSON.parse(res);
-      this.ads[adIndex].imageUrl = parsedResponse.imageUrl;
 
+      Object.assign(this.ads[adIndex], {
+        imageUrl: parsedResponse.imageUrl,
+        type: this.adForms[adIndex].controls.type.value,
+        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
+        size: this.adForms[adIndex].controls.size.value
+      });
       this.adForms[adIndex].controls['image'].setValue({
         name: parsedResponse.name,
         src: parsedResponse.imageUrl,
@@ -151,7 +167,12 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   saveHtml(adIndex) {
-    this.ads[adIndex].html = this.adForms[adIndex].controls.html.value;
+    Object.assign(this.ads[adIndex], {
+        html: this.adForms[adIndex].controls.html.value,
+        type: this.adForms[adIndex].controls.type.value,
+        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
+        size: this.adForms[adIndex].controls.size.value
+      });
   }
 
   clearCode(adIndex) {
@@ -170,7 +191,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     }
 
     this.adTypes.forEach((type) => delete adForm.controls[type]);
-    adForm.controls[adTypeName] = adType === 0 ? new FormControl({src: ''}) : new FormControl('');
+    adForm.controls[adTypeName] = adType === adTypesEnum.IMAGE ?
+      new FormControl({src: ''}) : new FormControl('');
     adForm.updateValueAndValidity();
   }
 
@@ -178,17 +200,27 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     this.adsSubmitted = true;
     this.changesSaved = true;
 
+    this.adForms.forEach((adForm) => adForm.updateValueAndValidity());
+
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
-      this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
       this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
+      this.redirectAfterSave(isDraft);
     }
+  }
 
+  redirectAfterSave(isDraft) {
     if (!isDraft) {
       this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
+    } else {
+      this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .subscribe((campaign: Campaign) => {
+          this.advertiserService.saveCampaign(campaign).subscribe();
+          this.router.navigate(['/advertiser/dashboard']);
+        });
     }
   }
 }

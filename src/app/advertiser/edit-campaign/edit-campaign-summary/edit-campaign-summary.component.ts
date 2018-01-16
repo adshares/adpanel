@@ -21,15 +21,18 @@ export class EditCampaignSummaryComponent implements OnInit {
       private store: Store<AppState>,
       private advertiserService: AdvertiserService,
       private router: Router
-     ) { }
+    ) { }
 
     ngOnInit() {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
         .subscribe((campaign: Campaign) => this.campaign = campaign);
     }
 
-    startCampaign() {
-      this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
+    startCampaign(isDraft) {
+      if (!isDraft) {
+        this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
+      }
+
       this.advertiserService.saveCampaign(this.campaign)
         .subscribe(() => {
           this.router.navigate(['/advertiser/dashboard']);

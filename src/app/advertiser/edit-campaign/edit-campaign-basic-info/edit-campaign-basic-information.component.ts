@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -17,8 +17,9 @@ const moment = _moment;
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess {
-  @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
+  campaignBasicInforForm: FormGroup;
+  campaignBasicInformationSubmitted = false;
   dateStart = new FormControl();
   dateEnd = new FormControl();
   minDate = moment().format('L');
@@ -32,27 +33,30 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     private store: Store<AppState>
   ) {
     super();
-    this.route.queryParams.subscribe(params => {
-      this.goesToSummary = params.summary;
-    });
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+  }
+
+  ngOnInit() {
+    this.createForm();
   }
 
   saveCampaignBasicInformation() {
-    if (!this.editCampaignBasicInformationForm.valid || !this.dateStart) {
+    this.campaignBasicInformationSubmitted = true;
+    if (!this.campaignBasicInforForm.valid || !this.dateStart) {
       return;
     }
 
-    const campaignBasicInfoValue = this.editCampaignBasicInformationForm.value;
+    const campaignBasicInfoValue = this.campaignBasicInforForm.value;
     const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
 
     const basicInformation = {
       status: campaignStatusesEnum.DRAFT,
-      name: campaignBasicInfoValue.campaignName,
-      targetUrl: campaignBasicInfoValue.campaignTargetURL,
-      bidStrategyName: campaignBasicInfoValue.campaignBidStrategy,
-      bidValue: campaignBasicInfoValue.campaignBidValue,
-      budget: campaignBasicInfoValue.campaignBudget,
+      name: campaignBasicInfoValue.name,
+      targetUrl: campaignBasicInfoValue.targetUrl,
+      bidStrategyName: campaignBasicInfoValue.bidStrategyName,
+      bidValue: campaignBasicInfoValue.bidValue,
+      budget: campaignBasicInfoValue.budget,
       dateStart: moment(this.dateStart.value._d).format('L'),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
@@ -61,5 +65,35 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.changesSaved = true;
 
     this.router.navigate([link], {queryParams: { step: param } });
+  }
+
+  createForm() {
+    this.campaignBasicInforForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      targetUrl: new FormControl('', Validators.required),
+      bidStrategyName: new FormControl('', Validators.required),
+      bidValue: new FormControl(0, Validators.required),
+      budget: new FormControl(0, Validators.required),
+    });
+
+    if (this.goesToSummary) {
+      this.getFormDataFromStore();
+    }
+  }
+
+  getFormDataFromStore() {
+    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
+      .subscribe((lastEditedCampaign) => {
+        this.campaignBasicInforForm.controls['name'].setValue(lastEditedCampaign.name);
+        this.campaignBasicInforForm.controls['targetUrl'].setValue(lastEditedCampaign.targetUrl);
+        this.campaignBasicInforForm.controls['bidStrategyName'].setValue(lastEditedCampaign.bidStrategyName);
+        this.campaignBasicInforForm.controls['bidValue'].setValue(lastEditedCampaign.bidValue);
+        this.campaignBasicInforForm.controls['budget'].setValue(lastEditedCampaign.budget);
+        this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
+
+        if (lastEditedCampaign.dateEnd) {
+          this.dateEnd.setValue(moment(lastEditedCampaign.dateEnd));
+        }
+      });
   }
 }

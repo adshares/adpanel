@@ -66,7 +66,7 @@
                 class="error-msg"
                 *ngIf="adForm.controls.shortHeadline.hasError('required') && adsSubmitted"
               >
-                Email required!
+                Short headline required!
               </span>
             </div>
           </div>
@@ -204,6 +204,7 @@
           *ngIf="
             adForm.controls.type.value === 0 &&
             (adForm.controls.image.value.src !== '' || imagesStatus.upload.processing)">
+
           <div class="col-xs-1">
             <img
               src="/assets/images/document-png--blue.svg"
@@ -273,6 +274,14 @@
             (adForm.controls.type.value === 1 && !ads[i]) ||
             (adForm.controls.type.value === 1 && (ads[i] && !ads[i].html))"
         >
+          <span
+            class="error-msg"
+            *ngIf="
+              adForm.controls.html.hasError('required') && adsSubmitted"
+          >
+            Html required!
+          </span>
+
           <p
             class="
               col-xs-12
@@ -287,13 +296,6 @@
             rows="10"
             required
           ></textarea>
-
-          <span
-            class="error-msg"
-            *ngIf="adForm.controls.html.hasError('required') && adsSubmitted"
-          >
-            Html required!
-          </span>
 
           <button
             class="
@@ -334,7 +336,7 @@
             [src]="adForm.controls.image.value.src | trustUrl"
           ></iframe>
 
-          <span *ngIf="ads[i].html">
+          <div *ngIf="ads[i].html">
             <iframe
               [ngStyle]="{
                 'width': adSizes[adForm.controls.size.value].split('x')[0] + 'px',
@@ -352,7 +354,7 @@
             >
               Clear Code
             </button>
-          </span>
+          </div>
         </div>
       </mat-expansion-panel>
     </form>
