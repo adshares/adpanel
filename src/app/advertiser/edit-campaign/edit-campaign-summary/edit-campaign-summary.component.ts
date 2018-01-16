@@ -28,7 +28,7 @@ export class EditCampaignSummaryComponent implements OnInit {
         .subscribe((campaign: Campaign) => this.campaign = campaign);
     }
 
-    startCampaign(isDraft) {
+    saveCampaign(isDraft) {
       if (!isDraft) {
         this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
       }
