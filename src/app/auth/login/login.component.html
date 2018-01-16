@@ -140,8 +140,9 @@
             adsh-btn--blue
             adsh-form-submit-btn"
         >
-          <!--<span>Log In</span>-->
-          <span *ngIf="!isLoggingIn ; else loading">Log In</span>
+          <span *ngIf="!isLoggingIn ; else loading">
+            Log In
+          </span>
           <ng-template #loading>
             <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
           </ng-template>

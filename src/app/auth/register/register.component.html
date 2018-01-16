@@ -127,7 +127,9 @@
           adsh-btn--blue
           adsh-form-submit-btn"
       >
-        <span *ngIf="!isRegistering ; else loading">Register</span>
+        <span *ngIf="!isRegistering ; else loading">
+          Register
+        </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
