@@ -65,9 +65,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'ads')
       .subscribe((savedAds) => {
         if (savedAds) {
-          savedAds.forEach((savedAd) => {
+          savedAds.forEach((savedAd, index) => {
             this.adForms.push(this.generateFormField(savedAd));
             this.ads.push(cloneDeep(savedAd));
+            this.adPanelsStatus[index] = false;
           });
         } else {
           this.createEmptyAdd();
@@ -79,6 +80,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   createEmptyAdd() {
     this.ads.push(cloneDeep(adInitialState));
     this.adForms.push(this.generateFormField(adInitialState));
+    this.adPanelsStatus[this.adPanelsStatus.length] = true;
   }
 
   generateFormField(ad) {
@@ -144,6 +146,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
         size: this.adForms[adIndex].controls.size.value
       });
+
       this.adForms[adIndex].controls['image'].setValue({
         name: parsedResponse.name,
         src: parsedResponse.imageUrl,

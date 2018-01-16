@@ -31,13 +31,14 @@
     <form [formGroup]="adForm">
       <mat-expansion-panel
         (opened)="adPanelsStatus[i] = true"
-        (closed)="adPanelsStatus[i] = false">
+        (closed)="adPanelsStatus[i] = false"
+        [expanded]="adPanelsStatus[i]">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ i + 1 }}
           </mat-panel-title>
           <mat-panel-description>
-            <h3 *ngIf="!adPanelsStatus[i]">Title</h3>
+            <h3 *ngIf="!adPanelsStatus[i]">Title: {{ adForm.controls.shortHeadline.value }}</h3>
             <hr>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -56,7 +57,6 @@
                 class="adsh-form-input"
                 type="text"
                 formControlName="shortHeadline"
-
               >
               <span
                 *ngIf="adForm.controls.shortHeadline.valid"

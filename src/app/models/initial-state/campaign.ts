@@ -6,8 +6,8 @@ export const campaignInitialState: Campaign = {
     name: '',
     targetUrl: '',
     bidStrategyName: '',
-    bidValue: 0,
-    budget: 0,
+    bidValue: null,
+    budget: null,
     dateStart: new Date()
   },
 
