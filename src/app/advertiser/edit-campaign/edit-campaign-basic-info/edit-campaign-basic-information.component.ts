@@ -10,6 +10,8 @@ import { campaignInitialState } from '../../../models/initial-state/campaign';
 import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
+import { LeaveEditProcessDialogComponent } from '../../../common/dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
+import { MatDialog } from '@angular/material';
 
 const moment = _moment;
 
@@ -31,8 +33,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
+    super();
     super();
   }
 

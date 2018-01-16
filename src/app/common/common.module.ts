@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material';
+import {MatDialogContent, MatDialogModule} from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatSpinner } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
+import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
@@ -29,6 +30,12 @@ const matModules = [
   MatSelectModule,
   MatChipsModule,
   MatProgressSpinnerModule
+];
+
+const dialogs = [
+  CustomizeAccountChooseDialogComponent,
+  AccountChooseDialogComponent,
+  LeaveEditProcessDialogComponent
 ];
 
 const appComponents = [
@@ -52,8 +59,7 @@ const appComponents = [
     ...matModules
   ],
   declarations: [
-    CustomizeAccountChooseDialogComponent,
-    AccountChooseDialogComponent,
+    ...dialogs,
     ...appComponents,
   ],
   providers: [
@@ -61,12 +67,12 @@ const appComponents = [
     CommonService
   ],
   entryComponents: [
-    CustomizeAccountChooseDialogComponent,
-    AccountChooseDialogComponent
+    ...dialogs
   ],
   exports: [
     ...appComponents,
-    MatSpinner
+    MatSpinner,
+    MatDialogContent
   ]
 })
 
