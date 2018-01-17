@@ -10,7 +10,7 @@ import * as advertiserActions from '../../store/advertiser/advertiser.action';
 @Component({
   selector: 'app-campaign-list',
   templateUrl: './campaign-list.component.html',
-  styleUrls: ['./campaign-list.component.scss'],
+  styleUrls: ['./campaign-list.component.scss']
 })
 
 export class CampaignListComponent extends HandleSubscription implements OnInit {
@@ -18,15 +18,15 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
 
   constructor(private store: Store<AppState>) {
     super(null);
-
-    const campaignsSubscription = store
-      .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => this.campaigns = campaigns);
-
-    this.subscriptions.push(campaignsSubscription);
   }
 
   ngOnInit() {
     this.store.dispatch(new advertiserActions.LoadCampaigns(this.campaigns));
+
+    const campaignsSubscription = this.store
+      .select('state', 'advertiser', 'campaigns')
+      .subscribe(campaigns => this.campaigns = campaigns);
+
+    this.subscriptions.push(campaignsSubscription);
   }
 }

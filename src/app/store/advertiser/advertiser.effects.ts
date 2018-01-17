@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/withLatestFrom';
 
 import * as advertiserActions from './advertiser.action';
 import { AdvertiserService } from '../../advertiser/advertiser.service';
-import 'rxjs/add/operator/switchMap';
+import { AppState } from '../../models/app-state.model';
+
 
 @Injectable()
 export class AdvertiserEffects {
   constructor(
     private actions$: Actions,
-    private service: AdvertiserService
+    private service: AdvertiserService,
+    private store: Store<AppState>
   ) { }
 
   @Effect()
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
-    .map((action: advertiserActions.LoadCampaigns) => action.payload)
-    .switchMap(() => this.service.getCampaigns())
+    .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
+    .switchMap(([action, userId]) => this.service.getCampaigns(userId))
     .map((campaigns) => {
       return new advertiserActions.LoadCampaignsSuccess(campaigns);
     });

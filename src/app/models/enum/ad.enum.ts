@@ -9,7 +9,7 @@ export enum adSizesEnum {
 };
 
 export enum adStatusEnum {
-  ACRIVE,
+  ACTIVE,
   ARCHIVED
 };
 

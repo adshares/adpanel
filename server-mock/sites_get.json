@@ -11,17 +11,9 @@
     "targeting": {
       "requires": {
         "languages": ["Polish", "English"],
-        "devices": "",
-        "genders": "",
-        "operatingSystems": "",
-        "browsers": ""
       },
       "excludes": {
         "languages": ["German", "French"],
-        "devices": "",
-        "genders": "",
-        "operatingSystems": "",
-        "browsers": ""
       }
     },
     "adUnits": [
@@ -63,17 +55,9 @@
     "targeting": {
       "requires": {
         "languages": ["Polish", "English"],
-        "devices": "",
-        "genders": "",
-        "operatingSystems": "",
-        "browsers": ""
       },
       "excludes": {
         "languages": ["German", "French"],
-        "devices": "",
-        "genders": "",
-        "operatingSystems": "",
-        "browsers": ""
       }
     },
     "adUnits": [

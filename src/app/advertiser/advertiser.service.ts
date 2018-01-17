@@ -12,8 +12,8 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns() {
-    return this.http.get(`${environment.apiUrl}/campaigns`);
+  getCampaigns(userId) {
+    return this.http.get(`${environment.apiUrl}/campaigns/${userId}`);
   }
 
   getCampaign(id): Observable<Campaign> {
@@ -27,5 +27,9 @@ export class AdvertiserService {
 
   saveCampaign(campaign: Campaign) {
     return this.http.put(`${environment.apiUrl}/campaign`, { campaign });
+  }
+
+  getTargetingCriteria() {
+    return this.http.get(`${environment.apiUrl}/campaign_targeting`);
   }
 }

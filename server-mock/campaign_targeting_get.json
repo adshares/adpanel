@@ -1,4 +1,4 @@
-{"criteria": [
+[
     {
         "label": "Language",
         "key": "lang",
@@ -51,4 +51,4 @@
         ],
         "allow_input": false
     }
-]}
+]
