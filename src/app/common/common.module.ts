@@ -49,7 +49,6 @@ const appComponents = [
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule,
     ...matModules
   ],
   declarations: [

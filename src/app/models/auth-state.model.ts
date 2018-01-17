@@ -1,5 +1,5 @@
-import { UserModel } from './user.model';
+import { User } from './user.model';
 
 export interface AuthState {
-  userData: UserModel;
+  userData: User;
 }

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 import * as AuthAction from '../../store/auth/auth.action';
 import { AuthService } from '../auth.service';
-import { UserModel } from '../../models/user.model';
+import { User } from '../../models/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
@@ -46,7 +46,7 @@ export class LoginComponent extends HandleSubscription {
       this.loginForm.value.email,
       this.loginForm.value.password
      )
-      .subscribe((userResponse: UserModel) => {
+      .subscribe((userResponse: User) => {
         this.store.dispatch(new AuthAction.LoginUser(userResponse));
 
         this.showStartupPopups(userResponse);
@@ -60,7 +60,7 @@ export class LoginComponent extends HandleSubscription {
     this.subscriptions.push(loginSubscription);
   }
 
-  showStartupPopups(user: UserModel) {
+  showStartupPopups(user: User) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
     if (firstLogin) {

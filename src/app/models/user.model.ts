@@ -1,4 +1,4 @@
-export interface UserModel {
+export interface User {
   email: string,
   isAdvertiser: boolean,
   isPublisher: boolean,

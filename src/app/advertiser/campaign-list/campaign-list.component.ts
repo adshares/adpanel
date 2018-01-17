@@ -27,7 +27,6 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
   }
 
   ngOnInit() {
-    this.store.dispatch(new advertiserActions.LoadCampaigns('campaigns'));
+    this.store.dispatch(new advertiserActions.LoadCampaigns(this.campaigns));
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { UserModel } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
@@ -15,7 +15,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceAdst = 128.20;
   currentBalanceUSD = 1240.02;
   notificationsCount = 8;
-  userDataState: Store<UserModel>;
+  userDataState: Store<User>;
   activeUserType: string;
 
   notificationsBarEnabled = false;
