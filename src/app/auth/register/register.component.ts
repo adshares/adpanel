@@ -13,6 +13,8 @@ import { HandleSubscription } from '../../common/handle-subscription';
 export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
+  isRegistering = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -27,6 +29,8 @@ export class RegisterComponent extends HandleSubscription {
     if (!this.registrationForm.valid || password !== confirmPassword) {
       return;
     }
+
+    this.isRegistering = true;
 
     const registerSubscription = this.authService.registerUser(
       this.registrationForm.value.email,

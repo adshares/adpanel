@@ -31,7 +31,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.activeUserType = this.route.snapshot.routeConfig.path;
+    this.activeUserType = this.route.snapshot.routeConfig.path === ('publisher' || 'advertiser')
+                          ? this.route.snapshot.routeConfig.path
+                          : 'advertiser';
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {

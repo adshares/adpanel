@@ -339,12 +339,15 @@
         </button>
       </a>
         <button
-          type="submit"
           class="
             adsh-btn
             adsh-btn--blue"
+          type="submit"
         >
-          Save & Continue
+          <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
         </button>
     </div>
   </form>

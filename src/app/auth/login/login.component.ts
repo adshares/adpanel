@@ -23,6 +23,8 @@ export class LoginComponent extends HandleSubscription {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
+  isLoggingIn = false;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -37,6 +39,8 @@ export class LoginComponent extends HandleSubscription {
     if (!this.loginForm.valid) {
       return;
     }
+
+    this.isLoggingIn = true;
 
     const loginSubscription = this.authService.loginUser(
       this.loginForm.value.email,

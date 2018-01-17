@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { AppCommonModule } from '../common/common.module';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 @NgModule({
   imports: [
     CommonModule,
+    AppCommonModule,
     HttpModule,
     FormsModule,
     AuthRoutingModule
