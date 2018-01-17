@@ -9,13 +9,13 @@ export class SettingsService {
 
   constructor(private http: Http) {}
 
-  getBillingHistory(): any {
-    return this.http.get(`${environment.apiUrl}/billing_history`)
+  getBillingHistory(userId): any {
+    return this.http.get(`${environment.apiUrl}/billing_history/${userId}`)
       .map((response: Response) => response.json());
   }
 
-  getNotificationsSettings(): any {
-    return this.http.get(`${environment.apiUrl}/notifications_settings`)
+  getNotificationsSettings(userId): any {
+    return this.http.get(`${environment.apiUrl}/notifications_settings/${userId}`)
       .map((response: Response) => response.json());
   }
 }

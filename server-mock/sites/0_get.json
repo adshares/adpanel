@@ -1,5 +1,4 @@
-[
-  {
+[{
     "name": "Site 1",
     "id": "222222222222",
     "estimatedEarnings": "1232",
@@ -10,14 +9,13 @@
 
     "targeting": {
       "requires": {
-        "languages": ["Polish", "English"],
+        "languages": ["Polish", "English"]
       },
       "excludes": {
-        "languages": ["German", "French"],
+        "languages": ["German", "French"]
       }
     },
-    "adUnits": [
-      {
+    "adUnits": [{
         "status": "active",
         "shortHeadline": "Adshares Dashboard Advertisement",
         "type": "Leaderboard 728x90",
@@ -54,14 +52,13 @@
 
     "targeting": {
       "requires": {
-        "languages": ["Polish", "English"],
+        "languages": ["Polish", "English"]
       },
       "excludes": {
-        "languages": ["German", "French"],
+        "languages": ["German", "French"]
       }
     },
-    "adUnits": [
-      {
+    "adUnits": [{
         "status": "active",
         "shortHeadline": "Adshares Dashboard Advertisement",
         "type": "Large mobile banner 300x90",
@@ -88,5 +85,3 @@
     ]
   }
 ]
-
-

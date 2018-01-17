@@ -8,7 +8,6 @@ import * as advertiserActions from './advertiser.action';
 import { AdvertiserService } from '../../advertiser/advertiser.service';
 import { AppState } from '../../models/app-state.model';
 
-
 @Injectable()
 export class AdvertiserEffects {
   constructor(
