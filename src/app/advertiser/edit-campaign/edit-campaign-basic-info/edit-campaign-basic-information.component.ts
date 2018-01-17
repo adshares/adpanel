@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as _moment from 'moment';
 
 import { AppState } from '../../../models/app-state.model';
+import { campaignInitialState } from '../../../models/initial-state/campaign';
 import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
 import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
@@ -18,14 +19,14 @@ const moment = _moment;
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
 export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
-  campaignBasicInforForm: FormGroup;
+  campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   dateStart = new FormControl();
   dateEnd = new FormControl();
   minDate = moment().format('L');
   maxDate = moment().add(1, 'year').format('L');
 
-  goesToSummary: string;
+  goesToSummary: boolean;
 
   constructor(
     private router: Router,
@@ -33,21 +34,21 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     private store: Store<AppState>
   ) {
     super();
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
     this.createForm();
   }
 
   saveCampaignBasicInformation() {
     this.campaignBasicInformationSubmitted = true;
-    if (!this.campaignBasicInforForm.valid || !this.dateStart) {
+    if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
 
-    const campaignBasicInfoValue = this.campaignBasicInforForm.value;
-    const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
+    const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
+    const editCampaignStep = this.goesToSummary ? 'summary' : 'additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
 
     const basicInformation = {
@@ -64,18 +65,22 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
     this.changesSaved = true;
 
-    this.router.navigate([link], {queryParams: { step: param } });
+    this.router.navigate(
+      ['/advertiser', 'create-campaign', editCampaignStep],
+      { queryParams: { step: param } }
+    );
   }
 
   createForm() {
-    this.campaignBasicInforForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      targetUrl: new FormControl('', Validators.required),
-      bidStrategyName: new FormControl('', Validators.required),
-      bidValue: new FormControl(0, Validators.required),
-      budget: new FormControl(0, Validators.required),
-    });
+    const initialBasicinfo = campaignInitialState.basicInformation;
 
+    this.campaignBasicInfoForm = new FormGroup({
+      name: new FormControl(initialBasicinfo.name, Validators.required),
+      targetUrl: new FormControl(initialBasicinfo.targetUrl, Validators.required),
+      bidStrategyName: new FormControl(initialBasicinfo.bidStrategyName, Validators.required),
+      bidValue: new FormControl(initialBasicinfo.bidValue, Validators.required),
+      budget: new FormControl(initialBasicinfo.budget, Validators.required),
+    });
     if (this.goesToSummary) {
       this.getFormDataFromStore();
     }
@@ -84,11 +89,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   getFormDataFromStore() {
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
       .subscribe((lastEditedCampaign) => {
-        this.campaignBasicInforForm.controls['name'].setValue(lastEditedCampaign.name);
-        this.campaignBasicInforForm.controls['targetUrl'].setValue(lastEditedCampaign.targetUrl);
-        this.campaignBasicInforForm.controls['bidStrategyName'].setValue(lastEditedCampaign.bidStrategyName);
-        this.campaignBasicInforForm.controls['bidValue'].setValue(lastEditedCampaign.bidValue);
-        this.campaignBasicInforForm.controls['budget'].setValue(lastEditedCampaign.budget);
+        this.campaignBasicInfoForm.patchValue(lastEditedCampaign);
         this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
 
         if (lastEditedCampaign.dateEnd) {

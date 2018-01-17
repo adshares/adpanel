@@ -35,7 +35,7 @@ export class EditCampaignSummaryComponent implements OnInit {
 
       this.advertiserService.saveCampaign(this.campaign)
         .subscribe(() => {
-          this.router.navigate(['/advertiser/dashboard']);
+          this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
 }

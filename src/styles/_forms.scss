@@ -152,6 +152,10 @@
   margin-top: 5px;
   padding: 8px 5px;
 
+  &__full-width {
+    width: 100%;
+  }
+
   &:after {
     position: absolute;
     display: block;

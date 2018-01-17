@@ -63,6 +63,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   ngOnInit() {
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'ads')
+      .take(1)
       .subscribe((savedAds) => {
         if (savedAds) {
           savedAds.forEach((savedAd, index) => {
@@ -73,8 +74,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         } else {
           this.createEmptyAdd();
         }
-      })
-      .unsubscribe();
+      });
   }
 
   createEmptyAdd() {
@@ -217,12 +217,15 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   redirectAfterSave(isDraft) {
     if (!isDraft) {
-      this.router.navigate(['/advertiser/create-campaign/summary'], {queryParams: { step: 4 } });
+      this.router.navigate(
+        ['/advertiser', 'create-campaign', 'summary'],
+        { queryParams: { step: 4 } }
+      );
     } else {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.router.navigate(['/advertiser/dashboard']);
+          this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
   }

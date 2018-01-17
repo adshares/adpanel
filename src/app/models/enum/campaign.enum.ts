@@ -1,4 +1,4 @@
-export const campaignStatusesEnum = Object.freeze({
-  DRAFT: 0,
-  ACTIVE: 1
-});
+export enum campaignStatusesEnum {
+  DRAFT,
+  ACTIVE
+};

@@ -58,6 +58,7 @@
         [items]="addedItems"
         [canRemove]="true"
         [isExclude]="false"
+        (itemsChange)="updateAddedItems($event)"
         *ngIf="!requirePanelOpenState"
       ></app-targeting-display>
     </div>
@@ -112,6 +113,7 @@
         [items]="excludedItems"
         [canRemove]="true"
         [isExclude]="true"
+        (itemsChange)="updateExcludedItems($event)"
         *ngIf="!excludePanelOpenState"
       ></app-targeting-display>
     </div>

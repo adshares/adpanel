@@ -33,12 +33,13 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     private advertiserService: AdvertiserService
   ) {
     super();
-    this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
-    this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
   }
 
   ngOnInit() {
+    this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+    this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+
     if (this.goesToSummary) {
       this.getTargetingFromStore();
     }
@@ -57,19 +58,23 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
       requires: this.addedItems,
       excludes: this.excludedItems
     };
+
     this.changesSaved = true;
     this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
 
     if (!isDraft) {
-      const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/create-ad';
+      const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';
       const param = this.goesToSummary ? 4 : 3;
 
-      this.router.navigate([link], {queryParams: { step: param } });
+      this.router.navigate(
+        ['/advertiser', 'create-campaign', editCampaignStep],
+        { queryParams: { step: param } }
+      );
     } else {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.router.navigate(['/advertiser/dashboard']);
+          this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
   }

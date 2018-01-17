@@ -13,11 +13,7 @@ export class AuthService {
 
   loginUser(email: string, password: string): Observable<User> {
     return this.http.post(`${environment.apiUrl}/user`, { email, password })
-      .map((response: Response) => {
-          const result: User = response.json();
-
-          return result;
-      });
+      .map((response: Response) => response.json());
   }
 
   registerUser(email: string, password: string) {

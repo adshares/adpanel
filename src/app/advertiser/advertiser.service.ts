@@ -16,8 +16,9 @@ export class AdvertiserService {
     return this.http.get(`${environment.apiUrl}/campaigns`);
   }
 
-  getCampaign(id): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/campaign/${id}`);
+  getCampaign(id): Observable<Campaign> {
+    return this.http.get(`${environment.apiUrl}/campaign/${id}`)
+      .map((campaign: Campaign) => campaign);
   }
 
   deleteAdImage(adId) {

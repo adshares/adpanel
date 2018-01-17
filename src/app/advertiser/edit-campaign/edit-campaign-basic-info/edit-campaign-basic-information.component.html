@@ -23,7 +23,7 @@
 
 
   <form
-    [formGroup]="campaignBasicInforForm"
+    [formGroup]="campaignBasicInfoForm"
     (ngSubmit)="saveCampaignBasicInformation()"
     class="adsh-form"
   >
@@ -49,15 +49,13 @@
           formControlName="name"
         >
         <span
-          *ngIf="
-            campaignBasicInforForm.controls.name.valid &&
-            campaignBasicInforForm.controls.name.touched"
+          *ngIf="campaignBasicInfoForm.get('name').valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
           *ngIf="
-            campaignBasicInforForm.controls.name.hasError('required') &&
+            campaignBasicInfoForm.hasError('required', ['name']) &&
             campaignBasicInformationSubmitted"
         >
           Campaign name required!
@@ -82,13 +80,12 @@
         >
         <span
           *ngIf="
-            campaignBasicInforForm.controls.targetUrl.valid &&
-            campaignBasicInforForm.controls.targetUrl.touched"
+            campaignBasicInfoForm.get('targetUrl').valid"
           class="input-valid"></span>
         <span
           class="error-msg"
           *ngIf="
-            campaignBasicInforForm.controls.targetUrl.hasError('required') &&
+            campaignBasicInfoForm.hasError('required', ['targetUrl']) &&
             campaignBasicInformationSubmitted"
         >
           Target URL required
@@ -124,7 +121,7 @@
             <span
               class="error-msg"
               *ngIf="
-              campaignBasicInforForm.controls.bidStrategyName.hasError('required') &&
+              campaignBasicInfoForm.hasError('required', ['bidStrategyName']) &&
               campaignBasicInformationSubmitted"
             >
               Bid Strategy required
@@ -151,14 +148,13 @@
             >
             <span
               *ngIf="
-                campaignBasicInforForm.controls.bidValue.valid &&
-                campaignBasicInforForm.controls.bidValue.touched"
+                campaignBasicInfoForm.get('bidValue').valid"
               class="input-valid"
             ></span>
             <span
               class="error-msg"
               *ngIf="
-                campaignBasicInforForm.controls.bidValue.hasError('required') &&
+                campaignBasicInfoForm.hasError('required', ['bidValue']) &&
                 campaignBasicInformationSubmitted"
             >
               Bid value required
@@ -207,15 +203,14 @@
 
         <span
           *ngIf="
-            campaignBasicInforForm.controls.budget.valid &&
-            campaignBasicInforForm.controls.budget.touched"
+            campaignBasicInfoForm.get('budget').valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
           *ngIf="
-            campaignBasicInforForm.controls.budget.hasError('required') &&
-            ccampaignBasicInformationSubmitted"
+            campaignBasicInfoForm.hasError('required', ['budget']) &&
+            campaignBasicInformationSubmitted"
         >
           Budget required
         </span>

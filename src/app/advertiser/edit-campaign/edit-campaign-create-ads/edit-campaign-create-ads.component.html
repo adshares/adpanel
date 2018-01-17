@@ -38,7 +38,7 @@
             {{ i + 1 }}
           </mat-panel-title>
           <mat-panel-description>
-            <h3 *ngIf="!adPanelsStatus[i]">Title: {{ adForm.controls.shortHeadline.value }}</h3>
+            <h3 *ngIf="!adPanelsStatus[i]">Title: {{ adForm.get('shortHeadline').value }}</h3>
             <hr>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -59,12 +59,12 @@
                 formControlName="shortHeadline"
               >
               <span
-                *ngIf="adForm.controls.shortHeadline.valid"
+                *ngIf="adForm.get('shortHeadline').valid"
                 class="input-valid"
               ></span>
               <span
                 class="error-msg"
-                *ngIf="adForm.controls.shortHeadline.hasError('required') && adsSubmitted"
+                *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
               >
                 Short headline required!
               </span>
@@ -126,7 +126,7 @@
         <div
           class="error-msg"
           *ngIf="
-            adForms[i].controls.image && adForms[i].controls.image.value.src === '' &&
+            adForms[i].get('image') && adForms[i].get('image').value.src === '' &&
             adsSubmitted"
         >
           Image required
@@ -150,7 +150,7 @@
             adsh-box--dashed
             adsh-box--blue-border
             drag-and-drop-box"
-          *ngIf="adForm.controls.type.value === 0 && adForm.controls.image.value.src === ''"
+          *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
           ng2FileDrop
           [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
           (fileOver)="fileOverDropArea($event, i)"
@@ -202,8 +202,8 @@
             file-box--grey-background"
           [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
           *ngIf="
-            adForm.controls.type.value === 0 &&
-            (adForm.controls.image.value.src !== '' || imagesStatus.upload.processing)">
+            adForm.get('type').value === 0 &&
+            (adForm.get('image').value.src !== '' || imagesStatus.upload.processing)">
 
           <div class="col-xs-1">
             <img
@@ -246,13 +246,13 @@
 
             <span
               class="file-box__file-info"
-              *ngIf="adForm.controls.image.value.src">
-              {{ adForm.controls.image.value.name }}<br>
+              *ngIf="adForm.get('image').value.src">
+              {{ adForm.get('image').value.name }}<br>
 
               <span class="file-box__file-sub-info">
-                Leaderboard {{ adSizes[adForm.controls.size.value] }}
+                Leaderboard {{ adSizes[adForm.get('size').value] }}
                 <span class="file-box__file-sub-info--secondary">
-                  {{ adForm.controls.image.value.size }}
+                  {{ adForm.get('image').value.size }}
                 </span>
               </span>
 
@@ -271,13 +271,15 @@
             row
             adsh-box"
           *ngIf="
-            (adForm.controls.type.value === 1 && !ads[i]) ||
-            (adForm.controls.type.value === 1 && (ads[i] && !ads[i].html))"
+            (adForm.get('type').value === 1 && !ads[i]) ||
+            (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
         >
           <span
-            class="error-msg"
+            class="
+              error-msg
+              error-msg__full-width"
             *ngIf="
-              adForm.controls.html.hasError('required') && adsSubmitted"
+              adForm.get('html').hasError('required') && adsSubmitted"
           >
             Html required!
           </span>
@@ -317,8 +319,8 @@
             adsh-box--blue-border
             adsh-box__preview"
           *ngIf="
-            (adForm.controls.type.value === 0 && adForm.controls.image.value.src) ||
-            (adForm.controls.type.value === 1) && ads[i].html">
+            (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
+            (adForm.get('type').value === 1) && ads[i].html">
           <div
             class="
               col-xs-12
@@ -329,18 +331,18 @@
 
           <iframe
             [ngStyle]="{
-              'width': adSizes[adForm.controls.size.value].split('x')[0] + 'px',
-              'height': adSizes[adForm.controls.size.value].split('x')[1] + 'px'
+              'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+              'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
             }"
-            *ngIf="adForm.controls.image && adForm.controls.image.value.src"
-            [src]="adForm.controls.image.value.src | trustUrl"
+            *ngIf="adForm.get('image') && adForm.get('image').value.src"
+            [src]="adForm.get('image').value.src | trustUrl"
           ></iframe>
 
           <div *ngIf="ads[i].html">
             <iframe
               [ngStyle]="{
-                'width': adSizes[adForm.controls.size.value].split('x')[0] + 'px',
-                'height': adSizes[adForm.controls.size.value].split('x')[1] + 'px'
+                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
               [srcdoc]="ads[i].html | trustHtml"
             ></iframe>
