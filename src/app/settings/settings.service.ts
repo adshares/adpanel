@@ -4,19 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { BillingHistoryItem, NotificationItem } from '../models/settings.model';
-
 
 @Injectable()
 export class SettingsService {
 
   constructor(private http: HttpClient) {}
 
-  getBillingHistory(userId): Observable<BillingHistoryItem[]> {
+  getBillingHistory(userId): Observable<any> {
     return this.http.get(`${environment.apiUrl}/billing_history/${userId}`);
   }
 
-  getNotificationsSettings(userId): Observable<NotificationItem[]> {
+  getNotificationsSettings(userId): Observable<any> {
     return this.http.get(`${environment.apiUrl}/notifications_settings/${userId}`);
   }
 }

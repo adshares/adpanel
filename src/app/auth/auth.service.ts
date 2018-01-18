@@ -4,14 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  loginUser(email: string, password: string): Observable<User> {
+  loginUser(email: string, password: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/user`, { email, password });
   }
 
