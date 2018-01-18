@@ -32,7 +32,8 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 import { TrustUrlPipe } from '../common/pipes/trust.pipe';
 import { TrustHtmlPipe } from '../common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
-import { CampaignResolver } from './campaign.resolver';
+import { CampaignResolver } from './resolvers/campaign.resolver';
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 
 const matModules = [
   MatExpansionModule,
@@ -76,7 +77,8 @@ const advertiserComponents = [
   ],
   providers: [
     AdvertiserGuard,
-    CampaignResolver
+    CampaignResolver,
+    TargetingCriteriaResolver
   ],
   declarations: [
     TrustUrlPipe,
