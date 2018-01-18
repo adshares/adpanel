@@ -36,11 +36,8 @@ export class RegisterComponent extends HandleSubscription {
       this.registrationForm.value.email,
       this.registrationForm.value.password
     )
-      .subscribe(
-        () => {
-          this.router.navigate(['/auth/confirmation']);
-        }
-      );
+      .subscribe(() => this.router.navigate(['/auth', 'confirmation']));
+
     this.subscriptions.push(registerSubscription);
   }
 }

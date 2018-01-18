@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
@@ -12,20 +11,24 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns() {
-    return this.http.get(`${environment.apiUrl}/campaigns`);
+  getCampaigns(userId: number) {
+    return this.http.get(`${environment.apiUrl}/campaigns/${userId}`);
   }
 
-  getCampaign(id): Observable<Campaign> {
+  getCampaign(id: number): Observable<Campaign> {
     return this.http.get(`${environment.apiUrl}/campaign/${id}`)
       .map((campaign: Campaign) => campaign);
   }
 
-  deleteAdImage(adId) {
+  deleteAdImage(adId: number) {
     return this.http.delete(`${environment.apiUrl}/ad/${adId}`);
   }
 
   saveCampaign(campaign: Campaign) {
     return this.http.put(`${environment.apiUrl}/campaign`, { campaign });
+  }
+
+  getTargetingCriteria() {
+    return this.http.get(`${environment.apiUrl}/campaign_targeting`);
   }
 }

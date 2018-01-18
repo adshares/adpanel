@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
-import { BillingHistoryItem } from '../../../models/billing-history-item.model';
+import { BillingHistoryItem } from '../../../models/settings.model';
 
 import * as settingsActions from '../../../store/settings/settings.actions';
 

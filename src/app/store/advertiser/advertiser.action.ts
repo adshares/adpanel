@@ -24,7 +24,7 @@ export class SaveCampaignAds implements Action {
 
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
-  constructor(public payload: Campaign[]) { };
+  constructor(public payload: any) { };
 }
 
 export class LoadCampaignsSuccess implements Action {

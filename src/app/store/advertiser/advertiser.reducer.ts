@@ -1,5 +1,5 @@
 import * as AdvertiserActions from './advertiser.action';
-import { AdvertiserState } from '../../models/advertiser-state.model';
+import { AdvertiserState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
 import { campaignInitialState } from '../../models/initial-state/campaign';
 
