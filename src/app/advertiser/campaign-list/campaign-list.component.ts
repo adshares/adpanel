@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from '../../common/handle-subscription';
-
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
 
@@ -14,19 +15,14 @@ import * as advertiserActions from '../../store/advertiser/advertiser.action';
 })
 
 export class CampaignListComponent extends HandleSubscription implements OnInit {
-  campaigns: Campaign[];
+  campaigns: Store<Campaign[]>;
 
   constructor(private store: Store<AppState>) {
     super(null);
   }
 
   ngOnInit() {
-    this.store.dispatch(new advertiserActions.LoadCampaigns(this.campaigns));
-
-    const campaignsSubscription = this.store
-      .select('state', 'advertiser', 'campaigns')
-      .subscribe(campaigns => this.campaigns = campaigns);
-
-    this.subscriptions.push(campaignsSubscription);
+    this.store.dispatch(new advertiserActions.LoadCampaigns(''));
+    this.campaigns = this.store.select('state', 'advertiser', 'campaigns');
   }
 }

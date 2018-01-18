@@ -19,10 +19,10 @@
 
     <div
       class="adsh-campaign-list__items"
-      *ngIf="campaigns.length > 0 ; else loading"
+      *ngIf="(campaigns | async).length > 0 ; else loading"
     >
       <app-campaign-list-item
-        *ngFor="let campaign of campaigns"
+        *ngFor="let campaign of campaigns | async"
         [campaign]="campaign"
       >
       </app-campaign-list-item>

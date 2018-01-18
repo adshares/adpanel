@@ -21,7 +21,5 @@ export class PublisherEffects {
     .ofType(publisherActions.LOAD_SITES)
     .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
     .switchMap(([action, userId]) => this.service.getSites(userId))
-    .map((sites) => {
-      return new publisherActions.LoadSitesSuccess(sites)
-    });
+    .map((sites) => new publisherActions.LoadSitesSuccess(sites));
 }

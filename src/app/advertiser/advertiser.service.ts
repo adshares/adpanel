@@ -12,16 +12,16 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns(userId) {
+  getCampaigns(userId: number) {
     return this.http.get(`${environment.apiUrl}/campaigns/${userId}`);
   }
 
-  getCampaign(id): Observable<Campaign> {
+  getCampaign(id: number): Observable<Campaign> {
     return this.http.get(`${environment.apiUrl}/campaign/${id}`)
       .map((campaign: Campaign) => campaign);
   }
 
-  deleteAdImage(adId) {
+  deleteAdImage(adId: number) {
     return this.http.delete(`${environment.apiUrl}/ad/${adId}`);
   }
 

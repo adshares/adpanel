@@ -21,7 +21,5 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
     .switchMap(([action, userId]) => this.service.getCampaigns(userId))
-    .map((campaigns) => {
-      return new advertiserActions.LoadCampaignsSuccess(campaigns);
-    });
+    .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
 }
