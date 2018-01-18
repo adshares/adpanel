@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
-import { cloneDeep } from '../../../common/utilis/helpers';
+import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 @Component({
