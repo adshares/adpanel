@@ -1,0 +1,19 @@
+@import '../../../../styles.scss';
+
+.dialog {
+  width: 500px;
+  padding: 30px;
+}
+
+.description {
+  width: 100%;
+  margin: 0 auto;
+
+  @include media(md-up) {
+    width: 80%
+  }
+}
+
+code {
+  display: block;
+}

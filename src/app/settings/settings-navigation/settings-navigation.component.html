@@ -50,14 +50,14 @@
     >
       <a [routerLink]="['/settings', settingsItem.link]">
         <li *ngFor="let settingsValues of settingsItem.values">
-          <div class="row align-center">
+          <div class="row align-center" routerLinkActive="active">
             <img
               class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="assets/images/user.svg"
+              [src]="settingsValues.icon"
             >
-            {{ settingsValues.name }}
+            <span>{{ settingsValues.name }}</span>
           </div>
         </li>
       </a>

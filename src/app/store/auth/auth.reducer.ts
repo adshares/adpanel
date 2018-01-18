@@ -1,13 +1,11 @@
 import * as AuthAction from './auth.action';
-import { AuthState } from '../../models/auth-state.model';
+
+import { User } from '../../models/user.model';
+import { AuthState } from '../../models/app-state.model';
+import { userInitialState } from '../../models/initial-state/user.js';
 
 const initialState: AuthState = {
-  auth: {
-    email: '',
-    isAdvertiser: true,
-    isPublisher: true,
-    isAdmin: false
-  }
+  userData: userInitialState
 };
 
 export function authReducers(state = initialState , action: AuthAction.actions ): AuthState {
@@ -15,7 +13,7 @@ export function authReducers(state = initialState , action: AuthAction.actions )
     case AuthAction.LOGIN_USER:
       return {
         ...state,
-        auth: action.payload
+        userData: action.payload
       }
      default:
       return state;

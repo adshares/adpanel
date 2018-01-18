@@ -1,28 +1,32 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-
-import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 import * as _moment from 'moment';
+
+import { AppState } from '../../../models/app-state.model';
+import { campaignInitialState } from '../../../models/initial-state/campaign';
+import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
+import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
+
 const moment = _moment;
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
   templateUrl: './edit-campaign-basic-information.component.html',
-  styleUrls: ['./edit-campaign-basic-information.component.scss'],
+  styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess {
-  @ViewChild('editCampaignBasicInformationForm') editCampaignBasicInformationForm: NgForm;
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
+  campaignBasicInfoForm: FormGroup;
+  campaignBasicInformationSubmitted = false;
   dateStart = new FormControl();
   dateEnd = new FormControl();
   minDate = moment().format('L');
   maxDate = moment().add(1, 'year').format('L');
 
-  goesToSummary: string;
+  goesToSummary: boolean;
 
   constructor(
     private router: Router,
@@ -30,25 +34,30 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     private store: Store<AppState>
   ) {
     super();
-    this.route.queryParams.subscribe(params => {
-      this.goesToSummary = params.summary;
-    });
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+    this.createForm();
   }
 
   saveCampaignBasicInformation() {
-    if (!this.editCampaignBasicInformationForm.valid) {
+    this.campaignBasicInformationSubmitted = true;
+    if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
 
-    const id = Math.floor(Math.random() * 100000000) + 10000;
+    const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
+    const editCampaignStep = this.goesToSummary ? 'summary' : 'additional-targeting';
+    const param = this.goesToSummary ? 4 : 2;
+
     const basicInformation = {
-      id: id,
-      status: 'draft',
-      name: this.editCampaignBasicInformationForm.value.campaignName,
-      targetURL: this.editCampaignBasicInformationForm.value.campaignTargetURL,
-      bidStrategy: this.editCampaignBasicInformationForm.value.campaignBidStrategy,
-      bidValue: this.editCampaignBasicInformationForm.value.campaignBidValue,
-      budget: this.editCampaignBasicInformationForm.value.campaignBudget,
+      status: campaignStatusesEnum.DRAFT,
+      name: campaignBasicInfoValue.name,
+      targetUrl: campaignBasicInfoValue.targetUrl,
+      bidStrategyName: campaignBasicInfoValue.bidStrategyName,
+      bidValue: campaignBasicInfoValue.bidValue,
+      budget: campaignBasicInfoValue.budget,
       dateStart: moment(this.dateStart.value._d).format('L'),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
@@ -56,8 +65,36 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
     this.changesSaved = true;
 
-    const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/additional-targeting';
-    const param = this.goesToSummary ? 4 : 2;
-    this.router.navigate([link], {queryParams: { step: param } });
+    this.router.navigate(
+      ['/advertiser', 'create-campaign', editCampaignStep],
+      { queryParams: { step: param } }
+    );
+  }
+
+  createForm() {
+    const initialBasicinfo = campaignInitialState.basicInformation;
+
+    this.campaignBasicInfoForm = new FormGroup({
+      name: new FormControl(initialBasicinfo.name, Validators.required),
+      targetUrl: new FormControl(initialBasicinfo.targetUrl, Validators.required),
+      bidStrategyName: new FormControl(initialBasicinfo.bidStrategyName, Validators.required),
+      bidValue: new FormControl(initialBasicinfo.bidValue, Validators.required),
+      budget: new FormControl(initialBasicinfo.budget, Validators.required),
+    });
+    if (this.goesToSummary) {
+      this.getFormDataFromStore();
+    }
+  }
+
+  getFormDataFromStore() {
+    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
+      .subscribe((lastEditedCampaign) => {
+        this.campaignBasicInfoForm.patchValue(lastEditedCampaign);
+        this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
+
+        if (lastEditedCampaign.dateEnd) {
+          this.dateEnd.setValue(moment(lastEditedCampaign.dateEnd));
+        }
+      });
   }
 }

@@ -1,18 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { Store } from '@ngrx/store';
+import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
+import { AppState } from '../../../models/app-state.model';
 import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
+import { AdvertiserService } from '../../advertiser.service';
+import { Campaign } from '../../../models/campaign.model';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
   templateUrl: './edit-campaign-additional-targeting.component.html',
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
-export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess {
+export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
   goesToSummary: boolean;
-  TargetingOptionsToAdd: TargetingOptionModel[];
-  TargetingOptionsToExclude: TargetingOptionModel[];
+
+  targetingOptionsToAdd: TargetingOptionModel[];
+  targetingOptionsToExclude: TargetingOptionModel[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
 
@@ -21,13 +28,21 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private store: Store<AppState>,
+    private router: Router,
+    private advertiserService: AdvertiserService
   ) {
     super();
-    this.TargetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
-    this.TargetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions.criteria);
+  }
 
+  ngOnInit() {
+    this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions);
+    this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+
+    if (this.goesToSummary) {
+      this.getTargetingFromStore();
+    }
   }
 
   updateAddedItems(items) {
@@ -38,13 +53,37 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.excludedItems = [...items];
   }
 
-  saveCampaignAdditionalInformation(isDraft) {
+  saveCampaignTargeting(isDraft) {
+    const choosedTargeting = {
+      requires: this.addedItems,
+      excludes: this.excludedItems
+    };
+
     this.changesSaved = true;
+    this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
 
     if (!isDraft) {
-      const link = this.goesToSummary ? '/advertiser/create-campaign/summary' : '/advertiser/create-campaign/create-ad';
+      const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';
       const param = this.goesToSummary ? 4 : 3;
-      this.router.navigate([link], {queryParams: { step: param } });
+
+      this.router.navigate(
+        ['/advertiser', 'create-campaign', editCampaignStep],
+        { queryParams: { step: param } }
+      );
+    } else {
+      this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .subscribe((campaign: Campaign) => {
+          this.advertiserService.saveCampaign(campaign).subscribe();
+          this.router.navigate(['/advertiser', 'dashboard']);
+        });
     }
+  }
+
+  getTargetingFromStore() {
+    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targeting')
+      .subscribe((targeting) => {
+        this.addedItems = targeting.requires;
+        this.excludedItems = targeting.excludes;
+      });
   }
 }

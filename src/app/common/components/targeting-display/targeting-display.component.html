@@ -1,6 +1,8 @@
 <mat-chip-list *ngFor="let groupedItems of viewModel">
-  <div class="adsh-copy">
-    {{ groupedItems[0] }}:
+  <div
+    class="adsh-copy"
+    [ngClass]="{'targeting-display__exlude-text': isExclude}">
+    {{ groupedItems[0] }} are<span *ngIf="isExclude">n't</span>:
   </div>
 
   <div
@@ -11,7 +13,7 @@
   >
     <mat-chip
       *ngFor="let item of groupedItems[1]"
-      [removable]="true"
+      [ngClass]="{'hide-remove': !canRemove}"
       (remove)="removeItem(item)"
     >
       <p

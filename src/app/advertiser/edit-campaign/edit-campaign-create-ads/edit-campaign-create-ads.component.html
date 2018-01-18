@@ -25,133 +25,341 @@
     </p>
   </div>
 
-  <div class="adsh-box">
-    <mat-expansion-panel
-      (opened)="panelOpenState = true"
-      (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Number.
-        </mat-panel-title>
-        <mat-panel-description>
-          <h3 *ngIf="!panelOpenState">Title</h3>
-          <hr>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+  <div
+    class="adsh-box"
+    *ngFor="let adForm of adForms; let i = index">
+    <form [formGroup]="adForm">
+      <mat-expansion-panel
+        (opened)="adPanelsStatus[i] = true"
+        (closed)="adPanelsStatus[i] = false"
+        [expanded]="adPanelsStatus[i]">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ i + 1 }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <h3 *ngIf="!adPanelsStatus[i]">Title: {{ adForm.get('shortHeadline').value }}</h3>
+            <hr>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <div class="row no-gutters">
-        <div class="col-xs-5">
-          <div class="adsh-form-input__box">
-            <label
-              for=""
-              class="adsh-form-label"
-            >
-              Short Headline
-            </label>
-            <input
-              id=""
-              class="adsh-form-input"
-              type=""
-              name=""
-              ngModel
-              required
-            >
+        <div class="row">
+          <div class="col-xs-5">
+            <div class="adsh-form-input__box">
+              <label
+                for="shortHeadline"
+                class="adsh-form-label"
+              >
+                Short Headline
+              </label>
+              <input
+                id="shortHeadline"
+                class="adsh-form-input"
+                type="text"
+                formControlName="shortHeadline"
+              >
+              <span
+                *ngIf="adForm.get('shortHeadline').valid"
+                class="input-valid"
+              ></span>
+              <span
+                class="error-msg"
+                *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
+              >
+                Short headline required!
+              </span>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="adsh-form-input__box">
+              <label class="adsh-form-label">
+                Ad Type
+              </label>
+              <mat-select
+                class="adsh-select"
+                formControlName="type"
+                (change)="setAdType(i)">
+                <mat-option
+                  *ngFor="let adType of adTypes; let i = index"
+                  [value]="i"
+                >
+                  {{ adType }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="adsh-form-input__box">
+              <label
+                class="adsh-form-label"
+              >
+                Size
+              </label>
+              <mat-select
+                class="adsh-select"
+                formControlName="size">
+                <mat-option
+                  *ngFor="let adSize of adSizes; let i = index"
+                  [value]="i"
+                >
+                  {{ adSize }}
+                </mat-option>
+              </mat-select>
+            </div>
           </div>
         </div>
-        <div class="col-xs-3">
-          <div class="adsh-form-input__box">
-            <label
-              for=""
-              class="adsh-form-label"
-            >
-              Ad Type
-            </label>
-            <mat-select class="adsh-select">
-              <mat-option
-                [value]="'Size1'"
-              >
-                Size1
-              </mat-option>
-              <mat-option
-                [value]="'Size2'"
-              >
-                Size2
-              </mat-option>
-              <mat-option
-                [value]="'Size3'"
-              >
-                Size3
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
-        <div class="col-xs-3">
-          <div class="adsh-form-input__box">
-            <label
-              for=""
-              class="adsh-form-label"
-            >
-              Size
-            </label>
-            <mat-select class="adsh-select">
-              <mat-option
-                [value]="'Size1'"
-              >
-                Size1
-              </mat-option>
-              <mat-option
-                [value]="'Size2'"
-              >
-                Size2
-              </mat-option>
-              <mat-option
-                [value]="'Size3'"
-              >
-                Size3
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
-      </div>
 
-      <div
-        class="
-          row
-          align-center
-          justify-center
-          adsh-box
-          adsh-box--large
-          adsh-box--bordered
-          adsh-box--dashed
-          adsh-box--blue-border
-          drag-and-drop-box"
-      >
-        <img
-          src="/assets/images/ad-illustration.svg"
-          alt="Ad illustration"
+        <div
+          class="error-msg"
+          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type"
         >
-        <div>
-          <p
-            class="
-              adsh-copy
-              adsh-copy--semi
-              adsh-copy--dark"
-          >
-            Drag & Drop or
-            <a class="adsh-blue">
-              Browse
-            </a>
-          </p>
-          <p
-            class="
-              adsh-copy
-              adsh-copy--large"
-          >
-            We support JPG and PNG files. Make sure that your files is no more than 500 kb.
-          </p>
+          Invalid file type
         </div>
-      </div>
-    </mat-expansion-panel>
+
+        <div
+          class="error-msg"
+          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
+        >
+          Invalid image size
+        </div>
+
+        <div
+          class="error-msg"
+          *ngIf="
+            adForms[i].get('image') && adForms[i].get('image').value.src === '' &&
+            adsSubmitted"
+        >
+          Image required
+        </div>
+
+        <div
+          class="error-msg"
+          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
+        >
+          Something went wrong, please try again later
+        </div>
+
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            adsh-box
+            adsh-box--large
+            adsh-box--bordered
+            adsh-box--dashed
+            adsh-box--blue-border
+            drag-and-drop-box"
+          *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
+          ng2FileDrop
+          [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
+          (fileOver)="fileOverDropArea($event, i)"
+          [uploader]="uploader"
+        >
+          <img
+            src="/assets/images/campaign-ad-illustration.svg"
+            alt="Ad illustration"
+          >
+          <div>
+            <p
+              class="
+                adsh-copy
+                adsh-copy--semi
+                adsh-copy--dark"
+            >
+              Drag & Drop or
+
+              <label
+                class="adsh-blue"
+                for="fileSelect">
+                Browse
+              </label>
+
+              <input
+                class="file-select-input"
+                type="file"
+                id="fileSelect"
+                ng2FileSelect
+                [uploader]="uploader"
+                (change)="uploadImage(uploader.queue[0], i)">
+            </p>
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+            >
+              We support JPG and PNG files. Make sure that your files is no more than 500 kb.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="
+            row
+            align-right
+            adsh-box
+            file-box
+            file-box--grey-background"
+          [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
+          *ngIf="
+            adForm.get('type').value === 0 &&
+            (adForm.get('image').value.src !== '' || imagesStatus.upload.processing)">
+
+          <div class="col-xs-1">
+            <img
+              src="/assets/images/document-png--blue.svg"
+              alt="Ad image"
+            >
+          </div>
+
+          <div class="col-xs-11">
+            <span
+              class="file-box__file-info"
+              *ngIf="imagesStatus.upload.processing">
+              {{ uploader.queue[0].file.name }}
+              <br>
+
+              <div class="progress-bar">
+                <div
+                  class="progress-bar--active"
+                  [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
+              </div>
+
+              <span
+                class="
+                  file-box__file-sub-info
+                  file-box__file-sub-info--secondary">
+                {{ (uploader.queue[0].file.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
+                of
+                {{ uploader.queue[0].file.size / 1000 }} KB
+                ({{ imagesStatus.upload.progress }}% Done)
+              </span>
+
+              <img
+                class="file-box__action-button
+                       file-box__action-button--cancel"
+                src="/assets/images/x-circle--gray.svg"
+                alt="Cancel upload"
+                (click)="uploader.queue[0].cancel()"
+              >
+            </span>
+
+            <span
+              class="file-box__file-info"
+              *ngIf="adForm.get('image').value.src">
+              {{ adForm.get('image').value.name }}<br>
+
+              <span class="file-box__file-sub-info">
+                Leaderboard {{ adSizes[adForm.get('size').value] }}
+                <span class="file-box__file-sub-info--secondary">
+                  {{ adForm.get('image').value.size }}
+                </span>
+              </span>
+
+              <img
+                class="file-box__action-button"
+                src="/assets/images/trash-gray.svg"
+                alt="Remove image"
+                (click)="removeImage(i)"
+              >
+            </span>
+          </div>
+        </div>
+
+        <div
+          class="
+            row
+            adsh-box"
+          *ngIf="
+            (adForm.get('type').value === 1 && !ads[i]) ||
+            (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
+        >
+          <span
+            class="
+              error-msg
+              error-msg__full-width"
+            *ngIf="
+              adForm.get('html').hasError('required') && adsSubmitted"
+          >
+            Html required!
+          </span>
+
+          <p
+            class="
+              col-xs-12
+              adsh-form-label"
+          >
+            Paste your html here:
+          </p>
+
+          <textarea
+            formControlName="html"
+            class="adsh-textarea-input"
+            rows="10"
+            required
+          ></textarea>
+
+          <button
+            class="
+              adsh-btn
+              adsh-btn--white
+              adsh-blue"
+            (click)="saveHtml(i)"
+          >
+            Save Html
+          </button>
+        </div>
+
+        <div
+          class="
+            row
+            adsh-box
+            adsh-box--bordered
+            adsh-box--dashed
+            adsh-box--blue-border
+            adsh-box__preview"
+          *ngIf="
+            (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
+            (adForm.get('type').value === 1) && ads[i].html">
+          <div
+            class="
+              col-xs-12
+              adsh-copy--small
+              adsh-copy--light">
+            Preview
+          </div>
+
+          <iframe
+            [ngStyle]="{
+              'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+              'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+            }"
+            *ngIf="adForm.get('image') && adForm.get('image').value.src"
+            [src]="adForm.get('image').value.src | trustUrl"
+          ></iframe>
+
+          <div *ngIf="ads[i].html">
+            <iframe
+              [ngStyle]="{
+                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+              }"
+              [srcdoc]="ads[i].html | trustHtml"
+            ></iframe>
+
+            <button
+              class="
+                adsh-btn
+                adsh-btn--white
+                adsh-blue"
+              (click)="clearCode(i)"
+            >
+              Clear Code
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </form>
   </div>
 
   <div
@@ -167,6 +375,7 @@
         adsh-btn--large
         adsh-btn--white
         adsh-btn--no-border"
+      (click)="createEmptyAdd()"
     >
       <img
         src="assets/images/plus-circle--blue.svg"
@@ -223,7 +432,10 @@
           adsh-btn
           adsh-btn--blue"
       >
-        Save & Continue
+        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
       </button>
     </div>
   </div>

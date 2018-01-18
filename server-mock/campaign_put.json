@@ -1,5 +1,4 @@
 {
-  "id": "377892908378478",
   "basicInformation": {
     "status": "active",
     "name": "Campaign for Education",
@@ -10,6 +9,7 @@
     "dateStart": "date"
   },
 
+  "id": "377892908378478",
   "clicks": "213",
   "impressions": "12435",
   "ctr": "0.03",
@@ -60,5 +60,3 @@
     }
   ]
 }
-
-

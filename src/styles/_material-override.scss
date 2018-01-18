@@ -37,3 +37,7 @@ mat-chip:not(.mat-basic-chip) {
 .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
   margin: 5px !important;
 }
+
+.mat-chip-remove {
+  margin: 0 5px;
+}

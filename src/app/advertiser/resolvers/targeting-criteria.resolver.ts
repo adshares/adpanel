@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { CommonService } from '../common.service';
+import { AdvertiserService } from '../advertiser.service';
 
 @Injectable()
 export class TargetingCriteriaResolver implements Resolve<any> {
-  constructor(private commonService: CommonService) { }
+  constructor(private advertiserService: AdvertiserService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.commonService.getTargetingCriteria();
+    return this.advertiserService.getTargetingCriteria();
   }
 }

@@ -17,13 +17,22 @@
     >
     </app-table-navigation>
 
-    <div class="adsh-campaign-list__items">
+    <div
+      class="adsh-campaign-list__items"
+      *ngIf="(campaigns | async).length > 0 ; else loading"
+    >
       <app-campaign-list-item
-        *ngFor="let campaign of campaigns"
+        *ngFor="let campaign of campaigns | async"
         [campaign]="campaign"
       >
       </app-campaign-list-item>
     </div>
+
+    <ng-template #loading>
+      <div class="loading-wrapper">
+        <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+      </div>
+    </ng-template>
 
     <div
       class="

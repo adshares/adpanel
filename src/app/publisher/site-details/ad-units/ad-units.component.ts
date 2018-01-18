@@ -10,10 +10,15 @@ import { SiteCodeDialogComponent } from '../../dialogs/site-code-dialog/site-cod
 export class AdUnitsComponent {
   @Input() adUnit;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   openGetCodeDialog() {
-    this.dialog.open(SiteCodeDialogComponent);
+    this.dialog.open(SiteCodeDialogComponent, {
+      data: {
+        code: this.adUnit.code
+      }
+    });
   }
 
 }

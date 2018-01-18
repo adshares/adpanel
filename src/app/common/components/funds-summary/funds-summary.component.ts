@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserModel } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 
@@ -11,7 +11,7 @@ import { AppState } from '../../../models/app-state.model';
 })
 export class FundsSummaryComponent extends HandleSubscription implements OnInit {
   selectedRole: string;
-  userDataState: Store<UserModel>;
+  userDataState: Store<User>;
 
   constructor(private store: Store<AppState>) {
     super(null);
@@ -21,11 +21,11 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
 
   ngOnInit() {
     const getUserSubscription = this.userDataState
-      .subscribe((userData: UserModel) => this.checkUserRole(userData));
+      .subscribe((userData: User) => this.checkUserRole(userData));
     this.subscriptions.push(getUserSubscription);
   }
 
-  checkUserRole(user: UserModel) {
+  checkUserRole(user: User) {
     if (user.isAdmin) {
       return;
     }
