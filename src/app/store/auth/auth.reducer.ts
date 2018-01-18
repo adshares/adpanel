@@ -1,7 +1,7 @@
 import * as AuthAction from './auth.action';
 
 import { User } from '../../models/user.model';
-import { AuthState } from '../../models/auth-state.model';
+import { AuthState } from '../../models/app-state.model';
 import { userInitialState } from '../../models/initial-state/user.js';
 
 const initialState: AuthState = {

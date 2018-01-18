@@ -10,8 +10,8 @@ import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summ
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
-import { CampaignResolver } from './campaign.resolver';
-import { TargetingCriteriaResolver } from '../common/resolvers/targeting-criteria.resolver';
+import { CampaignResolver } from './resolvers/campaign.resolver';
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 
 const advertiserRoutes: Routes = [
   {

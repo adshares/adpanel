@@ -11,8 +11,8 @@ export class PublisherService {
 
   constructor(private http: Http) {}
 
-  getSites(): Observable<Site[]> {
-    return this.http.get(`${environment.apiUrl}/sites`)
+  getSites(userId: number): Observable<Site[]> {
+    return this.http.get(`${environment.apiUrl}/sites/${userId}`)
       .map((response: Response) => response.json());
   }
 
