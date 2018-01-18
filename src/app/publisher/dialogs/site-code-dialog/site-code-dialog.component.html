@@ -21,26 +21,15 @@
   </p>
 
   <code>
-    <textarea
+    <div
       class="
         adsh-box
         adsh-box--large
         adsh-box--light-border
         adsh-copy
         code"
-      ngModel="data.code"
-      disabled
-    ></textarea>
+    >
+      {{ data.code }}
+    </div>
   </code>
-
-  {{ data.code }}
-
-  <button
-    class="
-    adsh-btn
-    adsh-btn--white
-    adsh-blue"
-  >
-    Copy to Clipboard
-  </button>
 </mat-dialog-content>

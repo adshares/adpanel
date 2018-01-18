@@ -10,9 +10,6 @@ export class SiteCodeDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) {
-    console.log(data)
-    console.log(this.data)
-  }
+  ) {}
 
 }

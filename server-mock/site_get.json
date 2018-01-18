@@ -27,8 +27,7 @@
     {
       "status": "active",
       "shortHeadline": "Adshares Dashboard Advertisement",
-      "type": "Leaderboard 728x90",
-
+      "type": "728x90",
       "budget": "20",
       "clicks": "300",
       "impressions": "1233422132",
@@ -41,7 +40,6 @@
       "status": "limited",
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
-
       "budget": "20",
       "clicks": "200",
       "impressions": "21313545",
