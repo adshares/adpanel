@@ -1,26 +1,26 @@
 [
   {
-    "type": "Billing Alerts",
+    "name": "Billing Alerts",
     "notification": true,
     "email": false
   },
   {
-    "type": "Campaign Maintenance Alerts",
+    "name": "Campaign Maintenance Alerts",
     "notification": true,
     "email": true
   },
   {
-    "type": "Newsletter",
+    "name": "Newsletter",
     "notification": false,
     "email": false
   },
   {
-    "type": "Performance Suggestions",
+    "name": "Performance Suggestions",
     "notification": true,
     "email": true
   },
   {
-    "type": "Special Offers",
+    "name": "Special Offers",
     "notification": true,
     "email": false
   }

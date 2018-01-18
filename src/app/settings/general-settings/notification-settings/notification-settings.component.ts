@@ -33,12 +33,14 @@ export class NotificationSettingsComponent implements OnInit{
     this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
   }
 
-  onChange(type, typeName, newNotificationValue) {
+  onNotificationChange(notification, notificationType) {
+    const type = notification.name;
+    notification[notificationType] = !notification[notificationType]
     const settings = this.notificationsSettings;
     let newSettings;
 
     const settingsIndex = settings.findIndex((setting) => setting.type === type);
-    settings[settingsIndex][typeName] = newNotificationValue;
+    settings[settingsIndex][notificationType] = notification[notificationType]
     newSettings = cloneDeep(settings);
 
     this.settingsService.updateNotificationsSettings(newSettings);

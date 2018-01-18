@@ -51,12 +51,12 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ notification.type }}
+              {{ notification.name }}
             </h5>
           </div>
           <div class="col-xs-4">
             <mat-slide-toggle
-              (click)="notification.notification = !notification.notification; onChange(notification.type, 'notification', notification.notification)"
+              (click)="onNotificationChange(notification, 'notification')"
               aria-label="notification-component"
               [checked]="notification.notification === true"
               ([ngModel])="notification.notification"
@@ -64,7 +64,7 @@
           </div>
           <div class="col-xs-2">
             <mat-slide-toggle
-              (click)="notification.email = !notification.email; onChange(notification.type, 'email', notification.email)"
+              (click)="onNotificationChange(notification, 'email')"
               aria-label="notification-email"
               [checked]="notification.email === true"
               ([ngModel])="notification.email"
