@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardModule} from "ngx-clipboard/dist";
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatDialogContent, MatDialogModule} from '@angular/material';
+import { MatDialogContent, MatDialogModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatSpinner } from '@angular/material';
@@ -56,6 +57,7 @@ const appComponents = [
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
+    ClipboardModule,
     ...matModules
   ],
   declarations: [

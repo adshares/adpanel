@@ -6,7 +6,7 @@ export class HandleLeaveEditProcess implements CanComponentDeactivate {
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.changesSaved) {
-      confirm('Are you sure you want to leave?');
+      return confirm('Are you sure you want to leave?');
     }
     return true;
   }

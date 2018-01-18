@@ -17,20 +17,29 @@
       adsh-copy--large
       description"
   >
-    This code should only be used on webpages or websites that compy with our program policies.
+    This code should only be used on webpages or websites that comply with our program policies.
   </p>
 
   <code>
-    <div class="adsh-box adsh-box--large adsh-box--light-border adsh-copy">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at debitis doloribus dolorum eaque eius et, excepturi id labore nesciunt quam quidem quo quod repellat sed ut vel. Doloremque, voluptas.
-    </div>
+    <textarea
+      class="
+        adsh-box
+        adsh-box--large
+        adsh-box--light-border
+        adsh-copy
+        code"
+      ngModel="data.code"
+      disabled
+    ></textarea>
   </code>
+
+  {{ data.code }}
 
   <button
     class="
-      adsh-btn
-      adsh-btn--white
-      adsh-blue"
+    adsh-btn
+    adsh-btn--white
+    adsh-blue"
   >
     Copy to Clipboard
   </button>

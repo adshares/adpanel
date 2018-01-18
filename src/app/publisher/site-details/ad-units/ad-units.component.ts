@@ -13,7 +13,11 @@ export class AdUnitsComponent {
   constructor(private dialog: MatDialog) { }
 
   openGetCodeDialog() {
-    this.dialog.open(SiteCodeDialogComponent);
+    this.dialog.open(SiteCodeDialogComponent, {
+      data: {
+        code: this.adUnit.code
+      }
+    });
   }
 
 }
