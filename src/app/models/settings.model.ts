@@ -6,7 +6,7 @@ interface BillingHistoryItem {
 }
 
 interface NotificationItem {
-  type: string;
+  name: string;
   notification: string;
   email: string;
 }
