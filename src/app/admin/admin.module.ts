@@ -21,7 +21,7 @@ import { UserListItemComponent } from './user-list/user-list-item/user-list-item
     ReactiveFormsModule,
   ],
   providers: [
-    AdminGuard,
+    // AdminGuard
   ],
   declarations: [
     AdminComponent,
@@ -30,4 +30,4 @@ import { UserListItemComponent } from './user-list/user-list-item/user-list-item
     UserListItemComponent
   ]
 })
-export class AdvertiserModule { }
+export class AdminModule { }
