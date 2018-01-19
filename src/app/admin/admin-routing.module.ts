@@ -9,7 +9,7 @@ const adminRoutes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AdminGuard],
+    // canActivate: [AdminGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/admin/dashboard' },
       { path: 'dashboard', component: DashboardComponent }
