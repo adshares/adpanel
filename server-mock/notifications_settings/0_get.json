@@ -1,27 +1,27 @@
 [
   {
-    "type": "Billing Alerts",
-    "notification": "true",
-    "email": "false"
+    "name": "Billing Alerts",
+    "notification": true,
+    "email": false
   },
   {
-    "type": "Campaign Maintenance Alerts",
-    "notification": "true",
-    "email": "true"
+    "name": "Campaign Maintenance Alerts",
+    "notification": true,
+    "email": true
   },
   {
-    "type": "Newsletter",
-    "notification": "false",
-    "email": "false"
+    "name": "Newsletter",
+    "notification": false,
+    "email": false
   },
   {
-    "type": "Performance Suggestions",
-    "notification": "true",
-    "email": "true"
+    "name": "Performance Suggestions",
+    "notification": true,
+    "email": true
   },
   {
-    "type": "Special Offers",
-    "notification": "true",
-    "email": "false"
+    "name": "Special Offers",
+    "notification": true,
+    "email": false
   }
 ]

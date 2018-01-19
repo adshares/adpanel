@@ -17,4 +17,9 @@ export class SettingsService {
   getNotificationsSettings(userId): Observable<any> {
     return this.http.get(`${environment.apiUrl}/notifications_settings/${userId}`);
   }
+
+  updateNotificationsSettings(newSettings: object) {
+    this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
+  }
+
 }

@@ -42,8 +42,8 @@
         <ul *ngIf="notificationsSettings.length > 0 ; else loading">
           <li
             class="
-            row
-            align-center"
+              row
+              align-center"
             *ngFor="let notification of notificationsSettings"
           >
             <div class="col-xs-6">
@@ -52,19 +52,23 @@
                   adsh-heading
                   adsh-heading--secondary"
               >
-                {{ notification.type }}
+                {{ notification.name }}
               </h5>
             </div>
             <div class="col-xs-4">
               <mat-slide-toggle
+                (click)="onNotificationChange(notification, 'notification')"
                 aria-label="notification-component"
-                [checked]="notification.notification === 'true'"
+                [checked]="notification.notification === true"
+                ([ngModel])="notification.notification"
               ></mat-slide-toggle>
             </div>
             <div class="col-xs-2">
               <mat-slide-toggle
+                (click)="onNotificationChange(notification, 'email')"
                 aria-label="notification-email"
-                [checked]="notification.email === 'true'"
+                [checked]="notification.email === true"
+                ([ngModel])="notification.email"
               ></mat-slide-toggle>
             </div>
           </li>
