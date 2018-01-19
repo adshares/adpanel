@@ -1,4 +1,4 @@
-<div class="adsh-campaign-list__item">
+<div class="user-item">
   <div
     class="
       row
@@ -17,7 +17,7 @@
           adsh-heading
           adsh-heading--secondary"
       >
-        jacek.zemlo@gmail.com
+        {{ userInfoStats.email }}
       </div>
     </div>
     <div
@@ -37,7 +37,7 @@
         align-center
         adsh-heading
         adsh-heading--secondary">
-      + $42.00
+      + ${{ userInfoStats.profit }}
     </div>
     <div
       class="
@@ -45,14 +45,8 @@
         row
         align-center"
     >
-      <div class="adsh-chip-box">
-        England
-      </div>
-      <div class="adsh-chip-box">
-        English
-      </div>
-      <div class="adsh-chip-box">
-        Manchester
+      <div class="adsh-chip-box" *ngFor="let keyword of userInfoStats.topKeywords">
+        {{ keyword }}
       </div>
     </div>
     <div
@@ -61,12 +55,12 @@
         row
         align-center
         justify-center
-        adsh-campaign-list__item-campaign-details"
+        user-details"
     >
       <a>
         <img
           src="/assets/images/chevron--right.svg"
-          alt="Campaign Details Icon"
+          alt="User Details Icon"
         >
       </a>
     </div>

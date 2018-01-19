@@ -23,6 +23,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
 import { PublisherEffects } from './store/publisher/publisher.effects';
 import { SettingsEffects } from './store/settings/settings.effects';
+import { AdminEffects } from './store/admin/admin.effects';
 
 import { reducers } from './store/index';
 
@@ -48,7 +49,8 @@ const appModules = [
     EffectsModule.forRoot([
       AdvertiserEffects,
       PublisherEffects,
-      SettingsEffects
+      SettingsEffects,
+      AdminEffects
     ]),
     ...appModules
   ],

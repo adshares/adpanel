@@ -1,0 +1,15 @@
+@import '../../../styles.scss';
+
+.user-list {
+  &__sort {
+    margin-left: 5px;
+  }
+
+  &__items {
+    margin-top: 15px;
+  }
+
+  &__filters {
+    margin-bottom: 20px;
+  }
+}
