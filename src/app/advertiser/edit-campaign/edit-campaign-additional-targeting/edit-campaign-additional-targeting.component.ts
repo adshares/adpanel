@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
 import { AppState } from '../../../models/app-state.model';
 import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
-import { cloneDeep } from '../../../common/utilis/helpers';
+import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { AdvertiserService } from '../../advertiser.service';
 import { Campaign } from '../../../models/campaign.model';
