@@ -71,37 +71,31 @@
     </div>
   </div>
 
-
-
   <div
     class="
       row
       align-center"
   >
-    <a
-      [routerLink]="activeUserType === 'advertiser' ? '/advertiser/create-campaign/basic-information' : '/publisher/add-site/basic-information'"
-      [queryParams]="{step: 1}"
+    <button
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center"
+      (click)="navigateToCreateNewAsset()"
     >
-      <button
-        class="
-          adsh-btn
-          adsh-btn--with-icon
-          adsh-btn--wide
-          adsh-bg-blue
-          adsh-navigation__item
-          row
-          align-center"
+      <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle.svg"
       >
-        <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle.svg"
-        >
-          <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
-          <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
-      </button>
-    </a>
+        <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
+        <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
+    </button>
     <div
       class="
         row

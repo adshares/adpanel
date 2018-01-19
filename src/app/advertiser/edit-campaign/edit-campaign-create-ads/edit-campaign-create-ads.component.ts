@@ -223,8 +223,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       );
     } else {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
+          this.store.dispatch(new AdvertiserAction.addCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
