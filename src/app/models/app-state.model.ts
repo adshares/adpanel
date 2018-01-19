@@ -1,20 +1,15 @@
-import { User } from './user.model';
 import { Campaign } from './campaign.model';
 import { Site } from './site.model';
 import { BillingHistoryItem } from './settings.model';
 import { NotificationItem } from './settings.model';
+import { User } from './user.model';
 
 interface AppState {
   state: {
-    auth: AuthState,
+    user: UserState,
     advertiser: AdvertiserState,
     publisher: PublisherState,
-    settings: SettingsState
   };
-}
-
-interface AuthState {
-  userData: User;
 }
 
 interface AdvertiserState {
@@ -31,4 +26,9 @@ interface SettingsState {
   notificationsSettings: NotificationItem[];
 }
 
-export { AppState, AuthState, AdvertiserState, PublisherState, SettingsState};
+interface UserState {
+  data: User;
+  settings: SettingsState;
+}
+
+export { AppState, UserState, AdvertiserState, PublisherState, SettingsState};

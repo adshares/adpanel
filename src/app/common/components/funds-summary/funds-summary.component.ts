@@ -16,7 +16,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   constructor(private store: Store<AppState>) {
     super(null);
 
-    this.userDataState = this.store.select('state', 'auth', 'userData');
+    this.userDataState = this.store.select('state', 'user', 'data');
   }
 
   ngOnInit() {

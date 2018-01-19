@@ -1,7 +1,7 @@
 import { Ad } from '../campaign.model';
 
 export const adInitialState: Ad = {
-  id: 222,
+  id: 0,
   status: 0,
   shortHeadline: '',
   type: 0,

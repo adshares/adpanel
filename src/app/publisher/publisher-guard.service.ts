@@ -19,7 +19,7 @@ export class PublisherGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state', 'auth', 'userData')
+    return this.store.select('state', 'user', 'data')
       .take(1)
       .map((userData: User) => {
         if (userData.isPublisher) {

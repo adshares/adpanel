@@ -21,7 +21,7 @@ export class SettingsEffects {
   @Effect()
   loadBillingHistory$: Observable<any> = this.actions$
     .ofType(settingsActions.LOAD_BILLING_HISTORY)
-    .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
+    .withLatestFrom(this.store.select('state', 'user', 'data', 'id'))
     .switchMap(([action, userId]) => this.service.getBillingHistory(userId))
     .map((billingHistory) => {
       return new settingsActions.LoadBillingHistorySuccess(billingHistory);
@@ -30,7 +30,7 @@ export class SettingsEffects {
   @Effect()
   loadNotificationsSettings$: Observable<any> = this.actions$
     .ofType(settingsActions.LOAD_NOTIFICATIONS_SETTINGS)
-    .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
+    .withLatestFrom(this.store.select('state', 'user', 'data', 'id'))
     .switchMap(([action, userId]) => this.service.getNotificationsSettings(userId))
     .map((notificationsSettings) => {
       return new settingsActions.LoadNotificationsSettingsSuccess(notificationsSettings);

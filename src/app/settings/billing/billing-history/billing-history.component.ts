@@ -19,7 +19,7 @@ export class BillingHistoryComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
-      .select('state', 'settings', 'billingHistory')
+      .select('state', 'user', 'settings', 'billingHistory')
       .subscribe(billingHistory => this.billingHistory = billingHistory);
   }
 
