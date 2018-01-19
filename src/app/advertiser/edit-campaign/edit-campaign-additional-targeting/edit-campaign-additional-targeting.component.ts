@@ -75,6 +75,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
+          this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
           this.store.dispatch(new AdvertiserAction.addCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });

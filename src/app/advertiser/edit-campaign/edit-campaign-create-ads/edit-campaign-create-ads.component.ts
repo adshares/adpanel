@@ -80,7 +80,13 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   createEmptyAdd() {
     this.ads.push(cloneDeep(adInitialState));
     this.adForms.push(this.generateFormField(adInitialState));
+    this.adPanelsStatus.forEach((status, index) => this.adPanelsStatus[index] = false);
     this.adPanelsStatus[this.adPanelsStatus.length] = true;
+  }
+
+  handlePanelExpand(adIndex) {
+    this.adPanelsStatus.forEach((status, index) => this.adPanelsStatus[index] = false);
+    this.adPanelsStatus[adIndex] = true;
   }
 
   generateFormField(ad) {
@@ -142,9 +148,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
       Object.assign(this.ads[adIndex], {
         imageUrl: parsedResponse.imageUrl,
-        type: this.adForms[adIndex].controls.type.value,
-        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
-        size: this.adForms[adIndex].controls.size.value
+        imageSize: parsedResponse.size
       });
 
       this.adForms[adIndex].controls['image'].setValue({
@@ -163,7 +167,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   removeImage(adIndex) {
     this.advertiserService.deleteAdImage(this.ads[adIndex].id)
       .subscribe(() => {
-        this.ads[adIndex].imageUrl = '';
+        Object.assign(this.ads[adIndex], { imageUrl: '', imageSize: '' });
         this.adForms[adIndex].controls['image'].setValue({name: '', src: '', size: ''});
         this.imagesStatus.validation.splice(adIndex, 1);
       });
@@ -171,11 +175,16 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   saveHtml(adIndex) {
     Object.assign(this.ads[adIndex], {
-        html: this.adForms[adIndex].controls.html.value,
-        type: this.adForms[adIndex].controls.type.value,
-        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
-        size: this.adForms[adIndex].controls.size.value
-      });
+      html: this.adForms[adIndex].controls.html.value,
+    });
+  }
+
+  updateAdInfo(adIndex) {
+    Object.assign(this.ads[adIndex], {
+      type: this.adForms[adIndex].controls['type'].value,
+      shortHeadline: this.adForms[adIndex].controls['shortHeadline'].value,
+      size: this.adForms[adIndex].controls['size'].value
+    });
   }
 
   clearCode(adIndex) {
@@ -210,6 +219,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
+      this.adForms.forEach((form, index) => this.updateAdInfo(index));
       this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
     }
@@ -226,6 +236,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
+          this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
           this.store.dispatch(new AdvertiserAction.addCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });

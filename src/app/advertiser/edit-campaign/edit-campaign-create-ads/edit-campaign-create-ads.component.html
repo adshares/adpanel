@@ -30,7 +30,7 @@
     *ngFor="let adForm of adForms; let i = index">
     <form [formGroup]="adForm">
       <mat-expansion-panel
-        (opened)="adPanelsStatus[i] = true"
+        (opened)="handlePanelExpand(i)"
         (closed)="adPanelsStatus[i] = false"
         [expanded]="adPanelsStatus[i]">
         <mat-expansion-panel-header>
@@ -252,7 +252,7 @@
               <span class="file-box__file-sub-info">
                 Leaderboard {{ adSizes[adForm.get('size').value] }}
                 <span class="file-box__file-sub-info--secondary">
-                  {{ adForm.get('image').value.size }}
+                  {{ ads[i].imageSize }}
                 </span>
               </span>
 
