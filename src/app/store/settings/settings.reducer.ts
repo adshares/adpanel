@@ -1,5 +1,5 @@
 import * as SettingsActions from './settings.actions';
-import { SettingsState } from '../../models/settings-state.model';
+import { SettingsState } from '../../models/app-state.model';
 
 const initialState: SettingsState = {
   billingHistory: [],

@@ -4,16 +4,7 @@ import { authReducers } from './auth/auth.reducer';
 import { advertiserReducers } from './advertiser/advertiser.reducer';
 import { publisherReducers } from './publisher/publisher.reducer';
 import { settingsReducers } from './settings/settings.reducer';
-import { AuthState } from '../models/auth-state.model';
-import { AdvertiserState } from '../models/advertiser-state.model';
-import { PublisherState } from '../models/publisher-state.model';
-import { SettingsState } from '../models/settings-state.model';
-import { UserState } from '../models/user-state.model';
-
-export interface UserReducersState {
-  data: AuthState;
-  settings: SettingsState;
-};
+import { UserState, PublisherState, AdvertiserState } from '../models/app-state.model';
 
 export interface ReducersState {
   user: UserState;
@@ -21,7 +12,7 @@ export interface ReducersState {
   publisher: PublisherState;
 };
 
-const userReducers: ActionReducer<UserReducersState> = combineReducers(
+const userReducers: ActionReducer<UserState> = combineReducers(
   {
     data: authReducers,
     settings: settingsReducers

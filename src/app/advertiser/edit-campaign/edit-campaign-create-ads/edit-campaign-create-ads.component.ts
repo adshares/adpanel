@@ -8,12 +8,12 @@ import { FileUploader } from 'ng2-file-upload';
 import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
 import { AdvertiserService } from '../../advertiser.service';
 import { adTypesEnum, adSizesEnum, validImageTypes } from '../../../models/enum/ad.enum'
-import { enumToArray } from '../../../common/utilis/helpers';
+import { enumToArray } from '../../../common/utilities/helpers';
 import { adInitialState } from '../../../models/initial-state/ad';
 import { Ad } from '../../../models/campaign.model';
 import { environment } from '../../../../environments/environment';
 import { appSettings } from '../../../../app-settings/app-settings';
-import { cloneDeep } from '../../../common/utilis/helpers';
+import { cloneDeep } from '../../../common/utilities/helpers';
 import { AppState } from '../../../models/app-state.model';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { Campaign } from '../../../models/campaign.model';

@@ -19,7 +19,7 @@ export class PublisherEffects {
   @Effect()
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
-    .withLatestFrom(this.store.select('state', 'auth', 'userData', 'id'))
+    .withLatestFrom(this.store.select('state', 'user', 'data', 'id'))
     .switchMap(([action, userId]) => this.service.getSites(userId))
     .map((sites) => new publisherActions.LoadSitesSuccess(sites));
 }

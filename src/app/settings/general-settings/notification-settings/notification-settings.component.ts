@@ -40,7 +40,7 @@ export class NotificationSettingsComponent implements OnInit{
     const settings = this.notificationsSettings;
     let newSettings;
 
-    const settingsIndex = settings.findIndex((setting) => setting.type === type);
+    const settingsIndex = settings.findIndex((setting) => setting.name === type);
     settings[settingsIndex][notificationType] = notification[notificationType]
     newSettings = cloneDeep(settings);
 
