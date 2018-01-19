@@ -12,7 +12,8 @@
       class="
         row
         justify-between
-        align-center"
+        align-center
+        user-list__filters"
     >
       <div class="col-xs-4">
         <h1
@@ -20,7 +21,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          Users (820)
+          Users ({{ userCount }})
         </h1>
       </div>
       <div class="col-xs-4">
@@ -41,7 +42,10 @@
     </app-table-navigation>
 
     <div class="user-list__items">
-      <app-user-list-item></app-user-list-item>
+      <app-user-list-item
+        *ngFor="let user of users"
+        [userInfoStats]="user"
+      ></app-user-list-item>
     </div>
 
     <ng-template #loading>
