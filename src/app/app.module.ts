@@ -23,6 +23,7 @@ import { PublisherEffects } from './store/publisher/publisher.effects';
 import { SettingsEffects } from './store/settings/settings.effects';
 
 import { reducers } from './store/index';
+import { UserListItemComponent } from './admin/user-list-item/user-list-item.component';
 
 const appModules = [
   AppCommonModule,
@@ -34,7 +35,8 @@ const appModules = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserListItemComponent
   ],
   imports: [
     BrowserModule,
