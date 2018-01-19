@@ -7,7 +7,7 @@ import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 import { userRolesEnum } from '../../../models/enum/user.enum';
-import { enumToObject } from '../../../common/utilis/helpers';
+import { enumToObject } from '../../../common/utilities/helpers';
 
 import * as advertiserActions from '../../../store/advertiser/advertiser.action';
 
