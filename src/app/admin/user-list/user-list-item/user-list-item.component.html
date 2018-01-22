@@ -28,7 +28,10 @@
         adsh-heading
         adsh-heading--secondary"
     >
-      Publisher
+      {{ userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
+         userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' :
+         'Publisher'
+      }}
     </div>
     <div
       class="

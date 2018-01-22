@@ -13,6 +13,8 @@ import { UserInfoStats } from '../../models/user-info-stats.model';
 export class UserListComponent extends HandleSubscription implements OnInit {
   users: UserInfoStats[];
   userCount: number;
+  userTypes = ['Advertisers', 'Publishers', 'All'];
+  filteredUsersByType: UserInfoStats[];
 
   constructor(private store: Store<AppState>) {
     super(null);
@@ -20,6 +22,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     const usersSubscription = store.select('state', 'admin', 'users')
       .subscribe(users => {
         this.users = users;
+        this.filteredUsersByType = users;
         this.userCount = this.users.length;
       });
 
@@ -28,5 +31,19 @@ export class UserListComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new adminActions.LoadUsers(''));
+  }
+
+  filterUsersByType(type) {
+    this.filteredUsersByType = this.users.filter(user => {
+      if (type === 'All') {
+        return true;
+      } else if (user.isAdvertiser && !user.isPublisher && type === 'Advertisers') {
+        return true;
+      } else if (!user.isAdvertiser && user.isPublisher && type === 'Publishers') {
+        return true;
+      }
+    })
+
+    return this.filteredUsersByType;
   }
 }

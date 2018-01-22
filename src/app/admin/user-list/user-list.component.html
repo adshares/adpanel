@@ -21,14 +21,105 @@
             adsh-heading
             adsh-heading--primary"
         >
-          Users ({{ userCount }})
+          Users
+          <span class="adsh-copy--light">
+            ({{ userCount }})
+          </span>
         </h1>
       </div>
       <div class="col-xs-4">
-        SEARCH WIP
+        <mat-form-field>
+          <input
+            type="email"
+            class="search"
+            matInput
+            placeholder="Search by email"
+          >
+          <span matPrefix>
+            <mat-icon>search</mat-icon>
+          </span>
+        </mat-form-field>
       </div>
       <div class="col-xs-4">
-        Publishers | Advertisers | All
+        <div action="" class="row">
+          <div
+            class="
+            row
+            align-center
+            choose-user-type"
+            *ngFor="let type of userTypes"
+          >
+            <input
+              [id]="type"
+              name="userType"
+              type="radio"
+              ngModel
+              [value]="type"
+              (click)="filterUsersByType(type)"
+            >
+            <label
+              [for]="type"
+              class="checkbox-label"
+            ></label>
+            <span
+              class="
+              adsh-copy
+              adsh-copy--large
+              adsh-copy--x-dark"
+            >
+            {{ type }}
+          </span>
+          </div>
+        </div>
+
+          <!--<div-->
+            <!--class="-->
+              <!--row-->
+              <!--align-center-->
+              <!--choose-user-type"-->
+          <!--&gt;-->
+            <!--<input-->
+              <!--#rememberUser-->
+              <!--id="advertisers"-->
+              <!--type="radio"-->
+            <!--&gt;-->
+            <!--<label-->
+              <!--for="advertisers"-->
+              <!--class="checkbox-label"-->
+            <!--&gt;</label>-->
+            <!--<span-->
+              <!--class="-->
+                <!--adsh-copy-->
+                <!--adsh-copy&#45;&#45;large-->
+                <!--adsh-copy&#45;&#45;x-dark"-->
+            <!--&gt;-->
+              <!--Advertisers-->
+            <!--</span>-->
+          <!--</div>-->
+          <!--<div-->
+            <!--class="-->
+              <!--row-->
+              <!--align-center-->
+              <!--choose-user-type"-->
+          <!--&gt;-->
+            <!--<input-->
+              <!--#rememberUser-->
+              <!--id="all"-->
+              <!--type="radio"-->
+            <!--&gt;-->
+            <!--<label-->
+              <!--for="all"-->
+              <!--class="checkbox-label"-->
+            <!--&gt;</label>-->
+            <!--<span-->
+              <!--class="-->
+                <!--adsh-copy-->
+                <!--adsh-copy&#45;&#45;large-->
+                <!--adsh-copy&#45;&#45;x-dark"-->
+            <!--&gt;-->
+              <!--All-->
+            <!--</span>-->
+          <!--</div>-->
       </div>
     </div>
 
@@ -43,7 +134,7 @@
 
     <div class="user-list__items">
       <app-user-list-item
-        *ngFor="let user of users"
+        *ngFor="let user of filteredUsersByType"
         [userInfoStats]="user"
       ></app-user-list-item>
     </div>
