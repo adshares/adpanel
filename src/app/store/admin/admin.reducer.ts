@@ -2,7 +2,10 @@ import * as AdminActions from './admin.action';
 import { UsersInfoStatsState } from '../../models/app-state.model';
 
 const initialState: UsersInfoStatsState = {
-  users: []
+  users: [],
+  settings: {
+    earnings: 0
+  }
 };
 
 export function adminReducers(state = initialState, action: AdminActions.actions) {
@@ -11,6 +14,11 @@ export function adminReducers(state = initialState, action: AdminActions.actions
       return {
         ...state,
         users: action.payload
+      }
+    case AdminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        settings: action.payload
       }
     default:
       return state;

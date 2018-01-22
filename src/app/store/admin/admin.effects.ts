@@ -17,4 +17,10 @@ export class AdminEffects {
     .ofType(adminActions.LOAD_USERS)
     .switchMap((action) => this.service.getUsers())
     .map((users) => new adminActions.LoadUsersSuccess(users));
+
+  @Effect()
+  loadAdminSettings$ = this.actions$
+    .ofType(adminActions.LOAD_ADMIN_SETTINGS)
+    .switchMap((action) => this.service.getAdminSettings())
+    .map((settings) => new adminActions.LoadAdminSettingsSuccess(settings));
 }

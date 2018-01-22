@@ -1,9 +1,11 @@
 import { Campaign } from './campaign.model';
 import { Site } from './site.model';
-import { BillingHistoryItem } from './settings.model';
-import { NotificationItem } from './settings.model';
+import {
+  BillingHistoryItem,
+  NotificationItem,
+  UserInfoStats,
+  AdminSettings } from './settings.model';
 import { User } from './user.model';
-import { UserInfoStats } from './user-info-stats.model';
 
 interface AppState {
   state: {
@@ -34,7 +36,8 @@ interface UserState {
 }
 
 interface UsersInfoStatsState {
-  users: UserInfoStats[]
+  users: UserInfoStats[];
+  settings: AdminSettings;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, UsersInfoStatsState};
