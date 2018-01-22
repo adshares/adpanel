@@ -3,7 +3,7 @@ import { HandleSubscription } from '../../common/handle-subscription';
 import * as adminActions from '../../store/admin/admin.action';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
-import { UserInfoStats } from '../../models/user-info-stats.model';
+import { UserInfoStats } from '../../models/settings.model';
 
 @Component({
   selector: 'app-user-list',
@@ -31,6 +31,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new adminActions.LoadUsers(''));
+    this.store.dispatch(new adminActions.LoadAdminSettings(''));
   }
 
   filterUsersByType(type) {

@@ -10,7 +10,8 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
-import { MatInputModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatIconModule, MatSliderModule } from '@angular/material';
+import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { MatInputModule, MatIconModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSliderModule
   ],
   providers: [
     // AdminGuard
@@ -30,7 +32,11 @@ import { MatInputModule, MatIconModule } from '@angular/material';
     AdminComponent,
     DashboardComponent,
     UserListComponent,
-    UserListItemComponent
+    UserListItemComponent,
+    SetYourEarningsDialogComponent
+  ],
+  entryComponents: [
+    SetYourEarningsDialogComponent
   ]
 })
 export class AdminModule { }

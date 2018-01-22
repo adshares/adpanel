@@ -41,3 +41,14 @@ mat-chip:not(.mat-basic-chip) {
 .mat-chip-remove {
   margin: 0 5px;
 }
+
+.mat-slider-thumb-label {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.mat-slider-horizontal .mat-slider-thumb-label {
+  right: -20px !important;
+  top: -55px !important;
+}
+

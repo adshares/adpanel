@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserInfoStats } from '../../../models/user-info-stats.model';
+import { UserInfoStats } from '../../../models/settings.model';
 
 @Component({
   selector: 'app-user-list-item',

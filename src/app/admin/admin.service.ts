@@ -11,4 +11,8 @@ export class AdminService {
   getUsers() {
     return this.http.get(`${environment.apiUrl}/users`);
   }
+
+  getAdminSettings() {
+    return this.http.get(`${environment.apiUrl}/admin_settings`);
+  }
 }

@@ -44,16 +44,16 @@
         <div action="" class="row">
           <div
             class="
-            row
-            align-center
-            choose-user-type"
+              row
+              align-center
+              choose-user-type"
             *ngFor="let type of userTypes"
           >
             <input
               [id]="type"
               name="userType"
               type="radio"
-              ngModel
+              [ngModel]="'All'"
               [value]="type"
               (click)="filterUsersByType(type)"
             >
@@ -63,63 +63,14 @@
             ></label>
             <span
               class="
-              adsh-copy
-              adsh-copy--large
-              adsh-copy--x-dark"
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--x-dark"
             >
             {{ type }}
           </span>
           </div>
         </div>
-
-          <!--<div-->
-            <!--class="-->
-              <!--row-->
-              <!--align-center-->
-              <!--choose-user-type"-->
-          <!--&gt;-->
-            <!--<input-->
-              <!--#rememberUser-->
-              <!--id="advertisers"-->
-              <!--type="radio"-->
-            <!--&gt;-->
-            <!--<label-->
-              <!--for="advertisers"-->
-              <!--class="checkbox-label"-->
-            <!--&gt;</label>-->
-            <!--<span-->
-              <!--class="-->
-                <!--adsh-copy-->
-                <!--adsh-copy&#45;&#45;large-->
-                <!--adsh-copy&#45;&#45;x-dark"-->
-            <!--&gt;-->
-              <!--Advertisers-->
-            <!--</span>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--row-->
-              <!--align-center-->
-              <!--choose-user-type"-->
-          <!--&gt;-->
-            <!--<input-->
-              <!--#rememberUser-->
-              <!--id="all"-->
-              <!--type="radio"-->
-            <!--&gt;-->
-            <!--<label-->
-              <!--for="all"-->
-              <!--class="checkbox-label"-->
-            <!--&gt;</label>-->
-            <!--<span-->
-              <!--class="-->
-                <!--adsh-copy-->
-                <!--adsh-copy&#45;&#45;large-->
-                <!--adsh-copy&#45;&#45;x-dark"-->
-            <!--&gt;-->
-              <!--All-->
-            <!--</span>-->
-          <!--</div>-->
       </div>
     </div>
 

@@ -11,4 +11,18 @@ interface NotificationItem {
   email: string;
 }
 
-export { BillingHistoryItem, NotificationItem };
+interface UserInfoStats {
+  id: number;
+  email: string;
+  isAdvertiser: boolean;
+  isPublisher: boolean;
+  profit: number;
+  topKeywords: string[];
+}
+
+interface AdminSettings {
+  earnings: number;
+}
+
+
+export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings };
