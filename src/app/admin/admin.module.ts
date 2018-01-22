@@ -10,6 +10,7 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
+import { MatInputModule, MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,6 +20,8 @@ import { UserListItemComponent } from './user-list/user-list-item/user-list-item
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
     // AdminGuard
