@@ -18,6 +18,7 @@ interface AdvertiserState {
 }
 
 interface PublisherState {
+  lastEditedSite: Site,
   sites: Site[];
 }
 
