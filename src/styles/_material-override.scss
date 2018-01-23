@@ -48,3 +48,6 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  background: transparent !important;
+}

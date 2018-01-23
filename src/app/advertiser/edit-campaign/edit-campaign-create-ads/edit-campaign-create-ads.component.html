@@ -27,120 +27,125 @@
 
   <div
     class="adsh-box"
-    *ngFor="let adForm of adForms; let i = index">
+    *ngFor="let adForm of adForms; let i = index"
+  >
     <form [formGroup]="adForm">
-      <mat-expansion-panel
-        (opened)="adPanelsStatus[i] = true"
-        (closed)="adPanelsStatus[i] = false"
-        [expanded]="adPanelsStatus[i]">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ i + 1 }}
-          </mat-panel-title>
-          <mat-panel-description>
-            <h3 *ngIf="!adPanelsStatus[i]">Title: {{ adForm.get('shortHeadline').value }}</h3>
-            <hr>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="adPanelsStatus[i] = true"
+          (closed)="adPanelsStatus[i] = false"
+          [expanded]="adPanelsStatus[i]">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              {{ i + 1 }}.&nbsp;
+              <span *ngIf="!adPanelsStatus[i]">
+                Title: {{ adForm.get('shortHeadline').value }}
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
 
-        <div class="row">
-          <div class="col-xs-5">
-            <div class="adsh-form-input__box">
-              <label
-                for="shortHeadline"
-                class="adsh-form-label"
-              >
-                Short Headline
-              </label>
-              <input
-                id="shortHeadline"
-                class="adsh-form-input"
-                type="text"
-                formControlName="shortHeadline"
-              >
-              <span
-                *ngIf="adForm.get('shortHeadline').valid"
-                class="input-valid"
-              ></span>
-              <span
-                class="error-msg"
-                *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
-              >
+          <div class="row">
+            <div class="col-xs-5">
+              <div class="adsh-form-input__box">
+                <label
+                  for="shortHeadline"
+                  class="adsh-form-label"
+                >
+                  Short Headline
+                </label>
+                <input
+                  id="shortHeadline"
+                  class="adsh-form-input"
+                  type="text"
+                  formControlName="shortHeadline"
+                >
+                <span
+                  *ngIf="adForm.get('shortHeadline').valid"
+                  class="input-valid"
+                ></span>
+                <span
+                  class="error-msg"
+                  *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
+                >
                 Short headline required!
               </span>
+              </div>
             </div>
-          </div>
-          <div class="col-xs-3">
-            <div class="adsh-form-input__box">
-              <label class="adsh-form-label">
-                Ad Type
-              </label>
-              <mat-select
-                class="adsh-select"
-                formControlName="type"
-                (change)="setAdType(i)">
-                <mat-option
-                  *ngFor="let adType of adTypes; let i = index"
-                  [value]="i"
+            <div class="col-xs-3">
+              <div class="adsh-form-input__box">
+                <label class="adsh-form-label">
+                  Ad Type
+                </label>
+                <mat-select
+                  class="adsh-select"
+                  formControlName="type"
+                  (change)="setAdType(i)">
+                  <mat-option
+                    *ngFor="let adType of adTypes; let i = index"
+                    [value]="i"
+                  >
+                    {{ adType }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="adsh-form-input__box">
+                <label
+                  class="adsh-form-label"
                 >
-                  {{ adType }}
-                </mat-option>
-              </mat-select>
+                  Size
+                </label>
+                <mat-select
+                  class="adsh-select"
+                  formControlName="size">
+                  <mat-option
+                    *ngFor="let adSize of adSizes; let i = index"
+                    [value]="i"
+                  >
+                    {{ adSize }}
+                  </mat-option>
+                </mat-select>
+              </div>
             </div>
           </div>
-          <div class="col-xs-3">
-            <div class="adsh-form-input__box">
-              <label
-                class="adsh-form-label"
-              >
-                Size
-              </label>
-              <mat-select
-                class="adsh-select"
-                formControlName="size">
-                <mat-option
-                  *ngFor="let adSize of adSizes; let i = index"
-                  [value]="i"
-                >
-                  {{ adSize }}
-                </mat-option>
-              </mat-select>
-            </div>
+
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type"
+          >
+            Invalid file type
           </div>
-        </div>
 
-        <div
-          class="error-msg"
-          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type"
-        >
-          Invalid file type
-        </div>
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
+          >
+            Invalid image size
+          </div>
 
-        <div
-          class="error-msg"
-          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
-        >
-          Invalid image size
-        </div>
-
-        <div
-          class="error-msg"
-          *ngIf="
+          <div
+            class="error-msg"
+            *ngIf="
             adForms[i].get('image') && adForms[i].get('image').value.src === '' &&
             adsSubmitted"
-        >
-          Image required
-        </div>
+          >
+            Image required
+          </div>
 
-        <div
-          class="error-msg"
-          *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
-        >
-          Something went wrong, please try again later
-        </div>
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
+          >
+            Something went wrong, please try again later
+          </div>
 
-        <div
-          class="
+          <div
+            class="
             row
             align-center
             justify-center
@@ -150,69 +155,69 @@
             adsh-box--dashed
             adsh-box--blue-border
             drag-and-drop-box"
-          *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
-          ng2FileDrop
-          [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
-          (fileOver)="fileOverDropArea($event, i)"
-          [uploader]="uploader"
-        >
-          <img
-            src="/assets/images/campaign-ad-illustration.svg"
-            alt="Ad illustration"
+            *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
+            ng2FileDrop
+            [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
+            (fileOver)="fileOverDropArea($event, i)"
+            [uploader]="uploader"
           >
-          <div>
-            <p
-              class="
+            <img
+              src="/assets/images/campaign-ad-illustration.svg"
+              alt="Ad illustration"
+            >
+            <div>
+              <p
+                class="
                 adsh-copy
                 adsh-copy--semi
                 adsh-copy--dark"
-            >
-              Drag & Drop or
+              >
+                Drag & Drop or
 
-              <label
-                class="adsh-blue"
-                for="fileSelect">
-                Browse
-              </label>
+                <label
+                  class="adsh-blue"
+                  for="fileSelect">
+                  Browse
+                </label>
 
-              <input
-                class="file-select-input"
-                type="file"
-                id="fileSelect"
-                ng2FileSelect
-                [uploader]="uploader"
-                (change)="uploadImage(uploader.queue[0], i)">
-            </p>
-            <p
-              class="
+                <input
+                  class="file-select-input"
+                  type="file"
+                  id="fileSelect"
+                  ng2FileSelect
+                  [uploader]="uploader"
+                  (change)="uploadImage(uploader.queue[0], i)">
+              </p>
+              <p
+                class="
                 adsh-copy
                 adsh-copy--large"
-            >
-              We support JPG and PNG files. Make sure that your files is no more than 500 kb.
-            </p>
+              >
+                We support JPG and PNG files. Make sure that your files is no more than 500 kb.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="
+          <div
+            class="
             row
             align-right
             adsh-box
             file-box
             file-box--grey-background"
-          [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
-          *ngIf="
+            [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
+            *ngIf="
             adForm.get('type').value === 0 &&
             (adForm.get('image').value.src !== '' || imagesStatus.upload.processing)">
 
-          <div class="col-xs-1">
-            <img
-              src="/assets/images/document-png--blue.svg"
-              alt="Ad image"
-            >
-          </div>
+            <div class="col-xs-1">
+              <img
+                src="/assets/images/document-png--blue.svg"
+                alt="Ad image"
+              >
+            </div>
 
-          <div class="col-xs-11">
+            <div class="col-xs-10">
             <span
               class="file-box__file-info"
               *ngIf="imagesStatus.upload.processing">
@@ -244,9 +249,9 @@
               >
             </span>
 
-            <span
-              class="file-box__file-info"
-              *ngIf="adForm.get('image').value.src">
+              <span
+                class="file-box__file-info"
+                *ngIf="adForm.get('image').value.src">
               {{ adForm.get('image').value.name }}<br>
 
               <span class="file-box__file-sub-info">
@@ -263,17 +268,17 @@
                 (click)="removeImage(i)"
               >
             </span>
+            </div>
           </div>
-        </div>
 
-        <div
-          class="
+          <div
+            class="
             row
             adsh-box"
-          *ngIf="
+            *ngIf="
             (adForm.get('type').value === 1 && !ads[i]) ||
             (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
-        >
+          >
           <span
             class="
               error-msg
@@ -284,81 +289,82 @@
             Html required!
           </span>
 
-          <p
-            class="
+            <p
+              class="
               col-xs-12
               adsh-form-label"
-          >
-            Paste your html here:
-          </p>
+            >
+              Paste your html here:
+            </p>
 
-          <textarea
-            formControlName="html"
-            class="adsh-textarea-input"
-            rows="10"
-            required
-          ></textarea>
+            <textarea
+              formControlName="html"
+              class="adsh-textarea-input"
+              rows="10"
+              required
+            ></textarea>
 
-          <button
-            class="
+            <button
+              class="
               adsh-btn
               adsh-btn--white
               adsh-blue"
-            (click)="saveHtml(i)"
-          >
-            Save Html
-          </button>
-        </div>
+              (click)="saveHtml(i)"
+            >
+              Save Html
+            </button>
+          </div>
 
-        <div
-          class="
+          <div
+            class="
             row
             adsh-box
             adsh-box--bordered
             adsh-box--dashed
             adsh-box--blue-border
             adsh-box__preview"
-          *ngIf="
+            *ngIf="
             (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
             (adForm.get('type').value === 1) && ads[i].html">
-          <div
-            class="
+            <div
+              class="
               col-xs-12
               adsh-copy--small
               adsh-copy--light">
-            Preview
-          </div>
+              Preview
+            </div>
 
-          <iframe
-            [ngStyle]="{
+            <iframe
+              [ngStyle]="{
               'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
               'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
             }"
-            *ngIf="adForm.get('image') && adForm.get('image').value.src"
-            [src]="adForm.get('image').value.src | trustUrl"
-          ></iframe>
+              *ngIf="adForm.get('image') && adForm.get('image').value.src"
+              [src]="adForm.get('image').value.src | trustUrl"
+            ></iframe>
 
-          <div *ngIf="ads[i].html">
-            <iframe
-              [ngStyle]="{
+            <div *ngIf="ads[i].html">
+              <iframe
+                [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
-              [srcdoc]="ads[i].html | trustHtml"
-            ></iframe>
+                [srcdoc]="ads[i].html | trustHtml"
+              ></iframe>
 
-            <button
-              class="
+              <button
+                class="
                 adsh-btn
                 adsh-btn--white
                 adsh-blue"
-              (click)="clearCode(i)"
-            >
-              Clear Code
-            </button>
+                (click)="clearCode(i)"
+              >
+                Clear Code
+              </button>
+            </div>
           </div>
-        </div>
-      </mat-expansion-panel>
+        </mat-expansion-panel>
+      </mat-accordion>
     </form>
   </div>
 
@@ -422,7 +428,8 @@
         class="
           adsh-btn
           adsh-btn--white
-          adsh-blue"
+          adsh-blue
+          save-as-draft-button"
       >
         Save as Draft
       </button>
