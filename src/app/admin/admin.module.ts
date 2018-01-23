@@ -26,7 +26,7 @@ import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dial
     MatSliderModule
   ],
   providers: [
-    // AdminGuard
+    AdminGuard
   ],
   declarations: [
     AdminComponent,
