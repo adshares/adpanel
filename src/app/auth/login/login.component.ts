@@ -53,8 +53,10 @@ export class LoginComponent extends HandleSubscription {
 
         if (userResponse.isAdvertiser) {
           this.router.navigate(['/advertiser/dashboard']);
-        } else {
-          this.router.navigate(['/publisher']);
+        } else if (userResponse.isPublisher) {
+          this.router.navigate(['/publisher/dashboard']);
+        } else if (userResponse.isAdmin) {
+          this.router.navigate(['/admin/dashboard']);
         }
       });
     this.subscriptions.push(loginSubscription);
@@ -81,7 +83,7 @@ export class LoginComponent extends HandleSubscription {
     }
 
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
-      this.router.navigate(['/publisher']);
+      this.router.navigate(['/publisher/dashboard']);
     }
 
     this.dialog.open(WalletDialogComponent);
