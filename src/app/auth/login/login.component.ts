@@ -51,8 +51,6 @@ export class LoginComponent extends HandleSubscription {
 
         this.showStartupPopups(userResponse);
 
-        console.log(userResponse)
-
         if (userResponse.isAdvertiser) {
           this.router.navigate(['/advertiser/dashboard']);
         } else if (userResponse.isPublisher) {
