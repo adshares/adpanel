@@ -25,7 +25,6 @@ export class AdminGuard implements CanActivate {
         if (userData.isAdmin) {
           return true;
         } else {
-          // todo change link to one that will tell user to update profile roles
           this.router.navigate(['/auth/login']);
         }
 
