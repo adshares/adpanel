@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
@@ -16,13 +17,16 @@ import { SiteListComponent } from './site-list/site-list.component';
 import { SiteListItemComponent } from './site-list/site-list-item/site-list-item.component';
 import { EditSiteComponent } from './edit-site/edit-site.component';
 import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
+import { EditSiteAdditionalTargetingComponent } from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
 import { AdUnitsComponent } from './site-details/ad-units/ad-units.component';
 import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-dialog.component';
-import { SiteResolver } from './site.resolver';
+import { SiteResolver } from './resolvers/site.resolver';
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 
 const editSiteComponents = [
   EditSiteComponent,
-  EditSiteBasicInformationComponent
+  EditSiteBasicInformationComponent,
+  EditSiteAdditionalTargetingComponent
 ];
 
 const publisherComponents = [
@@ -42,11 +46,13 @@ const publisherComponents = [
     PublisherRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
   providers: [
     PublisherGuard,
-    SiteResolver
+    SiteResolver,
+    TargetingCriteriaResolver
   ],
   declarations: [
     ...publisherComponents,

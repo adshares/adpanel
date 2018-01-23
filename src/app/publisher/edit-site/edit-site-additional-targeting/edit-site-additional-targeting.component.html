@@ -1,0 +1,166 @@
+<section
+  class="
+    homepage-view
+    site-edit-additional-targeting"
+>
+  <mat-accordion
+    multi="true"
+    class="targeting-accordion"
+  >
+    <div class="adsh-box">
+      <mat-expansion-panel
+        (opened)="requirePanelOpenState = true"
+        (closed)="requirePanelOpenState = false"
+        [expanded]="true"
+      >
+        <mat-expansion-panel-header
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          <mat-panel-title>
+            1. Requires
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+            >
+              In this window, you can select the keywords that will help you
+              choose the ads that are related to your site and meet your requirements.
+            </p>
+
+            <div class="targeting-select-wrapper">
+              <app-targeting-select
+                [targetingOptions]="targetingOptionsToAdd"
+                [addedItems]="addedItems"
+                (itemsChange)="updateAddedItems($event)"
+              ></app-targeting-select>
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <app-targeting-display
+              [items]="addedItems"
+              [canRemove]="true"
+              [isExclude]="false"
+              (itemsChange)="updateAddedItems($event)"
+            ></app-targeting-display>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <app-targeting-display
+        [items]="addedItems"
+        [canRemove]="true"
+        [isExclude]="false"
+        (itemsChange)="updateAddedItems($event)"
+        *ngIf="!requirePanelOpenState"
+      ></app-targeting-display>
+    </div>
+
+
+    <div class="adsh-box">
+      <mat-expansion-panel
+        (opened)="excludePanelOpenState = true"
+        (closed)="excludePanelOpenState = false"
+      >
+        <mat-expansion-panel-header
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          <mat-panel-title>
+            2. Excludes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+            >
+              Some missing text
+            </p>
+
+            <div class="targeting-select-wrapper">
+              <app-targeting-select
+                [targetingOptions]="targetingOptionsToExclude"
+                [addedItems]="excludedItems"
+                (itemsChange)="updateExcludedItems($event)"
+              ></app-targeting-select>
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <app-targeting-display
+              [items]="excludedItems"
+              [canRemove]="true"
+              [isExclude]="true"
+              (itemsChange)="updateExcludedItems($event)"
+            ></app-targeting-display>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <app-targeting-display
+        [items]="excludedItems"
+        [canRemove]="true"
+        [isExclude]="true"
+        (itemsChange)="updateExcludedItems($event)"
+        *ngIf="!excludePanelOpenState"
+      ></app-targeting-display>
+    </div>
+  </mat-accordion>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../basic-information"
+      [queryParams]="{step: 1}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <button
+        (click)="saveSite(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Save as Draft
+      </button>
+      <button
+        (click)="saveSite(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </div>
+  </div>
+</section>
