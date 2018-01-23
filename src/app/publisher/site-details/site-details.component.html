@@ -8,29 +8,48 @@
       class="
         row
         align-center
+        breadcrumbs"
+    >
+      <a routerLink="/publisher/dashboard">
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          My Sites
+        </p>
+      </a>
+      <div
+        class="
+          adsh-circle
+          adsh-circle--x-small
+          adsh-circle--navy
+          breadcrumbs-divider"
+      >
+      </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--small
+          adsh-copy--x-dark
+          adsh-copy--semi"
+      >
+        {{ site.name }}
+      </p>
+    </div>
+    <div
+      class="
+        row
+        align-center
         justify-between"
     >
-      <div class="row">
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue
-            back"
-        >
-          <img
-            src="/assets/images/chevron--left.svg"
-            alt="Back"
-          >
-        </button>
-        <h2
-          class="
-            adsh-heading
-            adsh-heading--primary"
-        >
-          {{ site.name }}
-        </h2>
-      </div>
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        {{ site.name }}
+      </h2>
       <button
         class="
           adsh-btn
