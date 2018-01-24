@@ -24,6 +24,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.viewModel = this.targetingOptions;
     this.prepareTargetingOptionsForSearch();
+    this.selectedItems = [...this.addedItems];
   }
 
   ngOnChanges() {

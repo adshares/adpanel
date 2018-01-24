@@ -239,7 +239,7 @@
         class="
           col-xs-5
           campaign-edit-summary__info-cell">
-        <span class="adsh-copy">Excludes</span>
+        <span class="adsh-copy">Excludes:</span>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="campaign.targeting"
@@ -330,7 +330,8 @@
           class="
             adsh-btn
             adsh-btn--white
-            adsh-blue"
+            adsh-blue
+            save-as-draft-button"
           (click)="saveCampaign(true)"
         >
           Save as Draft
