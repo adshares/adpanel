@@ -1,0 +1,99 @@
+<section
+  class="
+    col
+    user-list"
+>
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div
+      class="
+        row
+        justify-between
+        align-center
+        user-list__filters"
+    >
+      <div class="col-xs-4">
+        <h1
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          Users
+          <span class="adsh-copy--light">
+            ({{ userCount }})
+          </span>
+        </h1>
+      </div>
+      <div class="col-xs-4">
+        <mat-form-field>
+          <input
+            type="email"
+            class="search"
+            matInput
+            placeholder="Search by email"
+          >
+          <span matPrefix>
+            <mat-icon>search</mat-icon>
+          </span>
+        </mat-form-field>
+      </div>
+      <div class="col-xs-4">
+        <div action="" class="row">
+          <div
+            class="
+              row
+              align-center
+              choose-user-type"
+            *ngFor="let type of userTypes"
+          >
+            <input
+              [id]="type"
+              name="userType"
+              type="radio"
+              [ngModel]="'All'"
+              [value]="type"
+              (click)="filterUsersByType(type)"
+            >
+            <label
+              [for]="type"
+              class="checkbox-label"
+            ></label>
+            <span
+              class="
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--x-dark"
+            >
+            {{ type }}
+          </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-table-navigation
+      [navigationName]="'userListNavigation'"
+      class="
+        row
+        adsh-copy
+        adsh-copy--small"
+    >
+    </app-table-navigation>
+
+    <div class="user-list__items">
+      <app-user-list-item
+        *ngFor="let user of filteredUsersByType"
+        [userInfoStats]="user"
+      ></app-user-list-item>
+    </div>
+
+    <ng-template #loading>
+      <div class="loading-wrapper">
+        <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+</section>

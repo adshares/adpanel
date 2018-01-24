@@ -15,7 +15,7 @@ import { cloneDeep } from '../../../common/utilities/helpers';
   templateUrl: './notification-settings.component.html',
   styleUrls: ['./notification-settings.component.scss']
 })
-export class NotificationSettingsComponent implements OnInit{
+export class NotificationSettingsComponent implements OnInit {
   subscription: Subscription;
   notificationsSettings: NotificationItem[];
 
@@ -25,7 +25,7 @@ export class NotificationSettingsComponent implements OnInit{
   ) {
     this.subscription = store
       .select('state', 'user', 'settings', 'notificationsSettings')
-      .subscribe(notificationsSettings => {
+      .subscribe((notificationsSettings: NotificationItem[]) => {
         this.notificationsSettings = notificationsSettings;
       });
   }
@@ -36,12 +36,12 @@ export class NotificationSettingsComponent implements OnInit{
 
   onNotificationChange(notification, notificationType) {
     const type = notification.name;
-    notification[notificationType] = !notification[notificationType]
+    notification[notificationType] = !notification[notificationType];
     const settings = this.notificationsSettings;
     let newSettings;
 
     const settingsIndex = settings.findIndex((setting) => setting.name === type);
-    settings[settingsIndex][notificationType] = notification[notificationType]
+    settings[settingsIndex][notificationType] = notification[notificationType];
     newSettings = cloneDeep(settings);
 
     this.settingsService.updateNotificationsSettings(newSettings);
