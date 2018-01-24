@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { SetYourEarningsDialogComponent } from'../dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { SetYourEarningsDialogComponent } from '../dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   constructor(private dialog: MatDialog) { }
 
-  ngOnInit() {
-  }
-
   openSetEarningsDialog() {
-    const dialogRef = this.dialog.open(SetYourEarningsDialogComponent);
+    this.dialog.open(SetYourEarningsDialogComponent);
   }
 }
