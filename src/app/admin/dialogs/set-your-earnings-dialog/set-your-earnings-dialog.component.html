@@ -20,17 +20,12 @@
   </p>
 
   <mat-slider
-    class="example-margin"
     color="primary"
-    [disabled]="disabled"
-    [invert]="invert"
-    [max]="max"
-    [min]="min"
-    [step]="step"
-    [thumb-label]="thumbLabel"
-    [tick-interval]="tickInterval"
+    max="100"
+    min="0"
+    [step]="0.01"
+    thumb-label="true"
     [(ngModel)]="value"
-    [vertical]="vertical"
   ></mat-slider>
 
   <div
@@ -41,9 +36,9 @@
   >
     <input
       type="number"
-      [max]="max"
-      [min]="min"
-      [step]="step"
+      max="100"
+      min="0"
+      step="0.01"
       class="
         adsh-heading
         adsh-heading--primary
