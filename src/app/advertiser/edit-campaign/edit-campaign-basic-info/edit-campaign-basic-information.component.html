@@ -97,7 +97,7 @@
           <div
             class="
               col
-              col-xs-5"
+              col-xs-4"
           >
             <label
               for="campaignBidStrategy"
@@ -130,7 +130,8 @@
           <div
             class="
               col
-              col-xs-7"
+              col-xs-8
+              input--right"
           >
             <label
               for="campaignBidValue"
@@ -147,8 +148,7 @@
               formControlName="bidValue"
             >
             <span
-              *ngIf="
-                campaignBasicInfoForm.get('bidValue').valid"
+              *ngIf="campaignBasicInfoForm.get('bidValue').valid"
               class="input-valid"
             ></span>
             <span
@@ -160,26 +160,31 @@
               Bid value required
             </span>
           </div>
-          <p
-             class="
-               adsh-copy
-               adsh-copy--large
-               adsh-copy--light"
-          >
-            Choose how you’d like to set bids for your ads.
-          </p>
         </div>
       </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-copy--light"
+      >
+        Choose how you’d like to set bids for your ads.
+      </p>
 
       <div class="adsh-form-input__box">
-        <label
-          for="campaignBudget"
-          class="adsh-form-label"
-        >
-          Budget
-        </label>
         <div class="row no-gutters">
-          <div class="col-xs-5">
+          <div
+            class="
+              col-xs-5
+              col
+              relative"
+          >
+            <label
+              for="campaignBudget"
+              class="adsh-form-label"
+            >
+              Budget (Adst / per day)
+            </label>
             <input
               id="campaignBudget"
               class="adsh-form-input"
@@ -188,36 +193,28 @@
               name="campaignBudget"
               formControlName="budget"
             >
-          </div>
-          <div class="col-xs-5">
-            <p
-              class="
-                adsh-copy
-                adsh-copy--large
-                adsh-copy--light"
-            >
-              Adst / per day
-            </p>
+            <span
+              *ngIf="campaignBasicInfoForm.get('budget').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('required', ['budget']) &&
+                campaignBasicInformationSubmitted"
+                >
+              Budget required
+            </span>
           </div>
         </div>
-
-        <span
-          *ngIf="
-            campaignBasicInfoForm.get('budget').valid"
-          class="input-valid"
-        ></span>
-        <span
-          class="error-msg"
-          *ngIf="
-            campaignBasicInfoForm.hasError('required', ['budget']) &&
-            campaignBasicInformationSubmitted"
-        >
-          Budget required
-        </span>
       </div>
 
       <div class="adsh-form-input__box">
-        <div class="row no-gutters">
+        <div
+          class="
+            row
+            no-gutters"
+        >
           <div
             class="
               col
@@ -249,10 +246,6 @@
             </mat-form-field>
 
             <span
-              *ngIf="dateStart.valid"
-              class="input-valid"
-            ></span>
-            <span
               class="error-msg"
               *ngIf="dateStart.hasError('required') && campaignBasicInformationSubmitted"
             >
@@ -261,8 +254,8 @@
           </div>
           <div
             class="
-            col
-            col-xs-5"
+              col
+              col-xs-5"
           >
             <div
               class="
@@ -308,14 +301,6 @@
               <mat-datepicker #dateEndPicker></mat-datepicker>
             </mat-form-field>
           </div>
-          <p
-            class="
-              adsh-copy
-              adsh-copy--large
-              adsh-copy--light"
-          >
-            Choose how you’d like to set bids for your ads.
-          </p>
         </div>
       </div>
     </div>
