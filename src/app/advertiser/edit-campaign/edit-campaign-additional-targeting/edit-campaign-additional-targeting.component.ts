@@ -75,7 +75,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.store.dispatch(new AdvertiserAction.addCampaignToCampaigns(campaign));
+          this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
+          this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
@@ -90,17 +91,17 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         [targeting.requires, targeting.excludes].forEach((optionsList, index) => {
           const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
 
-          optionsList.forEach((savedItem) => this.findAdnSelectItem(searchList, savedItem));
+          optionsList.forEach((savedItem) => this.findAndSelectItem(searchList, savedItem));
         });
       });
   }
 
-  findAdnSelectItem(list, searchedItem) {
+  findAndSelectItem(list, searchedItem) {
     list.forEach((item) => {
       const itemSublist = item.children || item.values;
 
       if (itemSublist) {
-        this.findAdnSelectItem(itemSublist, searchedItem);
+        this.findAndSelectItem(itemSublist, searchedItem);
         return;
       }
 
