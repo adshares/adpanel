@@ -35,7 +35,7 @@ export class SaveCampaignAds implements Action {
   constructor(public payload: Ad[]) { };
 }
 
-export class addCampaignToCampaigns implements Action {
+export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
   constructor(public payload: Campaign) { };
 }
@@ -52,9 +52,10 @@ export class LoadCampaignsSuccess implements Action {
 
 export type actions =
   ClearLastEditedCampaign |
+  SetLastEditedCampaign|
   SaveCampaignBasicInformation |
   SaveCampaignTargeting |
   SaveCampaignAds |
-  addCampaignToCampaigns |
+  AddCampaignToCampaigns |
   LoadCampaigns |
   LoadCampaignsSuccess;
