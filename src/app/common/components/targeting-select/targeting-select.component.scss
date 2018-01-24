@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 button {
   margin-top: 15px;
 }
@@ -23,4 +25,8 @@ button {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.parent-option {
+  @include font(12, normal);
 }

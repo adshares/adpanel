@@ -45,6 +45,7 @@ interface Ad {
   budget: number;
 
   imageUrl?: string;
+  imageSize?: string;
   html?: string;
 }
 
