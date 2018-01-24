@@ -6,7 +6,7 @@
     "bidStrategyName": "CPC",
     "bidValue": "0.2",
     "budget": "455",
-    "dateStart": "date"
+    "dateStart": "01/27/2018"
   },
 
   "id": "183297987312987321987",
@@ -18,20 +18,8 @@
   "conversions": "802",
 
   "targeting": {
-    "requires": {
-      "languages": ["Polish", "English"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    },
-    "excludes": {
-      "languages": ["German", "French"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    }
+    "requires": [],
+    "excludes": []
   },
   "ads": [
     {
@@ -68,7 +56,7 @@
     "bidStrategyName": "CPC",
     "bidValue": "0.2",
     "budget": "455",
-    "dateStart": "date"
+    "dateStart": "01/27/2018"
   },
 
   "id": "377892908378478",
@@ -80,20 +68,8 @@
   "conversions": "802",
 
   "targeting": {
-    "requires": {
-      "languages": ["Polish", "English"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    },
-    "excludes": {
-      "languages": ["German", "French"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    }
+    "requires": [],
+    "excludes": []
   },
   "ads": [
     {

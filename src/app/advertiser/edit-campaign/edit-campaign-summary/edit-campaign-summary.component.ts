@@ -8,6 +8,7 @@ import { AppState } from '../../../models/app-state.model';
 import { Campaign } from '../../../models/campaign.model';
 import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
 import { AdvertiserService } from '../../advertiser.service';
+import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -34,7 +35,9 @@ export class EditCampaignSummaryComponent implements OnInit {
       }
 
       this.advertiserService.saveCampaign(this.campaign)
+        .take(1)
         .subscribe(() => {
+          this.store.dispatch(new AdvertiserActions.AddCampaignToCampaigns(this.campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
