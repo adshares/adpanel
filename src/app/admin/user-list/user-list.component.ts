@@ -36,15 +36,14 @@ export class UserListComponent extends HandleSubscription implements OnInit {
 
   filterUsersByType(type) {
     this.filteredUsersByType = this.users.filter(user => {
-      if (type === 'All') {
-        return true;
-      } else if (user.isAdvertiser && !user.isPublisher && type === 'Advertisers') {
-        return true;
-      } else if (!user.isAdvertiser && user.isPublisher && type === 'Publishers') {
-        return true;
+      switch (type) {
+        case 'All':
+          return true;
+        case 'Advertisers':
+          return user.isAdvertiser && !user.isPublisher;
+        case 'Publishers':
+          return !user.isAdvertiser && user.isPublisher;
       }
-    })
-
-    return this.filteredUsersByType;
+    });
   }
 }
