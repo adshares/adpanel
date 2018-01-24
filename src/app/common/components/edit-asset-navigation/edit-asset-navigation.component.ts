@@ -23,7 +23,7 @@ export class EditAssetNavigationComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.route.queryParams.subscribe(params => {
-      this.currentStep = params.step;
+      this.currentStep = parseInt(params.step);
     });
   }
 }
