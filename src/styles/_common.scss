@@ -313,3 +313,15 @@ router-outlet ~ * {
   display: flex;
   justify-content: center;
 }
+
+/*
+  campaign and site details
+*/
+
+.breadcrumbs {
+  margin-bottom: 20px;
+
+  &-divider {
+    margin: 0 10px;
+  }
+}

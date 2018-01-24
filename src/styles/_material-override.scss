@@ -41,3 +41,13 @@ mat-chip:not(.mat-basic-chip) {
 .mat-chip-remove {
   margin: 0 5px;
 }
+
+.mat-form-field-underline,
+.mat-focused .mat-form-field-underline .mat-form-field-ripple,
+.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple {
+  visibility: hidden !important;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  background: transparent !important;
+}
