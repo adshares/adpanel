@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { PublisherService } from './publisher.service';
+import { PublisherService } from '../publisher.service';
 import { Observable } from 'rxjs/Observable';
-import { Site } from '../models/site.model';
+import { Site } from '../../models/site.model';
 
 @Injectable()
 export class SiteResolver implements Resolve<Site> {
