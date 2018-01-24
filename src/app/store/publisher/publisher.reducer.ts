@@ -18,6 +18,11 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         lastEditedSite:  Object.assign({}, action.payload)
       };
+    case PublisherActions.ADD_SITE_TO_SITES:
+      return {
+        ...state,
+        sites: [...state.sites, action.payload]
+      }
     default:
       return state;
   }

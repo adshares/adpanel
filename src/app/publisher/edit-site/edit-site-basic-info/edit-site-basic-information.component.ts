@@ -33,7 +33,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createForm();
   }
 
@@ -45,7 +45,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     }
 
     const siteBasicInfoValue = this.siteBasicInfoForm.value;
-    const editCampaignStep = this.goesToSummary ? 'summary' : 'additional-targeting';
+    const editSiteStep = this.goesToSummary ? 'summary' : 'additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
 
     Object.assign(this.site, {
@@ -56,7 +56,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.changesSaved = true;
 
     this.router.navigate(
-      ['/publisher', 'create-site', editCampaignStep],
+      ['/publisher', 'create-site', editSiteStep],
       { queryParams: { step: param } }
     );
   }
@@ -74,6 +74,9 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   getFormDataFromStore() {
     this.store.select('state', 'publisher', 'lastEditedSite')
-      .subscribe((lastEditedSite) => this.siteBasicInfoForm.patchValue(lastEditedSite));
+      .subscribe((lastEditedSite) => {
+        this.site = lastEditedSite;
+        this.siteBasicInfoForm.patchValue(lastEditedSite);
+      });
   }
 }
