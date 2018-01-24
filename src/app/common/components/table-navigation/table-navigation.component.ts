@@ -40,6 +40,14 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Average CPC', columnWidth: 'col-xs-1' },
   ];
 
+  userListNavigationItems = [
+    { title: '', columnWidth: 'col-xs-3' },
+    { title: '', columnWidth: 'col-xs-2' },
+    { title: 'Profit', columnWidth: 'col-xs-2' },
+    { title: 'Top used keywords', columnWidth: 'col-xs-4' },
+    { title: '', columnWidth: 'col-xs-1' },
+  ];
+
   ngOnInit() {
     switch (this.navigationName) {
       case 'adListNavigation':
@@ -50,6 +58,9 @@ export class TableNavigationComponent implements OnInit {
         break;
       case 'siteListNavigation':
         this.navigationItems = this.siteListNavigationItems;
+        break;
+      case 'userListNavigation':
+        this.navigationItems = this.userListNavigationItems;
         break;
     }
   }

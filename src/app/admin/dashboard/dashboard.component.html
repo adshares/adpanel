@@ -1,0 +1,65 @@
+<section
+  class="
+    adsh-advertiser-wrapper
+    dashboard-view"
+>
+  <div class="container">
+    <div
+      class="
+        row
+        justify-between"
+    >
+      <div class="col-xs-4">
+        <h1
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          <!--TODO TO CHANGE-->
+          <span (click)="openSetEarningsDialog()">Performance</span>
+        </h1>
+      </div>
+      <div class="col-xs-8">
+        <app-chart-filter></app-chart-filter>
+      </div>
+    </div>
+
+    <div>
+      <!--mock chart-->
+      <div
+        class="
+          adsh-box
+          adsh-box--large"
+      >
+        <div class="row">
+          <div class="col-xs-12">
+            <img
+              src="/assets/images/chart.png"
+              style="width: 100%">
+          </div>
+          <div
+            class="
+              col-xs-12
+              col-lg-6"
+          >
+            <img
+              src="/assets/images/chart.png"
+              style="width: 100%">
+          </div>
+          <div
+            class="
+              col-xs-12
+              col-lg-6"
+          >
+            <img
+              src="/assets/images/chart.png"
+              style="width: 100%">
+          </div>
+        </div>
+      </div>
+
+      <app-user-list></app-user-list>
+    </div>
+
+  </div>
+</section>
