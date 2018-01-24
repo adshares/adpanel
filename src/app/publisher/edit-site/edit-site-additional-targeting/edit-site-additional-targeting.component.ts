@@ -37,7 +37,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   ngOnInit() {
     this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions);
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
 
     if (this.goesToSummary) {
       this.getSiteFromStore();

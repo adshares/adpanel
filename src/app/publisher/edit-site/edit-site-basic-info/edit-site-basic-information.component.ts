@@ -33,7 +33,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.goesToSummary = params.summary);
+    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createForm();
   }
 
