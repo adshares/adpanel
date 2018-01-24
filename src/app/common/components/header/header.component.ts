@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+
 import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { userRolesEnum } from '../../../models/enum/user.enum';
+import { enumToObject } from '../../../common/utilities/helpers';
+
+import * as advertiserActions from '../../../store/advertiser/advertiser.action';
 
 @Component({
   selector: 'app-header',
@@ -17,6 +22,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsCount = 8;
   userDataState: Store<User>;
   activeUserType: string;
+  userRoles: { [key: string]: string } = enumToObject(userRolesEnum);
 
   notificationsBarEnabled = false;
 
@@ -31,9 +37,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.activeUserType = this.route.snapshot.routeConfig.path === ('publisher' || 'advertiser')
-                          ? this.route.snapshot.routeConfig.path
-                          : 'advertiser';
+    this.activeUserType =
+      this.route.snapshot.routeConfig.path === (this.userRoles.ADVERTISER || this.userRoles.PUBLISHER)
+        ? this.route.snapshot.routeConfig.path
+        : this.userRoles.ADVERTISER;
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -45,5 +52,17 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   toggleNotificationsBar(status: boolean) {
     this.notificationsBarEnabled = status;
+  }
+
+  navigateToCreateNewAsset() {
+    const moduleDir =  `/${this.activeUserType}`
+    const assetDir = this.activeUserType === this.userRoles.ADVERTISER ? 'create-campaign' : 'create-site';
+
+    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+
+    this.router.navigate(
+      [ moduleDir, assetDir, 'basic-information'],
+      { queryParams: { step: 1 } }
+    );
   }
 }

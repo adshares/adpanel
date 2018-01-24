@@ -72,15 +72,21 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
             this.adPanelsStatus[index] = false;
           });
         } else {
-          this.createEmptyAdd();
+          this.createEmptyAd();
         }
       });
   }
 
-  createEmptyAdd() {
+  createEmptyAd() {
     this.ads.push(cloneDeep(adInitialState));
     this.adForms.push(this.generateFormField(adInitialState));
-    this.adPanelsStatus[this.adPanelsStatus.length] = true;
+    this.adPanelsStatus.fill(false);
+    this.adPanelsStatus.push(true);
+  }
+
+  handlePanelExpand(adIndex) {
+    this.adPanelsStatus.fill(false);
+    this.adPanelsStatus[adIndex] = true;
   }
 
   generateFormField(ad) {
@@ -142,12 +148,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
       Object.assign(this.ads[adIndex], {
         imageUrl: parsedResponse.imageUrl,
-        type: this.adForms[adIndex].controls.type.value,
-        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
-        size: this.adForms[adIndex].controls.size.value
+        imageSize: parsedResponse.size
       });
 
-      this.adForms[adIndex].controls['image'].setValue({
+      this.adForms[adIndex].get('image').setValue({
         name: parsedResponse.name,
         src: parsedResponse.imageUrl,
         size: parsedResponse.size
@@ -163,32 +167,37 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   removeImage(adIndex) {
     this.advertiserService.deleteAdImage(this.ads[adIndex].id)
       .subscribe(() => {
-        this.ads[adIndex].imageUrl = '';
-        this.adForms[adIndex].controls['image'].setValue({name: '', src: '', size: ''});
+        Object.assign(this.ads[adIndex], { imageUrl: '', imageSize: '' });
+        this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
         this.imagesStatus.validation.splice(adIndex, 1);
       });
   }
 
   saveHtml(adIndex) {
     Object.assign(this.ads[adIndex], {
-        html: this.adForms[adIndex].controls.html.value,
-        type: this.adForms[adIndex].controls.type.value,
-        shortHeadline: this.adForms[adIndex].controls.shortHeadline.value,
-        size: this.adForms[adIndex].controls.size.value
-      });
+      html: this.adForms[adIndex].get('html').value,
+    });
+  }
+
+  updateAdInfo(adIndex) {
+    Object.assign(this.ads[adIndex], {
+      type: this.adForms[adIndex].get('type').value,
+      shortHeadline: this.adForms[adIndex].get('shortHeadline').value,
+      size: this.adForms[adIndex].get('size').value
+    });
   }
 
   clearCode(adIndex) {
-    this.adForms[adIndex].controls['html'].setValue('');
-    this.ads[adIndex].html = this.adForms[adIndex].controls.html.value;;
+    this.adForms[adIndex].get('html').setValue('');
+    this.ads[adIndex].html = this.adForms[adIndex].get('html').value;;
   }
 
   setAdType(adIndex) {
     const adForm = this.adForms[adIndex];
-    const adType = adForm.controls.type.value;
+    const adType = adForm.get('type').value;
     const adTypeName = this.adTypes[adType];
 
-    if (adForm.controls['image'] && adForm.controls['image'].value.src !== '') {
+    if (adForm.get('image') && adForm.get('image').value.src !== '') {
       this.advertiserService.deleteAdImage(this.ads[adIndex].id).subscribe();
       this.imagesStatus.validation.splice(adIndex, 1);
     }
@@ -210,6 +219,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
+      this.adForms.forEach((form, index) => this.updateAdInfo(index));
       this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
     }
@@ -223,8 +233,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       );
     } else {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
+          this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
+          this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
