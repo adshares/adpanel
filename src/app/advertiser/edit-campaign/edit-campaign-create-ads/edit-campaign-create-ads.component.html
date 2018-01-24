@@ -257,7 +257,7 @@
               <span class="file-box__file-sub-info">
                 Leaderboard {{ adSizes[adForm.get('size').value] }}
                 <span class="file-box__file-sub-info--secondary">
-                  {{ adForm.get('image').value.size }}
+                  {{ ads[i].imageSize }}
                 </span>
               </span>
 
@@ -381,7 +381,7 @@
         adsh-btn--large
         adsh-btn--white
         adsh-btn--no-border"
-      (click)="createEmptyAdd()"
+      (click)="createEmptyAd()"
     >
       <img
         src="assets/images/plus-circle--blue.svg"

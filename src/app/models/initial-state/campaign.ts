@@ -16,5 +16,7 @@ export const campaignInitialState: Campaign = {
     requires: []
   },
 
+  ads: [],
+
   id: 0
 }

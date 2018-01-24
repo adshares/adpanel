@@ -72,8 +72,11 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
       );
     } else {
       this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
+          this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
+          this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
@@ -81,9 +84,30 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   getTargetingFromStore() {
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targeting')
+      .take(1)
       .subscribe((targeting) => {
         this.addedItems = targeting.requires;
         this.excludedItems = targeting.excludes;
+        [targeting.requires, targeting.excludes].forEach((optionsList, index) => {
+          const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
+
+          optionsList.forEach((savedItem) => this.findAndSelectItem(searchList, savedItem));
+        });
       });
+  }
+
+  findAndSelectItem(list, searchedItem) {
+    list.forEach((item) => {
+      const itemSublist = item.children || item.values;
+
+      if (itemSublist) {
+        this.findAndSelectItem(itemSublist, searchedItem);
+        return;
+      }
+
+      if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
+        Object.assign(item, { selected: true })
+      }
+    });
   }
 }
