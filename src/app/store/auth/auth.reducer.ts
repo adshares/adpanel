@@ -9,7 +9,12 @@ export function authReducers(state = initialState , action: AuthAction.actions )
       return {
         ...state,
         auth: action.payload
-      }
+      };
+    case AuthAction.SET_ACTIVE_USER_TYPE:
+      return {
+        ...state,
+        activeUserType: action.payload
+      };
      default:
       return state;
   }

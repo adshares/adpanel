@@ -11,7 +11,7 @@
       row
       align-center"
   >
-    <a [routerLink]="['/', activeUserType, 'dashboard']">
+    <a [routerLink]="['/', (userDataState | async).activeUserType, 'dashboard']">
       <div
         class="
           adsh-navigation__item
@@ -38,7 +38,7 @@
         class="
           adsh-select
           adsh-navigation__item"
-        [ngModel]="activeUserType"
+        [ngModel]="(userDataState | async).activeUserType"
       >
         <mat-option
           [value]="'advertiser'"
@@ -93,8 +93,8 @@
             adsh-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
-        <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
-        <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
+        <span *ngIf="(userDataState | async).activeUserType === 'advertiser'">Create new Campaign</span>
+        <span *ngIf="(userDataState | async).activeUserType === 'publisher'">Add new Site</span>
     </button>
     <div
       class="
@@ -104,6 +104,7 @@
         relative
         adsh-navigation__item
         adsh-btn"
+      routerLink="/settings/general"
     >
       <img
         class="
