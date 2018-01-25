@@ -22,6 +22,7 @@ import { ConfirmationAlertComponent } from './components/confirmation-alert/conf
 import { TargetingSelectComponent } from './components/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
+import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
 
 const matModules = [
   MatDialogModule,
@@ -45,7 +46,8 @@ const appComponents = [
   ConfirmationAlertComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
-  TableNavigationComponent
+  TableNavigationComponent,
+  EditAssetNavigationComponent
 ];
 
 @NgModule({

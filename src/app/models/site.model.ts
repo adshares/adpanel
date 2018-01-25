@@ -1,6 +1,10 @@
+import { TargetingOptionValue } from './targeting-option.model';
+
 export interface Site {
   id: number;
   name: string;
+  websiteUrl: string;
+  primaryLanguage: string;
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
@@ -8,20 +12,8 @@ export interface Site {
   averageCPC?: number;
 
   targeting?: {
-    requires?: {
-      languages?: string[];
-      devices?: string[];
-      genders?: string[];
-      operatingSystems?: string[];
-      browsers?: string[];
-    },
-    excludes?: {
-      languages?: string[];
-      devices?: string[];
-      genders?: string[];
-      operatingSystems?: string[];
-      browsers?: string[];
-    }
+    requires?: TargetingOptionValue[],
+    excludes?: TargetingOptionValue[]
   };
 
   adUnits?: object[];
