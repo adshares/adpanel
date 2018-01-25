@@ -1,7 +1,10 @@
 import { Campaign } from './campaign.model';
 import { Site } from './site.model';
-import { BillingHistoryItem } from './settings.model';
-import { NotificationItem } from './settings.model';
+import {
+  BillingHistoryItem,
+  NotificationItem,
+  UserInfoStats,
+  AdminSettings } from './settings.model';
 import { User } from './user.model';
 
 interface AppState {
@@ -9,6 +12,7 @@ interface AppState {
     user: UserState,
     advertiser: AdvertiserState,
     publisher: PublisherState,
+    admin: UsersInfoStatsState
   };
 }
 
@@ -31,4 +35,9 @@ interface UserState {
   settings: SettingsState;
 }
 
-export { AppState, UserState, AdvertiserState, PublisherState, SettingsState};
+interface UsersInfoStatsState {
+  users: UserInfoStats[];
+  settings: AdminSettings;
+}
+
+export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, UsersInfoStatsState};
