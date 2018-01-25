@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-
-import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 import { userRolesEnum } from '../../../models/enum/user.enum';
 import { enumToObject } from '../../../common/utilities/helpers';
 
+import * as authActions from '../../../store/auth/auth.action';
 import * as advertiserActions from '../../../store/advertiser/advertiser.action';
 
 @Component({
@@ -20,7 +19,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceAdst = 128.20;
   currentBalanceUSD = 1240.02;
   notificationsCount = 8;
-  userDataState: Store<User>;
+  userDataState: any;
   activeUserType: string;
   userRoles: { [key: string]: string } = enumToObject(userRolesEnum);
 
@@ -29,7 +28,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     super(null);
 
@@ -37,17 +36,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.activeUserType =
-      this.route.snapshot.routeConfig.path === (this.userRoles.ADVERTISER || this.userRoles.PUBLISHER)
-        ? this.route.snapshot.routeConfig.path
-        : this.userRoles.ADVERTISER;
-
-    this.router.events.subscribe((event) => {
-      if (!(event instanceof NavigationEnd)) {
-        return;
-      }
-      this.activeUserType = this.route.snapshot.routeConfig.path;
-    });
+    this.setActiveUserType();
   }
 
   toggleNotificationsBar(status: boolean) {
@@ -64,5 +53,16 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       [ moduleDir, assetDir, 'basic-information'],
       { queryParams: { step: 1 } }
     );
+  }
+
+  setActiveUserType() {
+    this.store.select('state', 'user', 'data')
+      .take(1)
+      .subscribe((userData) => {
+        if (this.route.snapshot.routeConfig.path !== 'settings') {
+          this.store.dispatch(new authActions.SetActiveUserType(this.route.snapshot.routeConfig.path));
+        }
+        this.activeUserType = userData.activeUserType;
+      });
   }
 }
