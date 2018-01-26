@@ -12,7 +12,8 @@ interface AppState {
     user: UserState,
     advertiser: AdvertiserState,
     publisher: PublisherState,
-    admin: UsersInfoStatsState
+    admin: AdminState,
+    common: CommonState
   };
 }
 
@@ -22,7 +23,7 @@ interface AdvertiserState {
 }
 
 interface PublisherState {
-  lastEditedSite: Site,
+  lastEditedSite: Site;
   sites: Site[];
 }
 
@@ -36,9 +37,13 @@ interface UserState {
   settings: SettingsState;
 }
 
-interface UsersInfoStatsState {
+interface AdminState {
   users: UserInfoStats[];
   settings: AdminSettings;
 }
 
-export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, UsersInfoStatsState};
+interface CommonState {
+  activeUserType: string;
+}
+
+export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState};

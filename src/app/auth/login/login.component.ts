@@ -49,14 +49,17 @@ export class LoginComponent extends HandleSubscription {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new AuthAction.LoginUser(userResponse));
 
-        this.showStartupPopups(userResponse);
 
-        if (userResponse.isAdvertiser) {
-          this.router.navigate(['/advertiser/dashboard']);
-        } else if (userResponse.isPublisher) {
-          this.router.navigate(['/publisher/dashboard']);
-        } else if (userResponse.isAdmin) {
+        if (userResponse.isAdmin) {
           this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.showStartupPopups(userResponse);
+
+          if (userResponse.isAdvertiser) {
+            this.router.navigate(['/advertiser/dashboard']);
+          } else if (userResponse.isPublisher) {
+            this.router.navigate(['/publisher/dashboard']);
+          }
         }
       });
     this.subscriptions.push(loginSubscription);
