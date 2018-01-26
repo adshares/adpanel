@@ -40,9 +40,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    if (this.route.snapshot.routeConfig.path !== 'settings') {
-      this.store.dispatch(new commonActions.SetActiveUserType(this.route.snapshot.routeConfig.path));
-    }
     const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
       .subscribe(value => {
         this.activeUserType = value;
@@ -69,5 +66,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   openSetEarningsDialog() {
     this.dialog.open(SetYourEarningsDialogComponent);
+  }
+
+  setActiveUserType(userType) {
+    this.store.dispatch(new commonActions.SetActiveUserType(userType));
   }
 }
