@@ -44,6 +44,7 @@
           [value]="'advertiser'"
           routerLink="/advertiser/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
+          (click)="setActiveUserType('advertiser')"
         >
           Advertiser
         </mat-option>
@@ -51,6 +52,7 @@
           [value]="'publisher'"
           routerLink="/publisher/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
+          (click)="setActiveUserType('publisher')"
         >
           Publisher
         </mat-option>
@@ -58,6 +60,7 @@
           [value]="'admin'"
           routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
+          (click)="setActiveUserType('admin')"
         >
           Admin
         </mat-option>
@@ -117,8 +120,7 @@
             adsh-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
-      <span>Set your earnings   {{ activeUserType }}
-</span>
+      <span>Set your earnings</span>
     </button>
     <div
       class="
