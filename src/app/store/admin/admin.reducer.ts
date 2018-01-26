@@ -1,7 +1,7 @@
 import * as AdminActions from './admin.action';
-import { UsersInfoStatsState } from '../../models/app-state.model';
+import { AdminState } from '../../models/app-state.model';
 
-const initialState: UsersInfoStatsState = {
+const initialState: AdminState = {
   users: [],
   settings: {
     earnings: 0

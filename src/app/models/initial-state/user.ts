@@ -6,5 +6,4 @@ export const userInitialState: User = {
   isAdvertiser: true,
   isPublisher: true,
   isAdmin: false,
-  activeUserType: 'advertiser'
 }

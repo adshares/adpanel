@@ -4,5 +4,4 @@ export interface User {
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;
-  activeUserType: string;
 }

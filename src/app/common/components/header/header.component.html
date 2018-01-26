@@ -38,7 +38,7 @@
         class="
           adsh-select
           adsh-navigation__item"
-        [ngModel]="(userDataState | async).activeUserType"
+        [(value)]="activeUserType"
       >
         <mat-option
           [value]="'advertiser'"
@@ -55,7 +55,8 @@
           Publisher
         </mat-option>
         <mat-option
-          [value]="'Admin'"
+          [value]="'admin'"
+          routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
         >
           Admin
@@ -71,12 +72,14 @@
     </div>
   </div>
 
+
   <div
     class="
       row
       align-center"
   >
     <button
+      *ngIf="!(userDataState | async).isAdmin"
       class="
         adsh-btn
         adsh-btn--with-icon
@@ -93,8 +96,29 @@
             adsh-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
-        <span *ngIf="(userDataState | async).activeUserType === 'advertiser'">Create new Campaign</span>
-        <span *ngIf="(userDataState | async).activeUserType === 'publisher'">Add new Site</span>
+        <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
+        <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
+    </button>
+    <button
+      *ngIf="(userDataState | async).isAdmin"
+      (click)="openSetEarningsDialog()"
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center"
+    >
+      <img
+        class="
+            adsh-icon
+            adsh-icon--prepend"
+        src="assets/images/plus-circle.svg"
+      >
+      <span>Set your earnings   {{ activeUserType }}
+</span>
     </button>
     <div
       class="

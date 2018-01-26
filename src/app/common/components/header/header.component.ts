@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { MatDialog } from '@angular/material';
+
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
+import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
 import { enumToObject } from '../../../common/utilities/helpers';
 
-import * as authActions from '../../../store/auth/auth.action';
+import * as commonActions from '../../../store/common/common.action';
 import * as advertiserActions from '../../../store/advertiser/advertiser.action';
 
 @Component({
@@ -29,6 +32,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     super(null);
 
@@ -36,7 +40,15 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.setActiveUserType();
+    if (this.route.snapshot.routeConfig.path !== 'settings') {
+      this.store.dispatch(new commonActions.SetActiveUserType(this.route.snapshot.routeConfig.path));
+    }
+    const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
+      .subscribe(value => {
+        this.activeUserType = value;
+      });
+
+    this.subscriptions.push(activeUserTypeSubscription);
   }
 
   toggleNotificationsBar(status: boolean) {
@@ -55,14 +67,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  setActiveUserType() {
-    this.store.select('state', 'user', 'data')
-      .take(1)
-      .subscribe((userData) => {
-        if (this.route.snapshot.routeConfig.path !== 'settings') {
-          this.store.dispatch(new authActions.SetActiveUserType(this.route.snapshot.routeConfig.path));
-        }
-        this.activeUserType = userData.activeUserType;
-      });
+  openSetEarningsDialog() {
+    this.dialog.open(SetYourEarningsDialogComponent);
   }
 }
