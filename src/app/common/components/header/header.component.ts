@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
+import { User } from "../../../models/user.model";
 import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
 import { enumToObject } from '../../../common/utilities/helpers';
@@ -22,7 +23,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceAdst = 128.20;
   currentBalanceUSD = 1240.02;
   notificationsCount = 8;
-  userDataState: any;
+  userDataState: Store<User>;
   activeUserType: string;
   userRoles: { [key: string]: string } = enumToObject(userRolesEnum);
 
@@ -41,8 +42,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
-      .subscribe(value => {
-        this.activeUserType = value;
+      .subscribe(activeUserType => {
+        this.activeUserType = activeUserType;
       });
 
     this.subscriptions.push(activeUserTypeSubscription);

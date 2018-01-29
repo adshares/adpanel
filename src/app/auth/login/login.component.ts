@@ -91,7 +91,6 @@ export class LoginComponent extends HandleSubscription {
 
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
       this.router.navigate(['/publisher/dashboard']);
-    } else {
     }
 
     this.dialog.open(WalletDialogComponent);
