@@ -28,7 +28,7 @@ export class EditSiteSummaryComponent implements OnInit {
       .subscribe((site: Site) => this.site = site);
   }
 
-  saveCampaign(isDraft) {
+  saveSite(isDraft) {
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
     }
