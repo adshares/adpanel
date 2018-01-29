@@ -76,6 +76,10 @@ label.checkbox-label {
   border: 1px solid pal(gray, mid-light);
   position: relative;
   margin-right: 10px;
+
+  &--square {
+    border-radius: 1px;
+  }
 }
 
 input[type=checkbox]:checked + label,
