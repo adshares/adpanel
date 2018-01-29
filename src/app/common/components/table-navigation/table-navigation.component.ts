@@ -41,11 +41,10 @@ export class TableNavigationComponent implements OnInit {
   ];
 
   userListNavigationItems = [
-    { title: '', columnWidth: 'col-xs-3' },
+    { title: '', columnWidth: 'col-xs-4' },
     { title: '', columnWidth: 'col-xs-2' },
     { title: 'Profit', columnWidth: 'col-xs-2' },
-    { title: 'Top used keywords', columnWidth: 'col-xs-4' },
-    { title: '', columnWidth: 'col-xs-1' },
+    { title: 'Top used keywords', columnWidth: 'col-xs-4' }
   ];
 
   ngOnInit() {
