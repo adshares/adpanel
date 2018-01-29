@@ -40,7 +40,7 @@
         align-center
         adsh-heading
         adsh-heading--secondary"
-      [ngStyle]="{'color': userInfoStats.profit > 0 ? '#24d17e' : '#ff7e7e' }"
+      [ngClass]="{'positive': userInfoStats.profit > 0, 'negative': userInfoStats.profit < 0 }"
     >
       {{ userInfoStats.profit | currency:'USD':true  }}
     </div>
