@@ -1,5 +1,5 @@
 import * as PublisherActions from './publisher.actions';
-import  { siteInitialState } from '../../models/initial-state/site';
+import { siteInitialState } from '../../models/initial-state/site';
 
 const initialState: any = {
   sites: [],
@@ -16,7 +16,12 @@ export function publisherReducers(state = initialState, action: PublisherActions
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {
         ...state,
-        lastEditedSite:  Object.assign({}, action.payload)
+        lastEditedSite: Object.assign({}, action.payload)
+      };
+    case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
+      return {
+        ...state,
+        lastEditedSite: Object.assign({}, state.lastEditedSite, { adUnits: action.payload })
       };
     case PublisherActions.ADD_SITE_TO_SITES:
       return {

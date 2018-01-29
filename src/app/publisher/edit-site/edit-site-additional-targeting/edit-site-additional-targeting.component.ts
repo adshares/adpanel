@@ -63,7 +63,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.store.dispatch(new PublisherAction.SaveLastEditedSite(this.site));
 
     if (!isDraft) {
-      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad';
+      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
       const param = this.goesToSummary ? 4 : 3;
 
       this.router.navigate(

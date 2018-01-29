@@ -1,6 +1,6 @@
 import { TargetingOptionValue } from './targeting-option.model';
 
-export interface Site {
+interface Site {
   id: number;
   name: string;
   websiteUrl: string;
@@ -16,5 +16,21 @@ export interface Site {
     excludes?: TargetingOptionValue[]
   };
 
-  adUnits?: object[];
+  adUnits?: AdUnit[];
 }
+
+interface AdUnit {
+  name: string;
+  type: number;
+  sizes: AdUnitSize[];
+}
+
+interface AdUnitSize {
+  name: string;
+  size: number;
+  tags: string[];
+  recommended?: boolean;
+  selected?: boolean;
+}
+
+export { Site, AdUnit, AdUnitSize }
