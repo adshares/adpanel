@@ -5,75 +5,76 @@
 >
   <div
     class="
-      adsh-box
-      adsh-box--large"
+      row
+      justify-between
+      align-center
+      user-list__filters"
   >
-    <div
-      class="
-        row
-        justify-between
-        align-center
-        user-list__filters"
-    >
-      <div class="col-xs-4">
-        <h1
-          class="
-            adsh-heading
-            adsh-heading--primary"
-        >
-          Users
-          <span class="adsh-copy--light">
+    <div class="col-xs-4">
+      <h1
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Users
+        <span>
             ({{ userCount }})
           </span>
-        </h1>
-      </div>
-      <div class="col-xs-4">
-        <mat-form-field>
-          <input
-            type="email"
-            class="search"
-            matInput
-            placeholder="Search by email"
-          >
-          <span matPrefix>
+      </h1>
+    </div>
+    <div class="col-xs-4">
+      <mat-form-field>
+        <input
+          type="email"
+          class="search"
+          matInput
+          placeholder="Search by email"
+        >
+        <span matPrefix>
             <mat-icon>search</mat-icon>
           </span>
-        </mat-form-field>
-      </div>
-      <div class="col-xs-4">
-        <div action="" class="row">
-          <div
-            class="
-              row
-              align-center
-              choose-user-type"
-            *ngFor="let type of userTypes"
+      </mat-form-field>
+    </div>
+    <div class="col-xs-4">
+      <div class="row">
+        <div
+          class="
+            row
+            align-center
+            choose-user-type"
+          *ngFor="let type of userTypes"
+        >
+          <input
+            [id]="type"
+            name="userType"
+            type="radio"
+            [ngModel]="'All'"
+            [value]="type"
+            (click)="filterUsersByType(type)"
           >
-            <input
-              [id]="type"
-              name="userType"
-              type="radio"
-              [ngModel]="'All'"
-              [value]="type"
-              (click)="filterUsersByType(type)"
-            >
-            <label
-              [for]="type"
-              class="checkbox-label"
-            ></label>
-            <span
-              class="
-                adsh-copy
-                adsh-copy--large
-                adsh-copy--x-dark"
-            >
+          <label
+            [for]="type"
+            class="
+              checkbox-label
+              checkbox-label--square"
+          ></label>
+          <span
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+          >
             {{ type }}
           </span>
-          </div>
         </div>
       </div>
     </div>
+  </div>
 
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
     <app-table-navigation
       [navigationName]="'userListNavigation'"
       class="

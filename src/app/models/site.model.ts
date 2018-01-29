@@ -20,9 +20,9 @@ interface Site {
 }
 
 interface AdUnit {
-  name: string;
+  shortHeadline: string;
   type: number;
-  sizes: AdUnitSize[];
+  size: AdUnitSize;
 }
 
 interface AdUnitSize {
