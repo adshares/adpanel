@@ -70,7 +70,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   generateFormField(adUnit) {
     return  new FormGroup({
-      name: new FormControl(adUnit.name, Validators.required),
+      shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
       adUnitSizeFilter: new FormControl('Recommended')
     });
@@ -88,6 +88,14 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     });
   }
 
+  selectAdUnit(adUnit, adUnitIindex) {
+    this.filtredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
+      filtredAdUnit.selected = false;
+    });
+
+    adUnit.selected = true;
+  }
+
   saveAdUnits(isDraft) {
     this.adUnitsSubmitted = true;
 
@@ -100,15 +108,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     if (adUnitsValid) {
       this.changesSaved = true;
 
-      const adUnitsToSave = this.adUnitForms.map((form, index) => {
+      const adUnitToSave = this.adUnitForms.map((form, index) => {
         return {
-          name: form.get('name').value,
+          shortHeadline: form.get('shortHeadline').value,
           type: form.get('type').value,
-          sizes: this.filtredAdUnitSizes[index].filter((adUnitSize) => adUnitSize.selected)
+          size: this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected)
         };
       });
 
-      this.store.dispatch(new PublisherAction.SaveLastEditedSiteAdUnits(adUnitsToSave));
+      this.store.dispatch(new PublisherAction.SaveLastEditedSiteAdUnits(adUnitToSave));
       this.redirectAfterSave(isDraft);
     }
   }
