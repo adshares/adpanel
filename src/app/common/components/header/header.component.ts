@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
-import { User } from '../../../models/user.model';
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
+import { User } from "../../../models/user.model";
+import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
 import { enumToObject } from '../../../common/utilities/helpers';
 
+import * as commonActions from '../../../store/common/common.action';
 import * as advertiserActions from '../../../store/advertiser/advertiser.action';
 
 @Component({
@@ -29,7 +32,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     super(null);
 
@@ -37,17 +41,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.activeUserType =
-      this.route.snapshot.routeConfig.path === (this.userRoles.ADVERTISER || this.userRoles.PUBLISHER)
-        ? this.route.snapshot.routeConfig.path
-        : this.userRoles.ADVERTISER;
+    const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
+      .subscribe(activeUserType => {
+        this.activeUserType = activeUserType;
+      });
 
-    this.router.events.subscribe((event) => {
-      if (!(event instanceof NavigationEnd)) {
-        return;
-      }
-      this.activeUserType = this.route.snapshot.routeConfig.path;
-    });
+    this.subscriptions.push(activeUserTypeSubscription);
   }
 
   toggleNotificationsBar(status: boolean) {
@@ -64,5 +63,13 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       [ moduleDir, assetDir, 'basic-information'],
       { queryParams: { step: 1 } }
     );
+  }
+
+  openSetEarningsDialog() {
+    this.dialog.open(SetYourEarningsDialogComponent);
+  }
+
+  setActiveUserType(userType) {
+    this.store.dispatch(new commonActions.SetActiveUserType(userType));
   }
 }
