@@ -14,6 +14,8 @@ import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wall
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 
+import * as commonActions from '../../store/common/common.action'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -49,14 +51,19 @@ export class LoginComponent extends HandleSubscription {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new AuthAction.LoginUser(userResponse));
 
-        this.showStartupPopups(userResponse);
-
-        if (userResponse.isAdvertiser) {
-          this.router.navigate(['/advertiser/dashboard']);
-        } else if (userResponse.isPublisher) {
-          this.router.navigate(['/publisher/dashboard']);
-        } else if (userResponse.isAdmin) {
+        if (userResponse.isAdmin) {
+          this.store.dispatch(new commonActions.SetActiveUserType('admin'));
           this.router.navigate(['/admin/dashboard']);
+        } else {
+          this.showStartupPopups(userResponse);
+
+          if (userResponse.isAdvertiser) {
+            this.store.dispatch(new commonActions.SetActiveUserType('advertiser'));
+            this.router.navigate(['/advertiser/dashboard']);
+          } else if (userResponse.isPublisher) {
+            this.store.dispatch(new commonActions.SetActiveUserType('publisher'));
+            this.router.navigate(['/publisher/dashboard']);
+          }
         }
       });
     this.subscriptions.push(loginSubscription);

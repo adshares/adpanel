@@ -11,7 +11,4 @@ export class DashboardComponent {
 
   constructor(private dialog: MatDialog) { }
 
-  openSetEarningsDialog() {
-    this.dialog.open(SetYourEarningsDialogComponent);
-  }
 }

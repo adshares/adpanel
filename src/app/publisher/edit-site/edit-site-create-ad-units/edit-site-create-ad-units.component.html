@@ -42,7 +42,7 @@
             >
               {{ adUnitIindex + 1 }}.&nbsp;
               <span *ngIf="!adUnitPanelsStatus[adUnitIindex]">
-                Title: {{ adUnitForm.get('name').value }}
+                Title: {{ adUnitForm.get('shortHeadline').value }}
               </span>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -51,24 +51,24 @@
             <div class="col-xs-5">
               <div class="adsh-form-input__box">
                 <label
-                  for="name"
+                  for="shortHeadline"
                   class="adsh-form-label"
                 >
                   Name of Unit
                 </label>
                 <input
-                  id="name"
+                  id="shortHeadline"
                   class="adsh-form-input"
                   type="text"
-                  formControlName="name"
+                  formControlName="shortHeadline"
                 >
                 <span
-                  *ngIf="adUnitForm.get('name').valid"
+                  *ngIf="adUnitForm.get('shortHeadline').valid"
                   class="input-valid"
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adUnitForm.get('name').hasError('required') && adUnitsSubmitted"
+                  *ngIf="adUnitForm.get('shortHeadline').hasError('required') && adUnitsSubmitted"
                 >
                 Name of Unit required!
               </span>
@@ -132,7 +132,7 @@
               class="site-edit-create-ad-units__ad-unit"
               [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': adUnit.selected}"
               *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
-              (click)="adUnit.selected = !adUnit.selected"
+              (click)="selectAdUnit(adUnit, adUnitIindex)"
             >
               <div class="site-edit-create-ad-units__ad-unit__visualization-box">
                 <div class="site-edit-create-ad-units__ad-unit__visualization">
