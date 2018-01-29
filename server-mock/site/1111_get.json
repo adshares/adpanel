@@ -25,9 +25,15 @@
   },
   "adUnits": [
     {
-      "status": "active",
+      "status": 1,
       "shortHeadline": "Adshares Dashboard Advertisement",
-      "type": "Leaderboard 728x90",
+      "type": 0,
+      "size": {
+        "id": 1,
+        "name": "Large mobile baner",
+        "size": 0,
+        "tags": ["Desktop", "Mobile"]
+      },
 
       "budget": "20",
       "clicks": "100",
@@ -38,9 +44,15 @@
       "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
     },
     {
-      "status": "limited",
+      "status": 2,
       "shortHeadline": "Adshares Website Advertisement",
-      "type": "image",
+      "type": 1,
+      "size": {
+        "id": 2,
+        "name": "Leaderboard",
+        "size": 1,
+        "tags": ["Desktop"]
+      },
 
       "budget": "20",
       "clicks": "200",

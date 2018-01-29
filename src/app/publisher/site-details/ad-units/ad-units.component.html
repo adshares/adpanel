@@ -38,15 +38,15 @@
             adsh-copy
             adsh-blue"
         >
-          {{ adUnit.type }}
+          {{ adUnit.size.name }}&nbsp;{{ adSizesEnum[adUnit.size.size] }}
         </p>
       </div>
       <div class="row">
-        <div class="adsh-chip-box">
-          Desktop
-        </div>
-        <div class="adsh-chip-box">
-          Mobile
+        <div
+          class="adsh-chip-box"
+          *ngFor="let tag of adUnit.size.tags"
+        >
+          {{ tag }}
         </div>
       </div>
     </div>

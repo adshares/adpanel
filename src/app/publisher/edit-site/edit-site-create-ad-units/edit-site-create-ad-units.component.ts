@@ -48,6 +48,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
             this.adUnitPanelsStatus[index] = false;
+            this.selectChoosedSize(savedAdUnit, index);
           });
         } else {
           this.createEmptyAd();
@@ -59,8 +60,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
-    this.filtredAdUnitSizes[this.filtredAdUnitSizes.length] =
-      cloneDeep(this.adUnitSizes.filter((adUnitSize) => adUnitSize.recommended));
   }
 
   handlePanelExpand(adIndex) {
@@ -68,7 +67,17 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.adUnitPanelsStatus[adIndex] = true;
   }
 
+  selectChoosedSize(savedAdUnit, adIndex) {
+    const choosedAdSize = this.filtredAdUnitSizes[adIndex].find(
+      (filtredAdUnitSize) => filtredAdUnitSize.id === savedAdUnit.size.id
+    );
+
+    Object.assign(choosedAdSize, { selected: true });
+  }
+
   generateFormField(adUnit) {
+    this.filtredAdUnitSizes[this.filtredAdUnitSizes.length] = cloneDeep(this.adUnitSizes);
+
     return  new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
@@ -81,7 +90,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
     this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) => {
       if (filterValue === 'Recommended') {
-        return adUnitSize.recommended;
+        return true;
       }
 
       return parseInt(adSizesEnum[filterValue]) === adUnitSize.size;
