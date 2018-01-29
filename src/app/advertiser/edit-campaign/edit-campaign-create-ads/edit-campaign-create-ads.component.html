@@ -32,7 +32,7 @@
     <form [formGroup]="adForm">
       <mat-accordion>
         <mat-expansion-panel
-          (opened)="adPanelsStatus[i] = true"
+          (opened)="handlePanelExpand[i] = true"
           (closed)="adPanelsStatus[i] = false"
           [expanded]="adPanelsStatus[i]">
           <mat-expansion-panel-header>

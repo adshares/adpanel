@@ -1,0 +1,21 @@
+@import '../../../../styles.scss';
+
+.site-edit-create-ad-units {
+  max-width: 800px;
+  margin: 0 auto;
+
+  .adsh-box {
+    margin: 30px 0;
+  }
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__ad-units {
+    &__container {
+      background-color: pal(gray, x-light);
+    }
+  }
+}

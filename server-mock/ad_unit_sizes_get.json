@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Leaderboard",
+    "size": 0,
+    "tags": ["Desktop"],
+    "recommended": true
+  },
+  {
+    "name": "Large Rectangle",
+    "size": 0,
+    "tags": ["Desktop"],
+    "recommended": true
+  },
+  {
+    "name": "Large Mobile Banner",
+    "size": 1,
+    "tags": ["Desktop", "Moblie"],
+    "recommended": true
+  },
+  {
+    "name": "Large Rectangle",
+    "size": 1,
+    "tags": ["Desktop"],
+    "recommended": true
+  },
+  {
+    "name": "Large Rectangle 2",
+    "size": 1,
+    "tags": ["Desktop"],
+    "recommended": false
+  }
+]
