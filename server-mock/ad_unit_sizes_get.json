@@ -18,7 +18,7 @@
     "name": "Large Mobile Banner",
     "type": "large-mobile-banner",
     "size": 2,
-    "tags": ["Desktop", "Mobile"],
+    "tags": ["Desktop", "Mobile"]
   },
   {
     "id": 4,
