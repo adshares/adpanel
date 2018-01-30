@@ -50,7 +50,8 @@ const publisherRoutes: Routes = [
             canDeactivate: [PublisherGuard],
             resolve: { adUnitSizes: AdUnitSizesResolver }
           },
-          { path: 'summary',
+          {
+            path: 'summary',
             component: EditSiteSummaryComponent
           }
         ]
