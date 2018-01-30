@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
 
 @Component({
   selector: 'app-targeting-select',
@@ -12,13 +12,13 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
 
-  backAvailable: boolean = false;
-  optionsHasValue: boolean = false;
-  searchTerm: string = '';
-  targetingOptionsForSearch: TargetingOptionModel[] = [];
-  viewModel: TargetingOptionModel[];
-  parentViewModel: TargetingOptionModel[];
-  parentOption: TargetingOptionModel;
+  backAvailable = false;
+  optionsHasValue = false;
+  searchTerm = '';
+  targetingOptionsForSearch: TargetingOption[] = [];
+  viewModel: TargetingOption[];
+  parentViewModel: TargetingOption[];
+  parentOption: TargetingOption;
   selectedItems: TargetingOptionValue[] = [];
 
   ngOnInit() {
