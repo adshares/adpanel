@@ -2,11 +2,12 @@ import { Site } from '../site.model';
 
 export const siteInitialState: Site = {
   id: 0,
-  name: '',
+  status: 0,
   websiteUrl: '',
   primaryLanguage: 'polish',
   targeting: {
     requires: [],
     excludes: []
   },
+  adUnits: []
 }

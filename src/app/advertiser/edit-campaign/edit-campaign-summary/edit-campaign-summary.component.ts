@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
 
 import { AppState } from '../../../models/app-state.model';
 import { Campaign } from '../../../models/campaign.model';

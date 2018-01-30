@@ -1,10 +1,13 @@
 import { Action } from '@ngrx/store';
 
-import { Site } from '../../models/site.model';
+import { Site, AdUnit } from '../../models/site.model';
 
 export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';
-export const SAVE_LAST_EDITED_SITE = 'Basic Campaign Information saved';
+export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
+export const SET_LAST_EDITED_SITE = 'Last edited site set';
+export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
+export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 export const ADD_SITE_TO_SITES = 'Site added to user sites';
 
 export class LoadSites implements Action {
@@ -17,9 +20,24 @@ export class LoadSitesSuccess implements Action {
   constructor(public payload: any) { }
 }
 
+export class ClearLastEditedSite implements Action {
+  readonly type: string = CLEAR_LAST_EDITED_SITE;
+  constructor(public payload: any) { }
+}
+
+export class SetLastEditedSite implements Action {
+  readonly type: string = SET_LAST_EDITED_SITE;
+  constructor(public payload: Site) { }
+}
+
 export class SaveLastEditedSite implements Action {
   readonly type: string = SAVE_LAST_EDITED_SITE;
   constructor(public payload: Site) { }
+}
+
+export class SaveLastEditedSiteAdUnits implements Action {
+  readonly type: string = SAVE_LAST_EDITED_SITE_AD_UNITS;
+  constructor(public payload: AdUnit[]) { }
 }
 
 export class AddSiteToSites implements Action {
@@ -27,4 +45,11 @@ export class AddSiteToSites implements Action {
   constructor(public payload: Site) { };
 }
 
-export type actions = LoadSites | LoadSitesSuccess | SaveLastEditedSite | AddSiteToSites;
+export type actions =
+  LoadSites |
+  LoadSitesSuccess |
+  ClearLastEditedSite |
+  SetLastEditedSite |
+  SaveLastEditedSite |
+  SaveLastEditedSiteAdUnits |
+  AddSiteToSites;

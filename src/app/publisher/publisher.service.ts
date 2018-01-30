@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { Site } from '../models/site.model';
+import { Site, AdUnitSize } from '../models/site.model';
 
 @Injectable()
 export class PublisherService {
@@ -18,7 +18,7 @@ export class PublisherService {
 
   getSite(id: number): Observable<Site> {
     return this.http.get(`${environment.apiUrl}/site/${id}`)
-       .map((site: Site) => site);
+      .map((site: Site) => site);
   }
 
   saveSite(site: Site) {
@@ -27,5 +27,10 @@ export class PublisherService {
 
   getTargetingCriteria() {
     return this.http.get(`${environment.apiUrl}/site_targeting`);
+  }
+
+  getAdUnitSizes(): Observable<AdUnitSize[]> {
+    return this.http.get(`${environment.apiUrl}/ad_unit_sizes`)
+      .map((adUnitSizes: AdUnitSize[]) => adUnitSizes);
   }
 }

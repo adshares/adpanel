@@ -1,0 +1,236 @@
+<section
+  class="
+    homepage-view
+    site-edit-create-ad-units"
+>
+  <div
+    class="
+      text-center
+      site-edit-create-ad-units--narrow"
+  >
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Create Ad Units
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+  <div
+    class="adsh-box"
+    *ngFor="let adUnitForm of adUnitForms; let adUnitIindex = index"
+  >
+    <form [formGroup]="adUnitForm">
+      <mat-accordion>
+        <mat-expansion-panel
+          (opened)="handlePanelExpand(adUnitIindex)"
+          (closed)="adUnitPanelsStatus[adUnitIindex] = false"
+          [expanded]="adUnitPanelsStatus[adUnitIindex]">
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              {{ adUnitIindex + 1 }}.&nbsp;
+              <span *ngIf="!adUnitPanelsStatus[adUnitIindex]">
+                Title: {{ adUnitForm.get('shortHeadline').value }}
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="row">
+            <div class="col-xs-5">
+              <div class="adsh-form-input__box">
+                <label
+                  for="shortHeadline"
+                  class="adsh-form-label"
+                >
+                  Name of Unit
+                </label>
+                <input
+                  id="shortHeadline"
+                  class="adsh-form-input"
+                  type="text"
+                  formControlName="shortHeadline"
+                >
+                <span
+                  *ngIf="adUnitForm.get('shortHeadline').valid"
+                  class="input-valid"
+                ></span>
+                <span
+                  class="error-msg"
+                  *ngIf="adUnitForm.get('shortHeadline').hasError('required') && adUnitsSubmitted"
+                >
+                Name of Unit required!
+              </span>
+              </div>
+            </div>
+
+            <div class="col-xs-3">
+              <div class="adsh-form-input__box">
+                <label class="adsh-form-label">
+                  Ad Type
+                </label>
+                <mat-select
+                  class="adsh-select"
+                  formControlName="type">
+                  <mat-option
+                    *ngFor="let adType of adTypes; let i = index"
+                    [value]="i"
+                  >
+                    {{ adType }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div
+              class="
+                col-xs-3
+                adsh-copy
+                adsh-copy--light"
+              >
+              Size of Unit
+            </div>
+            <div class="col-xs-3">
+              <div class="adsh-form-input__box">
+                <label class="adsh-form-label">
+                  Showing
+                </label>
+
+                <mat-select
+                  class="adsh-select"
+                  formControlName="adUnitSizeFilter"
+                  (change)="onAdUnitSizeFilterChange(adUnitIindex)">
+                  <mat-option
+                    *ngFor="let adSize of adSizesOptions"
+                    [value]="adSize"
+                  >
+                    {{ adSize }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="
+            row
+            site-edit-create-ad-units__ad-units__container"
+          >
+            <div
+              class="site-edit-create-ad-units__ad-unit"
+              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': adUnit.selected}"
+              *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
+              (click)="selectAdUnit(adUnit, adUnitIindex)"
+            >
+              <div class="site-edit-create-ad-units__ad-unit__visualization-box">
+                <div class="site-edit-create-ad-units__ad-unit__visualization">
+                  {{ adSizesEnum[adUnit.size] }}
+                </div>
+              </div>
+
+              <div class="site-edit-create-ad-units__ad-unit__info">
+                {{ adUnit.name }}
+              </div>
+
+              <div *ngFor="let tag of adUnit.tags">
+                {{ tag }}
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <button
+      class="
+        row
+        align-center
+        adsh-btn
+        adsh-btn--large
+        adsh-btn--white
+        adsh-btn--no-border"
+      (click)="createEmptyAd()"
+    >
+      <img
+        src="assets/images/plus-circle--blue.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
+      <span
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        Create new Ad Unit
+      </span>
+    </button>
+  </div>
+
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../additional-targeting"
+      [queryParams]="{step: 2}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <button
+        (click)="saveAdUnits(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue
+          save-as-draft-button"
+      >
+        Save as Draft
+      </button>
+      <button
+        (click)="saveAdUnits(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+      >
+        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </div>
+  </div>
+</section>
+
