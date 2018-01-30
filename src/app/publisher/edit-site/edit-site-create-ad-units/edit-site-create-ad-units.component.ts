@@ -76,7 +76,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   generateFormField(adUnit) {
-    this.filtredAdUnitSizes[this.filtredAdUnitSizes.length] = cloneDeep(this.adUnitSizes);
+    this.filtredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
     return  new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
@@ -88,13 +88,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   onAdUnitSizeFilterChange(adUnitIindex) {
     const filterValue = this.adUnitForms[adUnitIindex].get('adUnitSizeFilter').value;
 
-    this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) => {
-      if (filterValue === 'Recommended') {
-        return true;
-      }
-
-      return parseInt(adSizesEnum[filterValue]) === adUnitSize.size;
-    });
+    this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) =>
+      filterValue === 'Recommended' ? true : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+    );
   }
 
   selectAdUnit(adUnit, adUnitIindex) {
