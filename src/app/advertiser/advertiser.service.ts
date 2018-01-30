@@ -33,6 +33,6 @@ export class AdvertiserService {
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get(`${environment.apiUrl}/campaign_targeting`)
-      .map((targetingOption: TargetingOption[]) => targetingOption);
+      .map((targetingOptions: TargetingOption[]) => targetingOptions);
   }
 }
