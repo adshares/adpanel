@@ -23,7 +23,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   targetingOptionsToExclude: TargetingOptionModel[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
-  site: Site = siteInitialState;
+  site: Site = cloneDeep(siteInitialState);
 
   constructor(
     private route: ActivatedRoute,
@@ -38,10 +38,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
-
-    if (this.goesToSummary) {
-      this.getSiteFromStore();
-    }
+    this.getSiteFromStore();
   }
 
   updateAddedItems(items) {
@@ -63,7 +60,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.store.dispatch(new PublisherAction.SaveLastEditedSite(this.site));
 
     if (!isDraft) {
-      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad';
+      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
       const param = this.goesToSummary ? 4 : 3;
 
       this.router.navigate(
