@@ -48,18 +48,18 @@
             adsh-form-input--full"
           name="siteUrl"
           type="text"
-          formControlName="url"
+          formControlName="websiteUrl"
         >
 
         <span
-          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('url').touched"
+          *ngIf="siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoForm.get('websiteUrl').touched"
           class="input-valid"
         ></span>
 
         <span
           class="error-msg"
           *ngIf="
-            siteBasicInfoForm.hasError('required', ['url']) && siteBasicInfoSubmitted"
+            siteBasicInfoForm.hasError('required', ['websiteUrl']) && siteBasicInfoSubmitted"
         >
           Website URL required!
         </span>
