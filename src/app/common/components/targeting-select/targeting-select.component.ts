@@ -116,7 +116,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   }
 
   prepareSearchViewModel() {
-    const pattern = new RegExp(this.searchTerm);
+    const pattern = new RegExp(this.searchTerm, 'i');
     const searchModel = this.optionsHasValue ? this.viewModel : this.targetingOptionsForSearch;
     const searchViewModel = searchModel.filter((option) =>
       pattern.test(option.label.toLowerCase())
