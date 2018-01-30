@@ -1,4 +1,9 @@
 export enum primaryLanguageEnum {
-    POLISH,
-    ENGLISH
+  POLISH,
+  ENGLISH
 };
+
+export enum siteStatusEnum {
+  DRAFT,
+  ACTIVE
+}
