@@ -65,7 +65,7 @@
         font-weight: inherit;
 
         &--secondary {
-          color: pal(gray, semi-dark);
+          color: pal(gray, mid-dark);
         }
       }
 
@@ -93,7 +93,7 @@
 
   &.drag-and-drop-box--file-over {
     border-style: solid;
-    border-color: pal(green, base);
+    border-color: pal(blue);
   }
 }
 
@@ -106,10 +106,6 @@
   &--active {
     background-color: pal(blue);
   }
-}
-
-.save-as-draft-button {
-  margin-right: 15px;
 }
 
 .adsh-form-input__box {

@@ -61,3 +61,7 @@ mat-chip:not(.mat-basic-chip) {
 .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
   background: transparent !important;
 }
+
+.mat-select-value-text {
+  text-transform: capitalize;
+}
