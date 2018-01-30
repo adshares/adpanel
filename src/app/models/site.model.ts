@@ -5,12 +5,12 @@ interface Site {
   status: number;
   websiteUrl: string;
   primaryLanguage: string;
+
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
   rpm?: number;
   averageCPC?: number;
-
   targeting?: {
     requires?: TargetingOptionValue[],
     excludes?: TargetingOptionValue[]

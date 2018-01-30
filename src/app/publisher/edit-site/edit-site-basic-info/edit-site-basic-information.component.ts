@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/take';
 
 import { AppState } from '../../../models/app-state.model';
 import * as PublisherActions from '../../../store/publisher/publisher.actions';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { primaryLanguageEnum } from '../../../models/enum/site.enum';
-import { enumToArray } from '../../../common/utilities/helpers';
+import { cloneDeep, enumToArray } from '../../../common/utilities/helpers';
 import { siteInitialState } from '../../../models/initial-state/site';
 import { Site } from '../../../models/site.model';
 
@@ -20,7 +21,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   siteBasicInfoForm: FormGroup;
   languages: string[] = enumToArray(primaryLanguageEnum);
   siteBasicInfoSubmitted = false;
-  site: Site = siteInitialState;
+  site: Site = cloneDeep(siteInitialState);
 
   goesToSummary: boolean;
 
@@ -49,7 +50,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     const param = this.goesToSummary ? 4 : 2;
 
     Object.assign(this.site, {
-      websiteUrl: this.siteBasicInfoForm.controls['url'].value,
+      websiteUrl: this.siteBasicInfoForm.controls['websiteUrl'].value,
       primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value
     });
     this.store.dispatch(new PublisherActions.SaveLastEditedSite(this.site));
@@ -63,7 +64,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   createForm() {
     this.siteBasicInfoForm = new FormGroup({
-      url: new FormControl(siteInitialState.websiteUrl, Validators.required),
+      websiteUrl: new FormControl(siteInitialState.websiteUrl, Validators.required),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
 
@@ -74,8 +75,9 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   getFormDataFromStore() {
     this.store.select('state', 'publisher', 'lastEditedSite')
+      .take(1)
       .subscribe((lastEditedSite) => {
-        this.site = lastEditedSite;
+        this.site = cloneDeep(lastEditedSite);
         this.siteBasicInfoForm.patchValue(lastEditedSite);
       });
   }
