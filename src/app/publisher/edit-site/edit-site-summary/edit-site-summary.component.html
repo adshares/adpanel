@@ -1,0 +1,261 @@
+<section
+  class="
+    homepage-view
+    site-edit-summary"
+>
+  <div
+    class="
+      text-center
+      site-edit-summary--narrow"
+  >
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Summary
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      campaign-edit-summary__basic-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        1. Basic Information
+      </h3>
+      <a
+        routerLink="../basic-information"
+        [queryParams]="{step: 1, summary: true}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-12
+          site-edit-summary__info-cell
+          adsh-copy--small
+          adsh-copy--light"
+      >
+        Website URL
+      </div>
+
+      <div
+        class="
+          col-xs-12
+          site-edit-summary__info-cell
+          site-info--primary"
+      >
+        {{ site.websiteUrl }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-4
+          site-edit-summary__info-cell"
+        >
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Content Language
+        </p>
+
+        <p class="adsh-copy">
+          {{ site.primaryLanguage }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      site-edit-summary__targeting-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        2. Additional Targeting
+      </h3>
+      <a
+        routerLink="../additional-targeting"
+        [queryParams]="{step: 2, summary: true}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-5
+          site-edit-summary__info-cell">
+        <span class="adsh-copy">Requires:</span>
+
+        <div class="site-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="site.targeting"
+            [items]="site.targeting.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
+      </div>
+
+      <div
+        class="
+          col-xs-5
+          site-edit-summary__info-cell">
+        <span class="adsh-copy">Excludes:</span>
+        <div class="site-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="site.targeting"
+            [items]="site.targeting.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      site-edit-summary__ads-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        3. Ad Units
+      </h3>
+      <a
+        routerLink="../create-ad-units"
+        [queryParams]="{step: 3, summary: true}"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <app-ad-units
+        *ngFor="let adUnit of site.adUnits"
+        [adUnit]="adUnit"
+      >
+      </app-ad-units>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../create-ad-units"
+      [queryParams]="{step: 3}"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue
+            save-as-draft-button"
+          (click)="saveSite(true)"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+          (click)="saveSite(false)"
+        >
+          Publish site
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

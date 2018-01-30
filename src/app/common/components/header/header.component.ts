@@ -13,6 +13,7 @@ import { enumToObject } from '../../../common/utilities/helpers';
 
 import * as commonActions from '../../../store/common/common.action';
 import * as advertiserActions from '../../../store/advertiser/advertiser.action';
+import * as publisherActions from '../../../store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-header',
@@ -55,9 +56,14 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   navigateToCreateNewAsset() {
     const moduleDir =  `/${this.activeUserType}`
-    const assetDir = this.activeUserType === this.userRoles.ADVERTISER ? 'create-campaign' : 'create-site';
+    const isUserAdvertiser = this.activeUserType === this.userRoles.ADVERTISER;
+    const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
 
-    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+    if (isUserAdvertiser) {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+    } else {
+      this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
+    }
 
     this.router.navigate(
       [ moduleDir, assetDir, 'basic-information'],
