@@ -47,7 +47,8 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div class="row">
+          <div class="row"
+          >
             <div class="col-xs-5">
               <div class="adsh-form-input__box">
                 <label
@@ -59,7 +60,6 @@
                 <input
                   id="shortHeadline"
                   class="adsh-form-input"
-                  type="text"
                   formControlName="shortHeadline"
                 >
                 <span
@@ -87,14 +87,19 @@
                     *ngFor="let adType of adTypes; let i = index"
                     [value]="i"
                   >
-                    {{ adType }}
+                    {{ adType.substr(0, 1).toUpperCase() + adType.substr(1) }}
                   </mat-option>
                 </mat-select>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div
+            class="
+              row
+              align-center
+              justify-between"
+          >
             <div
               class="
                 col-xs-3
@@ -106,7 +111,7 @@
             <div class="col-xs-3">
               <div class="adsh-form-input__box">
                 <label class="adsh-form-label">
-                  Showing
+                  Showing:
                 </label>
 
                 <mat-select
@@ -124,9 +129,11 @@
             </div>
           </div>
 
-          <div class="
-            row
-            site-edit-create-ad-units__ad-units__container"
+          <div
+            class="
+              row
+              justify-between
+              site-edit-create-ad-units__ad-units__container"
           >
             <div
               class="site-edit-create-ad-units__ad-unit"
@@ -134,17 +141,32 @@
               *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
               (click)="selectAdUnit(adUnit, adUnitIindex)"
             >
-              <div class="site-edit-create-ad-units__ad-unit__visualization-box">
-                <div class="site-edit-create-ad-units__ad-unit__visualization">
+              <div
+                class="
+                  row
+                  align-center
+                  justify-center
+                  site-edit-create-ad-units__ad-unit__visualization-box"
+              >
+                <div
+                  [ngClass]="adUnit.type"
+                  class="site-edit-create-ad-units__ad-unit__visualization"
+                >
                   {{ adSizesEnum[adUnit.size] }}
                 </div>
               </div>
 
-              <div class="site-edit-create-ad-units__ad-unit__info">
+              <div
+                class="
+                  adsh-heading
+                  adsh-heading--secondary"
+              >
                 {{ adUnit.name }}
               </div>
 
-              <div *ngFor="let tag of adUnit.tags">
+              <div
+                class="adsh-chip-box"
+                *ngFor="let tag of adUnit.tags">
                 {{ tag }}
               </div>
             </div>
@@ -215,7 +237,7 @@
           adsh-btn
           adsh-btn--white
           adsh-blue
-          save-as-draft-button"
+          save-as-draft"
       >
         Save as Draft
       </button>

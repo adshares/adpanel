@@ -92,7 +92,7 @@
             *ngFor="let language of languages"
             [value]="language"
             class="site-edit-basic-information__language__option">
-            {{ language }}
+            {{ language.substr(0, 1).toUpperCase() + language.substr(1) }}
           </mat-option>
         </mat-select>
 
