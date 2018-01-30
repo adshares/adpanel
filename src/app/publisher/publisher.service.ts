@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
 import { Site, AdUnitSize } from '../models/site.model';
+import { TargetingOption } from '../models/targeting-option.model';
 
 @Injectable()
 export class PublisherService {
@@ -21,12 +22,14 @@ export class PublisherService {
       .map((site: Site) => site);
   }
 
-  saveSite(site: Site) {
-    return this.http.put(`${environment.apiUrl}/site`, { site });
+  saveSite(site: Site): Observable<Site> {
+    return this.http.put(`${environment.apiUrl}/site`, { site })
+      .map((site: Site) => site);
   }
 
-  getTargetingCriteria() {
-    return this.http.get(`${environment.apiUrl}/site_targeting`);
+  getTargetingCriteria(): Observable<TargetingOption[]> {
+    return this.http.get(`${environment.apiUrl}/site_targeting`)
+      .map((targetingOption: TargetingOption[]) => targetingOption);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {

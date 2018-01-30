@@ -1,4 +1,4 @@
-interface TargetingOptionModel {
+interface TargetingOption {
   key: string,
   label: string,
   value_type: string,
@@ -16,4 +16,4 @@ interface TargetingOptionValue {
   parentOptionLabel?: string
 }
 
-export { TargetingOptionModel, TargetingOptionValue };
+export { TargetingOption, TargetingOptionValue };
