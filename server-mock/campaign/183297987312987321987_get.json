@@ -18,8 +18,40 @@
   "conversions": "802",
 
   "targeting": {
-    "requires": [],
-    "excludes": []
+    "requires": [
+      {
+        "key": "lang_en",
+        "label": "English",
+        "parent_label": "Language",
+        "value": "en"
+      },
+      {
+        "key": "js_enabled_yes",
+        "label": "Yes",
+        "parent_label": "Javascript support",
+        "value": "true"
+      }
+    ],
+    "excludes": [
+      {
+        "key": "js_enabled_no",
+        "label": "No",
+        "parent_label": "Javascript support",
+        "value": "false"
+      },
+      {
+        "key": "host_onet",
+        "label": "onet.pl",
+        "parent_label": "Site domain",
+        "value": "onet.pl"
+      },
+      {
+        "key": "host_google",
+        "label": "google.pl",
+        "parent_label": "Site domain",
+        "value": "google.pl"
+      }
+    ]
   },
   "ads": [
     {

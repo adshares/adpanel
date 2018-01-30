@@ -23,7 +23,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   targetingOptionsToExclude: TargetingOptionModel[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
-  site: Site = siteInitialState;
+  site: Site = cloneDeep(siteInitialState);
 
   constructor(
     private route: ActivatedRoute,
@@ -38,10 +38,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
-
-    if (this.goesToSummary) {
-      this.getSiteFromStore();
-    }
+    this.getSiteFromStore();
   }
 
   updateAddedItems(items) {
