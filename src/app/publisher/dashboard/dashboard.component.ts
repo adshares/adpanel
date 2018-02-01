@@ -74,11 +74,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.getDailyChartData();
+    this.getChartData('month');
   }
 
-  getMonthlyChartData() {
-    const monthlyChartDataSubscription = this.chartService.getMonthlyChartData()
+  getChartData(span) {
+    const monthlyChartDataSubscription = this.chartService.getChartData(span)
       .subscribe((data) => {
         this.barChartData[0].data = data.values;
         const formattedLabels = data.labels.map((item) => {
@@ -88,30 +88,30 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
     this.subscriptions.push(monthlyChartDataSubscription);
   }
-
-  getWeeklyChartData() {
-    const weeklyChartDataSubscription = this.chartService.getWeeklyChartData()
-      .subscribe((data) => {
-        this.barChartData[0].data = data.values;
-        const formattedLabels = data.labels.map((item) => {
-          return moment(item).format('H');
-        });
-        this.barChartLabels = formattedLabels;
-      });
-    this.subscriptions.push(weeklyChartDataSubscription);
-  }
-
-  getDailyChartData() {
-    const dailyChartDataSubscription = this.chartService.getDailyChartData()
-      .subscribe((data) => {
-        this.barChartData[0].data = data.values;
-        const formattedLabels = data.labels.map((item) => {
-          return moment(item).format('DH');
-        });
-        this.barChartLabels = formattedLabels;
-      });
-    this.subscriptions.push(dailyChartDataSubscription);
-  }
+  //
+  // getWeeklyChartData() {
+  //   const weeklyChartDataSubscription = this.chartService.getWeeklyChartData()
+  //     .subscribe((data) => {
+  //       this.barChartData[0].data = data.values;
+  //       const formattedLabels = data.labels.map((item) => {
+  //         return moment(item).format('HH:mm');
+  //       });
+  //       this.barChartLabels = formattedLabels;
+  //     });
+  //   this.subscriptions.push(weeklyChartDataSubscription);
+  // }
+  //
+  // getDailyChartData() {
+  //   const dailyChartDataSubscription = this.chartService.getDailyChartData()
+  //     .subscribe((data) => {
+  //       this.barChartData[0].data = data.values;
+  //       const formattedLabels = data.labels.map((item) => {
+  //         return moment(item).format('HH:mm');
+  //       });
+  //       this.barChartLabels = formattedLabels;
+  //     });
+  //   this.subscriptions.push(dailyChartDataSubscription);
+  // }
 
   // events
   chartClicked(e: any): void {
@@ -121,18 +121,5 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   chartHovered(e: any): void {
     console.log(e);
   }
-  randomize(): void {
-    // Only Change 3 values
-    const data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    const clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-  }
+
 }
