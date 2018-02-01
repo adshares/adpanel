@@ -11,7 +11,9 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        disabled>Today
+        (click)="filterChart('day')"
+        >
+      Today
     </button>
     <button
         type="button"
@@ -20,7 +22,9 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        disabled>This Week
+        (click)="filterChart('week')"
+        >
+      This Week
     </button>
     <button
         type="button"
@@ -29,7 +33,9 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        disabled>This Month
+        (click)="filterChart('month')"
+        >
+      This Month
     </button>
     <span class="adsh-copy">or Select Manually</span>
     <button

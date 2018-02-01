@@ -27,7 +27,10 @@
         </p>
       </div>
       <div class="col-xs-8">
-        <app-chart-filter *ngIf="!sites"></app-chart-filter>
+        <app-chart-filter
+          *ngIf="!sites"
+          (filter)="getChartData($event)"
+        ></app-chart-filter>
       </div>
     </div>
 
@@ -57,7 +60,6 @@
                   (chartClick)="chartClicked($event)"
                 ></canvas>
               </div>
-              <button (click)="randomize()">Update</button>
             </div>
           </div>
           <img
