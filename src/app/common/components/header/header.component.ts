@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
-import { User } from "../../../models/user.model";
+import { User } from '../../../models/user.model';
 import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
-import { enumToObject } from '../../../common/utilities/helpers';
+import { enumToObject } from '../../utilities/helpers';
 
-import * as commonActions from '../../../store/common/common.action';
-import * as advertiserActions from '../../../store/advertiser/advertiser.action';
+import * as commonActions from '../../../store/common/common.actions';
+import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 import * as publisherActions from '../../../store/publisher/publisher.actions';
 
 @Component({
@@ -33,7 +33,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private route: ActivatedRoute,
     private dialog: MatDialog
   ) {
     super(null);
@@ -55,7 +54,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToCreateNewAsset() {
-    const moduleDir =  `/${this.activeUserType}`
+    const moduleDir =  `/${this.activeUserType}`;
     const isUserAdvertiser = this.activeUserType === this.userRoles.ADVERTISER;
     const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
 

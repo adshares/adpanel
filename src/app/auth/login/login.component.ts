@@ -5,7 +5,9 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as AuthAction from '../../store/auth/auth.action';
+import * as authActions from '../../store/auth/auth.actions';
+import * as commonActions from '../../store/common/common.actions';
+
 import { AuthService } from '../auth.service';
 import { User } from '../../models/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
@@ -14,7 +16,6 @@ import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wall
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 
-import * as commonActions from '../../store/common/common.action'
 
 @Component({
   selector: 'app-login',
@@ -49,7 +50,7 @@ export class LoginComponent extends HandleSubscription {
       this.loginForm.value.password
      )
       .subscribe((userResponse: User) => {
-        this.store.dispatch(new AuthAction.LoginUser(userResponse));
+        this.store.dispatch(new authActions.LoginUser(userResponse));
 
         if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType('admin'));
