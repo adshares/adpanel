@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -9,6 +9,8 @@ import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { AdvertiserService } from '../../advertiser.service';
 import { Campaign } from '../../../models/campaign.model';
+import { AssetTargeting } from '../../../models/targeting-option.model';
+import { TargetingSelectComponent } from '../../../common/components/targeting/targeting-select/targeting-select.component';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
@@ -16,15 +18,14 @@ import { Campaign } from '../../../models/campaign.model';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
+  @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
+
   goesToSummary: boolean;
 
   targetingOptionsToAdd: TargetingOptionModel[];
   targetingOptionsToExclude: TargetingOptionModel[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
-
-  requirePanelOpenState: boolean;
-  excludePanelOpenState: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -75,7 +76,6 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
           this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
@@ -85,29 +85,17 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   getTargetingFromStore() {
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targeting')
       .take(1)
-      .subscribe((targeting) => {
+      .subscribe((targeting: AssetTargeting) => {
         this.addedItems = targeting.requires;
         this.excludedItems = targeting.excludes;
+
         [targeting.requires, targeting.excludes].forEach((optionsList, index) => {
           const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
 
-          optionsList.forEach((savedItem) => this.findAndSelectItem(searchList, savedItem));
+          optionsList.forEach(
+            (savedItem) => this.targetingSelectComponent.findAndSelectItem(searchList, savedItem)
+          );
         });
       });
-  }
-
-  findAndSelectItem(list, searchedItem) {
-    list.forEach((item) => {
-      const itemSublist = item.children || item.values;
-
-      if (itemSublist) {
-        this.findAndSelectItem(itemSublist, searchedItem);
-        return;
-      }
-
-      if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
-        Object.assign(item, { selected: true })
-      }
-    });
   }
 }

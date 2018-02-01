@@ -1,4 +1,4 @@
-import { TargetingOptionValue } from './targeting-option.model';
+import { AssetTargeting } from './targeting-option.model';
 
 interface Site {
   id: number;
@@ -11,10 +11,7 @@ interface Site {
   impressions?: number;
   rpm?: number;
   averageCPC?: number;
-  targeting?: {
-    requires?: TargetingOptionValue[],
-    excludes?: TargetingOptionValue[]
-  };
+  targeting?: AssetTargeting;
 
   adUnits?: AdUnit[];
 }
