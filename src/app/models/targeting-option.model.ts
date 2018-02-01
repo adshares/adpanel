@@ -1,10 +1,10 @@
-interface TargetingOptionModel {
-  key: string;
-  label: string;
-  value_type: string;
-  allow_input: boolean;
-  children?: TargetingOptionValue[];
-  values?: TargetingOptionValue[];
+interface TargetingOption {
+  key: string,
+  label: string,
+  value_type: string,
+  allow_input: boolean,
+  children?: TargetingOptionValue[],
+  values?: TargetingOptionValue[]
 }
 
 interface TargetingOptionValue {
@@ -12,12 +12,13 @@ interface TargetingOptionValue {
   value: string;
   selected?: boolean;
   key?: string;
-  parent?: Partial<TargetingOptionModel>;
+  parent?: Partial<TargetingOption>;
 }
+
 
 interface AssetTargeting {
   requires?: TargetingOptionValue[];
   excludes?: TargetingOptionValue[];
 }
 
-export { TargetingOptionModel, TargetingOptionValue, AssetTargeting };
+export { TargetingOption, TargetingOptionValue, AssetTargeting };
