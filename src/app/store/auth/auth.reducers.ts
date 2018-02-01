@@ -1,11 +1,11 @@
-import * as AuthAction from './auth.action';
+import * as authActions from './auth.actions';
 import { userInitialState } from '../../models/initial-state/user.js';
 
 const initialState = userInitialState;
 
-export function authReducers(state = initialState , action: AuthAction.actions ) {
+export function authReducers(state = initialState , action: authActions.actions ) {
   switch (action.type) {
-    case AuthAction.LOGIN_USER:
+    case authActions.LOGIN_USER:
       return {
         ...state,
         auth: action.payload
@@ -13,4 +13,4 @@ export function authReducers(state = initialState , action: AuthAction.actions )
      default:
       return state;
   }
-};
+}

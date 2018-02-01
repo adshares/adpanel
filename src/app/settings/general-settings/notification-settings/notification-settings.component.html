@@ -58,6 +58,7 @@
             <div class="col-xs-4">
               <mat-slide-toggle
                 (click)="onNotificationChange(notification, 'notification')"
+                (toggle)="onNotificationChange(notification, 'notification')"
                 aria-label="notification-component"
                 [checked]="notification.notification === true"
                 ([ngModel])="notification.notification"

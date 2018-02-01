@@ -21,5 +21,4 @@ export class SettingsService {
   updateNotificationsSettings(newSettings: object) {
     this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
   }
-
 }
