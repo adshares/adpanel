@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
 import { AppState } from '../../../models/app-state.model';
-import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { AdvertiserService } from '../../advertiser.service';
@@ -22,8 +22,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   goesToSummary: boolean;
 
-  targetingOptionsToAdd: TargetingOptionModel[];
-  targetingOptionsToExclude: TargetingOptionModel[];
+  targetingOptionsToAdd: TargetingOption[];
+  targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
 
