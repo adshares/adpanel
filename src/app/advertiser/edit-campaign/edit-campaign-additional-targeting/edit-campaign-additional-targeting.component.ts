@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
+import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 import { AppState } from '../../../models/app-state.model';
 import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
@@ -60,7 +60,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     };
 
     this.changesSaved = true;
-    this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
+    this.store.dispatch(new advertiserActions.SaveCampaignTargeting(choosedTargeting));
 
     if (!isDraft) {
       const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';
@@ -75,8 +75,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.store.dispatch(new AdvertiserAction.SaveCampaignTargeting(choosedTargeting));
-          this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
+          this.store.dispatch(new advertiserActions.SaveCampaignTargeting(choosedTargeting));
+          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
@@ -106,7 +106,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
       }
 
       if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
-        Object.assign(item, { selected: true })
+        Object.assign(item, { selected: true });
       }
     });
   }

@@ -5,7 +5,7 @@ import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
 
-import * as advertiserActions from '../../store/advertiser/advertiser.action';
+import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list',
