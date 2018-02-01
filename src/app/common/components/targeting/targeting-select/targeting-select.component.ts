@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOptionModel, TargetingOptionValue } from '../../../../models/targeting-option.model';
 
 @Component({
   selector: 'app-targeting-select',
@@ -12,9 +12,10 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
 
-  backAvailable: boolean = false;
-  optionsHasValue: boolean = false;
-  searchTerm: string = '';
+  backAvailable= false;
+  optionsHasValue= false;
+  searchTerm = '';
+
   targetingOptionsForSearch: TargetingOptionModel[] = [];
   viewModel: TargetingOptionModel[];
   parentViewModel: TargetingOptionModel[];
@@ -22,8 +23,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   selectedItems: TargetingOptionValue[] = [];
 
   ngOnInit() {
-    this.viewModel = this.targetingOptions;
     this.prepareTargetingOptionsForSearch();
+    this.viewModel = this.targetingOptions;
     this.selectedItems = [...this.addedItems];
   }
 
@@ -95,9 +96,9 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     options.forEach((option) => {
       this.targetingOptionsForSearch.push(option);
 
-      if (parentOption) {
-        option.parentOptionLabel = parentOption.label;
-      }
+      // if (parentOption) {
+      //   option.parentOptionLabel = parentOption.label;
+      // }
 
       if (option.children) {
         this.prepareTargetingOptionsForSearch(option.children, option);
@@ -127,5 +128,21 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     } else {
       this.viewModel = [];
     }
+  }
+
+  findAndSelectItem(list, searchedItem) {
+    list.forEach((item) => {
+      const itemSublist = item.children || item.values;
+
+      if (itemSublist) {
+        this.findAndSelectItem(itemSublist, searchedItem);
+        return;
+      }
+
+      // if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
+      if (item.key === searchedItem.key) {
+        Object.assign(item, { selected: true });
+      }
+    });
   }
 }

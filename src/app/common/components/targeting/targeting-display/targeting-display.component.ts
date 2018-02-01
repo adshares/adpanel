@@ -1,6 +1,6 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
-import { TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOptionValue } from '../../../../models/targeting-option.model';
 
 @Component({
   selector: 'app-targeting-display',

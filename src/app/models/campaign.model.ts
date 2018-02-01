@@ -1,10 +1,10 @@
-import { TargetingOptionValue } from './targeting-option.model';
+import { AssetTargeting } from './targeting-option.model';
 
 interface Campaign {
   id: number;
   basicInformation: CampaignBasicInformation;
 
-  targeting?: CampaignTargeting;
+  targeting?: AssetTargeting;
   ads?: Ad[];
   clicks?: number;
   impressions?: number;
@@ -26,11 +26,6 @@ interface CampaignBasicInformation {
   dateEnd?: Object;
 }
 
-interface CampaignTargeting {
-  requires?: TargetingOptionValue[];
-  excludes?: TargetingOptionValue[];
-}
-
 interface Ad {
   id: number;
   status: number;
@@ -49,4 +44,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, CampaignTargeting, Ad }
+export { Campaign, CampaignBasicInformation, Ad }
