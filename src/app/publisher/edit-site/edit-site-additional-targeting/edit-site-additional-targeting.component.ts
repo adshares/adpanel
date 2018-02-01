@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as PublisherAction from '../../../store/publisher/publisher.actions';
+import * as publisherActions from '../../../store/publisher/publisher.actions';
 import { AppState } from '../../../models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { PublisherService } from '../../publisher.service';
 import { Site } from '../../../models/site.model';
-import { siteInitialState } from '../../../models/initial-state/site'
+import { siteInitialState } from '../../../models/initial-state/site';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -57,7 +57,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
     Object.assign(this.site, { targeting: choosedTargeting });
     this.changesSaved = true;
-    this.store.dispatch(new PublisherAction.SaveLastEditedSite(this.site));
+    this.store.dispatch(new publisherActions.SaveLastEditedSite(this.site));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
@@ -72,7 +72,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
         .take(1)
         .subscribe((lastEditedSite: Site) => {
           this.publisherService.saveSite(this.site).subscribe();
-          this.store.dispatch(new PublisherAction.AddSiteToSites(this.site));
+          this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
           this.router.navigate(['/publisher', 'dashboard']);
         });
     }
@@ -104,7 +104,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
       }
 
       if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
-        Object.assign(item, { selected: true })
+        Object.assign(item, { selected: true });
       }
     });
   }

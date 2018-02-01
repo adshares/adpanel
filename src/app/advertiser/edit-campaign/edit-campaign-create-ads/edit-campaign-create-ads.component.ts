@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 
 import { FileUploader } from 'ng2-file-upload';
 
-import * as AdvertiserAction from '../../../store/advertiser/advertiser.action';
+import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 import { AdvertiserService } from '../../advertiser.service';
-import { adTypesEnum, adSizesEnum, validImageTypes } from '../../../models/enum/ad.enum'
+import { adTypesEnum, adSizesEnum, validImageTypes } from '../../../models/enum/ad.enum';
 import { enumToArray } from '../../../common/utilities/helpers';
 import { adInitialState } from '../../../models/initial-state/ad';
 import { Ad } from '../../../models/campaign.model';
@@ -18,7 +18,7 @@ import { AppState } from '../../../models/app-state.model';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { Campaign } from '../../../models/campaign.model';
 
-interface imagesStatus {
+interface ImagesStatus {
   overDrop: boolean[];
   upload: {
     processing: boolean;
@@ -29,7 +29,7 @@ interface imagesStatus {
     type: boolean;
     upload: boolean;
   }[];
-};
+}
 
 @Component({
   selector: 'app-edit-campaign-create-ads',
@@ -44,7 +44,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
   uploader: FileUploader = new FileUploader({url: `${environment.apiUrl}/ad`});
-  imagesStatus: imagesStatus = {
+  imagesStatus: ImagesStatus = {
     upload: {
       processing: false,
       progress: 0
@@ -189,7 +189,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   clearCode(adIndex) {
     this.adForms[adIndex].get('html').setValue('');
-    this.ads[adIndex].html = this.adForms[adIndex].get('html').value;;
+    this.ads[adIndex].html = this.adForms[adIndex].get('html').value;
   }
 
   setAdType(adIndex) {
@@ -220,7 +220,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
     if (adsValid) {
       this.adForms.forEach((form, index) => this.updateAdInfo(index));
-      this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
+      this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
     }
   }
@@ -236,8 +236,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         .take(1)
         .subscribe((campaign: Campaign) => {
           this.advertiserService.saveCampaign(campaign).subscribe();
-          this.store.dispatch(new AdvertiserAction.SaveCampaignAds(this.ads));
-          this.store.dispatch(new AdvertiserAction.AddCampaignToCampaigns(campaign));
+          this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
+          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }

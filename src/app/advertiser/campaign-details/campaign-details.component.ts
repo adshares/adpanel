@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { Campaign } from '../../models/campaign.model';
 import { AppState } from '../../models/app-state.model';
-import * as advertiserActions from '../../store/advertiser/advertiser.action';
+import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-details',

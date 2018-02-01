@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
 
 import { MatDialogRef } from '@angular/material/dialog';
+import * as commonActions from '../../../store/common/common.actions';
 
-import * as commonActions from '../../../store/common/common.action'
 @Component({
   selector: 'app-account-choose-dialog',
   templateUrl: './account-choose-dialog.component.html',

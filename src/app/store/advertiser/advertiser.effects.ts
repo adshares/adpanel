@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
-import * as advertiserActions from './advertiser.action';
+import * as advertiserActions from './advertiser.actions';
 import { AdvertiserService } from '../../advertiser/advertiser.service';
 import { AppState } from '../../models/app-state.model';
 
