@@ -25,6 +25,7 @@ import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-di
 import { SiteResolver } from './resolvers/site.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
+import { ChartsModule } from 'ng2-charts';
 
 const editSiteComponents = [
   EditSiteComponent,
@@ -52,7 +53,8 @@ const publisherComponents = [
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ChartsModule
   ],
   providers: [
     PublisherGuard,

@@ -1,0 +1,126 @@
+[
+  {
+    "value": 20,
+    "timestamp": "Mon Jan 01 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 33,
+    "timestamp": "Mon Jan 02 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 31,
+    "timestamp": "Mon Jan 03 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 27,
+    "timestamp": "Mon Jan 04 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 29,
+    "timestamp": "Mon Jan 05 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 33,
+    "timestamp": "Mon Jan 06 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 25,
+    "timestamp": "Mon Jan 07 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 20,
+    "timestamp": "Mon Jan 08 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 27,
+    "timestamp": "Mon Jan 09 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 35,
+    "timestamp": "Mon Jan 10 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 40,
+    "timestamp": "Mon Jan 11 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 34,
+    "timestamp": "Mon Jan 12 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 29,
+    "timestamp": "Mon Jan 13 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 24,
+    "timestamp": "Mon Jan 14 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 29,
+    "timestamp": "Mon Jan 15 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 24,
+    "timestamp": "Mon Jan 16 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 38,
+    "timestamp": "Mon Jan 17 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 37,
+    "timestamp": "Mon Jan 18 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 40,
+    "timestamp": "Mon Jan 19 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 40,
+    "timestamp": "Mon Jan 20 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 20,
+    "timestamp": "Mon Jan 21 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 40,
+    "timestamp": "Mon Jan 22 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 30,
+    "timestamp": "Mon Jan 23 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 25,
+    "timestamp": "Mon Jan 24 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 35,
+    "timestamp": "Mon Jan 25 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 31,
+    "timestamp": "Mon Jan 26 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 23,
+    "timestamp": "Mon Jan 27 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 28,
+    "timestamp": "Mon Jan 28 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 22,
+    "timestamp": "Mon Jan 29 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 31,
+    "timestamp": "Mon Jan 30 2018 00:00:00 GMT+0100 (CET)"
+  }
+  {
+    "value": 31,
+    "timestamp": "Mon Jan 31 2018 00:00:00 GMT+0100 (CET)"
+  }
+]

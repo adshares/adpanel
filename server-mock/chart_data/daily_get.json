@@ -1,0 +1,98 @@
+[
+  {
+    "value": 33,
+    "timestamp": "Mon Jan 01 2018 00:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 26,
+    "timestamp": "Mon Jan 01 2018 01:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 26,
+    "timestamp": "Mon Jan 01 2018 02:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 24,
+    "timestamp": "Mon Jan 01 2018 03:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 23,
+    "timestamp": "Mon Jan 01 2018 04:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 39,
+    "timestamp": "Mon Jan 01 2018 05:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 28,
+    "timestamp": "Mon Jan 01 2018 06:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 20,
+    "timestamp": "Mon Jan 01 2018 07:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 34,
+    "timestamp": "Mon Jan 01 2018 08:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 25,
+    "timestamp": "Mon Jan 01 2018 09:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 39,
+    "timestamp": "Mon Jan 01 2018 10:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 33,
+    "timestamp": "Mon Jan 01 2018 11:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 31,
+    "timestamp": "Mon Jan 01 2018 12:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 35,
+    "timestamp": "Mon Jan 01 2018 13:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 29,
+    "timestamp": "Mon Jan 01 2018 14:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 20,
+    "timestamp": "Mon Jan 01 2018 15:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 34,
+    "timestamp": "Mon Jan 01 2018 16:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 39,
+    "timestamp": "Mon Jan 01 2018 17:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 29,
+    "timestamp": "Mon Jan 01 2018 18:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 35,
+    "timestamp": "Mon Jan 01 2018 19:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 30,
+    "timestamp": "Mon Jan 01 2018 20:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 35,
+    "timestamp": "Mon Jan 01 2018 21:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 26,
+    "timestamp": "Mon Jan 01 2018 22:00:00 GMT+0100 (CET)"
+  },
+  {
+    "value": 25,
+    "timestamp": "Mon Jan 01 2018 23:00:00 GMT+0100 (CET)"
+  }
+]
