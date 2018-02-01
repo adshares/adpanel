@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as PublisherAction from '../../../store/publisher/publisher.actions';
 import { AppState } from '../../../models/app-state.model';
-import { TargetingOptionModel, TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 import { PublisherService } from '../../publisher.service';
@@ -19,8 +19,8 @@ import { siteInitialState } from '../../../models/initial-state/site'
 export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
   goesToSummary: boolean;
 
-  targetingOptionsToAdd: TargetingOptionModel[];
-  targetingOptionsToExclude: TargetingOptionModel[];
+  targetingOptionsToAdd: TargetingOption[];
+  targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   site: Site = cloneDeep(siteInitialState);
