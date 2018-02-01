@@ -23,7 +23,9 @@ import { TargetingSelectComponent } from './components/targeting-select/targetin
 import { TargetingDisplayComponent } from './components/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
-import { ChartsModule,  } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
+
+import { ChartService } from './chart.service';
 
 const matModules = [
   MatDialogModule,
@@ -66,6 +68,9 @@ const appComponents = [
   ],
   entryComponents: [
     ...dialogs
+  ],
+  providers: [
+    ChartService
   ],
   exports: [
     ...appComponents,

@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ChartService } from '../../common/chart.service';
+
+import * as moment from 'moment'
+import {HandleSubscription} from "../../common/handle-subscription";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -62,6 +66,52 @@ export class DashboardComponent {
       pointHoverBorderColor: 'yellow'
     }
   ];
+
+  constructor(
+    private chartService: ChartService,
+  ) {
+    super(null);
+  }
+
+  ngOnInit() {
+    this.getDailyChartData();
+  }
+
+  getMonthlyChartData() {
+    const monthlyChartDataSubscription = this.chartService.getMonthlyChartData()
+      .subscribe((data) => {
+        this.barChartData[0].data = data.values;
+        const formattedLabels = data.labels.map((item) => {
+          return moment(item).format('D');
+        });
+        this.barChartLabels = formattedLabels;
+      });
+    this.subscriptions.push(monthlyChartDataSubscription);
+  }
+
+  getWeeklyChartData() {
+    const weeklyChartDataSubscription = this.chartService.getWeeklyChartData()
+      .subscribe((data) => {
+        this.barChartData[0].data = data.values;
+        const formattedLabels = data.labels.map((item) => {
+          return moment(item).format('H');
+        });
+        this.barChartLabels = formattedLabels;
+      });
+    this.subscriptions.push(weeklyChartDataSubscription);
+  }
+
+  getDailyChartData() {
+    const dailyChartDataSubscription = this.chartService.getDailyChartData()
+      .subscribe((data) => {
+        this.barChartData[0].data = data.values;
+        const formattedLabels = data.labels.map((item) => {
+          return moment(item).format('DH');
+        });
+        this.barChartLabels = formattedLabels;
+      });
+    this.subscriptions.push(dailyChartDataSubscription);
+  }
 
   // events
   chartClicked(e: any): void {
