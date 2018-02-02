@@ -27,20 +27,39 @@
         </p>
       </div>
       <div class="col-xs-8">
-        <app-chart-filter *ngIf="!campaigns"></app-chart-filter>
+        <app-chart-filter
+          *ngIf="!campaigns"
+          (filter)="appChartRef.getChartData($event)"
+        ></app-chart-filter>
       </div>
     </div>
 
     <div *ngIf="!campaigns">
+      <button (click)="appChartRef.getChartData($event)">asda</button>
         <!--mock chart-->
       <div
         class="
           adsh-box
           adsh-box--large"
       >
-        <img
-          src="/assets/images/chart.png"
-          style="width: 100%">
+        <app-chart-filter-by-type></app-chart-filter-by-type>
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            barWidth="4"
+            #appChartRef
+          ></app-chart>
+        </div>
       </div>
 
       <app-campaign-list></app-campaign-list>
