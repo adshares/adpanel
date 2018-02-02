@@ -20,28 +20,4 @@ export class ChartService {
       });
     return data;
   }
-  //
-  // getWeeklyChartData() {
-  //   const data = this.http.get(`${environment.apiUrl}/chart_data/weekly`)
-  //     .map((data) => {
-  //       const values = data.values;
-  //       const labels = data.timestamps;
-  //       return {
-  //         values, labels
-  //       };
-  //     });
-  //   return data;
-  // }
-  //
-  // getMonthlyChartData() {
-  //   const data = this.http.get(`${environment.apiUrl}/chart_data/monthly`)
-  //     .map((data) => {
-  //       const values = data.values;
-  //       const labels = data.timestamps;
-  //       return {
-  //         values, labels
-  //       };
-  //     });
-  //   return data;
-  // }
 }

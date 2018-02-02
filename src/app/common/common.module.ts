@@ -15,7 +15,9 @@ import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/acc
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
+import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
@@ -44,7 +46,9 @@ const appComponents = [
   HeaderComponent,
   NotificationsComponent,
   AdsharesTokenPipe,
+  ChartComponent,
   ChartFilterComponent,
+  ChartFilterByTypeComponent,
   FundsSummaryComponent,
   ConfirmationAlertComponent,
   TargetingSelectComponent,

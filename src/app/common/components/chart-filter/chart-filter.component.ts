@@ -7,11 +7,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class ChartFilterComponent {
   @Output() filter: EventEmitter<any> = new EventEmitter();
-  // @Output() weekFilter: EventEmitter<any> = new EventEmitter();
-  // @Output() monthFilter: EventEmitter<any> = new EventEmitter();
 
   filterChart(span) {
-    console.log(span);
     this.filter.emit(span);
   }
 }
