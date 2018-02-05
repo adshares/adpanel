@@ -65,9 +65,33 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
 
     if (option.selected && itemIndex < 0) {
       this.selectedItems.push(option);
+
+      if (option.parent.value_type === 'boolean') {
+        this.deselectOppositeBoolean(this.targetingOptions, option);
+      }
     } else if (!option.secected && itemIndex >= 0) {
       this.selectedItems.splice(itemIndex, 1);
     }
+  }
+
+  deselectOppositeBoolean(options, searchOption) {
+    options.forEach((option) => {
+      if (option.values) {
+        const opositeBooleanOption = option.values.find(
+          (optionValue) => optionValue.key !== searchOption.key
+        )
+        const itemIndex = this.selectedItems.findIndex(
+          (item) => item.key === opositeBooleanOption.key
+        );
+
+        if (opositeBooleanOption && itemIndex > -1) {
+          Object.assign(opositeBooleanOption, { selected: false });
+          this.selectedItems.splice(itemIndex, 1);
+        }
+      } else if (option.children) {
+        this.deselectOppositeBoolean(option.children, searchOption);
+      }
+    });
   }
 
   handleItemsChange() {
