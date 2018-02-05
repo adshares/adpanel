@@ -72,6 +72,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
 
   handleItemsChange() {
     this.itemsChange.emit(this.selectedItems);
+    this.onSearchTermChange();
   }
 
   setBackViewModel(options, currOptions) {
@@ -97,9 +98,9 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     options.forEach((option) => {
       this.targetingOptionsForSearch.push(option);
 
-      // if (parentOption) {
-      //   option.parentOptionLabel = parentOption.label;
-      // }
+      if (parentOption) {
+        option.parentOptionLabel = parentOption.label;
+      }
 
       if (option.children) {
         this.prepareTargetingOptionsForSearch(option.children, option);
@@ -140,7 +141,6 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
         return;
       }
 
-      // if (item.label === searchedItem.label && item.parent_label === searchedItem.parent_label) {
       if (item.key === searchedItem.key) {
         Object.assign(item, { selected: true });
       }
