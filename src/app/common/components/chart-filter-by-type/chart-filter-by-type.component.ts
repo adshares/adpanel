@@ -6,9 +6,9 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./chart-filter-by-type.component.scss'],
 })
 export class ChartFilterByTypeComponent {
-  // @Output() filter: EventEmitter<any> = new EventEmitter();
-  //
-  // filterChart(span) {
-  //   this.filter.emit(span);
-  // }
+  @Output() filter: EventEmitter<any> = new EventEmitter();
+
+  filterChart(span) {
+    this.filter.emit(span);
+  }
 }
