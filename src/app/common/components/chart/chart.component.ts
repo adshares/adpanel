@@ -10,7 +10,8 @@ import * as moment from 'moment';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent extends HandleSubscription implements OnInit {
-  @Input() barWidth: number;
+  @Input() chartSpan: string;
+  @Input() statType?: string;
 
   barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -18,9 +19,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     maintainAspectRatio: false,
     scales: {
       xAxes: [{
-        barRoundness: 50,
-        barThickness: 5,
-        maxBarThickness: 5,
+        barPercentage: 0.3,
         gridLines: {
           borderDash: [8, 4],
           color: '#eff2f4'
@@ -46,25 +45,23 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     }
   };
 
-  barChartLabels = [];
-
-  barChartType = 'bar';
-
-  barChartData: any[] = [
-    {
-      data: []
-    }
-  ];
-
-  lineChartColors: any[] = [
+  barChartColors: any[] = [
     { // grey
       backgroundColor: '#55a8fd',
-      pointBackgroundColor: 'blue',
-      pointBorderColor: 'red',
-      pointHoverBackgroundColor: 'gray',
-      pointHoverBorderColor: 'yellow'
+      borderColor: '#55a8fd',
+      pointBackgroundColor: '#4ba3fd',
+      pointBorderColor: '#55a8fd',
+      pointHoverBackgroundColor: '#4ba3fd',
+      pointHoverBorderColor: '#55a8fd'
     }
   ];
+
+  barChartLabels = [];
+  barChartType = 'bar';
+  barChartData: any[] = [{data: []}];
+  barChartValue: 20;
+  barChartDifference: number;
+  barChartDifferenceInPercentage: number;
 
   constructor(
     private chartService: ChartService,
@@ -73,17 +70,15 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.getChartData('month');
+    this.getChartData(this.chartSpan, this.statType);
   }
 
-  getChartData(span) {
-    console.log('sa')
-    this.barChartData[0].data = []
-
-    const monthlyChartDataSubscription = this.chartService.getChartData(span)
+  getChartData(span = 'month', statType = '') {
+    const monthlyChartDataSubscription = this.chartService.getChartData(span, statType)
       .subscribe((data) => {
+      console.log(data);
         this.barChartData[0].data = data.values;
-        const formattedLabels = data.labels.map((item) => {
+        const formattedLabels = data.timestamps.map((item) => {
           switch (span) {
             case 'day':
               return moment(item).format('HH:mm');
@@ -94,13 +89,12 @@ export class ChartComponent extends HandleSubscription implements OnInit {
           }
         });
         this.barChartLabels = formattedLabels;
+        this.barChartValue = data.total;
+        this.barChartDifference = data.difference;
+        this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
     this.subscriptions.push(monthlyChartDataSubscription);
-  }
-
-  test() {
-    console.log('test');
   }
 
   // events
