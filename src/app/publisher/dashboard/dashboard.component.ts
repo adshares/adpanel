@@ -5,4 +5,13 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  chartStatTypes = [
+    'views',
+    'impressions',
+    'clicks',
+    'rpm',
+    'cpc',
+    'ctr'
+  ];
+}

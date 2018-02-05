@@ -9,15 +9,8 @@ export class ChartService {
 
   constructor(private http: HttpClient) {}
 
-  getChartData(span) {
-    const data = this.http.get(`${environment.apiUrl}/chart_data/${span}`)
-      .map((chartData: any) => {
-        const values = chartData.values;
-        const labels = chartData.timestamps;
-        return {
-          values, labels
-        };
-      });
-    return data;
+  getChartData(span, statType) {
+    return this.http.get(`${environment.apiUrl}/chart_data/${span}${statType}`)
+      .map((chartData: any) => chartData);
   }
 }

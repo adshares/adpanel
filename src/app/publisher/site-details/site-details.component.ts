@@ -13,6 +13,14 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
 })
 export class SiteDetailsComponent {
   site: Site;
+  chartStatTypes = [
+    'views',
+    'impressions',
+    'clicks',
+    'rpm',
+    'cpc',
+    'ctr'
+  ];
 
   constructor(
     private route: ActivatedRoute,

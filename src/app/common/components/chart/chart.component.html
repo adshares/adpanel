@@ -6,10 +6,14 @@
   [options]="barChartOptions"
   [legend]="false"
   [chartType]="barChartType"
-  [colors]="lineChartColors"
+  [colors]="barChartColors"
   (chartHover)="chartHovered($event)"
   (chartClick)="chartClicked($event)"
 ></canvas>
 <ng-template #loading>
-  <mat-spinner [diameter]="30" [strokeWidth]="3" color="primary"></mat-spinner>
+  <mat-spinner
+    [diameter]="30"
+    [strokeWidth]="3"
+    color="primary"
+  ></mat-spinner>
 </ng-template>
