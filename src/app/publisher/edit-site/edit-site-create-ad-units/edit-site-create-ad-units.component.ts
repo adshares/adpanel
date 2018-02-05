@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import * as PublisherAction from '../../../store/publisher/publisher.actions';
+import * as publisherActions from '../../../store/publisher/publisher.actions';
 import { PublisherService } from '../../publisher.service';
-import { adTypesEnum, adSizesEnum } from '../../../models/enum/ad.enum'
+import { adTypesEnum, adSizesEnum } from '../../../models/enum/ad.enum';
 import { enumToArray, cloneDeep } from '../../../common/utilities/helpers';
 import { Site } from '../../../models/site.model';
 import { AppState } from '../../../models/app-state.model';
@@ -121,7 +121,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         };
       });
 
-      this.store.dispatch(new PublisherAction.SaveLastEditedSiteAdUnits(adUnitToSave));
+      this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(adUnitToSave));
       this.redirectAfterSave(isDraft);
     }
   }
@@ -137,7 +137,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         .take(1)
         .subscribe((site: Site) => {
           this.publisherService.saveSite(site).subscribe();
-          this.store.dispatch(new PublisherAction.AddSiteToSites(site));
+          this.store.dispatch(new publisherActions.AddSiteToSites(site));
           this.router.navigate(['/publisher', 'dashboard']);
         });
     }

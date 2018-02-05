@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HandleSubscription } from '../../common/handle-subscription';
-import * as adminActions from '../../store/admin/admin.action';
+import * as adminActions from '../../store/admin/admin.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../models/app-state.model';
 import { UserInfoStats } from '../../models/settings.model';

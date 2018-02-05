@@ -1,12 +1,12 @@
-import * as CommonAction from './common.action';
+import * as commonActions from './common.actions';
 
 const initialState = {
   activeUserType: ''
 };
 
-export function commonReducers(state = initialState , action: CommonAction.actions ) {
+export function commonReducers(state = initialState , action: commonActions.actions ) {
   switch (action.type) {
-    case CommonAction.SET_ACTIVE_USER_TYPE:
+    case commonActions.SET_ACTIVE_USER_TYPE:
       return {
         ...state,
         activeUserType: action.payload

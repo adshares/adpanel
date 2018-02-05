@@ -31,7 +31,7 @@ const advertiserRoutes: Routes = [
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
-        resolve: { targetingOptions: TargetingCriteriaResolver }
+        resolve: { targetingOptions: TargetingCriteriaResolver },
         children: [
           { path: 'basic-information',
             component: EditCampaignBasicInformationComponent,

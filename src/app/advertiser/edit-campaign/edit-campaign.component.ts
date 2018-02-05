@@ -5,7 +5,7 @@ import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from '../../common/animations/fade.animation';
 import { AppState } from '../../models/app-state.model';
-import * as AdvertiserAction from '../../store/advertiser/advertiser.action';
+import * as advertiserAction from '../../store/advertiser/advertiser.actions';
 import { parseTargetingOtionsToArray } from '../../common/components/targeting/targeting.helpers';
 import { Campaign } from '../../models/campaign.model';
 
@@ -31,7 +31,7 @@ export class EditCampaignComponent implements OnInit {
           const targetingOtions = this.route.snapshot.data.targetingOptions;
 
           this.store.dispatch(
-            new AdvertiserAction.SaveCampaignTargeting(
+            new advertiserAction.SaveCampaignTargeting(
               parseTargetingOtionsToArray(lastEditedCampaign.targeting, targetingOtions)
             )
           );

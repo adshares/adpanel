@@ -43,7 +43,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         sites: [...state.sites, action.payload]
-      }
+      };
     default:
       return state;
   }

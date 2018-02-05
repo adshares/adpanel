@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as PublisherAction from '../../../store/publisher/publisher.actions';
+import * as publisherActions from '../../../store/publisher/publisher.actions';
 import { AppState } from '../../../models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
 import { cloneDeep } from '../../../common/utilities/helpers';
@@ -11,6 +11,7 @@ import { PublisherService } from '../../publisher.service';
 import { Site } from '../../../models/site.model';
 import { AssetTargeting } from '../../../models/targeting-option.model';
 import { TargetingSelectComponent } from '../../../common/components/targeting/targeting-select/targeting-select.component';
+import { siteInitialState } from '../../../models/initial-state/site';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -61,7 +62,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     };
 
     this.changesSaved = true;
-    this.store.dispatch(new PublisherAction.SaveSiteTargeting(choosedTargeting));
+
+    this.store.dispatch(new publisherActions.SaveSiteTargeting(choosedTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
@@ -74,9 +76,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     } else {
       this.store.select('state', 'publisher', 'lastEditedSite')
         .take(1)
-        .subscribe((site: Site) => {
-          this.publisherService.saveSite(site).subscribe();
-          this.store.dispatch(new PublisherAction.AddSiteToSites(site));
+        .subscribe((lastEditedSite: Site) => {
+          this.publisherService.saveSite(lastEditedSite).subscribe();
+          this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
           this.router.navigate(['/publisher', 'dashboard']);
         });
     }

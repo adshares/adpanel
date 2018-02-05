@@ -5,7 +5,7 @@ import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from '../../common/animations/fade.animation';
 import { AppState } from '../../models/app-state.model';
-import * as PublisherAction from '../../store/publisher/publisher.actions';
+import * as publisherActions from '../../store/publisher/publisher.actions';
 import { parseTargetingOtionsToArray } from '../../common/components/targeting/targeting.helpers';
 import { Site } from '../../models/site.model';
 
@@ -31,7 +31,7 @@ export class EditSiteComponent implements OnInit {
           const targetingOtions = this.route.snapshot.data.targetingOptions;
 
           this.store.dispatch(
-            new PublisherAction.SaveSiteTargeting(
+            new publisherActions.SaveSiteTargeting(
               parseTargetingOtionsToArray(lastEditedSite.targeting, targetingOtions)
             )
           );
