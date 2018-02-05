@@ -46,7 +46,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   };
 
   barChartColors: any[] = [
-    { // grey
+    {
       backgroundColor: '#55a8fd',
       borderColor: '#55a8fd',
       pointBackgroundColor: '#4ba3fd',
@@ -76,7 +76,6 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   getChartData(span = 'month', statType = '') {
     const monthlyChartDataSubscription = this.chartService.getChartData(span, statType)
       .subscribe((data) => {
-      console.log(data);
         this.barChartData[0].data = data.values;
         const formattedLabels = data.timestamps.map((item) => {
           switch (span) {
@@ -96,14 +95,4 @@ export class ChartComponent extends HandleSubscription implements OnInit {
 
     this.subscriptions.push(monthlyChartDataSubscription);
   }
-
-  // events
-  chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  chartHovered(e: any): void {
-    console.log(e);
-  }
-
 }

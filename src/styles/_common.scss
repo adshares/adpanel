@@ -101,7 +101,6 @@
 }
 
 .adsh-chevron {
-  // TODO shape
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -127,10 +126,6 @@
 
   &--up:before {
     transform: rotate(-45deg);
-  }
-
-  &--valid {
-    // tick TODO
   }
 
   &--white:before {
