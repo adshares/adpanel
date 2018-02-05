@@ -4,7 +4,11 @@ interface Campaign {
   id: number;
   basicInformation: CampaignBasicInformation;
 
-  targeting?: AssetTargeting;
+  targetingArray?: AssetTargeting;
+  targeting?: {
+    requires: Object;
+    excludes: Object;
+  };
   ads?: Ad[];
   clicks?: number;
   impressions?: number;

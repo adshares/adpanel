@@ -33,6 +33,7 @@ const publisherRoutes: Routes = [
       {
         path: 'create-site',
         component: EditSiteComponent,
+        resolve: { targetingOptions: TargetingCriteriaResolver },
         children: [
           { path: 'basic-information',
             component: EditSiteBasicInformationComponent,
@@ -41,8 +42,7 @@ const publisherRoutes: Routes = [
           {
             path: 'additional-targeting',
             component: EditSiteAdditionalTargetingComponent,
-            canDeactivate: [PublisherGuard],
-            resolve: { targetingOptions: TargetingCriteriaResolver }
+            canDeactivate: [PublisherGuard]
           },
           {
             path: 'create-ad-units',

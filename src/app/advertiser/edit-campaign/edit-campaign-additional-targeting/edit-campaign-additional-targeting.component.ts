@@ -37,8 +37,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   }
 
   ngOnInit() {
-    this.targetingOptionsToAdd = cloneDeep(this.route.snapshot.data.targetingOptions);
-    this.targetingOptionsToExclude = cloneDeep(this.route.snapshot.data.targetingOptions);
+    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
 
     if (this.goesToSummary) {
@@ -83,7 +83,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   }
 
   getTargetingFromStore() {
-    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targeting')
+    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targetingArray')
       .take(1)
       .subscribe((targeting: AssetTargeting) => {
         this.addedItems = targeting.requires;

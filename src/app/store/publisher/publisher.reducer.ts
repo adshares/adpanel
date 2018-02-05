@@ -32,7 +32,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
     case PublisherActions.SAVE_LAST_EDITED_SITE_TARGETING:
       return {
         ...state,
-        lastEditedSite: Object.assign({}, state.lastEditedSite, { targeting: action.payload })
+        lastEditedSite: Object.assign({}, state.lastEditedSite, { targetingArray: action.payload })
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
       return {

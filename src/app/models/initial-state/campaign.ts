@@ -11,7 +11,7 @@ export const campaignInitialState: Campaign = {
     dateStart: new Date()
   },
 
-  targeting: {
+  targetingArray: {
     excludes: [],
     requires: []
   },

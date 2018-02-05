@@ -17,8 +17,8 @@ interface TargetingOptionValue {
 
 
 interface AssetTargeting {
-  requires?: TargetingOptionValue[];
-  excludes?: TargetingOptionValue[];
+  requires: TargetingOptionValue[];
+  excludes: TargetingOptionValue[];
 }
 
 export { TargetingOption, TargetingOptionValue, AssetTargeting };
