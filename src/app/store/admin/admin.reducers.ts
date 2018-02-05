@@ -1,4 +1,4 @@
-import * as AdminActions from './admin.action';
+import * as adminActions from './admin.actions';
 import { AdminState } from '../../models/app-state.model';
 
 const initialState: AdminState = {
@@ -8,18 +8,18 @@ const initialState: AdminState = {
   }
 };
 
-export function adminReducers(state = initialState, action: AdminActions.actions) {
+export function adminReducers(state = initialState, action: adminActions.actions) {
   switch (action.type) {
-    case AdminActions.LOAD_USERS_SUCCESS:
+    case adminActions.LOAD_USERS_SUCCESS:
       return {
         ...state,
         users: action.payload
-      }
-    case AdminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
+      };
+    case adminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
         settings: action.payload
-      }
+      };
     default:
       return state;
   }

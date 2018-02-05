@@ -1,12 +1,12 @@
 import { combineReducers, ActionReducer } from '@ngrx/store/';
 
-import { authReducers } from './auth/auth.reducer';
-import { advertiserReducers } from './advertiser/advertiser.reducer';
-import { publisherReducers } from './publisher/publisher.reducer';
-import { settingsReducers } from './settings/settings.reducer';
-import { adminReducers } from './admin/admin.reducer';
+import { authReducers } from './auth/auth.reducers';
+import { advertiserReducers } from './advertiser/advertiser.reducers';
+import { publisherReducers } from './publisher/publisher.reducers';
+import { settingsReducers } from './settings/settings.reducers';
+import { adminReducers } from './admin/admin.reducers';
 import { UserState, PublisherState, AdvertiserState, AdminState, CommonState } from '../models/app-state.model';
-import { commonReducers } from './common/common.reducer';
+import { commonReducers } from './common/common.reducers';
 
 export interface ReducersState {
   user: UserState;
@@ -14,7 +14,7 @@ export interface ReducersState {
   publisher: PublisherState;
   admin: AdminState;
   common: CommonState;
-};
+}
 
 const userReducers: ActionReducer<UserState> = combineReducers(
   {

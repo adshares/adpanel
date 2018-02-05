@@ -13,17 +13,17 @@ export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
-  constructor(public payload: any) { };
+  constructor(public payload: any) { }
 }
 
 export class SetLastEditedCampaign implements Action {
   readonly type = SET_LAST_EDITED_CAMPAIGN;
-  constructor(public payload: Campaign) { };
+  constructor(public payload: Campaign) { }
 }
 
 export class SaveCampaignBasicInformation implements Action {
   readonly type = SAVE_CAMPAIGN_BASIC_INFORMATION;
-  constructor(public payload: CampaignBasicInformation) { };
+  constructor(public payload: CampaignBasicInformation) { }
 }
 
 export class SaveCampaignTargeting implements Action {
@@ -33,22 +33,22 @@ export class SaveCampaignTargeting implements Action {
 
 export class SaveCampaignAds implements Action {
   readonly type = SAVE_CAMPAIGN_ADS;
-  constructor(public payload: Ad[]) { };
+  constructor(public payload: Ad[]) { }
 }
 
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
-  constructor(public payload: Campaign) { };
+  constructor(public payload: Campaign) { }
 }
 
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
-  constructor(public payload: any) { };
+  constructor(public payload: any) { }
 }
 
 export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
-  constructor(public payload: any) { };
+  constructor(public payload: any) { }
 }
 
 export type actions =

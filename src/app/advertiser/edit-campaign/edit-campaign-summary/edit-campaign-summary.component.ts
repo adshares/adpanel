@@ -5,9 +5,9 @@ import 'rxjs/add/operator/take';
 
 import { AppState } from '../../../models/app-state.model';
 import { Campaign } from '../../../models/campaign.model';
-import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
+import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
 import { AdvertiserService } from '../../advertiser.service';
-import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
+import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -36,7 +36,7 @@ export class EditCampaignSummaryComponent implements OnInit {
       this.advertiserService.saveCampaign(this.campaign)
         .take(1)
         .subscribe(() => {
-          this.store.dispatch(new AdvertiserActions.AddCampaignToCampaigns(this.campaign));
+          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }

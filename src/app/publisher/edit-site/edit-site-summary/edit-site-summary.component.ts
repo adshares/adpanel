@@ -5,9 +5,9 @@ import 'rxjs/add/operator/take';
 
 import { AppState } from '../../../models/app-state.model';
 import { Site } from '../../../models/site.model';
-import { siteStatusEnum } from '../../../models/enum/site.enum'
+import { siteStatusEnum } from '../../../models/enum/site.enum';
 import { PublisherService } from '../../publisher.service';
-import * as PublisherActions from '../../../store/publisher/publisher.actions';
+import * as publisherActions from '../../../store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -36,7 +36,7 @@ export class EditSiteSummaryComponent implements OnInit {
     this.publisherService.saveSite(this.site)
       .take(1)
       .subscribe(() => {
-        this.store.dispatch(new PublisherActions.AddSiteToSites(this.site));
+        this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
         this.router.navigate(['/publisher', 'dashboard']);
       });
   }

@@ -7,8 +7,8 @@ import * as _moment from 'moment';
 
 import { AppState } from '../../../models/app-state.model';
 import { campaignInitialState } from '../../../models/initial-state/campaign';
-import { campaignStatusesEnum } from '../../../models/enum/campaign.enum'
-import * as AdvertiserActions from '../../../store/advertiser/advertiser.action';
+import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
+import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
 
 const moment = _moment;
@@ -62,7 +62,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
     };
 
-    this.store.dispatch(new AdvertiserActions.SaveCampaignBasicInformation(basicInformation));
+    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));
     this.changesSaved = true;
 
     this.router.navigate(
