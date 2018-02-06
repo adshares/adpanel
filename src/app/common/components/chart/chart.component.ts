@@ -1,17 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChartService } from '../../chart.service';
-import { HandleSubscription } from '../../handle-subscription';
-
-import * as moment from 'moment';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit {
+export class ChartComponent {
   @Input() chartSpan: string;
   @Input() statType?: string;
+  @Input() barChartData: any;
+  @Input() barChartLabels: any[];
 
   barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -56,43 +54,5 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     }
   ];
 
-  barChartLabels = [];
   barChartType = 'bar';
-  barChartData: any[] = [{data: []}];
-  barChartValue: 20;
-  barChartDifference: number;
-  barChartDifferenceInPercentage: number;
-
-  constructor(
-    private chartService: ChartService,
-  ) {
-    super(null);
-  }
-
-  ngOnInit() {
-    this.getChartData(this.chartSpan, this.statType);
-  }
-
-  getChartData(span = 'month', statType = '') {
-    const monthlyChartDataSubscription = this.chartService.getChartData(span, statType)
-      .subscribe((data) => {
-        this.barChartData[0].data = data.values;
-        const formattedLabels = data.timestamps.map((item) => {
-          switch (span) {
-            case 'day':
-              return moment(item).format('HH:mm');
-            case 'week':
-              return moment(item).format('HH:mm');
-            case 'month':
-              return moment(item).format('D');
-          }
-        });
-        this.barChartLabels = formattedLabels;
-        this.barChartValue = data.total;
-        this.barChartDifference = data.difference;
-        this.barChartDifferenceInPercentage = data.differenceInPercentage;
-      });
-
-    this.subscriptions.push(monthlyChartDataSubscription);
-  }
 }
