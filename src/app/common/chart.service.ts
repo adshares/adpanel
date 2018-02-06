@@ -9,8 +9,10 @@ export class ChartService {
 
   constructor(private http: HttpClient) {}
 
-  getChartData(span, statType) {
-    return this.http.get(`${environment.apiUrl}/chart_data/${span}${statType}`)
+  getAssetChartData(from, to, frequency, id, series) {
+    return this.http.post(`${environment.apiUrl}/chart`, '')
       .map((chartData: any) => chartData);
   }
+
+  // admin inny request
 }

@@ -11,7 +11,7 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        (click)="filterChart('day')"
+        (click)="filterChart(1)"
         >
       Today
     </button>
@@ -22,7 +22,7 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        (click)="filterChart('week')"
+        (click)="filterChart(7)"
         >
       This Week
     </button>
@@ -33,47 +33,91 @@
             adsh-button--small
             adsh-bg-white
             adsh-navy"
-        (click)="filterChart('month')"
+        (click)="filterChartByDatepicker(dateFrom, dateTo)"
         >
       This Month
     </button>
     <span class="adsh-copy">or Select Manually</span>
-    <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy
-            row
-            align-center"
-        disabled>
-        <img
-            class="
-                adsh-icon
-                adsh-icon--prepend"
-            src="assets/images/calendar.svg"
-            alt="Calendar Icon"
-        >
-        <span>From</span>
-    </button>
-    <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy
-            row
-            align-center"
-        disabled>
-        <img
-            class="
-                adsh-icon
-                adsh-icon--prepend"
-            src="assets/images/calendar.svg"
-            alt="Calendar Icon"
-        >
-        <span>To</span>
-    </button>
+    <!--<button-->
+        <!--type="button"-->
+        <!--class="-->
+            <!--adsh-btn-->
+            <!--adsh-button&#45;&#45;small-->
+            <!--adsh-bg-white-->
+            <!--adsh-navy-->
+            <!--row-->
+            <!--align-center"-->
+        <!--disabled>-->
+        <!--<img-->
+            <!--class="-->
+                <!--adsh-icon-->
+                <!--adsh-icon&#45;&#45;prepend"-->
+            <!--src="assets/images/calendar.svg"-->
+            <!--alt="Calendar Icon"-->
+        <!--&gt;-->
+        <!--<span>From</span>-->
+    <!--</button>-->
+    <!--<button-->
+        <!--type="button"-->
+        <!--class="-->
+            <!--adsh-btn-->
+            <!--adsh-button&#45;&#45;small-->
+            <!--adsh-bg-white-->
+            <!--adsh-navy-->
+            <!--row-->
+            <!--align-center"-->
+        <!--disabled>-->
+        <!--<img-->
+            <!--class="-->
+                <!--adsh-icon-->
+                <!--adsh-icon&#45;&#45;prepend"-->
+            <!--src="assets/images/calendar.svg"-->
+            <!--alt="Calendar Icon"-->
+        <!--&gt;-->
+        <!--<span>To</span>-->
+    <!--</button>-->
+  <label class="adsh-form-label">
+    From
+  </label>
+  <mat-form-field
+    class="
+      adsh-form-input
+      adsh-form-input--narrow
+      adsh-form-input--datepicker"
+  >
+    <input
+      (click)="dateFromPicker.open()"
+      matInput
+      [matDatepicker]="dateFromPicker"
+      [formControl]="dateFrom"
+      required
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="dateFromPicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #dateFromPicker></mat-datepicker>
+  </mat-form-field>
+  <label class="adsh-form-label">
+    To
+  </label>
+  <mat-form-field
+    class="
+      adsh-form-input
+      adsh-form-input--narrow
+      adsh-form-input--datepicker"
+  >
+    <input
+      (click)="dateToPicker.open()"
+      matInput
+      [matDatepicker]="dateToPicker"
+      [formControl]="dateTo"
+      required
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="dateToPicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #dateToPicker></mat-datepicker>
+  </mat-form-field>
 </div>
