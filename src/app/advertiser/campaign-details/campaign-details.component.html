@@ -20,7 +20,7 @@
           adsh-circle
           adsh-circle--x-small
           adsh-circle--navy
-          divider"
+          breadcrumbs-divider"
       >
       </div>
       <p
@@ -36,6 +36,7 @@
     <div
       class="
         row
+        no-gutters
         justify-between
         align-center"
     >
@@ -57,9 +58,17 @@
         <button
           class="
             adsh-btn
-            adsh-btn--white"
+            adsh-btn--white
+            adsh-btn--no-border"
           (click)="navigateToEditCampaign()"
         >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon"
+          >
           <span
             class="
               adsh-copy
