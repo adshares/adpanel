@@ -82,14 +82,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData.forEach(values => {
-          console.log(values)
           values[0].data = data.values;
         });
         this.barChartLabels.forEach(labels => {
           labels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
         });
-        console.log(this.barChartLabels);
-        console.log(this.barChartData);
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
@@ -100,7 +97,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   updateChartData(daysBack) {
     this.barChartData[0].data = [];
-    this.currentFrom = moment().subtract(daysBack, 'days').format()
+    this.currentFrom = moment().subtract(daysBack, 'days').format();
     this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId, this.currentSeries);
   }
 
