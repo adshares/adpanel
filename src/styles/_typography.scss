@@ -45,7 +45,7 @@
   }
 
   &--x-small {
-    @include font(10, normal);
+    @include font(11, normal);
   }
 
   &--light {
@@ -66,6 +66,10 @@
 
   &--red {
     color: pal(red);
+  }
+
+  &--normal {
+    @include font-weight(normal);
   }
 
   &--semi {

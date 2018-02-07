@@ -20,7 +20,8 @@
   (click)="changeViewModel(parentViewModel)"
   class="
     adsh-box
-    adsh-box--light-border"
+    adsh-box--light-border
+    parent-option-box"
 >
   <img
     src="/assets/images/chevron--left.svg"
@@ -29,8 +30,6 @@
   <span
     class="
       adsh-copy
-      adsh-copy--large
-      adsh-copy--dark
       parent-option"
   >
     {{ parentOption.label }}
@@ -43,13 +42,16 @@
     class="
       adsh-box
       adsh-box--light-border
+      adsh-box--no-top-border
       relative"
+    [class.active]="option.selected"
   >
     <span
       class="
         adsh-copy
         adsh-copy--large
-        adsh-copy--dark"
+        adsh-copy--x-dark
+        adsh-copy--semi"
     >
       {{ option.label }}
     </span>
@@ -72,7 +74,6 @@
 
     <span
       *ngIf="option.selected"
-      [class.active]="isActive"
       class="input-valid"
     ></span>
   </div>

@@ -175,8 +175,8 @@
 
   &--large {
     padding: 25px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   &--small {
@@ -202,6 +202,10 @@
 
   &--light-border {
     border: solid 1px pal(gray, light);
+  }
+
+  &--no-top-border {
+    border-top: none;
   }
 
   &--bordered {
@@ -301,7 +305,7 @@ router-outlet ~ * {
 }
 
 .adsh-ad-list__sort {
-  margin-left: 3px;
+  margin-left: 6px;
 }
 
 /*

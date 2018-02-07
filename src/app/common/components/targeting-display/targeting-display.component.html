@@ -13,7 +13,9 @@
   >
     <mat-chip
       *ngFor="let item of groupedItems[1]"
-      [ngClass]="{'hide-remove': !canRemove}"
+      [ngClass]="{'hide-remove': canRemove}"
+      (mouseout)="canRemove = true"
+      (mouseover)="canRemove = false"
       (remove)="removeItem(item)"
     >
       <p
@@ -24,7 +26,12 @@
       >
         {{ item.label }}
       </p>
-      <div matChipRemove>x</div>
+      <div
+        matChipRemove
+        class="relative"
+      >
+        <span class="remove">x</span>
+      </div>
     </mat-chip>
   </div>
 </mat-chip-list>

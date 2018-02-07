@@ -12,5 +12,11 @@
 
   .adsh-circle {
     margin-right: 15px;
+
+    &.done + p,
+    &.active + p {
+      @include font-weight(semi);
+      color: pal(navy);
+    }
   }
 }
