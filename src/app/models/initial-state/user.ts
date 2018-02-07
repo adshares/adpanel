@@ -5,5 +5,5 @@ export const userInitialState: User = {
   email: '',
   isAdvertiser: true,
   isPublisher: true,
-  isAdmin: false
+  isAdmin: true
 }

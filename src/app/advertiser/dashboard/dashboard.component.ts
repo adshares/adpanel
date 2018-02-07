@@ -13,11 +13,13 @@ import * as moment from 'moment';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild('appChartRef') appChartRef: ChartComponent;
-  barChartLabels = [];
-  barChartData: any[] = [{data: []}];
+
   barChartValue: 20;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
+
+  barChartLabels = [];
+  barChartData: any[] = [{data: []}];
 
   currentTo = moment().format();
   currentFrom = moment().subtract(30, 'days').format();
@@ -48,7 +50,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     assetId,
     series
   ) {
-    const monthlyChartDataSubscription = this.chartService
+    const chartDataSubscription = this.chartService
       .getAssetChartData(
         from,
         to,
@@ -64,12 +66,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
-    this.subscriptions.push(monthlyChartDataSubscription);
+    this.subscriptions.push(chartDataSubscription);
   }
 
   updateChartData(daysBack) {
     this.barChartData[0].data = [];
-    this.currentFrom = moment().subtract(daysBack, 'days').format()
+    this.currentFrom = moment().subtract(daysBack, 'days').format();
     this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId, this.currentSeries);
   }
 

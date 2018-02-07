@@ -1,5 +1,5 @@
 <canvas
-  *ngIf="barChartData[0].data.length; else loading"
+  *ngIf="barChartData[0].data.length ; else loading"
   baseChart
   [datasets]="barChartData"
   [labels]="barChartLabels"
