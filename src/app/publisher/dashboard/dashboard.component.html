@@ -29,6 +29,8 @@
       <div class="col-xs-8">
         <app-chart-filter
           *ngIf="!sites"
+          (filter)="updateChartData($event)"
+          (filterByDatepicker)="updateChartDataByDatepicker($event)"
         ></app-chart-filter>
       </div>
     </div>
@@ -46,7 +48,7 @@
             adsh-box
             adsh-box--large
             chart-box"
-          *ngFor="let chartStatType of chartStatTypes"
+          *ngFor="let chartSeriesType of chartSeries; let i = index"
         >
           <div class="chart-stats">
             <p
@@ -54,7 +56,7 @@
               chart-name
               adsh-copy"
             >
-              {{ chartStatType }}:
+              {{ chartSeriesType }}:
             </p>
             <div
               class="
@@ -66,10 +68,10 @@
                   adsh-heading
                   adsh-heading--primary"
               >
-                {{ chart.barChartValue }}
+                {{ barChartValue }}
               </span>
               <span class="chart-change">
-                {{ chart.barChartDifference }} ({{ chart.barChartDifferenceInPercentage | percent }})
+                {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
               </span>
             </div>
           </div>
@@ -86,8 +88,10 @@
                 row
                 align-center
                 justify-center"
-              [statType]="chartStatType"
-              #chart
+              [seriesType]="chartSeriesType"
+              [barChartData]="barChartData[i]"
+              [barChartLabels]="barChartLabels[i].labels"
+              #appChartRef
             ></app-chart>
           </div>
         </div>

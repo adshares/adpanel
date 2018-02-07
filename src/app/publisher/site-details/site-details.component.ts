@@ -6,6 +6,9 @@ import { AppState } from '../../models/app-state.model';
 import { Site } from '../../models/site.model';
 import * as publisherActions from '../../store/publisher/publisher.actions';
 
+import { enumToArray } from '../../common/utilities/helpers';
+import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
+
 @Component({
   selector: 'app-site-details',
   templateUrl: './site-details.component.html',
@@ -13,14 +16,7 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
 })
 export class SiteDetailsComponent {
   site: Site;
-  chartStatTypes = [
-    'views',
-    'impressions',
-    'clicks',
-    'rpm',
-    'cpc',
-    'ctr'
-  ];
+  chartSeries: string[] = enumToArray(chartSeriesEnum);
 
   constructor(
     private route: ActivatedRoute,

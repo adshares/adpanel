@@ -14,5 +14,8 @@ export class ChartService {
       .map((chartData: any) => chartData);
   }
 
-  // admin inny request
+  getAssetChartDataForPublisher(from, to, frequency, id) {
+    return this.http.post(`${environment.apiUrl}/chart`, '')
+      .map((chartData: any) => chartData);
+  }
 }

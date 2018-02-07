@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ChartComponent {
   @Input() chartSpan: string;
-  @Input() statType?: string;
+  @Input() seriesType?: string;
   @Input() barChartData: any;
   @Input() barChartLabels: any[];
 
