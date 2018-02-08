@@ -44,7 +44,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.checkIfUserRememebered();
+    this.checkIfUserRemembered();
   }
 
   createForm() {
@@ -54,7 +54,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     });
   }
 
-  checkIfUserRememebered() {
+  checkIfUserRemembered() {
     const userData = JSON.parse(localStorage.getItem('adshUser'));
     const nowUnix = (+new Date) / 1000 | 0;
 
