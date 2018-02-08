@@ -20,9 +20,8 @@ export class AppComponent implements OnInit {
       if (!(event instanceof NavigationEnd)) {
         return;
       }
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-      }, appSettings.ROUTER_TRANSITION_DURATION);
+
+      setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
   }
 }

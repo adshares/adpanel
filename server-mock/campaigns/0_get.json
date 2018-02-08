@@ -1,0 +1,105 @@
+[{
+  "basicInformation": {
+    "status": "active",
+    "name": "Campaign for Education",
+    "targetUrl": "www.adshares.net",
+    "bidStrategyName": "CPC",
+    "bidValue": "0.2",
+    "budget": "455",
+    "dateStart": "01/27/2018"
+  },
+
+  "id": "183297987312987321987",
+  "clicks": "213",
+  "impressions": "12435",
+  "ctr": "0.03",
+  "averageCPC": "2.1",
+  "cost": "2435.23",
+  "conversions": "802",
+
+  "targeting": {
+    "requires": [],
+    "excludes": []
+  },
+  "ads": [
+    {
+      "status": "active",
+      "shortHeadline": "Adshares Dashboard Advertisement",
+      "type": "image",
+
+      "budget": "20",
+      "clicks": "100",
+      "impressions": "1233422132",
+      "ctr": "0.00001233",
+      "averageCPC": "1.2",
+      "cost": "2435.23"
+    },
+    {
+      "status": "limited",
+      "shortHeadline": "Adshares Website Advertisement",
+      "type": "image",
+
+      "budget": "20",
+      "clicks": "200",
+      "impressions": "21313545",
+      "ctr": "0.1233",
+      "averageCPC": "3.25",
+      "cost": "8236.23"
+    }
+  ]
+},
+{
+  "basicInformation": {
+    "status": "active",
+    "name": "Campaign for Education",
+    "targetUrl": "www.adshares.net",
+    "bidStrategyName": "CPC",
+    "bidValue": "0.2",
+    "budget": "455",
+    "dateStart": "01/27/2018"
+  },
+
+  "id": "377892908378478",
+  "clicks": "213",
+  "impressions": "12435",
+  "ctr": "0.03",
+  "averageCPC": "2.1",
+  "cost": "2435.23",
+  "conversions": "802",
+
+  "targeting": {
+    "requires": [],
+    "excludes": []
+  },
+  "ads": [
+    {
+      "status": "active",
+      "shortHeadline": "Adshares Dashboard Advertisement",
+      "type": "image",
+
+      "budget": "20",
+      "clicks": "100",
+      "impressions": "1233422132",
+      "ctr": "0.00001233",
+      "averageCPC": "1.2",
+      "cost": "2435.23"
+    },
+    {
+      "status": "limited",
+      "shortHeadline": "Adshares Website Advertisement",
+      "type": "image",
+
+      "budget": "20",
+      "clicks": "200",
+      "impressions": "21313545",
+      "ctr": "0.1233",
+      "averageCPC": "3.25",
+      "cost": "8236.23"
+    }
+  ]
+}]
+
+
+
+
+

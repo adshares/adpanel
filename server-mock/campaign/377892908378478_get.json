@@ -1,15 +1,15 @@
 {
   "basicInformation": {
-    "id": "377892908378478",
     "status": "active",
     "name": "Campaign for Education",
     "targetUrl": "www.adshares.net",
     "bidStrategyName": "CPC",
     "bidValue": "0.2",
     "budget": "455",
-    "dateStart": "date"
+    "dateStart": "01/27/2018"
   },
 
+  "id": "377892908378478",
   "clicks": "213",
   "impressions": "12435",
   "ctr": "0.03",
@@ -18,20 +18,40 @@
   "conversions": "802",
 
   "targeting": {
-    "requires": {
-      "languages": ["Polish", "English"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    },
-    "excludes": {
-      "languages": ["German", "French"],
-      "devices": "",
-      "genders": "",
-      "operatingSystems": "",
-      "browsers": ""
-    }
+    "requires": [
+      {
+        "key": "lang_en",
+        "label": "English",
+        "parent_label": "Language",
+        "value": "en"
+      },
+      {
+        "key": "js_enabled_yes",
+        "label": "Yes",
+        "parent_label": "Javascript support",
+        "value": "true"
+      }
+    ],
+    "excludes": [
+      {
+        "key": "js_enabled_no",
+        "label": "No",
+        "parent_label": "Javascript support",
+        "value": "false"
+      },
+      {
+        "key": "host_onet",
+        "label": "onet.pl",
+        "parent_label": "Site domain",
+        "value": "onet.pl"
+      },
+      {
+        "key": "host_google",
+        "label": "google.pl",
+        "parent_label": "Site domain",
+        "value": "google.pl"
+      }
+    ]
   },
   "ads": [
     {

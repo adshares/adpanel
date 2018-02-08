@@ -28,7 +28,8 @@
   <div
     class="
       adsh-box
-      adsh-box--large"
+      adsh-box--large
+      campaign-edit-summary__basic-info"
   >
     <div
       class="
@@ -53,16 +54,141 @@
             adsh-btn--white
             adsh-blue"
         >
-          Back
+          Edit
         </button>
       </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-12
+          campaign-edit-summary__info-cell
+          adsh-copy--small
+          adsh-copy--light"
+      >
+        Campaign Name:
+      </div>
+
+      <div
+        class="
+          col-xs-12
+          campaign-edit-summary__info-cell
+          campaign-info--primary"
+      >
+        {{ campaign.basicInformation.name }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-3
+          campaign-edit-summary__info-cell"
+        >
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Target URL:
+        </p>
+
+        <p class="adsh-copy">{{ campaign.basicInformation.targetUrl }}</p>
+      </div>
+
+      <div
+        class="
+          col-xs-2
+          campaign-edit-summary__info-cell"
+        >
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          BID Strategy:
+        </p>
+
+        <p class="adsh-copy">
+          {{ campaign.basicInformation.bidStrategyName }}
+          ({{ campaign.basicInformation.bidValue | currency:'USD':true }})
+        </p>
+      </div>
+
+      <div
+        class="
+          col-xs-2
+          campaign-edit-summary__info-cell">
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Budget:
+        </p>
+
+        <p class="adsh-copy">{{ campaign.basicInformation.budget | currency:'USD':true }}</p>
+      </div>
+
+      <div
+        class="
+          col-xs-2
+          campaign-edit-summary__info-cell">
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Date of Start
+        </p>
+
+        <p class="adsh-copy">
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/calendar.svg"
+            alt="Calendar Icon"
+          >
+          {{ campaign.basicInformation.dateStart | date: 'dd MMM yyyy' }}
+        </p>
+      </div>
+
+      <div
+        class="
+          col-xs-2
+          campaign-edit-summary__info-cell">
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Date of End
+        </p>
+
+        <p class="adsh-copy">
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/calendar.svg"
+            alt="Calendar Icon"
+          >
+          <span *ngIf="campaign.basicInformation.dateEnd">
+            {{ campaign.basicInformation.dateEnd | date: 'dd MMM yyyy' }}
+          </span>
+          <span *ngIf="!campaign.basicInformation.dateEnd">-</span>
+        </p>
+      </div>
     </div>
   </div>
 
   <div
     class="
       adsh-box
-      adsh-box--large"
+      adsh-box--large
+      campaign-edit-summary__targeting-info"
   >
     <div
       class="
@@ -87,16 +213,50 @@
             adsh-btn--white
             adsh-blue"
         >
-          Back
+          Edit
         </button>
       </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-5
+          campaign-edit-summary__info-cell">
+        <span class="adsh-copy">Requires:</span>
+
+        <div class="campaign-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="campaign.targeting"
+            [items]="campaign.targeting.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
+      </div>
+
+      <div
+        class="
+          col-xs-5
+          campaign-edit-summary__info-cell">
+        <span class="adsh-copy">Excludes:</span>
+        <div class="campaign-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="campaign.targeting"
+            [items]="campaign.targeting.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
+      </div>
     </div>
   </div>
 
   <div
     class="
       adsh-box
-      adsh-box--large"
+      adsh-box--large
+      campaign-edit-summary__ads-info"
   >
     <div
       class="
@@ -121,9 +281,25 @@
             adsh-btn--white
             adsh-blue"
         >
-          Back
+          Edit
         </button>
       </a>
+    </div>
+
+    <div class="row">
+      <div *ngFor="let ad of campaign.ads">
+        <iframe
+          class="campaign-edit-summary__iframe"
+          *ngIf="ad.imageUrl"
+          [src]="ad.imageUrl | trustUrl"
+        ></iframe>
+
+        <iframe
+          class="campaign-edit-summary__iframe"
+          *ngIf="ad.html"
+          [srcdoc]="ad.html | trustHtml"
+        ></iframe>
+      </div>
     </div>
   </div>
 
@@ -154,7 +330,9 @@
           class="
             adsh-btn
             adsh-btn--white
-            adsh-blue"
+            adsh-blue
+            save-as-draft"
+          (click)="saveCampaign(true)"
         >
           Save as Draft
         </button>
@@ -164,6 +342,7 @@
           class="
             adsh-btn
             adsh-btn--blue"
+          (click)="saveCampaign(false)"
         >
           Start Campaign
         </button>
@@ -171,4 +350,3 @@
     </div>
   </div>
 </section>
-

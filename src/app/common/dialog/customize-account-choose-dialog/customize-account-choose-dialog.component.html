@@ -1,66 +1,119 @@
 <mat-dialog-content class="text-center">
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    Choose an Account Type
+  </h1>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-customize-subheading"
+  >
+    Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+  </p>
+
+  <div class="row">
     <div
-        (click)="dialogRef.close()"
-        class="adsh-dialog-close"></div>
-    <h1 class="adsh-heading
-               adsh-heading--primary">Choose an Account Type</h1>
+      [ngClass]="{ 'account-selected': accounts.advertiser.selected }"
+      (click)="accounts.advertiser.selected = !accounts.advertiser.selected"
+      class="
+        col
+        col-xs-12
+        col-md-6
+        justify-between
+        adsh-customize__box"
+    >
+      <img
+        src="/assets/images/advertiser-account-illustration.svg"
+        alt="Advertiser Account Illustration">
+      <div class="adsh-customize__box-description">
+        <h5
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          I want to advertise!
+        </h5>
 
-    <p class="adsh-copy
-              adsh-copy--large
-              adsh-customize-subheading">Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.</p>
-
-    <div class="row">
-        <div
-            [ngClass]="{ 'account-selected': accounts.advertiser.selected }"
-            (click)="accounts.advertiser.selected = !accounts.advertiser.selected"
-            class="col
-                   col-xs-12
-                   col-md-6
-                   justify-between
-                   adsh-customize__box">
-            <img src="/assets/images/advertiser-account-illustration.svg" alt="Advertiser Account Illustration">
-            <div class="adsh-customize__box-description">
-                <h5 class="adsh-heading
-                           adsh-heading--secondary">I want to advertise!</h5>
-
-                <p class="adsh-copy
-                          adsh-copy--large">Etiam pretium dapibus congue.</p>
-            </div>
-            <p class="adsh-copy
-                      adsh-copy--x-small
-                      adsh-copy--uppercase
-                      adsh-copy--bold
-                      adsh-blue">Advertiser</p>
-        </div>
-
-        <div
-            [ngClass]="{ 'account-selected': accounts.publisher.selected }"
-            (click)="accounts.publisher.selected = !accounts.publisher.selected"
-            class="col
-                   col-xs-12
-                   col-md-6
-                   justify-between
-                   adsh-customize__box">
-            <img src="/assets/images/publisher-account-illustration.svg" alt="Publisher Account Illustration">
-            <div class="adsh-customize__box-description">
-              <h5 class="adsh-heading
-                         adsh-heading--secondary">I want to offer space on my website!</h5>
-
-              <p class="adsh-copy
-                        adsh-copy--large">Etiam pretium dapibus congue.</p>
-            </div>
-            <p class="adsh-copy
-                      adsh-copy--x-small
-                      adsh-copy--uppercase
-                      adsh-copy--bold
-                      adsh-blue">Publisher</p>
-        </div>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large"
+        >
+          Etiam pretium dapibus congue.
+        </p>
+      </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--x-small
+          adsh-copy--uppercase
+          adsh-copy--bold
+          adsh-blue"
+      >
+        Advertiser
+      </p>
     </div>
 
-    <button
-        (click)="dialogRef.close(accounts)"
-        class="adsh-btn
-               adsh-btn--wide
-               adsh-btn--submit
-               adsh-bg-blue">Continue</button>
+    <div
+      [ngClass]="{ 'account-selected': accounts.publisher.selected }"
+      (click)="accounts.publisher.selected = !accounts.publisher.selected"
+      class="
+        col
+        col-xs-12
+        col-md-6
+        justify-between
+        adsh-customize__box"
+    >
+      <img
+        src="/assets/images/publisher-account-illustration.svg"
+        alt="Publisher Account Illustration"
+      >
+      <div class="adsh-customize__box-description">
+        <h5
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          I want to offer space on my website!
+        </h5>
+
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large">
+          Etiam pretium dapibus congue.
+        </p>
+      </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--x-small
+          adsh-copy--uppercase
+          adsh-copy--bold
+          adsh-blue"
+      >
+        Publisher
+      </p>
+    </div>
+  </div>
+
+  <button
+    (click)="dialogRef.close(accounts)"
+    class="
+      adsh-btn
+      adsh-btn--wide
+      adsh-btn--submit
+      adsh-bg-blue"
+  >
+    Continue
+  </button>
 </mat-dialog-content>

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-import { NotificationSetting } from '../../../models/notification-setting.model';
-import { SettingsService } from '../../settings.service';
 
+import { AppState } from '../../../models/app-state.model';
+import { NotificationItem } from '../../../models/settings.model';
+import { Subscription } from 'rxjs/Subscription';
+import { SettingsService } from '../../settings.service';
+import { cloneDeep } from '../../../common/utilities/helpers';
 import * as settingsActions from '../../../store/settings/settings.actions';
 
-import { Subscription } from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-notification-settings',
@@ -16,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NotificationSettingsComponent implements OnInit {
   notificationSubscription: Subscription;
-  notificationsSettings: NotificationSetting[];
+  notificationsSettings: NotificationItem[];
 
   constructor(
     private store: Store<AppState>,
@@ -24,7 +25,7 @@ export class NotificationSettingsComponent implements OnInit {
   ) {
     this.notificationSubscription = store
       .select('state', 'user', 'settings', 'notificationsSettings')
-      .subscribe(notificationsSettings => {
+      .subscribe((notificationsSettings: NotificationItem[]) => {
         this.notificationsSettings = notificationsSettings;
       });
   }
@@ -33,21 +34,16 @@ export class NotificationSettingsComponent implements OnInit {
     this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
   }
 
-  onChange(event, type, newNotificationValue): any {
+  onNotificationChange(notification, notificationType) {
+    const type = notification.name;
+    notification[notificationType] = !notification[notificationType];
     const settings = this.notificationsSettings;
-    const newSettings = [];
+    let newSettings;
+    const settingsIndex = settings.findIndex((setting) => setting.name === type);
 
-    for (let i = 0; i < settings.length; i++) {
-      if (settings[i].type === type) {
-        settings[i].notification = newNotificationValue;
-      }
-      newSettings.push(settings[i]);
-    }
-
-    JSON.stringify(newSettings);
-
+    settings[settingsIndex][notificationType] = notification[notificationType];
+    newSettings = cloneDeep(settings);
     this.settingsService.updateNotificationsSettings(newSettings);
     this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
   }
 }
-

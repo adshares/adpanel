@@ -13,6 +13,8 @@ import { HandleSubscription } from '../../common/handle-subscription';
 export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
+  isRegistering = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -28,15 +30,14 @@ export class RegisterComponent extends HandleSubscription {
       return;
     }
 
+    this.isRegistering = true;
+
     const registerSubscription = this.authService.registerUser(
       this.registrationForm.value.email,
       this.registrationForm.value.password
     )
-      .subscribe(
-        () => {
-          this.router.navigate(['/auth/confirmation']);
-        }
-      );
+      .subscribe(() => this.router.navigate(['/auth', 'confirmation']));
+
     this.subscriptions.push(registerSubscription);
   }
 }

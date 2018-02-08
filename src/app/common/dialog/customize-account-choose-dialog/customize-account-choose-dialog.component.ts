@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -13,5 +12,5 @@ export class CustomizeAccountChooseDialogComponent {
     publisher: { selected: false }
   };
 
-  constructor(private dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>) { }
 }

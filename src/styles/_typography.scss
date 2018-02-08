@@ -8,7 +8,7 @@
 
   &--primary {
     @include font(30, bold);
-  	letter-spacing: -0.1px;
+    letter-spacing: -0.1px;
     margin: 10px 0;
   }
 
@@ -31,7 +31,7 @@
 }
 
 .adsh-copy {
-  color: pal(gray, semi-dark);
+  color: pal(gray, mid-dark);
   @include font(13, normal);
 
   &--large {

@@ -36,7 +36,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                [targetingOptions]="TargetingOptionsToAdd"
+                [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
               ></app-targeting-select>
@@ -46,6 +46,8 @@
           <div class="col-xs-6">
             <app-targeting-display
               [items]="addedItems"
+              [canRemove]="true"
+              [isExclude]="false"
               (itemsChange)="updateAddedItems($event)"
             ></app-targeting-display>
           </div>
@@ -54,6 +56,9 @@
 
       <app-targeting-display
         [items]="addedItems"
+        [canRemove]="true"
+        [isExclude]="false"
+        (itemsChange)="updateAddedItems($event)"
         *ngIf="!requirePanelOpenState"
       ></app-targeting-display>
     </div>
@@ -86,7 +91,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                [targetingOptions]="TargetingOptionsToExclude"
+                [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 (itemsChange)="updateExcludedItems($event)"
               ></app-targeting-select>
@@ -96,6 +101,8 @@
           <div class="col-xs-6">
             <app-targeting-display
               [items]="excludedItems"
+              [canRemove]="true"
+              [isExclude]="true"
               (itemsChange)="updateExcludedItems($event)"
             ></app-targeting-display>
           </div>
@@ -104,6 +111,9 @@
 
       <app-targeting-display
         [items]="excludedItems"
+        [canRemove]="true"
+        [isExclude]="true"
+        (itemsChange)="updateExcludedItems($event)"
         *ngIf="!excludePanelOpenState"
       ></app-targeting-display>
     </div>
@@ -132,21 +142,25 @@
 
     <div class="row">
       <button
-        (click)="saveCampaignAdditionalInformation(true)"
+        (click)="saveCampaignTargeting(true)"
         class="
           adsh-btn
           adsh-btn--white
-          adsh-blue"
+          adsh-blue
+          save-as-draft"
       >
         Save as Draft
       </button>
       <button
-        (click)="saveCampaignAdditionalInformation(false)"
+        (click)="saveCampaignTargeting(false)"
         class="
           adsh-btn
           adsh-btn--blue"
       >
-        Save & Continue
+        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
       </button>
     </div>
   </div>

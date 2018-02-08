@@ -23,7 +23,7 @@
 
 
   <form
-    #editCampaignBasicInformationForm="ngForm"
+    [formGroup]="campaignBasicInfoForm"
     (ngSubmit)="saveCampaignBasicInformation()"
     class="adsh-form"
   >
@@ -45,18 +45,18 @@
             adsh-form-input
             adsh-form-input--full"
           name="campaignName"
-          ngModel
-          minlength="3"
-          #campaignName="ngModel"
-          required
+          type="text"
+          formControlName="name"
         >
         <span
-          *ngIf="campaignName.valid"
+          *ngIf="campaignBasicInfoForm.get('name').valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
-          *ngIf="campaignName.hasError('required') && editCampaignBasicInformationForm.submitted"
+          *ngIf="
+            campaignBasicInfoForm.hasError('required', ['name']) &&
+            campaignBasicInformationSubmitted"
         >
           Campaign name required!
         </span>
@@ -76,16 +76,17 @@
             adsh-form-input--full"
           type="url"
           name="campaignTargetURL"
-          ngModel
-          #campaignTargetURL="ngModel"
-          required
+          formControlName="targetUrl"
         >
         <span
-          *ngIf="campaignTargetURL.valid"
+          *ngIf="
+            campaignBasicInfoForm.get('targetUrl').valid"
           class="input-valid"></span>
         <span
           class="error-msg"
-          *ngIf="campaignTargetURL.hasError('required') && editCampaignBasicInformationForm.submitted"
+          *ngIf="
+            campaignBasicInfoForm.hasError('required', ['targetUrl']) &&
+            campaignBasicInformationSubmitted"
         >
           Target URL required
         </span>
@@ -96,7 +97,7 @@
           <div
             class="
               col
-              col-xs-5"
+              col-xs-4"
           >
             <label
               for="campaignBidStrategy"
@@ -108,9 +109,7 @@
               class="adsh-select"
               id="campaignBidStrategy"
               name="campaignBidStrategy"
-              ngModel
-              #campaignBidStrategy="ngModel"
-              required
+              formControlName="bidStrategyName"
             >
               <mat-option value="CPC">
                 CPC
@@ -121,7 +120,9 @@
             </mat-select>
             <span
               class="error-msg"
-              *ngIf="campaignBidStrategy.hasError('required') && editCampaignBasicInformationForm.submitted"
+              *ngIf="
+              campaignBasicInfoForm.hasError('required', ['bidStrategyName']) &&
+              campaignBasicInformationSubmitted"
             >
               Bid Strategy required
             </span>
@@ -129,7 +130,8 @@
           <div
             class="
               col
-              col-xs-7"
+              col-xs-8
+              input--right"
           >
             <label
               for="campaignBidValue"
@@ -143,77 +145,77 @@
               type="number"
               min="0.01"
               name="campaignBidValue"
-              ngModel
-              #campaignBidValue="ngModel"
-              required
+              formControlName="bidValue"
             >
             <span
-              *ngIf="campaignBidValue.valid"
+              *ngIf="campaignBasicInfoForm.get('bidValue').valid"
               class="input-valid"
             ></span>
             <span
               class="error-msg"
-              *ngIf="campaignBidValue.hasError('required') && editCampaignBasicInformationForm.submitted"
+              *ngIf="
+                campaignBasicInfoForm.hasError('required', ['bidValue']) &&
+                campaignBasicInformationSubmitted"
             >
               Bid value required
             </span>
           </div>
-          <p
-             class="
-               adsh-copy
-               adsh-copy--large
-               adsh-copy--light"
-          >
-            Choose how you’d like to set bids for your ads.
-          </p>
         </div>
       </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-copy--light"
+      >
+        Choose how you’d like to set bids for your ads.
+      </p>
 
       <div class="adsh-form-input__box">
-        <label
-          for="campaignBudget"
-          class="adsh-form-label"
-        >
-          Budget
-        </label>
         <div class="row no-gutters">
-          <div class="col-xs-5 col">
+          <div
+            class="
+              col-xs-5
+              col
+              relative"
+          >
+            <label
+              for="campaignBudget"
+              class="adsh-form-label"
+            >
+              Budget (Adst / per day)
+            </label>
+
             <input
               id="campaignBudget"
               class="adsh-form-input"
               type="number"
               min="0.01"
               name="campaignBudget"
-              ngModel
-              #campaignBudget="ngModel"
-              required
+              formControlName="budget"
             >
             <span
-              *ngIf="campaignBudget.valid"
+              *ngIf="campaignBasicInfoForm.get('budget').valid"
               class="input-valid"
             ></span>
             <span
               class="error-msg"
-              *ngIf="campaignBudget.hasError('required') && editCampaignBasicInformationForm.submitted"
-            >
-             Budget required
+              *ngIf="
+                campaignBasicInfoForm.hasError('required', ['budget']) &&
+                campaignBasicInformationSubmitted"
+                >
+              Budget required
             </span>
-          </div>
-          <div class="col-xs-5">
-            <p
-              class="
-                adsh-copy
-                adsh-copy--large
-                adsh-copy--light"
-            >
-              Adst / per day
-            </p>
           </div>
         </div>
       </div>
 
       <div class="adsh-form-input__box">
-        <div class="row no-gutters">
+        <div
+          class="
+            row
+            no-gutters"
+        >
           <div
             class="
               col
@@ -230,23 +232,31 @@
             >
               <input
                 (click)="dateStartPicker.open()"
-                matInput [min]="minDate"
+                matInput
+                [min]="minDate"
                 [max]="maxDate"
                 [matDatepicker]="dateStartPicker"
                 [formControl]="dateStart"
+                required
               >
               <mat-datepicker-toggle
                 matSuffix
                 [for]="dateStartPicker"
-              >
-              </mat-datepicker-toggle>
+              ></mat-datepicker-toggle>
               <mat-datepicker #dateStartPicker></mat-datepicker>
             </mat-form-field>
+
+            <span
+              class="error-msg"
+              *ngIf="dateStart.hasError('required') && campaignBasicInformationSubmitted"
+            >
+              Start date required
+            </span>
           </div>
           <div
             class="
-            col
-            col-xs-5"
+              col
+              col-xs-5"
           >
             <div
               class="
@@ -290,14 +300,6 @@
               <mat-datepicker #dateEndPicker></mat-datepicker>
             </mat-form-field>
           </div>
-          <p
-            class="
-              adsh-copy
-              adsh-copy--large
-              adsh-copy--light"
-          >
-            Choose how you’d like to set bids for your ads.
-          </p>
         </div>
       </div>
     </div>
@@ -320,13 +322,17 @@
           Back to Dashboard
         </button>
       </a>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
-        >
-          Save & Continue
-        </button>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+        type="submit"
+      >
+        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
     </div>
   </form>
 </section>

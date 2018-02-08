@@ -37,3 +37,31 @@ mat-chip:not(.mat-basic-chip) {
 .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
   margin: 5px !important;
 }
+
+.mat-chip-remove {
+  margin: 0 5px;
+}
+
+.mat-slider-thumb-label {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.mat-slider-horizontal .mat-slider-thumb-label {
+  right: -20px !important;
+  top: -55px !important;
+}
+
+.mat-form-field-underline,
+.mat-focused .mat-form-field-underline .mat-form-field-ripple,
+.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple {
+  visibility: hidden !important;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  background: transparent !important;
+}
+
+.mat-select-value-text {
+  text-transform: capitalize;
+}

@@ -11,7 +11,7 @@
       row
       align-center"
   >
-    <a [routerLink]="['/', activeUserType, 'dashboard']">
+    <a [routerLink]="['/', (userDataState | async).activeUserType, 'dashboard']">
       <div
         class="
           adsh-navigation__item
@@ -38,12 +38,13 @@
         class="
           adsh-select
           adsh-navigation__item"
-        [ngModel]="activeUserType"
+        [(value)]="activeUserType"
       >
         <mat-option
           [value]="'advertiser'"
           routerLink="/advertiser/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
+          (click)="setActiveUserType('advertiser')"
         >
           Advertiser
         </mat-option>
@@ -51,12 +52,15 @@
           [value]="'publisher'"
           routerLink="/publisher/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
+          (click)="setActiveUserType('publisher')"
         >
           Publisher
         </mat-option>
         <mat-option
-          [value]="'Admin'"
+          [value]="'admin'"
+          routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
+          (click)="setActiveUserType('admin')"
         >
           Admin
         </mat-option>
@@ -72,36 +76,52 @@
   </div>
 
 
-
   <div
     class="
       row
       align-center"
   >
-    <a
-      [routerLink]="activeUserType === 'advertiser' ? '/advertiser/create-campaign/basic-information' : '/publisher/add-site/basic-information'"
-      [queryParams]="{step: 1}"
+    <button
+      *ngIf="!(userDataState | async).isAdmin"
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center"
+      (click)="navigateToCreateNewAsset()"
     >
-      <button
-        class="
-          adsh-btn
-          adsh-btn--with-icon
-          adsh-btn--wide
-          adsh-bg-blue
-          adsh-navigation__item
-          row
-          align-center"
+      <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle.svg"
       >
-        <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle.svg"
-        >
-          <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
-          <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
-      </button>
-    </a>
+        <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
+        <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
+    </button>
+    <button
+      *ngIf="(userDataState | async).isAdmin"
+      (click)="openSetEarningsDialog()"
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center"
+    >
+      <img
+        class="
+            adsh-icon
+            adsh-icon--prepend"
+        src="assets/images/plus-circle.svg"
+      >
+      <span>Set your earnings</span>
+    </button>
     <div
       class="
         row
@@ -110,6 +130,7 @@
         relative
         adsh-navigation__item
         adsh-btn"
+      routerLink="/settings/general"
     >
       <img
         class="

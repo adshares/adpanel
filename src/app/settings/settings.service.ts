@@ -1,25 +1,27 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { environment } from '../../environments/environment';
 
+import { environment } from '../../environments/environment';
+import { BillingHistoryItem, NotificationItem } from '../models/settings.model';
 
 @Injectable()
 export class SettingsService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  getBillingHistory(): any {
-    return this.http.get(`${environment.apiUrl}/billing_history`)
-      .map((response: Response) => response.json());
+  getBillingHistory(userId: number): Observable<BillingHistoryItem[]> {
+    return this.http.get(`${environment.apiUrl}/billing_history/${userId}`)
+      .map((billingHisory: BillingHistoryItem[]) => billingHisory);
   }
 
-  getNotificationsSettings(): any {
-    return this.http.get(`${environment.apiUrl}/notifications_settings`)
-      .map((response: Response) => response.json());
+  getNotificationsSettings(userId: number): Observable<NotificationItem[]> {
+    return this.http.get(`${environment.apiUrl}/notifications_settings/${userId}`)
+      .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  updateNotificationsSettings(newSettings: object): any {
+  updateNotificationsSettings(newSettings: NotificationItem[]) {
     this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
   }
 

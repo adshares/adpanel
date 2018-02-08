@@ -5,14 +5,17 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as AuthAction from '../../store/auth/auth.action';
+import * as authActions from '../../store/auth/auth.actions';
+import * as commonActions from '../../store/common/common.actions';
+
 import { AuthService } from '../auth.service';
-import { UserModel } from '../../models/user.model';
+import { User } from '../../models/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
+
 
 @Component({
   selector: 'app-login',
@@ -22,6 +25,8 @@ import { AppState } from '../../models/app-state.model';
 export class LoginComponent extends HandleSubscription {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('rememberUser') rememberUser: ElementRef;
+
+  isLoggingIn = false;
 
   constructor(
     private authService: AuthService,
@@ -38,25 +43,34 @@ export class LoginComponent extends HandleSubscription {
       return;
     }
 
+    this.isLoggingIn = true;
+
     const loginSubscription = this.authService.loginUser(
       this.loginForm.value.email,
       this.loginForm.value.password
      )
-      .subscribe((userResponse: UserModel) => {
-        this.store.dispatch(new AuthAction.LoginUser(userResponse));
+      .subscribe((userResponse: User) => {
+        this.store.dispatch(new authActions.LoginUser(userResponse));
 
-        this.showStartupPopups(userResponse);
-
-        if (userResponse.isAdvertiser) {
-          this.router.navigate(['/advertiser/dashboard']);
+        if (userResponse.isAdmin) {
+          this.store.dispatch(new commonActions.SetActiveUserType('admin'));
+          this.router.navigate(['/admin/dashboard']);
         } else {
-          this.router.navigate(['/publisher']);
+          this.showStartupPopups(userResponse);
+
+          if (userResponse.isAdvertiser) {
+            this.store.dispatch(new commonActions.SetActiveUserType('advertiser'));
+            this.router.navigate(['/advertiser/dashboard']);
+          } else if (userResponse.isPublisher) {
+            this.store.dispatch(new commonActions.SetActiveUserType('publisher'));
+            this.router.navigate(['/publisher/dashboard']);
+          }
         }
       });
     this.subscriptions.push(loginSubscription);
   }
 
-  showStartupPopups(user: UserModel) {
+  showStartupPopups(user: User) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
 
     if (firstLogin) {
@@ -77,7 +91,7 @@ export class LoginComponent extends HandleSubscription {
     }
 
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
-      this.router.navigate(['/publisher']);
+      this.router.navigate(['/publisher/dashboard']);
     }
 
     this.dialog.open(WalletDialogComponent);
