@@ -38,8 +38,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    console.log('userRolesEnum', this.userRolesEnum);
-    console.log('activeUserType', this.activeUserType);
     const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
       .subscribe(activeUserType => {
         this.activeUserType = activeUserType;
