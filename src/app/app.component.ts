@@ -56,14 +56,14 @@ export class AppComponent implements OnInit {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {
-      const activeUserType = this.getAactiveUserType();
+      const activeUserType = this.getActiveUserType();
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
     }
   }
 
-  getAactiveUserType() {
+  getActiveUserType() {
     if (this.router.url.indexOf('admin') > -1) {
       return userRolesEnum.ADMIN;
     } else if (this.router.url.indexOf('advertiser') > -1) {
