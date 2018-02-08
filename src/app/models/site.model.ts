@@ -13,8 +13,8 @@ interface Site {
   averageCPC?: number;
   targetingArray?: AssetTargeting;
   targeting?: {
-    requires: Object;
-    excludes: Object;
+    requires: object;
+    excludes: object;
   };
   adUnits?: AdUnit[];
 }
