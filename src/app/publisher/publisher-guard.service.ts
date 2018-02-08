@@ -5,8 +5,12 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { UserModel } from '../models/user.model';
+import { User } from '../models/user.model';
 import { AppState } from '../models/app-state.model';
+
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean
+}
 
 @Injectable()
 export class PublisherGuard implements CanActivate {
@@ -19,9 +23,9 @@ export class PublisherGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot
   ): Observable<boolean> {
-    return this.store.select('state', 'user', 'data', 'auth')
+    return this.store.select('state', 'user', 'data')
       .take(1)
-      .map((userData: UserModel) => {
+      .map((userData: User) => {
         if (userData.isPublisher) {
           return true;
         } else {
@@ -31,5 +35,9 @@ export class PublisherGuard implements CanActivate {
 
         return false;
       });
+  }
+
+  canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
+    return component.canDeactivate();
   }
 }

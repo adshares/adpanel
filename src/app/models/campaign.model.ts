@@ -1,33 +1,52 @@
-import { Ad } from './ad.model';
-import { CampaignBasicInformation } from './campaign-basic-information.model';
+import { TargetingOptionValue } from './targeting-option.model';
 
-export interface Campaign {
+interface Campaign {
+  id: number;
   basicInformation: CampaignBasicInformation;
 
-  id: number,
+  targeting?: CampaignTargeting;
+  ads?: Ad[];
   clicks?: number;
   impressions?: number;
   ctr?: number;
   averageCPC?: number;
   cost?: number;
   conversions?: number;
-
-  targeting?: {
-    requires?: {
-      languages?: string[];
-      devices?: string[];
-      genders?: string[];
-      operatingSystems?: string[];
-      browsers?: string[];
-    },
-    excludes?: {
-      languages?: string[];
-      devices?: string[];
-      genders?: string[];
-      operatingSystems?: string[];
-      browsers?: string[];
-    }
-  };
-
-  ads?: Ad[];
 }
+
+interface CampaignBasicInformation {
+  status: number;
+  name: string;
+  targetUrl: string;
+  bidStrategyName: string;
+  bidValue: number;
+  budget: number;
+  dateStart: Object;
+
+  dateEnd?: Object;
+}
+
+interface CampaignTargeting {
+  requires?: TargetingOptionValue[];
+  excludes?: TargetingOptionValue[];
+}
+
+interface Ad {
+  id: number;
+  status: number;
+  shortHeadline: string;
+  type: number;
+  size: number;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCPC: number;
+  cost: number;
+  budget: number;
+
+  imageUrl?: string;
+  imageSize?: string;
+  html?: string;
+}
+
+export { Campaign, CampaignBasicInformation, CampaignTargeting, Ad }

@@ -3,7 +3,7 @@
 @include mat-core();
 
 $app-primary: mat-palette($mat-blue, A200);
-$app-accent:  mat-palette($mat-blue, A200);
+$app-accent:  mat-palette($mat-grey, 50);
 $app-theme:   mat-light-theme($app-primary, $app-accent);
 
 // Include the default theme styles.

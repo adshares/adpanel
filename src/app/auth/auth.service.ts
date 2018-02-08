@@ -1,26 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
-import { UserModel } from '../models/user.model';
+import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
-  loginUser(email: string, password: string): Observable<UserModel> {
+  loginUser(email: string, password: string): Observable<User> {
     return this.http.post(`${environment.apiUrl}/user`, { email, password })
-      .map((response: Response) => {
-          const result: UserModel = response.json();
-
-          return result;
-      });
+      .map((user: User) => user);
   }
 
-  registerUser(email: string, password: string) {
-    return this.http.put(`${environment.apiUrl}/user`, { email, password });
+  registerUser(email: string, password: string): Observable<User> {
+    return this.http.put(`${environment.apiUrl}/user`, { email, password })
+      .map((user: User) => user);
   }
 }

@@ -1,0 +1,147 @@
+<section
+  class="
+    homepage-view
+    site-edit-basic-information"
+>
+  <div class="text-center">
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Basic Information
+    </h1>
+
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <form
+    [formGroup]="siteBasicInfoForm"
+    (ngSubmit)="saveSiteBasicInformation()"
+    class="adsh-form"
+  >
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        site-edit-basic-information__info-box"
+    >
+      <div class="adsh-form-input__box">
+        <label
+          for="siteUrl"
+          class="adsh-form-label"
+        >
+          Website URL
+        </label>
+
+        <input
+          id="siteUrl"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          name="siteUrl"
+          type="text"
+          formControlName="websiteUrl"
+        >
+
+        <span
+          *ngIf="siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoForm.get('websiteUrl').touched"
+          class="input-valid"
+        ></span>
+
+        <span
+          class="error-msg"
+          *ngIf="
+            siteBasicInfoForm.hasError('required', ['websiteUrl']) && siteBasicInfoSubmitted"
+        >
+          Website URL required!
+        </span>
+      </div>
+
+      <span
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-copy--light">
+        Enter your primary website or URL
+      </span>
+
+      <div
+        class="adsh-form-input__box
+               site-edit-basic-information__language">
+        <label
+          for="primaryLanguage"
+          class="adsh-form-label"
+        >
+          Content Language
+        </label>
+        <mat-select
+          class="adsh-select"
+          id="primaryLanguage"
+          name="primaryLanguage"
+          formControlName="primaryLanguage"
+        >
+          <mat-option
+            *ngFor="let language of languages"
+            [value]="language"
+            class="site-edit-basic-information__language__option">
+            {{ language }}
+          </mat-option>
+        </mat-select>
+
+        <span
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--light">
+          Please specify your primary language of your website.
+        </span>
+
+        <span
+          class="error-msg"
+          *ngIf="siteBasicInfoForm.hasError('required', ['primaryLanguage']) && siteBasicInfoSubmitted"
+        >
+          Content Language required
+        </span>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        row
+        justify-between"
+    >
+      <a routerLink="../../dashboard">
+        <button
+          type="button"
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Back to Dashboard
+        </button>
+      </a>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+        type="submit"
+      >
+        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,19 @@
+@import '../../../styles.scss';
+
+.user-list {
+  &__sort {
+    margin-left: 5px;
+  }
+
+  &__items {
+    margin-top: 15px;
+  }
+}
+
+.choose-user-type {
+  margin-left: 20px;
+}
+
+.search {
+  width: 100%;
+}

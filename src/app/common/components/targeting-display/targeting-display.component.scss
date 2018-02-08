@@ -1,3 +1,13 @@
-.selected-chips {
-  margin: 10px 0;
+@import '../../../../styles.scss';
+
+.hide-remove {
+  .mat-chip-remove {
+    display: none;
+  }
+}
+
+.targeting-display {
+  &__exlude-text {
+    color: pal(red);
+  }
 }

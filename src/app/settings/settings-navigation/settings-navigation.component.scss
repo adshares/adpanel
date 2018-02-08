@@ -20,18 +20,28 @@
 
       li {
         margin: 25px 0;
+
+        img {
+          width: 20px;
+        }
+
+        span {
+          color: pal(navy);
+        }
       }
     }
 
-    &.active:before {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 2px;
-      height: 40px;
-      top: 0;
-      left: -2px;
-      background-color: pal(blue);
+    &.active {
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 2px;
+        height: 40px;
+        top: 0;
+        left: -2px;
+        background-color: pal(blue);
+      }
     }
   }
 }

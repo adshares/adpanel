@@ -5,26 +5,36 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogContent, MatDialogModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { MatSpinner } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
+import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
-import { CommonService } from './common.service';
 import { TargetingSelectComponent } from './components/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
+import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
 
 const matModules = [
   MatDialogModule,
   MatSelectModule,
-  MatChipsModule
+  MatChipsModule,
+  MatProgressSpinnerModule
+];
+
+const dialogs = [
+  CustomizeAccountChooseDialogComponent,
+  AccountChooseDialogComponent,
+  LeaveEditProcessDialogComponent
 ];
 
 const appComponents = [
@@ -36,7 +46,8 @@ const appComponents = [
   ConfirmationAlertComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
-  TableNavigationComponent
+  TableNavigationComponent,
+  EditAssetNavigationComponent
 ];
 
 @NgModule({
@@ -45,24 +56,19 @@ const appComponents = [
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule,
     ...matModules
   ],
   declarations: [
-    CustomizeAccountChooseDialogComponent,
-    AccountChooseDialogComponent,
-    ...appComponents
-  ],
-  providers: [
-    TargetingCriteriaResolver,
-    CommonService
+    ...dialogs,
+    ...appComponents,
   ],
   entryComponents: [
-    CustomizeAccountChooseDialogComponent,
-    AccountChooseDialogComponent
+    ...dialogs
   ],
   exports: [
-    ...appComponents
+    ...appComponents,
+    MatSpinner,
+    MatDialogContent
   ]
 })
 

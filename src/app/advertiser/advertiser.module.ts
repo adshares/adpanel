@@ -4,14 +4,16 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppCommonModule } from '../common/common.module';
-
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
+import { FileUploadModule } from 'ng2-file-upload';
 
+import { AppCommonModule } from '../common/common.module';
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
@@ -21,17 +23,16 @@ import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-camp
 import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
-import { EditCampaignNavigationComponent } from './edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatMenuModule } from '@angular/material/menu';
-
+import { TrustUrlPipe } from '../common/pipes/trust.pipe';
+import { TrustHtmlPipe } from '../common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
-import { CampaignResolver } from './campaign.resolver';
+import { CampaignResolver } from './resolvers/campaign.resolver';
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 
 const matModules = [
   MatExpansionModule,
@@ -48,8 +49,7 @@ const editCampaignComponents = [
   EditCampaignBasicInformationComponent,
   EditCampaignAdditionalTargetingComponent,
   EditCampaignCreateAdsComponent,
-  EditCampaignSummaryComponent,
-  EditCampaignNavigationComponent
+  EditCampaignSummaryComponent
 ];
 
 const advertiserComponents = [
@@ -60,7 +60,7 @@ const advertiserComponents = [
   CampaignDetailsComponent,
   AdListComponent,
   AdListItemComponent
-]
+];
 
 @NgModule({
   imports: [
@@ -70,13 +70,17 @@ const advertiserComponents = [
     AdvertiserRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    FileUploadModule,
     ...matModules
   ],
   providers: [
     AdvertiserGuard,
-    CampaignResolver
+    CampaignResolver,
+    TargetingCriteriaResolver
   ],
   declarations: [
+    TrustUrlPipe,
+    TrustHtmlPipe,
     ...advertiserComponents,
     ...editCampaignComponents
   ]

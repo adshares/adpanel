@@ -6,10 +6,7 @@
 
   li {
     padding: 10px 20px;
-
-    &:not(:first-of-type) {
-      border: 1px solid pal(gray, light);
-    }
+    border: 1px solid pal(gray, light);
   }
 
   &-status {

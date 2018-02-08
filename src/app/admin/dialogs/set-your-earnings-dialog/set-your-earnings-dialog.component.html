@@ -1,0 +1,72 @@
+<mat-dialog-content class="text-center">
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    Set your % Earnings
+  </h1>
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-customize-subheading"
+  >
+    Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+  </p>
+
+  <mat-slider
+    color="primary"
+    max="100"
+    min="0"
+    [step]="0.01"
+    thumb-label="true"
+    [(ngModel)]="value"
+  ></mat-slider>
+
+  <div
+    class="
+      row
+      align-center
+      justify-center"
+  >
+    <input
+      type="number"
+      max="100"
+      min="0"
+      step="0.01"
+      class="
+        adsh-heading
+        adsh-heading--primary
+        earnings-input"
+      [(ngModel)]="value"
+    >
+    <div class="col adsh-copy">
+      <div>12$ per day</div>
+      <div>213$ per week</div>
+      <div>1234313$ per month</div>
+    </div>
+  </div>
+
+  <div
+    class="
+      row
+      justify-center"
+  >
+    <button
+      class="
+        adsh-btn
+        adsh-btn--wide
+        adsh-btn--blue
+        adsh-form-submit-btn"
+    >
+      Save
+    </button>
+  </div>
+
+
+</mat-dialog-content>

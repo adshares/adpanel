@@ -13,8 +13,8 @@ export class SettingsNavigationComponent {
                     'will affect the changes in your Publisher account',
       link: 'general',
       values: [
-        { name: 'Preferences'},
-        { name: 'Notification settings'},
+        { name: 'Preferences', icon: 'assets/images/preferences.svg'},
+        { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
       ]
     },
     {
@@ -22,8 +22,8 @@ export class SettingsNavigationComponent {
       description: '',
       link: 'billing',
       values: [
-        { name: 'Your wallet'},
-        { name: 'Billing History'}
+        { name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
+        { name: 'Billing History', icon: 'assets/images/history.svg'}
       ]
     }
   ];

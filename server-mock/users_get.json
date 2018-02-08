@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1",
+    "email": "jacek.zemlo@gmail.com",
+    "isAdvertiser": true,
+    "isPublisher": true,
+    "profit": "-200",
+    "topKeywords": ["England", "English", "Manchester"]
+  },
+  {
+    "id": "2",
+    "email": "mateusz.piatek@gmail.com",
+    "isAdvertiser": true,
+    "isPublisher": false,
+    "profit": "300",
+    "topKeywords": ["England", "English", "Manchester"]
+  },
+  {
+    "id": "3",
+    "email": "bartosz.bilejczyk@gmail.com",
+    "isAdvertiser": false,
+    "isPublisher": true,
+    "profit": "-20",
+    "topKeywords": ["England", "English", "Manchester"]
+  },
+  {
+    "id": "4",
+    "email": "konrad.fak@gmail.com",
+    "isAdvertiser": true,
+    "isPublisher": false,
+    "profit": "1200",
+    "topKeywords": ["England", "English", "Manchester"]
+  }
+]

@@ -1,0 +1,60 @@
+@import '../../../../styles.scss';
+
+.site-edit-create-ad-units {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &__ad-units__container {
+    background: pal(gray, ultra-light);
+    padding: 0 30px;
+    margin-top: 30px;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+  }
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__ad-unit {
+    text-align: center;
+    background: white;
+    padding: 15px;
+    flex-basis: 23%;
+    max-width: 23%;
+    margin: 20px 0;
+    border-radius: 2px;
+    border: 2px solid pal(gray, ultra-light);
+
+    &--selected {
+      border: 2px solid pal(blue);
+    }
+
+    &__visualization {
+      background-color: pal(blue, light);
+      color: pal(blue);
+      @include font(10, bold);
+
+      &.leaderboard {
+        padding: 10px 30px;
+      }
+      &.large-rectangle {
+        padding: 25px;
+      }
+      &.large-mobile-banner {
+        padding: 15px;
+      }
+
+      &-box {
+        background-color: pal(gray, ultra-light);
+        padding: 30px 60px;
+        min-height: 150px;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}

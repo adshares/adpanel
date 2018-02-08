@@ -6,6 +6,6 @@ import { Pipe } from '@angular/core';
 
 export class AdsharesTokenPipe {
   transform(value) {
-    return value + ' Adst'
+    return value + ' Adst';
   }
 }

@@ -1,0 +1,62 @@
+<div class="user-item">
+  <div
+    class="
+      row
+      align-center
+      adsh-copy
+      adsh-copy--semi"
+  >
+    <div
+      class="
+        col-xs-4
+        row
+        align-center"
+    >
+      <div
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        {{ userInfoStats.email }}
+      </div>
+    </div>
+    <div
+      class="
+        col-xs-2
+        row
+        align-center
+        adsh-copy
+        adsh-copy--large"
+    >
+      {{ userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
+         userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' :
+         'Publisher'
+      }}
+    </div>
+    <div
+      class="
+        col-xs-2
+        row
+        align-center
+        adsh-heading
+        adsh-heading--secondary"
+      [ngClass]="{'positive': userInfoStats.profit > 0, 'negative': userInfoStats.profit < 0 }"
+    >
+      {{ userInfoStats.profit | currency:'USD':true  }}
+    </div>
+    <div
+      class="
+        col-xs-4
+        row
+        align-center"
+    >
+      <div
+        class="
+          adsh-chip-box
+          adsh-chip-box--dark"
+        *ngFor="let keyword of userInfoStats.topKeywords">
+        {{ keyword }}
+      </div>
+    </div>
+  </div>
+</div>
