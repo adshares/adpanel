@@ -16,6 +16,7 @@ import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wall
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { appSettings } from '../../../app-settings/app-settings';
+import { userRolesEnum } from '../../models/enum/user.enum';
 
 
 @Component({
@@ -82,16 +83,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.saveUserDataToLocalStorage(userResponse);
 
         if (userResponse.isAdmin) {
-          this.store.dispatch(new commonActions.SetActiveUserType('admin'));
+          this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.showStartupPopups(userResponse);
 
           if (userResponse.isAdvertiser) {
-            this.store.dispatch(new commonActions.SetActiveUserType('advertiser'));
+            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
           } else if (userResponse.isPublisher) {
-            this.store.dispatch(new commonActions.SetActiveUserType('publisher'));
+            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
             this.router.navigate(['/publisher/dashboard']);
           }
         }

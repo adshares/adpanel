@@ -1,7 +1,7 @@
 import * as commonActions from './common.actions';
 
 const initialState = {
-  activeUserType: ''
+  activeUserType: 1
 };
 
 export function commonReducers(state = initialState , action: commonActions.actions ) {
