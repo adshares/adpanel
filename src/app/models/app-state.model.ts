@@ -4,16 +4,17 @@ import {
   BillingHistoryItem,
   NotificationItem,
   UserInfoStats,
-  AdminSettings } from './settings.model';
+  AdminSettings
+} from './settings.model';
 import { User } from './user.model';
 
 interface AppState {
   state: {
-    user: UserState,
-    advertiser: AdvertiserState,
-    publisher: PublisherState,
-    admin: AdminState,
-    common: CommonState
+    user: UserState;
+    advertiser: AdvertiserState;
+    publisher: PublisherState;
+    admin: AdminState;
+    common: CommonState;
   };
 }
 
