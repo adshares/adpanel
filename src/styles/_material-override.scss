@@ -70,3 +70,8 @@ mat-chip:not(.mat-basic-chip) {
 .mat-select-value-text {
   text-transform: capitalize;
 }
+
+.mat-expansion-panel-header-title {
+  flex-grow: 1;
+  display: inline;
+}

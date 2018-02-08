@@ -41,7 +41,9 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ i + 1 }}.&nbsp;
+              <span>
+                {{ i + 1 }}.&nbsp;
+              </span>
               <span *ngIf="!adPanelsStatus[i]">
                 Title: {{ adForm.get('shortHeadline').value }}
               </span>
