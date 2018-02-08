@@ -186,27 +186,29 @@
       </div>
     </div>
 
-    <div
-      class="
+    <div class="col">
+      <div
+        class="
         adsh-box
-        adsh-box--large
         ad-units"
-    >
-      <div class="col">
-        <p class="adsh-copy">
+      >
+        <p
+          class="
+          adsh-copy
+          adsh-copy--semi"
+        >
           List od Ad Units
         </p>
-        <app-ad-units
-          *ngFor="let adUnit of site.adUnits"
-          [adUnit]="adUnit">
-        </app-ad-units>
       </div>
+      <app-ad-units
+        *ngFor="let adUnit of site.adUnits"
+        [adUnit]="adUnit">
+      </app-ad-units>
     </div>
 
     <div
       class="
         adsh-box
-        adsh-box--large
         ad-units
         row
         justify-center"
@@ -216,6 +218,7 @@
           class="
             adsh-btn
             adsh-btn--white
+            adsh-btn--no-border
             adsh-heading
             adsh-heading--secondary"
         >
