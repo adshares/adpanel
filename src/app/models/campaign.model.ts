@@ -6,8 +6,8 @@ interface Campaign {
 
   targetingArray?: AssetTargeting;
   targeting?: {
-    requires: Object;
-    excludes: Object;
+    requires: object;
+    excludes: object;
   };
   ads?: Ad[];
   clicks?: number;
@@ -25,9 +25,9 @@ interface CampaignBasicInformation {
   bidStrategyName: string;
   bidValue: number;
   budget: number;
-  dateStart: Object;
+  dateStart: object;
 
-  dateEnd?: Object;
+  dateEnd?: object;
 }
 
 interface Ad {

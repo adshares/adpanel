@@ -77,15 +77,15 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   deselectOppositeBoolean(options, searchOption) {
     options.forEach((option) => {
       if (option.values) {
-        const opositeBooleanOption = option.values.find(
+        const oppositeBooleanOption = option.values.find(
           (optionValue) => optionValue.key !== searchOption.key
         )
         const itemIndex = this.selectedItems.findIndex(
-          (item) => item.key === opositeBooleanOption.key
+          (item) => item.key === oppositeBooleanOption.key
         );
 
-        if (opositeBooleanOption && itemIndex > -1) {
-          Object.assign(opositeBooleanOption, { selected: false });
+        if (oppositeBooleanOption && itemIndex > -1) {
+          Object.assign(oppositeBooleanOption, { selected: false });
           this.selectedItems.splice(itemIndex, 1);
         }
       } else if (option.children) {
