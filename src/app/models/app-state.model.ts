@@ -44,7 +44,7 @@ interface AdminState {
 }
 
 interface CommonState {
-  activeUserType: string;
+  activeUserType: number;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState};
