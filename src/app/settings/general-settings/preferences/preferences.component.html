@@ -20,10 +20,14 @@
         Here you can change the email address you use on Adshares and your password
       </p>
       <form
-        #changeEmailForm="ngForm"
-        (ngSubmit)="onChangeEmail(email.value)"
+        [formGroup]="changeEmailForm"
+        (ngSubmit)="onChangeEmail()"
         class="adsh-form">
-        <div class="row align-start change-form">
+        <div class="
+          row
+          align-start
+          change-form"
+        >
           <div class="adsh-form-input__box">
             <label
               for="email"
@@ -37,28 +41,39 @@
               type="email"
               name="email"
               ngModel
-              [email]="true"
-              #email="ngModel"
-              required
+              formControlName="email"
             >
             <span
-              *ngIf="email.valid"
               class="input-valid"
+              *ngIf="changeEmailForm.get('email').valid"
             ></span>
             <span
               class="error-msg"
-              *ngIf="email.hasError('email') && email.touched && email.value !== ''"
+              *ngIf="changeEmailForm.hasError('email', ['email']) && changeEmailFormSubmitted"
             >
               Invalid email!
             </span>
             <span
               class="error-msg"
-              *ngIf="email.hasError('required') && changeEmailForm.submitted"
+              *ngIf="changeEmailForm.hasError('required', ['email']) && changeEmailFormSubmitted"
             >
-              Email required
+              Email required!
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="afterRequestValidation.email.emailChangeFailed"
+            >
+              Something went wrong, please try again later
+            </span>
+            <span
+              class="success-msg"
+              *ngIf="afterRequestValidation.email.success"
+            >
+              Emaild change success
             </span>
           </div>
           <button
+            type="submit"
             class="
               adsh-btn
               adsh-btn--blue"
@@ -69,10 +84,14 @@
       </form>
 
       <form
-        #changePasswordForm="ngForm"
-        (ngSubmit)="onChangePassword(currentPassword.value, newPassword.value, newPasswordConfirm.value)"
+        [formGroup]="changePasswordForm"
+        (ngSubmit)="onChangePassword()"
         class="adsh-form">
-        <div class="row align-start change-form">
+        <div class="
+          row
+          align-start
+          change-form"
+        >
           <div class="row">
             <div class="adsh-form-input__box">
               <label
@@ -86,17 +105,36 @@
                 class="adsh-form-input"
                 type="password"
                 name="currentPassword"
-                ngModel
-                #currentPassword="ngModel"
-                required
+                formControlName="currentPassword"
               >
               <span
                 class="error-msg"
-                *ngIf="currentPassword.hasError('required') && changePasswordForm.submitted"
+                *ngIf="
+                  changePasswordForm.hasError('required', ['currentPassword']) &&
+                  changePasswordFormSubmitted"
               >
-                Current password required
+                Current password required!
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="afterRequestValidation.password.passwordChangeFailed"
+              >
+                Something went wrong, please try again later
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="afterRequestValidation.password.wrongPreviousPassword"
+              >
+                Wrong password!
+              </span>
+              <span
+                class="success-msg"
+                *ngIf="afterRequestValidation.password.success"
+              >
+                Password changed
               </span>
             </div>
+
             <div class="adsh-form-input__box">
               <label
                 for="newPassword"
@@ -109,25 +147,28 @@
                 class="adsh-form-input"
                 type="password"
                 name="newPassword"
-                ngModel
-                #newPassword="ngModel"
-                minlength="8"
-                required
+                formControlName="newPassword"
               >
               <span
-                *ngIf="newPassword.valid"
                 class="input-valid"
+                *ngIf="changePasswordForm.get('newPassword').valid"
               ></span>
-              <span class="error-msg" *ngIf="newPassword.hasError('minlength') && newPassword.touched">
-              Minimum 8 signs required!
-            </span>
               <span
                 class="error-msg"
-                *ngIf="newPassword.hasError('required') && changePasswordForm.submitted"
+                *ngIf="
+                  changePasswordForm.hasError('required', ['newPassword']) &&
+                  changePasswordFormSubmitted"
               >
-              New password required
-            </span>
+                New password required
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="changePasswordForm.hasError('minlength', ['newPassword']) &&
+                       changePasswordForm.get('newPassword').touched">
+                Minimum 8 signs required!
+              </span>
             </div>
+
             <div class="adsh-form-input__box">
               <label
                 for="newPasswordConfirm"
@@ -140,23 +181,28 @@
                 class="adsh-form-input"
                 type="password"
                 name="newPasswordConfirm"
-                ngModel
-                #newPasswordConfirm="ngModel"
-                required
+                [formControl]="newPasswordConfirm"
               >
               <span
-                *ngIf="newPasswordConfirm.value === newPassword.value && newPassword.valid"
                 class="input-valid"
+                *ngIf="
+                  newPasswordConfirm.value === changePasswordForm.get('newPassword').value &&
+                  changePasswordForm.get('newPassword').valid"
               ></span>
               <span
                 class="error-msg"
-                *ngIf="newPasswordConfirm.value !== newPassword.value && newPasswordConfirm.touched"
+                *ngIf="
+                  newPasswordConfirm.value !== changePasswordForm.get('newPassword').value &&
+                  newPasswordConfirm.touched &&
+                  changePasswordForm.get('newPassword').touched"
               >
                 Passwords don't match!
               </span>
             </div>
           </div>
+
           <button
+            type="submit"
             class="
               adsh-btn
               adsh-btn--blue"
