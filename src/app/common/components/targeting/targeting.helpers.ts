@@ -5,11 +5,9 @@ export function prepareTargetingChoices(targetingOptions, choicePartialKey = '',
     const optionSublist = targetingOption.values || targetingOption.children;
 
     if (optionSublist) {
-      if (!parentOption) {
-        choicePartialKey = '';
-      }
+      choicePartialKey = !parentOption ? '' : choicePartialKey;
+      choicePartialKey += (choicePartialKey ? '-' : '') + targetingOption.key;
 
-      choicePartialKey += (choicePartialKey !== '' ? '-' : '') + targetingOption.key;
       prepareTargetingChoices(optionSublist, choicePartialKey, targetingOption);
     } else {
       Object.assign(targetingOption, {

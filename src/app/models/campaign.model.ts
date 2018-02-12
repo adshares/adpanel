@@ -25,9 +25,9 @@ interface CampaignBasicInformation {
   bidStrategyName: string;
   bidValue: number;
   budget: number;
-  dateStart: object;
+  dateStart: string;
 
-  dateEnd?: object;
+  dateEnd?: string;
 }
 
 interface Ad {

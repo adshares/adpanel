@@ -135,7 +135,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   onSearchTermChange() {
     const searchTerm = this.searchTerm.toLowerCase().trim();
 
-    if (searchTerm !== '') {
+    if (searchTerm) {
       this.prepareSearchViewModel();
     } else {
       this.changeViewModel(this.targetingOptions);

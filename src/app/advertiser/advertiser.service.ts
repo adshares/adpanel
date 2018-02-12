@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 import { environment } from '../../environments/environment';
 import { Campaign } from '../models/campaign.model';
@@ -39,10 +40,6 @@ export class AdvertiserService {
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get(`${environment.apiUrl}/campaign_targeting`)
-      .map((targetingOptions: TargetingOption[]) => {
-        prepareTargetingChoices(targetingOptions);
-
-        return targetingOptions
-      });
+      .do(prepareTargetingChoices);
   }
 }
