@@ -7,6 +7,7 @@ import { User, LocalStorageUser } from './models/user.model';
 import { fadeAnimation } from './common/animations/fade.animation';
 import { appSettings } from '../app-settings/app-settings';
 import { userRolesEnum } from './models/enum/user.enum';
+import { isUnixTimePastNow } from './common/utilities/helpers';
 import * as authActions from './store/auth/auth.actions';
 import * as commonActions from './store/common/common.actions';
 
@@ -48,11 +49,10 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    const nowUnix = (+new Date) / 1000 | 0;
     const user = (({id, email, isAdvertiser, isPublisher, isAdmin, authToken}) =>
       ({id, email, isAdvertiser, isPublisher, isAdmin, authToken}))(userData);
 
-    if (userData.expiration < nowUnix) {
+    if (isUnixTimePastNow(userData.expiration)) {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {

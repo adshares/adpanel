@@ -17,6 +17,7 @@ import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { appSettings } from '../../../app-settings/app-settings';
 import { userRolesEnum } from '../../models/enum/user.enum';
+import { isUnixTimePastNow } from '../../common/utilities/helpers';
 
 
 @Component({
@@ -56,9 +57,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   checkIfUserRemembered() {
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const nowUnix = (+new Date) / 1000 | 0;
 
-    if (userData && userData.remember && userData.expiration > nowUnix) {
+    if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
       this.loginForm.get('email').setValue(userData.email),
       this.loginForm.get('password').setValue('*'.repeat(parseInt(userData.passwordLength)));
       this.rememberUser.nativeElement.checked = true;
