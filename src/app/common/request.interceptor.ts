@@ -28,11 +28,13 @@ export class RequestInterceptor implements HttpInterceptor {
     this.store.select('state', 'user', 'data', 'authToken')
       .take(1)
       .subscribe((authToken) => {
-        request = request.clone({
-          setHeaders: {
-            Authorization: authToken
-          }
-        });
+        if (authToken) {
+          request = request.clone({
+            setHeaders: {
+              Authorization: authToken
+            }
+          });
+        }
       });
 
     return next.handle(request).do((event: HttpEvent<any>) => {
@@ -49,6 +51,11 @@ export class RequestInterceptor implements HttpInterceptor {
 
   extendTokenExpiration() {
     const localStorageUser: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+
+    if (!localStorageUser) {
+      return;
+    }
+
     const expirationSeconds = localStorageUser.remember ?
       appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
 
