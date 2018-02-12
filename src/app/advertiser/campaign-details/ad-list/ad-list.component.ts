@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ad-list.component.scss'],
 })
 export class AdListComponent {
-  @Input() adList: Object;
+  @Input() adList: object;
 
 }
