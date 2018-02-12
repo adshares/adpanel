@@ -26,4 +26,11 @@ function enumToObject(enumInput) {
   return enumNameObject;
 }
 
-export { cloneDeep, enumToArray, enumToObject };
+function isUnixTimePastNow(unixTime): boolean {
+  const nowUnix = (+new Date) / 1000 | 0;
+
+  return unixTime < nowUnix;
+}
+
+
+export { cloneDeep, enumToArray, enumToObject, isUnixTimePastNow };
