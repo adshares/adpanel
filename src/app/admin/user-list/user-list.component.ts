@@ -62,7 +62,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
 
     this.filterUsersByType(this.selectedType);
 
-    if (searchTerm !== '') {
+    if (searchTerm) {
       const pattern = new RegExp(searchTerm, 'i');
 
       this.filteredUsers = this.filteredUsers.filter((user) =>
