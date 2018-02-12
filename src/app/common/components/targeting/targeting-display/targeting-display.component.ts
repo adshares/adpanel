@@ -1,6 +1,6 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
-import { TargetingOptionValue } from '../../../models/targeting-option.model';
+import { TargetingOptionValue } from '../../../../models/targeting-option.model';
 
 @Component({
   selector: 'app-targeting-display',
@@ -24,13 +24,13 @@ export class TargetingDisplayComponent implements OnChanges {
 
     this.items.forEach((item) => {
       const viewModelParentLabelIndex = this.viewModel.findIndex(
-        (viewModelItem) => viewModelItem[0] === item.parent_label
+        (viewModelItem) => viewModelItem[0] === item.parent.label
       );
 
       if (viewModelParentLabelIndex >= 0) {
         this.viewModel[viewModelParentLabelIndex][1].push(item);
       } else {
-        this.viewModel.push([item.parent_label, [item]]);
+        this.viewModel.push([item.parent.label, [item]]);
       }
     });
   }
