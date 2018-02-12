@@ -144,8 +144,8 @@
 
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targeting"
-            [items]="site.targeting.requires"
+            *ngIf="site.targetingArray"
+            [items]="site.targetingArray.requires"
             [isExclude]="false"
             [canRemove]="false"
           ></app-targeting-display>
@@ -159,8 +159,8 @@
         <span class="adsh-copy">Excludes:</span>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targeting"
-            [items]="site.targeting.excludes"
+            *ngIf="site.targetingArray"
+            [items]="site.targetingArray.excludes"
             [isExclude]="true"
             [canRemove]="false"
           ></app-targeting-display>
