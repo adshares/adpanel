@@ -20,7 +20,7 @@
         </h1>
       </div>
       <div class="col-xs-8">
-        <app-chart-filter></app-chart-filter>
+        <app-chart-filter (filter)="appChartRef.updateChartData($event)"></app-chart-filter>
       </div>
     </div>
 
@@ -47,7 +47,8 @@
                   row
                   align-center
                   justify-center"
-                chartSpan="day"
+                #appChartRef
+                (update)="getChartData($event)"
                 [barChartData]="barChartData[0]"
                 [barChartLabels]="barChartLabels[0].labels"
               ></app-chart>
@@ -89,7 +90,8 @@
                   row
                   align-center
                   justify-center"
-                chartSpan="week"
+                #appChartRef
+                (update)="getChartData($event)"
                 [barChartData]="barChartData[1]"
                 [barChartLabels]="barChartLabels[1].labels"
               ></app-chart>
@@ -127,7 +129,8 @@
                   row
                   align-center
                   justify-center"
-                chartSpan="month"
+                #appChartRef
+                (update)="getChartData($event)"
                 [barChartData]="barChartData[2]"
                 [barChartLabels]="barChartLabels[2].labels"
               ></app-chart>

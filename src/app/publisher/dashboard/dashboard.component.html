@@ -29,8 +29,7 @@
       <div class="col-xs-8">
         <app-chart-filter
           *ngIf="!sites"
-          (filter)="updateChartData($event)"
-          (filterByDatepicker)="updateChartDataByDatepicker($event)"
+          (filter)="appChartRef.updateChartData($event)"
         ></app-chart-filter>
       </div>
     </div>
@@ -89,6 +88,7 @@
                 align-center
                 justify-center"
               [seriesType]="chartSeriesType"
+              (update)="getChartData($event)"
               [barChartData]="barChartData[i]"
               [barChartLabels]="barChartLabels[i].labels"
               #appChartRef
