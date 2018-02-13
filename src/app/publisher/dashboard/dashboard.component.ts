@@ -85,7 +85,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     from,
     to,
     frequency,
-    assetId,
+    assetId
   ) {
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
@@ -112,12 +112,32 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   updateChartData(daysBack) {
     this.barChartData[0].data = [];
     this.currentFrom = moment().subtract(daysBack, 'days').format();
+    switch (daysBack) {
+      case '1':
+        return this.currentFrequency = 'hours';
+      case '7':
+        return this.currentFrequency = 'quarters';
+      case '30':
+        return this.currentFrequency = 'days';
+    }
     this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId);
   }
 
   updateChartDataByDatepicker(timespan) {
     this.currentFrom = timespan.from.value.format();
     this.currentTo = timespan.to.value.format();
+
+    const daysSpan = moment(this.currentTo).diff(moment(this.currentFrom), 'days');
+
+    if (daysSpan <= 1) {
+      return this.currentFrequency = 'hours';
+    } else if (daysSpan <= 7) {
+      return this.currentFrequency = 'quarters';
+    } else if (daysSpan <= 31) {
+      return this.currentFrequency = 'days';
+    } else {
+      // return last 30?
+    }
 
     this.barChartData[0].data = [];
     this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId);
