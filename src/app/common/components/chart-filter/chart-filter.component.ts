@@ -16,17 +16,13 @@ export class ChartFilterComponent {
   dateFrom = new FormControl();
   dateTo = new FormControl();
 
-  filterChart(daysBack) {
-    this.filter.emit(daysBack);
-  }
-
-  filterChartByDatepicker(from, to) {
+  filterChart(from, to) {
     const timespan = {
-      from,
-      to
+      from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
+      to: isNaN(to) ? to.value._d : moment().format()
     };
 
-    this.filterByDatepicker.emit(timespan);
+    this.filter.emit(timespan);
   }
 
   filterChartBySeries(series) {

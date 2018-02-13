@@ -16,10 +16,13 @@ import * as moment from 'moment';
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild('appChartRef') appChartRef: ChartComponent;
   chartSeries: string[] = enumToArray(chartSeriesEnum);
-  currentTo = moment().format();
-  currentFrom = moment().subtract(30, 'days').format();
-  currentFrequency = '1D';
-  currentAssetId = 0;
+
+  currentChartFilterSettings = {
+    currentTo: moment().format(),
+    currentFrom: moment().subtract(30, 'days').format(),
+    currentFrequency: '1D',
+    currentAssetId: 1
+  };
 
   barChartValue: number;
   barChartDifference: number;
@@ -66,33 +69,25 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     }],
   ];
 
-  constructor(
-    private chartService: ChartService,
-  ) {
+  constructor(private chartService: ChartService) {
     super(null);
   }
 
   ngOnInit() {
-    this.getChartData(
-      this.currentFrom,
-      this.currentTo,
-      this.currentFrequency,
-      this.currentAssetId
-    );
+    this.getChartData(this.currentChartFilterSettings);
   }
 
-  getChartData(
-    from,
-    to,
-    frequency,
-    assetId
-  ) {
+  getChartData(chartFilterSettings) {
+    this.barChartData.forEach(values => {
+      values[0].data = [];
+    });
+
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
-        from,
-        to,
-        frequency,
-        assetId,
+        chartFilterSettings.from,
+        chartFilterSettings.to,
+        chartFilterSettings.frequency,
+        chartFilterSettings.assetId
       )
       .subscribe(data => {
         this.barChartData.forEach(values => {
@@ -107,39 +102,5 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartDataSubscription);
-  }
-
-  updateChartData(daysBack) {
-    this.barChartData[0].data = [];
-    this.currentFrom = moment().subtract(daysBack, 'days').format();
-    switch (daysBack) {
-      case '1':
-        return this.currentFrequency = 'hours';
-      case '7':
-        return this.currentFrequency = 'quarters';
-      case '30':
-        return this.currentFrequency = 'days';
-    }
-    this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId);
-  }
-
-  updateChartDataByDatepicker(timespan) {
-    this.currentFrom = timespan.from.value.format();
-    this.currentTo = timespan.to.value.format();
-
-    const daysSpan = moment(this.currentTo).diff(moment(this.currentFrom), 'days');
-
-    if (daysSpan <= 1) {
-      return this.currentFrequency = 'hours';
-    } else if (daysSpan <= 7) {
-      return this.currentFrequency = 'quarters';
-    } else if (daysSpan <= 31) {
-      return this.currentFrequency = 'days';
-    } else {
-      // return last 30?
-    }
-
-    this.barChartData[0].data = [];
-    this.getChartData(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId);
   }
 }
