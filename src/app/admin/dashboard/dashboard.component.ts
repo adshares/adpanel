@@ -50,7 +50,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   constructor(
     private chartService: ChartService,
-    private dialog: MatDialog
   ) {
     super(null);
   }
