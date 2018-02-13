@@ -13,9 +13,7 @@
   >
     <mat-chip
       *ngFor="let item of groupedItems[1]"
-      [ngClass]="{'hide-remove': canRemove}"
-      (mouseout)="canRemove = true"
-      (mouseover)="canRemove = false"
+      [ngClass]="{'hide-remove': !canRemove}"
       (remove)="removeItem(item)"
     >
       <p
