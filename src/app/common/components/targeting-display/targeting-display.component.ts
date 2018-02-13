@@ -14,7 +14,6 @@ export class TargetingDisplayComponent implements OnChanges {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: [TargetingOptionValue[]][] = [];
-  hovered: false;
 
   ngOnChanges() {
     this.prepareItemsToDisplay();
