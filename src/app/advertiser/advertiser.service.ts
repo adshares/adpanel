@@ -30,9 +30,11 @@ export class AdvertiserService {
   }
 
   saveCampaign(campaign: Campaign): Observable<Campaign> {
-    const targetingObject = parseTargetingForBackend(campaign.targetingArray);
+    if (campaign.targetingArray) {
+      const targetingObject = parseTargetingForBackend(campaign.targetingArray);
 
-    Object.assign(campaign, {targeting: targetingObject});
+      Object.assign(campaign, {targeting: targetingObject});
+    }
 
     return this.http.put(`${environment.apiUrl}/campaign`, { campaign })
       .map((campaign: Campaign) => campaign);
