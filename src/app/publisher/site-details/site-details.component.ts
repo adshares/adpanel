@@ -27,7 +27,6 @@ export class SiteDetailsComponent {
     private store: Store<AppState>
   ) {
     this.site = this.route.snapshot.data.site;
-    console.log(this.site);
   }
 
   navigateToEditSite() {
