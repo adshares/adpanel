@@ -4,6 +4,9 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from '../../models/app-state.model';
 import { Site } from '../../models/site.model';
+import { PublisherService } from '../publisher.service';
+import { enumToObjectArray, selectCompare } from '../../common/utilities/helpers';
+import { siteStatusEnum } from '../../models/enum/site.enum';
 import * as publisherActions from '../../store/publisher/publisher.actions';
 
 @Component({
@@ -14,12 +17,17 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
 export class SiteDetailsComponent {
   site: Site;
 
+  siteStatuses = enumToObjectArray(siteStatusEnum);
+  selectCompare = selectCompare;
+
   constructor(
     private route: ActivatedRoute,
+    private publisherService: PublisherService,
     private router: Router,
     private store: Store<AppState>
   ) {
     this.site = this.route.snapshot.data.site;
+    console.log(this.site);
   }
 
   navigateToEditSite() {
@@ -28,5 +36,9 @@ export class SiteDetailsComponent {
       ['/publisher', 'create-site', 'summary'],
       { queryParams: { step: 4} }
     );
+  }
+
+  saveSite() {
+    this.publisherService.saveSite(this.site).subscribe();
   }
 }
