@@ -90,16 +90,18 @@
             status-wrapper"
         >
           <p>Campaign Status:</p>
-          <div
-            class="
-              adsh-box
-              adsh-box--small
-              adsh-status
-              text-center"
-            [attr.data-status]="campaign.basicInformation.status"
+          <mat-select
+            class="adsh-select"
+            [(value)]="campaign.basicInformation.status"
+            [compareWith]="selectCompare"
+            (change)="saveCampaign()"
           >
-            <span>{{ campaign.basicInformation.status }}</span>
-          </div>
+            <mat-option
+              *ngFor="let campaignStatus of campaignStatuses"
+              [value]="campaignStatus.id">
+              {{ campaignStatus.name }}
+            </mat-option>
+          </mat-select>
         </div>
         <div
           class="
