@@ -18,10 +18,10 @@
           adsh-box--small
           adsh-status
           text-center"
-        [attr.data-status]="campaign.basicInformation.status"
+        [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
       >
         <span>
-          {{ campaign.basicInformation.status }}
+          {{ campaignStatusesEnum[campaign.basicInformation.status] }}
         </span>
       </div>
     </div>

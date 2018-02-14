@@ -26,9 +26,11 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
-    const targetingObject = parseTargetingForBackend(site.targetingArray);
+    if (site.targetingArray) {
+      const targetingObject = parseTargetingForBackend(site.targetingArray);
 
-    Object.assign(site, {targeting: targetingObject});
+      Object.assign(site, {targeting: targetingObject});
+    }
 
     return this.http.put(`${environment.apiUrl}/site`, { site })
       .map((site: Site) => site);
