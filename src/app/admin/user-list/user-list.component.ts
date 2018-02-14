@@ -12,7 +12,7 @@ import * as adminActions from '../../store/admin/admin.actions';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent extends HandleSubscription implements OnInit {
-  @ViewChild('userSearch') userSearch: ElementRef;
+  userSearch = ''
   users: UserInfoStats[];
   filteredUsers: UserInfoStats[];
 
@@ -33,7 +33,6 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       });
     this.subscriptions.push(usersSubscription);
 
-    this.userSearch.nativeElement.value = '';
     this.store.dispatch(new adminActions.LoadUsers(''));
     this.store.dispatch(new adminActions.LoadAdminSettings(''));
   }
@@ -42,7 +41,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     this.selectedType = type;
 
     if (resetSearch) {
-      this.userSearch.nativeElement.value = '';
+      this.userSearch = '';
     }
 
     this.filteredUsers = this.users.filter(user => {
@@ -58,7 +57,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   }
 
   onSearchChange() {
-    const searchTerm = this.userSearch.nativeElement.value.toLowerCase().trim();
+    const searchTerm = this.userSearch.toLowerCase().trim();
 
     this.filterUsersByType(this.selectedType);
 
