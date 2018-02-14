@@ -71,97 +71,41 @@
       class="
         adsh-box
         adsh-box--large
-        targeting
+        adsh-copy
         row"
     >
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.requires.languages"
+      <div
+        class="
+          col-xs-2
+          row
+          align-center
+          status-wrapper"
+      >
+        <p>Site Status:</p>
+        <mat-select
+          class="adsh-select"
+          [(value)]="site.status"
+          [compareWith]="selectCompare"
+          (change)="saveSite()"
         >
-          {{ item }}
-        </div>
+          <mat-option
+            *ngFor="let siteStatus of siteStatuses"
+            [value]="siteStatus.id">
+            {{ siteStatus.name }}
+          </mat-option>
+        </mat-select>
       </div>
-      <div class="col-xs-2">
+
+      <div
+        class="
+          col-xs-10
+          row
+          align-center"
+      >
         <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.requires.devices"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.requires.genders"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.requires.operatingSystems"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.requires.browsers"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.excludes.devices"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.excludes.genders"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.excludes.operatingSystems"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="col-xs-2">
-        <div
-          class="
-            adsh-chip-box
-            adsh-chip-box--dark"
-          *ngFor="let item of site.targeting.excludes.browsers"
-        >
-          {{ item }}
+            class="col-xs-2">
+          <p>Content Language:</p>
+          <p>{{ site.primaryLanguage }}</p>
         </div>
       </div>
     </div>

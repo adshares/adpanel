@@ -3,5 +3,6 @@
     "email": "sth@sth.sth",
     "isAdvertiser": true,
     "isPublisher": true,
-    "isAdmin": false
+    "isAdmin": false,
+    "authToken": "someauthtokenvalue"
 }

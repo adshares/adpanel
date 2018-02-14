@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,12 +9,15 @@ import * as authActions from '../../store/auth/auth.actions';
 import * as commonActions from '../../store/common/common.actions';
 
 import { AuthService } from '../auth.service';
-import { User } from '../../models/user.model';
+import { User, LocalStorageUser } from '../../models/user.model';
 import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
+import { appSettings } from '../../../app-settings/app-settings';
+import { userRolesEnum } from '../../models/enum/user.enum';
+import { isUnixTimePastNow } from '../../common/utilities/helpers';
 
 
 @Component({
@@ -22,11 +25,13 @@ import { AppState } from '../../models/app-state.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent extends HandleSubscription {
-  @ViewChild('loginForm') loginForm: NgForm;
+export class LoginComponent extends HandleSubscription implements OnInit {
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
+  loginForm: FormGroup;
+
   isLoggingIn = false;
+  loginFormSubmitted = false;
 
   constructor(
     private authService: AuthService,
@@ -38,7 +43,31 @@ export class LoginComponent extends HandleSubscription {
     super(null);
   }
 
+  ngOnInit() {
+    this.createForm();
+    this.checkIfUserRemembered();
+  }
+
+  createForm() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    });
+  }
+
+  checkIfUserRemembered() {
+    const userData = JSON.parse(localStorage.getItem('adshUser'));
+
+    if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
+      this.loginForm.get('email').setValue(userData.email),
+      this.loginForm.get('password').setValue('*'.repeat(parseInt(userData.passwordLength)));
+      this.rememberUser.nativeElement.checked = true;
+    }
+  }
+
   login() {
+    this.loginFormSubmitted = true;
+
     if (!this.loginForm.valid) {
       return;
     }
@@ -50,24 +79,38 @@ export class LoginComponent extends HandleSubscription {
       this.loginForm.value.password
      )
       .subscribe((userResponse: User) => {
-        this.store.dispatch(new authActions.LoginUser(userResponse));
+        this.store.dispatch(new authActions.SetUser(userResponse));
+        this.saveUserDataToLocalStorage(userResponse);
 
         if (userResponse.isAdmin) {
-          this.store.dispatch(new commonActions.SetActiveUserType('admin'));
+          this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.showStartupPopups(userResponse);
 
           if (userResponse.isAdvertiser) {
-            this.store.dispatch(new commonActions.SetActiveUserType('advertiser'));
+            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
           } else if (userResponse.isPublisher) {
-            this.store.dispatch(new commonActions.SetActiveUserType('publisher'));
+            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
             this.router.navigate(['/publisher/dashboard']);
           }
         }
       });
     this.subscriptions.push(loginSubscription);
+  }
+
+  saveUserDataToLocalStorage(userResponse: User) {
+    const rememberUser = this.rememberUser.nativeElement.checked;
+    const expirationSeconds = rememberUser ?
+      appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
+    const dataToSave: LocalStorageUser = Object.assign({}, userResponse, {
+      remember: rememberUser,
+      passwordLength: this.loginForm.get('password').value.length,
+      expiration: ((+new Date) / 1000 | 0) + expirationSeconds
+    });
+
+    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
   }
 
   showStartupPopups(user: User) {

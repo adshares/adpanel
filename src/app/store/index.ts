@@ -5,10 +5,16 @@ import { advertiserReducers } from './advertiser/advertiser.reducers';
 import { publisherReducers } from './publisher/publisher.reducers';
 import { settingsReducers } from './settings/settings.reducers';
 import { adminReducers } from './admin/admin.reducers';
-import { UserState, PublisherState, AdvertiserState, AdminState, CommonState } from '../models/app-state.model';
+import {
+  UserState,
+  PublisherState,
+  AdvertiserState,
+  AdminState,
+  CommonState
+} from '../models/app-state.model';
 import { commonReducers } from './common/common.reducers';
 
-export interface ReducersState {
+interface ReducersState {
   user: UserState;
   advertiser: AdvertiserState;
   publisher: PublisherState;

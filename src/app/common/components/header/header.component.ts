@@ -9,7 +9,6 @@ import { AppState } from '../../../models/app-state.model';
 import { User } from '../../../models/user.model';
 import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
-import { enumToObject } from '../../utilities/helpers';
 
 import * as commonActions from '../../../store/common/common.actions';
 import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
@@ -25,9 +24,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   currentBalanceUSD = 1240.02;
   notificationsCount = 8;
   userDataState: Store<User>;
-  activeUserType: string;
-  userRoles: { [key: string]: string } = enumToObject(userRolesEnum);
+  activeUserType: number;
 
+  userRolesEnum = userRolesEnum;
   notificationsBarEnabled = false;
 
   constructor(
@@ -36,8 +35,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     private dialog: MatDialog
   ) {
     super(null);
-
-    this.userDataState = this.store.select('state', 'user', 'data');
   }
 
   ngOnInit() {
@@ -47,6 +44,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(activeUserTypeSubscription);
+    this.userDataState = this.store.select('state', 'user', 'data');
   }
 
   toggleNotificationsBar(status: boolean) {
@@ -54,8 +52,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToCreateNewAsset() {
-    const moduleDir =  `/${this.activeUserType}`;
-    const isUserAdvertiser = this.activeUserType === this.userRoles.ADVERTISER;
+    const moduleDir =  `/${userRolesEnum[this.activeUserType].toLowerCase()}`;
+    const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER;
     const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
 
     if (isUserAdvertiser) {
