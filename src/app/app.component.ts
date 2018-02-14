@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   handleSavedUserData() {
-    if (this.router.url.indexOf('auth') > -1) {
+    if (location.pathname.indexOf('auth') > -1) {
       return;
     }
 
@@ -64,9 +64,9 @@ export class AppComponent implements OnInit {
   }
 
   getActiveUserType() {
-    if (this.router.url.indexOf('admin') > -1) {
+    if (location.pathname.indexOf('admin') > -1) {
       return userRolesEnum.ADMIN;
-    } else if (this.router.url.indexOf('advertiser') > -1) {
+    } else if (location.pathname.indexOf('advertiser') > -1) {
       return userRolesEnum.ADVERTISER;
     } else {
       return userRolesEnum.PUBLISHER;

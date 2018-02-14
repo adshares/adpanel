@@ -4,6 +4,10 @@ import { Store } from '@ngrx/store';
 
 import { Campaign } from '../../models/campaign.model';
 import { AppState } from '../../models/app-state.model';
+import { AdvertiserService } from '../advertiser.service';
+import { campaignStatusesEnum } from '../../models/enum/campaign.enum';
+import { enumToObjectArray, selectCompare } from '../../common/utilities/helpers';
+
 import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 
 @Component({
@@ -14,10 +18,14 @@ import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 export class CampaignDetailsComponent {
   campaign: Campaign;
 
+  campaignStatuses = enumToObjectArray(campaignStatusesEnum);
+  selectCompare = selectCompare;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private advertiserService: AdvertiserService
   ) {
     this.campaign = this.route.snapshot.data.campaign;
   }
@@ -28,5 +36,9 @@ export class CampaignDetailsComponent {
       ['/advertiser', 'create-campaign', 'summary'],
       { queryParams: { step: 4} }
     );
+  }
+
+  saveCampaign() {
+    this.advertiserService.saveCampaign(this.campaign).subscribe();
   }
 }

@@ -1,6 +1,7 @@
 [{
     "name": "Site 1",
     "id": "222222222222",
+    "status": 1,
     "estimatedEarnings": "1232",
     "clicks": "213",
     "impressions": "12435",
@@ -52,6 +53,7 @@
   {
     "name": "Site 1",
     "id": "1111",
+    "status": 1,
     "estimatedEarnings": "132",
     "clicks": "11",
     "impressions": "112",
