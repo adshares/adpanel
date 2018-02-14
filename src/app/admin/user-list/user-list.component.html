@@ -28,9 +28,8 @@
           class="search"
           placeholder="Search by email"
           matInput
-          ngModel
-          (input)="onSearchChange()"
-          #userSearch
+          [ngModel]="userSearch"
+          (ngModelChange)="onSearchChange()"
         >
         <span matPrefix>
             <mat-icon>search</mat-icon>
