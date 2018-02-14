@@ -1,6 +1,7 @@
 [{
     "name": "Site 1",
     "id": "222222222222",
+    "status": 1,
     "estimatedEarnings": "1232",
     "clicks": "213",
     "impressions": "12435",
@@ -9,10 +10,16 @@
 
     "targeting": {
       "requires": {
-        "languages": ["Polish", "English"]
+        "lang": ["pl"],
+        "site": {
+          "host": ["google.pl", "onet.pl"]
+        }
       },
       "excludes": {
-        "languages": ["German", "French"]
+        "js_enabled": ["false"],
+        "screen": {
+          "width": ["<1200,1800>", "<1200,>"]
+        }
       }
     },
     "adUnits": [{
@@ -46,6 +53,7 @@
   {
     "name": "Site 1",
     "id": "1111",
+    "status": 1,
     "estimatedEarnings": "132",
     "clicks": "11",
     "impressions": "112",
@@ -54,10 +62,16 @@
 
     "targeting": {
       "requires": {
-        "languages": ["Polish", "English"]
+        "lang": ["pl"],
+        "site": {
+          "host": ["google.pl", "onet.pl"]
+        }
       },
       "excludes": {
-        "languages": ["German", "French"]
+        "js_enabled": ["false"],
+        "screen": {
+          "width": ["<1200,1800>", "<1200,>"]
+        }
       }
     },
     "adUnits": [{
