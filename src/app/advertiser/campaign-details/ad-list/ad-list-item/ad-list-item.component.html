@@ -21,9 +21,7 @@
             text-center"
           [attr.data-status]="ad.status"
         >
-        <span>
-          {{ ad.status }}
-        </span>
+        <span>{{ ad.status }}</span>
         </div>
       </div>
       <div
@@ -46,18 +44,14 @@
           row
           align-center"
       >
-      <span>
-        {{ ad.budget | currency:USD }}/day
-      </span>
+      <span>{{ ad.budget | currency:USD }}/day</span>
       </div>
       <div
         class="
           col-xs-1
           row
           align-center">
-      <span>
-        {{ ad.clicks }}
-      </span>
+      <span>{{ ad.clicks }}</span>
       </div>
       <div
         class="
@@ -65,9 +59,7 @@
           row
           align-center"
       >
-      <span>
-        {{ ad.impressions }}
-      </span>
+      <span>{{ ad.impressions }}</span>
       </div>
       <div
         class="
@@ -75,9 +67,7 @@
           row
           align-center"
       >
-      <span>
-        {{ ad.ctr | percent }}
-      </span>
+      <span>{{ ad.ctr | percent }}</span>
       </div>
       <div
         class="
@@ -85,9 +75,7 @@
           row
           align-center"
       >
-      <span>
-        {{ ad.averageCPC | currency:USD }}
-      </span>
+      <span>{{ ad.averageCPC | currency:USD }}</span>
       </div>
       <div
         class="
@@ -95,9 +83,7 @@
           row
           align-center"
       >
-      <span>
-        {{ ad.cost | currency:USD }}
-      </span>
+      <span>{{ ad.cost | currency:USD }}</span>
       </div>
     </div>
   </div>

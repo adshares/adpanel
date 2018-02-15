@@ -29,9 +29,9 @@
           adsh-copy
           adsh-copy--large"
       >
-        {{ userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
-        userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' :
-        'Publisher'
+        {{
+          userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
+          userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' : 'Publisher'
         }}
       </div>
       <div
