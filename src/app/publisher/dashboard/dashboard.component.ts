@@ -9,7 +9,7 @@ import { chartFilterSettingsInitialState } from '../../models/initial-state/char
 import { ChartData } from '../../models/chart/chart-data.model';
 import { ChartLabels } from '../../models/chart/chart-labels.model';
 
-import { cloneDeep, enumToArray} from '../../common/utilities/helpers';
+import { cloneDeep, createInitialArray, enumToArray } from '../../common/utilities/helpers';
 import * as moment from 'moment';
 
 @Component({
@@ -21,52 +21,13 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
-
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
+  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 6);
+  barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
 
-  barChartLabels: ChartLabels[] = [
-    {
-      labels: []
-    },
-    {
-      labels: []
-    },
-    {
-      labels: []
-    },
-    {
-      labels: []
-    },
-    {
-      labels: []
-    },
-    {
-      labels: []
-    }
-  ];
-  barChartData: ChartData[][] = [
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-  ];
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   constructor(private chartService: ChartService) {
     super(null);

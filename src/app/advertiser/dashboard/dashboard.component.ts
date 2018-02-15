@@ -7,7 +7,7 @@ import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.mod
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 
 import * as moment from 'moment';
-import { cloneDeep } from '../../common/utilities/helpers';
+import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
 import { ChartData } from '../../models/chart/chart-data.model';
 
 @Component({
@@ -21,12 +21,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-
   barChartLabels: string[] = [];
-  barChartData: ChartData[] =
-    [{
-      data: []
-    }];
+  barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
 
   currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
@@ -52,17 +48,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.series
       )
       .subscribe(data => {
-        console.log(data)
-
         this.barChartData[0].data = data.values;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-
-    console.log(this.barChartData)
-    console.log(this.barChartLabels)
 
     this.subscriptions.push(chartDataSubscription);
   }

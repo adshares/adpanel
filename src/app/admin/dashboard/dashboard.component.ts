@@ -9,7 +9,7 @@ import { ChartLabels } from '../../models/chart/chart-labels.model';
 
 import { HandleSubscription } from '../../common/handle-subscription';
 import * as moment from 'moment';
-import { cloneDeep } from '../../common/utilities/helpers';
+import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,34 +19,13 @@ import { cloneDeep } from '../../common/utilities/helpers';
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
-
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
+  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 3);
+  barChartData: ChartData[][] = createInitialArray([{ data: [] }], 3);
 
-  barChartLabels: ChartLabels[] = [
-    {
-      labels: []
-    },
-    {
-      labels: []
-    },
-    {
-      labels: []
-    }
-  ];
-  barChartData: ChartData[][] = [
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }],
-    [{
-      data: []
-    }]
-  ];
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   constructor(private chartService: ChartService) {
     super(null);
