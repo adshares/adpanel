@@ -92,8 +92,8 @@
   }
 
   &.drag-and-drop-box--file-over {
-    border-style: solid;
-    border-color: pal(blue);
+    border: 1px solid pal(blue);
+    background-color: #fdfdfd;
   }
 }
 

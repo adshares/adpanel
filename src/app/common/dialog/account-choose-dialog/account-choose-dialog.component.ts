@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { AppState } from '../../../models/app-state.model';
-import { userRolesEnum } from '../../../models/enum/user.enum'
+import { userRolesEnum } from '../../../models/enum/user.enum';
 import * as commonActions from '../../../store/common/common.actions';
 
 @Component({

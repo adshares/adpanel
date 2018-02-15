@@ -3,40 +3,37 @@
     col
     adsh-ad-list"
 >
-  <div
-    class="
-      adsh-box
-      adsh-box--large"
-  >
-    <app-table-navigation
-      [navigationName]="'adListNavigation'"
-      class="
-        row
-        adsh-copy
-        adsh-copy--small"
-    >
-    </app-table-navigation>
+  <div class="adsh-ad-list__items">
+    <div class="adsh-box">
+      <app-table-navigation
+        [navigationName]="'adListNavigation'"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+      ></app-table-navigation>
+    </div>
 
+    <app-ad-list-item
+      *ngFor="let ad of adList"
+      [ad]="ad"
+    ></app-ad-list-item>
 
-    <div class="adsh-ad-list__items">
-      <app-ad-list-item
-        *ngFor="let ad of adList"
-        [ad]="ad"
-      >
-      </app-ad-list-item>
-
+    <div class="adsh-box">
       <div
         class="
           row
           justify-center"
       >
-        <button class="
-                    row
-                    align-center
-                    adsh-btn
-                    adsh-btn--large
-                    adsh-btn--white
-                    adsh-btn--no-border">
+        <button
+          class="
+            row
+            align-center
+            adsh-btn
+            adsh-btn--large
+            adsh-btn--white
+            adsh-btn--no-border"
+        >
           <img
             src="assets/images/plus-circle--blue.svg"
             alt="Add new icon"

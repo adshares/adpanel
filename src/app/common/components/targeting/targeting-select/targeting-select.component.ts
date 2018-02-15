@@ -79,7 +79,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       if (option.values) {
         const oppositeBooleanOption = option.values.find(
           (optionValue) => optionValue.key !== searchOption.key
-        )
+        );
         const itemIndex = this.selectedItems.findIndex(
           (item) => item.key === oppositeBooleanOption.key
         );

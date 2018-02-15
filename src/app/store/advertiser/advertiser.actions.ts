@@ -28,7 +28,7 @@ export class SaveCampaignBasicInformation implements Action {
 
 export class SaveCampaignTargeting implements Action {
   readonly type = SAVE_CAMPAIGN_TARGETING;
-  constructor(public payload: AssetTargeting) { };
+  constructor(public payload: AssetTargeting) { }
 }
 
 export class SaveCampaignAds implements Action {

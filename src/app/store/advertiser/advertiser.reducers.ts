@@ -33,7 +33,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { targetingArray: action.payload })
-      }
+      };
     case advertiserActions.SAVE_CAMPAIGN_ADS:
       return {
         ...state,
