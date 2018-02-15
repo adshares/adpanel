@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
+import { ChartFilterSettings } from '../../../models/chart-filter-settings.model';
+import { chartFilterSettingsInitialState } from '../../../models/initial-state/chart-filter-settings';
+import { cloneDeep } from '../../utilities/helpers';
 import * as moment from 'moment';
 
 @Component({
@@ -14,13 +17,7 @@ export class ChartComponent {
   @Input() barChartLabels: any[];
   @Output() update: EventEmitter<any> = new EventEmitter();
 
-  currentChartFilterSettings = {
-    currentTo: moment().format(),
-    currentFrom: moment().subtract(30, 'days').format(),
-    currentFrequency: '1D',
-    currentAssetId: 1,
-    currentSeries: 'clicks'
-  };
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   barChartType = 'bar';
   barChartOptions: any = {
@@ -82,7 +79,6 @@ export class ChartComponent {
     } else {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
-    console.log(this.currentChartFilterSettings);
     this.update.emit(this.currentChartFilterSettings);
   }
 

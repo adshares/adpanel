@@ -3,7 +3,10 @@ import { ChartComponent } from '../../common/components/chart/chart.component';
 import { ChartService } from '../../common/chart.service';
 
 import { HandleSubscription } from '../../common/handle-subscription';
+import { ChartFilterSettings} from '../../models/chart-filter-settings.model';
+import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 
+import { cloneDeep } from '../../common/utilities/helpers';
 import * as moment from 'moment';
 
 @Component({
@@ -21,13 +24,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartLabels = [];
   barChartData: any[] = [{data: []}];
 
-  currentChartFilterSettings = {
-    currentTo: moment().format(),
-    currentFrom: moment().subtract(30, 'days').format(),
-    currentFrequency: '1D',
-    currentAssetId: 1,
-    currentSeries: 'clicks'
-  };
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   constructor(
     private chartService: ChartService,

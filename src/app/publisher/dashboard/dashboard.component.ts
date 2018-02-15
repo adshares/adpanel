@@ -4,8 +4,10 @@ import { ChartComponent } from '../../common/components/chart/chart.component';
 
 import { HandleSubscription } from '../../common/handle-subscription';
 import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
-import { enumToArray } from '../../common/utilities/helpers';
+import { ChartFilterSettings} from '../../models/chart-filter-settings.model';
+import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 
+import { cloneDeep, enumToArray} from '../../common/utilities/helpers';
 import * as moment from 'moment';
 
 @Component({
@@ -17,12 +19,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
-  currentChartFilterSettings = {
-    currentTo: moment().format(),
-    currentFrom: moment().subtract(30, 'days').format(),
-    currentFrequency: '1D',
-    currentAssetId: 1
-  };
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   barChartValue: number;
   barChartDifference: number;
