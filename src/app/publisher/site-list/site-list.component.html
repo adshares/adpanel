@@ -8,19 +8,17 @@
       <app-table-navigation
         [navigationName]="'siteListNavigation'"
         class="
-        row
-        adsh-copy
-        adsh-copy--small"
-      >
-      </app-table-navigation>
+          row
+          adsh-copy
+          adsh-copy--small"
+      ></app-table-navigation>
     </div>
 
     <div *ngIf="sites.length > 0 ; else loading">
       <app-site-list-item
         *ngFor="let site of sites"
         [site]="site"
-      >
-      </app-site-list-item>
+      ></app-site-list-item>
     </div>
   </div>
 
