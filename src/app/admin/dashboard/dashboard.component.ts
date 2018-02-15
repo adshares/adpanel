@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartService } from '../../common/chart.service';
 import { ChartComponent } from '../../common/components/chart/chart.component';
 
-import { ChartFilterSettings } from '../../models/chart-filter-settings.model';
+import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
+import { ChartData } from '../../models/chart/chart-data.model';
+import { ChartLabels } from '../../models/chart/chart-labels.model';
+
 import { HandleSubscription } from '../../common/handle-subscription';
 import * as moment from 'moment';
 import { cloneDeep } from '../../common/utilities/helpers';
@@ -22,7 +25,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
 
-  barChartLabels = [
+  barChartLabels: ChartLabels[] = [
     {
       labels: []
     },
@@ -33,7 +36,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       labels: []
     }
   ];
-  barChartData: any[] = [
+  barChartData: ChartData[][] = [
     [{
       data: []
     }],

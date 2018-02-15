@@ -4,8 +4,10 @@ import { ChartComponent } from '../../common/components/chart/chart.component';
 
 import { HandleSubscription } from '../../common/handle-subscription';
 import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
-import { ChartFilterSettings} from '../../models/chart-filter-settings.model';
+import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
+import { ChartData } from '../../models/chart/chart-data.model';
+import { ChartLabels } from '../../models/chart/chart-labels.model';
 
 import { cloneDeep, enumToArray} from '../../common/utilities/helpers';
 import * as moment from 'moment';
@@ -25,7 +27,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
 
-  barChartLabels = [
+  barChartLabels: ChartLabels[] = [
     {
       labels: []
     },
@@ -45,7 +47,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       labels: []
     }
   ];
-  barChartData: any[] = [
+  barChartData: ChartData[][] = [
     [{
       data: []
     }],
