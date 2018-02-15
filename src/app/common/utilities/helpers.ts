@@ -26,4 +26,14 @@ function enumToObject(enumInput) {
   return enumNameObject;
 }
 
-export { cloneDeep, enumToArray, enumToObject };
+function createInitialArray(element, count) {
+  const resultArray = [];
+
+  for (let i = 0; i < count; i++) {
+    resultArray.push(element);
+  }
+
+  return resultArray;
+}
+
+export { cloneDeep, enumToArray, enumToObject, createInitialArray };
