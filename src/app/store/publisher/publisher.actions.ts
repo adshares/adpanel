@@ -49,7 +49,7 @@ export class SaveLastEditedSiteAdUnits implements Action {
 
 export class AddSiteToSites implements Action {
   readonly type = ADD_SITE_TO_SITES;
-  constructor(public payload: Site) { };
+  constructor(public payload: Site) { }
 }
 
 export type actions =

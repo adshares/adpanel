@@ -11,7 +11,6 @@ import { PublisherService } from '../../publisher.service';
 import { Site } from '../../../models/site.model';
 import { AssetTargeting } from '../../../models/targeting-option.model';
 import { TargetingSelectComponent } from '../../../common/components/targeting/targeting-select/targeting-select.component';
-import { siteInitialState } from '../../../models/initial-state/site';
 
 @Component({
   selector: 'app-edit-site-additional-targeting',

@@ -48,4 +48,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad }
+export { Campaign, CampaignBasicInformation, Ad };
