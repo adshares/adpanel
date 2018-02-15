@@ -3,6 +3,7 @@ import { AppCommonModule } from '../common/common.module';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
@@ -19,6 +20,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     AppCommonModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AuthRoutingModule
   ],
   declarations: [

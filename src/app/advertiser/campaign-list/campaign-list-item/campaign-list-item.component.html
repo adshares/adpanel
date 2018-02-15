@@ -19,11 +19,9 @@
             adsh-box--small
             adsh-status
             text-center"
-          [attr.data-status]="campaign.basicInformation.status"
+          [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
         >
-          <span>
-            {{ campaign.basicInformation.status }}
-          </span>
+          <span>{{ campaignStatusesEnum[campaign.basicInformation.status] }}</span>
         </div>
       </div>
       <div
@@ -46,9 +44,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.basicInformation.budget | currency:USD }}/day
-        </span>
+        <span>{{ campaign.basicInformation.budget | currency:USD }}/day</span>
       </div>
       <div
         class="
@@ -56,9 +52,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.clicks }}
-        </span>
+        <span>{{ campaign.clicks }}</span>
       </div>
       <div
         class="
@@ -66,9 +60,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.impressions }}
-        </span>
+        <span>{{ campaign.impressions }}</span>
       </div>
       <div
         class="
@@ -76,9 +68,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.ctr | percent }}
-        </span>
+        <span>{{ campaign.ctr | percent }}</span>
       </div>
       <div
         class="
@@ -86,9 +76,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.averageCPC | currency:USD }}
-        </span>
+        <span>{{ campaign.averageCPC | currency:USD }}</span>
       </div>
       <div
         class="
@@ -96,9 +84,7 @@
           row
           align-center"
       >
-        <span>
-          {{ campaign.cost | currency:USD }}
-        </span>
+        <span>{{ campaign.cost | currency:USD }}</span>
       </div>
       <div
         class="
