@@ -40,14 +40,12 @@
                 justify-center
                 chart-wrapper"
             >
-              <!--TODO change chartSpan etc. It's here to show different views-->
               <app-chart
                 class="
                   chart
                   row
                   align-center
                   justify-center"
-                #appChartRef
                 (update)="getChartData($event)"
                 [barChartData]="barChartData[0]"
                 [barChartLabels]="barChartLabels[0].labels"
@@ -83,14 +81,12 @@
                 justify-center
                 chart-wrapper--small"
             >
-              <!--TODO change chartSpan etc. It's here to show different views-->
               <app-chart
                 class="
                   chart
                   row
                   align-center
                   justify-center"
-                #appChartRef
                 (update)="getChartData($event)"
                 [barChartData]="barChartData[1]"
                 [barChartLabels]="barChartLabels[1].labels"
@@ -122,14 +118,12 @@
                 justify-center
                 chart-wrapper--small"
             >
-              <!--TODO change chartSpan etc. It's here to show different views-->
               <app-chart
                 class="
                   chart
                   row
                   align-center
                   justify-center"
-                #appChartRef
                 (update)="getChartData($event)"
                 [barChartData]="barChartData[2]"
                 [barChartLabels]="barChartLabels[2].labels"

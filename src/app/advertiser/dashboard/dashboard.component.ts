@@ -12,9 +12,9 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  @ViewChild('appChartRef') appChartRef: ChartComponent;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
-  barChartValue: 20;
+  barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
 
@@ -51,7 +51,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.series
       )
       .subscribe(data => {
-        // wylogowac coś i zobaczyć czy bedzie wiele razy bedzie subskrybował. wtedy użyć take(1) przed subscribe
         this.barChartData[0].data = data.values;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
         this.barChartValue = data.total;

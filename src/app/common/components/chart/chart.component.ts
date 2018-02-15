@@ -80,7 +80,7 @@ export class ChartComponent {
     } else if (daysSpan <= 31) {
       this.currentChartFilterSettings.currentFrequency = 'days';
     } else {
-      // return last 30?
+      this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
     console.log(this.currentChartFilterSettings);
     this.update.emit(this.currentChartFilterSettings);

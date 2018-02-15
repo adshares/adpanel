@@ -11,7 +11,7 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  @ViewChild('appChartRef') appChartRef: ChartComponent;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   currentChartFilterSettings = {
     currentTo: moment().format(),
@@ -57,9 +57,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => {
-      values[0].data = [];
-    });
+    this.barChartData.forEach(values => values[0].data = [] );
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(
@@ -70,11 +68,9 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.series
       )
       .subscribe(data => {
-        this.barChartData.forEach(values => {
-          values[0].data = data.values;
-        });
-        this.barChartLabels.forEach(labels => {
-          labels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
+        this.barChartData.forEach(values => values[0].data = data.values );
+        this.barChartLabels.forEach(chartLabels => {
+          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
         });
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
