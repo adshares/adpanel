@@ -20,7 +20,7 @@
         Please log in to your account.
       </p>
       <form
-        #loginForm="ngForm"
+        [formGroup]="loginForm"
         (ngSubmit)="login()"
         class="adsh-form"
       >
@@ -36,26 +36,23 @@
             class="adsh-form-input"
             type="email"
             name="email"
-            ngModel
-            [email]="true"
-            #email="ngModel"
-            required
+            formControlName="email"
           >
           <span
-            *ngIf="email.valid"
+            *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
             class="input-valid"
           ></span>
           <span
             class="error-msg"
-            *ngIf="email.hasError('email') && email.touched"
+            *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
           >
-            Invalid email!
+            Email required!
           </span>
           <span
             class="error-msg"
-            *ngIf="email.hasError('required') && loginForm.submitted"
+            *ngIf="loginForm.hasError('email', ['email']) && loginFormSubmitted"
           >
-            Email required!
+            Invalid email!
           </span>
         </div>
 
@@ -71,23 +68,20 @@
               class="adsh-form-input"
               type="password"
               name="password"
-              ngModel
-              minlength="8"
-              #password="ngModel"
-              required
+              formControlName="password"
           >
           <span
-              *ngIf="password.valid"
+              *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
               class="input-valid"
           ></span>
           <span
             class="error-msg"
-            *ngIf="password.hasError('minlength') && password.touched">
+            *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted">
               Minimum 8 signs required!
           </span>
           <span
             class="error-msg"
-            *ngIf="password.hasError('required') && loginForm.submitted"
+            *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
           >
             Password required
           </span>

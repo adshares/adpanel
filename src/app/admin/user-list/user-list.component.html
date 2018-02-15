@@ -17,18 +17,17 @@
           adsh-heading--primary"
       >
         Users
-        <span>
-            ({{ userCount }})
-          </span>
+        <span>({{ userCount }})</span>
       </h1>
     </div>
     <div class="col-xs-4">
       <mat-form-field>
         <input
-          type="email"
           class="search"
-          matInput
           placeholder="Search by email"
+          matInput
+          [(ngModel)]="userSearch"
+          (ngModelChange)="onSearchChange()"
         >
         <span matPrefix>
             <mat-icon>search</mat-icon>
@@ -50,7 +49,7 @@
             type="radio"
             [ngModel]="'All'"
             [value]="type"
-            (click)="filterUsersByType(type)"
+            (click)="filterUsersByType(type, true)"
           >
           <label
             [for]="type"
@@ -82,7 +81,7 @@
     </div>
 
     <app-user-list-item
-      *ngFor="let user of filteredUsersByType"
+      *ngFor="let user of filteredUsers"
       [userInfoStats]="user"
     ></app-user-list-item>
   </div>

@@ -19,8 +19,8 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
-import { TargetingSelectComponent } from './components/targeting-select/targeting-select.component';
-import { TargetingDisplayComponent } from './components/targeting-display/targeting-display.component';
+import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
+import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
 

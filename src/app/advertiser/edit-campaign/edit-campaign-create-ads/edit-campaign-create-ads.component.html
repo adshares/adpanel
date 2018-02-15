@@ -214,7 +214,7 @@
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
             *ngIf="
             adForm.get('type').value === 0 &&
-            (adForm.get('image').value.src !== '' || imagesStatus.upload.processing)">
+            (adForm.get('image').value.src || imagesStatus.upload.processing)">
 
             <div class="col-xs-1">
               <img
