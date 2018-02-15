@@ -14,4 +14,4 @@ interface LocalStorageUser extends User {
   expiration: number;
 }
 
-export { User, LocalStorageUser }
+export { User, LocalStorageUser };

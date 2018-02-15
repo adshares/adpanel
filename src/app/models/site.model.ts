@@ -42,4 +42,4 @@ interface AdUnitSize {
   selected?: boolean;
 }
 
-export { Site, AdUnit, AdUnitSize }
+export { Site, AdUnit, AdUnitSize };

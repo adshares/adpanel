@@ -1,10 +1,10 @@
 interface TargetingOption {
-  key: string,
-  label: string,
-  value_type: string,
-  allow_input: boolean,
-  children?: TargetingOptionValue[],
-  values?: TargetingOptionValue[]
+  key: string;
+  label: string;
+  value_type: string;
+  allow_input: boolean;
+  children?: TargetingOptionValue[];
+  values?: TargetingOptionValue[];
 }
 
 interface TargetingOptionValue {

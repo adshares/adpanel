@@ -23,4 +23,4 @@ export const campaignInitialState: Campaign = {
   ads: [],
 
   id: 0
-}
+};

@@ -1,118 +1,106 @@
-<div class="adsh-campaign-list__item">
-  <div
-    class="
-      row
-      align-center
-      adsh-copy
-      adsh-copy--semi"
-  >
+<div class="adsh-box">
+  <div class="adsh-campaign-list__item">
     <div
       class="
-        col-xs-1
         row
-        align-center"
+        align-center
+        adsh-copy
+        adsh-copy--semi"
     >
       <div
         class="
-          adsh-box
-          adsh-box--small
-          adsh-status
-          text-center"
-        [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
+          col-xs-1
+          row
+          align-center"
       >
-        <span>
-          {{ campaignStatusesEnum[campaign.basicInformation.status] }}
-        </span>
-      </div>
-    </div>
-    <div
-      class="
-        col-xs-4
-        row
-        align-center"
-    >
-      <h4
-        class="
-          adsh-heading
-          adsh-heading--secondary"
-      >
-        {{ campaign.basicInformation.name }}
-      </h4>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.basicInformation.budget | currency:USD }}/day
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.clicks }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.impressions }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.ctr | percent }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.averageCPC | currency:USD }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center"
-    >
-      <span>
-        {{ campaign.cost | currency:USD }}
-      </span>
-    </div>
-    <div
-      class="
-        col-xs-1
-        row
-        align-center
-        justify-center
-        adsh-campaign-list__item-campaign-details"
-    >
-      <a [routerLink]="['../campaign', campaign.id]">
-        <img
-          src="/assets/images/chevron--right.svg"
-          alt="Campaign Details Icon"
+        <div
+          class="
+            adsh-box
+            adsh-box--small
+            adsh-status
+            text-center"
+          [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
         >
-      </a>
+          <span>{{ campaignStatusesEnum[campaign.basicInformation.status] }}</span>
+        </div>
+      </div>
+      <div
+        class="
+          col-xs-4
+          row
+          align-center"
+      >
+        <h4
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          {{ campaign.basicInformation.name }}
+        </h4>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.basicInformation.budget | currency:USD }}/day</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.clicks }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.impressions }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.ctr | percent }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.averageCPC | currency:USD }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span>{{ campaign.cost | currency:USD }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center
+          justify-center
+          adsh-campaign-list__item-campaign-details"
+      >
+        <a [routerLink]="['../campaign', campaign.id]">
+          <img
+            src="/assets/images/chevron--right.svg"
+            alt="Campaign Details Icon"
+          >
+        </a>
+      </div>
     </div>
   </div>
 </div>

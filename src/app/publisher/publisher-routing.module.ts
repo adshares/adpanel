@@ -12,8 +12,8 @@ import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-sit
 
 import { PublisherGuard } from './publisher-guard.service';
 import { SiteResolver } from './resolvers/site.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver'
-import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver'
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const publisherRoutes: Routes = [
   {

@@ -12,7 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { AdvertiserModule } from './advertiser/advertiser.module';
 import { AdminModule } from './admin/admin.module';
 import { PublisherModule } from './publisher/publisher.module';
-import { SettingsModule } from './settings/settings.module'
+import { SettingsModule } from './settings/settings.module';
 import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
