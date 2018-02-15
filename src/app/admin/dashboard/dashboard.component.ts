@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartService } from '../../common/chart.service';
 import { ChartComponent } from '../../common/components/chart/chart.component';
 
+import { ChartFilterSettings } from '../../models/chart-filter-settings.model';
+import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 import { HandleSubscription } from '../../common/handle-subscription';
 import * as moment from 'moment';
+import { cloneDeep } from '../../common/utilities/helpers';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,13 +16,7 @@ import * as moment from 'moment';
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
-  currentChartFilterSettings = {
-    currentTo: moment().format(),
-    currentFrom: moment().subtract(30, 'days').format(),
-    currentFrequency: '1D',
-    currentAssetId: 1,
-    currentSeries: 'series'
-  };
+  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   barChartValue: number;
   barChartDifference: number;
