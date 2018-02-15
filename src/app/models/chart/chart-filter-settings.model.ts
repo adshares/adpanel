@@ -3,5 +3,5 @@ export interface ChartFilterSettings {
   currentFrom: string;
   currentFrequency: string;
   currentAssetId: number;
-  currentSeries: string;
+  currentSeries?: string;
 }

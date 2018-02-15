@@ -1,7 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import { ChartFilterSettings } from '../../../models/chart-filter-settings.model';
+import { ChartFilterSettings } from '../../../models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from '../../../models/initial-state/chart-filter-settings';
+import { ChartLabels } from '../../../models/chart/chart-labels.model';
+import { ChartData } from '../../../models/chart/chart-data.model';
+import { ChartColors } from '../../../models/chart/chart-colors.model';
+import { ChartOptions } from '../../../models/chart/chart-options.model';
+
 import { cloneDeep } from '../../utilities/helpers';
 import * as moment from 'moment';
 
@@ -13,14 +18,13 @@ import * as moment from 'moment';
 export class ChartComponent {
   @Input() chartSpan: string;
   @Input() seriesType?: string;
-  @Input() barChartData: any;
-  @Input() barChartLabels: any[];
+  @Input() barChartData: ChartData[][] | ChartData[];
+  @Input() barChartLabels: ChartLabels[];
   @Output() update: EventEmitter<any> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
-  barChartType = 'bar';
-  barChartOptions: any = {
+  barChartOptions: ChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     maintainAspectRatio: false,
@@ -54,7 +58,7 @@ export class ChartComponent {
     }
   };
 
-  barChartColors: any[] = [
+  barChartColors: ChartColors[] = [
     {
       backgroundColor: '#55a8fd',
       borderColor: '#55a8fd',
