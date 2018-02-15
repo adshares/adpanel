@@ -10,4 +10,4 @@ export const siteInitialState: Site = {
     excludes: []
   },
   adUnits: []
-}
+};

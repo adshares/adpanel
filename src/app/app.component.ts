@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './models/app-state.model';
-import { User, LocalStorageUser } from './models/user.model';
+import { LocalStorageUser } from './models/user.model';
 import { fadeAnimation } from './common/animations/fade.animation';
 import { appSettings } from '../app-settings/app-settings';
 import { userRolesEnum } from './models/enum/user.enum';

@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 import { Site, AdUnitSize } from '../models/site.model';
 import { TargetingOption } from '../models/targeting-option.model';
 import { prepareTargetingChoices, parseTargetingForBackend } from '../common/components/targeting/targeting.helpers';
-import { cloneDeep } from '../common/utilities/helpers';
 
 @Injectable()
 export class PublisherService {

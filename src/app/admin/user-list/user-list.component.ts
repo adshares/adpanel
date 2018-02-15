@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from '../../common/handle-subscription';
@@ -12,7 +12,7 @@ import * as adminActions from '../../store/admin/admin.actions';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent extends HandleSubscription implements OnInit {
-  userSearch = ''
+  userSearch = '';
   users: UserInfoStats[];
   filteredUsers: UserInfoStats[];
 
