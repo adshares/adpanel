@@ -5,3 +5,8 @@ export interface ChartFilterSettings {
   currentAssetId: number;
   currentSeries?: string;
 }
+
+export interface TimespanFilter {
+  from: string;
+  to: string;
+}

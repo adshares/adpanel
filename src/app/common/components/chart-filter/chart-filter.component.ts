@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TimespanFilter } from '../../../models/chart/chart-filter-settings.model';
 
 import * as moment from 'moment';
 
@@ -9,10 +10,7 @@ import * as moment from 'moment';
   styleUrls: ['./chart-filter.component.scss'],
 })
 export class ChartFilterComponent {
-  @Output() filter: EventEmitter<any> = new EventEmitter();
-  @Output() filterByDatepicker: EventEmitter<any> = new EventEmitter();
-  @Output() filterBySeries: EventEmitter<any> = new EventEmitter();
-  @Output() filterByAsset: EventEmitter<any> = new EventEmitter();
+  @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
   dateFrom = new FormControl();
   dateTo = new FormControl();
 
@@ -23,13 +21,5 @@ export class ChartFilterComponent {
     };
 
     this.filter.emit(timespan);
-  }
-
-  filterChartBySeries(series) {
-    this.filterBySeries.emit(series);
-  }
-
-  filterChartByAsset(assetId) {
-    this.filterByAsset.emit(assetId);
   }
 }

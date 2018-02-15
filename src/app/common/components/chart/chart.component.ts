@@ -6,7 +6,7 @@ import { ChartLabels } from '../../../models/chart/chart-labels.model';
 import { ChartData } from '../../../models/chart/chart-data.model';
 import { ChartColors } from '../../../models/chart/chart-colors.model';
 import { ChartOptions } from '../../../models/chart/chart-options.model';
-import { chartColors, chartOptions } from '../../../../app-settings/app-settings';
+import { chartColors, chartOptions } from './chart-settings';
 
 import { cloneDeep } from '../../utilities/helpers';
 import * as moment from 'moment';
@@ -21,7 +21,7 @@ export class ChartComponent {
   @Input() seriesType?: string;
   @Input() barChartData: ChartData[][] | ChartData[];
   @Input() barChartLabels: ChartLabels[];
-  @Output() update: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
   barChartOptions: ChartOptions = chartOptions;
