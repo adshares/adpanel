@@ -5,9 +5,9 @@ export const siteInitialState: Site = {
   status: 0,
   websiteUrl: '',
   primaryLanguage: 'polish',
-  targeting: {
+  targetingArray: {
     requires: [],
     excludes: []
   },
   adUnits: []
-}
+};

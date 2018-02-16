@@ -20,7 +20,7 @@
           adsh-circle
           adsh-circle--x-small
           adsh-circle--navy
-          divider"
+          breadcrumbs-divider"
       >
       </div>
       <p
@@ -36,6 +36,7 @@
     <div
       class="
         row
+        no-gutters
         justify-between
         align-center"
     >
@@ -57,9 +58,17 @@
         <button
           class="
             adsh-btn
-            adsh-btn--white"
+            adsh-btn--white
+            adsh-btn--no-border"
           (click)="navigateToEditCampaign()"
         >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon"
+          >
           <span
             class="
               adsh-copy
@@ -90,16 +99,18 @@
             status-wrapper"
         >
           <p>Campaign Status:</p>
-          <div
-            class="
-              adsh-box
-              adsh-box--small
-              adsh-status
-              text-center"
-            [attr.data-status]="campaign.basicInformation.status"
+          <mat-select
+            class="adsh-select"
+            [(value)]="campaign.basicInformation.status"
+            [compareWith]="selectCompare"
+            (change)="saveCampaign()"
           >
-            <span>{{ campaign.basicInformation.status }}</span>
-          </div>
+            <mat-option
+              *ngFor="let campaignStatus of campaignStatuses"
+              [value]="campaignStatus.id">
+              {{ campaignStatus.name }}
+            </mat-option>
+          </mat-select>
         </div>
         <div
           class="
@@ -208,9 +219,6 @@
         adsh-box
         adsh-box--large"
     >
-      <div>
-        <app-chart-filter></app-chart-filter>
-      </div>
       <img
         src="/assets/images/chart.png"
         style="width: 100%"
@@ -361,7 +369,6 @@
       </div>
     </div>
 
-    <app-ad-list [adList]="campaign.ads">
-    </app-ad-list>
+    <app-ad-list [adList]="campaign.ads"></app-ad-list>
   </div>
 </section>

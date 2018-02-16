@@ -1,19 +1,24 @@
 interface TargetingOption {
-  key: string,
-  label: string,
-  value_type: string,
-  allow_input: boolean,
-  children?: TargetingOptionValue[],
-  values?: TargetingOptionValue[]
+  key: string;
+  label: string;
+  value_type: string;
+  allow_input: boolean;
+  children?: TargetingOptionValue[];
+  values?: TargetingOptionValue[];
 }
 
 interface TargetingOptionValue {
-  key: string,
-  label: string,
-  parent_label: string,
-  value: string,
-  selected?: boolean,
-  parentOptionLabel?: string
+  label: string;
+  value: string;
+  selected?: boolean;
+  key?: string;
+  parent?: Partial<TargetingOption>;
 }
 
-export { TargetingOption, TargetingOptionValue };
+
+interface AssetTargeting {
+  requires: TargetingOptionValue[];
+  excludes: TargetingOptionValue[];
+}
+
+export { TargetingOption, TargetingOptionValue, AssetTargeting };

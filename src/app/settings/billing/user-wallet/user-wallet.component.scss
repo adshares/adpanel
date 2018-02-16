@@ -8,8 +8,9 @@
 
 .withdrawal {
   margin-bottom: 15px;
+  max-width: 400px;
 
-  > div {
+  & > div {
     max-width: 250px;
   }
 }

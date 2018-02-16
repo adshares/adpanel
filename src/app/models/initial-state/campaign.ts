@@ -1,4 +1,8 @@
+import * as _moment from 'moment';
+
 import { Campaign } from '../campaign.model';
+
+const moment = _moment;
 
 export const campaignInitialState: Campaign = {
   basicInformation: {
@@ -8,10 +12,10 @@ export const campaignInitialState: Campaign = {
     bidStrategyName: '',
     bidValue: null,
     budget: null,
-    dateStart: new Date()
+    dateStart: moment(new Date()).format('L'),
   },
 
-  targeting: {
+  targetingArray: {
     excludes: [],
     requires: []
   },
@@ -19,4 +23,4 @@ export const campaignInitialState: Campaign = {
   ads: [],
 
   id: 0
-}
+};
