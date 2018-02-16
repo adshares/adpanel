@@ -37,6 +37,14 @@ export class SiteDetailsComponent {
     );
   }
 
+  navigateToCreateAdUnits() {
+    this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
+    this.router.navigate(
+      ['/publisher', 'create-site', 'create-ad-units'],
+      { queryParams: { step: 3, summary: true} }
+    );
+  }
+
   saveSite() {
     this.publisherService.saveSite(this.site).subscribe();
   }

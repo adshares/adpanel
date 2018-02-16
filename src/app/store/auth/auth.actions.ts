@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { User } from '../../models/user.model';
 
-export const SET_USER = 'LOGIN_USER';
+export const SET_USER = 'Set user';
 
 export class SetUser implements Action {
   readonly type = SET_USER;
