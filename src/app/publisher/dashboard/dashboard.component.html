@@ -28,25 +28,71 @@
         </p>
       </div>
       <div class="col-xs-8">
-        <app-chart-filter *ngIf="!sites"></app-chart-filter>
+        <app-chart-filter
+          *ngIf="!sites"
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
       </div>
     </div>
 
     <div *ngIf="!sites">
-      <!--mock chart-->
       <div
         class="
-          adsh-box
-          adsh-box--large"
+          row
+          justify-between"
       >
-        <div class="row">
+        <div
+          class="
+            col-xs-4
+            col
+            adsh-box
+            adsh-box--large
+            chart-box"
+          *ngFor="let chartSeriesType of chartSeries; let i = index"
+        >
+          <div class="chart-stats">
+            <p
+              class="
+                chart-name
+                adsh-copy"
+            >
+              {{ chartSeriesType }}:
+            </p>
+            <div
+              class="
+                row
+                align-center"
+            >
+              <span
+                class="
+                  adsh-heading
+                  adsh-heading--primary"
+              >
+                {{ barChartValue }}
+              </span>
+              <span class="chart-change">
+                {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
+              </span>
+            </div>
+          </div>
           <div
-            class="col-xs-4"
-            *ngFor="let i of [1,2,3,4,5,6]"
+            class="
+              row
+              align-center
+              justify-center
+              chart-wrapper"
           >
-            <img
-              src="/assets/images/chart.png"
-              style="max-width: 100%; height: 150px; padding: 5px">
+            <app-chart
+              class="
+                chart
+                row
+                align-center
+                justify-center"
+              [seriesType]="chartSeriesType"
+              (update)="getChartData($event)"
+              [barChartData]="barChartData[i]"
+              [barChartLabels]="barChartLabels[i].labels"
+            ></app-chart>
           </div>
         </div>
       </div>

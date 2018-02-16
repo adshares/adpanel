@@ -9,6 +9,9 @@ import { enumToObjectArray, selectCompare } from '../../common/utilities/helpers
 import { siteStatusEnum } from '../../models/enum/site.enum';
 import * as publisherActions from '../../store/publisher/publisher.actions';
 
+import { enumToArray } from '../../common/utilities/helpers';
+import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
+
 @Component({
   selector: 'app-site-details',
   templateUrl: './site-details.component.html',
@@ -16,6 +19,7 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
 })
 export class SiteDetailsComponent {
   site: Site;
+  chartSeries: string[] = enumToArray(chartSeriesEnum);
 
   siteStatuses = enumToObjectArray(siteStatusEnum);
   selectCompare = selectCompare;

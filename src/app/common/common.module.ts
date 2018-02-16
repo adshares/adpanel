@@ -2,11 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogContent, MatDialogModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { MatSpinner } from '@angular/material';
 
@@ -15,7 +20,9 @@ import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/acc
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
+import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
@@ -23,12 +30,18 @@ import { TargetingSelectComponent } from './components/targeting/targeting-selec
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
+import { ChartsModule } from 'ng2-charts';
+
+import { ChartService } from './chart.service';
 
 const matModules = [
   MatDialogModule,
   MatSelectModule,
   MatChipsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDatepickerModule,
+  MatInputModule,
+  MatMomentDateModule
 ];
 
 const dialogs = [
@@ -41,7 +54,9 @@ const appComponents = [
   HeaderComponent,
   NotificationsComponent,
   AdsharesTokenPipe,
+  ChartComponent,
   ChartFilterComponent,
+  ChartFilterByTypeComponent,
   FundsSummaryComponent,
   ConfirmationAlertComponent,
   TargetingSelectComponent,
@@ -56,6 +71,8 @@ const appComponents = [
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    ChartsModule,
     ...matModules
   ],
   declarations: [
@@ -64,6 +81,9 @@ const appComponents = [
   ],
   entryComponents: [
     ...dialogs
+  ],
+  providers: [
+    ChartService
   ],
   exports: [
     ...appComponents,

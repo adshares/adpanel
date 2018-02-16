@@ -101,7 +101,6 @@
 }
 
 .adsh-chevron {
-  // TODO shape
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -127,10 +126,6 @@
 
   &--up:before {
     transform: rotate(-45deg);
-  }
-
-  &--valid {
-    // tick TODO
   }
 
   &--white:before {
@@ -328,4 +323,9 @@ router-outlet ~ * {
   &-divider {
     margin: 0 10px;
   }
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
 }

@@ -48,5 +48,14 @@ function selectCompare(value, nextValue): boolean {
   return value && nextValue ? value.id === nextValue.id : value === nextValue;
 }
 
+function createInitialArray(element, count) {
+  const resultArray = [];
 
-export { cloneDeep, enumToArray, enumToObject, enumToObjectArray, isUnixTimePastNow, selectCompare };
+  for (let i = 0; i < count; i++) {
+    resultArray.push(element);
+  }
+
+  return resultArray;
+}
+
+export { cloneDeep, enumToArray, enumToObject, enumToObjectArray, isUnixTimePastNow, selectCompare, createInitialArray };

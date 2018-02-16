@@ -11,7 +11,7 @@
         no-gutters
         justify-between"
     >
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <h1
           class="
             adsh-heading
@@ -27,21 +27,39 @@
           Etiam pretium dapibus congue. Praesent a lorem erat.
         </p>
       </div>
-      <div class="col-xs-8">
-        <app-chart-filter *ngIf="!campaigns"></app-chart-filter>
+      <div class="col-xs-9">
+        <app-chart-filter
+          *ngIf="!campaigns"
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
       </div>
     </div>
 
     <div *ngIf="!campaigns">
-        <!--mock chart-->
       <div
         class="
           adsh-box
           adsh-box--large"
       >
-        <img
-          src="/assets/images/chart.png"
-          style="width: 100%">
+        <app-chart-filter-by-type></app-chart-filter-by-type>
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            (update)="getChartData($event)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
+        </div>
       </div>
 
       <app-campaign-list></app-campaign-list>
