@@ -41,14 +41,20 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ i + 1 }}.&nbsp;
+              <span>
+                {{ i + 1 }}.&nbsp;
+              </span>
               <span *ngIf="!adPanelsStatus[i]">
                 Title: {{ adForm.get('shortHeadline').value }}
               </span>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div class="row">
+          <div
+            class="
+              row
+              no-gutters"
+          >
             <div class="col-xs-5">
               <div class="adsh-form-input__box">
                 <label
@@ -206,7 +212,7 @@
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
             *ngIf="
             adForm.get('type').value === 0 &&
-            (adForm.get('image').value.src !== '' || imagesStatus.upload.processing)">
+            (adForm.get('image').value.src || imagesStatus.upload.processing)">
 
             <div class="col-xs-1">
               <img

@@ -11,7 +11,7 @@
       row
       align-center"
   >
-    <a [routerLink]="['/', (userDataState | async).activeUserType, 'dashboard']">
+    <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']">
       <div
         class="
           adsh-navigation__item
@@ -41,26 +41,26 @@
         [(value)]="activeUserType"
       >
         <mat-option
-          [value]="'advertiser'"
+          [value]="userRolesEnum.ADVERTISER"
           routerLink="/advertiser/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
-          (click)="setActiveUserType('advertiser')"
+          (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
         >
           Advertiser
         </mat-option>
         <mat-option
-          [value]="'publisher'"
+          [value]="userRolesEnum.PUBLISHER"
           routerLink="/publisher/dashboard"
           *ngIf="!(userDataState | async).isAdmin"
-          (click)="setActiveUserType('publisher')"
+          (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
         >
           Publisher
         </mat-option>
         <mat-option
-          [value]="'admin'"
+          [value]="userRolesEnum.ADMIN"
           routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
-          (click)="setActiveUserType('admin')"
+          (click)="setActiveUserType(userRolesEnum.ADMIN)"
         >
           Admin
         </mat-option>
@@ -99,8 +99,8 @@
             adsh-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
-        <span *ngIf="activeUserType === 'advertiser'">Create new Campaign</span>
-        <span *ngIf="activeUserType === 'publisher'">Add new Site</span>
+        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
+        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
     <button
       *ngIf="(userDataState | async).isAdmin"
@@ -126,8 +126,8 @@
       class="
         row
         align-center
-        adsh-bg-navy--light
         relative
+        adsh-bg-navy--light
         adsh-navigation__item
         adsh-btn"
       routerLink="/settings/general"
@@ -136,9 +136,13 @@
         class="
           adsh-icon
           adsh-icon--prepend"
-        src="assets/images/bell.svg"
+        src="assets/images/credit-card--white.svg"
       >
-      <div class="col">
+      <div
+        class="
+          col
+          justify-start"
+      >
         <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
         <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
       </div>

@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 import { environment } from '../../environments/environment';
 import { Site, AdUnitSize } from '../models/site.model';
 import { TargetingOption } from '../models/targeting-option.model';
+import { prepareTargetingChoices, parseTargetingForBackend } from '../common/components/targeting/targeting.helpers';
 
 @Injectable()
 export class PublisherService {
@@ -23,13 +25,19 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
+    if (site.targetingArray) {
+      const targetingObject = parseTargetingForBackend(site.targetingArray);
+
+      Object.assign(site, {targeting: targetingObject});
+    }
+
     return this.http.put(`${environment.apiUrl}/site`, { site })
       .map((site: Site) => site);
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get(`${environment.apiUrl}/site_targeting`)
-      .map((targetingOptions: TargetingOption[]) => targetingOptions);
+      .do(prepareTargetingChoices);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
