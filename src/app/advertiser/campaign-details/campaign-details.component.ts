@@ -38,6 +38,14 @@ export class CampaignDetailsComponent {
     );
   }
 
+  navigateToCreateAd() {
+    this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
+    this.router.navigate(
+      ['/advertiser', 'create-campaign', 'create-ad'],
+      { queryParams: { step: 3, summary: true} }
+    );
+  }
+
   saveCampaign() {
     this.advertiserService.saveCampaign(this.campaign).subscribe();
   }
