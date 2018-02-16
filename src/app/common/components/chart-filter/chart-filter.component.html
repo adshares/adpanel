@@ -1,73 +1,111 @@
-<div class="
-    adsh-chart-filters
-    row
-    align-center
-    justify-end">
-    <span class="adsh-copy">Sort by Date Range</span>
+<div
+  class="
+    chart-filters
+    col"
+>
+  <div
+    class="
+      row
+      filter-row
+      align-center
+      justify-end"
+  >
+    <span class="adsh-copy">
+      Sort by Date Range
+    </span>
     <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy"
-        disabled>Today
+      type="button"
+      class="
+          adsh-btn
+          adsh-button--small
+          adsh-bg-white
+          adsh-navy"
+      (click)="filterChart(1, 0)"
+    >
+      Today
     </button>
     <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy"
-        disabled>This Week
+      type="button"
+      class="
+          adsh-btn
+          adsh-button--small
+          adsh-bg-white
+          adsh-navy"
+      (click)="filterChart(7, 0)"
+    >
+      This Week
     </button>
     <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy"
-        disabled>This Month
+      type="button"
+      class="
+          adsh-btn
+          adsh-button--small
+          adsh-bg-white
+          adsh-navy"
+      (click)="filterChart(31, 0)"
+    >
+      This Month
     </button>
+  </div>
+
+  <div
+    class="
+      row
+      filter-row
+      align-center
+      justify-end"
+  >
     <span class="adsh-copy">or Select Manually</span>
+    <label class="adsh-form-label">From</label>
+    <mat-form-field
+      class="
+        adsh-form-input
+        adsh-form-input--narrow
+        adsh-form-input--datepicker"
+    >
+      <input
+        (click)="dateFromPicker.open()"
+        matInput
+        [matDatepicker]="dateFromPicker"
+        [formControl]="dateFrom"
+        required
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dateFromPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dateFromPicker></mat-datepicker>
+    </mat-form-field>
+    <label class="adsh-form-label">To</label>
+    <mat-form-field
+      class="
+        adsh-form-input
+        adsh-form-input--narrow
+        adsh-form-input--datepicker"
+    >
+      <input
+        (click)="dateToPicker.open()"
+        matInput
+        [matDatepicker]="dateToPicker"
+        [formControl]="dateTo"
+        required
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dateToPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dateToPicker></mat-datepicker>
+    </mat-form-field>
     <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy
-            row
-            align-center"
-        disabled>
-        <img
-            class="
-                adsh-icon
-                adsh-icon--prepend"
-            src="assets/images/calendar.svg"
-            alt="Calendar Icon"
-        >
-        <span>From</span>
+      type="button"
+      class="
+        adsh-btn
+        adsh-button--small
+        adsh-bg-white
+        adsh-navy"
+      (click)="filterChart(dateFrom, dateTo)"
+    >
+      Apply
     </button>
-    <button
-        type="button"
-        class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy
-            row
-            align-center"
-        disabled>
-        <img
-            class="
-                adsh-icon
-                adsh-icon--prepend"
-            src="assets/images/calendar.svg"
-            alt="Calendar Icon"
-        >
-        <span>To</span>
-    </button>
+  </div>
 </div>
