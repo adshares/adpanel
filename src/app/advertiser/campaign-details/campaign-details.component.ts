@@ -1,33 +1,81 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Campaign } from '../../models/campaign.model';
 import { AppState } from '../../models/app-state.model';
 import { AdvertiserService } from '../advertiser.service';
-import { campaignStatusesEnum } from '../../models/enum/campaign.enum';
-import { enumToObjectArray, selectCompare } from '../../common/utilities/helpers';
+import { ChartService } from '../../common/chart.service';
+import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
+import { ChartData } from '../../models/chart/chart-data.model';
 
+import { campaignStatusesEnum } from '../../models/enum/campaign.enum';
+import { createInitialArray, enumToObjectArray, selectCompare } from '../../common/utilities/helpers';
+import { HandleSubscription } from '../../common/handle-subscription';
 import * as advertiserActions from '../../store/advertiser/advertiser.actions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-campaign-details',
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss']
 })
-export class CampaignDetailsComponent {
+export class CampaignDetailsComponent extends HandleSubscription implements OnInit {
   campaign: Campaign;
 
   campaignStatuses = enumToObjectArray(campaignStatusesEnum);
   selectCompare = selectCompare;
 
+  barChartValue: number;
+  barChartDifference: number;
+  barChartDifferenceInPercentage: number;
+  barChartLabels: string[] = [];
+  barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
+
+  currentChartFilterSettings: ChartFilterSettings;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>,
-    private advertiserService: AdvertiserService
+    private advertiserService: AdvertiserService,
+    private chartService: ChartService
   ) {
+    super(null);
     this.campaign = this.route.snapshot.data.campaign;
+  }
+
+  ngOnInit() {
+    const chartDataSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+      .take(1)
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.currentChartFilterSettings = chartFilterSettings;
+      });
+    this.subscriptions.push(chartDataSubscription);
+
+    this.getChartData(this.currentChartFilterSettings);
+  }
+
+  getChartData(chartFilterSettings) {
+    this.barChartData[0].data = [];
+
+    const chartDataSubscription = this.chartService
+      .getAssetChartData(
+        chartFilterSettings.from,
+        chartFilterSettings.to,
+        chartFilterSettings.frequency,
+        chartFilterSettings.assetId,
+        chartFilterSettings.series
+      )
+      .subscribe(data => {
+        this.barChartData[0].data = data.values;
+        this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
+        this.barChartValue = data.total;
+        this.barChartDifference = data.difference;
+        this.barChartDifferenceInPercentage = data.differenceInPercentage;
+      });
+
+    this.subscriptions.push(chartDataSubscription);
   }
 
   navigateToEditCampaign() {

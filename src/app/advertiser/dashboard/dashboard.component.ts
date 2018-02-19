@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from '../../common/components/chart/chart.component';
 import { ChartService } from '../../common/chart.service';
+import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from '../../common/handle-subscription';
-import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
-import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
-
-import * as moment from 'moment';
-import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
+import { AppState } from '../../models/app-state.model';
 import { ChartData } from '../../models/chart/chart-data.model';
+
+import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
+import { HandleSubscription } from '../../common/handle-subscription';
+import { createInitialArray } from '../../common/utilities/helpers';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,15 +25,21 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartLabels: string[] = [];
   barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
+  currentChartFilterSettings: ChartFilterSettings;
 
   constructor(
     private chartService: ChartService,
+    private store: Store<AppState>,
   ) {
     super(null);
   }
 
   ngOnInit() {
+    this.store.select('state', 'common', 'chartFilterSettings')
+      .take(1)
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.currentChartFilterSettings = chartFilterSettings;
+      });
     this.getChartData(this.currentChartFilterSettings);
   }
 

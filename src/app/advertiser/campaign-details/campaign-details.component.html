@@ -219,10 +219,16 @@
         adsh-box
         adsh-box--large"
     >
-      <img
-        src="/assets/images/chart.png"
-        style="width: 100%"
-      >
+      <app-chart
+        class="
+          chart
+          row
+          align-center
+          justify-center"
+        (update)="getChartData($event)"
+        [barChartData]="barChartData"
+        [barChartLabels]="barChartLabels"
+      ></app-chart>
     </div>
 
     <div
