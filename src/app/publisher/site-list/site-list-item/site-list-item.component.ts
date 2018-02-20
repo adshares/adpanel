@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site-list-item',
@@ -7,4 +8,10 @@ import { Component, Input } from '@angular/core';
 })
 export class SiteListItemComponent {
   @Input() site;
+
+  constructor(private router: Router) { }
+
+  navigateToCampaignDetails(siteId: number) {
+    this.router.navigate(['/publisher', 'site', siteId]);
+  }
 }
