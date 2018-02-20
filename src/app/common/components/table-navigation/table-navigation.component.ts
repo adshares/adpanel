@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
-import { TableCoulmnMetaData } from '../../../models/table.model';
+import { TableColumnMetaData } from '../../../models/table.model';
 
 @Component({
   selector: 'app-table-navigation',
@@ -8,10 +8,10 @@ import { TableCoulmnMetaData } from '../../../models/table.model';
   styleUrls: ['./table-navigation.component.scss']
 })
 export class TableNavigationComponent implements OnInit {
-  @Output() sortTable: EventEmitter<TableCoulmnMetaData> = new EventEmitter();
+  @Output() sortTable: EventEmitter<TableColumnMetaData> = new EventEmitter();
   @Input() navigationName: string;
 
-  navigationItems: TableCoulmnMetaData[] = [];
+  navigationItems: TableColumnMetaData[] = [];
 
   adListNavigationItems = [
     { title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true },
@@ -68,7 +68,7 @@ export class TableNavigationComponent implements OnInit {
     }
   }
 
-  sortTableByKey(columnMetaData: TableCoulmnMetaData) {
+  sortTableByKey(columnMetaData: TableColumnMetaData) {
     this.sortTable.emit(columnMetaData);
   }
 }

@@ -5,6 +5,7 @@ import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { UserInfoStats } from '../../models/settings.model';
 import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
+import { TableColumnMetaData } from '../../models/table.model';
 import * as adminActions from '../../store/admin/admin.actions';
 
 @Component({
@@ -20,8 +21,6 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   userCount: number;
   userTypes = ['Advertisers', 'Publishers', 'All'];
   selectedType = 'All';
-
-  sortTable = sortArrayByColumnMetaData;
 
   constructor(private store: Store<AppState>) {
     super(null);
@@ -71,5 +70,9 @@ export class UserListComponent extends HandleSubscription implements OnInit {
         pattern.test(user.email.toLowerCase())
       );
     }
+  }
+
+  sortTable(columnMetaData: TableColumnMetaData) {
+    this.filteredUsers = sortArrayByColumnMetaData(this.filteredUsers, columnMetaData);
   }
 }

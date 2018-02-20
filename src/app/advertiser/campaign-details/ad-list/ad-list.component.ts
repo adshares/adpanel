@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Ad } from '../../../models/campaign.model';
 import { sortArrayByColumnMetaData } from '../../../common/utilities/helpers';
+import { TableColumnMetaData } from '../../../models/table.model';
 
 @Component({
   selector: 'app-ad-list',
@@ -11,5 +12,7 @@ import { sortArrayByColumnMetaData } from '../../../common/utilities/helpers';
 export class AdListComponent {
   @Input() adList: Ad[];
 
-  sortTable = sortArrayByColumnMetaData;
+  sortTable(columnMetaData: TableColumnMetaData) {
+      this.adList = sortArrayByColumnMetaData(this.adList, columnMetaData);
+  }
 }

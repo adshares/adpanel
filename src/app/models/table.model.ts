@@ -1,4 +1,4 @@
-export interface TableCoulmnMetaData {
+export interface TableColumnMetaData {
   title: string;
   columnWidth: string;
 
