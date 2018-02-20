@@ -35,24 +35,23 @@
         row
         justify-center"
     >
-      <a routerLink="../create-site">
-        <button
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-btn--no-border
+          adsh-heading
+          adsh-heading--secondary"
+        (click)="navigateToCreateSite()"
+      >
+        <img
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
-            adsh-heading
-            adsh-heading--secondary"
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle--blue.svg"
         >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle--blue.svg"
-          >
-            <span>Add new site</span>
-        </button>
-      </a>
+          <span>Add new site</span>
+      </button>
     </div>
   </div>
 </section>

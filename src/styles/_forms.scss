@@ -170,3 +170,10 @@ input[type=radio]:checked + label {
     right: 3px;
   }
 }
+
+.success-msg {
+  @extend .error-msg;
+  color: pal(green);
+  background-color: pal(green, light);
+  border-color: pal(green);
+}
