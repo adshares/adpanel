@@ -4,7 +4,7 @@ import { ChartFilterSettings } from '../chart/chart-filter-settings.model';
 export const chartFilterSettingsInitialState: ChartFilterSettings = {
   currentTo: moment().format(),
   currentFrom: moment().subtract(30, 'days').format(),
-  currentFrequency: '1D',
+  currentFrequency: 'days',
   currentAssetId: 1,
   currentSeries: 'series'
 };

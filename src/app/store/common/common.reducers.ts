@@ -14,10 +14,9 @@ export function commonReducers(state = initialState , action: commonActions.acti
         activeUserType: action.payload
       };
     case commonActions.SET_CHART_FILTER_SETTINGS:
-      console.log(action.payload)
       return {
         ...state,
-        chartFilterSettings: action.payload
+        chartFilterSettings: Object.assign({}, action.payload)
       };
      default:
       return state;
