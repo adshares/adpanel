@@ -68,12 +68,14 @@ function sortArrayByColumnMetaData<assetItem>(
   columnMetaData: TableColumnMetaData
 ): assetItem[] {
   if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
-    return;
+    return [...sortArray];
   }
 
   const sortOrder = columnMetaData.sortAsc ? -1 : 1;
 
-  sortArray.sort((item, nextItem) => {
+  columnMetaData.sortAsc = !columnMetaData.sortAsc;
+
+  return sortArray.slice().sort((item, nextItem) => {
     let sortItem = findValueByPathArray(item, columnMetaData.keys);
     let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
 
@@ -90,10 +92,6 @@ function sortArrayByColumnMetaData<assetItem>(
       return 0;
     }
   });
-
-  columnMetaData.sortAsc = !columnMetaData.sortAsc;
-
-  return [...sortArray];
 }
 
 function findValueByPathArray(object, pathArray) {
