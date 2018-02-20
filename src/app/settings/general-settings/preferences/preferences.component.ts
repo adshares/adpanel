@@ -101,7 +101,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
           this.afterRequestValidation.password.success = true;
         },
         (err) => {
-          if (err.code = 412) {
+          if (err.code === 412) {
             this.afterRequestValidation.password.wrongPreviousPassword = true;
           } else {
             this.afterRequestValidation.password.passwordChangeFailed = true;
