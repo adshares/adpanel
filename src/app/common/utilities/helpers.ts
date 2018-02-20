@@ -1,4 +1,7 @@
-import { TableCoulmnMetaData } from '../../models/table.model';
+import { TableColumnMetaData } from '../../models/table.model';
+import { Site } from '../../models/site.model';
+import { Campaign, Ad } from '../../models/campaign.model';
+import { UserInfoStats } from '../../models/settings.model';
 
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
@@ -60,7 +63,10 @@ function createInitialArray(element, count) {
   return resultArray;
 }
 
-function sortArrayByColumnMetaData(sortArray, columnMetaData: TableCoulmnMetaData) {
+function sortArrayByColumnMetaData<assetItem>(
+  sortArray: assetItem[],
+  columnMetaData: TableColumnMetaData
+): assetItem[] {
   if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
     return;
   }
@@ -86,6 +92,8 @@ function sortArrayByColumnMetaData(sortArray, columnMetaData: TableCoulmnMetaDat
   });
 
   columnMetaData.sortAsc = !columnMetaData.sortAsc;
+
+  return [...sortArray];
 }
 
 function findValueByPathArray(object, pathArray) {
