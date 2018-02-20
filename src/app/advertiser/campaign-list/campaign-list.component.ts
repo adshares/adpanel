@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from '../../common/handle-subscription';
@@ -17,7 +18,10 @@ import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 export class CampaignListComponent extends HandleSubscription implements OnInit {
   campaigns: Campaign[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     super(null);
   }
 
@@ -30,5 +34,14 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);
+  }
+
+  navigateToCreateCampaign() {
+    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+
+    this.router.navigate(
+      [ 'advertiser', 'create-campaign', 'basic-information'],
+      { queryParams: { step: 1 } }
+    );
   }
 }
