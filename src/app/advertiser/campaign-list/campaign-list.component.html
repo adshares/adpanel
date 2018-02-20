@@ -3,61 +3,135 @@
     col
     adsh-campaign-list"
 >
-  <div
-    class="
-      adsh-box
-      adsh-box--large"
-  >
-    <app-table-navigation
-      [navigationName]="'campaignListNavigation'"
-      class="
-        row
-        adsh-copy
-        adsh-copy--small"
-    >
-    </app-table-navigation>
+  <div class="adsh-campaign-list__items">
+    <div class="adsh-box">
+      <app-table-navigation
+        [navigationName]="'campaignListNavigation'"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+      ></app-table-navigation>
+    </div>
 
-    <div
-      class="adsh-campaign-list__items"
-      *ngIf="(campaigns | async).length > 0 ; else loading"
-    >
+    <div *ngIf="(campaigns | async).length > 0 ; else loading">
       <app-campaign-list-item
         *ngFor="let campaign of campaigns | async"
         [campaign]="campaign"
       >
       </app-campaign-list-item>
-    </div>
-
-    <ng-template #loading>
-      <div class="loading-wrapper">
-        <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+      <div class="adsh-box">
+        <div class="adsh-campaign-list__item">
+          <div
+            class="
+              row
+              align-center
+              adsh-copy
+              adsh-copy--semi"
+          >
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            ></div>
+            <div
+              class="
+                col-xs-4
+                row
+                align-center"
+            >
+              <h4
+                class="
+                  adsh-heading
+                  adsh-heading--secondary"
+              >
+                Total - All Campaigns
+              </h4>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>X</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </ng-template>
 
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <div class="adsh-box">
     <div
       class="
         row
         justify-center"
     >
-      <a
-        routerLink="/advertiser/create-campaign/basic-information"
-        [queryParams]="{step: 1}"
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-btn--no-border
+          adsh-blue"
+        (click)="navigateToCreateCampaign()"
       >
-        <button
+        <img
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle--blue.svg"
         >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle--blue.svg"
-          >
-          Add new campaign
-        </button>
-      </a>
+        Add new campaign
+      </button>
     </div>
   </div>
 </section>

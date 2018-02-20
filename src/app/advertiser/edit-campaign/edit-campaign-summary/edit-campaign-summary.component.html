@@ -227,8 +227,8 @@
 
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="campaign.targeting"
-            [items]="campaign.targeting.requires"
+            *ngIf="campaign.targetingArray"
+            [items]="campaign.targetingArray.requires"
             [isExclude]="false"
             [canRemove]="false"
           ></app-targeting-display>
@@ -242,8 +242,8 @@
         <span class="adsh-copy">Excludes:</span>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="campaign.targeting"
-            [items]="campaign.targeting.excludes"
+            *ngIf="campaign.targetingArray"
+            [items]="campaign.targetingArray.excludes"
             [isExclude]="true"
             [canRemove]="false"
           ></app-targeting-display>

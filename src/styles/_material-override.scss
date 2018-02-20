@@ -39,7 +39,12 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-chip-remove {
-  margin: 0 5px;
+  margin: 0 5px 3px;
+  background-color: pal(gray);
+  border-radius: 50%;
+  padding: 5px;
+  width: 12px;
+  height: 12px;
 }
 
 .mat-slider-thumb-label {
@@ -64,4 +69,9 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-select-value-text {
   text-transform: capitalize;
+}
+
+.mat-expansion-panel-header-title {
+  flex-grow: 1;
+  display: inline;
 }

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Campaign, CampaignBasicInformation, CampaignTargeting, Ad } from '../../models/campaign.model';
+import { Campaign, CampaignBasicInformation, Ad } from '../../models/campaign.model';
+import { AssetTargeting } from '../../models/targeting-option.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
@@ -27,7 +28,7 @@ export class SaveCampaignBasicInformation implements Action {
 
 export class SaveCampaignTargeting implements Action {
   readonly type = SAVE_CAMPAIGN_TARGETING;
-  constructor(public payload: CampaignTargeting) { }
+  constructor(public payload: AssetTargeting) { }
 }
 
 export class SaveCampaignAds implements Action {

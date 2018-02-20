@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from '../../common/handle-subscription';
-
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+
+import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Site } from '../../models/site.model';
-
 import * as publisherActions from '../../store/publisher/publisher.actions';
 
 @Component({
@@ -15,7 +15,10 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
 export class SiteListComponent extends HandleSubscription implements OnInit {
   sites: Site[]
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     super(null);
 
     const sitesSubscription = store
@@ -29,4 +32,12 @@ export class SiteListComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new publisherActions.LoadSites('sites'));
   }
 
+  navigateToCreateSite() {
+    this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
+
+    this.router.navigate(
+      [ 'publisher', 'create-site', 'basic-information'],
+      { queryParams: { step: 1 } }
+    );
+  }
 }

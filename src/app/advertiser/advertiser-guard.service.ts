@@ -29,7 +29,6 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
         if (userData.isAdvertiser) {
           return true;
         } else {
-          // todo change link to one that will tell user to update profile roles
           this.router.navigate(['/auth/login']);
         }
 

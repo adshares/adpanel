@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Campaign } from '../../../models/campaign.model';
+import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
 
 @Component({
   selector: 'app-campaign-list-item',
@@ -9,4 +11,12 @@ import { Campaign } from '../../../models/campaign.model';
 })
 export class CampaignListItemComponent {
   @Input() campaign: Campaign;
+
+  constructor(private router: Router) { }
+
+  campaignStatusesEnum = campaignStatusesEnum;
+
+  navigateToCampaignDetails(campaignId: number) {
+    this.router.navigate(['/advertiser', 'campaign', campaignId]);
+  }
 }

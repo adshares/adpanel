@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 import { environment } from '../../environments/environment';
 import { Campaign } from '../models/campaign.model';
 import { TargetingOption } from '../models/targeting-option.model';
-import 'rxjs/add/operator/map';
+import { prepareTargetingChoices, parseTargetingForBackend } from '../common/components/targeting/targeting.helpers';
 
 @Injectable()
 export class AdvertiserService {
@@ -27,12 +29,18 @@ export class AdvertiserService {
   }
 
   saveCampaign(campaign: Campaign): Observable<Campaign> {
+    if (campaign.targetingArray) {
+      const targetingObject = parseTargetingForBackend(campaign.targetingArray);
+
+      Object.assign(campaign, {targeting: targetingObject});
+    }
+
     return this.http.put(`${environment.apiUrl}/campaign`, { campaign })
       .map((campaign: Campaign) => campaign);
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get(`${environment.apiUrl}/campaign_targeting`)
-      .map((targetingOptions: TargetingOption[]) => targetingOptions);
+      .do(prepareTargetingChoices);
   }
 }

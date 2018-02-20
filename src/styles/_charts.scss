@@ -1,0 +1,26 @@
+.chart {
+
+  &-box {
+    flex-basis: calc(33% - 5px);
+    max-width: calc(33% - 5px);
+    margin: 5px 0;
+  }
+
+  &-name {
+    text-transform: capitalize;
+
+    &--uppercase {
+      text-transform: uppercase;
+    }
+  }
+
+  &-stats {
+    margin-bottom: 20px;
+  }
+
+  &-change {
+    @include font(10, bold);
+    color: pal(blue);
+    margin-left: 10px;
+  }
+}
