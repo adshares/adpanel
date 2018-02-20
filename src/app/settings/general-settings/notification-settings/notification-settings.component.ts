@@ -7,7 +7,6 @@ import { SettingsService } from '../../settings.service';
 import { HandleSubscription } from '../../../common/handle-subscription';
 import * as settingsActions from '../../../store/settings/settings.actions';
 
-
 @Component({
   selector: 'app-notification-settings',
   templateUrl: './notification-settings.component.html',
@@ -24,14 +23,13 @@ export class NotificationSettingsComponent extends HandleSubscription implements
   }
 
   ngOnInit() {
-    this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
-
-    const notificationSubscription = this.store
-      .select('state', 'user', 'settings', 'notificationsSettings')
+    const notificationSubscription = this.store.select('state', 'user', 'settings', 'notificationsSettings')
       .subscribe((notificationsSettings: NotificationItem[]) => {
         this.notificationsSettings = notificationsSettings;
       });
     this.subscriptions.push(notificationSubscription);
+
+    this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
   }
 
   onNotificationChange(notification, notificationType) {
