@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { UserInfoStats } from '../../models/settings.model';
+import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
 import * as adminActions from '../../store/admin/admin.actions';
 
 @Component({
@@ -19,6 +20,8 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   userCount: number;
   userTypes = ['Advertisers', 'Publishers', 'All'];
   selectedType = 'All';
+
+  sortTable = sortArrayByColumnMetaData;
 
   constructor(private store: Store<AppState>) {
     super(null);

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
+import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
 
 import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 
@@ -14,7 +15,9 @@ import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 })
 
 export class CampaignListComponent extends HandleSubscription implements OnInit {
-  campaigns: Store<Campaign[]>;
+  campaigns: Campaign[];
+
+  sortTable = sortArrayByColumnMetaData;
 
   constructor(private store: Store<AppState>) {
     super(null);
@@ -22,6 +25,8 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
 
   ngOnInit() {
     this.store.dispatch(new advertiserActions.LoadCampaigns(''));
-    this.campaigns = this.store.select('state', 'advertiser', 'campaigns');
+    const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
+      .subscribe((capmaigns: Campaign[]) => this.campaigns = capmaigns);
+    this.subscriptions.push(campaignsSubscription);
   }
 }

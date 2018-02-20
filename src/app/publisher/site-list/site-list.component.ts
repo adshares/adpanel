@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from '../../common/handle-subscription';
-
 import { Store } from '@ngrx/store';
+
+import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Site } from '../../models/site.model';
-
+import { sortArrayByColumnMetaData } from '../../common/utilities/helpers'
 import * as publisherActions from '../../store/publisher/publisher.actions';
 
 @Component({
@@ -13,7 +13,9 @@ import * as publisherActions from '../../store/publisher/publisher.actions';
   styleUrls: ['./site-list.component.scss']
 })
 export class SiteListComponent extends HandleSubscription implements OnInit {
-  sites: Site[]
+  sites: Site[];
+
+  sortTable = sortArrayByColumnMetaData;
 
   constructor(private store: Store<AppState>) {
     super(null);

@@ -1,3 +1,5 @@
+import { TableCoulmnMetaData } from '../../models/table.model';
+
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
 }
@@ -58,4 +60,45 @@ function createInitialArray(element, count) {
   return resultArray;
 }
 
-export { cloneDeep, enumToArray, enumToObject, enumToObjectArray, isUnixTimePastNow, selectCompare, createInitialArray };
+function sortArrayByColumnMetaData(sortArray, columnMetaData: TableCoulmnMetaData) {
+  if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
+    return;
+  }
+
+  const sortOrder = columnMetaData.sortAsc ? -1 : 1;
+
+  sortArray.sort((item, nextItem) => {
+    let sortItem = findValueByPathArray(item, columnMetaData.keys);
+    let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
+
+    if (typeof sortItem === 'string') {
+      sortItem = sortItem.toLowerCase();
+      nextSortItem = nextSortItem.toLowerCase();
+    }
+
+    if (sortItem < nextSortItem) {
+      return sortOrder;
+    } else if (sortItem > nextSortItem) {
+      return - sortOrder;
+    } else {
+      return 0;
+    }
+  });
+
+  columnMetaData.sortAsc = !columnMetaData.sortAsc;
+}
+
+function findValueByPathArray(object, pathArray) {
+  return pathArray.reduce((obj, partialPath) => obj[partialPath], object);
+}
+
+export {
+  cloneDeep,
+  enumToArray,
+  enumToObject,
+  enumToObjectArray,
+  isUnixTimePastNow,
+  selectCompare,
+  createInitialArray,
+  sortArrayByColumnMetaData
+};
