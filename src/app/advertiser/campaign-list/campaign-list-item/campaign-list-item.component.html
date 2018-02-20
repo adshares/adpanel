@@ -1,4 +1,6 @@
-<div class="adsh-box">
+<div
+  class="adsh-box"
+  (click)="navigateToCampaignDetails(campaign.id)">
   <div class="adsh-campaign-list__item">
     <div
       class="
@@ -94,12 +96,10 @@
           justify-center
           adsh-campaign-list__item-campaign-details"
       >
-        <a [routerLink]="['../campaign', campaign.id]">
-          <img
-            src="/assets/images/chevron--right.svg"
-            alt="Campaign Details Icon"
-          >
-        </a>
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
       </div>
     </div>
   </div>

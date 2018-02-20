@@ -1,3 +1,8 @@
+import { TableColumnMetaData } from '../../models/table.model';
+import { Site } from '../../models/site.model';
+import { Campaign, Ad } from '../../models/campaign.model';
+import { UserInfoStats } from '../../models/settings.model';
+
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
 }
@@ -58,4 +63,48 @@ function createInitialArray(element, count) {
   return resultArray;
 }
 
-export { cloneDeep, enumToArray, enumToObject, enumToObjectArray, isUnixTimePastNow, selectCompare, createInitialArray };
+function sortArrayByColumnMetaData<assetItem>(
+  sortArray: assetItem[],
+  columnMetaData: TableColumnMetaData
+): assetItem[] {
+  if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
+    return [...sortArray];
+  }
+
+  const sortOrder = columnMetaData.sortAsc ? -1 : 1;
+
+  columnMetaData.sortAsc = !columnMetaData.sortAsc;
+
+  return sortArray.slice().sort((item, nextItem) => {
+    let sortItem = findValueByPathArray(item, columnMetaData.keys);
+    let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
+
+    if (typeof sortItem === 'string') {
+      sortItem = sortItem.toLowerCase();
+      nextSortItem = nextSortItem.toLowerCase();
+    }
+
+    if (sortItem < nextSortItem) {
+      return sortOrder;
+    } else if (sortItem > nextSortItem) {
+      return - sortOrder;
+    } else {
+      return 0;
+    }
+  });
+}
+
+function findValueByPathArray(object, pathArray) {
+  return pathArray.reduce((obj, partialPath) => obj[partialPath], object);
+}
+
+export {
+  cloneDeep,
+  enumToArray,
+  enumToObject,
+  enumToObjectArray,
+  isUnixTimePastNow,
+  selectCompare,
+  createInitialArray,
+  sortArrayByColumnMetaData
+};

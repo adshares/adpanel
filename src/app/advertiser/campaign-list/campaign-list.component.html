@@ -11,15 +11,15 @@
           row
           adsh-copy
           adsh-copy--small"
+        (sortTable)="sortTable($event)"
       ></app-table-navigation>
     </div>
 
-    <div *ngIf="(campaigns | async).length > 0 ; else loading">
+    <div *ngIf="campaigns.length > 0 ; else loading">
       <app-campaign-list-item
-        *ngFor="let campaign of campaigns | async"
+        *ngFor="let campaign of campaigns"
         [campaign]="campaign"
-      >
-      </app-campaign-list-item>
+      ></app-campaign-list-item>
       <div class="adsh-box">
         <div class="adsh-campaign-list__item">
           <div
@@ -116,26 +116,22 @@
         row
         justify-center"
     >
-      <a
-        routerLink="/advertiser/create-campaign/basic-information"
-        [queryParams]="{step: 1}"
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-btn--no-border
+          adsh-blue"
+        (click)="navigateToCreateCampaign()"
       >
-        <button
+        <img
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
-            adsh-blue"
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle--blue.svg"
         >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle--blue.svg"
-          >
-          Add new campaign
-        </button>
-      </a>
+        Add new campaign
+      </button>
     </div>
   </div>
 </section>

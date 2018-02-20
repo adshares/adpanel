@@ -8,6 +8,7 @@ import { fadeAnimation } from './common/animations/fade.animation';
 import { appSettings } from '../app-settings/app-settings';
 import { userRolesEnum } from './models/enum/user.enum';
 import { isUnixTimePastNow } from './common/utilities/helpers';
+import { User } from './models/user.model'
 import * as authActions from './store/auth/auth.actions';
 import * as commonActions from './store/common/common.actions';
 
@@ -38,10 +39,6 @@ export class AppComponent implements OnInit {
   }
 
   handleSavedUserData() {
-    if (location.pathname.indexOf('auth') > -1) {
-      return;
-    }
-
     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
 
     if (!userData) {
@@ -56,14 +53,32 @@ export class AppComponent implements OnInit {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {
-      const activeUserType = this.getActiveUserType();
+      const loginDir = location.pathname.indexOf('auth') > -1;
+      const activeUserType =
+        loginDir ? this.getActiveUserTypeByUserRoles(user) : this.getActiveUserTypeByDir();
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
+
+      if (loginDir) {
+        const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
+
+        this.router.navigate([moduleDir, 'dashboard']);
+      }
     }
   }
 
-  getActiveUserType() {
+  getActiveUserTypeByUserRoles(user: User) {
+    if (user.isAdmin) {
+      return userRolesEnum.ADMIN;
+    } else if (user.isAdvertiser) {
+      return userRolesEnum.ADVERTISER;
+    } else {
+      return userRolesEnum.PUBLISHER;
+    }
+  }
+
+  getActiveUserTypeByDir() {
     if (location.pathname.indexOf('admin') > -1) {
       return userRolesEnum.ADMIN;
     } else if (location.pathname.indexOf('advertiser') > -1) {

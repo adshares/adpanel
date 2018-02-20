@@ -200,24 +200,23 @@
         row
         justify-center"
     >
-      <a routerLink="/publisher/dashboard">
-        <button
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-btn--no-border
+          adsh-heading
+          adsh-heading--secondary"
+        (click)="navigateToCreateAdUnits()"
+      >
+        <img
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
-            adsh-heading
-            adsh-heading--secondary"
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle--blue.svg"
         >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/plus-circle--blue.svg"
-          >
-          Create new Ad Unit
-        </button>
-      </a>
+        Create new Ad Unit
+      </button>
     </div>
   </div>
 </div>
