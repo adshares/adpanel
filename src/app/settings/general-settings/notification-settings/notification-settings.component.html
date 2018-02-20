@@ -57,8 +57,7 @@
             </div>
             <div class="col-xs-4">
               <mat-slide-toggle
-                (click)="onNotificationChange(notification, 'notification')"
-                (toggle)="onNotificationChange(notification, 'notification')"
+                (change)="onNotificationChange(notification, 'notification')"
                 aria-label="notification-component"
                 [checked]="notification.notification === true"
                 ([ngModel])="notification.notification"
@@ -66,7 +65,7 @@
             </div>
             <div class="col-xs-2">
               <mat-slide-toggle
-                (click)="onNotificationChange(notification, 'email')"
+                (change)="onNotificationChange(notification, 'email')"
                 aria-label="notification-email"
                 [checked]="notification.email === true"
                 ([ngModel])="notification.email"

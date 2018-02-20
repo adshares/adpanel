@@ -21,7 +21,8 @@ export class SettingsService {
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  updateNotificationsSettings(newSettings: NotificationItem[]) {
-    this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings);
+  updateNotificationsSettings(newSettings: NotificationItem[]): Observable<NotificationItem[]> {
+    return this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings)
+      .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 }
