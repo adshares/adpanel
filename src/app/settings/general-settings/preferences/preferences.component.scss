@@ -1,9 +1,15 @@
 .preferences {
-  input {
+  .adsh-form-input__box {
     margin-right: 25px;
   }
 }
 
 .delete-account {
   margin-top: 30px;
+}
+
+.change-form {
+  button {
+    margin-top: 40px;
+  }
 }

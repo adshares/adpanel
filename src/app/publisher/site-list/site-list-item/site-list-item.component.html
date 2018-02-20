@@ -1,4 +1,6 @@
-<div class="adsh-box">
+<div
+  class="adsh-box"
+  (click)="navigateToCampaignDetails(site.id)">
   <div class="site-list__item">
     <div
       class="
@@ -18,7 +20,7 @@
             adsh-heading
             adsh-heading--secondary"
         >
-          {{ site.name }}
+          {{ site.websiteUrl }}
         </h4>
       </div>
       <div
@@ -79,12 +81,10 @@
           justify-center
           adsh-site-list__item-site-details"
       >
-        <a [routerLink]="['../site', site.id]">
-          <img
-            src="/assets/images/chevron--right.svg"
-            alt="Campaign Details Icon"
-          >
-        </a>
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
       </div>
     </div>
   </div>

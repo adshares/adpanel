@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from '../../common/handle-subscription';
 import { AppState } from '../../models/app-state.model';
 import { Campaign } from '../../models/campaign.model';
-
+import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
+import { TableColumnMetaData } from '../../models/table.model';
 import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 
 @Component({
@@ -14,14 +16,32 @@ import * as advertiserActions from '../../store/advertiser/advertiser.actions';
 })
 
 export class CampaignListComponent extends HandleSubscription implements OnInit {
-  campaigns: Store<Campaign[]>;
+  campaigns: Campaign[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     super(null);
   }
 
   ngOnInit() {
     this.store.dispatch(new advertiserActions.LoadCampaigns(''));
-    this.campaigns = this.store.select('state', 'advertiser', 'campaigns');
+    const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
+      .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
+    this.subscriptions.push(campaignsSubscription);
+  }
+
+  sortTable(columnMetaData: TableColumnMetaData) {
+    this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);
+  }
+
+  navigateToCreateCampaign() {
+    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+
+    this.router.navigate(
+      [ 'advertiser', 'create-campaign', 'basic-information'],
+      { queryParams: { step: 1 } }
+    );
   }
 }

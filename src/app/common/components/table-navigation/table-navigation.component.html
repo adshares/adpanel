@@ -4,6 +4,7 @@
     row
     align-center"
   [ngClass]="menuItem.columnWidth"
+  (click)="sortTableByKey(menuItem)"
 >
   {{ menuItem.title }}
   <div

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppCommonModule } from '../common/common.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 import { SettingsRoutingModule } from './settings-routing.module';
@@ -21,6 +22,7 @@ import { BillingHistoryWithdrawalComponent } from './billing/billing-history/bil
   imports: [
     CommonModule,
     AppCommonModule,
+    ReactiveFormsModule,
     FormsModule,
     SettingsRoutingModule,
     MatSlideToggleModule
