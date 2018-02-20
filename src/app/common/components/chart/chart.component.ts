@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
+import { HandleSubscription } from '../../handle-subscription';
 import * as commonActions from '../../../store/common/common.actions';
 
 import { ChartFilterSettings } from '../../../models/chart/chart-filter-settings.model';
@@ -11,7 +12,6 @@ import { ChartOptions } from '../../../models/chart/chart-options.model';
 import { chartColors, chartOptions } from './chart-settings';
 
 import * as moment from 'moment';
-import {HandleSubscription} from "../../handle-subscription";
 
 @Component({
   selector: 'app-chart',
@@ -30,7 +30,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   barChartColors: ChartColors[] = chartColors;
 
   constructor(private store: Store<AppState>) {
-    super(null)
+    super(null);
   }
 
   ngOnInit() {
@@ -58,7 +58,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     } else {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
-    console.log(this.currentChartFilterSettings)
+
     this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
     this.update.emit(this.currentChartFilterSettings);
   }
