@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from '../../common/components/chart/chart.component';
 import { ChartService } from '../../common/chart.service';
+import * as moment from 'moment';
 
 import { HandleSubscription } from '../../common/handle-subscription';
 import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
-
-import * as moment from 'moment';
 import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
 import { ChartData } from '../../models/chart/chart-data.model';
 
