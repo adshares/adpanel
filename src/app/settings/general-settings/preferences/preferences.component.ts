@@ -1,12 +1,12 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../../settings.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HandleSubscription } from '../../../common/handle-subscription';
 
 interface AfterRequestValidation {
-  email: { [key: string]: boolean },
-  password: { [key: string]: boolean }
-};
+  email: { [key: string]: boolean };
+  password: { [key: string]: boolean };
+}
 
 @Component({
   selector: 'app-preferences',
