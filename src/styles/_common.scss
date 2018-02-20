@@ -101,7 +101,6 @@
 }
 
 .adsh-chevron {
-  // TODO shape
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -127,10 +126,6 @@
 
   &--up:before {
     transform: rotate(-45deg);
-  }
-
-  &--valid {
-    // tick TODO
   }
 
   &--white:before {
@@ -172,11 +167,11 @@
   border-radius: 2px;
   background-color: pal(white);
   padding: 13px 15px;
+  margin: 2px 0;
 
   &--large {
     padding: 25px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 10px 0;
   }
 
   &--small {
@@ -202,6 +197,10 @@
 
   &--light-border {
     border: solid 1px pal(gray, light);
+  }
+
+  &--no-top-border {
+    border-top: none;
   }
 
   &--bordered {
@@ -301,7 +300,7 @@ router-outlet ~ * {
 }
 
 .adsh-ad-list__sort {
-  margin-left: 3px;
+  margin-left: 6px;
 }
 
 /*
@@ -324,4 +323,9 @@ router-outlet ~ * {
   &-divider {
     margin: 0 10px;
   }
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
 }

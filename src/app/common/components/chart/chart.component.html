@@ -1,0 +1,17 @@
+<canvas
+  *ngIf="barChartData[0].data.length ; else loading"
+  baseChart
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [legend]="false"
+  chartType="bar"
+  [colors]="barChartColors"
+></canvas>
+<ng-template #loading>
+  <mat-spinner
+    [diameter]="30"
+    [strokeWidth]="3"
+    color="primary"
+  ></mat-spinner>
+</ng-template>

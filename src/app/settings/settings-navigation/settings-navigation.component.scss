@@ -42,6 +42,10 @@
         left: -2px;
         background-color: pal(blue);
       }
+
+      span {
+        @include font-weight(semi)
+      }
     }
   }
 }

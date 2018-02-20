@@ -12,8 +12,8 @@ import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-sit
 
 import { PublisherGuard } from './publisher-guard.service';
 import { SiteResolver } from './resolvers/site.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver'
-import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver'
+import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const publisherRoutes: Routes = [
   {
@@ -33,6 +33,7 @@ const publisherRoutes: Routes = [
       {
         path: 'create-site',
         component: EditSiteComponent,
+        resolve: { targetingOptions: TargetingCriteriaResolver },
         children: [
           { path: 'basic-information',
             component: EditSiteBasicInformationComponent,
@@ -41,8 +42,7 @@ const publisherRoutes: Routes = [
           {
             path: 'additional-targeting',
             component: EditSiteAdditionalTargetingComponent,
-            canDeactivate: [PublisherGuard],
-            resolve: { targetingOptions: TargetingCriteriaResolver }
+            canDeactivate: [PublisherGuard]
           },
           {
             path: 'create-ad-units',

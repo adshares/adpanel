@@ -18,6 +18,11 @@ export function settingsReducers(state = initialState, action: settingsActions.a
         ...state,
         notificationsSettings: action.payload
       };
+    case settingsActions.UPDATE_NOTIFICATIONS_SETTINGS:
+      return {
+        ...state,
+        notificationsSettings: action.payload
+      };
     default:
       return state;
   }

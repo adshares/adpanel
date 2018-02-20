@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NotificationsComponent {
   @Input() notificationsBarEnabled: boolean;
-  @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter()
+  @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter();
 
   disableNotificationsBar() {
     this.notificationsBarEnabled = false;

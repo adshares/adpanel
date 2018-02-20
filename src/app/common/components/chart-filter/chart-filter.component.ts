@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { TimespanFilter } from '../../../models/chart/chart-filter-settings.model';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-chart-filter',
@@ -6,5 +10,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./chart-filter.component.scss'],
 })
 export class ChartFilterComponent {
+  @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
+  dateFrom = new FormControl();
+  dateTo = new FormControl();
 
+  filterChart(from, to) {
+    const timespan = {
+      from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
+      to: isNaN(to) ? to.value._d : moment().format()
+    };
+
+    this.filter.emit(timespan);
+  }
 }

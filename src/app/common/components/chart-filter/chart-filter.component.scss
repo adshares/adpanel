@@ -1,7 +1,11 @@
-.adsh-chart-filters {
+.chart-filters {
   margin-bottom: 20px;
 
-  > * {
-    margin-left: 10px;
+  .filter-row {
+    margin: 10px 0;
+
+    > * {
+      margin-left: 10px;
+    }
   }
 }

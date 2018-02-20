@@ -1,7 +1,7 @@
 .adsh-btn {
   border: none;
   border-radius: 2px;
-  padding: 12px 25px;
+  padding: 13px 25px 14px;
   @include font(14, medium);
   color: pal(white);
   background: transparent;
@@ -19,6 +19,10 @@
   }
 
   &--small {
+    padding: 12px 15px;
+  }
+
+  &--x-small {
     padding: 6px 15px;
   }
 
