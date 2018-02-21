@@ -36,11 +36,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('state', 'common', 'chartFilterSettings')
-      .take(1)
+    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
+    this.subscriptions.push(chartFilterSubscription);
+
     this.getChartData(this.currentChartFilterSettings);
   }
 
