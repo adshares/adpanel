@@ -1,14 +1,16 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../models/app-state.model';
+import { HandleSubscription } from '../../handle-subscription';
+import * as commonActions from '../../../store/common/common.actions';
 
 import { ChartFilterSettings } from '../../../models/chart/chart-filter-settings.model';
-import { chartFilterSettingsInitialState } from '../../../models/initial-state/chart-filter-settings';
 import { ChartLabels } from '../../../models/chart/chart-labels.model';
 import { ChartData } from '../../../models/chart/chart-data.model';
 import { ChartColors } from '../../../models/chart/chart-colors.model';
 import { ChartOptions } from '../../../models/chart/chart-options.model';
 import { chartColors, chartOptions } from './chart-settings';
 
-import { cloneDeep } from '../../utilities/helpers';
 import * as moment from 'moment';
 
 @Component({
@@ -16,16 +18,30 @@ import * as moment from 'moment';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent {
+export class ChartComponent extends HandleSubscription implements OnInit {
   @Input() chartSpan: string;
   @Input() seriesType?: string;
   @Input() barChartData: ChartData[][] | ChartData[];
   @Input() barChartLabels: ChartLabels[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
+  currentChartFilterSettings: ChartFilterSettings;
   barChartOptions: ChartOptions = chartOptions;
   barChartColors: ChartColors[] = chartColors;
+
+  constructor(private store: Store<AppState>) {
+    super(null);
+  }
+
+  ngOnInit() {
+    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.currentChartFilterSettings = chartFilterSettings;
+      });
+
+    this.subscriptions.push(chartFilterSubscription);
+
+  }
 
   updateChartData(timespan) {
     const from = this.currentChartFilterSettings.currentFrom = moment(timespan.from).format();
@@ -41,6 +57,8 @@ export class ChartComponent {
     } else {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
+
+    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
     this.update.emit(this.currentChartFilterSettings);
   }
 

@@ -1,7 +1,9 @@
 import * as commonActions from './common.actions';
+import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 
 const initialState = {
-  activeUserType: 1
+  activeUserType: 1,
+  chartFilterSettings: chartFilterSettingsInitialState
 };
 
 export function commonReducers(state = initialState , action: commonActions.actions ) {
@@ -10,6 +12,11 @@ export function commonReducers(state = initialState , action: commonActions.acti
       return {
         ...state,
         activeUserType: action.payload
+      };
+    case commonActions.SET_CHART_FILTER_SETTINGS:
+      return {
+        ...state,
+        chartFilterSettings: Object.assign({}, action.payload)
       };
      default:
       return state;
