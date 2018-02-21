@@ -52,12 +52,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    const chartDataSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .take(1)
+    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.subscriptions.push(chartDataSubscription);
+    this.subscriptions.push(chartFilterSubscription);
 
     this.getChartData(this.currentChartFilterSettings);
   }
