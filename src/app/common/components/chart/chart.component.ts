@@ -63,14 +63,11 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   }
 
   updateChartDataSeries(series) {
-    console.log(series)
     this.currentChartFilterSettings.currentSeries = series;
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataAssetId(assetId) {
-    console.log(assetId)
-
     this.currentChartFilterSettings.currentAssetId = assetId;
     this.update.emit(this.currentChartFilterSettings);
   }
