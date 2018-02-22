@@ -20,6 +20,7 @@ export class ChartFilterByTypeComponent implements OnInit {
 
   currentAssetId = 0;
   currentAssetSeries = 'clicks';
+  currentAdminAssetSeries = 'saldo';
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
   constructor(private store: Store<AppState>) {}
@@ -28,11 +29,11 @@ export class ChartFilterByTypeComponent implements OnInit {
     this.userDataState = this.store.select('state', 'user', 'data');
   }
 
-  updateAssetId(arg) {
-    this.updateId.emit(arg);
+  updateAssetId(id) {
+    this.updateId.emit(id);
   }
 
-  updateAssetSeries(arg) {
-    this.updateSeries.emit(arg);
+  updateAssetSeries(series) {
+    this.updateSeries.emit(series);
   }
 }
