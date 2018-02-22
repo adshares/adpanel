@@ -1,4 +1,4 @@
-<app-confirmation-alert></app-confirmation-alert>
+<app-confirmation-alert *ngIf="!(userHasConfirmedEmail | async)"></app-confirmation-alert>
 <section
   class="
     adsh-advertiser-wrapper

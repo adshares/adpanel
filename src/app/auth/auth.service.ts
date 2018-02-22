@@ -20,4 +20,13 @@ export class AuthService {
     return this.http.put(`${environment.apiUrl}/user`, { email, password })
       .map((user: User) => user);
   }
+
+  sendActivationEmail() {
+    return this.http.post(`${environment.apiUrl}/send_activation_email`, { });
+  }
+
+  getUserData(): Observable<User> {
+    return this.http.get(`${environment.apiUrl}/user`)
+      .map((user: User) => user);
+  }
 }

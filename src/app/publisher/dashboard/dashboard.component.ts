@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as moment from 'moment';
+
 import { ChartService } from '../../common/chart.service';
 import { ChartComponent } from '../../common/components/chart/chart.component';
-
 import { HandleSubscription } from '../../common/handle-subscription';
 import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
 import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 import { ChartData } from '../../models/chart/chart-data.model';
 import { ChartLabels } from '../../models/chart/chart-labels.model';
-
+import { AppState } from '../../models/app-state.model';
+import { User } from '../../models/user.model';
 import { cloneDeep, createInitialArray, enumToArray } from '../../common/utilities/helpers';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,15 +28,20 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifferenceInPercentage: number;
   barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 6);
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
+  userHasConfirmedEmail: Store<boolean>;
 
   currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
-  constructor(private chartService: ChartService) {
+  constructor(
+    private chartService: ChartService,
+    private store: Store<AppState>
+  ) {
     super(null);
   }
 
   ngOnInit() {
     this.getChartData(this.currentChartFilterSettings);
+    this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
 
   getChartData(chartFilterSettings) {

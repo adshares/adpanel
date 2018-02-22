@@ -3,12 +3,12 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './models/app-state.model';
-import { LocalStorageUser } from './models/user.model';
 import { fadeAnimation } from './common/animations/fade.animation';
 import { appSettings } from '../app-settings/app-settings';
 import { userRolesEnum } from './models/enum/user.enum';
 import { isUnixTimePastNow } from './common/utilities/helpers';
 import { User } from './models/user.model'
+import { LocalStorageUser } from './models/user.model';
 import * as authActions from './store/auth/auth.actions';
 import * as commonActions from './store/common/common.actions';
 
@@ -46,8 +46,8 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    const user = (({id, email, isAdvertiser, isPublisher, isAdmin, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, authToken}))(userData);
+    const user = (({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}) =>
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}))(userData);
 
     if (isUnixTimePastNow(userData.expiration)) {
       localStorage.removeItem('adshUser');
