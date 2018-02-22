@@ -1,4 +1,5 @@
 <div class="row filters">
+  <div class="user-filters" *ngIf="!(userDataState | async).isAdmin">
     <div class="col-xs-12 col-sm-6 col-md-2">
       <mat-select
         class="adsh-select"
@@ -31,4 +32,23 @@
         </mat-option>
       </mat-select>
     </div>
+  </div>
+  <div class="admin-filters" *ngIf="(userDataState | async).isAdmin">
+    <div class="col-xs-12 col-sm-6 col-md-2">
+      <mat-select
+        class="adsh-select"
+        id="adminAssetSeries"
+        name="assetSeries"
+        [value]="currentAssetSeries"
+        (change)="updateAssetSeries('ctr')"
+        [placeholder]="currentAssetSeries"
+      >
+        <mat-option
+          *ngFor="let assetSeries of chartSeries"
+          [value]="assetSeries">
+          {{ assetSeries }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
 </div>

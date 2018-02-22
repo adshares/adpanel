@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { Campaign } from '../../models/campaign.model';
 import { AppState } from '../../models/app-state.model';
 import { AdvertiserService } from '../advertiser.service';
+import { ChartComponent } from '../../common/components/chart/chart.component';
 import { ChartService } from '../../common/chart.service';
 import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
 import { ChartData } from '../../models/chart/chart-data.model';
@@ -21,8 +22,9 @@ import * as moment from 'moment';
   styleUrls: ['./campaign-details.component.scss']
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit {
-  campaign: Campaign;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
+  campaign: Campaign;
   campaignStatuses = enumToObjectArray(campaignStatusesEnum);
   selectCompare = selectCompare;
 

@@ -15,7 +15,6 @@
             adsh-heading
             adsh-heading--primary"
         >
-          <!--TODO TO CHANGE-->
           <span>Performance</span>
         </h1>
       </div>
@@ -33,6 +32,9 @@
       >
         <div class="row">
           <div class="col-xs-12">
+            <app-chart-filter-by-type
+              (updateSeries)="appChartRef.updateChartDataAssetId($event)"
+            ></app-chart-filter-by-type>
             <div
               class="
                 row
