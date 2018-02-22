@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './confirmation.component.html',
   styleUrls: ['./confirmation.component.scss'],
 })
-export class ConfirmationComponent {
-
-}
+export class ConfirmationComponent { }
