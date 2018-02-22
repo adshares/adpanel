@@ -1,13 +1,12 @@
-<div class="row filters">
-  <div class="user-filters" *ngIf="!(userDataState | async).isAdmin">
+<div class="filters">
+  <div class="row user-filters" *ngIf="!(userDataState | async).isAdmin">
     <div class="col-xs-12 col-sm-6 col-md-2">
       <mat-select
         class="adsh-select"
         id="assetId"
-        name="assetId"
         [value]="currentAssetId"
-        (change)="updateAssetId(1)"
-        [placeholder]="currentAssetId"
+        (change)="updateAssetId(currentAssetId)"
+        [(ngModel)]="currentAssetId"
       >
         <mat-option
           *ngFor="let assetId of [0, 1]"
@@ -20,10 +19,9 @@
       <mat-select
         class="adsh-select"
         id="assetSeries"
-        name="assetSeries"
         [value]="currentAssetSeries"
-        (change)="updateAssetSeries('ctr')"
-        [placeholder]="currentAssetSeries"
+        (change)="updateAssetSeries(currentAssetSeries)"
+        [(ngModel)]="currentAssetSeries"
       >
         <mat-option
           *ngFor="let assetSeries of chartSeries"
@@ -38,10 +36,9 @@
       <mat-select
         class="adsh-select"
         id="adminAssetSeries"
-        name="assetSeries"
-        [value]="currentAssetSeries"
-        (change)="updateAssetSeries('ctr')"
-        [placeholder]="currentAssetSeries"
+        [value]="currentAdminAssetSeries"
+        (change)="updateAssetSeries(currentAdminAssetSeries)"
+        [placeholder]="currentAdminAssetSeries"
       >
         <mat-option
           *ngFor="let assetSeries of chartSeries"
