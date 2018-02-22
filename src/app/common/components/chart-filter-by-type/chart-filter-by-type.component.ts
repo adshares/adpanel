@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from '../../../models/user.model';
 import { AppState } from '../../../models/app-state.model';
 import { chartSeriesEnum } from '../../../models/enum/chart-series.enum';
+import { adminChartSeriesEnum } from '../../../models/enum/admin-chart-series.enum';
 import { enumToArray } from '../../utilities/helpers';
 
 
@@ -19,9 +20,10 @@ export class ChartFilterByTypeComponent implements OnInit {
   userDataState: Store<User>;
 
   currentAssetId = 0;
-  currentAssetSeries = 'clicks';
-  currentAdminAssetSeries = 'saldo';
+  currentAssetSeries = enumToArray(chartSeriesEnum)[0];
+  currentAdminAssetSeries = enumToArray(adminChartSeriesEnum)[0];
   chartSeries: string[] = enumToArray(chartSeriesEnum);
+  adminChartSeries: string[] = enumToArray(adminChartSeriesEnum);
 
   constructor(private store: Store<AppState>) {}
 
