@@ -62,16 +62,13 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     this.update.emit(this.currentChartFilterSettings);
   }
 
-  // TODO ChartDataSeries and ID filtering
-  // updateChartDataSeries(series) {
-  //   this.currentSeries = series;
-  //   this.barChartData[0].data = [];
-  //   this.update.emit(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId, this.currentSeries);
-  // }
-  //
-  // updateChartDataCampaign(assetId) {
-  //   this.currentAssetId = assetId;
-  //   this.barChartData[0].data = [];
-  //   this.update.emit(this.currentFrom, this.currentTo, this.currentFrequency, this.currentAssetId, this.currentSeries);
-  // }
+  updateChartDataSeries(series) {
+    this.currentChartFilterSettings.currentSeries = series;
+    this.update.emit(this.currentChartFilterSettings);
+  }
+
+  updateChartDataAssetId(assetId) {
+    this.currentChartFilterSettings.currentAssetId = assetId;
+    this.update.emit(this.currentChartFilterSettings);
+  }
 }
