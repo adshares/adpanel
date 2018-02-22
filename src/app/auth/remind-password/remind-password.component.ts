@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/first';
 
 import { AuthService } from '../auth.service';
 
@@ -30,7 +30,7 @@ export class RemindPasswordComponent {
     this.isSendingEmail = true;
 
     this.authService.remindPassword(formValues.email)
-      .take(1)
+      .first()
       .subscribe(
         () => this.router.navigate(['/auth', 'login']),
         () => { },
