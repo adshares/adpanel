@@ -20,4 +20,8 @@ export class AuthService {
     return this.http.put(`${environment.apiUrl}/user`, { email, password })
       .map((user: User) => user);
   }
+
+  remindPassword(email: string) {
+    return this.http.post(`${environment.apiUrl}/remind_password`, { email })
+  }
 }
