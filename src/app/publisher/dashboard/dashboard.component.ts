@@ -11,8 +11,7 @@ import { chartFilterSettingsInitialState } from '../../models/initial-state/char
 import { ChartData } from '../../models/chart/chart-data.model';
 import { ChartLabels } from '../../models/chart/chart-labels.model';
 import { AppState } from '../../models/app-state.model';
-import { User } from '../../models/user.model';
-import { cloneDeep, createInitialArray, enumToArray } from '../../common/utilities/helpers';
+import { createInitialArray, enumToArray } from '../../common/utilities/helpers';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +29,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
   userHasConfirmedEmail: Store<boolean>;
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
+  currentChartFilterSettings: ChartFilterSettings;
 
   constructor(
     private chartService: ChartService,
@@ -40,6 +39,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
+    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.currentChartFilterSettings = chartFilterSettings;
+      });
+    this.subscriptions.push(chartFilterSubscription);
+
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
