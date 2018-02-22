@@ -46,8 +46,10 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    const user = (({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}))(userData);
+    const user = (
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}) =>
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken})
+    )(userData);
 
     if (isUnixTimePastNow(userData.expiration)) {
       localStorage.removeItem('adshUser');
