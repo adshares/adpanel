@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartComponent } from '../../common/components/chart/chart.component';
 import { ChartService } from '../../common/chart.service';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
 import { HandleSubscription } from '../../common/handle-subscription';
@@ -8,6 +9,8 @@ import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.mod
 import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
 import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
 import { ChartData } from '../../models/chart/chart-data.model';
+import { AppState } from '../../models/app-state.model';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,17 +25,20 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifferenceInPercentage: number;
   barChartLabels: string[] = [];
   barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
+  userHasConfirmedEmail: Store<boolean>;
 
   currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
 
   constructor(
     private chartService: ChartService,
+    private store: Store<AppState>
   ) {
     super(null);
   }
 
   ngOnInit() {
     this.getChartData(this.currentChartFilterSettings);
+    this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
 
   getChartData(chartFilterSettings) {

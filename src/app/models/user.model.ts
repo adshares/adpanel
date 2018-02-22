@@ -4,6 +4,7 @@ interface User {
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;
+  isEmailConfirmed: boolean;
 
   authToken?: string;
 }
