@@ -20,8 +20,8 @@ export class ChartFilterByTypeComponent implements OnInit {
   userDataState: Store<User>;
 
   currentAssetId = 0;
-  currentAssetSeries = enumToArray(chartSeriesEnum)[0];
-  currentAdminAssetSeries = enumToArray(adminChartSeriesEnum)[0];
+  currentAssetSeries: string = enumToArray(chartSeriesEnum)[0];
+  currentAdminAssetSeries: string = enumToArray(adminChartSeriesEnum)[0];
   chartSeries: string[] = enumToArray(chartSeriesEnum);
   adminChartSeries: string[] = enumToArray(adminChartSeriesEnum);
 
