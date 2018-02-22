@@ -153,10 +153,10 @@
         </div>
         <div
           class="
-              row
-              align-center
-              justify-center
-              chart-wrapper"
+            row
+            align-center
+            justify-center
+            chart-wrapper"
         >
           <app-chart
             class="
@@ -165,6 +165,9 @@
                 align-center
                 justify-center"
             [seriesType]="chartSeriesType"
+            (update)="getChartData($event)"
+            [barChartData]="barChartData[i]"
+            [barChartLabels]="barChartLabels[i].labels"
           ></app-chart>
         </div>
       </div>
