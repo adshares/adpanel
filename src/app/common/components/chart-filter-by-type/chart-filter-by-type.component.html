@@ -1,68 +1,34 @@
 <div class="row filters">
-  <div class="col-xs-12 col-sm-6 col-md-3 col-xl-2">
-    <!--TODO use chartSeriesEnum combined with *ngFor for generating options, also you should be able to use (change) on mat-select instead of using (click) on every mat-option-->
-    <mat-select
-      class="adsh-select"
-      placeholder="All Campaigns"
-      [(value)]="filterData"
-      ngModel
-    >
-      <mat-option
-        [value]="'All campaigns'"
-        (click)="filter(value)"
+    <div class="col-xs-12 col-sm-6 col-md-2">
+      <mat-select
+        class="adsh-select"
+        id="assetId"
+        name="assetId"
+        [value]="currentAssetId"
+        (change)="updateAssetId(1)"
+        [placeholder]="currentAssetId"
       >
-        All Campaigns
-      </mat-option>
-      <mat-option
-        [value]="'campaign 1'"
-        (click)="filter(value)"
+        <mat-option
+          *ngFor="let assetId of [0, 1]"
+          [value]="assetId">
+          {{ assetId }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-2">
+      <mat-select
+        class="adsh-select"
+        id="assetSeries"
+        name="assetSeries"
+        [value]="currentAssetSeries"
+        (change)="updateAssetSeries('ctr')"
+        [placeholder]="currentAssetSeries"
       >
-        Campaign 1
-      </mat-option>
-      <mat-option
-        [value]="'campaign 2'"
-        (click)="filter(value)"
-      >
-        Campaign 2
-      </mat-option>
-    </mat-select>
-  </div>
-  <div class="col-xs-12 col-sm-6 col-md-3 col-xl-2">
-    <mat-select
-      class="adsh-select"
-      placeholder="Clicks"
-      [(value)]="filterType"
-    >
-      <mat-option
-        [value]="'clicks'"
-        (click)="filter(value)"
-      >
-        Clicks
-      </mat-option>
-      <mat-option
-        [value]="'impressions'"
-        (click)="filter(value)"
-      >
-        Impressions
-      </mat-option>
-      <mat-option
-        [value]="'ctr'"
-        (click)="filter(value)"
-      >
-        CTR
-      </mat-option>
-      <mat-option
-        [value]="'cpc'"
-        (click)="filter(value)"
-      >
-        Average CPC
-      </mat-option>
-      <mat-option
-        [value]="'cost'"
-        (click)="filter(value)"
-      >
-        Cost
-      </mat-option>
-    </mat-select>
-  </div>
+        <mat-option
+          *ngFor="let assetSeries of chartSeries"
+          [value]="assetSeries">
+          {{ assetSeries }}
+        </mat-option>
+      </mat-select>
+    </div>
 </div>
