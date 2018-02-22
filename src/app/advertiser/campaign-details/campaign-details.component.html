@@ -219,16 +219,28 @@
         adsh-box
         adsh-box--large"
     >
-      <app-chart
+      <app-chart-filter-by-type
+        (updateId)="appChartRef.updateChartDataSeries($event)"
+        (updateSeries)="appChartRef.updateChartDataAssetId($event)"
+      ></app-chart-filter-by-type>
+      <div
         class="
-          chart
-          row
-          align-center
-          justify-center"
-        (update)="getChartData($event)"
-        [barChartData]="barChartData"
-        [barChartLabels]="barChartLabels"
-      ></app-chart>
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+      >
+        <app-chart
+          class="
+            chart
+            row
+            align-center
+            justify-center"
+          (update)="getChartData($event)"
+          [barChartData]="barChartData"
+          [barChartLabels]="barChartLabels"
+        ></app-chart>
+      </div>
     </div>
 
     <div

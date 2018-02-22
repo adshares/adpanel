@@ -124,7 +124,7 @@
           adsh-box
           adsh-box--large
           chart-box"
-        *ngFor="let chartSeriesType of chartSeries"
+        *ngFor="let chartSeriesType of chartSeries; let i = index"
       >
         <div class="chart-stats">
           <p

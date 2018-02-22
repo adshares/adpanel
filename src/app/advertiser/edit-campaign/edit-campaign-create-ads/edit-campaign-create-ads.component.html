@@ -150,15 +150,15 @@
 
           <div
             class="
-            row
-            align-center
-            justify-center
-            adsh-box
-            adsh-box--large
-            adsh-box--bordered
-            adsh-box--dashed
-            adsh-box--blue-border
-            drag-and-drop-box"
+              row
+              align-center
+              justify-center
+              adsh-box
+              adsh-box--large
+              adsh-box--bordered
+              adsh-box--dashed
+              adsh-box--blue-border
+              drag-and-drop-box"
             *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
@@ -172,9 +172,9 @@
             <div>
               <p
                 class="
-                adsh-copy
-                adsh-copy--semi
-                adsh-copy--dark"
+                  adsh-copy
+                  adsh-copy--semi
+                  adsh-copy--dark"
               >
                 Drag & Drop or
 
@@ -194,8 +194,8 @@
               </p>
               <p
                 class="
-                adsh-copy
-                adsh-copy--large"
+                  adsh-copy
+                  adsh-copy--large"
               >
                 We support JPG and PNG files. Make sure that your files is no more than 500 kb.
               </p>
@@ -204,11 +204,11 @@
 
           <div
             class="
-            row
-            align-right
-            adsh-box
-            file-box
-            file-box--grey-background"
+              row
+              align-right
+              adsh-box
+              file-box
+              file-box--grey-background"
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
             *ngIf="
             adForm.get('type').value === 0 &&
@@ -245,8 +245,9 @@
               </span>
 
               <img
-                class="file-box__action-button
-                       file-box__action-button--cancel"
+                class="
+                  file-box__action-button
+                  file-box__action-button--cancel"
                 src="/assets/images/x-circle--gray.svg"
                 alt="Cancel upload"
                 (click)="uploader.queue[0].cancel()"
@@ -277,8 +278,8 @@
 
           <div
             class="
-            row
-            adsh-box"
+              row
+              adsh-box"
             *ngIf="
             (adForm.get('type').value === 1 && !ads[i]) ||
             (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
@@ -295,8 +296,8 @@
 
             <p
               class="
-              col-xs-12
-              adsh-form-label"
+                col-xs-12
+                adsh-form-label"
             >
               Paste your html here:
             </p>
@@ -310,9 +311,9 @@
 
             <button
               class="
-              adsh-btn
-              adsh-btn--white
-              adsh-blue"
+                adsh-btn
+                adsh-btn--white
+                adsh-blue"
               (click)="saveHtml(i)"
             >
               Save Html
@@ -321,20 +322,20 @@
 
           <div
             class="
-            row
-            adsh-box
-            adsh-box--bordered
-            adsh-box--dashed
-            adsh-box--blue-border
-            adsh-box__preview"
+              row
+              adsh-box
+              adsh-box--bordered
+              adsh-box--dashed
+              adsh-box--blue-border
+              adsh-box__preview"
             *ngIf="
             (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
             (adForm.get('type').value === 1) && ads[i].html">
             <div
               class="
-              col-xs-12
-              adsh-copy--small
-              adsh-copy--light">
+                col-xs-12
+                adsh-copy--small
+                adsh-copy--light">
               Preview
             </div>
 
@@ -358,9 +359,9 @@
 
               <button
                 class="
-                adsh-btn
-                adsh-btn--white
-                adsh-blue"
+                  adsh-btn
+                  adsh-btn--white
+                  adsh-blue"
                 (click)="clearCode(i)"
               >
                 Clear Code
