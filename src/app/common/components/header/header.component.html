@@ -123,6 +123,7 @@
       <span>Set your earnings</span>
     </button>
     <div
+      *ngIf="!(userDataState | async).isAdmin"
       class="
         row
         align-center
