@@ -1,4 +1,4 @@
-<app-confirmation-alert></app-confirmation-alert>
+<app-confirmation-alert *ngIf="!(userHasConfirmedEmail | async)"></app-confirmation-alert>
 <section
   class="
     adsh-advertiser-wrapper
@@ -41,7 +41,10 @@
           adsh-box
           adsh-box--large"
       >
-        <app-chart-filter-by-type></app-chart-filter-by-type>
+        <app-chart-filter-by-type
+          (updateId)="appChartRef.updateChartDataSeries($event)"
+          (updateSeries)="appChartRef.updateChartDataAssetId($event)"
+        ></app-chart-filter-by-type>
         <div
           class="
             row

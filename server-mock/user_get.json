@@ -4,6 +4,6 @@
     "isAdvertiser": true,
     "isPublisher": true,
     "isAdmin": false,
-    "isEmailConfirmed": false,
+    "isEmailConfirmed": true,
     "authToken": "someauthtokenvalue"
 }
