@@ -7,6 +7,8 @@ import {
   AdminSettings
 } from './settings.model';
 import { User } from './user.model';
+import { ChartFilterSettings } from './chart/chart-filter-settings.model';
+
 
 interface AppState {
   state: {
@@ -45,6 +47,7 @@ interface AdminState {
 
 interface CommonState {
   activeUserType: number;
+  chartFilterSettings: ChartFilterSettings;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState};
