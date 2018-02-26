@@ -1,23 +1,28 @@
 <div
-  *ngFor="let menuItem of navigationItems"
+  *ngFor="let menuItem of navigationItems; let menuItemIndex = index"
   class="
     row
     align-center"
   [ngClass]="menuItem.columnWidth"
-  (click)="sortTableByKey(menuItem)"
+  (click)="sortTableByKey(menuItem, $event)"
 >
   {{ menuItem.title }}
   <div
+    *ngIf="menuItem.title"
     class="
       col
       adsh-ad-list__sort"
-    *ngIf="menuItem.title"
   >
-    <div class="adsh-sort-triangle"></div>
+    <div
+      class="adsh-sort-triangle"
+      [class.active]="menuItem.sortAsc"
+      (click)="check(menuItem.sortAsc, menuItem.title, navigationItems[menuItemIndex].title)"
+    ></div>
     <div
       class="
         adsh-sort-triangle
         adsh-sort-triangle--down"
+      [class.active]="!menuItem.sortAsc"
     ></div>
   </div>
 </div>
