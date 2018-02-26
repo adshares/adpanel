@@ -18,6 +18,11 @@ import { MatSpinner } from '@angular/material';
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
+import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dialog.component';
+import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/change-address-dialog.component';
+import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
+import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
+
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ChartComponent } from './components/chart/chart.component';
@@ -47,7 +52,11 @@ const matModules = [
 const dialogs = [
   CustomizeAccountChooseDialogComponent,
   AccountChooseDialogComponent,
-  LeaveEditProcessDialogComponent
+  LeaveEditProcessDialogComponent,
+  AddFundsDialogComponent,
+  WithdrawFundsDialogComponent,
+  ChangeAddressDialogComponent,
+  ChangeAutomaticWithdrawDialogComponent
 ];
 
 const appComponents = [
