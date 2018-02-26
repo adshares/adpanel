@@ -5,5 +5,7 @@
     "isPublisher": true,
     "isAdmin": false,
     "isEmailConfirmed": true,
+    "userAutomaticWithdrawPeriod": "month",
+    "userAutomaticWithdrawAmount": 300,
     "authToken": "someauthtokenvalue"
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./withdraw-funds-dialog.component.scss']
 })
 export class WithdrawFundsDialogComponent {
+
+  constructor(public dialogRef: MatDialogRef<WithdrawFundsDialogComponent>) { }
 
 }

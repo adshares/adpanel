@@ -71,6 +71,7 @@
                 adsh-copy
                 adsh-copy--large
                 adsh-blue"
+              (click)="openChangeAutomaticWithdrawsDialog()"
             >
               Change
             </a>
@@ -103,6 +104,7 @@
                 adsh-copy
                 adsh-copy--large
                 adsh-blue"
+              (click)="openChangeAddressDialog()"
             >
               Change
             </a>
@@ -121,7 +123,9 @@
                 adsh-btn--white
                 row
                 align-center
-                adsh-funds-summary__deposit-funds">
+                adsh-funds-summary__deposit-funds"
+              (click)="openAddFundsDialog()"
+            >
               <img
                 src="/assets/images/credit-card--blue.svg"
                 alt="Credit Card Icon"
@@ -147,6 +151,7 @@
                 align-center
                 adsh-funds-summary__withdraw-funds"
               *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
+              (click)="openWithdrawFundsDialog()"
             >
               <img
                 src="/assets/images/credit-card--white.svg"

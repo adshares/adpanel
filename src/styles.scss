@@ -16,10 +16,10 @@ $app-theme:   mat-light-theme($app-primary, $app-accent);
 @import 'styles/dashboard';
 @import 'styles/forms';
 @import 'styles/flexbox';
-@import 'styles/material-override';
 @import 'styles/normalize';
 @import 'styles/typography';
 @import 'styles/z-index';
 
+@import 'styles/material-override';
 @import 'styles/common';
 @import 'styles/charts';
