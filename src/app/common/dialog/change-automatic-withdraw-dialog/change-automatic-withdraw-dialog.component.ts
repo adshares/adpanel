@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { enumToArray } from '../../utilities/helpers';
-import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../models/app-state.model';
 import { HandleSubscription } from '../../handle-subscription';
+
+import { enumToArray } from '../../utilities/helpers';
+import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
