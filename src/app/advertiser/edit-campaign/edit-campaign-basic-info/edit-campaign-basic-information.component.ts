@@ -81,9 +81,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       bidValue: new FormControl(initialBasicinfo.bidValue, Validators.required),
       budget: new FormControl(initialBasicinfo.budget, Validators.required),
     });
-    if (this.goesToSummary) {
-      this.getFormDataFromStore();
-    }
+
+    this.getFormDataFromStore();
   }
 
   getFormDataFromStore() {
