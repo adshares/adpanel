@@ -50,7 +50,11 @@
     }
 
     &--datepicker {
-      max-width: 140px;
+      max-width: 170px;
+
+      &--narrow {
+        max-width: 140px;
+      }
     }
 
     &--narrow {
