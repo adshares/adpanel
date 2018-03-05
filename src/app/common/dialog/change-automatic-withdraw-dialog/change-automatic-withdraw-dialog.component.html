@@ -12,7 +12,7 @@
       adsh-heading
       adsh-heading--primary"
   >
-    Change Address
+    Automatic Withdraws
   </h1>
 
   <p
@@ -29,51 +29,59 @@
       add-funds-content
       dialog-main-content"
   >
-    <div class="select">
-      <label class="adsh-form-label">
-        Period of Time
-      </label>
-      <mat-select
-        class="adsh-select"
-        id="period"
-        [value]="currentPeriod"
-        [(ngModel)]="currentPeriod"
-      >
-        <mat-option
-          *ngFor="let period of periods"
-          [value]="period"
+    <form
+      [formGroup]="automaticWithdrawForm"
+      (ngSubmit)="saveNewAutomaticWithdrawOptions()"
+      class="adsh-form"
+    >
+      <div class="select">
+        <label class="adsh-form-label">
+          Period of Time
+        </label>
+        <mat-select
+          class="adsh-select"
+          id="period"
+          formControlName="period"
         >
-          {{ period }}
-        </mat-option>
-      </mat-select>
-    </div>
+          <mat-option
+            *ngFor="let period of periods"
+            [value]="period"
+          >
+            {{ period }}
+          </mat-option>
+        </mat-select>
+      </div>
 
-    <div class="select">
-      <label class="adsh-form-label">
-        Amount
-      </label>
-      <mat-select
-        class="adsh-select"
-        id="amount"
-        [value]="currentAmount"
-        [(ngModel)]="currentAmount"
-      >
-        <mat-option
-          *ngFor="let amount of amounts"
-          [value]="amount"
+      <div class="select">
+        <label class="adsh-form-label">
+          Amount
+        </label>
+        <mat-select
+          class="adsh-select"
+          id="amount"
+          formControlName="amount"
         >
-          {{ amount }}
-        </mat-option>
-      </mat-select>
-    </div>
+          <mat-option
+            *ngFor="let amount of amounts"
+            [value]="amount"
+          >
+            {{ amount }}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <button
+        class="
+        adsh-btn
+        adsh-btn--blue"
+      >
+        <span *ngIf="!isFormBeingSubmitted ; else loading">
+            Save
+          </span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </form>
   </div>
-
-  <button
-    class="
-      adsh-btn
-      adsh-btn--blue"
-    (click)="saveNewAutomaticWithdrawOptions()"
-  >
-    Save
-  </button>
 </mat-dialog-content>
