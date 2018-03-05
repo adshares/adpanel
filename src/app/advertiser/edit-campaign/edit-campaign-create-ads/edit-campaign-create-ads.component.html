@@ -159,7 +159,10 @@
             adsh-box--dashed
             adsh-box--blue-border
             drag-and-drop-box"
-            *ngIf="adForm.get('type').value === 0 && adForm.get('image').value.src === ''"
+            *ngIf="
+              adForm.get('type').value === 0 &&
+              adForm.get('image').value.src === '' &&
+              !imagesStatus.upload.processing"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
             (fileOver)="fileOverDropArea($event, i)"
