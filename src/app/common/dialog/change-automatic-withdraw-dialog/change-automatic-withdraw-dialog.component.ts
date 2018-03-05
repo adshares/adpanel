@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
+
+import { SettingsService } from '../../../settings/settings.service';
 import { AppState } from '../../../models/app-state.model';
 import { HandleSubscription } from '../../handle-subscription';
 
@@ -13,15 +16,23 @@ import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
   styleUrls: ['./change-automatic-withdraw-dialog.component.scss']
 })
 export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
+  automaticWithdrawForm: FormGroup = new FormGroup({
+    period: new FormControl(),
+    amount: new FormControl()
+  });
+
   periods = enumToArray(withdrawPeriodsEnum);
   amounts = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
-
   currentPeriod: string;
   currentAmount: number;
 
+  isFormBeingSubmitted = false;
+  automaticWithdrawFormSubmitted = false;
+
   constructor(
     public dialogRef: MatDialogRef<ChangeAutomaticWithdrawDialogComponent>,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private settingsService: SettingsService
   ) {
     super(null);
   }
@@ -36,5 +47,26 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
       this.currentAmount = currentAmount;
     });
     this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
+  }
+
+  saveNewAutomaticWithdrawOptions() {
+    this.automaticWithdrawFormSubmitted = true;
+
+    if (!this.automaticWithdrawForm.valid) {
+      return;
+    }
+
+    this.isFormBeingSubmitted = true;
+
+    const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(
+      this.automaticWithdrawForm.value.period,
+      this.automaticWithdrawForm.value.amount
+    )
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
+
+    this.subscriptions.push(automaticWithdrawSubscription);
+
   }
 }

@@ -29,53 +29,69 @@
       add-funds-content
       dialog-main-content"
   >
-    <div class="adsh-form-input__box">
-      <label
-        for="ethereum-address"
-        class="adsh-form-label"
-      >
-        Our Ethereum Address
-      </label>
-      <input
-        id="ethereum-address"
-        class="
-          adsh-form-input
-          adsh-form-input--full"
-        name="ethereum-address"
-        value="0xe99356bde974bbe08721d77712168fa070aa8da4"
-        disabled
-      >
-      <span class="input-valid"></span>
-    </div>
+    <form
+      [formGroup]="changeWithdrawAddressForm"
+      (ngSubmit)="changeWithdrawAddress()"
+      class="adsh-form"
+    >
+      <div class="adsh-form-input__box">
+        <label
+          for="ethereum-address"
+          class="adsh-form-label"
+        >
+          Our Ethereum Address
+        </label>
+        <input
+          id="ethereum-address"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          name="ethereum-address"
+          value="0xe99356bde974bbe08721d77712168fa070aa8da4"
+          disabled
+        >
+        <span class="input-valid"></span>
+      </div>
 
-    <div class="adsh-form-input__box">
-      <label
-        for="memo"
-        class="adsh-form-label"
-      >
-        New Address
-      </label>
-      <input
-        id="memo"
+      <div class="adsh-form-input__box">
+        <label
+          for="address"
+          class="adsh-form-label"
+        >
+          New Address
+        </label>
+        <input
+          id="address"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          type="url"
+          name="address"
+          formControlName="address"
+        >
+        <span
+          *ngIf="changeWithdrawAddressForm.get('address').valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="changeWithdrawAddressForm.hasError('minlength', ['address']) && automaticWithdrawFormSubmitted"
+        >
+          Wrong address format.
+        </span>
+      </div>
+      <button
         class="
-          adsh-form-input
-          adsh-form-input--full"
-        type="url"
-        name="memo"
+          adsh-btn
+          adsh-btn--blue"
       >
-      <span
-        *ngIf=""
-        class="input-valid"
-      ></span>
-    </div>
+        <span *ngIf="!isFormBeingSubmitted ; else loading">
+            Save
+          </span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </form>
   </div>
-
-  <button
-    class="
-      adsh-btn
-      adsh-btn--blue"
-    (click)="saveNewAddress()"
-  >
-    Save
-  </button>
 </mat-dialog-content>
