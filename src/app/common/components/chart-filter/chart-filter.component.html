@@ -7,7 +7,7 @@
     class="
       row
       filter-row
-      align-center
+      align-baseline
       justify-end"
   >
     <span class="adsh-copy">
@@ -52,7 +52,7 @@
     class="
       row
       filter-row
-      align-center
+      align-baseline
       justify-end"
   >
     <span class="adsh-copy">or Select Manually</span>
@@ -61,8 +61,17 @@
       class="
         adsh-form-input
         adsh-form-input--narrow
-        adsh-form-input--datepicker"
+        adsh-form-input--datepicker
+        adsh-form-input--datepicker--narrow
+        row"
     >
+      <img
+        src="assets/images/calendar.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
       <input
         (click)="dateFromPicker.open()"
         matInput
@@ -81,8 +90,17 @@
       class="
         adsh-form-input
         adsh-form-input--narrow
-        adsh-form-input--datepicker"
+        adsh-form-input--datepicker
+        adsh-form-input--datepicker--narrow
+        row"
     >
+      <img
+        src="assets/images/calendar.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
       <input
         (click)="dateToPicker.open()"
         matInput
