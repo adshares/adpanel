@@ -145,7 +145,7 @@ input[type=radio]:checked + label {
   &:after {
     position: absolute;
     display: block;
-    content: url('/assets/images/x-error.svg');
+    content: url('/assets/images/error_icon.svg');
     top: 12px;
     right: 10px;
   }
@@ -169,8 +169,8 @@ input[type=radio]:checked + label {
   &:after {
     position: absolute;
     display: block;
-    content: url('/assets/images/x-error.svg');
-    top: 4px;
+    content: url('/assets/images/error_icon.svg');
+    @include center(vertical);
     right: 3px;
   }
 }
@@ -180,4 +180,10 @@ input[type=radio]:checked + label {
   color: pal(green);
   background-color: pal(green, light);
   border-color: pal(green);
+  padding-right: 30px;
+
+  &:after {
+    @extend .error-msg:after;
+    content: url('/assets/images/confirm_icon.svg');
+  }
 }
