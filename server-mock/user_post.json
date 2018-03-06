@@ -5,7 +5,8 @@
     "isPublisher": true,
     "isAdmin": false,
     "isEmailConfirmed": false,
-    "userAutomaticWithdrawPeriod": "week",
+    "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
+    "userAutomaticWithdrawPeriod": 1,
     "userAutomaticWithdrawAmount": 200,
     "authToken": "someauthtokenvalue"
 }
