@@ -41,9 +41,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
 
-    if (this.goesToSummary) {
-      this.getTargetingFromStore();
-    }
+
+    this.getTargetingFromStore();
+
   }
 
   updateAddedItems(items) {

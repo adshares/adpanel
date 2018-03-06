@@ -68,9 +68,9 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
 
-    if (this.goesToSummary) {
-      this.getFormDataFromStore();
-    }
+
+    this.getFormDataFromStore();
+
   }
 
   getFormDataFromStore() {
