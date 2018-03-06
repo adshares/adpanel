@@ -77,16 +77,18 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   deselectOppositeBoolean(options, searchOption) {
     options.forEach((option) => {
       if (option.values) {
-        const oppositeBooleanOption = option.values.find(
-          (optionValue) => optionValue.key !== searchOption.key
-        );
-        const itemIndex = this.selectedItems.findIndex(
-          (item) => item.key === oppositeBooleanOption.key
-        );
+        if (option.values.find((optionValue) => optionValue.key === searchOption.key)) {
+          const oppositeBooleanOption = option.values.find(
+            (optionValue) => optionValue.key !== searchOption.key
+          );
+          const itemIndex = this.selectedItems.findIndex(
+            (item) => item.key === oppositeBooleanOption.key
+          );
 
-        if (oppositeBooleanOption && itemIndex > -1) {
-          Object.assign(oppositeBooleanOption, { selected: false });
-          this.selectedItems.splice(itemIndex, 1);
+          if (oppositeBooleanOption.selected) {
+            Object.assign(oppositeBooleanOption, { selected: false });
+            this.selectedItems.splice(itemIndex, 1);
+          }
         }
       } else if (option.children) {
         this.deselectOppositeBoolean(option.children, searchOption);
@@ -162,7 +164,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     choosedList: TargetingOptionValue[]
   ) {
     savedList.forEach((savedItem) => {
-      const item = this.findSelectItem(searchList, savedItem.key);
+      const item = this.findItem(searchList, savedItem.key);
 
       if (item) {
         Object.assign(item, { selected: true });
@@ -171,12 +173,12 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     })
   }
 
-  findSelectItem(list: Partial<TargetingOptionValue[]> | TargetingOption[], itemKey: string) {
+  findItem(list: Partial<TargetingOptionValue[]> | TargetingOption[], itemKey: string) {
     for (let i = 0; i < list.length; i++) {
       const itemSublist = list[i].children || list[i].values;
 
       if (itemSublist) {
-        const result = this.findSelectItem(itemSublist, itemKey);
+        const result = this.findItem(itemSublist, itemKey);
 
         if (result !== false) {
           return result;
