@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonService } from './common.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
@@ -92,7 +93,8 @@ const appComponents = [
     ...dialogs
   ],
   providers: [
-    ChartService
+    ChartService,
+    CommonService
   ],
   exports: [
     ...appComponents,

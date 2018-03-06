@@ -39,7 +39,7 @@
           for="ethereum-address"
           class="adsh-form-label"
         >
-          Our Ethereum Address
+          Your Wallet Address
         </label>
         <input
           id="ethereum-address"
@@ -47,7 +47,7 @@
             adsh-form-input
             adsh-form-input--full"
           name="ethereum-address"
-          value="0xe99356bde974bbe08721d77712168fa070aa8da4"
+          [value]="userEthAddress"
           disabled
         >
         <span class="input-valid"></span>
