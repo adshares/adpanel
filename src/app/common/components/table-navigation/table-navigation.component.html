@@ -15,13 +15,13 @@
   >
     <div
       class="adsh-sort-triangle"
-      [class.active]="menuItem.sortAsc"
+      [class.active]="!menuItem.sortAsc && menuItem.isSortedBy"
     ></div>
     <div
       class="
         adsh-sort-triangle
         adsh-sort-triangle--down"
-      [class.active]="!menuItem.sortAsc"
+      [class.active]="menuItem.sortAsc && menuItem.isSortedBy"
     ></div>
   </div>
 </div>
