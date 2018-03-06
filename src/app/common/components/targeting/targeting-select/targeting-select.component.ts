@@ -180,7 +180,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       if (itemSublist) {
         const result = this.findItem(itemSublist, itemKey);
 
-        if (result !== false) {
+        if (result) {
           return result;
         }
       }
