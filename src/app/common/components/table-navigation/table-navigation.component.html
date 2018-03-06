@@ -1,10 +1,10 @@
 <div
-  *ngFor="let menuItem of navigationItems; let menuItemIndex = index"
+  *ngFor="let menuItem of navigationItems"
   class="
     row
     align-center"
   [ngClass]="menuItem.columnWidth"
-  (click)="sortTableByKey(menuItem, $event)"
+  (click)="sortTableByKey(menuItem)"
 >
   {{ menuItem.title }}
   <div
