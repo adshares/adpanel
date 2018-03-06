@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartComponent } from '../../common/components/chart/chart.component';
-import { ChartService } from '../../common/chart.service';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
+import { ChartComponent } from '../../common/components/chart/chart.component';
+import { ChartService } from '../../common/chart.service';
 import { HandleSubscription } from '../../common/handle-subscription';
-import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
-import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
-import { cloneDeep, createInitialArray } from '../../common/utilities/helpers';
+import { AppState } from '../../models/app-state.model';
 import { ChartData } from '../../models/chart/chart-data.model';
+import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
+import { createInitialArray } from '../../common/utilities/helpers';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -22,17 +24,26 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifferenceInPercentage: number;
   barChartLabels: string[] = [];
   barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
+  userHasConfirmedEmail: Store<boolean>;
 
-  currentChartFilterSettings: ChartFilterSettings = cloneDeep(chartFilterSettingsInitialState);
+  currentChartFilterSettings: ChartFilterSettings;
 
   constructor(
     private chartService: ChartService,
+    private store: Store<AppState>
   ) {
     super(null);
   }
 
   ngOnInit() {
+    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.currentChartFilterSettings = chartFilterSettings;
+      });
+    this.subscriptions.push(chartFilterSubscription);
+
     this.getChartData(this.currentChartFilterSettings);
+    this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
 
   getChartData(chartFilterSettings) {

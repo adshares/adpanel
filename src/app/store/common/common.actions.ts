@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
+import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
 
-export const SET_ACTIVE_USER_TYPE = 'Set active user type';
+export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
+export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
 
 export class SetActiveUserType implements Action {
   readonly type = SET_ACTIVE_USER_TYPE;
@@ -8,4 +10,10 @@ export class SetActiveUserType implements Action {
   constructor(public payload: number) { }
 }
 
-export type actions = SetActiveUserType;
+export class SetChartFilterSettings implements Action {
+  readonly type = SET_CHART_FILTER_SETTINGS;
+
+  constructor(public payload: ChartFilterSettings) { }
+}
+
+export type actions = SetActiveUserType | SetChartFilterSettings;
