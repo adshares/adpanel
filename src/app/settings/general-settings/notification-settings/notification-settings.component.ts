@@ -33,7 +33,6 @@ export class NotificationSettingsComponent extends HandleSubscription implements
   }
 
   onNotificationChange(notification, notificationType) {
-    const type = notification.name;
     notification[notificationType] = !notification[notificationType];
 
     this.settingsService.updateNotificationsSettings(this.notificationsSettings)

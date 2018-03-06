@@ -9,3 +9,13 @@
     }
   }
 }
+
+.adsh-form-input--datepicker, .adsh-form-select--datepicker {
+  background: white;
+  border: none;
+  padding: 0 10px;
+}
+
+.adsh-form-input--datepicker .adsh-icon {
+  height: 11px;
+}
