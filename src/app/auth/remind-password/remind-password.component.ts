@@ -13,7 +13,7 @@ export class RemindPasswordComponent {
   @ViewChild('remindPasswordForm') remindPasswordForm: NgForm;
 
   isSendingEmail = false;
-  emailDontExist = false;
+  emailDoesntExist = false;
 
   constructor(
     private router: Router,
@@ -28,14 +28,14 @@ export class RemindPasswordComponent {
     }
 
     this.isSendingEmail = true;
-    this.emailDontExist = false;
+    this.emailDoesntExist = false;
 
     this.authService.remindPassword(formValues.email)
       .subscribe(
         () => this.router.navigate(['/auth', 'login']),
         (err) => {
           if (err.code === 412) {
-            this.emailDontExist = true;
+            this.emailDoesntExist = true;
           }
         },
         () => this.isSendingEmail = false
