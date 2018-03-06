@@ -156,18 +156,38 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  findAndSelectItem(list, searchedItem) {
-    list.forEach((item) => {
-      const itemSublist = item.children || item.values;
+  loadItems(
+    savedList: TargetingOptionValue[],
+    searchList: TargetingOptionValue[] | TargetingOption[],
+    choosedList: TargetingOptionValue[]
+  ) {
+    savedList.forEach((savedItem) => {
+      const item = this.findSelectItem(searchList, savedItem.key);
+
+      if (item) {
+        Object.assign(item, { selected: true });
+        choosedList.push(item);
+      }
+    })
+  }
+
+  findSelectItem(list: Partial<TargetingOptionValue[]> | TargetingOption[], itemKey: string) {
+    for (let i = 0; i < list.length; i++) {
+      const itemSublist = list[i].children || list[i].values;
 
       if (itemSublist) {
-        this.findAndSelectItem(itemSublist, searchedItem);
-        return;
+        const result = this.findSelectItem(itemSublist, itemKey);
+
+        if (result !== false) {
+          return result;
+        }
       }
 
-      if (item.key === searchedItem.key) {
-        Object.assign(item, { selected: true });
+      if (list[i].key === itemKey) {
+        return list[i];
       }
-    });
+    }
+
+    return false;
   }
 }
