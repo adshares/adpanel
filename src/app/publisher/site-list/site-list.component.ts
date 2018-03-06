@@ -34,7 +34,6 @@ export class SiteListComponent extends HandleSubscription implements OnInit {
 
 
   sortTable(columnMetaData: TableColumnMetaData) {
-    console.log(columnMetaData);
     this.sites = sortArrayByColumnMetaData(this.sites, columnMetaData);
   }
 
