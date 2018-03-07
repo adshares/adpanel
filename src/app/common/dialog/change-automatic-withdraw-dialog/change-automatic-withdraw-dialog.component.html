@@ -35,53 +35,79 @@
       class="adsh-form"
     >
       <div class="select">
-        <label class="adsh-form-label">
-          Period of Time
-        </label>
-        <mat-select
-          class="adsh-select"
-          id="period"
-          formControlName="period"
-        >
-          <mat-option
-            *ngFor="let period of periods"
-            [value]="period"
+        <div class="adsh-form-input__box">
+          <label class="adsh-form-label">
+            Period of Time
+          </label>
+          <mat-select
+            class="adsh-select"
+            id="period"
+            formControlName="period"
+            required
+            [(ngModel)]="currentPeriod"
           >
-            {{ period }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let period of periods"
+              [value]="period"
+            >
+              {{ period }}
+            </mat-option>
+          </mat-select>
+          <span
+            class="error-msg"
+            *ngIf="!automaticWithdrawForm.get('period').valid && automaticWithdrawFormSubmitted"
+          >
+            Please provide a valid address.
+          </span>
+        </div>
       </div>
 
       <div class="select">
-        <label class="adsh-form-label">
-          Amount
-        </label>
-        <mat-select
-          class="adsh-select"
-          id="amount"
-          formControlName="amount"
-        >
-          <mat-option
-            *ngFor="let amount of amounts"
-            [value]="amount"
+        <div class="adsh-form-input__box">
+          <label class="adsh-form-label">
+            Amount
+          </label>
+          <mat-select
+            class="adsh-select"
+            id="amount"
+            formControlName="amount"
+            required
+            [(ngModel)]="currentAmount"
           >
-            {{ amount }}
-          </mat-option>
-        </mat-select>
+            <mat-option
+              *ngFor="let amount of amounts"
+              [value]="amount"
+            >
+              {{ amount }}
+            </mat-option>
+          </mat-select>
+          <span
+            class="error-msg"
+            *ngIf="!automaticWithdrawForm.get('amount').valid && automaticWithdrawFormSubmitted"
+          >
+            Please provide a valid address.
+          </span>
+        </div>
       </div>
 
-      <button
+      <div
         class="
-        adsh-btn
-        adsh-btn--blue"
+          row
+          justify-center"
       >
-        <span *ngIf="!isFormBeingSubmitted ; else loading">
-            Save
-          </span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-      </button>
+        <button
+          class="
+          adsh-btn
+          adsh-btn--blue"
+        >
+          <span *ngIf="!isFormBeingSubmitted ; else loading">
+              Save
+            </span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
+        </button>
+      </div>
     </form>
   </div>
 </mat-dialog-content>

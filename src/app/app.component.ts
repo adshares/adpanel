@@ -27,7 +27,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     private store: Store<AppState>,
     private commonService: CommonService
   ) {
-    super(null)
+    super(null);
   }
 
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
@@ -54,8 +54,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
     }
 
     const user = (
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken})
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken}) =>
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken})
     )(userData);
 
     if (isUnixTimePastNow(userData.expiration)) {
@@ -98,12 +98,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getAdsharesEthAddress() {
+    console.log('a')
     const changeWithdrawAddressSubscription = this.commonService.getAdsharesEthAddress()
       .subscribe((adsharesEthAddress: string) => {
         this.store.dispatch(new commonActions.SetAdsharesEthAddress(adsharesEthAddress));
       });
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
-
   }
 }

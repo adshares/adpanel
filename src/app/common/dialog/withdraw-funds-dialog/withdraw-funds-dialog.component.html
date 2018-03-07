@@ -12,7 +12,7 @@
       adsh-heading
       adsh-heading--primary"
   >
-    Add Funds
+    Withdraw Funds
   </h1>
 
   <p
@@ -24,7 +24,173 @@
     Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
   </p>
 
-  <div class="address-content">
+  <div
+    class="
+      dialog-main-content
+      dialog-main-content--short"
+  >
+    <form
+      [formGroup]="withdrawFundsForm"
+      (ngSubmit)="withdrawFunds()"
+      class="adsh-form"
+    >
+      <div class="adsh-form-input__box">
+        <label
+          for="address"
+          class="adsh-form-label"
+        >
+          Your Wallet Address
+        </label>
+        <input
+          id="address"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          name="address"
+          [value]="userEthAddress"
+          formControlName="address"
+        >
+        <span
+          *ngIf="
+            withdrawFundsForm.get('address').valid
+            || !(withdrawFundsForm.hasError('minlength', ['address']) && !withdrawFundsForm.hasError('maxlength', ['address']))"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="
+            (withdrawFundsForm.hasError('minlength', ['address'])
+            || withdrawFundsForm.hasError('maxlength', ['address']))
+            && withdrawFormSubmitted"
+        >
+          Wrong address format.
+        </span>
+        <span
+          class="error-msg"
+          *ngIf="!withdrawFundsForm.get('address').valid && withdrawFormSubmitted"
+        >
+          Please provide a valid address.
+        </span>
+      </div>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-customize-subheading"
+      >
+        You will send your funds on this address.
+      </p>
 
+      <div class="total-funds">
+        <p class="adsh-form-label">
+          Total Funds
+        </p>
+        <h1
+          class="
+          adsh-heading
+          adsh-heading--primary"
+        >
+          Total Funds
+        </h1>
+      </div>
+
+      <div class="adsh-form-input__box">
+        <label
+          for="amount"
+          class="adsh-form-label"
+        >
+          Withdraw Amount
+        </label>
+        <input
+          id="amount"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          type="number"
+          name="amount"
+          formControlName="amount"
+          min="0.01"
+        >
+        <span
+          *ngIf="withdrawFundsForm.get('amount').valid"
+          class="input-valid"
+        ></span>
+        <span
+          class="error-msg"
+          *ngIf="!withdrawFundsForm.get('amount').valid && withdrawFormSubmitted"
+        >
+          Please specify withdraw amount
+        </span>
+      </div>
+
+      <div
+        class="
+          calculations
+          adsh-copy
+          adsh-copy--x-dark
+          adsh-copy--normal"
+      >
+        <p>Transaction Fee:
+          <span class="fee">
+            {{ transactionFee }}
+          </span>
+        </p>
+        <p>
+          Total Amount:
+          <span class="total-amount">
+            {{ totalWithdrawAmount }}
+          </span>
+        </p>
+        <p>
+          Left: {{ fundsLeft }}
+        </p>
+      </div>
+
+      <button
+        class="
+          adsh-btn
+          adsh-btn--large
+          adsh-btn--white
+          adsh-btn--block
+          row
+          align-center
+          adsh-funds-summary__deposit-funds"
+      >
+        <img
+          alt="Credit Card Icon"
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="/assets/images/plus-circle--blue.svg"
+        >
+        <span
+          class="
+            adsh-copy
+            adsh-copy--x-dark"
+        >
+          Add Memo
+        </span>
+      </button>
+
+      <div
+        class="
+          row
+          justify-center"
+      >
+        <button
+          class="
+          adsh-btn
+          adsh-btn--blue"
+        >
+        <span *ngIf="!isFormBeingSubmitted ; else loading">
+          Withdraw
+        </span>
+
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
+        </button>
+      </div>
+    </form>
   </div>
 </mat-dialog-content>

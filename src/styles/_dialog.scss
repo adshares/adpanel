@@ -29,4 +29,8 @@
 .dialog-main-content {
   text-align: left;
   margin: 80px 0;
+
+  &--short {
+    margin: 40px 0;
+  }
 }

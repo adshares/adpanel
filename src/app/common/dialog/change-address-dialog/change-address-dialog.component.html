@@ -75,23 +75,39 @@
         ></span>
         <span
           class="error-msg"
-          *ngIf="changeWithdrawAddressForm.hasError('minlength', ['address']) && automaticWithdrawFormSubmitted"
+          *ngIf="
+            (changeWithdrawAddressForm.hasError('minlength', ['address'])
+            || changeWithdrawAddressForm.hasError('maxlength', ['address']))
+            && changeAddressFormSubmitted"
         >
           Wrong address format.
         </span>
+        <span
+          class="error-msg"
+          *ngIf="!changeWithdrawAddressForm.get('address').valid && changeAddressFormSubmitted"
+        >
+          Please provide a valid address.
+        </span>
       </div>
-      <button
+
+      <div
         class="
-          adsh-btn
-          adsh-btn--blue"
+          row
+          justify-center"
       >
-        <span *ngIf="!isFormBeingSubmitted ; else loading">
-            Save
-          </span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-      </button>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+        >
+          <span *ngIf="!isFormBeingSubmitted ; else loading">
+              Save
+            </span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
+        </button>
+      </div>
     </form>
   </div>
 </mat-dialog-content>
