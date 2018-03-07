@@ -41,4 +41,8 @@ export class SettingsService {
   changeWithdrawAddress(newWithdrawAddress: string) {
     return this.http.post(`${environment.apiUrl}/change_withdraw_address`, { newWithdrawAddress });
   }
+
+  withdrawFunds(address: string, amount: number) {
+    return this.http.post(`${environment.apiUrl}/withdraw_funds`, { address, amount });
+  }
 }

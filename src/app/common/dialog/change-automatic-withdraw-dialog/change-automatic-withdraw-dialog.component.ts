@@ -16,10 +16,7 @@ import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
   styleUrls: ['./change-automatic-withdraw-dialog.component.scss']
 })
 export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
-  automaticWithdrawForm: FormGroup = new FormGroup({
-    period: new FormControl(),
-    amount: new FormControl()
-  });
+  automaticWithdrawForm: FormGroup;
 
   periods = enumToArray(withdrawPeriodsEnum);
   amounts = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
@@ -38,15 +35,27 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   }
 
   ngOnInit() {
+    this.createForm();
+
     const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawPeriod')
-      .subscribe((currentPeriod: string) => {
-      this.currentPeriod = currentPeriod;
+      .subscribe((currentPeriod: number) => {
+      console.log(currentPeriod)
+      this.currentPeriod = this.periods[currentPeriod];
+      console.log(this.currentPeriod)
     });
+
     const currentAmountSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawAmount')
       .subscribe((currentAmount: number) => {
       this.currentAmount = currentAmount;
     });
     this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
+  }
+
+  createForm() {
+    this.automaticWithdrawForm = new FormGroup({
+      period: new FormControl(),
+      amount: new FormControl()
+    });
   }
 
   saveNewAutomaticWithdrawOptions() {

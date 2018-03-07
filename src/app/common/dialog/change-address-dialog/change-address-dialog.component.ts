@@ -13,17 +13,11 @@ import { SettingsService } from '../../../settings/settings.service';
   styleUrls: ['./change-address-dialog.component.scss']
 })
 export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
-  changeWithdrawAddressForm: FormGroup = new FormGroup({
-    address: new FormControl('', [
-      Validators.required,
-      Validators.minLength(42),
-      Validators.maxLength(42)
-    ])
-  });
+  changeWithdrawAddressForm: FormGroup;
 
   userEthAddress: string;
   isFormBeingSubmitted = false;
-  automaticWithdrawFormSubmitted = false;
+  changeAddressFormSubmitted = false;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeAddressDialogComponent>,
@@ -34,16 +28,28 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
+    this.createForm();
+
     const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'userEthAddress')
       .subscribe((userEthAddress: string) => {
         this.userEthAddress = userEthAddress;
       });
-    console.log(this.userEthAddress)
     this.subscriptions.push(userEthAddressSubscription);
   }
 
+  createForm() {
+    this.changeWithdrawAddressForm = new FormGroup({
+      address: new FormControl('', [
+        Validators.required,
+        Validators.minLength(42),
+        Validators.maxLength(42)
+      ])
+    });
+
+  }
+
   changeWithdrawAddress() {
-    this.automaticWithdrawFormSubmitted = true;
+    this.changeAddressFormSubmitted = true;
 
     if (!this.changeWithdrawAddressForm.valid) {
       return;
@@ -51,9 +57,8 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     this.isFormBeingSubmitted = true;
 
-    const changeWithdrawAddressSubscription = this.settingsService.changeWithdrawAddress(
-      this.changeWithdrawAddressForm.value.address,
-    )
+    const changeWithdrawAddressSubscription = this.settingsService
+      .changeWithdrawAddress(this.changeWithdrawAddressForm.value.address)
       .subscribe(() => {
         this.dialogRef.close();
       });
