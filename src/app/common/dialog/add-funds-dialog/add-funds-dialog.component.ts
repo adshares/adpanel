@@ -26,7 +26,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       .subscribe((adsharesEthAddress: string) => {
         this.adsharesEthAddress = adsharesEthAddress;
       });
-    console.log(this.adsharesEthAddress)
     this.subscriptions.push(adsharesEthAddressSubscription);
   }
 

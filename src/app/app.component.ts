@@ -98,7 +98,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getAdsharesEthAddress() {
-    console.log('a')
     const changeWithdrawAddressSubscription = this.commonService.getAdsharesEthAddress()
       .subscribe((adsharesEthAddress: string) => {
         this.store.dispatch(new commonActions.SetAdsharesEthAddress(adsharesEthAddress));
