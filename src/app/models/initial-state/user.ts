@@ -6,7 +6,8 @@ export const userInitialState: User = {
   isAdvertiser: true,
   isPublisher: true,
   isAdmin: false,
-  userEthAddress: '0xe99356bde974bbe08721d77712168fa070aa8da4',
+  userEthAddress: '',
+  userMemo: '',
   userAutomaticWithdrawPeriod: 3,
   userAutomaticWithdrawAmount: 300,
   isEmailConfirmed: false
