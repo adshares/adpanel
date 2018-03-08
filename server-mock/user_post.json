@@ -6,6 +6,7 @@
     "isAdmin": false,
     "isEmailConfirmed": false,
     "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
+    "userMemo": "User 0291",
     "userAutomaticWithdrawPeriod": 1,
     "userAutomaticWithdrawAmount": 200,
     "authToken": "someauthtokenvalue"

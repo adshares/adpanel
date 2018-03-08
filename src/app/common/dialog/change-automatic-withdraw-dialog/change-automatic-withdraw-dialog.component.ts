@@ -9,6 +9,7 @@ import { HandleSubscription } from '../../handle-subscription';
 
 import { enumToArray } from '../../utilities/helpers';
 import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
+import { appSettings } from '../../../../app-settings/app-settings'
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
@@ -19,7 +20,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   automaticWithdrawForm: FormGroup;
 
   periods = enumToArray(withdrawPeriodsEnum);
-  amounts = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+  amounts = appSettings.WITHDRAWAL_AMOUNTS;
   currentPeriod: string;
   currentAmount: number;
 
@@ -39,12 +40,12 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawPeriod')
       .subscribe((currentPeriod: number) => {
-      this.currentPeriod = this.periods[currentPeriod];
+        this.currentPeriod = this.periods[currentPeriod];
     });
 
     const currentAmountSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawAmount')
       .subscribe((currentAmount: number) => {
-      this.currentAmount = currentAmount;
+        this.currentAmount = currentAmount;
     });
     this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
   }

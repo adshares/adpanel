@@ -12,6 +12,7 @@ import { CommonService } from '../../common.service';
 })
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
   adsharesEthAddress: string;
+  userMemo: string;
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
@@ -27,6 +28,12 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
         this.adsharesEthAddress = adsharesEthAddress;
       });
     this.subscriptions.push(adsharesEthAddressSubscription);
+
+    const userMemoSubscription = this.store.select('state', 'user', 'data', 'userMemo')
+      .subscribe((userEthAddress: string) => {
+        this.userMemo = userEthAddress;
+      });
+    this.subscriptions.push(userMemoSubscription);
   }
 
 }

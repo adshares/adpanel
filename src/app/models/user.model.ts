@@ -7,6 +7,7 @@ interface User {
   isEmailConfirmed: boolean;
 
   userEthAddress: string;
+  userMemo: string;
   userAutomaticWithdrawPeriod: number;
   userAutomaticWithdrawAmount: number;
 

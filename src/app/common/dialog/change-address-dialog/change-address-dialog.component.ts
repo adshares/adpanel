@@ -45,7 +45,6 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
         Validators.maxLength(42)
       ])
     });
-
   }
 
   changeWithdrawAddress() {
