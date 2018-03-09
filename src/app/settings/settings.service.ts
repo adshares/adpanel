@@ -33,4 +33,16 @@ export class SettingsService {
   changePassword(currentPassword: string, newPassword: string) {
     return this.http.post(`${environment.apiUrl}/change_password`, { currentPassword, newPassword });
   }
+
+  changeAutomaticWithdraw(period: string, amount: number) {
+    return this.http.post(`${environment.apiUrl}/change_automatic_withdraw`, { period, amount });
+  }
+
+  changeWithdrawAddress(newWithdrawAddress: string) {
+    return this.http.post(`${environment.apiUrl}/change_withdraw_address`, { newWithdrawAddress });
+  }
+
+  withdrawFunds(address: string, amount: number) {
+    return this.http.post(`${environment.apiUrl}/withdraw_funds`, { address, amount });
+  }
 }
