@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service'
 import { HandleSubscription } from '../../common/handle-subscription';
 
+import { appSettings } from '../../../app-settings/app-settings';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,6 +16,7 @@ export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   isRegistering = false;
+  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
 
   constructor(
     private authService: AuthService,

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { HandleSubscription } from './common/handle-subscription';
+import { CommonService } from './common/common.service';
 
 import { AppState } from './models/app-state.model';
 import { fadeAnimation } from './common/animations/fade.animation';
 import { appSettings } from '../app-settings/app-settings';
 import { userRolesEnum } from './models/enum/user.enum';
 import { isUnixTimePastNow } from './common/utilities/helpers';
-import { User } from './models/user.model'
+import { User } from './models/user.model';
 import { LocalStorageUser } from './models/user.model';
+import { AdSharesEthAddress } from './models/settings.model';
 import * as authActions from './store/auth/auth.actions';
 import * as commonActions from './store/common/common.actions';
 
@@ -18,17 +21,22 @@ import * as commonActions from './store/common/common.actions';
   styleUrls: ['./app.component.scss'],
   animations: [fadeAnimation]
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends HandleSubscription implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
-  ) { }
+    private store: Store<AppState>,
+    private commonService: CommonService
+  ) {
+    super(null);
+  }
 
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
     this.handleSavedUserData();
+    this.getAdsharesEthAddress();
+
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
         return;
@@ -47,8 +55,8 @@ export class AppComponent implements OnInit {
     }
 
     const user = (
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken})
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken}) =>
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken})
     )(userData);
 
     if (isUnixTimePastNow(userData.expiration)) {
@@ -88,5 +96,14 @@ export class AppComponent implements OnInit {
     } else {
       return userRolesEnum.PUBLISHER;
     }
+  }
+
+  getAdsharesEthAddress() {
+    const changeWithdrawAddressSubscription = this.commonService.getAdsharesEthAddress()
+      .subscribe((data: AdSharesEthAddress) => {
+        this.store.dispatch(new commonActions.SetAdsharesEthAddress(data.adsharesEthAddress));
+      });
+
+    this.subscriptions.push(changeWithdrawAddressSubscription);
   }
 }

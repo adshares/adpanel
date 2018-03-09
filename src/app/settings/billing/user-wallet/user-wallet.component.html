@@ -64,6 +64,7 @@
                   adsh-btn
                   adsh-btn--white
                   adsh-blue"
+                (click)="openAddFundsDialog()"
               >
                 <img
                   class="
@@ -77,6 +78,7 @@
                 class="
                   adsh-btn
                   adsh-btn--blue"
+                (click)="openWithdrawFundsDialog()"
               >
                 <img
                   class="
@@ -120,7 +122,7 @@
                 adsh-btn--white
                 adsh-btn--no-border
                 adsh-blue"
-              (click)="foo()"
+              (click)="openChangeAddressDialog()"
             >
               Change Address
             </button>
@@ -150,7 +152,7 @@
                 adsh-btn--white
                 adsh-btn--no-border
                 adsh-blue"
-              (click)="foo()"
+              (click)="openChangeAutomaticWithdrawsDialog()"
             >
               Change Withdraw
             </button>
@@ -170,16 +172,20 @@
         >
           We do our best to give you a great experience - we'll be sad to see you leave us.
         </p>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
-            adsh-blue"
-          (click)="foo()"
+        <a
+          [href]="faqLink"
+          target="_blank"
         >
-          Check our FAQ
-        </button>
+          <button
+            class="
+              adsh-btn
+              adsh-btn--white
+              adsh-btn--no-border
+              adsh-blue"
+          >
+            Check our FAQ
+          </button>
+        </a>
       </div>
     </div>
   </div>
