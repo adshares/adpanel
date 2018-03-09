@@ -32,12 +32,12 @@ export class EditCampaignSummaryComponent implements OnInit {
     saveCampaign(isDraft) {
       if (!isDraft) {
         this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
+        this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
       }
 
       this.advertiserService.saveCampaign(this.campaign)
         .take(1)
         .subscribe(() => {
-          this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
           this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
