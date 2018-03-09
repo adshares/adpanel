@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { HandleSubscription } from '../../../common/handle-subscription';
 import { AppState } from '../../../models/app-state.model';
@@ -18,7 +17,7 @@ import * as adminActions from '../../../store/admin/admin.actions';
 })
 export class SetYourEarningsDialogComponent extends HandleSubscription implements OnInit {
   value: number;
-  valueChanged: Subject<number> = new Subject<number>();
+  valueChanged = new Subject<number>();
 
   constructor(
     public dialogRef: MatDialogRef<SetYourEarningsDialogComponent>,
@@ -35,14 +34,15 @@ export class SetYourEarningsDialogComponent extends HandleSubscription implement
       });
     this.subscriptions.push(adminStoreSettingsSubscription);
 
-    const addminSettingsChangeSubscription = this.valueChanged
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .subscribe((newValue) => {
+    const adminSettingsChangeSubscription = this.valueChanged.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+      .subscribe((newValue: number) => {
         this.adminService.setAdminSettings({ earnings: newValue })
           .subscribe((newSettings) => this.store.dispatch(new adminActions.SetAdminSettings(newSettings)));
        });
-    this.subscriptions.push(addminSettingsChangeSubscription);
+    this.subscriptions.push(adminSettingsChangeSubscription);
   }
 
   updateValue(newValue) {
