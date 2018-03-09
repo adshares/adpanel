@@ -11,6 +11,7 @@ import { userRolesEnum } from './models/enum/user.enum';
 import { isUnixTimePastNow } from './common/utilities/helpers';
 import { User } from './models/user.model';
 import { LocalStorageUser } from './models/user.model';
+import { AdSharesEthAddress } from './models/settings.model';
 import * as authActions from './store/auth/auth.actions';
 import * as commonActions from './store/common/common.actions';
 
@@ -99,8 +100,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   getAdsharesEthAddress() {
     const changeWithdrawAddressSubscription = this.commonService.getAdsharesEthAddress()
-      .subscribe((adsharesEthAddress: string) => {
-        this.store.dispatch(new commonActions.SetAdsharesEthAddress(adsharesEthAddress));
+      .subscribe((data: AdSharesEthAddress) => {
+        this.store.dispatch(new commonActions.SetAdsharesEthAddress(data.adsharesEthAddress));
       });
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
