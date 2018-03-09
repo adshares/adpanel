@@ -41,9 +41,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
 
-    if (this.goesToSummary) {
-      this.getTargetingFromStore();
-    }
+
+    this.getTargetingFromStore();
+
   }
 
   updateAddedItems(items) {
@@ -86,15 +86,12 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targetingArray')
       .take(1)
       .subscribe((targeting: AssetTargeting) => {
-        this.addedItems = targeting.requires;
-        this.excludedItems = targeting.excludes;
+        [targeting.requires, targeting.excludes].forEach((savedList, index) => {
+          const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
+          const choosedList = index === 0 ? this.addedItems : this.excludedItems;
 
-        targeting.requires.forEach(
-          savedItem => this.targetingSelectComponent.findAndSelectItem(this.targetingOptionsToAdd, savedItem)
-        );
-        targeting.excludes.forEach(
-          savedItem => this.targetingSelectComponent.findAndSelectItem(this.targetingOptionsToExclude, savedItem)
-        );
+          this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
+        });
       });
   }
 }

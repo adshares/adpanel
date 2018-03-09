@@ -84,3 +84,18 @@ mat-chip:not(.mat-basic-chip) {
   flex-grow: 1;
   display: inline;
 }
+
+
+.mat-form-field-infix {
+  padding: 5px 0 4px 0 !important;
+  display: flex !important;
+  border-top: 9px solid transparent;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 11px !important;
+}
+
+.mat-datepicker-toggle {
+  visibility: hidden !important;
+}

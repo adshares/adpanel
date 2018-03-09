@@ -4,6 +4,7 @@ import { AddFundsDialogComponent } from '../../../common/dialog/add-funds-dialog
 import { WithdrawFundsDialogComponent } from '../../../common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAddressDialogComponent } from '../../../common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from '../../../common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
+import { appSettings } from '../../../../app-settings/app-settings';
 
 @Component({
   selector: 'app-user-wallet',
@@ -11,6 +12,7 @@ import { ChangeAutomaticWithdrawDialogComponent } from '../../../common/dialog/c
   styleUrls: ['./user-wallet.component.scss']
 })
 export class UserWalletComponent {
+  faqLink = appSettings.FAQ_LINK;
 
   constructor(private dialog: MatDialog) {}
 
@@ -29,4 +31,5 @@ export class UserWalletComponent {
   openChangeAutomaticWithdrawsDialog() {
     this.dialog.open(ChangeAutomaticWithdrawDialogComponent);
   }
+  
 }
