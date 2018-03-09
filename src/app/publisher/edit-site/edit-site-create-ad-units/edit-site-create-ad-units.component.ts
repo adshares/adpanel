@@ -146,7 +146,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     }
   }
 
-  removeNewAd(adIndex) {
+  removeNewAdUnit(adIndex) {
     this.adUnitForms.splice(adIndex, 1);
     this.adUnitPanelsStatus.splice(adIndex, 1);
   }
