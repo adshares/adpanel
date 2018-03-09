@@ -12,11 +12,11 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<UserInfoStats[]> {
-    return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`)
+    return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`);
   }
 
   getAdminSettings(): Observable<AdminSettings> {
-    return this.http.get<AdminSettings>(`${environment.apiUrl}/admin_settings`)
+    return this.http.get<AdminSettings>(`${environment.apiUrl}/admin_settings`);
   }
 
   setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
