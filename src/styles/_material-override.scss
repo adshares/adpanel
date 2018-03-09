@@ -10,6 +10,15 @@
   padding: 50px 70px 40px !important;
 }
 
+.mat-dialog-content.mat-dialog-content--narrow{
+  max-width: 470px;
+}
+
+.dialog-description {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .mat-expansion-panel:not([class*=mat-elevation-z]) {
   box-shadow: none !important;
 }

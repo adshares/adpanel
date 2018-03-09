@@ -3,6 +3,7 @@ import { chartFilterSettingsInitialState } from '../../models/initial-state/char
 
 const initialState = {
   activeUserType: 1,
+  adsharesEthAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState
 };
 
@@ -17,6 +18,11 @@ export function commonReducers(state = initialState , action: commonActions.acti
       return {
         ...state,
         chartFilterSettings: Object.assign({}, action.payload)
+      };
+    case commonActions.SET_ADSHARES_ETH_ADDRESS:
+      return {
+        ...state,
+        adsharesEthAddress: action.payload.adsharesEthAddress
       };
      default:
       return state;
