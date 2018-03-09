@@ -6,6 +6,11 @@ interface User {
   isAdmin: boolean;
   isEmailConfirmed: boolean;
 
+  userEthAddress: string;
+  userMemo: string;
+  userAutomaticWithdrawPeriod: number;
+  userAutomaticWithdrawAmount: number;
+
   authToken?: string;
 }
 
