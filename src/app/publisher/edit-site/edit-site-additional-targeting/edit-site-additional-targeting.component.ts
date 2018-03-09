@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { Store } from '@ngrx/store';
+
 import * as publisherActions from '../../../store/publisher/publisher.actions';
 import { AppState } from '../../../models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
@@ -41,9 +41,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
 
-    if (this.goesToSummary) {
-      this.getSiteFromStore();
-    }
+
+    this.getSiteFromStore();
+
   }
 
   updateAddedItems(items) {
@@ -87,15 +87,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.store.select('state', 'publisher', 'lastEditedSite', 'targetingArray')
       .take(1)
       .subscribe((targeting: AssetTargeting) => {
-        this.addedItems = targeting.requires;
-        this.excludedItems = targeting.excludes;
+        [targeting.requires, targeting.excludes].forEach((savedList, index) => {
+          const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
+          const choosedList = index === 0 ? this.addedItems : this.excludedItems;
 
-        targeting.requires.forEach(
-          savedItem => this.targetingSelectComponent.findAndSelectItem(this.targetingOptionsToAdd, savedItem)
-        );
-        targeting.excludes.forEach(
-          savedItem => this.targetingSelectComponent.findAndSelectItem(this.targetingOptionsToExclude, savedItem)
-        );
+          this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
+        });
       });
   }
 }

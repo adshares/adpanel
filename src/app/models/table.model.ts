@@ -4,4 +4,5 @@ export interface TableColumnMetaData {
 
   keys?: string[];
   sortAsc?: boolean;
+  isSortedBy?: boolean;
 }

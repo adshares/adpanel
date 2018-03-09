@@ -13,6 +13,6 @@ export class AdListComponent {
   @Input() adList: Ad[];
 
   sortTable(columnMetaData: TableColumnMetaData) {
-      this.adList = sortArrayByColumnMetaData(this.adList, columnMetaData);
+    this.adList = sortArrayByColumnMetaData(this.adList, columnMetaData);
   }
 }

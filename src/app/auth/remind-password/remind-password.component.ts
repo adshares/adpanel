@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/first';
 
 import { AuthService } from '../auth.service';
 
@@ -14,6 +13,7 @@ export class RemindPasswordComponent {
   @ViewChild('remindPasswordForm') remindPasswordForm: NgForm;
 
   isSendingEmail = false;
+  emailDoesntExist = false;
 
   constructor(
     private router: Router,
@@ -23,17 +23,21 @@ export class RemindPasswordComponent {
   sendRemindPasswordEmail() {
     const formValues = this.remindPasswordForm.value;
 
-    if (!this.remindPasswordForm.valid || formValues.email !== formValues.emailConfirm) {
+    if (!this.remindPasswordForm.valid) {
       return;
     }
 
     this.isSendingEmail = true;
+    this.emailDoesntExist = false;
 
     this.authService.remindPassword(formValues.email)
-      .first()
       .subscribe(
         () => this.router.navigate(['/auth', 'login']),
-        () => { },
+        (err) => {
+          if (err.code === 412) {
+            this.emailDoesntExist = true;
+          }
+        },
         () => this.isSendingEmail = false
       );
   }
