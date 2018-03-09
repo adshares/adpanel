@@ -22,7 +22,7 @@ export function commonReducers(state = initialState , action: commonActions.acti
     case commonActions.SET_ADSHARES_ETH_ADDRESS:
       return {
         ...state,
-        adsharesEthAddress: action.payload.adsharesEthAddress
+        adsharesEthAddress: action.payload
       };
      default:
       return state;
