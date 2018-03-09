@@ -7,6 +7,7 @@ import { AppState } from '../../../models/app-state.model';
 import { Campaign } from '../../../models/campaign.model';
 import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
 import { AdvertiserService } from '../../advertiser.service';
+import { adStatusesEnum } from '../../../models/enum/ad.enum';
 import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 
 @Component({
@@ -36,6 +37,7 @@ export class EditCampaignSummaryComponent implements OnInit {
       this.advertiserService.saveCampaign(this.campaign)
         .take(1)
         .subscribe(() => {
+          this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
           this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });

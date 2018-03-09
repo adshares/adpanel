@@ -10,7 +10,8 @@ export enum adSizesEnum {
   "336x280"
 };
 
-export enum adStatusEnum {
+export enum adStatusesEnum {
+  DRAFT,
   ACTIVE,
   ARCHIVED
 };
@@ -20,3 +21,8 @@ export enum validImageTypes {
   "image/jeg",
   "image/png"
 };
+
+export enum adUnitStatusesEnum {
+  DRAFT,
+  ACTIVE
+}

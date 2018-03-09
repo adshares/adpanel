@@ -7,7 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 
 import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
 import { AdvertiserService } from '../../advertiser.service';
-import { adTypesEnum, adSizesEnum, validImageTypes } from '../../../models/enum/ad.enum';
+import { adTypesEnum, adSizesEnum, validImageTypes, adStatusesEnum } from '../../../models/enum/ad.enum';
 import { enumToArray } from '../../../common/utilities/helpers';
 import { adInitialState } from '../../../models/initial-state/ad';
 import { Ad } from '../../../models/campaign.model';
@@ -40,6 +40,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   adSizes: string[] = enumToArray(adSizesEnum);
+  adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
@@ -96,7 +97,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const formGroup =  new FormGroup({
       shortHeadline: new FormControl(ad.shortHeadline, Validators.required),
       type: new FormControl(ad.type),
-      size: new FormControl(ad.size)
+      size: new FormControl(ad.size),
+      status: new FormControl(ad.status)
     });
 
     formGroup.controls[adTypeName] = new FormControl(attachmentField);
@@ -183,7 +185,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     Object.assign(this.ads[adIndex], {
       type: this.adForms[adIndex].get('type').value,
       shortHeadline: this.adForms[adIndex].get('shortHeadline').value,
-      size: this.adForms[adIndex].get('size').value
+      size: this.adForms[adIndex].get('size').value,
+      status: this.adForms[adIndex].get('status').value
     });
   }
 
@@ -241,5 +244,13 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.router.navigate(['/advertiser', 'dashboard']);
         });
     }
+  }
+
+  removeNewAd(adIndex) {
+    this.adForms.splice(adIndex, 1);
+    this.ads.splice(adIndex, 1);
+    this.adPanelsStatus.splice(adIndex, 1);
+    this.imagesStatus.overDrop.splice(adIndex, 1);
+    this.imagesStatus.validation.splice(adIndex, 1);
   }
 }
