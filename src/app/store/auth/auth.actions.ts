@@ -4,6 +4,8 @@ import { User } from '../../models/user.model';
 
 export const SET_USER = 'Set user';
 export const UPDATE_USER_ETH_ADDRESS = 'User Ethereum Address updated';
+export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
+export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
 
 export class SetUser implements Action {
   readonly type = SET_USER;
@@ -16,4 +18,20 @@ export class UpdateUserEthAddress implements Action {
   constructor(public payload: string) { }
 }
 
-export type actions = SetUser | UpdateUserEthAddress;
+export class UpdateUserAutomaticWithdrawPeriod implements Action {
+  readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD;
+
+  constructor(public payload: string) { }
+}
+
+export class UpdateUserAutomaticWithdrawAmount implements Action {
+  readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT;
+
+  constructor(public payload: string) { }
+}
+
+export type actions =
+  SetUser |
+  UpdateUserEthAddress |
+  UpdateUserAutomaticWithdrawPeriod |
+  UpdateUserAutomaticWithdrawAmount;
