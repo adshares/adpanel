@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../models/app-state.model';
-
-import { ChartService } from '../../common/chart.service';
-import { ChartComponent } from '../../common/components/chart/chart.component';
-import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
-import { ChartData } from '../../models/chart/chart-data.model';
-import { ChartLabels } from '../../models/chart/chart-labels.model';
-
-import { HandleSubscription } from '../../common/handle-subscription';
 import * as moment from 'moment';
-import { createInitialArray } from '../../common/utilities/helpers';
+
+import { AppState } from 'models/app-state.model';
+import { ChartService } from 'common/chart.service';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { createInitialArray } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HandleSubscription } from '../../../common/handle-subscription';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-import {AdminSettings} from "../../../models/settings.model";
+
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { AdminSettings } from 'models/settings.model';
 
 @Component({
   selector: 'app-set-your-earnings-dialog',

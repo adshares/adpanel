@@ -1,9 +1,7 @@
-import * as _moment from 'moment';
+import * as moment from 'moment';
 
 import { Campaign } from '../campaign.model';
 import { campaignStatusesEnum } from '../enum/campaign.enum';
-
-const moment = _moment;
 
 export const campaignInitialState: Campaign = {
   basicInformation: {

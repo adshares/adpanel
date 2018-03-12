@@ -18,7 +18,7 @@ export enum adStatusesEnum {
 
 export enum validImageTypes {
   "image/jpeg",
-  "image/jeg",
+  "image/jpg",
   "image/png"
 };
 

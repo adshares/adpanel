@@ -5,19 +5,19 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as authActions from '../../store/auth/auth.actions';
-import * as commonActions from '../../store/common/common.actions';
+import * as authActions from 'store/auth/auth.actions';
+import * as commonActions from 'store/common/common.actions';
 
-import { AuthService } from '../auth.service';
-import { User, LocalStorageUser } from '../../models/user.model';
-import { CustomizeAccountChooseDialogComponent } from '../../common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
-import { AccountChooseDialogComponent } from '../../common/dialog/account-choose-dialog/account-choose-dialog.component';
-import { WalletDialogComponent } from '../../settings/dialogs/wallet-dialog/wallet-dialog.component';
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AppState } from '../../models/app-state.model';
-import { appSettings } from '../../../app-settings/app-settings';
-import { userRolesEnum } from '../../models/enum/user.enum';
-import { isUnixTimePastNow } from '../../common/utilities/helpers';
+import { AuthService } from 'auth/auth.service';
+import { User, LocalStorageUser } from 'models/user.model';
+import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
+import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
+import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { appSettings } from 'app-settings';
+import { userRolesEnum } from 'models/enum/user.enum';
+import { isUnixTimePastNow } from 'common/utilities/helpers';
 
 
 @Component({

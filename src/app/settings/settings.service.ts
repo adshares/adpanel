@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment';
-import { BillingHistoryItem, NotificationItem } from '../models/settings.model';
+import { environment } from 'environments/environment';
+import { BillingHistoryItem, NotificationItem } from 'models/settings.model';
 
 @Injectable()
 export class SettingsService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getBillingHistory(userId: number): Observable<BillingHistoryItem[]> {
     return this.http.get(`${environment.apiUrl}/billing_history/${userId}`)

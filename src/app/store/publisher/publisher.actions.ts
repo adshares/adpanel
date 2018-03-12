@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { Site, AdUnit } from '../../models/site.model';
-import { AssetTargeting } from '../../models/targeting-option.model';
+import { Site, AdUnit } from 'models/site.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 
 export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';

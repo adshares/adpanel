@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
-import { TableColumnMetaData } from '../../../models/table.model';
+import { TableColumnMetaData } from 'models/table.model';
 
 @Component({
   selector: 'app-table-navigation',

@@ -1,4 +1,4 @@
-import { TableColumnMetaData } from '../../models/table.model';
+import { TableColumnMetaData } from 'models/table.model';
 
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));

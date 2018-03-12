@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import * as publisherActions from '../../../store/publisher/publisher.actions';
-import { PublisherService } from '../../publisher.service';
-import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from '../../../models/enum/ad.enum';
-import { enumToArray, cloneDeep } from '../../../common/utilities/helpers';
-import { Site } from '../../../models/site.model';
-import { AppState } from '../../../models/app-state.model';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-import { AdUnitSize } from '../../../models/site.model';
-import { adUnitInitialState } from '../../../models/initial-state/ad-unit';
+import { PublisherService } from 'publisher/publisher.service';
+import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
+import { enumToArray, cloneDeep } from 'common/utilities/helpers';
+import { Site } from 'models/site.model';
+import { AppState } from 'models/app-state.model';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { AdUnitSize } from 'models/site.model';
+import { adUnitInitialState } from 'models/initial-state/ad-unit';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-edit-site-create-ad-units',

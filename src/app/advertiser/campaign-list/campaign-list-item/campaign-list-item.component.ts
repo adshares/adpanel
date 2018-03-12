@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Campaign } from '../../../models/campaign.model';
-import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 
 @Component({
   selector: 'app-campaign-list-item',

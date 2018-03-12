@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Campaign, CampaignBasicInformation, Ad } from '../../models/campaign.model';
-import { AssetTargeting } from '../../models/targeting-option.model';
+import { Campaign, CampaignBasicInformation, Ad } from 'models/campaign.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
