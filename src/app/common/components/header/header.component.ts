@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material';
+import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import { AddFundsDialogComponent } from '../../dialog/add-funds-dialog/add-funds-dialog.component';
 
 import { HandleSubscription } from '../../handle-subscription';
 import { AppState } from '../../../models/app-state.model';
 import { User } from '../../../models/user.model';
-import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { userRolesEnum } from '../../../models/enum/user.enum';
 
 import * as commonActions from '../../../store/common/common.actions';
@@ -28,6 +29,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   userRolesEnum = userRolesEnum;
   notificationsBarEnabled = false;
+
+  settingsMenuOpen = false;
 
   constructor(
     private store: Store<AppState>,
@@ -74,5 +77,17 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   setActiveUserType(userType) {
     this.store.dispatch(new commonActions.SetActiveUserType(userType));
+  }
+
+  openSettingsMenu() {
+    this.settingsMenuOpen = true;
+  }
+
+  hideSettingsMenu() {
+    this.settingsMenuOpen = false;
+  }
+
+  openAddFundsDialog() {
+    this.dialog.open(AddFundsDialogComponent);
   }
 }
