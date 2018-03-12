@@ -2,16 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ChartService } from '../../common/chart.service';
-import { ChartComponent } from '../../common/components/chart/chart.component';
-import { HandleSubscription } from '../../common/handle-subscription';
-import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
-import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
-import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
-import { ChartData } from '../../models/chart/chart-data.model';
-import { ChartLabels } from '../../models/chart/chart-labels.model';
-import { AppState } from '../../models/app-state.model';
-import { createInitialArray, enumToArray } from '../../common/utilities/helpers';
+import { ChartService } from 'common/chart.service';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { HandleSubscription } from 'common/handle-subscription';
+import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
+import { ChartData } from 'models/chart/chart-data.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
+import { AppState } from 'models/app-state.model';
+import { createInitialArray, enumToArray } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-dashboard',

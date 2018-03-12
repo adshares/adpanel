@@ -1,5 +1,5 @@
 import * as commonActions from './common.actions';
-import { chartFilterSettingsInitialState } from '../../models/initial-state/chart-filter-settings';
+import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
 
 const initialState = {
   activeUserType: 1,

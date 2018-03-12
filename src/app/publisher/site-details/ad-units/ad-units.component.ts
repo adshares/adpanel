@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { SiteCodeDialogComponent } from '../../dialogs/site-code-dialog/site-code-dialog.component';
-import { adSizesEnum } from '../../../models/enum/ad.enum';
+
+import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
+import { adSizesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-units',
@@ -12,8 +13,7 @@ export class AdUnitsComponent {
   @Input() adUnit;
   adSizesEnum = adSizesEnum;
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog) { }
 
   openGetCodeDialog() {
     this.dialog.open(SiteCodeDialogComponent, {

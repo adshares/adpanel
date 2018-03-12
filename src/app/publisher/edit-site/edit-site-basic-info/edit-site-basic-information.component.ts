@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/take';
 
-import { AppState } from '../../../models/app-state.model';
-import * as PublisherActions from '../../../store/publisher/publisher.actions';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-import { primaryLanguageEnum } from '../../../models/enum/site.enum';
-import { cloneDeep, enumToArray } from '../../../common/utilities/helpers';
-import { siteInitialState } from '../../../models/initial-state/site';
-import { Site } from '../../../models/site.model';
+import { AppState } from 'models/app-state.model';
+import * as PublisherActions from 'store/publisher/publisher.actions';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { primaryLanguageEnum } from 'models/enum/site.enum';
+import { cloneDeep, enumToArray } from 'common/utilities/helpers';
+import { siteInitialState } from 'models/initial-state/site';
+import { Site } from 'models/site.model';
 
 @Component({
   selector: 'app-edit-site-basic-information',

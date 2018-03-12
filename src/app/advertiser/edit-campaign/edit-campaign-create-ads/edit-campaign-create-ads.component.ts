@@ -5,18 +5,18 @@ import { Store } from '@ngrx/store';
 
 import { FileUploader } from 'ng2-file-upload';
 
-import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
-import { AdvertiserService } from '../../advertiser.service';
-import { adTypesEnum, adSizesEnum, validImageTypes, adStatusesEnum } from '../../../models/enum/ad.enum';
-import { enumToArray } from '../../../common/utilities/helpers';
-import { adInitialState } from '../../../models/initial-state/ad';
-import { Ad } from '../../../models/campaign.model';
-import { environment } from '../../../../environments/environment';
-import { appSettings } from '../../../../app-settings/app-settings';
-import { cloneDeep } from '../../../common/utilities/helpers';
-import { AppState } from '../../../models/app-state.model';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-import { Campaign } from '../../../models/campaign.model';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { adTypesEnum, adSizesEnum, validImageTypes, adStatusesEnum } from 'models/enum/ad.enum';
+import { enumToArray } from 'common/utilities/helpers';
+import { adInitialState } from 'models/initial-state/ad';
+import { Ad } from 'models/campaign.model';
+import { environment } from 'environments/environment';
+import { appSettings } from 'app-settings';
+import { cloneDeep } from 'common/utilities/helpers';
+import { AppState } from 'models/app-state.model';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { Campaign } from 'models/campaign.model';
 
 interface ImagesStatus {
   overDrop: boolean[];
@@ -247,10 +247,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeNewAd(adIndex) {
-    this.adForms.splice(adIndex, 1);
-    this.ads.splice(adIndex, 1);
-    this.adPanelsStatus.splice(adIndex, 1);
-    this.imagesStatus.overDrop.splice(adIndex, 1);
-    this.imagesStatus.validation.splice(adIndex, 1);
+    [this.adForms, this.ads, this.adPanelsStatus, this.imagesStatus.overDrop, this.imagesStatus.validation]
+      .forEach((list) => list.splice(adIndex, 1))
   }
 }

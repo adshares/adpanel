@@ -1,6 +1,6 @@
 import * as advertiserActions from './advertiser.actions';
-import { AdvertiserState } from '../../models/app-state.model';
-import { campaignInitialState } from '../../models/initial-state/campaign';
+import { AdvertiserState } from 'models/app-state.model';
+import { campaignInitialState } from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
