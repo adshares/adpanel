@@ -21,13 +21,13 @@ export class UpdateUserEthAddress implements Action {
 export class UpdateUserAutomaticWithdrawPeriod implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD;
 
-  constructor(public payload: string) { }
+  constructor(public payload: number) { }
 }
 
 export class UpdateUserAutomaticWithdrawAmount implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT;
 
-  constructor(public payload: string) { }
+  constructor(public payload: number) { }
 }
 
 export type actions =
