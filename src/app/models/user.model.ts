@@ -8,7 +8,7 @@ interface User {
 
   userEthAddress: string;
   userMemo: string;
-  userAutomaticWithdrawPeriod: string | number;
+  userAutomaticWithdrawPeriod: number;
   userAutomaticWithdrawAmount: number;
 
   authToken?: string;
