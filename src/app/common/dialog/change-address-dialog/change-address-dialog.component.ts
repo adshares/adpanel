@@ -25,7 +25,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   constructor(
     public dialogRef: MatDialogRef<ChangeAddressDialogComponent>,
     private settingsService: SettingsService,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
     super(null);
   }

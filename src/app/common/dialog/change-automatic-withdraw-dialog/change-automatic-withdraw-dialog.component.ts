@@ -87,7 +87,6 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
       userAutomaticWithdrawAmount: amount
     });
 
-    console.log(typeof periodIndex)
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
 
     this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(periodIndex));
