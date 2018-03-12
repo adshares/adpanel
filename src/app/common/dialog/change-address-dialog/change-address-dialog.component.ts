@@ -58,7 +58,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     }
 
     this.isFormBeingSubmitted = true;
- 
+
     const address = this.changeWithdrawAddressForm.value.address;
 
     const changeWithdrawAddressSubscription = this.settingsService

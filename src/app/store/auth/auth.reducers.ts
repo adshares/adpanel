@@ -12,6 +12,16 @@ export function authReducers(state = initialState , action: authActions.actions)
         ...state,
         userEthAddress: action.payload
       };
+    case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD:
+      return {
+        ...state,
+        userAutomaticWithdrawPeriod: action.payload
+      };
+    case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT:
+      return {
+        ...state,
+        userAutomaticWithdrawAmount: action.payload
+      };
     default:
       return state;
   }
