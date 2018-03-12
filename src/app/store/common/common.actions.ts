@@ -23,4 +23,7 @@ export class SetAdsharesEthAddress implements Action {
   constructor(public payload: string) { }
 }
 
-export type actions = SetActiveUserType | SetChartFilterSettings | SetAdsharesEthAddress;
+export type actions =
+  SetActiveUserType |
+  SetChartFilterSettings |
+  SetAdsharesEthAddress;

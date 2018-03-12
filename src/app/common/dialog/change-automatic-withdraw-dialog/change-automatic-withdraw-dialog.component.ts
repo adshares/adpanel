@@ -10,6 +10,7 @@ import { HandleSubscription } from '../../handle-subscription';
 import { enumToArray } from '../../utilities/helpers';
 import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
 import { appSettings } from '../../../../app-settings/app-settings'
+import {LocalStorageUser} from "../../../models/user.model";
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
@@ -75,6 +76,13 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
       });
 
     this.subscriptions.push(automaticWithdrawSubscription);
+
+    const userData = JSON.parse(localStorage.getItem('adshUser'));
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
+      userEthAddress: this.changeWithdrawAddressForm.value.address
+    });
+
+    localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
 
   }
 }
