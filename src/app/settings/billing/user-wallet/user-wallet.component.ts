@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AddFundsDialogComponent } from '../../../common/dialog/add-funds-dialog/add-funds-dialog.component';
-import { WithdrawFundsDialogComponent } from '../../../common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { ChangeAddressDialogComponent } from '../../../common/dialog/change-address-dialog/change-address-dialog.component';
-import { ChangeAutomaticWithdrawDialogComponent } from '../../../common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
-import { appSettings } from '../../../../app-settings/app-settings';
+import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
+import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
+import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
+import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-user-wallet',
@@ -31,5 +31,5 @@ export class UserWalletComponent {
   openChangeAutomaticWithdrawsDialog() {
     this.dialog.open(ChangeAutomaticWithdrawDialogComponent);
   }
-  
+
 }

@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
-import { Campaign } from '../campaign.model';
-import { campaignStatusesEnum } from '../enum/campaign.enum';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 
 export const campaignInitialState: Campaign = {
   basicInformation: {

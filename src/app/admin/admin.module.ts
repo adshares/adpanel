@@ -3,11 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AppCommonModule } from '../common/common.module';
-import { AdminRoutingModule } from './admin-routing.module';
-
 import { MatInputModule, MatIconModule, MatSliderModule } from '@angular/material';
 
+import { AppCommonModule } from 'common/common.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
