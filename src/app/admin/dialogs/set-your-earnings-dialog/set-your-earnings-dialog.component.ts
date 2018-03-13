@@ -4,11 +4,11 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { HandleSubscription } from '../../../common/handle-subscription';
-import { AppState } from '../../../models/app-state.model';
-import { AdminSettings } from '../../../models/settings.model';
-import { AdminService } from '../../admin.service';
-import * as adminActions from '../../../store/admin/admin.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { AdminSettings } from 'models/settings.model';
+import { AdminService } from 'admin/admin.service';
+import * as adminActions from 'store/admin/admin.actions';
 
 @Component({
   selector: 'app-set-your-earnings-dialog',

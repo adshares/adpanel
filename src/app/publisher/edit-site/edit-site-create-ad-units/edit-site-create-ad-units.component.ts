@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
-import * as publisherActions from '../../../store/publisher/publisher.actions';
-import { PublisherService } from '../../publisher.service';
-import { adTypesEnum, adSizesEnum } from '../../../models/enum/ad.enum';
-import { enumToArray, cloneDeep } from '../../../common/utilities/helpers';
-import { Site } from '../../../models/site.model';
-import { AppState } from '../../../models/app-state.model';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-import { AdUnitSize } from '../../../models/site.model';
-import { adUnitInitialState } from '../../../models/initial-state/ad-unit';
+import { PublisherService } from 'publisher/publisher.service';
+import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
+import { enumToArray, cloneDeep } from 'common/utilities/helpers';
+import { Site } from 'models/site.model';
+import { AppState } from 'models/app-state.model';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { AdUnitSize } from 'models/site.model';
+import { adUnitInitialState } from 'models/initial-state/ad-unit';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -28,6 +28,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   filtredAdUnitSizes: AdUnitSize[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
+  adUnitStatusesEnum = adUnitStatusesEnum;
 
   constructor(
     private publisherService: PublisherService,
@@ -78,10 +79,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   generateFormField(adUnit) {
     this.filtredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
-    return  new FormGroup({
+    return new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
-      adUnitSizeFilter: new FormControl('Recommended')
+      adUnitSizeFilter: new FormControl('Recommended'),
+      status: new FormControl(adUnit.status)
     });
   }
 
@@ -117,7 +119,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         return {
           shortHeadline: form.get('shortHeadline').value,
           type: form.get('type').value,
-          size: this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected)
+          size: this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected),
+          status: form.get('status').value
         };
       });
 
@@ -141,5 +144,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           this.router.navigate(['/publisher', 'dashboard']);
         });
     }
+  }
+
+  removeNewAdUnit(adIndex) {
+    this.adUnitForms.splice(adIndex, 1);
+    this.adUnitPanelsStatus.splice(adIndex, 1);
   }
 }

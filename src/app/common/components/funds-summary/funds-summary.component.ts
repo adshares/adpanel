@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { User } from '../../../models/user.model';
-import { HandleSubscription } from '../../handle-subscription';
-import { AppState } from '../../../models/app-state.model';
+
+import { User } from 'models/user.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
 
 import { MatDialog } from '@angular/material';
 import { AddFundsDialogComponent } from '../../dialog/add-funds-dialog/add-funds-dialog.component';

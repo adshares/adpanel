@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ChartComponent } from '../../common/components/chart/chart.component';
-import { ChartService } from '../../common/chart.service';
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AppState } from '../../models/app-state.model';
-import { ChartData } from '../../models/chart/chart-data.model';
-import { ChartFilterSettings} from '../../models/chart/chart-filter-settings.model';
-import { createInitialArray } from '../../common/utilities/helpers';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { ChartService } from 'common/chart.service';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import { createInitialArray } from 'common/utilities/helpers';
 
 
 @Component({
