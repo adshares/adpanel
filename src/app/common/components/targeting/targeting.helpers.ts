@@ -1,4 +1,4 @@
-import { AssetTargeting, TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
+import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 
 export function prepareTargetingChoices(targetingOptions, choicePartialKey = '', parentOption = null) {
   targetingOptions.forEach((targetingOption) => {

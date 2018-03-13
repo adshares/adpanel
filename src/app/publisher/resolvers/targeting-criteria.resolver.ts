@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { PublisherService } from '../publisher.service';
-import { TargetingOption } from '../../models/targeting-option.model';
+
+import { PublisherService } from 'publisher/publisher.service';
+import { TargetingOption } from 'models/targeting-option.model';
 
 @Injectable()
 export class TargetingCriteriaResolver implements Resolve<any> {

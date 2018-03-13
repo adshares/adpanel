@@ -1,5 +1,5 @@
-import { ChartOptions } from '../../../models/chart/chart-options.model';
-import { ChartColors } from '../../../models/chart/chart-colors.model';
+import { ChartOptions } from 'models/chart/chart-options.model';
+import { ChartColors } from 'models/chart/chart-colors.model';
 
 const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,

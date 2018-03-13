@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { User } from '../../../models/user.model';
-import { AppState } from '../../../models/app-state.model';
-import { chartSeriesEnum } from '../../../models/enum/chart-series.enum';
-import { adminChartSeriesEnum } from '../../../models/enum/admin-chart-series.enum';
-import { enumToArray } from '../../utilities/helpers';
+import { User } from 'models/user.model';
+import { AppState } from 'models/app-state.model';
+import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { adminChartSeriesEnum } from 'models/enum/admin-chart-series.enum';
+import { enumToArray } from 'common/utilities/helpers';
 
 
 @Component({

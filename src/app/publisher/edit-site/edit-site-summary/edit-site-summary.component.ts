@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/take';
 
-import { AppState } from '../../../models/app-state.model';
-import { Site } from '../../../models/site.model';
-import { siteStatusEnum } from '../../../models/enum/site.enum';
-import { PublisherService } from '../../publisher.service';
-import * as publisherActions from '../../../store/publisher/publisher.actions';
+import { AppState } from 'models/app-state.model';
+import { Site } from 'models/site.model';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { PublisherService } from 'publisher/publisher.service';
+import { adUnitStatusesEnum } from 'models/enum/ad.enum';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -31,6 +32,7 @@ export class EditSiteSummaryComponent implements OnInit {
   saveSite(isDraft) {
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
+      this.site.adUnits.forEach((adUnit) => adUnit.status = adUnitStatusesEnum.ACTIVE);
     }
 
     this.publisherService.saveSite(this.site)
