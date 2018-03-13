@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>close@1x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="settings_withdraw_funds" transform="translate(-886.000000, -516.000000)">
+            <g id="Content" transform="translate(458.000000, 236.000000)">
+                <g id="Input" transform="translate(34.000000, 243.000000)">
+                    <g id="Input-Copy">
+                        <g id="close" transform="translate(394.000000, 37.000000)">
+                            <circle id="Oval" fill="#FF7E7E" cx="8" cy="8" r="8"></circle>
+                            <g transform="translate(3.000000, 3.000000)">
+                                <g id="Frame_-_24px">
+                                    <rect id="Rectangle-path" x="0" y="0" width="10" height="10"></rect>
+                                </g>
+                                <g id="Line_Icons" transform="translate(2.250000, 2.250000)" fill="#FFFFFF" fill-rule="nonzero" stroke="#FFFFFF">
+                                    <polygon id="Shape" points="5.5465625 0.5334375 5.104375 0.0915625 2.825625 2.370625 0.5465625 0.0915625 0.104375 0.5334375 2.3834375 2.8125 0.104375 5.0915625 0.5465625 5.5334375 2.825625 3.254375 5.104375 5.5334375 5.5465625 5.0915625 3.2675 2.8125"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

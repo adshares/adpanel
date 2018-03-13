@@ -77,7 +77,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     const loginSubscription = this.authService.loginUser(
       this.loginForm.value.email,
       this.loginForm.value.password
-     )
+    )
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
