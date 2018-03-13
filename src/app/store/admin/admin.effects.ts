@@ -3,7 +3,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 
 import * as adminActions from './admin.actions';
-import { AdminService } from '../../admin/admin.service';
+import { AdminService } from 'admin/admin.service';
 
 @Injectable()
 export class AdminEffects {

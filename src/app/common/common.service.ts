@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { environment } from '../../environments/environment';
-import { AdSharesEthAddress } from '../models/settings.model';
+import { environment } from 'environments/environment';
+import { AdSharesEthAddress } from 'models/settings.model';
 
 @Injectable()
 export class CommonService {

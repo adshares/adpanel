@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { HandleSubscription } from '../../handle-subscription';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-import { CommonService } from '../../common.service';
+
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { CommonService } from 'common/common.service';
 
 @Component({
   selector: 'app-add-funds-dialog',

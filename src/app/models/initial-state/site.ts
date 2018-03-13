@@ -1,5 +1,5 @@
-import { Site } from '../site.model';
-import { siteStatusEnum, primaryLanguageEnum } from '../enum/site.enum'
+import { Site } from 'models/site.model';
+import { siteStatusEnum, primaryLanguageEnum } from 'models/enum/site.enum'
 
 export const siteInitialState: Site = {
   id: 0,

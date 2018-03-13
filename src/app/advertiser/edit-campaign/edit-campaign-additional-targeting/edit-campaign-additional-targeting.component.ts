@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
-import { AppState } from '../../../models/app-state.model';
-import { TargetingOption, TargetingOptionValue } from '../../../models/targeting-option.model';
-import { cloneDeep } from '../../../common/utilities/helpers';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-import { AdvertiserService } from '../../advertiser.service';
-import { Campaign } from '../../../models/campaign.model';
-import { AssetTargeting } from '../../../models/targeting-option.model';
-import { TargetingSelectComponent } from '../../../common/components/targeting/targeting-select/targeting-select.component';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { AppState } from 'models/app-state.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { Campaign } from 'models/campaign.model';
+import { AssetTargeting } from 'models/targeting-option.model';
+import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',

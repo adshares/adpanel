@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppCommonModule } from '../common/common.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ChartsModule } from 'ng2-charts';
 
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
 
+import { AppCommonModule } from 'common/common.module';
 import { PublisherComponent } from './publisher.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
@@ -25,7 +26,6 @@ import { SiteCodeDialogComponent } from './dialogs/site-code-dialog/site-code-di
 import { SiteResolver } from './resolvers/site.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
-import { ChartsModule } from 'ng2-charts';
 
 const editSiteComponents = [
   EditSiteComponent,
