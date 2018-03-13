@@ -20,6 +20,11 @@ export function adminReducers(state = initialState, action: adminActions.actions
         ...state,
         settings: action.payload
       };
+    case adminActions.SET_ADMIN_SETTINGS:
+      return {
+        ...state,
+        settings: action.payload
+      };
     default:
       return state;
   }
