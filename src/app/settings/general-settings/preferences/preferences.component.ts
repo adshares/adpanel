@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SettingsService } from '../../settings.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HandleSubscription } from '../../../common/handle-subscription';
+
+import { SettingsService } from 'settings/settings.service';
+import { HandleSubscription } from 'common/handle-subscription';
 
 interface AfterRequestValidation {
   email: { [key: string]: boolean };

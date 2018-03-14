@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { AppCommonModule } from '../common/common.module';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AppCommonModule } from 'common/common.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';

@@ -11,7 +11,7 @@ import {
   AdvertiserState,
   AdminState,
   CommonState
-} from '../models/app-state.model';
+} from 'models/app-state.model';
 import { commonReducers } from './common/common.reducers';
 
 interface ReducersState {

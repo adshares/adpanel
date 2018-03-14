@@ -1,5 +1,5 @@
 import * as adminActions from './admin.actions';
-import { AdminState } from '../../models/app-state.model';
+import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
   users: [],

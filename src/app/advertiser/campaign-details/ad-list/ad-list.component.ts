@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { Ad } from '../../../models/campaign.model';
-import { sortArrayByColumnMetaData } from '../../../common/utilities/helpers';
-import { TableColumnMetaData } from '../../../models/table.model';
+import { Ad } from 'models/campaign.model';
+import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { TableColumnMetaData } from 'models/table.model';
 
 @Component({
   selector: 'app-ad-list',

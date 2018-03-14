@@ -3,15 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import * as _moment from 'moment';
+import * as moment from 'moment';
 
-import { AppState } from '../../../models/app-state.model';
-import { campaignInitialState } from '../../../models/initial-state/campaign';
-import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
-import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
-import { HandleLeaveEditProcess } from '../../../common/handle-leave-edit-process';
-
-const moment = _moment;
+import { AppState } from 'models/app-state.model';
+import { campaignInitialState } from 'models/initial-state/campaign';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',

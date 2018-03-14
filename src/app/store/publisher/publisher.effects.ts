@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
+import { PublisherService } from 'publisher/publisher.service';
+import { AppState } from 'models/app-state.model';
 import * as publisherActions from './publisher.actions';
-import { PublisherService } from '../../publisher/publisher.service';
-import { AppState } from '../../models/app-state.model';
 
 @Injectable()
 export class PublisherEffects {

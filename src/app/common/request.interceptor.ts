@@ -12,9 +12,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
 
-import { AppState } from '../models/app-state.model';
-import { appSettings } from '../../app-settings/app-settings';
-import { LocalStorageUser } from '../models/user.model';
+import { AppState } from 'models/app-state.model';
+import { appSettings } from 'app-settings';
+import { LocalStorageUser } from 'models/user.model';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {

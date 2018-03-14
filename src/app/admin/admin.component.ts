@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { fadeAnimation } from '../common/animations/fade.animation';
+
+import { fadeAnimation } from 'common/animations/fade.animation';
 
 @Component({
   selector: 'app-admin',

@@ -89,8 +89,8 @@
           formControlName="primaryLanguage"
         >
           <mat-option
-            *ngFor="let language of languages"
-            [value]="language"
+            *ngFor="let language of languages; let i = index"
+            [value]="i"
             class="site-edit-basic-information__language__option">
             {{ language }}
           </mat-option>

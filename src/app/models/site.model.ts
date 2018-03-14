@@ -4,7 +4,7 @@ interface Site {
   id: number;
   status: number;
   websiteUrl: string;
-  primaryLanguage: string;
+  primaryLanguage: number;
 
   estimatedEarnings?: number;
   clicks?: number;
@@ -23,6 +23,7 @@ interface AdUnit {
   shortHeadline: string;
   type: number;
   size: AdUnitSize;
+  status: number,
 
   code?: string;
   budget?: number;

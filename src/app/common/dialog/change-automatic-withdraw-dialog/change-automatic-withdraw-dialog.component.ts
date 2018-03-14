@@ -3,16 +3,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
 
-import { SettingsService } from '../../../settings/settings.service';
-import { AppState } from '../../../models/app-state.model';
-import { HandleSubscription } from '../../handle-subscription';
+import { SettingsService } from 'settings/settings.service';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { enumToArray } from 'common/utilities/helpers';
+import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
+import { appSettings } from 'app-settings';
+import { LocalStorageUser } from 'models/user.model';
 
-import { enumToArray } from '../../utilities/helpers';
-import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
-import { appSettings } from '../../../../app-settings/app-settings';
-import { LocalStorageUser } from '../../../models/user.model';
-
-import * as authActions from '../../../store/auth/auth.actions';
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
