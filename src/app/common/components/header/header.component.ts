@@ -79,12 +79,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new commonActions.SetActiveUserType(userType));
   }
 
-  openSettingsMenu() {
-    this.settingsMenuOpen = true;
-  }
-
-  hideSettingsMenu() {
-    this.settingsMenuOpen = false;
+  toggleSettingsMenu(state) {
+    this.settingsMenuOpen = state;
   }
 
   openAddFundsDialog() {
