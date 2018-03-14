@@ -41,7 +41,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
       .subscribe((userData: User) => {
         this.totalFunds = userData.totalFunds;
         this.totalFundsChange = userData.totalFundsChange;
@@ -50,7 +50,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
         this.userAutomaticWithdrawAmount = userData.userAutomaticWithdrawAmount;
       });
 
-    this.subscriptions.push(getUserSubscription, totalFundsSubscription);
+    this.subscriptions.push(getUserSubscription, userFinancialInfoSubscription);
   }
 
   checkUserRole(user: User) {
