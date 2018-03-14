@@ -10,5 +10,8 @@ export const userInitialState: User = {
   userMemo: '',
   userAutomaticWithdrawPeriod: 3,
   userAutomaticWithdrawAmount: 300,
-  isEmailConfirmed: false
+  isEmailConfirmed: false,
+  totalFunds: 1276.60,
+  totalFundsInCurrency: 4336.23,
+  totalFundsChange: 20.30
 };

@@ -9,6 +9,8 @@ import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-fund
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
+import { enumToArray } from 'common/utilities/helpers';
+import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 
 @Component({
   selector: 'app-funds-summary',
@@ -18,6 +20,13 @@ import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-aut
 export class FundsSummaryComponent extends HandleSubscription implements OnInit {
   selectedRole: string;
   userDataState: Store<User>;
+
+  periods = enumToArray(withdrawPeriodsEnum);
+  totalFunds: number;
+  totalFundsChange: number;
+  userEthAddress: string;
+  userAutomaticWithdrawAmount: number;
+  userAutomaticWithdrawPeriod: string;
 
   constructor(
     private store: Store<AppState>,
@@ -31,7 +40,17 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   ngOnInit() {
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
-    this.subscriptions.push(getUserSubscription);
+
+    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((userData: User) => {
+        this.totalFunds = userData.totalFunds;
+        this.totalFundsChange = userData.totalFundsChange;
+        this.userEthAddress = userData.userEthAddress;
+        this.userAutomaticWithdrawPeriod = this.periods[userData.userAutomaticWithdrawPeriod];
+        this.userAutomaticWithdrawAmount = userData.userAutomaticWithdrawAmount;
+      });
+
+    this.subscriptions.push(getUserSubscription, totalFundsSubscription);
   }
 
   checkUserRole(user: User) {
