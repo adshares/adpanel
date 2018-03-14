@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import { MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AppState } from '../../../models/app-state.model';
-import { HandleSubscription } from '../../handle-subscription';
-import { SettingsService } from '../../../settings/settings.service';
-import { LocalStorageUser } from '../../../models/user.model';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { SettingsService } from 'settings/settings.service';
+import { LocalStorageUser } from 'models/user.model';
 
-import * as authActions from '../../../store/auth/auth.actions';
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-change-address-dialog',

@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
-import { CanComponentDeactivate } from '../advertiser/advertiser-guard.service';
+
+import { CanComponentDeactivate } from 'advertiser/advertiser-guard.service';
 
 export class HandleLeaveEditProcess implements CanComponentDeactivate {
   changesSaved = false;

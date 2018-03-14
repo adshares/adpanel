@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../../models/user.model';
+import { User } from 'models/user.model';
 
 export const SET_USER = 'Set user';
 export const UPDATE_USER_ETH_ADDRESS = 'User Ethereum Address updated';

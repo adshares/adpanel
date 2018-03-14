@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
+
 import { HandleSubscription } from './common/handle-subscription';
 import { CommonService } from './common/common.service';
-
 import { AppState } from './models/app-state.model';
 import { fadeAnimation } from './common/animations/fade.animation';
-import { appSettings } from '../app-settings/app-settings';
+import { appSettings } from 'app-settings';
 import { userRolesEnum } from './models/enum/user.enum';
 import { isUnixTimePastNow } from './common/utilities/helpers';
 import { User } from './models/user.model';

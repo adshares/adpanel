@@ -15,7 +15,7 @@ import { PublisherModule } from './publisher/publisher.module';
 import { SettingsModule } from './settings/settings.module';
 import { AppComponent } from './app.component';
 
-import { environment } from '../environments/environment';
+import { environment } from 'environments/environment';
 
 import { RequestInterceptor } from './common/request.interceptor';
 

@@ -6,8 +6,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
 import * as settingsActions from './settings.actions';
-import { SettingsService } from '../../settings/settings.service';
-import { AppState } from '../../models/app-state.model';
+import { SettingsService } from 'settings/settings.service';
+import { AppState } from 'models/app-state.model';
 
 
 @Injectable()

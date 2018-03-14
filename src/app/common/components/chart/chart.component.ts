@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-import { HandleSubscription } from '../../handle-subscription';
-import * as commonActions from '../../../store/common/common.actions';
-
-import { ChartFilterSettings } from '../../../models/chart/chart-filter-settings.model';
-import { ChartLabels } from '../../../models/chart/chart-labels.model';
-import { ChartData } from '../../../models/chart/chart-data.model';
-import { ChartColors } from '../../../models/chart/chart-colors.model';
-import { ChartOptions } from '../../../models/chart/chart-options.model';
-import { chartColors, chartOptions } from './chart-settings';
-
 import * as moment from 'moment';
+
+import { chartColors, chartOptions } from './chart-settings';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { ChartColors } from 'models/chart/chart-colors.model';
+import { ChartOptions } from 'models/chart/chart-options.model';
+import * as commonActions from 'store/common/common.actions';
+
 
 @Component({
   selector: 'app-chart',

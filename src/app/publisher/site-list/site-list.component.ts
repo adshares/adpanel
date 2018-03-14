@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AppState } from '../../models/app-state.model';
-import { Site } from '../../models/site.model';
-import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
-import { TableColumnMetaData } from '../../models/table.model';
-import * as publisherActions from '../../store/publisher/publisher.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { Site } from 'models/site.model';
+import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { TableColumnMetaData } from 'models/table.model';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-site-list',
