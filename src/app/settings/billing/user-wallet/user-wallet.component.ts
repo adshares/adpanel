@@ -56,7 +56,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
       .subscribe((userData: User) => {
         this.totalFunds = userData.totalFunds;
         this.totalFundsInCurrency = userData.totalFundsInCurrency;
@@ -66,6 +66,6 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
         this.lastPayment = moment(userData.lastPayment).format('DD/MM/YYYY, hh:mma');
       });
 
-    this.subscriptions.push(totalFundsSubscription);
+    this.subscriptions.push(userFinancialInfoSubscription);
   }
 }

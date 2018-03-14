@@ -42,12 +42,12 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
   }
 
   ngOnInit() {
-    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
       .subscribe((userData: User) => {
         this.totalFunds = userData.totalFunds;
         this.totalFundsChange = userData.totalFundsChange;
       });
 
-    this.subscriptions.push(totalFundsSubscription);
+    this.subscriptions.push(userFinancialInfoSubscription);
   }
 }
