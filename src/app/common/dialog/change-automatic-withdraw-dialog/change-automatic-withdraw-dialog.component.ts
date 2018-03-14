@@ -3,13 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
 
-import { SettingsService } from '../../../settings/settings.service';
-import { AppState } from '../../../models/app-state.model';
-import { HandleSubscription } from '../../handle-subscription';
-
-import { enumToArray } from '../../utilities/helpers';
-import { withdrawPeriodsEnum } from '../../../models/enum/withdraw.enum';
-import { appSettings } from '../../../../app-settings/app-settings'
+import { SettingsService } from 'settings/settings.service';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { enumToArray } from 'common/utilities/helpers';
+import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
+import { appSettings } from 'app-settings'
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',

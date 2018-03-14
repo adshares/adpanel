@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-
 import { MatDialog } from '@angular/material';
 import { SetYourEarningsDialogComponent } from '../../../admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from '../../dialog/add-funds-dialog/add-funds-dialog.component';
 
-import { HandleSubscription } from '../../handle-subscription';
-import { AppState } from '../../../models/app-state.model';
-import { User } from '../../../models/user.model';
-import { userRolesEnum } from '../../../models/enum/user.enum';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { User } from 'models/user.model';
+import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import { userRolesEnum } from 'models/enum/user.enum';
 
-import * as commonActions from '../../../store/common/common.actions';
-import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
-import * as publisherActions from '../../../store/publisher/publisher.actions';
+import * as commonActions from 'store/common/common.actions';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
 import * as PublisherActions from './publisher.actions';
-import { siteInitialState } from '../../models/initial-state/site';
-import { PublisherState } from '../../models/app-state.model';
+import { siteInitialState } from 'models/initial-state/site';
+import { PublisherState } from 'models/app-state.model';
 
 const initialState: PublisherState = {
   sites: [],

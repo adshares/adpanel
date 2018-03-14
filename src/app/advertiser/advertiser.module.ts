@@ -13,7 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { AppCommonModule } from '../common/common.module';
+import { AppCommonModule } from 'common/common.module';
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
@@ -28,8 +28,8 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
-import { TrustUrlPipe } from '../common/pipes/trust.pipe';
-import { TrustHtmlPipe } from '../common/pipes/trust.pipe';
+import { TrustUrlPipe } from 'common/pipes/trust.pipe';
+import { TrustHtmlPipe } from 'common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';

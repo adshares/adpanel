@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TimespanFilter } from '../../../models/chart/chart-filter-settings.model';
-
 import * as moment from 'moment';
+
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 @Component({
   selector: 'app-chart-filter',

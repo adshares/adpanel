@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/take';
 
-import { fadeAnimation } from '../../common/animations/fade.animation';
-import { AppState } from '../../models/app-state.model';
-import * as publisherActions from '../../store/publisher/publisher.actions';
-import { parseTargetingOtionsToArray } from '../../common/components/targeting/targeting.helpers';
-import { Site } from '../../models/site.model';
+import { fadeAnimation } from 'common/animations/fade.animation';
+import { AppState } from 'models/app-state.model';
+import * as publisherActions from 'store/publisher/publisher.actions';
+import { parseTargetingOtionsToArray } from 'common/components/targeting/targeting.helpers';
+import { Site } from 'models/site.model';
 
 @Component({
   selector: 'app-edit-site',

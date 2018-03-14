@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { NotificationItem } from '../../models/settings.model';
+import { NotificationItem } from 'models/settings.model';
 
 export const LOAD_BILLING_HISTORY = 'Billing History loaded';
 export const LOAD_BILLING_HISTORY_SUCCESS = 'Billing History loaded success';

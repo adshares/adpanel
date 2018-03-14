@@ -2,10 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service'
-import { HandleSubscription } from '../../common/handle-subscription';
-
-import { appSettings } from '../../../app-settings/app-settings';
+import { AuthService } from 'auth/auth.service'
+import { HandleSubscription } from 'common/handle-subscription';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-register',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth/auth.service';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/first';
 
-import { AppState } from '../../../models/app-state.model';
-import * as authActions from '../../../store/auth/auth.actions';
+import { AuthService } from 'auth/auth.service';
+import { AppState } from 'models/app-state.model';
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-confirmation-alert',

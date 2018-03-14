@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/take';
 
-import { AppState } from '../../../models/app-state.model';
-import { Campaign } from '../../../models/campaign.model';
-import { campaignStatusesEnum } from '../../../models/enum/campaign.enum';
-import { AdvertiserService } from '../../advertiser.service';
-import * as advertiserActions from '../../../store/advertiser/advertiser.actions';
+import { AppState } from 'models/app-state.model';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { adStatusesEnum } from 'models/enum/ad.enum';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -31,6 +32,7 @@ export class EditCampaignSummaryComponent implements OnInit {
     saveCampaign(isDraft) {
       if (!isDraft) {
         this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
+        this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
       }
 
       this.advertiserService.saveCampaign(this.campaign)

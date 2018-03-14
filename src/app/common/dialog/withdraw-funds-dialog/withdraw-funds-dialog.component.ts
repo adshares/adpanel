@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store} from '@ngrx/store';
 import { MatDialogRef } from '@angular/material';
-
-import { HandleSubscription } from '../../handle-subscription';
-import { SettingsService } from '../../../settings/settings.service';
-import { AppState} from '../../../models/app-state.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { HandleSubscription } from 'common/handle-subscription';
+import { SettingsService } from 'settings/settings.service';
+import { AppState} from 'models/app-state.model';
 
 @Component({
   selector: 'app-withdraw-funds-dialog',

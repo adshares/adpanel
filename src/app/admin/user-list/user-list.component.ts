@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AppState } from '../../models/app-state.model';
-import { UserInfoStats } from '../../models/settings.model';
-import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
-import { TableColumnMetaData } from '../../models/table.model';
-import * as adminActions from '../../store/admin/admin.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { UserInfoStats } from 'models/settings.model';
+import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { TableColumnMetaData } from 'models/table.model';
+import * as adminActions from 'store/admin/admin.actions';
 
 @Component({
   selector: 'app-user-list',
