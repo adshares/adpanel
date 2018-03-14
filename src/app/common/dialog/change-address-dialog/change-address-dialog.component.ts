@@ -63,16 +63,12 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     const changeWithdrawAddressSubscription = this.settingsService
       .changeWithdrawAddress(address)
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+      .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
-      userEthAddress: address
-    });
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userEthAddress: address });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
     this.store.dispatch(new authActions.UpdateUserEthAddress(address));
