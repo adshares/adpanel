@@ -1,24 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-
-import {ChartService} from '../../common/chart.service';
-import { PublisherService } from '../publisher.service';
-import { HandleSubscription } from '../../common/handle-subscription';
-
-import { AppState } from '../../models/app-state.model';
-import { Site } from '../../models/site.model';
-import { ChartFilterSettings } from '../../models/chart/chart-filter-settings.model';
-import { ChartLabels } from '../../models/chart/chart-labels.model';
-import { ChartData } from '../../models/chart/chart-data.model';
-
-import { createInitialArray, enumToObjectArray, selectCompare } from '../../common/utilities/helpers';
-import { enumToArray } from '../../common/utilities/helpers';
-import { chartSeriesEnum } from '../../models/enum/chart-series.enum';
-import { siteStatusEnum } from '../../models/enum/site.enum';
-
-import * as publisherActions from '../../store/publisher/publisher.actions';
 import * as moment from 'moment';
+
+import { ChartService } from 'common/chart.service';
+import { PublisherService } from 'publisher/publisher.service';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { Site } from 'models/site.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { enumToArray } from 'common/utilities/helpers';
+import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-site-details',

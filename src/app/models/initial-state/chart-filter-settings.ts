@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { ChartFilterSettings } from '../chart/chart-filter-settings.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 
 export const chartFilterSettingsInitialState: ChartFilterSettings = {
   currentTo: moment().format(),

@@ -371,6 +371,18 @@
               </button>
             </div>
           </div>
+
+          <button
+            class="
+              adsh-btn
+              adsh-btn--white
+              adsh-blue
+              save-as-draft"
+            *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
+            (click)="removeNewAd(i)"
+          >
+            Delete Ad Uint
+          </button>
         </mat-expansion-panel>
       </mat-accordion>
     </form>

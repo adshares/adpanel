@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
-import { environment } from '../../environments/environment';
-import { Site, AdUnitSize } from '../models/site.model';
-import { TargetingOption } from '../models/targeting-option.model';
-import { prepareTargetingChoices, parseTargetingForBackend } from '../common/components/targeting/targeting.helpers';
+import { environment } from 'environments/environment';
+import { Site, AdUnitSize } from 'models/site.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { prepareTargetingChoices, parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 
 @Injectable()
 export class PublisherService {

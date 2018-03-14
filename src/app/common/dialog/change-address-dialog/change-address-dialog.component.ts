@@ -3,9 +3,9 @@ import { Store } from '@ngrx/store';
 import { MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AppState } from '../../../models/app-state.model';
-import { HandleSubscription } from '../../handle-subscription';
-import { SettingsService } from '../../../settings/settings.service';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { SettingsService } from 'settings/settings.service';
 
 @Component({
   selector: 'app-change-address-dialog',

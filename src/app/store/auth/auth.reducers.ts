@@ -1,5 +1,5 @@
 import * as authActions from './auth.actions';
-import { userInitialState } from '../../models/initial-state/user.js';
+import { userInitialState } from 'models/initial-state/user.js';
 
 const initialState = userInitialState;
 

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from '../../common/handle-subscription';
-import { AppState } from '../../models/app-state.model';
-import { Campaign } from '../../models/campaign.model';
-import { sortArrayByColumnMetaData } from '../../common/utilities/helpers';
-import { TableColumnMetaData } from '../../models/table.model';
-import * as advertiserActions from '../../store/advertiser/advertiser.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { Campaign } from 'models/campaign.model';
+import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { TableColumnMetaData } from 'models/table.model';
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list',

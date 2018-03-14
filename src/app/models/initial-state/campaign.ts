@@ -1,12 +1,11 @@
-import * as _moment from 'moment';
+import * as moment from 'moment';
 
-import { Campaign } from '../campaign.model';
-
-const moment = _moment;
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 
 export const campaignInitialState: Campaign = {
   basicInformation: {
-    status: 0,
+    status: campaignStatusesEnum.DRAFT,
     name: '',
     targetUrl: '',
     bidStrategyName: '',

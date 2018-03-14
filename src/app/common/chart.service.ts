@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ChartReceivedData } from '../models/chart/chart-received-data.model';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { environment } from '../../environments/environment';
+import { ChartReceivedData } from 'models/chart/chart-received-data.model';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class ChartService {

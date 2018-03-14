@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { User } from '../models/user.model';
-import { AppState } from '../models/app-state.model';
+import { User } from 'models/user.model';
+import { AppState } from 'models/app-state.model';
 
 export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../models/app-state.model';
-import { BillingHistoryItem } from '../../../models/settings.model';
-
-import * as settingsActions from '../../../store/settings/settings.actions';
-
 import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+
+import { AppState } from 'models/app-state.model';
+import { BillingHistoryItem } from 'models/settings.model';
+import * as settingsActions from 'store/settings/settings.actions';
 
 @Component({
   selector: 'app-billing-history',
