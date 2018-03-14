@@ -131,8 +131,8 @@
         adsh-bg-navy--light
         adsh-navigation__item
         adsh-btn"
-      (mouseover)="openSettingsMenu()"
-      (mouseleave)="hideSettingsMenu()"
+      (mouseover)="toggleSettingsMenu(true)"
+      (mouseleave)="toggleSettingsMenu(false)"
     >
       <img
         class="
