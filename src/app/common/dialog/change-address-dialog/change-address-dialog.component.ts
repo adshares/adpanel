@@ -6,6 +6,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
+import { LocalStorageUser } from 'models/user.model';
+
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-change-address-dialog',
@@ -56,13 +59,18 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     this.isFormBeingSubmitted = true;
 
+    const address = this.changeWithdrawAddressForm.value.address;
+
     const changeWithdrawAddressSubscription = this.settingsService
-      .changeWithdrawAddress(this.changeWithdrawAddressForm.value.address)
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+      .changeWithdrawAddress(address)
+      .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
+    const userData = JSON.parse(localStorage.getItem('adshUser'));
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userEthAddress: address });
+
+    localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
+    this.store.dispatch(new authActions.UpdateUserEthAddress(address));
   }
 }
