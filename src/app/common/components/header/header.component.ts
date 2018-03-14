@@ -7,6 +7,8 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { User } from 'models/user.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
+
 import { userRolesEnum } from 'models/enum/user.enum';
 
 import * as commonActions from 'store/common/common.actions';
@@ -27,6 +29,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   userRolesEnum = userRolesEnum;
   notificationsBarEnabled = false;
+
+  settingsMenuOpen = false;
 
   constructor(
     private store: Store<AppState>,
@@ -80,5 +84,13 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   setActiveUserType(userType) {
     this.store.dispatch(new commonActions.SetActiveUserType(userType));
+  }
+
+  toggleSettingsMenu(state) {
+    this.settingsMenuOpen = state;
+  }
+
+  openAddFundsDialog() {
+    this.dialog.open(AddFundsDialogComponent);
   }
 }

@@ -131,7 +131,8 @@
         adsh-bg-navy--light
         adsh-navigation__item
         adsh-btn"
-      routerLink="/settings/general"
+      (mouseover)="toggleSettingsMenu(true)"
+      (mouseleave)="toggleSettingsMenu(false)"
     >
       <img
         class="
@@ -154,6 +155,42 @@
           adsh-icon--append"
         src="assets/images/chevron--gray.svg"
       >
+      <ul
+        class="
+          settings-menu
+          adsh-copy
+          adsh-copy--white"
+        [class.open]="settingsMenuOpen"
+      >
+        <li
+          class="settings-menu__item"
+          routerLink="/settings/general"
+        >
+          Billing & Payments
+        </li>
+        <li
+          class="settings-menu__item"
+          routerLink="/settings/billing"
+        >
+          Account Settings
+        </li>
+        <li class="settings-menu__item">
+          <button
+            class="
+                adsh-btn
+                adsh-btn--large
+                adsh-btn--blue
+                row
+                align-center
+                adsh-funds-summary__deposit-funds"
+            (click)="openAddFundsDialog()"
+          >
+            <span>
+              Add Funds
+            </span>
+          </button>
+        </li>
+      </ul>
     </div>
     <div
       class="
