@@ -72,9 +72,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
     const amount = this.automaticWithdrawForm.value.amount;
 
     const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(period, amount)
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+      .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(automaticWithdrawSubscription);
 
@@ -90,6 +88,5 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(periodIndex));
     this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawAmount(amount));
-
   }
 }

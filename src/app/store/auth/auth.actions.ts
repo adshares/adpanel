@@ -14,19 +14,16 @@ export class SetUser implements Action {
 
 export class UpdateUserEthAddress implements Action {
   readonly type = UPDATE_USER_ETH_ADDRESS;
-
   constructor(public payload: string) { }
 }
 
 export class UpdateUserAutomaticWithdrawPeriod implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD;
-
   constructor(public payload: number) { }
 }
 
 export class UpdateUserAutomaticWithdrawAmount implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT;
-
   constructor(public payload: number) { }
 }
 
