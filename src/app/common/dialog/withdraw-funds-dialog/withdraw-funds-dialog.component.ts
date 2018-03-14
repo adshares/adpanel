@@ -67,9 +67,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       this.withdrawFundsForm.value.address,
       this.withdrawFundsForm.value.amount
     )
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+      .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
   }
