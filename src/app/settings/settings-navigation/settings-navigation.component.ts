@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { HandleSubscription } from 'common/handle-subscription';
+
+import { AppState } from 'models/app-state.model';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-settings-navigation',
   templateUrl: './settings-navigation.component.html',
   styleUrls: ['./settings-navigation.component.scss'],
 })
-export class SettingsNavigationComponent {
+export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
+  totalFunds: number;
+  totalFundsChange: number;
+
   settings = [
     {
       title: 'General Settings',
@@ -27,4 +36,18 @@ export class SettingsNavigationComponent {
       ]
     }
   ];
+
+  constructor(private store: Store<AppState>) {
+    super(null);
+  }
+
+  ngOnInit() {
+    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((userData: User) => {
+        this.totalFunds = userData.totalFunds;
+        this.totalFundsChange = userData.totalFundsChange;
+      });
+
+    this.subscriptions.push(totalFundsSubscription);
+  }
 }

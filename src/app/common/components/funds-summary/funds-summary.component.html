@@ -1,174 +1,177 @@
 <section class="adsh-funds-summary">
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
     <div
       class="
-          adsh-box
-          adsh-box--large"
+        row
+        align-center"
     >
       <div
         class="
-          row
-          align-center"
+          col-xs-7
+          row"
       >
         <div
           class="
-            col-xs-7
-            row"
+            col
+            col-xs-4
+            adsh-funds-summary__totals"
         >
-          <div
+          <h6
             class="
-              col
-              col-xs-4
-              adsh-funds-summary__totals"
+              adsh-copy
+              adsh-copy--small"
           >
-            <h6
-              class="
-                adsh-copy
-                adsh-copy--small"
-            >
-              Total Funds:
-            </h6>
-            <span
-              class="
-                adsh-heading
-                adsh-heading--primary"
-            >
-              {{ '0.00'| adsharesTokenValue }}
-            </span>
-            <span
-              class="
-                adsh-copy
-                adsh-copy--x-small
-                adsh-blue
-                adsh-copy--bold"
-            >
-              + xx.xx (xx.x%)
-            </span>
-          </div>
-          <div
+            Total Funds:
+          </h6>
+          <span
             class="
-              col
-              col-xs-3
-              col-xs-offset-1
-              adsh-funds-summary__automatic-withdrawal"
+              adsh-heading
+              adsh-heading--primary"
           >
-            <h6
-              class="
-                adsh-copy
-                adsh-copy--small"
-            >
-              Automatic Withdraws
-            </h6>
-            <p
-              class="
-                adsh-copy
-                adsh-copy--dark
-                adsh-copy--semi"
-            >
-              -
-            </p>
-            <a
-              class="
-                adsh-copy
-                adsh-copy--large
-                adsh-blue"
-              (click)="openChangeAutomaticWithdrawsDialog()"
-            >
-              Change
-            </a>
-          </div>
-          <div
+            {{ totalFunds | adsharesTokenValue }}
+          </span>
+          <span
             class="
-              col
-              col-xs-3
-              col-xs-offset-1
-              adsh-funds-summary__withdrawal-address"
+              adsh-copy
+              adsh-copy--x-small
+              adsh-blue
+              adsh-copy--bold"
           >
-            <h6
-              class="
-                adsh-copy
-                adsh-copy--small"
-
-            >
-              Your Withdraw Address
-            </h6>
-            <p
-              class="
-                adsh-copy
-                adsh-copy--dark
-                adsh-copy--semi"
-            >
-              -
-            </p>
-            <a
-              class="
-                adsh-copy
-                adsh-copy--large
-                adsh-blue"
-              (click)="openChangeAddressDialog()"
-            >
-              Change
-            </a>
-          </div>
+            {{ totalFundsChange }} ( {{ totalFundsChange / totalFunds | percent }})
+          </span>
         </div>
-        <div class="col-xs-5">
-          <div
+        <div
+          class="
+            col
+            col-xs-3
+            col-xs-offset-1
+            adsh-funds-summary__automatic-withdrawal"
+        >
+          <h6
             class="
+              adsh-copy
+              adsh-copy--small"
+          >
+            Automatic Withdraws
+          </h6>
+          <p
+            class="
+              withdraw-data
+              adsh-copy
+              adsh-copy--dark
+              adsh-copy--semi"
+          >
+            {{ userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after {{ userAutomaticWithdrawPeriod }}
+          </p>
+          <a
+            class="
+              adsh-copy
+              adsh-copy--large
+              adsh-blue"
+            (click)="openChangeAutomaticWithdrawsDialog()"
+          >
+            Change
+          </a>
+        </div>
+        <div
+          class="
+            col
+            col-xs-3
+            col-xs-offset-1
+            adsh-funds-summary__withdrawal-address"
+        >
+          <h6
+            class="
+              adsh-copy
+              adsh-copy--small"
+          >
+            Your Withdraw Address
+          </h6>
+          <p
+            class="
+              break-word
+              withdraw-data
+              adsh-copy
+              adsh-copy--dark
+              adsh-copy--semi"
+          >
+            {{ userEthAddress }}
+          </p>
+          <a
+            class="
+              adsh-copy
+              adsh-copy--large
+              adsh-blue"
+            (click)="openChangeAddressDialog()"
+          >
+            Change
+          </a>
+        </div>
+      </div>
+      <div class="col-xs-5">
+        <div
+          class="
+            row
+            align-center
+            justify-end"
+        >
+          <button
+            class="
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--white
               row
               align-center
-              justify-end">
-            <button
+              adsh-funds-summary__deposit-funds"
+            (click)="openAddFundsDialog()"
+          >
+            <img
+              src="/assets/images/credit-card--blue.svg"
+              alt="Credit Card Icon"
               class="
-                adsh-btn
-                adsh-btn--large
-                adsh-btn--white
-                row
-                align-center
-                adsh-funds-summary__deposit-funds"
-              (click)="openAddFundsDialog()"
+                adsh-icon
+                adsh-icon--prepend"
             >
-              <img
-                src="/assets/images/credit-card--blue.svg"
-                alt="Credit Card Icon"
-                class="
-                  adsh-icon
-                  adsh-icon--prepend"
-              >
-              <span
-                class="
-                  adsh-copy
-                  adsh-blue"
-              >
-                Deposit Funds
-              </span>
-            </button>
-            <button
+            <span
               class="
-                adsh-btn
-                adsh-btn--large
-                adsh-btn--blue
-                row
-                align-center
-                adsh-funds-summary__withdraw-funds"
-              *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
-              (click)="openWithdrawFundsDialog()"
+                adsh-copy
+                adsh-blue"
             >
-              <img
-                src="/assets/images/credit-card--white.svg"
-                alt="Credit Card Icon"
-                class="
-                  adsh-icon
-                  adsh-icon--prepend"
-              >
-              <span
-                class="
-                  adsh-copy
-                  adsh-white"
-              >
-                Withdraw Funds
-              </span>
-            </button>
-          </div>
+              Deposit Funds
+            </span>
+          </button>
+          <button
+            class="
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--blue
+              row
+              align-center
+              adsh-funds-summary__withdraw-funds"
+            *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
+            (click)="openWithdrawFundsDialog()"
+          >
+            <img
+              src="/assets/images/credit-card--white.svg"
+              alt="Credit Card Icon"
+              class="
+                adsh-icon
+                adsh-icon--prepend"
+            >
+            <span
+              class="
+                adsh-copy
+                adsh-white"
+            >
+              Withdraw Funds
+            </span>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 </section>

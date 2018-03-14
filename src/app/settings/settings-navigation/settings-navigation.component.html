@@ -14,7 +14,7 @@
         adsh-heading--primary
         adsh-white"
     >
-      {{'0.00'| adsharesTokenValue }}
+      {{ totalFunds | adsharesTokenValue }}
     </span>
     <span
       class="
@@ -23,7 +23,7 @@
         adsh-white
         adsh-copy--bold"
     >
-      + xx.xx (xx.x%)
+      {{ totalFundsChange }} ( {{ totalFundsChange / totalFunds | percent }})
     </span>
   </div>
 

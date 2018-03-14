@@ -19,8 +19,8 @@ import * as publisherActions from 'store/publisher/publisher.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  currentBalanceAdst = 128.20;
-  currentBalanceUSD = 1240.02;
+  totalFunds: number;
+  totalFundsInCurrency: number;
   notificationsCount = 8;
   userDataState: Store<User>;
   activeUserType: number;
@@ -42,7 +42,14 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.activeUserType = activeUserType;
       });
 
-    this.subscriptions.push(activeUserTypeSubscription);
+    const totalFundsSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((userData: User) => {
+        this.totalFunds = userData.totalFunds;
+        this.totalFundsInCurrency = userData.totalFundsInCurrency;
+      });
+
+    this.subscriptions.push(totalFundsSubscription, activeUserTypeSubscription);
+
     this.userDataState = this.store.select('state', 'user', 'data');
   }
 

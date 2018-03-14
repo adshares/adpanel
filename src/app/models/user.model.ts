@@ -10,7 +10,9 @@ interface User {
   userMemo: string;
   userAutomaticWithdrawPeriod: number;
   userAutomaticWithdrawAmount: number;
-
+  totalFunds: number;
+  totalFundsInCurrency: number;
+  totalFundsChange: number;
   authToken?: string;
 }
 

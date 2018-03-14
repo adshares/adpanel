@@ -46,6 +46,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
       .subscribe((currentAmount: number) => {
         this.currentAmount = currentAmount;
     });
+
     this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
   }
 

@@ -144,8 +144,8 @@
           col
           justify-start"
       >
-        <span class="adsh-adst">{{ currentBalanceAdst | adsharesTokenValue }}</span>
-        <span class="adsh-usd">~ {{ currentBalanceUSD | currency:'USD':true }}</span>
+        <span class="adsh-adst">{{ totalFunds | adsharesTokenValue }}</span>
+        <span class="adsh-usd">~ {{ totalFundsInCurrency | currency:'USD':true }}</span>
       </div>
       <img
         class="

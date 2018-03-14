@@ -9,5 +9,8 @@
     "userMemo": "User 0291",
     "userAutomaticWithdrawPeriod": 1,
     "userAutomaticWithdrawAmount": 300,
-    "authToken": "someauthtokenvalue"
+    "authToken": "someauthtokenvalue",
+    "totalFunds": 1276.60,
+    "totalFundsInCurrency": 4336.23,
+    "totalFundsChange": 20.30
 }
