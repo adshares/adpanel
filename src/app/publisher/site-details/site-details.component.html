@@ -79,8 +79,6 @@
       <div
         class="
           col-xs-2
-          row
-          align-center
           status-wrapper"
       >
         <p>Site Status:</p>
@@ -100,14 +98,35 @@
 
       <div
         class="
-          col-xs-10
           row
-          align-center"
+          col-xs-10"
       >
-        <div
-            class="col-xs-2">
-          <p>Content Language:</p>
-          <p>{{ site.primaryLanguage }}</p>
+        <div class="col-xs-12">
+          <span class="adsh-copy">Requires:</span>
+
+          <div>
+            <app-targeting-display
+              class="
+                app-targeting-display"
+              *ngIf="targeting.requires"
+              [items]="targeting.requires"
+              [isExclude]="false"
+              [canRemove]="false"
+            ></app-targeting-display>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <span class="adsh-copy">Excludes:</span>
+          <div>
+            <app-targeting-display
+              class="app-targeting-display"
+              *ngIf="targeting.excludes"
+              [items]="targeting.excludes"
+              [isExclude]="true"
+              [canRemove]="false"
+            ></app-targeting-display>
+          </div>
         </div>
       </div>
     </div>
