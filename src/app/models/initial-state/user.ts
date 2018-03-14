@@ -13,5 +13,6 @@ export const userInitialState: User = {
   isEmailConfirmed: false,
   totalFunds: 1276.60,
   totalFundsInCurrency: 4336.23,
-  totalFundsChange: 20.30
+  totalFundsChange: 20.30,
+  lastPayment: 'Tue Feb 20 2018 12:24:00 GMT'
 };

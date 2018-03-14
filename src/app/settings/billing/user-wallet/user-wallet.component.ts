@@ -13,6 +13,8 @@ import { appSettings } from 'app-settings';
 import { enumToArray} from 'common/utilities/helpers';
 import { withdrawPeriodsEnum} from 'models/enum/withdraw.enum';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-user-wallet',
   templateUrl: './user-wallet.component.html',
@@ -61,6 +63,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
         this.userEthAddress = userData.userEthAddress;
         this.userAutomaticWithdrawPeriod = this.periods[userData.userAutomaticWithdrawPeriod];
         this.userAutomaticWithdrawAmount = userData.userAutomaticWithdrawAmount;
+        this.lastPayment = moment(userData.lastPayment).format('DD/MM/YYYY, hh:mma');
       });
 
     this.subscriptions.push(totalFundsSubscription);

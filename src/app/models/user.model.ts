@@ -13,6 +13,7 @@ interface User {
   totalFunds: number;
   totalFundsInCurrency: number;
   totalFundsChange: number;
+  lastPayment: string;
   authToken?: string;
 }
 
