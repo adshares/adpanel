@@ -27,7 +27,10 @@ import { parseTargetingOtionsToArray } from 'common/components/targeting/targeti
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
-  targeting: AssetTargeting;
+  targeting: AssetTargeting = {
+    requires: [],
+    excludes: []
+  };
 
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
