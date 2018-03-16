@@ -19,6 +19,6 @@ export class AdminService {
   }
 
   setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
-    return this.http.post<AdminSettings>(`${environment.apiUrl}/admin_settings`, { newSettings });
+    return this.http.post<AdminSettings>(`${environment.apiUrl}/update_admin_settings`, { newSettings });
   }
 }

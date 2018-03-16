@@ -14,8 +14,8 @@ export class PublisherService {
 
   constructor(private http: HttpClient) {}
 
-  getSites(userId: number): Observable<Site[]> {
-    return this.http.get(`${environment.apiUrl}/sites/${userId}`)
+  getSites(): Observable<Site[]> {
+    return this.http.get(`${environment.apiUrl}/sites`)
       .map((sites: Site[]) => sites);
   }
 
@@ -31,7 +31,7 @@ export class PublisherService {
       Object.assign(site, {targeting: targetingObject});
     }
 
-    return this.http.put(`${environment.apiUrl}/site`, { site })
+    return this.http.post(`${environment.apiUrl}/save_site`, { site })
       .map((site: Site) => site);
   }
 
