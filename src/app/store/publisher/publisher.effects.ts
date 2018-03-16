@@ -18,6 +18,6 @@ export class PublisherEffects {
   @Effect()
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
-    .switchMap(([action, userId]) => this.service.getSites())
+    .switchMap(() => this.service.getSites())
     .map((sites) => new publisherActions.LoadSitesSuccess(sites));
 }
