@@ -11,11 +11,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginUser(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/user`, { email, password });
+    return this.http.post<User>(`${environment.apiUrl}/login_user`, { email, password });
   }
 
   registerUser(email: string, password: string): Observable<User> {
-    return this.http.put<User>(`${environment.apiUrl}/user`, { email, password });
+    return this.http.post<User>(`${environment.apiUrl}/register_user`, { email, password });
   }
 
   sendActivationEmail() {

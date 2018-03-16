@@ -11,18 +11,18 @@ export class SettingsService {
 
   constructor(private http: HttpClient) { }
 
-  getBillingHistory(userId: number): Observable<BillingHistoryItem[]> {
-    return this.http.get(`${environment.apiUrl}/billing_history/${userId}`)
+  getBillingHistory(): Observable<BillingHistoryItem[]> {
+    return this.http.get(`${environment.apiUrl}/billing_history`)
       .map((billingHisory: BillingHistoryItem[]) => billingHisory);
   }
 
-  getNotificationsSettings(userId: number): Observable<NotificationItem[]> {
-    return this.http.get(`${environment.apiUrl}/notifications_settings/${userId}`)
+  getNotificationsSettings(): Observable<NotificationItem[]> {
+    return this.http.get(`${environment.apiUrl}/notifications_settings`)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
   updateNotificationsSettings(newSettings: NotificationItem[]): Observable<NotificationItem[]> {
-    return this.http.put(`${environment.apiUrl}/notifications_settings`, newSettings)
+    return this.http.post(`${environment.apiUrl}/update_notifications_settings`, newSettings)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 

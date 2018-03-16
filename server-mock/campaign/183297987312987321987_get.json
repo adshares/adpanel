@@ -33,6 +33,7 @@
   },
   "ads": [
     {
+      "id": "1",
       "status": "active",
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
@@ -45,6 +46,7 @@
       "cost": "2435.23"
     },
     {
+      "id": "2",
       "status": "limited",
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
