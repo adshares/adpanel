@@ -17,8 +17,8 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns(userId: number): Observable<Campaign[]> {
-    return this.http.get(`${environment.apiUrl}/campaigns/${userId}`)
+  getCampaigns(): Observable<Campaign[]> {
+    return this.http.get(`${environment.apiUrl}/campaigns`)
       .map((campaigns: Campaign[]) => campaigns);
   }
 
@@ -28,7 +28,7 @@ export class AdvertiserService {
   }
 
   deleteAdImage(adId: number) {
-    return this.http.delete(`${environment.apiUrl}/ad/${adId}`);
+    return this.http.post(`${environment.apiUrl}/delete_ad`, { adId });
   }
 
   saveCampaign(campaign: Campaign): Observable<Campaign> {
@@ -38,7 +38,7 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.put(`${environment.apiUrl}/campaign`, { campaign })
+    return this.http.post(`${environment.apiUrl}/save_campaign`, { campaign })
       .map((campaign: Campaign) => campaign);
   }
 

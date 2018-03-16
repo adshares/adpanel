@@ -11,6 +11,6 @@ export class CommonService {
   constructor(private http: HttpClient) { }
 
   getAdsharesEthAddress(): Observable<AdSharesEthAddress> {
-    return this.http.get<AdSharesEthAddress>(`${environment.apiUrl}/adshares_eth_user`);
+    return this.http.get<AdSharesEthAddress>(`${environment.apiUrl}/adshares_eth_address`);
   }
 }

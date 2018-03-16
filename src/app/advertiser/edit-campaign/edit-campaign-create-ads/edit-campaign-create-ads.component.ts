@@ -44,7 +44,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
-  uploader: FileUploader = new FileUploader({url: `${environment.apiUrl}/ad`});
+  uploader: FileUploader = new FileUploader({url: `${environment.apiUrl}/upload_ad`});
   imagesStatus: ImagesStatus = {
     upload: {
       processing: false,
@@ -139,7 +139,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   sendImage(image, adIndex) {
     image.method = 'PUT';
     image.withCredentials = false; // needed by mock server
-    image.url = `${environment.apiUrl}/ad/${this.ads[adIndex].id}`;
+    image.url = `${environment.apiUrl}/upload_ad/${this.ads[adIndex].id}`;
     image.upload();
     image.onProgress = (progress) => {
       this.imagesStatus.upload.processing = true;
