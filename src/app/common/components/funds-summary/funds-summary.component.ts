@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 
-import { User } from 'models/user.model';
+import { User, UserFinancialData} from 'models/user.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -22,11 +22,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   userDataState: Store<User>;
 
   periods = enumToArray(withdrawPeriodsEnum);
-  totalFunds: number;
-  totalFundsChange: number;
-  userEthAddress: string;
-  userAutomaticWithdrawAmount: number;
-  userAutomaticWithdrawPeriod: string;
+  financialData: UserFinancialData;
 
   constructor(
     private store: Store<AppState>,
@@ -41,16 +37,13 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((userData: User) => {
-        this.totalFunds = userData.totalFunds;
-        this.totalFundsChange = userData.totalFundsChange;
-        this.userEthAddress = userData.userEthAddress;
-        this.userAutomaticWithdrawPeriod = this.periods[userData.userAutomaticWithdrawPeriod];
-        this.userAutomaticWithdrawAmount = userData.userAutomaticWithdrawAmount;
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
+        this.financialData.userAutomaticWithdrawPeriod = this.periods[financialData.userAutomaticWithdrawPeriod];
       });
 
-    this.subscriptions.push(getUserSubscription, userFinancialInfoSubscription);
+    this.subscriptions.push(getUserSubscription, userFinancialDataSubscription);
   }
 
   checkUserRole(user: User) {

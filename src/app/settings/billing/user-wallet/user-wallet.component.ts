@@ -8,7 +8,7 @@ import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialo
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { AppState } from 'models/app-state.model';
-import { User } from 'models/user.model';
+import { UserFinancialData } from 'models/user.model';
 import { appSettings } from 'app-settings';
 import { enumToArray} from 'common/utilities/helpers';
 import { withdrawPeriodsEnum} from 'models/enum/withdraw.enum';
@@ -24,13 +24,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
 
   periods = enumToArray(withdrawPeriodsEnum);
-
-  lastPayment: string;
-  totalFunds: number;
-  totalFundsInCurrency: number;
-  userEthAddress: string;
-  userAutomaticWithdrawAmount: number;
-  userAutomaticWithdrawPeriod: string;
+  financialData: UserFinancialData;
 
   constructor(
     private dialog: MatDialog,
@@ -56,16 +50,13 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((userData: User) => {
-        this.totalFunds = userData.totalFunds;
-        this.totalFundsInCurrency = userData.totalFundsInCurrency;
-        this.userEthAddress = userData.userEthAddress;
-        this.userAutomaticWithdrawPeriod = this.periods[userData.userAutomaticWithdrawPeriod];
-        this.userAutomaticWithdrawAmount = userData.userAutomaticWithdrawAmount;
-        this.lastPayment = moment(userData.lastPayment).format('DD/MM/YYYY, hh:mma');
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
+        this.financialData.userAutomaticWithdrawPeriod = this.periods[financialData.userAutomaticWithdrawPeriod];
+        this.financialData.lastPayment = moment(financialData.lastPayment).format('DD/MM/YYYY, hh:mma');
       });
 
-    this.subscriptions.push(userFinancialInfoSubscription);
+    this.subscriptions.push(userFinancialDataSubscription);
   }
 }

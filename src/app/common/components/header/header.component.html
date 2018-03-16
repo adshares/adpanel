@@ -145,8 +145,8 @@
           col
           justify-start"
       >
-        <span class="adsh-adst">{{ totalFunds | adsharesTokenValue }}</span>
-        <span class="adsh-usd">~ {{ totalFundsInCurrency | currency:'USD':true }}</span>
+        <span class="adsh-adst">{{ financialData.totalFunds | adsharesTokenValue }}</span>
+        <span class="adsh-usd">~ {{ financialData.totalFundsInCurrency | currency:'USD':true }}</span>
       </div>
       <img
         class="
@@ -166,13 +166,13 @@
           class="settings-menu__item"
           routerLink="/settings/general"
         >
-          Billing & Payments
+          Account Settings
         </li>
         <li
           class="settings-menu__item"
           routerLink="/settings/billing"
         >
-          Account Settings
+          Billing & Payments
         </li>
         <li class="settings-menu__item">
           <button

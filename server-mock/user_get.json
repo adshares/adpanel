@@ -5,13 +5,15 @@
     "isPublisher": true,
     "isAdmin": false,
     "isEmailConfirmed": true,
-    "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
-    "userMemo": "User 0291",
-    "userAutomaticWithdrawPeriod": 1,
-    "userAutomaticWithdrawAmount": 300,
     "authToken": "someauthtokenvalue",
-    "totalFunds": 1276.60,
-    "totalFundsInCurrency": 4336.23,
-    "totalFundsChange": 20.30
-    "lastPayment": "Tue Feb 20 2018 12:24:00 GMT"
+    "financialData": {
+      "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
+      "userMemo": "User 0291",
+      "userAutomaticWithdrawPeriod": 1,
+      "userAutomaticWithdrawAmount": 300,
+      "totalFunds": 1276.60,
+      "totalFundsInCurrency": 4336.23,
+      "totalFundsChange": 20.30,
+      "lastPayment": "Tue Feb 20 2018 12:24:00 GMT"
+    }
 }

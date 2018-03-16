@@ -55,8 +55,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
     }
 
     const user = (
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, totalFunds, totalFundsInCurrency, totalFundsChange, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, totalFunds, totalFundsInCurrency, totalFundsChange, authToken})
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken, financialData}) =>
+      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken, financialData})
     )(userData);
 
     if (isUnixTimePastNow(userData.expiration)) {

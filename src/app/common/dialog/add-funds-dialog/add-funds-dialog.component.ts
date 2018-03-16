@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { CommonService } from 'common/common.service';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -17,8 +16,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
-    private store: Store<AppState>,
-    private commonService: CommonService
+    private store: Store<AppState>
   ) {
     super(null);
   }
@@ -30,7 +28,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       });
     this.subscriptions.push(adsharesEthAddressSubscription);
 
-    const userMemoSubscription = this.store.select('state', 'user', 'data', 'userMemo')
+    const userMemoSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userMemo')
       .subscribe((userEthAddress: string) => {
         this.userMemo = userEthAddress;
       });

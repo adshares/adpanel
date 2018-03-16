@@ -38,13 +38,13 @@
                 adsh-heading
                 adsh-heading--primary"
             >
-              {{ totalFunds | adsharesTokenValue }}
+              {{ financialData.totalFunds | adsharesTokenValue }}
               <span
                 class="
                   adsh-copy--normal
                   adsh-copy--light"
               >
-                ({{ totalFundsInCurrency | currency:USD }})
+                ({{ financialData.totalFundsInCurrency | currency:USD }})
               </span>
             </h1>
             <p
@@ -52,7 +52,7 @@
                 adsh-copy
                 adsh-copy--large"
             >
-              Last successful payment: {{ lastPayment }}
+              Last successful payment: {{ financialData.lastPayment }}
             </p>
             <div
               class="
@@ -114,7 +114,7 @@
                   adsh-heading
                   adsh-heading--secondary"
               >
-                {{ userEthAddress }}
+                {{ financialData.userEthAddress }}
               </p>
             </div>
             <button
@@ -144,7 +144,7 @@
                   adsh-heading
                   adsh-heading--secondary"
               >
-                {{ userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens are accrued after {{ userAutomaticWithdrawPeriod }}
+                {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens are accrued after {{ userAutomaticWithdrawPeriod }}
               </p>
             </div>
             <button
