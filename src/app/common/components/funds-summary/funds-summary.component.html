@@ -65,7 +65,10 @@
               adsh-copy--dark
               adsh-copy--semi"
           >
-            {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after {{ financialData.userAutomaticWithdrawPeriod }}
+            {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after
+            <span class="period">
+              {{ financialData.userAutomaticWithdrawPeriod }}
+            </span>
           </p>
           <a
             class="

@@ -53,8 +53,8 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
-        this.financialData.userAutomaticWithdrawPeriod = this.periods[financialData.userAutomaticWithdrawPeriod];
-        this.financialData.lastPayment = moment(financialData.lastPayment).format('DD/MM/YYYY, hh:mma');
+        Object.assign(this.financialData, { userAutomaticWithdrawPeriod: withdrawPeriodsEnum[financialData.userAutomaticWithdrawPeriod] });
+        Object.assign(this.financialData, { lastPayment: moment(financialData.lastPayment).format('DD/MM/YYYY, hh:mma') });
       });
 
     this.subscriptions.push(userFinancialDataSubscription);

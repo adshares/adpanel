@@ -144,7 +144,10 @@
                   adsh-heading
                   adsh-heading--secondary"
               >
-                {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens are accrued after {{ userAutomaticWithdrawPeriod }}
+                {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens are accrued after
+                <span class="period">
+                  {{ userAutomaticWithdrawPeriod }}
+                </span>
               </p>
             </div>
             <button
