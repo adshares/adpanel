@@ -114,7 +114,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   getTargeting() {
     this.publisherService.getTargetingCriteria().subscribe(targeting => {
-        this.targeting = parseTargetingOtionsToArray(this.site.targeting, targeting);
-      });
+      this.targeting = parseTargetingOtionsToArray(this.site.targeting, targeting);
+    });
   }
 }
