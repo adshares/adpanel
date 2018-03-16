@@ -32,7 +32,7 @@
               adsh-heading
               adsh-heading--primary"
           >
-            {{ totalFunds | adsharesTokenValue }}
+            {{ financialData.totalFunds | adsharesTokenValue }}
           </span>
           <span
             class="
@@ -41,7 +41,7 @@
               adsh-blue
               adsh-copy--bold"
           >
-            {{ totalFundsChange }} ( {{ totalFundsChange / totalFunds | percent }})
+            {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
           </span>
         </div>
         <div
@@ -65,7 +65,7 @@
               adsh-copy--dark
               adsh-copy--semi"
           >
-            {{ userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after {{ userAutomaticWithdrawPeriod }}
+            {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after {{ financialData.userAutomaticWithdrawPeriod }}
           </p>
           <a
             class="
@@ -99,7 +99,7 @@
               adsh-copy--dark
               adsh-copy--semi"
           >
-            {{ userEthAddress }}
+            {{ financialData.userEthAddress }}
           </p>
           <a
             class="
@@ -152,7 +152,7 @@
               row
               align-center
               adsh-funds-summary__withdraw-funds"
-            *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
+            *ngIf="financialData.totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
           >
             <img

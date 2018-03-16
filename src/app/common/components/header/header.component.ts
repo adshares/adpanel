@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { User } from 'models/user.model';
+import { User, UserFinancialData } from 'models/user.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 
@@ -21,8 +21,7 @@ import * as publisherActions from 'store/publisher/publisher.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  totalFunds: number;
-  totalFundsInCurrency: number;
+  financialData: UserFinancialData;
   notificationsCount = 8;
   userDataState: Store<User>;
   activeUserType: number;
@@ -46,13 +45,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.activeUserType = activeUserType;
       });
 
-    const userFinancialInfoSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((userData: User) => {
-        this.totalFunds = userData.totalFunds;
-        this.totalFundsInCurrency = userData.totalFundsInCurrency;
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
       });
 
-    this.subscriptions.push(userFinancialInfoSubscription, activeUserTypeSubscription);
+    this.subscriptions.push(userFinancialDataSubscription, activeUserTypeSubscription);
 
     this.userDataState = this.store.select('state', 'user', 'data');
   }

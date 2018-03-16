@@ -40,12 +40,12 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawPeriod')
+    const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawPeriod')
       .subscribe((currentPeriod: number) => {
-        this.currentPeriod = this.periods[currentPeriod];
+        this.currentPeriod = withdrawPeriodsEnum[currentPeriod];
     });
 
-    const currentAmountSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawAmount')
+    const currentAmountSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawAmount')
       .subscribe((currentAmount: number) => {
         this.currentAmount = currentAmount;
     });
