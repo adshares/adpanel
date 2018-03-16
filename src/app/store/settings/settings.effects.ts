@@ -3,7 +3,6 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/withLatestFrom';
 
 import * as settingsActions from './settings.actions';
 import { SettingsService } from 'settings/settings.service';
@@ -21,8 +20,7 @@ export class SettingsEffects {
   @Effect()
   loadBillingHistory$: Observable<any> = this.actions$
     .ofType(settingsActions.LOAD_BILLING_HISTORY)
-    .withLatestFrom(this.store.select('state', 'user', 'data', 'id'))
-    .switchMap(([action, userId]) => this.service.getBillingHistory(userId))
+    .switchMap(() => this.service.getBillingHistory())
     .map((billingHistory) => {
       return new settingsActions.LoadBillingHistorySuccess(billingHistory);
     });
@@ -30,8 +28,7 @@ export class SettingsEffects {
   @Effect()
   loadNotificationsSettings$: Observable<any> = this.actions$
     .ofType(settingsActions.LOAD_NOTIFICATIONS_SETTINGS)
-    .withLatestFrom(this.store.select('state', 'user', 'data', 'id'))
-    .switchMap(([action, userId]) => this.service.getNotificationsSettings(userId))
+    .switchMap(() => this.service.getNotificationsSettings())
     .map((notificationsSettings) => {
       return new settingsActions.LoadNotificationsSettingsSuccess(notificationsSettings);
     });
