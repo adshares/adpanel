@@ -8,7 +8,10 @@ import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { enumToArray } from 'common/utilities/helpers';
 import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
-import { appSettings } from 'app-settings'
+import { appSettings } from 'app-settings';
+import { LocalStorageUser } from 'models/user.model';
+
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
@@ -65,15 +68,25 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     this.isFormBeingSubmitted = true;
 
-    const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(
-      this.automaticWithdrawForm.value.period,
-      this.automaticWithdrawForm.value.amount
-    )
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+    const period = this.automaticWithdrawForm.value.period;
+    const amount = this.automaticWithdrawForm.value.amount;
+
+    const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(period, amount)
+      .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(automaticWithdrawSubscription);
 
+    const userData = JSON.parse(localStorage.getItem('adshUser'));
+    const periodIndex = this.periods.findIndex((searchedPeriod) => searchedPeriod === period );
+
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
+      userAutomaticWithdrawPeriod: periodIndex,
+      userAutomaticWithdrawAmount: amount
+    });
+
+    localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
+
+    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(periodIndex));
+    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawAmount(amount));
   }
 }

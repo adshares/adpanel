@@ -48,6 +48,10 @@
     @include font(11, normal);
   }
 
+  &--white {
+    color: pal(white);
+  }
+
   &--light {
     color: pal(gray);
   }
