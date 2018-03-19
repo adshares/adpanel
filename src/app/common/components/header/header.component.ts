@@ -8,12 +8,13 @@ import { AppState } from 'models/app-state.model';
 import { User } from 'models/user.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
-
 import { userRolesEnum } from 'models/enum/user.enum';
+import { userInitialState } from 'models/initial-state/user';
 
 import * as commonActions from 'store/common/common.actions';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import * as publisherActions from 'store/publisher/publisher.actions';
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -85,5 +86,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   openAddFundsDialog() {
     this.dialog.open(AddFundsDialogComponent);
+  }
+
+  logOut() {
+    localStorage.removeItem('adshUser');
+    this.store.dispatch(new authActions.SetUser(userInitialState));
+    this.router.navigate(['/auth/login']);
   }
 }
