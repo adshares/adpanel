@@ -54,10 +54,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    const user = (
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, userEthAddress, userMemo, userAutomaticWithdrawPeriod, userAutomaticWithdrawAmount, authToken})
-    )(userData);
+    const { remember, passwordLength, expiration, ...user } = userData;
 
     if (isUnixTimePastNow(userData.expiration)) {
       localStorage.removeItem('adshUser');
