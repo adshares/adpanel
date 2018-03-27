@@ -23,10 +23,14 @@
   }
 
   &__iframe {
-    width: 143px;
-    height: 142px;
+    width: 140px;
+    height: 140px;
     background-color: pal(gray, x-light);
-    margin-left: 10px;
+    padding: 15px;
+
+    &:not(:first-of-type) {
+      margin-left: 10px;
+    }
   }
 
   &__info-cell {
@@ -70,4 +74,8 @@
       margin-bottom: 25px;
     }
   }
+}
+
+.campaign-ads {
+  position: relative;
 }

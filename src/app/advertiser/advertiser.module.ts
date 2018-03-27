@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppCommonModule } from 'common/common.module';
@@ -41,7 +42,8 @@ const matModules = [
   MatDatepickerModule,
   MatInputModule,
   MatMenuModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTooltipModule
 ];
 
 const editCampaignComponents = [

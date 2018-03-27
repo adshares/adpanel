@@ -287,18 +287,47 @@
     </div>
 
     <div class="row">
-      <div *ngFor="let ad of campaign.ads">
+      <div
+        *ngFor="let ad of campaign.ads"
+        class="campaign-ads"
+      >
         <iframe
           class="campaign-edit-summary__iframe"
           *ngIf="ad.imageUrl"
           [src]="ad.imageUrl | trustUrl"
+          (mouseover)="toggleTooltip(true)"
+          (mouseleave)="toggleTooltip(false)"
         ></iframe>
 
         <iframe
           class="campaign-edit-summary__iframe"
           *ngIf="ad.html"
           [srcdoc]="ad.html | trustHtml"
+          (mouseover)="toggleTooltip(true)"
+          (mouseleave)="toggleTooltip(false)"
         ></iframe>
+
+        <div
+          class="adsh-tooltip"
+          [class.active]="tooltipActive"
+        >
+          <div class="triangle"></div>
+          <p
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+          >
+            {{ ad.shortHeadline }}
+          </p>
+          <p
+            class="
+              adsh-copy
+              adsh-copy--x-small
+              adsh-copy--blue"
+          >
+            {{ ad.imageSize }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
