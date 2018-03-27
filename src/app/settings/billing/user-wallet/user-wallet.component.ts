@@ -23,7 +23,7 @@ import * as moment from 'moment';
 export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
 
-  periods = enumToArray(withdrawPeriodsEnum);
+  periodsEnum = withdrawPeriodsEnum;
   financialData: UserFinancialData;
 
   constructor(
