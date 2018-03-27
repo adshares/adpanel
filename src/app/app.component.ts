@@ -53,11 +53,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-
-    const user = (
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken, financialData}) =>
-      ({id, email, isAdvertiser, isPublisher, isAdmin, isEmailConfirmed, authToken, financialData})
-    )(userData);
+  
+    const { remember, passwordLength, expiration, ...user } = userData;
 
     if (isUnixTimePastNow(userData.expiration)) {
       localStorage.removeItem('adshUser');
