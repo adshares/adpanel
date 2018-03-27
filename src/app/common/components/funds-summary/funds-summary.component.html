@@ -67,7 +67,7 @@
           >
             {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} Tokens after
             <span class="period">
-              {{ financialData.userAutomaticWithdrawPeriod }}
+              {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
             </span>
           </p>
           <a
