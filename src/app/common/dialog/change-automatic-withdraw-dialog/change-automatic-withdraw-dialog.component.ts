@@ -72,7 +72,6 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     const period = this.automaticWithdrawForm.value.period;
     const amount = this.automaticWithdrawForm.value.amount;
-    console.log(period, amount)
 
     const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(period, amount)
       .subscribe(() => this.dialogRef.close());
