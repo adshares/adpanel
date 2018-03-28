@@ -221,6 +221,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
           this.selectedItems.push(customOption);
           this.itemsChange.emit(this.selectedItems);
           this.onSearchTermChange();
+          this.parentOption = null;
         }
       });
   }
