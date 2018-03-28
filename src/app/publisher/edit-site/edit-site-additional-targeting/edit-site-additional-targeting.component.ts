@@ -40,10 +40,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
-
-
     this.getSiteFromStore();
-
   }
 
   updateAddedItems(items) {
