@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
 
 @Component({
   selector: 'app-targeting-select',
@@ -23,6 +25,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   optionsHasValue = false;
   searchTerm = '';
 
+  constructor(private dialog: MatDialog) { }
+
   ngOnInit() {
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
@@ -30,7 +34,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.selectedItems = this.selectedItems.filter((item) => item.selected);
+    this.selectedItems = this.selectedItems.filter((item) => item.selected || item.isCustom);
   }
 
   changeViewModel(options) {
@@ -138,6 +142,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     const searchTerm = this.searchTerm.toLowerCase().trim();
 
     if (searchTerm) {
+      this.backAvailable = false;
+      this.parentOption = null;
       this.prepareSearchViewModel();
     } else {
       this.changeViewModel(this.targetingOptions);
@@ -169,6 +175,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       if (item) {
         Object.assign(item, { selected: true });
         choosedList.push(item);
+      } else if (savedItem.isCustom) {
+        choosedList.push(savedItem);
       }
     })
   }
@@ -191,5 +199,29 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
 
     return false;
+  }
+
+  addCustomOption() {
+    const availableOptions = this.targetingOptionsForSearch.filter(option => option.allow_input)
+
+    const addCustomOptionDialog = this.dialog.open(
+      AddCustomTargetingDialogComponent,
+      {
+        data: {
+          parentOption: this.parentOption,
+          targetingOptions: this.targetingOptions,
+          availableOptions,
+        }
+      }
+    );
+
+    addCustomOptionDialog.afterClosed()
+      .subscribe((customOption) => {
+        if (customOption) {
+          this.selectedItems.push(customOption);
+          this.itemsChange.emit(this.selectedItems);
+          this.onSearchTermChange();
+        }
+      });
   }
 }

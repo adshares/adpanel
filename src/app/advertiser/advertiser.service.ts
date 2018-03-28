@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
 import { environment } from 'environments/environment';
@@ -18,13 +17,11 @@ export class AdvertiserService {
   constructor(private http: HttpClient) { }
 
   getCampaigns(): Observable<Campaign[]> {
-    return this.http.get(`${environment.apiUrl}/campaigns`)
-      .map((campaigns: Campaign[]) => campaigns);
+    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
   getCampaign(id: number): Observable<Campaign> {
-    return this.http.get(`${environment.apiUrl}/campaign/${id}`)
-      .map((campaign: Campaign) => campaign);
+    return this.http.get<Campaign>(`${environment.apiUrl}/campaign/${id}`);
   }
 
   deleteAdImage(adId: number) {
@@ -38,12 +35,11 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.post(`${environment.apiUrl}/save_campaign`, { campaign })
-      .map((campaign: Campaign) => campaign);
+    return this.http.post<Campaign>(`${environment.apiUrl}/save_campaign`, { campaign });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get(`${environment.apiUrl}/campaign_targeting`)
-      .do(prepareTargetingChoices);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaign_targeting`)
+      .do((targetingOptions) => prepareTargetingChoices(targetingOptions, targetingOptions));
   }
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
 import { environment } from 'environments/environment';
@@ -15,13 +14,11 @@ export class PublisherService {
   constructor(private http: HttpClient) {}
 
   getSites(): Observable<Site[]> {
-    return this.http.get(`${environment.apiUrl}/sites`)
-      .map((sites: Site[]) => sites);
+    return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
 
   getSite(id: number): Observable<Site> {
-    return this.http.get(`${environment.apiUrl}/site/${id}`)
-      .map((site: Site) => site);
+    return this.http.get<Site>(`${environment.apiUrl}/site/${id}`);
   }
 
   saveSite(site: Site): Observable<Site> {
@@ -31,17 +28,15 @@ export class PublisherService {
       Object.assign(site, {targeting: targetingObject});
     }
 
-    return this.http.post(`${environment.apiUrl}/save_site`, { site })
-      .map((site: Site) => site);
+    return this.http.post<Site>(`${environment.apiUrl}/save_site`, { site });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get(`${environment.apiUrl}/site_targeting`)
-      .do(prepareTargetingChoices);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/site_targeting`)
+      .do((targetingOptions) => prepareTargetingChoices(targetingOptions, targetingOptions));
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
-    return this.http.get(`${environment.apiUrl}/ad_unit_sizes`)
-      .map((adUnitSizes: AdUnitSize[]) => adUnitSizes);
+    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/ad_unit_sizes`);
   }
 }
