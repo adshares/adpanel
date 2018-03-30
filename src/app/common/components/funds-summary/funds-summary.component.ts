@@ -40,7 +40,6 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
-        Object.assign(this.financialData, { userAutomaticWithdrawPeriod: financialData.userAutomaticWithdrawPeriod });
       });
 
     this.subscriptions.push(getUserSubscription, userFinancialDataSubscription);
