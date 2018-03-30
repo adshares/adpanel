@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
 import { AppState} from 'models/app-state.model';
+import { UserFinancialData } from 'models/user.model';
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -15,13 +16,11 @@ import { AppState} from 'models/app-state.model';
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
   withdrawFundsForm: FormGroup;
 
-  userEthAddress: string;
+  financialData: UserFinancialData;
+
+  memoInputActive = false;
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
-
-  transactionFee: number;
-  totalWithdrawAmount: number;
-  fundsLeft: number;
 
   constructor(
     public dialogRef: MatDialogRef<WithdrawFundsDialogComponent>,
@@ -32,26 +31,33 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-    this.createForm();
-
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userEthAddress')
-      .subscribe((userEthAddress: string) => {
-        this.userEthAddress = userEthAddress;
+    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
       });
     this.subscriptions.push(userEthAddressSubscription);
+
+    this.createForm();
   }
 
   createForm() {
     this.withdrawFundsForm = new FormGroup({
-      address: new FormControl('', [
+      address: new FormControl(this.financialData.userEthAddress, [
         Validators.required,
         Validators.minLength(42),
         Validators.maxLength(42)
       ]),
       amount: new FormControl('', [
         Validators.required
+      ]),
+      memo: new FormControl('', [
+        Validators.maxLength(32)
       ])
     });
+  }
+
+  toggleMemoInput(state) {
+    this.memoInputActive = state;
   }
 
   withdrawFunds() {
@@ -65,7 +71,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     const changeWithdrawAddressSubscription = this.settingsService.withdrawFunds(
       this.withdrawFundsForm.value.address,
-      this.withdrawFundsForm.value.amount
+      this.withdrawFundsForm.value.amount,
+      this.withdrawFundsForm.value.memo
     )
       .subscribe(() => this.dialogRef.close());
 

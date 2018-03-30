@@ -47,7 +47,6 @@
             adsh-form-input
             adsh-form-input--full"
           name="address"
-          [value]="userEthAddress"
           formControlName="address"
         >
         <span
@@ -90,7 +89,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          Total Funds
+          {{ financialData.totalFunds | adsharesTokenValue}}
         </h1>
       </div>
 
@@ -121,29 +120,36 @@
         >
           Please specify withdraw amount
         </span>
+        <span
+          class="error-msg"
+          *ngIf="withdrawFundsForm.get('amount').value > financialData.totalFunds"
+        >
+          The amount exceeds your total funds.
+        </span>
       </div>
 
       <div
         class="
           calculations
           adsh-copy
+          adsh-copy--large
           adsh-copy--x-dark
-          adsh-copy--normal"
+          adsh-copy--semi"
       >
         <p>
           Transaction Fee:
           <span class="fee">
-            {{ transactionFee }}
+            {{ withdrawFundsForm.get('amount').value * 0.002 }}
           </span>
         </p>
         <p>
-          Total Amount:
+          Total Withdraw Amount:
           <span class="total-amount">
-            {{ totalWithdrawAmount }}
+            {{ withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * 0.002 | adsharesTokenValue }}
           </span>
         </p>
         <p>
-          Left: {{ fundsLeft }}
+          Left: {{ financialData.totalFunds - withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * 0.002 | adsharesTokenValue }}
         </p>
       </div>
 
@@ -154,29 +160,57 @@
           adsh-btn--white
           adsh-btn--block
           row
-          align-center
-          adsh-funds-summary__deposit-funds"
+          align-center"
+        (click)="toggleMemoInput(!memoInputActive); $event.preventDefault()"
       >
         <img
           alt="Credit Card Icon"
           class="
-            adsh-icon
-            adsh-icon--prepend"
+          adsh-icon
+          adsh-icon--prepend"
           src="/assets/images/plus-circle--blue.svg"
         >
         <span
           class="
-            adsh-copy
-            adsh-copy--x-dark"
+          adsh-copy
+          adsh-copy--x-dark
+          adsh-copy--semi"
         >
-          Add Memo
+          Add MEMO
         </span>
       </button>
 
       <div
+        class="adsh-form-input__box"
+        *ngIf="memoInputActive"
+      >
+        <label
+          for="address"
+          class="adsh-form-label"
+        >
+          MEMO
+        </label>
+        <input
+          id="memo"
+          class="
+          adsh-form-input
+          adsh-form-input--full"
+          name="memo"
+          formControlName="memo"
+        >
+        <span
+          class="error-msg"
+          *ngIf="withdrawFundsForm.hasError('maxlength', ['memo'])"
+        >
+          Memo cannot exceed 32 characters
+        </span>
+      </div>
+
+      <div
         class="
           row
-          justify-center"
+          justify-center
+          adsh-btn--submit"
       >
         <button
           class="
