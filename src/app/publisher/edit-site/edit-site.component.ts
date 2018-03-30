@@ -6,7 +6,7 @@ import 'rxjs/add/operator/take';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { parseTargetingOtionsToArray } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
 
 @Component({
@@ -28,11 +28,11 @@ export class EditSiteComponent implements OnInit {
       .take(1)
       .subscribe((lastEditedSite: Site) => {
         if (!lastEditedSite.targetingArray) {
-          const targetingOtions = this.route.snapshot.data.targetingOptions;
+          const targetingOptions = this.route.snapshot.data.targetingOptions;
 
           this.store.dispatch(
             new publisherActions.SaveSiteTargeting(
-              parseTargetingOtionsToArray(lastEditedSite.targeting, targetingOtions)
+              parseTargetingOptionsToArray(lastEditedSite.targeting, targetingOptions)
             )
           );
         }

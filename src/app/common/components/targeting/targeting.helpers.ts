@@ -7,18 +7,20 @@ export function prepareTargetingChoices(options, targetingOptions, parentOption 
 
     if (optionSublist) {
       prepareTargetingChoices(optionSublist, targetingOptions, option);
-    } else {
-      const targetingOptionTopKeys = targetingOptions.map((targeting) => targeting.key);
 
-      Object.assign(option, {
-        key: generateKeyFromOption(parentOption, option.value, targetingOptions, targetingOptionTopKeys, ''),
-        parent: {
-          label: parentOption.label,
-          value_type: parentOption.value_type,
-          allow_input: parentOption.allow_input
-        }
-      });
+      return;
     }
+
+    const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.key);
+
+    Object.assign(option, {
+      key: generateKeyFromOption(parentOption, option.value, targetingOptions, targetingOptionTopKeys, ''),
+      parent: {
+        label: parentOption.label,
+        value_type: parentOption.value_type,
+        allow_input: parentOption.allow_input
+      }
+    });
   });
 }
 
@@ -29,7 +31,7 @@ export function parseTargetingForBackend(choosedTargeting: AssetTargeting) {
   };
 
   [choosedTargeting.requires, choosedTargeting.excludes].forEach((targetingList, index) => {
-    targetingList.forEach((targeting) => {
+    targetingList.forEach(targeting => {
       const keyPartials = targeting.key.split('-');
       const lastPartial = keyPartials.pop();
       const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
@@ -61,20 +63,20 @@ function createPathObject(obj, keyPath, value) {
   }
 }
 
-export function parseTargetingOtionsToArray(targetingObject, targetingOptions): AssetTargeting {
+export function parseTargetingOptionsToArray(targetingObject, targetingOptions): AssetTargeting {
   const requiresResultKeys = [];
   const excludesResultKeys = [];
   const requiresResult = [];
   const excludesResult = [];
-  const targetingOptionTopKeys = targetingOptions.map((targeting) => targeting.key);
+  const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.key);
 
   generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
   generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
   requiresResultKeys.forEach(
-    (requiresResultKey) => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
+    requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
   );
   excludesResultKeys.forEach(
-    (excludesResultKey) => addTargetingOptionToResult(excludesResultKey, excludesResult, targetingOptions)
+    excludesResultKey => addTargetingOptionToResult(excludesResultKey, excludesResult, targetingOptions)
   );
   addCustomOptionToResult(requiresResultKeys, requiresResult, targetingOptions);
   addCustomOptionToResult(excludesResultKeys, excludesResult, targetingOptions);
@@ -101,19 +103,21 @@ function generateTargetingKeysArray(targetingObject, result, targetingOptionTopK
 
       key += (key === '' ? '': '-') + partialKey;
       generateTargetingKeysArray(targetingObject[partialKey], result, targetingOptionTopKeys, key);
-    } else {
-      result.push(`${key}-${targetingObject[partialKey]}`);
+
+      return;
     }
+
+    result.push(`${key}-${targetingObject[partialKey]}`);
   });
 }
 
-function addTargetingOptionToResult(resultKey, result, targetingOtions) {
-  targetingOtions.forEach((targetingOption) => {
+function addTargetingOptionToResult(resultKey, result, targetingOptions) {
+  targetingOptions.forEach(targetingOption => {
     if (targetingOption.children) {
       addTargetingOptionToResult(resultKey, result, targetingOption.children);
     } else if (targetingOption.values) {
       const foundResult = targetingOption.values.find(
-        (targetingOptionValue) => targetingOptionValue.key === resultKey
+        targetingOptionValue => targetingOptionValue.key === resultKey
       );
 
       if (foundResult) {
@@ -124,8 +128,8 @@ function addTargetingOptionToResult(resultKey, result, targetingOtions) {
 }
 
 function addCustomOptionToResult(optionKeys, results, targetingOptions) {
-   optionKeys.forEach((optionKey) => {
-     const addedResultIndex = results.findIndex((result) => result.key === optionKey);
+   optionKeys.forEach(optionKey => {
+     const addedResultIndex = results.findIndex(result => result.key === optionKey);
 
      if (addedResultIndex === -1) {
        const parentKeyPathArray = optionKey.split('-');
@@ -144,14 +148,14 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
 
       results.push(customOption);
      }
-   })
+   });
 }
 
 function getCustomOptionParentByKey(parentKeyPathArray, targetingOptions) {
-  let result = targetingOptions.find((option) => option.key === parentKeyPathArray[0]);
+  let result = targetingOptions.find(option => option.key === parentKeyPathArray[0]);
 
   for (let i = 1; i < parentKeyPathArray.length; i++) {
-    result = result.children.find((option) => option.key === parentKeyPathArray[i]);
+    result = result.children.find(option => option.key === parentKeyPathArray[i]);
   }
 
   return result;
@@ -180,11 +184,11 @@ export function prepareCustomOption(
   targetingOptions: TargetingOption[],
   action: number
 ) {
-  const optionLabel = parentOption.value_type == 'number' ?
+  const optionLabel = parentOption.value_type === 'number' ?
     `${customTargetingActionsEnum[action]} ${value}` : value;
-  const optionValue = parentOption.value_type == 'number' ?
+  const optionValue = parentOption.value_type === 'number' ?
     getnerateNumberOptionValue(value, action) : value;
-  const targetingOptionTopKeys = targetingOptions.map((targeting) => targeting.key);
+  const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.key);
 
   return {
     key: generateKeyFromOption(parentOption, optionValue, targetingOptions, targetingOptionTopKeys, ''),
@@ -205,7 +209,7 @@ function getnerateNumberOptionValue(value: string | number, action: number) {
       return `<,${value}>`;
     case 1:
       return `<${value}>`;
-    case 2:
+    default:
       return `<${value},>`;
   }
 }

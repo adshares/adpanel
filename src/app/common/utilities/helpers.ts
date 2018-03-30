@@ -47,11 +47,11 @@ function isUnixTimePastNow(unixTime): boolean {
 }
 
 function selectCompare(value, nextValue): boolean {
-  return value && nextValue ? value.id === nextValue.id : value === nextValue;
+  return (value && nextValue) ? (value.id === nextValue.id) : (value === nextValue);
 }
 
 function selectCompareForTargetingOption(value, nextValue): boolean {
-  return value && nextValue ? value.key === nextValue.key : value === nextValue;
+  return (value && nextValue) ? (value.key === nextValue.key) : (value === nextValue);
 }
 
 function createInitialArray(element, count) {

@@ -39,11 +39,13 @@ export class AddCustomTargetingDialogComponent implements OnInit {
         customTargetingValue: new FormControl(null, [Validators.required, Validators.min(0)]),
         customTargetingAction: new FormControl(0, Validators.required)
       });
-    } else {
-      this.customTargetingForm = new FormGroup({
-        customTargetingValue: new FormControl('', [Validators.required, Validators.maxLength(30)])
-      });
+
+      return;
     }
+
+    this.customTargetingForm = new FormGroup({
+      customTargetingValue: new FormControl('', [Validators.required, Validators.maxLength(30)])
+    });
   }
 
   addCustomTareting() {
