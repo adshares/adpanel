@@ -32,6 +32,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsBarEnabled = false;
 
   settingsMenuOpen = false;
+  chooseUserMenuOpen = false;
 
   constructor(
     private store: Store<AppState>,
@@ -82,6 +83,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   toggleSettingsMenu(state) {
     this.settingsMenuOpen = state;
+  }
+
+  toggleChooseUserMenu(state) {
+    this.chooseUserMenuOpen = state;
   }
 
   openAddFundsDialog() {
