@@ -39,7 +39,6 @@ export class AddCustomTargetingDialogComponent implements OnInit {
         customTargetingValue: new FormControl(null, [Validators.required, Validators.min(0)]),
         customTargetingAction: new FormControl(0, Validators.required)
       });
-
       return;
     }
 
