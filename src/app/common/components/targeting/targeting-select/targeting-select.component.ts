@@ -3,13 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
   selector: 'app-targeting-select',
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent implements OnInit, OnChanges {
+export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
   @Input() targetingOptions;
   @Input() addedItems;
   @Output()
@@ -25,7 +26,9 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   optionsHasValue = false;
   searchTerm = '';
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+    super(null);
+  }
 
   ngOnInit() {
     this.prepareTargetingOptionsForSearch();
@@ -48,7 +51,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       this.setBackViewModel(this.targetingOptions, options);
     }
 
-    this.optionsHasValue = options[0].value ? true : false;
+    this.optionsHasValue = options[0].hasOwnProperty('value') ? true : false;
   }
 
   handleOptionClick(option) {
@@ -145,9 +148,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       this.backAvailable = false;
       this.parentOption = null;
       this.prepareSearchViewModel();
-    } else {
-      this.changeViewModel(this.targetingOptions);
+
+      return;
     }
+
+    this.changeViewModel(this.targetingOptions);
   }
 
   prepareSearchViewModel() {
@@ -215,7 +220,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       }
     );
 
-    addCustomOptionDialog.afterClosed()
+    const customDialogCloseSubscription = addCustomOptionDialog.afterClosed()
       .subscribe((customOption) => {
         if (customOption) {
           this.selectedItems.push(customOption);
@@ -224,5 +229,6 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
           this.parentOption = null;
         }
       });
+    this.subscriptions.push(customDialogCloseSubscription);
   }
 }
