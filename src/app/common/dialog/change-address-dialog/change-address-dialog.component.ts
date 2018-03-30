@@ -33,7 +33,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'userEthAddress')
+    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userEthAddress')
       .subscribe((userEthAddress: string) => {
         this.userEthAddress = userEthAddress;
       });
