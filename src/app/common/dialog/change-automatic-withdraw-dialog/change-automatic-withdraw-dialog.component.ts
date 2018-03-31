@@ -22,8 +22,9 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   automaticWithdrawForm: FormGroup;
 
   periods = enumToArray(withdrawPeriodsEnum);
+  periodsEnum = withdrawPeriodsEnum;
   amounts = appSettings.WITHDRAWAL_AMOUNTS;
-  currentPeriod: string;
+  currentPeriod: number;
   currentAmount: number;
 
   isFormBeingSubmitted = false;
@@ -40,15 +41,16 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawPeriod')
+    const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawPeriod')
       .subscribe((currentPeriod: number) => {
-        this.currentPeriod = this.periods[currentPeriod];
+        this.currentPeriod = currentPeriod;
     });
 
-    const currentAmountSubscription = this.store.select('state', 'user', 'data', 'userAutomaticWithdrawAmount')
+    const currentAmountSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawAmount')
       .subscribe((currentAmount: number) => {
         this.currentAmount = currentAmount;
     });
+
     this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
   }
 
@@ -77,16 +79,15 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
     this.subscriptions.push(automaticWithdrawSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const periodIndex = this.periods.findIndex((searchedPeriod) => searchedPeriod === period );
 
     const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
-      userAutomaticWithdrawPeriod: periodIndex,
+      userAutomaticWithdrawPeriod: period,
       userAutomaticWithdrawAmount: amount
     });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
 
-    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(periodIndex));
+    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(period));
     this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawAmount(amount));
   }
 }

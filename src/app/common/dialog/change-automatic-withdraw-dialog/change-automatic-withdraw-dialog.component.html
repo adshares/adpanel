@@ -47,10 +47,10 @@
             [(ngModel)]="currentPeriod"
           >
             <mat-option
-              *ngFor="let period of periods"
-              [value]="period"
+              *ngFor="let period of periods; let periodIndex = index"
+              [value]="periodIndex"
             >
-              {{ period }}
+              {{ periodsEnum[periodIndex] }}
             </mat-option>
           </mat-select>
           <span

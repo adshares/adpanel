@@ -334,3 +334,7 @@ router-outlet ~ * {
   background-color: darken(pal(white), 1.5);
   cursor: pointer;
 }
+
+.break-word {
+  word-wrap: break-word;
+}
