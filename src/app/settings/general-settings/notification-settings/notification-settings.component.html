@@ -57,14 +57,16 @@
             </div>
             <div class="col-xs-4">
               <mat-slide-toggle
+                color="primary"
                 (change)="onNotificationChange(notification, 'notification')"
                 aria-label="notification-component"
                 [checked]="notification.notification === true"
                 ([ngModel])="notification.notification"
               ></mat-slide-toggle>
-            </div>
+            </div> 
             <div class="col-xs-2">
               <mat-slide-toggle
+                color="primary"
                 (change)="onNotificationChange(notification, 'email')"
                 aria-label="notification-email"
                 [checked]="notification.email === true"
