@@ -3,7 +3,7 @@
     "email": "sth@sth.sth",
     "isAdvertiser": true,
     "isPublisher": true,
-    "isAdmin": true,
+    "isAdmin": false,
     "isEmailConfirmed": false,
     "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
     "userMemo": "User 0291",
