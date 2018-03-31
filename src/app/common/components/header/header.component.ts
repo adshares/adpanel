@@ -10,6 +10,7 @@ import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { userInitialState } from 'models/initial-state/user';
+import { AuthService } from 'auth/auth.service';
 
 import * as commonActions from 'store/common/common.actions';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -36,7 +37,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {
     super(null);
   }
@@ -91,6 +93,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   logOut() {
     localStorage.removeItem('adshUser');
     this.store.dispatch(new authActions.SetUser(userInitialState));
+    this.authService.logOut().subscribe();
     this.router.navigate(['/auth/login']);
   }
 }
