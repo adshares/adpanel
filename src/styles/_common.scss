@@ -329,3 +329,8 @@ router-outlet ~ * {
   height: 100%;
   width: 100%;
 }
+
+
+.break-word {
+  word-wrap: break-word;
+}
