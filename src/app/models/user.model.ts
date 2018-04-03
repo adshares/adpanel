@@ -1,3 +1,14 @@
+interface UserFinancialData {
+  userEthAddress: string;
+  userMemo: string;
+  userAutomaticWithdrawPeriod: number;
+  userAutomaticWithdrawAmount: number;
+  totalFunds: number;
+  totalFundsInCurrency: number;
+  totalFundsChange: number;
+  lastPayment: string;
+}
+
 interface User {
   id: number;
   email: string;
@@ -6,12 +17,9 @@ interface User {
   isAdmin: boolean;
   isEmailConfirmed: boolean;
 
-  userEthAddress: string;
-  userMemo: string;
-  userAutomaticWithdrawPeriod: number;
-  userAutomaticWithdrawAmount: number;
-
   authToken?: string;
+
+  financialData: UserFinancialData;
 }
 
 interface LocalStorageUser extends User {
@@ -20,4 +28,4 @@ interface LocalStorageUser extends User {
   expiration: number;
 }
 
-export { User, LocalStorageUser };
+export { UserFinancialData, User, LocalStorageUser };
