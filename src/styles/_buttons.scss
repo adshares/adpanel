@@ -47,7 +47,7 @@
     border: 1px solid pal(gray, light);
 
     &:hover {
-      background-color: darken(pal(white), 1.2);
+      background-color: darken(pal(white), 2);
     }
   }
 
@@ -56,7 +56,7 @@
     min-width: 160px;
 
     &:hover {
-      background-color: darken(pal(blue), 2);
+      background-color: darken(pal(blue), 5);
     }
   }
 
@@ -64,7 +64,7 @@
     background-color: pal(green);
 
     &:hover {
-      background-color: darken(pal(green), 2);
+      background-color: darken(pal(green), 5);
     }
   }
 

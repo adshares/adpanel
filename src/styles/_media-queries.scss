@@ -6,6 +6,8 @@ $sm-breakpoint: 600px;
 $md-breakpoint: 992px;
 $lg-breakpoint: 1200px;
 $xl-breakpoint: 1800px;
+$xxl-breakpoint: 2560px;
+$xxxl-breakpoint: 4000px;
 $screen: "only screen";
 $landscape: "#{$screen} and (orientation: landscape)";
 $portrait: "#{$screen} and (orientation: portrait)";
@@ -29,18 +31,24 @@ $viewport: (
   md-up: "#{$screen} and (min-width: #{$md-breakpoint})",
   lg-up: "#{$screen} and (min-width: #{$lg-breakpoint})",
   xl-up: "#{$screen} and (min-width: #{$xl-breakpoint})",
+  xxl-up: "#{$screen} and (min-width: #{$xxl-breakpoint})",
+  xxxl-up: "#{$screen} and (min-width: #{$xxxl-breakpoint})",
 
   xs-down: "#{$screen} and (max-width: #{$xs-breakpoint})",
   sm-down: "#{$screen} and (max-width: #{$sm-breakpoint})",
   md-down: "#{$screen} and (max-width: #{$md-breakpoint})",
   lg-down: "#{$screen} and (max-width: #{$lg-breakpoint})",
   xl-down: "#{$screen} and (max-width: #{$xl-breakpoint})",
+  xxl-down: "#{$screen} and (max-width: #{$xxl-breakpoint})",
+  xxxl-down: "#{$screen} and (max-width: #{$xxxl-breakpoint})",
 
   xs-down-without-xs: "#{$screen} and (max-width: #{$xs-breakpoint} - 1)",
   sm-down-without-sm: "#{$screen} and (max-width: #{$sm-breakpoint} - 1)",
   md-down-without-md: "#{$screen} and (max-width: #{$md-breakpoint} - 1)",
   lg-down-without-lg: "#{$screen} and (max-width: #{$lg-breakpoint} - 1)",
-  xl-down-without-xl: "#{$screen} and (max-width: #{$xl-breakpoint} - 1)"
+  xl-down-without-xl: "#{$screen} and (max-width: #{$xl-breakpoint} - 1)",
+  xxl-down-without-xxl: "#{$screen} and (max-width: #{$xxxl-breakpoint} - 1)",
+  xxxl-down-without-xxxl: "#{$screen} and (max-width: #{$xxxl-breakpoint} - 1)"
 );
 
 @mixin media($name) {
@@ -52,7 +60,9 @@ $viewport_sizes_up: (
   sm: 'sm-up',
   md: 'md-up',
   lg: 'lg-up',
-  xl: 'xl-up'
+  xl: 'xl-up',
+  xxl: 'xxl-up',
+  xxxl: 'xxxl-up'
 );
 
 $viewport_sizes_down: (
@@ -60,7 +70,9 @@ $viewport_sizes_down: (
   sm: 'sm-down',
   md: 'md-down',
   lg: 'lg-down',
-  xl: 'xl-down'
+  xl: 'xl-down',
+  xxl: 'xxl-down',
+  xxxl: 'xxxl-down'
 );
 
 $viewport_sizes_down_without_size: (
@@ -68,5 +80,7 @@ $viewport_sizes_down_without_size: (
   sm: 'sm-down-without-sm',
   md: 'md-down-without-md',
   lg: 'lg-down-without-lg',
-  xl: 'xl-down-without-xl'
+  xl: 'xl-down-without-xl',
+  xxl: 'xxl-down-without-xxl',
+  xxxl: 'xxxl-down-without-xxxl'
 );

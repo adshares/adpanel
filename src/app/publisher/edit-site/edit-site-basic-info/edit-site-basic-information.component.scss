@@ -1,6 +1,12 @@
+@import '../../../../styles.scss';
+
 .site-edit-basic-information {
   max-width: 500px;
   margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 900px;
+  }
 
   &__info-box {
     min-height: 400px;
