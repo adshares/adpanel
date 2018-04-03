@@ -44,7 +44,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     private store: Store<AppState>,
     private chartService: ChartService
   ) {
-    super(null);
+    super();
     this.site = this.route.snapshot.data.site;
   }
 

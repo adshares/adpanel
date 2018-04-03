@@ -21,7 +21,7 @@ export class RegisterComponent extends HandleSubscription {
     private authService: AuthService,
     private router: Router
   ) {
-    super(null);
+    super();
   }
 
   register() {

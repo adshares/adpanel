@@ -22,7 +22,7 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
     private router: Router,
     private store: Store<AppState>
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

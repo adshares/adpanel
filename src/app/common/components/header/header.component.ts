@@ -40,7 +40,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     private dialog: MatDialog,
     private authService: AuthService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
@@ -91,9 +91,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   logOut() {
+    const logoutSubscription = this.authService.logOut().subscribe();
+    this.subscriptions.push(logoutSubscription);
+
     localStorage.removeItem('adshUser');
     this.store.dispatch(new authActions.SetUser(userInitialState));
-    this.authService.logOut().subscribe();
     this.router.navigate(['/auth/login']);
   }
 }

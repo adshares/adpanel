@@ -20,7 +20,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     private store: Store<AppState>,
     private commonService: CommonService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
