@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { User } from 'models/user.model';
+import { User, UserFinancialData } from 'models/user.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
@@ -22,8 +22,7 @@ import * as authActions from 'store/auth/auth.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  currentBalanceAdst = 128.20;
-  currentBalanceUSD = 1240.02;
+  financialData: UserFinancialData;
   notificationsCount = 8;
   userDataState: Store<User>;
   activeUserType: number;
@@ -32,6 +31,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsBarEnabled = false;
 
   settingsMenuOpen = false;
+  chooseUserMenuOpen = false;
 
   constructor(
     private store: Store<AppState>,
@@ -47,7 +47,13 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.activeUserType = activeUserType;
       });
 
-    this.subscriptions.push(activeUserTypeSubscription);
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
+      });
+
+    this.subscriptions.push(userFinancialDataSubscription, activeUserTypeSubscription);
+
     this.userDataState = this.store.select('state', 'user', 'data');
   }
 
@@ -82,6 +88,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   toggleSettingsMenu(state) {
     this.settingsMenuOpen = state;
+  }
+
+  toggleChooseUserMenu(state) {
+    this.chooseUserMenuOpen = state;
   }
 
   openAddFundsDialog() {

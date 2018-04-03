@@ -3,3 +3,18 @@
 .back {
   margin-right: 10px;
 }
+
+.app-targeting-display {
+  display: flex;
+  margin-left: -25px;
+
+  &:not(:first-of-type) {
+    margin-top: 20px;
+  }
+}
+
+.status-wrapper {
+  .adsh-select {
+    margin-top: 20px;
+  }
+}
