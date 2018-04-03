@@ -149,7 +149,7 @@
           </span>
         </p>
         <p>
-          Left: {{ financialData.totalFunds - withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee | adsharesTokenValue }}
+          Left: {{ financialData.totalFunds - (withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee) | adsharesTokenValue }}
         </p>
       </div>
 
