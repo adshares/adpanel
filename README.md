@@ -8,7 +8,8 @@ HTML files attributes should be started in new line if there is more than 1 attr
 
 1 attribute:
 ```
-<p class="
+<p 
+  class="
     adsh-copy
     adsh-copy--large"
 >
@@ -18,11 +19,10 @@ HTML files attributes should be started in new line if there is more than 1 attr
 
 2 or more attributes:
 ```
-<span
-    *ngIf="password.valid"
-    class="input-valid"
->
-</span>
+<div
+  *ngIf="password.valid"
+  class="input-valid"
+></div>
 ```
 
 ## STYLES
