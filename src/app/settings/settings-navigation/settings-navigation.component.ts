@@ -37,7 +37,7 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
   ];
 
   constructor(private store: Store<AppState>) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

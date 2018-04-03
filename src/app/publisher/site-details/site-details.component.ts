@@ -52,7 +52,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     private store: Store<AppState>,
     private chartService: ChartService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
