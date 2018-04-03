@@ -30,7 +30,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     private dialog: MatDialog,
     private store: Store<AppState>
   ) {
-    super(null);
+    super();
   }
 
   openAddFundsDialog() {

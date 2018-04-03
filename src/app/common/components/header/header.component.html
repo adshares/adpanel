@@ -269,6 +269,23 @@
         </li>
       </ul>
     </div>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--large
+        adsh-btn--blue
+        row
+        align-center
+        adsh-funds-summary__deposit-funds"
+      *ngIf="(userDataState | async).isAdmin"
+      (click)="logOut()"
+    >
+      <span>
+        Log out
+      </span>
+    </button>
+
     <div
       class="
         adsh-bg-navy--light

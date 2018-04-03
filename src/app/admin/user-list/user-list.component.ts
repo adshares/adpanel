@@ -23,7 +23,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   selectedType = 'All';
 
   constructor(private store: Store<AppState>) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
