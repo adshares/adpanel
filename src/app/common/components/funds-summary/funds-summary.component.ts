@@ -23,7 +23,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     private store: Store<AppState>,
     private dialog: MatDialog
   ) {
-    super(null);
+    super();
 
     this.userDataState = this.store.select('state', 'user', 'data');
   }

@@ -24,7 +24,7 @@ export class SetYourEarningsDialogComponent extends HandleSubscription implement
     private store: Store<AppState>,
     private adminService: AdminService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

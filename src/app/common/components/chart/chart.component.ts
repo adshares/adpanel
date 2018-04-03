@@ -30,7 +30,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   barChartColors: ChartColors[] = chartColors;
 
   constructor(private store: Store<AppState>) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

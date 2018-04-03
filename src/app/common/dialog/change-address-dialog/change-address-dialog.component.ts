@@ -27,7 +27,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     private settingsService: SettingsService,
     private store: Store<AppState>
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

@@ -28,7 +28,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     private store: Store<AppState>,
     private settingsService: SettingsService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
