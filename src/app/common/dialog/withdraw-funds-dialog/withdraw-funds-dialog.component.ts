@@ -8,6 +8,8 @@ import { SettingsService } from 'settings/settings.service';
 import { AppState} from 'models/app-state.model';
 import { UserFinancialData } from 'models/user.model';
 
+import { appSettings } from 'app-settings';
+
 @Component({
   selector: 'app-withdraw-funds-dialog',
   templateUrl: './withdraw-funds-dialog.component.html',
@@ -22,6 +24,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
 
+  txFee: number = appSettings.TX_FEE;
+
   constructor(
     public dialogRef: MatDialogRef<WithdrawFundsDialogComponent>,
     private store: Store<AppState>,
@@ -32,9 +36,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
   ngOnInit() {
     const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData')
-      .subscribe((financialData: UserFinancialData) => {
-        this.financialData = financialData;
-      });
+      .subscribe((financialData: UserFinancialData) => this.financialData = financialData);
     this.subscriptions.push(userEthAddressSubscription);
 
     this.createForm();
@@ -47,16 +49,13 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         Validators.minLength(42),
         Validators.maxLength(42)
       ]),
-      amount: new FormControl('', [
-        Validators.required
-      ]),
-      memo: new FormControl('', [
-        Validators.maxLength(32)
-      ])
+      amount: new FormControl('', [Validators.required]),
+      memo: new FormControl('', [Validators.maxLength(32)])
     });
   }
 
-  toggleMemoInput(state) {
+  toggleMemoInput(event, state) {
+    event.preventDefault();
     this.memoInputActive = state;
   }
 
