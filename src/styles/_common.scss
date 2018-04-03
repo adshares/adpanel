@@ -338,6 +338,11 @@ router-outlet ~ * {
   width: 100%;
 }
 
+.clickable-row:hover {
+  background-color: pal(gray, ultra-light);
+  cursor: pointer;
+}
+
 .adsh-tooltip {
   padding: 20px 25px;
   min-width: 200px;
@@ -366,7 +371,7 @@ router-outlet ~ * {
     border-color: transparent white transparent transparent;
   }
 }
-  
+
 .break-word {
   word-wrap: break-word;
 }
