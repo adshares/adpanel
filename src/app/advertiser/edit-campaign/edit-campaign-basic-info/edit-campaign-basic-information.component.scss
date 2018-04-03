@@ -1,6 +1,12 @@
+@import '../../../../styles.scss';
+
 .campaign-edit-basic-information {
-    max-width: 500px;
-    margin: 0 auto;
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 900px;
+  }
 
   .adsh-box {
     margin: 30px 0;
