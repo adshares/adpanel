@@ -4,6 +4,10 @@
   max-width: 800px;
   margin: 0 auto;
 
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
+
   &--narrow {
     max-width: 500px;
     margin: 0 auto;

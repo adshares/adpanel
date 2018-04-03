@@ -89,10 +89,18 @@
 
   &--prepend {
     margin-right: 15px;
+
+    &.close {
+      margin-right: 8px;
+    }
   }
 
   &--append {
     margin-left: 15px;
+
+    &.close {
+      margin-left: 8px;
+    }
   }
 
   &--small {
@@ -330,7 +338,6 @@ router-outlet ~ * {
   width: 100%;
 }
 
-
 .adsh-tooltip {
   padding: 20px 25px;
   min-width: 200px;
@@ -358,4 +365,8 @@ router-outlet ~ * {
     border-width: 30px 40px 30px 0;
     border-color: transparent white transparent transparent;
   }
+}
+  
+.break-word {
+  word-wrap: break-word;
 }
