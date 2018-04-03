@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './account-confirmed-alert.component.html',
   styleUrls: ['./account-confirmed-alert.component.scss'],
 })
-export class AccountConfirmedAlert {}
+export class AccountConfirmedAlertComponent {}
