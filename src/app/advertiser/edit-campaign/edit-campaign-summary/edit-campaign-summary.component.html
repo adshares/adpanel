@@ -288,28 +288,28 @@
 
     <div class="row">
       <div
-        *ngFor="let ad of campaign.ads"
+        *ngFor="let ad of campaign.ads; let adIndex = index"
         class="campaign-ads"
       >
         <iframe
           class="campaign-edit-summary__iframe"
           *ngIf="ad.imageUrl"
           [src]="ad.imageUrl | trustUrl"
-          (mouseover)="toggleTooltip(true)"
-          (mouseleave)="toggleTooltip(false)"
+          (mouseover)="toggleTooltip(true, adIndex)"
+          (mouseleave)="toggleTooltip(false, adIndex)"
         ></iframe>
 
         <iframe
           class="campaign-edit-summary__iframe"
           *ngIf="ad.html"
           [srcdoc]="ad.html | trustHtml"
-          (mouseover)="toggleTooltip(true)"
-          (mouseleave)="toggleTooltip(false)"
+          (mouseover)="toggleTooltip(true, adIndex)"
+          (mouseleave)="toggleTooltip(false, adIndex)"
         ></iframe>
 
         <div
           class="adsh-tooltip"
-          [class.active]="tooltipActive"
+          [class.active]="tooltipActive && currentTooltipIndex === adIndex"
         >
           <div class="triangle"></div>
           <p

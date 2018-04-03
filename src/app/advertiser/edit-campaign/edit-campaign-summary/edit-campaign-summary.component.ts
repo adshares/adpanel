@@ -18,6 +18,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 export class EditCampaignSummaryComponent implements OnInit {
   campaign: Campaign;
   tooltipActive = false;
+  currentTooltipIndex
 
   constructor(
     private store: Store<AppState>,
@@ -44,7 +45,8 @@ export class EditCampaignSummaryComponent implements OnInit {
       });
   }
 
-  toggleTooltip(state) {
+  toggleTooltip(state, adIndex) {
     this.tooltipActive = state;
+    this.currentTooltipIndex = adIndex;
   }
 }
