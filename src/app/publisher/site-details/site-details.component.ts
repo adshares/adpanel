@@ -11,11 +11,14 @@ import { Site } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
+
+import { parseTargetingOtionsToArray } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-site-details',
@@ -24,6 +27,11 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
+  targeting: AssetTargeting = {
+    requires: [],
+    excludes: []
+  };
+
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
   siteStatuses = enumToObjectArray(siteStatusEnum);
@@ -45,10 +53,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     private chartService: ChartService
   ) {
     super();
-    this.site = this.route.snapshot.data.site;
   }
 
   ngOnInit() {
+    this.site = this.route.snapshot.data.site;
+
+    this.getTargeting();
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -99,5 +110,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   saveSite() {
     this.publisherService.saveSite(this.site).subscribe();
+  }
+
+  getTargeting() {
+    this.publisherService.getTargetingCriteria().subscribe(targeting => {
+      this.targeting = parseTargetingOtionsToArray(this.site.targeting, targeting);
+    });
   }
 }
