@@ -331,7 +331,7 @@ router-outlet ~ * {
 }
 
 .clickable-row:hover {
-  background-color: darken(pal(white), 1.5);
+  background-color: pal(gray, ultra-light);
   cursor: pointer;
 }
 
