@@ -53,7 +53,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-  
+
     const { remember, passwordLength, expiration, ...user } = userData;
 
     if (isUnixTimePastNow(userData.expiration)) {
