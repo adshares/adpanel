@@ -18,60 +18,122 @@
           row
           align-center"
       >
-          <img
-            class="adsh-logo"
-            src="assets/images/logo--white.png"
-            srcset="
-              assets/images/logo--white@2x.png 2x,
-              assets/images/logo--white@3x.png 3x"
-            alt="Adshares Logo"
-          >
+        <img
+          class="adsh-logo"
+          src="assets/images/logo--white.png"
+          srcset="
+            assets/images/logo--white@2x.png 2x,
+            assets/images/logo--white@3x.png 3x"
+          alt="Adshares Logo"
+        >
       </div>
     </a>
 
     <div
+      *ngIf="!(userDataState | async).isAdmin"
       class="
+        row
+        align-center
+        justify-between
         relative
+        adsh-bg-navy--light
+        adsh-navigation__item
         adsh-header-userselect"
+      (mouseover)="toggleChooseUserMenu(true)"
+      (mouseleave)="toggleChooseUserMenu(false)"
     >
-      <mat-select
+      <div
         class="
-          adsh-select
-          adsh-navigation__item"
-        [(value)]="activeUserType"
+          row
+          align-center"
       >
-        <mat-option
+        <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/user.svg"
+        >
+        <span
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--semi
+            adsh-copy--x-dark"
+        >
+          {{ userRolesEnum[activeUserType] }}
+        </span>
+      </div>
+
+      <img
+        class="
+          adsh-icon
+          adsh-icon--small
+          adsh-icon--append
+          choose-user-menu-chevron"
+        [class.up]="chooseUserMenuOpen"
+        *ngIf="!(userDataState | async).isAdmin"
+        src="assets/images/chevron--gray.svg"
+      >
+      <ul
+        class="
+          choose-user-menu
+          adsh-copy
+          adsh-copy--large"
+        [class.open]="chooseUserMenuOpen"
+      >
+        <li
+          class="choose-user-menu__item"
           [value]="userRolesEnum.ADVERTISER"
           routerLink="/advertiser/dashboard"
-          *ngIf="!(userDataState | async).isAdmin"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.ADVERTISER)"
           (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
         >
-          Advertiser
-        </mat-option>
-        <mat-option
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Advertiser</span>
+        </li>
+        <li
+          class="choose-user-menu__item"
           [value]="userRolesEnum.PUBLISHER"
           routerLink="/publisher/dashboard"
-          *ngIf="!(userDataState | async).isAdmin"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.PUBLISHER)"
           (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
         >
-          Publisher
-        </mat-option>
-        <mat-option
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Publisher</span>
+        </li>
+        <li
+          class="choose-user-menu__item"
           [value]="userRolesEnum.ADMIN"
           routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
           (click)="setActiveUserType(userRolesEnum.ADMIN)"
         >
-          Admin
-        </mat-option>
-      </mat-select>
-
-      <img
-        class="
-          adsh-icon
-          absolute"
-        src="assets/images/user.svg"
-      >
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Admin</span>
+        </li>
+        <li
+          class="choose-user-menu__item"
+          [value]="userRolesEnum.ADMIN"
+          routerLink="/admin/dashboard"
+          *ngIf="(userDataState | async).isAdmin"
+          (click)="setActiveUserType(userRolesEnum.ADMIN)"
+        >
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Admin</span>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -152,16 +214,41 @@
         class="
           adsh-icon
           adsh-icon--small
-          adsh-icon--append"
+          adsh-icon--append
+          settings-menu-chevron"
+        [class.up]="settingsMenuOpen"
         src="assets/images/chevron--gray.svg"
       >
       <ul
         class="
           settings-menu
           adsh-copy
-          adsh-copy--white"
+          adsh-copy--large"
         [class.open]="settingsMenuOpen"
       >
+        <li class="settings-menu__item">
+          <button
+            class="
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--blue
+              adsh-btn--small
+              row
+              align-center"
+            (click)="openAddFundsDialog()"
+          >
+            <img
+              class="
+                adsh-icon
+                adsh-icon--prepend
+                close"
+              src="assets/images/plus-circle.svg"
+            >
+            <span>
+              Add Funds
+            </span>
+          </button>
+        </li>
         <li
           class="settings-menu__item"
           routerLink="/settings/general"
@@ -174,38 +261,11 @@
         >
           Billing & Payments
         </li>
-        <li class="settings-menu__item">
-          <button
-            class="
-                adsh-btn
-                adsh-btn--large
-                adsh-btn--blue
-                row
-                align-center
-                adsh-funds-summary__deposit-funds"
-            (click)="openAddFundsDialog()"
-          >
-            <span>
-              Add Funds
-            </span>
-          </button>
-        </li>
 
         <li class="settings-menu__item">
-          <button
-            class="
-                adsh-btn
-                adsh-btn--large
-                adsh-btn--blue
-                row
-                align-center
-                adsh-funds-summary__deposit-funds"
-            (click)="logOut()"
-          >
-            <span>
-              Log out
-            </span>
-          </button>
+          <span (click)="logOut()">
+            Log out
+          </span>
         </li>
       </ul>
     </div>

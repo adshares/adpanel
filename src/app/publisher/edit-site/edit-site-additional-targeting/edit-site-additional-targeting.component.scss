@@ -1,6 +1,12 @@
+@import '../../../../styles.scss';
+
 .site-edit-additional-targeting {
   max-width: 1000px;
   margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
 }
 
 .targeting-select-wrapper {
