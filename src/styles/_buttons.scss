@@ -47,7 +47,7 @@
     border: 1px solid pal(gray, light);
 
     &:hover {
-      background-color: darken(pal(white), 2);
+      background-color: pal(gray, ultra-light);
     }
   }
 
