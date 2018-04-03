@@ -338,7 +338,35 @@ router-outlet ~ * {
   width: 100%;
 }
 
+.adsh-tooltip {
+  padding: 20px 25px;
+  min-width: 200px;
+  max-width: 300px;
+  background: pal(white);
+  color: white;
+  @include center(vertical);
+  left: 75%;
+  z-index: 999;
+  opacity: 0;
+  transition: all 0.3s ease;
 
+  &.active {
+    opacity: 1;
+    left: 78%;
+  }
+
+  .triangle {
+    content: "";
+    @include center(vertical);
+    left: -30px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 40px 30px 0;
+    border-color: transparent white transparent transparent;
+  }
+}
+  
 .break-word {
   word-wrap: break-word;
 }
