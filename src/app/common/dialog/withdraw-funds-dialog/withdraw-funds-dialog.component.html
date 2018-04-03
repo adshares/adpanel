@@ -139,17 +139,17 @@
         <p>
           Transaction Fee:
           <span class="fee">
-            {{ withdrawFundsForm.get('amount').value * txFee }}
+            {{ withdrawFundsForm.get('amount').value * txFee | number:'1.2-2' }}
           </span>
         </p>
         <p>
           Total Withdraw Amount:
           <span class="total-amount">
-            {{ withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee | adsharesTokenValue }}
+            {{ withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee | number:'1.2-2' | adsharesTokenValue }}
           </span>
         </p>
         <p>
-          Left: {{ financialData.totalFunds - (withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee) | adsharesTokenValue }}
+          Left: {{ financialData.totalFunds - (withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee) | number:'1.2-2'| adsharesTokenValue }}
         </p>
       </div>
 
