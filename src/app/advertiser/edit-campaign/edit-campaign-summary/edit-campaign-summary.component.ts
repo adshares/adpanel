@@ -18,7 +18,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 export class EditCampaignSummaryComponent implements OnInit {
   campaign: Campaign;
   tooltipActive = false;
-  currentTooltipIndex
+  currentTooltipIndex: number;
 
   constructor(
     private store: Store<AppState>,
