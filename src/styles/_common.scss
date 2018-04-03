@@ -338,14 +338,14 @@ router-outlet ~ * {
   background: pal(white);
   color: white;
   @include center(vertical);
-  left: 95%;
+  left: 75%;
   z-index: 999;
   opacity: 0;
   transition: all 0.3s ease;
 
   &.active {
     opacity: 1;
-    left: 100%;
+    left: 78%;
   }
 
   .triangle {
