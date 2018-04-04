@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { User } from 'models/user.model';
 
 export const SET_USER = 'Set user';
-export const UPDATE_USER_ETH_ADDRESS = 'User Ethereum Address updated';
+export const UPDATE_USER_ETH_ADDRESS = 'User Address updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
 
