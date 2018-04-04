@@ -27,7 +27,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   searchTerm = '';
 
   constructor(private dialog: MatDialog) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

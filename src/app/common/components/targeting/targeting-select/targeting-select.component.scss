@@ -9,7 +9,7 @@ button {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid #d3d7dc;
+  border: 1px solid pal(gray, mid-light);
   position: absolute;
   margin-right: 10px;
   top: 17px;
@@ -33,10 +33,12 @@ button {
   &-box {
     padding: 6px 15px;
     border-top: none;
+    cursor: pointer;
   }
 }
 
-.adsh-box.active {
-  background-color: #fdfdfd;
+.option:hover {
+  background-color: pal(gray, extreme-light);
   transition: background-color 0.2s ease;
+  cursor: pointer;
 }

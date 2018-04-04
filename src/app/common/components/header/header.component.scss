@@ -6,12 +6,9 @@
   background: pal(navy);
 
   &-userselect {
-    width: 149px;
-
-    .adsh-select {
-      padding: 0 0 0 51px;
-      width: 100%;
-    }
+    width: 185px;
+    background: pal(white);
+    padding: 0 20px;
 
     img {
       top: calc((42px - 18px)/2);
@@ -57,10 +54,11 @@
   color: pal(gray);
 }
 
-.settings-menu {
+.settings-menu,
+.choose-user-menu {
   position: absolute;
-  top: 42px;
-  background: pal(navy, light);
+  top: 36px;
+  background: pal(white);
   z-index: 999;
   width: 185px;
   opacity: 0;
@@ -74,13 +72,36 @@
 
   &__item {
     text-align: left;
-    padding: 0 20px;
-    margin: 15px 0;
+    padding: 8px 20px;
 
     button {
       width: 100%;
       min-width: 100px;
     }
+  }
+}
+
+.choose-user-menu {
+  left: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border: 1px solid pal(gray, light);
+
+    &:not(:first-of-type) {
+      border-top: none;
+    }
+  }
+}
+
+.choose-user-menu-chevron,
+.settings-menu-chevron {
+  transition: all 0.4s ease;
+
+  &.up {
+    transform: rotate(180deg);
   }
 }
 

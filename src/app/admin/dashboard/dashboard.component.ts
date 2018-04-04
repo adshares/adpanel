@@ -31,7 +31,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     private chartService: ChartService,
     private store: Store<AppState>,
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

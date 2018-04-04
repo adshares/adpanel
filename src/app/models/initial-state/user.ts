@@ -6,9 +6,16 @@ export const userInitialState: User = {
   isAdvertiser: true,
   isPublisher: true,
   isAdmin: false,
-  userEthAddress: '',
-  userMemo: '',
-  userAutomaticWithdrawPeriod: 3,
-  userAutomaticWithdrawAmount: 300,
-  isEmailConfirmed: false
+  isEmailConfirmed: false,
+
+  financialData: {
+    userEthAddress: '',
+    userMemo: '',
+    userAutomaticWithdrawPeriod: 3,
+    userAutomaticWithdrawAmount: 300,
+    totalFunds: 1276.60,
+    totalFundsInCurrency: 4336.23,
+    totalFundsChange: 20.30,
+    lastPayment: 'Tue Feb 20 2018 12:24:00 GMT'
+  }
 };

@@ -29,4 +29,8 @@ export class AuthService {
   remindPassword(email: string) {
     return this.http.post(`${environment.apiUrl}/remind_password`, { email })
   }
+
+  logOut() {
+    return this.http.get(`${environment.apiUrl}/auth/logout`);
+  }
 }

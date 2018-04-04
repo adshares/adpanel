@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 
-import { User } from 'models/user.model';
+import { User, UserFinancialData} from 'models/user.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
+import { enumToArray } from 'common/utilities/helpers';
+import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 
 @Component({
   selector: 'app-funds-summary',
@@ -19,11 +21,14 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   selectedRole: string;
   userDataState: Store<User>;
 
+  periodsEnum = withdrawPeriodsEnum;
+  financialData: UserFinancialData;
+
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog
   ) {
-    super(null);
+    super();
 
     this.userDataState = this.store.select('state', 'user', 'data');
   }
@@ -31,7 +36,13 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   ngOnInit() {
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
-    this.subscriptions.push(getUserSubscription);
+
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+      .subscribe((financialData: UserFinancialData) => {
+        this.financialData = financialData;
+      });
+
+    this.subscriptions.push(getUserSubscription, userFinancialDataSubscription);
   }
 
   checkUserRole(user: User) {
