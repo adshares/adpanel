@@ -28,13 +28,13 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     private store: Store<AppState>,
     private settingsService: SettingsService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
     this.createForm();
 
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'userEthAddress')
+    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userEthAddress')
       .subscribe((userEthAddress: string) => {
         this.userEthAddress = userEthAddress;
       });

@@ -16,30 +16,37 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
   styleUrls: ['./edit-campaign-summary.component.scss']
 })
 export class EditCampaignSummaryComponent implements OnInit {
-    campaign: Campaign;
+  campaign: Campaign;
+  tooltipActive = false;
+  currentTooltipIndex: number;
 
-    constructor(
-      private store: Store<AppState>,
-      private advertiserService: AdvertiserService,
-      private router: Router
-    ) { }
+  constructor(
+    private store: Store<AppState>,
+    private advertiserService: AdvertiserService,
+    private router: Router
+  ) { }
 
-    ngOnInit() {
-      this.store.select('state', 'advertiser', 'lastEditedCampaign')
-        .subscribe((campaign: Campaign) => this.campaign = campaign);
+  ngOnInit() {
+    this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .subscribe((campaign: Campaign) => this.campaign = campaign);
+  }
+
+  saveCampaign(isDraft) {
+    if (!isDraft) {
+      this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
+      this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
     }
 
-    saveCampaign(isDraft) {
-      if (!isDraft) {
-        this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
-        this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
-      }
+    this.advertiserService.saveCampaign(this.campaign)
+      .take(1)
+      .subscribe(() => {
+        this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
+        this.router.navigate(['/advertiser', 'dashboard']);
+      });
+  }
 
-      this.advertiserService.saveCampaign(this.campaign)
-        .take(1)
-        .subscribe(() => {
-          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
-          this.router.navigate(['/advertiser', 'dashboard']);
-        });
-    }
+  toggleTooltip(state, adIndex) {
+    this.tooltipActive = state;
+    this.currentTooltipIndex = adIndex;
+  }
 }
