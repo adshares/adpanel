@@ -53,8 +53,19 @@
       <div
         class="
           col-xs-8
-          justify-end"
+          justify-end
+          align-center"
       >
+        <div class="status">
+          <span>Status</span>
+          <span>Active</span>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="campaign.basicInformation.status == 1"
+            ([ngModel])="campaign.basicInformation.status"
+            (change)="onCampaignStatusChange(campaign.id, campaign.basicInformation.status)"
+          ></mat-slide-toggle>
+        </div>
         <button
           class="
             adsh-btn

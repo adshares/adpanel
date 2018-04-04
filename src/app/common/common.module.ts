@@ -12,9 +12,10 @@ import { MatDialogContent, MatDialogModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
-import { MatSpinner } from '@angular/material';
+import { MatSpinner, MatSlideToggle } from '@angular/material';
 
 import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
@@ -47,6 +48,7 @@ const matModules = [
   MatProgressSpinnerModule,
   MatDatepickerModule,
   MatInputModule,
+  MatSlideToggleModule,
   MatMomentDateModule
 ];
 
@@ -99,7 +101,8 @@ const appComponents = [
   exports: [
     ...appComponents,
     MatSpinner,
-    MatDialogContent
+    MatDialogContent,
+    MatSlideToggle
   ]
 })
 
