@@ -62,6 +62,17 @@
                 "allow_input": true
             },
             {
+
+                "label": "Height",
+                "key": "height",
+                "values": [
+                    {"label": "900 or more", "value": "<900,>"},
+                    {"label": "between 200 and 300", "value": "<200,300>"}
+                ],
+                "value_type": "number",
+                "allow_input": true
+            },
+            {
                 "label": "Interest keywords",
                 "key": "keywords",
                 "values": [

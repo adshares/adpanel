@@ -18,7 +18,7 @@ import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
 
-import { parseTargetingOtionsToArray } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-site-details',
@@ -114,7 +114,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   getTargeting() {
     this.publisherService.getTargetingCriteria().subscribe(targeting => {
-      this.targeting = parseTargetingOtionsToArray(this.site.targeting, targeting);
+      this.targeting = parseTargetingOptionsToArray(this.site.targeting, targeting);
     });
   }
 }
