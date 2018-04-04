@@ -42,6 +42,10 @@ export class AdvertiserService {
       .map((campaign: Campaign) => campaign);
   }
 
+  updateCampaignStatus(id: string, status: number) {
+    return this.http.post(`${environment.apiUrl}/update_campaign_status`, {id, status})
+  }
+
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get(`${environment.apiUrl}/campaign_targeting`)
       .do(prepareTargetingChoices);
