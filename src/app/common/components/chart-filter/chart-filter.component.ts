@@ -11,15 +11,18 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 })
 export class ChartFilterComponent {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
-  dateFrom = new FormControl();
-  dateTo = new FormControl();
+  dateFrom = new FormControl('');
+  dateTo = new FormControl('');
+  minDate = new Date();
 
   filterChart(from, to) {
-    const timespan = {
-      from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
-      to: isNaN(to) ? to.value._d : moment().format()
-    };
+    if (this.dateTo.value > this.dateFrom.value) {
+      const timespan = {
+        from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
+        to: isNaN(to) ? to.value._d : moment().format()
+      };
 
-    this.filter.emit(timespan);
+      this.filter.emit(timespan);
+    }
   }
 }
