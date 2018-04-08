@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
+import { EditSiteHelpersService } from 'publisher/edit-site/edit-site-helpers.service';
 import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
 import { enumToArray, cloneDeep } from 'common/utilities/helpers';
 import { Site } from 'models/site.model';
@@ -19,7 +22,8 @@ import * as publisherActions from 'store/publisher/publisher.actions';
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   adSizesOptions: string[] = enumToArray(adSizesEnum);
@@ -32,6 +36,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   constructor(
     private publisherService: PublisherService,
+    private editSiteService: EditSiteHelpersService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>
@@ -42,9 +47,18 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   ngOnInit() {
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
-    this.store.select('state', 'publisher', 'lastEditedSite', 'adUnits')
-      .take(1)
-      .subscribe((savedAdUnits) => {
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
+      .subscribe((lastEditedSite: Site) => {
+        const siteUrlFilled = this.editSiteService.siteObligatoryFieldFilled(lastEditedSite.websiteUrl);
+
+        if (!siteUrlFilled) {
+          this.changesSaved = true;
+          return;
+        }
+
+        const savedAdUnits = lastEditedSite.adUnits;
+
         if (savedAdUnits) {
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
@@ -55,6 +69,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
+    this.subscriptions.push(lastSiteSubscription);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   createEmptyAd() {
@@ -136,13 +155,16 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         { queryParams: { step: 4 } }
       );
     } else {
-      this.store.select('state', 'publisher', 'lastEditedSite')
-        .take(1)
+      const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+        .first()
         .subscribe((site: Site) => {
-          this.publisherService.saveSite(site).subscribe();
+          const saveSiteSubscription = this.publisherService.saveSite(site).subscribe();
+          this.subscriptions.push(saveSiteSubscription);
+
           this.store.dispatch(new publisherActions.AddSiteToSites(site));
           this.router.navigate(['/publisher', 'dashboard']);
         });
+      this.subscriptions.push(lastSiteSubscription);
     }
   }
 
