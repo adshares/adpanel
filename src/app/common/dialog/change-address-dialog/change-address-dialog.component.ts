@@ -18,7 +18,7 @@ import * as authActions from 'store/auth/auth.actions';
 export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
   changeWithdrawAddressForm: FormGroup;
 
-  userEthAddress: string;
+  userAddress: string;
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
 
@@ -33,25 +33,25 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userEthAddress')
-      .subscribe((userEthAddress: string) => {
-        this.userEthAddress = userEthAddress;
+    const userAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAddress')
+      .subscribe((userAddress: string) => {
+        this.userAddress = userAddress;
       });
-    this.subscriptions.push(userEthAddressSubscription);
+    this.subscriptions.push(userAddressSubscription);
   }
 
   createForm() {
     this.changeWithdrawAddressForm = new FormGroup({
       address: new FormControl('', [
         Validators.required,
-        Validators.minLength(42),
-        Validators.maxLength(42)
+        Validators.pattern('/[0-9A-F]{4}-[0-9A-F]{8}-([0-9A-F]{4}|XXXX)/i\n')
       ])
     });
   }
 
   changeWithdrawAddress() {
     this.changeAddressFormSubmitted = true;
+    console.log(this.changeWithdrawAddressForm)
 
     if (!this.changeWithdrawAddressForm.valid) {
       return;
@@ -68,9 +68,9 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userEthAddress: address });
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userAddress: address });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
-    this.store.dispatch(new authActions.UpdateUserEthAddress(address));
+    this.store.dispatch(new authActions.UpdateuserAddress(address));
   }
 }

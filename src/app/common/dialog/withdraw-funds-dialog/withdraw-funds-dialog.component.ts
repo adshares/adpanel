@@ -35,19 +35,18 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData')
+    const userAddressSubscription = this.store.select('state', 'user', 'data', 'financialData')
       .subscribe((financialData: UserFinancialData) => this.financialData = financialData);
-    this.subscriptions.push(userEthAddressSubscription);
+    this.subscriptions.push(userAddressSubscription);
 
     this.createForm();
   }
 
   createForm() {
     this.withdrawFundsForm = new FormGroup({
-      address: new FormControl(this.financialData.userEthAddress, [
+      address: new FormControl(this.financialData.userAddress, [
         Validators.required,
-        Validators.minLength(42),
-        Validators.maxLength(42)
+        Validators.pattern('/[0-9A-F]{4}-[0-9A-F]{8}-([0-9A-F]{4}|XXXX)/i\n')
       ]),
       amount: new FormControl('', [Validators.required]),
       memo: new FormControl('', [Validators.maxLength(32)])
