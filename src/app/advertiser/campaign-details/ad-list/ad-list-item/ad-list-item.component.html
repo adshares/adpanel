@@ -44,7 +44,7 @@
           row
           align-center"
       >
-      <span>{{ ad.budget | currency:USD }}/day</span>
+      <span>{{ ad.budget | number:'1.2-2' | commaReplacer | currency:USD }} /day</span>
       </div>
       <div
         class="
@@ -67,7 +67,7 @@
           row
           align-center"
       >
-      <span>{{ ad.ctr | percent }}</span>
+      <span>{{ ad.ctr | percent:'1.2-2' }}</span>
       </div>
       <div
         class="
@@ -75,7 +75,7 @@
           row
           align-center"
       >
-      <span>{{ ad.averageCPC | currency:USD }}</span>
+      <span>{{ ad.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }} </span>
       </div>
       <div
         class="
@@ -83,7 +83,7 @@
           row
           align-center"
       >
-      <span>{{ ad.cost | currency:USD }}</span>
+      <span>{{ ad.cost | number:'1.2-2' | commaReplacer | currency:USD }} </span>
       </div>
     </div>
   </div>
