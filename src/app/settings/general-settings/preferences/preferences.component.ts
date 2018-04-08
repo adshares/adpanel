@@ -36,7 +36,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   constructor(
     private settingsService: SettingsService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

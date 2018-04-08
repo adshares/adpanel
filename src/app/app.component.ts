@@ -28,7 +28,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     private store: Store<AppState>,
     private commonService: CommonService
   ) {
-    super(null);
+    super();
   }
 
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
@@ -53,7 +53,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-  
+
     const { remember, passwordLength, expiration, ...user } = userData;
 
     if (isUnixTimePastNow(userData.expiration)) {

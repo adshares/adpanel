@@ -18,7 +18,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
     private store: Store<AppState>
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {

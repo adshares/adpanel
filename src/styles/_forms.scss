@@ -38,7 +38,7 @@
   &-select {
     border-radius: 2px;
     background-color: #f8f9fc;
-    border: solid 1px #eceef3;
+    border: solid 1px pal(gray, light);
     padding: 13px 13px 13px 18px;
     max-width: 320px;
     @include font(13, medium);
