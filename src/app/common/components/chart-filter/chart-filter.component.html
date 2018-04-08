@@ -130,7 +130,7 @@
           adsh-button--small
           adsh-bg-white
           adsh-navy"
-        (click)="filterChart(dateFrom, dateTo)"
+        (click)="filterChartByDatepicker(dateFrom, dateTo)"
         [class.disabled]="dateTo.value < dateFrom.value || dateFrom.value.length === 0 || dateTo.value.length === 0"
       >
         Apply
