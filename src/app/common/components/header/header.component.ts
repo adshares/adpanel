@@ -10,6 +10,7 @@ import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { userInitialState } from 'models/initial-state/user';
+import { AuthService } from 'auth/auth.service';
 
 import * as commonActions from 'store/common/common.actions';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -31,13 +32,15 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsBarEnabled = false;
 
   settingsMenuOpen = false;
+  chooseUserMenuOpen = false;
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {
-    super(null);
+    super();
   }
 
   ngOnInit() {
@@ -89,11 +92,18 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.settingsMenuOpen = state;
   }
 
+  toggleChooseUserMenu(state) {
+    this.chooseUserMenuOpen = state;
+  }
+
   openAddFundsDialog() {
     this.dialog.open(AddFundsDialogComponent);
   }
 
   logOut() {
+    const logoutSubscription = this.authService.logOut().subscribe();
+    this.subscriptions.push(logoutSubscription);
+
     localStorage.removeItem('adshUser');
     this.store.dispatch(new authActions.SetUser(userInitialState));
     this.router.navigate(['/auth/login']);

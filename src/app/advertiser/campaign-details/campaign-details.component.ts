@@ -42,7 +42,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     private advertiserService: AdvertiserService,
     private chartService: ChartService
   ) {
-    super(null);
+    super();
     this.campaign = this.route.snapshot.data.campaign;
   }
 
