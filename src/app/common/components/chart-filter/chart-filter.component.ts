@@ -16,13 +16,17 @@ export class ChartFilterComponent {
   minDate = new Date();
 
   filterChart(from, to) {
-    if (this.dateTo.value > this.dateFrom.value) {
-      const timespan = {
-        from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
-        to: isNaN(to) ? to.value._d : moment().format()
-      };
+    const timespan = {
+      from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
+      to: isNaN(to) ? to.value._d : moment().format()
+    };
 
-      this.filter.emit(timespan);
+    this.filter.emit(timespan);
+  }
+
+  filterChartByDatepicker(from, to) {
+    if (this.dateTo.value > this.dateFrom.value) {
+      this.filterChart(from, to);
     }
   }
 }
