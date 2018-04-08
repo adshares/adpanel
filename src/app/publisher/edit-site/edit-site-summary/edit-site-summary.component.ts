@@ -7,7 +7,7 @@ import { AppState } from 'models/app-state.model';
 import { Site } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { PublisherService } from 'publisher/publisher.service';
-import { EditSiteHelpersService } from 'publisher/edit-site/edit-site-helpers.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adUnitStatusesEnum } from 'models/enum/ad.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -23,7 +23,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   constructor(
     private store: Store<AppState>,
     private publisherService: PublisherService,
-    private editSiteService: EditSiteHelpersService,
+    private assetHelpers: AssetHelpersService,
     private router: Router
   ) {
     super();
@@ -32,13 +32,8 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   ngOnInit() {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
-        const siteUrlFilled = this.editSiteService.siteObligatoryFieldFilled(site.websiteUrl);
-
+        this.assetHelpers.redirectIfNameNotFilled(site);
         this.site = site;
-
-        if (!siteUrlFilled) {
-          return;
-        }
       });
     this.subscriptions.push(lastSiteSubscription);
   }

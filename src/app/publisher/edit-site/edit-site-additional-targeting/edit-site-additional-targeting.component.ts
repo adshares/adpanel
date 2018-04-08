@@ -10,7 +10,7 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { cloneDeep } from 'common/utilities/helpers';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { PublisherService } from 'publisher/publisher.service';
-import { EditSiteHelpersService } from 'publisher/edit-site/edit-site-helpers.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
@@ -36,7 +36,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     private store: Store<AppState>,
     private router: Router,
     private publisherService: PublisherService,
-    private editSiteService: EditSiteHelpersService,
+    private assetHelpers: AssetHelpersService
   ) {
     super();
   }
@@ -96,7 +96,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
-        const siteUrlFilled = this.editSiteService.siteObligatoryFieldFilled(lastEditedSite.websiteUrl);
+        const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;

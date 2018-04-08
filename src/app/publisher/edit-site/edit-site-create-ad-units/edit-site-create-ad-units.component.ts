@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
-import { EditSiteHelpersService } from 'publisher/edit-site/edit-site-helpers.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
 import { enumToArray, cloneDeep } from 'common/utilities/helpers';
 import { Site } from 'models/site.model';
@@ -36,7 +36,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   constructor(
     private publisherService: PublisherService,
-    private editSiteService: EditSiteHelpersService,
+    private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>
@@ -50,7 +50,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
-        const siteUrlFilled = this.editSiteService.siteObligatoryFieldFilled(lastEditedSite.websiteUrl);
+        const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
