@@ -9,7 +9,6 @@ import { ChartsModule } from 'ng2-charts';
 
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
-import { EditSiteHelpersService } from 'publisher/edit-site/edit-site-helpers.service';
 
 import { AppCommonModule } from 'common/common.module';
 import { PublisherComponent } from './publisher.component';
@@ -61,8 +60,7 @@ const publisherComponents = [
     PublisherGuard,
     SiteResolver,
     TargetingCriteriaResolver,
-    AdUnitSizesResolver,
-    EditSiteHelpersService
+    AdUnitSizesResolver
   ],
   declarations: [
     ...publisherComponents,

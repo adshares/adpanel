@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/first';
 
 import { FileUploader } from 'ng2-file-upload';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adTypesEnum, adSizesEnum, validImageTypes, adStatusesEnum } from 'models/enum/ad.enum';
 import { enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
@@ -36,7 +39,8 @@ interface ImagesStatus {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   adSizes: string[] = enumToArray(adSizesEnum);
@@ -56,6 +60,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   constructor(
     private advertiserService: AdvertiserService,
+    private assetHelpers: AssetHelpersService,
     private router: Router,
     private store: Store<AppState>
   ) {
@@ -63,9 +68,18 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   ngOnInit() {
-    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'ads')
-      .take(1)
-      .subscribe((savedAds) => {
+    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .first()
+      .subscribe((lastEditedCampaign: Campaign) => {
+        const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
+
+        if (!campaignNameFilled) {
+          this.changesSaved = true;
+          return;
+        }
+
+        const savedAds = lastEditedCampaign.ads;
+
         if (savedAds) {
           savedAds.forEach((savedAd, index) => {
             this.adForms.push(this.generateFormField(savedAd));
@@ -76,6 +90,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
+    this.subscriptions.push(lastCampaignSubscription);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   createEmptyAd() {
@@ -167,12 +186,13 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeImage(adIndex) {
-    this.advertiserService.deleteAdImage(this.ads[adIndex].id)
+    const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id)
       .subscribe(() => {
         Object.assign(this.ads[adIndex], { imageUrl: '', imageSize: '' });
         this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
         this.imagesStatus.validation.splice(adIndex, 1);
       });
+    this.subscriptions.push(deleteAdSubscription);
   }
 
   saveHtml(adIndex) {
@@ -201,7 +221,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const adTypeName = this.adTypes[adType];
 
     if (adForm.get('image') && adForm.get('image').value.src) {
-      this.advertiserService.deleteAdImage(this.ads[adIndex].id).subscribe();
+      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id).subscribe();
+      this.subscriptions.push(deleteAdSubscription);
+
       this.imagesStatus.validation.splice(adIndex, 1);
     }
 
@@ -235,14 +257,17 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         { queryParams: { step: 4 } }
       );
     } else {
-      this.store.select('state', 'advertiser', 'lastEditedCampaign')
-        .take(1)
+      const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+        .first()
         .subscribe((campaign: Campaign) => {
-          this.advertiserService.saveCampaign(campaign).subscribe();
+          const saveCampaignSubscription = this.advertiserService.saveCampaign(campaign).subscribe();
+          this.subscriptions.push(saveCampaignSubscription);
+
           this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
           this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
         });
+      this.subscriptions.push(lastCampaignSubscription);
     }
   }
 

@@ -39,6 +39,7 @@ import { TableNavigationComponent } from './components/table-navigation/table-na
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
 
 import { ChartService } from './chart.service';
+import { AssetHelpersService } from './asset-helpers.service';
 
 const matModules = [
   MatDialogModule,
@@ -95,7 +96,8 @@ const appComponents = [
   ],
   providers: [
     ChartService,
-    CommonService
+    CommonService,
+    AssetHelpersService
   ],
   exports: [
     ...appComponents,
