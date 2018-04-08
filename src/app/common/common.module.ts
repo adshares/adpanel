@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { LOCALE_ID } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -99,11 +97,7 @@ const appComponents = [
   ],
   providers: [
     ChartService,
-    CommonService,
-    {
-      provide: LOCALE_ID,
-      useValue: 'en-UK'
-    }
+    CommonService
   ],
   exports: [
     ...appComponents,
