@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { User } from 'models/user.model';
 
 export const SET_USER = 'Set user';
-export const UPDATE_USER_ETH_ADDRESS = 'User Address updated';
+export const UPDATE_USER_ADDRESS = 'User Address updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
 
@@ -12,8 +12,8 @@ export class SetUser implements Action {
   constructor(public payload: User) { }
 }
 
-export class UpdateUserEthAddress implements Action {
-  readonly type = UPDATE_USER_ETH_ADDRESS;
+export class UpdateuserAddress implements Action {
+  readonly type = UPDATE_USER_ADDRESS;
   constructor(public payload: string) { }
 }
 
@@ -29,6 +29,6 @@ export class UpdateUserAutomaticWithdrawAmount implements Action {
 
 export type actions =
   SetUser |
-  UpdateUserEthAddress |
+  UpdateuserAddress |
   UpdateUserAutomaticWithdrawPeriod |
   UpdateUserAutomaticWithdrawAmount;
