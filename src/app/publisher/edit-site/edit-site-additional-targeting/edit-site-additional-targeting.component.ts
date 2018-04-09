@@ -78,18 +78,17 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
         ['/publisher', 'create-site', editSiteStep],
         { queryParams: { step: param } }
       );
-    } else {
-      const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-        .first()
-        .subscribe((lastEditedSite: Site) => {
-          const saveSiteSubscription = this.publisherService.saveSite(lastEditedSite).subscribe();
-          this.subscriptions.push(saveSiteSubscription);
 
-          this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
-          this.router.navigate(['/publisher', 'dashboard']);
-        });
-      this.subscriptions.push(lastSiteSubscription);
+      return;
     }
+
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
+      .subscribe((lastEditedSite: Site) => {
+        this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
+        this.router.navigate(['/publisher', 'dashboard']);
+      });
+    this.subscriptions.push(lastSiteSubscription);
   }
 
   getSiteFromStore() {

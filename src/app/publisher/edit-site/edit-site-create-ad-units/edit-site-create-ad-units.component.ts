@@ -154,18 +154,16 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         ['/publisher', 'create-site', 'summary'],
         { queryParams: { step: 4 } }
       );
-    } else {
-      const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-        .first()
-        .subscribe((site: Site) => {
-          const saveSiteSubscription = this.publisherService.saveSite(site).subscribe();
-          this.subscriptions.push(saveSiteSubscription);
 
-          this.store.dispatch(new publisherActions.AddSiteToSites(site));
-          this.router.navigate(['/publisher', 'dashboard']);
-        });
-      this.subscriptions.push(lastSiteSubscription);
+      return;
     }
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
+      .subscribe((site: Site) => {
+        this.store.dispatch(new publisherActions.AddSiteToSites(site));
+        this.router.navigate(['/publisher', 'dashboard']);
+      });
+    this.subscriptions.push(lastSiteSubscription);
   }
 
   removeNewAdUnit(adIndex) {

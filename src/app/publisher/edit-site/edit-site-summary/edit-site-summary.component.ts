@@ -44,12 +44,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
     }
 
-    const saveSiteSubscription = this.publisherService.saveSite(this.site)
-      .first()
-      .subscribe(() => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
-        this.router.navigate(['/publisher', 'dashboard']);
-      });
-    this.subscriptions.push(saveSiteSubscription);
+    this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
+    this.router.navigate(['/publisher', 'dashboard']);
   }
 }
