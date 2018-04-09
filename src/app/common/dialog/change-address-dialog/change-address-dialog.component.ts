@@ -51,7 +51,6 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
   changeWithdrawAddress() {
     this.changeAddressFormSubmitted = true;
-    console.log(this.changeWithdrawAddressForm)
 
     if (!this.changeWithdrawAddressForm.valid) {
       return;
@@ -71,6 +70,6 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userAddress: address });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
-    this.store.dispatch(new authActions.UpdateuserAddress(address));
+    this.store.dispatch(new authActions.UpdateUserAddress(address));
   }
 }

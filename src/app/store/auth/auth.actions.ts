@@ -12,7 +12,7 @@ export class SetUser implements Action {
   constructor(public payload: User) { }
 }
 
-export class UpdateuserAddress implements Action {
+export class UpdateUserAddress implements Action {
   readonly type = UPDATE_USER_ADDRESS;
   constructor(public payload: string) { }
 }
@@ -29,6 +29,6 @@ export class UpdateUserAutomaticWithdrawAmount implements Action {
 
 export type actions =
   SetUser |
-  UpdateuserAddress |
+  UpdateUserAddress |
   UpdateUserAutomaticWithdrawPeriod |
   UpdateUserAutomaticWithdrawAmount;
