@@ -286,40 +286,5 @@
         Log out
       </span>
     </button>
-
-    <div
-      class="
-        adsh-bg-navy--light
-        adsh-navigation__item
-        adsh-btn
-        adsh-btn--x-small
-        row
-        align-center
-        relative"
-      (click)="toggleNotificationsBar(true)"
-    >
-      <img
-        class="adsh-icon"
-        src="assets/images/bell.svg"
-      >
-      <div
-        class="
-          adsh-circle
-          adsh-bg-green
-          absolute"
-      >
-        <span
-          class="
-            absolute
-            notif-count"
-        >
-          {{ notificationsCount }}
-        </span>
-      </div>
-    </div>
   </div>
 </section>
-
-<app-notifications
-    [notificationsBarEnabled]="notificationsBarEnabled"
-    (onDisableNotificationsBar)="toggleNotificationsBar($event)"></app-notifications>

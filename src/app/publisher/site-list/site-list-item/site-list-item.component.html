@@ -32,7 +32,7 @@
           align-center"
       >
         <span>
-          {{ site.estimatedEarnings | currency:USD }}
+          {{ site.estimatedEarnings | number:'1.2-2' | commaReplacer | currency:USD }}
         </span>
       </div>
       <div
@@ -62,7 +62,7 @@
           align-center"
       >
         <span>
-          {{ site.rpm | percent }}
+          {{ site.rpm | percent:'1.2-2' }}
         </span>
       </div>
       <div
@@ -72,7 +72,7 @@
           align-center"
       >
         <span>
-          {{ site.averageCPC | currency:USD }}
+          {{ site.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}
         </span>
       </div>
       <div
