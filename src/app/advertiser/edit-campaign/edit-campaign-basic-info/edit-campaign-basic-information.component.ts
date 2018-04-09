@@ -41,7 +41,6 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   saveCampaignBasicInformation() {
     this.campaignBasicInformationSubmitted = true;
-    console.log(this.campaignBasicInfoForm.controls.targetUrl)
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
