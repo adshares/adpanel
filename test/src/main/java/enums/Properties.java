@@ -1,0 +1,7 @@
+package enums;
+
+public interface Properties {
+  String PROPERTY = "property";
+  String EMAIL = "email";
+  String HASLO = "password";
+}
