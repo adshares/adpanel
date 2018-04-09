@@ -260,9 +260,6 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
         .first()
         .subscribe((campaign: Campaign) => {
-          const saveCampaignSubscription = this.advertiserService.saveCampaign(campaign).subscribe();
-          this.subscriptions.push(saveCampaignSubscription);
-
           this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
           this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
           this.router.navigate(['/advertiser', 'dashboard']);
