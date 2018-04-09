@@ -1,25 +1,25 @@
 <div class="filters">
-  <div class="row user-filters" *ngIf="!(userDataState | async).isAdmin">
+  <div class="row user-filters">
     <div
       class="
         col-xs-12
         col-sm-6
         col-md-2"
+      *ngIf="!userData.isAdmin"
     >
       <mat-select
         class="adsh-select"
-        id="assetId"
-        [value]="currentAssetId"
-        (change)="updateAssetId(currentAssetId)"
-        [(ngModel)]="currentAssetId"
+        [(value)]="currentAssetId"
+        (change)="updateAssetId()"
       >
         <mat-option
-          *ngFor="let assetId of [0, 1]"
-          [value]="assetId">
-          {{ assetId }}
+          *ngFor="let asset of assetsInfo"
+          [value]="asset.id">
+          {{ asset.name }}
         </mat-option>
       </mat-select>
     </div>
+
     <div
       class="
         col-xs-12
@@ -28,35 +28,11 @@
     >
       <mat-select
         class="adsh-select"
-        id="assetSeries"
-        [value]="currentAssetSeries"
-        (change)="updateAssetSeries(currentAssetSeries)"
-        [(ngModel)]="currentAssetSeries"
+        [(value)]="currentAssetSeries"
+        (change)="updateAssetSeries()"
       >
         <mat-option
           *ngFor="let assetSeries of chartSeries"
-          [value]="assetSeries">
-          {{ assetSeries }}
-        </mat-option>
-      </mat-select>
-    </div>
-  </div>
-  <div class="admin-filters" *ngIf="(userDataState | async).isAdmin">
-    <div
-      class="
-        col-xs-12
-        col-sm-6
-        col-md-2"
-    >
-      <mat-select
-        class="adsh-select"
-        id="adminAssetSeries"
-        [value]="currentAdminAssetSeries"
-        (change)="updateAssetSeries(currentAdminAssetSeries)"
-        [placeholder]="currentAdminAssetSeries"
-      >
-        <mat-option
-          *ngFor="let assetSeries of adminChartSeries"
           [value]="assetSeries">
           {{ assetSeries }}
         </mat-option>
