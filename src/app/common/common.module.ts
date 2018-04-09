@@ -32,6 +32,7 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
+import { CommaReplacerPipe } from './pipes/comma-replacer.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
@@ -65,6 +66,7 @@ const appComponents = [
   HeaderComponent,
   NotificationsComponent,
   AdsharesTokenPipe,
+  CommaReplacerPipe,
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,
@@ -84,7 +86,7 @@ const appComponents = [
     FormsModule,
     ReactiveFormsModule,
     ChartsModule,
-    ...matModules
+    ...matModules,
   ],
   declarations: [
     ...dialogs,
