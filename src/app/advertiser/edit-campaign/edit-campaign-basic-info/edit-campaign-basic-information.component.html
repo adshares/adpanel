@@ -121,10 +121,10 @@
             <span
               class="error-msg"
               *ngIf="
-              campaignBasicInfoForm.hasError('required', ['bidStrategyName']) &&
-              campaignBasicInformationSubmitted"
+                campaignBasicInfoForm.hasError('required', ['bidStrategyName']) &&
+                campaignBasicInformationSubmitted"
             >
-              Bid Strategy required
+              Bid strategy required
             </span>
           </div>
           <div
@@ -133,24 +133,30 @@
               col-xs-8
               input--right"
           >
-            <label
-              for="campaignBidValue"
-              class="adsh-form-label"
+            <div
+              class="
+                col
+                relative"
             >
-              Bid Value
-            </label>
-            <input
-              id="campaignBidValue"
-              class="adsh-form-input"
-              type="number"
-              min="0.01"
-              name="campaignBidValue"
-              formControlName="bidValue"
-            >
-            <span
-              *ngIf="campaignBasicInfoForm.get('bidValue').valid"
-              class="input-valid"
-            ></span>
+              <label
+                for="campaignBidValue"
+                class="adsh-form-label"
+              >
+                Bid Value
+              </label>
+              <input
+                id="campaignBidValue"
+                class="adsh-form-input"
+                type="number"
+                min="0.01"
+                name="campaignBidValue"
+                formControlName="bidValue"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('bidValue').valid"
+                class="input-valid"
+              ></span>
+            </div>
             <span
               class="error-msg"
               *ngIf="
@@ -172,38 +178,43 @@
       </p>
 
       <div class="adsh-form-input__box">
-        <div class="row no-gutters">
+        <div
+          class="
+            row
+            no-gutters"
+        >
           <div
             class="
-              col-xs-5
               col
-              relative"
+              col-xs-5"
           >
-            <label
-              for="campaignBudget"
-              class="adsh-form-label"
-            >
-              Budget (Adst / per day)
-            </label>
+            <div class="relative">
+              <label
+                for="campaignBudget"
+                class="adsh-form-label"
+              >
+                Budget (Adst / per day)
+              </label>
 
-            <input
-              id="campaignBudget"
-              class="adsh-form-input"
-              type="number"
-              min="0.01"
-              name="campaignBudget"
-              formControlName="budget"
-            >
-            <span
-              *ngIf="campaignBasicInfoForm.get('budget').valid"
-              class="input-valid"
-            ></span>
+              <input
+                id="campaignBudget"
+                class="adsh-form-input"
+                type="number"
+                min="0.01"
+                name="campaignBudget"
+                formControlName="budget"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('budget').valid"
+                class="input-valid"
+              ></span>
+            </div>
             <span
               class="error-msg"
               *ngIf="
                 campaignBasicInfoForm.hasError('required', ['budget']) &&
                 campaignBasicInformationSubmitted"
-                >
+            >
               Budget required
             </span>
           </div>
