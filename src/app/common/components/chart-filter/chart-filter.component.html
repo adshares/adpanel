@@ -7,7 +7,7 @@
     class="
       row
       filter-row
-      align-baseline
+      align-center
       justify-end"
   >
     <span class="adsh-copy">
@@ -50,97 +50,93 @@
 
   <div
     class="
-      col
-      align-end"
+      row
+      filter-row
+      align-center
+      justify-end"
   >
-    <div
+    <span class="adsh-copy">or Select Manually</span>
+    <label
       class="
-        row
-        filter-row
-        align-baseline
-        justify-end"
+        adsh-copy
+        adsh-copy--small"
     >
-      <span class="adsh-copy">or Select Manually</span>
-      <label class="adsh-form-label">From</label>
-      <mat-form-field
-        class="
-          adsh-form-input
-          adsh-form-input--narrow
-          adsh-form-input--datepicker
-          adsh-form-input--datepicker--narrow
-          row"
-      >
-        <img
-          src="assets/images/calendar.svg"
-          alt="Add new icon"
-          class="
-            adsh-icon
-            adsh-icon--prepend"
-        >
-        <input
-          (click)="dateFromPicker.open()"
-          matInput
-          [min]="minDate"
-          [matDatepicker]="dateFromPicker"
-          [formControl]="dateFrom"
-          required
-        >
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateFromPicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #dateFromPicker></mat-datepicker>
-      </mat-form-field>
-      <label class="adsh-form-label">To</label>
-      <mat-form-field
-        class="
-          adsh-form-input
-          adsh-form-input--narrow
-          adsh-form-input--datepicker
-          adsh-form-input--datepicker--narrow
-          row"
-      >
-        <img
-          src="assets/images/calendar.svg"
-          alt="Add new icon"
-          class="
-            adsh-icon
-            adsh-icon--prepend"
-        >
-        <input
-          (click)="dateToPicker.open()"
-          matInput
-          [min]="minDate"
-          [matDatepicker]="dateToPicker"
-          [formControl]="dateTo"
-          required
-        >
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateToPicker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #dateToPicker></mat-datepicker>
-      </mat-form-field>
-
-
-      <button
-        type="button"
-        class="
-          adsh-btn
-          adsh-button--small
-          adsh-bg-white
-          adsh-navy"
-        (click)="filterChartByDatepicker(dateFrom, dateTo)"
-        [class.disabled]="dateTo.value < dateFrom.value || dateFrom.value.length === 0 || dateTo.value.length === 0"
-      >
-        Apply
-      </button>
-    </div>
-    <span
-      class="error-msg"
-      *ngIf="dateTo.value < dateFrom.value && dateTo.value"
+      From
+    </label>
+    <mat-form-field
+      class="
+        adsh-form-input
+        adsh-form-input--narrow
+        adsh-form-input--datepicker
+        adsh-form-input--datepicker--narrow
+        row"
     >
-      Wrong date span
-    </span>
+      <img
+        src="assets/images/calendar.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
+      <input
+        (click)="dateFromPicker.open()"
+        matInput
+        [matDatepicker]="dateFromPicker"
+        [formControl]="dateFrom"
+        required
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dateFromPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dateFromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <label
+      class="
+        adsh-copy
+        adsh-copy--small"
+    >
+      To
+    </label>
+    <mat-form-field
+      class="
+        adsh-form-input
+        adsh-form-input--narrow
+        adsh-form-input--datepicker
+        adsh-form-input--datepicker--narrow
+        row"
+    >
+      <img
+        src="assets/images/calendar.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
+      <input
+        (click)="dateToPicker.open()"
+        matInput
+        [matDatepicker]="dateToPicker"
+        [formControl]="dateTo"
+        required
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dateToPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dateToPicker></mat-datepicker>
+    </mat-form-field>
+    <button
+      type="button"
+      class="
+        adsh-btn
+        adsh-button--small
+        adsh-bg-white
+        adsh-navy"
+      (click)="filterChart(dateFrom, dateTo)"
+    >
+      Apply
+    </button>
   </div>
 </div>

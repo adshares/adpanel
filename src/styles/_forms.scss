@@ -32,6 +32,7 @@
     @include font(12, medium);
     color: pal(gray);
     margin: 16px 0 7px;
+    display: inline-block;
   }
 
   &-input,
@@ -106,7 +107,7 @@ input[type=radio]:checked + label {
 
 .adsh-select {
   position: relative;
-  width: auto;
+  width: 100%;
   cursor: pointer;
   border-radius: 2px;
   color: pal(navy);
@@ -171,8 +172,8 @@ input[type=radio]:checked + label {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
-    @include center(vertical);
-    right: 3px;
+    top: 6px;
+    right: 5px;
   }
 }
 
