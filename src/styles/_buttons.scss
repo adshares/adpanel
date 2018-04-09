@@ -80,4 +80,8 @@
   &.save-as-draft {
     margin-right: 15px;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
