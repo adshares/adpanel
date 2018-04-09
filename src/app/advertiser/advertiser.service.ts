@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { Campaign } from 'models/campaign.model';
+import { Campaign, Ad } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 
@@ -36,5 +36,9 @@ export class AdvertiserService {
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaign_targeting`);
+  }
+
+  saveAd(ad: Ad): Observable<Ad> {
+    return this.http.post<Ad>(`${environment.apiUrl}/save_ad`, { ad });
   }
 }
