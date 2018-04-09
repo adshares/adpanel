@@ -46,13 +46,8 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
       this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
     }
 
-    const saveCampaignSubscription = this.advertiserService.saveCampaign(this.campaign)
-      .first()
-      .subscribe(() => {
-        this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
-        this.router.navigate(['/advertiser', 'dashboard']);
-      });
-    this.subscriptions.push(saveCampaignSubscription);
+    this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
+    this.router.navigate(['/advertiser', 'dashboard']);
   }
 
   toggleTooltip(state, adIndex) {

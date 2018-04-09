@@ -77,18 +77,17 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         ['/advertiser', 'create-campaign', editCampaignStep],
         { queryParams: { step: param } }
       );
-    } else {
-      const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-        .first()
-        .subscribe((campaign: Campaign) => {
-          const saveCampaignSubscription = this.advertiserService.saveCampaign(campaign).subscribe();
-          this.subscriptions.push(saveCampaignSubscription);
 
-          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
-          this.router.navigate(['/advertiser', 'dashboard']);
-        });
-      this.subscriptions.push(lastCampaignSubscription);
+      return;
     }
+
+    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .first()
+      .subscribe((campaign: Campaign) => {
+        this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
+        this.router.navigate(['/advertiser', 'dashboard']);
+      });
+    this.subscriptions.push(lastCampaignSubscription);
   }
 
   getTargetingFromStore() {
