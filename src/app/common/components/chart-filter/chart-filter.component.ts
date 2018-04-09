@@ -25,8 +25,12 @@ export class ChartFilterComponent {
   }
 
   filterChartByDatepicker(from, to) {
-    if (this.dateTo.value > this.dateFrom.value) {
-      this.filterChart(from, to);
+    const dateSpanValid = this.dateTo.value > this.dateFrom.value;
+
+    if (!dateSpanValid) {
+      return;
     }
+
+    this.filterChart(from, to);
   }
 }
