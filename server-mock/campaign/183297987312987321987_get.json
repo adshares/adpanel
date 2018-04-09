@@ -35,7 +35,7 @@
   "ads": [
     {
       "id": "1",
-      "status": "active",
+      "status": 0,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
 
@@ -48,7 +48,7 @@
     },
     {
       "id": "2",
-      "status": "limited",
+      "status": 2,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
 
