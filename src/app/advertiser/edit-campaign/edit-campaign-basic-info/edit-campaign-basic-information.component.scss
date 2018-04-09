@@ -16,6 +16,11 @@
     padding-left: 30px;
   }
 
+  #campaignBidValue,
+  #campaignBudget {
+    width: calc(100% - 32px);
+  }
+
   #campaignBudget {
     margin-right: 20px;
   }
