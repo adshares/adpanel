@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
@@ -47,6 +48,7 @@ public class DashboardPopup {
       Assert.assertEquals(textAssertion, "Continue as");
       userPopUpAdvertiser.click();
       LOGGER.info("User choose publisher dashboard");
+    wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
   }
 
 
