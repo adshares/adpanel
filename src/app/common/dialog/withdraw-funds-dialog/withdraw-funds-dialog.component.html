@@ -50,17 +50,12 @@
           formControlName="address"
         >
         <span
-          *ngIf="
-            withdrawFundsForm.get('address').valid
-            || !(withdrawFundsForm.hasError('minlength', ['address']) && !withdrawFundsForm.hasError('maxlength', ['address']))"
+          *ngIf="withdrawFundsForm.get('address').valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
-          *ngIf="
-            (withdrawFundsForm.hasError('minlength', ['address'])
-            || withdrawFundsForm.hasError('maxlength', ['address']))
-            && withdrawFormSubmitted"
+          *ngIf="withdrawFundsForm.hasError('minlength', ['address']) && withdrawFormSubmitted"
         >
           Wrong address format.
         </span>
