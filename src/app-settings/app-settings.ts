@@ -7,5 +7,6 @@ export const appSettings = {
   PRIVACY_POLICY_LINK: 'https://adshares.net/privacy.txt',
   FAQ_LINK: 'https://adshares.net/faq.html',
   TX_FEE: 0.002,
-  ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)'
+  ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
+  TARGET_URL_REGEXP: `^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}`
 };
