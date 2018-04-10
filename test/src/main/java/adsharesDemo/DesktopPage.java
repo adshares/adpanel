@@ -55,6 +55,7 @@ public class DesktopPage {
       LOGGER.info("Użytkownik posiada jedynie dostęp Advertisa");
       System.out.println("Użytkownik posiada jedynie dostęp Advertisera");
     }
+    wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
   }
 
 }
