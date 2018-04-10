@@ -44,7 +44,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.changeWithdrawAddressForm = new FormGroup({
       address: new FormControl('', [
         Validators.required,
-        Validators.pattern('/[0-9A-F]{4}-[0-9A-F]{8}-([0-9A-F]{4}|XXXX)/i\n')
+        Validators.pattern('[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)')
       ])
     });
   }

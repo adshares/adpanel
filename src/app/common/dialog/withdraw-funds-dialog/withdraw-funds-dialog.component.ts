@@ -45,8 +45,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   createForm() {
     this.withdrawFundsForm = new FormGroup({
       address: new FormControl(this.financialData.userAddress, [
-        Validators.required,
-        Validators.pattern('/[0-9A-F]{4}-[0-9A-F]{8}-([0-9A-F]{4}|XXXX)/i\n')
+        Validators.required
+        // Validators.pattern('/[0-9A-F]{4}-[0-9A-F]{8}-([0-9A-F]{4}|XXXX)/i\n')
       ]),
       amount: new FormControl('', [Validators.required]),
       memo: new FormControl('', [Validators.maxLength(32)])
