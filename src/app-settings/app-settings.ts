@@ -6,5 +6,6 @@ export const appSettings = {
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
   PRIVACY_POLICY_LINK: 'https://adshares.net/privacy.txt',
   FAQ_LINK: 'https://adshares.net/faq.html',
-  TX_FEE: 0.002
+  TX_FEE: 0.002,
+  ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)'
 };

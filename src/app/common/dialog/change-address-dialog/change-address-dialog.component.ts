@@ -9,6 +9,7 @@ import { SettingsService } from 'settings/settings.service';
 import { LocalStorageUser } from 'models/user.model';
 
 import * as authActions from 'store/auth/auth.actions';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-change-address-dialog',
@@ -44,7 +45,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.changeWithdrawAddressForm = new FormGroup({
       address: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)')
+        Validators.pattern(appSettings.ADDRESS_REGEXP)
       ])
     });
   }
