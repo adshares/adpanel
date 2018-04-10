@@ -1,5 +1,4 @@
 package adsharesDemo.publisher;
 
-public class NewSites {
-
+public class SiteBasicInfo {
 }

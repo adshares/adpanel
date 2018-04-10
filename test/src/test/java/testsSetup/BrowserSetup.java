@@ -1,7 +1,9 @@
 package testsSetup;
 
-import adsharesDemo.DesktopPage;
+import adsharesDemo.DashboardPopup;
 import adsharesDemo.LoginPage;
+import adsharesDemo.publisher.PublisherMainPage;
+import adsharesDemo.publisher.PublisherNewSite;
 import enums.Properties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +16,9 @@ import tools.Xml;
 public class BrowserSetup {
 
   protected LoginPage loginPage;
-  protected DesktopPage desktopPage;
+  protected DashboardPopup dashboardPopup;
+  protected PublisherNewSite publisherNewSite;
+  protected PublisherMainPage publisherMainPage;
 
   public WebDriver driver;
 

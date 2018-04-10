@@ -5,12 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
 
-public class DesktopPage {
+import java.util.concurrent.TimeUnit;
+
+public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
 
   @FindBy(css = "#mat-dialog-0 > app-account-choose-dialog > mat-dialog-content > h6")
@@ -20,41 +21,35 @@ public class DesktopPage {
   @FindBy(xpath = "//mat-dialog-content[@class = 'mat-dialog-content']/div[1]/button")
   private WebElement userPopUpAdvertiser;
 
+
   private WebDriver driver;
   private WebDriverWait wait;
 
-  public DesktopPage(WebDriver driver) {
+  public DashboardPopup(WebDriver driver) {
     this.driver = driver;
     wait = new WebDriverWait(driver, 20);
     PageFactory.initElements(driver, this);
   }
 
   public void popUpPublisher() {
-    wait.until(ExpectedConditions.visibilityOf(userPopUp));
-    if (userPopUp.isEnabled()) {
-      String textAssertion = driver.findElement(By.xpath("//*[@id='mat-dialog-0']/app-account-choose-dialog/mat-dialog-content/h6")).getText();
-      Assert.assertEquals(textAssertion, "Continue as");
-      userPopUpPublisher.click();
-      LOGGER.info("Użytkownik wybrał panel publishera");
-      System.out.println("Użytkownik wybrał panel publishera");
-    } else {
-      LOGGER.info("Użytkownik posiada jedynie dostęp publishera");
-      System.out.println("Użytkownik posiada jedynie dostęp publishera");
-    }
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    userPopUp.isDisplayed();
+    String textAssertion = driver.findElement(By.xpath("//*[@id='mat-dialog-0']/app-account-choose-dialog/mat-dialog-content/h6")).getText();
+    Assert.assertEquals(textAssertion, "Continue as");
+    userPopUpPublisher.click();
+    LOGGER.info("User choose publisher dashboard ");
   }
 
   public void popUpAdvertiser() {
-    wait.until(ExpectedConditions.visibilityOf(userPopUp));
-    if (userPopUp.isEnabled()) {
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    userPopUp.isDisplayed();
       String textAssertion = driver.findElement(By.xpath("//*[@id='mat-dialog-0']/app-account-choose-dialog/mat-dialog-content/h6")).getText();
       Assert.assertEquals(textAssertion, "Continue as");
       userPopUpAdvertiser.click();
-      LOGGER.info("Użytkownik wybrał panel Advertisera");
-      System.out.println("Użytkownik wybrał panel Advertisera");
-    } else {
-      LOGGER.info("Użytkownik posiada jedynie dostęp Advertisa");
-      System.out.println("Użytkownik posiada jedynie dostęp Advertisera");
-    }
+      LOGGER.info("User choose publisher dashboard");
   }
+
+
+
 
 }
