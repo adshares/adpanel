@@ -24,6 +24,7 @@ compileJava {
 
 ext.testFile = System.getProperty('Test_Plan') ?: 'testng.xml'
 test {
+  systemProperty "webdriver.chrome.driver", findProperty("webdriver.chrome.driver")
   useTestNG {
     //suites "src/test/resources/TestyJednostkowe/$testFile"
     suites "src/test/java/testsRegression/Test01"
