@@ -1,5 +1,5 @@
 interface UserFinancialData {
-  userEthAddress: string;
+  userAddress: string;
   userMemo: string;
   userAutomaticWithdrawPeriod: number;
   userAutomaticWithdrawAmount: number;
