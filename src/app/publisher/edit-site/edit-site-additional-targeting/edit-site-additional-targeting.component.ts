@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/first';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
@@ -8,6 +10,7 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { cloneDeep } from 'common/utilities/helpers';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
@@ -17,11 +20,12 @@ import { TargetingSelectComponent } from 'common/components/targeting/targeting-
   templateUrl: './edit-site-additional-targeting.component.html',
   styleUrls: ['./edit-site-additional-targeting.component.scss']
 })
-export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
 
   goesToSummary: boolean;
 
+  subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
@@ -31,7 +35,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private router: Router,
-    private publisherService: PublisherService
+    private publisherService: PublisherService,
+    private assetHelpers: AssetHelpersService
   ) {
     super();
   }
@@ -40,10 +45,11 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
-
-
     this.getSiteFromStore();
+  }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   updateAddedItems(items) {
@@ -72,21 +78,32 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
         ['/publisher', 'create-site', editSiteStep],
         { queryParams: { step: param } }
       );
-    } else {
-      this.store.select('state', 'publisher', 'lastEditedSite')
-        .take(1)
-        .subscribe((lastEditedSite: Site) => {
-          this.publisherService.saveSite(lastEditedSite).subscribe();
-          this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
-          this.router.navigate(['/publisher', 'dashboard']);
-        });
+
+      return;
     }
+
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
+      .subscribe((lastEditedSite: Site) => {
+        this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
+        this.router.navigate(['/publisher', 'dashboard']);
+      });
+    this.subscriptions.push(lastSiteSubscription);
   }
 
   getSiteFromStore() {
-    this.store.select('state', 'publisher', 'lastEditedSite', 'targetingArray')
-      .take(1)
-      .subscribe((targeting: AssetTargeting) => {
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
+      .subscribe((lastEditedSite: Site) => {
+        const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
+
+        if (!siteUrlFilled) {
+          this.changesSaved = true;
+          return;
+        }
+
+        const targeting = lastEditedSite.targetingArray;
+
         [targeting.requires, targeting.excludes].forEach((savedList, index) => {
           const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
           const choosedList = index === 0 ? this.addedItems : this.excludedItems;
@@ -94,5 +111,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
           this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
         });
       });
+    this.subscriptions.push(lastSiteSubscription);
   }
 }

@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { TargetingOption } from 'models/targeting-option.model';
+import { prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
 
 @Injectable()
 export class TargetingCriteriaResolver implements Resolve<any> {
   constructor(private publisherService: PublisherService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
-    return this.publisherService.getTargetingCriteria();
+    return this.publisherService.getTargetingCriteria()
+      .do((targetingOptions) => prepareTargetingChoices(targetingOptions, targetingOptions));;
   }
 }

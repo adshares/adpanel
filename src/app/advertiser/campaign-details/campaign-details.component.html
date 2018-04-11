@@ -333,7 +333,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          {{ campaign.cost | currency:'USD'  }}
+          {{ campaign.cost | commaReplacer| currency:'USD'  }}
         </p>
         <p
           class="

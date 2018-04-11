@@ -5,5 +5,6 @@ export const appSettings = {
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
   PRIVACY_POLICY_LINK: 'https://adshares.net/privacy.txt',
-  FAQ_LINK: 'https://adshares.net/faq.html'
+  FAQ_LINK: 'https://adshares.net/faq.html',
+  TX_FEE: 0.002
 };

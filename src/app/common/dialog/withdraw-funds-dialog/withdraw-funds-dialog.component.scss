@@ -1,3 +1,5 @@
+@import '../../../../styles';
+
 .total-funds {
   margin: 20px 0;
 }
@@ -14,6 +16,6 @@
   color: pal(blue);
 }
 
-button {
+.adsh-funds-summary__deposit-funds {
   margin-bottom: 30px;
 }

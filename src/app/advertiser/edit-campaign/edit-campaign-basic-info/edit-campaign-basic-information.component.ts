@@ -21,8 +21,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   campaignBasicInformationSubmitted = false;
   dateStart = new FormControl();
   dateEnd = new FormControl();
-  minDate = moment().format('L');
-  maxDate = moment().add(1, 'year').format('L');
+  minDate = new Date();
 
   goesToSummary: boolean;
 

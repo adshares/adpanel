@@ -36,6 +36,24 @@
   </span>
 </div>
 
+<div
+  class="
+    adsh-box
+    adsh-box--light-border
+    adsh-box--no-top-border
+    relative"
+  *ngIf="parentOption && parentOption.allow_input"
+  (click)="addCustomOption()">
+  <span
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--x-dark
+      adsh-copy--semi">
+    Add custom
+  </span>
+</div>
+
 <div *ngFor="let option of viewModel">
   <div
     (click)="handleOptionClick(option)"

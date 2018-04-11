@@ -11,6 +11,7 @@ export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
 export const SAVE_LAST_EDITED_SITE_TARGETING = 'Site targeting saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 export const ADD_SITE_TO_SITES = 'Site added to user sites';
+export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -52,6 +53,11 @@ export class AddSiteToSites implements Action {
   constructor(public payload: Site) { }
 }
 
+export class AddSiteToSitesSuccess implements Action {
+  readonly type = ADD_SITE_TO_SITES_SUCCESS;
+  constructor(public payload: Site) { }
+}
+
 export type actions =
   LoadSites |
   LoadSitesSuccess |
@@ -60,4 +66,5 @@ export type actions =
   SaveLastEditedSite |
   SaveSiteTargeting |
   SaveLastEditedSiteAdUnits |
-  AddSiteToSites;
+  AddSiteToSites |
+  AddSiteToSitesSuccess;

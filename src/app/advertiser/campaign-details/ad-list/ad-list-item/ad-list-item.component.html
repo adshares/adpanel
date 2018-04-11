@@ -9,24 +9,33 @@
     >
       <div
         class="
-          col-xs-1
+          col-xs-2
           row
           align-center"
       >
         <div
           class="
-            adsh-box
-            adsh-box--small
-            adsh-status
             text-center"
           [attr.data-status]="ad.status"
         >
-        <span>{{ ad.status }}</span>
+          <mat-select
+            class="adsh-select"
+            [(value)]="ad.status"
+            [compareWith]="selectCompare"
+            (change)="changeAdStatus()"
+          >
+            <mat-option
+              *ngFor="let adStatus of adStatuses"
+              [value]="adStatus.id"
+            >
+              {{ adStatus.name }}
+            </mat-option>
+          </mat-select>
         </div>
       </div>
       <div
         class="
-          col-xs-4
+          col-xs-3
           row
           align-center"
       >
@@ -44,7 +53,7 @@
           row
           align-center"
       >
-      <span>{{ ad.budget | currency:USD }}/day</span>
+      <span>{{ ad.budget | number:'1.2-2' | commaReplacer | currency:USD }} /day</span>
       </div>
       <div
         class="
@@ -67,7 +76,7 @@
           row
           align-center"
       >
-      <span>{{ ad.ctr | percent }}</span>
+      <span>{{ ad.ctr | percent:'1.2-2' }}</span>
       </div>
       <div
         class="
@@ -75,7 +84,7 @@
           row
           align-center"
       >
-      <span>{{ ad.averageCPC | currency:USD }}</span>
+      <span>{{ ad.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }} </span>
       </div>
       <div
         class="
@@ -83,7 +92,7 @@
           row
           align-center"
       >
-      <span>{{ ad.cost | currency:USD }}</span>
+      <span>{{ ad.cost | number:'1.2-2' | commaReplacer | currency:USD }} </span>
       </div>
     </div>
   </div>
