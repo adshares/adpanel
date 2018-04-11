@@ -12,7 +12,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatSpinner } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSpinner, MatSlideToggle } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 
 import { CommonService } from './common.service';
@@ -49,7 +50,8 @@ const matModules = [
   MatProgressSpinnerModule,
   MatDatepickerModule,
   MatInputModule,
-  MatMomentDateModule
+  MatMomentDateModule,
+  MatSlideToggleModule
 ];
 
 const dialogs = [
@@ -104,7 +106,8 @@ const appComponents = [
   exports: [
     ...appComponents,
     MatSpinner,
-    MatDialogContent
+    MatDialogContent,
+    MatSlideToggle
   ]
 })
 
