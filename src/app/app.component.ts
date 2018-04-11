@@ -11,7 +11,7 @@ import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { User } from 'models/user.model';
 import { LocalStorageUser } from 'models/user.model';
-import { AdSharesEthAddress } from 'models/settings.model';
+import { AdSharesAddress } from 'models/settings.model';
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
 
@@ -35,7 +35,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.handleSavedUserData();
-    this.getAdsharesEthAddress();
+    this.getAdsharesAddress();
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -95,10 +95,10 @@ export class AppComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getAdsharesEthAddress() {
-    const changeWithdrawAddressSubscription = this.commonService.getAdsharesEthAddress()
-      .subscribe((data: AdSharesEthAddress) => {
-        this.store.dispatch(new commonActions.SetAdsharesEthAddress(data.adsharesEthAddress));
+  getAdsharesAddress() {
+    const changeWithdrawAddressSubscription = this.commonService.getAdsharesAddress()
+      .subscribe((data: AdSharesAddress) => {
+        this.store.dispatch(new commonActions.SetAdsharesAddress(data.adsharesAddress));
       });
 
     this.subscriptions.push(changeWithdrawAddressSubscription);

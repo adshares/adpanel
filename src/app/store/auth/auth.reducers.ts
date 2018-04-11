@@ -7,10 +7,10 @@ export function authReducers(state = initialState , action: authActions.actions)
   switch (action.type) {
     case authActions.SET_USER:
       return action.payload;
-    case authActions.UPDATE_USER_ETH_ADDRESS:
+    case authActions.UPDATE_USER_ADDRESS:
       return {
         ...state,
-        financialData: Object.assign({}, state.financialData, { userEthAddress: action.payload })
+        financialData: Object.assign({}, state.financialData, { userAddress: action.payload })
       };
     case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD:
       return {

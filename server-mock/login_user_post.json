@@ -7,7 +7,7 @@
     "isEmailConfirmed": false,
     "authToken": "someauthtokenvalue",
     "financialData": {
-      "userEthAddress": "0xe99356bde974bbe08721d77712168fa070aa8da4",
+      "userAddress": "0001-0000001F-34FC",
       "userMemo": "User 0291",
       "userAutomaticWithdrawPeriod": 1,
       "userAutomaticWithdrawAmount": 200,

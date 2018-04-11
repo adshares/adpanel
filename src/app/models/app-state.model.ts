@@ -47,7 +47,7 @@ interface AdminState {
 
 interface CommonState {
   activeUserType: number;
-  adsharesEthAddress: string;
+  adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
 }
 
