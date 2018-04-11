@@ -95,17 +95,14 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  saveCampaign() {
-    this.advertiserService.saveCampaign(this.campaign).subscribe();
-  }
-
-  onCampaignStatusChange(id, status) {
-
+  onCampaignStatusChange(status) {
     if (status == 2 ) {
       this.currentCampaignStatus = 1;
     } else {
       this.currentCampaignStatus = 2;
     }
-    this.advertiserService.updateCampaignStatus(id, this.currentCampaignStatus);
+    Object.assign(this.campaign, { status: this.campaign.basicInformation.status });
+
+    this.advertiserService.saveCampaign(this.campaign).subscribe();
   }
 }

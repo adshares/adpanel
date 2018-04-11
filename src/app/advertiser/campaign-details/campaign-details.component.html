@@ -76,7 +76,7 @@
             color="primary"
             [checked]="currentCampaignStatus == 2"
             ([ngModel])="currentCampaignStatus"
-            (change)="onCampaignStatusChange(campaign.id, currentCampaignStatus)"
+            (change)="onCampaignStatusChange(currentCampaignStatus)"
           ></mat-slide-toggle>
         </div>
         <button

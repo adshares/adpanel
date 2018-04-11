@@ -108,23 +108,20 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  saveSite() {
-    this.publisherService.saveSite(this.site).subscribe();
-  }
-
   getTargeting() {
     this.publisherService.getTargetingCriteria().subscribe(targeting => {
       this.targeting = parseTargetingOptionsToArray(this.site.targeting, targeting);
     });
   }
 
-  onSiteStatusChange(id, status) {
-
+  onSiteStatusChange(status) {
     if (status == 2 ) {
       this.currentSiteStatus = 1;
     } else {
       this.currentSiteStatus = 2;
     }
-    this.publisherService.updateSiteStatus(id, this.currentSiteStatus);
+
+    Object.assign(this.site, { status: this.currentSiteStatus });
+    this.publisherService.saveSite(this.site).subscribe();
   }
 }
