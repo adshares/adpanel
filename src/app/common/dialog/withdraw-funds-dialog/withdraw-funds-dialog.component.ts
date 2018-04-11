@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
 import { AppState} from 'models/app-state.model';
-import { UserFinancialData } from 'models/user.model';
+import { User, UserFinancialData } from 'models/user.model';
 
 import { appSettings } from 'app-settings';
 
@@ -23,6 +23,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   memoInputActive = false;
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
+  isEmailConfirmed = false;
 
   txFee: number = appSettings.TX_FEE;
 
@@ -35,9 +36,12 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-    const userEthAddressSubscription = this.store.select('state', 'user', 'data', 'financialData')
-      .subscribe((financialData: UserFinancialData) => this.financialData = financialData);
-    this.subscriptions.push(userEthAddressSubscription);
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.isEmailConfirmed = user.isEmailConfirmed;
+        this.financialData = user.financialData;
+      });
+    this.subscriptions.push(userDataSubscription);
 
     this.createForm();
   }

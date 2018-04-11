@@ -99,6 +99,7 @@
           class="
             adsh-btn
             adsh-btn--blue"
+          *ngIf="isEmailConfirmed"
         >
           <span *ngIf="!isFormBeingSubmitted ; else loading">
               Save
@@ -107,6 +108,16 @@
             <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
           </ng-template>
         </button>
+
+        <div
+          class="
+            confirm-email-error-block
+            error-msg
+            col-xs-12"
+          *ngIf="!isEmailConfirmed"
+        >
+          Confirm email change address
+        </div>
       </div>
     </form>
   </div>
