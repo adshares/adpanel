@@ -53,7 +53,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       });
     this.subscriptions.push(chartFilterSubscription);
 
-
     this.getChartData(this.currentChartFilterSettings);
   }
 
@@ -101,6 +100,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     } else {
       this.currentCampaignStatus = 2;
     }
+
     Object.assign(this.campaign, { status: this.campaign.basicInformation.status });
 
     this.advertiserService.saveCampaign(this.campaign).subscribe();

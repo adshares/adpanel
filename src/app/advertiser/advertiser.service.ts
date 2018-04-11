@@ -34,10 +34,6 @@ export class AdvertiserService {
     return this.http.post<Campaign>(`${environment.apiUrl}/save_campaign`, { campaign });
   }
 
-  updateCampaignStatus(id: string, status: number) {
-    return this.http.post(`${environment.apiUrl}/update_campaign_status`, { id, status });
-  }
-
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaign_targeting`);
   }
