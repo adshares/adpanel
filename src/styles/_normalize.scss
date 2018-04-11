@@ -59,6 +59,19 @@ select {
   outline: none !important;
 }
 
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+*:focus {
+  outline: none;
+}
+
 a:-webkit-any-link {
   color: pal(blue);
 }

@@ -26,6 +26,11 @@
     padding: 6px 15px;
   }
 
+  &--no-vertical-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   &--with-icon {
     padding: 12px 25px 12px 18px;
   }
@@ -74,5 +79,9 @@
 
   &.save-as-draft {
     margin-right: 15px;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
   }
 }

@@ -24,12 +24,10 @@ import * as authActions from 'store/auth/auth.actions';
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
   financialData: UserFinancialData;
-  notificationsCount = 8;
   userDataState: Store<User>;
   activeUserType: number;
 
   userRolesEnum = userRolesEnum;
-  notificationsBarEnabled = false;
 
   settingsMenuOpen = false;
   chooseUserMenuOpen = false;
@@ -57,10 +55,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(userFinancialDataSubscription, activeUserTypeSubscription);
 
     this.userDataState = this.store.select('state', 'user', 'data');
-  }
-
-  toggleNotificationsBar(status: boolean) {
-    this.notificationsBarEnabled = status;
   }
 
   navigateToCreateNewAsset() {

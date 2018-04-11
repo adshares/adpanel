@@ -1,13 +1,16 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
   selector: 'app-targeting-select',
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent implements OnInit, OnChanges {
+export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
   @Input() targetingOptions;
   @Input() addedItems;
   @Output()
@@ -23,6 +26,10 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   optionsHasValue = false;
   searchTerm = '';
 
+  constructor(private dialog: MatDialog) {
+    super();
+  }
+
   ngOnInit() {
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
@@ -30,7 +37,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.selectedItems = this.selectedItems.filter((item) => item.selected);
+    this.selectedItems = this.selectedItems.filter((item) => item.selected || item.isCustom);
   }
 
   changeViewModel(options) {
@@ -44,7 +51,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       this.setBackViewModel(this.targetingOptions, options);
     }
 
-    this.optionsHasValue = options[0].value ? true : false;
+    this.optionsHasValue = options[0].hasOwnProperty('value') ? true : false;
   }
 
   handleOptionClick(option) {
@@ -138,10 +145,14 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     const searchTerm = this.searchTerm.toLowerCase().trim();
 
     if (searchTerm) {
+      this.backAvailable = false;
+      this.parentOption = null;
       this.prepareSearchViewModel();
-    } else {
-      this.changeViewModel(this.targetingOptions);
+
+      return;
     }
+
+    this.changeViewModel(this.targetingOptions);
   }
 
   prepareSearchViewModel() {
@@ -169,6 +180,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       if (item) {
         Object.assign(item, { selected: true });
         choosedList.push(item);
+      } else if (savedItem.isCustom) {
+        choosedList.push(savedItem);
       }
     })
   }
@@ -191,5 +204,31 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
 
     return false;
+  }
+
+  addCustomOption() {
+    const availableOptions = this.targetingOptionsForSearch.filter(option => option.allow_input)
+
+    const addCustomOptionDialog = this.dialog.open(
+      AddCustomTargetingDialogComponent,
+      {
+        data: {
+          parentOption: this.parentOption,
+          targetingOptions: this.targetingOptions,
+          availableOptions,
+        }
+      }
+    );
+
+    const customDialogCloseSubscription = addCustomOptionDialog.afterClosed()
+      .subscribe((customOption) => {
+        if (customOption) {
+          this.selectedItems.push(customOption);
+          this.itemsChange.emit(this.selectedItems);
+          this.onSearchTermChange();
+          this.parentOption = null;
+        }
+      });
+    this.subscriptions.push(customDialogCloseSubscription);
   }
 }

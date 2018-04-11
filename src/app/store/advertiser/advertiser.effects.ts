@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 
@@ -20,4 +20,11 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .switchMap(() => this.service.getCampaigns())
     .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
+
+  @Effect()
+  addCampaignToCampaigns = this.actions$
+    .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.saveCampaign(payload))
+    .map((campaign) => new advertiserActions.LoadCampaignsSuccess(campaign));
 }
