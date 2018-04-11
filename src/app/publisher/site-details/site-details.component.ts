@@ -27,15 +27,14 @@ import { parseTargetingOptionsToArray } from 'common/components/targeting/target
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
+  currentSiteStatus: number;
+
   targeting: AssetTargeting = {
     requires: [],
     excludes: []
   };
 
   chartSeries: string[] = enumToArray(chartSeriesEnum);
-
-  siteStatuses = enumToObjectArray(siteStatusEnum);
-  selectCompare = selectCompare;
 
   barChartValue: number;
   barChartDifference: number;
@@ -57,6 +56,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
+    this.currentSiteStatus = this.site.status;
 
     this.getTargeting();
 
@@ -116,5 +116,15 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.publisherService.getTargetingCriteria().subscribe(targeting => {
       this.targeting = parseTargetingOptionsToArray(this.site.targeting, targeting);
     });
+  }
+
+  onSiteStatusChange(id, status) {
+
+    if (status == 2 ) {
+      this.currentSiteStatus = 1;
+    } else {
+      this.currentSiteStatus = 2;
+    }
+    this.publisherService.updateSiteStatus(id, this.currentSiteStatus);
   }
 }

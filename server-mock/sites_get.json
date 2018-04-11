@@ -36,7 +36,7 @@
         "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
       },
       {
-        "status": "limited",
+        "status": "inactive",
         "shortHeadline": "Adshares Website Advertisement",
         "type": "image",
 
@@ -53,7 +53,7 @@
   {
     "websiteUrl": "Site 2",
     "id": 1111,
-    "status": 1,
+    "status": 2,
     "estimatedEarnings": 132,
     "clicks": 11,
     "impressions": 112,
@@ -88,7 +88,7 @@
         "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
       },
       {
-        "status": "limited",
+        "status": "inactive",
         "shortHeadline": "Adshares Website Advertisement",
         "type": "image",
 

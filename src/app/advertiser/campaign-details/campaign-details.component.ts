@@ -10,8 +10,7 @@ import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
@@ -24,8 +23,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
-  campaignStatuses = enumToObjectArray(campaignStatusesEnum);
-  selectCompare = selectCompare;
+  currentCampaignStatus: number;
 
   barChartValue: number;
   barChartDifference: number;
@@ -43,15 +41,18 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     private chartService: ChartService
   ) {
     super();
-    this.campaign = this.route.snapshot.data.campaign;
   }
 
   ngOnInit() {
+    this.campaign = this.route.snapshot.data.campaign;
+    this.currentCampaignStatus = this.campaign.basicInformation.status;
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
     this.subscriptions.push(chartFilterSubscription);
+
 
     this.getChartData(this.currentChartFilterSettings);
   }
@@ -99,12 +100,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   onCampaignStatusChange(id, status) {
-    if (status == 1 ) {
-      this.campaign.basicInformation.status = 0;
-    } else {
-      this.campaign.basicInformation.status = 1;
-    }
 
-    this.advertiserService.updateCampaignStatus(id, this.campaign.basicInformation.status);
+    if (status == 2 ) {
+      this.currentCampaignStatus = 1;
+    } else {
+      this.currentCampaignStatus = 2;
+    }
+    this.advertiserService.updateCampaignStatus(id, this.currentCampaignStatus);
   }
 }

@@ -30,6 +30,10 @@ export class PublisherService {
     return this.http.post<Site>(`${environment.apiUrl}/save_site`, { site });
   }
 
+  updateSiteStatus(id: string, status: number) {
+    return this.http.post(`${environment.apiUrl}/update_site_status`, { id, status });
+  }
+
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/site_targeting`);
   }
