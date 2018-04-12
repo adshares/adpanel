@@ -38,7 +38,7 @@ public class PublisherMainPage {
     PageFactory.initElements(driver, this);
   }
 
-  public void goToPublishingSite() {
+  public void goToAddNewSite() {
     wait.until(ExpectedConditions.visibilityOf(logoAssertion));
     Assert.assertTrue(logoAssertion.isDisplayed());
     wait.until(ExpectedConditions.visibilityOf(newAddSiteToolBar));

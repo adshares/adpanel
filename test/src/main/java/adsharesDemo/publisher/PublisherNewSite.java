@@ -12,11 +12,14 @@ public class PublisherNewSite {
   private WebElement websiteUrl;
   @FindBy(xpath = "//div[@class ='mat-select-trigger']")
   private WebElement contentLanguage;
-    @FindBy(xpath = "//span[contains(text(), 'english')]")
+  @FindBy(xpath = "//span[contains(text(), 'english')]")
   private WebElement contentLanguageEnglish;
-
+  @FindBy(xpath = "//span[starts-with(text(), 'Save & Continue')]")
+  private WebElement saveButtonPublisherCampaign;
+  @FindBy(xpath = "//button[contains(text(), 'Back to Dashboard')]")
+  private WebElement backButtonPublisherCampaign;
   /**
-   * Dashboard Assertions
+   * Publisher form Assertions
    */
 
 
@@ -29,12 +32,14 @@ public class PublisherNewSite {
     PageFactory.initElements(driver, this);
   }
 
-  public void sitePublisherBasicInfo() {
+  public void sitePublisherBasicInfo(String Url) {
     wait.until(ExpectedConditions.visibilityOf(websiteUrl));
-    websiteUrl.sendKeys("https://google.pl");
-//    new Select(contentLanguage).selectByValue("english");
+    websiteUrl.sendKeys(Url);
+    websiteUrl.getText();
     contentLanguage.click();
+    wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
     contentLanguageEnglish.click();
+    saveButtonPublisherCampaign.click();
   }
 
 }

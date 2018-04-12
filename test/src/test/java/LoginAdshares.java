@@ -12,25 +12,12 @@ import java.time.format.DateTimeFormatter;
 public class LoginAdshares extends BrowserSetup {
 
 
-
-  @Test ()
+  @Test()
   public void loginTest() {
     loginPage = new LoginPage(driver);
     loginPage.loginSignIn(loginAdService, passwordAdService);
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpPublisher();
-  }
-
-  @Test
-  public void newPublishingSite(){
-    loginPage = new LoginPage(driver);
-    loginPage.loginSignIn(loginAdService, passwordAdService);
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpPublisher();
-    publisherMainPage = new PublisherMainPage(driver);
-    publisherNewSite = new PublisherNewSite(driver);
-    publisherNewSite.sitePublisherBasicInfo();
-
   }
 
   @Test
