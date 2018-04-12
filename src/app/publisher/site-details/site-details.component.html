@@ -10,7 +10,10 @@
         align-center
         breadcrumbs"
     >
-      <a routerLink="/publisher/dashboard">
+      <a
+        routerLink="/publisher/dashboard"
+        data-test="publisher-navigate-to-dashboard"
+      >
         <p
           class="
             adsh-copy
@@ -33,6 +36,7 @@
           adsh-copy--small
           adsh-copy--x-dark
           adsh-copy--semi"
+        data-test="publisher-site-url"
       >
         {{ site.websiteUrl }}
       </p>
@@ -48,6 +52,7 @@
         class="
           adsh-heading
           adsh-heading--primary"
+        data-test="publisher-site-url"
       >
         {{ site.websiteUrl }}
       </h2>
@@ -57,6 +62,7 @@
           adsh-btn--white
           adsh-copy--x-dark"
         (click)="navigateToEditSite()"
+        data-test="publisher-site-edit"
       >
         <img
           class="
@@ -87,10 +93,12 @@
           [(value)]="site.status"
           [compareWith]="selectCompare"
           (change)="saveSite()"
+          data-test="publisher-site-status-toggle"
         >
           <mat-option
             *ngFor="let siteStatus of siteStatuses"
-            [value]="siteStatus.id">
+            [value]="siteStatus.id"
+          >
             {{ siteStatus.name }}
           </mat-option>
         </mat-select>
@@ -146,6 +154,7 @@
             class="
               chart-name
               adsh-copy"
+            data-test="chart-series-type"
           >
             {{ chartSeriesType }}:
           </p>
@@ -158,10 +167,14 @@
               class="
                 adsh-heading
                 adsh-heading--primary"
+              data-test="chart-value"
             >
               {{ barChartValue }}
             </span>
-            <span class="chart-change">
+            <span
+              class="chart-change"
+              data-test="chart-value-difference"
+            >
               {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
             </span>
           </div>
@@ -223,6 +236,7 @@
           adsh-heading
           adsh-heading--secondary"
         (click)="navigateToCreateAdUnits()"
+        data-test="publisher-site-create-new-ad-unit"
       >
         <img
           class="

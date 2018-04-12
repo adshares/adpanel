@@ -47,6 +47,7 @@
       <a
         routerLink="../basic-information"
         [queryParams]="{step: 1, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-basic-information"
       >
         <button
           class="
@@ -75,6 +76,7 @@
           col-xs-12
           campaign-edit-summary__info-cell
           campaign-info--primary"
+        data-test="advertiser-campaign-name"
       >
         {{ campaign.basicInformation.name }}
       </div>
@@ -94,7 +96,12 @@
           Target URL:
         </p>
 
-        <p class="adsh-copy">{{ campaign.basicInformation.targetUrl }}</p>
+        <p
+          class="adsh-copy"
+          data-test="advertiser-campaign-target-url"
+        >
+          {{ campaign.basicInformation.targetUrl }}
+        </p>
       </div>
 
       <div
@@ -107,10 +114,13 @@
             adsh-copy--small
             adsh-copy--light"
         >
-          BID Strategy:
+          Bid Strategy:
         </p>
 
-        <p class="adsh-copy">
+        <p
+          class="adsh-copy"
+          data-test="advertiser-campaign-bid-strategy"
+        >
           {{ campaign.basicInformation.bidStrategyName }}
           ({{ campaign.basicInformation.bidValue | currency:'USD':true }})
         </p>
@@ -128,7 +138,12 @@
           Budget:
         </p>
 
-        <p class="adsh-copy">{{ campaign.basicInformation.budget | currency:'USD':true }}</p>
+        <p
+          class="adsh-copy"
+          data-test="advertiser-campaign-budget"
+        >
+          {{ campaign.basicInformation.budget | currency:'USD':true }}
+        </p>
       </div>
 
       <div
@@ -151,7 +166,9 @@
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
-          {{ campaign.basicInformation.dateStart | date: 'dd MMM yyyy' }}
+          <span data-test="advertiser-campaign-start-date">
+            {{ campaign.basicInformation.dateStart | date: 'dd MMM yyyy' }}
+          </span>
         </p>
       </div>
 
@@ -175,7 +192,10 @@
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
-          <span *ngIf="campaign.basicInformation.dateEnd">
+          <span
+            *ngIf="campaign.basicInformation.dateEnd"
+            data-test="advertiser-campaign-start-date"
+          >
             {{ campaign.basicInformation.dateEnd | date: 'dd MMM yyyy' }}
           </span>
           <span *ngIf="!campaign.basicInformation.dateEnd">-</span>
@@ -206,6 +226,7 @@
       <a
         routerLink="../additional-targeting"
         [queryParams]="{step: 2, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting"
       >
         <button
           class="
@@ -274,6 +295,7 @@
       <a
         routerLink="../create-ad"
         [queryParams]="{step: 3, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-create-ads"
       >
         <button
           class="
@@ -310,12 +332,14 @@
         <div
           class="adsh-tooltip"
           [class.active]="tooltipActive && currentTooltipIndex === adIndex"
+          data-test="advertiser-campaign-summary-ad-tooltip"
         >
           <div class="triangle"></div>
           <p
             class="
               adsh-heading
               adsh-heading--secondary"
+            data-test="advertiser-ad-short-headline"
           >
             {{ ad.shortHeadline }}
           </p>
@@ -324,6 +348,7 @@
               adsh-copy
               adsh-copy--x-small
               adsh-copy--blue"
+            data-test="advertiser-ad-size"
           >
             {{ ad.imageSize }}
           </p>
@@ -342,6 +367,7 @@
     <a
       routerLink="../create-ad"
       [queryParams]="{step: 3}"
+      data-test="advertiser-edit-campaign-navigate-back"
     >
       <button
         class="
@@ -362,6 +388,7 @@
             adsh-blue
             save-as-draft"
           (click)="saveCampaign(true)"
+          data-test="advertiser-edit-campaign-save-as-draft"
         >
           Save as Draft
         </button>
@@ -372,6 +399,7 @@
             adsh-btn
             adsh-btn--blue"
           (click)="saveCampaign(false)"
+          data-test="advertiser-edit-campaign-start-campaign"
         >
           Start Campaign
         </button>

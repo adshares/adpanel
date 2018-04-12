@@ -2,7 +2,9 @@
   class="
     adsh-box
     clickable-row"
-  (click)="navigateToCampaignDetails(site.id)">
+  (click)="navigateToCampaignDetails(site.id)"
+  data-test="publisher-navigate-to-site-details"
+>
   <div class="site-list__item">
     <div
       class="
@@ -21,6 +23,7 @@
           class="
             adsh-heading
             adsh-heading--secondary"
+          data-test="publisher-site-url"
         >
           {{ site.websiteUrl }}
         </h4>
@@ -31,7 +34,7 @@
           row
           align-center"
       >
-        <span>
+        <span data-test="publisher-site-estimated-earnings">
           {{ site.estimatedEarnings | number:'1.2-2' | commaReplacer | currency:USD }}
         </span>
       </div>
@@ -41,7 +44,7 @@
           row
           align-center"
       >
-        <span>
+        <span data-test="publisher-site-clicks">
           {{ site.clicks }}
         </span>
       </div>
@@ -51,7 +54,7 @@
           row
           align-center"
       >
-        <span>
+        <span data-test="publisher-site-impressions">
           {{ site.impressions }}
         </span>
       </div>
@@ -61,7 +64,7 @@
           row
           align-center"
       >
-        <span>
+        <span data-test="publisher-site-rpm">
           {{ site.rpm | percent:'1.2-2' }}
         </span>
       </div>
@@ -71,7 +74,7 @@
           row
           align-center"
       >
-        <span>
+        <span data-test="publisher-site-average=cpc">
           {{ site.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}
         </span>
       </div>

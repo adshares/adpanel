@@ -26,6 +26,7 @@
     [formGroup]="campaignBasicInfoForm"
     (ngSubmit)="saveCampaignBasicInformation()"
     class="adsh-form"
+    data-test="advertiser-edit-campaign-basic-information-form"
   >
     <div
       class="
@@ -45,8 +46,8 @@
             adsh-form-input
             adsh-form-input--full"
           name="campaignName"
-          type="text"
           formControlName="name"
+          data-test="advertiser-edit-campaign-basic-information-form-name"
         >
         <span
           *ngIf="campaignBasicInfoForm.get('name').valid"
@@ -77,6 +78,7 @@
           type="url"
           name="campaignTargetURL"
           formControlName="targetUrl"
+          data-test="advertiser-edit-campaign-basic-information-form-target-url"
         >
         <span
           *ngIf="
@@ -108,11 +110,18 @@
               id="campaignBidStrategy"
               name="campaignBidStrategy"
               formControlName="bidStrategyName"
+              data-test="advertiser-edit-campaign-basic-information-form-bid-strategy-select"
             >
-              <mat-option value="CPC">
+              <mat-option
+                value="CPC"
+                data-test="advertiser-edit-campaign-basic-information-form-option"
+              >
                 CPC
               </mat-option>
-              <mat-option value="CPM">
+              <mat-option
+                value="CPM"
+                data-test="advertiser-edit-campaign-basic-information-form-option"
+              >
                 CPM
               </mat-option>
             </mat-select>
@@ -149,6 +158,7 @@
                 min="0.01"
                 name="campaignBidValue"
                 formControlName="bidValue"
+                data-test="advertiser-edit-campaign-basic-information-form-bid-value"
               >
               <span
                 *ngIf="campaignBasicInfoForm.get('bidValue').valid"
@@ -193,7 +203,6 @@
               >
                 Budget (Adst / per day)
               </label>
-
               <input
                 id="campaign-budget"
                 class="adsh-form-input"
@@ -201,6 +210,7 @@
                 min="0.01"
                 name="campaignBudget"
                 formControlName="budget"
+                data-test="advertiser-edit-campaign-basic-information-form-budget"
               >
               <span
                 *ngIf="campaignBasicInfoForm.get('budget').valid"
@@ -252,6 +262,7 @@
                 [matDatepicker]="dateStartPicker"
                 [formControl]="dateStart"
                 required
+                data-test="advertiser-edit-campaign-basic-information-form-start-date"
               >
               <mat-datepicker-toggle
                 matSuffix
@@ -312,6 +323,7 @@
                 [min]="minDate"
                 [matDatepicker]="dateEndPicker"
                 [formControl]="dateEnd"
+                data-test="advertiser-edit-campaign-basic-information-form-end-date"
               >
               <mat-datepicker-toggle
                 matSuffix
@@ -338,7 +350,10 @@
         row
         justify-between"
     >
-      <a routerLink="../../dashboard">
+      <a
+        routerLink="../../dashboard"
+        data-test="advertiser-navigate-to-dashboard"
+      >
         <button
           type="button"
           class="
@@ -353,9 +368,11 @@
         class="
           adsh-btn
           adsh-btn--blue"
-        type="submit"
+        data-test="advertiser-edit-campaign-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved; else loading">
+          Save & Continue
+        </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

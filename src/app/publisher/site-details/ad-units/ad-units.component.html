@@ -19,7 +19,8 @@
         <img
           class="thumbnail"
           src="http://www.coca-colacompany.com/content/dam/journey/us/en/private/2015/02/1991-print-ad-1280-673-bcb7d268.jpg"
-          alt="ad-thumbnail">
+          alt="ad-thumbnail"
+        >
       </div>
       <div
         class="
@@ -31,6 +32,7 @@
             class="
               adsh-heading
               adsh-heading--secondary"
+            data-test="publisher-ad-unit-short-headline"
           >
             {{ adUnit.shortHeadline }}
           </h6>
@@ -38,6 +40,7 @@
             class="
               adsh-copy
               adsh-blue"
+            data-test="publisher-ad-unit-size"
           >
             {{ adUnit.size.name }}&nbsp;{{ adSizesEnum[adUnit.size.size] }}
           </p>
@@ -46,6 +49,7 @@
           <div
             class="adsh-chip-box"
             *ngFor="let tag of adUnit.size.tags"
+            data-test="publisher-ad-unit-tag"
           >
             {{ tag }}
           </div>
@@ -59,6 +63,7 @@
         adsh-btn--wide"
       *ngIf="adUnit.code"
       (click)="openGetCodeDialog()"
+      data-test="publisher-ad-unit-get-code-button"
     >
       Get Code
     </button>
