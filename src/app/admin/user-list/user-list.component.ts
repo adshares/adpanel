@@ -7,6 +7,7 @@ import { UserInfoStats } from 'models/settings.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 import * as adminActions from 'store/admin/admin.actions';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +20,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   filteredUsers: UserInfoStats[];
 
   userCount: number;
-  userTypes = ['Advertisers', 'Publishers', 'All'];
+  userTypes = appSettings.USER_TYPES;
   selectedType = 'All';
 
   constructor(private store: Store<AppState>) {

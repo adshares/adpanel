@@ -17,7 +17,7 @@
           adsh-heading--primary"
       >
         Users
-        <span>({{ userCount }})</span>
+        <span data-test="admin-user-list-user-count">({{ userCount }})</span>
       </h1>
     </div>
     <div class="col-xs-4">
@@ -28,6 +28,7 @@
           matInput
           [(ngModel)]="userSearch"
           (ngModelChange)="onSearchChange()"
+          data-test="admin-user-search-input"
         >
         <span matPrefix>
             <mat-icon>search</mat-icon>
@@ -50,6 +51,7 @@
             [ngModel]="'All'"
             [value]="type"
             (click)="filterUsersByType(type, true)"
+            data-test="admin-user-types-radio"
           >
           <label
             [for]="type"
@@ -61,6 +63,7 @@
             class="
               adsh-heading
               adsh-heading--secondary"
+            data-test="admin-user-types-radio-value"
           >
             {{ type }}
           </span>

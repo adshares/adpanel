@@ -5,6 +5,7 @@
     align-center"
   [ngClass]="menuItem.columnWidth"
   (click)="sortTableByKey(menuItem)"
+  data-test="common-sort-assets-toggle"
 >
   {{ menuItem.title }}
   <div
