@@ -3,13 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import * as moment from 'moment';
-
 import { AppState } from 'models/app-state.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+
+import * as moment from 'moment';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -73,7 +74,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
     this.campaignBasicInfoForm = new FormGroup({
       name: new FormControl(initialBasicinfo.name, Validators.required),
-      targetUrl: new FormControl(initialBasicinfo.targetUrl, Validators.required),
+      targetUrl: new FormControl(initialBasicinfo.targetUrl, [
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP)
+      ]),
       bidStrategyName: new FormControl(initialBasicinfo.bidStrategyName, Validators.required),
       bidValue: new FormControl(initialBasicinfo.bidValue, Validators.required),
       budget: new FormControl(initialBasicinfo.budget, Validators.required),

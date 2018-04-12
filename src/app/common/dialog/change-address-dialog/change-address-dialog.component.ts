@@ -9,6 +9,7 @@ import { SettingsService } from 'settings/settings.service';
 import { LocalStorageUser, User } from 'models/user.model';
 
 import * as authActions from 'store/auth/auth.actions';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-change-address-dialog',
@@ -20,7 +21,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   changeAddressFormSubmitted = false;
   isEmailConfirmed = false;
 
-  userEthAddress: string;
+  userAddress: string;
   changeWithdrawAddressForm: FormGroup;
 
   constructor(
@@ -36,7 +37,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     const userSubcrtiption = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.userEthAddress = user.financialData.userEthAddress;
+        this.userAddress = user.financialData.userAddress;
         this.isEmailConfirmed = user.isEmailConfirmed;
       });
     this.subscriptions.push(userSubcrtiption);
@@ -46,8 +47,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.changeWithdrawAddressForm = new FormGroup({
       address: new FormControl('', [
         Validators.required,
-        Validators.minLength(42),
-        Validators.maxLength(42)
+        Validators.pattern(appSettings.ADDRESS_REGEXP)
       ])
     });
   }
@@ -70,9 +70,9 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userEthAddress: address });
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userAddress: address });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
-    this.store.dispatch(new authActions.UpdateUserEthAddress(address));
+    this.store.dispatch(new authActions.UpdateUserAddress(address));
   }
 }

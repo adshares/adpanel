@@ -84,11 +84,9 @@
           class="input-valid"></span>
         <span
           class="error-msg"
-          *ngIf="
-            campaignBasicInfoForm.hasError('required', ['targetUrl']) &&
-            campaignBasicInformationSubmitted"
+          *ngIf="!campaignBasicInfoForm.get('targetUrl').valid && campaignBasicInformationSubmitted"
         >
-          Target URL required
+          Please provide a valid URL.
         </span>
       </div>
 

@@ -14,7 +14,7 @@ import { User } from 'models/user.model';
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
   isEmailConfirmed = false;
 
-  adsharesEthAddress: string;
+  adsharesAddress: string;
   userMemo: string;
 
   constructor(
@@ -25,11 +25,11 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit() {
-    const adsharesEthAddressSubscription = this.store.select('state', 'common', 'adsharesEthAddress')
-      .subscribe((adsharesEthAddress: string) => {
-        this.adsharesEthAddress = adsharesEthAddress;
+    const adsharesAddressSubscription = this.store.select('state', 'common', 'adsharesAddress')
+      .subscribe((adsharesAddress: string) => {
+        this.adsharesAddress = adsharesAddress;
       });
-    this.subscriptions.push(adsharesEthAddressSubscription);
+    this.subscriptions.push(adsharesAddressSubscription);
 
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
