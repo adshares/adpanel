@@ -13,6 +13,10 @@ import tools.Structure;
 import tools.Xml;
 
 public class BrowserSetup {
+  /**
+   * System property defining location of ChromeDriver used by Selenium
+   */
+  private static final String SYS_PROP_WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
 
   protected LoginPage loginPage;
   protected DashboardPopup dashboardPopup;
@@ -30,7 +34,10 @@ public class BrowserSetup {
 
   @BeforeClass
   public void setChrome() {
-    System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+    String property = System.getProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER);
+    if (property == null || "".equals(property)) {
+      System.setProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER, "C:\\chromedriver.exe");
+    }
     driver = new ChromeDriver();
     driver.manage().window().maximize();
     driver.get("http://localhost:4200/");
