@@ -3,7 +3,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
-export const SET_ADSHARES_ETH_ADDRESS = 'Adshares Ethereum Address set';
+export const SET_ADSHARES_ADDRESS = 'Adshares Address set';
 
 export class SetActiveUserType implements Action {
   readonly type = SET_ACTIVE_USER_TYPE;
@@ -15,12 +15,12 @@ export class SetChartFilterSettings implements Action {
   constructor(public payload: ChartFilterSettings) { }
 }
 
-export class SetAdsharesEthAddress implements Action {
-  readonly type = SET_ADSHARES_ETH_ADDRESS;
+export class SetAdsharesAddress implements Action {
+  readonly type = SET_ADSHARES_ADDRESS;
   constructor(public payload: string) { }
 }
 
 export type actions =
   SetActiveUserType |
   SetChartFilterSettings |
-  SetAdsharesEthAddress;
+  SetAdsharesAddress;
