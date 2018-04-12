@@ -11,4 +11,13 @@
             </class>
         </classes>
     </test>
+    <test name="Test02-Advertiser-CreateCampaign">
+        <classes>
+            <class name="LoginAdshares">
+                <methods>
+                    <include name="createAdvertiserCampaign" />
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
