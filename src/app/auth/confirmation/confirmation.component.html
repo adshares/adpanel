@@ -32,6 +32,7 @@
         adsh-bg-blue"
       routerLink="/auth/login"
       [queryParams]="{customize: 1}"
+      data-test="auth-redirect-to-first-login"
     >
       Log in
     </button>
@@ -55,7 +56,12 @@
           adsh-copy--large
           adsh-blue"
       >
-        <a href="mailto:support@adshares.com">support@adshares.com</a>
+        <a
+          href="mailto:support@adshares.com"
+          data-test="common-support-email"
+        >
+          support@adshares.com
+        </a>
       </p>
   </div>
 </div>

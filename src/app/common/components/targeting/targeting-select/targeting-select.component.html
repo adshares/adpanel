@@ -5,6 +5,7 @@
     class="
       adsh-form-input
       adsh-form-input--full"
+    data-test="common-targeting-select-search-input"
   >
   <img
     src="/assets/images/search.svg"
@@ -22,6 +23,7 @@
     adsh-box
     adsh-box--light-border
     parent-option-box"
+  data-test="common-targeting-select-go-to-parent-button"
 >
   <img
     src="/assets/images/chevron--left.svg"
@@ -31,6 +33,7 @@
     class="
       adsh-copy
       parent-option"
+    data-test="common-targeting-select-parent-option"
   >
     {{ parentOption.label }}
   </span>
@@ -43,7 +46,9 @@
     adsh-box--no-top-border
     relative"
   *ngIf="parentOption && parentOption.allow_input"
-  (click)="addCustomOption()">
+  (click)="addCustomOption()"
+  data-test="common-targeting-select-add-custom-option-button"
+>
   <span
     class="
       adsh-copy
@@ -63,6 +68,7 @@
       adsh-box--no-top-border
       option
       relative"
+    data-test="common-targeting-select-option"
   >
     <span
       class="
@@ -70,11 +76,15 @@
         adsh-copy--large
         adsh-copy--x-dark
         adsh-copy--semi"
+      data-test="common-targeting-select-option-label"
     >
       {{ option.label }}
     </span>
 
-    <span *ngIf="option.parentOptionLabel && searchTerm">
+    <span
+      *ngIf="option.parentOptionLabel && searchTerm"
+      data-test="common-targeting-select-option-parent-label"
+    >
       ({{ option.parentOptionLabel }})
     </span>
 
@@ -103,6 +113,7 @@
   class="
     adsh-btn
     adsh-btn--blue"
+  data-test="common-targeting-select-add-selected-options-button"
 >
   Add Selected
 </button>
