@@ -13,7 +13,7 @@ export class ChartFilterComponent {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
   dateFrom = new FormControl('');
   dateTo = new FormControl('');
-  minDate = new Date();
+  today = new Date();
 
   filterChart(from, to) {
     const timespan = {
@@ -25,9 +25,10 @@ export class ChartFilterComponent {
   }
 
   filterChartByDatepicker(from, to) {
-    const dateSpanValid = this.dateTo.value > this.dateFrom.value;
+    const datesSet = from.value && to.value;
+    const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;
 
-    if (!dateSpanValid) {
+    if (!fromUnix) {
       return;
     }
 
