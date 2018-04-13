@@ -311,7 +311,7 @@
               <input
                 (click)="dateEndPicker.open()"
                 matInput
-                [min]="minDate"
+                [min]="dateStart.value"
                 [matDatepicker]="dateEndPicker"
                 [formControl]="dateEnd"
               >
@@ -322,12 +322,6 @@
               </mat-datepicker-toggle>
               <mat-datepicker #dateEndPicker></mat-datepicker>
             </mat-form-field>
-            <span
-              class="error-msg"
-              *ngIf="dateEnd.value < dateStart.value && dateEnd.value"
-            >
-              Wrong date span
-            </span>
           </div>
         </div>
       </div>
