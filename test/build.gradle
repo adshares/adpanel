@@ -1,5 +1,5 @@
-group 'adserver-frontend'
-version '1.0-SNAPSHOT'
+group = 'net.adshares'
+version = '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
@@ -27,6 +27,6 @@ test {
   systemProperty "webdriver.chrome.driver", findProperty("webdriver.chrome.driver")
   useTestNG {
     //suites "src/test/resources/TestyJednostkowe/$testFile"
-    suites "src/test/java/testsRegression/Test01"
+    suites "src/test/java/net/adshares/testsRegression/Test01"
   }
 }
