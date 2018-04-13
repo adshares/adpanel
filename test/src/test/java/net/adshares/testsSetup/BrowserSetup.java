@@ -37,7 +37,7 @@ public class BrowserSetup {
     public void setChrome() {
         String property = System.getProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER);
         if (property == null || "".equals(property)) {
-            System.setProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER, "C:\\chromedriver.exe");
+            System.setProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER, "/home/artur/chromedriver");
         }
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");

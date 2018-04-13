@@ -32,7 +32,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, 1000);
+        wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(driver, this);
     }
 
@@ -40,13 +40,13 @@ public class LoginPage {
         wait.until(ExpectedConditions.titleIs(driver.getTitle()));
         Assert.assertTrue(helloText.isDisplayed());
         Assert.assertEquals(helloText.getText(), "Hello!");
-        LOGGER.info("Nagłówek: ok");
+        LOGGER.info("HeadTitle visibility: ok");
         Assert.assertTrue(assertLogo.isDisplayed());
-        LOGGER.info("Logo: ok");
+        LOGGER.info("Logo visibility: ok");
         loginEmail.sendKeys(loginAdService);
         loginPassword.sendKeys(passwordAdService);
         Assert.assertTrue(loginButton.isEnabled());
-        LOGGER.info("Przycisk: ok");
+        LOGGER.info("Button visibility: ok");
         loginButton.click();
     }
 

@@ -61,7 +61,7 @@ public class SiteAdditionalTargeting {
 
         //mat-expansion-panel[contains(concat(' ', @class, ' '), ' mat-expansion-panel ') and contains(concat(' ', @class, ' '), ' ng-tns-c25-7 ')]
 
-        List<WebElement> od = publisherList.findElements(By.xpath("//mat-expansion-panel[contains(@class,'mat-expansion-panel mat-expanded mat-expansion-panel-spacing')]//div[@class = 'adsh-form-input__box']/following-sibling::div[@class = 'ng-star-inserted']"));
+        List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
         for (int i = 0; i < 3; i++) {
             int random = (int) (Math.random() * (1) + (-3));
             Random rand = new Random();
@@ -77,7 +77,7 @@ public class SiteAdditionalTargeting {
         List<WebElement> pubList = publisherList.findElements(By.xpath("//div[@class ='ng-star-inserted']"));
         WebElement creaviteType = pubList.get(1);
         creaviteType.click();
-        List<WebElement> od = publisherList.findElements(By.xpath("//mat-expansion-panel[@class='mat-expansion-panel ng-tns-c25-7 mat-expanded mat-expansion-panel-spacing']//div[@class = 'adsh-form-input__box']/following-sibling::div[@class = 'ng-star-inserted']"));
+        List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * (1) + (-2));
             Random rand = new Random();
@@ -93,7 +93,7 @@ public class SiteAdditionalTargeting {
         List<WebElement> pubList = publisherList.findElements(By.xpath("//div[@class ='ng-star-inserted']"));
         WebElement creaviteType = pubList.get(3);
         creaviteType.click();
-        List<WebElement> od = publisherList.findElements(By.xpath("//mat-expansion-panel[@class='mat-expansion-panel ng-tns-c25-7 mat-expanded mat-expansion-panel-spacing']//div[@class = 'adsh-form-input__box']/following-sibling::div[@class = 'ng-star-inserted']"));
+        List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
         for (int i = 0; i < 1; i++) {
             int random = (int) (Math.random() * (1) + (-1));
             Random rand = new Random();

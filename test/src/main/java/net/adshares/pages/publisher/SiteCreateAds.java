@@ -17,9 +17,9 @@ public class SiteCreateAds {
     private WebElement createAdUnitDropDownButton;
     @FindBy(css = "#shortHeadline")
     private WebElement nameOfUnit;
-    @FindBy(xpath = "//mat-select[@id='mat-select-1']/div[@class='mat-select-trigger']")
+    @FindBy(css = "#mat-select-3 > div > div.mat-select-value")
     private WebElement adTypeSelecetList;
-    @FindBy(xpath = "//mat-option[@id = 'mat-option-3']")
+    @FindBy(css = "#mat-option-11")
     private WebElement adTypeHtml;
     @FindBy(xpath = "//span[starts-with(text(), 'Save & Continue')]")
     private WebElement saveButtonPublisherCampaign;
