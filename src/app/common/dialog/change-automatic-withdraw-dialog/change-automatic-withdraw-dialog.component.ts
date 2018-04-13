@@ -9,7 +9,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { enumToArray } from 'common/utilities/helpers';
 import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 import { appSettings } from 'app-settings';
-import { LocalStorageUser } from 'models/user.model';
+import { LocalStorageUser, User } from 'models/user.model';
 
 import * as authActions from 'store/auth/auth.actions';
 
@@ -20,15 +20,15 @@ import * as authActions from 'store/auth/auth.actions';
 })
 export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
   automaticWithdrawForm: FormGroup;
-
   periods = enumToArray(withdrawPeriodsEnum);
   periodsEnum = withdrawPeriodsEnum;
   amounts = appSettings.WITHDRAWAL_AMOUNTS;
-  currentPeriod: number;
-  currentAmount: number;
-
   isFormBeingSubmitted = false;
   automaticWithdrawFormSubmitted = false;
+  isEmailConfirmed = false;
+
+  currentAmount: number;
+  currentPeriod: number;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeAutomaticWithdrawDialogComponent>,
@@ -41,17 +41,14 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const currentPeriodSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawPeriod')
-      .subscribe((currentPeriod: number) => {
-        this.currentPeriod = currentPeriod;
+    const userSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.currentPeriod = user.financialData.userAutomaticWithdrawPeriod;
+        this.currentAmount = user.financialData.userAutomaticWithdrawAmount;
+        this.isEmailConfirmed = user.isEmailConfirmed;
     });
 
-    const currentAmountSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAutomaticWithdrawAmount')
-      .subscribe((currentAmount: number) => {
-        this.currentAmount = currentAmount;
-    });
-
-    this.subscriptions.push(currentPeriodSubscription, currentAmountSubscription);
+    this.subscriptions.push(userSubscription);
   }
 
   createForm() {

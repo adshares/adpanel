@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
-import { LocalStorageUser } from 'models/user.model';
+import { LocalStorageUser, User } from 'models/user.model';
 
 import * as authActions from 'store/auth/auth.actions';
 import { appSettings } from 'app-settings';
@@ -17,11 +17,12 @@ import { appSettings } from 'app-settings';
   styleUrls: ['./change-address-dialog.component.scss']
 })
 export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
-  changeWithdrawAddressForm: FormGroup;
-
-  userAddress: string;
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
+  isEmailConfirmed = false;
+
+  userAddress: string;
+  changeWithdrawAddressForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeAddressDialogComponent>,
@@ -34,11 +35,12 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userAddressSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userAddress')
-      .subscribe((userAddress: string) => {
-        this.userAddress = userAddress;
+    const userSubcrtiption = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.userAddress = user.financialData.userAddress;
+        this.isEmailConfirmed = user.isEmailConfirmed;
       });
-    this.subscriptions.push(userAddressSubscription);
+    this.subscriptions.push(userSubcrtiption);
   }
 
   createForm() {
