@@ -95,11 +95,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   onCampaignStatusChange(status) {
-    if (status === this.campaignStatusesEnum.ACTIVE ) {
-      this.campaign.basicInformation.status = this.campaignStatusesEnum.INACTIVE;
-    } else {
-      this.campaign.basicInformation.status = this.campaignStatusesEnum.ACTIVE;
-    }
+    const statusActive = status !== this.campaignStatusesEnum.ACTIVE;
+
+    this.campaign.basicInformation.status =
+      statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
 
     this.advertiserService.saveCampaign(this.campaign);
   }

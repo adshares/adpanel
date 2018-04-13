@@ -114,11 +114,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   onSiteStatusChange(status) {
-    if (status === this.siteStatusEnum.ACTIVE ) {
-      this.site.status = this.siteStatusEnum.INACTIVE;
-    } else {
-      this.site.status = this.siteStatusEnum.ACTIVE;
-    }
+    const statusActive = status !== this.siteStatusEnum.ACTIVE;
+
+    this.site.status =
+      statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
     this.publisherService.saveSite(this.site);
   }
