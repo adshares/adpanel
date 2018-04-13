@@ -84,6 +84,7 @@
         [matDatepicker]="dateFromPicker"
         [formControl]="dateFrom"
         required
+        [max]="dateTo.value || today"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -120,6 +121,8 @@
         [matDatepicker]="dateToPicker"
         [formControl]="dateTo"
         required
+        [min]="dateFrom.value"
+        [max]="today"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -134,7 +137,8 @@
         adsh-button--small
         adsh-bg-white
         adsh-navy"
-      (click)="filterChart(dateFrom, dateTo)"
+      [class.disabled]="!dateTo.value || !dateFrom.value"
+      (click)="filterChartByDatepicker(dateFrom, dateTo)"
     >
       Apply
     </button>
