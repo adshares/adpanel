@@ -84,7 +84,7 @@
         [matDatepicker]="dateFromPicker"
         [formControl]="dateFrom"
         required
-        [max]="dateTo.value || maxDate"
+        [max]="dateTo.value || today"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -122,7 +122,7 @@
         [formControl]="dateTo"
         required
         [min]="dateFrom.value"
-        [max]="maxDate"
+        [max]="today"
       >
       <mat-datepicker-toggle
         matSuffix

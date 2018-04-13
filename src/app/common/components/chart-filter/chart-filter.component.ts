@@ -13,8 +13,8 @@ export class ChartFilterComponent {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
   dateFrom = new FormControl('');
   dateTo = new FormControl('');
-  maxDate = new Date()
-  ;
+  today = new Date();
+
   filterChart(from, to) {
     const timespan = {
       from: isNaN(from) ? from.value._d : moment().subtract(from, 'days').format(),
