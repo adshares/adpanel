@@ -93,6 +93,11 @@
   text-align: center;
 }
 
-.capitalize {
-  text-transform: capitalize;
+.lowercase-to-capitalize {
+  text-transform: lowercase;
+  display: inline-block;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 }

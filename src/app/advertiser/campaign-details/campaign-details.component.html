@@ -68,9 +68,9 @@
               class="
                 adsh-copy
                 adsh-copy--x-dark
-                capitalize"
+                lowercase-to-capitalize"
             >
-              {{ campaignStatusesEnum[campaign.basicInformation.status].toLowerCase() }}
+              {{ campaignStatusesEnum[campaign.basicInformation.status] }}
             </span>
           </p>
           <mat-slide-toggle
