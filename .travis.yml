@@ -1,0 +1,42 @@
+# Project language
+language: node_js
+
+# node.js version
+node_js:
+  - '8'
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Cache node.js modules
+cache:
+  directories:
+    - "node_modules"
+
+# Install npm dependencies,
+# Create database, schema and fixtures
+install:
+  - npm install -g @angular/cli
+  - npm install -g easymock
+  - npm install
+
+stages:
+#  - build
+#  - quality
+  - test
+
+jobs:
+  include:
+    # node.js build
+    - stage: build
+      script: ng build -e dev --prod
+      
+    # Selenium tests
+    - stage: test
+      script: 
+        - cd server-mock
+        - easymock &
+        - cd ..
+        - ng serve &
+        - sleep 10
+        - curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://localhost:4200/
