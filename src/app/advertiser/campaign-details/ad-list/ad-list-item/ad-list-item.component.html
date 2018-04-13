@@ -14,23 +14,26 @@
           align-center"
       >
         <div
-          class="
-            text-center"
+          class="text-center"
           [attr.data-status]="ad.status"
         >
-          <mat-select
-            class="adsh-select"
-            [(value)]="ad.status"
-            [compareWith]="selectCompare"
-            (change)="changeAdStatus()"
-          >
-            <mat-option
-              *ngFor="let adStatus of adStatuses"
-              [value]="adStatus.id"
-            >
-              {{ adStatus.name }}
-            </mat-option>
-          </mat-select>
+          <div class="row">
+            <div class="col-xs-9">
+              <mat-select
+                class="adsh-select"
+                [(value)]="ad.status"
+                [compareWith]="selectCompare"
+                (change)="changeAdStatus()"
+              >
+                <mat-option
+                  *ngFor="let adStatus of adStatuses"
+                  [value]="adStatus.id"
+                >
+                  {{ adStatus.name }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
         </div>
       </div>
       <div
