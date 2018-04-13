@@ -97,16 +97,26 @@
       >
         <button
           class="
-          adsh-btn
-          adsh-btn--blue"
+            adsh-btn
+            adsh-btn--blue"
+          *ngIf="isEmailConfirmed"
         >
           <span *ngIf="!isFormBeingSubmitted ; else loading">
-              Save
-            </span>
+            Save
+          </span>
           <ng-template #loading>
             <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
           </ng-template>
         </button>
+
+        <span
+          class="
+            error-msg
+            col-xs-12"
+          *ngIf="!isEmailConfirmed"
+        >
+          Confirm email to change withraw
+        </span>
       </div>
     </form>
   </div>

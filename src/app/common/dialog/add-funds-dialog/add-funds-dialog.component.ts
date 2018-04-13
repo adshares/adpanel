@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -11,6 +12,8 @@ import { AppState } from 'models/app-state.model';
   styleUrls: ['./add-funds-dialog.component.scss']
 })
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
+  isEmailConfirmed = false;
+
   adsharesAddress: string;
   userMemo: string;
 
@@ -28,11 +31,12 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       });
     this.subscriptions.push(adsharesAddressSubscription);
 
-    const userMemoSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userMemo')
-      .subscribe((userAddress: string) => {
-        this.userMemo = userAddress;
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.userMemo = user.financialData.userMemo;
+        this.isEmailConfirmed = user.isEmailConfirmed;
       });
-    this.subscriptions.push(userMemoSubscription);
+    this.subscriptions.push(userDataSubscription);
   }
 
 }
