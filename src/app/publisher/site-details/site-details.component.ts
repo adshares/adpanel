@@ -12,7 +12,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { createInitialArray } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -27,7 +27,7 @@ import { parseTargetingOptionsToArray } from 'common/components/targeting/target
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
-  currentSiteStatus: number;
+  siteStatusEnum = siteStatusEnum;
 
   targeting: AssetTargeting = {
     requires: [],
@@ -56,7 +56,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
-    this.currentSiteStatus = this.site.status;
 
     this.getTargeting();
 
@@ -115,13 +114,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   onSiteStatusChange(status) {
-    if (status == 2 ) {
-      this.currentSiteStatus = 1;
+    if (status === this.siteStatusEnum.ACTIVE ) {
+      this.site.status = this.siteStatusEnum.INACTIVE;
     } else {
-      this.currentSiteStatus = 2;
+      this.site.status = this.siteStatusEnum.ACTIVE;
     }
 
-    Object.assign(this.site, { status: this.currentSiteStatus });
-    this.publisherService.saveSite(this.site).subscribe();
+    this.publisherService.saveSite(this.site);
   }
 }

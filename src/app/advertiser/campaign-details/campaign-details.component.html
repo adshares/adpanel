@@ -69,14 +69,14 @@
                 adsh-copy
                 adsh-copy--x-dark"
             >
-              {{ currentCampaignStatus == 2 ? 'Active' : 'Inactive' }}
+              {{ campaign.basicInformation.status === campaignStatusesEnum.ACTIVE ? 'Active' : 'Inactive' }}
             </span>
           </p>
           <mat-slide-toggle
             color="primary"
-            [checked]="currentCampaignStatus == 2"
-            ([ngModel])="currentCampaignStatus"
-            (change)="onCampaignStatusChange(currentCampaignStatus)"
+            [checked]="campaign.basicInformation.status === campaignStatusesEnum.ACTIVE"
+            ([ngModel])="campaign.basicInformation.status"
+            (change)="onCampaignStatusChange(campaign.basicInformation.status)"
           ></mat-slide-toggle>
         </div>
         <button
@@ -315,7 +315,7 @@
             adsh-heading
             adsh-heading--primary"
         >
-          {{ campaign.cost | commaReplacer| currency:'USD'  }}
+          {{ campaign.cost | number:'1.2-2' | commaReplacer | currency:'USD'  }}
         </p>
         <p
           class="

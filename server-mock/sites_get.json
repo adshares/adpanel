@@ -23,7 +23,7 @@
       }
     },
     "adUnits": [{
-        "status": "active",
+        "status": 1,
         "shortHeadline": "Adshares Dashboard Advertisement",
         "type": "Leaderboard 728x90",
 
@@ -36,7 +36,7 @@
         "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
       },
       {
-        "status": "inactive",
+        "status": 0,
         "shortHeadline": "Adshares Website Advertisement",
         "type": "image",
 
@@ -75,7 +75,7 @@
       }
     },
     "adUnits": [{
-        "status": "active",
+        "status": 1,
         "shortHeadline": "Adshares Dashboard Advertisement",
         "type": "Large mobile banner 300x90",
 
@@ -88,7 +88,7 @@
         "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
       },
       {
-        "status": "inactive",
+        "status": 0,
         "shortHeadline": "Adshares Website Advertisement",
         "type": "image",
 

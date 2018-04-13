@@ -6,10 +6,10 @@
     "bidStrategyName": "CPC",
     "bidValue": 0.2,
     "budget": 451,
-    "dateStart": "01/27/2018"
+    "dateStart": "Sat Feb 23 2018 12:24:00 GMT"
   },
 
-  "id": "183297987312987321987",
+  "id": 183297987312,
   "clicks": 2131,
   "impressions": 124315,
   "ctr": 0.031,
@@ -33,19 +33,19 @@
   },
   "ads": [
     {
-      "status": "active",
+      "status": 0,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
 
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.00001233,
+      "ctr": 0.01233,
       "averageCPC": 1.2,
       "cost": 2435.23
     },
     {
-      "status": "active",
+      "status": 1,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
 
@@ -66,10 +66,10 @@
     "bidStrategyName": "CPC",
     "bidValue": 0.1,
     "budget": 452,
-    "dateStart": "01/27/2018"
+    "dateStart": "Sat Feb 23 2018 12:24:00 GMT"
   },
 
-  "id": "377892908378478",
+  "id": 377892908378478,
   "clicks": 2132,
   "impressions": 124352,
   "ctr": 0.032,
@@ -93,7 +93,7 @@
   },
   "ads": [
     {
-      "status": "active",
+      "status": 0,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
 
@@ -105,7 +105,7 @@
       "cost": 2432.23
     },
     {
-      "status": "limited",
+      "status": 1,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
 
