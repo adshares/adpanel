@@ -25,9 +25,10 @@ export class ChartFilterComponent {
   }
 
   filterChartByDatepicker(from, to) {
-    const dateSpanValid = moment(this.dateTo.value).format() >= (moment(this.dateFrom.value).format()) && (this.dateFrom.value && this.dateTo.value);
+    const datesSet = from.value && to.value;
+    const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;
 
-    if (!dateSpanValid) {
+    if (!fromUnix) {
       return;
     }
 
