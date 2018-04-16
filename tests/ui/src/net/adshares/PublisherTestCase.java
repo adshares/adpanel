@@ -6,7 +6,7 @@ import net.adshares.pages.publisher.*;
 import net.adshares.setup.BrowserTestCase;
 import org.testng.annotations.Test;
 
-public class PublisherTests extends BrowserTestCase {
+public class PublisherTestCase extends BrowserTestCase {
 
   @Test(priority = 1)
   public void loginTest() {
