@@ -1,4 +1,4 @@
-package net.adshares.testsSetup;
+package net.adshares.setup;
 
 import net.adshares.enums.Properties;
 import net.adshares.pages.DashboardPopup;
@@ -13,7 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 
-public class BrowserSetup {
+public class BrowserTestCase {
   /**
    * System property defining location of ChromeDriver used by Selenium
    */
@@ -55,7 +55,7 @@ public class BrowserSetup {
 
     flag = DEFAULT_VALUE;
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
-    passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.HASLO);
+    passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
 
 

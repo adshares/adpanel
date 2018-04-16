@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Structure {
-  public static final String CONFIG_PROPERTIES = "tests/ui/resources/DataDriven.xml";
+  public static final String CONFIG_PROPERTIES = "tests/ui/resources/user.xml";
 
   public Structure() {
     try {
@@ -23,7 +23,7 @@ public class Structure {
   private void createConfigFile() {
     Map<String, String> prop = new TreeMap<>();
     prop.put(Properties.EMAIL, "");
-    prop.put(Properties.HASLO, "");
+    prop.put(Properties.PASSWORD, "");
 
 
     File file = new File(CONFIG_PROPERTIES);

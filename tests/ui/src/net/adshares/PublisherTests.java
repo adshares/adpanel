@@ -3,10 +3,10 @@ package net.adshares;
 import net.adshares.pages.DashboardPopup;
 import net.adshares.pages.LoginPage;
 import net.adshares.pages.publisher.*;
-import net.adshares.testsSetup.BrowserSetup;
+import net.adshares.setup.BrowserTestCase;
 import org.testng.annotations.Test;
 
-public class PublisherTests extends BrowserSetup {
+public class PublisherTests extends BrowserTestCase {
 
   @Test(priority = 1)
   public void loginTest() {

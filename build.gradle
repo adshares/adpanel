@@ -32,14 +32,18 @@ dependencies {
   testCompile group: 'org.testng', name: 'testng', version: '6.14.2'
 }
 
-compileJava {gradle
+compileJava {
   options.encoding = "UTF-8"
 }
 
-ext.testFile = System.getProperty('Test_Plan') ?: 'testng.xml'
+//ext.testFile = System.getProperty('Test_Plan') ?: 'testng.xml'
 test {
   useTestNG {
-    //suites "src/test/resources/TestyJednostkowe/$testFile"
-    suites "tests/ui/config/Test01"
+    //suites "tests/ui/config/$testFile"
+    suites "tests/ui/config/test01.xml"
   }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.6'
 }

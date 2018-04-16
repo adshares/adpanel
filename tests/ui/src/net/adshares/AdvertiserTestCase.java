@@ -3,13 +3,13 @@ package net.adshares;
 import net.adshares.pages.DashboardPopup;
 import net.adshares.pages.LoginPage;
 import net.adshares.pages.advertiser.*;
-import net.adshares.testsSetup.BrowserSetup;
+import net.adshares.setup.BrowserTestCase;
 import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class LoginAdshares extends BrowserSetup {
+public class AdvertiserTestCase extends BrowserTestCase {
 
 
   @Test()
