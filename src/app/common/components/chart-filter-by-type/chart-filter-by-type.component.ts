@@ -6,36 +6,63 @@ import { AppState } from 'models/app-state.model';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { adminChartSeriesEnum } from 'models/enum/admin-chart-series.enum';
 import { enumToArray } from 'common/utilities/helpers';
+import { HandleSubscription } from 'common/handle-subscription';
 
+interface assetInfo {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-chart-filter-by-type',
   templateUrl: './chart-filter-by-type.component.html',
   styleUrls: ['./chart-filter-by-type.component.scss'],
 })
-export class ChartFilterByTypeComponent implements OnInit {
-  @Output() updateId: EventEmitter<any> = new EventEmitter();
-  @Output() updateSeries: EventEmitter<any> = new EventEmitter();
+export class ChartFilterByTypeComponent extends HandleSubscription implements OnInit {
+  @Output() updateId: EventEmitter<number> = new EventEmitter();
+  @Output() updateSeries: EventEmitter<string> = new EventEmitter();
 
-  userDataState: Store<User>;
+  userData: User;
 
   currentAssetId = 0;
   currentAssetSeries: string = enumToArray(chartSeriesEnum)[0];
   currentAdminAssetSeries: string = enumToArray(adminChartSeriesEnum)[0];
-  chartSeries: string[] = enumToArray(chartSeriesEnum);
-  adminChartSeries: string[] = enumToArray(adminChartSeriesEnum);
+  chartSeries: string[];
+  assetsInfo: assetInfo[];
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {
+    super();
+  }
 
   ngOnInit() {
-    this.userDataState = this.store.select('state', 'user', 'data');
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe(userData => this.userData = userData);
+    this.subscriptions.push(userDataSubscription);
+
+    this.setInitialDataByUserType();
   }
 
-  updateAssetId(id) {
-    this.updateId.emit(id);
+  setInitialDataByUserType() {
+    this.chartSeries = this.userData.isAdmin ?
+      enumToArray(adminChartSeriesEnum) : enumToArray(chartSeriesEnum);
+
+    if (this.userData.isAdvertiser) {
+      const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
+        .subscribe((campaigns) => {
+          this.assetsInfo = campaigns.map(
+            campaign => ({id: campaign.id, name: campaign.basicInformation.name})
+          );
+          this.assetsInfo.unshift({id: 0, name: 'All Campaigns'});
+        });
+      this.subscriptions.push(userCampaignsSubscription);
+    }
   }
 
-  updateAssetSeries(series) {
-    this.updateSeries.emit(series);
+  updateAssetId() {
+    this.updateId.emit(this.currentAssetId);
+  }
+
+  updateAssetSeries() {
+    this.updateSeries.emit(this.currentAssetSeries);
   }
 }

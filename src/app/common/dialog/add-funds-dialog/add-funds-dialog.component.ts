@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -11,7 +12,9 @@ import { AppState } from 'models/app-state.model';
   styleUrls: ['./add-funds-dialog.component.scss']
 })
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
-  adsharesEthAddress: string;
+  isEmailConfirmed = false;
+
+  adsharesAddress: string;
   userMemo: string;
 
   constructor(
@@ -22,17 +25,18 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit() {
-    const adsharesEthAddressSubscription = this.store.select('state', 'common', 'adsharesEthAddress')
-      .subscribe((adsharesEthAddress: string) => {
-        this.adsharesEthAddress = adsharesEthAddress;
+    const adsharesAddressSubscription = this.store.select('state', 'common', 'adsharesAddress')
+      .subscribe((adsharesAddress: string) => {
+        this.adsharesAddress = adsharesAddress;
       });
-    this.subscriptions.push(adsharesEthAddressSubscription);
+    this.subscriptions.push(adsharesAddressSubscription);
 
-    const userMemoSubscription = this.store.select('state', 'user', 'data', 'financialData', 'userMemo')
-      .subscribe((userEthAddress: string) => {
-        this.userMemo = userEthAddress;
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.userMemo = user.financialData.userMemo;
+        this.isEmailConfirmed = user.isEmailConfirmed;
       });
-    this.subscriptions.push(userMemoSubscription);
+    this.subscriptions.push(userDataSubscription);
   }
 
 }

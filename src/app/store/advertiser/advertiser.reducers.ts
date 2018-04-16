@@ -39,7 +39,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { ads: action.payload })
       };
-    case advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS:
+    case advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS:
       return {
         ...state,
         campaigns: [...state.campaigns, action.payload]

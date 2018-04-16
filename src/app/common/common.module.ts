@@ -12,7 +12,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MatSpinner } from '@angular/material';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSpinner, MatSlideToggle } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 
 import { CommonService } from './common.service';
@@ -32,6 +33,7 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
+import { CommaReplacerPipe } from './pipes/comma-replacer.pipe';
 import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
@@ -39,6 +41,7 @@ import { TableNavigationComponent } from './components/table-navigation/table-na
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
 
 import { ChartService } from './chart.service';
+import { AssetHelpersService } from './asset-helpers.service';
 
 const matModules = [
   MatDialogModule,
@@ -47,7 +50,8 @@ const matModules = [
   MatProgressSpinnerModule,
   MatDatepickerModule,
   MatInputModule,
-  MatMomentDateModule
+  MatMomentDateModule,
+  MatSlideToggleModule
 ];
 
 const dialogs = [
@@ -65,6 +69,7 @@ const appComponents = [
   HeaderComponent,
   NotificationsComponent,
   AdsharesTokenPipe,
+  CommaReplacerPipe,
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,
@@ -84,7 +89,7 @@ const appComponents = [
     FormsModule,
     ReactiveFormsModule,
     ChartsModule,
-    ...matModules
+    ...matModules,
   ],
   declarations: [
     ...dialogs,
@@ -95,12 +100,14 @@ const appComponents = [
   ],
   providers: [
     ChartService,
-    CommonService
+    CommonService,
+    AssetHelpersService
   ],
   exports: [
     ...appComponents,
     MatSpinner,
-    MatDialogContent
+    MatDialogContent,
+    MatSlideToggle
   ]
 })
 

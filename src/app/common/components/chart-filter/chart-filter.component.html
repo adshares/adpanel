@@ -7,7 +7,7 @@
     class="
       row
       filter-row
-      align-baseline
+      align-center
       justify-end"
   >
     <span class="adsh-copy">
@@ -52,11 +52,17 @@
     class="
       row
       filter-row
-      align-baseline
+      align-center
       justify-end"
   >
     <span class="adsh-copy">or Select Manually</span>
-    <label class="adsh-form-label">From</label>
+    <label
+      class="
+        adsh-copy
+        adsh-copy--small"
+    >
+      From
+    </label>
     <mat-form-field
       class="
         adsh-form-input
@@ -78,6 +84,7 @@
         [matDatepicker]="dateFromPicker"
         [formControl]="dateFrom"
         required
+        [max]="dateTo.value || today"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -85,7 +92,14 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #dateFromPicker></mat-datepicker>
     </mat-form-field>
-    <label class="adsh-form-label">To</label>
+
+    <label
+      class="
+        adsh-copy
+        adsh-copy--small"
+    >
+      To
+    </label>
     <mat-form-field
       class="
         adsh-form-input
@@ -107,6 +121,8 @@
         [matDatepicker]="dateToPicker"
         [formControl]="dateTo"
         required
+        [min]="dateFrom.value"
+        [max]="today"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -121,7 +137,8 @@
         adsh-button--small
         adsh-bg-white
         adsh-navy"
-      (click)="filterChart(dateFrom, dateTo)"
+      [class.disabled]="!dateTo.value || !dateFrom.value"
+      (click)="filterChartByDatepicker(dateFrom, dateTo)"
     >
       Apply
     </button>

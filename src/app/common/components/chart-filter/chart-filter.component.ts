@@ -11,8 +11,9 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 })
 export class ChartFilterComponent {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
-  dateFrom = new FormControl();
-  dateTo = new FormControl();
+  dateFrom = new FormControl('');
+  dateTo = new FormControl('');
+  today = new Date();
 
   filterChart(from, to) {
     const timespan = {
@@ -21,5 +22,16 @@ export class ChartFilterComponent {
     };
 
     this.filter.emit(timespan);
+  }
+
+  filterChartByDatepicker(from, to) {
+    const datesSet = from.value && to.value;
+    const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;
+
+    if (!fromUnix) {
+      return;
+    }
+
+    this.filterChart(from, to);
   }
 }

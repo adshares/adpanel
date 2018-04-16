@@ -12,7 +12,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { createInitialArray } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -27,15 +27,14 @@ import { parseTargetingOptionsToArray } from 'common/components/targeting/target
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
+  siteStatusEnum = siteStatusEnum;
+
   targeting: AssetTargeting = {
     requires: [],
     excludes: []
   };
 
   chartSeries: string[] = enumToArray(chartSeriesEnum);
-
-  siteStatuses = enumToObjectArray(siteStatusEnum);
-  selectCompare = selectCompare;
 
   barChartValue: number;
   barChartDifference: number;
@@ -108,13 +107,18 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  saveSite() {
-    this.publisherService.saveSite(this.site).subscribe();
-  }
-
   getTargeting() {
     this.publisherService.getTargetingCriteria().subscribe(targeting => {
       this.targeting = parseTargetingOptionsToArray(this.site.targeting, targeting);
     });
+  }
+
+  onSiteStatusChange(status) {
+    const statusActive = status !== this.siteStatusEnum.ACTIVE;
+
+    this.site.status =
+      statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
+
+    this.publisherService.saveSite(this.site);
   }
 }

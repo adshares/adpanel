@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/first';
 
 import { Store } from '@ngrx/store';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -8,6 +10,7 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { cloneDeep } from 'common/utilities/helpers';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
@@ -22,6 +25,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   goesToSummary: boolean;
 
+  subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
@@ -31,7 +35,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private router: Router,
-    private advertiserService: AdvertiserService
+    private advertiserService: AdvertiserService,
+    private assetHelpers: AssetHelpersService
   ) {
     super();
   }
@@ -41,6 +46,10 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getTargetingFromStore();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   updateAddedItems(items) {
@@ -68,21 +77,32 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
         ['/advertiser', 'create-campaign', editCampaignStep],
         { queryParams: { step: param } }
       );
-    } else {
-      this.store.select('state', 'advertiser', 'lastEditedCampaign')
-        .take(1)
-        .subscribe((campaign: Campaign) => {
-          this.advertiserService.saveCampaign(campaign).subscribe();
-          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
-          this.router.navigate(['/advertiser', 'dashboard']);
-        });
+
+      return;
     }
+
+    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .first()
+      .subscribe((campaign: Campaign) => {
+        this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
+        this.router.navigate(['/advertiser', 'dashboard']);
+      });
+    this.subscriptions.push(lastCampaignSubscription);
   }
 
   getTargetingFromStore() {
-    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'targetingArray')
-      .take(1)
-      .subscribe((targeting: AssetTargeting) => {
+    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .first()
+      .subscribe((lastEditedCampaign: Campaign) => {
+        const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
+
+        if (!campaignNameFilled) {
+          this.changesSaved = true;
+          return;
+        }
+
+        const targeting = lastEditedCampaign.targetingArray;
+
         [targeting.requires, targeting.excludes].forEach((savedList, index) => {
           const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
           const choosedList = index === 0 ? this.addedItems : this.excludedItems;
@@ -90,5 +110,6 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
           this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
         });
       });
+    this.subscriptions.push(lastCampaignSubscription);
   }
 }
