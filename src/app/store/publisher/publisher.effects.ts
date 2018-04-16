@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 
@@ -20,4 +20,11 @@ export class PublisherEffects {
     .ofType(publisherActions.LOAD_SITES)
     .switchMap(() => this.service.getSites())
     .map((sites) => new publisherActions.LoadSitesSuccess(sites));
+
+  @Effect()
+  addSiteToSites = this.actions$
+    .ofType(publisherActions.ADD_SITE_TO_SITES)
+    .map(toPayload)
+    .switchMap((payload) => this.service.saveSite(payload))
+    .map((site) => new publisherActions.AddSiteToSitesSuccess(site));
 }

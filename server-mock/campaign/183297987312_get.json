@@ -1,6 +1,6 @@
 {
   "basicInformation": {
-    "status": 2,
+    "status": 1,
     "name": "Campaign for Education",
     "targetUrl": "www.adshares.net",
     "bidStrategyName": "CPC",
@@ -9,7 +9,7 @@
     "dateStart": "Sat Feb 23 2018 12:24:00 GMT"
   },
 
-  "id": 377892908378478,
+  "id": 183297987312,
   "clicks": 213,
   "impressions": 12435,
   "ctr": 0.03,
@@ -21,32 +21,33 @@
     "requires": {
       "lang": ["pl"],
       "site": {
-        "host": ["google.pl", "onet.pl"]
+        "host": ["google.pl", "onet.pl", "custom.com"]
       }
     },
     "excludes": {
       "js_enabled": ["false"],
       "screen": {
-        "width": ["<1200,1800>", "<1200,>"]
+        "width": ["<1200,1800>", "<1200,>"],
+        "height": ["<200>"]
       }
     }
   },
   "ads": [
     {
-      "id": 31987321798,
-      "status": 1,
+      "id": 12389132,
+      "status": 0,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
 
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.01233,
+      "ctr": 0.00001233,
       "averageCPC": 1.2,
       "cost": 2435.23
     },
     {
-      "id": 123823187,
+      "id": 12980123890,
       "status": 2,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",

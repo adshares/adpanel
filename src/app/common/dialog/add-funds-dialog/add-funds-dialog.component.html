@@ -31,18 +31,18 @@
   >
     <div class="adsh-form-input__box">
       <label
-        for="ethereum-address"
+        for="adshares-address"
         class="adsh-form-label"
       >
-        Our Ethereum Address
+        Our Adshares Address
       </label>
       <input
-        id="ethereum-address"
+        id="adshares-address"
         class="
           adsh-form-input
           adsh-form-input--full"
-        name="ethereum-address"
-        [value]="adsharesEthAddress"
+        name="adshares-address"
+        [value]="adsharesAddress"
         disabled
       >
       <span class="input-valid"></span>
@@ -82,5 +82,39 @@
       We will send you a notification when we receive a funds from your MEMO -
       this is kind of profile name which we will recognize that you have paid.
     </p>
+
+    <div class="row">
+      <span
+        class="
+          confirm-email-error-block
+          error-msg
+          col-xs-12"
+        *ngIf="!isEmailConfirmed"
+      >
+        Confirm email to add funds
+      </span>
+    </div>
+  </div>
+
+  <div
+    class="
+      row
+      justify-center
+      adsh-btn--submit"
+  >
+    <button
+      class="
+        adsh-btn
+        adsh-btn--blue"
+      *ngIf="isEmailConfirmed"
+    >
+      <span *ngIf="!isFormBeingSubmitted ; else loading">
+        Deposit
+      </span>
+
+      <ng-template #loading>
+        <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+      </ng-template>
+    </button>
   </div>
 </mat-dialog-content>

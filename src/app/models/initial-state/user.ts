@@ -9,7 +9,7 @@ export const userInitialState: User = {
   isEmailConfirmed: false,
 
   financialData: {
-    userEthAddress: '',
+    userAddress: '',
     userMemo: '',
     userAutomaticWithdrawPeriod: 3,
     userAutomaticWithdrawAmount: 300,

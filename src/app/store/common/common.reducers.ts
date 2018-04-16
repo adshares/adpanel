@@ -3,7 +3,7 @@ import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filt
 
 const initialState = {
   activeUserType: 1,
-  adsharesEthAddress: '',
+  adsharesAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState
 };
 
@@ -19,10 +19,10 @@ export function commonReducers(state = initialState , action: commonActions.acti
         ...state,
         chartFilterSettings: Object.assign({}, action.payload)
       };
-    case commonActions.SET_ADSHARES_ETH_ADDRESS:
+    case commonActions.SET_ADSHARES_ADDRESS:
       return {
         ...state,
-        adsharesEthAddress: action.payload
+        adsharesAddress: action.payload
       };
      default:
       return state;
