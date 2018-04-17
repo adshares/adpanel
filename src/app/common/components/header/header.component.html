@@ -11,7 +11,10 @@
       row
       align-center"
   >
-    <a [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']">
+    <a
+      [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']"
+      data-test="header-dashboard-link"
+    >
       <div
         class="
           adsh-navigation__item
@@ -41,6 +44,7 @@
         adsh-header-userselect"
       (mouseover)="toggleChooseUserMenu(true)"
       (mouseleave)="toggleChooseUserMenu(false)"
+      data-test="header-choose-user-menu"
     >
       <div
         class="
@@ -59,6 +63,7 @@
             adsh-copy--large
             adsh-copy--semi
             adsh-copy--x-dark"
+          data-test="header-active-user-type"
         >
           {{ userRolesEnum[activeUserType] }}
         </span>
@@ -87,6 +92,7 @@
           routerLink="/advertiser/dashboard"
           *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.ADVERTISER)"
           (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
+          data-test="header-choose-user-menu-advertiser"
         >
           <img
             class="adsh-icon adsh-icon--prepend"
@@ -100,6 +106,7 @@
           routerLink="/publisher/dashboard"
           *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.PUBLISHER)"
           (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
+          data-test="header-choose-user-menu-publisher"
         >
           <img
             class="adsh-icon adsh-icon--prepend"
@@ -113,19 +120,7 @@
           routerLink="/admin/dashboard"
           *ngIf="(userDataState | async).isAdmin"
           (click)="setActiveUserType(userRolesEnum.ADMIN)"
-        >
-          <img
-            class="adsh-icon adsh-icon--prepend"
-            src="assets/images/user.svg"
-          >
-          <span>Admin</span>
-        </li>
-        <li
-          class="choose-user-menu__item"
-          [value]="userRolesEnum.ADMIN"
-          routerLink="/admin/dashboard"
-          *ngIf="(userDataState | async).isAdmin"
-          (click)="setActiveUserType(userRolesEnum.ADMIN)"
+          data-test="header-choose-user-menu-admin"
         >
           <img
             class="adsh-icon adsh-icon--prepend"
@@ -154,6 +149,7 @@
         row
         align-center"
       (click)="navigateToCreateNewAsset()"
+      data-test="header-create-new-asset-button"
     >
       <img
           class="
@@ -175,6 +171,7 @@
         adsh-navigation__item
         row
         align-center"
+      data-test="header-admin-set-earning-dialog-open-button"
     >
       <img
         class="
@@ -196,6 +193,7 @@
         adsh-btn--no-vertical-padding"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
+      data-test="header-toggle-settings-menu"
     >
       <img
         class="
@@ -208,8 +206,18 @@
           col
           justify-start"
       >
-        <span class="adsh-adst">{{ financialData.totalFunds | adsharesTokenValue }}</span>
-        <span class="adsh-usd">~ {{ financialData.totalFundsInCurrency | currency:'USD':true }}</span>
+        <span
+          class="adsh-adst"
+          data-test="user-total-funds"
+        >
+          {{ financialData.totalFunds | number:'1.2-2' | adsharesTokenValue }}
+        </span>
+        <span
+          class="adsh-usd"
+          data-test="user-total-funds-in-currency"
+        >
+          ~ {{ financialData.totalFundsInCurrency | number:'1.2-2' | commaReplacer | currency:USD  }}
+        </span>
       </div>
       <img
         class="
@@ -237,6 +245,7 @@
               row
               align-center"
             (click)="openAddFundsDialog()"
+            data-test="add-funds-dialog-open-button"
           >
             <img
               class="
@@ -253,18 +262,23 @@
         <li
           class="settings-menu__item"
           routerLink="/settings/general"
+          data-test="header-account-settings-button"
         >
           Account Settings
         </li>
         <li
           class="settings-menu__item"
           routerLink="/settings/billing"
+          data-test="header-billing-payments-button"
         >
           Billing & Payments
         </li>
 
         <li class="settings-menu__item">
-          <span (click)="logOut()">
+          <span
+            (click)="logOut()"
+            data-test="header-log-out-button"
+          >
             Log out
           </span>
         </li>
@@ -281,6 +295,7 @@
         adsh-funds-summary__deposit-funds"
       *ngIf="(userDataState | async).isAdmin"
       (click)="logOut()"
+      data-test="header-admin-log-out-button"
     >
       <span>
         Log out

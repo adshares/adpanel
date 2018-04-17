@@ -47,6 +47,7 @@
       <a
         routerLink="../basic-information"
         [queryParams]="{step: 1, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-basic-information"
       >
         <button
           class="
@@ -75,6 +76,7 @@
           col-xs-12
           site-edit-summary__info-cell
           site-info--primary"
+        data-test="publisher-site-url"
       >
         {{ site.websiteUrl }}
       </div>
@@ -94,7 +96,10 @@
           Content Language
         </p>
 
-        <p class="adsh-copy">
+        <p
+          class="adsh-copy"
+          data-test="publisher-site-language"
+        >
           {{ site.primaryLanguage }}
         </p>
       </div>
@@ -123,6 +128,7 @@
       <a
         routerLink="../additional-targeting"
         [queryParams]="{step: 2, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-additional-information"
       >
         <button
           class="
@@ -139,7 +145,8 @@
       <div
         class="
           col-xs-5
-          site-edit-summary__info-cell">
+          site-edit-summary__info-cell"
+      >
         <span class="adsh-copy">Requires:</span>
 
         <div class="site-edit-summary__targeting--margin-fix">
@@ -155,7 +162,8 @@
       <div
         class="
           col-xs-5
-          site-edit-summary__info-cell">
+          site-edit-summary__info-cell"
+      >
         <span class="adsh-copy">Excludes:</span>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
@@ -191,6 +199,7 @@
       <a
         routerLink="../create-ad-units"
         [queryParams]="{step: 3, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
       >
         <button
           class="
@@ -221,6 +230,7 @@
     <a
       routerLink="../create-ad-units"
       [queryParams]="{step: 3}"
+      data-test="publisher-edit-site-navigate-back"
     >
       <button
         class="
@@ -241,6 +251,7 @@
             adsh-blue
             save-as-draft"
           (click)="saveSite(true)"
+          data-test="publisher-edit-site-save-as-draft"
         >
           Save as Draft
         </button>
@@ -251,6 +262,7 @@
             adsh-btn
             adsh-btn--blue"
           (click)="saveSite(false)"
+          data-test="publisher-edit-site-start-campaign"
         >
           Publish site
         </button>

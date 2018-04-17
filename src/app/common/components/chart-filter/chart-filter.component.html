@@ -21,6 +21,7 @@
           adsh-bg-white
           adsh-navy"
       (click)="filterChart(1, 0)"
+      data-test="chart-filter-today"
     >
       Today
     </button>
@@ -32,6 +33,7 @@
           adsh-bg-white
           adsh-navy"
       (click)="filterChart(7, 0)"
+      data-test="chart-filter-this-week"
     >
       This Week
     </button>
@@ -43,6 +45,7 @@
           adsh-bg-white
           adsh-navy"
       (click)="filterChart(31, 0)"
+      data-test="chart-filter-this-month"
     >
       This Month
     </button>
@@ -85,6 +88,7 @@
         [formControl]="dateFrom"
         required
         [max]="dateTo.value || today"
+        data-test="chart-filter-custom-date-from"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -123,6 +127,7 @@
         required
         [min]="dateFrom.value"
         [max]="today"
+        data-test="chart-filter-custom-date-to"
       >
       <mat-datepicker-toggle
         matSuffix
@@ -139,6 +144,7 @@
         adsh-navy"
       [class.disabled]="!dateTo.value || !dateFrom.value"
       (click)="filterChartByDatepicker(dateFrom, dateTo)"
+      data-test="chart-filter-apply-datespan-button"
     >
       Apply
     </button>

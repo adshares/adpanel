@@ -33,6 +33,7 @@
       [formGroup]="changeWithdrawAddressForm"
       (ngSubmit)="changeWithdrawAddress()"
       class="adsh-form"
+      data-test="common-change-withdraw-address-form"
     >
       <div class="adsh-form-input__box">
         <label
@@ -49,6 +50,7 @@
           name="user-address"
           [value]="userAddress"
           disabled
+          data-test="common-change-withdraw-address-form-address"
         >
         <span class="input-valid"></span>
       </div>
@@ -68,6 +70,7 @@
           type="url"
           name="address"
           formControlName="address"
+          data-test="common-change-withdraw-address-form-address-new"
         >
         <span
           *ngIf="changeWithdrawAddressForm.get('address').valid"
@@ -90,6 +93,7 @@
           class="
             adsh-btn
             adsh-btn--blue"
+          data-test="common-change-withdraw-address-form-submit-button"
           *ngIf="isEmailConfirmed"
         >
           <span *ngIf="!isFormBeingSubmitted ; else loading">

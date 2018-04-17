@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 
@@ -25,7 +24,6 @@ import { BillingHistoryWithdrawalComponent } from './billing/billing-history/bil
     ReactiveFormsModule,
     FormsModule,
     SettingsRoutingModule,
-    MatSlideToggleModule
   ],
   declarations: [
     WalletDialogComponent,
