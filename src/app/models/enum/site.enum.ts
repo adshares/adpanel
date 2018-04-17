@@ -5,6 +5,6 @@ export enum primaryLanguageEnum {
 
 export enum siteStatusEnum {
   DRAFT,
-  ACTIVE,
-  LIMITED
+  INACTIVE,
+  ACTIVE
 }
