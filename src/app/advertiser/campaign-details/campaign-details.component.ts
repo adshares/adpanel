@@ -11,7 +11,7 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
@@ -24,8 +24,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
-  campaignStatuses = enumToObjectArray(campaignStatusesEnum);
-  selectCompare = selectCompare;
+  campaignStatusesEnum = campaignStatusesEnum;
 
   barChartValue: number;
   barChartDifference: number;
@@ -43,10 +42,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     private chartService: ChartService
   ) {
     super();
-    this.campaign = this.route.snapshot.data.campaign;
   }
 
   ngOnInit() {
+    this.campaign = this.route.snapshot.data.campaign;
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -94,7 +94,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  saveCampaign() {
-    this.advertiserService.saveCampaign(this.campaign).subscribe();
+  onCampaignStatusChange(status) {
+    const statusActive = status !== this.campaignStatusesEnum.ACTIVE;
+
+    this.campaign.basicInformation.status =
+      statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
+
+    this.advertiserService.saveCampaign(this.campaign);
   }
 }
