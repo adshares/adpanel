@@ -276,10 +276,10 @@
     <button
       class="
         adsh-btn
-        adsh-btn--large
-        adsh-btn--blue
+        adsh-btn--transparent
         row
-        align-center"
+        align-center
+        hidden-sm"
       *ngIf="(userDataState | async).isAdmin"
       (click)="logOut()"
     >
@@ -312,7 +312,6 @@
         logout-on-small-devices
         visible-xs
         hidden-sm-up"
-      *ngIf="!(userDataState | async).isAdmin"
       (click)="logOut()"
     >
       Log out
