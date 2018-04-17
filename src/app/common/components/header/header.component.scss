@@ -5,6 +5,11 @@
   height: 86px;
   background: pal(navy);
 
+  @include media(sm-down-without-sm) {
+    height: 100px;
+    justify-content: center;
+  }
+
   &-userselect {
     width: 185px;
     background: pal(white);
@@ -13,6 +18,13 @@
     img {
       top: calc((42px - 18px)/2);
       left: 15px;
+    }
+  }
+
+  > div {
+    @include media(sm-down-without-sm) {
+      justify-content: center;
+      flex-direction: column;
     }
   }
 }
@@ -24,7 +36,11 @@
     cursor: pointer;
 
     .adsh-logo {
-      margin-right: 30px;
+      margin-right: 15px;
+
+      @include media(md-up) {
+        margin-right: 30px;
+      }
     }
 
     .adsh-chevron {
@@ -103,5 +119,11 @@
   &.up {
     transform: rotate(180deg);
   }
+}
+
+.logout-on-small-devices {
+  position: absolute;
+  top: 14px;
+  right: 20px;
 }
 

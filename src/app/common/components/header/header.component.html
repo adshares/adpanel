@@ -194,7 +194,8 @@
         adsh-bg-navy--light
         adsh-navigation__item
         adsh-btn
-        adsh-btn--no-vertical-padding"
+        adsh-btn--no-vertical-padding
+        hidden-lg"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
     >
@@ -278,8 +279,7 @@
         adsh-btn--large
         adsh-btn--blue
         row
-        align-center
-        adsh-funds-summary__deposit-funds"
+        align-center"
       *ngIf="(userDataState | async).isAdmin"
       (click)="logOut()"
     >
@@ -287,5 +287,35 @@
         Log out
       </span>
     </button>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--transparent
+        row
+        align-center
+        hidden-sm
+        visible-sm
+        hidden-lg-up"
+      *ngIf="!(userDataState | async).isAdmin"
+      (click)="logOut()"
+    >
+      <span>
+        Log out
+      </span>
+    </button>
+
+    <span
+      class="
+        adsh-copy
+        adsh-white
+        logout-on-small-devices
+        visible-xs
+        hidden-sm-up"
+      *ngIf="!(userDataState | async).isAdmin"
+      (click)="logOut()"
+    >
+      Log out
+    </span>
   </div>
 </section>
