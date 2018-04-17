@@ -19,22 +19,12 @@ public class BrowserTestCase {
    */
   private static final String SYS_PROP_WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
 
-  protected LoginPage loginPage;
-  protected DashboardPopup dashboardPopup;
-  protected PublisherNewSite publisherNewSite;
-  protected PublisherMainPage publisherMainPage;
-  protected SiteAdditionalTargeting siteAdditionalTargeting;
-  protected SiteCreateAds siteCreateAds;
-  protected SiteSummary siteSummary;
 
   public WebDriver driver;
 
-  protected String loginAdService;
-  protected String passwordAdService;
-  protected String flag;
 
   @BeforeClass
-  public void setChrome() {
+  public void setBrowser() {
     // webdrvier should be in system path
 //        String property = System.getProperty(SYS_PROP_WEBDRIVER_CHROME_DRIVER);
 //        if (property == null || "".equals(property)) {
@@ -47,15 +37,6 @@ public class BrowserTestCase {
     driver = new ChromeDriver(chromeOptions);
 //    driver.manage().window().maximize();
     driver.get("http://localhost:4200/");
-  }
-
-  @BeforeTest
-  public void setUp() {
-    final String DEFAULT_VALUE = "-";
-
-    flag = DEFAULT_VALUE;
-    loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
-    passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
 
 

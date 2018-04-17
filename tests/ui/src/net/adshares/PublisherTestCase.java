@@ -1,22 +1,19 @@
 package net.adshares;
 
-import net.adshares.pages.DashboardPopup;
-import net.adshares.pages.LoginPage;
 import net.adshares.pages.publisher.*;
 import net.adshares.setup.BrowserTestCase;
 import org.testng.annotations.Test;
 
 public class PublisherTestCase extends BrowserTestCase {
 
-  @Test(priority = 1)
-  public void loginTest() {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSignIn(loginAdService, passwordAdService);
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpPublisher();
-  }
+  private PublisherNewSite publisherNewSite;
+  private PublisherMainPage publisherMainPage;
+  private SiteAdditionalTargeting siteAdditionalTargeting;
+  private SiteCreateAds siteCreateAds;
+  private SiteSummary siteSummary;
 
-  @Test(priority = 2)
+
+  @Test
   public void publisherAddNewSite() {
     publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();

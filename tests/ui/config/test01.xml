@@ -3,9 +3,15 @@
 <suite name="Suite" parallel="false">
     <test name="Test01-Adding new Site - Publisher" group-by-instances="true">
         <classes>
-            <class name="net.adshares.PublisherTestCase">
+            <class name="net.adshares.LoginTestCase">
                 <methods>
                     <include name="loginTest" />
+                </methods>
+            </class>
+        </classes>
+      <classes>
+            <class name="net.adshares.PublisherTestCase">
+                <methods>
                     <include name="publisherAddNewSite" />
                 </methods>
             </class>

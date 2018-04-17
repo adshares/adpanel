@@ -11,14 +11,9 @@ import java.time.format.DateTimeFormatter;
 
 public class AdvertiserTestCase extends BrowserTestCase {
 
+  private LoginPage loginPage;
+  private DashboardPopup dashboardPopup;
 
-  @Test()
-  public void loginTest() {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSignIn(loginAdService, passwordAdService);
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpPublisher();
-  }
 
   @Test
   public void createAdvertiserCampaign() {
