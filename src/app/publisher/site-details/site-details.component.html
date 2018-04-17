@@ -10,7 +10,10 @@
         align-center
         breadcrumbs"
     >
-      <a routerLink="/publisher/dashboard">
+      <a
+        routerLink="/publisher/dashboard"
+        data-test="publisher-navigate-to-dashboard"
+      >
         <p
           class="
             adsh-copy
@@ -33,6 +36,7 @@
           adsh-copy--small
           adsh-copy--x-dark
           adsh-copy--semi"
+        data-test="publisher-site-url"
       >
         {{ site.websiteUrl }}
       </p>
@@ -50,6 +54,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="publisher-site-url"
         >
           {{ site.websiteUrl }}
         </h1>
@@ -83,6 +88,7 @@
             [checked]="site.status === siteStatusEnum.ACTIVE "
             ([ngModel])="site.status"
             (change)="onSiteStatusChange(site.status)"
+            data-test="publisher-site-status-toggle"
           ></mat-slide-toggle>
         </div>
         <button
@@ -91,6 +97,7 @@
             adsh-btn--white
             adsh-btn--no-border"
           (click)="navigateToEditSite()"
+          data-test="publisher-site-edit"
         >
           <img
             class="
@@ -107,6 +114,46 @@
             Edit Site
           </span>
         </button>
+      </div>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        adsh-copy
+        row"
+    >
+      <div
+        class="
+          col-xs-12
+          col-lg-6"
+      >
+        <div>
+          <app-targeting-display
+            class="app-targeting-display"
+            *ngIf="targeting.requires"
+            [items]="targeting.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
+      </div>
+
+      <div
+        class="
+          col-xs-12
+          col-lg-6"
+      >
+        <div>
+          <app-targeting-display
+            class="app-targeting-display"
+            *ngIf="targeting.excludes"
+            [items]="targeting.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+          ></app-targeting-display>
+        </div>
       </div>
     </div>
 
@@ -129,6 +176,7 @@
             class="
               chart-name
               adsh-copy"
+            data-test="chart-series-type"
           >
             {{ chartSeriesType }}:
           </p>
@@ -141,10 +189,14 @@
               class="
                 adsh-heading
                 adsh-heading--primary"
+              data-test="chart-value"
             >
               {{ barChartValue }}
             </span>
-            <span class="chart-change">
+            <span
+              class="chart-change"
+              data-test="chart-value-difference"
+            >
               {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
             </span>
           </div>
@@ -206,6 +258,7 @@
           adsh-heading
           adsh-heading--secondary"
         (click)="navigateToCreateAdUnits()"
+        data-test="publisher-site-create-new-ad-unit"
       >
         <img
           class="

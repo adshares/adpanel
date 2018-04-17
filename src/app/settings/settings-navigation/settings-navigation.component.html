@@ -13,6 +13,7 @@
         adsh-heading
         adsh-heading--primary
         adsh-white"
+      data-test="user-total-funds"
     >
       {{ financialData.totalFunds | adsharesTokenValue }}
     </span>
@@ -22,6 +23,7 @@
         adsh-copy--x-small
         adsh-white
         adsh-copy--bold"
+      data-test="user-total-funds-change"
     >
       {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
     </span>
@@ -32,7 +34,10 @@
     *ngFor="let settingsItem of settings"
     routerLinkActive="active"
   >
-    <a [routerLink]="['/settings', settingsItem.link]">
+    <a
+      [routerLink]="['/settings', settingsItem.link]"
+      data-test="settings-category-link"
+    >
       <h3
         class="
           adsh-heading
@@ -49,7 +54,10 @@
         adsh-copy
         adsh-copy--large"
     >
-      <a [routerLink]="['/settings', settingsItem.link]">
+      <a
+        [routerLink]="['/settings', settingsItem.link]"
+        data-test="settings-category-link-direct"
+      >
         <li *ngFor="let settingsValues of settingsItem.values">
           <div class="row align-center" routerLinkActive="active">
             <img

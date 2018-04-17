@@ -26,6 +26,7 @@
     [formGroup]="siteBasicInfoForm"
     (ngSubmit)="saveSiteBasicInformation()"
     class="adsh-form"
+    data-test="publisher-edit-site-basic-information-form"
   >
     <div
       class="
@@ -47,21 +48,20 @@
             adsh-form-input
             adsh-form-input--full"
           name="siteUrl"
-          type="text"
+          type="url"
           formControlName="websiteUrl"
+          data-test="publisher-edit-site-basic-information-form-url"
         >
 
         <span
-          *ngIf="siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoForm.get('websiteUrl').touched"
           class="input-valid"
+          *ngIf="siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoForm.get('websiteUrl').touched"
         ></span>
-
         <span
           class="error-msg"
-          *ngIf="
-            siteBasicInfoForm.hasError('required', ['websiteUrl']) && siteBasicInfoSubmitted"
+          *ngIf="!siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoSubmitted"
         >
-          Website URL required!
+          Please provide a valid URL.
         </span>
       </div>
 
@@ -87,11 +87,14 @@
           id="primaryLanguage"
           name="primaryLanguage"
           formControlName="primaryLanguage"
+          data-test="publisher-edit-site-basic-information-form-language-select"
         >
           <mat-option
             *ngFor="let language of languages; let i = index"
             [value]="i"
-            class="site-edit-basic-information__language__option">
+            class="site-edit-basic-information__language__option"
+            data-test="publisher-edit-site-basic-information-form-language-option"
+          >
             {{ language }}
           </mat-option>
         </mat-select>
@@ -100,7 +103,8 @@
           class="
             adsh-copy
             adsh-copy--large
-            adsh-copy--light">
+            adsh-copy--light"
+        >
           Please specify your primary language of your website.
         </span>
 
@@ -120,7 +124,10 @@
         row
         justify-between"
     >
-      <a routerLink="../../dashboard">
+      <a
+        routerLink="../../dashboard"
+        data-test="publisher-navigate-to-dashboard"
+      >
         <button
           type="button"
           class="
@@ -135,7 +142,7 @@
         class="
           adsh-btn
           adsh-btn--blue"
-        type="submit"
+        data-test="publisher-edit-site-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">Save & Continue</span>
         <ng-template #loading>

@@ -37,12 +37,14 @@
               class="
                 adsh-heading
                 adsh-heading--primary"
+              data-test="user-total-funds"
             >
               {{ financialData.totalFunds | adsharesTokenValue }}
               <span
                 class="
                   adsh-copy--normal
                   adsh-copy--light"
+                data-test="user-total-funds-in-currency"
               >
                 ({{ financialData.totalFundsInCurrency | currency:USD }})
               </span>
@@ -51,6 +53,7 @@
               class="
                 adsh-copy
                 adsh-copy--large"
+              data-test="settings-last-payment"
             >
               Last successful payment: {{ financialData.lastPayment }}
             </p>
@@ -65,6 +68,7 @@
                   adsh-btn--white
                   adsh-blue"
                 (click)="openAddFundsDialog()"
+                data-test="add-funds-dialog-open-button"
               >
                 <img
                   class="
@@ -79,6 +83,7 @@
                   adsh-btn
                   adsh-btn--blue"
                 (click)="openWithdrawFundsDialog()"
+                data-test="withdraw-funds-dialog-open-button"
               >
                 <img
                   class="
@@ -113,6 +118,7 @@
                   break-word
                   adsh-heading
                   adsh-heading--secondary"
+                data-test="user-address"
               >
                 {{ financialData.userAddress }}
               </p>
@@ -124,6 +130,7 @@
                 adsh-btn--no-border
                 adsh-blue"
               (click)="openChangeAddressDialog()"
+              data-test="change-address-dialog-open-button"
             >
               Change Address
             </button>
@@ -144,8 +151,14 @@
                   adsh-heading
                   adsh-heading--secondary"
               >
-                {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} are accrued after
-                <span class="period">
+                <span data-test="user-automatic-withdraw-amount">
+                  {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+                </span>
+                <span>are accrued after</span>
+                <span
+                  class="period"
+                  data-test="user-automatic-withdraw-period"
+                >
                   {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
                 </span>
               </p>
@@ -157,6 +170,7 @@
                 adsh-btn--no-border
                 adsh-blue"
               (click)="openChangeAutomaticWithdrawsDialog()"
+              data-test="change-automatic-withdraw-dialog-open-button"
             >
               Change Withdraw
             </button>
@@ -179,6 +193,7 @@
         <a
           [href]="faqLink"
           target="_blank"
+          data-test="settings-faq-link"
         >
           <button
             class="

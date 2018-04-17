@@ -31,6 +31,7 @@
             class="
               adsh-heading
               adsh-heading--primary"
+            data-test="user-total-funds"
           >
             {{ financialData.totalFunds | adsharesTokenValue }}
           </span>
@@ -40,6 +41,7 @@
               adsh-copy--x-small
               adsh-blue
               adsh-copy--bold"
+            data-test="user-total-funds-change"
           >
             {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
           </span>
@@ -65,8 +67,14 @@
               adsh-copy--dark
               adsh-copy--semi"
           >
-            {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} after
-            <span class="period">
+            <span data-test="user-automatic-withdraw-amount">
+              {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+            </span>
+            after
+            <span
+              class="period"
+              data-test="user-automatic-withdraw-amount"
+            >
               {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
             </span>
           </p>
@@ -76,6 +84,7 @@
               adsh-copy--large
               adsh-blue"
             (click)="openChangeAutomaticWithdrawsDialog()"
+            data-test="change-automatic-withdraw-dialog-open-button"
           >
             Change
           </a>
@@ -101,6 +110,7 @@
               adsh-copy
               adsh-copy--dark
               adsh-copy--semi"
+            data-test="user-address"
           >
             {{ financialData.userAddress }}
           </p>
@@ -110,6 +120,7 @@
               adsh-copy--large
               adsh-blue"
             (click)="openChangeAddressDialog()"
+            data-test="change-address-dialog-open-button"
           >
             Change
           </a>
@@ -131,6 +142,7 @@
               align-center
               adsh-funds-summary__deposit-funds"
             (click)="openAddFundsDialog()"
+            data-test="add-funds-dialog-open-button"
           >
             <img
               src="/assets/images/credit-card--blue.svg"
@@ -157,6 +169,7 @@
               adsh-funds-summary__withdraw-funds"
             *ngIf="financialData.totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
+            data-test="withdraw-funds-dialog-open-button"
           >
             <img
               src="/assets/images/credit-card--white.svg"

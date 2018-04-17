@@ -17,17 +17,20 @@
           adsh-copy
           adsh-copy--large"
       >
-        Here you can change the email address you use on Adshares and your password
+        Here you can change the email address you use on Adshares and your password.
       </p>
 
       <form
         [formGroup]="changeEmailForm"
         (ngSubmit)="onChangeEmail()"
-        class="adsh-form">
-        <div class="
-          row
-          align-start
-          change-form"
+        class="adsh-form"
+        data-test="settings-change-email-form"
+      >
+        <div
+          class="
+            row
+            align-start
+            change-form"
         >
           <div class="adsh-form-input__box">
             <label
@@ -42,6 +45,7 @@
               type="email"
               name="email"
               formControlName="email"
+              data-test="settings-change-email-form-email"
             >
             <span
               class="input-valid"
@@ -76,6 +80,7 @@
             class="
               adsh-btn
               adsh-btn--blue"
+            data-test="settings-change-email-form-submit"
           >
             Change email
           </button>
@@ -85,11 +90,14 @@
       <form
         [formGroup]="changePasswordForm"
         (ngSubmit)="onChangePassword()"
-        class="adsh-form">
-        <div class="
-          row
-          align-start
-          change-form"
+        class="adsh-form"
+        data-test="settings-change-password-form"
+      >
+        <div
+          class="
+            row
+            align-start
+            change-form"
         >
           <div class="row">
             <div class="adsh-form-input__box">
@@ -105,6 +113,7 @@
                 type="password"
                 name="currentPassword"
                 formControlName="currentPassword"
+                data-test="settings-change-password-form-current-password"
               >
               <span
                 class="error-msg"
@@ -147,6 +156,7 @@
                 type="password"
                 name="newPassword"
                 formControlName="newPassword"
+                data-test="settings-change-password-form-new-password"
               >
               <span
                 class="input-valid"
@@ -181,6 +191,7 @@
                 type="password"
                 name="newPasswordConfirm"
                 [formControl]="newPasswordConfirm"
+                data-test="settings-change-password-form-new-password-confirm-password"
               >
               <span
                 class="input-valid"
@@ -201,10 +212,10 @@
           </div>
 
           <button
-            type="submit"
             class="
               adsh-btn
               adsh-btn--blue"
+            data-test="settings-change-password-form-submit"
           >
             Change password
           </button>
@@ -229,6 +240,7 @@
             adsh-btn--white
             adsh-btn--no-border
             adsh-blue"
+          data-test="settings-delete-account"
         >
           Delete Account
         </button>
