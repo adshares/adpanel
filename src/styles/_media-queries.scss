@@ -3,11 +3,19 @@
 // -------------------------------------------------
 $xs-breakpoint: 320px;
 $sm-breakpoint: 600px;
-$md-breakpoint: 992px;
+$md-breakpoint: 1024px;
 $lg-breakpoint: 1200px;
 $xl-breakpoint: 1800px;
 $xxl-breakpoint: 2560px;
 $xxxl-breakpoint: 4000px;
+
+$sm-breakpoint-down: 599px;
+$md-breakpoint-down: 1023px;
+$lg-breakpoint-down: 1199px;
+$xl-breakpoint-down: 1799px;
+$xxl-breakpoint-down: 2499px;
+$xxxl-breakpoint-down: 3999px;
+
 $screen: "only screen";
 $landscape: "#{$screen} and (orientation: landscape)";
 $portrait: "#{$screen} and (orientation: portrait)";
@@ -42,18 +50,17 @@ $viewport: (
   xxl-down: "#{$screen} and (max-width: #{$xxl-breakpoint})",
   xxxl-down: "#{$screen} and (max-width: #{$xxxl-breakpoint})",
 
-  xs-down-without-xs: "#{$screen} and (max-width: #{$xs-breakpoint} - 1)",
-  sm-down-without-sm: "#{$screen} and (max-width: #{$sm-breakpoint} - 1)",
-  md-down-without-md: "#{$screen} and (max-width: #{$md-breakpoint} - 1)",
-  lg-down-without-lg: "#{$screen} and (max-width: #{$lg-breakpoint} - 1)",
-  xl-down-without-xl: "#{$screen} and (max-width: #{$xl-breakpoint} - 1)",
-  xxl-down-without-xxl: "#{$screen} and (max-width: #{$xxxl-breakpoint} - 1)",
-  xxxl-down-without-xxxl: "#{$screen} and (max-width: #{$xxxl-breakpoint} - 1)"
+  sm-down-without-sm: "#{$screen} and (max-width: #{$sm-breakpoint-down})",
+  md-down-without-md: "#{$screen} and (max-width: #{$md-breakpoint-down})",
+  lg-down-without-lg: "#{$screen} and (max-width: #{$lg-breakpoint-down})",
+  xl-down-without-xl: "#{$screen} and (max-width: #{$xl-breakpoint-down})",
+  xxl-down-without-xxl: "#{$screen} and (max-width: #{$xxl-breakpoint-down})",
+  xxxl-down-without-xxxl: "#{$screen} and (max-width: #{$xxxl-breakpoint-down})"
 );
 
 @mixin media($name) {
   @media #{map-get($viewport, $name)} {@content};
-}
+};
 
 $viewport_sizes_up: (
   xs: 'xs-up',
@@ -76,7 +83,6 @@ $viewport_sizes_down: (
 );
 
 $viewport_sizes_down_without_size: (
-  xs: 'xs-down-without-xs',
   sm: 'sm-down-without-sm',
   md: 'md-down-without-md',
   lg: 'lg-down-without-lg',

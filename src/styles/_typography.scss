@@ -7,9 +7,17 @@
   }
 
   &--primary {
-    @include font(30, bold);
+    @include font(20, bold);
     letter-spacing: -0.1px;
     margin: 10px 0;
+
+    @include media(md-up) {
+      @include font(25, bold);
+    }
+
+    @include media(lg-up) {
+      @include font(30, bold);
+    }
   }
 
   &--secondary {

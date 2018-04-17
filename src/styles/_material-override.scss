@@ -7,7 +7,11 @@
 
 .mat-dialog-container {
   position: relative;
-  padding: 50px 70px 40px !important;
+  padding: 60px 15px 15px 15px !important;
+
+  @include media(md-up) {
+    padding: 50px 70px 40px !important;
+  }
 }
 
 .mat-dialog-content.mat-dialog-content--narrow{

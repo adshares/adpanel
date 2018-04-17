@@ -1,7 +1,14 @@
 @import '../../../../styles.scss';
 
 .choose-account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   @include media(md-up) {
+    flex-direction: row;
+    justify-content: space-between;
     width: 650px;
   }
 
@@ -10,12 +17,22 @@
   }
 
   img {
-    padding: 0 50px 0 10px;
+    padding: 20px 10px;
     width: 130px;
+
+    @include media(md-up) {
+      padding: 0 50px 0 10px;
+    }
   }
 
   &.adsh-box {
     margin: 20px 0;
+  }
+
+  button {
+    @include media(md-down-without-md) {
+      margin-top: 20px;
+    }
   }
 }
 
