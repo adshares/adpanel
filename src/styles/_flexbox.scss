@@ -97,6 +97,11 @@ $column_sizes: 12;
       visibility: visible;
       display: block;
     }
+
+    .hidden-#{$viewport_size}-up {
+      visibility: hidden;
+      display: none;
+    }
   }
 }
 
