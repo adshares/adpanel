@@ -6,7 +6,8 @@
   background: pal(navy);
 
   @include media(sm-down-without-sm) {
-    height: 100px;
+    height: 110px;
+    flex-direction: column;
     justify-content: center;
   }
 
