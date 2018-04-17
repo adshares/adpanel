@@ -1,6 +1,8 @@
+@import '../../../styles.scss';
+
 .campaign-basic-information {
   > div {
-    margin-right: 50px;
+    margin: 15px 50px 0 0;
   }
 }
 
@@ -8,10 +10,26 @@
   margin-bottom: 15px;
 
   > div {
-    flex-basis: calc(20% - 10px);
-    max-width: calc(20% - 10px);
-    margin: 0 5px;
+    margin: 5px 0;
     word-wrap: break-word;
+    flex-basis: 100%;
+
+    @include media(sm-up) {
+      flex-basis: calc(50%);
+      max-width: calc(50%);
+    }
+
+    @include media(md-up) {
+      flex-basis: calc(33%);
+      max-width: calc(33%);
+    }
+
+    @include media(lg-up) {
+      flex-basis: calc(20% - 8px);
+      max-width: calc(20% - 8px);
+      margin: 0 5px;
+    }
+
 
     &:first-of-type {
       margin-left: 0;

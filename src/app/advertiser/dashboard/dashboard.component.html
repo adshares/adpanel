@@ -11,7 +11,11 @@
         no-gutters
         justify-between"
     >
-      <div class="col-xs-3">
+      <div
+        class="
+          col-xs-12
+          col-md-3"
+      >
         <h1
           class="
             adsh-heading
@@ -27,7 +31,11 @@
           Etiam pretium dapibus congue. Praesent a lorem erat.
         </p>
       </div>
-      <div class="col-xs-9">
+      <div
+        class="
+          col-xs-12
+          col-md-9"
+      >
         <app-chart-filter
           *ngIf="!campaigns"
           (filter)="appChartRef.updateChartData($event)"
@@ -39,7 +47,8 @@
       <div
         class="
           adsh-box
-          adsh-box--large"
+          adsh-box--large
+          hidden-md"
       >
         <app-chart-filter-by-type
           (updateId)="appChartRef.updateChartDataSeries($event)"
@@ -68,7 +77,10 @@
       <app-campaign-list></app-campaign-list>
     </div>
 
-    <div *ngIf="campaigns">
+    <div
+      class="hidden-md"
+      *ngIf="campaigns"
+    >
       <div
         class="
           adsh-box
