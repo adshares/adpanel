@@ -14,6 +14,10 @@
   }
 }
 
+.mat-dialog-content {
+  max-height: 85vh !important;
+}
+
 .mat-dialog-content.mat-dialog-content--narrow{
   max-width: 470px;
 }

@@ -1,11 +1,11 @@
+@import '../../../../styles.scss';
+
 .chart-filters {
   margin-bottom: 20px;
 
   .filter-row {
-    margin: 10px 0;
-
     > * {
-      margin-left: 10px;
+      margin: 10px 0 10px 10px;
     }
   }
 }
