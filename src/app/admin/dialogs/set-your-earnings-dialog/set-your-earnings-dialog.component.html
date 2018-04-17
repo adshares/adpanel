@@ -27,6 +27,7 @@
     thumb-label="true"
     [ngModel]="value | number:'1.2-2'"
     (ngModelChange)="updateValue($event)"
+    data-test="admin-earnings-slider"
   ></mat-slider>
 
   <div
@@ -46,11 +47,12 @@
         earnings-input"
       [ngModel]="value | number:'1.2-2'"
       (ngModelChange)="updateValue($event)"
+      data-test="admin-earnings-direct-input"
     >
     <div class="col adsh-copy">
-      <div>12$ per day</div>
-      <div>213$ per week</div>
-      <div>1234313$ per month</div>
+      <span data-test="admin-earnings-per-day">12$ per day</span>
+      <span data-test="admin-earnings-per-week">213$ per week</span>
+      <span data-test="admin-earnings-per-month">1234313$ per month</span>
     </div>
   </div>
 
@@ -65,10 +67,9 @@
         adsh-btn--wide
         adsh-btn--blue
         adsh-form-submit-btn"
+      data-test="admin-earnings-save-button"
     >
       Save
     </button>
   </div>
-
-
 </mat-dialog-content>

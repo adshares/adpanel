@@ -2,7 +2,9 @@
   class="
     adsh-box
     clickable-row"
-  (click)="navigateToCampaignDetails(campaign.id)">
+  (click)="navigateToCampaignDetails(campaign.id)"
+  data-test="advertiser-navigate-to-campaign-details"
+>
   <div class="adsh-campaign-list__item">
     <div
       class="
@@ -25,7 +27,9 @@
             text-center"
           [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
         >
-          <span>{{ campaignStatusesEnum[campaign.basicInformation.status] }}</span>
+          <span data-test="advertiser-campaign-status">
+            {{ campaignStatusesEnum[campaign.basicInformation.status] }}
+          </span>
         </div>
       </div>
       <div
@@ -38,6 +42,7 @@
           class="
             adsh-heading
             adsh-heading--secondary"
+          data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
         </h4>
@@ -47,6 +52,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-bduget"
       >
         <span>{{ campaign.basicInformation.budget | number:'1.2-2' | commaReplacer | currency:USD }}/day</span>
       </div>
@@ -55,6 +61,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-clicks"
       >
         <span>{{ campaign.clicks }}</span>
       </div>
@@ -63,6 +70,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-impressions"
       >
         <span>{{ campaign.impressions }}</span>
       </div>
@@ -71,6 +79,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-ctr"
       >
         <span>{{ campaign.ctr | percent:'1.2-2' }}</span>
       </div>
@@ -79,6 +88,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-average-cpc"
       >
         <span>{{ campaign.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}</span>
       </div>
@@ -87,6 +97,7 @@
           col-xs-1
           row
           align-center"
+        data-test="advertiser-campaign-cost"
       >
         <span>{{ campaign.cost | number:'1.2-2' | commaReplacer | currency:USD }}</span>
       </div>

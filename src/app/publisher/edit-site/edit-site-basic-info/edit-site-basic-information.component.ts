@@ -11,6 +11,7 @@ import { primaryLanguageEnum } from 'models/enum/site.enum';
 import { cloneDeep, enumToArray } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site } from 'models/site.model';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -64,7 +65,10 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   createForm() {
     this.siteBasicInfoForm = new FormGroup({
-      websiteUrl: new FormControl(siteInitialState.websiteUrl, Validators.required),
+      websiteUrl: new FormControl(siteInitialState.websiteUrl, [
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP)
+      ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
 

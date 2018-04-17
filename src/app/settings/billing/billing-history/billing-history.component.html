@@ -47,9 +47,10 @@
           <li *ngFor="let billingHistoryItem of billingHistory">
             <app-billing-history-withdrawal
               class="
-              row
-              align-center"
+                row
+                align-center"
               [billingHistoryItem]="billingHistoryItem"
+              data-test="settings-billing-history-item"
             >
             </app-billing-history-withdrawal>
           </li>
@@ -68,6 +69,7 @@
         adsh-btn
         adsh-btn--white
         adsh-blue"
+      data-test="settings-billing-history-save-as-pdf"
     >
       <img
         class="
