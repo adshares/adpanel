@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { adStatusesEnum } from 'models/enum/ad.enum';
-import { enumToObjectArray, selectCompare } from 'common/utilities/helpers';
+import { Ad } from 'models/campaign.model';
 
 @Component({
   selector: 'app-ad-list-item',
@@ -11,16 +11,20 @@ import { enumToObjectArray, selectCompare } from 'common/utilities/helpers';
   styleUrls: ['./ad-list-item.component.scss'],
 })
 export class AdListItemComponent extends HandleSubscription {
-  @Input() ad;
+  @Input() ad: Ad;
 
-  adStatuses = enumToObjectArray(adStatusesEnum);
-  selectCompare = selectCompare;
+  adStatusesEnum = adStatusesEnum;
 
   constructor(private advertiserService: AdvertiserService) {
     super();
   }
 
-  changeAdStatus() {
+  changeAdStatus(status) {
+    const statusActive = status !== this.adStatusesEnum.ACTIVE;
+
+    this.ad.status =
+      statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.ARCHIVED;
+
     const saveAdSubscription = this.advertiserService.saveAd(this.ad).subscribe();
     this.subscriptions.push(saveAdSubscription);
   }
