@@ -1,9 +1,20 @@
 .chart {
 
   &-box {
-    flex-basis: calc(33% - 5px);
-    max-width: calc(33% - 5px);
-    margin: 5px 0;
+    display: none;
+
+    @include media(md-up) {
+      display: block;
+      flex-basis: calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      margin: 5px 0;
+    }
+
+    @include media(xl-up) {
+      flex-basis: calc(33% - 5px);
+      max-width: calc(33% - 5px);
+    }
+
   }
 
   &-name {

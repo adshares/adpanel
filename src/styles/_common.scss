@@ -5,8 +5,19 @@
 */
 
 .adsh-logo {
-  max-width: 140px;
   height: auto;
+  max-width: 100px;
+  margin-bottom: 10px;
+
+  @include media(sm-up) {
+    margin-bottom: 0;
+    max-width: 110px;
+  }
+
+  @include media(md-up) {
+    margin-bottom: 0;
+    max-width: 140px;
+  }
 }
 
 .adsh-circle {

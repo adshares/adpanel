@@ -147,7 +147,8 @@
         adsh-bg-blue
         adsh-navigation__item
         row
-        align-center"
+        align-center
+        hidden-md"
       (click)="navigateToCreateNewAsset()"
       data-test="header-create-new-asset-button"
     >
@@ -190,7 +191,8 @@
         adsh-bg-navy--light
         adsh-navigation__item
         adsh-btn
-        adsh-btn--no-vertical-padding"
+        adsh-btn--no-vertical-padding
+        hidden-lg"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
       data-test="header-toggle-settings-menu"
@@ -288,11 +290,10 @@
     <button
       class="
         adsh-btn
-        adsh-btn--large
-        adsh-btn--blue
+        adsh-btn--transparent
         row
         align-center
-        adsh-funds-summary__deposit-funds"
+        hidden-sm"
       *ngIf="(userDataState | async).isAdmin"
       (click)="logOut()"
       data-test="header-admin-log-out-button"
@@ -301,5 +302,34 @@
         Log out
       </span>
     </button>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--transparent
+        row
+        align-center
+        hidden-sm
+        visible-sm
+        hidden-lg-up"
+      *ngIf="!(userDataState | async).isAdmin"
+      (click)="logOut()"
+    >
+      <span>
+        Log out
+      </span>
+    </button>
+
+    <span
+      class="
+        adsh-copy
+        adsh-white
+        logout-on-small-devices
+        visible-xs
+        hidden-sm-up"
+      (click)="logOut()"
+    >
+      Log out
+    </span>
   </div>
 </section>
