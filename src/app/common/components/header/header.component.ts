@@ -32,6 +32,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   settingsMenuOpen = false;
   chooseUserMenuOpen = false;
 
+  notificationsBarEnabled = false;
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -101,5 +103,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     localStorage.removeItem('adshUser');
     this.store.dispatch(new authActions.SetUser(userInitialState));
     this.router.navigate(['/auth/login']);
+  }
+
+  toggleNotificationsBar() {
+    this.notificationsBarEnabled = !this.notificationsBarEnabled;
   }
 }

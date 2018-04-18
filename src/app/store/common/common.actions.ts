@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { Notifications } from 'models/notifications-model';
+import { Notification } from 'models/notifications-model';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
@@ -24,7 +24,7 @@ export class SetAdsharesAddress implements Action {
 
 export class LoadNotifications implements Action {
   readonly type = LOAD_NOTIFICATIONS;
-  constructor(public payload: Notifications) { }
+  constructor(public payload: Notification[]) { }
 }
 
 

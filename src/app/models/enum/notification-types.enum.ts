@@ -1,5 +1,5 @@
 export enum notificationTypesEnum {
-  FEEDBACK,
-  UPDATE,
-  ACCOUNT
+  ADVERTISER,
+  PUBLISHER,
+  GENERAL
 }

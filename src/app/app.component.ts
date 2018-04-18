@@ -12,9 +12,10 @@ import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { User } from 'models/user.model';
 import { LocalStorageUser } from 'models/user.model';
 import { AdsharesAddress } from 'models/settings.model';
+import { Notification } from 'models/notifications-model';
+
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
-import { Notifications } from "models/notifications-model";
 
 @Component({
   selector: 'app-root',
@@ -108,7 +109,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   getNotifications() {
     const getNotificationsSubscription = this.commonService.getNotifications()
-      .subscribe((data: Notifications) => {
+      .subscribe((data: Notification[]) => {
       console.log(data)
         this.store.dispatch(new commonActions.LoadNotifications(data));
       });
