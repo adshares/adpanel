@@ -8,6 +8,7 @@ import {
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
+import { Notification } from 'models/notifications-model';
 
 
 interface AppState {
@@ -49,6 +50,7 @@ interface CommonState {
   activeUserType: number;
   adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
+  notifications: Notification[];
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState};

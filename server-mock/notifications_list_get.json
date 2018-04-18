@@ -1,36 +1,30 @@
-{
-  "advertiser": [
-    {
-      "type": 0,
-      "message": "We have a new feedback for your campaign"
-    },
-    {
-      "type": 0,
-      "message": "Your campaign changed status for 'Inactive'"
-    },
-    {
-      "type": 0,
-      "message": "We have a new feedback for your campaign"
-    }
-  ],
-  "publisher": [
-    {
-      "type": 1,
-      "message": "Your site generated 100ADS of revenue yesterday"
-    },
-    {
-      "type": 1,
-      "message": "We have a new feedback for your site"
-    }
-  ],
-  "general": [
-    {
-      "type": 2,
-      "message": "Set up your wallet"
-    },
-    {
-      "type": 3,
-      "message": "Your account was created"
-    }
-  ]
-}
+[
+  {
+    "type": 0,
+    "message": "We have a new feedback for your campaign"
+  },
+  {
+    "type": 0,
+    "message": "Your campaign changed status for 'Inactive'"
+  },
+  {
+    "type": 0,
+    "message": "We have a new feedback for your campaign"
+  },
+  {
+    "type": 1,
+    "message": "Your site generated 100ADS of revenue yesterday"
+  },
+  {
+    "type": 1,
+    "message": "We have a new feedback for your site"
+  },
+  {
+    "type": 2,
+    "message": "Set up your wallet"
+  },
+  {
+    "type": 2,
+    "message": "Your account was created"
+  }
+]
