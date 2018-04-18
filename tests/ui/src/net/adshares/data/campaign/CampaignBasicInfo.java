@@ -1,4 +1,4 @@
-package net.adshares.pages.advertiser;
+package net.adshares.data.campaign;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

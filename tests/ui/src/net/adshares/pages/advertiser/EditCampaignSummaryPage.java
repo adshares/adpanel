@@ -1,5 +1,6 @@
 package net.adshares.pages.advertiser;
 
+import net.adshares.data.campaign.CampaignBasicInfo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,25 +24,24 @@ public class EditCampaignSummaryPage {
    */
   private static final String DATE_PATTERN = "dd MMM uuuu";
 
-  @FindBy(css = "section.campaign-edit-summary div.campaign-info--primary")
+  @FindBy(css = "[data-test='advertiser-campaign-name']")
   private WebElement campaignNameText;
-  @FindBy(css = "section.campaign-edit-summary > div.adsh-box.adsh-box--large.campaign-edit-summary__basic-info > div:nth-child(3) > div.col-xs-3.campaign-edit-summary__info-cell > p.adsh-copy")
+  @FindBy(css = "[data-test='advertiser-campaign-target-url']")
   private WebElement campaignTargetUrl;
-  @FindBy(css = "section.campaign-edit-summary > div.adsh-box.adsh-box--large.campaign-edit-summary__basic-info > div:nth-child(3) > div:nth-child(2) > p.adsh-copy")
+  @FindBy(css = "[data-test='advertiser-campaign-bid-strategy']")
   private WebElement campaignBidStrategyComplex;
-  @FindBy(css = "section.campaign-edit-summary > div.adsh-box.adsh-box--large.campaign-edit-summary__basic-info > div:nth-child(3) > div:nth-child(3) > p.adsh-copy")
+  @FindBy(css = "[data-test='advertiser-campaign-budget']")
   private WebElement campaignBudget;
-  @FindBy(css = "section.campaign-edit-summary > div.adsh-box.adsh-box--large.campaign-edit-summary__basic-info > div:nth-child(3) > div:nth-child(4) > p.adsh-copy")
+  @FindBy(css = "[data-test='advertiser-campaign-start-date']")
   private WebElement campaignStartDate;
-  @FindBy(css = "section.campaign-edit-summary > div.adsh-box.adsh-box--large.campaign-edit-summary__basic-info > div:nth-child(3) > div:nth-child(5) > p.adsh-copy > span")
+  @FindBy(css = "[data-test='advertiser-campaign-end-date']")
   private WebElement campaignEndDate;
 
-
-  @FindBy(css = "section.campaign-edit-summary > div:nth-child(5) > a")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")
   private WebElement backButton;
-  @FindBy(css = "section.campaign-edit-summary > div:nth-child(5) > div > a:nth-child(1)")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")
   private WebElement saveAsDraftButton;
-  @FindBy(css = "section.campaign-edit-summary > div:nth-child(5) > div > a:nth-child(2)")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-start-campaign']")
   private WebElement startCampaignButton;
 
 

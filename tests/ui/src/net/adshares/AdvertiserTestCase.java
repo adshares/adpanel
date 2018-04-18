@@ -1,5 +1,7 @@
 package net.adshares;
 
+import net.adshares.data.campaign.CampaignAdv;
+import net.adshares.data.campaign.CampaignBasicInfo;
 import net.adshares.pages.DashboardPopup;
 import net.adshares.pages.LoginPage;
 import net.adshares.pages.advertiser.*;
@@ -49,7 +51,10 @@ public class AdvertiserTestCase extends BrowserTestCase {
     ecTargetPage.saveData();
 
     EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
-    ecCreateAdsPage.addAdvertisement();
+
+
+    final CampaignAdv campAdv = new CampaignAdv("Advertisement #1", "html", "<div style=\"width:100px;height:50px;background-color:red;\" />", "900x120");
+    ecCreateAdsPage.addAdvertisement(campAdv);
     ecCreateAdsPage.saveData();
 
     EditCampaignSummaryPage ecSummaryPage = new EditCampaignSummaryPage(driver);

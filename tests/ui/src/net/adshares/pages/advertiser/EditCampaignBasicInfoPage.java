@@ -1,6 +1,6 @@
 package net.adshares.pages.advertiser;
 
-import org.openqa.selenium.By;
+import net.adshares.data.campaign.CampaignBasicInfo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,50 +22,26 @@ public class EditCampaignBasicInfoPage {
    */
   private static final String DATE_PATTERN = "M/d/uuuu";
 
-  @FindBy(id = "campaignName")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-name']")
   private WebElement campaignNameInput;
-  @FindBy(id = "campaignTargetURL")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-target-url']")
   private WebElement campaignTargetURLInput;
-  @FindBy(id = "campaignBidStrategy")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-strategy-select']")
   private WebElement campaignBidStrategySelect;
-  @FindBy(css = "body > div.cdk-overlay-container mat-option")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-option']")
   private List<WebElement> campaignBidStrategyList;
-  @FindBy(id = "campaignBidValue")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-value']")
   private WebElement campaignBidValueInput;
-  @FindBy(id = "campaignBudget")
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget']")
   private WebElement campaignBudgetInput;
-  /**
-   * Two element list of date input. First element is for start, second is for end of campaign.
-   */
-  @FindBy(css = CSS_DATE_INPUT_LIST)
-  private List<WebElement> campaignDateInputList;
-  @FindBy(css = CSS_BACK_BUTTON)
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-start-date']")
+  private WebElement campaignStartDateInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-end-date']")
+  private WebElement campaignEndDateInput;
+  @FindBy(css = "[data-test='advertiser-navigate-to-dashboard']")
   private WebElement backButton;
-  @FindBy(css = CSS_SAVE_BUTTON)
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")
   private WebElement saveButton;
-
-
-  /**
-   * CSS selector for form object
-   */
-  private static final String CSS_FORM = "section.campaign-edit-basic-information form";
-  /**
-   * CSS Selector for date inputs
-   */
-  private static final String CSS_DATE_INPUT_LIST = CSS_FORM + " > div:nth-child(1) > div:nth-of-type(5) > div input";
-  /**
-   * CSS Selector for buttons section
-   */
-  private static final String CSS_BUTTONS_DIV = CSS_FORM + " > div:nth-child(2)";
-  /**
-   * CSS selector for Back button
-   */
-  private static final String CSS_BACK_BUTTON = CSS_BUTTONS_DIV + " > a";
-  /**
-   * CSS selector for Save button
-   */
-  private static final String CSS_SAVE_BUTTON = CSS_BUTTONS_DIV + " > button";
-
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -87,7 +63,7 @@ public class EditCampaignBasicInfoPage {
 
     // select bid strategy by text
     for (WebElement we : campaignBidStrategyList) {
-      String text = we.findElement(By.tagName("span")).getText();
+      String text = we.getAttribute("value");
       if (campInfo.getBidStrategy().equals(text)) {
         we.click();
         break;
@@ -98,17 +74,14 @@ public class EditCampaignBasicInfoPage {
     campaignBudgetInput.sendKeys(campInfo.getBudget());
 
     // set date
-    WebElement campaignStartDateInput = campaignDateInputList.get(0);
     clearInput(campaignStartDateInput);
-
-
     final LocalDate startDate = campInfo.getStartDate();
     final LocalDate endDate = campInfo.getEndDate();
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN, Locale.US);
+
     String startDateAsString = startDate.format(formatter);
     campaignStartDateInput.sendKeys(startDateAsString);
 
-    WebElement campaignEndDateInput = campaignDateInputList.get(1);
     if (endDate != null) {
       // end date should be input only, if it is defined
       String endDateAsString = endDate.format(formatter);
