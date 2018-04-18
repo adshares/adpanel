@@ -9,6 +9,6 @@ export const appSettings = {
   SUPPORT_EMAIL: 'office@adshares.net',
   TX_FEE: 0.002,
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
-  TARGET_URL_REGEXP: `((http|https)(:\/\/))?([a-zA-Z0-9]+[.]{1}){2}[a-zA-z0-9]+(\/{1}[a-zA-Z0-9]+)*\/?`,
+  TARGET_URL_REGEXP: `((http|https)(:\/\/))?([-a-zA-Z0-9@:%._\+~#=]+)+\.[a-zA-Z]{2,6}(\/[-a-zA-Z0-9@:%_\+.~#?&/=]+)*\/?`,
   USER_TYPES: ['Advertisers', 'Publishers', 'All']
 };
