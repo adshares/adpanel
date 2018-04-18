@@ -194,11 +194,16 @@
           >
           <span
             *ngIf="campaign.basicInformation.dateEnd"
-            data-test="advertiser-campaign-start-date"
+            data-test="advertiser-campaign-end-date"
           >
             {{ campaign.basicInformation.dateEnd | date: 'dd MMM yyyy' }}
           </span>
-          <span *ngIf="!campaign.basicInformation.dateEnd">-</span>
+          <span
+            *ngIf="!campaign.basicInformation.dateEnd"
+            data-test="advertiser-campaign-end-date"
+          >
+            -
+          </span>
         </p>
       </div>
     </div>
