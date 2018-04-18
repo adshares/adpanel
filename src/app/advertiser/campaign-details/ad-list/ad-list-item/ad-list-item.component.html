@@ -9,7 +9,7 @@
     >
       <div
         class="
-          col-xs-2
+          col-xs-1
           row
           align-center"
       >
@@ -17,30 +17,18 @@
           class="text-center"
           [attr.data-status]="ad.status"
         >
-          <div class="row">
-            <div class="col-xs-9">
-              <mat-select
-                class="adsh-select"
-                [(value)]="ad.status"
-                [compareWith]="selectCompare"
-                (change)="changeAdStatus()"
-                data-test="advertiser-ad-change-ad-status-select"
-              >
-                <mat-option
-                  *ngFor="let adStatus of adStatuses"
-                  [value]="adStatus.id"
-                  data-test="advertiser-ad-change-ad-status-option"
-                >
-                  {{ adStatus.name }}
-                </mat-option>
-              </mat-select>
-            </div>
-          </div>
+          <mat-slide-toggle
+            color="primary"
+            [checked]="ad.status === adStatusesEnum.ARCHIVED"
+            ([ngModel])="ad.status"
+            (change)="changeAdStatus(ad.status)"
+            data-test="advertiser-ad-change-ad-status-toggle"
+          ></mat-slide-toggle>
         </div>
       </div>
       <div
         class="
-          col-xs-3
+          col-xs-4
           row
           align-center"
       >
