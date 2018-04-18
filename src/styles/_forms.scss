@@ -56,6 +56,12 @@
       &--narrow {
         max-width: 140px;
       }
+
+      .mat-form-field-wrapper,
+      .mat-input-element {
+        width: 100px !important;
+        max-width: 100px !important;
+      }
     }
 
     &--narrow {

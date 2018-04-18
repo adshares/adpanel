@@ -43,7 +43,11 @@
         justify-between
         align-center"
     >
-      <div class="col-xs-4">
+      <div
+        class="
+          col-xs-5
+          col-md-4"
+      >
         <h1
           class="
             adsh-heading
@@ -55,7 +59,8 @@
 
       <div
         class="
-          col-xs-8
+          col-xs-7
+          col-md-8
           row
           justify-end
           align-center"
@@ -89,7 +94,8 @@
           class="
             adsh-btn
             adsh-btn--white
-            adsh-btn--no-border"
+            adsh-btn--no-border
+            hidden-md"
           (click)="navigateToEditCampaign()"
         >
           <img
@@ -213,7 +219,8 @@
     <div
       class="
         adsh-box
-        adsh-box--large"
+        adsh-box--large
+        hidden-md"
     >
       <app-chart-filter-by-type
         (updateId)="appChartRef.updateChartDataSeries($event)"
@@ -242,7 +249,6 @@
     <div
       class="
         row
-        justify-between
         campaign-details-statistics"
     >
       <div
@@ -335,7 +341,8 @@
       <div
         class="
           adsh-box
-          adsh-box--large">
+          adsh-box--large"
+      >
         <p
           class="
             adsh-copy
@@ -390,7 +397,11 @@
 
     <app-ad-list [adList]="campaign.ads"></app-ad-list>
 
-    <div class="adsh-box">
+    <div
+      class="
+        adsh-box
+        hidden-md"
+    >
       <div
         class="
           row

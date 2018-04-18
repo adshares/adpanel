@@ -7,19 +7,26 @@
   position: relative;
 
   &-wrapper {
-    height: 70vh;
-    min-height: 730px;
+    height: 90%;
     width: 100vw;
     z-index: getIndex(authWrapper);
     justify-content: center;
+
+    @include media(md-up) {
+      height: 70vh;
+      min-height: 730px;
+    }
   }
 
   &__poster {
     background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
-    height: 70vh;
-    min-height: 730px;
     max-width: 600px;
     padding: 40px;
+
+    @include media(md-up) {
+      height: 70vh;
+      min-height: 730px;
+    }
 
     &-advantages {
       margin-top: 20px;
@@ -27,10 +34,17 @@
   }
 
   &__content {
-    height: 70vh;
-    min-height: 730px;
+    height: 100%;
     max-width: 600px;
-    padding: 60px 40px 40px;
+    padding: 20px;
+    overflow: scroll;
+
+    @include media(sm-up) {
+      overflow: hidden;
+      padding: 60px 40px 40px;
+      height: 70vh;
+      min-height: 730px;
+    }
   }
 
   &-bubbles {
