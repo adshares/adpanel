@@ -4,7 +4,8 @@ import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filt
 const initialState = {
   activeUserType: 1,
   adsharesAddress: '',
-  chartFilterSettings: chartFilterSettingsInitialState
+  chartFilterSettings: chartFilterSettingsInitialState,
+  notifications: {}
 };
 
 export function commonReducers(state = initialState , action: commonActions.actions ) {
@@ -23,6 +24,11 @@ export function commonReducers(state = initialState , action: commonActions.acti
       return {
         ...state,
         adsharesAddress: action.payload
+      };
+    case commonActions.LOAD_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.payload
       };
      default:
       return state;
