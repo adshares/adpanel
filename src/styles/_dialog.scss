@@ -28,7 +28,11 @@
 
 .dialog-main-content {
   text-align: left;
-  margin: 80px 0;
+  margin: 30px 0;
+
+  @include media(md-up) {
+    margin: 80px 0;
+  }
 
   &--short {
     margin: 40px 0;
