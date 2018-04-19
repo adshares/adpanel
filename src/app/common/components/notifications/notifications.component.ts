@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CommonService } from 'common/common.service';
 
-import { Notification } from 'models/notifications-model';
+import { Notification } from 'models/notification.model';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 

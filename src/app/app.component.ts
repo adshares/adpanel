@@ -12,7 +12,7 @@ import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { User } from 'models/user.model';
 import { LocalStorageUser } from 'models/user.model';
 import { AdsharesAddress } from 'models/settings.model';
-import { Notification } from 'models/notifications-model';
+import { Notification } from 'models/notification.model';
 
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';

@@ -8,7 +8,7 @@ import {
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import { Notification } from 'models/notifications-model';
+import { Notification } from 'models/notification.model';
 
 
 interface AppState {
