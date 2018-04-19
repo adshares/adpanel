@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
 import { AdsharesAddress } from 'models/settings.model';
-import { Notification } from 'models/notifications-model';
+import { Notification } from 'models/notification.model';
 
 @Injectable()
 export class CommonService {
