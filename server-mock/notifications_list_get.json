@@ -1,29 +1,43 @@
 [
   {
+    "id": 879132879897312,
+    "status": 0,
     "type": 0,
     "message": "We have a new feedback for your campaign"
   },
   {
+    "id": 879132879132312,
+    "status": 0,
     "type": 0,
     "message": "Your campaign changed status for 'Inactive'"
   },
   {
+    "id": 879179132897312,
+    "status": 0,
     "type": 0,
     "message": "We have a new feedback for your campaign"
   },
   {
+    "id": 9132879132897312,
+    "status": 0,
     "type": 1,
     "message": "Your site generated 100ADS of revenue yesterday"
   },
   {
+    "id": 872879132897312,
+    "status": 0,
     "type": 1,
     "message": "We have a new feedback for your site"
   },
   {
+    "id": 132897312,
+    "status": 0,
     "type": 2,
     "message": "Set up your wallet"
   },
   {
+    "id": 9132897312,
+    "status": 0,
     "type": 2,
     "message": "Your account was created"
   }

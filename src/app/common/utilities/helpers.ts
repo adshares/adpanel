@@ -108,5 +108,5 @@ export {
   selectCompare,
   selectCompareForTargetingOption,
   createInitialArray,
-  sortArrayByColumnMetaData
+  sortArrayByColumnMetaData,
 };

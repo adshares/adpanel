@@ -13,17 +13,26 @@
   </div>
   <div class="notification-types" *ngFor="let notification of notifications">
     <div *ngIf="notification.type === 0">
-      <app-notification [notification]="notification"></app-notification>
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
     </div>
   </div>
   <div class="notification-types" *ngFor="let notification of notifications">
     <div *ngIf="notification.type === 1">
-      <app-notification [notification]="notification"></app-notification>
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
     </div>
   </div>
   <div class="notification-types" *ngFor="let notification of notifications">
     <div *ngIf="notification.type === 2">
-      <app-notification [notification]="notification"></app-notification>
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
     </div>
   </div>
 </div>

@@ -6,6 +6,7 @@ export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
 export const SET_ADSHARES_ADDRESS = 'Adshares Address set';
 export const LOAD_NOTIFICATIONS = 'Notifications loaded';
+export const UPDATE_NOTIFICATIONS = 'Notifications updated';
 
 export class SetActiveUserType implements Action {
   readonly type = SET_ACTIVE_USER_TYPE;
@@ -27,9 +28,15 @@ export class LoadNotifications implements Action {
   constructor(public payload: Notification[]) { }
 }
 
+export class UpdateNotifications implements Action {
+  readonly type = UPDATE_NOTIFICATIONS;
+  constructor(public payload: Notification[]) { }
+}
+
 
 export type actions =
   SetActiveUserType |
   SetChartFilterSettings |
   SetAdsharesAddress |
-  LoadNotifications;
+  LoadNotifications |
+  UpdateNotifications;
