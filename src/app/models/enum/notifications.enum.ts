@@ -3,3 +3,8 @@ export enum notificationTypesEnum {
   PUBLISHER,
   GENERAL
 }
+
+export enum notificationStatusesEnum {
+  ACTIVE,
+  DISMISSED
+}

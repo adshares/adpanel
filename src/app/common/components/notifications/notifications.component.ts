@@ -1,9 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { CommonService } from 'common/common.service';
 
 import { Notification } from 'models/notifications-model';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
+
+import * as commonActions from 'store/common/common.actions';
 
 @Component({
   selector: 'app-notifications',
@@ -15,7 +18,10 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
   @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter();
   notifications: Notification[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private commonService: CommonService
+  ) {
     super();
   }
 
@@ -37,4 +43,10 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
     this.subscriptions.push(notificationsSubscription);
   }
 
+  dismissNotification(notification) {
+    this.commonService.dismissNotification(notification);
+
+    this.notifications = this.notifications.filter(notif => notif.id !== notification.id);
+    this.store.dispatch(new commonActions.UpdateNotifications(this.notifications));
+  }
 }
