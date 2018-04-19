@@ -23,7 +23,7 @@ interface AdUnit {
   shortHeadline: string;
   type: number;
   size: AdUnitSize;
-  status: number,
+  status: number;
 
   code?: string;
   budget?: number;
