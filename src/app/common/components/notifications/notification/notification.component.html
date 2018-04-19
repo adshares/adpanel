@@ -12,8 +12,7 @@
         {{ notification.message }}
       </p>
       <div class="row adsh-copy adsh-copy--small adsh-copy--uppercase notification-actions">
-        <span>Snooze</span>
-        <span>Dismiss</span>
+        <a (click)="dismissNotification(notification)">Dismiss</a>
       </div>
     </div>
   </div>

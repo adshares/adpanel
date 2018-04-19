@@ -30,6 +30,11 @@ export function commonReducers(state = initialState , action: commonActions.acti
         ...state,
         notifications: action.payload
       };
+    case commonActions.UPDATE_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.payload
+      };
      default:
       return state;
   }
