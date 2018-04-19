@@ -32,9 +32,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   settingsMenuOpen = false;
   chooseUserMenuOpen = false;
+  notificationsBarOpen = false;
 
   notificationsTotal: number;
-  notificationsBarEnabled = false;
 
   constructor(
     private store: Store<AppState>,
@@ -115,6 +115,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   toggleNotificationsBar() {
-    this.notificationsBarEnabled = !this.notificationsBarEnabled;
+    this.notificationsBarOpen = !this.notificationsBarOpen;
   }
 }

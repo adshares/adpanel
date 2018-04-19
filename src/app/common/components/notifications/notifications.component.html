@@ -1,17 +1,20 @@
 <div
   class="notifications__bar"
-  [class.active]="notificationsBarEnabled"
+  [class.active]="notificationsBarOpen"
 >
   <div class="row">
-    <!--<img-->
-      <!--class="adsh-icon"-->
-      <!--src="assets/images/bell.svg"-->
-      <!--(click)="disableNotificationsBar()"-->
-      <!--data-test="notification-disable-notification-bar"-->
-    <!--&gt;-->
-    <h3 class="adsh-heading adsh-heading--secondary">Notifications</h3>
+    <h3
+      class="
+        adsh-heading
+        adsh-heading--secondary"
+    >
+      Notifications
+    </h3>
   </div>
-  <div class="notification-types" *ngFor="let notification of notifications">
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
     <div *ngIf="notification.type === 0">
       <app-notification
         [notification]="notification"
@@ -19,7 +22,10 @@
       ></app-notification>
     </div>
   </div>
-  <div class="notification-types" *ngFor="let notification of notifications">
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
     <div *ngIf="notification.type === 1">
       <app-notification
         [notification]="notification"
@@ -27,7 +33,10 @@
       ></app-notification>
     </div>
   </div>
-  <div class="notification-types" *ngFor="let notification of notifications">
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
     <div *ngIf="notification.type === 2">
       <app-notification
         [notification]="notification"
@@ -39,7 +48,7 @@
 <div
   (click)="disableNotificationsBar()"
   class="notifications__background"
-  [class.active]="notificationsBarEnabled"
+  [class.active]="notificationsBarOpen"
   data-test="notifications-disable-notifications-bar"
 >
 </div>

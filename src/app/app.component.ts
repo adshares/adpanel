@@ -109,9 +109,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   getNotifications() {
     const getNotificationsSubscription = this.commonService.getNotifications()
-      .subscribe((data: Notification[]) => {
-      console.log(data)
-        this.store.dispatch(new commonActions.LoadNotifications(data));
+      .subscribe((notifications: Notification[]) => {
+        this.store.dispatch(new commonActions.LoadNotifications(notifications));
       });
 
     this.subscriptions.push(getNotificationsSubscription);
