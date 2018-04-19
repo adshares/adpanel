@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { User, UserFinancialData } from 'models/user.model';
-import { Notification } from "models/notifications-model";
+import { Notification } from 'models/notifications-model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
