@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://panel.adserver.test:8299'
+  apiUrl: 'http://panel.ads:8299'
 };
