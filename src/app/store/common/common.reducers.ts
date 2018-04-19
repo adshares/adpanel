@@ -25,7 +25,7 @@ export function commonReducers(state = initialState , action: commonActions.acti
         ...state,
         adsharesAddress: action.payload
       };
-    case commonActions.LOAD_NOTIFICATIONS:
+    case commonActions.LOAD_NOTIFICATIONS_SUCCESS:
       return {
         ...state,
         notifications: action.payload
