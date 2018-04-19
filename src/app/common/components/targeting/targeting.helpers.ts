@@ -154,6 +154,10 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
 function getCustomOptionParentByKey(parentKeyPathArray, targetingOptions) {
   let result = targetingOptions.find(option => option.key === parentKeyPathArray[0]);
 
+  if (!result.children) {
+    return result;
+  }
+
   for (let i = 1; i < parentKeyPathArray.length; i++) {
     result = result.children.find(option => option.key === parentKeyPathArray[i]);
   }
