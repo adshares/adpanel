@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 
 import { PublisherService } from 'publisher/publisher.service';
-import { AppState } from 'models/app-state.model';
 import * as publisherActions from './publisher.actions';
 
 @Injectable()
 export class PublisherEffects {
   constructor(
     private actions$: Actions,
-    private service: PublisherService,
-    private store: Store<AppState>
+    private service: PublisherService
   ) { }
 
   @Effect()
