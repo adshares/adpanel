@@ -97,10 +97,15 @@ $column_sizes: 12;
       visibility: visible;
       display: block;
     }
+
+    .hidden-#{$viewport_size}-up {
+      visibility: hidden;
+      display: none;
+    }
   }
 }
 
-@each $viewport_size, $viewport_size_fullname in $viewport_sizes_down-without-size {
+@each $viewport_size, $viewport_size_fullname in $viewport_sizes_down_without_size {
   @include media($viewport_size_fullname) {
     .hidden-#{$viewport_size} {
       visibility: hidden;
