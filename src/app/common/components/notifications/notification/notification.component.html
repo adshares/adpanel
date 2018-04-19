@@ -1,0 +1,32 @@
+<div class="row notification">
+  <div class="col-xs-2">
+    <img
+      class="adsh-icon"
+      src="assets/images/user.svg"
+    >
+  </div>
+
+  <div class="col-xs-10">
+    <div class="col">
+      <p
+        class="
+          adsh-copy
+          adsh-copy--x-dark
+          notification-message"
+      >
+        {{ notification.message }}
+      </p>
+      <div
+        class="
+          row
+          adsh-copy
+          adsh-copy--small
+          adsh-copy--uppercase
+          notification-actions"
+      >
+        <a (click)="dismissNotification(notification)">Dismiss</a>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>

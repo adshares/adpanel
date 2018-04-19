@@ -24,9 +24,9 @@ interface AdminSettings {
   earnings: number;
 }
 
-interface AdSharesAddress {
-  adsharesAddress: string
+interface AdsharesAddress {
+  adsharesAddress: string;
 }
 
 
-export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings, AdSharesAddress };
+export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings, AdsharesAddress };
