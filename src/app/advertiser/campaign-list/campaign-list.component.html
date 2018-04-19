@@ -20,6 +20,7 @@
         *ngFor="let campaign of campaigns"
         [campaign]="campaign"
       ></app-campaign-list-item>
+
       <div class="adsh-box">
         <div class="adsh-campaign-list__item">
           <div
@@ -110,7 +111,11 @@
     </div>
   </ng-template>
 
-  <div class="adsh-box">
+  <div
+    class="
+      adsh-box
+      hidden-md"
+  >
     <div
       class="
         row

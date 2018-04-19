@@ -3,14 +3,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { AdSharesAddress } from 'models/settings.model';
+import { AdsharesAddress } from 'models/settings.model';
+import { Notification } from 'models/notification.model';
 
 @Injectable()
 export class CommonService {
 
   constructor(private http: HttpClient) { }
 
-  getAdsharesAddress(): Observable<AdSharesAddress> {
-    return this.http.get<AdSharesAddress>(`${environment.apiUrl}/adshares_address`);
+  getAdsharesAddress(): Observable<AdsharesAddress> {
+    return this.http.get<AdsharesAddress>(`${environment.apiUrl}/adshares_address`);
+  }
+
+  getNotifications(): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${environment.apiUrl}/notifications_list`);
+  }
+
+  dismissNotification(notification: Notification): Observable<Notification> {
+    return this.http.post<Notification>(`${environment.apiUrl}/dismiss_notification`, notification);
   }
 }

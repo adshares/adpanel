@@ -1,0 +1,20 @@
+@import '../../../../../styles.scss';
+
+.notification {
+  margin: 25px 0;
+  &-message {
+    margin: 0;
+  }
+
+  &-actions {
+    margin-top: 10px;
+    > span {
+      text-decoration: underline;
+      margin-right: 10px;
+    }
+  }
+}
+
+hr {
+  border-color: pal(gray, x-light);
+}
