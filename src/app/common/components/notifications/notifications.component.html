@@ -2,47 +2,74 @@
   class="notifications__bar"
   [class.active]="notificationsBarOpen"
 >
-  <div class="row">
-    <h3
-      class="
-        adsh-heading
-        adsh-heading--secondary"
+  <div class="notifications-wrapper">
+    <div class="row">
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        Notifications
+      </h3>
+    </div>
+    <div
+      class="notification-types"
+      *ngFor="let notification of notifications"
     >
-      Notifications
-    </h3>
-  </div>
-  <div
-    class="notification-types"
-    *ngFor="let notification of notifications"
-  >
-    <div *ngIf="notification.type === notificationTypesEnum.ADVERTISER">
-      <app-notification
-        [notification]="notification"
-        (onDismissNotification)="dismissNotification(notification)"
-      ></app-notification>
+      <div *ngIf="notification.type === notificationTypesEnum.ADVERTISER">
+        <app-notification
+          [notification]="notification"
+          (onDismissNotification)="dismissNotification(notification)"
+        ></app-notification>
+      </div>
+    </div>
+    <div
+      class="notification-types"
+      *ngFor="let notification of notifications"
+    >
+      <div *ngIf="notification.type === notificationTypesEnum.PUBLISHER">
+        <app-notification
+          [notification]="notification"
+          (onDismissNotification)="dismissNotification(notification)"
+        ></app-notification>
+      </div>
+    </div>
+    <div
+      class="notification-types"
+      *ngFor="let notification of notifications"
+    >
+      <div *ngIf="notification.type === notificationTypesEnum.GENERAL">
+        <app-notification
+          [notification]="notification"
+          (onDismissNotification)="dismissNotification(notification)"
+        ></app-notification>
+      </div>
     </div>
   </div>
-  <div
-    class="notification-types"
-    *ngFor="let notification of notifications"
-  >
-    <div *ngIf="notification.type === notificationTypesEnum.PUBLISHER">
-      <app-notification
-        [notification]="notification"
-        (onDismissNotification)="dismissNotification(notification)"
-      ></app-notification>
-    </div>
-  </div>
-  <div
-    class="notification-types"
-    *ngFor="let notification of notifications"
-  >
-    <div *ngIf="notification.type === notificationTypesEnum.GENERAL">
-      <app-notification
-        [notification]="notification"
-        (onDismissNotification)="dismissNotification(notification)"
-      ></app-notification>
-    </div>
+
+  <div class="link-to-settings">
+    <a
+      routerLink="/settings/general"
+      data-test="notifications-navigate-to-settings"
+    >
+      <button
+        class="
+        adsh-btn
+        adsh-btn--large
+        adsh-btn--white
+        adsh-btn--block
+        row
+        align-center"
+      >
+      <span
+        class="
+          adsh-copy
+          adsh-blue"
+      >
+        Notifications settings
+      </span>
+      </button>
+    </a>
   </div>
 </div>
 <div
