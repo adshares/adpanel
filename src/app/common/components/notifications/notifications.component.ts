@@ -14,7 +14,7 @@ import * as commonActions from 'store/common/common.actions';
   styleUrls: ['./notifications.component.scss'],
 })
 export class NotificationsComponent extends HandleSubscription implements OnInit {
-  @Input() notificationsBarEnabled: boolean;
+  @Input() notificationsBarOpen: boolean;
   @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter();
   notifications: Notification[];
 
@@ -30,7 +30,7 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
   }
 
   disableNotificationsBar() {
-    this.notificationsBarEnabled = false;
+    this.notificationsBarOpen = false;
     this.onDisableNotificationsBar.emit();
   }
 
@@ -46,7 +46,7 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
   dismissNotification(notification) {
     this.commonService.dismissNotification(notification);
 
-    this.notifications = this.notifications.filter(notif => notif.id !== notification.id);
+    this.notifications = this.notifications.filter(currentNotification => currentNotification.id !== notification.id);
     this.store.dispatch(new commonActions.UpdateNotifications(this.notifications));
   }
 }
