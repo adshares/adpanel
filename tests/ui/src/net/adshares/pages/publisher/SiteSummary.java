@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SiteSummary {
 
-  @FindBy(xpath = "//button[contains(text(), 'Publish site')]")
+  @FindBy(css = "[data-test='publisher-edit-site-start-campaign']")
   private WebElement publishSiteButton;
-  @FindBy(css = "div.col-xs-12.site-edit-summary__info-cell.site-info--primary")
+  @FindBy(css = "[data-test='publisher-site-url']")
   private WebElement basicInformationComparing;
 
   private WebDriver driver;

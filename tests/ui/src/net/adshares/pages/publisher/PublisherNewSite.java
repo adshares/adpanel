@@ -8,15 +8,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PublisherNewSite {
-  @FindBy(id = "siteUrl")
+  @FindBy(css = "[data-test='publisher-edit-site-basic-information-form-url']")
   private WebElement websiteUrl;
   @FindBy(xpath = "//div[@class ='mat-select-trigger']")
   private WebElement contentLanguage;
   @FindBy(xpath = "//span[contains(text(), 'english')]")
   private WebElement contentLanguageEnglish;
-  @FindBy(xpath = "//span[starts-with(text(), 'Save & Continue')]")
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")
   private WebElement saveButtonPublisherCampaign;
-  @FindBy(xpath = "//button[contains(text(), 'Back to Dashboard')]")
+  @FindBy(css = "[data-test='publisher-navigate-to-dashboard']")
   private WebElement backButtonPublisherCampaign;
   /**
    * Publisher form Assertions

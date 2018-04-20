@@ -6,29 +6,22 @@ import org.testng.annotations.Test;
 
 public class PublisherTestCase extends BrowserTestCase {
 
-  private PublisherNewSite publisherNewSite;
-  private PublisherMainPage publisherMainPage;
-  private SiteAdditionalTargeting siteAdditionalTargeting;
-  private SiteCreateAds siteCreateAds;
-  private SiteSummary siteSummary;
-
-
   @Test
   public void publisherAddNewSite() {
-    publisherMainPage = new PublisherMainPage(driver);
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
-    publisherNewSite = new PublisherNewSite(driver);
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
     publisherNewSite.sitePublisherBasicInfo("https://google.pl");
-    siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
     siteAdditionalTargeting.publisherRequiresCreativeType();
     siteAdditionalTargeting.publisherRequiresLanguage();
     siteAdditionalTargeting.publisherRequiresJsSupport();
     siteAdditionalTargeting.goToCreateAds();
-    siteCreateAds = new SiteCreateAds(driver);
+    SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
     siteCreateAds.createAdUnit();
     siteCreateAds.adUnitTemplate();
     siteCreateAds.goToSummary();
-    siteSummary = new SiteSummary(driver);
+    SiteSummary siteSummary = new SiteSummary(driver);
     siteSummary.publishNewSite();
   }
 

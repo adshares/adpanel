@@ -14,11 +14,11 @@ import org.testng.log4testng.Logger;
 public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(DashboardPopup.class);
 
-  @FindBy(css = "#mat-dialog-0 > app-account-choose-dialog > mat-dialog-content > h6")
+  @FindBy(xpath = "//h6[contains(text(),'Continue as')]")
   private WebElement userPopUp;
-  @FindBy(xpath = "//mat-dialog-content[@class = 'mat-dialog-content']/div[2]/button")
+  @FindBy(css = "[data-test='common-account-choose-publisher']")
   private WebElement userPopUpPublisher;
-  @FindBy(xpath = "//mat-dialog-content[@class = 'mat-dialog-content']/div[1]/button")
+  @FindBy(css = "[data-test='common-account-choose-advertiser']")
   private WebElement userPopUpAdvertiser;
 
 

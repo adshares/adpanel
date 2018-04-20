@@ -16,7 +16,7 @@ public class LoginPage {
   private WebElement loginEmail;
   @FindBy(id = "password")
   private WebElement loginPassword;
-  @FindBy(css = "body > app-root > div > app-auth > section > div > div.col-xs-12.col-lg-6.adsh-auth__content.adsh-bg-white.ng-trigger.ng-trigger-fadeAnimation > app-login > div > div > form > button")
+  @FindBy(css = "[data-test='auth-login-form-submit-button']")
   private WebElement loginButton;
 
   /**

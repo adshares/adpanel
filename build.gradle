@@ -41,6 +41,7 @@ test {
   useTestNG {
     //suites "tests/ui/config/$testFile"
     suites "tests/ui/config/test01.xml"
+//    suites "tests/ui/config/test02.xml"
   }
 }
 

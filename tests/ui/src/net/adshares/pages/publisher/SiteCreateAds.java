@@ -13,15 +13,15 @@ import java.util.Random;
 
 public class SiteCreateAds {
 
-  @FindBy(css = "div > app-edit-site-create-ad-units > section > div:nth-child(2) > button")
+  @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-create-new-ad-unit']")
   private WebElement createAdUnitDropDownButton;
   @FindBy(css = "#shortHeadline")
   private WebElement nameOfUnit;
-  @FindBy(css = "#mat-select-3 > div > div.mat-select-value")
+  @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-form-ad-type-select']")
   private WebElement adTypeSelecetList;
-  @FindBy(css = "#mat-option-11")
+  @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'html')]")
   private WebElement adTypeHtml;
-  @FindBy(xpath = "//span[starts-with(text(), 'Save & Continue')]")
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")
   private WebElement saveButtonPublisherCampaign;
 
 
@@ -41,7 +41,7 @@ public class SiteCreateAds {
 
   public void adUnitTemplate() {
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
-    nameOfUnit.sendKeys("advertisment of testing");
+    nameOfUnit.sendKeys("Test advertisement");
     adTypeSelecetList.click();
     adTypeHtml.click();
     List<WebElement> od = driver.findElements(By.xpath("//*[@id='cdk-accordion-child-2']/div/div[3]//div[@class ='site-edit-create-ad-units__ad-unit ng-star-inserted']"));

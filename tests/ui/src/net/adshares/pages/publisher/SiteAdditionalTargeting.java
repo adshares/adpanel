@@ -14,21 +14,14 @@ import java.util.Random;
 
 public class SiteAdditionalTargeting {
 
-  @FindBy(xpath = "//div[@class='adsh-circle done']/following-sibling::p[contains(text(),'Basic Information')]")
-  private WebElement checkFlowChart;
-  @FindBy(xpath = "//span[starts-with(text(), 'Save & Continue')]")
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")
   private WebElement saveButtonPublisherCampaign;
-  @FindBy(xpath = "//button[contains(text(), 'Save as Draft')]")
+
+  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")
   private WebElement backButtonPublisherCampaign;
   /**
    * Requires List
    */
-  @FindBy(xpath = "//div[@class ='ng-star-inserted']")
-  private WebElement publisherlistComponents;
-
-  @FindBy(xpath = "//span[contains(text(),'Creative type')]")
-  private WebElement publisherCreativeType;
-
   @FindBy(css = "div.targeting-select-wrapper")
   private WebElement publisherList;
 
@@ -53,15 +46,10 @@ public class SiteAdditionalTargeting {
    */
   public void publisherRequiresCreativeType() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
-    List<WebElement> pubList = publisherList.findElements(By.xpath("//div[@class ='ng-star-inserted']"));
+    List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     WebElement creaviteType = pubList.get(0);
     creaviteType.click();
-    //mat-expansion-panel[contains(@class,'  mat-expanded mat-expansion-panel-spacing')]
-    //*[contains(concat(' ', @class, ' '), ' atag ')]
-
-    //mat-expansion-panel[contains(concat(' ', @class, ' '), ' mat-expansion-panel ') and contains(concat(' ', @class, ' '), ' ng-tns-c25-7 ')]
-
-    List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
+    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     for (int i = 0; i < 3; i++) {
       int random = (int) (Math.random() * (1) + (-3));
       Random rand = new Random();
@@ -74,10 +62,10 @@ public class SiteAdditionalTargeting {
 
   public void publisherRequiresLanguage() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
-    List<WebElement> pubList = publisherList.findElements(By.xpath("//div[@class ='ng-star-inserted']"));
+    List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     WebElement creaviteType = pubList.get(1);
     creaviteType.click();
-    List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
+    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     for (int i = 0; i < 2; i++) {
       int random = (int) (Math.random() * (1) + (-2));
       Random rand = new Random();
@@ -90,10 +78,10 @@ public class SiteAdditionalTargeting {
 
   public void publisherRequiresJsSupport() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
-    List<WebElement> pubList = publisherList.findElements(By.xpath("//div[@class ='ng-star-inserted']"));
+    List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     WebElement creaviteType = pubList.get(3);
     creaviteType.click();
-    List<WebElement> od = publisherList.findElements(By.xpath("//div[contains(@class,'adsh-box')]/following-sibling::div[@class = 'ng-star-inserted']"));
+    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     for (int i = 0; i < 1; i++) {
       int random = (int) (Math.random() * (1) + (-1));
       Random rand = new Random();

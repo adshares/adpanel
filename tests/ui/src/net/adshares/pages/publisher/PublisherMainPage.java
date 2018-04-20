@@ -9,19 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class PublisherMainPage {
-
-  @FindBy(css = "#mat-dialog-0 > app-account-choose-dialog > mat-dialog-content > h6")
-  private WebElement userPopUp;
-  @FindBy(xpath = "//mat-dialog-content[@class = 'mat-dialog-content']/div[2]/button")
-  private WebElement userPopUpPublisher;
-  @FindBy(xpath = "//mat-dialog-content[@class = 'mat-dialog-content']/div[1]/button")
-  private WebElement userPopUpAdvertiser;
   /**
    * Publisher paths
    */
-  @FindBy(xpath = "//span[contains(text(), 'Add new Site')]")
+  @FindBy(css = "[data-test='header-create-new-asset-button']")
   private WebElement newAddSiteToolBar;
-  @FindBy(xpath = "//div[@class='adsh-box']//button//span[contains(text(), 'Add new site')]")
+  @FindBy(css = "[data-test='publisher-create-new-site']")
   private WebElement newAddSiteListBar;
   /**
    * Dashboard Assertions
