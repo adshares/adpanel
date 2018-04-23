@@ -22,7 +22,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: string[] = [];
+  barChartLabels: any = [];
   barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
   userHasConfirmedEmail: Store<boolean>;
 
@@ -59,7 +59,9 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
+        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
+        this.barChartLabels = data.timestamps.map(item => moment(item).format('D'));
+        this.barChartLabels.fullLabels = data.timestamps.map(item => moment(item).format('DD MMM YYYY'));
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
