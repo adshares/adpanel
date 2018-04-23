@@ -9,6 +9,10 @@
     max-width: 1500px;
   }
 
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
   &__ad-units__container {
     background: pal(gray, ultra-light);
     padding: 0 30px;
