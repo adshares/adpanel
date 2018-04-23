@@ -9,8 +9,8 @@ export const adInitialState: Ad = {
   size: adSizesEnum['728x90'],
   clicks: 0,
   impressions: 0,
-  ctr: 0,
+  CTR: 0,
   averageCPC: 0,
   cost: 0,
   budget: 0
-}
+};

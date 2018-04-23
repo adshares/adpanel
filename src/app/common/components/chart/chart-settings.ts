@@ -5,6 +5,91 @@ const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,
   responsive: true,
   maintainAspectRatio: false,
+  tooltips: {
+    mode: 'index',
+    intersect: false,
+    enabled: false,
+    callbacks: {
+      title: function(tooltipItems, data) {
+        return data.labels.fullLabels[tooltipItems[0].index] || '';
+      },
+      label: function(tooltipItem, data) {
+        let label = data.datasets[0].currentSeries || '';
+
+        if (label) {
+          label += ': ';
+        }
+        label += Math.round(tooltipItem.yLabel * 100) / 100;
+        return label;
+      }
+    },
+
+    custom: function(tooltipModel) {
+      // Tooltip Element
+      let tooltipEl = document.getElementById('chartjs-tooltip');
+
+      // Create element on first render
+      if (!tooltipEl) {
+        tooltipEl = document.createElement('div');
+        tooltipEl.id = 'chartjs-tooltip';
+        tooltipEl.innerHTML = '<table></table>';
+        document.body.appendChild(tooltipEl);
+      }
+
+      // Hide if no tooltip
+      if (tooltipModel.opacity == 0) {
+        tooltipEl.style.opacity = '0';
+        return;
+      }
+
+      function getBody(bodyItem) {
+        return bodyItem.lines;
+      }
+
+      // Set Text
+      if (tooltipModel.body) {
+        const titleLines = tooltipModel.title || [];
+        const bodyLines = tooltipModel.body.map(getBody);
+
+        let innerHtml = '<thead>';
+
+        titleLines.forEach(function(title) {
+          innerHtml += '<tr><th class="chartjs-tooltip__title">' + title + '</th></tr>';
+        });
+        innerHtml += '</thead><tbody>';
+
+        bodyLines.forEach(function(body, i) {
+          const span = '<span></span>';
+          innerHtml += '<tr><td>' + span + body + '</td></tr>';
+        });
+        innerHtml += '</tbody>';
+
+        const tableRoot = tooltipEl.querySelector('table');
+        tableRoot.innerHTML = innerHtml;
+      }
+
+      // `this` will be the overall tooltip
+      const position = this._chart.canvas.getBoundingClientRect();
+
+      // Display, position, and set styles for font
+      tooltipEl.style.opacity = '1';
+      tooltipEl.style.position = 'absolute';
+      tooltipEl.style.left = position.left + 15 + tooltipModel.caretX + 'px';
+      tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+      tooltipEl.style.textAlign = 'left';
+      tooltipEl.style.fontFamily = 'AvenirNext-Regular';
+      tooltipEl.style.fontSize = 13 + 'px';
+      tooltipEl.style.color = '#FFFFFF';
+      tooltipEl.style.padding = '7px 10px';
+      tooltipEl.style.borderRadius = '2px';
+      tooltipEl.style.boxShadow = '0 2px 8px 0 rgba(0, 0, 0, 0.15)';
+      tooltipEl.style.transition = 'opacity 0.3s ease';
+    }
+  },
+  hover: {
+    mode: 'index',
+    intersect: false
+  },
   scales: {
     xAxes: [{
       barPercentage: 0.2,
