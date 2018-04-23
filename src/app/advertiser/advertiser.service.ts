@@ -6,13 +6,14 @@ import { environment } from 'environments/environment';
 import { Campaign, Ad } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 @Injectable()
 export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns(): Observable<Campaign[]> {
+  getCampaigns(timespan: TimespanFilter): Observable<Campaign[]> {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
