@@ -58,20 +58,23 @@ export class ChartComponent extends HandleSubscription implements OnInit {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
 
-    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataSeries(series) {
-    console.log(series)
     this.currentChartFilterSettings.currentSeries = series;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataAssetId(assetId) {
-    console.log(assetId)
-
     this.currentChartFilterSettings.currentAssetId = assetId;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
+  }
+
+  updateCurrentFilterSettingsInStore() {
+    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
   }
 }
