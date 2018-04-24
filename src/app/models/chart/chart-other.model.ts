@@ -1,6 +1,6 @@
 export interface ChartJsComputedData {
-  labels: string[];
-  datasets: object[];
+  labels: any;
+  datasets: any;
 }
 
 export interface TooltipItem {

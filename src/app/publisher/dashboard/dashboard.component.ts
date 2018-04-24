@@ -25,7 +25,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: any = createInitialArray({ labels: [] }, 6);
+  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 6);
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
   userHasConfirmedEmail: Store<boolean>;
 
