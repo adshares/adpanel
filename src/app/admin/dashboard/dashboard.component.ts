@@ -22,7 +22,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: any = createInitialArray({ labels: [] }, 3);
+  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 3);
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 3);
 
   currentChartFilterSettings: ChartFilterSettings;

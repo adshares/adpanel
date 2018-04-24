@@ -12,12 +12,10 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        console.log(tooltipItems)
-        console.log(data)
+        console.log(data);
         return data.labels.fullLabels[tooltipItems[0].index] || '';
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
-        console.log(tooltipItem)
         console.log(data)
         let label = data.datasets[0].currentSeries || '';
 
