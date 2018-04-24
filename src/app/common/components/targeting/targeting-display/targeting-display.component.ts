@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 import { TargetingOptionValue } from 'models/targeting-option.model';
+import { getLabelPath } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-targeting-display',
@@ -11,9 +12,13 @@ export class TargetingDisplayComponent implements OnChanges {
   @Input() items;
   @Input() canRemove;
   @Input() isExclude;
+  @Input() targetingOptions;
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
-  viewModel: [TargetingOptionValue[]][] = [];
+  viewModel: {
+    parentPath: string;
+    choosedTargeting: TargetingOptionValue[]
+  }[];
 
   ngOnChanges() {
     this.prepareItemsToDisplay();
@@ -23,23 +28,29 @@ export class TargetingDisplayComponent implements OnChanges {
     this.viewModel = [];
 
     this.items.forEach((item) => {
-      const viewModelParentLabelIndex = this.viewModel.findIndex(
-        (viewModelItem) => viewModelItem[0] === item.parent.label
+      const itemLabelPath = getLabelPath(item.id, this.targetingOptions);
+      const viewModelParentPathIndex = this.viewModel.findIndex(
+        (viewModelItem) => {
+          return viewModelItem.parentPath === itemLabelPath;
+        }
       );
 
-      if (viewModelParentLabelIndex >= 0) {
-        this.viewModel[viewModelParentLabelIndex][1].push(item);
+      if (viewModelParentPathIndex >= 0) {
+        this.viewModel[viewModelParentPathIndex].choosedTargeting.push(item);
       } else {
-        this.viewModel.push([item.parent.label, [item]]);
+        this.viewModel.push({
+          parentPath: itemLabelPath,
+          choosedTargeting: [item]
+        });
       }
     });
   }
 
-  removeItem(item) {
-    const itemInItemsIndex = this.items.findIndex((itemInItems) => itemInItems.key === item.key);
+  removeItem(removedItem) {
+    const itemInItemsIndex = this.items.findIndex((itemInItems) => itemInItems.id === removedItem.id);
 
-    item.selected = false;
     this.items.splice(itemInItemsIndex, 1);
     this.itemsChange.emit(this.items);
+    this.prepareItemsToDisplay();
   }
 }

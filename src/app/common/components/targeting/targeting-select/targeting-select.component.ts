@@ -1,26 +1,29 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
+import { findOptionList, findOption, getParentId, getLabelPath } from 'common/components/targeting/targeting.helpers';
+import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-targeting-select',
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
+export class TargetingSelectComponent extends HandleSubscription implements OnInit {
   @Input() targetingOptions;
   @Input() addedItems;
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
 
+  viewModel: (TargetingOption | TargetingOptionValue)[];
+  parentViewModel: (TargetingOption | TargetingOptionValue)[];
+  parentOption: TargetingOption | TargetingOptionValue;
   targetingOptionsForSearch: TargetingOption[] = [];
-  viewModel: TargetingOption[];
-  parentViewModel: TargetingOption[];
-  parentOption: TargetingOption;
   selectedItems: TargetingOptionValue[] = [];
+  itemsToRemove: TargetingOptionValue[] = [];
 
   backAvailable = false;
   optionsHasValue = false;
@@ -33,110 +36,152 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   ngOnInit() {
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
-    this.selectedItems = [...this.addedItems];
+    this.selectSavedItemOnList();
   }
 
   ngOnChanges() {
-    this.selectedItems = this.selectedItems.filter((item) => item.selected || item.isCustom);
+    this.deselectRemovedOptions();
   }
 
-  changeViewModel(options) {
+  changeViewModel(options: (TargetingOption | TargetingOptionValue)[]) {
+    const firstOption = options[0];
+
     this.viewModel = options;
+    this.selectedItems = [];
+    this.itemsToRemove = [];
 
     this.backAvailable = !this.targetingOptions.some(
-      (topOption) => topOption.key === options[0].key
+      (topOption) => topOption.id === firstOption.id
     ) && this.searchTerm === '';
 
     if (this.backAvailable) {
-      this.setBackViewModel(this.targetingOptions, options);
+      this.setBackViewModel(firstOption);
+    } else {
+      this.parentOption = null
     }
 
-    this.optionsHasValue = options[0].hasOwnProperty('value') ? true : false;
+    this.optionsHasValue = firstOption.hasOwnProperty('value');
   }
 
-  handleOptionClick(option) {
+  handleOptionClick(option: TargetingOption | TargetingOptionValue) {
+    const optionSublist = option['children'] || option['values'];
+
     this.searchTerm = '';
 
-    if (option.values || option.children) {
-      const newOptions = option.children ? option.children : option.values;
-
-      this.changeViewModel(newOptions);
-    } else if (option.value) {
-      this.toggleItem(option);
+    if (optionSublist) {
+      this.changeViewModel(optionSublist);
     }
   }
 
-  toggleItem(option) {
-    const itemIndex = this.selectedItems.findIndex((item) => item.key === option.key);
+  toggleItem(option: TargetingOptionValue) {
+    const itemToAddIndex = this.selectedItems.findIndex((item) => item.id === option.id);
+    const itemToRemoveIndex = this.itemsToRemove.findIndex((item) => item.id === option.id);
+
     option.selected = !option.selected;
 
-    if (option.selected && itemIndex < 0) {
-      this.selectedItems.push(option);
+    if (option.selected) {
+      if ( itemToAddIndex < 0) {
+        this.selectedItems.push(cloneDeep(option));
+      }
 
       if (option.parent.value_type === 'boolean') {
-        this.deselectOppositeBoolean(this.targetingOptions, option);
+        this.deselectOppositeBoolean(option);
       }
-    } else if (!option.secected && itemIndex >= 0) {
-      this.selectedItems.splice(itemIndex, 1);
+
+      if (itemToRemoveIndex > -1) {
+        this.itemsToRemove.splice(itemToRemoveIndex, 1);
+      }
+
+      return;
+    }
+
+    if (itemToAddIndex > -1) {
+      this.selectedItems.splice(itemToAddIndex, 1);
+    }
+
+    if (itemToRemoveIndex < 0) {
+      this.itemsToRemove.push(cloneDeep(option));
     }
   }
 
-  deselectOppositeBoolean(options, searchOption) {
-    options.forEach((option) => {
-      if (option.values) {
-        if (option.values.find((optionValue) => optionValue.key === searchOption.key)) {
-          const oppositeBooleanOption = option.values.find(
-            (optionValue) => optionValue.key !== searchOption.key
-          );
-          const itemIndex = this.selectedItems.findIndex(
-            (item) => item.key === oppositeBooleanOption.key
-          );
+  deselectOppositeBoolean(option: TargetingOptionValue) {
+    const optionList = findOptionList(option.id, this.targetingOptions);
+    const opositeOption = optionList.find((opositeOption) => opositeOption.id !== option.id);
 
-          if (oppositeBooleanOption.selected) {
-            Object.assign(oppositeBooleanOption, { selected: false });
-            this.selectedItems.splice(itemIndex, 1);
-          }
-        }
-      } else if (option.children) {
-        this.deselectOppositeBoolean(option.children, searchOption);
+    if (opositeOption && opositeOption['selected']) {
+      const opositeOptionIndex = this.selectedItems.findIndex(
+        (option) => option.id === opositeOption.id
+      );
+
+      Object.assign(opositeOption, { selected: false });
+      this.selectedItems.splice(opositeOptionIndex, 1);
+    }
+  }
+
+  deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions) {
+    options.forEach((option) => {
+      const sublist = option['children'] || option['values'];
+
+      if (sublist) {
+        this.deselectRemovedOptions(sublist);
+        return;
+      }
+
+      const itemInOptionsIndex = this.addedItems.findIndex((addedItem) => addedItem.id === option.id);
+
+      if (itemInOptionsIndex < 0) {
+        Object.assign(option, { selected: false });
       }
     });
   }
 
   handleItemsChange() {
-    this.itemsChange.emit(this.selectedItems);
-    this.onSearchTermChange();
-  }
-
-  setBackViewModel(options, currOptions) {
-    const parentOption = options.find((option) => {
-      const optionChildProp = option.children ? 'children' : 'values';
-
-      return option[optionChildProp][0].key === currOptions[0].key;
+    this.selectedItems.forEach((item) => {
+      if (!this.addedItems.find((addedItem) => addedItem.id === item.id)) {
+        this.addedItems = [...this.addedItems, item];
+      }
     });
+    this.itemsToRemove.forEach((item) => {
+      const itemToRemoveIndex = this.addedItems.findIndex((addedItem) => addedItem.id === item.id);
 
-    if (parentOption) {
-      this.parentViewModel = options;
-      this.parentOption = parentOption;
-    } else {
-      options.forEach((option) => {
-        if (option.children) {
-          this.setBackViewModel(option.children, currOptions);
-        }
-      });
-    }
+      if (itemToRemoveIndex > -1) {
+        this.addedItems.splice(itemToRemoveIndex, 1);
+      }
+    });
+    this.itemsChange.emit(this.addedItems);
+    this.setInitialState();
   }
 
-  prepareTargetingOptionsForSearch(options = this.targetingOptions, parentOption = undefined) {
-    options.forEach((option) => {
-      this.targetingOptionsForSearch.push(option);
+  setInitialState() {
+    this.changeViewModel(this.targetingOptions);
+    this.selectedItems = [];
+    this.itemsToRemove = [];
+    this.parentOption = null;
+    this.backAvailable = false;
+  }
 
-      if (parentOption) {
-        option.parentOptionLabel = parentOption.label;
+  setBackViewModel(option: TargetingOption | TargetingOptionValue) {
+    const parentOptionId = getParentId(option.id);
+
+    this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
+    this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);
+  }
+
+  prepareTargetingOptionsForSearch(options: TargetingOption[] = this.targetingOptions) {
+    // prepare list only for options that are not on bottom level as search
+    // is done through visible items then
+    options.forEach((option) => {
+       //not genering path for top level options
+      if (option.id.split('-').length > 1) {
+        const path = getLabelPath(option.id, this.targetingOptions);
+
+        Object.assign(option, { path });
       }
 
+      this.targetingOptionsForSearch.push(option);
+
       if (option.children) {
-        this.prepareTargetingOptionsForSearch(option.children, option);
+        this.prepareTargetingOptionsForSearch(option.children);
       }
     });
   }
@@ -157,6 +202,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   prepareSearchViewModel() {
     const pattern = new RegExp(this.searchTerm, 'i');
+    // bottom level options are searched only from visible ones
     const searchModel = this.optionsHasValue ? this.viewModel : this.targetingOptionsForSearch;
     const searchViewModel = searchModel.filter((option) =>
       pattern.test(option.label.toLowerCase())
@@ -169,41 +215,18 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     }
   }
 
-  loadItems(
-    savedList: TargetingOptionValue[],
-    searchList: TargetingOptionValue[] | TargetingOption[],
-    choosedList: TargetingOptionValue[]
-  ) {
-    savedList.forEach((savedItem) => {
-      const item = this.findItem(searchList, savedItem.key);
+  selectSavedItemOnList() {
+    this.addedItems.forEach((savedItem) => {
+      if (savedItem.isCustom) {
+        return;
+      }
+
+      const item = findOption(savedItem.id, this.targetingOptions);
 
       if (item) {
         Object.assign(item, { selected: true });
-        choosedList.push(item);
-      } else if (savedItem.isCustom) {
-        choosedList.push(savedItem);
       }
-    })
-  }
-
-  findItem(list: Partial<TargetingOptionValue[]> | TargetingOption[], itemKey: string) {
-    for (let i = 0; i < list.length; i++) {
-      const itemSublist = list[i].children || list[i].values;
-
-      if (itemSublist) {
-        const result = this.findItem(itemSublist, itemKey);
-
-        if (result) {
-          return result;
-        }
-      }
-
-      if (list[i].key === itemKey) {
-        return list[i];
-      }
-    }
-
-    return false;
+    });
   }
 
   addCustomOption() {
@@ -215,7 +238,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
         data: {
           parentOption: this.parentOption,
           targetingOptions: this.targetingOptions,
-          availableOptions,
+          availableOptions
         }
       }
     );
@@ -223,10 +246,9 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     const customDialogCloseSubscription = addCustomOptionDialog.afterClosed()
       .subscribe((customOption) => {
         if (customOption) {
-          this.selectedItems.push(customOption);
-          this.itemsChange.emit(this.selectedItems);
-          this.onSearchTermChange();
-          this.parentOption = null;
+          this.addedItems.push(customOption);
+          this.itemsChange.emit(this.addedItems);
+          this.setInitialState();
         }
       });
     this.subscriptions.push(customDialogCloseSubscription);
