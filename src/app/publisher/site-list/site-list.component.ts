@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -14,22 +14,14 @@ import * as publisherActions from 'store/publisher/publisher.actions';
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss']
 })
-export class SiteListComponent extends HandleSubscription implements OnInit {
-  sites: Site[];
+export class SiteListComponent extends HandleSubscription {
+  @Input() sites: Site[];
 
   constructor(
     private router: Router,
     private store: Store<AppState>
   ) {
     super();
-  }
-
-  ngOnInit() {
-    const sitesSubscription = this.store.select('state', 'publisher', 'sites')
-      .subscribe(sites => this.sites = sites);
-    this.subscriptions.push(sitesSubscription);
-
-    this.store.dispatch(new publisherActions.LoadSites('sites'));
   }
 
 

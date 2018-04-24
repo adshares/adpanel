@@ -6,13 +6,14 @@ import { environment } from 'environments/environment';
 import { Site, AdUnitSize } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 @Injectable()
 export class PublisherService {
 
   constructor(private http: HttpClient) {}
 
-  getSites(): Observable<Site[]> {
+  getSites(timespan: TimespanFilter): Observable<Site[]> {
     return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
 

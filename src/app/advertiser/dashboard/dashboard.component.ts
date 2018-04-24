@@ -9,7 +9,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { Campaign } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import {ChartFilterSettings, TimespanFilter} from 'models/chart/chart-filter-settings.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { createInitialArray } from 'common/utilities/helpers';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -78,6 +78,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   loadCampaigns(from, to) {
+    from = moment(from).format();
+    to = moment(to).format();
     this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
 
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')

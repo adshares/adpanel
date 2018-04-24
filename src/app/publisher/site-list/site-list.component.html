@@ -15,7 +15,7 @@
       ></app-table-navigation>
     </div>
 
-    <div *ngIf="sites.length > 0 ; else loading">
+    <div *ngIf="(!sites || sites.length > 0); else loading">
       <app-site-list-item
         *ngFor="let site of sites"
         [site]="site"
