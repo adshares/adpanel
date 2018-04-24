@@ -13,11 +13,9 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        console.log(tooltipItems);
         return moment(data.labels[tooltipItems[0].index]).format('DD MMM YYYY') || '';
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
-        console.log(data)
         let label = data.datasets[0].currentSeries || '';
 
         if (label) {
@@ -111,12 +109,19 @@ const chartOptions: ChartOptions = {
       ticks: {
         autoSkip: true,
         fontColor: '#aebac7',
-        fontSize: 14,
+        fontSize: 13,
         beginAtZero: true,
 
-        //helper dla obliczania formatu i uzyc values.length
         callback: function(value, index, values) {
-          return moment(value).format('D');
+          if (values.length <= 1) {
+            return moment(value).format('HH:mm A');
+          } else if (values.length <= 7) {
+            return moment(value).format('DD/MM/YYYY HH:mm A');
+          } else if (values.length <= 31) {
+            return moment(value).format('DD/MM/YYYY');
+          } else {
+            return moment(value).format('DD/MM/YYYY');
+          }
         }
       }
     }],
