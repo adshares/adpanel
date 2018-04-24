@@ -1,6 +1,7 @@
 import { ChartOptions } from 'models/chart/chart-options.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
+import * as moment from 'moment';
 
 const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,
@@ -12,8 +13,8 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        console.log(data);
-        return data.labels.fullLabels[tooltipItems[0].index] || '';
+        console.log(tooltipItems);
+        return moment(data.labels[tooltipItems[0].index]).format('DD MMM YYYY') || '';
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
         console.log(data)
@@ -92,7 +93,7 @@ const chartOptions: ChartOptions = {
         padding: '7px 10px',
         borderRadius: '2px',
         boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)',
-        transition: 'opacity 0.3s ease',
+        transition: 'opacity 0.3s ease'
       });
     }
   },
@@ -111,7 +112,12 @@ const chartOptions: ChartOptions = {
         autoSkip: true,
         fontColor: '#aebac7',
         fontSize: 14,
-        beginAtZero: true
+        beginAtZero: true,
+
+        //helper dla obliczania formatu i uzyc values.length
+        callback: function(value, index, values) {
+          return moment(value).format('D');
+        }
       }
     }],
     yAxes: [{

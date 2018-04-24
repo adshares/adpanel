@@ -47,6 +47,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
     const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).format();
     const daysSpan = moment(to).diff(moment(from), 'days');
 
+    // helper
     if (daysSpan <= 1) {
       this.currentChartFilterSettings.currentFrequency = 'hours';
     } else if (daysSpan <= 7) {
@@ -62,11 +63,14 @@ export class ChartComponent extends HandleSubscription implements OnInit {
   }
 
   updateChartDataSeries(series) {
+    console.log(series)
     this.currentChartFilterSettings.currentSeries = series;
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataAssetId(assetId) {
+    console.log(assetId)
+
     this.currentChartFilterSettings.currentAssetId = assetId;
     this.update.emit(this.currentChartFilterSettings);
   }

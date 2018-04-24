@@ -15,7 +15,8 @@ export interface ChartOptions {
         autoSkip?: boolean,
         fontColor?: string,
         fontSize?: number,
-        beginAtZero?: boolean
+        beginAtZero?: boolean,
+        callback?: any;
       }
     }],
     yAxes?: [{
