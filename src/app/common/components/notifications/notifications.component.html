@@ -13,37 +13,24 @@
       </h3>
     </div>
     <div
-      class="notification-types"
+      class="notification-wrapper"
       *ngFor="let notification of notifications"
     >
-      <div *ngIf="notification.type === notificationTypesEnum.ADVERTISER">
-        <app-notification
-          [notification]="notification"
-          (onDismissNotification)="dismissNotification(notification)"
-        ></app-notification>
-      </div>
-    </div>
-    <div
-      class="notification-types"
-      *ngFor="let notification of notifications"
-    >
-      <div *ngIf="notification.type === notificationTypesEnum.PUBLISHER">
-        <app-notification
-          [notification]="notification"
-          (onDismissNotification)="dismissNotification(notification)"
-        ></app-notification>
-      </div>
-    </div>
-    <div
-      class="notification-types"
-      *ngFor="let notification of notifications"
-    >
-      <div *ngIf="notification.type === notificationTypesEnum.GENERAL">
-        <app-notification
-          [notification]="notification"
-          (onDismissNotification)="dismissNotification(notification)"
-        ></app-notification>
-      </div>
+      <app-notification
+        *ngIf="notification.type === notificationTypesEnum.ADVERTISER"
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
+      <app-notification
+        *ngIf="notification.type === notificationTypesEnum.PUBLISHER"
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
+      <app-notification
+        *ngIf="notification.type === notificationTypesEnum.GENERAL"
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
     </div>
   </div>
 
@@ -54,12 +41,12 @@
     >
       <button
         class="
-        adsh-btn
-        adsh-btn--large
-        adsh-btn--white
-        adsh-btn--block
-        row
-        align-center"
+          adsh-btn
+          adsh-btn--large
+          adsh-btn--white
+          adsh-btn--block
+          row
+          align-center"
       >
       <span
         class="
