@@ -19,16 +19,16 @@
 
   "targeting": {
     "requires": {
-      "lang": ["pl"],
+      "user": {
+        "keywords": ["blockchain", "custom value"]
+      },
       "site": {
-        "host": ["google.pl", "onet.pl", "custom.com"]
+        "domain": ["coinmarketcap.com", "icoalert.com"]
       }
     },
     "excludes": {
-      "js_enabled": ["false"],
-      "screen": {
-        "width": ["<1200,1800>", "<1200,>"],
-        "height": ["<200>"]
+      "device": {
+        "lang": ["it"]
       }
     }
   },
@@ -38,6 +38,8 @@
       "status": 0,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP3l58naYcoyqfxstOVPyZdlC4gwNCw89YZts9ThIrUZVrbA8i3g",
+      "imageSize": "222 KB",
 
       "budget": 20,
       "clicks": 100,
@@ -51,6 +53,8 @@
       "status": 2,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP3l58naYcoyqfxstOVPyZdlC4gwNCw89YZts9ThIrUZVrbA8i3g",
+      "imageSize": "222 KB",
 
       "budget": 20,
       "clicks": 200,

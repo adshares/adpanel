@@ -1,18 +1,19 @@
 interface TargetingOption {
+  id: string;
   key: string;
   label: string;
   value_type: string;
   allow_input: boolean;
 
-  children?: TargetingOptionValue[];
+  children?: TargetingOption[];
   values?: TargetingOptionValue[];
 }
 
 interface TargetingOptionValue {
+  id: string;
   label: string;
   value: string;
   selected?: boolean;
-  key: string;
   parent: Partial<TargetingOption>;
 
   isCustom?: boolean;

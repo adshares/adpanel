@@ -10,10 +10,7 @@
 
     "targeting": {
       "requires": {
-        "lang": ["pl"],
-        "site": {
-          "host": ["google.pl", "onet.pl"]
-        }
+        "lang": ["pl"]
       },
       "excludes": {
         "js_enabled": ["false"],
@@ -62,10 +59,7 @@
 
     "targeting": {
       "requires": {
-        "lang": ["pl"],
-        "site": {
-          "host": ["google.pl", "onet.pl"]
-        }
+        "lang": ["pl"]
       },
       "excludes": {
         "js_enabled": ["false"],
