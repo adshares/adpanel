@@ -58,11 +58,13 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     }
   }
 
-  updateAssetId() {
+  updateAssetId(event) {
+    this.currentAssetId = event.value;
     this.updateId.emit(this.currentAssetId);
   }
 
-  updateAssetSeries() {
+  updateAssetSeries(event) {
+    this.currentAssetSeries = event.value;
     this.updateSeries.emit(this.currentAssetSeries);
   }
 }
