@@ -1,3 +1,3 @@
 export interface ChartLabels {
-  labels: any;
+  labels: string[];
 }

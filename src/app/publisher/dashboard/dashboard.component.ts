@@ -54,17 +54,16 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.assetId
+        chartFilterSettings.currentFrom,
+        chartFilterSettings.currentTo,
+        chartFilterSettings.currentFrequency,
+        chartFilterSettings.currentAssetId
       )
       .subscribe(data => {
         this.barChartData.forEach(values => values[0].data = data.values);
         this.barChartData.forEach(chartData => chartData[0].currentSeries = this.currentChartFilterSettings.currentSeries);
         this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
-          chartLabels.labels.fullLabels = data.timestamps.map(timestamp => moment(timestamp).format('DD MMM YYYY'));
+          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format());
         });
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
