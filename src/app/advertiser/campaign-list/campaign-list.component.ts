@@ -20,8 +20,7 @@ export class CampaignListComponent {
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {
-  }
+  ) {}
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);

@@ -8,8 +8,6 @@ import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
 
-
-
 @Component({
   selector: 'app-chart-filter',
   templateUrl: './chart-filter.component.html',
@@ -54,6 +52,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
   filterChartByDatepicker(from, to, fromDatepicker = true) {
     this.dateFrom.setValue(from.value);
     this.dateTo.setValue(to.value);
+
     const datesSet = from.value && to.value;
     const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;
 

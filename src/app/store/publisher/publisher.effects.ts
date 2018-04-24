@@ -15,7 +15,8 @@ export class PublisherEffects {
   @Effect()
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
-    .switchMap(() => this.service.getSites())
+    .map(toPayload)
+    .switchMap((payload) => this.service.getSites(payload))
     .map((sites) => new publisherActions.LoadSitesSuccess(sites));
 
   @Effect()

@@ -1,5 +1,10 @@
 import { AssetTargeting } from './targeting-option.model';
 
+interface CampaignWrapperObject {
+  campaignList: Campaign[];
+  totals: CampaignsTotals;
+}
+
 interface Campaign {
   id: number;
   basicInformation: CampaignBasicInformation;
@@ -16,6 +21,15 @@ interface Campaign {
   averageCPC?: number;
   cost?: number;
   conversions?: number;
+}
+
+interface CampaignsTotals {
+  averageBudget: number;
+  totalClicks: number;
+  totalImpressions: number;
+  averageCTR: number;
+  averageCPC: number;
+  totalCost: number;
 }
 
 interface CampaignBasicInformation {
@@ -48,4 +62,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad };
+export { Campaign, CampaignBasicInformation, Ad, CampaignWrapperObject, CampaignsTotals };

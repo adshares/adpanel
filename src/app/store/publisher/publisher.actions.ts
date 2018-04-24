@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { Site, AdUnit } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';
@@ -15,7 +16,7 @@ export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
-  constructor(public payload: any) { }
+  constructor(public payload: TimespanFilter) { }
 }
 
 export class LoadSitesSuccess implements Action {
