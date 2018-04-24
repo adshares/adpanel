@@ -1,5 +1,6 @@
 import { ChartOptions } from 'models/chart/chart-options.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
+import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
 
 const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,
@@ -10,10 +11,14 @@ const chartOptions: ChartOptions = {
     intersect: false,
     enabled: false,
     callbacks: {
-      title: function(tooltipItems, data) {
+      title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
+        console.log(tooltipItems)
+        console.log(data)
         return data.labels.fullLabels[tooltipItems[0].index] || '';
       },
-      label: function(tooltipItem, data) {
+      label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
+        console.log(tooltipItem)
+        console.log(data)
         let label = data.datasets[0].currentSeries || '';
 
         if (label) {
@@ -24,26 +29,30 @@ const chartOptions: ChartOptions = {
       }
     },
 
-    custom: function(tooltipModel) {
+    custom: function (tooltipModel) {
+      const getBody = (bodyItem) => {
+        return bodyItem.lines;
+      };
+
       // Tooltip Element
       let tooltipEl = document.getElementById('chartjs-tooltip');
 
       // Create element on first render
       if (!tooltipEl) {
         tooltipEl = document.createElement('div');
-        tooltipEl.id = 'chartjs-tooltip';
-        tooltipEl.innerHTML = '<table></table>';
+
+        Object.assign(tooltipEl, {
+          id: 'chartjs-tooltip',
+          innerHTML: '<table></table>'
+        });
+
         document.body.appendChild(tooltipEl);
       }
 
       // Hide if no tooltip
-      if (tooltipModel.opacity == 0) {
+      if (tooltipModel.opacity === 0) {
         tooltipEl.style.opacity = '0';
         return;
-      }
-
-      function getBody(bodyItem) {
-        return bodyItem.lines;
       }
 
       // Set Text
@@ -53,12 +62,12 @@ const chartOptions: ChartOptions = {
 
         let innerHtml = '<thead>';
 
-        titleLines.forEach(function(title) {
+        titleLines.forEach((title) => {
           innerHtml += '<tr><th class="chartjs-tooltip__title">' + title + '</th></tr>';
         });
         innerHtml += '</thead><tbody>';
 
-        bodyLines.forEach(function(body, i) {
+        bodyLines.forEach((body, i) => {
           const span = '<span></span>';
           innerHtml += '<tr><td>' + span + body + '</td></tr>';
         });
@@ -72,18 +81,21 @@ const chartOptions: ChartOptions = {
       const position = this._chart.canvas.getBoundingClientRect();
 
       // Display, position, and set styles for font
-      tooltipEl.style.opacity = '1';
-      tooltipEl.style.position = 'absolute';
-      tooltipEl.style.left = position.left + 15 + tooltipModel.caretX + 'px';
-      tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-      tooltipEl.style.textAlign = 'left';
-      tooltipEl.style.fontFamily = 'AvenirNext-Regular';
-      tooltipEl.style.fontSize = 13 + 'px';
-      tooltipEl.style.color = '#FFFFFF';
-      tooltipEl.style.padding = '7px 10px';
-      tooltipEl.style.borderRadius = '2px';
-      tooltipEl.style.boxShadow = '0 2px 8px 0 rgba(0, 0, 0, 0.15)';
-      tooltipEl.style.transition = 'opacity 0.3s ease';
+
+      Object.assign(tooltipEl.style, {
+        opacity: '1',
+        position: 'absolute',
+        left: position.left + 15 + tooltipModel.caretX + 'px',
+        top: position.top + window.pageYOffset + tooltipModel.caretY + 'px',
+        textAlign: 'left',
+        fontFamily: 'AvenirNext-Regular',
+        fontSize: 13 + 'px',
+        color: '#FFFFFF',
+        padding: '7px 10px',
+        borderRadius: '2px',
+        boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)',
+        transition: 'opacity 0.3s ease',
+      });
     }
   },
   hover: {
