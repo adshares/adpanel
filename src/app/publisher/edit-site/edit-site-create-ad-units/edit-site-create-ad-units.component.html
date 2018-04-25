@@ -28,12 +28,17 @@
     class="adsh-box"
     *ngFor="let adUnitForm of adUnitForms; let adUnitIindex = index"
   >
-    <form [formGroup]="adUnitForm">
-      <mat-accordion>
+    <form
+      [formGroup]="adUnitForm"
+      data-test="publisher-edit-site-create-ad-units-form"
+    >
+      <mat-accordion data-test="publisher-edit-site-create-ad-units-accordion">
         <mat-expansion-panel
           (opened)="handlePanelExpand(adUnitIindex)"
           (closed)="adUnitPanelsStatus[adUnitIindex] = false"
-          [expanded]="adUnitPanelsStatus[adUnitIindex]">
+          [expanded]="adUnitPanelsStatus[adUnitIindex]"
+          data-test="publisher-edit-site-create-ad-units-accordion-panel"
+        >
           <mat-expansion-panel-header>
             <mat-panel-title
               class="
@@ -42,7 +47,10 @@
             >
               {{ adUnitIindex + 1 }}.&nbsp;
               <span *ngIf="!adUnitPanelsStatus[adUnitIindex]">
-                Title: {{ adUnitForm.get('shortHeadline').value }}
+                Title:
+                <span data-test="publisher-edit-site-create-ad-units-form-short-headline">
+                  {{ adUnitForm.get('shortHeadline').value }}
+                </span>
               </span>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -60,6 +68,7 @@
                   id="shortHeadline"
                   class="adsh-form-input"
                   formControlName="shortHeadline"
+                  data-test="publisher-edit-site-create-ad-units-form-short-headline"
                 >
                 <span
                   *ngIf="adUnitForm.get('shortHeadline').valid"
@@ -79,10 +88,13 @@
                 <label class="adsh-form-label">Ad Type</label>
                 <mat-select
                   class="adsh-select"
-                  formControlName="type">
+                  formControlName="type"
+                  data-test="publisher-edit-site-create-ad-units-form-ad-type-select"
+                >
                   <mat-option
                     *ngFor="let adType of adTypes; let i = index"
                     [value]="i"
+                    data-test="publisher-edit-site-create-ad-units-form-ad-type-option"
                   >
                     {{ adType }}
                   </mat-option>
@@ -111,10 +123,13 @@
                 <mat-select
                   class="adsh-select"
                   formControlName="adUnitSizeFilter"
-                  (change)="onAdUnitSizeFilterChange(adUnitIindex)">
+                  (change)="onAdUnitSizeFilterChange(adUnitIindex)"
+                  data-test="publisher-edit-site-create-ad-units-form-size-select"
+                >
                   <mat-option
                     *ngFor="let adSize of adSizesOptions"
                     [value]="adSize"
+                    data-test="publisher-edit-site-create-ad-units-form-size-select"
                   >
                     {{ adSize }}
                   </mat-option>
@@ -134,6 +149,7 @@
               [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': adUnit.selected}"
               *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
               (click)="selectAdUnit(adUnit, adUnitIindex)"
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
             >
               <div
                 class="
@@ -145,6 +161,7 @@
                 <div
                   [ngClass]="adUnit.type"
                   class="site-edit-create-ad-units__ad-unit__visualization"
+                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
                 >
                   {{ adSizesEnum[adUnit.size] }}
                 </div>
@@ -154,13 +171,16 @@
                 class="
                   adsh-heading
                   adsh-heading--secondary"
+                data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
                 {{ adUnit.name }}
               </div>
 
               <div
                 class="adsh-chip-box"
-                *ngFor="let tag of adUnit.tags">
+                *ngFor="let tag of adUnit.tags"
+                data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+              >
                 {{ tag }}
               </div>
             </div>
@@ -174,6 +194,7 @@
               save-as-draft"
             *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
             (click)="removeNewAdUnit(adUnitIindex)"
+            data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
           >
             Delete Ad Unit
           </button>
@@ -196,6 +217,7 @@
         adsh-btn--white
         adsh-btn--no-border"
       (click)="createEmptyAd()"
+      data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
     >
       <img
         src="assets/images/plus-circle--blue.svg"
@@ -225,6 +247,7 @@
     <a
       routerLink="../additional-targeting"
       [queryParams]="{step: 2}"
+      data-test="publisher-edit-site-navigate-back"
     >
       <button
         class="
@@ -244,6 +267,7 @@
           adsh-btn--white
           adsh-blue
           save-as-draft"
+        data-test="publisher-edit-site-save-as-draft"
       >
         Save as Draft
       </button>
@@ -252,6 +276,7 @@
         class="
           adsh-btn
           adsh-btn--blue"
+        data-test="publisher-edit-site-save-and-continue"
       >
         <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
         <ng-template #loading>

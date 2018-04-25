@@ -33,6 +33,7 @@
       [formGroup]="withdrawFundsForm"
       (ngSubmit)="withdrawFunds()"
       class="adsh-form"
+      data-test="common-withdraw-funds-form"
     >
       <div class="adsh-form-input__box">
         <label
@@ -48,6 +49,7 @@
             adsh-form-input--full"
           name="address"
           formControlName="address"
+          data-test="common-withdraw-funds-form-address"
         >
         <span
           *ngIf="withdrawFundsForm.get('address').valid"
@@ -77,6 +79,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="user-total-funds"
         >
           {{ financialData.totalFunds | adsharesTokenValue}}
         </h1>
@@ -98,6 +101,7 @@
           name="amount"
           formControlName="amount"
           min="0.01"
+          data-test="common-withdraw-funds-form-withdraw-amount"
         >
         <span
           *ngIf="withdrawFundsForm.get('amount').valid"
@@ -127,17 +131,23 @@
       >
         <p>
           Transaction Fee:
-          <span class="fee">
+          <span
+            class="fee"
+            data-test="common-withdraw-funds-form-fee"
+          >
             {{ withdrawFundsForm.get('amount').value * txFee | number:'1.2-2' }}
           </span>
         </p>
         <p>
           Total Withdraw Amount:
-          <span class="total-amount">
+          <span
+            class="total-amount"
+            data-test="common-withdraw-funds-form-total-withdraw-amount"
+          >
             {{ withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee | number:'1.2-2' | adsharesTokenValue }}
           </span>
         </p>
-        <p>
+        <p data-test="common-withdraw-funds-form-funds-left">
           Left: {{ financialData.totalFunds - (withdrawFundsForm.get('amount').value + withdrawFundsForm.get('amount').value * txFee) | number:'1.2-2'| adsharesTokenValue }}
         </p>
       </div>
@@ -151,6 +161,7 @@
           row
           align-center"
         (click)="toggleMemoInput($event, !memoInputActive);"
+        data-test="common-withdraw-funds-form-toggle-memo-input"
       >
         <img
           alt="Credit Card Icon"
@@ -186,6 +197,7 @@
             adsh-form-input--full"
           name="memo"
           formControlName="memo"
+          data-test="common-withdraw-funds-form-memo-input"
         >
         <span
           class="error-msg"
@@ -205,6 +217,7 @@
           class="
             adsh-btn
             adsh-btn--blue"
+          data-test="common-withdraw-funds-form-submit-button"
           *ngIf="isEmailConfirmed"
         >
         <span *ngIf="!isFormBeingSubmitted ; else loading">

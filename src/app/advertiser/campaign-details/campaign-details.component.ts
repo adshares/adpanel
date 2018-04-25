@@ -46,6 +46,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     this.campaign = this.route.snapshot.data.campaign;
+    this.campaign.basicInformation.dateStart = moment(this.campaign.basicInformation.dateStart).format('DD/MM/YYYY');
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {

@@ -1,6 +1,13 @@
+@import '../../../styles.scss';
+
 .adsh-login {
   &-wrapper {
-    height: calc(70vh - 80px);
+    height: 100%;
+
+    @include media(md-up) {
+      height: 70vh;
+      min-height: 730px;
+    }
   }
 
   &__remember {
@@ -14,5 +21,9 @@ h2 {
 
 form {
   max-width: 320px;
-  margin-top: 60px;
+  margin-top: 20px;
+
+  @include media(md-up) {
+    margin-top: 60px;
+  }
 }

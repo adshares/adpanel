@@ -6,12 +6,14 @@
   <mat-accordion
     multi="true"
     class="targeting-accordion"
+    data-test="advertiser-edit-campaign-additional-targeting-accordion"
   >
     <div class="adsh-box">
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
         (closed)="requirePanelOpenState = false"
         [expanded]="true"
+        data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-required"
       >
         <mat-expansion-panel-header
           class="
@@ -70,6 +72,7 @@
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
         (closed)="excludePanelOpenState = false"
+        data-test="advertiser-edit-campaign-additional-targeting-accordion-panel-excluded"
       >
         <mat-expansion-panel-header
           class="
@@ -133,6 +136,7 @@
     <a
       routerLink="../basic-information"
       [queryParams]="{step: 1}"
+      data-test="advertiser-edit-campaign-navigate-back"
     >
       <button
         class="
@@ -152,6 +156,7 @@
           adsh-btn--white
           adsh-blue
           save-as-draft"
+        data-test="advertiser-edit-campaign-save-as-draft"
       >
         Save as Draft
       </button>
@@ -160,6 +165,7 @@
         class="
           adsh-btn
           adsh-btn--blue"
+        data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">Save & Continue</span>
         <ng-template #loading>

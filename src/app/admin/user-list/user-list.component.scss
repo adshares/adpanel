@@ -6,12 +6,22 @@
   &__sort {
     margin-left: 5px;
   }
+
+  &__filters {
+    > * {
+      margin: 10px 0;
+    }
+  }
 }
 
 .choose-user-type {
-  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .search {
-  width: 100%;
+  max-width: 180px;
+
+  &-label {
+    margin-right: 20px;
+  }
 }

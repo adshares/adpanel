@@ -7,7 +7,7 @@
       text-center"
     data-status="Active"
   >
-    <span>
+    <span data-test="settings-billing-history-item-status">
       {{ billingHistoryItem.status | adsharesTokenValue }}
     </span>
   </div>
@@ -31,6 +31,7 @@
       adsh-copy--large
       adsh-copy--semi
       adsh-copy--x-dark"
+    data-test="settings-billing-history-item-date"
   >
     {{ billingHistoryItem.date }}
   </p>
@@ -43,12 +44,16 @@
       adsh-copy--large
       adsh-copy--semi
       adsh-copy--x-dark"
+    data-test="settings-billing-history-item-address"
   >
     {{ billingHistoryItem.address }}
   </p>
 </div>
 <div class="col-xs-5">
-  <p class="break-word">
+  <p
+    class="break-word"
+    data-test="settings-billing-history-item-link"
+  >
     {{ billingHistoryItem.link }}
   </p>
 </div>

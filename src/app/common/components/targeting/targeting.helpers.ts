@@ -238,6 +238,7 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       );
 
       results.push(customOption);
+
     }
   });
 }
