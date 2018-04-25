@@ -61,14 +61,14 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   }
 
   saveSite(isDraft) {
-    const choosedTargeting = {
+    const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
     };
 
     this.changesSaved = true;
 
-    this.store.dispatch(new publisherActions.SaveSiteTargeting(choosedTargeting));
+    this.store.dispatch(new publisherActions.SaveSiteTargeting(chosenTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';

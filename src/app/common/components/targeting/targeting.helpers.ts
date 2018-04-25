@@ -115,13 +115,13 @@ function generateLabelPath(
   return generateLabelPath(newArrayPath, searchedOption.children, partialPath);
 }
 
-export function parseTargetingForBackend(choosedTargeting: AssetTargeting) {
+export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
   const parsedTargeting = {
     requires: {},
     excludes: {}
   };
 
-  [choosedTargeting.requires, choosedTargeting.excludes].forEach((targetingList, index) => {
+  [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
     targetingList.forEach(targeting => {
       const keyPartials = targeting.id.split('-');
       const lastPartial = keyPartials.pop();
