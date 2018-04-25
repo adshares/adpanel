@@ -37,12 +37,14 @@ export class TargetingDisplayComponent implements OnChanges {
 
       if (viewModelParentPathIndex >= 0) {
         this.viewModel[viewModelParentPathIndex].chosenTargeting.push(item);
-      } else {
-        this.viewModel.push({
-          parentPath: itemLabelPath,
-          chosenTargeting: [item]
-        });
+
+        return;
       }
+
+      this.viewModel.push({
+        parentPath: itemLabelPath,
+        chosenTargeting: [item]
+      });
     });
   }
 

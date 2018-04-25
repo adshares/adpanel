@@ -104,7 +104,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
         const targeting = lastEditedSite.targetingArray;
 
-        [this.addedItems, this.excludedItems] = [[...targeting.requires], [...targeting.excludes]];
+        this.addedItems = [...targeting.requires];
+        this.excludedItems = [...targeting.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }

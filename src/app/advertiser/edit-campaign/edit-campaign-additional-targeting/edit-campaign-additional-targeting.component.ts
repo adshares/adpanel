@@ -103,7 +103,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
         const targeting = lastEditedCampaign.targetingArray;
 
-        [this.addedItems, this.excludedItems] = [[...targeting.requires], [...targeting.excludes]];
+        this.addedItems = [...targeting.requires];
+        this.excludedItems = [...targeting.excludes];
       });
     this.subscriptions.push(lastCampaignSubscription);
   }

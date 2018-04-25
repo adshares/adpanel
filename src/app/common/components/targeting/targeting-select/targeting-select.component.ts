@@ -80,40 +80,57 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     option.selected = !option.selected;
 
     if (option.selected) {
-      if ( itemToAddIndex < 0) {
-        this.selectedItems.push(cloneDeep(option));
-      }
-
-      if (option.parent.value_type === 'boolean') {
-        this.deselectOppositeBoolean(option);
-      }
-
-      if (itemToRemoveIndex > -1) {
-        this.itemsToRemove.splice(itemToRemoveIndex, 1);
-      }
+      this.handleAddItem(option, itemToAddIndex, itemToRemoveIndex);
 
       return;
     }
 
-    if (itemToAddIndex > -1) {
+    this.handleRemoveItem(option, itemToAddIndex, itemToRemoveIndex);
+
+  }
+
+  handleAddItem(
+    option: TargetingOptionValue,
+    itemToAddIndex: number,
+    itemToRemoveIndex: number
+  ) {
+    if (itemToAddIndex === -1) {
+      this.selectedItems.push(cloneDeep(option));
+    }
+
+    if (itemToRemoveIndex >= 0) {
+      this.itemsToRemove.splice(itemToRemoveIndex, 1);
+    }
+
+    if (option.parent.value_type === 'boolean') {
+      this.deselectOppositeBoolean(option);
+    }
+  }
+
+  handleRemoveItem(
+    option: TargetingOptionValue,
+    itemToAddIndex: number,
+    itemToRemoveIndex: number
+  ) {
+    if (itemToAddIndex >= 0) {
       this.selectedItems.splice(itemToAddIndex, 1);
     }
 
-    if (itemToRemoveIndex < 0) {
+    if (itemToRemoveIndex === -1) {
       this.itemsToRemove.push(cloneDeep(option));
     }
   }
 
   deselectOppositeBoolean(option: TargetingOptionValue) {
     const optionList = findOptionList(option.id, this.targetingOptions);
-    const opositeOption = optionList.find((opositeOption) => opositeOption.id !== option.id);
+    const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
 
-    if (opositeOption && opositeOption['selected']) {
+    if (oppositeOption && oppositeOption['selected']) {
       const opositeOptionIndex = this.selectedItems.findIndex(
-        (option) => option.id === opositeOption.id
+        (option) => option.id === oppositeOption.id
       );
 
-      Object.assign(opositeOption, { selected: false });
+      Object.assign(oppositeOption, { selected: false });
       this.selectedItems.splice(opositeOptionIndex, 1);
     }
   }
