@@ -17,7 +17,7 @@ export class TargetingDisplayComponent implements OnChanges {
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: {
     parentPath: string;
-    choosedTargeting: TargetingOptionValue[]
+    chosenTargeting: TargetingOptionValue[]
   }[];
 
   ngOnChanges() {
@@ -36,11 +36,11 @@ export class TargetingDisplayComponent implements OnChanges {
       );
 
       if (viewModelParentPathIndex >= 0) {
-        this.viewModel[viewModelParentPathIndex].choosedTargeting.push(item);
+        this.viewModel[viewModelParentPathIndex].chosenTargeting.push(item);
       } else {
         this.viewModel.push({
           parentPath: itemLabelPath,
-          choosedTargeting: [item]
+          chosenTargeting: [item]
         });
       }
     });

@@ -61,13 +61,13 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   }
 
   saveCampaignTargeting(isDraft) {
-    const choosedTargeting = {
+    const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
     };
 
     this.changesSaved = true;
-    this.store.dispatch(new advertiserActions.SaveCampaignTargeting(choosedTargeting));
+    this.store.dispatch(new advertiserActions.SaveCampaignTargeting(chosenTargeting));
 
     if (!isDraft) {
       const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';

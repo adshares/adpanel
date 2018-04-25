@@ -14,7 +14,7 @@
       selected-chips"
   >
     <mat-chip
-      *ngFor="let targetingItem of groupedTargeting.choosedTargeting"
+      *ngFor="let targetingItem of groupedTargeting.chosenTargeting"
       [ngClass]="{'hide-remove': !canRemove}"
       (remove)="removeItem(targetingItem)"
       data-test="common-targeting-display-remove-item"
