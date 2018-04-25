@@ -14,6 +14,18 @@
     transition: transform 0.3s cubic-bezier(0, 0, 0.3, 1);
     padding: 20px;
 
+    @include media(xxl-up) {
+      width: 400px;
+      padding: 25px;
+      transform: translateX(450px);
+    }
+
+    @include media(xxxl-up) {
+      width: 600px;
+      padding: 35px;
+      transform: translateX(600px);
+    }
+
     &.active {
       transform: translateX(0);
       overflow-y: scroll;

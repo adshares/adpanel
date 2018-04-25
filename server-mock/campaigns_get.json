@@ -12,7 +12,7 @@
   "id": 183297987312,
   "clicks": 2131,
   "impressions": 124315,
-  "ctr": 0.031,
+  "CTR": 0.031,
   "averageCPC": 2.11,
   "cost": 2435.231,
   "conversions": 801,
@@ -40,7 +40,7 @@
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.01233,
+      "CTR": 0.01233,
       "averageCPC": 1.2,
       "cost": 2435.23
     },
@@ -52,7 +52,7 @@
       "budget": 20,
       "clicks": 200,
       "impressions": 21313545,
-      "ctr": 0.1233,
+      "CTR": 0.1233,
       "averageCPC": 3.25,
       "cost": 8236.23
     }
@@ -72,7 +72,7 @@
   "id": 377892908378478,
   "clicks": 2132,
   "impressions": 124352,
-  "ctr": 0.032,
+  "CTR": 0.032,
   "averageCPC": 2.12,
   "cost": 2431.232,
   "conversions": 802,
@@ -100,7 +100,7 @@
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.00001233,
+      "CTR": 0.00001233,
       "averageCPC": 1.2,
       "cost": 2432.23
     },
@@ -112,7 +112,7 @@
       "budget": 20,
       "clicks": 200,
       "impressions": 21313545,
-      "ctr": 0.1233,
+      "CTR": 0.1233,
       "averageCPC": 3.25,
       "cost": 8236.23
     }

@@ -11,10 +11,18 @@
     justify-content: center;
   }
 
+  @include media(xxl-up) {
+    height: 100px;
+  }
+
   &-userselect {
     width: 185px;
     background: pal(white);
     padding: 0 20px;
+
+    @include media(xxl-up) {
+      width: 250px;
+    }
 
     img {
       top: calc((42px - 18px)/2);
@@ -35,6 +43,10 @@
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
+
+    @include media(xxl-up) {
+      height: 60px;
+    }
 
     .adsh-logo {
       margin-right: 15px;
@@ -77,10 +89,14 @@
   top: 36px;
   background: pal(white);
   z-index: 999;
-  width: 185px;
+  width: 100%;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
+
+  @include media(xxl-up) {
+    top: 46px;
+  }
 
   &.open {
     visibility: visible;

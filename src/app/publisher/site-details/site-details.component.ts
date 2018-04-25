@@ -73,10 +73,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.assetId
+        chartFilterSettings.currentFrom,
+        chartFilterSettings.currentTo,
+        chartFilterSettings.currentFrequency,
+        chartFilterSettings.currentAssetId
       )
       .subscribe(data => {
         this.barChartData.forEach(values => values[0].data = data.values);
