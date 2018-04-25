@@ -1,10 +1,10 @@
 import * as PublisherActions from './publisher.actions';
-import { siteInitialState } from 'models/initial-state/site';
+import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
 import { PublisherState } from 'models/app-state.model';
 
 const initialState: PublisherState = {
   sites: [],
-  sitesTotals: {},
+  sitesTotals: sitesTotalsInitialState,
   lastEditedSite: siteInitialState
 };
 

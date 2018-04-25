@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { Campaign, Ad } from 'models/campaign.model';
+import { Campaign, CampaignsTotals, Ad } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
@@ -17,8 +17,8 @@ export class AdvertiserService {
     return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns`, { timespan });
   }
 
-  getCampaignsTotals(timespan: TimespanFilter): Observable<Campaign[]> {
-    return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns_totals`, { timespan });
+  getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
+    return this.http.post<CampaignsTotals>(`${environment.apiUrl}/campaigns_totals`, { timespan });
   }
 
   getCampaign(id: number): Observable<Campaign> {

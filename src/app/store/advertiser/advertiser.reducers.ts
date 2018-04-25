@@ -1,11 +1,11 @@
 import * as advertiserActions from './advertiser.actions';
 import { AdvertiserState } from 'models/app-state.model';
-import { campaignInitialState } from 'models/initial-state/campaign';
+import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
-  campaignsTotals: {}
+  campaignsTotals: campaignsTotalsInitialState
 };
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions) {

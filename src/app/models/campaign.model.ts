@@ -1,10 +1,5 @@
 import { AssetTargeting } from './targeting-option.model';
 
-interface CampaignWrapperObject {
-  campaignList: Campaign[];
-  totals: CampaignsTotals;
-}
-
 interface Campaign {
   id: number;
   basicInformation: CampaignBasicInformation;
@@ -62,4 +57,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad, CampaignWrapperObject, CampaignsTotals };
+export { Campaign, CampaignBasicInformation, Ad, CampaignsTotals };
