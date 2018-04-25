@@ -48,11 +48,11 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-chip-list-wrapper {
   flex-direction: column !important;
-  margin: 10px 25px;
+  margin: 0 25px 15px;
 }
 
 .mat-chip:not(.mat-basic-chip) {
-  margin: 10px 10px 0 0 !important;
+  margin: 6px 10px 0 0 !important;
 }
 
 .mat-chip-remove {

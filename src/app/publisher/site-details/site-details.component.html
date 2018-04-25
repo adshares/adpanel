@@ -142,6 +142,7 @@
             [items]="targeting.requires"
             [isExclude]="false"
             [canRemove]="false"
+            [targetingOptions]="targetingOptions"
           ></app-targeting-display>
         </div>
       </div>
@@ -158,6 +159,7 @@
             [items]="targeting.excludes"
             [isExclude]="true"
             [canRemove]="false"
+            [targetingOptions]="targetingOptions"
           ></app-targeting-display>
         </div>
       </div>
@@ -216,10 +218,10 @@
         >
           <app-chart
             class="
-                chart
-                row
-                align-center
-                justify-center"
+              chart
+              row
+              align-center
+              justify-center"
             [seriesType]="chartSeriesType"
             (update)="getChartData($event)"
             [barChartData]="barChartData[i]"
