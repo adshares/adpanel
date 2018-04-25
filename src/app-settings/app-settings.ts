@@ -14,6 +14,6 @@ export const appSettings = {
   FILTER_PRESETS: [
     { daysBack: 1, title: 'Today' },
     { daysBack: 7, title: 'This Week' },
-    { daysBack: 31, title: 'This Month' }
+    { daysBack: 30, title: 'This Month' }
   ]
 };
