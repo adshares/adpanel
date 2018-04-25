@@ -7,17 +7,22 @@
     <div
       class="
         row
-        align-center"
+        align-center
+        justify-between"
     >
       <div
         class="
-          col-xs-7
-          row"
+          row
+          no-gutters
+          col-xs-12
+          col-lg-7
+          financial-data"
       >
         <div
           class="
             col
-            col-xs-4
+            col-xs-12
+            col-sm-4
             adsh-funds-summary__totals"
         >
           <h6
@@ -31,6 +36,7 @@
             class="
               adsh-heading
               adsh-heading--primary"
+            data-test="user-total-funds"
           >
             {{ financialData.totalFunds | adsharesTokenValue }}
           </span>
@@ -40,6 +46,7 @@
               adsh-copy--x-small
               adsh-blue
               adsh-copy--bold"
+            data-test="user-total-funds-change"
           >
             {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
           </span>
@@ -47,8 +54,8 @@
         <div
           class="
             col
-            col-xs-3
-            col-xs-offset-1
+            col-xs-12
+            col-sm-4
             adsh-funds-summary__automatic-withdrawal"
         >
           <h6
@@ -65,8 +72,14 @@
               adsh-copy--dark
               adsh-copy--semi"
           >
-            {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }} after
-            <span class="period">
+            <span data-test="user-automatic-withdraw-amount">
+              {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+            </span>
+            after
+            <span
+              class="period"
+              data-test="user-automatic-withdraw-amount"
+            >
               {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
             </span>
           </p>
@@ -76,6 +89,7 @@
               adsh-copy--large
               adsh-blue"
             (click)="openChangeAutomaticWithdrawsDialog()"
+            data-test="change-automatic-withdraw-dialog-open-button"
           >
             Change
           </a>
@@ -83,8 +97,8 @@
         <div
           class="
             col
-            col-xs-3
-            col-xs-offset-1
+            col-xs-12
+            col-sm-4
             adsh-funds-summary__withdrawal-address"
         >
           <h6
@@ -101,6 +115,7 @@
               adsh-copy
               adsh-copy--dark
               adsh-copy--semi"
+            data-test="user-address"
           >
             {{ financialData.userAddress }}
           </p>
@@ -110,17 +125,22 @@
               adsh-copy--large
               adsh-blue"
             (click)="openChangeAddressDialog()"
+            data-test="change-address-dialog-open-button"
           >
             Change
           </a>
         </div>
       </div>
-      <div class="col-xs-5">
+      <div
+        class="
+          col-xs-12
+          col-lg-5"
+      >
         <div
           class="
             row
             align-center
-            justify-end"
+            financial-actions-buttons"
         >
           <button
             class="
@@ -131,6 +151,7 @@
               align-center
               adsh-funds-summary__deposit-funds"
             (click)="openAddFundsDialog()"
+            data-test="add-funds-dialog-open-button"
           >
             <img
               src="/assets/images/credit-card--blue.svg"
@@ -157,6 +178,7 @@
               adsh-funds-summary__withdraw-funds"
             *ngIf="financialData.totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
+            data-test="withdraw-funds-dialog-open-button"
           >
             <img
               src="/assets/images/credit-card--white.svg"

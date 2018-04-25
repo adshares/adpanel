@@ -11,7 +11,11 @@
         no-gutters
         justify-between"
     >
-      <div class="col-xs-4">
+      <div
+        class="
+          col-xs-12
+          col-md-3"
+      >
         <h1
           class="
             adsh-heading
@@ -27,7 +31,11 @@
           Etiam pretium dapibus congue. Praesent a lorem erat.
         </p>
       </div>
-      <div class="col-xs-8">
+      <div
+        class="
+          col-xs-12
+          col-md-9"
+      >
         <app-chart-filter
           *ngIf="!sites"
           (filter)="appChartRef.updateChartData($event)"
@@ -101,7 +109,10 @@
     </div>
 
 
-    <div *ngIf="sites">
+    <div
+      class="hidden-md"
+      *ngIf="sites"
+    >
       <div
         class="
           adsh-box
@@ -137,6 +148,7 @@
         <a
           routerLink="/publisher/create-site/basic-information"
           [queryParams]="{step: 1}"
+          data-test="publisher-create-new-site"
         >
           <button
             class="

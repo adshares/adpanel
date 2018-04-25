@@ -1,7 +1,6 @@
 <div
   class="
     col
-    justify-between
     adsh-login-wrapper"
 >
   <div>
@@ -23,6 +22,7 @@
         [formGroup]="loginForm"
         (ngSubmit)="login()"
         class="adsh-form"
+        data-test="auth-login-form"
       >
         <div class="adsh-form-input__box">
           <label
@@ -37,6 +37,7 @@
             type="email"
             name="email"
             formControlName="email"
+            data-test="auth-login-form-email"
           >
           <span
             *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
@@ -69,6 +70,7 @@
               type="password"
               name="password"
               formControlName="password"
+              data-test="auth-login-form-password"
           >
           <span
               *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
@@ -103,6 +105,7 @@
               #rememberUser
               id="remember-user"
               type="checkbox"
+              data-test="auth-login-form-remember-user-checkbox"
             >
             <label
               for="remember-user"
@@ -122,6 +125,7 @@
             class="adsh-copy
                    adsh-copy--large"
             routerLink="/auth/remind-password"
+            data-test="auth-redirect-to-remind-password"
           >
             Forgot Password?
           </a>
@@ -133,6 +137,7 @@
             adsh-btn--wide
             adsh-btn--blue
             adsh-form-submit-btn"
+          data-test="auth-login-form-submit-button"
         >
           <span *ngIf="!isLoggingIn ; else loading">
             Log In
@@ -152,8 +157,10 @@
     Don't have an account?
     <a
       class="adsh-blue"
-      routerLink="/auth/register">
-        Register
+      routerLink="/auth/register"
+      data-test="auth-redirect-to-registration"
+    >
+      Register
     </a>
   </p>
 </div>

@@ -103,5 +103,5 @@ export {
   isUnixTimePastNow,
   selectCompare,
   createInitialArray,
-  sortArrayByColumnMetaData
+  sortArrayByColumnMetaData,
 };

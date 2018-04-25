@@ -9,7 +9,11 @@
         row
         justify-between"
     >
-      <div class="col-xs-4">
+      <div
+        class="
+          col-xs-12
+          col-md-4"
+      >
         <h1
           class="
             adsh-heading
@@ -18,7 +22,11 @@
           <span>Performance</span>
         </h1>
       </div>
-      <div class="col-xs-8">
+      <div
+        class="
+          col-xs-12
+          col-md-8"
+      >
         <app-chart-filter (filter)="appChartRef.updateChartData($event)"></app-chart-filter>
       </div>
     </div>
@@ -28,7 +36,8 @@
       <div
         class="
           adsh-box
-          adsh-box--large"
+          adsh-box--large
+          hidden-md"
       >
         <div class="row">
           <div class="col-xs-12">
@@ -56,7 +65,12 @@
           </div>
         </div>
       </div>
-      <div class="adsh-box adsh-box--large">
+      <div
+        class="
+          adsh-box
+          adsh-box--large
+          hidden-md"
+      >
         <div class="row">
           <div
             class="
@@ -67,12 +81,16 @@
               class="
                 adsh-heading
                 adsh-heading--secondary"
+              data-test="admin-user-type-advertisers"
             >
               {{ userList.userTypes[0] }}
             </h6>
             <p class="adsh-copy">
               Number of user:
-              <span class="adsh-copy--dark">
+              <span
+                class="adsh-copy--dark"
+                data-test="admin-user-count"
+              >
                 {{ userList.userCount }}
               </span>
             </p>
@@ -104,12 +122,16 @@
               class="
                 adsh-heading
                 adsh-heading--secondary"
+              data-test="admin-user-type-publishers"
             >
               {{ userList.userTypes[1] }}
             </h6>
             <p class="adsh-copy">
               Number of user:
-              <span class="adsh-copy--dark">
+              <span
+                class="adsh-copy--dark"
+                data-test="admin-user-count"
+              >
                 {{ userList.userCount }}
               </span>
             </p>

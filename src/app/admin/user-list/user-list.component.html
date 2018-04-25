@@ -10,31 +10,57 @@
       align-center
       user-list__filters"
   >
-    <div class="col-xs-4">
+    <div
+      class="
+        col-xs-12
+        col-md-3"
+    >
       <h1
         class="
           adsh-heading
           adsh-heading--primary"
       >
         Users
-        <span>({{ userCount }})</span>
+        <span data-test="admin-user-list-user-count">({{ userCount }})</span>
       </h1>
     </div>
-    <div class="col-xs-4">
-      <mat-form-field>
+    <div
+      class="
+        col-xs-12
+        col-md-5"
+    >
+      <div
+        class="
+          row
+          align-center"
+      >
+        <label
+          for="search"
+          class="
+            adsh-copy
+            adsh-copy--large
+            search-label"
+        >
+          Search users
+        </label>
         <input
-          class="search"
+          id="search"
+          class="
+            search
+            adsh-form-input"
           placeholder="Search by email"
           matInput
           [(ngModel)]="userSearch"
           (ngModelChange)="onSearchChange()"
+          data-test="admin-user-search-input"
         >
-        <span matPrefix>
-            <mat-icon>search</mat-icon>
-          </span>
-      </mat-form-field>
+      </div>
     </div>
-    <div class="col-xs-4">
+    <div
+      class="
+        col-xs-12
+        col-md-4"
+    >
       <div class="row">
         <div
           class="
@@ -50,6 +76,7 @@
             [ngModel]="'All'"
             [value]="type"
             (click)="filterUsersByType(type, true)"
+            data-test="admin-user-types-radio"
           >
           <label
             [for]="type"
@@ -61,6 +88,7 @@
             class="
               adsh-heading
               adsh-heading--secondary"
+            data-test="admin-user-types-radio-value"
           >
             {{ type }}
           </span>

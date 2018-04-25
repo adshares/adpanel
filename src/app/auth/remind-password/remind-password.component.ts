@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'auth/auth.service';
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-remind-password',
@@ -14,6 +15,7 @@ export class RemindPasswordComponent {
 
   isSendingEmail = false;
   emailDoesntExist = false;
+  supportEmail = appSettings.SUPPORT_EMAIL;
 
   constructor(
     private router: Router,

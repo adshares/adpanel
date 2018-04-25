@@ -6,7 +6,10 @@
         align-center
         breadcrumbs"
     >
-      <a routerLink="/advertiser/dashboard">
+      <a
+        routerLink="/advertiser/dashboard"
+        data-test="advertiser-navigate-to-dashboard"
+      >
         <p
           class="
             adsh-copy
@@ -40,7 +43,11 @@
         justify-between
         align-center"
     >
-      <div class="col-xs-4">
+      <div
+        class="
+          col-xs-5
+          col-md-4"
+      >
         <h1
           class="
             adsh-heading
@@ -52,7 +59,8 @@
 
       <div
         class="
-          col-xs-8
+          col-xs-7
+          col-md-8
           row
           justify-end
           align-center"
@@ -69,6 +77,7 @@
                 adsh-copy
                 adsh-copy--x-dark
                 lowercase-to-capitalize"
+              data-test="advertiser-campaign-status"
             >
               {{ campaignStatusesEnum[campaign.basicInformation.status] }}
             </span>
@@ -78,13 +87,15 @@
             [checked]="campaign.basicInformation.status === campaignStatusesEnum.ACTIVE"
             ([ngModel])="campaign.basicInformation.status"
             (change)="onCampaignStatusChange(campaign.basicInformation.status)"
+            data-test="advertiser-campaign-status-toggle"
           ></mat-slide-toggle>
         </div>
         <button
           class="
             adsh-btn
             adsh-btn--white
-            adsh-btn--no-border"
+            adsh-btn--no-border
+            hidden-md"
           (click)="navigateToEditCampaign()"
         >
           <img
@@ -125,6 +136,7 @@
             class="
               adsh-copy--dark
               adsh-copy--semi"
+            data-test="advertiser-campaign-target-url"
           >
             {{ campaign.basicInformation.targetUrl }}
           </p>
@@ -135,6 +147,7 @@
             class="
               adsh-copy--dark
               adsh-copy--semi"
+            data-test="advertiser-campaign-bid-strategy"
           >
             {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | number:'1.2-2' | commaReplacer | currency:USD }})
           </p>
@@ -145,6 +158,7 @@
             class="
               adsh-copy--dark
               adsh-copy--semi"
+            data-test="advertiser-campaign-budget"
           >
             {{ campaign.basicInformation.budget | number:'1.2-2' | commaReplacer | currency:USD }}
           </p>
@@ -167,6 +181,7 @@
               class="
                 adsh-copy--dark
                 adsh-copy--semi"
+              data-test="advertiser-campaign-start-date"
             >
               {{ campaign.basicInformation.dateStart }}
             </p>
@@ -191,6 +206,7 @@
               class="
                 adsh-copy--dark
                 adsh-copy--semi"
+              data-test="advertiser-campaign-end-date"
             >
               {{ campaign.basicInformation.dateEnd ? campaign.basicInformation.dateEnd : '-' }}
             </p>
@@ -203,7 +219,8 @@
     <div
       class="
         adsh-box
-        adsh-box--large"
+        adsh-box--large
+        hidden-md"
     >
       <app-chart-filter-by-type
         (updateId)="appChartRef.updateChartDataSeries($event)"
@@ -211,10 +228,10 @@
       ></app-chart-filter-by-type>
       <div
         class="
-            row
-            align-center
-            justify-center
-            chart-wrapper"
+          row
+          align-center
+          justify-center
+          chart-wrapper"
       >
         <app-chart
           class="
@@ -232,7 +249,6 @@
     <div
       class="
         row
-        justify-between
         campaign-details-statistics"
     >
       <div
@@ -251,6 +267,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="advertiser-campaign-budget"
         >
           {{ campaign.basicInformation.budget | currency:'USD' }}/day
         </p>
@@ -279,6 +296,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="advertiser-campaign-clicks"
         >
           {{ campaign.clicks }}
         </p>
@@ -307,6 +325,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="advertiser-campaign-cost"
         >
           {{ campaign.cost | number:'1.2-2' | commaReplacer | currency:'USD'  }}
         </p>
@@ -322,7 +341,8 @@
       <div
         class="
           adsh-box
-          adsh-box--large">
+          adsh-box--large"
+      >
         <p
           class="
             adsh-copy
@@ -331,6 +351,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="advertiser-campaign-conversions"
         >
           {{ campaign.conversions }}
         </p>
@@ -359,6 +380,7 @@
           class="
             adsh-heading
             adsh-heading--primary"
+          data-test="advertiser-campaign-cost-converions-ratio"
         >
           {{ campaign.cost / campaign.conversions | currency:'USD'  }}
         </p>
@@ -375,7 +397,11 @@
 
     <app-ad-list [adList]="campaign.ads"></app-ad-list>
 
-    <div class="adsh-box">
+    <div
+      class="
+        adsh-box
+        hidden-md"
+    >
       <div
         class="
           row

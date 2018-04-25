@@ -11,15 +11,13 @@
       class="
         adsh-box
         adsh-box--light-border
-        row
-        align-center
-        justify-between
         choose-account"
     >
       <div
         class="
           row
-          align-center"
+          align-center
+          justify-center"
       >
         <img
           src="/assets/images/advertiser-account-illustration.svg"
@@ -39,6 +37,7 @@
           adsh-btn--wide
           adsh-btn--blue"
         (click)="dialogRef.close()"
+        data-test="common-account-choose-advertiser"
       >
         Continue
       </button>
@@ -48,15 +47,13 @@
       class="
         adsh-box
         adsh-box--light-border
-        row
-        align-center
-        justify-between
         choose-account"
     >
       <div
         class="
           row
-          align-center"
+          align-center
+          justify-center"
       >
         <img
           src="/assets/images/publisher-account-illustration.svg"
@@ -76,6 +73,7 @@
           adsh-btn--wide
           adsh-btn--blue"
         (click)="redirectToPublisher()"
+        data-test="common-account-choose-publisher"
       >
         Continue
       </button>

@@ -1,7 +1,9 @@
 <mat-chip-list *ngFor="let groupedTargeting of viewModel">
   <div
     class="adsh-copy"
-    [ngClass]="{'targeting-display__exclude-text': isExclude}">
+    [ngClass]="{'targeting-display__exclude-text': isExclude}"
+    data-test="common-targeting-display-selected-item"
+  >
     {{ groupedTargeting.parentPath }}:
   </div>
 
@@ -15,6 +17,7 @@
       *ngFor="let targetingItem of groupedTargeting.choosedTargeting"
       [ngClass]="{'hide-remove': !canRemove}"
       (remove)="removeItem(targetingItem)"
+      data-test="common-targeting-display-remove-item"
     >
       <p
         class="

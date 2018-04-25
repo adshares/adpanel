@@ -29,7 +29,11 @@
     </div>
   </ng-template>
 
-  <div class="adsh-box">
+  <div
+    class="
+      adsh-box
+      hidden-md"
+  >
     <div
       class="
         row
@@ -43,6 +47,7 @@
           adsh-heading
           adsh-heading--secondary"
         (click)="navigateToCreateSite()"
+        data-test="publisher-create-new-site"
       >
         <img
           class="

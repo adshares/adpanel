@@ -51,6 +51,7 @@
                 class="
                   adsh-heading
                   adsh-heading--secondary"
+                data-test="settings-notification-name"
               >
                 {{ notification.name }}
               </h5>
@@ -62,8 +63,9 @@
                 aria-label="notification-component"
                 [checked]="notification.notification === true"
                 ([ngModel])="notification.notification"
+                data-test="settings-notifications-toggle-for-notification"
               ></mat-slide-toggle>
-            </div> 
+            </div>
             <div class="col-xs-2">
               <mat-slide-toggle
                 color="primary"
@@ -71,6 +73,7 @@
                 aria-label="notification-email"
                 [checked]="notification.email === true"
                 ([ngModel])="notification.email"
+                data-test="settings-notification-toggle-for-email"
               ></mat-slide-toggle>
             </div>
           </li>

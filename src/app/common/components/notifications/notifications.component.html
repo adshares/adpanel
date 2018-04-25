@@ -1,13 +1,54 @@
 <div
-    class="row
-           adsh-notifications__bar"
-    [class.active]="notificationsBarEnabled">
-  <div class="col-xs-12">
-    <span>Notifications</span>
+  class="notifications__bar"
+  [class.active]="notificationsBarOpen"
+>
+  <div class="row">
+    <h3
+      class="
+        adsh-heading
+        adsh-heading--secondary"
+    >
+      Notifications
+    </h3>
+  </div>
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
+    <div *ngIf="notification.type === notificationTypesEnum.ADVERTISER">
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
+    </div>
+  </div>
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
+    <div *ngIf="notification.type === notificationTypesEnum.PUBLISHER">
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
+    </div>
+  </div>
+  <div
+    class="notification-types"
+    *ngFor="let notification of notifications"
+  >
+    <div *ngIf="notification.type === notificationTypesEnum.GENERAL">
+      <app-notification
+        [notification]="notification"
+        (onDismissNotification)="dismissNotification(notification)"
+      ></app-notification>
+    </div>
   </div>
 </div>
 <div
-    (click)="disableNotificationsBar()"
-    class="adsh-notifications__background"
-    [class.active]="notificationsBarEnabled">
+  (click)="disableNotificationsBar()"
+  class="notifications__background"
+  [class.active]="notificationsBarOpen"
+  data-test="notifications-disable-notifications-bar"
+>
 </div>
