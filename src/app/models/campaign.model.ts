@@ -24,7 +24,7 @@ interface Campaign {
 }
 
 interface CampaignsTotals {
-  averageBudget: number;
+  totalBudget: number;
   totalClicks: number;
   totalImpressions: number;
   averageCTR: number;

@@ -19,6 +19,14 @@ interface Site {
   adUnits?: AdUnit[];
 }
 
+interface SitesTotals {
+  totalEarnings: number;
+  totalClicks: number;
+  totalImpressions: number;
+  averagePageRPM: number;
+  averageCPC: number;
+}
+
 interface AdUnit {
   shortHeadline: string;
   type: number;
@@ -43,4 +51,4 @@ interface AdUnitSize {
   selected?: boolean;
 }
 
-export { Site, AdUnit, AdUnitSize };
+export { Site, AdUnit, AdUnitSize, SitesTotals };

@@ -149,7 +149,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-bid-strategy"
           >
-            {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | number:'1.2-2' | commaReplacer | currency:USD }})
+            {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | currency:'USD':true:'1.2-2' }})
           </p>
         </div>
         <div>
@@ -160,7 +160,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-budget"
           >
-            {{ campaign.basicInformation.budget | number:'1.2-2' | commaReplacer | currency:USD }}
+            {{ campaign.basicInformation.budget | currency:'USD':true:'1.2-2' }}
           </p>
         </div>
         <div>
@@ -327,7 +327,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-cost"
         >
-          {{ campaign.cost | number:'1.2-2' | commaReplacer | currency:'USD'  }}
+          {{ campaign.cost | currency:'USD':true:'1.2-2' }}
         </p>
         <p
           class="

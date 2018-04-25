@@ -12,6 +12,8 @@ export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
+export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
+export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -58,6 +60,16 @@ export class LoadCampaignsSuccess implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadCampaignsTotals implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS;
+  constructor(public payload: TimespanFilter) { }
+}
+
+export class LoadCampaignsTotalsSuccess implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS_SUCCESS;
+  constructor(public payload: any) { }
+}
+
 export type actions =
   ClearLastEditedCampaign |
   SetLastEditedCampaign|
@@ -67,4 +79,6 @@ export type actions =
   AddCampaignToCampaigns |
   AddCampaignToCampaignsSuccess |
   LoadCampaigns |
-  LoadCampaignsSuccess;
+  LoadCampaignsSuccess |
+  LoadCampaignsTotals |
+  LoadCampaignsTotalsSuccess;
