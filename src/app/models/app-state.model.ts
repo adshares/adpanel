@@ -29,7 +29,7 @@ interface AdvertiserState {
 
 interface PublisherState {
   sites: Site[];
-  sitesTotals: SitesTotals
+  sitesTotals: SitesTotals;
   lastEditedSite: Site;
 }
 

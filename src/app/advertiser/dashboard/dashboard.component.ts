@@ -89,7 +89,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignsTotals[]) => this.campaignsTotals = campaignsTotals);
+      .subscribe((campaignsTotals: CampaignsTotals) => this.campaignsTotals = campaignsTotals);
 
     this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
   }
