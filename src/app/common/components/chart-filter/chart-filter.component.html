@@ -24,12 +24,13 @@
           adsh-btn
           adsh-button--small
           adsh-bg-white
-          adsh-navy"
-      [class.selected]="preset.daysBack === currentDaysSpan"
-      (click)="filterChart(preset.daysBack, 0)"
+          adsh-navy
+          lowercase-to-capitalize"
+      [class.selected]="preset.id === currentDaysSpan"
+      (click)="filterChart(preset.id, 0)"
       data-test="chart-filter-preset"
     >
-      {{ preset.title }}
+      {{ preset.name }}
     </button>
   </div>
 

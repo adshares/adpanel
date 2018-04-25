@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 
 import { User } from 'models/user.model';
 import { AppState } from 'models/app-state.model';
-import { chartSeriesEnum } from 'models/enum/chart-series.enum';
-import { adminChartSeriesEnum } from 'models/enum/admin-chart-series.enum';
+import { chartSeriesEnum } from 'models/enum/chart.enum';
+import { adminChartSeriesEnum } from 'models/enum/chart.enum';
 import { enumToArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 

@@ -7,6 +7,8 @@ import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
+import {filterPresetsEnum} from "models/enum/chart.enum";
+import {enumToObjectArray} from "common/utilities/helpers";
 
 @Component({
   selector: 'app-chart-filter',
@@ -20,7 +22,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   today = new Date();
   currentDaysSpan: number;
 
-  filterPresets: FilterPreset[] = appSettings.FILTER_PRESETS;
+  filterPresets: FilterPreset[] = enumToObjectArray(filterPresetsEnum);
   currentChartFilterSettings: ChartFilterSettings;
 
   constructor(private store: Store<AppState>) {
@@ -72,6 +74,5 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   updateCurrentDaysSpan() {
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
-    console.log(this.currentDaysSpan)
   }
 }
