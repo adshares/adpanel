@@ -16,9 +16,10 @@ import { createInitialArray } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
+import { TargetingOption } from 'models/targeting-option.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
 
-import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-site-details',
@@ -43,6 +44,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
 
   currentChartFilterSettings: ChartFilterSettings;
+  targetingOptions: TargetingOption[];
 
   constructor(
     private route: ActivatedRoute,
@@ -108,9 +110,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getTargeting() {
-    this.publisherService.getTargetingCriteria().subscribe(targeting => {
-      this.targeting = parseTargetingOptionsToArray(this.site.targeting, targeting);
-    });
+    const getSiteTargetingSubscription = this.publisherService.getTargetingCriteria()
+      .map((targetingOptions) => prepareTargetingChoices(targetingOptions))
+      .subscribe(targetingOptions => {
+        this.targetingOptions = targetingOptions;
+        this.targeting = parseTargetingOptionsToArray(this.site.targeting, targetingOptions);
+      });
+    this.subscriptions.push(getSiteTargetingSubscription);
   }
 
   onSiteStatusChange(status) {

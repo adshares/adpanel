@@ -224,10 +224,10 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
 
     if (addedResultIndex === -1) {
       const parentKeyPathArray = optionKey.split('-');
-      const lastKeyelement = parentKeyPathArray.splice(-1, 1);
+      const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
       const rawValue = customOptionParent['value_type'] === 'number' ?
-        parseKeyToNumber(lastKeyelement[0]) : lastKeyelement[0];
+        parseKeyToNumber(lastKeyelement) : lastKeyelement;
       const action =  customOptionParent['value_type'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;
       const customOption = prepareCustomOption(
@@ -238,7 +238,6 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       );
 
       results.push(customOption);
-
     }
   });
 }
