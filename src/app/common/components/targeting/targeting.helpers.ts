@@ -20,8 +20,8 @@ function createTargetingChoice(
   parentOption: TargetingOption = null
 ): (TargetingOption | TargetingOptionValue)[] {
   const targetingChoice = cloneDeep(option);
-  const id = keyChain !== '' ?
-    `${keyChain}-${option['value'] ? option['value'] : option['key']}` : option['key'];
+  const nestedId = `${keyChain}-${option['value'] ? option['value'] : option['key']}`;
+  const id = keyChain !== '' ? nestedId : option['key'];
   const choiceSublistName = option['children'] ?
     'children' : (option['values'] ? 'values' : null);
 
