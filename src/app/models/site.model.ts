@@ -9,7 +9,7 @@ interface Site {
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
-  rpm?: number;
+  RPM?: number;
   averageCPC?: number;
   targetingArray?: AssetTargeting;
   targeting?: {
@@ -37,7 +37,7 @@ interface AdUnit {
   budget?: number;
   clicks?: number;
   impressions?: number;
-  ctr?: number;
+  CTR?: number;
   averageCPC?: number;
   cost?: number;
 }
