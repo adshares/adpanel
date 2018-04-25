@@ -1,9 +1,10 @@
 import * as PublisherActions from './publisher.actions';
-import { siteInitialState } from 'models/initial-state/site';
+import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
 import { PublisherState } from 'models/app-state.model';
 
 const initialState: PublisherState = {
   sites: [],
+  sitesTotals: sitesTotalsInitialState,
   lastEditedSite: siteInitialState
 };
 
@@ -13,6 +14,11 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         sites: action.payload
+      };
+    case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
+      return {
+        ...state,
+        sitesTotals: action.payload
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {

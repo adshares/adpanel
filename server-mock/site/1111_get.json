@@ -7,7 +7,7 @@
   "estimatedEarnings": 1232,
   "clicks": 213,
   "impressions": 12435,
-  "rpm": 0.03,
+  "RPM": 0.03,
   "averageCPC": 2.1,
 
   "targeting": {
@@ -36,7 +36,7 @@
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.00001233,
+      "CTR": 0.00001233,
       "averageCPC": 1.2,
       "cost": 2435.23,
       "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"
@@ -55,7 +55,7 @@
       "budget": 20,
       "clicks": 200,
       "impressions": 21313545,
-      "ctr": 0.1233,
+      "CTR": 0.1233,
       "averageCPC": 3.25,
       "cost": 8236.23,
       "code": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dicta dolorem dolores ducimus eaque fugiat, labore mollitia neque nostrum omnis perferendis recusandae, saepe sint, soluta voluptatem! Eos nam nulla velit!"

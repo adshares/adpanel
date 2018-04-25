@@ -61,6 +61,11 @@
       .mat-input-element {
         width: 100px !important;
         max-width: 100px !important;
+
+        @include media(xxl-up) {
+          width: 150px !important;
+          max-width: 150px !important;
+        }
       }
     }
 

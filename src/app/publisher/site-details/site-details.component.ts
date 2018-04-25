@@ -14,7 +14,7 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { createInitialArray } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
-import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TargetingOption } from 'models/targeting-option.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
@@ -75,10 +75,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.assetId
+        chartFilterSettings.currentFrom,
+        chartFilterSettings.currentTo,
+        chartFilterSettings.currentFrequency,
+        chartFilterSettings.currentAssetId
       )
       .subscribe(data => {
         this.barChartData.forEach(values => values[0].data = data.values);

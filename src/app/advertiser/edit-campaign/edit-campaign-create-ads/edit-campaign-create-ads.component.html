@@ -63,7 +63,12 @@
               row
               no-gutters"
           >
-            <div class="col-xs-5">
+            <div
+              class="
+                col-md-4
+                col-xxl-3
+                col-xxxl-2"
+            >
               <div class="adsh-form-input__box">
                 <label
                   for="shortHeadline"
@@ -89,7 +94,13 @@
               </span>
               </div>
             </div>
-            <div class="col-xs-3">
+            <div
+              class="
+                col-md-offset-1
+                col-md-3
+                col-xxl-2
+                col-xxxl-1"
+            >
               <div class="adsh-form-input__box">
                 <label class="adsh-form-label">Ad Type</label>
                 <mat-select
@@ -108,7 +119,13 @@
                 </mat-select>
               </div>
             </div>
-            <div class="col-xs-3">
+            <div
+              class="
+                col-md-offset-1
+                col-md-3
+                col-xxl-2
+                col-xxxl-1"
+            >
               <div class="adsh-form-input__box">
                 <label class="adsh-form-label">
                   Size
@@ -310,10 +327,11 @@
           <div
             class="
               row
-              adsh-box"
+              no-gutters
+              html-textarea-wrapper"
             *ngIf="
-            (adForm.get('type').value === 1 && !ads[i]) ||
-            (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
+              (adForm.get('type').value === 1 && !ads[i]) ||
+              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
           >
           <span
             class="
@@ -330,7 +348,7 @@
                 col-xs-12
                 adsh-form-label"
             >
-              Paste your html here:
+              Paste your HTML code here:
             </p>
 
             <textarea
