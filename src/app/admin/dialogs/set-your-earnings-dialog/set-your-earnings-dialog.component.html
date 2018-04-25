@@ -44,12 +44,18 @@
       class="
         adsh-heading
         adsh-heading--primary
+        adsh-form-input
         earnings-input"
       [ngModel]="value | number:'1.2-2'"
       (ngModelChange)="updateValue($event)"
       data-test="admin-earnings-direct-input"
     >
-    <div class="col adsh-copy">
+    <div
+      class="
+        col
+        adsh-copy
+        calculated-earnings"
+    >
       <span data-test="admin-earnings-per-day">12$ per day</span>
       <span data-test="admin-earnings-per-week">213$ per week</span>
       <span data-test="admin-earnings-per-month">1234313$ per month</span>

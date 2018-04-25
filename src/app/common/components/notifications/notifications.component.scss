@@ -1,24 +1,6 @@
 @import '../../../../styles.scss';
 
 .notifications {
-  &__background {
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    transition: all 0.3s cubic-bezier(0, 0, 0.3, 1);
-    visibility: hidden;
-    opacity: 0;
-    z-index: getIndex(notificationsBackground);
-
-    &.active {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
   &__bar {
     position: fixed;
     top: 0;
@@ -37,4 +19,30 @@
       overflow-y: scroll;
     }
   }
+
+  &-wrapper {
+    overflow-y: scroll;
+  }
+
+  &__background {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s cubic-bezier(0, 0, 0.3, 1);
+    visibility: hidden;
+    opacity: 0;
+    z-index: getIndex(notificationsBackground);
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.link-to-settings {
+  margin-top: 40px;
 }

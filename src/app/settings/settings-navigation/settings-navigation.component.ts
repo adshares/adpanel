@@ -22,7 +22,7 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
       link: 'general',
       values: [
         { name: 'Preferences', icon: 'assets/images/preferences.svg'},
-        { name: 'Notification settings', icon: 'assets/images/notification.svg'},
+        { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
       ]
     },
     {
