@@ -37,7 +37,7 @@ jobs:
   include:
     # node.js build
     - stage: build
-      script: ng build -e dev --prod
+      script: ng build --env=dev
       
     # Sonar Qube
     - stage: quality
