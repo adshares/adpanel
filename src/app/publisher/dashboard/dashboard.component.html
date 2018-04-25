@@ -37,13 +37,13 @@
           col-md-9"
       >
         <app-chart-filter
-          *ngIf="!sites"
-          (filter)="appChartRef.updateChartData($event)"
+          *ngIf="sites"
+          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
         ></app-chart-filter>
       </div>
     </div>
 
-    <div *ngIf="!sites">
+    <div *ngIf="sites">
       <div
         class="
           row
@@ -105,13 +105,16 @@
         </div>
       </div>
 
-      <app-site-list></app-site-list>
+      <app-site-list
+        [sites]="sites"
+        [sitesTotals]="sitesTotals"
+      ></app-site-list>
     </div>
 
 
     <div
       class="hidden-md"
-      *ngIf="sites"
+      *ngIf="!sites"
     >
       <div
         class="

@@ -14,7 +14,7 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { createInitialArray } from 'common/utilities/helpers';
 import { enumToArray } from 'common/utilities/helpers';
-import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
 
