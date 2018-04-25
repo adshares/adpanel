@@ -12,6 +12,6 @@ export interface TimespanFilter {
 }
 
 export interface FilterPreset {
-  daysBack: number;
-  title: string;
+  id: number;
+  name: string;
 }
