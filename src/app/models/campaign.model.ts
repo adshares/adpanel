@@ -17,7 +17,7 @@ interface Campaign {
   ads?: Ad[];
   clicks?: number;
   impressions?: number;
-  ctr?: number;
+  CTR?: number;
   averageCPC?: number;
   cost?: number;
   conversions?: number;
@@ -52,7 +52,7 @@ interface Ad {
   size: number;
   clicks: number;
   impressions: number;
-  ctr: number;
+  CTR: number;
   averageCPC: number;
   cost: number;
   budget: number;

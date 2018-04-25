@@ -8,7 +8,7 @@ import { adminChartSeriesEnum } from 'models/enum/admin-chart-series.enum';
 import { enumToArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 
-interface assetInfo {
+interface AssetInfo {
   id: number;
   name: string;
 }
@@ -28,7 +28,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   currentAssetSeries: string = enumToArray(chartSeriesEnum)[0];
   currentAdminAssetSeries: string = enumToArray(adminChartSeriesEnum)[0];
   chartSeries: string[];
-  assetsInfo: assetInfo[];
+  assetsInfo: AssetInfo[];
 
   constructor(private store: Store<AppState>) {
     super();
@@ -58,11 +58,13 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     }
   }
 
-  updateAssetId() {
+  updateAssetId(event) {
+    this.currentAssetId = event.value;
     this.updateId.emit(this.currentAssetId);
   }
 
-  updateAssetSeries() {
+  updateAssetSeries(event) {
+    this.currentAssetSeries = event.value;
     this.updateSeries.emit(this.currentAssetSeries);
   }
 }

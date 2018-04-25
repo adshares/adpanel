@@ -1,7 +1,9 @@
 export interface ChartOptions {
-  scaleShowVerticalLines?: boolean,
-  responsive?: boolean,
+  scaleShowVerticalLines?: boolean;
+  responsive?: boolean;
   maintainAspectRatio?: boolean;
+  tooltips?: object;
+  hover?: object;
   scales?: {
     xAxes?: [{
       barPercentage?: number,
@@ -13,7 +15,8 @@ export interface ChartOptions {
         autoSkip?: boolean,
         fontColor?: string,
         fontSize?: number,
-        beginAtZero?: boolean
+        beginAtZero?: boolean,
+        callback?: any;
       }
     }],
     yAxes?: [{
@@ -26,7 +29,7 @@ export interface ChartOptions {
         fontColor?: string,
         fontSize?: number,
         beginAtZero?: boolean,
-        padding?: number,
+        padding?: number
       }
     }]
   };

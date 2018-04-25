@@ -14,6 +14,9 @@ caption, tbody, tfoot, thead, tr, th, td {
   line-height: normal;
 }
 
+$xxlFontSize: 20px;
+$xxxlFontSize: 24px;
+
 html, body {
   max-width: 100vw;
   min-height: 100vh;
@@ -22,6 +25,14 @@ html, body {
 
   &.overflow-hidden {
     overflow: hidden;
+  }
+
+  @include media(xxl-up) {
+    font-size: $xxlFontSize;
+  }
+
+  @include media(xxxl-up) {
+    font-size: $xxxlFontSize;
   }
 }
 
