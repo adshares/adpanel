@@ -20,6 +20,13 @@ export class AdvertiserEffects {
     .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
 
   @Effect()
+  loadCampaignsTotals$ = this.actions$
+    .ofType(advertiserActions.LOAD_CAMPAIGNS_TOTALS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.getCampaignsTotals(payload))
+    .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals));
+
+  @Effect()
   addCampaignToCampaigns = this.actions$
     .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)

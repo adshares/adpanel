@@ -4,7 +4,8 @@ import { campaignInitialState } from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
-  campaigns: []
+  campaigns: [],
+  campaignsTotals: {}
 };
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions) {
@@ -28,6 +29,11 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       return {
         ...state,
         campaigns: action.payload
+      };
+    case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
+      return {
+        ...state,
+        campaignsTotals: action.payload
       };
     case advertiserActions.SAVE_CAMPAIGN_TARGETING:
       return {

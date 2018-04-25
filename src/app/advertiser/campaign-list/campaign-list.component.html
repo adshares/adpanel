@@ -15,7 +15,7 @@
       ></app-table-navigation>
     </div>
 
-    <div *ngIf="(!campaigns || campaigns.length > 0); else loading">
+    <div *ngIf="(campaigns && campaignsTotals); else loading">
       <app-campaign-list-item
         *ngFor="let campaign of campaigns"
         [campaign]="campaign"
@@ -56,7 +56,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.totalBudget | currency:'USD':true:'1.2-2' }}/day</span>
             </div>
             <div
               class="
@@ -64,7 +64,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.totalClicks }}</span>
             </div>
             <div
               class="
@@ -72,7 +72,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.totalImpressions }}</span>
             </div>
             <div
               class="
@@ -80,7 +80,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.averageCTR | percent:'1.2-2' }}</span>
             </div>
             <div
               class="
@@ -88,7 +88,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.averageCPC | currency:'USD':true:'1.2-2' }}</span>
             </div>
             <div
               class="
@@ -96,7 +96,7 @@
                 row
                 align-center"
             >
-              <span>X</span>
+              <span>{{ campaignsTotals.totalCost | currency:'USD':true:'1.2-2' }}</span>
             </div>
           </div>
         </div>

@@ -15,11 +15,76 @@
       ></app-table-navigation>
     </div>
 
-    <div *ngIf="(!sites || sites.length > 0); else loading">
+    <div *ngIf="(sites && sitesTotals); else loading">
       <app-site-list-item
         *ngFor="let site of sites"
         [site]="site"
       ></app-site-list-item>
+
+      <div class="adsh-box">
+        <div
+          class="
+            row
+            align-center
+            adsh-copy
+            adsh-copy--semi"
+        >
+          <div
+            class="
+              col-xs-5
+              row
+              align-center"
+          >
+            <h4
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              Total - All Sites
+            </h4>
+          </div>
+          <div
+            class="
+              col-xs-2
+              row
+              align-center"
+          >
+            <span>{{ sitesTotals.totalEarnings | currency:'USD':true:'1.2-2' }}</span>
+          </div>
+          <div
+            class="
+              col-xs-1
+              row
+              align-center"
+          >
+            <span>{{ sitesTotals.totalClicks }}</span>
+          </div>
+          <div
+            class="
+              col-xs-1
+              row
+              align-center"
+          >
+            <span>{{ sitesTotals.totalImpressions }}</span>
+          </div>
+          <div
+            class="
+              col-xs-1
+              row
+              align-center"
+          >
+            <span>{{ sitesTotals.averagePageRPM | percent:'1.2-2' }}</span>
+          </div>
+          <div
+            class="
+              col-xs-1
+              row
+              align-center"
+          >
+            <span>{{ sitesTotals.averageCPC | currency:'USD':true:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

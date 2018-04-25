@@ -6,7 +6,7 @@ import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { SiteListComponent } from 'publisher/site-list/site-list.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { Site } from 'models/site.model';
+import { Site, SitesTotals } from 'models/site.model';
 import { chartSeriesEnum } from 'models/enum/chart-series.enum';
 import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
@@ -27,6 +27,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(SiteListComponent) campaignListRef: SiteListComponent;
 
   sites: Site[];
+  sitesTotals: SitesTotals;
 
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
@@ -85,9 +86,13 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     from = moment(from).format();
     to = moment(to).format();
     this.store.dispatch(new publisherActions.LoadSites({from, to}));
+    this.store.dispatch(new publisherActions.LoadSitesTotals({from, to}));
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => this.sites = sites);
-    this.subscriptions.push(sitesSubscription);
+    const sitesTotalsSubscription = this.store.select('state', 'publisher', 'sitesTotals')
+      .subscribe((sitesTotals: SitesTotals) => this.sitesTotals = sitesTotals);
+
+    this.subscriptions.push(sitesSubscription, sitesTotalsSubscription);
   }
 }

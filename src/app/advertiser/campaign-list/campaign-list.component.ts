@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'models/app-state.model';
-import { Campaign } from 'models/campaign.model';
+import { Campaign, CampaignsTotals } from 'models/campaign.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -16,6 +16,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
 export class CampaignListComponent {
   @Input() campaigns: Campaign[];
+  @Input() campaignsTotals: CampaignsTotals;
 
   constructor(
     private router: Router,

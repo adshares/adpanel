@@ -14,7 +14,11 @@ export class AdvertiserService {
   constructor(private http: HttpClient) { }
 
   getCampaigns(timespan: TimespanFilter): Observable<Campaign[]> {
-    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
+    return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns`, { timespan });
+  }
+
+  getCampaignsTotals(timespan: TimespanFilter): Observable<Campaign[]> {
+    return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns_totals`, { timespan });
   }
 
   getCampaign(id: number): Observable<Campaign> {

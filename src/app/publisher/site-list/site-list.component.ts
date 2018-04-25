@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
+import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
@@ -16,6 +16,7 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 })
 export class SiteListComponent extends HandleSubscription {
   @Input() sites: Site[];
+  @Input() sitesTotals: SitesTotals;
 
   constructor(
     private router: Router,

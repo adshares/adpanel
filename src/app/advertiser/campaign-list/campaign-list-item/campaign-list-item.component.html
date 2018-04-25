@@ -54,7 +54,7 @@
           align-center"
         data-test="advertiser-campaign-bduget"
       >
-        <span>{{ campaign.basicInformation.budget | number:'1.2-2' | commaReplacer | currency:USD }}/day</span>
+        <span>{{ campaign.basicInformation.budget | currency:'USD':true:'1.2-2' }}/day</span>
       </div>
       <div
         class="
@@ -90,7 +90,7 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ campaign.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}</span>
+        <span>{{ campaign.averageCPC | currency:'USD':true:'1.2-2' }}</span>
       </div>
       <div
         class="
@@ -99,7 +99,7 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ campaign.cost | number:'1.2-2' | commaReplacer | currency:USD }}</span>
+        <span>{{ campaign.cost | currency:'USD':true:'1.2-2' }}</span>
       </div>
       <div
         class="

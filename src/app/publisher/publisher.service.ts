@@ -14,7 +14,11 @@ export class PublisherService {
   constructor(private http: HttpClient) {}
 
   getSites(timespan: TimespanFilter): Observable<Site[]> {
-    return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
+    return this.http.post<Site[]>(`${environment.apiUrl}/sites`, { timespan });
+  }
+
+  getSitesTotals(timespan: TimespanFilter): Observable<Site[]> {
+    return this.http.post<Site[]>(`${environment.apiUrl}/sites_totals`, { timespan });
   }
 
   getSite(id: number): Observable<Site> {
