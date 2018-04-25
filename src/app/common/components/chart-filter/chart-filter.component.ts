@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -13,11 +13,12 @@ import { appSettings } from 'app-settings';
   templateUrl: './chart-filter.component.html',
   styleUrls: ['./chart-filter.component.scss'],
 })
-export class ChartFilterComponent extends HandleSubscription implements OnInit {
+export class ChartFilterComponent extends HandleSubscription implements OnInit, OnChanges {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
   dateFrom = new FormControl(moment(new Date()).subtract(1, 'months'));
   dateTo = new FormControl(moment(new Date()));
   today = new Date();
+  currentDaysSpan: number;
 
   filterPresets: FilterPreset[] = appSettings.FILTER_PRESETS;
   currentChartFilterSettings: ChartFilterSettings;
@@ -30,9 +31,14 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
+        this.updateCurrentDaysSpan();
       });
 
     this.subscriptions.push(chartFilterSubscription);
+  }
+
+  ngOnChanges() {
+    this.updateCurrentDaysSpan();
   }
 
   filterChart(from, to, isFromDatepicker) {
@@ -61,5 +67,11 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
     }
 
     this.filterChart(from, to, fromDatepicker);
+  }
+
+  updateCurrentDaysSpan() {
+    this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
+      .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
+    console.log(this.currentDaysSpan)
   }
 }
