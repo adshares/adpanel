@@ -48,7 +48,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-budget">
-        {{ ad.budget | number:'1.2-2' | commaReplacer | currency:USD }} /day
+        {{ ad.budget | currency:'USD':'symbol':'1.2-2' }} /day
       </span>
       </div>
       <div
@@ -77,7 +77,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-ctr">
-        {{ ad.ctr | percent:'1.2-2' }}
+        {{ ad.CTR | percent:'1.2-2' }}
       </span>
       </div>
       <div
@@ -87,7 +87,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-average-cpc">
-        {{ ad.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}
+        {{ ad.averageCPC | currency:'USD':'symbol':'1.2-2' }}
       </span>
       </div>
       <div
@@ -97,7 +97,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-cost">
-        {{ ad.cost | number:'1.2-2' | commaReplacer | currency:USD }}
+        {{ ad.cost | currency:'USD':'symbol':'1.2-2' }}
       </span>
       </div>
     </div>

@@ -8,6 +8,10 @@
     max-width: 1300px;
   }
 
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
   &--narrow {
     max-width: 500px;
     margin: 0 auto;

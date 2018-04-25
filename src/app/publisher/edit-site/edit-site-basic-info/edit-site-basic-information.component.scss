@@ -8,6 +8,10 @@
     max-width: 900px;
   }
 
+  @include media(xxxl-up) {
+    max-width: 1100px;
+  }
+
   &__info-box {
     min-height: 400px;
 
