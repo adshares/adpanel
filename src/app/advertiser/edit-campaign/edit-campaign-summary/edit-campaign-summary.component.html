@@ -252,6 +252,7 @@
             [items]="campaign.targetingArray.requires"
             [isExclude]="false"
             [canRemove]="false"
+            [targetingOptions]="targetingOptionsToAdd"
           ></app-targeting-display>
         </div>
       </div>
@@ -267,6 +268,7 @@
             [items]="campaign.targetingArray.excludes"
             [isExclude]="true"
             [canRemove]="false"
+            [targetingOptions]="targetingOptionsToExclude"
           ></app-targeting-display>
         </div>
       </div>
