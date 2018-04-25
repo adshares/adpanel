@@ -7,6 +7,10 @@
   @include media(xxl-up) {
     max-width: 1300px;
   }
+
+  @include media(xxxl-up) {
+    max-width: 200px;
+  }
 }
 
 .targeting-select-wrapper {

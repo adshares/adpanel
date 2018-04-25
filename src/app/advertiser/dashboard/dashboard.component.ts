@@ -10,7 +10,6 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import { createInitialArray } from 'common/utilities/helpers';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -48,18 +47,18 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   getChartData(chartFilterSettings) {
     this.barChartData[0].data = [];
-
     const chartDataSubscription = this.chartService
       .getAssetChartData(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.assetId,
-        chartFilterSettings.series
+        chartFilterSettings.currentFrom,
+        chartFilterSettings.currentTo,
+        chartFilterSettings.currentFrequency,
+        chartFilterSettings.currentAssetId,
+        chartFilterSettings.currentSeries
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
+        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
+        this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;

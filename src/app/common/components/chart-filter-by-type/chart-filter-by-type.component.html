@@ -10,7 +10,7 @@
       <mat-select
         class="adsh-select"
         [(value)]="currentAssetId"
-        (change)="updateAssetId()"
+        (change)="updateAssetId($event)"
         data-test="chart-filter-by-type-asset-id-select"
       >
         <mat-option
@@ -32,7 +32,7 @@
       <mat-select
         class="adsh-select"
         [(value)]="currentAssetSeries"
-        (change)="updateAssetSeries()"
+        (change)="updateAssetSeries($event)"
         data-test="chart-filter-by-type-asset-series-select"
       >
         <mat-option

@@ -40,7 +40,6 @@ export class ChartComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartFilterSubscription);
-
   }
 
   updateChartData(timespan) {
@@ -58,17 +57,23 @@ export class ChartComponent extends HandleSubscription implements OnInit {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
 
-    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataSeries(series) {
     this.currentChartFilterSettings.currentSeries = series;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataAssetId(assetId) {
     this.currentChartFilterSettings.currentAssetId = assetId;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
+  }
+
+  updateCurrentFilterSettingsInStore() {
+    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
   }
 }
