@@ -11,7 +11,7 @@ sudo: false
 # Cache node.js modules
 cache:
   directories:
-    - "node_modules"
+    - node_modules
 
 addons:
   sonarcloud:
@@ -29,7 +29,7 @@ install:
   - npm install
 
 stages:
-#  - build
+  - build
   - quality
   - test
 
