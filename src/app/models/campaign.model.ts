@@ -18,6 +18,15 @@ interface Campaign {
   conversions?: number;
 }
 
+interface CampaignsTotals {
+  totalBudget: number;
+  totalClicks: number;
+  totalImpressions: number;
+  averageCTR: number;
+  averageCPC: number;
+  totalCost: number;
+}
+
 interface CampaignBasicInformation {
   status: number;
   name: string;
@@ -48,4 +57,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad };
+export { Campaign, CampaignBasicInformation, Ad, CampaignsTotals };

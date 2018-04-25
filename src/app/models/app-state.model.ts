@@ -1,5 +1,5 @@
-import { Campaign } from './campaign.model';
-import { Site } from './site.model';
+import { Campaign, CampaignsTotals } from './campaign.model';
+import { Site, SitesTotals } from './site.model';
 import {
   BillingHistoryItem,
   NotificationItem,
@@ -24,11 +24,13 @@ interface AppState {
 interface AdvertiserState {
   lastEditedCampaign: Campaign;
   campaigns: Campaign[];
+  campaignsTotals: CampaignsTotals;
 }
 
 interface PublisherState {
-  lastEditedSite: Site;
   sites: Site[];
+  sitesTotals: SitesTotals;
+  lastEditedSite: Site;
 }
 
 interface SettingsState {

@@ -35,7 +35,7 @@
           align-center"
       >
         <span data-test="publisher-site-estimated-earnings">
-          {{ site.estimatedEarnings | number:'1.2-2' | commaReplacer | currency:USD }}
+          {{ site.estimatedEarnings | currency:'USD':'symbol':'1.2-2' }}
         </span>
       </div>
       <div
@@ -75,7 +75,7 @@
           align-center"
       >
         <span data-test="publisher-site-average=cpc">
-          {{ site.averageCPC | number:'1.2-2' | commaReplacer | currency:USD }}
+          {{ site.averageCPC | currency:'USD':'symbol':'1.2-2' }}
         </span>
       </div>
       <div

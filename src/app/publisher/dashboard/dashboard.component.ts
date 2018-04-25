@@ -4,14 +4,18 @@ import * as moment from 'moment';
 
 import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
+import { SiteListComponent } from 'publisher/site-list/site-list.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { Site, SitesTotals } from 'models/site.model';
+import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { AppState } from 'models/app-state.model';
 import { createInitialArray, enumToArray } from 'common/utilities/helpers';
+
+import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +24,11 @@ import { createInitialArray, enumToArray } from 'common/utilities/helpers';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  @ViewChild(SiteListComponent) campaignListRef: SiteListComponent;
+
+  sites: Site[];
+  sitesTotals: SitesTotals;
+
   chartSeries: string[] = enumToArray(chartSeriesEnum);
 
   barChartValue: number;
@@ -45,6 +54,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
     this.subscriptions.push(chartFilterSubscription);
 
+    this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
@@ -71,5 +81,19 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartDataSubscription);
+  }
+
+  loadSites(from, to) {
+    from = moment(from).format();
+    to = moment(to).format();
+    this.store.dispatch(new publisherActions.LoadSites({from, to}));
+    this.store.dispatch(new publisherActions.LoadSitesTotals({from, to}));
+
+    const sitesSubscription = this.store.select('state', 'publisher', 'sites')
+      .subscribe((sites: Site[]) => this.sites = sites);
+    const sitesTotalsSubscription = this.store.select('state', 'publisher', 'sitesTotals')
+      .subscribe((sitesTotals: SitesTotals) => this.sitesTotals = sitesTotals);
+
+    this.subscriptions.push(sitesSubscription, sitesTotalsSubscription);
   }
 }

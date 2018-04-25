@@ -40,6 +40,7 @@ export class ChartComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartFilterSubscription);
+
   }
 
   updateChartData(timespan) {

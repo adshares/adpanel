@@ -10,7 +10,6 @@ import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-aut
 import { AppState } from 'models/app-state.model';
 import { UserFinancialData } from 'models/user.model';
 import { appSettings } from 'app-settings';
-import { enumToArray} from 'common/utilities/helpers';
 import { withdrawPeriodsEnum} from 'models/enum/withdraw.enum';
 
 import * as moment from 'moment';
