@@ -59,7 +59,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     const userData = JSON.parse(localStorage.getItem('adshUser'));
 
     if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
-      this.loginForm.get('email').setValue(userData.email),
+      this.loginForm.get('email').setValue(userData.email);
       this.loginForm.get('password').setValue('*'.repeat(parseInt(userData.passwordLength)));
       this.rememberUser.nativeElement.checked = true;
     }
