@@ -97,7 +97,10 @@
         </p>
 
         <p
-          class="adsh-copy"
+          class="
+            adsh-heading
+            adsh-heading--secondary
+            site-edit-summary__language"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -147,8 +150,15 @@
           col-xs-5
           site-edit-summary__info-cell"
       >
-        <span class="adsh-copy">Requires:</span>
-
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Requires:
+        </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="site.targetingArray"
@@ -165,7 +175,15 @@
           col-xs-5
           site-edit-summary__info-cell"
       >
-        <span class="adsh-copy">Excludes:</span>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Excludes:
+        </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="site.targetingArray"
