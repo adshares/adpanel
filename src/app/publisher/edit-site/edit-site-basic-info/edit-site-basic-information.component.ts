@@ -46,7 +46,6 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       return;
     }
 
-    const siteBasicInfoValue = this.siteBasicInfoForm.value;
     const editSiteStep = this.goesToSummary ? 'summary' : 'additional-targeting';
     const param = this.goesToSummary ? 4 : 2;
 
