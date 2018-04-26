@@ -29,7 +29,7 @@
     class="
       adsh-box
       adsh-box--large
-      campaign-edit-summary__basic-info"
+      campaign-edit-summary__basic-info-wrapper"
   >
     <div
       class="
@@ -82,124 +82,128 @@
       </div>
     </div>
 
-    <div class="row">
-      <div
-        class="
-          col-xs-3
-          campaign-edit-summary__info-cell"
-        >
+    <div
+      class="
+        row
+        align-center
+        adsh-copy
+        campaign-edit-summary__basic-info"
+    >
+      <div>
         <p
           class="
             adsh-copy--small
-            adsh-copy--light"
+            label"
         >
           Target URL:
         </p>
-
         <p
-          class="adsh-copy"
+          class="
+            adsh-copy--dark
+            adsh-copy--semi"
           data-test="advertiser-campaign-target-url"
         >
           {{ campaign.basicInformation.targetUrl }}
         </p>
       </div>
-
-      <div
-        class="
-          col-xs-2
-          campaign-edit-summary__info-cell"
-        >
+      <div>
         <p
           class="
-            adsh-copy--small
-            adsh-copy--light"
+              adsh-copy--small
+              label"
         >
-          Bid Strategy:
+          Bid Strategy
         </p>
-
         <p
-          class="adsh-copy"
+          class="
+              adsh-copy--dark
+              adsh-copy--semi"
           data-test="advertiser-campaign-bid-strategy"
         >
-          {{ campaign.basicInformation.bidStrategyName }}
-          ({{ campaign.basicInformation.bidValue | currency:'USD':true }})
+          {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | currency:'USD':'symbol':'1.2-2' }})
         </p>
       </div>
-
-      <div
-        class="
-          col-xs-2
-          campaign-edit-summary__info-cell">
+      <div>
         <p
           class="
-            adsh-copy--small
-            adsh-copy--light"
+              adsh-copy--small
+              label"
         >
-          Budget:
+          Budget
         </p>
-
         <p
-          class="adsh-copy"
+          class="
+              adsh-copy--dark
+              adsh-copy--semi"
           data-test="advertiser-campaign-budget"
         >
-          {{ campaign.basicInformation.budget | currency:'USD':true }}
+          {{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}
         </p>
       </div>
-
-      <div
-        class="
-          col-xs-2
-          campaign-edit-summary__info-cell">
+      <div>
         <p
           class="
-            adsh-copy--small
-            adsh-copy--light"
+              adsh-copy--small
+              label"
         >
           Date of Start
         </p>
-
-        <p class="adsh-copy">
+        <div
+          class="
+              row
+              align-center"
+        >
           <img
             class="
-              adsh-icon
-              adsh-icon--prepend"
+                adsh-icon
+                adsh-icon--prepend"
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
-          <span data-test="advertiser-campaign-start-date">
-            {{ campaign.basicInformation.dateStart | date: 'dd MMM yyyy' }}
-          </span>
-        </p>
-      </div>
+          <p
+            class="
+                adsh-copy--dark
+                adsh-copy--semi"
+            data-test="advertiser-campaign-start-date"
+          >
+            {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+          </p>
+        </div>
 
-      <div
-        class="
-          col-xs-2
-          campaign-edit-summary__info-cell">
+      </div>
+      <div>
         <p
           class="
-            adsh-copy--small
-            adsh-copy--light"
+              adsh-copy--small
+              label"
         >
           Date of End
         </p>
-
-        <p class="adsh-copy">
+        <div
+          class="
+              row
+              align-center"
+        >
           <img
             class="
-              adsh-icon
-              adsh-icon--prepend"
+                adsh-icon
+                adsh-icon--prepend"
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
-          <span
-            *ngIf="campaign.basicInformation.dateEnd"
-            data-test="advertiser-campaign-start-date"
+          <p
+            *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
+            class="
+                adsh-copy--dark
+                adsh-copy--semi"
+            data-test="advertiser-campaign-end-date"
           >
-            {{ campaign.basicInformation.dateEnd | date: 'dd MMM yyyy' }}
-          </span>
-          <span *ngIf="!campaign.basicInformation.dateEnd">-</span>
-        </p>
+            {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+          </p>
+          <ng-template #dateEndEmpty>
+            -
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>
@@ -244,8 +248,15 @@
         class="
           col-xs-5
           campaign-edit-summary__info-cell">
-        <span class="adsh-copy">Requires:</span>
-
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Requires:
+        </p>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="campaign.targetingArray"
@@ -261,7 +272,15 @@
         class="
           col-xs-5
           campaign-edit-summary__info-cell">
-        <span class="adsh-copy">Excludes:</span>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Excludes:
+        </p>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
             *ngIf="campaign.targetingArray"

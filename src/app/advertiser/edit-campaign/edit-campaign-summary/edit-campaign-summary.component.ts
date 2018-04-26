@@ -42,7 +42,9 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
       .subscribe((campaign: Campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign
+        console.log(campaign)
       });
+    console.log(this.campaign)
     this.subscriptions.push(lastCampaignSubscription);
 
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);

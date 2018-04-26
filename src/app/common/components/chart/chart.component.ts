@@ -79,6 +79,10 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   }
 
   ngOnDestroy() {
-    document.getElementById('chartjs-tooltip').remove();
+    const tooltip = document.getElementById('chartjs-tooltip');
+
+    if (tooltip) {
+      tooltip.remove();
+    }
   }
 }
