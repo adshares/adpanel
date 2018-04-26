@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
@@ -18,7 +18,7 @@ import * as commonActions from 'store/common/common.actions';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit {
+export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy {
   @Input() chartSpan: string;
   @Input() seriesType?: string;
   @Input() barChartData: ChartData[][] | ChartData[];
@@ -76,5 +76,9 @@ export class ChartComponent extends HandleSubscription implements OnInit {
 
   updateCurrentFilterSettingsInStore() {
     this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
+  }
+
+  ngOnDestroy() {
+    document.getElementById('chartjs-tooltip').remove();
   }
 }
