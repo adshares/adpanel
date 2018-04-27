@@ -6,7 +6,8 @@
     "bidStrategyName": "CPC",
     "bidValue": 0.2,
     "budget": 455,
-    "dateStart": "Sat Feb 23 2018 12:24:00 GMT"
+    "dateStart": "Sat Feb 23 2018 12:24:00 GMT",
+    "dateEnd": "Sun Feb 24 2018 12:24:00 GMT"
   },
 
   "id": 183297987312,
