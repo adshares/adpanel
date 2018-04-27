@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./customize-account-choose-dialog.component.scss']
 })
 export class CustomizeAccountChooseDialogComponent {
-  accounts: object = {
+  accounts = {
     advertiser: { selected: false },
     publisher: { selected: false }
   };

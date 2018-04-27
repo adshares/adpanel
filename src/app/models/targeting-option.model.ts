@@ -14,6 +14,7 @@ interface TargetingOptionValue {
   label: string;
   value: string;
   selected?: boolean;
+  allow_input?: boolean;
   parent: Partial<TargetingOption>;
 
   isCustom?: boolean;

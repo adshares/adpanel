@@ -345,7 +345,7 @@
         align-center
         relative
         hidden-sm"
-      (click)="toggleNotificationsBar(true)"
+      (click)="toggleNotificationsBar()"
       data-test="notifications-toggle-notifications-bar"
     >
       <img
@@ -372,4 +372,4 @@
 
 <app-notifications
   [notificationsBarOpen]="notificationsBarOpen"
-  (onDisableNotificationsBar)="toggleNotificationsBar($event)"></app-notifications>
+  (onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>

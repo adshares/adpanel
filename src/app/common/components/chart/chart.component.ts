@@ -21,7 +21,7 @@ import * as commonActions from 'store/common/common.actions';
 export class ChartComponent extends HandleSubscription implements OnInit {
   @Input() chartSpan: string;
   @Input() seriesType?: string;
-  @Input() barChartData: ChartData[][] | ChartData[];
+  @Input() barChartData: ChartData[];
   @Input() barChartLabels: ChartLabels[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
