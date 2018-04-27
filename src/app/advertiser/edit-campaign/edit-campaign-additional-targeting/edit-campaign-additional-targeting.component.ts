@@ -22,7 +22,8 @@ import { TargetingSelectComponent } from 'common/components/targeting/targeting-
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
-
+  excludePanelOpenState: boolean;
+  requirePanelOpenState: boolean;
   goesToSummary: boolean;
 
   subscriptions: Subscription[] = [];

@@ -24,6 +24,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
 
   goesToSummary: boolean;
+  excludePanelOpenState: boolean;
+  requirePanelOpenState: boolean;
 
   subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];

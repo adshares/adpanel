@@ -1,4 +1,4 @@
-import { combineReducers, ActionReducer } from '@ngrx/store/';
+import { combineReducers, ActionReducer, compose } from '@ngrx/store/';
 
 import { authReducers } from './auth/auth.reducers';
 import { advertiserReducers } from './advertiser/advertiser.reducers';
@@ -29,7 +29,7 @@ const userReducers: ActionReducer<UserState> = combineReducers(
   }
 );
 
-export const reducers: ActionReducer<ReducersState> = combineReducers(
+const reducers: ActionReducer<ReducersState> = combineReducers(
   {
     user: userReducers,
     advertiser: advertiserReducers,
@@ -38,3 +38,8 @@ export const reducers: ActionReducer<ReducersState> = combineReducers(
     common: commonReducers
   }
 );
+
+
+export function reducer(state: any, action: any) {
+  return reducers(state, action);
+}
