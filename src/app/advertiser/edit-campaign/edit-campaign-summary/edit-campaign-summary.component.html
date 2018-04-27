@@ -109,15 +109,15 @@
       <div>
         <p
           class="
-              adsh-copy--small
-              label"
+            adsh-copy--small
+            label"
         >
           Bid Strategy
         </p>
         <p
           class="
-              adsh-copy--dark
-              adsh-copy--semi"
+            adsh-copy--dark
+            adsh-copy--semi"
           data-test="advertiser-campaign-bid-strategy"
         >
           {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | currency:'USD':'symbol':'1.2-2' }})
@@ -126,15 +126,15 @@
       <div>
         <p
           class="
-              adsh-copy--small
-              label"
+            adsh-copy--small
+            label"
         >
           Budget
         </p>
         <p
           class="
-              adsh-copy--dark
-              adsh-copy--semi"
+            adsh-copy--dark
+            adsh-copy--semi"
           data-test="advertiser-campaign-budget"
         >
           {{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}
@@ -143,27 +143,27 @@
       <div>
         <p
           class="
-              adsh-copy--small
-              label"
+            adsh-copy--small
+            label"
         >
           Date of Start
         </p>
         <div
           class="
-              row
-              align-center"
+            row
+            align-center"
         >
           <img
             class="
-                adsh-icon
-                adsh-icon--prepend"
+              adsh-icon
+              adsh-icon--prepend"
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
           <p
             class="
-                adsh-copy--dark
-                adsh-copy--semi"
+              adsh-copy--dark
+              adsh-copy--semi"
             data-test="advertiser-campaign-start-date"
           >
             {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
@@ -174,28 +174,28 @@
       <div>
         <p
           class="
-              adsh-copy--small
-              label"
+            adsh-copy--small
+            label"
         >
           Date of End
         </p>
         <div
           class="
-              row
-              align-center"
+            row
+            align-center"
         >
           <img
             class="
-                adsh-icon
-                adsh-icon--prepend"
+              adsh-icon
+              adsh-icon--prepend"
             src="assets/images/calendar.svg"
             alt="Calendar Icon"
           >
           <p
             *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
             class="
-                adsh-copy--dark
-                adsh-copy--semi"
+              adsh-copy--dark
+              adsh-copy--semi"
             data-test="advertiser-campaign-end-date"
           >
             {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
@@ -247,7 +247,8 @@
       <div
         class="
           col-xs-5
-          campaign-edit-summary__info-cell">
+          campaign-edit-summary__info-cell"
+      >
         <p
           class="
             adsh-copy
@@ -271,7 +272,8 @@
       <div
         class="
           col-xs-5
-          campaign-edit-summary__info-cell">
+          campaign-edit-summary__info-cell"
+      >
         <p
           class="
             adsh-copy

@@ -41,10 +41,8 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((campaign: Campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
-        this.campaign = campaign
-        console.log(campaign)
+        this.campaign = campaign;
       });
-    console.log(this.campaign)
     this.subscriptions.push(lastCampaignSubscription);
 
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
