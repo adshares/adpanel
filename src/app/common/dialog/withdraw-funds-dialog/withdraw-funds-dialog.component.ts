@@ -47,7 +47,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   createForm() {
-    const pattern = new RegExp('[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)', 'i');
     this.withdrawFundsForm = new FormGroup({
       address: new FormControl(this.financialData.userAddress, [
         Validators.required,

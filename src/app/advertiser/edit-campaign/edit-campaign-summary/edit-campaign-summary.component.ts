@@ -41,7 +41,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((campaign: Campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
-        this.campaign = campaign
+        this.campaign = campaign;
       });
     this.subscriptions.push(lastCampaignSubscription);
 
