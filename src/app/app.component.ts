@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+import { timer } from 'rxjs/observable/timer';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { CommonService } from 'common/common.service';
@@ -24,6 +26,7 @@ import * as commonActions from 'store/common/common.actions';
   animations: [fadeAnimation]
 })
 export class AppComponent extends HandleSubscription implements OnInit {
+  updateNotificationTimer: Subscription;
 
   constructor(
     private router: Router,
@@ -38,7 +41,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     this.handleSavedUserData();
     this.getAdsharesAddress();
-    this.getNotifications();
+    this.setNotificationUptadeInterval();
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -108,11 +111,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getNotifications() {
-    const getNotificationsSubscription = this.commonService.getNotifications()
-      .subscribe((notifications: Notification[]) => {
-        this.store.dispatch(new commonActions.LoadNotifications(notifications));
-      });
+    this.store.dispatch(new commonActions.LoadNotifications(''));
+  }
 
-    this.subscriptions.push(getNotificationsSubscription);
+  setNotificationUptadeInterval() {
+    this.updateNotificationTimer = timer(0, appSettings.UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL)
+      .subscribe(() => this.getNotifications());
+    this.subscriptions.push(this.updateNotificationTimer);
   }
 }
