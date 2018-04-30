@@ -1,7 +1,7 @@
 export const appSettings = {
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
-  // max kb size of ad image
+  // max byte size of ad image
   MAX_AD_IMAGE_SIZE: 512000,
   // seconds of how long remebered user auth token will be stored
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
