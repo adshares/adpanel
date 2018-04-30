@@ -1,32 +1,66 @@
-<div class="row notification">
+<div
+  class="
+    row
+    notification"
+>
   <div class="col-xs-2">
     <img
-      class="adsh-icon"
-      src="assets/images/user.svg"
+      class="
+        adsh-icon
+        adsh-icon--large"
+      [src]="'assets/images/notifications/' + notificationTypesEnum[notification.notificationType].toLowerCase() + '.svg'"
     >
   </div>
 
-  <div class="col-xs-10">
-    <div class="col">
-      <p
-        class="
-          adsh-copy
-          adsh-copy--x-dark
-          notification-message"
+  <div
+    class="
+      col
+      col-xs-10"
+  >
+    <h4
+      *ngIf="notification.title"
+      class="
+        adsh-heading
+        adsh-heading--secondary"
+    >
+      {{ notification.title }}
+    </h4>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--small
+        notification-message"
+    >
+      {{ notification.message }}
+    </p>
+    <div
+      class="
+        row
+        adsh-copy
+        adsh-copy--small
+        adsh-copy--uppercase
+        notification-actions"
+      data-test="notifications-dismiss-notification"
+    >
+      <a
+        *ngFor="let notificationAction of notification.availableActions"
+        (click)="
+          notificationAction === notificationActionsEnum.CHANGE ? redirectToChange() :
+          notificationAction === notificationActionsEnum.EDIT ? redirectToEdit() :
+          notificationAction === notificationActionsEnum.DELETE ? deleteNotification() :
+          notificationAction === notificationActionsEnum.DISMISS ? dismissNotification() : null"
       >
-        {{ notification.message }}
-      </p>
-      <div
-        class="
-          row
-          adsh-copy
-          adsh-copy--small
-          adsh-copy--uppercase
-          notification-actions"
-        data-test="notifications-dismiss-notification"
-      >
-        <a (click)="dismissNotification()">Dismiss</a>
-      </div>
+        <span
+          class="lowercase-to-capitalize"
+          [style.color]="
+            notificationAction === notificationActionsEnum.CHANGE ? '#55a8fd' :
+            notificationAction === notificationActionsEnum.EDIT ? '#55a8fd' :
+            notificationAction === notificationActionsEnum.DELETE ? '#ff7e7e' :
+            notificationAction === notificationActionsEnum.DISMISS ? '#aebac7' : '#aebac7'"
+        >
+          {{ notificationActionsEnum[notificationAction] }}
+        </span>
+      </a>
     </div>
   </div>
 </div>
