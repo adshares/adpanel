@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Notification } from 'models/notification.model';
+import {
+  notificationActionsEnum, notificationTypesEnum,
+  notificationUserTypesEnum
+} from 'models/enum/notifications.enum';
 
 @Component({
   selector: 'app-notification',
@@ -8,9 +12,9 @@ import { Notification } from 'models/notification.model';
 })
 export class NotificationComponent {
   @Input() notification: Notification;
-  @Input() notificationUserTypesEnum: Notification;
-  @Input() notificationTypesEnum: Notification;
-  @Input() notificationActionsEnum: Notification;
+  @Input() notificationUserTypesEnum: notificationUserTypesEnum;
+  @Input() notificationTypesEnum: notificationTypesEnum;
+  @Input() notificationActionsEnum: notificationActionsEnum;
   @Output() onRedirectFromChangeNotification: EventEmitter<Notification> = new EventEmitter();
   @Output() onRedirectFromEditNotification: EventEmitter<Notification> = new EventEmitter();
   @Output() onDeleteNotification: EventEmitter<Notification> = new EventEmitter();
