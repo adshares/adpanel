@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -23,7 +23,8 @@ import * as commonActions from 'store/common/common.actions';
   styleUrls: ['./app.component.scss'],
   animations: [fadeAnimation]
 })
-export class AppComponent extends HandleSubscription implements OnInit {
+export class AppComponent extends HandleSubscription implements OnInit, OnDestroy {
+  updateNotificationInterval: number;
 
   constructor(
     private router: Router,
@@ -39,6 +40,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     this.handleSavedUserData();
     this.getAdsharesAddress();
     this.getNotifications();
+    this.setNotificationUptadeInterval();
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -47,6 +49,10 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.updateNotificationInterval);
   }
 
   handleSavedUserData() {
@@ -108,11 +114,13 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getNotifications() {
-    const getNotificationsSubscription = this.commonService.getNotifications()
-      .subscribe((notifications: Notification[]) => {
-        this.store.dispatch(new commonActions.LoadNotifications(notifications));
-      });
+    this.store.dispatch(new commonActions.LoadNotifications(''));
+  }
 
-    this.subscriptions.push(getNotificationsSubscription);
+  setNotificationUptadeInterval() {
+    this.updateNotificationInterval = setInterval(
+      () => this.getNotifications(),
+      appSettings.UPDATE_NOTIFICATION_MILLISECONDS_INTRERVAL
+    );
   }
 }
