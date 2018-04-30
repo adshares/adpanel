@@ -39,10 +39,7 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
 
   getNotificationsFromStore() {
     const notificationsSubscription = this.store.select('state', 'common', 'notifications')
-      .subscribe((notifications: Notification[]) => {
-        this.notifications = notifications;
-      });
-
+      .subscribe((notifications: Notification[]) => this.notifications = notifications);
     this.subscriptions.push(notificationsSubscription);
   }
 
