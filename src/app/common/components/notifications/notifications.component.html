@@ -17,18 +17,27 @@
       *ngFor="let notification of notifications"
     >
       <app-notification
-        *ngIf="notification.type === notificationTypesEnum.ADVERTISER"
+        *ngIf="notification.userType === notificationUserTypesEnum.ADVERTISER"
         [notification]="notification"
+        [notificationUserTypesEnum]="notificationUserTypesEnum"
+        [notificationTypesEnum]="notificationTypesEnum"
+        [notificationActionsEnum]="notificationActionsEnum"
         (onDismissNotification)="dismissNotification(notification)"
       ></app-notification>
       <app-notification
-        *ngIf="notification.type === notificationTypesEnum.PUBLISHER"
+        *ngIf="notification.userType === notificationUserTypesEnum.PUBLISHER"
         [notification]="notification"
+        [notificationUserTypesEnum]="notificationUserTypesEnum"
+        [notificationTypesEnum]="notificationTypesEnum"
+        [notificationActionsEnum]="notificationActionsEnum"
         (onDismissNotification)="dismissNotification(notification)"
       ></app-notification>
       <app-notification
-        *ngIf="notification.type === notificationTypesEnum.GENERAL"
+        *ngIf="notification.userType === notificationUserTypesEnum.GENERAL"
         [notification]="notification"
+        [notificationUserTypesEnum]="notificationUserTypesEnum"
+        [notificationTypesEnum]="notificationTypesEnum"
+        [notificationActionsEnum]="notificationActionsEnum"
         (onDismissNotification)="dismissNotification(notification)"
       ></app-notification>
     </div>

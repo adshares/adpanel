@@ -5,7 +5,10 @@ import { CommonService } from 'common/common.service';
 import { Notification } from 'models/notification.model';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { notificationTypesEnum } from 'models/enum/notifications.enum';
+import {
+  notificationActionsEnum, notificationTypesEnum,
+  notificationUserTypesEnum
+} from 'models/enum/notifications.enum';
 
 import * as commonActions from 'store/common/common.actions';
 
@@ -19,7 +22,9 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
   @Output() onDisableNotificationsBar: EventEmitter<boolean> = new EventEmitter();
 
   notifications: Notification[];
+  notificationUserTypesEnum = notificationUserTypesEnum;
   notificationTypesEnum = notificationTypesEnum;
+  notificationActionsEnum = notificationActionsEnum;
 
   constructor(
     private store: Store<AppState>,
