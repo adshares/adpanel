@@ -71,9 +71,7 @@ export class TableNavigationComponent implements OnInit {
   sortTableByKey(columnMetaData: TableColumnMetaData) {
     this.sortTable.emit(columnMetaData);
 
-    this.navigationItems.map((item) => {
-      item.isSortedBy = false;
-    });
+    this.navigationItems.forEach(item => item.isSortedBy = false);
 
     columnMetaData.isSortedBy = true;
   }

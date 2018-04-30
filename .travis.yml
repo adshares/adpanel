@@ -1,0 +1,63 @@
+# Project language
+language: node_js
+
+# node.js version
+node_js:
+  - '8'
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Cache node.js modules
+cache:
+  directories:
+    - node_modules
+
+addons:
+  sonarcloud:
+    organization: "adshares-github"
+    token:
+      secure: "i8SQtDTHpfeEjrQ3YhZe/LcVHvBhkhPIIjc3rggukCFZxCmfFaf99V4fSqB44hz4BWuVm3c08ezc/4IKYeJTwnczn4Vp8G6xXomKb0mNh4BD84c0r2/w3pdb1o6M5DAbv9TpWgYpEHZsN01xGPP/aaLxpuvii2j75VPjssNVx0AhFLNCB2Yxji1R/fudw0Zkpc0Y7vypNcVOFfrTRD+NU8Yh801+bGq86Dz0N0vqkDxLyTzNpxy9SvY3DhJbz9nTBv8PRYxDWRQgBVSDqKL8FUM1UtVrKReo9xODZf23SJFf39Jj9jz6d5LBbpL7RlTMHK5IR+WdC2PzotXk477Lb9bMnp1g/Re7/eE4IlEx0yNR9mUJOC1xNAFRZcezBD/WIRML/72Rv04tSPlsIAjm6NR9w4Ugq0if/rbOPj64r9leWAatdhH9z8DaZCx9Z63nxBv5nZKZ0tuFTABeTZAdNKlVTxZipp1rtPm4HjC+Z3PgEQvBxJIFBSSmWKbik73Z+UqXL74jDoyzS2t940auWUk7Xb/0e3XhORtdVUJZmNn1VQVD8mSe6wz9gJqfSl0Uwa9zx21jyT68Else47P35FhxdCaWwvxfVVSNbMcT3jBnFa2WOhztKpuQymOFqM7Y/oKzIW1KnkK8MqGZXyGI9vdTncAn4Qq5osG0ajEO1Sc="
+    github_token:
+      secure: "fsQJiR4m+67zRpVBNf75L6IA59kDrgNWUWpNqaCybTlKKSddgZ9wII0ikos/YKD9zzace2MYKVErl2JfPGCJZhD2PEdOp6sQZRamS+85DfiBdanIr+HaGuGlecF2Y8EWLK8bQi/tqSYlkn9gDLGVNlY6F2mbZuIJo1fSKeEbqyF34cP1cGj++7LEKh0ysPtN46ns01hx8LrCBlVMuDXC/QMM1Z7gXeTfGp6luvhCohL4b/FcY3WvU3A34sb2DpnZP6S3qx36kbIBq54F6YVysJm+mufqmFtbta0BGJ1wynRrxkSi7O/6G1GmBSjpWCYFTNbWinVyquOLcR9PciDL8xOWxI86tPkIAEU3N570ackuKKERljuS01ZSoJKDQ+xHTbB6r/Cdlm1oa8EFSF2SvM01OCFXEG/8VlLDUmqExUJ22uyxndxcDYAJqmg5E4ZPcMeb/P5cIP1ID3GWThGgnAwmwfws7wqimpzGtU8/pHntvynf7thi20GxRMSc7SgWMetSICFcO/ANXA0J9Aj5M71UqrM0hJ+7L8fZ2mpqDnbKjW7wrtxujxd0ENMYYGOZcFCD4jlSHWgUJgpS7JSZVHy26ZCHQrlQplC0lPrfr9Tl7eQ+rvK6FDajL1GdYgUcM9th/6Tz2JRXKm13T3ZEal3dbSVCaeoEB1JuS0QO/+o="
+       
+# Install npm dependencies,
+# Create database, schema and fixtures
+install:
+  - npm install -g @angular/cli
+  - npm install -g easymock
+  - npm install
+
+stages:
+  - build
+  - quality
+  - test
+
+jobs:
+  include:
+    # node.js build
+    - stage: build
+      script: ng build --env=dev
+      
+    # Sonar Qube
+    - stage: quality
+      script: sonar-scanner
+      
+    # Selenium tests
+    - stage: test
+      script: 
+        - cd server-mock
+        - easymock &
+        - cd ..
+        - ng serve &
+        - sleep 45
+        - curl -o /dev/null --silent --head --write-out '%{http_code}\n' http://localhost:4200/
+
+# After a build, send email notification with the build results
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: "oM1jM47GgHgKhDA+JcjQPCXugcH/Rmdm3GNRwJZ5OJBYf1H216DuQ21pkMvQc1yGPbWJ6R8ehNmc1jO7BUX+QIRJa/i9rbryJ9z3/C4L07p8gp0d3eYv3LHTqOA/tzWR9TjUAhm/ZMK0ddkWJQYhP+eWWA/zYoXUXDcihqDsiZxza1PNWmBTJCReYgfsDN/kiL72G6dvKif13J89ZCDPFWOJzWzpK7cFxJ/YYOwTIOPY9x1sI/ovpv37LUZLIDy4Pvh10g136RM3UJ62+kZDW5hwos5nOoyYeEQs/MlskTvzrjbI+L9jmTtwVC3SxVT5AZssfCilSZQ5hmWK+YH4OI3Zgq3JKI8vYRQaI2xq++t38SugfqwTgVFOwXc0IbnaiX11C1+SdN7SARDJGTUy3AYwHzEhcbWzhoo+mDhQLluQZHK6tSAfTPO/y4UNSsG0+/sdSb+Oo8CPaAn/wC09b22+h4hM25tbCCsAxeTd818QJE7WYji6LCHxRnxHESzQS+Dq8GMhnB0d/TAWpW45wWqegF33AQZ0L/1iMB5/CbGSY9LW0amNMfL1iKnTJw5ly7vNE5RFG3pTdu6ZedzeVYcmkQqPHlblFZT7bWWhb7QPY7pVm8mMryWLS2t7slm/iF0p3EOT7LWZgGREPmXjT8s5cgY50HSHfkonwthY7hs="
+    on_success: change
+    on_failure: always
