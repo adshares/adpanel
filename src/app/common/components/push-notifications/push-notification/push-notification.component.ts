@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-push-notification',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./push-notification.component.scss'],
 })
 export class PushNotificationComponent {
+  // @Input() pushNotification: PushNotification
+  @Input() pushNotification: any;
 
+  dismissPushNotification() {
+
+  }
 }

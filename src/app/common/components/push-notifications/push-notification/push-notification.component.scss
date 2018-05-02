@@ -1,1 +1,74 @@
 @import '../../../../../styles.scss';
+
+.push-notification {
+  padding: 15px 10px;
+  // to delete
+  background: pal(green);
+  color: pal(white);
+  box-shadow: 0 12px 114px 0 rgba(31, 45, 84, 0.11);
+
+  //end of delete
+  width: 400px;
+
+  img {
+    padding: 30px;
+  }
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    // to change dynamically
+    width: 78%;
+    height: 4px;
+    //to delete
+    background: darken(pal(green), 4);
+  }
+
+  &.error {
+    background: pal(red);
+    border: 1px solid darken(pal(red), 4);
+
+    &:before {
+      background: darken(pal(red), 4);
+    }
+  }
+
+  &.success {
+    background: pal(green);
+    border: 1px solid darken(pal(green), 4);
+
+    &:before {
+      background: darken(pal(green), 4);
+    }
+  }
+
+  &.info {
+    background: pal(white);
+    border: 1px solid darken(pal(white), 4);
+    color: pal(navy, light);
+
+    &:before {
+      background: darken(pal(white), 4);
+    }
+  }
+
+  .close {
+    @extend .adsh-dialog-close;
+    cursor: pointer;
+    border: none;
+    top: 20px;
+    right: 20px;
+    padding: 5px;
+    height: 30px;
+    width: 30px;
+
+    &:before,
+    &:after {
+      height: 18px;
+      background-color: pal(gray, light);
+    }
+  }
+}
