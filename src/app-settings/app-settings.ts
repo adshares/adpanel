@@ -7,7 +7,7 @@ export const appSettings = {
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
   // seconds of how long not remebered user auth token will be stored
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
-  // update push-notification time in milliseconds
+  // update notification time in milliseconds
   UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 120000,
   // dismiss push notification time in milliseconds
   DISMISS_PUSH_NOTIFICATION_INTERVAL: 10000,
