@@ -35,4 +35,19 @@ export class NotificationComponent {
   dismissNotification() {
     this.onDismissNotification.emit(this.notification);
   }
+
+  performNotificationAction(notificationAction) {
+    switch (this.notificationActionsEnum[notificationAction]) {
+      case 'CHANGE':
+        return this.redirectToChange();
+      case 'EDIT':
+        return this.redirectToEdit();
+      case 'DELETE':
+        return this.deleteNotification();
+      case 'DISMISS':
+        return this.dismissNotification();
+      default:
+        return null;
+    }
+  }
 }

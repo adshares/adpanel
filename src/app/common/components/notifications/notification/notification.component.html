@@ -44,11 +44,7 @@
     >
       <a
         *ngFor="let notificationAction of notification.availableActions;"
-        (click)="
-          notificationAction === notificationActionsEnum.CHANGE ? redirectToChange() :
-          notificationAction === notificationActionsEnum.EDIT ? redirectToEdit() :
-          notificationAction === notificationActionsEnum.DELETE ? deleteNotification() :
-          notificationAction === notificationActionsEnum.DISMISS ? dismissNotification() : null"
+        (click)="performNotificationAction(notificationAction)"
       >
         <span
           class="lowercase-to-capitalize"
