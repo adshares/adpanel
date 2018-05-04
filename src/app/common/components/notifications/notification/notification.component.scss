@@ -2,19 +2,37 @@
 
 .notification {
   margin: 25px 0;
+
   &-message {
     margin: 0;
   }
 
+  .adsh-heading--secondary {
+    margin: 0 0 15px 0;
+  }
+
   &-actions {
-    margin-top: 10px;
-    > span {
-      text-decoration: underline;
-      margin-right: 10px;
-    }
+    margin-top: 20px;
+    @include font(15, 'medium');
+
+    span {
+      margin-right: 20px;
+
+      &.red {
+        color: pal(red);
+      }
+
+      &.blue {
+        color: pal(blue);
+      }
+
+      &.gray {
+        color: pal(gray);
+      }
+     }
   }
 }
 
 hr {
-  border-color: pal(gray, x-light);
+  border: 0.5px solid pal(gray, light);
 }
