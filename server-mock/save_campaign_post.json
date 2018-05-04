@@ -1,12 +1,12 @@
 {
   "basicInformation": {
-    "status": "active",
+    "status": 0,
     "name": "Campaign for Education",
     "targetUrl": "www.adshares.net",
     "bidStrategyName": "CPC",
     "bidValue": 0.2,
     "budget": 455,
-    "dateStart": "date"
+    "dateStart": "Sat Feb 23 2018 12:24:00 GMT"
   },
 
   "id": 377892908378478,
