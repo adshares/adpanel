@@ -31,5 +31,5 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.saveCampaign(payload))
-    .map((campaign) => new advertiserActions.LoadCampaignsSuccess(campaign));
+    .map((campaign) => new advertiserActions.AddCampaignToCampaignsSuccess(campaign));
 }
