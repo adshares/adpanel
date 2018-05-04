@@ -43,7 +43,7 @@
       data-test="notifications-dismiss-notification"
     >
       <a
-        *ngFor="let notificationAction of notification.availableActions"
+        *ngFor="let notificationAction of notification.availableActions;"
         (click)="
           notificationAction === notificationActionsEnum.CHANGE ? redirectToChange() :
           notificationAction === notificationActionsEnum.EDIT ? redirectToEdit() :
@@ -52,11 +52,11 @@
       >
         <span
           class="lowercase-to-capitalize"
-          [style.color]="
-            notificationAction === notificationActionsEnum.CHANGE ? '#55a8fd' :
-            notificationAction === notificationActionsEnum.EDIT ? '#55a8fd' :
-            notificationAction === notificationActionsEnum.DELETE ? '#ff7e7e' :
-            notificationAction === notificationActionsEnum.DISMISS ? '#aebac7' : '#aebac7'"
+          [class.red]="notificationActionsEnum[notificationAction] === 'DELETE'"
+          [class.blue]="
+            notificationActionsEnum[notificationAction] === 'EDIT' ||
+            notificationActionsEnum[notificationAction] === 'CHANGE'"
+          [class.gray]="notificationActionsEnum[notificationAction] === 'DISMISS'"
         >
           {{ notificationActionsEnum[notificationAction] }}
         </span>
