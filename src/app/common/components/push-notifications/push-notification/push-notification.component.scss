@@ -2,36 +2,26 @@
 
 .push-notification {
   padding: 15px 10px;
-  // to delete
-  background: pal(green);
-  color: pal(white);
   box-shadow: 0 12px 114px 0 rgba(31, 45, 84, 0.11);
-
-  //end of delete
   width: 400px;
 
   img {
     padding: 30px;
   }
 
-  &:before {
+  .timer {
     display: block;
-    content: '';
     position: absolute;
     top: 0;
     right: 0;
-    // to change dynamically
-    width: 78%;
     height: 4px;
-    //to delete
-    background: darken(pal(green), 4);
   }
 
   &.error {
     background: pal(red);
     border: 1px solid darken(pal(red), 4);
 
-    &:before {
+    .timer {
       background: darken(pal(red), 4);
     }
   }
@@ -40,7 +30,7 @@
     background: pal(green);
     border: 1px solid darken(pal(green), 4);
 
-    &:before {
+    .timer {
       background: darken(pal(green), 4);
     }
   }
@@ -50,7 +40,7 @@
     border: 1px solid darken(pal(white), 4);
     color: pal(navy, light);
 
-    &:before {
+    .timer {
       background: darken(pal(white), 4);
     }
   }

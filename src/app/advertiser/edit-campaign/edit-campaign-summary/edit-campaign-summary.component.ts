@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/first';
@@ -13,6 +13,8 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
+import { pushNotifivationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -20,6 +22,7 @@ import { cloneDeep } from 'common/utilities/helpers';
   styleUrls: ['./edit-campaign-summary.component.scss']
 })
 export class EditCampaignSummaryComponent extends HandleSubscription implements OnInit {
+
   campaign: Campaign;
   currentTooltipIndex: number;
   targetingOptionsToAdd: TargetingOption[];
@@ -32,7 +35,8 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private pushNotificationsService: PushNotificationsService
   ) {
     super();
   }
@@ -56,6 +60,11 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     }
 
     this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
+    this.pushNotificationsService.addPushNotification({
+      type: pushNotifivationTypesEnum.SUCCESS,
+      title: 'Success',
+      message: 'Campaign created!'
+    });
     this.router.navigate(['/advertiser', 'dashboard']);
   }
 
