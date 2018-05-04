@@ -5,38 +5,52 @@
     no-wrap
     align-center
     relative"
+  [class.success]="pushNotifivationTypesEnum[pushNotification.type] === 'SUCCESS'"
+  [class.error]="pushNotifivationTypesEnum[pushNotification.type] === 'ERROR'"
+  [class.info]="pushNotifivationTypesEnum[pushNotification.type] === 'INFO'"
 >
-  <!--[class.error]="pushNotification.isError"-->
-  <!--[class.success]="pushNotification.isSuccess"-->
-  <!--[class.info]="pushNotification.isInfo"-->
+  <div
+    class="timer"
+    [style.width.%]="timerLength"
+  >
+  </div>
 
-  <img src="assets/images/push-notifications/success.svg" alt="Push Notification Success Image">
-  <!--<img src="assets/images/push-notifications/error.svg" alt="Push Notification Error Image" *ngIf="pushNotification.isError">-->
-  <!--<img src="assets/images/push-notifications/success.svg" alt="Push Notification Success Image" *ngIf="pushNotification.isSuccess">-->
-  <!--<img src="assets/images/push-notifications/info.svg" alt="Push Notification Info Image" *ngIf="pushNotification.isInfo">-->
+  <img
+    src="assets/images/push-notifications/success.svg"
+    alt="Push Notification Success Image"
+    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'SUCCESS'"
+  >
+  <img
+    src="assets/images/push-notifications/error.svg"
+    alt="Push Notification Error Image"
+    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'ERROR'"
+  >
+  <img
+    src="assets/images/push-notifications/info.svg"
+    alt="Push Notification Info Image"
+    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'INFO'"
+  >
   <div class="push-notification-content">
-    <!--<h5>{{ pushNotification.title }}</h5>-->
     <h5
       class="
         adsh-copy
         adsh-copy--large
-        adsh-copy--bold
-        adsh-copy--white"
+        adsh-copy--bold"
+      [class.adsh-copy--white]="pushNotifivationTypesEnum[pushNotification.type] !== 'INFO'"
     >
-      Error
+      {{ pushNotification.title }}
     </h5>
-    <!--<p>{{ pushNotification.description }}</p>-->
     <p
       class="
-        adsh-copy
-        adsh-copy--white"
+        adsh-copy"
+      [class.adsh-copy--white]="pushNotifivationTypesEnum[pushNotification.type] !== 'INFO'"
     >
-      You do not have enough funds to place campaign.
+      {{ pushNotification.message }}
     </p>
   </div>
 
   <div
     class="close"
-    (click)="dismissPushNotification()"
+    (click)="dismissPushNotification(pushNotification)"
   ></div>
 </div>

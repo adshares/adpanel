@@ -9,6 +9,8 @@ export const appSettings = {
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
   // update push-notification time in milliseconds
   UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 120000,
+  // dismiss push notification time in milliseconds
+  DISMISS_PUSH_NOTIFICATION_INTERVAL: 10000,
   // withraw amounts values
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
   // privacy policy link

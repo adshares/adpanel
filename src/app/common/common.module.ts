@@ -45,6 +45,7 @@ import { AccountConfirmedAlertComponent } from './components/account-confirmed-a
 
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
+import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
 
 const matModules = [
   MatDialogModule,
@@ -107,7 +108,8 @@ const appComponents = [
   providers: [
     ChartService,
     CommonService,
-    AssetHelpersService
+    AssetHelpersService,
+    PushNotificationsService
   ],
   exports: [
     ...appComponents,

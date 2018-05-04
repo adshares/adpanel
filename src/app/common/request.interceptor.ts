@@ -15,13 +15,16 @@ import 'rxjs/add/operator/do';
 import { AppState } from 'models/app-state.model';
 import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
+import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
+import { pushNotifivationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private pushNotificationsService: PushNotificationsService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -46,6 +49,12 @@ export class RequestInterceptor implements HttpInterceptor {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
+
+      this.pushNotificationsService.addPushNotification({
+        type: pushNotifivationTypesEnum.ERROR,
+        title: 'Error',
+        message: 'Cannot connect to server'
+      });
     });
   }
 
