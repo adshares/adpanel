@@ -6,6 +6,8 @@ import { NotificationItem } from 'models/settings.model';
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as settingsActions from 'store/settings/settings.actions';
+import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
+import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Component({
   selector: 'app-notification-settings',
@@ -17,7 +19,8 @@ export class NotificationSettingsComponent extends HandleSubscription implements
 
   constructor(
     private store: Store<AppState>,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private pushNotificationsService: PushNotificationsService
   ) {
     super();
   }
@@ -38,6 +41,11 @@ export class NotificationSettingsComponent extends HandleSubscription implements
     this.settingsService.updateNotificationsSettings(this.notificationsSettings)
       .subscribe((notificationSettings) => {
         this.store.dispatch(new settingsActions.UpdateNotificationSettings(notificationSettings));
+        this.pushNotificationsService.addPushNotification({
+          type: pushNotificationTypesEnum.INFO,
+          title: 'Info',
+          message: 'Notfication settings changed'
+        });
       });
   }
 }

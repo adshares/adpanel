@@ -8,7 +8,7 @@ export const LOAD_BILLING_HISTORY_SUCCESS = 'Billing History loaded success';
 export const LOAD_NOTIFICATIONS_SETTINGS = 'Notifications Settings loaded';
 export const LOAD_NOTIFICATIONS_SETTINGS_SUCCESS = 'Notifications Settings loaded success';
 
-export const UPDATE_NOTIFICATIONS_SETTINGS = 'Updated notification settings';
+export const UPDATE_NOTIFICATIONS_SETTINGS = 'Updated push notification settings';
 
 export class LoadBillingHistory implements Action {
   readonly type: string = LOAD_BILLING_HISTORY;
