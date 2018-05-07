@@ -29,6 +29,8 @@ import { AddCustomTargetingDialogComponent } from './dialog/add-custom-targeting
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { NotificationComponent } from './components/notifications/notification/notification.component';
+import { PushNotificationsComponent } from './components/push-notifications/push-notifications.component';
+import { PushNotificationComponent } from './components/push-notifications/push-notification/push-notification.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
@@ -43,6 +45,7 @@ import { AccountConfirmedAlertComponent } from './components/account-confirmed-a
 
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
+import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
 
 const matModules = [
   MatDialogModule,
@@ -70,6 +73,8 @@ const appComponents = [
   HeaderComponent,
   NotificationsComponent,
   NotificationComponent,
+  PushNotificationsComponent,
+  PushNotificationComponent,
   AdsharesTokenPipe,
   ChartComponent,
   ChartFilterComponent,
@@ -103,7 +108,8 @@ const appComponents = [
   providers: [
     ChartService,
     CommonService,
-    AssetHelpersService
+    AssetHelpersService,
+    PushNotificationsService
   ],
   exports: [
     ...appComponents,
