@@ -16,7 +16,7 @@ import { AppState } from 'models/app-state.model';
 import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-import { pushNotifivationTypesEnum } from 'models/enum/push-notification.enum';
+import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -51,7 +51,7 @@ export class RequestInterceptor implements HttpInterceptor {
       }
 
       this.pushNotificationsService.addPushNotification({
-        type: pushNotifivationTypesEnum.ERROR,
+        type: pushNotificationTypesEnum.ERROR,
         title: 'Error',
         message: 'Cannot connect to server'
       });

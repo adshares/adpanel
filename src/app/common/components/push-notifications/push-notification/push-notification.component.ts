@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
 
 import { PushNotification } from 'models/push-notification';
-import { pushNotifivationTypesEnum } from 'models/enum/push-notification.enum';
+import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { HandleSubscription } from 'common/handle-subscription';
 import { appSettings } from 'app-settings';
 
@@ -12,10 +12,10 @@ import { appSettings } from 'app-settings';
   styleUrls: ['./push-notification.component.scss'],
 })
 export class PushNotificationComponent extends HandleSubscription implements OnInit {
-  @Input() pushNotification: PushNotification
+  @Input() pushNotification: PushNotification;
   @Output() dismissNotification: EventEmitter<PushNotification> = new EventEmitter();
 
-  pushNotifivationTypesEnum = pushNotifivationTypesEnum;
+  pushNotificationTypesEnum = pushNotificationTypesEnum;
   timerLength = 100;
 
   constructor() {
