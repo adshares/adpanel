@@ -7,7 +7,7 @@ import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as settingsActions from 'store/settings/settings.actions';
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-import { pushNotifivationTypesEnum } from 'models/enum/push-notification.enum';
+import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Component({
   selector: 'app-notification-settings',
@@ -42,7 +42,7 @@ export class NotificationSettingsComponent extends HandleSubscription implements
       .subscribe((notificationSettings) => {
         this.store.dispatch(new settingsActions.UpdateNotificationSettings(notificationSettings));
         this.pushNotificationsService.addPushNotification({
-          type: pushNotifivationTypesEnum.INFO,
+          type: pushNotificationTypesEnum.INFO,
           title: 'Info',
           message: 'Notfication settings changed'
         });

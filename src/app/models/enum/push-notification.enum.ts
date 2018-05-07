@@ -1,4 +1,4 @@
-export enum pushNotifivationTypesEnum {
+export enum pushNotificationTypesEnum {
   SUCCESS,
   ERROR,
   INFO

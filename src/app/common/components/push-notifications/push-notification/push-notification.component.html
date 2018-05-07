@@ -5,9 +5,9 @@
     no-wrap
     align-center
     relative"
-  [class.success]="pushNotifivationTypesEnum[pushNotification.type] === 'SUCCESS'"
-  [class.error]="pushNotifivationTypesEnum[pushNotification.type] === 'ERROR'"
-  [class.info]="pushNotifivationTypesEnum[pushNotification.type] === 'INFO'"
+  [class.success]="pushNotification.type === pushNotificationTypesEnum.SUCCESS"
+  [class.error]="pushNotification.type === pushNotificationTypesEnum.ERROR"
+  [class.info]="pushNotification.type === pushNotificationTypesEnum.INFO"
 >
   <div
     class="timer"
@@ -18,17 +18,17 @@
   <img
     src="assets/images/push-notifications/success.svg"
     alt="Push Notification Success Image"
-    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'SUCCESS'"
+    *ngIf="pushNotification.type === pushNotificationTypesEnum.SUCCESS"
   >
   <img
     src="assets/images/push-notifications/error.svg"
     alt="Push Notification Error Image"
-    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'ERROR'"
+    *ngIf="pushNotification.type === pushNotificationTypesEnum.ERROR"
   >
   <img
     src="assets/images/push-notifications/info.svg"
     alt="Push Notification Info Image"
-    *ngIf="pushNotifivationTypesEnum[pushNotification.type] === 'INFO'"
+    *ngIf="pushNotification.type === pushNotificationTypesEnum.INFO"
   >
   <div class="push-notification-content">
     <h5
@@ -36,14 +36,14 @@
         adsh-copy
         adsh-copy--large
         adsh-copy--bold"
-      [class.adsh-copy--white]="pushNotifivationTypesEnum[pushNotification.type] !== 'INFO'"
+      [class.adsh-copy--white]="pushNotification.type !== pushNotificationTypesEnum.INFO"
     >
       {{ pushNotification.title }}
     </h5>
     <p
       class="
         adsh-copy"
-      [class.adsh-copy--white]="pushNotifivationTypesEnum[pushNotification.type] !== 'INFO'"
+      [class.adsh-copy--white]="pushNotification.type !== pushNotificationTypesEnum.INFO"
     >
       {{ pushNotification.message }}
     </p>
