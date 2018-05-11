@@ -24,7 +24,7 @@ export const appSettings = {
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
   // url validation regexp
-  TARGET_URL_REGEXP: `((http|https)(:\/\/))?([a-zA-Z0-9]+[.]{1}){2}[a-zA-z0-9]+(\/{1}[a-zA-Z0-9]+)*\/?`,
+  TARGET_URL_REGEXP: `((http|https)(:\/\/))?([-a-zA-Z0-9@:%._\+~#=]+)+\.[a-zA-Z]{2,6}(\/[-a-zA-Z0-9@:%_\+.~#?&/=]+)*\/?`,
   // user types available for admin filtering
   USER_TYPES: ['Advertisers', 'Publishers', 'All']
 };
