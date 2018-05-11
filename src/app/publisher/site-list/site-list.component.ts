@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
+import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
@@ -14,22 +14,15 @@ import * as publisherActions from 'store/publisher/publisher.actions';
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss']
 })
-export class SiteListComponent extends HandleSubscription implements OnInit {
-  sites: Site[];
+export class SiteListComponent extends HandleSubscription {
+  @Input() sites: Site[];
+  @Input() sitesTotals: SitesTotals;
 
   constructor(
     private router: Router,
     private store: Store<AppState>
   ) {
     super();
-  }
-
-  ngOnInit() {
-    const sitesSubscription = this.store.select('state', 'publisher', 'sites')
-      .subscribe(sites => this.sites = sites);
-    this.subscriptions.push(sitesSubscription);
-
-    this.store.dispatch(new publisherActions.LoadSites('sites'));
   }
 
 

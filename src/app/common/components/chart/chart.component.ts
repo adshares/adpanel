@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
@@ -18,10 +18,10 @@ import * as commonActions from 'store/common/common.actions';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit {
+export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy {
   @Input() chartSpan: string;
   @Input() seriesType?: string;
-  @Input() barChartData: ChartData[][] | ChartData[];
+  @Input() barChartData: ChartData[];
   @Input() barChartLabels: ChartLabels[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
@@ -58,17 +58,31 @@ export class ChartComponent extends HandleSubscription implements OnInit {
       this.currentChartFilterSettings.currentFrequency = 'lastThirty';
     }
 
-    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataSeries(series) {
     this.currentChartFilterSettings.currentSeries = series;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }
 
   updateChartDataAssetId(assetId) {
     this.currentChartFilterSettings.currentAssetId = assetId;
+    this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
+  }
+
+  updateCurrentFilterSettingsInStore() {
+    this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
+  }
+
+  ngOnDestroy() {
+    const tooltip = document.getElementById('chartjs-tooltip');
+
+    if (tooltip) {
+      tooltip.remove();
+    }
   }
 }

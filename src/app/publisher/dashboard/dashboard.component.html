@@ -1,4 +1,5 @@
 <app-confirmation-alert  *ngIf="!(userHasConfirmedEmail | async)"></app-confirmation-alert>
+
 <section
   class="
     adsh-publisher-wrapper
@@ -37,13 +38,13 @@
           col-md-9"
       >
         <app-chart-filter
-          *ngIf="!sites"
-          (filter)="appChartRef.updateChartData($event)"
+          *ngIf="sites"
+          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
         ></app-chart-filter>
       </div>
     </div>
 
-    <div *ngIf="!sites">
+    <div *ngIf="sites">
       <div
         class="
           row
@@ -51,7 +52,7 @@
       >
         <div
           class="
-            col-xs-4
+            col-md-6
             col
             adsh-box
             adsh-box--large
@@ -105,13 +106,16 @@
         </div>
       </div>
 
-      <app-site-list></app-site-list>
+      <app-site-list
+        [sites]="sites"
+        [sitesTotals]="sitesTotals"
+      ></app-site-list>
     </div>
 
 
     <div
       class="hidden-md"
-      *ngIf="sites"
+      *ngIf="!sites"
     >
       <div
         class="

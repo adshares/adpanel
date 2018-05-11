@@ -88,4 +88,8 @@
   &.disabled {
     cursor: not-allowed;
   }
+
+  &.selected {
+    border: 2px solid pal(blue);
+  }
 }

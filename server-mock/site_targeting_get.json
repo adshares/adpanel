@@ -1,24 +1,24 @@
 [
   {
-  	"label": "Creative type",
-  	"key":"category",
-  	"values": [
-  		{"label": "Audio Ad (Auto-Play)", "value": "1"},
-  		{"label": "Audio Ad (User Initiated)", "value": "2"},
-  		{"label": "In-Banner Video Ad (Auto-Play)", "value": "6"},
-  		{"label": "In-Banner Video Ad (User Initiated)", "value": "7"},
-  		{"label": "Provocative or Suggestive Imagery", "value": "9"},
-  		{"label": "Shaky, Flashing, Flickering, Extreme Animation, Smileys", "value": "10"},
-  		{"label": "Surveys", "value": "11"},
-  		{"label": "Text Only", "value": "12"},
-  		{"label": "User Interactive (e.g., Embedded Games)", "value": "13"},
-  		{"label": "Windows Dialog or Alert Style", "value": "14"},
-  		{"label": "Has Audio On/Off Button", "value": "15"}
-  	],
-  	"value_type": "string",
-  	"allow_input": true
+    "label": "Creative type",
+    "key":"category",
+    "values": [
+        {"label": "Audio Ad (Auto-Play)", "value": "1"},
+        {"label": "Audio Ad (User Initiated)", "value": "2"},
+        {"label": "In-Banner Video Ad (Auto-Play)", "value": "6"},
+        {"label": "In-Banner Video Ad (User Initiated)", "value": "7"},
+        {"label": "Provocative or Suggestive Imagery", "value": "9"},
+        {"label": "Shaky, Flashing, Flickering, Extreme Animation, Smileys", "value": "10"},
+        {"label": "Surveys", "value": "11"},
+        {"label": "Text Only", "value": "12"},
+        {"label": "User Interactive (e.g., Embedded Games)", "value": "13"},
+        {"label": "Windows Dialog or Alert Style", "value": "14"},
+        {"label": "Has Audio On/Off Button", "value": "15"}
+    ],
+    "value_type": "string",
+    "allow_input": true
   },
-	{
+  {
     "label": "Language",
     "key": "lang",
     "values": [

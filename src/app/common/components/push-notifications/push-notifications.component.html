@@ -1,0 +1,7 @@
+<div class="push-notifications">
+  <app-push-notification
+    *ngFor="let pushNotification of pushNotifications"
+    [pushNotification]="pushNotification"
+    (dismissNotification)="dismissNotification(pushNotification)"
+  ></app-push-notification>
+</div>

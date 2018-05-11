@@ -12,22 +12,23 @@
   "id": 377892908378478,
   "clicks": 213,
   "impressions": 12435,
-  "ctr": 0.03,
+  "CTR": 0.03,
   "averageCPC": 2.1,
   "cost": 2435.23,
   "conversions": 802,
 
   "targeting": {
     "requires": {
-      "lang": ["pl"],
+      "user": {
+        "keywords": ["blockchain", "custom value"]
+      },
       "site": {
-        "host": ["google.pl", "onet.pl"]
+        "domain": ["coinmarketcap.com", "icoalert.com"]
       }
     },
     "excludes": {
-      "js_enabled": ["false"],
-      "screen": {
-        "width": ["<1200,1800>", "<1200,>"]
+      "device": {
+        "lang": ["it"]
       }
     }
   },
@@ -37,11 +38,13 @@
       "status": 1,
       "shortHeadline": "Adshares Dashboard Advertisement",
       "type": "image",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP3l58naYcoyqfxstOVPyZdlC4gwNCw89YZts9ThIrUZVrbA8i3g",
+      "imageSize": "222 KB",
 
       "budget": 20,
       "clicks": 100,
       "impressions": 1233422132,
-      "ctr": 0.01233,
+      "CTR": 0.01233,
       "averageCPC": 1.2,
       "cost": 2435.23
     },
@@ -50,11 +53,13 @@
       "status": 2,
       "shortHeadline": "Adshares Website Advertisement",
       "type": "image",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP3l58naYcoyqfxstOVPyZdlC4gwNCw89YZts9ThIrUZVrbA8i3g",
+      "imageSize": "222 KB",
 
       "budget": 20,
       "clicks": 200,
       "impressions": 21313545,
-      "ctr": 0.1233,
+      "CTR": 0.1233,
       "averageCPC": 3.25,
       "cost": 8236.23
     }

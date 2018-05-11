@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Stroke 485 + Stroke 486@1x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="advertiser_overview_notifications" transform="translate(-1200.000000, -112.000000)" stroke="#55A8FD" stroke-width="2">
+            <g id="Group-7" transform="translate(1201.000000, 111.000000)">
+                <g id="Stroke-485-+-Stroke-486" transform="translate(0.000000, 2.000000)">
+                    <polygon id="Stroke-485" points="12 4.69565217 14.0869565 9.91304348 19.3043478 9.91304348 15.1304348 13.5652174 16.6956522 19.3043478 12 15.6521739 7.30434783 19.3043478 8.86956522 13.5652174 4.69565217 9.91304348 9.91304348 9.91304348"></polygon>
+                    <path d="M24,19.826087 C24,22.1316522 22.1311304,24 19.826087,24 L4.17391304,24 C1.86886957,24 0,22.1316522 0,19.826087 L0,4.17391304 C0,1.86834783 1.86886957,0 4.17391304,0 L19.826087,0 C22.1311304,0 24,1.86834783 24,4.17391304 L24,19.826087 L24,19.826087 Z" id="Stroke-486"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store/';
+import { StoreModule } from '@ngrx/store';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -30,7 +30,7 @@ import { SettingsEffects } from './store/settings/settings.effects';
 import { AdminEffects } from './store/admin/admin.effects';
 import { CommonEffects } from './store/common/common.effects';
 
-import { reducers } from './store/index';
+import { reducer } from './store/index';
 
 const appModules = [
   AppCommonModule,
@@ -49,7 +49,7 @@ const appModules = [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({ state: reducers }),
+    StoreModule.forRoot({ state: reducer }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       AdvertiserEffects,

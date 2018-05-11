@@ -46,7 +46,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     this.campaign = this.route.snapshot.data.campaign;
-    this.campaign.basicInformation.dateStart = moment(this.campaign.basicInformation.dateStart).format('DD/MM/YYYY');
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -62,15 +61,15 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.assetId,
-        chartFilterSettings.series
+        chartFilterSettings.currentFrom,
+        chartFilterSettings.currentTo,
+        chartFilterSettings.currentFrequency,
+        chartFilterSettings.currentAssetId,
+        chartFilterSettings.currentSeries
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartLabels = data.timestamps.map((item) => moment(item).format('D'));
+        this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;

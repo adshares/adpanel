@@ -19,39 +19,18 @@
     </span>
     <button
       type="button"
+      *ngFor="let preset of filterPresets"
       class="
           adsh-btn
           adsh-button--small
           adsh-bg-white
-          adsh-navy"
-      (click)="filterChart(1, 0)"
-      data-test="chart-filter-today"
+          adsh-navy
+          lowercase-to-capitalize"
+      [class.selected]="preset.id === currentDaysSpan"
+      (click)="filterChart(preset.id, 0)"
+      data-test="chart-filter-preset"
     >
-      Today
-    </button>
-    <button
-      type="button"
-      class="
-          adsh-btn
-          adsh-button--small
-          adsh-bg-white
-          adsh-navy"
-      (click)="filterChart(7, 0)"
-      data-test="chart-filter-this-week"
-    >
-      This Week
-    </button>
-    <button
-      type="button"
-      class="
-          adsh-btn
-          adsh-button--small
-          adsh-bg-white
-          adsh-navy"
-      (click)="filterChart(31, 0)"
-      data-test="chart-filter-this-month"
-    >
-      This Month
+      {{ preset.name }}
     </button>
   </div>
 

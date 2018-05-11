@@ -50,10 +50,6 @@ function selectCompare(value, nextValue): boolean {
   return (value && nextValue) ? (value.id === nextValue.id) : (value === nextValue);
 }
 
-function selectCompareForTargetingOption(value, nextValue): boolean {
-  return (value && nextValue) ? (value.key === nextValue.key) : (value === nextValue);
-}
-
 function createInitialArray(element, count) {
   const resultArray = [];
 
@@ -106,7 +102,6 @@ export {
   enumToObjectArray,
   isUnixTimePastNow,
   selectCompare,
-  selectCompareForTargetingOption,
   createInitialArray,
   sortArrayByColumnMetaData,
 };

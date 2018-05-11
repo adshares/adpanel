@@ -63,7 +63,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
             this.adUnitPanelsStatus[index] = false;
-            this.selectChoosedSize(savedAdUnit, index);
+            this.selectChosenSize(savedAdUnit, index);
           });
         } else {
           this.createEmptyAd();
@@ -87,7 +87,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.adUnitPanelsStatus[adIndex] = true;
   }
 
-  selectChoosedSize(savedAdUnit, adIndex) {
+  selectChosenSize(savedAdUnit, adIndex) {
     const choosedAdSize = this.filtredAdUnitSizes[adIndex].find(
       (filtredAdUnitSize) => filtredAdUnitSize.id === savedAdUnit.size.id
     );

@@ -24,6 +24,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
 
   goesToSummary: boolean;
+  excludePanelOpenState: boolean;
+  requirePanelOpenState: boolean;
 
   subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];
@@ -61,14 +63,14 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   }
 
   saveSite(isDraft) {
-    const choosedTargeting = {
+    const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
     };
 
     this.changesSaved = true;
 
-    this.store.dispatch(new publisherActions.SaveSiteTargeting(choosedTargeting));
+    this.store.dispatch(new publisherActions.SaveSiteTargeting(chosenTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
@@ -104,12 +106,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
         const targeting = lastEditedSite.targetingArray;
 
-        [targeting.requires, targeting.excludes].forEach((savedList, index) => {
-          const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
-          const choosedList = index === 0 ? this.addedItems : this.excludedItems;
-
-          this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
-        });
+        this.addedItems = [...targeting.requires];
+        this.excludedItems = [...targeting.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }

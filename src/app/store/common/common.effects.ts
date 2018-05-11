@@ -15,6 +15,6 @@ export class CommonEffects {
   @Effect()
   loadNotifications = this.actions$
     .ofType(commonActions.LOAD_NOTIFICATIONS)
-    .switchMap((payload) => this.service.getNotifications())
-    .map((notifications) => new commonActions.LoadNotificationsSuccess(notifications));
+    .switchMap(() => this.service.getNotifications())
+    .map(notifications => new commonActions.LoadNotificationsSuccess(notifications));
 }

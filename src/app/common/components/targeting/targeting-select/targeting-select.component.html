@@ -44,6 +44,7 @@
     adsh-box
     adsh-box--light-border
     adsh-box--no-top-border
+    option
     relative"
   *ngIf="parentOption && parentOption.allow_input"
   (click)="addCustomOption()"
@@ -61,13 +62,14 @@
 
 <div *ngFor="let option of viewModel">
   <div
-    (click)="handleOptionClick(option)"
     class="
       adsh-box
       adsh-box--light-border
       adsh-box--no-top-border
       option
       relative"
+    *ngIf="!optionsHasValue"
+    (click)="handleOptionClick(option)"
     data-test="common-targeting-select-option"
   >
     <span
@@ -79,21 +81,44 @@
       data-test="common-targeting-select-option-label"
     >
       {{ option.label }}
-    </span>
 
-    <span
-      *ngIf="option.parentOptionLabel && searchTerm"
-      data-test="common-targeting-select-option-parent-label"
-    >
-      ({{ option.parentOptionLabel }})
+      <span
+        class="
+          adsh-copy--small
+          adsh-copy--light"
+        *ngIf="searchTerm !== '' && option.path"
+        data-test="common-targeting-select-option-parent-path"
+      >
+        ({{option.path}})
+      </span>
     </span>
 
     <img
       class="go-to-category"
-      *ngIf="!optionsHasValue"
       src="/assets/images/chevron--right.svg"
       alt="Go to category icon"
     >
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--light-border
+      adsh-box--no-top-border
+      option
+      relative"
+    *ngIf="optionsHasValue"
+    (click)="toggleItem(option)"
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--large
+        adsh-copy--x-dark
+        adsh-copy--semi"
+    >
+      {{ option.label }}
+    </span>
 
     <span
       *ngIf="optionsHasValue"

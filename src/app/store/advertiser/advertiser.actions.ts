@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Campaign, CampaignBasicInformation, Ad } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
@@ -11,6 +12,8 @@ export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
+export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
+export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -49,11 +52,21 @@ export class AddCampaignToCampaignsSuccess implements Action {
 
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
-  constructor(public payload: any) { }
+  constructor(public payload: TimespanFilter) { }
 }
 
 export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
+  constructor(public payload: any) { }
+}
+
+export class LoadCampaignsTotals implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS;
+  constructor(public payload: TimespanFilter) { }
+}
+
+export class LoadCampaignsTotalsSuccess implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS_SUCCESS;
   constructor(public payload: any) { }
 }
 
@@ -66,4 +79,6 @@ export type actions =
   AddCampaignToCampaigns |
   AddCampaignToCampaignsSuccess |
   LoadCampaigns |
-  LoadCampaignsSuccess;
+  LoadCampaignsSuccess |
+  LoadCampaignsTotals |
+  LoadCampaignsTotalsSuccess;

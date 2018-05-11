@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TargetingOption } from 'models/targeting-option.model';
-import { selectCompareForTargetingOption } from 'common/utilities/helpers';
+import { selectCompare } from 'common/utilities/helpers';
 import { customTargetingActionsEnum } from 'models/enum/custom-targeting-actions.enum';
 import { enumToArray } from 'common/utilities/helpers';
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers';
@@ -16,7 +16,7 @@ import { prepareCustomOption } from 'common/components/targeting/targeting.helpe
 export class AddCustomTargetingDialogComponent implements OnInit {
   customTargetingForm: FormGroup;
   selectedCategory: TargetingOption;
-  selectCompareForTargetingOption = selectCompareForTargetingOption;
+  selectCompare = selectCompare;
 
   customTargetingFormSubmitted = false;
   customTargetingActions = enumToArray(customTargetingActionsEnum);

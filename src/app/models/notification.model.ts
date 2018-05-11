@@ -1,5 +1,9 @@
 export interface Notification {
   id: number;
-  type: number;
+  notificationType: number;
+  userType: number;
+  title?: string;
   message: string;
+  availableActions: number[];
+  assetId?: number;
 }

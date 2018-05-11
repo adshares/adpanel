@@ -50,6 +50,7 @@
               [items]="addedItems"
               [canRemove]="true"
               [isExclude]="false"
+              [targetingOptions]="targetingOptionsToAdd"
               (itemsChange)="updateAddedItems($event)"
             ></app-targeting-display>
           </div>
@@ -60,6 +61,7 @@
         [items]="addedItems"
         [canRemove]="true"
         [isExclude]="false"
+        [targetingOptions]="targetingOptionsToAdd"
         (itemsChange)="updateAddedItems($event)"
         *ngIf="!requirePanelOpenState"
       ></app-targeting-display>
@@ -107,6 +109,7 @@
               [canRemove]="true"
               [isExclude]="true"
               (itemsChange)="updateExcludedItems($event)"
+              [targetingOptions]="targetingOptionsToExclude"
             ></app-targeting-display>
           </div>
         </div>
@@ -117,6 +120,7 @@
         [canRemove]="true"
         [isExclude]="true"
         (itemsChange)="updateExcludedItems($event)"
+        [targetingOptions]="targetingOptionsToExclude"
         *ngIf="!excludePanelOpenState"
       ></app-targeting-display>
     </div>

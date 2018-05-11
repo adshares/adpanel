@@ -14,7 +14,7 @@ import * as commonActions from 'store/common/common.actions';
 })
 export class AccountChooseDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<AccountChooseDialogComponent>,
+    public dialogRef: MatDialogRef<AccountChooseDialogComponent>,
     private router: Router,
     private store: Store<AppState>
   ) { }

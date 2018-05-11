@@ -22,7 +22,8 @@ import { TargetingSelectComponent } from 'common/components/targeting/targeting-
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
-
+  excludePanelOpenState: boolean;
+  requirePanelOpenState: boolean;
   goesToSummary: boolean;
 
   subscriptions: Subscription[] = [];
@@ -61,13 +62,13 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   }
 
   saveCampaignTargeting(isDraft) {
-    const choosedTargeting = {
+    const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
     };
 
     this.changesSaved = true;
-    this.store.dispatch(new advertiserActions.SaveCampaignTargeting(choosedTargeting));
+    this.store.dispatch(new advertiserActions.SaveCampaignTargeting(chosenTargeting));
 
     if (!isDraft) {
       const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';
@@ -103,12 +104,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
         const targeting = lastEditedCampaign.targetingArray;
 
-        [targeting.requires, targeting.excludes].forEach((savedList, index) => {
-          const searchList = index === 0 ? this.targetingOptionsToAdd : this.targetingOptionsToExclude;
-          const choosedList = index === 0 ? this.addedItems : this.excludedItems;
-
-          this.targetingSelectComponent.loadItems(savedList, searchList, choosedList);
-        });
+        this.addedItems = [...targeting.requires];
+        this.excludedItems = [...targeting.excludes];
       });
     this.subscriptions.push(lastCampaignSubscription);
   }

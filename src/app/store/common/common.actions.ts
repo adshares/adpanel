@@ -31,12 +31,12 @@ export class LoadNotifications implements Action {
 
 export class LoadNotificationsSuccess implements Action {
   readonly type = LOAD_NOTIFICATIONS_SUCCESS;
-  constructor(public payload: any) { }
+  constructor(public payload: Notification[]) { }
 }
 
 export class UpdateNotifications implements Action {
   readonly type = UPDATE_NOTIFICATIONS;
-  constructor(public payload: Notification[]) { }
+  constructor(public payload: any) { }
 }
 
 

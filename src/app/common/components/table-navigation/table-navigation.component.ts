@@ -19,7 +19,7 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Budget', columnWidth: 'col-xs-1', keys: ['budget'], sortAsc: true },
     { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
     { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true },
+    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true },
     { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true },
     { title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true }
   ];
@@ -30,7 +30,7 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true },
     { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
     { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true },
+    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true },
     { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true },
     { title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true }
   ];
@@ -40,7 +40,7 @@ export class TableNavigationComponent implements OnInit {
     { title: 'Estimated Earnings', columnWidth: 'col-xs-2', keys: ['estimatedEarnings'], sortAsc: true },
     { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
     { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true },
+    { title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['RPM'], sortAsc: true },
     { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true }
   ];
 
@@ -71,9 +71,7 @@ export class TableNavigationComponent implements OnInit {
   sortTableByKey(columnMetaData: TableColumnMetaData) {
     this.sortTable.emit(columnMetaData);
 
-    this.navigationItems.map((item) => {
-      item.isSortedBy = false;
-    });
+    this.navigationItems.forEach(item => item.isSortedBy = false);
 
     columnMetaData.isSortedBy = true;
   }

@@ -8,6 +8,10 @@
     max-width: 1300px;
   }
 
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
   &--narrow {
     max-width: 500px;
     margin: 0 auto;
@@ -21,7 +25,7 @@
         @extend .adsh-heading--primary;
         color: pal(navy);
         padding-left: 0;
-        margin: 4px 0 30px;
+        margin: 10x 0 30px;
       }
     }
   }
@@ -57,4 +61,12 @@
       margin-bottom: 25px;
     }
   }
+
+  &-language {
+
+  }
+}
+
+.targeting-title {
+  margin-bottom: 15px;
 }

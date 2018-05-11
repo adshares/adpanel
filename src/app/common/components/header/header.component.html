@@ -218,7 +218,7 @@
           class="adsh-usd"
           data-test="user-total-funds-in-currency"
         >
-          ~ {{ financialData.totalFundsInCurrency | number:'1.2-2' | commaReplacer | currency:USD  }}
+          ~ {{ financialData.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
         </span>
       </div>
       <img
@@ -296,7 +296,7 @@
         hidden-sm"
       *ngIf="(userDataState | async).isAdmin"
       (click)="logOut()"
-      data-test="header-admin-log-out-button"
+      data-test="header-log-out-button"
     >
       <span>
         Log out
@@ -314,6 +314,7 @@
         hidden-lg-up"
       *ngIf="!(userDataState | async).isAdmin"
       (click)="logOut()"
+      data-test="header-log-out-button"
     >
       <span>
         Log out
@@ -328,6 +329,7 @@
         visible-xs
         hidden-sm-up"
       (click)="logOut()"
+      data-test="header-log-out-button"
     >
       Log out
     </span>
@@ -343,7 +345,8 @@
         align-center
         relative
         hidden-sm"
-      (click)="toggleNotificationsBar(true)"
+      (click)="toggleNotificationsBar()"
+      data-test="notifications-toggle-notifications-bar"
     >
       <img
         class="adsh-icon"
@@ -369,4 +372,4 @@
 
 <app-notifications
   [notificationsBarOpen]="notificationsBarOpen"
-  (onDisableNotificationsBar)="toggleNotificationsBar($event)"></app-notifications>
+  (onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>

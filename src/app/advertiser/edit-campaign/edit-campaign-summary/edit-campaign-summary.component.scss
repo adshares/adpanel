@@ -1,11 +1,25 @@
 @import '../../../../styles.scss';
 
+.campaign-basic-information {
+  > div {
+    margin: 15px 50px 0 0;
+  }
+
+  .label {
+    margin-bottom: 5px;
+  }
+}
+
 .campaign-edit-summary {
   max-width: 800px;
   margin: 0 auto;
 
   @include media(xxl-up) {
     max-width: 1300px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 2000px;
   }
 
   &--narrow {
@@ -46,17 +60,27 @@
     margin-left: -25px;
   }
 
-  &__basic-info{
-    padding: 30px 30px 46px;
+  &__basic-info {
+    &-wrapper {
+      padding: 30px 30px 46px;
+    }
 
     .adsh-heading {
       margin-bottom: 32px;
     }
 
     .adsh-icon {
-      margin: 0;
-      width: 11px;
-      height: 12px;
+      margin: 0 4px 0 0;
+      width: 15px;
+      height: 15px;
+    }
+
+    > div {
+      margin: 15px 50px 0 0;
+    }
+
+    .label {
+      margin-bottom: 5px;
     }
   }
 
@@ -79,4 +103,8 @@
 
 .campaign-ads {
   position: relative;
+}
+
+.targeting-title {
+  margin-bottom: 15px;
 }

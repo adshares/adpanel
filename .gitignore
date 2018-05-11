@@ -47,3 +47,6 @@ Thumbs.db
 # UI tests
 /.gradle
 /gradle
+
+# QA
+/.scannerwork
