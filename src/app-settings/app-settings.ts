@@ -22,9 +22,9 @@ export const appSettings = {
   // application fee
   TX_FEE: 0.002,
   // blockchain address validation regexp
-  ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
+  ADDRESS_REGEXP: /[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)/,
   // url validation regexp
-  TARGET_URL_REGEXP: `((http|https)(:\/\/))?([-a-zA-Z0-9@:%._\+~#=]+)+\.[a-zA-Z]{2,6}(\/[-a-zA-Z0-9@:%_\+.~#?&/=]+)*\/?`,
+  TARGET_URL_REGEXP: /^(?:(http|https):\/\/)?(?:([a-zA-Z\d\-._~\!$&'()*+,;=%]*)(?::([a-zA-Z\d\-._~\!$&'()*+,;=:%]*))?@)?((?:[a-zA-Z\d\-.%]+)|(?:\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(?:\[(?:[a-fA-F\d.:]+)\]))(?::\d+)?(\/|\?|\#|$)/,
   // user types available for admin filtering
   USER_TYPES: ['Advertisers', 'Publishers', 'All']
 };
