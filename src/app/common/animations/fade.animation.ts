@@ -14,14 +14,14 @@ export const fadeAnimation =
       query(':leave',
         [
           style({ opacity: 1 }),
-          animate(`${appSettings.ROUTER_TRANSITION_DURATION}ms`, style({ opacity: 0 }))
+          animate(appSettings.ROUTER_TRANSITION_DURATION + 'ms', style({ opacity: 0 }))
         ],
         { optional: true }
       ),
       query(':enter',
         [
           style({ opacity: 0 }),
-          animate(`${appSettings.ROUTER_TRANSITION_DURATION}ms`, style({ opacity: 1 }))
+          animate(appSettings.ROUTER_TRANSITION_DURATION + 'ms', style({ opacity: 1 }))
         ],
         { optional: true }
       )
