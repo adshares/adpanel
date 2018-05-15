@@ -7,9 +7,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
+import sun.java2d.Spans;
 
 public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(DashboardPopup.class);
@@ -20,6 +22,10 @@ public class DashboardPopup {
   private WebElement userPopUpPublisher;
   @FindBy(css = "[data-test='common-account-choose-advertiser']")
   private WebElement userPopUpAdvertiser;
+  @FindBy(xpath = "//div[@data-test='header-toggle-settings-menu']")
+  private WebElement headerSettingsMenu;
+  @FindBy(xpath = "//span[contains(text(), 'Log out')]")
+  private WebElement logOut;
 
 
   private WebDriver driver;
@@ -34,8 +40,8 @@ public class DashboardPopup {
   public void popUpPublisher() {
     try {
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
-      String textAssertion = driver.findElement(By.xpath("//*[@id='mat-dialog-0']/app-account-choose-dialog/mat-dialog-content/h6")).getText();
-      Assert.assertEquals(textAssertion, "Continue as");
+      String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
+      Assert.assertEquals(textAssertion, "Continue");
       userPopUpPublisher.click();
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
     } catch (TimeoutException te) {
@@ -48,7 +54,7 @@ public class DashboardPopup {
   public void popUpAdvertiser() {
     try {
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
-      String textAssertion = driver.findElement(By.xpath("//*[@id='mat-dialog-0']/app-account-choose-dialog/mat-dialog-content/h6")).getText();
+      String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-advertiser']")).getText();
       Assert.assertEquals(textAssertion, "Continue as");
       userPopUpAdvertiser.click();
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
@@ -58,4 +64,11 @@ public class DashboardPopup {
       LOGGER.info("User choose advertiser dashboard ");
     }
   }
+
+  public void logOut() {
+    headerSettingsMenu.click();
+    wait.until(ExpectedConditions.visibilityOf(logOut));
+    logOut.click();
+  }
+
 }

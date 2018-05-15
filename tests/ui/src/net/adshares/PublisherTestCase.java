@@ -11,7 +11,7 @@ public class PublisherTestCase extends BrowserTestCase {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
-    publisherNewSite.sitePublisherBasicInfo("https://google.pl");
+    publisherNewSite.sitePublisherBasicInfo("https://www.google.pl");
     SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
     siteAdditionalTargeting.publisherRequiresCreativeType();
     siteAdditionalTargeting.publisherRequiresLanguage();

@@ -3,7 +3,6 @@ package net.adshares;
 import net.adshares.enums.Properties;
 import net.adshares.pages.DashboardPopup;
 import net.adshares.pages.LoginPage;
-import net.adshares.pages.publisher.*;
 import net.adshares.setup.BrowserTestCase;
 import net.adshares.tools.Structure;
 import net.adshares.tools.Xml;
@@ -27,11 +26,34 @@ public class LoginTestCase extends BrowserTestCase {
   @Test
   public void loginTest() {
     loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
     loginPage.loginSignIn(loginAdService, passwordAdService);
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpPublisher();
   }
 
+  @Test
+  public void loginPageObjectValidation() {
+    loginPage = new LoginPage(driver);
+    loginPage.loginRequiredEmailValidation();
+    loginPage.loginInvalidEmailValidation();
+    loginPage.loginPasswordValidation();
+    System.out.println("<-- Login Page Validation passed -->");
+  }
 
+  @Test
+  public void logOutTest() {
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.logOut();
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+  }
+
+  @Test
+  public void registerTest() {
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    loginPage.goToRegistration();
+  }
 
 }

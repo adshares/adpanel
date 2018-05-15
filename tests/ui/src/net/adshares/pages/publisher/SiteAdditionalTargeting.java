@@ -28,6 +28,9 @@ public class SiteAdditionalTargeting {
   @FindBy(xpath = "//button[contains(text(), 'Add Selected')]")
   private WebElement addSelectedButton;
 
+  @FindBy(xpath = "//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']")
+  private WebElement subTypes;
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -49,7 +52,7 @@ public class SiteAdditionalTargeting {
     List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     WebElement creaviteType = pubList.get(0);
     creaviteType.click();
-    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
+    List<WebElement> od = publisherList.findElements(By.xpath("//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']"));
     for (int i = 0; i < 3; i++) {
       int random = (int) (Math.random() * (1) + (-3));
       Random rand = new Random();
@@ -63,9 +66,9 @@ public class SiteAdditionalTargeting {
   public void publisherRequiresLanguage() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
     List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
-    WebElement creaviteType = pubList.get(1);
-    creaviteType.click();
-    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
+    WebElement requiresLanguage = pubList.get(1);
+    requiresLanguage.click();
+    List<WebElement> od = publisherList.findElements(By.xpath("//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']"));
     for (int i = 0; i < 2; i++) {
       int random = (int) (Math.random() * (1) + (-2));
       Random rand = new Random();
@@ -79,9 +82,9 @@ public class SiteAdditionalTargeting {
   public void publisherRequiresJsSupport() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
     List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
-    WebElement creaviteType = pubList.get(3);
-    creaviteType.click();
-    List<WebElement> od = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
+    WebElement requiresJsSupport = pubList.get(3);
+    requiresJsSupport.click();
+    List<WebElement> od = publisherList.findElements(By.xpath("//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']"));
     for (int i = 0; i < 1; i++) {
       int random = (int) (Math.random() * (1) + (-1));
       Random rand = new Random();
