@@ -22,11 +22,6 @@ public class DashboardPopup {
   private WebElement userPopUpPublisher;
   @FindBy(css = "[data-test='common-account-choose-advertiser']")
   private WebElement userPopUpAdvertiser;
-  @FindBy(xpath = "//div[@data-test='header-toggle-settings-menu']")
-  private WebElement headerSettingsMenu;
-  @FindBy(xpath = "//span[contains(text(), 'Log out')]")
-  private WebElement logOut;
-
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -63,12 +58,6 @@ public class DashboardPopup {
     } finally {
       LOGGER.info("User choose advertiser dashboard ");
     }
-  }
-
-  public void logOut() {
-    headerSettingsMenu.click();
-    wait.until(ExpectedConditions.visibilityOf(logOut));
-    logOut.click();
   }
 
 }

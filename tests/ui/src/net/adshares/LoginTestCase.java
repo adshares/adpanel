@@ -2,6 +2,7 @@ package net.adshares;
 
 import net.adshares.enums.Properties;
 import net.adshares.pages.DashboardPopup;
+import net.adshares.pages.HeaderBarPage;
 import net.adshares.pages.LoginPage;
 import net.adshares.setup.BrowserTestCase;
 import net.adshares.tools.Structure;
@@ -13,6 +14,7 @@ public class LoginTestCase extends BrowserTestCase {
 
   private LoginPage loginPage;
   private DashboardPopup dashboardPopup;
+  private HeaderBarPage headerBarPage;
   protected String loginAdService;
   protected String passwordAdService;
 
@@ -43,8 +45,8 @@ public class LoginTestCase extends BrowserTestCase {
 
   @Test
   public void logOutTest() {
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.logOut();
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
   }
