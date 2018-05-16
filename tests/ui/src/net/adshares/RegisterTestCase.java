@@ -32,5 +32,13 @@ public class RegisterTestCase extends BrowserTestCase {
     registerConfirmation.registerConfirmation();
   }
 
+  @Test
+  public void registerPageObjectValidation() {
+    registerPage = new RegisterPage(driver);
+    registerPage.registerRequiredEmailValidation();
+    registerPage.registerInvalidEmailValidation();
+    registerPage.registerPasswordValidation();
+    System.out.println("<-- Login Page Validation passed -->");
+  }
 
 }

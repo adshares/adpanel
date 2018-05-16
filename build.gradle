@@ -30,6 +30,7 @@ dependencies {
   compile group: 'org.jdom', name: 'jdom2', version: '2.0.5'
   compile group: 'org.testng', name: 'testng', version: '6.14.2'
   testCompile group: 'org.testng', name: 'testng', version: '6.14.2'
+  testCompile "com.github.tomakehurst:wiremock:2.17.0"
   testCompile fileTree('lib')
 }
 

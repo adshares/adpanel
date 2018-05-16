@@ -10,7 +10,7 @@
       </class>
       <class name="net.adshares.RegisterTestCase">
         <methods>
-          <include name="createAccount"/>
+          <include name="registerPageObjectValidation"/>
         </methods>
       </class>
     </classes>

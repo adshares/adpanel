@@ -96,6 +96,7 @@ public class LoginPage {
     Boolean notPresent = ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver);
     Assert.assertTrue(notPresent);
     System.out.println("8 signs: Validation message is not present - checked!");
+    loginEmail.sendKeys("test@wp.pl");
     loginButton.click();
   }
 
