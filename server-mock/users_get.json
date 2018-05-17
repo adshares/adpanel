@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "email": "***REMOVED***",
+    "email": "user1@example.com",
     "isAdvertiser": true,
     "isPublisher": true,
     "profit": -200,
@@ -9,7 +9,7 @@
   },
   {
     "id": "2",
-    "email": "***REMOVED***",
+    "email": "user2@example.com",
     "isAdvertiser": true,
     "isPublisher": false,
     "profit": 300,
@@ -17,7 +17,7 @@
   },
   {
     "id": "3",
-    "email": "***REMOVED***",
+    "email": "user3@example.com",
     "isAdvertiser": false,
     "isPublisher": true,
     "profit": -20,
@@ -25,7 +25,7 @@
   },
   {
     "id": "4",
-    "email": "***REMOVED***",
+    "email": "user4@example.com",
     "isAdvertiser": true,
     "isPublisher": false,
     "profit": 1200,
