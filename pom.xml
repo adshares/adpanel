@@ -3,7 +3,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>pl.adshares.adpanel</groupId>
-  <artifactId>adpanel-tests</artifactId>
+  <artifactId>adpanel</artifactId>
   <packaging>jar</packaging>
   <version>0.1</version>
   <name>AdPanel</name>
@@ -40,7 +40,7 @@
 
         <configuration>
           <keepRunning>true</keepRunning>
-          <dir>test/server-mock</dir>
+          <dir>test/adserver_mock</dir>
           <params>--port=8081 --verbose</params>
         </configuration>
 

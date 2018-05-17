@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "email": "jacek.zemlo@gmail.com",
+    "email": "user1@example.com",
     "isAdvertiser": true,
     "isPublisher": true,
     "profit": -200,
@@ -9,7 +9,7 @@
   },
   {
     "id": "2",
-    "email": "mateusz.piatek@gmail.com",
+    "email": "user2@example.com",
     "isAdvertiser": true,
     "isPublisher": false,
     "profit": 300,
@@ -17,7 +17,7 @@
   },
   {
     "id": "3",
-    "email": "bartosz.bilejczyk@gmail.com",
+    "email": "user3@example.com",
     "isAdvertiser": false,
     "isPublisher": true,
     "profit": -20,
@@ -25,7 +25,7 @@
   },
   {
     "id": "4",
-    "email": "konrad.fak@gmail.com",
+    "email": "user4@example.com",
     "isAdvertiser": true,
     "isPublisher": false,
     "profit": 1200,
