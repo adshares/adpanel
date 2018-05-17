@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 
 import { AppState } from 'models/app-state.model';
-import { UserFinancialData } from 'models/user.model';
+import {User, UserFinancialData} from 'models/user.model';
 
 @Component({
   selector: 'app-settings-navigation',
@@ -13,6 +13,7 @@ import { UserFinancialData } from 'models/user.model';
 })
 export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
   financialData: UserFinancialData;
+    userDataState: Store<User>;
 
   settings = [
     {
@@ -45,6 +46,7 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
       });
+    this.userDataState = this.store.select('state', 'user', 'data');
 
     this.subscriptions.push(userFinancialDataSubscription);
   }

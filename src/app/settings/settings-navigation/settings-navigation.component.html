@@ -39,6 +39,7 @@
       data-test="settings-category-link"
     >
       <h3
+        *ngIf="(!(userDataState | async).isAdmin && settingsItem.title != 'Billing & Payments')"
         class="
           adsh-heading
           adsh-heading--secondary"
@@ -50,6 +51,7 @@
       {{ settingsItem.description }}
     </p>
     <ul
+      *ngIf="(!(userDataState | async).isAdmin && settingsItem.title != 'Billing & Payments')"
       class="
         adsh-copy
         adsh-copy--large"
