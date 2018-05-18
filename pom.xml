@@ -41,7 +41,7 @@
         <configuration>
           <keepRunning>true</keepRunning>
           <dir>test/adserver_mock</dir>
-          <params>--bind-address=127.0.0.1 --port=8299 --verbose</params>
+          <params>--port=8299 --verbose</params>
         </configuration>
 
       </plugin>
