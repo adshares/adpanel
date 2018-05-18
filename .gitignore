@@ -45,5 +45,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# UI tests
+/.gradle
+/gradle
+
 # QA
 /.scannerwork
