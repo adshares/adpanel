@@ -1,0 +1,35 @@
+@import '../../../../styles.scss';
+
+.campaign-edit-basic-information {
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 900px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 1100px;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+  }
+
+  .input--right {
+    padding-left: 30px;
+  }
+
+  #campaign-bid-value,
+  #campaign-budget {
+    width: calc(100% - 32px);
+  }
+
+  #campaignBudget {
+    margin-right: 20px;
+  }
+}
+
+.adsh-form-input.adsh-form-input--datepicker {
+  max-height: 45px;
+}

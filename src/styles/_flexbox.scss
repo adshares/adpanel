@@ -1,0 +1,170 @@
+.container {
+  padding: 0 15px;
+
+  @include media(sm-up) {
+    padding: 0 30px;
+  }
+
+  @include media(md-up) {
+    padding: 0 60px;
+  }
+
+  @include media(lg-up) {
+    max-width: 1400px;
+  }
+
+  @include media(xl-up) {
+    padding: 0 10%;
+    max-width: 1700px;
+  }
+
+  @include media(xxl-up) {
+    max-width: 2200px;
+  }
+
+  @include media(xxl-up) {
+    max-width: 3500px;
+  }
+}
+
+
+.container-fluid,
+.container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-fluid {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  &.reverse {
+    flex-direction: row-reverse;
+  }
+}
+
+.col {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.col.reverse {
+  flex-direction: column-reverse;
+}
+
+.no-wrap {
+  flex-wrap: nowrap;
+}
+
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+$column_sizes: 12;
+
+@each $viewport_size, $viewport_size_fullname in $viewport_sizes_up {
+  @include media($viewport_size_fullname) {
+    @for $i from 0 through $column_sizes {
+      .col-#{$viewport_size}-#{$i} {
+        flex-basis: $i/12 * 100%;
+        max-width: $i/12 * 100%;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+
+      .col-#{$viewport_size}-offset-#{$i} {
+        margin-left: $i/12 * 100%;
+      }
+    }
+
+    .visible-#{$viewport_size} {
+      visibility: visible;
+      display: block;
+    }
+
+    .hidden-#{$viewport_size}-up {
+      visibility: hidden;
+      display: none;
+    }
+  }
+}
+
+@each $viewport_size, $viewport_size_fullname in $viewport_sizes_down_without_size {
+  @include media($viewport_size_fullname) {
+    .hidden-#{$viewport_size} {
+      visibility: hidden;
+      display: none;
+    }
+  }
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.align-baseline {
+  align-items: baseline;
+}
+
+.justify-start {
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.justify-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.justify-end {
+  justify-content: flex-end;
+  text-align: end;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-first {
+  order: -1;
+}
+
+.flex-last {
+  order: 1;
+}

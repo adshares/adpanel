@@ -1,0 +1,144 @@
+<div class="adsh-form-input__box">
+  <input
+    [(ngModel)]="searchTerm"
+    (input)="onSearchTermChange()"
+    class="
+      adsh-form-input
+      adsh-form-input--full"
+    data-test="common-targeting-select-search-input"
+  >
+  <img
+    src="/assets/images/search.svg"
+    alt="Search Icon"
+    class="
+      search-icon
+      absolute"
+  >
+</div>
+
+<div
+  *ngIf="backAvailable"
+  (click)="changeViewModel(parentViewModel)"
+  class="
+    adsh-box
+    adsh-box--light-border
+    parent-option-box"
+  data-test="common-targeting-select-navigate-to-parent-button"
+>
+  <img
+    src="/assets/images/chevron--left.svg"
+    alt="Campaign Details Icon"
+  >
+  <span
+    class="
+      adsh-copy
+      parent-option"
+    data-test="common-targeting-select-parent-option"
+  >
+    {{ parentOption.label }}
+  </span>
+</div>
+
+<div
+  class="
+    adsh-box
+    adsh-box--light-border
+    adsh-box--no-top-border
+    option
+    relative"
+  *ngIf="parentOption && parentOption.allow_input"
+  (click)="addCustomOption()"
+  data-test="common-targeting-select-add-custom-option-button"
+>
+  <span
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-copy--x-dark
+      adsh-copy--semi">
+    Add custom
+  </span>
+</div>
+
+<div *ngFor="let option of viewModel">
+  <div
+    class="
+      adsh-box
+      adsh-box--light-border
+      adsh-box--no-top-border
+      option
+      relative"
+    *ngIf="!optionsHasValue"
+    (click)="handleOptionClick(option)"
+    data-test="common-targeting-select-option"
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--large
+        adsh-copy--x-dark
+        adsh-copy--semi"
+      data-test="common-targeting-select-option-label"
+    >
+      {{ option.label }}
+
+      <span
+        class="
+          adsh-copy--small
+          adsh-copy--light"
+        *ngIf="searchTerm !== '' && option.path"
+        data-test="common-targeting-select-option-parent-path"
+      >
+        ({{option.path}})
+      </span>
+    </span>
+
+    <img
+      class="go-to-category"
+      src="/assets/images/chevron--right.svg"
+      alt="Go to category icon"
+    >
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--light-border
+      adsh-box--no-top-border
+      option
+      relative"
+    *ngIf="optionsHasValue"
+    (click)="toggleItem(option)"
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--large
+        adsh-copy--x-dark
+        adsh-copy--semi"
+    >
+      {{ option.label }}
+    </span>
+
+    <span
+      *ngIf="optionsHasValue"
+      class="adsh-circle inactive"
+    ></span>
+
+    <span
+      *ngIf="option.selected"
+      class="input-valid"
+    ></span>
+  </div>
+</div>
+
+<button
+  *ngIf="optionsHasValue"
+  (click)="handleItemsChange()"
+  class="
+    adsh-btn
+    adsh-btn--blue"
+  data-test="common-targeting-select-add-selected-options-button"
+>
+  Add Selected
+</button>

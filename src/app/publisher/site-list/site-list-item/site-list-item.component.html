@@ -1,0 +1,96 @@
+<div
+  class="
+    adsh-box
+    clickable-row"
+  (click)="navigateToCampaignDetails(site.id)"
+  data-test="publisher-navigate-to-site-details"
+>
+  <div class="site-list__item">
+    <div
+      class="
+        row
+        align-center
+        adsh-copy
+        adsh-copy--semi"
+    >
+      <div
+        class="
+          col-xs-5
+          row
+          align-center"
+      >
+        <h4
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+          data-test="publisher-site-url"
+        >
+          {{ site.websiteUrl }}
+        </h4>
+      </div>
+      <div
+        class="
+          col-xs-2
+          row
+          align-center"
+      >
+        <span data-test="publisher-site-estimated-earnings">
+          {{ site.estimatedEarnings | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span data-test="publisher-site-clicks">
+          {{ site.clicks }}
+        </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span data-test="publisher-site-impressions">
+          {{ site.impressions }}
+        </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span data-test="publisher-site-rpm">
+          {{ site.RPM | percent:'1.2-2' }}
+        </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <span data-test="publisher-site-average=cpc">
+          {{ site.averageCPC | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center
+          justify-center
+          adsh-site-list__item-site-details"
+      >
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
+      </div>
+    </div>
+  </div>
+</div>

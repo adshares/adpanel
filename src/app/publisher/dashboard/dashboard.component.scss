@@ -1,0 +1,18 @@
+@import '../../../styles';
+
+.add-new-site-wrapper {
+  padding: 80px 0 60px;
+
+  > * {
+    margin: 20px 0;
+  }
+}
+
+.chart {
+
+  &-wrapper {
+    height: 180px;
+    width: 100%;
+  }
+}
+

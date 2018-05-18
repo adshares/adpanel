@@ -1,0 +1,81 @@
+<mat-dialog-content>
+    <h6
+      class="
+        adsh-copy
+        adsh-copy--small"
+    >
+      Continue as
+    </h6>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--light-border
+        choose-account"
+    >
+      <div
+        class="
+          row
+          align-center
+          justify-center"
+      >
+        <img
+          src="/assets/images/advertiser-account-illustration.svg"
+          alt="Advertiser Account Illustration"
+        >
+        <span
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          Advertiser
+        </span>
+      </div>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--wide
+          adsh-btn--blue"
+        (click)="dialogRef.close()"
+        data-test="common-account-choose-advertiser"
+      >
+        Continue
+      </button>
+    </div>
+
+    <div
+      class="
+        adsh-box
+        adsh-box--light-border
+        choose-account"
+    >
+      <div
+        class="
+          row
+          align-center
+          justify-center"
+      >
+        <img
+          src="/assets/images/publisher-account-illustration.svg"
+          alt="Publisher Account Illustration"
+        >
+        <span
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+        >
+          Publisher
+        </span>
+      </div>
+      <button
+        class="
+          adsh-btn
+          adsh-btn--wide
+          adsh-btn--blue"
+        (click)="redirectToPublisher()"
+        data-test="common-account-choose-publisher"
+      >
+        Continue
+      </button>
+    </div>
+</mat-dialog-content>

@@ -1,0 +1,204 @@
+<section class="preferences">
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div class="col">
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Your Wallet
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        Here you can change the email address you use on Adshares and your password
+      </p>
+
+      <div
+        class="
+          row
+          align-start"
+      >
+        <div class="col-xs-7">
+          <div
+            class="
+              col
+              adsh-box
+              adsh-box--light-border
+              adsh-box--large"
+          >
+            <h1
+              class="
+                adsh-heading
+                adsh-heading--primary"
+              data-test="user-total-funds"
+            >
+              {{ financialData.totalFunds | adsharesTokenValue }}
+              <span
+                class="
+                  adsh-copy--normal
+                  adsh-copy--light"
+                data-test="user-total-funds-in-currency"
+              >
+                ({{ financialData.totalFundsInCurrency | currency:'USD' }})
+              </span>
+            </h1>
+            <p
+              class="
+                adsh-copy
+                adsh-copy--large"
+              data-test="settings-last-payment"
+            >
+              Last successful payment: {{ financialData.lastPayment }}
+            </p>
+            <div
+              class="
+                row
+                funds-actions"
+            >
+              <button
+                class="
+                  adsh-btn
+                  adsh-btn--white
+                  adsh-blue"
+                (click)="openAddFundsDialog()"
+                data-test="add-funds-dialog-open-button"
+              >
+                <img
+                  class="
+                    adsh-icon
+                    adsh-icon--prepend"
+                  src="assets/images/credit-card--blue.svg"
+                >
+                  Deposit Funds
+              </button>
+              <button
+                class="
+                  adsh-btn
+                  adsh-btn--blue"
+                (click)="openWithdrawFundsDialog()"
+                data-test="withdraw-funds-dialog-open-button"
+              >
+                <img
+                  class="
+                    adsh-icon
+                    adsh-icon--prepend"
+                  src="assets/images/credit-card--white.svg"
+                >
+                  Withdraw Funds
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="
+            col-xs-5
+            adsh-box
+            adsh-box--large"
+        >
+          <div
+            class="
+              row
+              justify-between
+              no-wrap
+              withdrawal"
+          >
+            <div class="col">
+              <p class="adsh-copy">
+                Your Withdraw Address
+              </p>
+              <p
+                class="
+                  break-word
+                  adsh-heading
+                  adsh-heading--secondary"
+                data-test="user-address"
+              >
+                {{ financialData.userAddress }}
+              </p>
+            </div>
+            <button
+              class="
+                adsh-btn
+                adsh-btn--white
+                adsh-btn--no-border
+                adsh-blue"
+              (click)="openChangeAddressDialog()"
+              data-test="change-address-dialog-open-button"
+            >
+              Change Address
+            </button>
+          </div>
+          <div
+            class="
+              row
+              justify-between
+              no-wrap
+              withdrawal"
+          >
+            <div class="col">
+              <p class="adsh-copy">
+                Automatic Withdraws
+              </p>
+              <p
+                class="
+                  adsh-heading
+                  adsh-heading--secondary"
+              >
+                <span data-test="user-automatic-withdraw-amount">
+                  {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+                </span>
+                <span>are accrued after</span>
+                <span
+                  class="period"
+                  data-test="user-automatic-withdraw-period"
+                >
+                  {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
+                </span>
+              </p>
+            </div>
+            <button
+              class="
+                adsh-btn
+                adsh-btn--white
+                adsh-btn--no-border
+                adsh-blue"
+              (click)="openChangeAutomaticWithdrawsDialog()"
+              data-test="change-automatic-withdraw-dialog-open-button"
+            >
+              Change Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="
+          row
+          align-center"
+      >
+        <a
+          [href]="faqLink"
+          target="_blank"
+          data-test="settings-faq-link"
+        >
+          <button
+            class="
+              adsh-btn
+              adsh-btn--white
+              adsh-btn--no-border
+              adsh-blue"
+          >
+            Check our FAQ
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

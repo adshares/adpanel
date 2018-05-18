@@ -1,0 +1,143 @@
+<section
+  class="
+    col
+    adsh-campaign-list"
+>
+  <div class="adsh-campaign-list__items">
+    <div class="adsh-box">
+      <app-table-navigation
+        [navigationName]="'campaignListNavigation'"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+        (sortTable)="sortTable($event)"
+      ></app-table-navigation>
+    </div>
+
+    <div *ngIf="(campaigns && campaignsTotals); else loading">
+      <app-campaign-list-item
+        *ngFor="let campaign of campaigns"
+        [campaign]="campaign"
+      ></app-campaign-list-item>
+
+      <div class="adsh-box">
+        <div class="adsh-campaign-list__item">
+          <div
+            class="
+              row
+              align-center
+              adsh-copy
+              adsh-copy--semi"
+          >
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            ></div>
+            <div
+              class="
+                col-xs-4
+                row
+                align-center"
+            >
+              <h4
+                class="
+                  adsh-heading
+                  adsh-heading--secondary"
+              >
+                Total - All Campaigns
+              </h4>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.totalBudget | currency:'USD':'symbol':'1.2-2' }}/day</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.totalClicks }}</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.totalImpressions }}</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.averageCTR | percent:'1.2-2' }}</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.averageCPC | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+            <div
+              class="
+                col-xs-1
+                row
+                align-center"
+            >
+              <span>{{ campaignsTotals.totalCost | currency:'USD':'symbol':'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <div
+    class="
+      adsh-box
+      hidden-md"
+  >
+    <div
+      class="
+        row
+        justify-center"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-btn--no-border
+          adsh-blue"
+        (click)="navigateToCreateCampaign()"
+        data-test="advertiser-create-new-campaign"
+      >
+        <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle--blue.svg"
+        >
+        Add new campaign
+      </button>
+    </div>
+  </div>
+</section>

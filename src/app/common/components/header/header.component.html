@@ -1,0 +1,375 @@
+<section
+  class="
+    adsh-header
+    container-fluid
+    row
+    align-center
+    justify-between"
+>
+  <div
+    class="
+      row
+      align-center"
+  >
+    <a
+      [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']"
+      data-test="header-dashboard-link"
+    >
+      <div
+        class="
+          adsh-navigation__item
+          row
+          align-center"
+      >
+        <img
+          class="adsh-logo"
+          src="assets/images/logo--white.png"
+          srcset="
+            assets/images/logo--white@2x.png 2x,
+            assets/images/logo--white@3x.png 3x"
+          alt="Adshares Logo"
+        >
+      </div>
+    </a>
+
+    <div
+      *ngIf="!(userDataState | async).isAdmin"
+      class="
+        row
+        align-center
+        justify-between
+        relative
+        adsh-bg-navy--light
+        adsh-navigation__item
+        adsh-header-userselect"
+      (mouseover)="toggleChooseUserMenu(true)"
+      (mouseleave)="toggleChooseUserMenu(false)"
+      data-test="header-choose-user-menu"
+    >
+      <div
+        class="
+          row
+          align-center"
+      >
+        <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/user.svg"
+        >
+        <span
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--semi
+            adsh-copy--x-dark"
+          data-test="header-active-user-type"
+        >
+          {{ userRolesEnum[activeUserType] }}
+        </span>
+      </div>
+
+      <img
+        class="
+          adsh-icon
+          adsh-icon--small
+          adsh-icon--append
+          choose-user-menu-chevron"
+        [class.up]="chooseUserMenuOpen"
+        *ngIf="!(userDataState | async).isAdmin"
+        src="assets/images/chevron--gray.svg"
+      >
+      <ul
+        class="
+          choose-user-menu
+          adsh-copy
+          adsh-copy--large"
+        [class.open]="chooseUserMenuOpen"
+      >
+        <li
+          class="choose-user-menu__item"
+          [value]="userRolesEnum.ADVERTISER"
+          routerLink="/advertiser/dashboard"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.ADVERTISER)"
+          (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
+          data-test="header-choose-user-menu-advertiser"
+        >
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Advertiser</span>
+        </li>
+        <li
+          class="choose-user-menu__item"
+          [value]="userRolesEnum.PUBLISHER"
+          routerLink="/publisher/dashboard"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.PUBLISHER)"
+          (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
+          data-test="header-choose-user-menu-publisher"
+        >
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Publisher</span>
+        </li>
+        <li
+          class="choose-user-menu__item"
+          [value]="userRolesEnum.ADMIN"
+          routerLink="/admin/dashboard"
+          *ngIf="(userDataState | async).isAdmin"
+          (click)="setActiveUserType(userRolesEnum.ADMIN)"
+          data-test="header-choose-user-menu-admin"
+        >
+          <img
+            class="adsh-icon adsh-icon--prepend"
+            src="assets/images/user.svg"
+          >
+          <span>Admin</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div
+    class="
+      row
+      align-center"
+  >
+    <button
+      *ngIf="!(userDataState | async).isAdmin"
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center
+        hidden-md"
+      (click)="navigateToCreateNewAsset()"
+      data-test="header-create-new-asset-button"
+    >
+      <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/plus-circle.svg"
+      >
+        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
+        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
+    </button>
+    <button
+      *ngIf="(userDataState | async).isAdmin"
+      (click)="openSetEarningsDialog()"
+      class="
+        adsh-btn
+        adsh-btn--with-icon
+        adsh-btn--wide
+        adsh-bg-blue
+        adsh-navigation__item
+        row
+        align-center"
+      data-test="header-admin-set-earning-dialog-open-button"
+    >
+      <img
+        class="
+            adsh-icon
+            adsh-icon--prepend"
+        src="assets/images/plus-circle.svg"
+      >
+      <span>Set your earnings</span>
+    </button>
+    <div
+      *ngIf="!(userDataState | async).isAdmin"
+      class="
+        row
+        align-center
+        relative
+        adsh-bg-navy--light
+        adsh-navigation__item
+        adsh-btn
+        adsh-btn--no-vertical-padding
+        hidden-lg"
+      (mouseover)="toggleSettingsMenu(true)"
+      (mouseleave)="toggleSettingsMenu(false)"
+      data-test="header-toggle-settings-menu"
+    >
+      <img
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+        src="assets/images/credit-card--white.svg"
+      >
+      <div
+        class="
+          col
+          justify-start"
+      >
+        <span
+          class="adsh-adst"
+          data-test="user-total-funds"
+        >
+          {{ financialData.totalFunds | number:'1.2-2' | adsharesTokenValue }}
+        </span>
+        <span
+          class="adsh-usd"
+          data-test="user-total-funds-in-currency"
+        >
+          ~ {{ financialData.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+      </div>
+      <img
+        class="
+          adsh-icon
+          adsh-icon--small
+          adsh-icon--append
+          settings-menu-chevron"
+        [class.up]="settingsMenuOpen"
+        src="assets/images/chevron--gray.svg"
+      >
+      <ul
+        class="
+          settings-menu
+          adsh-copy
+          adsh-copy--large"
+        [class.open]="settingsMenuOpen"
+      >
+        <li class="settings-menu__item">
+          <button
+            class="
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--blue
+              adsh-btn--small
+              row
+              align-center"
+            (click)="openAddFundsDialog()"
+            data-test="add-funds-dialog-open-button"
+          >
+            <img
+              class="
+                adsh-icon
+                adsh-icon--prepend
+                close"
+              src="assets/images/plus-circle.svg"
+            >
+            <span>
+              Add Funds
+            </span>
+          </button>
+        </li>
+        <li
+          class="settings-menu__item"
+          routerLink="/settings/general"
+          data-test="header-account-settings-button"
+        >
+          Account Settings
+        </li>
+        <li
+          class="settings-menu__item"
+          routerLink="/settings/billing"
+          data-test="header-billing-payments-button"
+        >
+          Billing & Payments
+        </li>
+
+        <li class="settings-menu__item">
+          <span
+            (click)="logOut()"
+            data-test="header-log-out-button"
+          >
+            Log out
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--transparent
+        row
+        align-center
+        hidden-sm"
+      *ngIf="(userDataState | async).isAdmin"
+      (click)="logOut()"
+      data-test="header-log-out-button"
+    >
+      <span>
+        Log out
+      </span>
+    </button>
+
+    <button
+      class="
+        adsh-btn
+        adsh-btn--transparent
+        row
+        align-center
+        hidden-sm
+        visible-sm
+        hidden-lg-up"
+      *ngIf="!(userDataState | async).isAdmin"
+      (click)="logOut()"
+      data-test="header-log-out-button"
+    >
+      <span>
+        Log out
+      </span>
+    </button>
+
+    <span
+      class="
+        adsh-copy
+        adsh-white
+        logout-on-small-devices
+        visible-xs
+        hidden-sm-up"
+      (click)="logOut()"
+      data-test="header-log-out-button"
+    >
+      Log out
+    </span>
+
+
+    <div
+      class="
+        adsh-bg-navy--light
+        adsh-navigation__item
+        adsh-btn
+        adsh-btn--small
+        row
+        align-center
+        relative
+        hidden-sm"
+      (click)="toggleNotificationsBar()"
+      data-test="notifications-toggle-notifications-bar"
+    >
+      <img
+        class="adsh-icon"
+        src="assets/images/bell.svg"
+      >
+      <div
+        class="
+          adsh-circle
+          adsh-bg-green
+          absolute"
+      >
+        <span
+          class="
+            absolute
+            notifications-total"
+        >
+          {{ notificationsTotal }}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-notifications
+  [notificationsBarOpen]="notificationsBarOpen"
+  (onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>

@@ -1,0 +1,9 @@
+$zIndexes: (
+  authWrapper: 2,
+  bubbleTop: 3,
+  notificationsBackground: 10
+);
+
+@function getIndex($zIndexName) {
+  @return map-get($zIndexes, $zIndexName);
+}

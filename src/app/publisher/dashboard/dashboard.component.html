@@ -1,0 +1,187 @@
+<app-confirmation-alert  *ngIf="!(userHasConfirmedEmail | async)"></app-confirmation-alert>
+
+<section
+  class="
+    adsh-publisher-wrapper
+    dashboard-view"
+>
+  <div class="container">
+    <div
+      class="
+        row
+        no-gutters
+        justify-between"
+    >
+      <div
+        class="
+          col-xs-12
+          col-md-3"
+      >
+        <h1
+          class="
+            adsh-heading
+            adsh-heading--primary"
+        >
+          My Sites
+        </h1>
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large"
+        >
+          Etiam pretium dapibus congue. Praesent a lorem erat.
+        </p>
+      </div>
+      <div
+        class="
+          col-xs-12
+          col-md-9"
+      >
+        <app-chart-filter
+          *ngIf="sites"
+          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
+        ></app-chart-filter>
+      </div>
+    </div>
+
+    <div *ngIf="sites">
+      <div
+        class="
+          row
+          justify-between"
+      >
+        <div
+          class="
+            col-md-6
+            col
+            adsh-box
+            adsh-box--large
+            chart-box"
+          *ngFor="let chartSeriesType of chartSeries; let i = index"
+        >
+          <div class="chart-stats">
+            <p
+              class="
+                chart-name
+                adsh-copy"
+            >
+              {{ chartSeriesType }}:
+            </p>
+            <div
+              class="
+                row
+                align-center"
+            >
+              <span
+                class="
+                  adsh-heading
+                  adsh-heading--primary"
+              >
+                {{ barChartValue }}
+              </span>
+              <span class="chart-change">
+                {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
+              </span>
+            </div>
+          </div>
+          <div
+            class="
+              row
+              align-center
+              justify-center
+              chart-wrapper"
+          >
+            <app-chart
+              class="
+                chart
+                row
+                align-center
+                justify-center"
+              [seriesType]="chartSeriesType"
+              (update)="getChartData($event)"
+              [barChartData]="barChartData[i]"
+              [barChartLabels]="barChartLabels[i].labels"
+            ></app-chart>
+          </div>
+        </div>
+      </div>
+
+      <app-site-list
+        [sites]="sites"
+        [sitesTotals]="sitesTotals"
+      ></app-site-list>
+    </div>
+
+
+    <div
+      class="hidden-md"
+      *ngIf="!sites"
+    >
+      <div
+        class="
+          adsh-box
+          adsh-box--large
+          col
+          align-center
+          justify-center
+          text-center
+          add-new-site-wrapper"
+      >
+        <img
+          src="/assets/images/publisher-account-illustration.svg"
+          alt="Publisher New Site Illustration">
+        <div class="adsh-customize__box-description">
+          <h2
+            class="
+              adsh-heading
+              adsh-heading--primary"
+          >
+            Add your First Site
+          </h2>
+
+          <p
+            class="
+              adsh-copy
+              adsh-copy--large"
+          >
+            Etiam pretium dapibus congue.
+            Praesent a lorem erat.
+            Morbi mollis posuere lacus, vel semper risus.
+          </p>
+        </div>
+        <a
+          routerLink="/publisher/create-site/basic-information"
+          [queryParams]="{step: 1}"
+          data-test="publisher-create-new-site"
+        >
+          <button
+            class="
+              row
+              align-center
+              adsh-btn
+              adsh-btn--large
+              adsh-btn--white
+              adsh-btn--no-border"
+          >
+            <img
+              src="assets/images/plus-circle--blue.svg"
+              alt="Add new icon"
+              class="
+                adsh-icon
+                adsh-icon--prepend"
+            >
+            <span
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              Create now
+            </span>
+          </button>
+        </a>
+      </div>
+    </div>
+    <app-funds-summary></app-funds-summary>
+
+  </div>
+</section>

@@ -1,0 +1,174 @@
+<mat-dialog-content
+  class="
+    text-center
+    mat-dialog-content--narrow
+    add-custom-targeting-dialog"
+>
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    Add Custom Targeting
+  </h1>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      dialog-description"
+  >
+    Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+  </p>
+
+  <div class="dialog-main-content">
+    <div
+      class="
+        col-xs-12
+        col-sm-8
+        col-md-4
+        center
+        adsh-form-input__box"
+    >
+      <label class="adsh-form-label">Category</label>
+      <mat-select
+        class="adsh-select"
+        [(value)]="selectedCategory"
+        [compareWith]="selectCompare"
+        (change)="createForm()"
+      >
+        <mat-option
+          *ngFor="let availableOption of data.availableOptions"
+          [value]="availableOption"
+        >
+          {{ availableOption.label }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <form
+      [formGroup]="customTargetingForm"
+      (ngSubmit)="addCustomTareting()"
+      class="adsh-form"
+    >
+      <div
+        class="adsh-form-input__box"
+        *ngIf="selectedCategory.value_type === 'string'">
+        <label
+          for="customTextValue"
+          class="adsh-form-label"
+        >
+          Text
+        </label>
+        <input
+          id="customTextValue"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          type="text"
+          formControlName="customTargetingValue"
+        >
+        <span
+          class="input-valid"
+          *ngIf="
+            customTargetingForm.get('customTargetingValue').valid &&
+            customTargetingForm.get('customTargetingValue').touched"
+        ></span>
+
+        <span
+          class="error-msg"
+          *ngIf="
+            customTargetingForm.hasError('required', ['customTargetingValue']) &&
+            customTargetingFormSubmitted"
+        >
+          Text cannot be empty!
+        </span>
+
+        <span
+          class="error-msg"
+          *ngIf="
+            customTargetingForm.hasError('maxlength', ['customTargetingValue']) &&
+            customTargetingFormSubmitted"
+        >
+          Text can contain maximum 30 characters!
+        </span>
+      </div>
+
+      <div
+        class="adsh-form-input__box"
+        *ngIf="selectedCategory.value_type === 'number'">
+        <span class="adsh-form-label">Action</span>
+        <mat-select
+          class="
+            adsh-select
+            add-custom-targeting-dialog__action-select
+          "
+          formControlName="customTargetingAction"
+        >
+          <mat-option
+            *ngFor="let action of customTargetingActions; let i = index"
+            [value]="i"
+          >
+            {{ action }}
+          </mat-option>
+        </mat-select>
+
+        <label
+          for="customNumberValue"
+          class="adsh-form-label"
+        >
+          Amount
+        </label>
+        <input
+          id="customNumberValue"
+          class="
+            adsh-form-input
+            adsh-form-input--full"
+          type="number"
+          formControlName="customTargetingValue"
+        >
+        <span
+          class="input-valid"
+          *ngIf="
+            customTargetingForm.get('customTargetingValue').valid &&
+            customTargetingForm.get('customTargetingValue').touched"
+        ></span>
+
+        <span
+          class="error-msg"
+          *ngIf="
+            customTargetingForm.hasError('required', ['customTargetingValue']) &&
+            customTargetingFormSubmitted"
+        >
+          Value cannot be empty!
+        </span>
+
+        <span
+          class="error-msg"
+          *ngIf="
+            customTargetingForm.hasError('min', ['customTargetingValue']) &&
+            customTargetingFormSubmitted"
+        >
+          Value must be grater or equal 0
+        </span>
+      </div>
+
+      <div class="row">
+        <button
+          class="
+            adsh-btn
+            adsh-btn--wide
+            adsh-btn--blue
+            add-custom-targeting-dialog__submit-button"
+          type="submit"
+        >
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

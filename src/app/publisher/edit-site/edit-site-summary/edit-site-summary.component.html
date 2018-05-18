@@ -1,0 +1,292 @@
+<section
+  class="
+    homepage-view
+    site-edit-summary"
+>
+  <div
+    class="
+      text-center
+      site-edit-summary--narrow"
+  >
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Summary
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      campaign-edit-summary__basic-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        1. Basic Information
+      </h3>
+      <a
+        routerLink="../basic-information"
+        [queryParams]="{step: 1, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-basic-information"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-12
+          site-edit-summary__info-cell
+          adsh-copy--small
+          adsh-copy--light"
+      >
+        Website URL
+      </div>
+
+      <div
+        class="
+          col-xs-12
+          site-edit-summary__info-cell
+          site-info--primary"
+        data-test="publisher-site-url"
+      >
+        {{ site.websiteUrl }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-4
+          site-edit-summary__info-cell"
+        >
+        <p
+          class="
+            adsh-copy--small
+            adsh-copy--light"
+        >
+          Content Language
+        </p>
+
+        <p
+          class="
+            adsh-heading
+            adsh-heading--secondary
+            site-edit-summary__language"
+          data-test="publisher-site-language"
+        >
+          {{ site.primaryLanguage }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      site-edit-summary__targeting-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        2. Additional Targeting
+      </h3>
+      <a
+        routerLink="../additional-targeting"
+        [queryParams]="{step: 2, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-additional-information"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-5
+          site-edit-summary__info-cell"
+      >
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Requires:
+        </p>
+        <div class="site-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="site.targetingArray"
+            [items]="site.targetingArray.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+            [targetingOptions]="targetingOptionsToAdd"
+          ></app-targeting-display>
+        </div>
+      </div>
+
+      <div
+        class="
+          col-xs-5
+          site-edit-summary__info-cell"
+      >
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Excludes:
+        </p>
+        <div class="site-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="site.targetingArray"
+            [items]="site.targetingArray.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+            [targetingOptions]="targetingOptionsToExclude"
+          ></app-targeting-display>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      site-edit-summary__ads-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        3. Ad Units
+      </h3>
+      <a
+        routerLink="../create-ad-units"
+        [queryParams]="{step: 3, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div>
+      <app-ad-units
+        *ngFor="let adUnit of site.adUnits"
+        [adUnit]="adUnit"
+      ></app-ad-units>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../create-ad-units"
+      [queryParams]="{step: 3}"
+      data-test="publisher-edit-site-navigate-back"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue
+            save-as-draft"
+          (click)="saveSite(true)"
+          data-test="publisher-edit-site-save-as-draft"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+          (click)="saveSite(false)"
+          data-test="publisher-edit-site-start-campaign"
+        >
+          Publish site
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

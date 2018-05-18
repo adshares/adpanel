@@ -1,0 +1,48 @@
+<div class="filters">
+  <div class="row user-filters">
+    <div
+      class="
+        col-xs-12
+        col-sm-6
+        col-md-2"
+      *ngIf="!userData.isAdmin"
+    >
+      <mat-select
+        class="adsh-select"
+        [(value)]="currentAssetId"
+        (change)="updateAssetId($event)"
+        data-test="chart-filter-by-type-asset-id-select"
+      >
+        <mat-option
+          *ngFor="let asset of assetsInfo"
+          [value]="asset.id"
+          data-test="chart-filter-by-type-asset-id-option"
+        >
+          {{ asset.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+    <div
+      class="
+        col-xs-12
+        col-sm-6
+        col-md-2"
+    >
+      <mat-select
+        class="adsh-select"
+        [(value)]="currentAssetSeries"
+        (change)="updateAssetSeries($event)"
+        data-test="chart-filter-by-type-asset-series-select"
+      >
+        <mat-option
+          *ngFor="let assetSeries of chartSeries"
+          [value]="assetSeries"
+          data-test="chart-filter-by-type-asset-series-option"
+        >
+          {{ assetSeries }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>

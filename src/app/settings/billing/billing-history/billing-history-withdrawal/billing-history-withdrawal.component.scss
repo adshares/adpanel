@@ -1,0 +1,31 @@
+@import '../../../../../styles.scss';
+
+.billing-table {
+  max-width: 800px;
+  margin: 30px 0;
+
+  li {
+    padding: 10px 20px;
+    border: 1px solid pal(gray, light);
+  }
+
+  &-status {
+    @include font-weight(bold);
+    max-width: 150px;
+
+    &[data-status="Active"] {
+      color: pal(green);
+      background-color: pal(green, light);
+    }
+
+    &[data-status="Inactive"] {
+      color: pal(blue);
+      background-color: pal(blue, light);
+    }
+
+    &[data-status="Archived"] {
+      color: pal(gray);
+      background-color: pal(gray, ultra-light);
+    }
+  }
+}

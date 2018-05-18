@@ -1,0 +1,110 @@
+@import '../../../../styles.scss';
+
+.campaign-basic-information {
+  > div {
+    margin: 15px 50px 0 0;
+  }
+
+  .label {
+    margin-bottom: 5px;
+  }
+}
+
+.campaign-edit-summary {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+
+    .campaign-info {
+      &--primary {
+        @extend .adsh-heading--primary;
+        color: pal(navy);
+        padding-left: 0;
+        margin: 10px 0 30px;
+      }
+    }
+  }
+
+  &__iframe {
+    width: 140px;
+    height: 140px;
+    background-color: pal(gray, x-light);
+    padding: 40px 30px;
+    margin-right: 20px;
+  }
+
+  &__info-cell {
+    padding-left: 0;
+
+    p:first-of-type {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__targeting--margin-fix {
+    margin-left: -25px;
+  }
+
+  &__basic-info {
+    &-wrapper {
+      padding: 30px 30px 46px;
+    }
+
+    .adsh-heading {
+      margin-bottom: 32px;
+    }
+
+    .adsh-icon {
+      margin: 0 4px 0 0;
+      width: 15px;
+      height: 15px;
+    }
+
+    > div {
+      margin: 15px 50px 0 0;
+    }
+
+    .label {
+      margin-bottom: 5px;
+    }
+  }
+
+  &__targeting-info {
+    padding: 41px 30px 38px;
+
+    .adsh-heading {
+      margin-bottom: 22px;
+    }
+  }
+
+  &__ads-info {
+    padding: 40px 30px 42px;
+
+    .adsh-heading {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.campaign-ads {
+  position: relative;
+}
+
+.targeting-title {
+  margin-bottom: 15px;
+}

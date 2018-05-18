@@ -1,0 +1,27 @@
+@import '../../../../styles';
+
+.ad {
+  margin: 15px 0;
+
+  div {
+    margin: 5px 0;
+
+    @include media(md-up) {
+      margin: unset;
+    }
+
+    &.thumbnail-wrapper {
+      width: 150px;
+      height: 150px;
+      background-color: pal(gray, ultra-light);
+      margin-right: 30px;
+    }
+  }
+}
+
+.thumbnail {
+  width: 130px;
+  height: auto;
+  max-height: 130px;
+  @include center(both);
+}

@@ -1,3 +1,6 @@
-<span class="sth">
-    <span class="test">Adshares</span>
-</span>
+<!-- Feature to implement later when all push notification will be added to code -->
+<!-- <app-push-notifications></app-push-notifications> -->
+
+<div [@fadeAnimation]="getRouterOutletState(o)">
+  <router-outlet #o="outlet"></router-outlet>
+</div>

@@ -1,0 +1,21 @@
+@import '../../../../styles.scss';
+
+.chart-filters {
+  margin-bottom: 20px;
+
+  .filter-row {
+    > * {
+      margin: 10px 0 10px 10px;
+    }
+  }
+}
+
+.adsh-form-input--datepicker, .adsh-form-select--datepicker {
+  background: white;
+  border: none;
+  padding: 0 10px;
+}
+
+.adsh-form-input--datepicker .adsh-icon {
+  height: 11px;
+}

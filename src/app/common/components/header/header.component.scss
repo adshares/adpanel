@@ -1,0 +1,146 @@
+@import '../../../../styles.scss';
+
+.adsh-header {
+  width: 100vw;
+  height: 86px;
+  background: pal(navy);
+
+  @include media(sm-down-without-sm) {
+    height: 110px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @include media(xxl-up) {
+    height: 100px;
+  }
+
+  &-userselect {
+    width: 185px;
+    background: pal(white);
+    padding: 0 20px;
+
+    @include media(xxl-up) {
+      width: 250px;
+    }
+
+    img {
+      top: calc((42px - 18px)/2);
+      left: 15px;
+    }
+  }
+
+  > div {
+    @include media(sm-down-without-sm) {
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+}
+
+.adsh-navigation {
+  &__item {
+    margin: 0 5px;
+    height: 42px;
+    cursor: pointer;
+
+    @include media(xxl-up) {
+      height: 60px;
+    }
+
+    .adsh-logo {
+      margin-right: 15px;
+
+      @include media(md-up) {
+        margin-right: 30px;
+      }
+    }
+
+    .adsh-chevron {
+      right: 10px;
+      top: 15px;
+    }
+
+    .adsh-circle {
+      top: 6px;
+      right: 6px;
+    }
+
+    .notifications-total {
+      @include center(both);
+      @include font(11, semi)
+    }
+  }
+}
+
+.adsh-adst {
+  @include font(14, semi);
+  margin-bottom: 2px;
+}
+
+.adsh-usd {
+  @include font(9, semi);
+  color: pal(gray);
+}
+
+.settings-menu,
+.choose-user-menu {
+  position: absolute;
+  top: 36px;
+  background: pal(white);
+  z-index: 999;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+
+  @include media(xxl-up) {
+    top: 46px;
+  }
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__item {
+    text-align: left;
+    padding: 8px 20px;
+
+    button {
+      width: 100%;
+      min-width: 100px;
+    }
+  }
+}
+
+.choose-user-menu {
+  left: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border: 1px solid pal(gray, light);
+
+    &:not(:first-of-type) {
+      border-top: none;
+    }
+  }
+}
+
+.choose-user-menu-chevron,
+.settings-menu-chevron {
+  transition: all 0.4s ease;
+
+  &.up {
+    transform: rotate(180deg);
+  }
+}
+
+.logout-on-small-devices {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+}
+

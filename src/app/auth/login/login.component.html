@@ -1,0 +1,166 @@
+<div
+  class="
+    col
+    adsh-login-wrapper"
+>
+  <div>
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Hello!
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        Please log in to your account.
+      </p>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="login()"
+        class="adsh-form"
+        data-test="auth-login-form"
+      >
+        <div class="adsh-form-input__box">
+          <label
+            for="email"
+            class="adsh-form-label"
+          >
+            Email Address
+          </label>
+          <input
+            id="email"
+            class="adsh-form-input"
+            type="email"
+            name="email"
+            formControlName="email"
+            data-test="auth-login-form-email"
+          >
+          <span
+            *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
+            class="input-valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
+          >
+            Email required!
+          </span>
+          <span
+            class="error-msg"
+            *ngIf="loginForm.hasError('email', ['email']) && loginFormSubmitted"
+          >
+            Invalid email!
+          </span>
+        </div>
+
+        <div class="adsh-form-input__box">
+          <label
+              for="password"
+              class="adsh-form-label"
+          >
+            Password
+          </label>
+          <input
+              id="password"
+              class="adsh-form-input"
+              type="password"
+              name="password"
+              formControlName="password"
+              data-test="auth-login-form-password"
+          >
+          <span
+              *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
+              class="input-valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted">
+              Minimum 8 signs required!
+          </span>
+          <span
+            class="error-msg"
+            *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
+          >
+            Password required
+          </span>
+        </div>
+
+        <div
+          class="
+            row
+            align-center
+            justify-between
+            adsh-login__remember"
+        >
+          <div
+            class="
+              row
+              align-center"
+          >
+            <input
+              #rememberUser
+              id="remember-user"
+              type="checkbox"
+              data-test="auth-login-form-remember-user-checkbox"
+            >
+            <label
+              for="remember-user"
+              class="checkbox-label"
+            ></label>
+            <span
+              class="
+                adsh-copy
+                adsh-copy--large
+                adsh-copy--x-dark"
+            >
+              Remember me
+            </span>
+          </div>
+
+          <a
+            class="adsh-copy
+                   adsh-copy--large"
+            routerLink="/auth/remind-password"
+            data-test="auth-redirect-to-remind-password"
+          >
+            Forgot Password?
+          </a>
+        </div>
+
+        <button
+          class="
+            adsh-btn
+            adsh-btn--wide
+            adsh-btn--blue
+            adsh-form-submit-btn"
+          data-test="auth-login-form-submit-button"
+        >
+          <span *ngIf="!isLoggingIn ; else loading">
+            Log In
+          </span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
+        </button>
+      </form>
+  </div>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large"
+  >
+    Don't have an account?
+    <a
+      class="adsh-blue"
+      routerLink="/auth/register"
+      data-test="auth-redirect-to-registration"
+    >
+      Register
+    </a>
+  </p>
+</div>

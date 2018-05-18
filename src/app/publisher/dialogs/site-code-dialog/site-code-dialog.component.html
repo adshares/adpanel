@@ -1,0 +1,46 @@
+<mat-dialog-content class="text-center dialog">
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    Ad code
+  </h1>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      description"
+  >
+    This code should only be used on webpages or websites that comply with our program policies.
+  </p>
+
+  <code *ngIf="isEmailConfirmed">
+    <div
+      class="
+        adsh-box
+        adsh-box--large
+        adsh-box--light-border
+        adsh-copy
+        code"
+      data-test="publisher-ad-code"
+    >
+      {{ data.code }}
+    </div>
+  </code>
+
+  <div
+    class="
+      confirm-email-error-block
+      error-msg
+      col-xs-12"
+    *ngIf="!isEmailConfirmed"
+  >
+    Confirm email to see code
+  </div>
+</mat-dialog-content>

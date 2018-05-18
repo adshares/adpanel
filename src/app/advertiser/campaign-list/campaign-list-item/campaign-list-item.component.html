@@ -1,0 +1,119 @@
+<div
+  class="
+    adsh-box
+    clickable-row"
+  (click)="navigateToCampaignDetails(campaign.id)"
+  data-test="advertiser-navigate-to-campaign-details"
+>
+  <div class="adsh-campaign-list__item">
+    <div
+      class="
+        row
+        align-center
+        adsh-copy
+        adsh-copy--semi"
+    >
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <div
+          class="
+            adsh-box
+            adsh-box--small
+            adsh-status
+            text-center"
+          [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
+        >
+          <span data-test="advertiser-campaign-status">
+            {{ campaignStatusesEnum[campaign.basicInformation.status] }}
+          </span>
+        </div>
+      </div>
+      <div
+        class="
+          col-xs-4
+          row
+          align-center"
+      >
+        <h4
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+          data-test="advertiser-campaign-name"
+        >
+          {{ campaign.basicInformation.name }}
+        </h4>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-bduget"
+      >
+        <span>{{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}/day</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-clicks"
+      >
+        <span>{{ campaign.clicks }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-impressions"
+      >
+        <span>{{ campaign.impressions }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-ctr"
+      >
+        <span>{{ campaign.CTR | percent:'1.2-2' }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-average-cpc"
+      >
+        <span>{{ campaign.averageCPC | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-cost"
+      >
+        <span>{{ campaign.cost | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center
+          justify-center
+          adsh-campaign-list__item-campaign-details"
+      >
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
+      </div>
+    </div>
+  </div>
+</div>

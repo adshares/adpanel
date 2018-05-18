@@ -1,0 +1,72 @@
+@import '../../../../styles.scss';
+
+.site-edit-summary {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+
+    .site-info {
+      &--primary {
+        @extend .adsh-heading--primary;
+        color: pal(navy);
+        padding-left: 0;
+        margin: 10x 0 30px;
+      }
+    }
+  }
+
+  &__info-cell {
+    padding-left: 0;
+  }
+
+  &__targeting--margin-fix {
+    margin-left: -25px;
+  }
+
+  &__basic-info{
+    padding: 30px 30px 46px;
+
+    .adsh-heading {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__targeting-info {
+    padding: 41px 30px 38px;
+
+    .adsh-heading {
+      margin-bottom: 22px;
+    }
+  }
+
+  &__ads-info {
+    padding: 40px 30px 42px;
+
+    .adsh-heading {
+      margin-bottom: 25px;
+    }
+  }
+
+  &-language {
+
+  }
+}
+
+.targeting-title {
+  margin-bottom: 15px;
+}

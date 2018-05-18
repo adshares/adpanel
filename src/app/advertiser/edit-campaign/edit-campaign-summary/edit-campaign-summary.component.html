@@ -1,0 +1,432 @@
+<section
+  class="
+    homepage-view
+    campaign-edit-summary"
+>
+  <div
+    class="
+      text-center
+      campaign-edit-summary--narrow"
+  >
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Summary
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      campaign-edit-summary__basic-info-wrapper"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        1. Basic Information
+      </h3>
+      <a
+        routerLink="../basic-information"
+        [queryParams]="{step: 1, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-basic-information"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-12
+          campaign-edit-summary__info-cell
+          adsh-copy--small
+          adsh-copy--light"
+      >
+        Campaign Name:
+      </div>
+
+      <div
+        class="
+          col-xs-12
+          campaign-edit-summary__info-cell
+          campaign-info--primary"
+        data-test="advertiser-campaign-name"
+      >
+        {{ campaign.basicInformation.name }}
+      </div>
+    </div>
+
+    <div
+      class="
+        row
+        align-center
+        adsh-copy
+        campaign-edit-summary__basic-info"
+    >
+      <div>
+        <p
+          class="
+            adsh-copy--small
+            label"
+        >
+          Target URL:
+        </p>
+        <p
+          class="
+            adsh-copy--dark
+            adsh-copy--semi"
+          data-test="advertiser-campaign-target-url"
+        >
+          {{ campaign.basicInformation.targetUrl }}
+        </p>
+      </div>
+      <div>
+        <p
+          class="
+            adsh-copy--small
+            label"
+        >
+          Bid Strategy
+        </p>
+        <p
+          class="
+            adsh-copy--dark
+            adsh-copy--semi"
+          data-test="advertiser-campaign-bid-strategy"
+        >
+          {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | currency:'USD':'symbol':'1.2-2' }})
+        </p>
+      </div>
+      <div>
+        <p
+          class="
+            adsh-copy--small
+            label"
+        >
+          Budget
+        </p>
+        <p
+          class="
+            adsh-copy--dark
+            adsh-copy--semi"
+          data-test="advertiser-campaign-budget"
+        >
+          {{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}
+        </p>
+      </div>
+      <div>
+        <p
+          class="
+            adsh-copy--small
+            label"
+        >
+          Date of Start
+        </p>
+        <div
+          class="
+            row
+            align-center"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/calendar.svg"
+            alt="Calendar Icon"
+          >
+          <p
+            class="
+              adsh-copy--dark
+              adsh-copy--semi"
+            data-test="advertiser-campaign-start-date"
+          >
+            {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+          </p>
+        </div>
+
+      </div>
+      <div>
+        <p
+          class="
+            adsh-copy--small
+            label"
+        >
+          Date of End
+        </p>
+        <div
+          class="
+            row
+            align-center"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="assets/images/calendar.svg"
+            alt="Calendar Icon"
+          >
+          <p
+            *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
+            class="
+              adsh-copy--dark
+              adsh-copy--semi"
+            data-test="advertiser-campaign-end-date"
+          >
+            {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+          </p>
+          <ng-template #dateEndEmpty>
+            -
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      campaign-edit-summary__targeting-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        2. Additional Targeting
+      </h3>
+      <a
+        routerLink="../additional-targeting"
+        [queryParams]="{step: 2, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        class="
+          col-xs-5
+          campaign-edit-summary__info-cell"
+      >
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Requires:
+        </p>
+        <div class="campaign-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="campaign.targetingArray"
+            [items]="campaign.targetingArray.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+            [targetingOptions]="targetingOptionsToAdd"
+          ></app-targeting-display>
+        </div>
+      </div>
+
+      <div
+        class="
+          col-xs-5
+          campaign-edit-summary__info-cell"
+      >
+        <p
+          class="
+            adsh-copy
+            adsh-copy--large
+            adsh-copy--x-dark
+            targeting-title"
+        >
+          Excludes:
+        </p>
+        <div class="campaign-edit-summary__targeting--margin-fix">
+          <app-targeting-display
+            *ngIf="campaign.targetingArray"
+            [items]="campaign.targetingArray.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+            [targetingOptions]="targetingOptionsToExclude"
+          ></app-targeting-display>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      campaign-edit-summary__ads-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        3. Ads
+      </h3>
+      <a
+        routerLink="../create-ad"
+        [queryParams]="{step: 3, summary: true}"
+        data-test="advertiser-edit-campaign-summary-navigate-to-create-ads"
+      >
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+
+    <div class="row">
+      <div
+        *ngFor="let ad of campaign.ads; let adIndex = index"
+        class="campaign-ads"
+      >
+        <iframe
+          class="campaign-edit-summary__iframe"
+          *ngIf="ad.imageUrl"
+          [src]="ad.imageUrl | trustUrl"
+          (mouseover)="toggleTooltip(true, adIndex)"
+          (mouseleave)="toggleTooltip(false, adIndex)"
+        ></iframe>
+
+        <iframe
+          class="campaign-edit-summary__iframe"
+          *ngIf="ad.html"
+          [srcdoc]="ad.html | trustHtml"
+          (mouseover)="toggleTooltip(true, adIndex)"
+          (mouseleave)="toggleTooltip(false, adIndex)"
+        ></iframe>
+
+        <div
+          class="adsh-tooltip"
+          [class.active]="tooltipActive && currentTooltipIndex === adIndex"
+          data-test="advertiser-campaign-summary-ad-tooltip"
+        >
+          <div class="triangle"></div>
+          <p
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+            data-test="advertiser-ad-short-headline"
+          >
+            {{ ad.shortHeadline }}
+          </p>
+          <p
+            class="
+              adsh-copy
+              adsh-copy--x-small
+              adsh-copy--blue"
+            data-test="advertiser-ad-size"
+          >
+            {{ ad.imageSize }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../create-ad"
+      [queryParams]="{step: 3}"
+      data-test="advertiser-edit-campaign-navigate-back"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-blue
+            save-as-draft"
+          (click)="saveCampaign(true)"
+          data-test="advertiser-edit-campaign-save-as-draft"
+        >
+          Save as Draft
+        </button>
+      </a>
+      <a>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--blue"
+          (click)="saveCampaign(false)"
+          data-test="advertiser-edit-campaign-start-campaign"
+        >
+          Start Campaign
+        </button>
+      </a>
+    </div>
+  </div>
+</section>

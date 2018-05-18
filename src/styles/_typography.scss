@@ -1,0 +1,111 @@
+.adsh-heading {
+  color: pal(navy);
+
+  &--hero {
+    @include font(64, bold);
+    line-height: 1.11;
+  }
+
+  &--primary {
+    @include font(20, bold);
+    letter-spacing: -0.1px;
+    margin: 10px 0;
+
+    @include media(md-up) {
+      @include font(25, bold);
+    }
+
+    @include media(lg-up) {
+      @include font(30, bold);
+    }
+  }
+
+  &--secondary {
+    @include font(16, semi);
+    margin: 7px 0;
+  }
+
+  &--white {
+    color: pal(white);
+  }
+
+  &--faded {
+    color: pal(navy, faded);
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.adsh-copy {
+  color: pal(gray, mid-dark);
+  @include font(13, normal);
+
+  &--large {
+    @include font(14, normal);
+    line-height: 1.57;
+    margin: 5px 0;
+  }
+
+  &--small {
+    @include font(12, normal);
+  }
+
+  &--x-small {
+    @include font(11, normal);
+  }
+
+  &--white {
+    color: pal(white);
+  }
+
+  &--light {
+    color: pal(gray);
+  }
+
+  &--dark {
+    color: pal(gray, dark);
+  }
+
+  &--x-dark {
+    color: pal(navy, light);
+  }
+
+  &--blue {
+    color: pal(blue);
+  }
+
+  &--red {
+    color: pal(red);
+  }
+
+  &--normal {
+    @include font-weight(normal);
+  }
+
+  &--semi {
+    @include font-weight(semi);
+  }
+
+  &--bold {
+    @include font-weight(bold);
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.lowercase-to-capitalize {
+  text-transform: lowercase;
+  display: inline-block;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}

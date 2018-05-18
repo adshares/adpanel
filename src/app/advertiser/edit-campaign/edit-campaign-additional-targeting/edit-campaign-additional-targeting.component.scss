@@ -1,0 +1,25 @@
+@import '../../../../styles.scss';
+
+.campaign-edit-additional-targeting {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 200px;
+  }
+}
+
+.targeting-select-wrapper {
+  margin-top: 30px;
+}
+
+.targeting-accordion {
+  > .adsh-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

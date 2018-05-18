@@ -1,0 +1,83 @@
+<section class="notification-settings">
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <div class="col">
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Billing History
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        In addition to these alerts, when necessary, we may send you communications about your advertising agreement with Adshares.
+      </p>
+      <div
+        class="
+          billing-table
+          adsh-copy"
+      >
+        <div
+          class="
+            row
+            align-center
+            no-gutters"
+        >
+          <div class="col-xs-2">
+            Status
+          </div>
+          <div class="col-xs-2">
+            Date
+          </div>
+          <div class="col-xs-3">
+            Address
+          </div>
+          <div class="col-xs-5">
+            Link
+          </div>
+        </div>
+        <ul *ngIf="billingHistory.length > 0 ; else loading">
+          <li *ngFor="let billingHistoryItem of billingHistory">
+            <app-billing-history-withdrawal
+              class="
+                row
+                align-center"
+              [billingHistoryItem]="billingHistoryItem"
+              data-test="settings-billing-history-item"
+            >
+            </app-billing-history-withdrawal>
+          </li>
+        </ul>
+        <ng-template #loading>
+          <div class="loading-wrapper">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <button
+      *ngIf="billingHistory.length > 0"
+      class="
+        adsh-btn
+        adsh-btn--white
+        adsh-blue"
+      data-test="settings-billing-history-save-as-pdf"
+    >
+      <img
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+        src="assets/images/download.svg"
+      >
+      Save as PDF
+    </button>
+  </div>
+</section>

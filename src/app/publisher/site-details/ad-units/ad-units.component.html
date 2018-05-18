@@ -1,0 +1,71 @@
+<div class="adsh-box">
+  <div
+    class="
+      ad
+      row
+      align-center
+      justify-between"
+  >
+    <div
+      class="
+        row
+        justify-between"
+    >
+      <div
+        class="
+          thumbnail-wrapper
+          relative"
+      >
+        <img
+          class="thumbnail"
+          src="http://www.coca-colacompany.com/content/dam/journey/us/en/private/2015/02/1991-print-ad-1280-673-bcb7d268.jpg"
+          alt="ad-thumbnail"
+        >
+      </div>
+      <div
+        class="
+          col
+          justify-between"
+      >
+        <div>
+          <h6
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+            data-test="publisher-ad-unit-short-headline"
+          >
+            {{ adUnit.shortHeadline }}
+          </h6>
+          <p
+            class="
+              adsh-copy
+              adsh-blue"
+            data-test="publisher-ad-unit-size"
+          >
+            {{ adUnit.size.name }}&nbsp;{{ adSizesEnum[adUnit.size.size] }}
+          </p>
+        </div>
+        <div class="row">
+          <div
+            class="adsh-chip-box"
+            *ngFor="let tag of adUnit.size.tags"
+            data-test="publisher-ad-unit-tag"
+          >
+            {{ tag }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="
+        adsh-btn
+        adsh-btn--blue
+        adsh-btn--wide"
+      *ngIf="adUnit.code"
+      (click)="openGetCodeDialog()"
+      data-test="publisher-ad-unit-get-code-button"
+    >
+      Get Code
+    </button>
+  </div>
+</div>

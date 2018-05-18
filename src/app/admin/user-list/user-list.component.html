@@ -1,0 +1,123 @@
+<section
+  class="
+    col
+    user-list"
+>
+  <div
+    class="
+      row
+      justify-between
+      align-center
+      user-list__filters"
+  >
+    <div
+      class="
+        col-xs-12
+        col-md-3"
+    >
+      <h1
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+        Users
+        <span data-test="admin-user-list-user-count">({{ userCount }})</span>
+      </h1>
+    </div>
+    <div
+      class="
+        col-xs-12
+        col-md-5"
+    >
+      <div
+        class="
+          row
+          align-center"
+      >
+        <label
+          for="search"
+          class="
+            adsh-copy
+            adsh-copy--large
+            search-label"
+        >
+          Search users
+        </label>
+        <input
+          id="search"
+          class="
+            search
+            adsh-form-input"
+          placeholder="Search by email"
+          matInput
+          [(ngModel)]="userSearch"
+          (ngModelChange)="onSearchChange()"
+          data-test="admin-user-search-input"
+        >
+      </div>
+    </div>
+    <div
+      class="
+        col-xs-12
+        col-md-4"
+    >
+      <div class="row">
+        <div
+          class="
+            row
+            align-center
+            choose-user-type"
+          *ngFor="let type of userTypes"
+        >
+          <input
+            [id]="type"
+            name="userType"
+            type="radio"
+            [ngModel]="'All'"
+            [value]="type"
+            (click)="filterUsersByType(type, true)"
+            data-test="admin-user-types-radio"
+          >
+          <label
+            [for]="type"
+            class="
+              checkbox-label
+              checkbox-label--square"
+          ></label>
+          <span
+            class="
+              adsh-heading
+              adsh-heading--secondary"
+            data-test="admin-user-types-radio-value"
+          >
+            {{ type }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-list__items">
+    <div class="adsh-box">
+      <app-table-navigation
+        [navigationName]="'userListNavigation'"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+        (sortTable)="sortTable($event)"
+      ></app-table-navigation>
+    </div>
+
+    <app-user-list-item
+      *ngFor="let user of filteredUsers"
+      [userInfoStats]="user"
+    ></app-user-list-item>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+</section>

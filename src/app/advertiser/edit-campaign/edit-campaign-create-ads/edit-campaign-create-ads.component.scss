@@ -1,0 +1,129 @@
+@import '../../../../styles.scss';
+
+.campaign-edit-create-ads {
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1400px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
+  &--narrow {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .adsh-box {
+    margin: 30px 0;
+
+    &__preview{
+      padding: 18px 20px;
+
+      iframe {
+        background-color: pal(gray, x-light);
+        margin: 124px auto 157px;
+        max-width: 100%;
+      }
+    }
+
+    .adsh-textarea-input {
+      @extend .adsh-form-input;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .file-select-input {
+      width: 0;
+    }
+
+    &.file-box {
+      height: 78px;
+      padding: 17px 10px;
+      position: relative;
+      border-radius: 2px;
+      border: 1px solid pal(gray, light);
+
+      &--upload {
+        height: 99px;
+      }
+
+      .file-box__image-preview {
+        background-color: pal(gray, x-light);
+      }
+
+      &--grey-background {
+        background-color: pal(gray, ultra-light);
+      }
+
+      .file-box__file-info {
+        line-height: 22px;
+        font-size: 16px;
+        font-weight: 600;
+        color: pal(black, mid-light);
+      }
+
+      .file-box__file-sub-info {
+        @extend .adsh-copy;
+        line-height: 18px;
+        color: pal(blue, base);
+        font-weight: inherit;
+
+        &--secondary {
+          color: pal(gray, mid-dark);
+        }
+      }
+
+      .file-box__action-button {
+        position: absolute;
+        right: 26px;
+        top: 29px;
+
+        &--cancel {
+          top: 18px;
+        }
+      }
+
+      .progress-bar {
+        margin: 12px 0 4px;
+      }
+    }
+  }
+}
+
+.drag-and-drop-box {
+  img {
+    margin: 50px;
+  }
+
+  &.drag-and-drop-box--file-over {
+    border: 1px solid pal(blue);
+    background-color: #fdfdfd;
+  }
+}
+
+.progress-bar {
+  height: 5px;
+  width: 100%;
+  border-radius: 2px;
+  background-color: pal(gray, semi-light);
+
+  &--active {
+    background-color: pal(blue);
+  }
+}
+
+.adsh-form-input__box {
+  margin-right: 15px;
+}
+
+.html-textarea-wrapper {
+  margin: 30px 0;
+
+  textarea {
+    margin: 5px 0 15px;
+  }
+}

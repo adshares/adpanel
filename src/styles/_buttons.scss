@@ -1,0 +1,95 @@
+.adsh-btn {
+  border: none;
+  border-radius: 2px;
+  padding: 13px 25px 14px;
+  @include font(14, medium);
+  color: pal(white);
+  background: transparent;
+  transition: background-color 0.2s ease;
+  max-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+
+  &--wide {
+    padding: 12px 60px;
+    max-width: none;
+  }
+
+  &--small {
+    padding: 12px 15px;
+  }
+
+  &--x-small {
+    padding: 6px 15px;
+  }
+
+  &--no-vertical-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &--with-icon {
+    padding: 12px 25px 12px 18px;
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &--faded {
+    opacity: 0.15;
+  }
+
+  &--submit {
+    margin-top: 36px;
+  }
+
+  &--white {
+    background-color: pal(white);
+    border: 1px solid pal(gray, light);
+
+    &:hover {
+      background-color: pal(gray, ultra-light);
+    }
+  }
+
+  &--blue {
+    background-color: pal(blue);
+    min-width: 160px;
+
+    &:hover {
+      background-color: darken(pal(blue), 5);
+    }
+  }
+
+  &--green {
+    background-color: pal(green);
+
+    &:hover {
+      background-color: darken(pal(green), 5);
+    }
+  }
+
+  &--transparent {
+    background: transparent;
+  }
+
+  &--no-border {
+    border: none;
+  }
+
+  &.save-as-draft {
+    margin-right: 15px;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &.selected {
+    border: 2px solid pal(blue);
+  }
+}

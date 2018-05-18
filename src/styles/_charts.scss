@@ -1,0 +1,57 @@
+.chart {
+  &-box {
+    display: none;
+
+    @include media(md-up) {
+      display: block;
+      flex-basis: calc(50% - 5px);
+      max-width: calc(50% - 5px);
+      margin: 5px 0;
+    }
+
+    @include media(xxl-up) {
+      flex-basis: calc(33% - 5px);
+      max-width: calc(33% - 5px);
+    }
+  }
+
+  &-name {
+    text-transform: capitalize;
+
+    &--uppercase {
+      text-transform: uppercase;
+    }
+  }
+
+  &-stats {
+    margin-bottom: 20px;
+  }
+
+  &-change {
+    @include font(10, bold);
+    color: pal(blue);
+    margin-left: 10px;
+  }
+}
+
+#chartjs-tooltip {
+  position: relative;
+  background: pal(navy, light);
+
+  :before {
+    content: "";
+    position: absolute;
+    @include center(vertical);
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 6px 0;
+    border-color: transparent pal(navy, light) transparent transparent;
+  }
+
+  .chartjs-tooltip__title {
+    color: #7a89b0;
+    @include font(10, semi);
+  }
+}

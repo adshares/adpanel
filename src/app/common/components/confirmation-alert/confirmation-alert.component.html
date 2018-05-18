@@ -1,0 +1,37 @@
+<div
+  class="
+    adsh-confirmation-alert
+    adsh-copy
+    adsh-gray"
+>
+  <div
+    class="
+      container
+      row
+      align-center"
+  >
+    <div
+      class="
+        adsh-icon
+        adsh-icon--prepend"
+    >
+      <img
+          src="assets/images/user.svg"
+          alt="Mail icon"
+      >
+    </div>
+    <p>
+      You need to confirm your email address to be able to start using Adshares without limits.
+      <a
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-blue"
+        (click)="resendActivationEmail()"
+        data-test="resend-activation-email-button"
+      >
+        Resend
+      </a>
+    </p>
+  </div>
+</div>

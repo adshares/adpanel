@@ -1,0 +1,525 @@
+<section
+  class="
+    homepage-view
+    campaign-edit-create-ads"
+>
+  <div
+    class="
+      text-center
+      campaign-edit-create-ads--narrow"
+  >
+    <h1
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      Create Ads
+    </h1>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+
+  <div
+    class="adsh-box"
+    *ngFor="let adForm of adForms; let i = index"
+  >
+    <form
+      [formGroup]="adForm"
+      data-test="advertiser-edit-campaign-create-ads-form"
+    >
+      <mat-accordion data-test="advertiser-edit-campaign-create-ads-accordion">
+        <mat-expansion-panel
+          (opened)="handlePanelExpand(i)"
+          (closed)="adPanelsStatus[i] = false"
+          [expanded]="adPanelsStatus[i]"
+          data-test="advertiser-edit-campaign-create-ads-accordion-panel"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              class="
+                adsh-heading
+                adsh-heading--secondary"
+            >
+              <span>
+                {{ i + 1 }}.&nbsp;
+              </span>
+              <span
+                *ngIf="!adPanelsStatus[i]"
+                data-test="advertiser-edit-campaign-create-ads-form-short-headline"
+              >
+                Title: {{ adForm.get('shortHeadline').value }}
+              </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div
+            class="
+              row
+              no-gutters"
+          >
+            <div
+              class="
+                col-md-4
+                col-xxl-3
+                col-xxxl-2"
+            >
+              <div class="adsh-form-input__box">
+                <label
+                  for="shortHeadline"
+                  class="adsh-form-label"
+                >
+                  Short Headline
+                </label>
+                <input
+                  id="shortHeadline"
+                  class="adsh-form-input"
+                  formControlName="shortHeadline"
+                  data-test="advertiser-edit-campaign-create-ads-form-short-headline"
+                >
+                <span
+                  *ngIf="adForm.get('shortHeadline').valid"
+                  class="input-valid"
+                ></span>
+                <span
+                  class="error-msg"
+                  *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
+                >
+                Short headline required!
+              </span>
+              </div>
+            </div>
+            <div
+              class="
+                col-md-offset-1
+                col-md-3
+                col-xxl-2
+                col-xxxl-1"
+            >
+              <div class="adsh-form-input__box">
+                <label class="adsh-form-label">Ad Type</label>
+                <mat-select
+                  class="adsh-select"
+                  formControlName="type"
+                  (change)="setAdType(i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
+                >
+                  <mat-option
+                    *ngFor="let adType of adTypes; let i = index"
+                    [value]="i"
+                    data-test="advertiser-edit-campaign-create-ads-form-ad-type-option"
+                  >
+                    {{ adType }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div
+              class="
+                col-md-offset-1
+                col-md-3
+                col-xxl-2
+                col-xxxl-1"
+            >
+              <div class="adsh-form-input__box">
+                <label class="adsh-form-label">
+                  Size
+                </label>
+                <mat-select
+                  class="adsh-select"
+                  formControlName="size"
+                  data-test="advertiser-edit-campaign-create-ads-form-size-select"
+                >
+                  <mat-option
+                    *ngFor="let adSize of adSizes; let i = index"
+                    [value]="i"
+                    data-test="advertiser-edit-campaign-create-ads-form-size-option"
+                  >
+                    {{ adSize }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].type"
+          >
+            Invalid file type
+          </div>
+
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
+          >
+            Invalid image size
+          </div>
+
+          <div
+            class="error-msg"
+            *ngIf="
+              adForms[i].get('image') && adForms[i].get('image').value.src === '' &&
+              adsSubmitted"
+          >
+            Image required
+          </div>
+
+          <div
+            class="error-msg"
+            *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
+          >
+            Something went wrong, please try again later
+          </div>
+
+          <div
+            class="
+              row
+              align-center
+              justify-center
+              adsh-box
+              adsh-box--large
+              adsh-box--bordered
+              adsh-box--dashed
+              adsh-box--blue-border
+              drag-and-drop-box"
+            *ngIf="
+              adForm.get('type').value === 0 &&
+              adForm.get('image').value.src === '' &&
+              !imagesStatus.upload.processing"
+            ng2FileDrop
+            [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
+            (fileOver)="fileOverDropArea($event, i)"
+            [uploader]="uploader"
+            data-test="advertiser-edit-campaign-create-ads-form-drag-and-drop-wrapper"
+          >
+            <img
+              src="/assets/images/campaign-ad-illustration.svg"
+              alt="Ad illustration"
+            >
+            <div>
+              <p
+                class="
+                  adsh-copy
+                  adsh-copy--semi
+                  adsh-copy--dark"
+              >
+                Drag & Drop or
+
+                <label
+                  class="adsh-blue"
+                  for="fileSelect">
+                  Browse
+                </label>
+
+                <input
+                  class="file-select-input"
+                  type="file"
+                  id="fileSelect"
+                  ng2FileSelect
+                  [uploader]="uploader"
+                  (change)="uploadImage(uploader.queue[0], i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-image-upload">
+              </p>
+              <p
+                class="
+                  adsh-copy
+                  adsh-copy--large"
+              >
+                We support JPG and PNG files. Make sure that your files is no more than 500 kb.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="
+              row
+              align-right
+              adsh-box
+              file-box
+              file-box--grey-background"
+            [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
+            *ngIf="
+            adForm.get('type').value === 0 &&
+            (adForm.get('image').value.src || imagesStatus.upload.processing)"
+            data-test="advertiser-edit-campaign-create-ads-form-upload-status"
+          >
+            <div class="col-xs-1">
+              <img
+                src="/assets/images/document-png--blue.svg"
+                alt="Ad image"
+              >
+            </div>
+
+            <div class="col-xs-10">
+            <span
+              class="file-box__file-info"
+              *ngIf="imagesStatus.upload.processing"
+              data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
+            >
+              {{ uploader.queue[0].file.name }}
+              <br>
+
+              <div class="progress-bar">
+                <div
+                  class="progress-bar--active"
+                  [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
+              </div>
+
+              <span
+                class="
+                  file-box__file-sub-info
+                  file-box__file-sub-info--secondary">
+                {{ (uploader.queue[0].file.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
+                of
+                {{ uploader.queue[0].file.size / 1000 }} KB
+                ({{ imagesStatus.upload.progress }}% Done)
+              </span>
+
+              <img
+                class="
+                  file-box__action-button
+                  file-box__action-button--cancel"
+                src="/assets/images/x-circle--gray.svg"
+                alt="Cancel upload"
+                (click)="uploader.queue[0].cancel()"
+                data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel"
+              >
+            </span>
+
+              <span
+                class="file-box__file-info"
+                *ngIf="adForm.get('image').value.src"
+                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
+              >
+                {{ adForm.get('image').value.name }}
+              <br>
+
+              <span class="file-box__file-sub-info">
+                Leaderboard
+                <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
+                  {{ adSizes[adForm.get('size').value] }}
+                </span>
+                <span
+                  class="file-box__file-sub-info--secondary"
+                  data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
+                >
+                  {{ ads[i].imageSize }}
+                </span>
+              </span>
+
+              <img
+                class="file-box__action-button"
+                src="/assets/images/trash-gray.svg"
+                alt="Remove image"
+                (click)="removeImage(i)"
+                data-test="advertiser-edit-campaign-create-ads-form-remove-image"
+              >
+            </span>
+            </div>
+          </div>
+
+          <div
+            class="
+              row
+              no-gutters
+              html-textarea-wrapper"
+            *ngIf="
+              (adForm.get('type').value === 1 && !ads[i]) ||
+              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
+          >
+          <span
+            class="
+              error-msg
+              error-msg__full-width"
+            *ngIf="
+              adForm.get('html').hasError('required') && adsSubmitted"
+          >
+            Html required!
+          </span>
+
+            <p
+              class="
+                col-xs-12
+                adsh-form-label"
+            >
+              Paste your HTML code here:
+            </p>
+
+            <textarea
+              formControlName="html"
+              class="adsh-textarea-input"
+              rows="10"
+              required
+              data-test="advertiser-edit-campaign-create-ads-form-ad-html-textarea"
+            ></textarea>
+
+            <button
+              class="
+                adsh-btn
+                adsh-btn--white
+                adsh-blue"
+              (click)="saveHtml(i)"
+              data-test="advertiser-edit-campaign-create-ads-form-ad-html-save"
+            >
+              Save Html
+            </button>
+          </div>
+
+          <div
+            class="
+              row
+              adsh-box
+              adsh-box--bordered
+              adsh-box--dashed
+              adsh-box--blue-border
+              adsh-box__preview"
+            *ngIf="
+              (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
+              (adForm.get('type').value === 1) && ads[i].html"
+          >
+            <div
+              class="
+                col-xs-12
+                adsh-copy--small
+                adsh-copy--light">
+              Preview
+            </div>
+
+            <iframe
+              [ngStyle]="{
+              'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+              'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+            }"
+              *ngIf="adForm.get('image') && adForm.get('image').value.src"
+              [src]="adForm.get('image').value.src | trustUrl"
+            ></iframe>
+
+            <div *ngIf="ads[i].html">
+              <iframe
+                [ngStyle]="{
+                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+              }"
+                [srcdoc]="ads[i].html | trustHtml"
+              ></iframe>
+
+              <button
+                class="
+                  adsh-btn
+                  adsh-btn--white
+                  adsh-blue"
+                (click)="clearCode(i)"
+                data-test="advertiser-edit-campaign-create-ads-form-ad-html-clear"
+              >
+                Clear Code
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="
+              adsh-btn
+              adsh-btn--white
+              adsh-blue
+              save-as-draft"
+            *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
+            (click)="removeNewAd(i)"
+            data-test="advertiser-edit-campaign-create-ads-form-remove-ad"
+          >
+            Delete Ad Unit
+          </button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large"
+  >
+    <button
+      class="
+        row
+        align-center
+        adsh-btn
+        adsh-btn--large
+        adsh-btn--white
+        adsh-btn--no-border"
+      (click)="createEmptyAd()"
+      data-test="advertiser-edit-campaign-create-ads-create-new-ad"
+    >
+      <img
+        src="assets/images/plus-circle--blue.svg"
+        alt="Add new icon"
+        class="
+          adsh-icon
+          adsh-icon--prepend"
+      >
+      <span
+        class="
+          adsh-heading
+          adsh-heading--secondary"
+      >
+        Create new Ad
+      </span>
+    </button>
+  </div>
+
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
+      row
+      justify-between"
+  >
+    <a
+      routerLink="../additional-targeting"
+      [queryParams]="{step: 2}"
+      data-test="advertiser-edit-campaign-navigate-back"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      >
+        Back
+      </button>
+    </a>
+
+    <div class="row">
+      <button
+        (click)="saveCampaignAds(true)"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue
+          save-as-draft"
+        data-test="advertiser-edit-campaign-save-as-draft"
+      >
+        Save as Draft
+      </button>
+      <button
+        (click)="saveCampaignAds(false)"
+        class="
+          adsh-btn
+          adsh-btn--blue"
+        data-test="advertiser-edit-campaign-save-and-continue"
+      >
+        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </div>
+  </div>
+</section>
+

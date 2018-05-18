@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$app-primary: mat-palette($mat-blue, A200);
+$app-accent:  mat-palette($mat-grey, 50);
+$app-theme:   mat-light-theme($app-primary, $app-accent);
+
+// Include the default theme styles.
+@include angular-material-theme($app-theme);
+
+@import 'styles/mixins';
+@import 'styles/colors';
+
+@import 'styles/buttons';
+@import 'styles/dashboard';
+@import 'styles/forms';
+@import 'styles/flexbox';
+@import 'styles/normalize';
+@import 'styles/typography';
+@import 'styles/z-index';
+
+@import 'styles/material-override';
+@import 'styles/common';
+@import 'styles/charts';

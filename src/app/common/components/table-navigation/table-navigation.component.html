@@ -1,0 +1,28 @@
+<div
+  *ngFor="let menuItem of navigationItems"
+  class="
+    row
+    align-center"
+  [ngClass]="menuItem.columnWidth"
+  (click)="sortTableByKey(menuItem)"
+  data-test="common-sort-assets-toggle"
+>
+  {{ menuItem.title }}
+  <div
+    *ngIf="menuItem.title"
+    class="
+      col
+      adsh-ad-list__sort"
+  >
+    <div
+      class="adsh-sort-triangle"
+      [class.active]="!menuItem.sortAsc && menuItem.isSortedBy"
+    ></div>
+    <div
+      class="
+        adsh-sort-triangle
+        adsh-sort-triangle--down"
+      [class.active]="menuItem.sortAsc && menuItem.isSortedBy"
+    ></div>
+  </div>
+</div>

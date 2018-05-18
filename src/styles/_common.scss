@@ -1,0 +1,393 @@
+@import './dialog.scss';
+
+/*
+  Dots / Icons / Navigation icon styling / Validation icon styling
+*/
+
+.adsh-logo {
+  height: auto;
+  max-width: 100px;
+  margin-bottom: 10px;
+
+  @include media(sm-up) {
+    margin-bottom: 0;
+    max-width: 110px;
+  }
+
+  @include media(md-up) {
+    margin-bottom: 0;
+    max-width: 140px;
+  }
+}
+
+.adsh-circle {
+  $module: &;
+
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: relative;
+
+  &--small {
+    width: 10px;
+    height: 10px;
+  }
+
+  &--x-small {
+    width: 5px;
+  	height: 5px;
+  }
+
+  &.inactive {
+    border: 1px solid pal(gray, light);
+  }
+
+  &.active {
+    background: pal(green, light);
+    border: 1px solid pal(green);
+  }
+
+  &.done {
+    background: pal(green);
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      width: 3px;
+      height: 6px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  &--blue {
+    background: pal(blue);
+  }
+
+  &--navy {
+    background: pal(navy);
+  }
+
+  &--green {
+    background: pal(green);
+
+    &#{$module}--empty {
+      background: pal(green, light);
+      border: 1px solid pal(green);
+    }
+  }
+
+  &--with-icon {
+    position: relative;
+  }
+
+  &--navigating {
+    margin-right: 10px;
+  }
+}
+
+.adsh-step-link-indicator {
+  width: 64px;
+  margin: 0 30px;
+  border: 1px dashed pal(gray, light);
+}
+
+.adsh-icon {
+  height: 18px;
+
+  &--prepend {
+    margin-right: 15px;
+
+    &.close {
+      margin-right: 8px;
+    }
+  }
+
+  &--append {
+    margin-left: 15px;
+
+    &.close {
+      margin-left: 8px;
+    }
+  }
+
+  &--small {
+    height: 10px;
+  }
+
+  &--large {
+    height: 24px;
+  }
+}
+
+.adsh-chevron {
+  &:before {
+    border-color: pal(navy);
+    border-style: solid;
+  	border-width: 0.15em 0.15em 0 0;
+  	content: '';
+  	display: inline-block;
+  	height: 4px;
+  	left: 7px;
+  	position: absolute;
+  	top: 5px;
+  	transform: rotate(135deg);
+  	vertical-align: top;
+  	width: 4px;
+  }
+
+  &--left:before {
+    transform: rotate(225deg);
+  }
+
+  &--right:before {
+    transform: rotate(45deg);
+  }
+
+  &--up:before {
+    transform: rotate(-45deg);
+  }
+
+  &--white:before {
+    border-color: pal(white);
+  }
+
+  &--gray:before {
+    border-color: pal(gray);
+  }
+
+  &--standalone {
+    position: initial;
+  }
+
+}
+
+.adsh-sort-triangle {
+  width: 5px;
+  height: 7px;
+  border-bottom: solid 5px pal(gray, mid-light);
+  border-left: solid 4px transparent;
+  border-right: solid 4px transparent;
+  margin: 1px;
+
+  &.active {
+    border-bottom: solid 5px pal(blue);
+  }
+
+  &--down {
+    transform: rotate(180deg);
+  }
+}
+
+/*
+  boxes
+*/
+
+.adsh-box {
+  border-radius: 2px;
+  background-color: pal(white);
+  padding: 13px 15px;
+  margin: 2px 0;
+
+  &--large {
+    padding: 25px;
+    margin: 10px 0;
+  }
+
+  &--small {
+    padding: 5px 10px;
+  }
+
+  &--short-right {
+    padding-right: 20px;
+  }
+
+  &--light-green {
+    background-color: pal(green, light);
+  }
+
+  &--light-navy {
+    background-color: pal(navy, faded);
+  }
+
+  &--light {
+    background-color: pal(gray, x-light);
+    border: solid 1px pal(gray, light);
+  }
+
+  &--light-border {
+    border: solid 1px pal(gray, light);
+  }
+
+  &--no-top-border {
+    border-top: none;
+  }
+
+  &--bordered {
+    border-width: 1px;
+  }
+
+  &--blue-border {
+    border-color: pal(blue);
+  }
+
+  &--dashed {
+    border-style: dashed;
+  }
+}
+
+.adsh-chip-box {
+  background-color: pal(gray, x-light);
+  color: pal(gray, mid-dark);
+  @include font(11, semi);
+  padding: 7px;
+  border-radius: 2px;
+  display: inline-table;
+  margin: 0 2px;
+  text-transform: uppercase;
+
+  &--dark {
+    color: pal(navy);
+  }
+}
+
+/*
+  background and text colors
+*/
+
+@each $color in $main_colors {
+  .adsh-#{$color} {
+    color: pal($color);
+  }
+
+  .adsh-bg-#{$color} {
+    background-color: pal($color);
+  }
+}
+
+.adsh-bg-navy--light {
+  background-color: pal(navy, light);
+}
+
+
+/*
+  positioning
+*/
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+/*
+ router animations
+ */
+
+router-outlet ~ * {
+  position: absolute;
+  width: 100%;
+  min-height: 100%
+}
+
+
+/*
+  status
+*/
+
+.adsh-status {
+  @include font(10, bold);
+  text-transform: uppercase;
+  width: 75px;
+
+  &[data-status="active"] {
+    color: pal(green);
+    background-color: pal(green, light);
+  }
+
+  &[data-status="inactive"] {
+    color: pal(blue);
+    background-color: pal(blue, light);
+  }
+
+  &[data-status="archived"],
+  &[data-status="draft"] {
+    color: pal(gray);
+    background-color: pal(gray, ultra-light);
+  }
+}
+
+.adsh-ad-list__sort {
+  margin-left: 6px;
+}
+
+/*
+  spinner
+*/
+
+.loading-wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/*
+  campaign and site details
+*/
+
+.breadcrumbs {
+  margin-bottom: 20px;
+
+  &-divider {
+    margin: 0 10px;
+  }
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
+}
+
+.clickable-row:hover {
+  background-color: pal(gray, ultra-light);
+  cursor: pointer;
+}
+
+.adsh-tooltip {
+  padding: 20px 25px;
+  min-width: 200px;
+  max-width: 300px;
+  background: pal(white);
+  color: white;
+  @include center(vertical);
+  left: 75%;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    left: 78%;
+    z-index: 999;
+    box-shadow: 0 20px 100px 0 rgba(38, 58, 124, 0.05);
+  }
+
+  .triangle {
+    content: "";
+    @include center(vertical);
+    left: -30px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 40px 30px 0;
+    border-color: transparent white transparent transparent;
+  }
+}
+
+.break-word {
+  word-wrap: break-word;
+}

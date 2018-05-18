@@ -1,0 +1,38 @@
+@import '../../../../styles.scss';
+
+.site-edit-basic-information {
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 900px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 1100px;
+  }
+
+  &__info-box {
+    min-height: 400px;
+
+    .adsh-copy--large {
+      display: inline-block;
+      margin: 8px 0;
+    }
+
+    .adsh-select {
+      width: 220px;
+      margin: 0;
+    }
+  }
+
+.adsh-box {
+    margin: 30px 0;
+  }
+
+  &__language {
+    &__option {
+      text-transform: capitalize;
+    }
+  }
+}

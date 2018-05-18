@@ -1,0 +1,105 @@
+<div class="adsh-box">
+  <div class="adsh-ad-list__item">
+    <div
+      class="
+        row
+        align-center
+        adsh-copy
+        adsh-copy--semi"
+    >
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <div
+          class="text-center"
+          [attr.data-status]="ad.status"
+        >
+          <mat-slide-toggle
+            color="primary"
+            [checked]="ad.status === adStatusesEnum.ARCHIVED"
+            ([ngModel])="ad.status"
+            (change)="changeAdStatus(ad.status)"
+            data-test="advertiser-ad-change-ad-status-toggle"
+          ></mat-slide-toggle>
+        </div>
+      </div>
+      <div
+        class="
+          col-xs-4
+          row
+          align-center"
+      >
+        <h4
+          class="
+            adsh-heading
+            adsh-heading--secondary"
+          data-test="advertiser-ad-short-headline"
+        >
+          {{ ad.shortHeadline }}
+        </h4>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+      <span data-test="advertiser-ad-budget">
+        {{ ad.budget | currency:'USD':'symbol':'1.2-2' }} /day
+      </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center">
+      <span data-test="advertiser-ad-clicks">
+        {{ ad.clicks }}
+      </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+      <span data-test="advertiser-ad-impressions">
+        {{ ad.impressions }}
+      </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+      <span data-test="advertiser-ad-ctr">
+        {{ ad.CTR | percent:'1.2-2' }}
+      </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+      <span data-test="advertiser-ad-average-cpc">
+        {{ ad.averageCPC | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+      >
+      <span data-test="advertiser-ad-cost">
+        {{ ad.cost | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+      </div>
+    </div>
+  </div>
+</div>

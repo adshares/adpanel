@@ -1,0 +1,63 @@
+<div
+  class="
+    row
+    notification"
+>
+  <div class="col-xs-2">
+    <img
+      class="
+        adsh-icon
+        adsh-icon--large"
+      [src]="'assets/images/notifications/' + notificationTypesEnum[notification.notificationType].toLowerCase() + '.svg'"
+    >
+  </div>
+
+  <div
+    class="
+      col
+      col-xs-10"
+  >
+    <h4
+      *ngIf="notification.title"
+      class="
+        adsh-heading
+        adsh-heading--secondary"
+    >
+      {{ notification.title }}
+    </h4>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--small
+        notification-message"
+    >
+      {{ notification.message }}
+    </p>
+    <div
+      class="
+        row
+        adsh-copy
+        adsh-copy--small
+        adsh-copy--uppercase
+        notification-actions"
+      data-test="notifications-dismiss-notification"
+    >
+      <a
+        *ngFor="let notificationAction of notification.availableActions;"
+        (click)="performNotificationAction(notificationAction)"
+      >
+        <span
+          class="lowercase-to-capitalize"
+          [class.red]="notificationActionsEnum[notificationAction] === 'DELETE'"
+          [class.blue]="
+            notificationActionsEnum[notificationAction] === 'EDIT' ||
+            notificationActionsEnum[notificationAction] === 'CHANGE'"
+          [class.gray]="notificationActionsEnum[notificationAction] === 'DISMISS'"
+        >
+          {{ notificationActionsEnum[notificationAction] }}
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+<hr>

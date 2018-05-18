@@ -1,0 +1,32 @@
+@import '../../../../../styles.scss';
+
+.hide-remove {
+  .mat-chip-remove {
+    display: none;
+  }
+}
+
+.targeting-display {
+  &__exclude-text {
+    color: pal(red);
+  }
+}
+
+.selected-chips {
+  margin-top: 5px;
+}
+
+.chip {
+  display: none;
+
+  &-active {
+    display: block;
+  }
+}
+
+.remove {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-58%,-52%);
+}

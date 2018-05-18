@@ -1,0 +1,109 @@
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0.9;
+}
+.cdk-overlay-dark-backdrop {
+    background: pal(navy);
+}
+
+.mat-dialog-container {
+  position: relative;
+  padding: 60px 15px 15px 15px !important;
+
+  @include media(md-up) {
+    padding: 50px 70px 40px !important;
+  }
+}
+
+.mat-dialog-content {
+  max-height: 85vh !important;
+}
+
+.mat-dialog-content.mat-dialog-content--narrow{
+  max-width: 470px;
+}
+
+.dialog-description {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+}
+
+
+mat-chip:not(.mat-basic-chip) {
+  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 0 !important;
+  align-items: center;
+  cursor: default;
+}
+
+.mat-chip:not(.mat-basic-chip) {
+  background-color: pal(gray, x-light);
+  @include font(12, 500);
+}
+
+.mat-chip-list-wrapper {
+  flex-direction: column !important;
+  margin: 0 25px 15px;
+}
+
+.mat-chip:not(.mat-basic-chip) {
+  margin: 6px 10px 0 0 !important;
+}
+
+.mat-chip-remove {
+  margin: 0 5px 3px;
+  background-color: pal(gray);
+  border-radius: 50%;
+  padding: 5px;
+  width: 12px;
+  height: 12px;
+}
+
+.mat-slider-thumb-label {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.mat-slider-horizontal .mat-slider-thumb-label {
+  right: -20px !important;
+  top: -55px !important;
+}
+
+.mat-form-field-underline,
+.mat-focused .mat-form-field-underline .mat-form-field-ripple,
+.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple {
+  visibility: hidden !important;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+  background: transparent !important;
+}
+
+.mat-select-value-text {
+  text-transform: capitalize;
+}
+
+.mat-expansion-panel-header-title {
+  flex-grow: 1;
+  display: inline;
+}
+
+
+.mat-form-field-infix {
+  padding: 5px 0 4px 0 !important;
+  display: flex !important;
+  border-top: 9px solid transparent;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 11px !important;
+}
+
+.mat-datepicker-toggle {
+  visibility: hidden !important;
+}

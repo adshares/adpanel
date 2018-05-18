@@ -1,0 +1,30 @@
+@import '../../../../styles.scss';
+
+.dialog {
+  width: 215px;
+
+  @include media(sm-up) {
+    width: 440px;
+  }
+
+  @include media(md-up) {
+    width: 500px;
+  }
+}
+
+.description {
+  width: 100%;
+  margin: 0 auto;
+
+  @include media(md-up) {
+    width: 80%
+  }
+}
+
+.confirm-email-error-block {
+    margin-top: 20px;
+}
+
+code {
+  display: block;
+}
