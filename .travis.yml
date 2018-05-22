@@ -31,7 +31,7 @@ install:
   - yarn
 
 stages:
-  - build
+  - build_check
   - quality
   - test
   - name: deploy
