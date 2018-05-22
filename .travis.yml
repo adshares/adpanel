@@ -30,15 +30,16 @@ install:
   - npm install
 
 stages:
-  - build
+  - build_check
   - quality
   - test
+  - build
 
 jobs:
   include:
     # node.js build
-    - stage: build
-      script: ng build --env=dev -prod
+    - stage: build_check
+      script: ng build --env=dev
 
     # Sonar Qube
     - stage: quality
@@ -51,6 +52,10 @@ jobs:
         - ng serve --host 0.0.0.0 --port 80 --public-host panel.ads &
         - sleep 60
         - mvn verify
+
+    # node.js build
+    - stage: build
+      script: ng build --env=dev -prod
 
 # After a build, send email push-notification with the build results
 notifications:
