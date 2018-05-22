@@ -6,7 +6,7 @@
   "response": {
     "status": 401,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "description": "Invalid username or password"
