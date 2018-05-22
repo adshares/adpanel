@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/dismiss/notification"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": 879132879132312,
+      "type": 0,
+      "message": "Your campaign changed status for 'Inactive'"
+    }
+  },
+  "priority": 0
+}

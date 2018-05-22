@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/withdraw/funds"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": { "status": 200 }
+  },
+  "priority": 0
+}
