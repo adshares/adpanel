@@ -10,6 +10,7 @@ sudo: false
 
 # Cache node.js modules
 cache:
+  yarn: true
   directories:
     - node_modules
 
@@ -26,14 +27,15 @@ addons:
 # Install npm dependencies,
 # Create database, schema and fixtures
 install:
-  - npm install -g @angular/cli
-  - npm install
+  - yarn global add @angular/cli
+  - yarn
 
 stages:
-  - build_check
+  - build
   - quality
   - test
-  - build
+  - name: deploy
+#    if: branch = master
 
 jobs:
   include:
@@ -53,9 +55,10 @@ jobs:
         - sleep 60
         - mvn verify
 
-    # node.js build
-    - stage: build
-      script: ng build --env=dev -prod
+    # Build & deploy
+    - stage: deploy
+      script: ng build --env=dev --prod
+#      script: node --max_old_space_size=4096 node_modules\@angular\cli\bin\ng build --env=dev --prod
 
 # After a build, send email push-notification with the build results
 notifications:
