@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/.*/"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "description": "Catch-all scenario",
+      "delayMillis": 3000
+    }
+
+  },
+  "priority" : 0
+}
