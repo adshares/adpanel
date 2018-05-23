@@ -12,26 +12,26 @@ export class SettingsService {
   constructor(private http: HttpClient) { }
 
   getBillingHistory(): Observable<BillingHistoryItem[]> {
-    return this.http.get(`${environment.apiUrl}/billing_history`)
+    return this.http.get(`${environment.apiUrl}/wallet/history`)
       .map((billingHisory: BillingHistoryItem[]) => billingHisory);
   }
 
   getNotificationsSettings(): Observable<NotificationItem[]> {
-    return this.http.get(`${environment.apiUrl}/notifications_settings`)
+    return this.http.get(`${environment.apiUrl}/notifications/settings`)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
   updateNotificationsSettings(newSettings: NotificationItem[]): Observable<NotificationItem[]> {
-    return this.http.post(`${environment.apiUrl}/update_notifications_settings`, newSettings)
+    return this.http.patch(`${environment.apiUrl}/notifications/settings`, newSettings)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  changeEmail(email: string) {
-    return this.http.post(`${environment.apiUrl}/change_email`, { email });
+  changeEmail(id:number, email: string) {
+    return this.http.patch(`${environment.apiUrl}/user/${id}/email`, { email });
   }
 
-  changePassword(currentPassword: string, newPassword: string) {
-    return this.http.post(`${environment.apiUrl}/change_password`, { currentPassword, newPassword });
+  changePassword(id: number, currentPassword: string, newPassword: string) {
+    return this.http.post(`${environment.apiUrl}/user/${id}/password`, { currentPassword, newPassword });
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {
@@ -39,10 +39,10 @@ export class SettingsService {
   }
 
   changeWithdrawAddress(newWithdrawAddress: string) {
-    return this.http.post(`${environment.apiUrl}/change_withdraw_address`, { newWithdrawAddress });
+    return this.http.patch(`${environment.apiUrl}/wallet/settings`, { newWithdrawAddress });
   }
 
   withdrawFunds(address: string, amount: number, memo: string) {
-    return this.http.post(`${environment.apiUrl}/withdraw_funds`, { address, amount, memo });
+    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { address, amount, memo });
   }
 }
