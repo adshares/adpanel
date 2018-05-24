@@ -36,7 +36,7 @@ public class DashboardPopup {
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
       userPopUpPublisher.click();
-      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
+//      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
     } finally {
@@ -48,9 +48,9 @@ public class DashboardPopup {
     try {
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-advertiser']")).getText();
-      Assert.assertEquals(textAssertion, "Continue as");
+      Assert.assertEquals(textAssertion, "Continue");
       userPopUpAdvertiser.click();
-      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
+//      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
     } finally {

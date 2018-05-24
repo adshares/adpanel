@@ -42,11 +42,13 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void logOutTest() {
-    headerBarPage = new HeaderBarPage(driver);
-    headerBarPage.logOut();
+  public void loginPageCrossAccessValidation() {
     loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
-    loginPage.pageLayoutValidation();
+    loginPage.wrongEmailCorrectPassword(passwordAdService);
+    System.out.println("<-- Login Page: wrong Email & Correct Password scenerio passed -->");
+    driver.navigate().refresh();
+    loginPage.wrongPasswordCorrectEmail(loginAdService);
+    System.out.println("<-- Login Page: Correct Email & wrong Password scenerio passed -->");
   }
 
   @Test
@@ -56,4 +58,11 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.goToRegistration();
   }
 
+  @Test
+  public void logOutTest() {
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
+    loginPage.pageLayoutValidation();
+  }
 }

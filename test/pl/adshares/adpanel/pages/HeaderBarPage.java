@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
 public class HeaderBarPage {
 
   @FindBy(xpath = "//div[@data-test='header-toggle-settings-menu']")
@@ -28,6 +29,8 @@ public class HeaderBarPage {
   }
 
   public void logOut() {
+    wait.until(ExpectedConditions.elementToBeClickable(headerSettingsMenu));
+    headerSettingsMenu.isEnabled();
     headerSettingsMenu.click();
     wait.until(ExpectedConditions.visibilityOf(logOut));
     logOut.click();
