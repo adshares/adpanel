@@ -16,7 +16,7 @@ export class CommonService {
   }
 
   getNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${environment.apiUrl}/notifications_list`);
+    return this.http.get<Notification[]>(`${environment.apiUrl}/notifications`);
   }
 
   dismissNotification(notification: Notification): Observable<Notification> {
