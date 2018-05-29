@@ -26,4 +26,10 @@ public class RegisterConfirmation {
     logInButton.isDisplayed();
   }
 
+  public void succesRegistrationGoToLoginPage(){
+    wait.until(ExpectedConditions.visibilityOf(logInButton));
+    logInButton.click();
+  }
+
+
 }

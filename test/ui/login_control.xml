@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Login Control Test Suite" parallel="methods" thread-count="20" verbose="3">
-  <test name="Login - WebElement validation" group-by-instances="true">
+  <test name="Login - WebElements validation" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -19,11 +19,12 @@
       </class>
     </classes>
   </test>
-  <test name="Login - Correct login" group-by-instances="true">
+  <test name="Login - Correct Access" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginTest"/>
+          <include name="popUpPublisher"/>
         </methods>
       </class>
     <class name="pl.adshares.adpanel.LoginTestCase">

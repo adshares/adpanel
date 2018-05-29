@@ -92,7 +92,6 @@ public class LoginPage {
     String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
     Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
     System.out.println("Minimum 8 signs required - checked!");
-
   }
 
   public void loginInvalidEmailValidation() {

@@ -30,6 +30,7 @@ public class RegisterTestCase extends BrowserTestCase {
     registerPage.createAccount(loginAdService, passwordAdService);
     registerConfirmation =new RegisterConfirmation(driver);
     registerConfirmation.registerConfirmation();
+    registerConfirmation.succesRegistrationGoToLoginPage();
   }
 
   @Test
@@ -38,7 +39,29 @@ public class RegisterTestCase extends BrowserTestCase {
     registerPage.registerRequiredEmailValidation();
     registerPage.registerInvalidEmailValidation();
     registerPage.registerPasswordValidation();
-    System.out.println("<-- Login Page Validation passed -->");
+    System.out.println("<-- Register Page Validation passed -->");
+    registerConfirmation =new RegisterConfirmation(driver);
+    registerConfirmation.registerConfirmation();
+  }
+
+  @Test
+  public void registerPageCrossAccessWrongEmailCorrectPassword(){
+    registerPage = new RegisterPage(driver);
+    registerPage.wrongEmailCorrectPasswordRegister(passwordAdService);
+    System.out.println("<-- Register Page: wrong Email & Correct Password scenerio passed -->");
+  }
+
+  @Test
+  public void registerPageCrossAccessWrongPasswordCorrectEmail(){
+    registerPage = new RegisterPage(driver);
+    registerPage.wrongPasswordCorrectEmailRegister(loginAdService);
+    System.out.println("<-- Register Page: Correct Email & wrong Password scenerio passed -->");
+  }
+  @Test
+  public void registerPageCrossAccessWrongConfirmPasswordCorrectEmail(){
+    registerPage = new RegisterPage(driver);
+    registerPage.wrongConfirmPasswordCorrectEmailRegister(loginAdService,passwordAdService);
+    System.out.println("<-- Register Page: Correct Email & wrong Password Confirm scenerio passed -->");
   }
 
 }

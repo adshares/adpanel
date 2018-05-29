@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/notifications/settings"
+    "url": "/notifications_settings"
   },
   "response": {
     "status": 200,

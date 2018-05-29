@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HeaderBarPage {
 
-  @FindBy(xpath = "//div[@data-test='header-toggle-settings-menu']")
+  @FindBy(css = "div[data-test='header-toggle-settings-menu']")
   private WebElement headerSettingsMenu;
   @FindBy(xpath = "//span[contains(text(), 'Log out')]")
   private WebElement logOut;
@@ -30,7 +30,6 @@ public class HeaderBarPage {
 
   public void logOut() {
     wait.until(ExpectedConditions.elementToBeClickable(headerSettingsMenu));
-    headerSettingsMenu.isEnabled();
     headerSettingsMenu.click();
     wait.until(ExpectedConditions.visibilityOf(logOut));
     logOut.click();
