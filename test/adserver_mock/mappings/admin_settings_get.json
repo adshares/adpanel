@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/admin/settings"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "earnings": 0.12
+    }
+  },
+  "priority": 0
+}

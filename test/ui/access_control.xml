@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Access Control Test Suite" parallel="methods" thread-count="20" verbose="3">
+  <test name="Register - Create Account" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.RegisterTestCase">
+        <methods>
+          <include name="registerPageObjectValidation"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
+

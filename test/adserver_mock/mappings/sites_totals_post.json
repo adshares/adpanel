@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/sites/total"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "totalEarnings": 1364,
+      "totalClicks": 224,
+      "totalImpressions": 12546,
+      "averagePageRPM": 0.0515,
+      "averageCPC": 2.05
+    }
+  },
+  "priority": 0
+}
