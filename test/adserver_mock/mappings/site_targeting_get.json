@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/site/targeting"
+    "url": "/sites/1/targeting"
   },
   "response": {
     "status": 200,

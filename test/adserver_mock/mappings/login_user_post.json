@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/auth/login"
+    "url": "/auth/user"
     },
   "response": {
     "status": 200,

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/adshares/address"
+    "url": "/wallet/deposit"
   },
   "response": {
     "status": 200,

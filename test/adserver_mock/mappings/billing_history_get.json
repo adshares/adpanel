@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/billing/history"
+    "url": "/wallet/history"
   },
   "response": {
     "status": 200,

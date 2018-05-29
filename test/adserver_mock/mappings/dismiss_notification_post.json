@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/dismiss/notification"
+    "method": "DELETE",
+    "url": "/notifications/1"
   },
   "response": {
     "status": 200,

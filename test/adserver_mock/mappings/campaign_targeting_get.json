@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/campaign/targeting"
+    "url": "/campaigns/11/targeting"
   },
   "response": {
     "status": 200,

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/users"
+    "url": "/auth/user"
   },
   "response": {
     "status": 200,

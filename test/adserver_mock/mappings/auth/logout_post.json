@@ -1,16 +1,15 @@
 {
   "request": {
     "method": "POST",
-    "url": "/update/admin/settings"
-  },
+    "url": "/auth/logout"
+    },
   "response": {
     "status": 200,
     "headers": {
       "Content-Type": "application/json"
     },
     "jsonBody": {
-      "earnings": 0.44
-    }
-  },
-  "priority": 0
+      }
+    },
+  "priority": 10
 }
