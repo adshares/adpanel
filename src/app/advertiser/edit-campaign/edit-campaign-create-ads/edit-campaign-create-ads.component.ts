@@ -221,7 +221,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const adTypeName = this.adTypes[adType];
 
     if (adForm.get('image') && adForm.get('image').value.src) {
-      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id).subscribe();
+      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id).subscribe();
       this.subscriptions.push(deleteAdSubscription);
 
       this.imagesStatus.validation.splice(adIndex, 1);
