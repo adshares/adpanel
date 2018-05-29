@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/auth/login"
+    },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      }
+    },
+  "priority": 10
+}
