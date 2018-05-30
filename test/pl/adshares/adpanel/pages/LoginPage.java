@@ -22,7 +22,6 @@ public class LoginPage {
   @FindBy(css = "[data-test='auth-redirect-to-registration']")
   private WebElement registerButton;
 
-
   /**
    * Login Page - WebElement Assertions
    */
