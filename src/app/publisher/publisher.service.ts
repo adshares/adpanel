@@ -44,7 +44,6 @@ w
   }
 
   getTargetingCriteria(siteId: number ): Observable<TargetingOption[]> {
-    siteId = siteId || null;
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/${siteId}/targeting`);
   }
 
