@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/update/notifications/settings"
+    "method": "PATCH",
+    "url": "/notifications/settings"
   },
   "response": {
     "status": 200,
