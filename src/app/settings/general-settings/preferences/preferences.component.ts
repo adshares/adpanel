@@ -66,7 +66,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    const changeEmailSubscription = this.settingsService.changeEmail(newEmail)
+    const changeEmailSubscription = this.settingsService.changeEmail(this.route.params.id, newEmail)
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
@@ -91,7 +91,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    const changePasswordSubscription = this.settingsService.changePassword(
+    const changePasswordSubscription = this.settingsService.changePassword(this.route.params.id,
       currentPassword,
       newPassword
     )
