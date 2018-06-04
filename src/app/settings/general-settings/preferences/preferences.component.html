@@ -22,7 +22,7 @@
 
       <form
         [formGroup]="changeEmailForm"
-        (ngSubmit)="onChangeEmail()"
+        (ngSubmit)="onChangeEmail(id)"
         class="adsh-form"
         data-test="settings-change-email-form"
       >
@@ -89,7 +89,7 @@
 
       <form
         [formGroup]="changePasswordForm"
-        (ngSubmit)="onChangePassword()"
+        (ngSubmit)="onChangePassword(id)"
         class="adsh-form"
         data-test="settings-change-password-form"
       >

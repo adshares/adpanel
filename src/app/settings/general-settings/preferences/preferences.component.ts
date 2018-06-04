@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
+import { ActivatedRoute } from "@angular/router";
 
 interface AfterRequestValidation {
   email: { [key: string]: boolean };
@@ -34,7 +35,8 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   };
 
   constructor(
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -66,7 +68,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    const changeEmailSubscription = this.settingsService.changeEmail(this.route.params.id, newEmail)
+    const changeEmailSubscription = this.settingsService.changeEmail(this.route.snapshot.params['id'], newEmail)
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
@@ -91,7 +93,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    const changePasswordSubscription = this.settingsService.changePassword(this.route.params.id,
+    const changePasswordSubscription = this.settingsService.changePassword(this.route.snapshot.params['id'],
       currentPassword,
       newPassword
     )
