@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/save_site"
+    "url": "/sites"
   },
   "response": {
     "status": 200,

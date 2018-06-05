@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "PUT",
-    "url": "/upload/ad/0"
+    "url": "/campaigns/0/banner"
 
   },
   "response": {

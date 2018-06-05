@@ -110,7 +110,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getTargeting() {
-    const getSiteTargetingSubscription = this.publisherService.getTargetingCriteria()
+    const getSiteTargetingSubscription = this.publisherService.getTargetingCriteria(this.site.id)
       .map((targetingOptions) => prepareTargetingChoices(targetingOptions))
       .subscribe(targetingOptions => {
         this.targetingOptions = targetingOptions;

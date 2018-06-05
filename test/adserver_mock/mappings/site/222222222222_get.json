@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/site/222222222222"
+    "url": "/sites/222222222222"
   },
   "response": {
     "status": 200,

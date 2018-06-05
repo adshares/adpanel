@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/campaign/183297987312"
+    "url": "/campaigns/183297987312"
   },
   "response": {
     "status": 200,

@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/save_campaign"
+    "url": "/campaigns"
   },
   "response": {
     "status": 200,

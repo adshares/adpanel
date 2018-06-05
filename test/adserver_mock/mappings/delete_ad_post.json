@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/delete_ad"
+    "method": "DELETE",
+    "url": "/campaigns/1/banner/1"
   },
   "response": {
     "status": 200,

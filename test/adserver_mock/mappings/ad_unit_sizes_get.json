@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/ad_unit_sizes"
+    "url": "/config/banners"
   },
   "response": {
     "status": 200,

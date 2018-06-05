@@ -12,9 +12,9 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 export class PublisherService {
 
   constructor(private http: HttpClient) {}
-
+w
   getSites(timespan: TimespanFilter): Observable<Site[]> {
-    return this.http.post<Site[]>(`${environment.apiUrl}/sites`, { timespan });
+    return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
 
   getSitesTotals(timespan: TimespanFilter): Observable<SitesTotals> {
@@ -31,14 +31,23 @@ export class PublisherService {
 
       Object.assign(site, {targeting: targetingObject});
     }
-    return this.http.post<Site>(`${environment.apiUrl}/save_site`, { site });
+    return this.http.post<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/site_targeting`);
+  saveSitePatch(site: Site): Observable<Site> {
+        if (site.targetingArray) {
+            const targetingObject = parseTargetingForBackend(site.targetingArray);
+
+            Object.assign(site, {targeting: targetingObject});
+        }
+        return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
+  }
+
+  getTargetingCriteria(siteId: number ): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/${siteId}/targeting`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
-    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/ad_unit_sizes`);
+    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/config/banners`);
   }
 }

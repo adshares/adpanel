@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/change_email"
+    "url": "/user/1/email"
   },
   "response": {
     "status": 200,

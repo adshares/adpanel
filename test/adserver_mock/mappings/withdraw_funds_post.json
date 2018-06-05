@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/withdraw_funds"
+    "url": "/wallet/withdraw"
   },
   "response": {
     "status": 200,

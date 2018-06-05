@@ -1,8 +1,8 @@
 {
   "request": {
     "method": "POST",
-    "url": "/login_user"
-  },
+    "url": "/auth/user"
+    },
   "response": {
     "status": 200,
     "headers": {

@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/change_withdraw_address"
+    "method": "PATCH",
+    "url": "/wallet/settings"
   },
   "response": {
     "status": 200,
