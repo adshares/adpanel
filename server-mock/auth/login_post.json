@@ -1,0 +1,19 @@
+{
+    "id": 0,
+    "email": "sth@sth.sth",
+    "isAdvertiser": true,
+    "isPublisher": true,
+    "isAdmin": false,
+    "isEmailConfirmed": false,
+    "authToken": "someauthtokenvalue",
+    "financialData": {
+      "userAddress": "0001-0000001F-34FC",
+      "userMemo": "User 0291",
+      "userAutomaticWithdrawPeriod": 1,
+      "userAutomaticWithdrawAmount": 200,
+      "totalFunds": 1276.60,
+      "totalFundsInCurrency": 4336.23,
+      "totalFundsChange": 20.30,
+      "lastPayment": "Tue Feb 20 2018 12:24:00 GMT"
+    }
+}

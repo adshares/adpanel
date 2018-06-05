@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "DELETE",
+    "url": "/notifications/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
+    },
+    "jsonBody": {
+      "id": 879132879132312,
+      "type": 0,
+      "message": "Your campaign changed status for 'Inactive'"
+    }
+  },
+  "priority": 0
+}

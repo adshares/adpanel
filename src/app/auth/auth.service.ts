@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   loginUser(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/login_user`, { email, password });
+    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
   }
 
   registerUser(email: string, password: string): Observable<User> {
@@ -23,11 +23,11 @@ export class AuthService {
   }
 
   getUserData(): Observable<User> {
-    return this.http.get<User>(`${environment.apiUrl}/user`);
+    return this.http.get<User>(`${environment.apiUrl}/auth/user`);
   }
 
   remindPassword(email: string) {
-    return this.http.post(`${environment.apiUrl}/remind_password`, { email })
+    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email })
   }
 
   logOut() {

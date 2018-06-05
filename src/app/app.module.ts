@@ -50,6 +50,7 @@ const appModules = [
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({ state: reducer }),
+    // FIXME clean dev import
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       AdvertiserEffects,

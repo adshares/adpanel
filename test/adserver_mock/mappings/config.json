@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/config"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
+    },
+    "jsonBody": {
+      "cors": true,
+      "jsonp": true,
+      "simulated-lag": 500
+    }
+  },
+  "priority": 0
+}

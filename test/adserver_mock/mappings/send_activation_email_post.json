@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/users/1/email/activation"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
+    },
+    "jsonBody": { "status": 200 }
+  },
+  "priority": 0
+}
