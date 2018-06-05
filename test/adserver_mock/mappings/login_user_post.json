@@ -16,6 +16,8 @@
     "isAdmin": false,
     "isEmailConfirmed": false,
     "authToken": "someauthtokenvalue",
+    "failedLoginAttemps": 1,
+    "maxFailedLoginAttemps": 2,
     "financialData": {
       "userAddress": "0001-0000001F-34FC",
       "userMemo": "User 0291",

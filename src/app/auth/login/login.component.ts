@@ -18,6 +18,7 @@ import { AppState } from 'models/app-state.model';
 import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
+import {ValidationErrors} from "@angular/forms/src/directives/validators";
 
 
 @Component({
@@ -38,7 +39,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
     super();
   }
@@ -79,6 +80,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.loginForm.value.password
     )
       .subscribe((userResponse: User) => {
+        if(userResponse.failedLoginAttemps === userResponse.maxFailedLoginAttemps){
+          this.loginForm.controls['password'].setErrors({"maxLoginAttemps": "true"});
+          this.isLoggingIn = false;
+;         return false;
+        }
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
 

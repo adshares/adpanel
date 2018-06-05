@@ -16,7 +16,8 @@ interface User {
   isPublisher: boolean;
   isAdmin: boolean;
   isEmailConfirmed: boolean;
-
+  failedLoginAttemps: number;
+  maxFailedLoginAttemps: number;
   authToken?: string;
 
   financialData: UserFinancialData;

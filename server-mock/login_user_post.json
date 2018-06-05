@@ -5,7 +5,10 @@
     "isPublisher": true,
     "isAdmin": false,
     "isEmailConfirmed": false,
+    "password": "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
     "authToken": "someauthtokenvalue",
+    "failedLoginAttemps": 1,
+    "maxFailedLoginAttemps": 2,
     "financialData": {
       "userAddress": "0001-0000001F-34FC",
       "userMemo": "User 0291",
