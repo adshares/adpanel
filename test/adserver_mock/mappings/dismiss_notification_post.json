@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/dismiss/notification"
+    "url": "/dismiss_notification"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "id": 879132879132312,

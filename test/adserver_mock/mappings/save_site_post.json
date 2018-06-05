@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/save/site"
+    "url": "/save_site"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "name": "Newly created site",

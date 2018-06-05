@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "/ad/unit/sizes"
+    "url": "/ad_unit_sizes"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": [
       {

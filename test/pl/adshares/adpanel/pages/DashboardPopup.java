@@ -20,6 +20,12 @@ public class DashboardPopup {
   private WebElement userPopUpPublisher;
   @FindBy(css = "[data-test='common-account-choose-advertiser']")
   private WebElement userPopUpAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-advertiser-account']")
+  private WebElement commonChooseAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-publisher-account']")
+  private WebElement commonChoosePublisher;
+  @FindBy(xpath = "//button[contains(text(), 'Continue')]")
+  private WebElement continueButton;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -36,11 +42,14 @@ public class DashboardPopup {
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
       userPopUpPublisher.click();
-      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
+      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
+      System.out.println("No popup displayed");
     } finally {
-      LOGGER.info("User choose publisher dashboard ");
+      LOGGER.info("User choose publisher dashboard");
+      System.out.println("User choose publisher dashboard");
+
     }
   }
 
@@ -48,14 +57,33 @@ public class DashboardPopup {
     try {
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-advertiser']")).getText();
-      Assert.assertEquals(textAssertion, "Continue as");
+      Assert.assertEquals(textAssertion, "Continue");
       userPopUpAdvertiser.click();
-      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.className("cdk-overlay-pane"))));
+      wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
     } finally {
       LOGGER.info("User choose advertiser dashboard ");
     }
+  }
+
+  public void chooseAccountTypeAllTypes() {
+    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    commonChooseAdvertiser.click();
+    commonChoosePublisher.click();
+    continueButton.click();
+  }
+
+  public void chooseAccountTypePublisherOnly() {
+    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    commonChoosePublisher.click();
+    continueButton.click();
+  }
+
+  public void chooseAccountTypeAdvertiserOnly() {
+    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    commonChooseAdvertiser.click();
+    continueButton.click();
   }
 
 }

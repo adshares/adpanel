@@ -33,8 +33,8 @@ public class AdvertiserTestCase extends BrowserTestCase {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/uuuu");
     LocalDate startDate = LocalDate.parse("5/1/2018", formatter);
-//    LocalDate endDate = LocalDate.parse("5/2/2018", formatter);
-    LocalDate endDate = null;
+    LocalDate endDate = LocalDate.parse("5/8/2018", formatter);
+//    LocalDate endDate = null;
     final CampaignBasicInfo campInfo = new CampaignBasicInfo("campaign 1", "http://google.com", "CPM", "0.01", "1", startDate, endDate);
     ecBasicInformationPage.fillInForm(campInfo);
     ecBasicInformationPage.saveData();
@@ -42,8 +42,8 @@ public class AdvertiserTestCase extends BrowserTestCase {
 
     EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
 
-    ecTargetPage.selectOption(EditCampaignTargetingPage.TargetCategory.REQUIRED);
-    ecTargetPage.selectOption(EditCampaignTargetingPage.TargetCategory.EXCLUDED);
+//    ecTargetPage.selectOption(EditCampaignTargetingPage.TargetCategory.REQUIRED);
+//    ecTargetPage.selectOption(EditCampaignTargetingPage.TargetCategory.EXCLUDED);
 //    ecTargetPage.toggleRequireBox();
 //    ecTargetPage.toggleExcludeBox();
     ecTargetPage.saveData();

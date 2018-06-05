@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/campaigns/totals"
+    "url": "/campaigns_totals"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "totalBudget": 903,

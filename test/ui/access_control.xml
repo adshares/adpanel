@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Access Control Test Suite" parallel="methods" thread-count="20" verbose="3">
-  <test name="Register - Create Account" group-by-instances="true">
+  <test name="Register - Create Account Validation" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -10,6 +10,69 @@
       <class name="pl.adshares.adpanel.RegisterTestCase">
         <methods>
           <include name="registerPageObjectValidation"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Register - Cross Validation - Email" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.RegisterTestCase">
+        <methods>
+          <include name="registerPageCrossAccessWrongEmailCorrectPassword"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Register - Cross Validation - Password" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.RegisterTestCase">
+        <methods>
+          <include name="registerPageCrossAccessWrongPasswordCorrectEmail"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Register - Cross Validation - Confirm Password" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.RegisterTestCase">
+        <methods>
+          <include name="registerPageCrossAccessWrongConfirmPasswordCorrectEmail"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Register - Create Account" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.RegisterTestCase">
+        <methods>
+          <include name="createAccount"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="registerTest"/>
+          <include name="loginTest"/>
+          <include name="firstLoginPopUp"/>
         </methods>
       </class>
     </classes>

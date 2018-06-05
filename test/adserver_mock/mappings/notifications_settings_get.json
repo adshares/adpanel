@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "GET",
-    "url": "/notifications/settings"
+    "url": "/notifications_settings"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": [
       {

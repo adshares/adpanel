@@ -19,9 +19,8 @@ public class LoginPage {
   private WebElement loginPassword;
   @FindBy(css = "[data-test='auth-login-form-submit-button']")
   private WebElement loginButton;
-    @FindBy(css = "[data-test='auth-redirect-to-registration']")
+  @FindBy(css = "[data-test='auth-redirect-to-registration']")
   private WebElement registerButton;
-
 
   /**
    * Login Page - WebElement Assertions
@@ -74,6 +73,26 @@ public class LoginPage {
     System.out.println("Email required - checked!");
   }
 
+  public void wrongEmailCorrectPassword(String passwordAdService) {
+    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    loginEmail.sendKeys("aaa");
+    loginPassword.sendKeys(passwordAdService);
+    loginButton.click();
+    String invalidEmailInput = invalidEmail.getText();
+    Assert.assertEquals("Invalid email!", invalidEmailInput);
+    System.out.println("Invalid email - checked!");
+  }
+
+  public void wrongPasswordCorrectEmail(String loginAdService) {
+    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    loginEmail.sendKeys(loginAdService);
+    loginPassword.sendKeys("aaa");
+    loginButton.click();
+    String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
+    Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
+    System.out.println("Minimum 8 signs required - checked!");
+  }
+
   public void loginInvalidEmailValidation() {
     loginButton.click();
     String invalidEmailInput = invalidEmail.getText();
@@ -100,7 +119,7 @@ public class LoginPage {
     loginButton.click();
   }
 
-  public void goToRegistration(){
+  public void goToRegistration() {
     registerButton.click();
   }
 

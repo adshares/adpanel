@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/update/admin/settings"
+    "url": "/update_admin_settings"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "earnings": 0.44

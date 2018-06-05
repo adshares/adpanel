@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/sites/total"
+    "url": "/sites_totals"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
       "totalEarnings": 1364,
