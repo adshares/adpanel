@@ -1,7 +1,9 @@
 package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.enums.Properties;
+import pl.adshares.adpanel.pages.DashboardPopup;
 import pl.adshares.adpanel.pages.HeaderBarPage;
+import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
@@ -10,8 +12,8 @@ import org.testng.annotations.Test;
 
 public class LoginTestCase extends BrowserTestCase {
 
-  private pl.adshares.adpanel.pages.LoginPage loginPage;
-  private pl.adshares.adpanel.pages.DashboardPopup dashboardPopup;
+  private LoginPage loginPage;
+  private DashboardPopup dashboardPopup;
   private HeaderBarPage headerBarPage;
   protected String loginAdService;
   protected String passwordAdService;
@@ -25,20 +27,53 @@ public class LoginTestCase extends BrowserTestCase {
 
   @Test
   public void loginTest() {
-    loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
+    loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn(loginAdService, passwordAdService);
-    dashboardPopup = new pl.adshares.adpanel.pages.DashboardPopup(driver);
+  }
+
+  @Test
+  public void popUpPublisher(){
+    dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpPublisher();
+  }
+    @Test
+  public void popUpAdvertiser(){
+      dashboardPopup = new pl.adshares.adpanel.pages.DashboardPopup(driver);
+      dashboardPopup.popUpAdvertiser();
+  }
+
+
+  @Test
+  public void firstLoginPopUp() {
+    dashboardPopup = new pl.adshares.adpanel.pages.DashboardPopup(driver);
+    dashboardPopup.chooseAccountTypeAllTypes();
   }
 
   @Test
   public void loginPageObjectValidation() {
-    loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
+    loginPage = new LoginPage(driver);
     loginPage.loginRequiredEmailValidation();
     loginPage.loginInvalidEmailValidation();
     loginPage.loginPasswordValidation();
     System.out.println("<-- Login Page Validation passed -->");
+  }
+
+  @Test
+  public void loginPageCrossAccessValidation() {
+    loginPage = new LoginPage(driver);
+    loginPage.wrongEmailCorrectPassword(passwordAdService);
+    System.out.println("<-- Login Page: wrong Email & Correct Password scenerio passed -->");
+    driver.navigate().refresh();
+    loginPage.wrongPasswordCorrectEmail(loginAdService);
+    System.out.println("<-- Login Page: Correct Email & wrong Password scenerio passed -->");
+  }
+
+  @Test
+  public void registerTest() {
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    loginPage.goToRegistration();
   }
 
   @Test
@@ -48,12 +83,4 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
     loginPage.pageLayoutValidation();
   }
-
-  @Test
-  public void registerTest() {
-    loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
-    loginPage.pageLayoutValidation();
-    loginPage.goToRegistration();
-  }
-
 }

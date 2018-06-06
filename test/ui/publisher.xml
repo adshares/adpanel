@@ -6,6 +6,7 @@
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginTest"/>
+          <include name="popUpPublisher"/>
         </methods>
       </class>
       <class name="pl.adshares.adpanel.PublisherTestCase">

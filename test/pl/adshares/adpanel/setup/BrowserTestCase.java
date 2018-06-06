@@ -15,6 +15,6 @@ public abstract class BrowserTestCase {
 
   @AfterTest
   public void tearDown() {
-//    DriverProvider.close();
+    DriverProvider.close();
   }
 }

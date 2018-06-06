@@ -1,6 +1,5 @@
 package pl.adshares.adpanel.pages.register;
 
-import pl.adshares.adpanel.pages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,10 +11,10 @@ import org.testng.Assert;
 import org.testng.log4testng.Logger;
 
 public class RegisterPage {
-  private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
+  private static final Logger LOGGER = Logger.getLogger(RegisterPage.class);
 
   @FindBy(css = "[data-test='auth-registration-form-email']")
-  private WebElement registerEmailAdress;
+  private WebElement registerEmailAddress;
   @FindBy(css = "[data-test='auth-registration-form-password']")
   private WebElement registerPassword;
   @FindBy(css = "[data-test='auth-registration-form-confirm-password']")
@@ -45,7 +44,7 @@ public class RegisterPage {
 
   public void createAccount(String loginRegisterAdService, String passwordRegisterAdService) {
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
-    registerEmailAdress.sendKeys(loginRegisterAdService);
+    registerEmailAddress.sendKeys(loginRegisterAdService);
     registerPassword.sendKeys(passwordRegisterAdService);
     registerPasswordConfirm.sendKeys(passwordRegisterAdService);
     registerButton.click();
@@ -60,9 +59,42 @@ public class RegisterPage {
     System.out.println("Email required - checked!");
   }
 
+  public void wrongEmailCorrectPasswordRegister(String passwordAdService) {
+    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    registerEmailAddress.sendKeys("aaa");
+    registerPassword.sendKeys(passwordAdService);
+    registerPasswordConfirm.sendKeys(passwordAdService);
+    registerButton.click();
+    String invalidEmailInput = invalidEmail.getText();
+    Assert.assertEquals("Invalid email!", invalidEmailInput);
+    System.out.println("Invalid email - checked!");
+  }
+
+  public void wrongPasswordCorrectEmailRegister(String loginAdService) {
+    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    registerEmailAddress.sendKeys(loginAdService);
+    registerPassword.sendKeys("aaa");
+    registerPasswordConfirm.sendKeys("aaa");
+    registerButton.click();
+    String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
+    Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
+    System.out.println("Minimum 8 signs required - checked!");
+  }
+
+  public void wrongConfirmPasswordCorrectEmailRegister(String loginAdService, String passwordAdService) {
+    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    registerEmailAddress.sendKeys(loginAdService);
+    registerPassword.sendKeys(passwordAdService);
+    registerPasswordConfirm.sendKeys("aaa");
+    registerButton.click();
+    String invalidPasswordMinimumInput = passwordDontMatch.getText();
+    Assert.assertEquals("Passwords don't match!", invalidPasswordMinimumInput);
+    System.out.println("Passwords don't match! - checked!");
+  }
+
   public void registerInvalidEmailValidation() {
     wait.until(ExpectedConditions.visibilityOf(registerButton));
-    registerEmailAdress.sendKeys("test");
+    registerEmailAddress.sendKeys("test");
     registerButton.click();
     wait.until(ExpectedConditions.visibilityOf(invalidEmail));
     String invalidEmailInput = invalidEmail.getText();
@@ -90,8 +122,8 @@ public class RegisterPage {
     Boolean notPresent = ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver);
     Assert.assertTrue(notPresent);
     System.out.println("8 signs: Validation message is not present - checked!");
-    registerEmailAdress.clear();
-    registerEmailAdress.sendKeys("test@wp.pl");
+    registerEmailAddress.clear();
+    registerEmailAddress.sendKeys("test@wp.pl");
     registerPasswordConfirm.sendKeys("aaaaaaaa");
     registerButton.click();
   }

@@ -1,12 +1,12 @@
 {
   "request": {
     "method": "POST",
-    "url": "/change/automatic/withdraw"
+    "url": "/change_automatic_withdraw"
   },
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": { "status": 200 }
   },
