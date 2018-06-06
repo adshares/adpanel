@@ -19,6 +19,7 @@ interface User {
   failedLoginAttemps: number;
   maxFailedLoginAttemps: number;
   authToken?: string;
+  passwordLifeTime: string;
 
   financialData: UserFinancialData;
 }

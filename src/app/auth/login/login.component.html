@@ -93,6 +93,12 @@
           >
             Max login failed attemps!
           </span>
+          <span
+                  class="error-msg"
+                  *ngIf="loginForm.hasError('passwordLifeTime', ['password']) && loginFormSubmitted"
+          >
+            Password was expired!
+          </span>
         </div>
 
         <div

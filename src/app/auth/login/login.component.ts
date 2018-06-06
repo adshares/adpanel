@@ -80,11 +80,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.loginForm.value.password
     )
       .subscribe((userResponse: User) => {
-        if(userResponse.failedLoginAttemps === userResponse.maxFailedLoginAttemps){
-          this.loginForm.controls['password'].setErrors({"maxLoginAttemps": "true"});
-          this.isLoggingIn = false;
-;         return false;
+        if(userResponse.passwordLifeTime > today) {
+            this.checkPasswordLifeTime();
+            return false;
         }
+
+        if(userResponse.failedLoginAttemps === userResponse.maxFailedLoginAttemps) {
+            this.checkMaxLoginFailedAttemps();
+            return false;
+        }
+
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
 
@@ -104,6 +109,23 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         }
       });
     this.subscriptions.push(loginSubscription);
+  }
+
+  /**
+   * Check password lifetime
+   */
+  checkPasswordLifeTime(){
+    this.loginForm.controls['password'].setErrors({"passwordLifeTime": "true"});
+    this.isLoggingIn = false;
+  }
+
+  /**
+   * Check max login failed entered password
+   * @param {User} userResponse
+   */
+  checkMaxLoginFailedAttemps(){
+    this.loginForm.controls['password'].setErrors({"maxLoginAttemps": "true"});
+    this.isLoggingIn = false;
   }
 
   saveUserDataToLocalStorage(userResponse: User) {
