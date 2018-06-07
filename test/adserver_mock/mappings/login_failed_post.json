@@ -2,15 +2,16 @@
   "request": {
     "method": "POST",
     "url": "/auth/login"
-    },
+  },
   "response": {
     "status": 401,
     "headers": {
-      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     },
     "jsonBody": {
       "description": "Invalid username or password"
     }
   },
-  "priority": 0
+  "priority": 999
 }
