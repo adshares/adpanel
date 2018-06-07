@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit, Input} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -19,6 +19,7 @@ import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
 import {ValidationErrors} from "@angular/forms/src/directives/validators";
+import {CampaignsTotals} from "models/campaign.model";
 
 
 @Component({
@@ -30,9 +31,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   @ViewChild('rememberUser') rememberUser: ElementRef;
 
   loginForm: FormGroup;
-
   isLoggingIn = false;
   loginFormSubmitted = false;
+  @Input() userResponse: User;
 
   constructor(
     private authService: AuthService,
@@ -80,13 +81,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.loginForm.value.password
     )
       .subscribe((userResponse: User) => {
-        if(userResponse.passwordLifeTime > today) {
-            this.checkPasswordLifeTime();
-            return false;
-        }
-
-        if(userResponse.failedLoginAttemps === userResponse.maxFailedLoginAttemps) {
-            this.checkMaxLoginFailedAttemps();
+        if(!this.checkMaxLoginFailedAttemps(userResponse)) {
+            this.loginForm.controls['password'].setErrors({"maxLoginAttemps": "true"});
+            this.isLoggingIn = false;
             return false;
         }
 
@@ -95,16 +92,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
         if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin/dashboard'],{ queryParams: { lifeTimePassword: this.checkPasswordLifeTime(userResponse) }});
         } else {
           this.showStartupPopups(userResponse);
 
           if (userResponse.isAdvertiser) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
-            this.router.navigate(['/advertiser/dashboard']);
+            this.router.navigate(['/advertiser/dashboard'],{ queryParams: { lifeTimePassword: this.checkPasswordLifeTime(userResponse) }});
           } else if (userResponse.isPublisher) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
-            this.router.navigate(['/publisher/dashboard']);
+            this.router.navigate(['/publisher/dashboard'],{ queryParams: { lifeTimePassword: this.checkPasswordLifeTime(userResponse) }});
           }
         }
       });
@@ -112,20 +109,24 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   /**
-   * Check password lifetime
+   * Check password lifetime error
    */
-  checkPasswordLifeTime(){
-    this.loginForm.controls['password'].setErrors({"passwordLifeTime": "true"});
-    this.isLoggingIn = false;
+  checkPasswordLifeTime(userResponse){
+      var dateToday = new Date().toDateString();
+      var passwordLifeTime = new Date(userResponse.passwordLifeTime).toDateString();
+      if(Date.parse(passwordLifeTime) < Date.parse(dateToday)) {
+          return false;
+      }
+      return true;
   }
 
   /**
-   * Check max login failed entered password
-   * @param {User} userResponse
+   * Check max login failed entered password error
    */
-  checkMaxLoginFailedAttemps(){
-    this.loginForm.controls['password'].setErrors({"maxLoginAttemps": "true"});
-    this.isLoggingIn = false;
+  checkMaxLoginFailedAttemps(userResponse){
+      if(userResponse.failedLoginAttemps === userResponse.maxFailedLoginAttemps) {
+          return false;
+      }
   }
 
   saveUserDataToLocalStorage(userResponse: User) {

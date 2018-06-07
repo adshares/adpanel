@@ -99,6 +99,7 @@
             align-start
             change-form"
         >
+
           <div class="row">
             <div class="adsh-form-input__box">
               <label
@@ -141,8 +142,25 @@
               >
                 Password changed
               </span>
+              <span
+                class="error-msg"
+                *ngIf="afterRequestValidation.password.lockTimePassword"
+              >
+                Password was locked try again later!
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="afterRequestValidation.password.maxReuse"
+              >
+                Your password has been used the maximum number of times!
+              </span>
+              <span
+                  class="error-msg"
+                  *ngIf="afterRequestValidation.password.maxReuseTime"
+              >
+                You cannot change this password, try it fro some time!
+              </span>
             </div>
-
             <div class="adsh-form-input__box">
               <label
                 for="newPassword"
@@ -210,7 +228,6 @@
               </span>
             </div>
           </div>
-
           <button
             class="
               adsh-btn
@@ -220,6 +237,13 @@
             Change password
           </button>
         </div>
+        <div
+                class="warning-msg"
+                *ngIf="graceTime"
+        >
+          You password was expire in 3 days!
+        </div>
+
       </form>
     </div>
   </div>

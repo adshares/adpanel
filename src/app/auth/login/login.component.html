@@ -97,7 +97,13 @@
                   class="error-msg"
                   *ngIf="loginForm.hasError('passwordLifeTime', ['password']) && loginFormSubmitted"
           >
-            Password was expired!
+            Password was expire!
+          </span>
+          <span
+                  class="warning-msg"
+                  *ngIf="loginForm.hasError('notifyPasswordGraceTime', ['password']) && loginFormSubmitted"
+          >
+            Password will be expire in next days!
           </span>
         </div>
 

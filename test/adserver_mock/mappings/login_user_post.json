@@ -19,6 +19,8 @@
     "failedLoginAttemps": 1,
     "maxFailedLoginAttemps": 2,
     "passwordLifeTime": "Tue Feb 20 2018 12:24:00 GMT",
+    "passwordLockTime": "Wed Jun 20 2018 12:24:00 GMT",
+    "passwordGraceTime": 3,
     "financialData": {
       "userAddress": "0001-0000001F-34FC",
       "userMemo": "User 0291",

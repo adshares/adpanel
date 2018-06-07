@@ -41,6 +41,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
      this.createForms();
+     this.graceTime = true;
   }
 
   createForms() {
@@ -102,14 +103,33 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
           this.afterRequestValidation.password.success = true;
         },
         (err) => {
+          console.log(err)
           if (err.code === 412) {
             this.afterRequestValidation.password.wrongPreviousPassword = true;
           } else {
             this.afterRequestValidation.password.passwordChangeFailed = true;
           }
+          if (err.code === 411) {
+            this.afterRequestValidation.password.lockTimePassword = true;
+          }
+          if (err.code === 410) {
+              this.afterRequestValidation.password.maxReuse = true;
+          }
+          if (err.code === 409) {
+              this.afterRequestValidation.password.maxReuseTime = true;
+          }
+
         },
         () => this.changePasswordFormSubmitted = false
       );
     this.subscriptions.push(changePasswordSubscription);
   }
+
+    checkNotifyPasswordGraceTime(userResponse){
+        var diff = Math.abs(new Date().getTime() - new Date(userResponse.passwordLifeTime).getTime());
+        var diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+        if(diffDays  <= userResponse.passwordGraceTime){
+            return false;
+        }
+    }
 }
