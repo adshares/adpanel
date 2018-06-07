@@ -5,8 +5,8 @@
     "bodyPatterns": [
       {
         "equalToJson": {
-          "email": "user@e11.click",
-          "password": "useruser"
+          "email": "admin@e11.click",
+          "password": "adminadmin"
         },
         "ignoreExtraElements": true
       }
@@ -20,23 +20,23 @@
     },
     "jsonBody": {
       "id": 0,
-      "email": "user@e11.click",
-      "isAdvertiser": true,
-      "isPublisher": true,
-      "isAdmin": false,
+      "email": "admin@e11.click",
+      "isAdvertiser": false,
+      "isPublisher": false,
+      "isAdmin": true,
       "isEmailConfirmed": false,
       "authToken": "someauthtokenvalue",
       "financialData": {
         "userAddress": "0001-0000001F-34FC",
-        "userMemo": "User 0291",
+        "userMemo": "Admin 007",
         "userAutomaticWithdrawPeriod": 1,
         "userAutomaticWithdrawAmount": 200,
         "totalFunds": 1276.60,
         "totalFundsInCurrency": 4336.23,
         "totalFundsChange": 20.30,
         "lastPayment": "Tue Feb 20 2018 12:24:00 GMT"
-       }
-     }
-    },
-    "priority": 0
-  }
+      }
+    }
+  },
+  "priority": 1
+}
