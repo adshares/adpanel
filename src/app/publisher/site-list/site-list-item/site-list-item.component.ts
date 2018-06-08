@@ -13,7 +13,6 @@ export class SiteListItemComponent {
   constructor(private router: Router) { }
 
   siteStatusEnum = siteStatusEnum;
-
   navigateToCampaignDetails(siteId: number) {
     this.router.navigate(['/publisher', 'site', siteId]);
   }
