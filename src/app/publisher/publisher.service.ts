@@ -43,8 +43,8 @@ export class PublisherService {
         return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
-  getTargetingCriteria(siteId: number ): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/${siteId}/targeting`);
+  getTargetingCriteria(): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/targeting`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
