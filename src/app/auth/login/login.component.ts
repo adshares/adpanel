@@ -32,6 +32,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   isLoggingIn = false;
   loginFormSubmitted = false;
+  criteriaError= false;
 
   constructor(
     private authService: AuthService,
@@ -96,6 +97,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
             this.router.navigate(['/publisher/dashboard']);
           }
         }
+
+      },
+      (err) => {
+          this.criteriaError = true;
       });
     this.subscriptions.push(loginSubscription);
   }

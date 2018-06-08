@@ -1,7 +1,7 @@
-{
+
   "request": {
     "method": "POST",
-    "url": "/update_admin_settings"
+    "url": "/sites_totals"
   },
   "response": {
     "status": 200,
@@ -9,7 +9,11 @@
       "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
-      "earnings": 0.44
+      "totalEarnings": 1364,
+      "totalClicks": 224,
+      "totalImpressions": 12546,
+      "averagePageRPM": 0.0515,
+      "averageCPC": 2.05
     }
   },
   "priority": 0
