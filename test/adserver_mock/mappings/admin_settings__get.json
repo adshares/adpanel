@@ -1,15 +1,15 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/auth/login"
-    },
+    "method": "GET",
+    "url": "/admin/settings"
+  },
   "response": {
-    "status": 401,
+    "status": 200,
     "headers": {
       "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
-      "description": "Invalid username or password"
+      "earnings": 0.12
     }
   },
   "priority": 0

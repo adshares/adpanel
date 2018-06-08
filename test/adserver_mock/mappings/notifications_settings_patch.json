@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "POST",
-    "url": "/sites_totals"
+    "method": "PATCH",
+    "url": "/notifications/settings"
   },
   "response": {
     "status": 200,
@@ -9,11 +9,7 @@
       "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": {
-      "totalEarnings": 1364,
-      "totalClicks": 224,
-      "totalImpressions": 12546,
-      "averagePageRPM": 0.0515,
-      "averageCPC": 2.05
+      "earnings": 0.44
     }
   },
   "priority": 0

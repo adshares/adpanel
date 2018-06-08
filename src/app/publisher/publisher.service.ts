@@ -12,7 +12,7 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 export class PublisherService {
 
   constructor(private http: HttpClient) {}
-w
+
   getSites(timespan: TimespanFilter): Observable<Site[]> {
     return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
@@ -43,8 +43,8 @@ w
         return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
-  getTargetingCriteria(siteId: number ): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/${siteId}/targeting`);
+  getTargetingCriteria(): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/targeting`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
