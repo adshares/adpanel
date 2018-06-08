@@ -1,4 +1,4 @@
-
+{
   "request": {
     "method": "POST",
     "url": "/sites_totals"
