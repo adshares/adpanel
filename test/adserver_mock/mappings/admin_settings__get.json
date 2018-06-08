@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/admin_settings"
+    "url": "/admin/settings"
   },
   "response": {
     "status": 200,

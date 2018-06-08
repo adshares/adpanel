@@ -39,8 +39,8 @@ export class AdvertiserService {
     return this.http.post<Campaign>(`${environment.apiUrl}/campaign`, { campaign });
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaign_targeting`);
+  getTargetingCriteria(id: number): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaigns/${id}/targeting`);
   }
   //
   // patchTargetingCriteria(id: number): Observable<TargetingOption[]> {

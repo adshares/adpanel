@@ -10,7 +10,7 @@ export class TargetingCriteriaResolver implements Resolve<any> {
   constructor(private advertiserService: AdvertiserService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.advertiserService.getTargetingCriteria()
+    return this.advertiserService.getTargetingCriteria(11)
       .map((targetingOptions) => prepareTargetingChoices(targetingOptions));
   }
 }

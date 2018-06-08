@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json",  "Access-Control-Allow-Origin" : "*"
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": [{
       "websiteUrl": "Site 1",
@@ -108,6 +108,7 @@
       }
     ]
   },
-  "priority": 1
+  "priority": 0
 }
+
 

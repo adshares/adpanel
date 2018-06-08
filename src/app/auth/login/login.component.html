@@ -18,6 +18,13 @@
       >
         Please log in to your account.
       </p>
+
+      <div
+          class="error-msg"
+          *ngIf="criteriaError && loginFormSubmitted"
+  >
+          Password or email is invalid.
+        </div>
       <form
         [formGroup]="loginForm"
         (ngSubmit)="login()"

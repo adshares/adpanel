@@ -11,7 +11,7 @@ export class TargetingCriteriaResolver implements Resolve<any> {
   constructor(private publisherService: PublisherService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
-    return this.publisherService.getTargetingCriteria(route.params.id)
+    return this.publisherService.getTargetingCriteria(1)
       .map((targetingOptions) => prepareTargetingChoices(targetingOptions));
   }
 }
