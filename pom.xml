@@ -73,7 +73,7 @@
         <configuration>
           <keepRunning>true</keepRunning>
           <dir>test/adserver_mock</dir>
-          <params>--port=8299 --verbose</params>
+          <params>--port=80 --verbose</params>
         </configuration>
 
       </plugin>

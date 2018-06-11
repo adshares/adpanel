@@ -22,6 +22,8 @@
 *.sublime-workspace
 *.iml
 
+.panel-dock-yarn-task-done
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
