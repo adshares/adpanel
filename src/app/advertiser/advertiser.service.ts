@@ -22,7 +22,7 @@ export class AdvertiserService {
   }
 
   getCampaign(id: number): Observable<Campaign> {
-    return this.http.get<Campaign>(`${environment.apiUrl}/campaign/${id}`);
+    return this.http.get<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
   deleteAdImage(id: number, bId: number) {
