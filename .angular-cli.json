@@ -24,10 +24,10 @@
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
+        "dev": "environments/environment.dev.ts",
         "prod": "environments/environment.prod.ts",
-        "docker": "environments/environment.docker.ts",
-        "test": "environments/environment.test.ts"
+        "test": "environments/environment.test.ts",
+        "test-mock": "environments/environment.test-mock.ts"
       }
     }
   ],
