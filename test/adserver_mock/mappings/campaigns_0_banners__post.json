@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "PUT",
+    "method": "POST",
     "url": "/campaigns/0/banner"
 
   },

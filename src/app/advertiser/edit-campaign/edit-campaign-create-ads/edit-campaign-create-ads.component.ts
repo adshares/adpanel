@@ -156,9 +156,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   sendImage(image, adIndex) {
-    image.method = 'PUT';
+    image.method = 'POST';
     image.withCredentials = false; // needed by mock server
-    image.url = `${environment.apiUrl}/upload_ad/${this.ads[adIndex].id}`;
+    image.url = `${environment.apiUrl}/campaigns/${this.ads[adIndex].id}/banner`;
     image.upload();
     image.onProgress = (progress) => {
       this.imagesStatus.upload.processing = true;
