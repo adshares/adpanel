@@ -7,6 +7,7 @@ export const userInitialState: User = {
   isPublisher: true,
   isAdmin: false,
   isEmailConfirmed: false,
+  password: '',
 
   financialData: {
     userAddress: '',
