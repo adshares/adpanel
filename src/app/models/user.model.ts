@@ -16,7 +16,7 @@ interface User {
     isPublisher: boolean;
     isAdmin: boolean;
     isEmailConfirmed: boolean;
-
+    password: string;
     authToken?: string;
 
     financialData: UserFinancialData;
