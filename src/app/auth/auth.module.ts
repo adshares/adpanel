@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import {RegisterConfirmComponent} from "auth/register-confirm/register-confirm.component";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     LoginComponent,
     RegisterComponent,
     RemindPasswordComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    RegisterConfirmComponent
   ],
   providers: [
     AuthService
