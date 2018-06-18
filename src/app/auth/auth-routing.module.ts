@@ -10,17 +10,17 @@ import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm
 
 const authRoutes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
+    { path: 'register-confirm/:token', component: RegisterConfirmComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'confirmation', component: ConfirmationComponent },
     { path: 'remind-password', component: RemindPasswordComponent },
-    { path: 'register/confirm/:token', component: RegisterConfirmComponent }
   ]},
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(authRoutes)
+    RouterModule.forRoot(authRoutes),
   ],
   exports: [
     RouterModule

@@ -25,12 +25,12 @@ import {RegisterConfirmComponent} from "auth/register-confirm/register-confirm.c
     AuthRoutingModule
   ],
   declarations: [
+    RegisterConfirmComponent,
     AuthComponent,
     LoginComponent,
     RegisterComponent,
     RemindPasswordComponent,
-    ConfirmationComponent,
-    RegisterConfirmComponent
+    ConfirmationComponent
   ],
   providers: [
     AuthService

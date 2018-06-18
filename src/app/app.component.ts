@@ -40,8 +40,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'))
-    this.handleSavedUserData(userData);
     if(userData) {
+        this.handleSavedUserData(userData);
         this.getAdsharesAddress();
         this.setNotificationUptadeInterval();
     }

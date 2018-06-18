@@ -1,5 +1,5 @@
-import { Component} from '@angular/core';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import { Router} from '@angular/router';
 
 import { AuthService } from 'auth/auth.service';
 
@@ -9,11 +9,11 @@ import { AuthService } from 'auth/auth.service';
   styleUrls: ['./register-confirm.component.scss'],
 })
 
-export class RegisterConfirmComponent {
+export class RegisterConfirmComponent  {
 
   constructor(
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
