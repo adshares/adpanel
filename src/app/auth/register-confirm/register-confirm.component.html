@@ -19,7 +19,14 @@
       </p>
 
   </div>
-
+    <div
+            class="error-msg
+                adsh-copy
+                adsh-copy--large"
+            *ngIf="ObjectKeys(errorsRegister).length > 0"
+    >
+        {{ errorsRegister.email }}
+    </div>
   <div
     class="
       adsh-box

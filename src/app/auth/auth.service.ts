@@ -27,7 +27,11 @@ export class AuthService {
   }
 
   remindPassword(email: string) {
-    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email })
+    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email });
+  }
+
+  emailActivation(token: string){
+      return this.http.post(`${environment.apiUrl}/users/${token}/email/activate`, { token });
   }
 
   logOut() {
