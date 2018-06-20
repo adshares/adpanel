@@ -83,18 +83,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
 
-        this.router.navigate(['/auth/register/confirm/dsdasdsa']);
-        if (userResponse.isAdmin) {
+        if (userResponse.data.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.showStartupPopups(userResponse);
 
-          if (userResponse.isAdvertiser) {
+          if (userResponse.data.isAdvertiser) {
 
               this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
-          } else if (userResponse.isPublisher) {
+          } else if (userResponse.data.isPublisher) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
             this.router.navigate(['/publisher/dashboard']);
           }
@@ -116,7 +115,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-
     localStorage.setItem('adshUser', JSON.stringify(dataToSave));
   }
 
@@ -129,7 +127,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
 
-    } else if (user.isAdvertiser && user.isPublisher) {
+    } else if (user.data.isAdvertiser && user.data.isPublisher) {
       this.dialog.open(AccountChooseDialogComponent);
     }
   }

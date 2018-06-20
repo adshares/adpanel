@@ -4,6 +4,7 @@ import {LoginComponent} from "auth/login/login.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/auth/register-confirm/:token', pathMatch: 'full' },
+  { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' }
 ];
 

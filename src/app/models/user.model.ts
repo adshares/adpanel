@@ -10,14 +10,16 @@ interface UserFinancialData {
 }
 
 interface User {
-    id: number;
-    email: string;
-    isAdvertiser: boolean;
-    isPublisher: boolean;
-    isAdmin: boolean;
-    isEmailConfirmed: boolean;
-    password: string;
-    authToken?: string;
+    data:{
+        id: number
+        email: string;
+        isAdvertiser: boolean;
+        isPublisher: boolean;
+        isAdmin: boolean;
+        isEmailConfirmed: boolean;
+        password: string;
+        authToken?: string;
+    };
 
     financialData: UserFinancialData;
 }
