@@ -14,7 +14,9 @@ import { User } from "models/user.model";
 })
 export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
+  errorsRegister= {};
 
+  ObjectKeys = Object.keys;
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   user: User;
@@ -43,7 +45,12 @@ export class RegisterComponent extends HandleSubscription {
     const registerSubscription = this.authService.registerUser(
         user
     )
-      .subscribe(() => this.router.navigate(['/auth', 'confirmation']));
+      .subscribe(
+          () => this.router.navigate(['/auth', 'confirmation']),
+      (err) => {
+              this.errorsRegister = err.error.errors;
+        }
+      );
 
     this.subscriptions.push(registerSubscription);
   }
