@@ -4,7 +4,7 @@ import {LoginComponent} from "auth/login/login.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/admin/dashboard', pathMatch: 'full' },
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];
 
 @NgModule({
