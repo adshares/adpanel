@@ -18,13 +18,17 @@ import { LocalStorageUser } from 'models/user.model';
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
+import { MatDialog } from '@angular/material/dialog';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
-    private pushNotificationsService: PushNotificationsService
+    private pushNotificationsService: PushNotificationsService,
+    private dialog: MatDialog
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -45,11 +49,16 @@ export class RequestInterceptor implements HttpInterceptor {
 
       return event;
     }, (err: any) => {
+      console.log(err);
       if (err instanceof HttpErrorResponse && err.status === 401) {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
-
+      if (err instanceof HttpErrorResponse && err.status === 500) {
+          this.dialog.open(ErrorResponseDialogComponent);
+            localStorage.removeItem('adshUser');
+            this.router.navigate(['/auth', 'login']);
+      }
       this.pushNotificationsService.addPushNotification({
         type: pushNotificationTypesEnum.ERROR,
         title: 'Error',

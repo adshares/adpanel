@@ -10,7 +10,6 @@ interface UserFinancialData {
 }
 
 interface User {
-    data:{
         id: number
         email: string;
         isAdvertiser: boolean;
@@ -19,9 +18,7 @@ interface User {
         isEmailConfirmed: boolean;
         password: string;
         authToken?: string;
-    };
-
-    financialData: UserFinancialData;
+        financialData: UserFinancialData;
 }
 
 interface LocalStorageUser extends User {
