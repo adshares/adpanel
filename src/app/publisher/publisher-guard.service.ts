@@ -26,7 +26,7 @@ export class PublisherGuard implements CanActivate {
     return this.store.select('state', 'user', 'data')
       .take(1)
       .map((userData: User) => {
-        if (userData.isPublisher) {
+        if (userData.data.isPublisher) {
           return true;
         } else {
           this.router.navigate(['/auth/login']);

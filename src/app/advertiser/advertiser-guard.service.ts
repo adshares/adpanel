@@ -31,7 +31,7 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
     return this.store.select('state', 'user', 'data')
       .take(1)
       .map((userData: User) => {
-        if (userData.isAdvertiser) {
+        if (userData.data.isAdvertiser) {
           return true;
         } else {
           this.router.navigate(['/auth/login']);
