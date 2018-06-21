@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   emailActivation(token: string){
-      return this.http.post(`${environment.apiUrl}/users/email/activate`, { token });
+      return this.http.post(`${environment.apiUrl}/users/email/activate`, { user: { token } });
   }
 
   logOut() {
