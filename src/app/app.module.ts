@@ -31,6 +31,7 @@ import { AdminEffects } from './store/admin/admin.effects';
 import { CommonEffects } from './store/common/common.effects';
 
 import { reducer } from './store/index';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 
 const appModules = [
   AppCommonModule,
@@ -43,7 +44,8 @@ const appModules = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ErrorResponseDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,9 @@ const appModules = [
     SettingsService,
     AdminService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  entryComponents: [
+    ErrorResponseDialogComponent // AND HERE
+  ]
 })
 export class AppModule { }

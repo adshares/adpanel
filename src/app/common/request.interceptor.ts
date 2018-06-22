@@ -49,15 +49,13 @@ export class RequestInterceptor implements HttpInterceptor {
 
       return event;
     }, (err: any) => {
-      console.log(err);
       if (err instanceof HttpErrorResponse && err.status === 401) {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);
-            localStorage.removeItem('adshUser');
-            this.router.navigate(['/auth', 'login']);
+          setTimeout(() => location.reload(), 2000);
       }
       this.pushNotificationsService.addPushNotification({
         type: pushNotificationTypesEnum.ERROR,
