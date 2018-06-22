@@ -31,7 +31,7 @@ export class RegisterConfirmComponent  {
         this.authService.emailActivation(token)
             .subscribe(
                 (err) => {
-                    this.errorsRegister = err.error.errors;
+                    this.errorsRegister = err.errors;
                 }
             );
     }
