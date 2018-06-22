@@ -45,7 +45,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
       .subscribe((user: User) => {
         this.currentPeriod = user.financialData.userAutomaticWithdrawPeriod;
         this.currentAmount = user.financialData.userAutomaticWithdrawAmount;
-        this.isEmailConfirmed = user.data.isEmailConfirmed;
+        this.isEmailConfirmed = user.isEmailConfirmed;
     });
 
     this.subscriptions.push(userSubscription);
