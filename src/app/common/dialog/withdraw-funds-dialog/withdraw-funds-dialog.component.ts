@@ -38,7 +38,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.isEmailConfirmed = user.data.isEmailConfirmed;
+        this.isEmailConfirmed = user.isEmailConfirmed;
         this.financialData = user.financialData;
       });
     this.subscriptions.push(userDataSubscription);
