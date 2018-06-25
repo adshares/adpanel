@@ -82,18 +82,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
-
-        if (userResponse.isAdmin) {
+        if (userResponse.user.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.showStartupPopups(userResponse);
 
-          if (userResponse.isAdvertiser) {
+          if (userResponse.user.isAdvertiser) {
 
               this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
-          } else if (userResponse.isPublisher) {
+          } else if (userResponse.user.isPublisher) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
             this.router.navigate(['/publisher/dashboard']);
           }
