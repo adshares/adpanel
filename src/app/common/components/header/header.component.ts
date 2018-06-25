@@ -51,7 +51,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.activeUserType = activeUserType;
       });
 
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'user', 'financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
       });

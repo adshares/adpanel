@@ -43,10 +43,10 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   }
 
   setInitialDataByUserType() {
-    this.chartSeries = this.userData.isAdmin ?
+    this.chartSeries = this.userData.user.isAdmin ?
       enumToArray(adminChartSeriesEnum) : enumToArray(chartSeriesEnum);
 
-    if (this.userData.isAdvertiser) {
+    if (this.userData.user.isAdvertiser) {
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
           this.assetsInfo = campaigns.map(

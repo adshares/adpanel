@@ -126,7 +126,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
 
-    } else if (user.isAdvertiser && user.isPublisher) {
+    } else if (user.user.isAdvertiser && user.user.isPublisher) {
       this.dialog.open(AccountChooseDialogComponent);
     }
   }

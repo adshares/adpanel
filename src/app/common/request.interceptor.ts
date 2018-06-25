@@ -32,7 +32,7 @@ export class RequestInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.store.select('state', 'user', 'data', 'authToken')
+    this.store.select('state', 'user', 'data', 'user', 'authToken')
       .take(1)
       .subscribe((authToken) => {
         if (authToken) {

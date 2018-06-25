@@ -37,7 +37,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'user','financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
       });
@@ -46,11 +46,11 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   }
 
   checkUserRole(user: User) {
-    if (user.isAdmin) {
+    if (user.user.isAdmin) {
       return;
     }
 
-    this.selectedRole = user.isAdvertiser ? 'Advertiser' : 'Publisher';
+    this.selectedRole = user.user.isAdvertiser ? 'Advertiser' : 'Publisher';
   }
 
   openAddFundsDialog() {

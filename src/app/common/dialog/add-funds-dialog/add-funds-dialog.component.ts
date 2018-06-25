@@ -33,8 +33,8 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.userMemo = user.financialData.userMemo;
-        this.isEmailConfirmed = user.isEmailConfirmed;
+        this.userMemo = user.user.financialData.userMemo;
+        this.isEmailConfirmed = user.user.isEmailConfirmed;
       });
     this.subscriptions.push(userDataSubscription);
   }
