@@ -1,10 +1,12 @@
 <div
+  *ngIf="!user.isEmailConfirmed"
   class="
     adsh-confirmation-alert
     adsh-copy
     adsh-gray"
 >
-  <div
+
+<div
     class="
       container
       row
