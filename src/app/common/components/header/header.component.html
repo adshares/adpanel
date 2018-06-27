@@ -31,7 +31,6 @@
         >
       </div>
     </a>
-
     <div
       *ngIf="!(userDataState | async).isAdmin"
       class="
@@ -76,7 +75,7 @@
           adsh-icon--append
           choose-user-menu-chevron"
         [class.up]="chooseUserMenuOpen"
-        *ngIf="!(userDataState | async).user.isAdmin"
+        *ngIf="!(userDataState | async).isAdmin"
         src="assets/images/chevron--gray.svg"
       >
       <ul
@@ -90,7 +89,7 @@
           class="choose-user-menu__item"
           [value]="userRolesEnum.ADVERTISER"
           routerLink="/advertiser/dashboard"
-          *ngIf="!(userDataState | async).user.isAdmin && (activeUserType !== userRolesEnum.ADVERTISER)"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.ADVERTISER)"
           (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
           data-test="header-choose-user-menu-advertiser"
         >
@@ -104,7 +103,7 @@
           class="choose-user-menu__item"
           [value]="userRolesEnum.PUBLISHER"
           routerLink="/publisher/dashboard"
-          *ngIf="!(userDataState | async).user.isAdmin && (activeUserType !== userRolesEnum.PUBLISHER)"
+          *ngIf="!(userDataState | async).isAdmin && (activeUserType !== userRolesEnum.PUBLISHER)"
           (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
           data-test="header-choose-user-menu-publisher"
         >

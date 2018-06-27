@@ -62,7 +62,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(userFinancialDataSubscription, activeUserTypeSubscription, notificationsTotalSubscription);
-
     this.userDataState = this.store.select('state', 'user', 'data');
 
 
