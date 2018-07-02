@@ -22,7 +22,7 @@ export class AdminGuard implements CanActivate {
     return this.store.select('state', 'user', 'data')
       .take(1)
       .map((userData: User) => {
-        if (userData.user.isAdmin) {
+        if (userData.isAdmin) {
           return true;
         } else {
           this.router.navigate(['/auth/login']);

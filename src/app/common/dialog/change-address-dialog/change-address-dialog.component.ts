@@ -37,8 +37,8 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     const userSubcrtiption = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.userAddress = user.user.financialData.userAddress;
-        this.isEmailConfirmed = user.user.isEmailConfirmed;
+        this.userAddress = user.financialData.userAddress;
+        this.isEmailConfirmed = user.isEmailConfirmed;
       });
     this.subscriptions.push(userSubcrtiption);
   }

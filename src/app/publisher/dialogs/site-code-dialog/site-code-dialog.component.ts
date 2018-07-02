@@ -25,7 +25,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   ngOnInit() {
     const userSubcrtiption = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.isEmailConfirmed = user.user.isEmailConfirmed;
+        this.isEmailConfirmed = user.isEmailConfirmed;
       });
     this.subscriptions.push(userSubcrtiption);
   }

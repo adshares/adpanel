@@ -83,9 +83,9 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getActiveUserTypeByUserRoles(user: User) {
-    if (user.user.isAdmin) {
+    if (user.isAdmin) {
       return userRolesEnum.ADMIN;
-    } else if (user.user.isAdvertiser) {
+    } else if (user.isAdvertiser) {
       return userRolesEnum.ADVERTISER;
     } else {
       return userRolesEnum.PUBLISHER;

@@ -82,17 +82,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
-        if (userResponse.user.isAdmin) {
+        if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
           this.showStartupPopups(userResponse);
 
-          if (userResponse.user.isAdvertiser) {
+          if (userResponse.isAdvertiser) {
 
               this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
-          } else if (userResponse.user.isPublisher) {
+          } else if (userResponse.isPublisher) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
             this.router.navigate(['/publisher/dashboard']);
           }
@@ -126,7 +126,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
 
-    } else if (user.user.isAdvertiser && user.user.isPublisher) {
+    } else if (user.isAdvertiser && user.isPublisher) {
       this.dialog.open(AccountChooseDialogComponent);
     }
   }

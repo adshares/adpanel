@@ -46,11 +46,11 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   }
 
   checkUserRole(user: User) {
-    if (user.user.isAdmin) {
+    if (user.isAdmin) {
       return;
     }
 
-    this.selectedRole = user.user.isAdvertiser ? 'Advertiser' : 'Publisher';
+    this.selectedRole = user.isAdvertiser ? 'Advertiser' : 'Publisher';
   }
 
   openAddFundsDialog() {

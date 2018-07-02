@@ -10,17 +10,15 @@ interface UserFinancialData {
 }
 
 interface User {
-        user: {
-            id: number
-            email: string;
-            isAdvertiser: boolean;
-            isPublisher: boolean;
-            isAdmin: boolean;
-            isEmailConfirmed: boolean;
-            password: string;
-            authToken?: string;
-            financialData: UserFinancialData;
-        }
+    id: number
+    email: string;
+    isAdvertiser: boolean;
+    isPublisher: boolean;
+    isAdmin: boolean;
+    isEmailConfirmed: boolean;
+    password: string;
+    authToken?: string;
+    financialData: UserFinancialData;
 }
 
 interface LocalStorageUser extends User {
