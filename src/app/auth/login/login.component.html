@@ -58,7 +58,7 @@
           </span>
           <span
             class="error-msg"
-            *ngIf="loginForm.hasError('email', ['email']) && loginFormSubmitted"
+            *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
           >
             Invalid email!
           </span>
