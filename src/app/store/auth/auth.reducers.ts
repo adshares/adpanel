@@ -10,17 +10,17 @@ export function authReducers(state = initialState , action: authActions.actions)
     case authActions.UPDATE_USER_ADDRESS:
       return {
         ...state,
-        financialData: Object.assign({}, state.user.financialData, { userAddress: action.payload })
+        adserverWallet: Object.assign({}, state.user.adserverWallet, { adsharesAddress: action.payload })
       };
     case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD:
       return {
         ...state,
-        financialData: Object.assign({}, state.user.financialData, { userAutomaticWithdrawPeriod: action.payload })
+        adserverWallet: Object.assign({}, state.user.adserverWallet, { autoWithdrawPeriod: action.payload })
       };
     case authActions.UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT:
       return {
         ...state,
-        financialData: Object.assign({}, state.user.financialData, { userAutomaticWithdrawAmount: action.payload })
+        adserverWallet: Object.assign({}, state.user.adserverWallet, { autoWithdrawAmount: action.payload })
       };
     default:
       return state;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 
-import { User, UserFinancialData} from 'models/user.model';
+import { User, UserAdserverWallet} from 'models/user.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -22,7 +22,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   userDataState: Store<User>;
 
   periodsEnum = withdrawPeriodsEnum;
-  financialData: UserFinancialData;
+  adserverWallet: UserAdserverWallet;
 
   constructor(
     private store: Store<AppState>,
@@ -37,12 +37,12 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data','financialData')
-      .subscribe((financialData: UserFinancialData) => {
-        this.financialData = financialData;
+    const userAdserverWalletSubscription = this.store.select('state', 'user', 'data','adserverWallet')
+      .subscribe((adserverWallet: UserAdserverWallet) => {
+        this.adserverWallet = adserverWallet;
       });
 
-    this.subscriptions.push(getUserSubscription, userFinancialDataSubscription);
+    this.subscriptions.push(getUserSubscription, userAdserverWalletSubscription);
   }
 
   checkUserRole(user: User) {

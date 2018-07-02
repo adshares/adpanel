@@ -10,11 +10,11 @@ export const userInitialState: User = {
       isEmailConfirmed: false,
       password: '',
 
-      financialData: {
-          userAddress: '',
-          userMemo: '',
-          userAutomaticWithdrawPeriod: 3,
-          userAutomaticWithdrawAmount: 300,
+      adserverWallet: {
+          adsharesAddress: '',
+          paymentMemo: '',
+          autoWithdrawPeriod: 3,
+          autoWithdrawAmount: 300,
           totalFunds: 1276.60,
           totalFundsInCurrency: 4336.23,
           totalFundsChange: 20.30,

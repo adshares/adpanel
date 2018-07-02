@@ -1,8 +1,8 @@
-interface UserFinancialData {
-    userAddress: string;
-    userMemo: string;
-    userAutomaticWithdrawPeriod: number;
-    userAutomaticWithdrawAmount: number;
+interface UserAdserverWallet {
+    adsharesAddress: string;
+    paymentMemo: string;
+    autoWithdrawPeriod: number;
+    autoWithdrawAmount: number;
     totalFunds: number;
     totalFundsInCurrency: number;
     totalFundsChange: number;
@@ -18,7 +18,7 @@ interface User {
     isEmailConfirmed: boolean;
     password: string;
     authToken?: string;
-    financialData: UserFinancialData;
+    adserverWallet: UserAdserverWallet;
 }
 
 interface LocalStorageUser extends User {
@@ -33,4 +33,4 @@ interface UserRoles extends User {
     advertiser: string;
 }
 
-export { UserFinancialData, User, LocalStorageUser, UserRoles };
+export { UserAdserverWallet, User, LocalStorageUser, UserRoles };
