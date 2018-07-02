@@ -32,7 +32,7 @@ export class RequestInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.store.select('state', 'user', 'data', 'user', 'authToken')
+    this.store.select('state', 'user', 'data', 'authToken')
       .take(1)
       .subscribe((authToken) => {
         if (authToken) {
@@ -55,7 +55,7 @@ export class RequestInterceptor implements HttpInterceptor {
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);
-          setTimeout(() => location.reload(), 2000);
+          // setTimeout(() => location.reload(), 2000);
       }
       this.pushNotificationsService.addPushNotification({
         type: pushNotificationTypesEnum.ERROR,

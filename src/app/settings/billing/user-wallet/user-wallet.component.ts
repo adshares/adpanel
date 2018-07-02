@@ -49,7 +49,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'user','financialData')
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
         Object.assign(this.financialData, { lastPayment: moment(financialData.lastPayment).format('DD/MM/YYYY, hh:mma') });

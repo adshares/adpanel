@@ -37,7 +37,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'user','financialData')
+    const userFinancialDataSubscription = this.store.select('state', 'user', 'data','financialData')
       .subscribe((financialData: UserFinancialData) => {
         this.financialData = financialData;
       });

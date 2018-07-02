@@ -24,8 +24,7 @@
                 adsh-copy--large"
             *ngIf="ObjectKeys(errorsRegister).length > 0"
     >
-      <div *ngFor="let errorForm of ObjectKeys(errorsRegister)">{{ errorsRegister[errorForm] }}</div>
-
+        {{ errorsRegister.email }}
         </div>
     <form
       #registrationForm="ngForm"
