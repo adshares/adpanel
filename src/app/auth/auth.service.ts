@@ -36,7 +36,7 @@ export class AuthService {
       return this.http.post(`${environment.apiUrl}/users/email/activate`, { user: { email_confirm_token: token } });
   }
 
-  saveUsers(id: number, user): Observable<User> {
+  saveUsers(id: string, user): Observable<User> {
       return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
   }
 

@@ -89,8 +89,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.showStartupPopups(userResponse);
 
           if (userResponse.isAdvertiser) {
-
-              this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
+            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
             this.router.navigate(['/advertiser/dashboard']);
           } else if (userResponse.isPublisher) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
@@ -114,7 +113,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
+    localStorage.setItem('adshUser', JSON.stringify(dataToSave));    console.log( JSON.stringify(dataToSave));
+
   }
 
   showStartupPopups(user: User) {

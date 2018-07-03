@@ -22,7 +22,7 @@ export class CustomizeAccountChooseDialogComponent {
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
      };
-      this.authService.saveUsers(userData.uuid ,user) .subscribe(
+      this.authService.saveUsers(userData.id ,user) .subscribe(
           userData =>  this.dialogRef.close()
 
       );

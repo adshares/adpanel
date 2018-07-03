@@ -8,7 +8,7 @@ export const userInitialState: User = {
     isAdmin: false,
     isEmailConfirmed: false,
     password: '',
-
+    uuid: "dsdsadasdsa233232",
     adserverWallet: {
         adsharesAddress: '',
         paymentMemo: '',
