@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   getUserData(): Observable<User> {
-    return this.http.get<User>(`${environment.apiUrl}/auth/user`);
+    return this.http.get<User>(`${environment.apiUrl}/auth/check`);
   }
 
   remindPassword(email: string) {

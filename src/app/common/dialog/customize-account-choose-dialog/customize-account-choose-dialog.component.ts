@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import {AuthService} from "auth/auth.service";
 import {Router} from "@angular/router";
-import {LocalStorageUser} from "models/user.model";
+import {LocalStorageUser, User} from "models/user.model";
 
 @Component({
   selector: 'app-customize-account-choose-dialog',
@@ -17,9 +17,15 @@ export class CustomizeAccountChooseDialogComponent {
   };
   checkAccountProperty(accounts) {
     if (accounts.advertiser.selected || accounts.publisher.selected) {
-     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'))
-      var user = { isAdvertiser: accounts.advertiser.selected, isPublisher: accounts.publisher.selected};
-      this.authService.saveUsers(userData.uuid ,user) .subscribe(userData =>  this.dialogRef.close());
+     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+     const user = <User> {
+        isAdvertiser: accounts.advertiser.selected,
+        isPublisher: accounts.publisher.selected
+     };
+      this.authService.saveUsers(userData.uuid ,user) .subscribe(
+          userData =>  this.dialogRef.close()
+
+      );
 
       this.router.navigate(['/publisher/dashboard']);
     } else {
