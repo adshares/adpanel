@@ -19,6 +19,7 @@ interface User {
     password: string;
     authToken?: string;
     adserverWallet: UserAdserverWallet;
+    uuid: string;
 }
 
 interface LocalStorageUser extends User {
