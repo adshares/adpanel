@@ -3,6 +3,12 @@
     (click)="dialogRef.close()"
     class="adsh-dialog-close"
   ></div>
+  <div
+          class="error-msg"
+          *ngIf="!accounts.isSelected"
+  >
+    Choose one option!
+  </div>
   <h1
     class="
       adsh-heading
@@ -109,7 +115,7 @@
   </div>
 
   <button
-    (click)="dialogRef.close(accounts)"
+    (click)="checkAccountProperty(accounts)"
     class="
       adsh-btn
       adsh-btn--wide
