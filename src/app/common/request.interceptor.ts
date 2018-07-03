@@ -44,6 +44,10 @@ export class RequestInterceptor implements HttpInterceptor {
         }
       });
 
+      request = request.clone({
+         withCredentials: true
+      });
+
     return next.handle(request).do((event: HttpEvent<any>) => {
       this.extendTokenExpiration();
 
