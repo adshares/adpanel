@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
 import { User } from 'models/user.model';
+import {Site} from "models/site.model";
+import {parseTargetingForBackend} from "common/components/targeting/targeting.helpers";
 
 @Injectable()
 export class AuthService {
@@ -32,6 +34,10 @@ export class AuthService {
 
   emailActivation(token: string){
       return this.http.post(`${environment.apiUrl}/users/email/activate`, { user: { email_confirm_token: token } });
+  }
+
+  saveUsers(id: number, user): Observable<User> {
+      return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
   }
 
   logOut() {
