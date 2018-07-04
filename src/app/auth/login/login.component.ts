@@ -114,7 +114,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-    localStorage.setItem('adshUser', JSON.stringify(dataToSave));    console.log( JSON.stringify(dataToSave));
+    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
 
   }
 

@@ -58,11 +58,13 @@ export class RequestInterceptor implements HttpInterceptor {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
-      if (err instanceof HttpErrorResponse && err.status === 0) {
+      if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
           this.dialog.open(ErrorResponseDialogComponentNoResponse);
+          return;
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);
+          return;
       }
       this.pushNotificationsService.addPushNotification({
         type: pushNotificationTypesEnum.ERROR,

@@ -28,7 +28,7 @@
             class="error-msg
                 adsh-copy
                 adsh-copy--large"
-            *ngIf="ObjectKeys(errorsRegister).length > 0"
+            *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
     >
         {{ errorsRegister.email }}
     </div>
