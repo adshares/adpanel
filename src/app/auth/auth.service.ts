@@ -16,8 +16,8 @@ export class AuthService {
     return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
   }
 
-  registerUser(user): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/users`, {user});
+  registerUser(user, uri): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
   }
 
   sendActivationEmail() {

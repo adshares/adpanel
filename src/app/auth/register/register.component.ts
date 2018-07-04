@@ -28,6 +28,7 @@ export class RegisterComponent extends HandleSubscription {
   }
 
   register() {
+    const uri = '/auth/register-confirm/';
     const password = this.registrationForm.value.password;
     const confirmPassword = this.registrationForm.value.confirmPassword;
 
@@ -43,7 +44,7 @@ export class RegisterComponent extends HandleSubscription {
       isPublisher: true
     };
     const registerSubscription = this.authService.registerUser(
-        user
+        user, uri
     )
       .subscribe(
           () => this.router.navigate(['/auth', 'confirmation']),
