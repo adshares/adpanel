@@ -82,7 +82,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
-
         if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
@@ -101,6 +100,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       },
       (err) => {
           this.criteriaError = true;
+          this.isLoggingIn = false;
       });
     this.subscriptions.push(loginSubscription);
   }
@@ -114,13 +114,12 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
+    localStorage.setItem('adshUser', JSON.stringify(dataToSave));    console.log( JSON.stringify(dataToSave));
 
-    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
   }
 
   showStartupPopups(user: User) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
-
     if (firstLogin) {
       const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent);
 

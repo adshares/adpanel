@@ -21,7 +21,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   changeAddressFormSubmitted = false;
   isEmailConfirmed = false;
 
-  userAddress: string;
+  adsharesAddress: string;
   changeWithdrawAddressForm: FormGroup;
 
   constructor(
@@ -37,7 +37,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
 
     const userSubcrtiption = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.userAddress = user.financialData.userAddress;
+        this.adsharesAddress = user.adserverWallet.adsharesAddress;
         this.isEmailConfirmed = user.isEmailConfirmed;
       });
     this.subscriptions.push(userSubcrtiption);
@@ -70,7 +70,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { userAddress: address });
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { adsharesAddress: address });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
     this.store.dispatch(new authActions.UpdateUserAddress(address));

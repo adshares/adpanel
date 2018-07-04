@@ -39,14 +39,14 @@
                 adsh-heading--primary"
               data-test="user-total-funds"
             >
-              {{ financialData.totalFunds | adsharesTokenValue }}
+              {{ adserverWallet.totalFunds | adsharesTokenValue }}
               <span
                 class="
                   adsh-copy--normal
                   adsh-copy--light"
                 data-test="user-total-funds-in-currency"
               >
-                ({{ financialData.totalFundsInCurrency | currency:'USD' }})
+                ({{ adserverWallet.totalFundsInCurrency | currency:'USD' }})
               </span>
             </h1>
             <p
@@ -55,7 +55,7 @@
                 adsh-copy--large"
               data-test="settings-last-payment"
             >
-              Last successful payment: {{ financialData.lastPayment }}
+              Last successful payment: {{ adserverWallet.lastPayment }}
             </p>
             <div
               class="
@@ -120,7 +120,7 @@
                   adsh-heading--secondary"
                 data-test="user-address"
               >
-                {{ financialData.userAddress }}
+                {{ adserverWallet.adsharesAddress }}
               </p>
             </div>
             <button
@@ -152,14 +152,14 @@
                   adsh-heading--secondary"
               >
                 <span data-test="user-automatic-withdraw-amount">
-                  {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+                  {{ adserverWallet.autoWithdrawAmount | adsharesTokenValue }}
                 </span>
                 <span>are accrued after</span>
                 <span
                   class="period"
                   data-test="user-automatic-withdraw-period"
                 >
-                  {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
+                  {{ periodsEnum[adserverWallet.autoWithdrawPeriod] }}
                 </span>
               </p>
             </div>
