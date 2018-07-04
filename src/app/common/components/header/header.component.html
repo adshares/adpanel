@@ -31,7 +31,6 @@
         >
       </div>
     </a>
-
     <div
       *ngIf="!(userDataState | async).isAdmin"
       class="
@@ -212,13 +211,13 @@
           class="adsh-adst"
           data-test="user-total-funds"
         >
-          {{ financialData.totalFunds | number:'1.2-2' | adsharesTokenValue }}
+          {{ adserverWallet.totalFunds | number:'1.2-2' | adsharesTokenValue }}
         </span>
         <span
           class="adsh-usd"
           data-test="user-total-funds-in-currency"
         >
-          ~ {{ financialData.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
+          ~ {{ adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
         </span>
       </div>
       <img

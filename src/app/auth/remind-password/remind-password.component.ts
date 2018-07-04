@@ -36,6 +36,7 @@ export class RemindPasswordComponent {
       .subscribe(
         () => this.router.navigate(['/auth', 'login']),
         (err) => {
+          this.isSendingEmail = false;
           if (err.code === 412) {
             this.emailDoesntExist = true;
           }

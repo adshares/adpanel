@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 
 import { AppState } from 'models/app-state.model';
-import {User, UserFinancialData, UserRoles} from 'models/user.model';
+import {User, UserAdserverWallet, UserRoles} from 'models/user.model';
 
 @Component({
     selector: 'app-settings-navigation',
@@ -12,7 +12,7 @@ import {User, UserFinancialData, UserRoles} from 'models/user.model';
     styleUrls: ['./settings-navigation.component.scss'],
 })
 export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
-    financialData: UserFinancialData;
+    adserverWallet: UserAdserverWallet;
     userDataState: Store<User>;
     userRoles: Store<UserRoles>
 
@@ -45,12 +45,12 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
     }
 
     ngOnInit() {
-        const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
-            .subscribe((financialData: UserFinancialData) => {
-                this.financialData = financialData;
+        const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+            .subscribe((adserverWallet: UserAdserverWallet) => {
+                this.adserverWallet = adserverWallet;
             });
         this.userDataState = this.store.select('state', 'user', 'data');
 
-        this.subscriptions.push(userFinancialDataSubscription);
+        this.subscriptions.push(userAdserverWalletSubscription);
     }
 }

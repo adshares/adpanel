@@ -15,7 +15,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   isEmailConfirmed = false;
 
   adsharesAddress: string;
-  userMemo: string;
+  paymentMemo: string;
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
@@ -33,7 +33,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.userMemo = user.financialData.userMemo;
+        this.paymentMemo = user.adserverWallet.paymentMemo;
         this.isEmailConfirmed = user.isEmailConfirmed;
       });
     this.subscriptions.push(userDataSubscription);

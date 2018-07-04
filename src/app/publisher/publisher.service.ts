@@ -22,7 +22,7 @@ export class PublisherService {
   }
 
   getSite(id: number): Observable<Site> {
-    return this.http.get<Site>(`${environment.apiUrl}/site/${id}`);
+    return this.http.get<Site>(`${environment.apiUrl}/sites/${id}`);
   }
 
   saveSite(site: Site): Observable<Site> {

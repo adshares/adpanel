@@ -15,7 +15,7 @@
         adsh-white"
             data-test="user-total-funds"
     >
-      {{ financialData.totalFunds | adsharesTokenValue }}
+      {{ adserverWallet.totalFunds | adsharesTokenValue }}
     </span>
     <span
             class="
@@ -25,7 +25,7 @@
         adsh-copy--bold"
             data-test="user-total-funds-change"
     >
-      {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
+      {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
     </span>
   </div>
 
