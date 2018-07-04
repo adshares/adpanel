@@ -105,11 +105,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   logOut() {
+    localStorage.removeItem('adshUser');
+    this.store.dispatch(new authActions.SetUser(userInitialState));
     const logoutSubscription = this.authService.logOut().subscribe();
     this.subscriptions.push(logoutSubscription);
 
-    localStorage.removeItem('adshUser');
-    this.store.dispatch(new authActions.SetUser(userInitialState));
     this.router.navigate(['/auth/login']);
   }
 

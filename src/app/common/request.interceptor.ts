@@ -59,7 +59,13 @@ export class RequestInterceptor implements HttpInterceptor {
         this.router.navigate(['/auth', 'login']);
       }
       if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
-          this.dialog.open(ErrorResponseDialogComponentNoResponse);
+          this.pushNotificationsService.addPushNotification({
+              type: pushNotificationTypesEnum.ERROR,
+              title: 'Error',
+              message: 'Cannot connect to server'
+          });
+          // @TODO: uncomment when is done adserver
+          // this.dialog.open(ErrorResponseDialogComponentNoResponse);
           return;
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
