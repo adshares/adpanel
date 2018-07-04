@@ -20,6 +20,7 @@ import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -57,9 +58,11 @@ export class RequestInterceptor implements HttpInterceptor {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
+      if (err instanceof HttpErrorResponse && err.status === 0) {
+          this.dialog.open(ErrorResponseDialogComponentNoResponse);
+      }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);
-          // setTimeout(() => location.reload(), 2000);
       }
       this.pushNotificationsService.addPushNotification({
         type: pushNotificationTypesEnum.ERROR,

@@ -32,6 +32,7 @@ import { CommonEffects } from './store/common/common.effects';
 
 import { reducer } from './store/index';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 
 const appModules = [
   AppCommonModule,
@@ -45,7 +46,8 @@ const appModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorResponseDialogComponent
+    ErrorResponseDialogComponent,
+    ErrorResponseDialogComponentNoResponse
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ const appModules = [
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
-    ErrorResponseDialogComponent // AND HERE
+    ErrorResponseDialogComponent,
+    ErrorResponseDialogComponentNoResponse
   ]
 })
 export class AppModule { }
