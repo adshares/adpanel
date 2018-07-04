@@ -100,6 +100,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       },
       (err) => {
           this.criteriaError = true;
+          this.isLoggingIn = false;
       });
     this.subscriptions.push(loginSubscription);
   }
