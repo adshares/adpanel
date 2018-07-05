@@ -13,7 +13,8 @@ import {User} from "models/user.model";
   styleUrls: ['./confirmation-alert.component.scss'],
 })
 export class ConfirmationAlertComponent implements OnInit {
-   user: User;
+  user: User;
+  isEmailConfirmed;
   constructor(
     private authService: AuthService,
     private store: Store<AppState>,
@@ -23,7 +24,8 @@ export class ConfirmationAlertComponent implements OnInit {
     this.authService.getUserData()
     .first()
     .subscribe((user) => {
-      this.user = user;
+      console.log(this.isEmailConfirmed)
+      this.isEmailConfirmed = user.isEmailConfirmed;
       const savedUser = localStorage.getItem('adshUser');
       if (user.isEmailConfirmed && savedUser) {
         const dataToSave = Object.assign({}, JSON.parse(savedUser), { isEmailConfirmed: true });
