@@ -65,7 +65,7 @@ export class RequestInterceptor implements HttpInterceptor {
               message: 'Cannot connect to server'
           });
           // @TODO: uncomment when is done adserver
-          this.dialog.open(ErrorResponseDialogComponentNoResponse);
+          // this.dialog.open(ErrorResponseDialogComponentNoResponse);
           return;
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
