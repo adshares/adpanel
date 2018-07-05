@@ -28,9 +28,13 @@ export class AuthService {
     return this.http.get<User>(`${environment.apiUrl}/auth/check`);
   }
 
-  remindPassword(email: string) {
-    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email });
+  remindPassword(email: string, uri: string) {
+    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email, uri });
   }
+
+  resetPassword(user: User, uri: string) {
+     return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
+   }
 
   emailActivation(token: string){
       return this.http.post(`${environment.apiUrl}/users/email/activate`, { user: { email_confirm_token: token } });
