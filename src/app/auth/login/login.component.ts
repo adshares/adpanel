@@ -121,7 +121,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   showStartupPopups(user: User) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
     if (firstLogin) {
-      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent);
+      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
 
       dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
