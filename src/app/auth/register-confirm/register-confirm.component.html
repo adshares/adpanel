@@ -1,0 +1,61 @@
+<div
+  class="
+    col
+    justify-between"
+>
+    <h2 _ngcontent-c2="" class="
+        adsh-heading
+        adsh-heading--primary">
+        Activation Email
+    </h2>
+  <div>
+      <h2
+        class="
+          adsh-heading
+          adsh-heading--primary"
+      >
+      </h2>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+
+      </p>
+
+  </div>
+    <div
+            class="error-msg
+                adsh-copy
+                adsh-copy--large"
+            *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
+    >
+        {{ errorsRegister.email }}
+    </div>
+  <div
+    class="
+      adsh-box
+      adsh-box--light
+      adsh-box--large"
+  >
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+        Your email is confirmed. Signup your account.
+    </p>
+  </div>
+<button
+        class="
+    adsh-btn
+    adsh-btn--wide
+    adsh-btn--submit
+    adsh-bg-blue"
+        routerLink="/auth/login"
+        [queryParams]="{customize: 1}"
+        data-test="auth-redirect-to-first-login"
+>
+    Log in
+</button>
+</div>

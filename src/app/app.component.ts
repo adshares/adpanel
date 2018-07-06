@@ -39,9 +39,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
-    this.handleSavedUserData();
-    this.getAdsharesAddress();
-    this.setNotificationUptadeInterval();
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'))
+    if(userData) {
+        this.handleSavedUserData(userData);
+        this.getAdsharesAddress();
+        this.setNotificationUptadeInterval();
+    }
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -52,9 +55,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     });
   }
 
-  handleSavedUserData() {
-    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-
+  handleSavedUserData(userData) {
     if (!userData) {
       this.router.navigate(['/auth', 'login']);
       return;

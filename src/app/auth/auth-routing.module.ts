@@ -6,19 +6,27 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
+import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm.component";
+import { ConfirmPasswordComponent } from "auth/confirm-password/confirm-password.component";
+import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
+import { ConfirmPasswordBadTokenComponent } from "auth/confirm-password-bad-token/confirm-password-bad-token.component";
 
 const authRoutes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
+    { path: 'register-confirm/:token', component: RegisterConfirmComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'confirmation', component: ConfirmationComponent },
-    { path: 'remind-password', component: RemindPasswordComponent }
+    { path: 'confirmation-password-send', component: ConfirmationSendRecoveryPasswordComponent },
+    { path: 'remind-password', component: RemindPasswordComponent },
+    { path: 'confirm-password/:token', component: ConfirmPasswordComponent },
+    { path: 'confirm-password-bad-token', component: ConfirmPasswordBadTokenComponent },
   ]},
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(authRoutes)
+    RouterModule.forRoot(authRoutes),
   ],
   exports: [
     RouterModule

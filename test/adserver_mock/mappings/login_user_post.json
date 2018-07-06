@@ -26,11 +26,11 @@
       "isAdmin": false,
       "isEmailConfirmed": false,
       "authToken": "someauthtokenvalue",
-      "financialData": {
-        "userAddress": "0001-0000001F-34FC",
-        "userMemo": "User 0291",
-        "userAutomaticWithdrawPeriod": 1,
-        "userAutomaticWithdrawAmount": 200,
+      "adserverWallet": {
+        "adsharesAddress": "0001-0000001F-34FC",
+        "paymentMemo": "User 0291",
+        "autoWithdrawPeriod": 1,
+        "autoWithdrawAmount": 200,
         "totalFunds": 1276.60,
         "totalFundsInCurrency": 4336.23,
         "totalFundsChange": 20.30,
