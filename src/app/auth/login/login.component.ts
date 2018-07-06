@@ -130,7 +130,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     } else if (user.isAdvertiser && user.isPublisher) {
       const chooseAccount = localStorage.getItem("choose");
-      if(chooseAccount === "Advertiser"){
+      if(chooseAccount == "Advertiser"){
           this.router.navigate(['/advertiser/dashboard']);
       } else {
           this.router.navigate(['/publisher/dashboard']);
