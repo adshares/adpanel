@@ -5,7 +5,6 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
 import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm.component";
 import {ConfirmPasswordComponent} from "auth/confirm-password/confirm-password.component";
