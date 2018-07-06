@@ -20,10 +20,9 @@ export class AuthService {
     return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
   }
 
-  sendActivationEmail() {
-    return this.http.post(`${environment.apiUrl}/send_activation_email`, { });
+  checkRecoveryPasswordToken(token: string): Observable<User> {
+     return this.http.post<User>(`${environment.apiUrl}/auth/check-recovery-password-token`, { token });
   }
-
   getUserData(): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/auth/check`);
   }
