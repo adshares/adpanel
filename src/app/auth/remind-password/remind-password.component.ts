@@ -27,7 +27,6 @@ export class RemindPasswordComponent {
     const uri = "/auth/confirm-password/";
     if (!this.remindPasswordForm.valid) {
       return;
-      return;
     }
 
     this.isSendingEmail = true;

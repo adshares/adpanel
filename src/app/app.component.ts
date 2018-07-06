@@ -68,7 +68,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     } else {
       let loginDir = location.pathname.indexOf('auth') > -1;
       if(location.pathname === "/"){
-        loginDir = 1;
+        loginDir = true;
       }
       const activeUserType =
         loginDir ? this.getActiveUserTypeByUserRoles(user) : this.getActiveUserTypeByDir();

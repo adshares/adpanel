@@ -82,11 +82,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
+
         if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
-          this.showStartupPopups(userResponse);
+            this.showStartupPopups(userResponse);
+
 
           if (userResponse.isAdvertiser) {
             this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
