@@ -56,14 +56,14 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   handleSavedUserData(userData) {
-    if (!userData) {
+    if (Object.keys(userData).length == 0) {
       this.router.navigate(['/auth', 'login']);
       return;
     }
 
     const { remember, passwordLength, expiration, ...user } = userData;
 
-    if (isUnixTimePastNow(userData.expiration)) {
+    if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length == 0) {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {

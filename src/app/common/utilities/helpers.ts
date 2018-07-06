@@ -42,7 +42,6 @@ function enumToObjectArray(enumInput) {
 
 function isUnixTimePastNow(unixTime): boolean {
   const nowUnix = (+new Date) / 1000 | 0;
-
   return unixTime < nowUnix;
 }
 

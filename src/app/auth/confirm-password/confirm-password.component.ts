@@ -45,15 +45,15 @@ export class ConfirmPasswordComponent {
       }
 
       this.isPasswordConfirm = true;
-      const user = <User> {
+      const user = {
           password_new: this.confirmPasswordForm.value.password,
-          password_recovery_token: this.token
+          token: this.token
       };
       const confirmPasswordSubscription = this.authService.resetPassword(
           user, uri
       )
           .subscribe(
-              () => this.router.navigate(['/auth', 'confirmation']),
+              () => this.router.navigate(['/auth', 'confirm-password-success']),
               (err) => {
                   this.confirmErrors = err.error.errors;
                   this.isPasswordConfirm = false;

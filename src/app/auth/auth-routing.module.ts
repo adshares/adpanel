@@ -10,6 +10,7 @@ import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm
 import { ConfirmPasswordComponent } from "auth/confirm-password/confirm-password.component";
 import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
 import { ConfirmPasswordBadTokenComponent } from "auth/confirm-password-bad-token/confirm-password-bad-token.component";
+import { ConfirmPasswordResetComponent } from "auth/confirm-password-reset/confirm-password-reset.component";
 
 const authRoutes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
@@ -21,6 +22,7 @@ const authRoutes: Routes = [
     { path: 'remind-password', component: RemindPasswordComponent },
     { path: 'confirm-password/:token', component: ConfirmPasswordComponent },
     { path: 'confirm-password-bad-token', component: ConfirmPasswordBadTokenComponent },
+    { path: 'confirm-password-success', component: ConfirmPasswordResetComponent },
   ]},
 ];
 

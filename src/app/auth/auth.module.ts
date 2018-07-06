@@ -16,6 +16,7 @@ import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm
 import { ConfirmPasswordComponent } from "./confirm-password/confirm-password.component";
 import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
 import { ConfirmPasswordBadTokenComponent } from "./confirm-password-bad-token/confirm-password-bad-token.component";
+import { ConfirmPasswordResetComponent } from "./confirm-password-reset/confirm-password-reset.component";
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { ConfirmPasswordBadTokenComponent } from "./confirm-password-bad-token/c
     ConfirmationComponent,
     ConfirmPasswordComponent,
     ConfirmationSendRecoveryPasswordComponent,
-    ConfirmPasswordBadTokenComponent
+    ConfirmPasswordBadTokenComponent,
+    ConfirmPasswordResetComponent
 
   ],
   providers: [

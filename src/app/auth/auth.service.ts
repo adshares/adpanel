@@ -20,8 +20,8 @@ export class AuthService {
     return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
   }
 
-  checkRecoveryPasswordToken(token: string): Observable<User> {
-     return this.http.post<User>(`${environment.apiUrl}/auth/check-recovery-password-token`, { token });
+  checkRecoveryPasswordToken(token: string) {
+      return this.http.get(`${environment.apiUrl}/auth/recovery/${token}`);
   }
   getUserData(): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/auth/check`);
@@ -31,7 +31,7 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/recovery`, { email, uri });
   }
 
-  resetPassword(user: User, uri: string) {
+  resetPassword(user: object,  uri: string) {
      return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
    }
 

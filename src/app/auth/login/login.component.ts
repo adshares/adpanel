@@ -127,7 +127,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
 
     } else if (user.isAdvertiser && user.isPublisher) {
-      this.dialog.open(AccountChooseDialogComponent);
+      const chooseAccount = localStorage.getItem("choose");
+      if(chooseAccount === "Advertiser"){
+          this.router.navigate(['/advertiser/dashboard']);
+      } else {
+          this.router.navigate(['/publisher/dashboard']);
+      }
+      if(!chooseAccount){
+          this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+      }
     }
   }
 
@@ -135,7 +143,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (!accounts) {
       return;
     }
-
+    1
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
       this.router.navigate(['/publisher/dashboard']);
     }
