@@ -62,21 +62,23 @@ export class AppComponent extends HandleSubscription implements OnInit {
     }
 
     const { remember, passwordLength, expiration, ...user } = userData;
-
-    if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length == 0) {
+    if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length > 0) {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {
-      const loginDir = location.pathname.indexOf('auth') > -1;
+      let loginDir = location.pathname.indexOf('auth') > -1;
+      if(location.pathname === "/"){
+        loginDir = 1;
+      }
       const activeUserType =
         loginDir ? this.getActiveUserTypeByUserRoles(user) : this.getActiveUserTypeByDir();
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
+      console.log( `/${userRolesEnum[activeUserType].toLowerCase()}`,loginDir);
 
       if (loginDir) {
         const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
-
         this.router.navigate([moduleDir, 'dashboard']);
       }
     }

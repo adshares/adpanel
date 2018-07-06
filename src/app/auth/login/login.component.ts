@@ -143,7 +143,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (!accounts) {
       return;
     }
-    1
+
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
       this.router.navigate(['/publisher/dashboard']);
     }
