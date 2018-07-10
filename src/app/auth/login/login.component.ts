@@ -88,15 +88,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.router.navigate(['/admin/dashboard']);
         } else {
             this.showStartupPopups(userResponse);
-
-
-          if (userResponse.isAdvertiser) {
-            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
-            this.router.navigate(['/advertiser/dashboard']);
-          } else if (userResponse.isPublisher) {
-            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
-            this.router.navigate(['/publisher/dashboard']);
-          }
         }
 
       },
@@ -145,7 +136,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (!accounts) {
       return;
     }
-
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
       this.router.navigate(['/publisher/dashboard']);
     }

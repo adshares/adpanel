@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ActivatedRoute } from "@angular/router";
+import {LocalStorageUser} from "models/user.model";
 
 interface AfterRequestValidation {
   email: { [key: string]: boolean };
@@ -67,8 +68,10 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (!this.changeEmailForm.valid) {
       return;
     }
-
-    const changeEmailSubscription = this.settingsService.changeEmail(this.route.snapshot.params['id'], newEmail)
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+    const changeEmailSubscription = this.settingsService.changeEmail(userData.id,
+        newEmail
+    )
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
@@ -92,8 +95,8 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (!this.changePasswordForm.valid || (this.newPasswordConfirm.value !== newPassword)) {
       return;
     }
-
-    const changePasswordSubscription = this.settingsService.changePassword(this.route.snapshot.params['id'],
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+    const changePasswordSubscription = this.settingsService.changePassword(userData.id,
       currentPassword,
       newPassword
     )

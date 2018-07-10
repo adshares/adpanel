@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -31,7 +31,7 @@ export class SettingsService {
   }
 
   changePassword(id: number, currentPassword: string, newPassword: string) {
-    return this.http.post(`${environment.apiUrl}/user/${id}/password`, { currentPassword, newPassword });
+    return this.http.patch(`${environment.apiUrl}/user/${id}/password`, { currentPassword, newPassword });
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {
