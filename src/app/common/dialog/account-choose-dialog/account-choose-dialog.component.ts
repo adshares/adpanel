@@ -20,8 +20,15 @@ export class AccountChooseDialogComponent {
   ) { }
 
   redirectToPublisher() {
+    localStorage.setItem("choose","Publisher");
     this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
     this.router.navigate(['/publisher/dashboard']);
+    this.dialogRef.close();
+  }
+  redirectToAdvertiser() {
+    localStorage.setItem("choose","Advertiser");
+    this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
+    this.router.navigate(['/publisher/advertiser']);
     this.dialogRef.close();
   }
 }

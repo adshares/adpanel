@@ -38,7 +38,7 @@
               adsh-heading--primary"
             data-test="user-total-funds"
           >
-            {{ financialData.totalFunds | adsharesTokenValue }}
+            {{ adserverWallet.totalFunds | adsharesTokenValue }}
           </span>
           <span
             class="
@@ -48,7 +48,7 @@
               adsh-copy--bold"
             data-test="user-total-funds-change"
           >
-            {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
+            {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
           </span>
         </div>
         <div
@@ -73,14 +73,14 @@
               adsh-copy--semi"
           >
             <span data-test="user-automatic-withdraw-amount">
-              {{ financialData.userAutomaticWithdrawAmount | adsharesTokenValue }}
+              {{ adserverWallet.autoWithdrawAmount | adsharesTokenValue }}
             </span>
             after
             <span
               class="period"
               data-test="user-automatic-withdraw-amount"
             >
-              {{ periodsEnum[financialData.userAutomaticWithdrawPeriod] }}
+              {{ periodsEnum[adserverWallet.autoWithdrawPeriod] }}
             </span>
           </p>
           <a
@@ -117,7 +117,7 @@
               adsh-copy--semi"
             data-test="user-address"
           >
-            {{ financialData.userAddress }}
+            {{ adserverWallet.adsharesAddress }}
           </p>
           <a
             class="
@@ -176,7 +176,7 @@
               row
               align-center
               adsh-funds-summary__withdraw-funds"
-            *ngIf="financialData.totalFunds > 0 || selectedRole !== 'Publisher'"
+            *ngIf="adserverWallet.totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
             data-test="withdraw-funds-dialog-open-button"
           >

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -26,12 +26,12 @@ export class SettingsService {
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  changeEmail(id:number, email: string) {
-    return this.http.patch(`${environment.apiUrl}/user/${id}/email`, { email });
+  changeEmail(email: string, URIstep1: string, URIstep2: string) {
+    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
   }
 
-  changePassword(id: number, currentPassword: string, newPassword: string) {
-    return this.http.post(`${environment.apiUrl}/user/${id}/password`, { currentPassword, newPassword });
+  changePassword(user: object, uri: string) {
+      return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {

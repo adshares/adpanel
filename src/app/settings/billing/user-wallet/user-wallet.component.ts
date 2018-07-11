@@ -8,7 +8,7 @@ import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialo
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { AppState } from 'models/app-state.model';
-import { UserFinancialData } from 'models/user.model';
+import { UserAdserverWallet } from 'models/user.model';
 import { appSettings } from 'app-settings';
 import { withdrawPeriodsEnum} from 'models/enum/withdraw.enum';
 
@@ -23,7 +23,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
 
   periodsEnum = withdrawPeriodsEnum;
-  financialData: UserFinancialData;
+  adserverWallet: UserAdserverWallet;
 
   constructor(
     private dialog: MatDialog,
@@ -49,12 +49,12 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
-      .subscribe((financialData: UserFinancialData) => {
-        this.financialData = financialData;
-        Object.assign(this.financialData, { lastPayment: moment(financialData.lastPayment).format('DD/MM/YYYY, hh:mma') });
+    const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((adserverWallet: UserAdserverWallet) => {
+        this.adserverWallet = adserverWallet;
+        Object.assign(this.adserverWallet, { lastPayment: moment(adserverWallet.lastPayment).format('DD/MM/YYYY, hh:mma') });
       });
 
-    this.subscriptions.push(userFinancialDataSubscription);
+    this.subscriptions.push(userAdserverWalletSubscription);
   }
 }

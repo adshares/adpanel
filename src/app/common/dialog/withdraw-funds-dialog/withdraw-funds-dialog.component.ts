@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
 import { AppState} from 'models/app-state.model';
-import { User, UserFinancialData } from 'models/user.model';
+import { User, UserAdserverWallet } from 'models/user.model';
 
 import { appSettings } from 'app-settings';
 
@@ -18,7 +18,7 @@ import { appSettings } from 'app-settings';
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
   withdrawFundsForm: FormGroup;
 
-  financialData: UserFinancialData;
+  adserverWallet: UserAdserverWallet;
 
   memoInputActive = false;
   isFormBeingSubmitted = false;
@@ -39,7 +39,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
-        this.financialData = user.financialData;
+        this.adserverWallet = user.adserverWallet;
       });
     this.subscriptions.push(userDataSubscription);
 
@@ -48,7 +48,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
   createForm() {
     this.withdrawFundsForm = new FormGroup({
-      address: new FormControl(this.financialData.userAddress, [
+      address: new FormControl(this.adserverWallet.adsharesAddress, [
         Validators.required,
         Validators.pattern(appSettings.ADDRESS_REGEXP)
       ]),

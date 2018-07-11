@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { User, UserFinancialData } from 'models/user.model';
+import { User, UserAdserverWallet } from 'models/user.model';
 import { Notification } from 'models/notification.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -24,7 +24,7 @@ import * as authActions from 'store/auth/auth.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  financialData: UserFinancialData;
+  adserverWallet: UserAdserverWallet;
   userDataState: Store<User>;
   activeUserType: number;
 
@@ -51,9 +51,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.activeUserType = activeUserType;
       });
 
-    const userFinancialDataSubscription = this.store.select('state', 'user', 'data', 'financialData')
-      .subscribe((financialData: UserFinancialData) => {
-        this.financialData = financialData;
+    const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((adserverWallet: UserAdserverWallet) => {
+        this.adserverWallet = adserverWallet;
       });
 
     const notificationsTotalSubscription = this.store.select('state', 'common', 'notifications')
@@ -61,8 +61,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.notificationsTotal = notificationsList.length;
       });
 
-    this.subscriptions.push(userFinancialDataSubscription, activeUserTypeSubscription, notificationsTotalSubscription);
-
+    this.subscriptions.push(userAdserverWalletSubscription, activeUserTypeSubscription, notificationsTotalSubscription);
     this.userDataState = this.store.select('state', 'user', 'data');
 
 
@@ -106,12 +105,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   logOut() {
-    const logoutSubscription = this.authService.logOut().subscribe();
-    this.subscriptions.push(logoutSubscription);
-
-    localStorage.removeItem('adshUser');
     this.store.dispatch(new authActions.SetUser(userInitialState));
-    this.router.navigate(['/auth/login']);
+    const logoutSubscription = this.authService.logOut().subscribe();
+    localStorage.removeItem('adshUser');
+    this.router.navigate(['/auth', 'login']);
+    this.subscriptions.push(logoutSubscription);
   }
 
   toggleNotificationsBar() {

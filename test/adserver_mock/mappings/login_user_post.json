@@ -16,21 +16,27 @@
     "status": 200,
     "headers": {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin" : "http://panel.ads",
+      "Access-Control-Allow-Methods" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
+      "X-Content-Type-Options" : "nosniff",
+      "x-frame-options" : "DENY",
+      "x-xss-protection" : "1; mode=block"
     },
     "jsonBody": {
-      "id": 0,
+      "id": 1,
       "email": "user@e11.click",
       "isAdvertiser": true,
       "isPublisher": true,
       "isAdmin": false,
       "isEmailConfirmed": false,
       "authToken": "someauthtokenvalue",
-      "financialData": {
-        "userAddress": "0001-0000001F-34FC",
-        "userMemo": "User 0291",
-        "userAutomaticWithdrawPeriod": 1,
-        "userAutomaticWithdrawAmount": 200,
+      "adserverWallet": {
+        "adsharesAddress": "0001-0000001F-34FC",
+        "paymentMemo": "User 0291",
+        "autoWithdrawPeriod": 1,
+        "autoWithdrawAmount": 200,
         "totalFunds": 1276.60,
         "totalFundsInCurrency": 4336.23,
         "totalFundsChange": 20.30,

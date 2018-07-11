@@ -24,7 +24,7 @@ export class RemindPasswordComponent {
 
   sendRemindPasswordEmail() {
     const formValues = this.remindPasswordForm.value;
-
+    const uri = "/auth/confirm-password/";
     if (!this.remindPasswordForm.valid) {
       return;
     }
@@ -32,10 +32,11 @@ export class RemindPasswordComponent {
     this.isSendingEmail = true;
     this.emailDoesntExist = false;
 
-    this.authService.remindPassword(formValues.email)
+    this.authService.remindPassword(formValues.email, uri)
       .subscribe(
-        () => this.router.navigate(['/auth', 'login']),
+        () => this.router.navigate(['/auth', 'confirmation-password-send']),
         (err) => {
+          this.isSendingEmail = false;
           if (err.code === 412) {
             this.emailDoesntExist = true;
           }

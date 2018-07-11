@@ -20,7 +20,7 @@ export class AdvertiserEffects {
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getCampaigns(payload))
+    .switchMap((payload) => this.service.getCampaigns())
     .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
 
   @Effect()

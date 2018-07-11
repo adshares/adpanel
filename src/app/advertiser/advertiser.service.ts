@@ -13,8 +13,8 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns(timespan: TimespanFilter): Observable<Campaign[]> {
-    return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns`, { timespan });
+  getCampaigns(): Observable<Campaign[]> {
+    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
   getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
@@ -22,7 +22,7 @@ export class AdvertiserService {
   }
 
   getCampaign(id: number): Observable<Campaign> {
-    return this.http.get<Campaign>(`${environment.apiUrl}/campaign/${id}`);
+    return this.http.get<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
   deleteAdImage(id: number, bId: number) {
@@ -36,7 +36,7 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.post<Campaign>(`${environment.apiUrl}/campaign`, { campaign });
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, { campaign });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
