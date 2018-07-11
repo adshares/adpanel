@@ -26,8 +26,8 @@ export class SettingsService {
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  changeEmail(id:number, email: string) {
-    return this.http.patch(`${environment.apiUrl}/user/${id}/email`, { email });
+  changeEmail(email: string, URIstep1: string, URIstep2: string) {
+    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
   }
 
   changePassword(id: number, currentPassword: string, newPassword: string) {

@@ -69,8 +69,11 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-    const changeEmailSubscription = this.settingsService.changeEmail(userData.id,
-        newEmail
+    const email = newEmail;
+    const changeEmailSubscription = this.settingsService.changeEmail(
+        email,
+        "/auth/confirm-old-change-email/",
+        "/auth/confirm-new-change-email/"
     )
       .subscribe(
         () => {

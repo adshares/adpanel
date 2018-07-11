@@ -36,7 +36,7 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.post<Campaign>(`${environment.apiUrl}/campaign`, { campaign });
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, { campaign });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {

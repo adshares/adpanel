@@ -46,4 +46,12 @@ export class AuthService {
   logOut() {
     return this.http.get(`${environment.apiUrl}/auth/logout`);
   }
+
+  confirmOldEmailChange(token: string){
+      return this.http.get(`${environment.apiUrl}/users/email/confirm1Old/${token}`);
+  }
+
+  confirmNewEmailChange(token: string){
+      return this.http.get(`${environment.apiUrl}/users/email/confirm2New/${token}`);
+  }
 }
