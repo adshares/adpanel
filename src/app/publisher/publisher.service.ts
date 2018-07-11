@@ -18,7 +18,7 @@ export class PublisherService {
   }
 
   getSitesTotals(timespan: TimespanFilter): Observable<SitesTotals> {
-    return this.http.post<SitesTotals>(`${environment.apiUrl}/sites_totals`, { timespan });
+    return this.http.get<SitesTotals>(`${environment.apiUrl}/sites/count`);
   }
 
   getSite(id: number): Observable<Site> {

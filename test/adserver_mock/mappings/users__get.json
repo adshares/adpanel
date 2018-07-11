@@ -6,7 +6,7 @@
   "response": {
     "status": 200,
     "headers": {
-      "Content-Type": "application/json",
+      "Content-Type": "text/plain",
       "Access-Control-Allow-Origin" : "http://panel.ads",
       "Access-Control-Allow-Methods" : "*",
       "Access-Control-Allow-Credentials" : "true",

@@ -24,7 +24,6 @@ export class ConfirmationAlertComponent implements OnInit {
     this.authService.getUserData()
     .first()
     .subscribe((user) => {
-      console.log(this.isEmailConfirmed)
       this.isEmailConfirmed = user.isEmailConfirmed;
       const savedUser = localStorage.getItem('adshUser');
       if (user.isEmailConfirmed && savedUser) {
