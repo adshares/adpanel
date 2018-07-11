@@ -30,8 +30,8 @@ export class SettingsService {
     return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
   }
 
-  changePassword(id: number, currentPassword: string, newPassword: string) {
-    return this.http.patch(`${environment.apiUrl}/user/${id}/password`, { currentPassword, newPassword });
+  changePassword(user: object, uri: string) {
+      return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {

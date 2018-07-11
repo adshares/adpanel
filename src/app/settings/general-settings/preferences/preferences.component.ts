@@ -34,6 +34,9 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       passwordChangeFailed: false
     }
   };
+  errorsPasswordChange= {};
+
+  ObjectKeys = Object.keys;
 
   constructor(
     private settingsService: SettingsService,
@@ -99,9 +102,12 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       return;
     }
     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-    const changePasswordSubscription = this.settingsService.changePassword(userData.id,
-      currentPassword,
-      newPassword
+    const user = {
+      password_old: currentPassword,
+      password_new: newPassword
+    };
+    const changePasswordSubscription = this.settingsService.changePassword(user,
+      "/"
     )
       .subscribe(
         () => {
@@ -115,6 +121,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
           } else {
             this.afterRequestValidation.password.passwordChangeFailed = true;
           }
+          this.errorsPasswordChange = err.error.errors;
         },
         () => this.changePasswordFormSubmitted = false
       );

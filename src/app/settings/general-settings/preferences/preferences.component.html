@@ -116,6 +116,12 @@
                 data-test="settings-change-password-form-current-password"
               >
               <span
+                      class="error-msg"
+                      *ngIf="errorsPasswordChange && ObjectKeys(errorsPasswordChange).length > 0"
+              >
+                <span *ngFor="let errorForm of ObjectKeys(errorsPasswordChange)">{{ errorsPasswordChange[errorForm] }}</span>
+              </span>
+              <span
                 class="error-msg"
                 *ngIf="
                   changePasswordForm.hasError('required', ['currentPassword']) &&
