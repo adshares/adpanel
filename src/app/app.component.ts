@@ -18,6 +18,8 @@ import { Notification } from 'models/notification.model';
 
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
+import {ConfirmNewChangeEmailComponent} from "auth/confirm-new-change-email/confirm-new-change-email.component";
+import {ConfirmOldChangeEmailComponent} from "auth/confirm-old-change-email/confirm-old-change-email.component";
 
 @Component({
   selector: 'app-root',
@@ -122,7 +124,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   checkRequestMissing(){
-      const exludedComponent = ["register-confirm"];
+      const exludedComponent = ["register-confirm", "confirm-old-change-email", "confirm-new-change-email"];
       let loginDir = true;
       for(let comp of exludedComponent){
           if(location.pathname.indexOf(comp) > -1){
