@@ -43,7 +43,6 @@ public class DriverProvider {
       driver = new ChromeDriver(chromeOptions);
       driver.get("http://panel.ads");
     }
-
     return driver;
   }
 

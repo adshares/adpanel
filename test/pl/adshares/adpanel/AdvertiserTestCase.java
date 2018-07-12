@@ -2,6 +2,8 @@ package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.data.campaign.CampaignAdv;
 import pl.adshares.adpanel.data.campaign.CampaignBasicInfo;
+import pl.adshares.adpanel.pages.DashboardPopup;
+import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.pages.advertiser.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import org.testng.annotations.Test;
@@ -11,18 +13,18 @@ import java.time.format.DateTimeFormatter;
 
 public class AdvertiserTestCase extends BrowserTestCase {
 
-  private pl.adshares.adpanel.pages.LoginPage loginPage;
-  private pl.adshares.adpanel.pages.DashboardPopup dashboardPopup;
+  private LoginPage loginPage;
+  private DashboardPopup dashboardPopup;
 
 
   @Test
   public void createAdvertiserCampaign() {
-    loginPage = new pl.adshares.adpanel.pages.LoginPage(driver);
-    loginPage.loginSignIn("test@gmail.com", "password12345");
+    loginPage = new LoginPage(driver);
+    loginPage.loginSignIn("user@e11.click", "useruser");
 
     boolean userHasAdvertiserAndPublisherPrivilegde = true;
     if (userHasAdvertiserAndPublisherPrivilegde) {
-      dashboardPopup = new pl.adshares.adpanel.pages.DashboardPopup(driver);
+      dashboardPopup = new DashboardPopup(driver);
       dashboardPopup.popUpAdvertiser();
     }
 

@@ -32,7 +32,7 @@ public class DashboardPopup {
 
   public DashboardPopup(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 20);
+    wait = new WebDriverWait(driver, 5);
     PageFactory.initElements(driver, this);
   }
 
@@ -42,13 +42,14 @@ public class DashboardPopup {
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
       userPopUpPublisher.click();
+      //wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
       System.out.println("No popup displayed");
     } finally {
       LOGGER.info("User choose publisher dashboard");
-      System.out.println("User choose publisher dashboard");
+      System.out.println("User choose Publisher dashboard");
 
     }
   }
@@ -62,8 +63,10 @@ public class DashboardPopup {
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
+      System.out.println("No popup displayed");
     } finally {
       LOGGER.info("User choose advertiser dashboard ");
+      System.out.println("User choose Advertiser dashboard");
     }
   }
 

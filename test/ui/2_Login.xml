@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS - Login Control" parallel="methods" thread-count="1" verbose="3">
+  <test name="TC 1 - WebElements validation" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginPageObjectValidation"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 2 - Cross validation" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginPageCrossAccessValidation"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 3 - Publisher Correct Access" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="popUpPublisher"/>
+          <include name="logOutTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 4 - Advertiser Correct Access" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="popUpAdvertiser"/>
+          <include name="logOutTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 5 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+          <include name="loginChangingTheDashboardBack"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 6 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 7 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 8 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+          <include name="loginChangeEmail"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 9 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+          <include name="loginPopUpPublisher"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
+

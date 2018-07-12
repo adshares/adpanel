@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS - Publisher" parallel="false">
+
+
+  <test name="TC 8 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+          <include name="loginChangeEmail"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 9 - Changing The Dashboard Back" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+          <include name="loginChangePassword"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+
+
+</suite>

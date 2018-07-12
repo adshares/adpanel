@@ -33,6 +33,15 @@ public class RegisterPage {
   @FindBy(xpath = "//input[@id='confirmPassword']/following-sibling::span[contains(text(),'Passwords don')]")
   private WebElement passwordDontMatch;
 
+  @FindBy(css = "[data-test='auth-redirect-to-remind-password']")
+  private WebElement forgotPassword;
+  @FindBy(css = "[data-test='auth-remind-password-form-email']")
+  private WebElement emailAddress;
+  @FindBy(css = "[class='ng-star-inserted']")
+  private WebElement sendNewPassword;
+
+
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -127,5 +136,16 @@ public class RegisterPage {
     registerPasswordConfirm.sendKeys("aaaaaaaa");
     registerButton.click();
   }
+
+  public void registerForgotPassword() throws InterruptedException {
+    wait.until(ExpectedConditions.visibilityOf(forgotPassword));
+    forgotPassword.click();
+    wait.until(ExpectedConditions.visibilityOf(sendNewPassword));
+    emailAddress.sendKeys("user@e11.click");
+    sendNewPassword.click();
+    Thread.sleep(120000);
+    // TODO: 11.07.18 czekam na wysyłanie maila:
+  }
+
 
 }
