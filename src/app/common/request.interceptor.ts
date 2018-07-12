@@ -24,7 +24,7 @@ import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-respon
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-
+  openedDialogUnkownError: false;
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -64,9 +64,11 @@ export class RequestInterceptor implements HttpInterceptor {
               title: 'Error',
               message: 'Cannot connect to server'
           });
-          // @TODO: uncomment when is done adserver
-          // this.dialog.open(ErrorResponseDialogComponentNoResponse);
-          return;
+          if(!this.openedDialogUnkownError){
+              this.dialog.open(ErrorResponseDialogComponentNoResponse);
+              this.openedDialogUnkownError = true;
+              return;
+          }
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);
