@@ -1,7 +1,7 @@
 <section class="settings-navigation">
   <div class="col total-funds adsh-box adsh-box--large adsh-bg-blue">
     <h6
-      class="
+            class="
         adsh-copy
         adsh-copy--small
         adsh-white"
@@ -9,37 +9,43 @@
       Total Funds:
     </h6>
     <span
-      class="
+            class="
         adsh-heading
         adsh-heading--primary
         adsh-white"
-      data-test="user-total-funds"
+            data-test="user-total-funds"
     >
-      {{ financialData.totalFunds | adsharesTokenValue }}
+      {{ adserverWallet.totalFunds | adsharesTokenValue }}
     </span>
     <span
-      class="
+            class="
         adsh-copy
         adsh-copy--x-small
         adsh-white
         adsh-copy--bold"
-      data-test="user-total-funds-change"
+            data-test="user-total-funds-change"
     >
-      {{ financialData.totalFundsChange }} ( {{ financialData.totalFundsChange / financialData.totalFunds | percent }})
+      {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
     </span>
   </div>
 
   <div
-    class="settings-category"
-    *ngFor="let settingsItem of settings"
-    routerLinkActive="active"
+          class="settings-category"
+          *ngFor="let settingsItem of settings"
+          routerLinkActive="active"
   >
     <a
-      [routerLink]="['/settings', settingsItem.link]"
-      data-test="settings-category-link"
+            [routerLink]="['/settings', settingsItem.link]"
+            data-test="settings-category-link"
+            *ngIf="
+         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('admin') !== -1 && (userDataState | async).isAdmin)
+         ||
+         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('publisher') !== -1 && (userDataState | async).isPublisher)
+         ||
+         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('advertiser') !== -1 && (userDataState | async).isAdvertiser)"
     >
       <h3
-        class="
+              class="
           adsh-heading
           adsh-heading--secondary"
       >
@@ -50,21 +56,28 @@
       {{ settingsItem.description }}
     </p>
     <ul
-      class="
+            class="
         adsh-copy
         adsh-copy--large"
     >
       <a
-        [routerLink]="['/settings', settingsItem.link]"
-        data-test="settings-category-link-direct"
+              [routerLink]="['/settings', settingsItem.link]"
+              data-test="settings-category-link-direct"
       >
         <li *ngFor="let settingsValues of settingsItem.values">
-          <div class="row align-center" routerLinkActive="active">
+          <div class="row align-center" routerLinkActive="active"
+               *ngIf="
+               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('admin') !== -1 && (userDataState | async).isAdmin)
+               ||
+               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('publisher') !== -1 && (userDataState | async).isPublisher)
+               ||
+               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('advertiser') !== -1 && (userDataState | async).isAdvertiser)"
+          >
             <img
-              class="
+                    class="
                 adsh-icon
                 adsh-icon--prepend"
-              [src]="settingsValues.icon"
+                    [src]="settingsValues.icon"
             >
             <span>{{ settingsValues.name }}</span>
           </div>

@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/build
 
 # dependencies
 /node_modules
@@ -21,6 +22,8 @@
 *.sublime-workspace
 *.iml
 
+.panel-dock-yarn-task-done
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
@@ -36,10 +39,6 @@
 npm-debug.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store

@@ -18,12 +18,19 @@
       >
         Please log in to your account.
       </p>
+
       <form
         [formGroup]="loginForm"
         (ngSubmit)="login()"
         class="adsh-form"
         data-test="auth-login-form"
       >
+        <div
+                class="error-msg"
+                *ngIf="criteriaError && loginFormSubmitted"
+        >
+          Password or email is invalid.
+        </div>
         <div class="adsh-form-input__box">
           <label
             for="email"
@@ -51,7 +58,7 @@
           </span>
           <span
             class="error-msg"
-            *ngIf="loginForm.hasError('email', ['email']) && loginFormSubmitted"
+            *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
           >
             Invalid email!
           </span>

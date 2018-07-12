@@ -13,20 +13,20 @@ export class AdvertiserService {
 
   constructor(private http: HttpClient) { }
 
-  getCampaigns(timespan: TimespanFilter): Observable<Campaign[]> {
-    return this.http.post<Campaign[]>(`${environment.apiUrl}/campaigns`, { timespan });
+  getCampaigns(): Observable<Campaign[]> {
+    return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
   getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
-    return this.http.post<CampaignsTotals>(`${environment.apiUrl}/campaigns_totals`, { timespan });
+    return this.http.post<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`, { timespan });
   }
 
   getCampaign(id: number): Observable<Campaign> {
-    return this.http.get<Campaign>(`${environment.apiUrl}/campaign/${id}`);
+    return this.http.get<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
-  deleteAdImage(adId: number) {
-    return this.http.post(`${environment.apiUrl}/delete_ad`, { adId });
+  deleteAdImage(id: number, bId: number) {
+    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/banner/${bId}`);
   }
 
   saveCampaign(campaign: Campaign): Observable<Campaign> {
@@ -36,13 +36,16 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.post<Campaign>(`${environment.apiUrl}/save_campaign`, { campaign });
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, { campaign });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaign_targeting`);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaigns/targeting`);
   }
-
+  //
+  // patchTargetingCriteria(id: number): Observable<TargetingOption[]> {
+  //   return this.http.patch<TargetingOption[]>(`${environment.apiUrl}/campaigns/${id}/targeting`, { TargetingOption });
+  // }
   saveAd(ad: Ad): Observable<Ad> {
     return this.http.post<Ad>(`${environment.apiUrl}/save_ad`, { ad });
   }

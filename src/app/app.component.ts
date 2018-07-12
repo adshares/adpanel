@@ -39,9 +39,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
-    this.handleSavedUserData();
-    this.getAdsharesAddress();
-    this.setNotificationUptadeInterval();
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'))
+    if(userData) {
+        this.handleSavedUserData(userData);
+        this.getAdsharesAddress();
+        this.setNotificationUptadeInterval();
+    }
 
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -52,30 +55,30 @@ export class AppComponent extends HandleSubscription implements OnInit {
     });
   }
 
-  handleSavedUserData() {
-    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-
-    if (!userData) {
+  handleSavedUserData(userData) {
+    if (Object.keys(userData).length == 0) {
       this.router.navigate(['/auth', 'login']);
       return;
     }
 
     const { remember, passwordLength, expiration, ...user } = userData;
-
-    if (isUnixTimePastNow(userData.expiration)) {
+    if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length > 0) {
       localStorage.removeItem('adshUser');
       this.router.navigate(['/auth', 'login']);
     } else {
-      const loginDir = location.pathname.indexOf('auth') > -1;
+      let loginDir = location.pathname.indexOf('auth') > -1;
+      if(location.pathname === "/"){
+        loginDir = true;
+      }
       const activeUserType =
         loginDir ? this.getActiveUserTypeByUserRoles(user) : this.getActiveUserTypeByDir();
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
+      console.log( `/${userRolesEnum[activeUserType].toLowerCase()}`,loginDir);
 
       if (loginDir) {
         const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
-
         this.router.navigate([moduleDir, 'dashboard']);
       }
     }

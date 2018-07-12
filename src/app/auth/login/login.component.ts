@@ -32,6 +32,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   isLoggingIn = false;
   loginFormSubmitted = false;
+  criteriaError= false;
 
   constructor(
     private authService: AuthService,
@@ -86,16 +87,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
         } else {
-          this.showStartupPopups(userResponse);
-
-          if (userResponse.isAdvertiser) {
-            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
-            this.router.navigate(['/advertiser/dashboard']);
-          } else if (userResponse.isPublisher) {
-            this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
-            this.router.navigate(['/publisher/dashboard']);
-          }
+            this.showStartupPopups(userResponse);
         }
+
+      },
+      (err) => {
+          this.criteriaError = true;
+          this.isLoggingIn = false;
       });
     this.subscriptions.push(loginSubscription);
   }
@@ -109,21 +107,28 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-
     localStorage.setItem('adshUser', JSON.stringify(dataToSave));
+
   }
 
   showStartupPopups(user: User) {
     const firstLogin = this.route.snapshot.queryParams['customize'];
-
     if (firstLogin) {
-      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent);
+      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
 
       dialogRef.afterClosed()
         .subscribe((accounts) => this.handleCustomizeDialog(accounts));
 
     } else if (user.isAdvertiser && user.isPublisher) {
-      this.dialog.open(AccountChooseDialogComponent);
+      const chooseAccount = localStorage.getItem("choose");
+      if(chooseAccount == "Advertiser"){
+          this.router.navigate(['/advertiser/dashboard']);
+      } else {
+          this.router.navigate(['/publisher/dashboard']);
+      }
+      if(!chooseAccount){
+          this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+      }
     }
   }
 
@@ -131,7 +136,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (!accounts) {
       return;
     }
-
     if (!accounts.advertiser.selected && accounts.publisher.selected) {
       this.router.navigate(['/publisher/dashboard']);
     }

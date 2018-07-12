@@ -15,10 +15,10 @@ export class AdminService {
   }
 
   getAdminSettings(): Observable<AdminSettings> {
-    return this.http.get<AdminSettings>(`${environment.apiUrl}/admin_settings`);
+    return this.http.get<AdminSettings>(`${environment.apiUrl}/admin/settings`);
   }
 
   setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
-    return this.http.post<AdminSettings>(`${environment.apiUrl}/update_admin_settings`, { newSettings });
+    return this.http.patch<AdminSettings>(`${environment.apiUrl}/admin/settings`, { newSettings });
   }
 }

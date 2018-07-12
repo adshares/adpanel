@@ -14,15 +14,15 @@ export class PublisherService {
   constructor(private http: HttpClient) {}
 
   getSites(timespan: TimespanFilter): Observable<Site[]> {
-    return this.http.post<Site[]>(`${environment.apiUrl}/sites`, { timespan });
+    return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
 
   getSitesTotals(timespan: TimespanFilter): Observable<SitesTotals> {
-    return this.http.post<SitesTotals>(`${environment.apiUrl}/sites_totals`, { timespan });
+    return this.http.get<SitesTotals>(`${environment.apiUrl}/sites/count`);
   }
 
   getSite(id: number): Observable<Site> {
-    return this.http.get<Site>(`${environment.apiUrl}/site/${id}`);
+    return this.http.get<Site>(`${environment.apiUrl}/sites/${id}`);
   }
 
   saveSite(site: Site): Observable<Site> {
@@ -31,14 +31,23 @@ export class PublisherService {
 
       Object.assign(site, {targeting: targetingObject});
     }
-    return this.http.post<Site>(`${environment.apiUrl}/save_site`, { site });
+    return this.http.post<Site>(`${environment.apiUrl}/sites`, { site });
+  }
+
+  saveSitePatch(site: Site): Observable<Site> {
+        if (site.targetingArray) {
+            const targetingObject = parseTargetingForBackend(site.targetingArray);
+
+            Object.assign(site, {targeting: targetingObject});
+        }
+        return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/site_targeting`);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/targeting`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
-    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/ad_unit_sizes`);
+    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/config/banners`);
   }
 }

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/first';
 import { AuthService } from 'auth/auth.service';
 import { AppState } from 'models/app-state.model';
 import * as authActions from 'store/auth/auth.actions';
+import {User} from "models/user.model";
 
 @Component({
   selector: 'app-confirmation-alert',
@@ -12,21 +13,22 @@ import * as authActions from 'store/auth/auth.actions';
   styleUrls: ['./confirmation-alert.component.scss'],
 })
 export class ConfirmationAlertComponent implements OnInit {
-
+  user: User;
+  isEmailConfirmed;
   constructor(
     private authService: AuthService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
     this.authService.getUserData()
     .first()
     .subscribe((user) => {
+      this.isEmailConfirmed = user.isEmailConfirmed;
       const savedUser = localStorage.getItem('adshUser');
-
       if (user.isEmailConfirmed && savedUser) {
         const dataToSave = Object.assign({}, JSON.parse(savedUser), { isEmailConfirmed: true });
-
+        this.user = dataToSave;
         this.store.dispatch(new authActions.SetUser(user));
         localStorage.setItem('adshUser', JSON.stringify(dataToSave));
       }
@@ -34,6 +36,7 @@ export class ConfirmationAlertComponent implements OnInit {
   }
 
   resendActivationEmail() {
-    this.authService.sendActivationEmail().subscribe();
+      const savedUser = localStorage.getItem('adshUser');
+    this.authService.emailActivation(JSON.parse(savedUser).user.uuid).subscribe();
   }
 }

@@ -24,29 +24,12 @@
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
+        "dev": "environments/environment.dev.ts",
+        "dev-mock": "environments/environment.dev-mock.ts",
         "prod": "environments/environment.prod.ts",
-        "docker": "environments/environment.docker.ts"
+        "test": "environments/environment.test.ts",
+        "test-mock": "environments/environment.test-mock.ts"
       }
-    }
-  ],
-  "e2e": {
-    "protractor": {
-      "config": "./protractor.conf.js"
-    }
-  },
-  "lint": [
-    {
-      "project": "src/tsconfig.app.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "src/tsconfig.spec.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "e2e/tsconfig.e2e.json",
-      "exclude": "**/node_modules/**"
     }
   ],
   "test": {

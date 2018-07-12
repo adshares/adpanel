@@ -1,0 +1,21 @@
+{
+  "request": {
+    "method": "PATCH",
+    "url": "/user/1/email"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin" : "http://panel.ads",
+      "Access-Control-Allow-Methods" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
+      "X-Content-Type-Options" : "nosniff",
+      "x-frame-options" : "DENY",
+      "x-xss-protection" : "1; mode=block"
+    },
+    "jsonBody": { "status": 200 }
+  },
+  "priority": 0
+}

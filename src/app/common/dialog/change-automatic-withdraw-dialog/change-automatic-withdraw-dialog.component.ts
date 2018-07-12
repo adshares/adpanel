@@ -43,8 +43,8 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     const userSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-        this.currentPeriod = user.financialData.userAutomaticWithdrawPeriod;
-        this.currentAmount = user.financialData.userAutomaticWithdrawAmount;
+        this.currentPeriod = user.adserverWallet.autoWithdrawPeriod;
+        this.currentAmount = user.adserverWallet.autoWithdrawAmount;
         this.isEmailConfirmed = user.isEmailConfirmed;
     });
 
@@ -78,8 +78,8 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
     const userData = JSON.parse(localStorage.getItem('adshUser'));
 
     const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
-      userAutomaticWithdrawPeriod: period,
-      userAutomaticWithdrawAmount: amount
+      autoWithdrawPeriod: period,
+      autoWithdrawAmount: amount
     });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));

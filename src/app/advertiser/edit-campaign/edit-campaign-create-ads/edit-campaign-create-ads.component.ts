@@ -156,9 +156,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   sendImage(image, adIndex) {
-    image.method = 'PUT';
+    image.method = 'POST';
     image.withCredentials = false; // needed by mock server
-    image.url = `${environment.apiUrl}/upload_ad/${this.ads[adIndex].id}`;
+    image.url = `${environment.apiUrl}/campaigns/${this.ads[adIndex].id}/banner`;
     image.upload();
     image.onProgress = (progress) => {
       this.imagesStatus.upload.processing = true;
@@ -186,7 +186,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeImage(adIndex) {
-    const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id)
+    const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id)
       .subscribe(() => {
         Object.assign(this.ads[adIndex], { imageUrl: '', imageSize: '' });
         this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
@@ -221,7 +221,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const adTypeName = this.adTypes[adType];
 
     if (adForm.get('image') && adForm.get('image').value.src) {
-      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id).subscribe();
+      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id).subscribe();
       this.subscriptions.push(deleteAdSubscription);
 
       this.imagesStatus.validation.splice(adIndex, 1);

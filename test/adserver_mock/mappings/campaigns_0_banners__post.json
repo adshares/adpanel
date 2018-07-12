@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/campaigns/0/banner"
+
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin" : "http://panel.ads",
+      "Access-Control-Allow-Methods" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
+      "X-Content-Type-Options" : "nosniff",
+      "x-frame-options" : "DENY",
+      "x-xss-protection" : "1; mode=block"
+    },
+    "jsonBody": {
+      "name": "file-name.png",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP3l58naYcoyqfxstOVPyZdlC4gwNCw89YZts9ThIrUZVrbA8i3g",
+      "size": "222 KB"
+    }
+  },
+  "priority": 0
+}

@@ -1,0 +1,69 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/users"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "text/plain",
+      "Access-Control-Allow-Origin" : "http://panel.ads",
+      "Access-Control-Allow-Methods" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
+      "X-Content-Type-Options" : "nosniff",
+      "x-frame-options" : "DENY",
+      "x-xss-protection" : "1; mode=block"
+    },
+    "jsonBody": [
+      {
+        "id": "1",
+        "email": "user1@example.com",
+        "isAdvertiser": true,
+        "isPublisher": true,
+        "profit": -200,
+        "topKeywords": [
+          "England",
+          "English",
+          "Manchester"
+        ]
+      },
+      {
+        "id": "2",
+        "email": "user2@example.com",
+        "isAdvertiser": true,
+        "isPublisher": false,
+        "profit": 300,
+        "topKeywords": [
+          "England",
+          "English",
+          "Manchester"
+        ]
+      },
+      {
+        "id": "3",
+        "email": "user3@example.com",
+        "isAdvertiser": false,
+        "isPublisher": true,
+        "profit": -20,
+        "topKeywords": [
+          "England",
+          "English",
+          "Manchester"
+        ]
+      },
+      {
+        "id": "4",
+        "email": "user4@example.com",
+        "isAdvertiser": true,
+        "isPublisher": false,
+        "profit": 1200,
+        "topKeywords": [
+          "England",
+          "English",
+          "Manchester"
+        ]
+      }
+    ]
+  }
+}

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
+import { ActivatedRoute } from "@angular/router";
+import {LocalStorageUser} from "models/user.model";
 
 interface AfterRequestValidation {
   email: { [key: string]: boolean };
@@ -32,9 +34,13 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       passwordChangeFailed: false
     }
   };
+  errorsPasswordChange= {};
+
+  ObjectKeys = Object.keys;
 
   constructor(
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -65,8 +71,13 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (!this.changeEmailForm.valid) {
       return;
     }
-
-    const changeEmailSubscription = this.settingsService.changeEmail(newEmail)
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+    const email = newEmail;
+    const changeEmailSubscription = this.settingsService.changeEmail(
+        email,
+        "/auth/confirm-old-change-email/",
+        "/auth/confirm-new-change-email/"
+    )
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
@@ -90,10 +101,13 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (!this.changePasswordForm.valid || (this.newPasswordConfirm.value !== newPassword)) {
       return;
     }
-
-    const changePasswordSubscription = this.settingsService.changePassword(
-      currentPassword,
-      newPassword
+    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+    const user = {
+      password_old: currentPassword,
+      password_new: newPassword
+    };
+    const changePasswordSubscription = this.settingsService.changePassword(user,
+      "/"
     )
       .subscribe(
         () => {
@@ -107,6 +121,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
           } else {
             this.afterRequestValidation.password.passwordChangeFailed = true;
           }
+          this.errorsPasswordChange = err.error.errors;
         },
         () => this.changePasswordFormSubmitted = false
       );

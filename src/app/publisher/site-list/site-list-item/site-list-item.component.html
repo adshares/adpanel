@@ -11,11 +11,31 @@
         row
         align-center
         adsh-copy
-        adsh-copy--semi"
+        "
     >
+
+      <div
+              class="
+          col-xs-1
+          row
+          align-center"
+      >
+        <div
+          class="
+            adsh-box
+            adsh-box--small
+            adsh-status
+            text-center"
+            [attr.data-status]="siteStatusEnum[site.status].toLowerCase()"
+        >
+          <span data-test="publisher-site-status">
+            {{ siteStatusEnum[site.status] }}
+          </span>
+        </div>
+      </div>
       <div
         class="
-          col-xs-5
+          col-xs-4
           row
           align-center"
       >
