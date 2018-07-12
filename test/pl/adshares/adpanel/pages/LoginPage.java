@@ -169,7 +169,7 @@ public class LoginPage {
     loginButton.click();
   }
 
-  public void goToLoginChangingTheDashboardBack() throws InterruptedException {
+  public void goToLoginChangingTheDashboardBack() {
     System.out.println("1. Dashboar Publisher");
     wait.until(ExpectedConditions.visibilityOf(headerChooseUserMenu));
     headerChooseUserMenu.click();
@@ -181,7 +181,7 @@ public class LoginPage {
     System.out.println("3. Dashboar Publisher Back");
     }
 
-  public void goToLoginRegistration() throws InterruptedException {
+  public void goToLoginRegistration() {
     //                    TEST EMAIL email.email
     wait.until(ExpectedConditions.visibilityOf(registerButton));
     registerButton.click();
@@ -292,15 +292,16 @@ public class LoginPage {
 
   public void gotologinChangeEmail() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+    Thread.sleep(500000);
     settingsMenuChevron.click();
     accountSettings.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmail));
     loginEmail.sendKeys("user@e11.click");
     changeEmail.click();
-    // TODO: 11.07.18 dopisać assert na zmianę email: Assert.assertEquals("The email has already been taken.", invalidPasswordInput4); 
+    // TODO: 11.07.18 dopisać assert na zmianę email: Assert.assertEquals("The email has already been taken.", invalidPasswordInput4);
   }
 
-  public void gotologinChangePassword() throws InterruptedException {
+  public void gotologinChangePassword() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     accountSettings.click();
@@ -309,7 +310,7 @@ public class LoginPage {
     loginNewPassword.sendKeys("useruser");
     loginNewPasswordConfirm.sendKeys("useruser");
     changePassword.click();
-    // TODO: 11.07.18 dopisać assert na zmianę hasła: 
+    // TODO: 11.07.18 dopisać assert na zmianę hasła:
   }
 
   }

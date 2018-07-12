@@ -19,7 +19,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 3 - Publisher Correct Access" group-by-instances="true">
+  <test name="TC 3 - Logowanie z rolą Publisher" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -30,7 +30,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 4 - Advertiser Correct Access" group-by-instances="true">
+  <test name="TC 4 - Logowanie z rolą Advertiser" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -41,7 +41,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 5 - Changing The Dashboard Back" group-by-instances="true">
+  <test name="TC 5 - Logowanie z podwójną rolą" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -52,25 +52,8 @@
       </class>
     </classes>
   </test>
-  <test name="TC 6 - Changing The Dashboard Back" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterTest"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 7 - Changing The Dashboard Back" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 8 - Changing The Dashboard Back" group-by-instances="true">
+
+  <test name="TC 6 - Zmiana maila" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -81,13 +64,13 @@
       </class>
     </classes>
   </test>
-  <test name="TC 9 - Changing The Dashboard Back" group-by-instances="true">
+  <test name="TC 7 - Zmiana hasła" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginTest"/>
           <include name="loginPopUpPublisher"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginChangePassword"/>
         </methods>
       </class>
     </classes>

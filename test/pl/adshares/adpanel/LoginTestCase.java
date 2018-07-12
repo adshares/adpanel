@@ -19,8 +19,8 @@ public class LoginTestCase extends BrowserTestCase {
   private Mailcatcher mailcatcher;
   private DashboardPopup dashboardPopup;
   private HeaderBarPage headerBarPage;
-  protected String loginAdService;
-  protected String passwordAdService;
+  private String loginAdService;
+  private String passwordAdService;
 
   @BeforeTest
   public void setUp() {
@@ -56,7 +56,7 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginPageObjectValidation() throws InterruptedException {
+  public void loginPageObjectValidation() {
     loginPage = new LoginPage(driver);
     loginPage.loginRequiredEmailValidation();
     loginPage.loginInvalidEmailValidation();
@@ -75,9 +75,8 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginRegisterTest() throws InterruptedException {
+  public void loginRegisterError() {
     loginPage = new LoginPage(driver);
-    //loginPage.pageLayoutValidation();
     loginPage.goToLoginRegistration();
   }
 
@@ -85,8 +84,6 @@ public class LoginTestCase extends BrowserTestCase {
   public void loginRegisterRandom() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.goToLoginRegistrRandom();
-    //mailcatcher = new Mailcatcher(driver);
-    //mailcatcher.goToLoginRegistrRandom2();
   }
 
   @Test
@@ -99,7 +96,7 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginChangingTheDashboardBack() throws InterruptedException {
+  public void loginChangingTheDashboardBack() {
     loginPage = new LoginPage(driver);
     loginPage.goToLoginChangingTheDashboardBack();
   }
@@ -110,7 +107,7 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.gotologinChangeEmail();
   }
   @Test
-  public void loginChangePassword() throws InterruptedException {
+  public void loginChangePassword() {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePassword();
   }

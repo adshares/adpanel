@@ -1,14 +1,22 @@
 package pl.adshares.adpanel.pages.register;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
+
+import java.util.Set;
+
+import static com.sun.deploy.uitoolkit.impl.awt.AWTClientPrintHelper.print;
 
 public class RegisterPage {
   private static final Logger LOGGER = Logger.getLogger(RegisterPage.class);
@@ -39,6 +47,18 @@ public class RegisterPage {
   private WebElement emailAddress;
   @FindBy(css = "[class='ng-star-inserted']")
   private WebElement sendNewPassword;
+  @FindBy(css = "[data-test='auth-remind-password-form-submit-button']")
+  private WebElement sendLinkToResetPassword;
+  @FindBy(id = "messages")
+  private WebElement mailcatcherMessages;
+  @FindBy(id = "password")
+  private WebElement password;
+  @FindBy(id = "confirmPassword")
+  private WebElement confirmPassword;
+  @FindBy(css = "[data-test='auth-registration-form-submit-button']")
+  private WebElement resetPassword;
+
+
 
 
 
@@ -140,11 +160,44 @@ public class RegisterPage {
   public void registerForgotPassword() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
-    wait.until(ExpectedConditions.visibilityOf(sendNewPassword));
+    wait.until(ExpectedConditions.visibilityOf(sendLinkToResetPassword));
     emailAddress.sendKeys("user@e11.click");
-    sendNewPassword.click();
-    Thread.sleep(120000);
-    // TODO: 11.07.18 czekam na wysyłanie maila:
+    sendLinkToResetPassword.click();
+    //                    Mailcatcher
+    wait = new WebDriverWait(driver, 10);
+    driver.get("http://mailcatcher.ads/");
+    PageFactory.initElements(driver, this);
+    wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
+    Thread.sleep(4000);
+    mailcatcherMessages.click();
+    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
+    Thread.sleep(1000);
+
+    // TODO: 12.07.18 ZMIANA OKNA W CHROME 
+    // 1.1 before clicking on the link
+    String handle = driver.getWindowHandle();
+    System.out.println ("1. "+driver.getTitle()+" - "+handle);
+
+    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+    Thread.sleep(5000);
+
+    // 1.2 Store and Print the name of all the windows open
+    Set handles = driver.getWindowHandles();
+    for (String handle1:driver.getWindowHandles()) {
+      System.out.println("2. "+handle1);
+      driver.switchTo().window(handle1);
+    }
+    System.out.println("3. "+driver.getTitle());
+
+    wait = new WebDriverWait(driver, 10);
+    PageFactory.initElements(driver, this);
+    wait.until(ExpectedConditions.visibilityOf(password));
+    password.sendKeys("useruser");
+    confirmPassword.sendKeys("useruser");
+    resetPassword.click();
+    //driver.quit();
+
+    // TODO: 12.07.18 dodanie ASSERT + dopisanie dodawanie nowego konta random i zmiana hasła 
   }
 
 

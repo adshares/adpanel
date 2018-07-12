@@ -11,16 +11,16 @@
       </class>
     </classes>
   </test>
-  <test name="TC 3 - Niepoprawna rejestracja konta" group-by-instances="true">
+  <test name="TC 2 - Niepoprawna rejestracja konta" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginRegisterTest"/>
+          <include name="loginRegisterError"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 4 - Resetowanie hasła" group-by-instances="true">
+  <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.RegisterTestCase">
         <methods>
