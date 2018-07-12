@@ -12,6 +12,7 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { AppState } from 'models/app-state.model';
 import { createInitialArray, enumToArray } from 'common/utilities/helpers';
+import {Site, SitesTotals} from "models/site.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +22,8 @@ import { createInitialArray, enumToArray } from 'common/utilities/helpers';
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   chartSeries: string[] = enumToArray(chartSeriesEnum);
-
+  sites: Site[];
+  sitesTotals: SitesTotals;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;

@@ -9,6 +9,7 @@ import { AppState } from 'models/app-state.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import { createInitialArray } from 'common/utilities/helpers';
+import {Campaign, CampaignsTotals} from "models/campaign.model";
 
 
 @Component({
@@ -18,6 +19,9 @@ import { createInitialArray } from 'common/utilities/helpers';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+
+  campaigns: Campaign[];
+  campaignsTotals: CampaignsTotals;
 
   barChartValue: number;
   barChartDifference: number;
