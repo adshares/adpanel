@@ -24,7 +24,7 @@ import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-respon
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-  openedDialogUnkownError: false;
+  openedDialogUnkownError : boolean = false;
   constructor(
     private router: Router,
     private store: Store<AppState>,
