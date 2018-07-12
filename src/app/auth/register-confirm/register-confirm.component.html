@@ -30,6 +30,7 @@
     >
         {{ errorsRegister.email }}
     </div>
+    {{ errorCode | json }}
     <div
             class="error-msg"
             *ngIf="error && ObjectKeys(errorCode).length > 0"

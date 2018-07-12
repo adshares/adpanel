@@ -74,7 +74,8 @@ const appModules = [
     AdvertiserService,
     PublisherService,
     SettingsService,
-    AdminService
+    AdminService,
+    AppComponent
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [

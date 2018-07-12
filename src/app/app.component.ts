@@ -60,7 +60,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-    const exludedComponent = ["register-confirm"];
     const { remember, passwordLength, expiration, ...user } = userData;
     if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length > 0) {
       localStorage.removeItem('adshUser');
@@ -75,11 +74,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
-      for(let comp of exludedComponent){
-        if(location.pathname.indexOf(comp) > -1){
-          loginDir = false;
-        }
-      }
+      loginDir = this.checkRequestMissing();
       if (loginDir) {
         const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
         this.router.navigate([moduleDir, 'dashboard']);
@@ -124,5 +119,24 @@ export class AppComponent extends HandleSubscription implements OnInit {
     this.updateNotificationTimer = timer(0, appSettings.UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL)
       .subscribe(() => this.getNotifications());
     this.subscriptions.push(this.updateNotificationTimer);
+  }
+
+  checkRequestMissing(){
+      const exludedComponent = ["register-confirm"];
+      let loginDir = true;
+      for(let comp of exludedComponent){
+          if(location.pathname.indexOf(comp) > -1){
+              loginDir = false;
+          }
+      }
+      const chooseAccount = localStorage.getItem("choose");
+      if(loginDir){
+          if(chooseAccount == "Advertiser"){
+              this.router.navigate(['/advertiser/dashboard']);
+          } else {
+              this.router.navigate(['/publisher/dashboard']);
+          }
+      }
+      return loginDir;
   }
 }

@@ -31,10 +31,10 @@ export class RegisterConfirmComponent  {
         this.authService.emailActivation(token)
             .subscribe(
                 (err) => {
-                    console.log(err.status)
-                    if(err.status == 403){
-                        this.errorCode = err;
-                    }
+                    console.log(err)
+                    // if(err.status == 403){
+                    //     this.errorCode = err;
+                    // }
                 }
             );
     }
