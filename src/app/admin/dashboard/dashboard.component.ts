@@ -22,7 +22,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 3);
+  barChartLabels: any = createInitialArray({ labels: [] }, 3);
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 3);
 
   currentChartFilterSettings: ChartFilterSettings;
@@ -49,17 +49,18 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(
-        chartFilterSettings.currentFrom,
-        chartFilterSettings.currentTo,
-        chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentAssetId,
-        chartFilterSettings.currentSeries
+        chartFilterSettings.from,
+        chartFilterSettings.to,
+        chartFilterSettings.frequency,
+        chartFilterSettings.assetId,
+        chartFilterSettings.series
       )
       .subscribe(data => {
         this.barChartData.forEach(values => values[0].data = data.values);
         this.barChartData.forEach(chartData => chartData[0].currentSeries = this.currentChartFilterSettings.currentSeries);
         this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format());
+          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
+          chartLabels.labels.fullLabels = data.timestamps.map(timestamp => moment(timestamp).format('DD MMM YYYY'));
         });
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

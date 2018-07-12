@@ -200,3 +200,15 @@ input[type=radio]:checked + label {
     content: url('/assets/images/confirm_icon.svg');
   }
 }
+.warning-msg {
+  @extend .error-msg;
+  color: pal(black);
+  background-color: pal(orange, base);
+  border-color: pal(orange);
+  padding-right: 30px;
+
+  &:after {
+    @extend .error-msg:after;
+    content: url('/assets/images/confirm_icon.svg');
+  }
+}
