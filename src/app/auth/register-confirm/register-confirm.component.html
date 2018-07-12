@@ -25,12 +25,16 @@
 
   </div>
     <div
-            class="error-msg
-                adsh-copy
-                adsh-copy--large"
+            class="error-msg"
             *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
     >
         {{ errorsRegister.email }}
+    </div>
+    <div
+            class="error-msg"
+            *ngIf="error && ObjectKeys(errorCode).length > 0"
+    >
+        Your email is activated.
     </div>
   <div
     class="

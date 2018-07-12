@@ -14,6 +14,7 @@ export class RegisterConfirmComponent  {
   token: any;
   ObjectKeys = Object.keys;
   errorsRegister: {};
+  errorCode: {}
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -22,15 +23,18 @@ export class RegisterConfirmComponent  {
 
   ngOnInit() {
       this.route.params.subscribe(params => {
-          this.token = params['token']; // (+) converts string 'id' to a number
+          this.token = params['token'];
           this.emailActivation(this.token);
-          // In a real app: dispatch action to load the details here.
       });
   }
     emailActivation(token) {
         this.authService.emailActivation(token)
             .subscribe(
                 (err) => {
+                    console.log(err.status)
+                    if(err.status == 403){
+                        this.errorCode = err;
+                    }
                 }
             );
     }

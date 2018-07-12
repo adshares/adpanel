@@ -60,7 +60,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-
+    const exludedComponent = ["register-confirm"];
     const { remember, passwordLength, expiration, ...user } = userData;
     if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length > 0) {
       localStorage.removeItem('adshUser');
@@ -75,8 +75,11 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
-      console.log( `/${userRolesEnum[activeUserType].toLowerCase()}`,loginDir);
-
+      for(let comp of exludedComponent){
+        if(location.pathname.indexOf(comp) > -1){
+          loginDir = false;
+        }
+      }
       if (loginDir) {
         const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
         this.router.navigate([moduleDir, 'dashboard']);

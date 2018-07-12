@@ -58,6 +58,15 @@ export class RequestInterceptor implements HttpInterceptor {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
+      if (err instanceof HttpErrorResponse && err.status === 403) {
+          const chooseAccount = localStorage.getItem("choose");
+          if(chooseAccount == "Advertiser"){
+              this.router.navigate(['/advertiser/dashboard']);
+          } else {
+              this.router.navigate(['/publisher/dashboard']);
+          }
+      }
+
       if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
           this.pushNotificationsService.addPushNotification({
               type: pushNotificationTypesEnum.ERROR,
