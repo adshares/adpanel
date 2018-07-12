@@ -30,11 +30,12 @@ export class RegisterConfirmComponent  {
     emailActivation(token) {
         this.authService.emailActivation(token)
             .subscribe(
+                () => this.router.navigate(['/auth', 'register-confirm']),
                 (err) => {
-                    console.log(err)
-                    // if(err.status == 403){
-                    //     this.errorCode = err;
-                    // }
+                    console.log(err);
+                    if(err.status == 403){
+                        this.errorCode = {"error": true};
+                    }
                 }
             );
     }

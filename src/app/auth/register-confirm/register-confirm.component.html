@@ -30,23 +30,34 @@
     >
         {{ errorsRegister.email }}
     </div>
-    {{ errorCode | json }}
     <div
-            class="error-msg"
-            *ngIf="error && ObjectKeys(errorCode).length > 0"
+            class="
+      adsh-box
+      adsh-box--light
+      adsh-box--large"
+            *ngIf="errorCode && ObjectKeys(errorCode).length > 0"
     >
-        Your email is activated.
+        <p
+                class="
+        adsh-copy
+        adsh-copy--large"
+        >
+            Your email is activated.
+        </p>
     </div>
   <div
     class="
       adsh-box
       adsh-box--light
       adsh-box--large"
+    *ngIf="errorCode && ObjectKeys(errorCode).length == 0"
   >
     <p
       class="
         adsh-copy
         adsh-copy--large"
+
+
     >
         Your email is confirmed. Signup your account.
     </p>
