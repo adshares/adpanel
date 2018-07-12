@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { chartSeriesEnum } from 'models/enum/chart-series.enum';
+import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
 import { ChartData } from 'models/chart/chart-data.model';
