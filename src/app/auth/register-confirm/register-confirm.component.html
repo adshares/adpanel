@@ -25,23 +25,39 @@
 
   </div>
     <div
-            class="error-msg
-                adsh-copy
-                adsh-copy--large"
+            class="error-msg"
             *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
     >
         {{ errorsRegister.email }}
+    </div>
+    <div
+            class="
+      adsh-box
+      adsh-box--light
+      adsh-box--large"
+            *ngIf="errorCode !== undefined && ObjectKeys(errorCode).length > 0"
+    >
+        <p
+                class="
+        adsh-copy
+        adsh-copy--large"
+        >
+            Your email is activated.
+        </p>
     </div>
   <div
     class="
       adsh-box
       adsh-box--light
       adsh-box--large"
+    *ngIf="errorCode === undefined"
   >
     <p
       class="
         adsh-copy
         adsh-copy--large"
+
+
     >
         Your email is confirmed. Signup your account.
     </p>
