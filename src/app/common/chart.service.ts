@@ -11,13 +11,13 @@ export class ChartService {
 
   constructor(private http: HttpClient) {}
 
-  getAssetChartData(from, to, frequency, id, series): Observable<ChartReceivedData> {
-    return this.http.post(`${environment.apiUrl}/chart`, { from, to, frequency, id, series })
+  getAssetChartDataForAdvertiser(from, to, frequency, id, series, typeAccount): Observable<ChartReceivedData> {
+    return this.http.post(`${environment.apiUrl}/chart`, { from, to, frequency, id, series, typeAccount })
       .map((chartData: any) => chartData);
   }
 
-  getAssetChartDataForPublisher(from, to, frequency, id): Observable<ChartReceivedData> {
-    return this.http.post(`${environment.apiUrl}/publisher_chart`, { from, to, frequency, id } )
+  getAssetChartDataForPublisher(from, to, frequency, id, series, typeAccount): Observable<ChartReceivedData> {
+    return this.http.post(`${environment.apiUrl}/chart`, { from, to, frequency, id, series, typeAccount } )
       .map((chartData: any) => chartData);
   }
 }
