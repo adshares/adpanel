@@ -40,7 +40,7 @@ export class ConfirmationAlertComponent implements OnInit {
   }
 
   resendActivationEmail() {
-      const savedUser = localStorage.getItem('adshUser');
-    this.authService.emailActivation(JSON.parse(savedUser).user.uuid).subscribe();
+    const savedUser = localStorage.getItem('adshUser');
+    this.authService.emailActivationResend("/register-confirm/").subscribe();
   }
 }
