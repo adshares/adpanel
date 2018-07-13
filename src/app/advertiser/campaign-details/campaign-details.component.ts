@@ -60,12 +60,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.barChartData[0].data = [];
 
     const chartDataSubscription = this.chartService
-      .chartFilterSettings.currentSeries(
+      .getAssetChartDataForAdvertiser(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentAssetId,
-        chartFilterSettings.currentSeries
+        chartFilterSettings.currentSeries,
+"Advertiser"
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
