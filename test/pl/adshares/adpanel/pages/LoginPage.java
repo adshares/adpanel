@@ -251,23 +251,11 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
     System.out.println("1. RegistrRandom - OK");
-    //                    Registr Random
-    //this.driver = driver;
+    //                    Milcatcher Random
     wait = new WebDriverWait(driver, 10);
-    //ChromeOptions chromeOptions = new ChromeOptions();
-    //chromeOptions.addArguments("--start-maximized");
-    //driver = new ChromeDriver(chromeOptions);
     driver.get("http://mailcatcher.ads/");
     PageFactory.initElements(driver, this);
-    //clear.click();
-    //Thread.sleep(1000);
-    //driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ENTER);
-
-    //wait.until(ExpectedConditions.visibilityOf(dataMessageId));
-    //dataMessageId.click();
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
-    //mailcatcherSearch.sendKeys(randoms+"@e11.click");
-    //mailcatcherSearch.sendKeys(Keys.ENTER);
     Thread.sleep(4000);
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);

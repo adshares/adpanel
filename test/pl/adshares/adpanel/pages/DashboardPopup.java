@@ -32,12 +32,14 @@ public class DashboardPopup {
 
   public DashboardPopup(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 5);
+    wait = new WebDriverWait(driver, 20);
     PageFactory.initElements(driver, this);
   }
 
   public void popUpPublisher() {
     try {
+      wait = new WebDriverWait(driver, 20);
+      PageFactory.initElements(driver, this);
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
