@@ -34,6 +34,7 @@ import { reducer } from './store/index';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { ErrorResponseDialogComponentNoResponse } from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 import { RegisterConfirmDialogComponent } from "common/dialog/register-confirm-dialog/register-confirm-dialog.component";
+import {ConfirmationAlertComponent} from "common/components/confirmation-alert/confirmation-alert.component";
 
 const appModules = [
   AppCommonModule,
@@ -77,7 +78,8 @@ const appModules = [
     PublisherService,
     SettingsService,
     AdminService,
-    AppComponent
+    AppComponent,
+    ConfirmationAlertComponent
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
