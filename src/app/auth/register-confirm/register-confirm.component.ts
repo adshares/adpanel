@@ -31,20 +31,25 @@ export class RegisterConfirmComponent  {
           this.token = params['token'];
           this.emailActivation(this.token);
       });
+      const savedUser = JSON.parse(localStorage.getItem('adshUser'));
+      savedUser.isEmailConfirmed=true;
+      localStorage.setItem("adshUser",JSON.stringify(savedUser));
       if(chooseAccount && userData){
           if(chooseAccount == "Advertiser"){
               this.router.navigate(['/advertiser/dashboard']);
               this.dialog.open(RegisterConfirmDialogComponent);
+              setTimeout(function(){window.location.reload()}, 2000)
           } else {
               this.router.navigate(['/publisher/dashboard']);
                this.dialog.open(RegisterConfirmDialogComponent);
+              setTimeout(function(){window.location.reload()}, 2000)
           }
       }
   }
     emailActivation(token) {
         this.authService.emailActivation(token)
             .subscribe(
-                () => this.router.navigate(['/auth', 'register-confirm']),
+                () => [],
                 (err) => {
                     console.log(err);
                     if(err.status == 403){
