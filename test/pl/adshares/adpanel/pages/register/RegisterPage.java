@@ -173,7 +173,6 @@ public class RegisterPage {
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
 
-    // TODO: 12.07.18 ZMIANA OKNA W CHROME 
     // 1.1 before clicking on the link
     String handle = driver.getWindowHandle();
     System.out.println ("1. "+driver.getTitle()+" - "+handle);
@@ -197,7 +196,6 @@ public class RegisterPage {
     resetPassword.click();
     //driver.quit();
 
-    // TODO: 12.07.18 dodanie ASSERT + dopisanie dodawanie nowego konta random i zmiana hasła 
   }
 
 

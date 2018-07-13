@@ -38,6 +38,17 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
+  public void loginPopUpFirstPublisher() throws InterruptedException {
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstPublisher();
+  }
+  @Test
+  public void loginPopUpFirstAdvertiser(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstAdvertiser();
+  }
+
+  @Test
   public void loginPopUpPublisher(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpPublisher();
@@ -84,6 +95,14 @@ public class LoginTestCase extends BrowserTestCase {
   public void loginRegisterRandom() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.goToLoginRegistrRandom();
+    loginPage .logIn();
+  }
+
+  @Test
+  public void loginRegisterRememberMe() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.goToLoginRegistrRandom();
+    loginPage .logInRememberMe();
   }
 
   @Test
@@ -107,8 +126,38 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.gotologinChangeEmail();
   }
   @Test
-  public void loginChangePassword() {
+  public void loginChangePassword() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePassword();
   }
+  @Test
+  public void logOut() {
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    System.out.println("logOutTest");
+  }
+  @Test
+  public void loginSecondTab() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab();
+  }
+  @Test
+  public void loginSecondTab2() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab();
+    loginPage.loginSecondTab2();
+  }
+  @Test
+  public void loginSecondTab3() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab3();
+  }
+  @Test
+  public void loginSecondTab4() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab4();
+  }
+
 }

@@ -126,7 +126,7 @@
             <driver>
               <name>chromedriver</name>
             </driver>
-          </drivers>
+           </drivers>
         </configuration>
       </plugin>
 

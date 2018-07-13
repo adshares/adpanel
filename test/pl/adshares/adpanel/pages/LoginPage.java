@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,6 +16,7 @@ import org.testng.log4testng.Logger;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class LoginPage {
   private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
@@ -84,6 +86,16 @@ public class LoginPage {
   @FindBy(css = "[data-test='settings-change-password-form-submit']")
   private WebElement changePassword;
 
+  @FindBy(xpath = "//span[contains(text(), 'Your email was changed successfully.')]")
+  private WebElement loginEmailAssert;
+  @FindBy(xpath = "//span[contains(text(), 'Password changed')]")
+  private WebElement loginPasswordAssert;
+  @FindBy(css = "[data-test='auth-redirect-to-first-login']")
+  private WebElement firstLogin;
+  @FindBy(xpath = "//h2[contains(text(),'Activation Email')]")
+  private WebElement ActivationEmail;
+  @FindBy(css = "[class='checkbox-label']")
+  private WebElement rememberMe;
 
 
   private WebElement userMenuAdvertiser;
@@ -257,36 +269,66 @@ public class LoginPage {
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
     Thread.sleep(4000);
+
+    // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
+    String handle = driver.getWindowHandle();
+    System.out.println ("1. "+driver.getTitle()+" - "+handle);
+
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     System.out.println("2. Mailcatcher - OK");
     Thread.sleep(5000);
-    driver.quit();
-    //                    Log in Random
+
+    // 1.2 ZMIANA OKNA W CHROME - Store and Print the name of all the windows open
+    Set handles = driver.getWindowHandles();
+    for (String handle1:driver.getWindowHandles()) {
+      System.out.println("2. "+handle1);
+      driver.switchTo().window(handle1);
+    }
+    System.out.println("3. "+driver.getTitle());
     wait = new WebDriverWait(driver, 10);
-    ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--start-maximized");
-    driver = new ChromeDriver(chromeOptions);
-    driver.get("http://panel.ads/");
     PageFactory.initElements(driver, this);
+
+    wait.until(ExpectedConditions.visibilityOf(ActivationEmail));
+    wait.until(ExpectedConditions.visibilityOf(firstLogin));
+    firstLogin.click();
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginEmail.sendKeys(randoms+"@e11.click");
     loginPassword.sendKeys("12345678");
+    //loginButton.click();
+    //System.out.println("3. Log in - OK");
+  }
+
+
+  public void logIn () throws InterruptedException {
+    Thread.sleep(10000);
+    loginButton.click();
+    System.out.println("3. Log in - OK");
+  }
+  public void logInRememberMe () throws InterruptedException {
+    rememberMe.click();
+    Thread.sleep(10000);
     loginButton.click();
     System.out.println("3. Log in - OK");
   }
 
   public void gotologinChangeEmail() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
-    Thread.sleep(500000);
     settingsMenuChevron.click();
+    wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmail));
-    loginEmail.sendKeys("user@e11.click");
+    Random random = new Random();
+    int number = random.nextInt(1000000);
+    String randoms = String.format("%06d", number);
+    loginEmail.sendKeys(randoms+"@e11.click");
     changeEmail.click();
-    // TODO: 11.07.18 dopisać assert na zmianę email: Assert.assertEquals("The email has already been taken.", invalidPasswordInput4);
+    wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
+    String loginEmailAssertInput = loginEmailAssert.getText();
+    Assert.assertEquals("Your email was changed successfully.", loginEmailAssertInput);
+    System.out.println("-. Your email was changed successfully. - OK");
   }
 
   public void gotologinChangePassword() {
@@ -294,11 +336,67 @@ public class LoginPage {
     settingsMenuChevron.click();
     accountSettings.click();
     wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
-    loginCurrentPassword.sendKeys("useruser");
-    loginNewPassword.sendKeys("useruser");
-    loginNewPasswordConfirm.sendKeys("useruser");
+    loginCurrentPassword.sendKeys("12345678");
+    Random random = new Random();
+    int number = random.nextInt(100000000);
+    String randoms = String.format("%08d", number);
+    loginNewPassword.sendKeys(randoms);
+    loginNewPasswordConfirm.sendKeys(randoms);
     changePassword.click();
-    // TODO: 11.07.18 dopisać assert na zmianę hasła:
+    wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert));
+    String loginEmailAssertInput = loginPasswordAssert.getText();
+    Assert.assertEquals("Password changed", loginEmailAssertInput);
+    System.out.println("-. Password changed - OK");
+  }
+
+  public void loginSecondTab() throws InterruptedException {
+    System.out.println ("1. "+driver.getTitle());
+    // 1.1 before clicking on the link
+    String handle = driver.getWindowHandle();
+    System.out.println ("1. "+driver.getTitle()+" - "+handle);
+
+    driver.close();
+
+    // 1.2 Store and Print the name of all the windows open
+    Set handles = driver.getWindowHandles();
+    for (String handle1:driver.getWindowHandles()) {
+      System.out.println("2. "+handle1);
+      driver.switchTo().window(handle1);
+    }
+    System.out.println("3. "+driver.getTitle());
+    wait = new WebDriverWait(driver, 10);
+    PageFactory.initElements(driver, this);
+//    driver.navigate().to("http://panel.ads/");
+    driver.get("http://panel.ads/");
+    System.out.println ("4. "+driver.getTitle());
+  }
+
+  public void loginSecondTab2() throws InterruptedException {
+    wait.until(ExpectedConditions.visibilityOf(helloText));
+    String loginEmailAssertInput = helloText.getText();
+    Assert.assertEquals("Hello!", loginEmailAssertInput);
+    System.out.println("-. Hello! - OK");
+  }
+  public void loginSecondTab3() throws InterruptedException {
+
+    driver.get("http://panel.ads/");
+
+    //wait.until(ExpectedConditions.visibilityOf(helloText));
+    //String loginEmailAssertInput = helloText.getText();
+    //Assert.assertEquals("Hello!", loginEmailAssertInput);
+    System.out.println("-. Hello! - OK");
+    Thread.sleep(10000);
+    // TODO: 13.07.18  loginSecondTab3
+  }
+  public void loginSecondTab4() throws InterruptedException {
+    WebDriver driver = new FirefoxDriver();
+    driver.get("http://panel.ads/");
+    //wait.until(ExpectedConditions.visibilityOf(helloText));
+    //String loginEmailAssertInput = helloText.getText();
+    //Assert.assertEquals("Hello!", loginEmailAssertInput);
+    System.out.println("-. Hello! - OK");
+    Thread.sleep(10000);
+
   }
 
   }

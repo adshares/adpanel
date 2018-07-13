@@ -3,19 +3,6 @@
 <suite name="TS - Publisher" parallel="false">
 
 
-  <test name="TC 8 - Zmiana maila" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-
-          <include name="loginPopUpPublisher"/>
-          <include name="loginChangeEmail"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
 
 
 

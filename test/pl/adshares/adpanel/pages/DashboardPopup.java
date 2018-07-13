@@ -27,6 +27,15 @@ public class DashboardPopup {
   @FindBy(xpath = "//button[contains(text(), 'Continue')]")
   private WebElement continueButton;
 
+  @FindBy(xpath = "//button[contains(text(),'Continue')]")
+  private WebElement PopUpFirstContinue;
+  @FindBy(css = "[data-test='common-choose-publisher-account']")
+  private WebElement PopUpFirstPublisher;
+  @FindBy(css = "[data-test='common-choose-advertiser-account']")
+  private WebElement PopUpFirstAdvertiser;
+
+
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -36,15 +45,29 @@ public class DashboardPopup {
     PageFactory.initElements(driver, this);
   }
 
+  public void popUpFirstPublisher() {
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstPublisher));
+    PopUpFirstPublisher.click();
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+    PopUpFirstContinue.click();
+    System.out.println("-. Publisher dashboard");
+  }
+
+  public void popUpFirstAdvertiser() {
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+    PopUpFirstAdvertiser.click();
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+    PopUpFirstContinue.click();
+    System.out.println("-. Advertiser dashboard");
+  }
+
   public void popUpPublisher() {
     try {
-      wait = new WebDriverWait(driver, 20);
-      PageFactory.initElements(driver, this);
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
+      wait.until(ExpectedConditions.visibilityOf(userPopUpPublisher));
       userPopUpPublisher.click();
-      //wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");

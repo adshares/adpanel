@@ -57,8 +57,8 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
           <include name="loginChangeEmail"/>
         </methods>
       </class>
@@ -68,9 +68,68 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
           <include name="loginChangePassword"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 8 - Wylogowanie" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 9 - Zamknięcie karty przeglądarki - RemeberMe On" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRememberMe"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginSecondTab"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 10 - Zamknięcie karty przeglądarki - RemeberMe Off" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginSecondTab2"/>
+
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 11 - Otwarcie sesji równolegle w nowej karcie" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginSecondTab3"/>
+
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 12 - Otwarcie sesji równolegle w innej przeglądarce" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginSecondTab4"/>
+
         </methods>
       </class>
     </classes>
