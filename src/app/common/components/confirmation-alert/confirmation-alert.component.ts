@@ -21,22 +21,26 @@ export class ConfirmationAlertComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const savedUser = localStorage.getItem('adshUser');
+    if(savedUser){
+        this.isEmailConfirmed = JSON.parse(savedUser).isEmailConfirmed;
+    }
     this.authService.getUserData()
     .first()
     .subscribe((user) => {
       this.isEmailConfirmed = user.isEmailConfirmed;
-      const savedUser = localStorage.getItem('adshUser');
+
       if (user.isEmailConfirmed && savedUser) {
         const dataToSave = Object.assign({}, JSON.parse(savedUser), { isEmailConfirmed: true });
+        localStorage.setItem('adshUser', JSON.stringify(dataToSave));
         this.user = dataToSave;
         this.store.dispatch(new authActions.SetUser(user));
-        localStorage.setItem('adshUser', JSON.stringify(dataToSave));
       }
     });
   }
 
   resendActivationEmail() {
-      const savedUser = localStorage.getItem('adshUser');
-    this.authService.emailActivation(JSON.parse(savedUser).user.uuid).subscribe();
+    const savedUser = localStorage.getItem('adshUser');
+    this.authService.emailActivationResend("/register-confirm/").subscribe();
   }
 }

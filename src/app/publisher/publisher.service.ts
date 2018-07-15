@@ -44,7 +44,7 @@ export class PublisherService {
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/sites/targeting`);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/targeting`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {

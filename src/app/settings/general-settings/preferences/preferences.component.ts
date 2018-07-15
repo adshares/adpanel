@@ -37,7 +37,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   errorsPasswordChange= {};
 
   ObjectKeys = Object.keys;
-
+  graceTime= null;
   constructor(
     private settingsService: SettingsService,
     private route: ActivatedRoute
@@ -47,6 +47,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
      this.createForms();
+     this.graceTime = true;
   }
 
   createForms() {
