@@ -30,6 +30,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
   siteStatusEnum = siteStatusEnum;
 
+  ObjectKeys = Object.keys;
   targeting: AssetTargeting = {
     requires: [],
     excludes: []
@@ -125,6 +126,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.status =
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
-    this.publisherService.saveSite(this.site);
+    this.publisherService.saveSite(this.site).subscribe(
+        () => {},
+        (err) => {
+          // TODO: Done when config/banners endpoint is ready
+          console.log(err);
+        }
+    );
   }
 }
