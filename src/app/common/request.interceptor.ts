@@ -66,8 +66,8 @@ export class RequestInterceptor implements HttpInterceptor {
           });
           if(!this.openedDialogUnkownError){
               this.dialog.open(ErrorResponseDialogComponentNoResponse);
-              this.openedDialogUnkownError = true;
-              return;
+              // this.openedDialogUnkownError = true;
+              // return;
           }
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
