@@ -94,6 +94,24 @@
           >
             Password required
           </span>
+          <span
+            class="error-msg"
+            *ngIf="loginForm.hasError('maxLoginAttemps', ['password']) && loginFormSubmitted"
+          >
+            Max login failed attemps!
+          </span>
+          <span
+                  class="error-msg"
+                  *ngIf="loginForm.hasError('passwordLifeTime', ['password']) && loginFormSubmitted"
+          >
+            Password was expire!
+          </span>
+          <span
+                  class="warning-msg"
+                  *ngIf="loginForm.hasError('notifyPasswordGraceTime', ['password']) && loginFormSubmitted"
+          >
+            Password will be expire in next days!
+          </span>
         </div>
 
         <div

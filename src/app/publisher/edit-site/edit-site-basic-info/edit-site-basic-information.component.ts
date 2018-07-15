@@ -41,7 +41,6 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   saveSiteBasicInformation() {
     this.siteBasicInfoSubmitted = true;
-
     if (!this.siteBasicInfoForm.valid) {
       return;
     }

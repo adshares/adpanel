@@ -17,7 +17,7 @@ export class ChartService {
   }
 
   getAssetChartDataForPublisher(from, to, frequency, id): Observable<ChartReceivedData> {
-    return this.http.post(`${environment.apiUrl}/publisher_chart`, { from, to, frequency, id } )
+    return this.http.post(`${environment.apiUrl}/chart`, { from, to, frequency, id } )
       .map((chartData: any) => chartData);
   }
 }
