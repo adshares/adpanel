@@ -18,7 +18,7 @@ export class AdvertiserService {
   }
 
   getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
-    return this.http.post<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`, { timespan });
+    return this.http.get<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`);//, { timespan });// FIXME
   }
 
   getCampaign(id: number): Observable<Campaign> {
