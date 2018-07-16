@@ -5,10 +5,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.util.Objects;
 
 public class DriverProvider {
 
-  public static final String DRIVERS_DIRECTORY = "build/drivers";
+  private static final String DRIVERS_DIRECTORY = "build/drivers";
 
   private static WebDriver driver;
 
@@ -22,7 +23,7 @@ public class DriverProvider {
     }
 
     File driverFile = null;
-    for (File file : driversDir.listFiles()) {
+    for (File file : Objects.requireNonNull(driversDir.listFiles())) {
       if (file.getName().startsWith(name) && !file.getName().endsWith(".version")) {
         driverFile = file;
         break;
