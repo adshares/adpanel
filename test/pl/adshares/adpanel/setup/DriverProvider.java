@@ -15,7 +15,7 @@ public class DriverProvider {
   private DriverProvider() {
   }
 
-  private static File getWebDriverFile(String name) {
+  public static File getWebDriverFile(String name) {
     File driversDir = new File(DRIVERS_DIRECTORY);
     if (!driversDir.exists()) {
       throw new RuntimeException("Cannot find web drivers directory: " + DRIVERS_DIRECTORY);

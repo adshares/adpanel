@@ -12,7 +12,7 @@ public class AdvertiserMainPage {
   /**
    * Button creating new campaign on top bar
    */
-  @FindBy(css = "body > app-root > div > app-advertiser > app-header > section > div:nth-child(2) > button")
+  @FindBy(css = "[data-test='header-create-new-asset-button']")
   private WebElement createNewCampaignTopButton;
 
   private WebDriver driver;

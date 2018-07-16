@@ -6,7 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,6 +18,8 @@ import org.testng.log4testng.Logger;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import static pl.adshares.adpanel.setup.DriverProvider.getWebDriverFile;
 
 public class LoginPage {
   private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
@@ -314,7 +317,7 @@ public class LoginPage {
     System.out.println("3. Log in - OK");
   }
 
-  public void gotologinChangeEmail() throws InterruptedException {
+  public void gotologinChangeEmail() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
@@ -349,7 +352,7 @@ public class LoginPage {
     System.out.println("-. Password changed - OK");
   }
 
-  public void loginSecondTab() throws InterruptedException {
+  public void loginSecondTab() {
     System.out.println ("1. "+driver.getTitle());
     // 1.1 before clicking on the link
     String handle = driver.getWindowHandle();
@@ -371,7 +374,7 @@ public class LoginPage {
     System.out.println ("4. "+driver.getTitle());
   }
 
-  public void loginSecondTab2() throws InterruptedException {
+  public void loginSecondTab2() {
     wait.until(ExpectedConditions.visibilityOf(helloText));
     String loginEmailAssertInput = helloText.getText();
     Assert.assertEquals("Hello!", loginEmailAssertInput);
@@ -389,8 +392,14 @@ public class LoginPage {
     // TODO: 13.07.18  loginSecondTab3
   }
   public void loginSecondTab4() throws InterruptedException {
-    WebDriver driver = new FirefoxDriver();
-    driver.get("http://panel.ads/");
+
+    System.setProperty("webdriver.chrome.driver", getWebDriverFile("chromedriver").getAbsolutePath());
+    OperaOptions operaOptions = new OperaOptions();
+    operaOptions.addArguments("--start-maximized");
+    driver = new OperaDriver(operaOptions);
+    driver.get("http://panel.ads");
+//    WebDriver driver = new OperaDriver();
+//    driver.get("http://panel.ads/");
     //wait.until(ExpectedConditions.visibilityOf(helloText));
     //String loginEmailAssertInput = helloText.getText();
     //Assert.assertEquals("Hello!", loginEmailAssertInput);

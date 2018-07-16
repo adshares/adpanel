@@ -124,6 +124,9 @@
           <installationDirectory>${project.build.directory}/drivers</installationDirectory>
           <drivers>
             <driver>
+              <name>operadriver</name>
+            </driver>
+            <driver>
               <name>chromedriver</name>
             </driver>
            </drivers>

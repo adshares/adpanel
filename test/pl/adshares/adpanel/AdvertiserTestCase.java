@@ -19,14 +19,14 @@ public class AdvertiserTestCase extends BrowserTestCase {
 
   @Test
   public void createAdvertiserCampaign() {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSignIn("user@e11.click", "useruser");
+//    loginPage = new LoginPage(driver);
+//    loginPage.loginSignIn("user@e11.click", "useruser");
 
-    boolean userHasAdvertiserAndPublisherPrivilegde = true;
-    if (userHasAdvertiserAndPublisherPrivilegde) {
-      dashboardPopup = new DashboardPopup(driver);
-      dashboardPopup.popUpAdvertiser();
-    }
+//    boolean userHasAdvertiserAndPublisherPrivilegde = true;
+//    if (userHasAdvertiserAndPublisherPrivilegde) {
+//      dashboardPopup = new DashboardPopup(driver);
+//      dashboardPopup.popUpAdvertiser();
+//    }
 
     AdvertiserMainPage amp = new AdvertiserMainPage(driver);
     amp.createNewCampaign();

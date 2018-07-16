@@ -16,7 +16,7 @@ import org.testng.log4testng.Logger;
 
 import java.util.Set;
 
-import static com.sun.deploy.uitoolkit.impl.awt.AWTClientPrintHelper.print;
+//import static com.sun.deploy.uitoolkit.impl.awt.AWTClientPrintHelper.print;
 
 public class RegisterPage {
   private static final Logger LOGGER = Logger.getLogger(RegisterPage.class);
