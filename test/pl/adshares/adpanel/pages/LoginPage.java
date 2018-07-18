@@ -14,7 +14,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
+import org.testng.util.Strings;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -84,6 +87,8 @@ public class LoginPage {
   private WebElement settingsMenuChevron;
   @FindBy(css = "[data-test='header-account-settings-button']")
   private WebElement accountSettings;
+  @FindBy(css = "[data-test='header-billing-payments-button']")
+  private WebElement billingPayments;
   @FindBy(css = "[data-test='settings-change-email-form-submit']")
   private WebElement changeEmail;
   @FindBy(css = "[data-test='settings-change-password-form-submit']")
@@ -93,12 +98,26 @@ public class LoginPage {
   private WebElement loginEmailAssert;
   @FindBy(xpath = "//span[contains(text(), 'Password changed')]")
   private WebElement loginPasswordAssert;
+  @FindBy(xpath = "//span[contains(text(), 'Minimum 8 signs required!')]")
+  private WebElement loginPasswordAssert2;
+  @FindBy(xpath = "//span[contains(text(), 'Passwords don't match!')]")
+  private WebElement loginPasswordAssert3;
+  @FindBy(xpath = "//span[contains(text(), 'Old password is not valid')]")
+  private WebElement loginPasswordAssert4;
   @FindBy(css = "[data-test='auth-redirect-to-first-login']")
   private WebElement firstLogin;
   @FindBy(xpath = "//h2[contains(text(),'Activation Email')]")
   private WebElement ActivationEmail;
   @FindBy(css = "[class='checkbox-label']")
   private WebElement rememberMe;
+  @FindBy(xpath = "//span[contains(text(), 'Email required!')]")
+  private WebElement loginEmailAssert2;
+  @FindBy(xpath = "//span[contains(text(), 'Invalid email!')]")
+  private WebElement loginEmailAssert3;
+  @FindBy(css = "[data-test='settings-faq-link']")
+  private WebElement CheckOurFAQ;
+  @FindBy(css = "[class='logo-header']")
+  private WebElement FAQ;
 
 
   private WebElement userMenuAdvertiser;
@@ -108,7 +127,7 @@ public class LoginPage {
 
   public LoginPage(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 10);
+    wait = new WebDriverWait(driver, 20);
     PageFactory.initElements(driver, this);
   }
 
@@ -258,10 +277,11 @@ public class LoginPage {
     Random random = new Random();
     int number = random.nextInt(1000000);
     String randoms = String.format("%06d", number);
-    loginEmail.sendKeys(randoms+"@e11.click");
+    String randomsEmail = randoms+"@e11.click";
+    loginEmail.sendKeys(randomsEmail);
     loginPassword.sendKeys("12345678");
     loginConfirmPassword.sendKeys("12345678");
-    System.out.println("LoginEmail: "+randoms+"@e11.click");
+    System.out.println("LoginEmail: "+randomsEmail);
     System.out.println("Password: "+"12345678");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
@@ -275,20 +295,22 @@ public class LoginPage {
 
     // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println ("1. "+driver.getTitle()+" - "+handle);
+    System.out.println ("2.1. "+driver.getTitle()+" - "+handle);
 
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-    System.out.println("2. Mailcatcher - OK");
+    System.out.println("2.2. Mailcatcher - OK");
     Thread.sleep(5000);
 
     // 1.2 ZMIANA OKNA W CHROME - Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
+    int I=3;
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("2. "+handle1);
+      System.out.println("2."+I+". "+handle1);
       driver.switchTo().window(handle1);
+      I=I+1;
     }
     System.out.println("3. "+driver.getTitle());
     wait = new WebDriverWait(driver, 10);
@@ -298,23 +320,21 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(firstLogin));
     firstLogin.click();
     wait.until(ExpectedConditions.visibilityOf(loginButton));
-    loginEmail.sendKeys(randoms+"@e11.click");
+    loginEmail.sendKeys(randomsEmail);
     loginPassword.sendKeys("12345678");
-    //loginButton.click();
-    //System.out.println("3. Log in - OK");
   }
 
 
-  public void logIn () throws InterruptedException {
-    Thread.sleep(10000);
+  public void logIn () {
+    wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginButton.click();
-    System.out.println("3. Log in - OK");
+    System.out.println("4. Log in - OK");
   }
-  public void logInRememberMe () throws InterruptedException {
+  public void logInRememberMe () {
+    wait.until(ExpectedConditions.visibilityOf(rememberMe));
     rememberMe.click();
-    Thread.sleep(10000);
     loginButton.click();
-    System.out.println("3. Log in - OK");
+    System.out.println("4. Log in - OK");
   }
 
   public void gotologinChangeEmail() {
@@ -333,6 +353,35 @@ public class LoginPage {
     Assert.assertEquals("Your email was changed successfully.", loginEmailAssertInput);
     System.out.println("-. Your email was changed successfully. - OK");
   }
+  public void gotologinChangeEmailNegative() {
+    wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+    settingsMenuChevron.click();
+    wait.until(ExpectedConditions.visibilityOf(accountSettings));
+    accountSettings.click();
+//    "Email required!"
+    wait.until(ExpectedConditions.visibilityOf(changeEmail));
+    changeEmail.click();
+    wait.until(ExpectedConditions.visibilityOf(loginEmailAssert2));
+    String loginEmailAssertInput = loginEmailAssert2.getText();
+    Assert.assertEquals("Email required!", loginEmailAssertInput);
+    System.out.println("1z10. Email required! - OK");
+//    "Invalid email!"
+    int I=2;
+    String[] myList = {"michał@ę11.click","michal@-e11.click","michal@e11.","@e11.click","michal@_e11.click","michal.e11.click","michal@e11","_michal@e11.click","-michal@e11.click"};
+    for (String List : myList){
+      wait.until(ExpectedConditions.visibilityOf(loginEmail));
+      loginEmail.sendKeys(List);
+      changeEmail.click();
+      wait.until(ExpectedConditions.visibilityOf(loginEmailAssert3));
+//      String loginEmailAssertInput3 = loginEmailAssert3.getText();
+      Assert.assertEquals("Invalid email!", loginEmailAssert3.getText());
+      System.out.println(I+"z10. Invalid email! - OK    [ "+List+" ]");
+      loginEmail.clear();
+      I=I+1;
+    }
+    System.out.print("-. Koniec testu");
+// TODO: 16.07.18 email walidacja ustalić z Tomaszem
+  }
 
   public void gotologinChangePassword() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
@@ -350,6 +399,67 @@ public class LoginPage {
     String loginEmailAssertInput = loginPasswordAssert.getText();
     Assert.assertEquals("Password changed", loginEmailAssertInput);
     System.out.println("-. Password changed - OK");
+  }
+  public void gotologinChangePasswordNegative() {
+    wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+    settingsMenuChevron.click();
+    accountSettings.click();
+    wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
+//    1z3. Minimum 8 signs required!
+    loginCurrentPassword.sendKeys("12345678");
+    loginNewPassword.sendKeys("134679");
+    loginNewPasswordConfirm.sendKeys("134679");
+    changePassword.click();
+    wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert2));
+    Assert.assertEquals("Minimum 8 signs required!", loginPasswordAssert2.getText());
+    System.out.println("1z3. Minimum 8 signs required! - OK");
+//    2z3. Passwords don't match!
+    loginCurrentPassword.clear();
+    loginNewPassword.clear();
+    loginNewPasswordConfirm.clear();
+    loginCurrentPassword.sendKeys("123456789");
+    loginNewPassword.sendKeys("13467913");
+    loginNewPasswordConfirm.sendKeys("13467931");
+    changePassword.click();
+//    wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert3));
+//    Assert.assertEquals("Passwords don't match!", loginPasswordAssert3.getText());
+    System.out.println("2z3. Passwords don't match! - OK");
+//    3z3. Old password is not valid
+    loginCurrentPassword.clear();
+    loginNewPassword.clear();
+    loginNewPasswordConfirm.clear();
+    loginCurrentPassword.sendKeys("123456789");
+    loginNewPassword.sendKeys("87654321");
+    loginNewPasswordConfirm.sendKeys("87654321");
+//    wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert4));
+//    Assert.assertEquals("Old password is not valid!", loginPasswordAssert4.getText());
+    System.out.println("3z3. Old password is not valid - OK");
+  }
+  public void gotologinFAQ() {
+    wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+    settingsMenuChevron.click();
+    billingPayments.click();
+    wait.until(ExpectedConditions.visibilityOf(CheckOurFAQ));
+
+//    Zmiana zakładki
+    String handle = driver.getWindowHandle();
+    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
+
+    CheckOurFAQ.click();
+//    Zmiana zakładki
+    Set handles = driver.getWindowHandles();
+    int I=2;
+    for (String handle1:driver.getWindowHandles()) {
+      System.out.println("5."+I+". "+handle1);
+      driver.switchTo().window(handle1);
+      I=I+1;
+    }
+    String handle2 = driver.getWindowHandle();
+    System.out.println("5."+I+". "+driver.getTitle()+" - "+handle2);
+    wait = new WebDriverWait(driver, 10);
+    PageFactory.initElements(driver, this);
+    wait.until(ExpectedConditions.visibilityOf(FAQ));
+    System.out.print("-. Koniec testu");
   }
 
   public void loginSecondTab() {

@@ -8,13 +8,11 @@
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab4"/>
-
+          <include name="loginSecondTab5"/>
         </methods>
       </class>
+
     </classes>
   </test>
-
-
 
 </suite>

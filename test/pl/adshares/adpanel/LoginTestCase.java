@@ -3,10 +3,7 @@ package pl.adshares.adpanel;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import pl.adshares.adpanel.enums.Properties;
-import pl.adshares.adpanel.pages.DashboardPopup;
-import pl.adshares.adpanel.pages.HeaderBarPage;
-import pl.adshares.adpanel.pages.LoginPage;
-import pl.adshares.adpanel.pages.Mailcatcher;
+import pl.adshares.adpanel.pages.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
@@ -16,6 +13,7 @@ import org.testng.annotations.Test;
 public class LoginTestCase extends BrowserTestCase {
 
   private LoginPage loginPage;
+  private PageOpera pageOpera;
   private Mailcatcher mailcatcher;
   private DashboardPopup dashboardPopup;
   private HeaderBarPage headerBarPage;
@@ -38,7 +36,7 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginPopUpFirstPublisher() throws InterruptedException {
+  public void loginPopUpFirstPublisher() {
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstPublisher();
   }
@@ -121,14 +119,29 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-    public void loginChangeEmail() throws InterruptedException {
+    public void loginChangeEmail() {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail();
   }
   @Test
-  public void loginChangePassword() throws InterruptedException {
+  public void loginChangeEmailNegative()  {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmailNegative();
+  }
+  @Test
+  public void loginChangePassword() {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePassword();
+  }
+  @Test
+  public void loginChangePasswordNegative() {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangePasswordNegative();
+  }
+  @Test
+  public void loginFAQ()  {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinFAQ();
   }
   @Test
   public void logOut() {
@@ -139,12 +152,12 @@ public class LoginTestCase extends BrowserTestCase {
     System.out.println("logOutTest");
   }
   @Test
-  public void loginSecondTab() throws InterruptedException {
+  public void loginSecondTab() {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
   }
   @Test
-  public void loginSecondTab2() throws InterruptedException {
+  public void loginSecondTab2() {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
     loginPage.loginSecondTab2();
@@ -158,6 +171,11 @@ public class LoginTestCase extends BrowserTestCase {
   public void loginSecondTab4() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
+  }
+  @Test
+  public void loginSecondTab5() throws InterruptedException {
+    pageOpera = new PageOpera(driver);
+    pageOpera.OperaSecondTab();
   }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS - Login Control" parallel="methods" thread-count="1" verbose="3">
+<suite name="TS_2 - Login Control" parallel="methods" thread-count="1" verbose="3">
   <test name="TC 1 - WebElements validation" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -23,8 +23,8 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="popUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
           <include name="logOutTest"/>
         </methods>
       </class>
@@ -34,8 +34,8 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="popUpAdvertiser"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstAdvertiser"/>
           <include name="logOutTest"/>
         </methods>
       </class>
@@ -45,8 +45,8 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
           <include name="loginChangingTheDashboardBack"/>
         </methods>
       </class>
@@ -129,7 +129,6 @@
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
           <include name="loginSecondTab4"/>
-
         </methods>
       </class>
     </classes>
