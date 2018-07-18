@@ -47,6 +47,6 @@ export class ConfirmationAlertComponent implements OnInit {
 
   resendActivationEmail() {
     const savedUser = localStorage.getItem('adshUser');
-    this.authService.emailActivationResend("/register-confirm/").subscribe(()=>this.dialog.open(EmailActivationResendConfirmDialogComponent),()=>this.dialog.open(EmailActivationResendFailedConfirmDialogComponent));
+    this.authService.emailActivationResend("/auth/email-activate/").subscribe(()=>this.dialog.open(EmailActivationResendConfirmDialogComponent),()=>this.dialog.open(EmailActivationResendFailedConfirmDialogComponent));
   }
 }

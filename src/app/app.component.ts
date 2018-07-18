@@ -124,7 +124,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   checkRequestMissing(){
-      const exludedComponent = ["register-confirm", "confirm-old-change-email", "confirm-new-change-email"];
+      const exludedComponent = ["email-activate", "confirm-old-change-email", "confirm-new-change-email"];
       let loginDir = true;
       for(let comp of exludedComponent){
           if(location.pathname.indexOf(comp) > -1){

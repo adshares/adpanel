@@ -4,15 +4,15 @@ import { Router} from '@angular/router';
 import { AuthService } from 'auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
-import { RegisterConfirmDialogComponent } from "common/dialog/register-confirm-dialog/register-confirm-dialog.component";
+import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activate-confirm-dialog/email-activate-confirm-dialog.component";
 
 @Component({
-  selector: 'app-register-confirm',
-  templateUrl: './register-confirm.component.html',
-  styleUrls: ['./register-confirm.component.scss'],
+  selector: 'app-email-activate',
+  templateUrl: './email-activate.component.html',
+  styleUrls: ['./email-activate.component.scss'],
 })
 
-export class RegisterConfirmComponent  {
+export class EmailActivateComponent  {
   token: any;
   ObjectKeys = Object.keys;
   errorsRegister: {};
@@ -37,11 +37,11 @@ export class RegisterConfirmComponent  {
       if(chooseAccount && userData){
           if(chooseAccount == "Advertiser"){
               this.router.navigate(['/advertiser/dashboard']);
-              this.dialog.open(RegisterConfirmDialogComponent);
+              this.dialog.open(EmailActivateConfirmDialogComponent);
               setTimeout(function(){window.location.reload()}, 2000)
           } else {
               this.router.navigate(['/publisher/dashboard']);
-               this.dialog.open(RegisterConfirmDialogComponent);
+               this.dialog.open(EmailActivateConfirmDialogComponent);
               setTimeout(function(){window.location.reload()}, 2000)
           }
       }

@@ -6,13 +6,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AppState } from 'models/app-state.model';
 
 @Component({
-  selector: 'app-register-confirm-dialog',
-  templateUrl: './register-confirm-dialog.component.html',
-  styleUrls: ['./register-confirm-dialog.component.scss'],
+  selector: 'app-email-activate-confirm-dialog',
+  templateUrl: './email-activate-confirm-dialog.component.html',
+  styleUrls: ['./email-activate-confirm-dialog.component.scss'],
 })
-export class RegisterConfirmDialogComponent {
+export class EmailActivateConfirmDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<RegisterConfirmDialogComponent>,
+    public dialogRef: MatDialogRef<EmailActivateConfirmDialogComponent>,
     private router: Router,
     private store: Store<AppState>
   ) { }

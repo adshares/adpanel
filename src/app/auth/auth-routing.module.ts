@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
-import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm.component";
+import { EmailActivateComponent } from "auth/email-activate/email-activate.component";
 import { ConfirmPasswordComponent } from "auth/confirm-password/confirm-password.component";
 import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
 import { ConfirmPasswordBadTokenComponent } from "auth/confirm-password-bad-token/confirm-password-bad-token.component";
@@ -16,7 +16,7 @@ import { ConfirmNewChangeEmailComponent } from "./confirm-new-change-email/confi
 
 const authRoutes: Routes = [
   { path: 'auth', component: AuthComponent, children: [
-    { path: 'register-confirm/:token', component: RegisterConfirmComponent },
+    { path: 'email-activate/:token', component: EmailActivateComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'confirmation', component: ConfirmationComponent },
