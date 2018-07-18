@@ -39,7 +39,7 @@
           for="siteUrl"
           class="adsh-form-label"
         >
-          Website URL
+          Website name
         </label>
 
         <input
@@ -49,17 +49,17 @@
             adsh-form-input--full"
           name="siteUrl"
           type="url"
-          formControlName="websiteUrl"
+          formControlName="name"
           data-test="publisher-edit-site-basic-information-form-url"
         >
 
         <span
           class="input-valid"
-          *ngIf="siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoForm.get('websiteUrl').touched"
+          *ngIf="siteBasicInfoForm.get('name').valid && siteBasicInfoForm.get('name').touched"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!siteBasicInfoForm.get('websiteUrl').valid && siteBasicInfoSubmitted"
+          *ngIf="!siteBasicInfoForm.get('name').valid && siteBasicInfoSubmitted"
         >
           Please provide a valid URL.
         </span>
