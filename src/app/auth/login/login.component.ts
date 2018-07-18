@@ -110,12 +110,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   showStartupPopups(user: User) {
-    const firstLogin = this.route.snapshot.queryParams['customize'];
-    if (firstLogin) {
-      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
-      dialogRef.afterClosed().subscribe((accounts) => this.handleCustomizeDialog(accounts));
-      return;
-    }
+
     if (user.isAdvertiser && user.isPublisher) {
       const chooseAccount = localStorage.getItem("choose");
       if(!chooseAccount){
@@ -137,8 +132,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
+    const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
+    // dialogRef.afterClosed().subscribe((accounts) => this.handleCustomizeDialog(accounts));
   }
 
+  // TODO: review redirect issue
   handleCustomizeDialog(accounts) {
     if (!accounts) {
       return;

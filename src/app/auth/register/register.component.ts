@@ -40,8 +40,8 @@ export class RegisterComponent extends HandleSubscription {
     const user = <User> {
       email:  this.registrationForm.value.email,
       password: this.registrationForm.value.password,
-      isAdvertiser: true,
-      isPublisher: true
+      isAdvertiser: false,
+      isPublisher: false
     };
     const registerSubscription = this.authService.registerUser(
         user, uri
