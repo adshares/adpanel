@@ -85,10 +85,12 @@
 
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/access_control.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/login_control.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/advertiser.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/publisher.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_1 - Registration.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_3 - Advertiser.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_4 - Publisher.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_5 - Administration.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_6 - Settings.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
 

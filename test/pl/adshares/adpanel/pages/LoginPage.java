@@ -302,7 +302,7 @@ public class LoginPage {
     Thread.sleep(1000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     System.out.println("2.2. Mailcatcher - OK");
-    Thread.sleep(5000);
+    Thread.sleep(4500);
 
     // 1.2 ZMIANA OKNA W CHROME - Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
@@ -342,16 +342,23 @@ public class LoginPage {
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
-    wait.until(ExpectedConditions.visibilityOf(loginEmail));
     Random random = new Random();
     int number = random.nextInt(1000000);
     String randoms = String.format("%06d", number);
-    loginEmail.sendKeys(randoms+"@e11.click");
-    changeEmail.click();
-    wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
-    String loginEmailAssertInput = loginEmailAssert.getText();
-    Assert.assertEquals("Your email was changed successfully.", loginEmailAssertInput);
-    System.out.println("-. Your email was changed successfully. - OK");
+//    Your email was changed successfully.
+    int I=1;
+    String[] myList = {"michal@e"+randoms+".click","michal.michal@e"+randoms+".click","michal@e"+randoms+".click.pl","MiChAl@e"+randoms+".click","michal123@e"+randoms+".click","michal_123@e"+randoms+".click","111michal@e"+randoms+".click"};
+    for (String List : myList){
+      wait.until(ExpectedConditions.visibilityOf(loginEmail));
+      loginEmail.sendKeys(List);
+      changeEmail.click();
+      wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
+      Assert.assertEquals("Your email was changed successfully.", loginEmailAssert.getText());
+      System.out.println(I+"z7. Your email was changed successfully. - OK    [ "+List+" ]");
+      loginEmail.clear();
+      I=I+1;
+    }
+    System.out.print("-. Koniec testu");
   }
   public void gotologinChangeEmailNegative() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
@@ -380,7 +387,6 @@ public class LoginPage {
       I=I+1;
     }
     System.out.print("-. Koniec testu");
-// TODO: 16.07.18 email walidacja ustalić z Tomaszem
   }
 
   public void gotologinChangePassword() {
@@ -463,25 +469,22 @@ public class LoginPage {
   }
 
   public void loginSecondTab() {
-    System.out.println ("1. "+driver.getTitle());
-    // 1.1 before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println ("1. "+driver.getTitle()+" - "+handle);
-
+    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
     driver.close();
-
-    // 1.2 Store and Print the name of all the windows open
+    // 5.2 Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("2. "+handle1);
+      System.out.println("5.2. "+handle1);
       driver.switchTo().window(handle1);
     }
-    System.out.println("3. "+driver.getTitle());
+    System.out.println("5.3. "+driver.getTitle());
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);
 //    driver.navigate().to("http://panel.ads/");
     driver.get("http://panel.ads/");
-    System.out.println ("4. "+driver.getTitle());
+    String handle2 = driver.getWindowHandle();
+    System.out.println ("5.4. "+driver.getTitle()+" - "+handle2);
   }
 
   public void loginSecondTab2() {
@@ -503,7 +506,7 @@ public class LoginPage {
   }
   public void loginSecondTab4() throws InterruptedException {
 
-    System.setProperty("webdriver.chrome.driver", getWebDriverFile("chromedriver").getAbsolutePath());
+    System.setProperty("webdriver.opera.driver", getWebDriverFile("operadriver").getAbsolutePath());
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--start-maximized");
     driver = new OperaDriver(operaOptions);

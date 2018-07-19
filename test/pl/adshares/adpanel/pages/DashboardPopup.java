@@ -52,7 +52,6 @@ public class DashboardPopup {
     PopUpFirstContinue.click();
     System.out.println("-. Publisher dashboard");
   }
-
   public void popUpFirstAdvertiser() {
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
     PopUpFirstAdvertiser.click();
@@ -60,6 +59,15 @@ public class DashboardPopup {
     PopUpFirstContinue.click();
     System.out.println("-. Advertiser dashboard");
   }
+  public void popUpFirstAdvertiserPublisher() {
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+    PopUpFirstAdvertiser.click();
+    PopUpFirstPublisher.click();
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+    PopUpFirstContinue.click();
+    System.out.println("-. Advertiser / Publisher dashboard");
+  }
+
 
   public void popUpPublisher() {
     try {

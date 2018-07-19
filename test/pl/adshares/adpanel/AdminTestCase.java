@@ -9,11 +9,15 @@ public class AdminTestCase extends BrowserTestCase {
   private AdminMainPage adminMainPage;
 
   @Test
-  public void setYourEarningTest(){
+  public void setYourEarningTest() {
     adminMainPage = new AdminMainPage(driver);
     adminMainPage.goToSetEarningPopUp();
     adminMainPage.setEarnings();
   }
-
+  @Test
+  public void setFilterTest() {
+    adminMainPage = new AdminMainPage(driver);
+    adminMainPage.setFilter();
+  }
 
 }

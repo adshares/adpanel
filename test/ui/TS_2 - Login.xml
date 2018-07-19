@@ -46,7 +46,7 @@
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginPopUpFirstAdvertiserPublisher"/>
           <include name="loginChangingTheDashboardBack"/>
         </methods>
       </class>

@@ -32,7 +32,14 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn(loginAdService, passwordAdService);
-    System.out.println("loginTest");
+    System.out.println("1. loginTest");
+  }
+  @Test
+  public void loginAdmin() {
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn("admin@e11.click", "adminadmin");
+    System.out.println("1. loginAdmin");
   }
 
   @Test
@@ -44,6 +51,11 @@ public class LoginTestCase extends BrowserTestCase {
   public void loginPopUpFirstAdvertiser(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiser();
+  }
+  @Test
+  public void loginPopUpFirstAdvertiserPublisher(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstAdvertiserPublisher();
   }
 
   @Test
