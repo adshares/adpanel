@@ -85,10 +85,12 @@
 
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/access_control.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/login_control.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/advertiser.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/publisher.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_1 - Registration.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_3 - Advertiser.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_4 - Publisher.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_5 - Administration.xml</suiteXmlFile>
+            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_6 - Settings.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
 
@@ -124,9 +126,18 @@
           <installationDirectory>${project.build.directory}/drivers</installationDirectory>
           <drivers>
             <driver>
-              <name>chromedriver</name>
+              <name>operadriver</name>
+              <version>2.29</version>
+              <!--<version>2.30</version>-->
+              <!--<version>2.29</version>-->
+              <!--<version>2.27</version>-->
+<!--              <url>https://github.com/operasoftware/operachromiumdriver/releases/download/v.2.30/operadriver_linux64.zip</url>-->
             </driver>
-          </drivers>
+            <driver>
+              <name>chromedriver</name>
+<!--              <url>http://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip</url>-->
+            </driver>
+           </drivers>
         </configuration>
       </plugin>
 
