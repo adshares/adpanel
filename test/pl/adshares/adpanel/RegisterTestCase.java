@@ -1,6 +1,7 @@
 package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.enums.Properties;
+import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.pages.register.RegisterConfirmation;
 import pl.adshares.adpanel.pages.register.RegisterPage;
 import pl.adshares.adpanel.setup.BrowserTestCase;
@@ -64,4 +65,9 @@ public class RegisterTestCase extends BrowserTestCase {
     System.out.println("<-- Register Page: Correct Email & wrong Password Confirm scenerio passed -->");
   }
 
+  @Test
+  public void registerForgotPassword() throws InterruptedException {
+    registerPage = new RegisterPage(driver);
+    registerPage.registerForgotPassword();
+      }
 }

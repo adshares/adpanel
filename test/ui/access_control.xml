@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Access Control Test Suite" parallel="methods" thread-count="20" verbose="3">
-  <test name="Register - Create Account Validation" group-by-instances="true">
+<suite name="TS - Access Control" parallel="methods" thread-count="1" verbose="3">
+  <test name="TC 1 - Create Account Validation" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -14,7 +14,7 @@
       </class>
     </classes>
   </test>
-  <test name="Register - Cross Validation - Email" group-by-instances="true">
+  <test name="TC 2 - Cross Validation - Email" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -28,7 +28,7 @@
       </class>
     </classes>
   </test>
-  <test name="Register - Cross Validation - Password" group-by-instances="true">
+  <test name="TC 3 - Cross Validation - Password" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -42,7 +42,7 @@
       </class>
     </classes>
   </test>
-  <test name="Register - Cross Validation - Confirm Password" group-by-instances="true">
+  <test name="TC 4 - Cross Validation - Confirm Password" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -56,7 +56,7 @@
       </class>
     </classes>
   </test>
-  <test name="Register - Create Account" group-by-instances="true">
+  <test name="TC 5 - Create Account" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>

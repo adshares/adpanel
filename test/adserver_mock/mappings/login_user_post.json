@@ -16,16 +16,10 @@
     "status": 200,
     "headers": {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin" : "http://panel.ads",
-      "Access-Control-Allow-Methods" : "*",
-      "Access-Control-Allow-Credentials" : "true",
-      "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
-      "X-Content-Type-Options" : "nosniff",
-      "x-frame-options" : "DENY",
-      "x-xss-protection" : "1; mode=block"
+      "Access-Control-Allow-Origin": "*"
     },
     "jsonBody": {
-      "id": 1,
+      "id": 0,
       "email": "user@e11.click",
       "isAdvertiser": true,
       "isPublisher": true,
@@ -41,8 +35,8 @@
         "totalFundsInCurrency": 4336.23,
         "totalFundsChange": 20.30,
         "lastPayment": "Tue Feb 20 2018 12:24:00 GMT"
-       }
-     }
-    },
-    "priority": 1
-  }
+      }
+    }
+  },
+  "priority": 1
+}
