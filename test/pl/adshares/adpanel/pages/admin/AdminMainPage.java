@@ -57,6 +57,24 @@ public class AdminMainPage {
   @FindBy(xpath = "//div[contains(text(),'1')]")
   private WebElement calender1;
 
+  @FindBy(css = "[class='adsh-icon']")
+  private WebElement adshIcon;
+  @FindBy(xpath = "//span[contains(text(),'Notifications settings')]")
+  private WebElement notificationsSettings;
+
+
+  @FindBy(id = "newPassword")
+  private WebElement loginNewPassword;
+  @FindBy(id = "currentPassword")
+  private WebElement loginCurrentPassword;
+  @FindBy(id = "newPasswordConfirm")
+  private WebElement loginConfirmPassword;
+  @FindBy(css = "[data-test='settings-change-password-form-submit']")
+  private WebElement changePassword;
+  @FindBy(css = "[data-test='header-log-out-button']")
+  private WebElement logOut;
+
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -65,6 +83,7 @@ public class AdminMainPage {
     wait = new WebDriverWait(driver, 20);
     PageFactory.initElements(driver, this);
   }
+
 
   public void goToSetEarningPopUp()  {
     wait.until(ExpectedConditions.visibilityOf(logoAdshares));
@@ -138,4 +157,24 @@ public class AdminMainPage {
 
     System.out.print("6. Koniec testu");
   }
+
+  public void ChangePassword(String CurrentPassword, String NewPassword, String ConfirmPassword) throws InterruptedException {
+    wait.until(ExpectedConditions.visibilityOf(adshIcon));
+    adshIcon.click();
+    notificationsSettings.click();
+    System.out.println("-. z "+CurrentPassword+" na "+NewPassword);
+    wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
+    loginCurrentPassword.sendKeys(CurrentPassword);
+    wait.until(ExpectedConditions.visibilityOf(loginNewPassword));
+    loginNewPassword.sendKeys(NewPassword);
+    wait.until(ExpectedConditions.visibilityOf(loginConfirmPassword));
+    loginConfirmPassword.sendKeys(ConfirmPassword);
+    wait.until(ExpectedConditions.visibilityOf(changePassword));
+    changePassword.click();
+    logOut.click();
+    Thread.sleep(4000);
+    //System.out.println("-. z "+CurrentPassword+" na "+NewPassword);
+  }
+
+
 }

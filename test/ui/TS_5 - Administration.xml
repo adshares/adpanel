@@ -31,4 +31,19 @@
     </classes>
   </test>
 
+  <test name="TC_3 - Zmiana hasła administratora" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginAdmin"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdminTestCase">
+        <methods>
+          <include name="ChangePassword"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
 </suite>

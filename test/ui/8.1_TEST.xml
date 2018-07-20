@@ -2,16 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-  <test name="TC 12 - Otwarcie sesji równolegle w innej przeglądarce" group-by-instances="true">
+  <test name="TC 14 - Logowanie jako Administrator" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab5"/>
+          <include name="loginAdmin"/>
         </methods>
       </class>
-
     </classes>
   </test>
 

@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-  <test name="TC_2 - Filtry wykresów" group-by-instances="true">
+  <test name="TC_3 - Zmiana hasła administratora" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -11,7 +11,7 @@
       </class>
       <class name="pl.adshares.adpanel.AdminTestCase">
         <methods>
-          <include name="setFilterTest"/>
+          <include name="ChangePassword"/>
         </methods>
       </class>
     </classes>
