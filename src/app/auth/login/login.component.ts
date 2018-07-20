@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
@@ -32,21 +31,45 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   isLoggingIn = false;
   loginFormSubmitted = false;
-  criteriaError= false;
+  criteriaError = false;
 
   constructor(
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<AppState>
   ) {
     super();
   }
 
   ngOnInit() {
+
+    const userData: LocalStorageUser = this.auth.getUserSession();
+    if (userData) {
+        this.handleActiveSession(userData);
+        return;
+    }
+
     this.createForm();
     this.checkIfUserRemembered();
+  }
+
+  handleActiveSession(userData: LocalStorageUser) {
+    if (isUnixTimePastNow(userData.expiration)) {
+      this.auth.logOut().subscribe(
+        () => {
+          this.auth.dropUserSession();
+          this.router.navigate(['/auth', 'login']);
+        },
+        () => {
+          this.auth.dropUserSession();
+          this.router.navigate(['/auth', 'login']);
+        }
+      );
+      return;
+    }
+
+    this.router.navigate(['/' + this.auth.getAccountTypeChoice(), 'dashboard']);
   }
 
   createForm() {
@@ -75,24 +98,22 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    const loginSubscription = this.authService.loginUser(
+    const loginSubscription = this.auth.loginUser(
       this.loginForm.value.email,
       this.loginForm.value.password
     )
       .subscribe((userResponse: User) => {
-        this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
         if (userResponse.isAdmin) {
-          this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
           return;
         }
         this.showStartupPopups(userResponse);
       },
-      (err) => {
+        (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;
-      });
+        });
     this.subscriptions.push(loginSubscription);
   }
 
@@ -105,46 +126,41 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
-
+    this.auth.storeUserSession(dataToSave);
   }
 
   showStartupPopups(user: User) {
 
     if (user.isAdvertiser && user.isPublisher) {
-      const chooseAccount = localStorage.getItem("choose");
-      if(!chooseAccount){
-          this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
-          return;
+      const chooseAccount = this.auth.getAccountTypeChoice();
+      if (!chooseAccount) {
+        this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+        return;
       }
-      if(chooseAccount == "Advertiser"){
-          this.router.navigate(['/advertiser/dashboard']);
-          return;
+      if (chooseAccount == "advertiser") {
+        this.router.navigate(['/advertiser/dashboard']);
+        return;
       }
-      this.router.navigate(['/publisher/dashboard']);
-      return;
+      if (chooseAccount == "publisher") {
+        this.router.navigate(['/publisher/dashboard']);
+        return;
+      }
     }
     if (user.isAdvertiser) {
+      this.auth.storeAccountTypeChoice('advertiser');
       this.router.navigate(['/advertiser/dashboard']);
       return;
     }
     if (user.isPublisher) {
+      this.auth.storeAccountTypeChoice('publisher');
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
-    const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
-    // dialogRef.afterClosed().subscribe((accounts) => this.handleCustomizeDialog(accounts));
+    this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
   }
 
-  // TODO: review redirect issue
   handleCustomizeDialog(accounts) {
-    if (!accounts) {
-      return;
-    }
-    if (!accounts.advertiser.selected && accounts.publisher.selected) {
-      this.router.navigate(['/publisher/dashboard']);
-    }
-
+    // TODO : this does something? review fix display
     this.dialog.open(WalletDialogComponent);
   }
 }

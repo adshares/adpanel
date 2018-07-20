@@ -4,19 +4,13 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
-import { User, UserAdserverWallet } from 'models/user.model';
+import { User, LocalStorageUser, UserAdserverWallet } from 'models/user.model';
 import { Notification } from 'models/notification.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { userInitialState } from 'models/initial-state/user';
 import { AuthService } from 'auth/auth.service';
-
-import * as commonActions from 'store/common/common.actions';
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import * as publisherActions from 'store/publisher/publisher.actions';
-import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +19,10 @@ import * as authActions from 'store/auth/auth.actions';
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
   adserverWallet: UserAdserverWallet;
-  userDataState: Store<User>;
   activeUserType: number;
 
   userRolesEnum = userRolesEnum;
+  userDataState: LocalStorageUser;
 
   settingsMenuOpen = false;
   chooseUserMenuOpen = false;
@@ -37,49 +31,38 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsTotal: number;
 
   constructor(
-    private store: Store<AppState>,
     private router: Router,
     private dialog: MatDialog,
-    private authService: AuthService
+    public auth: AuthService
   ) {
     super();
   }
 
   ngOnInit() {
-    const activeUserTypeSubscription = this.store.select('state', 'common', 'activeUserType')
-      .subscribe(activeUserType => {
-        this.activeUserType = activeUserType;
-      });
 
-    const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
-      .subscribe((adserverWallet: UserAdserverWallet) => {
-        this.adserverWallet = adserverWallet;
-      });
+    let accountType = this.auth.getAccountTypeChoice();
+    this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
+    this.userDataState = this.auth.getUserSession();
 
-    const notificationsTotalSubscription = this.store.select('state', 'common', 'notifications')
-      .subscribe((notificationsList: Notification[]) => {
-        this.notificationsTotal = notificationsList.length;
-      });
-
-    this.subscriptions.push(userAdserverWalletSubscription, activeUserTypeSubscription, notificationsTotalSubscription);
-    this.userDataState = this.store.select('state', 'user', 'data');
-
-
+    // const notificationsTotalSubscription = this.store.select('state', 'common', 'notifications')
+    //   .subscribe((notificationsList: Notification[]) => {
+    //     this.notificationsTotal = notificationsList.length;
+    //   });
   }
 
   navigateToCreateNewAsset() {
-    const moduleDir =  `/${userRolesEnum[this.activeUserType].toLowerCase()}`;
+    const moduleDir = `/${userRolesEnum[this.activeUserType].toLowerCase()}`;
     const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER;
     const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
 
-    if (isUserAdvertiser) {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
-    } else {
-      this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
-    }
+    // if (isUserAdvertiser) {
+    //   this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
+    // } else {
+    //   this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
+    // }
 
     this.router.navigate(
-      [ moduleDir, assetDir, 'basic-information'],
+      [moduleDir, assetDir, 'basic-information'],
       { queryParams: { step: 1 } }
     );
   }
@@ -89,7 +72,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   setActiveUserType(userType) {
-    this.store.dispatch(new commonActions.SetActiveUserType(userType));
+    this.auth.storeAccountTypeChoice(userRolesEnum[userType].toLowerCase());
   }
 
   toggleSettingsMenu(state) {
@@ -105,11 +88,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   logOut() {
-    this.store.dispatch(new authActions.SetUser(userInitialState));
-    const logoutSubscription = this.authService.logOut().subscribe();
-    localStorage.removeItem('adshUser');
-    this.router.navigate(['/auth', 'login']);
-    this.subscriptions.push(logoutSubscription);
+    this.auth.logOut().subscribe(
+      () => {
+        this.auth.dropUserSession();
+        this.router.navigate(['/auth', 'login']);
+      }
+    );
   }
 
   toggleNotificationsBar() {

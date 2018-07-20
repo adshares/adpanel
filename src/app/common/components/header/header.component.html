@@ -21,6 +21,7 @@
           row
           align-center"
       >
+        <!-- 1 -->
         <img
           class="adsh-logo"
           src="assets/images/logo--white.png"
@@ -32,7 +33,7 @@
       </div>
     </a>
     <div
-      *ngIf="!(userDataState | async).isAdmin"
+      *ngIf="!userDataState.isAdmin"
       class="
         row
         align-center
@@ -50,6 +51,7 @@
           row
           align-center"
       >
+        <!-- 2 -->
         <img
           class="
             adsh-icon
@@ -75,7 +77,7 @@
           adsh-icon--append
           choose-user-menu-chevron"
         [class.up]="chooseUserMenuOpen"
-        *ngIf="!(userDataState | async).isAdmin"
+        *ngIf="!userDataState.isAdmin"
         src="assets/images/chevron--gray.svg"
       >
       <ul
@@ -89,7 +91,7 @@
           class="choose-user-menu__item"
           [value]="userRolesEnum.ADVERTISER"
           routerLink="/advertiser/dashboard"
-          *ngIf="!(userDataState | async).isAdmin && (userDataState | async).isAdvertiser"
+          *ngIf="!userDataState.isAdmin && userDataState.isAdvertiser"
           (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
           data-test="header-choose-user-menu-advertiser"
         >
@@ -103,7 +105,7 @@
           class="choose-user-menu__item"
           [value]="userRolesEnum.PUBLISHER"
           routerLink="/publisher/dashboard"
-          *ngIf="!(userDataState | async).isAdmin && (userDataState | async).isPublisher"
+          *ngIf="!userDataState.isAdmin && userDataState.isPublisher"
           (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
           data-test="header-choose-user-menu-publisher"
         >
@@ -117,7 +119,7 @@
           class="choose-user-menu__item"
           [value]="userRolesEnum.ADMIN"
           routerLink="/admin/dashboard"
-          *ngIf="(userDataState | async).isAdmin"
+          *ngIf="userDataState.isAdmin"
           (click)="setActiveUserType(userRolesEnum.ADMIN)"
           data-test="header-choose-user-menu-admin"
         >
@@ -138,7 +140,7 @@
       align-center"
   >
     <button
-      *ngIf="!(userDataState | async).isAdmin"
+      *ngIf="!userDataState.isAdmin"
       class="
         adsh-btn
         adsh-btn--with-icon
@@ -161,7 +163,7 @@
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
     <button
-      *ngIf="(userDataState | async).isAdmin"
+      *ngIf="userDataState.isAdmin"
       (click)="openSetEarningsDialog()"
       class="
         adsh-btn
@@ -182,7 +184,7 @@
       <span>Set your earnings</span>
     </button>
     <div
-      *ngIf="!(userDataState | async).isAdmin"
+      *ngIf="!userDataState.isAdmin"
       class="
         row
         align-center
@@ -211,13 +213,13 @@
           class="adsh-adst"
           data-test="user-total-funds"
         >
-          {{ adserverWallet.totalFunds | number:'1.2-2' | adsharesTokenValue }}
+          {{ userDataState.adserverWallet.totalFunds | number:'1.2-2' | adsharesTokenValue }}
         </span>
         <span
           class="adsh-usd"
           data-test="user-total-funds-in-currency"
         >
-          ~ {{ adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
+          ~ {{ userDataState.adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
         </span>
       </div>
       <img
@@ -293,7 +295,7 @@
         row
         align-center
         hidden-sm"
-      *ngIf="(userDataState | async).isAdmin"
+      *ngIf="userDataState.isAdmin"
       (click)="logOut()"
       data-test="header-log-out-button"
     >
@@ -311,7 +313,7 @@
         hidden-sm
         visible-sm
         hidden-lg-up"
-      *ngIf="!(userDataState | async).isAdmin"
+      *ngIf="!userDataState.isAdmin"
       (click)="logOut()"
       data-test="header-log-out-button"
     >

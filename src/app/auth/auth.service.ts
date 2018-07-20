@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { User } from 'models/user.model';
+import { User, LocalStorageUser } from 'models/user.model';
 import {Site} from "models/site.model";
 import {parseTargetingForBackend} from "common/components/targeting/targeting.helpers";
 
@@ -57,5 +57,40 @@ export class AuthService {
 
   confirmNewEmailChange(token: string){
       return this.http.get(`${environment.apiUrl}/users/email/confirm2New/${token}`);
+  }
+
+  storeAccountTypeChoice(type: string) {
+    localStorage.setItem('accountTypeChoice', type);
+  }
+
+  getAccountTypeChoice(): string {
+    return localStorage.getItem('accountTypeChoice');
+  }
+
+  storeUserSession(user: LocalStorageUser) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUserSession(): LocalStorageUser {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
+  dropUserSession() {
+    localStorage.removeItem('user');
+  }
+
+  isAdmin(): boolean {
+    let u = this.getUserSession();
+    return u ? (u.isAdmin ? true : false ) : false;
+  }
+
+  isAdvertiser(): boolean {
+    let u = this.getUserSession();
+    return u ? (u.isAdvertiser ? true : false ) : false;
+  }
+
+  isPublisher(): boolean {
+    let u = this.getUserSession();
+    return u ? (u.isPublisher ? true : false ) : false;
   }
 }

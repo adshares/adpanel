@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {AuthService} from "auth/auth.service";
-import {Router} from "@angular/router";
-import {LocalStorageUser, User} from "models/user.model";
+import { AuthService } from "auth/auth.service";
+import { Router } from "@angular/router";
+import { LocalStorageUser, User } from "models/user.model";
 
 @Component({
   selector: 'app-customize-account-choose-dialog',
@@ -13,36 +13,27 @@ export class CustomizeAccountChooseDialogComponent {
   accounts = {
     advertiser: { selected: false },
     publisher: { selected: false },
-    isSelected : true
+    isSelected: true
   };
 
   constructor(
     public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>,
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router,
   ) { }
 
   checkAccountProperty(accounts) {
     if (accounts.advertiser.selected || accounts.publisher.selected) {
-      const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-      const user = <User> {
+      const userData: LocalStorageUser = this.auth.getUserSession();
+      const updates = <User>{
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
       };
-      this.authService.saveUsers(userData.id ,user) .subscribe(
+      this.auth.saveUsers(userData.id, updates).subscribe(
         (userResponse: User) => {
           this.saveUserDataToLocalStorage(userResponse);
+          this.redirectToDashboard(userResponse);
           this.dialogRef.close();
-          if (userResponse.isPublisher) {
-              this.router.navigate(['/publisher/dashboard']);
-              // TODO; fix this hack
-              location.reload();
-              return;
-          }
-          this.router.navigate(['/advertiser/dashboard']);
-          // TODO; fix this hack
-          location.reload();
-          return;
         }
       );
     } else {
@@ -50,10 +41,20 @@ export class CustomizeAccountChooseDialogComponent {
     }
   }
 
+  redirectToDashboard(userResponse: User) {
+    if (userResponse.isPublisher) {
+      this.auth.storeAccountTypeChoice('publisher');
+      this.router.navigate(['/publisher/dashboard']);
+      return;
+    }
+    this.auth.storeAccountTypeChoice('advertiser');
+    this.router.navigate(['/advertiser/dashboard']);
+  }
+
   saveUserDataToLocalStorage(userResponse: User) {
-    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
+    let userData: LocalStorageUser = this.auth.getUserSession();
     userData.isAdvertiser = userResponse.isAdvertiser ? true : false;
     userData.isPublisher = userResponse.isPublisher ? true : false;
-    localStorage.setItem('adshUser', JSON.stringify(userData));
+    this.auth.storeUserSession(userData);
   }
 }
