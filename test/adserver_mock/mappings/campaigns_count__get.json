@@ -1,6 +1,6 @@
 {
   "request": {
-    "method": "POST",
+    "method": "GET",
     "url": "/campaigns/count"
   },
   "response": {

@@ -21,15 +21,17 @@ import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
+import {AppComponent} from "../app.component";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-
+  openedDialogUnkownError : boolean = false;
   constructor(
     private router: Router,
     private store: Store<AppState>,
     private pushNotificationsService: PushNotificationsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private app: AppComponent
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -54,19 +56,26 @@ export class RequestInterceptor implements HttpInterceptor {
 
       return event;
     }, (err: any) => {
+
       if (err instanceof HttpErrorResponse && err.status === 401) {
         localStorage.removeItem('adshUser');
         this.router.navigate(['/auth', 'login']);
       }
+      if (err instanceof HttpErrorResponse && err.status === 403) {
+        this.app.checkRequestMissing();
+      }
+
       if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
           this.pushNotificationsService.addPushNotification({
               type: pushNotificationTypesEnum.ERROR,
               title: 'Error',
               message: 'Cannot connect to server'
           });
-          // @TODO: uncomment when is done adserver
-          // this.dialog.open(ErrorResponseDialogComponentNoResponse);
-          return;
+          if(!this.openedDialogUnkownError){
+              this.dialog.open(ErrorResponseDialogComponentNoResponse);
+              // this.openedDialogUnkownError = true;
+              // return;
+          }
       }
       if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialog.open(ErrorResponseDialogComponent);

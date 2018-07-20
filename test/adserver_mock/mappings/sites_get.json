@@ -9,7 +9,7 @@
       "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
     },
     "jsonBody": [{
-      "websiteUrl": "Site 1",
+      "name": "Site 1",
       "id": 222222222222,
       "status": 1,
       "estimatedEarnings": 1232,
@@ -58,7 +58,7 @@
       ]
     },
       {
-        "websiteUrl": "Site 2",
+        "name": "Site 2",
         "id": 1111,
         "status": 2,
         "estimatedEarnings": 132,

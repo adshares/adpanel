@@ -25,25 +25,41 @@
 
   </div>
     <div
-            class="error-msg
-                adsh-copy
-                adsh-copy--large"
+            class="error-msg"
             *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
     >
         {{ errorsRegister.email }}
+    </div>
+    <div
+            class="
+      adsh-box
+      adsh-box--light
+      adsh-box--large"
+            *ngIf="errorCode !== undefined && ObjectKeys(errorCode).length > 0"
+    >
+        <p
+                class="
+        adsh-copy
+        adsh-copy--large"
+        >
+            Your email is activated.
+        </p>
     </div>
   <div
     class="
       adsh-box
       adsh-box--light
       adsh-box--large"
+    *ngIf="errorCode === undefined"
   >
     <p
       class="
         adsh-copy
         adsh-copy--large"
+
+
     >
-        Your email is confirmed. Signup your account.
+        Your email is activated. Sign into your account.
     </p>
   </div>
 <button
@@ -53,7 +69,6 @@
     adsh-btn--submit
     adsh-bg-blue"
         routerLink="/auth/login"
-        [queryParams]="{customize: 1}"
         data-test="auth-redirect-to-first-login"
 >
     Log in

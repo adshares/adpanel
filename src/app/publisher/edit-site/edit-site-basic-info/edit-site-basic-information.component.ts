@@ -41,7 +41,6 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   saveSiteBasicInformation() {
     this.siteBasicInfoSubmitted = true;
-
     if (!this.siteBasicInfoForm.valid) {
       return;
     }
@@ -50,7 +49,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     const param = this.goesToSummary ? 4 : 2;
 
     Object.assign(this.site, {
-      websiteUrl: this.siteBasicInfoForm.controls['websiteUrl'].value,
+      name: this.siteBasicInfoForm.controls['name'].value,
       primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value
     });
     this.store.dispatch(new PublisherActions.SaveLastEditedSite(this.site));
@@ -64,9 +63,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   createForm() {
     this.siteBasicInfoForm = new FormGroup({
-      websiteUrl: new FormControl(siteInitialState.websiteUrl, [
-        Validators.required,
-        Validators.pattern(appSettings.TARGET_URL_REGEXP)
+      name: new FormControl(siteInitialState.name, [
+        Validators.required
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });

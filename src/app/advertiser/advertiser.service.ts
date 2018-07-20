@@ -18,7 +18,7 @@ export class AdvertiserService {
   }
 
   getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
-    return this.http.post<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`, { timespan });
+    return this.http.get<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`);//, { timespan });// FIXME
   }
 
   getCampaign(id: number): Observable<Campaign> {
@@ -40,7 +40,7 @@ export class AdvertiserService {
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/campaigns/targeting`);
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
   //
   // patchTargetingCriteria(id: number): Observable<TargetingOption[]> {

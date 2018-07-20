@@ -28,7 +28,7 @@ export class RegisterComponent extends HandleSubscription {
   }
 
   register() {
-    const uri = '/auth/register-confirm/';
+    const uri = '/auth/email-activate/';
     const password = this.registrationForm.value.password;
     const confirmPassword = this.registrationForm.value.confirmPassword;
 
@@ -40,8 +40,8 @@ export class RegisterComponent extends HandleSubscription {
     const user = <User> {
       email:  this.registrationForm.value.email,
       password: this.registrationForm.value.password,
-      isAdvertiser: true,
-      isPublisher: true
+      isAdvertiser: false,
+      isPublisher: false
     };
     const registerSubscription = this.authService.registerUser(
         user, uri

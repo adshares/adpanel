@@ -12,7 +12,7 @@
       "name": "Site 1",
       "id": 222222222222,
       "status": 1,
-      "websiteUrl": "someURL",
+      "name": "someURL",
       "primaryLanguage": "polish",
       "estimatedEarnings": 1232,
       "clicks": 213,

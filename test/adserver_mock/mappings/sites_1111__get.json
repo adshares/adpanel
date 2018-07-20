@@ -12,7 +12,7 @@
       "name": "Site 1",
       "id": 1111,
       "status": 2,
-      "websiteUrl": "anotherURL",
+      "name": "anotherURL",
       "primaryLanguage": "english",
       "estimatedEarnings": 1232,
       "clicks": 213,

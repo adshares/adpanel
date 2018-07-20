@@ -18,6 +18,8 @@ import { Notification } from 'models/notification.model';
 
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
+import {ConfirmNewChangeEmailComponent} from "auth/confirm-new-change-email/confirm-new-change-email.component";
+import {ConfirmOldChangeEmailComponent} from "auth/confirm-old-change-email/confirm-old-change-email.component";
 
 @Component({
   selector: 'app-root',
@@ -60,7 +62,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/auth', 'login']);
       return;
     }
-
     const { remember, passwordLength, expiration, ...user } = userData;
     if (isUnixTimePastNow(userData.expiration) && Object.keys(userData).length > 0) {
       localStorage.removeItem('adshUser');
@@ -75,8 +76,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       this.store.dispatch(new authActions.SetUser(user));
       this.store.dispatch(new commonActions.SetActiveUserType(activeUserType));
-      console.log( `/${userRolesEnum[activeUserType].toLowerCase()}`,loginDir);
-
+      loginDir = this.checkRequestMissing();
       if (loginDir) {
         const moduleDir = `/${userRolesEnum[activeUserType].toLowerCase()}`;
         this.router.navigate([moduleDir, 'dashboard']);
@@ -121,5 +121,24 @@ export class AppComponent extends HandleSubscription implements OnInit {
     this.updateNotificationTimer = timer(0, appSettings.UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL)
       .subscribe(() => this.getNotifications());
     this.subscriptions.push(this.updateNotificationTimer);
+  }
+
+  checkRequestMissing(){
+      const exludedComponent = ["email-activate", "confirm-old-change-email", "confirm-new-change-email"];
+      let loginDir = true;
+      for(let comp of exludedComponent){
+          if(location.pathname.indexOf(comp) > -1){
+              loginDir = false;
+          }
+      }
+      const chooseAccount = localStorage.getItem("choose");
+      if(loginDir){
+          if(chooseAccount == "Advertiser"){
+              this.router.navigate(['/advertiser/dashboard']);
+          } else {
+              this.router.navigate(['/publisher/dashboard']);
+          }
+      }
+      return loginDir;
   }
 }

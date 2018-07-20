@@ -82,14 +82,12 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe((userResponse: User) => {
         this.store.dispatch(new authActions.SetUser(userResponse));
         this.saveUserDataToLocalStorage(userResponse);
-
         if (userResponse.isAdmin) {
           this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
           this.router.navigate(['/admin/dashboard']);
-        } else {
-            this.showStartupPopups(userResponse);
+          return;
         }
-
+        this.showStartupPopups(userResponse);
       },
       (err) => {
           this.criteriaError = true;
@@ -112,26 +110,33 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   showStartupPopups(user: User) {
-    const firstLogin = this.route.snapshot.queryParams['customize'];
-    if (firstLogin) {
-      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
 
-      dialogRef.afterClosed()
-        .subscribe((accounts) => this.handleCustomizeDialog(accounts));
-
-    } else if (user.isAdvertiser && user.isPublisher) {
+    if (user.isAdvertiser && user.isPublisher) {
       const chooseAccount = localStorage.getItem("choose");
-      if(chooseAccount == "Advertiser"){
-          this.router.navigate(['/advertiser/dashboard']);
-      } else {
-          this.router.navigate(['/publisher/dashboard']);
-      }
       if(!chooseAccount){
           this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+          return;
       }
+      if(chooseAccount == "Advertiser"){
+          this.router.navigate(['/advertiser/dashboard']);
+          return;
+      }
+      this.router.navigate(['/publisher/dashboard']);
+      return;
     }
+    if (user.isAdvertiser) {
+      this.router.navigate(['/advertiser/dashboard']);
+      return;
+    }
+    if (user.isPublisher) {
+      this.router.navigate(['/publisher/dashboard']);
+      return;
+    }
+    const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
+    // dialogRef.afterClosed().subscribe((accounts) => this.handleCustomizeDialog(accounts));
   }
 
+  // TODO: review redirect issue
   handleCustomizeDialog(accounts) {
     if (!accounts) {
       return;
