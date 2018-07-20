@@ -488,12 +488,33 @@ public class LoginPage {
   }
 
   public void loginSecondTab2() {
+    // TODO: 20.07.18 TC_10 Fail - użytkownik powinien być wylogowany
     wait.until(ExpectedConditions.visibilityOf(helloText));
     String loginEmailAssertInput = helloText.getText();
     Assert.assertEquals("Hello!", loginEmailAssertInput);
     System.out.println("-. Hello! - OK");
   }
   public void loginSecondTab3() throws InterruptedException {
+// TODO: 13.07.18 TC_11 otwarcie sesji w nowej karcie loginSecondTab3
+    String handle = driver.getWindowHandle();
+    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
+
+
+    Set handles = driver.getWindowHandles();
+    int I=2;
+    for (String handle1:driver.getWindowHandles()) {
+      System.out.println("5."+I+". "+handle1);
+      driver.switchTo().window(handle1);
+      I=I+1;
+    }
+    String handle2 = driver.getWindowHandle();
+    System.out.println("5. "+driver.getTitle()+" - "+handle2);
+    wait = new WebDriverWait(driver, 10);
+    PageFactory.initElements(driver, this);
+
+    Thread.sleep(1000);
+
+
 
     driver.get("http://panel.ads/");
 
@@ -501,11 +522,10 @@ public class LoginPage {
     //String loginEmailAssertInput = helloText.getText();
     //Assert.assertEquals("Hello!", loginEmailAssertInput);
     System.out.println("-. Hello! - OK");
-    Thread.sleep(10000);
-    // TODO: 13.07.18  loginSecondTab3
+
   }
   public void loginSecondTab4() throws InterruptedException {
-
+// TODO: 20.07.18 TC_12 Fail - wygaśniecie sesji - ustawienie w pliku
     System.setProperty("webdriver.opera.driver", getWebDriverFile("operadriver").getAbsolutePath());
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--start-maximized");

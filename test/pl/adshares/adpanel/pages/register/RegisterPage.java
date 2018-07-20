@@ -158,6 +158,7 @@ public class RegisterPage {
   }
 
   public void registerForgotPassword() throws InterruptedException {
+    int I=1;
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
     wait.until(ExpectedConditions.visibilityOf(sendLinkToResetPassword));
@@ -175,18 +176,20 @@ public class RegisterPage {
 
     // 1.1 before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println ("1. "+driver.getTitle()+" - "+handle);
-
+    System.out.println (I+". "+driver.getTitle()+" - "+handle);
+    I=I+1;
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     Thread.sleep(5000);
 
     // 1.2 Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("2. "+handle1);
+      System.out.println(I+". "+handle1);
       driver.switchTo().window(handle1);
+      I=I+1;
     }
-    System.out.println("3. "+driver.getTitle());
+    String handle2 = driver.getWindowHandle();
+    System.out.println(I+". "+driver.getTitle()+" - "+handle2);
 
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);

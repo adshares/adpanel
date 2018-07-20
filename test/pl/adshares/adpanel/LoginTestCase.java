@@ -1,7 +1,5 @@
 package pl.adshares.adpanel;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS_2 - Login Control" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC 1 - WebElements validation" group-by-instances="true">
+  <test name="TC 1 - Poprawne logowanie" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -10,7 +10,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 2 - Cross validation" group-by-instances="true">
+  <test name="TC 2 - Niepoprawne logowanie" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -122,7 +122,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 12 - Otwarcie sesji równolegle w innej przeglądarce" group-by-instances="true">
+  <test name="TC 12 - Wygaśnięcie sesji" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -134,12 +134,7 @@
     </classes>
   </test>
 
-
-
-
-
-
-  <test name="TC 14 - Logowanie jako Administrator" group-by-instances="true">
+  <test name="TC 13 - Logowanie jako Administrator" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>

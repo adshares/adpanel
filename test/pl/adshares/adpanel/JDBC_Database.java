@@ -14,7 +14,7 @@ public class JDBC_Database {
   // Statement object
   private static Statement stmt;
   // Constant for Database URL
-  public static String DB_URL = "jdbc:mysql://localhost:3306/user";
+  public static String DB_URL = "jdbc:mysql://adshares_adserver_db_1:80/user";
   // Constant for Database Username
   public static String DB_USER = "root";
   // Constant for Database Password
@@ -40,7 +40,7 @@ public class JDBC_Database {
   @Test
   public void test() {
     try{
-      String query = "select * from userinfo";
+      String query = "select * from users";
       // Get the contents of userinfo table from DB
       ResultSet res = stmt.executeQuery(query);
       // Print the result untill all the records are printed
