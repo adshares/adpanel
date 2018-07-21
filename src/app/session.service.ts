@@ -4,24 +4,16 @@ import { LocalStorageUser } from 'models/user.model';
 @Injectable()
 export class SessionService {
 
-  setAccountTypeChoice(type: string) {
-    localStorage.setItem('accountTypeChoice', type);
+  dropUser() {
+    localStorage.removeItem('user');
   }
 
   getAccountTypeChoice(): string {
     return localStorage.getItem('accountTypeChoice');
   }
 
-  setUser(user: LocalStorageUser) {
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
   getUser(): LocalStorageUser {
     return JSON.parse(localStorage.getItem('user'));
-  }
-
-  dropUser() {
-    localStorage.removeItem('user');
   }
 
   isAdmin(): boolean {
@@ -37,5 +29,13 @@ export class SessionService {
   isPublisher(): boolean {
     let u = this.getUser();
     return u ? (u.isPublisher ? true : false ) : false;
+  }
+
+  setAccountTypeChoice(type: string) {
+    localStorage.setItem('accountTypeChoice', type);
+  }
+
+  setUser(user: LocalStorageUser) {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }
