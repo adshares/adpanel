@@ -34,6 +34,7 @@ import { reducer } from './store/index';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { ErrorResponseDialogComponentNoResponse } from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activate-confirm-dialog/email-activate-confirm-dialog.component";
+import { EmailActivateFailDialogComponent } from "common/dialog/email-activate-fail-dialog/email-activate-fail-dialog.component";
 import {ConfirmationAlertComponent} from "common/components/confirmation-alert/confirmation-alert.component";
 
 const appModules = [
@@ -50,7 +51,8 @@ const appModules = [
     AppComponent,
     ErrorResponseDialogComponent,
     ErrorResponseDialogComponentNoResponse,
-    EmailActivateConfirmDialogComponent
+    EmailActivateConfirmDialogComponent,
+    EmailActivateFailDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,13 +81,14 @@ const appModules = [
     SettingsService,
     AdminService,
     AppComponent,
-    ConfirmationAlertComponent
+    ConfirmationAlertComponent,
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
     ErrorResponseDialogComponent,
     ErrorResponseDialogComponentNoResponse,
-    EmailActivateConfirmDialogComponent
+    EmailActivateConfirmDialogComponent,
+    EmailActivateFailDialogComponent,
   ]
 })
 export class AppModule { }

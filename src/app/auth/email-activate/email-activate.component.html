@@ -6,7 +6,7 @@
     <h2 _ngcontent-c2="" class="
         adsh-heading
         adsh-heading--primary">
-        Activation Email
+        Email Activation
     </h2>
   <div>
       <h2
@@ -35,14 +35,14 @@
       adsh-box
       adsh-box--light
       adsh-box--large"
-            *ngIf="errorCode !== undefined && ObjectKeys(errorCode).length > 0"
+            *ngIf="error === true"
     >
         <p
                 class="
         adsh-copy
         adsh-copy--large"
         >
-            Your email is activated.
+            Email activation failed. The link with hash is outdated or email already activated.
         </p>
     </div>
   <div
@@ -50,7 +50,7 @@
       adsh-box
       adsh-box--light
       adsh-box--large"
-    *ngIf="errorCode === undefined"
+    *ngIf="error === false"
   >
     <p
       class="

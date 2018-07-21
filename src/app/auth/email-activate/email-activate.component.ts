@@ -5,6 +5,7 @@ import { AuthService } from 'auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from "@angular/material/dialog";
 import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activate-confirm-dialog/email-activate-confirm-dialog.component";
+import { EmailActivateFailDialogComponent } from "common/dialog/email-activate-fail-dialog/email-activate-fail-dialog.component";
 
 @Component({
   selector: 'app-email-activate',
@@ -15,8 +16,7 @@ import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activat
 export class EmailActivateComponent {
   token: any;
   ObjectKeys = Object.keys;
-  errorsRegister: {};
-  errorCode: {}
+  error: boolean = false;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -25,7 +25,6 @@ export class EmailActivateComponent {
   ) { }
 
   ngOnInit() {
-    console.log('hello');
     this.route.params.subscribe(params => {
       this.token = params['token'];
       this.emailActivation(this.token);
@@ -52,11 +51,21 @@ export class EmailActivateComponent {
           this.dialog.open(EmailActivateConfirmDialogComponent);
         },
         (err) => {
-          // TODO: action for failed hash
-          console.log(err);
-          if (err.status == 403) {
-            this.errorCode = { "error": true };
+          this.error = true;
+
+          const chooseAccount = this.auth.getAccountTypeChoice();
+          const userData = this.auth.getUserSession();
+
+          if (userData) {
+
+            if (chooseAccount) {
+              this.dialog.open(EmailActivateFailDialogComponent);
+              this.router.navigate(['/' + chooseAccount, 'dashboard']);
+              return;
+            }
           }
+
+          this.dialog.open(EmailActivateFailDialogComponent);
         }
       );
   }
