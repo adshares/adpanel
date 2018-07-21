@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+
+import { AdsharesAddress } from 'models/settings.model';
+import { Notification } from 'models/notification.model';
 import { LocalStorageUser } from 'models/user.model';
 
 @Injectable()
@@ -10,6 +13,10 @@ export class SessionService {
 
   getAccountTypeChoice(): string {
     return localStorage.getItem('accountTypeChoice');
+  }
+
+  getAdsharesAddress(): string {
+    return localStorage.getItem('adsharesAddress');
   }
 
   getUser(): LocalStorageUser {
@@ -33,6 +40,10 @@ export class SessionService {
 
   setAccountTypeChoice(type: string) {
     localStorage.setItem('accountTypeChoice', type);
+  }
+
+  setAdsharesAddress(adsharesAddress: string) {
+    localStorage.setItem('adsharesAddress', adsharesAddress);
   }
 
   setUser(user: LocalStorageUser) {

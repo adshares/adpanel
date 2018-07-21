@@ -61,13 +61,11 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getAdsharesAddress() {
-    // TODO: fix
-    // const changeWithdrawAddressSubscription = this.commonService.getAdsharesAddress()
-    //   .subscribe((data: AdsharesAddress) => {
-    //     this.store.dispatch(new commonActions.SetAdsharesAddress(data.adsharesAddress));
-    //   });
-    //
-    // this.subscriptions.push(changeWithdrawAddressSubscription);
+    this.commonService.getAdsharesAddress()
+      .subscribe((data: AdsharesAddress) => {
+        this.session.setAdsharesAddress(data.adsharesAddress);
+      });
+
   }
 
   getNotifications() {
