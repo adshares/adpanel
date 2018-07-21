@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { AuthService } from "auth/auth.service";
+import { SessionService } from "app/session.service";
 import { LocalStorageUser } from 'models/user.model';
 
 export interface CanComponentDeactivate {
@@ -17,13 +17,13 @@ export class PublisherGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private session: SessionService,
   ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
   ): boolean {
-    return this.auth.isPublisher();
+    return this.session.isPublisher();
   }
 
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {

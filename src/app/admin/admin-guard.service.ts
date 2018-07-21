@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { AuthService } from "auth/auth.service";
+import { SessionService } from "app/session.service";
 import { LocalStorageUser } from 'models/user.model';
 
 @Injectable()
@@ -12,12 +12,12 @@ export class AdminGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private session: SessionService,
   ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
   ): boolean {
-    return this.auth.isAdmin();
+    return this.session.isAdmin();
   }
 }

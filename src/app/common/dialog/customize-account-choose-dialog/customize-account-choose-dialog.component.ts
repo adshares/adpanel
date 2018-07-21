@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from "auth/auth.service";
 import { Router } from "@angular/router";
 import { LocalStorageUser, User } from "models/user.model";
+import { SessionService } from "app/session.service";
 
 @Component({
   selector: 'app-customize-account-choose-dialog',
@@ -19,12 +20,13 @@ export class CustomizeAccountChooseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>,
     private auth: AuthService,
+    private session: SessionService,
     private router: Router,
   ) { }
 
   checkAccountProperty(accounts) {
     if (accounts.advertiser.selected || accounts.publisher.selected) {
-      const userData: LocalStorageUser = this.auth.getUserSession();
+      const userData: LocalStorageUser = this.session.getUser();
       const updates = <User>{
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
@@ -43,18 +45,18 @@ export class CustomizeAccountChooseDialogComponent {
 
   redirectToDashboard(userResponse: User) {
     if (userResponse.isPublisher) {
-      this.auth.storeAccountTypeChoice('publisher');
+      this.session.setAccountTypeChoice('publisher');
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
-    this.auth.storeAccountTypeChoice('advertiser');
+    this.session.setAccountTypeChoice('advertiser');
     this.router.navigate(['/advertiser/dashboard']);
   }
 
   saveUserDataToLocalStorage(userResponse: User) {
-    let userData: LocalStorageUser = this.auth.getUserSession();
+    let userData: LocalStorageUser = this.session.getUser();
     userData.isAdvertiser = userResponse.isAdvertiser ? true : false;
     userData.isPublisher = userResponse.isPublisher ? true : false;
-    this.auth.storeUserSession(userData);
+    this.session.setUser(userData);
   }
 }

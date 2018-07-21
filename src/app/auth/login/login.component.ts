@@ -8,6 +8,7 @@ import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
 
 import { AuthService } from 'auth/auth.service';
+import { SessionService } from "app/session.service";
 import { User, LocalStorageUser } from 'models/user.model';
 import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
@@ -35,6 +36,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -44,7 +46,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
 
-    const userData: LocalStorageUser = this.auth.getUserSession();
+    const userData: LocalStorageUser = this.session.getUser();
     if (userData) {
         this.handleActiveSession(userData);
         return;
@@ -58,18 +60,18 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (isUnixTimePastNow(userData.expiration)) {
       this.auth.logOut().subscribe(
         () => {
-          this.auth.dropUserSession();
+          this.session.dropUser();
           this.router.navigate(['/auth', 'login']);
         },
         () => {
-          this.auth.dropUserSession();
+          this.session.dropUser();
           this.router.navigate(['/auth', 'login']);
         }
       );
       return;
     }
-
-    this.router.navigate(['/' + this.auth.getAccountTypeChoice(), 'dashboard']);
+    
+    this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
   }
 
   createForm() {
@@ -126,13 +128,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-    this.auth.storeUserSession(dataToSave);
+    this.session.setUser(dataToSave);
   }
 
   showStartupPopups(user: User) {
 
     if (user.isAdvertiser && user.isPublisher) {
-      const chooseAccount = this.auth.getAccountTypeChoice();
+      const chooseAccount = this.session.getAccountTypeChoice();
       if (!chooseAccount) {
         this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
         return;
@@ -147,12 +149,12 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       }
     }
     if (user.isAdvertiser) {
-      this.auth.storeAccountTypeChoice('advertiser');
+      this.session.setAccountTypeChoice('advertiser');
       this.router.navigate(['/advertiser/dashboard']);
       return;
     }
     if (user.isPublisher) {
-      this.auth.storeAccountTypeChoice('publisher');
+      this.session.setAccountTypeChoice('publisher');
       this.router.navigate(['/publisher/dashboard']);
       return;
     }

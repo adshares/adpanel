@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { SessionService } from "app/session.service";
 import { AuthService } from 'auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from "@angular/material/dialog";
@@ -19,6 +20,7 @@ export class EmailActivateComponent {
   error: boolean = false;
   constructor(
     private auth: AuthService,
+    private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
@@ -34,12 +36,12 @@ export class EmailActivateComponent {
     this.auth.emailActivation(token)
       .subscribe(
         () => {
-          const chooseAccount = this.auth.getAccountTypeChoice();
-          const userData = this.auth.getUserSession();
+          const chooseAccount = this.session.getAccountTypeChoice();
+          const userData = this.session.getUser();
 
           if (userData) {
             userData.isEmailConfirmed = true;
-            this.auth.storeUserSession(userData);
+            this.session.setUser(userData);
 
             if (chooseAccount) {
               this.dialog.open(EmailActivateConfirmDialogComponent);
@@ -53,8 +55,8 @@ export class EmailActivateComponent {
         (err) => {
           this.error = true;
 
-          const chooseAccount = this.auth.getAccountTypeChoice();
-          const userData = this.auth.getUserSession();
+          const chooseAccount = this.session.getAccountTypeChoice();
+          const userData = this.session.getUser();
 
           if (userData) {
 

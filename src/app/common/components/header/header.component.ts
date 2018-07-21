@@ -11,6 +11,7 @@ import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-fund
 import { userRolesEnum } from 'models/enum/user.enum';
 import { userInitialState } from 'models/initial-state/user';
 import { AuthService } from 'auth/auth.service';
+import { SessionService } from "app/session.service";
 
 @Component({
   selector: 'app-header',
@@ -33,16 +34,17 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    public auth: AuthService
+    public auth: AuthService,
+    private session: SessionService,
   ) {
     super();
   }
 
   ngOnInit() {
 
-    let accountType = this.auth.getAccountTypeChoice();
+    let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
-    this.userDataState = this.auth.getUserSession();
+    this.userDataState = this.session.getUser();
 
     // const notificationsTotalSubscription = this.store.select('state', 'common', 'notifications')
     //   .subscribe((notificationsList: Notification[]) => {
@@ -72,7 +74,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   setActiveUserType(userType) {
-    this.auth.storeAccountTypeChoice(userRolesEnum[userType].toLowerCase());
+    this.session.setAccountTypeChoice(userRolesEnum[userType].toLowerCase());
   }
 
   toggleSettingsMenu(state) {
@@ -90,7 +92,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   logOut() {
     this.auth.logOut().subscribe(
       () => {
-        this.auth.dropUserSession();
+        this.session.dropUser();
+        this.router.navigate(['/auth', 'login']);
+      },
+      () => {
+        this.session.dropUser();
         this.router.navigate(['/auth', 'login']);
       }
     );

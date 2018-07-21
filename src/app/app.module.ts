@@ -23,6 +23,7 @@ import { AdvertiserService } from './advertiser/advertiser.service';
 import { PublisherService } from './publisher/publisher.service';
 import { SettingsService } from './settings/settings.service';
 import { AdminService } from './admin/admin.service';
+import { SessionService } from 'app/session.service';
 
 import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
 import { PublisherEffects } from './store/publisher/publisher.effects';
@@ -80,6 +81,7 @@ const appModules = [
     PublisherService,
     SettingsService,
     AdminService,
+    SessionService,
     AppComponent,
     ConfirmationAlertComponent,
   ],

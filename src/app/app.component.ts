@@ -15,6 +15,7 @@ import { AdsharesAddress } from 'models/settings.model';
 import { Notification } from 'models/notification.model';
 
 import { AuthService } from 'auth/auth.service';
+import { SessionService } from "app/session.service";
 
 import { ConfirmNewChangeEmailComponent } from "auth/confirm-new-change-email/confirm-new-change-email.component";
 import { ConfirmOldChangeEmailComponent } from "auth/confirm-old-change-email/confirm-old-change-email.component";
@@ -31,6 +32,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   constructor(
     private router: Router,
     private auth: AuthService,
+    private session: SessionService,
     private commonService: CommonService
   ) {
     super();
@@ -39,7 +41,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
-    const userData: LocalStorageUser = this.auth.getUserSession();
+    const userData: LocalStorageUser = this.session.getUser();
 
     if (!userData) {
       return;

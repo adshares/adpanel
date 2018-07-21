@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
-import { AuthService } from "auth/auth.service";
+import { SessionService } from "app/session.service";
 import { LocalStorageUser } from 'models/user.model';
 
 export interface CanComponentDeactivate {
@@ -23,13 +23,13 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private session: SessionService,
   ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot
   ): boolean {
-    return this.auth.isAdvertiser();
+    return this.session.isAdvertiser();
   }
 
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/first';
 
 import { AuthService } from 'auth/auth.service';
+import { SessionService } from "app/session.service";
 import { User } from "models/user.model";
 
 import { MatDialog } from '@angular/material/dialog';
@@ -19,11 +20,12 @@ export class ConfirmationAlertComponent implements OnInit {
   isEmailConfirmed;
   constructor(
     private auth: AuthService,
+    private session: SessionService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    const savedUser = this.auth.getUserSession();
+    const savedUser = this.session.getUser();
     if (savedUser) {
       this.isEmailConfirmed = savedUser.isEmailConfirmed;
     }

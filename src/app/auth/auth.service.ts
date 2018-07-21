@@ -58,39 +58,4 @@ export class AuthService {
   confirmNewEmailChange(token: string){
       return this.http.get(`${environment.apiUrl}/users/email/confirm2New/${token}`);
   }
-
-  storeAccountTypeChoice(type: string) {
-    localStorage.setItem('accountTypeChoice', type);
-  }
-
-  getAccountTypeChoice(): string {
-    return localStorage.getItem('accountTypeChoice');
-  }
-
-  storeUserSession(user: LocalStorageUser) {
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  getUserSession(): LocalStorageUser {
-    return JSON.parse(localStorage.getItem('user'));
-  }
-
-  dropUserSession() {
-    localStorage.removeItem('user');
-  }
-
-  isAdmin(): boolean {
-    let u = this.getUserSession();
-    return u ? (u.isAdmin ? true : false ) : false;
-  }
-
-  isAdvertiser(): boolean {
-    let u = this.getUserSession();
-    return u ? (u.isAdvertiser ? true : false ) : false;
-  }
-
-  isPublisher(): boolean {
-    let u = this.getUserSession();
-    return u ? (u.isPublisher ? true : false ) : false;
-  }
 }
