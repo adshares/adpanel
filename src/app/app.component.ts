@@ -38,16 +38,15 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
-    const userData: LocalStorageUser = this.session.getUser();
-
-    if (!userData) {
+    this.checkSessionTimeouts();
+    if (!this.session.getUser()) {
       return;
     }
 
     this.getAdsharesAddress();
     this.setNotificationUptadeInterval();
 
-    // TODO ?
+    // TODO ? wtf wtf
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
         return;
@@ -57,7 +56,31 @@ export class AppComponent extends HandleSubscription implements OnInit {
     });
   }
 
+  // TODO: location?
+  checkSessionTimeouts() {
+    const user: LocalStorageUser = this.session.getUser();
+    if (!user) {
+      return;
+    }
+    if (isUnixTimePastNow(user.expiration)) {
+      this.auth.logOut().subscribe(
+        () => {
+          this.session.dropUser();
+          this.router.navigate(['/auth', 'login']);
+        },
+        () => {
+          // error or no error we are logged out here
+          this.session.dropUser();
+          this.router.navigate(['/auth', 'login']);
+        }
+      );
+    }
+  }
+
   getAdsharesAddress() {
+    if (this.session.getAdsharesAddress()) {
+      return;
+    }
     this.commonService.getAdsharesAddress()
       .subscribe((data: AdsharesAddress) => {
         this.session.setAdsharesAddress(data.adsharesAddress);

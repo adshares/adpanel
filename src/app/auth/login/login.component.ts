@@ -46,32 +46,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
 
-    const userData: LocalStorageUser = this.session.getUser();
-    if (userData) {
-        this.handleActiveSession(userData);
-        return;
+    // this should be elsewhere anyway (?)
+    const user: LocalStorageUser = this.session.getUser();
+    if (user) {
+      this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
+      return;
     }
 
     this.createForm();
     this.checkIfUserRemembered();
-  }
-
-  handleActiveSession(userData: LocalStorageUser) {
-    if (isUnixTimePastNow(userData.expiration)) {
-      this.auth.logOut().subscribe(
-        () => {
-          this.session.dropUser();
-          this.router.navigate(['/auth', 'login']);
-        },
-        () => {
-          this.session.dropUser();
-          this.router.navigate(['/auth', 'login']);
-        }
-      );
-      return;
-    }
-    
-    this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
   }
 
   createForm() {
