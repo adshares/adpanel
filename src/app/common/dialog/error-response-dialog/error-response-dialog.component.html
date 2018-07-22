@@ -8,7 +8,7 @@
       adsh-heading
       adsh-heading--primary"
   >
-    Request Failed
+    {{ title }}
   </h1>
 
   <p
@@ -16,8 +16,10 @@
       adsh-copy
       adsh-copy--large
       adsh-customize-subheading
-      adsh-error"
+      adsh-error
+      adsh-error--large
+      adsh-multiline"
   >
-    We have encountered an unknown error. Please try again.
+    {{ message }}
   </p>
 </mat-dialog-content>
