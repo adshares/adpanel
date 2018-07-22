@@ -102,24 +102,4 @@ export class AppComponent extends HandleSubscription implements OnInit {
       .subscribe(() => this.getNotifications());
     this.subscriptions.push(this.updateNotificationTimer);
   }
-
-  checkRequestMissing() {
-    //./src/app/common/request.interceptor.ts:65:        this.app.checkRequestMissing();
-    const exludedComponent = ["email-activate", "confirm-old-change-email", "confirm-new-change-email"];
-    let loginDir = true;
-    for (let comp of exludedComponent) {
-      if (location.pathname.indexOf(comp) > -1) {
-        loginDir = false;
-      }
-    }
-    const chooseAccount = localStorage.getItem("choose");
-    if (loginDir) {
-      if (chooseAccount == "Advertiser") {
-        this.router.navigate(['/advertiser/dashboard']);
-      } else {
-        this.router.navigate(['/publisher/dashboard']);
-      }
-    }
-    return loginDir;
-  }
 }
