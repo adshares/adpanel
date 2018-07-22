@@ -32,6 +32,8 @@ import { AdminEffects } from './store/admin/admin.effects';
 import { CommonEffects } from './store/common/common.effects';
 
 import { reducer } from './store/index';
+
+import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { ErrorResponseDialogComponentNoResponse } from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activate-confirm-dialog/email-activate-confirm-dialog.component";
@@ -50,6 +52,7 @@ const appModules = [
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
     ErrorResponseDialogComponentNoResponse,
     EmailActivateConfirmDialogComponent,
@@ -87,6 +90,7 @@ const appModules = [
   ],
   bootstrap: [ AppComponent ],
   entryComponents: [
+    ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
     ErrorResponseDialogComponentNoResponse,
     EmailActivateConfirmDialogComponent,
