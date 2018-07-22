@@ -1,16 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { CommonService } from 'common/common.service';
 
+import { SessionService } from "app/session.service";
+
 import { Notification } from 'models/notification.model';
-import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import {
   notificationActionsEnum, notificationTypesEnum,
   notificationUserTypesEnum
 } from 'models/enum/notifications.enum';
-
-import * as commonActions from 'store/common/common.actions';
 
 @Component({
   selector: 'app-notifications',
@@ -27,14 +25,14 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
   notificationActionsEnum = notificationActionsEnum;
 
   constructor(
-    private store: Store<AppState>,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private session: SessionService,
   ) {
     super();
   }
 
   ngOnInit() {
-    this.getNotificationsFromStore();
+    this.notifications = this.session.getNotifications();
   }
 
   disableNotificationsBar() {
@@ -42,16 +40,11 @@ export class NotificationsComponent extends HandleSubscription implements OnInit
     this.onDisableNotificationsBar.emit();
   }
 
-  getNotificationsFromStore() {
-    const notificationsSubscription = this.store.select('state', 'common', 'notifications')
-      .subscribe((notifications: Notification[]) => this.notifications = notifications);
-    this.subscriptions.push(notificationsSubscription);
-  }
-
   dismissNotification(notification) {
-    this.commonService.dismissNotification(notification);
-
-    this.notifications = this.notifications.filter(currentNotification => currentNotification.id !== notification.id);
-    this.store.dispatch(new commonActions.UpdateNotifications(this.notifications));
+    // TODO: fix
+    // this.commonService.dismissNotification(notification);
+    //
+    // this.notifications = this.notifications.filter(currentNotification => currentNotification.id !== notification.id);
+    // this.store.dispatch(new commonActions.UpdateNotifications(this.notifications));
   }
 }

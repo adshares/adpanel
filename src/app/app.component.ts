@@ -70,7 +70,11 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   getNotifications() {
     // TODO:fix
-    // this.store.dispatch(new commonActions.LoadNotifications(''));
+    this.commonService.getNotifications().subscribe(
+      (notifications: Notification[]) => {
+        this.session.setNotifications(notifications);
+      }
+    )
   }
 
   setNotificationUptadeInterval() {

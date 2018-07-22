@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
@@ -45,11 +44,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.userDataState = this.session.getUser();
-
-    // const notificationsTotalSubscription = this.store.select('state', 'common', 'notifications')
-    //   .subscribe((notificationsList: Notification[]) => {
-    //     this.notificationsTotal = notificationsList.length;
-    //   });
+    this.notificationsTotal = this.session.getNotificationsCount();
   }
 
   navigateToCreateNewAsset() {

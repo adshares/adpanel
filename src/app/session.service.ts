@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { AdsharesAddress } from 'models/settings.model';
 import { Notification } from 'models/notification.model';
 import { LocalStorageUser } from 'models/user.model';
 
@@ -17,6 +16,18 @@ export class SessionService {
 
   getAdsharesAddress(): string {
     return localStorage.getItem('adsharesAddress');
+  }
+
+  getNotifications(): Notification[] {
+    return JSON.parse(localStorage.getItem('notifications'));
+  }
+
+  getNotificationsCount(): number {
+    const notifications = this.getNotifications();
+    if (!notifications) {
+      return 0;
+    }
+    return notifications.length;
   }
 
   getUser(): LocalStorageUser {
@@ -44,6 +55,10 @@ export class SessionService {
 
   setAdsharesAddress(adsharesAddress: string) {
     localStorage.setItem('adsharesAddress', adsharesAddress);
+  }
+
+  setNotifications(notifications: Notification[]) {
+    localStorage.setItem('notifications', JSON.stringify(notifications));
   }
 
   setUser(user: LocalStorageUser) {
