@@ -17,9 +17,6 @@ import { Notification } from 'models/notification.model';
 import { AuthService } from 'auth/auth.service';
 import { SessionService } from "app/session.service";
 
-import { ConfirmNewChangeEmailComponent } from "auth/confirm-new-change-email/confirm-new-change-email.component";
-import { ConfirmOldChangeEmailComponent } from "auth/confirm-old-change-email/confirm-old-change-email.component";
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

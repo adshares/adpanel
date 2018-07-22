@@ -28,7 +28,7 @@ export class RegisterComponent extends HandleSubscription {
   }
 
   register() {
-    const uri = '/auth/email-activate/';
+    const uri = '/auth/email-activation/';
     const password = this.registrationForm.value.password;
     const confirmPassword = this.registrationForm.value.confirmPassword;
 

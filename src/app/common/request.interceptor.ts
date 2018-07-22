@@ -20,7 +20,6 @@ import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 import { MatDialog } from '@angular/material/dialog';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
 import {AppComponent} from "../app.component";
 
 @Injectable()
@@ -66,13 +65,20 @@ export class RequestInterceptor implements HttpInterceptor {
       }
 
       if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
+          // TODO: WTF WTF WTF
           this.pushNotificationsService.addPushNotification({
               type: pushNotificationTypesEnum.ERROR,
               title: 'Error',
               message: 'Cannot connect to server'
           });
           if(!this.openedDialogUnkownError){
-              this.dialog.open(ErrorResponseDialogComponentNoResponse);
+              this.dialog.open(ErrorResponseDialogComponent,{
+                data: {
+                  title: 'Connection failed',
+                  message: 'Could not connect to our server API. Please check your Internet connection and try again.'
+                }
+              });
+              // TODO: fix that s..... mess.... hell
               // this.openedDialogUnkownError = true;
               // return;
           }

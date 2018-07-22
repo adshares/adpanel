@@ -35,10 +35,6 @@ import { reducer } from './store/index';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { ErrorResponseDialogComponentNoResponse } from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
-import { EmailActivateConfirmDialogComponent } from "common/dialog/email-activate-confirm-dialog/email-activate-confirm-dialog.component";
-import { EmailActivateFailDialogComponent } from "common/dialog/email-activate-fail-dialog/email-activate-fail-dialog.component";
-import {ConfirmationAlertComponent} from "common/components/confirmation-alert/confirmation-alert.component";
 
 const appModules = [
   AppCommonModule,
@@ -54,9 +50,6 @@ const appModules = [
     AppComponent,
     ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
-    ErrorResponseDialogComponentNoResponse,
-    EmailActivateConfirmDialogComponent,
-    EmailActivateFailDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,15 +79,11 @@ const appModules = [
     AdminService,
     SessionService,
     AppComponent,
-    ConfirmationAlertComponent,
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   entryComponents: [
     ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
-    ErrorResponseDialogComponentNoResponse,
-    EmailActivateConfirmDialogComponent,
-    EmailActivateFailDialogComponent,
   ]
 })
 export class AppModule { }
