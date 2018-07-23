@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ActivatedRoute } from "@angular/router";
-import {LocalStorageUser} from "models/user.model";
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { LocalStorageUser } from "models/user.model";
+import { SessionService } from "app/session.service";
+
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 
 interface AfterRequestValidation {
-  email: { [key: string]: boolean };
   password: { [key: string]: boolean };
 }
 
@@ -22,32 +27,34 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   changePasswordForm: FormGroup;
   changePasswordFormSubmitted = false;
 
+  user: LocalStorageUser;
+
   newPasswordConfirm = new FormControl();
   afterRequestValidation: AfterRequestValidation = {
-    email: {
-      success: false,
-      emailChangeFailed: false
-    },
     password: {
       success: false,
       wrongPreviousPassword: false,
       passwordChangeFailed: false
     }
   };
-  errorsPasswordChange= {};
+  errorsPasswordChange = {};
+  errorEmailChange = false;
 
   ObjectKeys = Object.keys;
-  graceTime= null;
+  graceTime = null;
   constructor(
     private settingsService: SettingsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private session: SessionService,
+    private dialog: MatDialog,
   ) {
     super();
   }
 
   ngOnInit() {
-     this.createForms();
-     this.graceTime = true;
+    this.createForms();
+    this.graceTime = true;
+    this.user = this.session.getUser();
   }
 
   createForms() {
@@ -62,32 +69,47 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   }
 
   onChangeEmail() {
-    const newEmail = this.changeEmailForm.get('email').value;
-
     this.changeEmailFormSubmitted = true;
-    Object.keys(this.afterRequestValidation.email).forEach(
-      (validation) => this.afterRequestValidation.email[validation] = false
-    );
-
     if (!this.changeEmailForm.valid) {
       return;
     }
-    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-    const email = newEmail;
-    const changeEmailSubscription = this.settingsService.changeEmail(
-        email,
-        "/auth/confirm-old-change-email/",
-        "/auth/confirm-new-change-email/"
+
+    this.errorEmailChange = false;
+
+    this.settingsService.changeEmail(
+      this.changeEmailForm.get('email').value,
+      "/auth/email-change-confirm-old/",
+      "/auth/email-change-confirm-new/"
     )
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
-          this.afterRequestValidation.email.success = true;
+          this.dialog.open(ConfirmResponseDialogComponent,{
+            data: {
+              title: 'Changing email is a 2 step process',
+              message: 'First you need to verify your request using your current (old) email address.\nPlease check your email and follow instructions to confirm your request'
+            }
+          });
         },
-        () => this.afterRequestValidation.email.emailChangeFailed = true,
-        () => this.changeEmailFormSubmitted = false
-      );
-    this.subscriptions.push(changeEmailSubscription);
+        (err: any) => {
+          if (err instanceof HttpErrorResponse && err.status === 422) {
+            this.errorEmailChange = err.error.errors.email;
+            return;
+          }
+          if (err.error.errors.message) {
+            this.dialog.open(ErrorResponseDialogComponent, {
+              data: {
+                message: err.error.errors.message,
+              }
+            });
+            return;
+          }
+          this.dialog.open(ErrorResponseDialogComponent);
+        },
+        () => {
+          this.changeEmailFormSubmitted = false;
+        },
+    );
   }
 
   onChangePassword() {

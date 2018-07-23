@@ -36,7 +36,7 @@ export class ConfirmPasswordComponent {
         });
     }
   remindPassword() {
-      const uri = '/auth/register-confirm/';
+      const uri = '/auth/email-activate/';
       const password = this.confirmPasswordForm.value.password;
       const confirmPassword = this.confirmPasswordForm.value.confirmPassword;
 

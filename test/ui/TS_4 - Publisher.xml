@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS_4 - Publisher" parallel="false">
+  <test name="TC_1 - Create Site up" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="publisherAddNewSite"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 2 - Create Site down" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="publisherAddNewSite_down"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 3 - Edit Site" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="publiserEditSiteActive"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 4 - Edit Site" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginTest"/>
+          <include name="loginPopUpPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="publiserEditSiteEdit"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

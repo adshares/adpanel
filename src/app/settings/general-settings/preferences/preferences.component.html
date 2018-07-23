@@ -46,6 +46,7 @@
               name="email"
               formControlName="email"
               data-test="settings-change-email-form-email"
+              [placeholder]="user.email"
             >
             <span
               class="input-valid"
@@ -65,15 +66,9 @@
             </span>
             <span
               class="error-msg"
-              *ngIf="afterRequestValidation.email.emailChangeFailed"
+              *ngIf="errorEmailChange"
             >
-              Something went wrong, please try again.
-            </span>
-            <span
-              class="success-msg"
-              *ngIf="afterRequestValidation.email.success"
-            >
-              Your email was changed successfully.
+              {{errorEmailChange}}
             </span>
           </div>
           <button

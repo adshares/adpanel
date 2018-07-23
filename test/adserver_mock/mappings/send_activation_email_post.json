@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/send_activation_email"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json",       "Access-Control-Allow-Origin" : "*"
+    },
+    "jsonBody": { "status": 200 }
+  },
+  "priority": 0
+}

@@ -37,12 +37,7 @@
     <a
             [routerLink]="['/settings', settingsItem.link]"
             data-test="settings-category-link"
-            *ngIf="
-         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('admin') !== -1 && (userDataState | async).isAdmin)
-         ||
-         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('publisher') !== -1 && (userDataState | async).isPublisher)
-         ||
-         (settingsItem.role?.length > 0 && settingsItem.role.indexOf('advertiser') !== -1 && (userDataState | async).isAdvertiser)"
+            *ngIf="((settingsItem.admin === true && user.isAdmin) || (settingsItem.admin === false && (user.isPublisher || user.isAdvertiser)))"
     >
       <h3
               class="
@@ -66,12 +61,7 @@
       >
         <li *ngFor="let settingsValues of settingsItem.values">
           <div class="row align-center" routerLinkActive="active"
-               *ngIf="
-               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('admin') !== -1 && (userDataState | async).isAdmin)
-               ||
-               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('publisher') !== -1 && (userDataState | async).isPublisher)
-               ||
-               (settingsItem.role?.length > 0 && settingsItem.role.indexOf('advertiser') !== -1 && (userDataState | async).isAdvertiser)"
+               *ngIf="((settingsItem.admin === true && user.isAdmin) || (settingsItem.admin === false && (user.isPublisher || user.isAdvertiser)))"
           >
             <img
                     class="

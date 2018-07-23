@@ -12,7 +12,7 @@ export const sitesTotalsInitialState: SitesTotals = {
 export const siteInitialState: Site = {
   id: 0,
   status: siteStatusEnum.DRAFT,
-  websiteUrl: '',
+  name: '',
   primaryLanguage: primaryLanguageEnum.POLISH,
   targetingArray: {
     requires: [],

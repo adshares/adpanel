@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {AuthService} from "auth/auth.service";
-import {Router} from "@angular/router";
-import {LocalStorageUser, User} from "models/user.model";
+import { AuthService } from "auth/auth.service";
+import { Router } from "@angular/router";
+import { LocalStorageUser, User } from "models/user.model";
+import { SessionService } from "app/session.service";
 
 @Component({
   selector: 'app-customize-account-choose-dialog',
@@ -13,27 +14,49 @@ export class CustomizeAccountChooseDialogComponent {
   accounts = {
     advertiser: { selected: false },
     publisher: { selected: false },
-    isSelected : true
+    isSelected: true
   };
+
+  constructor(
+    public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>,
+    private auth: AuthService,
+    private session: SessionService,
+    private router: Router,
+  ) { }
+
   checkAccountProperty(accounts) {
     if (accounts.advertiser.selected || accounts.publisher.selected) {
-     const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-     const user = <User> {
+      const userData: LocalStorageUser = this.session.getUser();
+      const updates = <User>{
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
-     };
-      this.authService.saveUsers(userData.id ,user) .subscribe(
-          userData =>  this.dialogRef.close()
-
+      };
+      this.auth.saveUsers(userData.id, updates).subscribe(
+        (userResponse: User) => {
+          this.saveUserDataToLocalStorage(userResponse);
+          this.redirectToDashboard(userResponse);
+          this.dialogRef.close();
+        }
       );
-
-      this.router.navigate(['/publisher/dashboard']);
     } else {
       accounts.isSelected = false;
     }
   }
-  constructor(
-      public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>,
-      private authService: AuthService,
-      private router: Router,) { }
+
+  redirectToDashboard(userResponse: User) {
+    if (userResponse.isPublisher) {
+      this.session.setAccountTypeChoice('publisher');
+      this.router.navigate(['/publisher/dashboard']);
+      return;
+    }
+    this.session.setAccountTypeChoice('advertiser');
+    this.router.navigate(['/advertiser/dashboard']);
+  }
+
+  saveUserDataToLocalStorage(userResponse: User) {
+    let userData: LocalStorageUser = this.session.getUser();
+    userData.isAdvertiser = userResponse.isAdvertiser ? true : false;
+    userData.isPublisher = userResponse.isPublisher ? true : false;
+    this.session.setUser(userData);
+  }
 }

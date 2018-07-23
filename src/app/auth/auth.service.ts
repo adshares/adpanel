@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { User } from 'models/user.model';
+import { User, LocalStorageUser } from 'models/user.model';
 import {Site} from "models/site.model";
 import {parseTargetingForBackend} from "common/components/targeting/targeting.helpers";
 
@@ -51,11 +51,11 @@ export class AuthService {
     return this.http.get(`${environment.apiUrl}/auth/logout`);
   }
 
-  confirmOldEmailChange(token: string){
+  emailChangeConfirmOld(token: string){
       return this.http.get(`${environment.apiUrl}/users/email/confirm1Old/${token}`);
   }
 
-  confirmNewEmailChange(token: string){
+  emailChangeConfirmNew(token: string){
       return this.http.get(`${environment.apiUrl}/users/email/confirm2New/${token}`);
   }
 }

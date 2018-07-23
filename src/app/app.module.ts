@@ -23,6 +23,7 @@ import { AdvertiserService } from './advertiser/advertiser.service';
 import { PublisherService } from './publisher/publisher.service';
 import { SettingsService } from './settings/settings.service';
 import { AdminService } from './admin/admin.service';
+import { SessionService } from 'app/session.service';
 
 import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
 import { PublisherEffects } from './store/publisher/publisher.effects';
@@ -31,10 +32,9 @@ import { AdminEffects } from './store/admin/admin.effects';
 import { CommonEffects } from './store/common/common.effects';
 
 import { reducer } from './store/index';
+
+import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { ErrorResponseDialogComponentNoResponse } from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
-import { RegisterConfirmDialogComponent } from "common/dialog/register-confirm-dialog/register-confirm-dialog.component";
-import {ConfirmationAlertComponent} from "common/components/confirmation-alert/confirmation-alert.component";
 
 const appModules = [
   AppCommonModule,
@@ -48,9 +48,8 @@ const appModules = [
 @NgModule({
   declarations: [
     AppComponent,
+    ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
-    ErrorResponseDialogComponentNoResponse,
-    RegisterConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,14 +77,13 @@ const appModules = [
     PublisherService,
     SettingsService,
     AdminService,
+    SessionService,
     AppComponent,
-    ConfirmationAlertComponent
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   entryComponents: [
+    ConfirmResponseDialogComponent,
     ErrorResponseDialogComponent,
-    ErrorResponseDialogComponentNoResponse,
-    RegisterConfirmDialogComponent
   ]
 })
 export class AppModule { }

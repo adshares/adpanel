@@ -3,20 +3,20 @@ import { User } from 'models/user.model';
 export const userInitialState: User = {
     id: 0,
     email: '',
-    isAdvertiser: true,
-    isPublisher: true,
+    isAdvertiser: false,
+    isPublisher: false,
     isAdmin: false,
     isEmailConfirmed: false,
     password: '',
-    uuid: "dsdsadasdsa233232",
+    uuid: null,
     adserverWallet: {
         adsharesAddress: '',
         paymentMemo: '',
         autoWithdrawPeriod: 3,
         autoWithdrawAmount: 300,
-        totalFunds: 1276.60,
-        totalFundsInCurrency: 4336.23,
-        totalFundsChange: 20.30,
-        lastPayment: 'Tue Feb 20 2018 12:24:00 GMT'
+        totalFunds: 0.0,
+        totalFundsInCurrency: 0.0,
+        totalFundsChange: 0.0,
+        lastPayment: null
     }
 };

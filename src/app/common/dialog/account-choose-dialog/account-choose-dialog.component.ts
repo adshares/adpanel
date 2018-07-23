@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatDialogRef } from '@angular/material/dialog';
 
-import { AppState } from 'models/app-state.model';
+import { AuthService } from 'auth/auth.service';
+import { SessionService } from "app/session.service";
 import { userRolesEnum } from 'models/enum/user.enum';
 import * as commonActions from 'store/common/common.actions';
 
@@ -16,19 +17,18 @@ export class AccountChooseDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<AccountChooseDialogComponent>,
     private router: Router,
-    private store: Store<AppState>
+    private auth: AuthService,
+    private session: SessionService,
   ) { }
 
   redirectToPublisher() {
-    localStorage.setItem("choose","Publisher");
-    this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.PUBLISHER));
+    this.session.setAccountTypeChoice('publisher');
     this.router.navigate(['/publisher/dashboard']);
     this.dialogRef.close();
   }
   redirectToAdvertiser() {
-    localStorage.setItem("choose","Advertiser");
-    this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADVERTISER));
-    this.router.navigate(['/publisher/advertiser']);
+    this.session.setAccountTypeChoice('advertiser');
+    this.router.navigate(['/advertiser/dashboard']);
     this.dialogRef.close();
   }
 }

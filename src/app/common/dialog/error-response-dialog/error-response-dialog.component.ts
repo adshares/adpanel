@@ -1,9 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { MatDialogRef } from '@angular/material/dialog';
-
-import { AppState } from 'models/app-state.model';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-error-response-dialog',
@@ -11,9 +7,17 @@ import { AppState } from 'models/app-state.model';
   styleUrls: ['./error-response-dialog.component.scss'],
 })
 export class ErrorResponseDialogComponent {
+
+  title = 'Request Failed';
+  message = 'We have encountered an unknown error. Please try again.';
+
   constructor(
     public dialogRef: MatDialogRef<ErrorResponseDialogComponent>,
-    private router: Router,
-    private store: Store<AppState>
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
+
+  ngOnInit() {
+    this.message = (this.data && this.data.message) ? this.data.message : this.message;
+    this.title = (this.data && this.data.title) ? this.data.title : this.title;
+  }
 }

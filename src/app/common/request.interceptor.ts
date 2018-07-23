@@ -7,98 +7,113 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
+import { MatDialog } from '@angular/material/dialog';
 
-import { AppState } from 'models/app-state.model';
 import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
+import { SessionService } from "app/session.service";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+
+// TODO : ??
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
-import { MatDialog } from '@angular/material/dialog';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {ErrorResponseDialogComponentNoResponse} from "common/dialog/error-response-dialog-no-response/error-response-dialog.component-no-response";
-import {AppComponent} from "../app.component";
-
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
-
+  openedErrorDialogs: number = 0;
+  maxOpenedErrorDialogs: number = 3;
   constructor(
     private router: Router,
-    private store: Store<AppState>,
     private pushNotificationsService: PushNotificationsService,
     private dialog: MatDialog,
-    private app: AppComponent
+    private session: SessionService,
   ) { }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.store.select('state', 'user', 'data', 'authToken')
-      .take(1)
-      .subscribe((authToken) => {
-        if (authToken) {
-          request = request.clone({
-            setHeaders: {
-              Authorization: authToken
-            }
-          });
-        }
-      });
-
-      request = request.clone({
-         withCredentials: true
-      });
-
-    return next.handle(request).do((event: HttpEvent<any>) => {
-      this.extendTokenExpiration();
-
-      return event;
-    }, (err: any) => {
-
-      if (err instanceof HttpErrorResponse && err.status === 401) {
-        localStorage.removeItem('adshUser');
-        this.router.navigate(['/auth', 'login']);
-      }
-      if (err instanceof HttpErrorResponse && err.status === 403) {
-        this.app.checkRequestMissing();
-      }
-
-      if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
-          this.pushNotificationsService.addPushNotification({
-              type: pushNotificationTypesEnum.ERROR,
-              title: 'Error',
-              message: 'Cannot connect to server'
-          });
-          // @TODO: uncomment when is done adserver
-          // this.dialog.open(ErrorResponseDialogComponentNoResponse);
-          return;
-      }
-      if (err instanceof HttpErrorResponse && err.status === 500) {
-          this.dialog.open(ErrorResponseDialogComponent);
-          return;
-      }
-      this.pushNotificationsService.addPushNotification({
-        type: pushNotificationTypesEnum.ERROR,
-        title: 'Error',
-        message: 'Cannot connect to server'
-      });
-    });
-  }
-
-  extendTokenExpiration() {
-    const localStorageUser: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
-
-    if (!localStorageUser) {
+  dialogError(title, message) {
+    if (this.openedErrorDialogs >= this.maxOpenedErrorDialogs) {
       return;
     }
+    ++this.openedErrorDialogs;
+    let dialogRef = this.dialog.open(ErrorResponseDialogComponent, {
+      data: {
+        title: title,
+        message: message,
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      () => {
+        --this.openedErrorDialogs;
+      }
+    );
+  }
 
-    const expirationSeconds = localStorageUser.remember ?
-      appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    Object.assign(localStorageUser, { expiration: ((+new Date) / 1000 | 0) + expirationSeconds });
+    // enabling cookies!
+    request = request.clone({
+      withCredentials: true
+    });
 
-    localStorage.setItem('adshUser', JSON.stringify(localStorageUser));
+    return next.handle(request).do(
+      (event: HttpEvent<any>) => {
+        this.extendTokenExpiration();
+        return event;
+      },
+      (err: any) => {
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          let crazy = !this.session.getUser();
+          this.session.dropUser();
+          this.router.navigate(['/auth', 'login']);
+          if (crazy) {
+            this.dialogError('Login required', 'Last request required logged-in user.');
+            return err;
+          }
+          this.dialogError('Session timed-out (server)', 'Last request required logged-in user but your session has been lost (outdated). Please log in again.');
+          return err;
+        }
+
+        // TODO: not really sure babe
+        // if (err instanceof HttpErrorResponse && err.status === 403) {
+        // }
+
+        if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
+          this.dialogError('Connection failed','Could not connect to our server API. Please check your Internet connection and try again.');
+          // TODO: WTF WTF WTF
+          this.pushNotificationsService.addPushNotification({
+            type: pushNotificationTypesEnum.ERROR,
+            title: 'Error',
+            message: 'Cannot connect to server'
+          });
+          return err;
+        }
+
+        if (err instanceof HttpErrorResponse && err.status === 500) {
+          this.dialogError('Server request failed','It looks like our request failed on the server returning code 500, please try again or contact our support.');
+          // TODO: wtf
+          this.pushNotificationsService.addPushNotification({
+            type: pushNotificationTypesEnum.ERROR,
+            title: 'Error',
+            message: 'Cannot connect to server'
+          });
+          return err;
+        }
+
+        return err;
+      }
+    );
+  }
+
+  // TODO: fix + location? // looks like bs, not what we are looking for
+  extendTokenExpiration() {
+    const user: LocalStorageUser = this.session.getUser();
+    if (!user) {
+      return;
+    }
+    const expirationSeconds = user.remember ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
+    Object.assign(user, { expiration: ((+new Date) / 1000 | 0) + expirationSeconds });
+    this.session.setUser(user);
   }
 }

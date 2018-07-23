@@ -1,25 +1,25 @@
-<mat-dialog-content
-        (click)="dialogRef.close()"
->
-    <div
-      class="
-        adsh-box--light-border
-        error-msg
-"
-    >
-      <div
-        class="
-          row
-          align-center
-          justify-center"
-          style="padding-right:37px;"
-      >
-        <span
-          class="
-            adsh-heading
-            adsh-heading--secondary">
-          We can't find that page. We have problem with service. Try again later...
-        </span>
-      </div>
-    </div>
+<mat-dialog-content class="text-center">
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    {{ title }}
+  </h1>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-customize-subheading
+      adsh-error
+      adsh-error--large
+      adsh-multiline"
+  >
+    {{ message }}
+  </p>
 </mat-dialog-content>

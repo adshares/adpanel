@@ -14,7 +14,7 @@ import { User } from "models/user.model";
 })
 export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
-  errorsRegister= {};
+  errorsRegister = {};
 
   ObjectKeys = Object.keys;
   isRegistering = false;
@@ -28,7 +28,7 @@ export class RegisterComponent extends HandleSubscription {
   }
 
   register() {
-    const uri = '/auth/register-confirm/';
+    const uri = '/auth/email-activation/';
     const password = this.registrationForm.value.password;
     const confirmPassword = this.registrationForm.value.confirmPassword;
 
@@ -37,20 +37,20 @@ export class RegisterComponent extends HandleSubscription {
     }
 
     this.isRegistering = true;
-    const user = <User> {
-      email:  this.registrationForm.value.email,
+    const user = <User>{
+      email: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
-      isAdvertiser: true,
-      isPublisher: true
+      isAdvertiser: false,
+      isPublisher: false
     };
     const registerSubscription = this.authService.registerUser(
-        user, uri
+      user, uri
     )
       .subscribe(
-          () => this.router.navigate(['/auth', 'confirmation']),
-      (err) => {
-              this.errorsRegister = err.error.errors;
-              this.isRegistering = false;
+        () => this.router.navigate(['/auth', 'confirmation']),
+        (err) => {
+          this.errorsRegister = err.error.errors;
+          this.isRegistering = false;
         }
       );
 
