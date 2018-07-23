@@ -89,7 +89,9 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getNotifications() {
-    // TODO:fix
+    if(!this.session.getUser()) {
+      return;
+    }
     this.commonService.getNotifications().subscribe(
       (notifications: Notification[]) => {
         this.session.setNotifications(notifications);
