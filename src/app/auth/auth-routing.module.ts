@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { RegisteredComponent } from './registered/registered.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
 import { EmailProcessingComponent } from "auth/email/email-processing.component";
 import { ConfirmPasswordComponent } from "auth/confirm-password/confirm-password.component";
@@ -17,7 +17,7 @@ const authRoutes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'confirmation', component: ConfirmationComponent },
+    { path: 'registered', component: RegisteredComponent },
     { path: 'confirmation-password-send', component: ConfirmationSendRecoveryPasswordComponent },
     { path: 'remind-password', component: RemindPasswordComponent },
     { path: 'confirm-password/:token', component: ConfirmPasswordComponent },

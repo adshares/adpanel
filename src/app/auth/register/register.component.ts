@@ -47,7 +47,7 @@ export class RegisterComponent extends HandleSubscription {
       user, uri
     )
       .subscribe(
-        () => this.router.navigate(['/auth', 'confirmation']),
+        () => this.router.navigate(['/auth', 'registered']),
         (err) => {
           this.errorsRegister = err.error.errors;
           this.isRegistering = false;

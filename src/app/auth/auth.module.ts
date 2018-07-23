@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { RemindPasswordComponent } from './remind-password/remind-password.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { RegisteredComponent } from './registered/registered.component';
 import { EmailProcessingComponent } from "auth/email/email-processing.component";
 import { ConfirmPasswordComponent } from "./confirm-password/confirm-password.component";
 import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
@@ -32,8 +32,8 @@ import { ConfirmPasswordResetComponent } from "./confirm-password-reset/confirm-
     AuthComponent,
     LoginComponent,
     RegisterComponent,
+    RegisteredComponent,
     RemindPasswordComponent,
-    ConfirmationComponent,
     ConfirmPasswordComponent,
     ConfirmationSendRecoveryPasswordComponent,
     ConfirmPasswordBadTokenComponent,
