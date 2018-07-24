@@ -50,8 +50,8 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
         </methods>
       </class>
       <class name="pl.adshares.adpanel.PublisherTestCase">

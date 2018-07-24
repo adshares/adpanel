@@ -8,6 +8,8 @@ import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 public class LoginTestCase extends BrowserTestCase {
 
   private LoginPage loginPage;
@@ -17,6 +19,7 @@ public class LoginTestCase extends BrowserTestCase {
   private HeaderBarPage headerBarPage;
   private String loginAdService;
   private String passwordAdService;
+  private String randomsEmail;
 
   @BeforeTest
   public void setUp() {
@@ -102,14 +105,14 @@ public class LoginTestCase extends BrowserTestCase {
   @Test
   public void loginRegisterRandom() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.goToLoginRegistrRandom();
+    loginPage.goToLoginRegistrRandom("12345678");
     loginPage .logIn();
   }
 
   @Test
   public void loginRegisterRememberMe() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.goToLoginRegistrRandom();
+    loginPage.goToLoginRegistrRandom("12345678");
     loginPage .logInRememberMe();
   }
 
@@ -119,7 +122,7 @@ public class LoginTestCase extends BrowserTestCase {
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
-    System.out.println("logOutTest");
+
   }
 
   @Test
@@ -129,7 +132,7 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-    public void loginChangeEmail() {
+    public void loginChangeEmail() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail();
   }
@@ -159,7 +162,6 @@ public class LoginTestCase extends BrowserTestCase {
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
-    System.out.println("logOutTest");
   }
   @Test
   public void loginSecondTab() {

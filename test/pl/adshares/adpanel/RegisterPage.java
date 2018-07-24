@@ -1,18 +1,16 @@
-package pl.adshares.adpanel.pages.register;
+package pl.adshares.adpanel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
+import pl.adshares.adpanel.tools.RandomPage;
 
 import java.util.Set;
 
@@ -57,17 +55,25 @@ public class RegisterPage {
   private WebElement confirmPassword;
   @FindBy(css = "[data-test='auth-registration-form-submit-button']")
   private WebElement resetPassword;
-
-
+  @FindBy(css = "[data-test='auth-redirect-to-first-login']")
+  private WebElement logIn;
+  @FindBy(css = "[data-test='auth-login-form-submit-button']")
+  private WebElement logIn2;
+  @FindBy(id = "email")
+  private WebElement email;
+  @FindBy(css = "[class='adsh-logo']")
+  private WebElement adshLogo;
 
 
 
   private WebDriver driver;
   private WebDriverWait wait;
+  private Object LoginPage;
+
 
   public RegisterPage(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 10);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
@@ -157,49 +163,68 @@ public class RegisterPage {
     registerButton.click();
   }
 
-  public void registerForgotPassword() throws InterruptedException {
-    int I=1;
+  public void registerForgotPassword(Object user_email, String newPassword) throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
-    wait.until(ExpectedConditions.visibilityOf(sendLinkToResetPassword));
-    emailAddress.sendKeys("user@e11.click");
+    wait.until(ExpectedConditions.visibilityOf(emailAddress));
+    emailAddress.sendKeys((CharSequence) user_email);
+    System.out.println("-. user_email: "+user_email);
+//    System.out.println("user_email: " + RandomPage.getFromStore("user_email")+" user_email: "+user_email);
+    String handle = driver.getWindowHandle();
+    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
     sendLinkToResetPassword.click();
+    Set handles = driver.getWindowHandles();
+    int I=2;
+    for (String handle1:driver.getWindowHandles()) {
+      if(I == 2){
+        driver.switchTo().window(handle1);
+      }
+      I=I+1;
+    }
+    String handle1 = driver.getWindowHandle();
+    System.out.println("5.2. "+driver.getTitle()+" - "+handle1);
     //                    Mailcatcher
     wait = new WebDriverWait(driver, 10);
-    driver.get("http://mailcatcher.ads/");
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
     Thread.sleep(4000);
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
-
     // 1.1 before clicking on the link
-    String handle = driver.getWindowHandle();
-    System.out.println (I+". "+driver.getTitle()+" - "+handle);
-    I=I+1;
+    String handle2 = driver.getWindowHandle();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     Thread.sleep(5000);
-
     // 1.2 Store and Print the name of all the windows open
-    Set handles = driver.getWindowHandles();
-    for (String handle1:driver.getWindowHandles()) {
-      System.out.println(I+". "+handle1);
-      driver.switchTo().window(handle1);
+    Set handles3 = driver.getWindowHandles();
+    for (String handle3:driver.getWindowHandles()) {
+      driver.switchTo().window(handle3);
       I=I+1;
     }
-    String handle2 = driver.getWindowHandle();
-    System.out.println(I+". "+driver.getTitle()+" - "+handle2);
-
+    String handle3 = driver.getWindowHandle();
+    System.out.println("5.3. "+driver.getTitle()+" - "+handle3);
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(password));
-    password.sendKeys("useruser");
-    confirmPassword.sendKeys("useruser");
+
+    password.sendKeys(newPassword);
+    wait.until(ExpectedConditions.visibilityOf(confirmPassword));
+    confirmPassword.sendKeys(newPassword);
+    wait.until(ExpectedConditions.visibilityOf(resetPassword));
     resetPassword.click();
-    //driver.quit();
-
+    // TODO: 24.07.18 do poprawy dla Tomka resetPassword:[1xbłąd, 2xdziała już poprawnie]
+    //resetPassword.click();
+    wait.until(ExpectedConditions.visibilityOf(logIn));
+    logIn.click();
+    wait.until(ExpectedConditions.visibilityOf(email));
+    email.sendKeys((CharSequence) user_email);
+    wait.until(ExpectedConditions.visibilityOf(password));
+    password.sendKeys(newPassword);
+    System.out.println("6. New password: "+newPassword);
+    wait.until(ExpectedConditions.visibilityOf(logIn2));
+    logIn2.click();
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    System.out.println("Koniec");
   }
-
 
 }

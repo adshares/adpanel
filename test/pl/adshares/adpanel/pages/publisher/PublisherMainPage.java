@@ -32,7 +32,7 @@ public class PublisherMainPage {
 
   public PublisherMainPage(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 20);
+    wait = new WebDriverWait(driver, 100);
     PageFactory.initElements(driver, this);
   }
 
@@ -52,11 +52,13 @@ public class PublisherMainPage {
   newAddSiteListBar.click();
   }
 
-  public void goToEditSiteActive() {
+  public void goToEditSiteActive() throws InterruptedException {
+//    Thread.sleep(10000);
     wait.until(ExpectedConditions.visibilityOf(logoAssertion));
     Assert.assertTrue(logoAssertion.isDisplayed());
     wait.until(ExpectedConditions.visibilityOf(editSiteListBar));
     Assert.assertTrue(editSiteListBar.isEnabled());
+    Thread.sleep(10000);
     editSiteListBar.click();
   }
 

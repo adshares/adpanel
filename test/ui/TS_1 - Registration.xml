@@ -21,6 +21,13 @@
   </test>
   <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
     <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="logOutTest"/>
+        </methods>
+      </class>
       <class name="pl.adshares.adpanel.RegisterTestCase">
         <methods>
           <include name="registerForgotPassword"/>

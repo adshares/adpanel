@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.support.FindBy;
@@ -14,11 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
-import org.testng.util.Strings;
+import pl.adshares.adpanel.tools.RandomPage;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -118,12 +113,20 @@ public class LoginPage {
   private WebElement CheckOurFAQ;
   @FindBy(css = "[class='logo-header']")
   private WebElement FAQ;
+  @FindBy(css = "[class='adsh-logo']")
+  private WebElement adshLogo;
+
+  @FindBy(css = "[class='adsh-dialog-close']")
+  private WebElement adshDialogClose;
+  @FindBy(xpath = "//h1[contains(text(), 'Email activation complete')]")
+  private WebElement adshDialogCloseAssert;
 
 
   private WebElement userMenuAdvertiser;
 
   private WebDriver driver;
   private WebDriverWait wait;
+  public String randomsEmail;
 
   public LoginPage(WebDriver driver) {
     this.driver = driver;
@@ -230,14 +233,6 @@ public class LoginPage {
     String invalidEmailInput = invalidEmail.getText();
     Assert.assertEquals("Invalid email!", invalidEmailInput);
     System.out.println("1. EMAIL INCORRECT");
-    //                    TEST EMAIL email@email
-    //loginEmail.sendKeys("email@email");
-    //wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
-    //authRegistrationButton.click();
-    //wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
-    //String invalidEmailInput2 = invalidEmailName.getText();
-    //Assert.assertEquals("Invalid email!", invalidEmailInput2);
-    //System.out.println("Invalid email! - checked!");
     //                    TEST EMAIL CORRECT = PASSWORD INCORRECT
     loginEmail.sendKeys("@e11.click");
     loginPassword.sendKeys("useruse");
@@ -252,9 +247,6 @@ public class LoginPage {
     loginConfirmPassword.sendKeys("useruse");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-    //wait.until(ExpectedConditions.visibilityOf(confirmPasswordMinimumRequired));
-    //String invalidPasswordInput3 = confirmPasswordMinimumRequired.getText();
-    //Assert.assertEquals("Passwords don't match!", invalidPasswordInput3);
     System.out.println("3. EMAIL, PASSWORD CORRECT - CONFIRM PASSWORD INCORRECT");
     //                    TEST EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT
     loginConfirmPassword.sendKeys("r");
@@ -268,21 +260,25 @@ public class LoginPage {
     System.out.println("5. The email has already been taken.");
   }
 
-  public void goToLoginRegistrRandom() throws InterruptedException {
+  public void goToLoginRegistrRandom(String Password) throws InterruptedException {
     //                    Registr Random
     wait.until(ExpectedConditions.visibilityOf(registerButton));
     registerButton.click();
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
+
     Random random = new Random();
     int number = random.nextInt(1000000);
-    String randoms = String.format("%06d", number);
-    String randomsEmail = randoms+"@e11.click";
+    String randomsEmail = String.format("%06d", number)+"@e11.click";
+//    RandomPage
+    RandomPage.create();
+    RandomPage.store("user_email", randomsEmail);
+
     loginEmail.sendKeys(randomsEmail);
-    loginPassword.sendKeys("12345678");
-    loginConfirmPassword.sendKeys("12345678");
+    loginPassword.sendKeys(Password);
+    loginConfirmPassword.sendKeys(Password);
     System.out.println("LoginEmail: "+randomsEmail);
-    System.out.println("Password: "+"12345678");
+    System.out.println("Password: "+Password);
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
     System.out.println("1. RegistrRandom - OK");
@@ -295,33 +291,32 @@ public class LoginPage {
 
     // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println ("2.1. "+driver.getTitle()+" - "+handle);
+    System.out.println ("2. "+driver.getTitle()+" - "+handle);
 
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-    System.out.println("2.2. Mailcatcher - OK");
+    //System.out.println("2.2. Mailcatcher - OK");
     Thread.sleep(4500);
 
     // 1.2 ZMIANA OKNA W CHROME - Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
     int I=3;
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("2."+I+". "+handle1);
+      //System.out.println("2."+I+". "+handle1);
       driver.switchTo().window(handle1);
       I=I+1;
     }
     System.out.println("3. "+driver.getTitle());
-    wait = new WebDriverWait(driver, 10);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
 
-    wait.until(ExpectedConditions.visibilityOf(ActivationEmail));
-    wait.until(ExpectedConditions.visibilityOf(firstLogin));
-    firstLogin.click();
+    wait.until(ExpectedConditions.visibilityOf(adshDialogCloseAssert));
+    adshDialogClose.click();
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginEmail.sendKeys(randomsEmail);
-    loginPassword.sendKeys("12345678");
+    loginPassword.sendKeys(Password);
   }
 
 
@@ -337,7 +332,7 @@ public class LoginPage {
     System.out.println("4. Log in - OK");
   }
 
-  public void gotologinChangeEmail() {
+  public void gotologinChangeEmail() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
@@ -345,7 +340,7 @@ public class LoginPage {
     Random random = new Random();
     int number = random.nextInt(1000000);
     String randoms = String.format("%06d", number);
-//    Your email was changed successfully.
+    //    Your email was changed successfully.
     int I=1;
     String[] myList = {"michal@e"+randoms+".click","michal.michal@e"+randoms+".click","michal@e"+randoms+".click.pl","MiChAl@e"+randoms+".click","michal123@e"+randoms+".click","michal_123@e"+randoms+".click","111michal@e"+randoms+".click"};
     for (String List : myList){
@@ -495,34 +490,28 @@ public class LoginPage {
     System.out.println("-. Hello! - OK");
   }
   public void loginSecondTab3() throws InterruptedException {
-// TODO: 13.07.18 TC_11 otwarcie sesji w nowej karcie loginSecondTab3
+    Thread.sleep(1000);
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
     String handle = driver.getWindowHandle();
     System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
-
-
+    adshLogo.click();
     Set handles = driver.getWindowHandles();
     int I=2;
     for (String handle1:driver.getWindowHandles()) {
       System.out.println("5."+I+". "+handle1);
-      driver.switchTo().window(handle1);
+      if(I == 2){
+        driver.switchTo().window(handle1);
+      }
       I=I+1;
     }
-    String handle2 = driver.getWindowHandle();
-    System.out.println("5. "+driver.getTitle()+" - "+handle2);
+    String handle1 = driver.getWindowHandle();
+    System.out.println("5.4. "+driver.getTitle()+" - "+handle1);
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);
-
-    Thread.sleep(1000);
-
-
-
     driver.get("http://panel.ads/");
-
-    //wait.until(ExpectedConditions.visibilityOf(helloText));
-    //String loginEmailAssertInput = helloText.getText();
-    //Assert.assertEquals("Hello!", loginEmailAssertInput);
-    System.out.println("-. Hello! - OK");
-
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    System.out.println("6. "+driver.getTitle()+" - "+handle1);
+    System.out.println("-. Koniec testu");
   }
   public void loginSecondTab4() throws InterruptedException {
 // TODO: 20.07.18 TC_12 Fail - wygaśniecie sesji - ustawienie w pliku

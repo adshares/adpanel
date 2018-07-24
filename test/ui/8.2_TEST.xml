@@ -2,6 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
+
   <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -18,6 +19,7 @@
       </class>
     </classes>
   </test>
+
 
 
 </suite>

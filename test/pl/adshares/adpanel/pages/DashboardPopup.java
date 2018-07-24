@@ -79,7 +79,7 @@ public class DashboardPopup {
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
       LOGGER.info("No popup displayed");
-      System.out.println("No popup displayed");
+      System.out.println("Fail - No popup displayed");
     } finally {
       LOGGER.info("User choose publisher dashboard");
       System.out.println("User choose Publisher dashboard");

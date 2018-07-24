@@ -41,6 +41,7 @@ public class HeaderBarPage {
 //    headerSettingsMenu.click();
 //    wait.until(ExpectedConditions.visibilityOf(logOut));
     logOut.click();
+    System.out.println("-. logOutTest");
     return PageFactory.initElements(driver, HeaderBarPage.class);
   }
 
