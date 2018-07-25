@@ -1,11 +1,5 @@
 package pl.adshares.adpanel.tools;
-
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.testng.log4testng.Logger;
-
 import java.util.HashMap;
-import java.util.Random;
 
 public class RandomPage {
 
@@ -19,12 +13,7 @@ public class RandomPage {
     store.put(name, value);
   }
 
-
   public static Object getFromStore(String name) {
     return store.get(name);
   }
-//  public static String getFromStore(String name) {
-//    return String.valueOf(store.get(name));
-//  }
-
 }

@@ -31,6 +31,7 @@ public class SiteSummary {
   public void publishNewSite() {
     wait.until(ExpectedConditions.visibilityOf(publishSiteButton));
     publishSiteButton.click();
+    System.out.println("8. Summary - OK");
   }
 
 

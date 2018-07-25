@@ -2,42 +2,35 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-
-  <test name="TC 6 - Zmiana maila" group-by-instances="true">
+  <test name="TC_7 - Dodanie nowej Strony - podsumowanie [Site_up]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
-          <include name="loginChangeEmail"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="AddSummary"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 7 - Zmiana hasła" group-by-instances="true">
+  <test name="TC_8 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
-          <include name="loginChangePassword"/>
         </methods>
       </class>
-    </classes>
-  </test>
-
-  <test name="TC 12 - Wygaśnięcie sesji" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.PublisherTestCase">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab4"/>
+          <include name="AddSummary_down"/>
         </methods>
       </class>
     </classes>
   </test>
-
-
 
 </suite>

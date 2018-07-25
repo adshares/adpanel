@@ -62,6 +62,7 @@ public class SiteCreateAds {
   public void goToSummary() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
+    System.out.println("7. Create Ads - OK");
   }
 
 }

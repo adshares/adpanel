@@ -7,8 +7,49 @@ import org.testng.annotations.Test;
 
 public class PublisherTestCase extends BrowserTestCase {
 
+//  TC_4
   @Test
-  public void publisherAddNewSite() throws InterruptedException {
+  public void AddBasicInformation() throws InterruptedException {
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.gazeta.pl");
+  }
+//  TC_5
+  @Test
+  public void AddAdditionalTargeting() throws InterruptedException {
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.tvn24.pl");
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    siteAdditionalTargeting.publisherRequiresCreativeType();
+    siteAdditionalTargeting.publisherRequiresLanguage();
+    siteAdditionalTargeting.publisherRequiresScreen();
+    siteAdditionalTargeting.publisherRequiresJsSupport();
+    siteAdditionalTargeting.goToCreateAds();
+  }
+//  TC_6
+  @Test
+  public void AddAdditionalCreateAds() throws InterruptedException {
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.tvnwarszawa.pl");
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    siteAdditionalTargeting.publisherRequiresCreativeType();
+    siteAdditionalTargeting.publisherRequiresLanguage();
+    siteAdditionalTargeting.publisherRequiresScreen();
+    siteAdditionalTargeting.publisherRequiresJsSupport();
+    siteAdditionalTargeting.goToCreateAds();
+    SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
+    siteCreateAds.createAdUnit();
+    siteCreateAds.adUnitTemplate();
+    siteCreateAds.goToSummary();
+  }
+//  TC_7
+  @Test
+  public void AddSummary() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
@@ -25,9 +66,9 @@ public class PublisherTestCase extends BrowserTestCase {
     SiteSummary siteSummary = new SiteSummary(driver);
     siteSummary.publishNewSite();
   }
-
+//  TC_8
   @Test
-  public void publisherAddNewSite_down() throws InterruptedException {
+  public void AddSummary_down() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite_down();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);

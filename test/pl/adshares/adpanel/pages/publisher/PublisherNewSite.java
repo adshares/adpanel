@@ -40,6 +40,7 @@ public class PublisherNewSite {
     wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
     contentLanguageEnglish.click();
     saveButtonPublisherCampaign.click();
+    System.out.println("5. BasicInfo - OK");
   }
 
 }

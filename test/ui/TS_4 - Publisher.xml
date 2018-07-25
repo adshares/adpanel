@@ -1,37 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS_4 - Publisher" parallel="false">
-  <test name="TC_1 - Create Site up" group-by-instances="true">
+  <test name="TC_4 - Dodanie nowej Strony - informacje podstawowe" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
         </methods>
       </class>
       <class name="pl.adshares.adpanel.PublisherTestCase">
         <methods>
-          <include name="publisherAddNewSite"/>
+          <include name="AddBasicInformation"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 2 - Create Site down" group-by-instances="true">
+  <test name="TC_5 - Dodanie nowej Strony - dodanie targetu kampanii" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
         </methods>
       </class>
       <class name="pl.adshares.adpanel.PublisherTestCase">
         <methods>
-          <include name="publisherAddNewSite_down"/>
+          <include name="AddAdditionalTargeting"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 3 - Edit Site" group-by-instances="true">
+  <test name="TC_6 - Dodanie nowej Strony - dodanie jednoski reklamy" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="AddAdditionalCreateAds"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_7 - Dodanie nowej Strony - podsumowanie [Site_up]" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="AddSummary"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_8 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.PublisherTestCase">
+        <methods>
+          <include name="AddSummary_down"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+
+  <test name="TC 13 - Edit Site" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -46,7 +94,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC 4 - Edit Site" group-by-instances="true">
+  <test name="TC 14 - Edit Site" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
