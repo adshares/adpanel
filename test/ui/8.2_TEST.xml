@@ -2,24 +2,19 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-
-  <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
+  <test name="TC_10 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
-          <include name="logOutTest"/>
         </methods>
       </class>
-      <class name="pl.adshares.adpanel.RegisterTestCase">
+      <class name="pl.adshares.adpanel.PublisherTestCase">
         <methods>
-          <include name="registerForgotPassword"/>
+          <include name="AddSummary_down"/>
         </methods>
       </class>
     </classes>
   </test>
-
-
-
 </suite>

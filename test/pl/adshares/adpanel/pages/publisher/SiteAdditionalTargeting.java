@@ -1,5 +1,6 @@
 package pl.adshares.adpanel.pages.publisher;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,23 +15,13 @@ import java.util.Random;
 
 public class SiteAdditionalTargeting {
 
-  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")
-  private WebElement saveButtonPublisherCampaign;
-
-  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")
-  private WebElement backButtonPublisherCampaign;
-  /**
-   * Requires List
-   */
-  @FindBy(css = "div.targeting-select-wrapper")
-  private WebElement publisherList;
-
-  @FindBy(xpath = "//button[contains(text(), 'Add Selected')]")
-  private WebElement addSelectedButton;
-
-  @FindBy(xpath = "//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']")
-  private WebElement subTypes;
-
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")  private WebElement saveButtonPublisherCampaign;
+  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")      private WebElement backButtonPublisherCampaign;
+  @FindBy(css = "div.targeting-select-wrapper")                         private WebElement publisherList;
+  @FindBy(xpath = "//button[contains(text(), 'Add Selected')]")         private WebElement addSelectedButton;
+  @FindBy(xpath = "//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']") private WebElement subTypes;
+  @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")      private WebElement back;
+  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")      private WebElement saveAsDraft;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -122,5 +113,17 @@ public class SiteAdditionalTargeting {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
     System.out.println("6. Additional Targeting - OK");
+  }
+  public void saveAsDraft() {
+    wait.until(ExpectedConditions.visibilityOf(saveAsDraft));
+    saveAsDraft.click();
+    System.out.println("6. Additional Targeting - SaveAsDraft");
+  }
+  public void back() {
+    wait.until(ExpectedConditions.visibilityOf(back));
+    back.click();
+    Alert alert = driver.switchTo().alert();
+    alert.accept();
+    System.out.println("10. Back Additional Targeting - OK");
   }
 }

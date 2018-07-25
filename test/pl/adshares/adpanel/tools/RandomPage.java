@@ -16,4 +16,5 @@ public class RandomPage {
   public static Object getFromStore(String name) {
     return store.get(name);
   }
+
 }
