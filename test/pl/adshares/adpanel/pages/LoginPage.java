@@ -22,105 +22,55 @@ import static pl.adshares.adpanel.setup.DriverProvider.getWebDriverFile;
 public class LoginPage {
   private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
 
-  @FindBy(id = "email")
-  private WebElement loginEmail;
-  @FindBy(id = "password")
-  private WebElement loginPassword;
-  @FindBy(id = "newPassword")
-  private WebElement loginNewPassword;
-  @FindBy(id = "currentPassword")
-  private WebElement loginCurrentPassword;
-  @FindBy(id = "confirmPassword")
-  private WebElement loginConfirmPassword;
-  @FindBy(id = "newPasswordConfirm")
-  private WebElement loginNewPasswordConfirm;
-  @FindBy(css = "[data-test='auth-login-form-submit-button']")
-  private WebElement loginButton;
-  @FindBy(css = "[data-test='auth-redirect-to-registration']")
-  private WebElement registerButton;
+  @FindBy(id = "email")                                                                                                 private WebElement loginEmail;
+  @FindBy(id = "password")                                                                                              private WebElement loginPassword;
+  @FindBy(id = "newPassword")                                                                                           private WebElement loginNewPassword;
+  @FindBy(id = "currentPassword")                                                                                       private WebElement loginCurrentPassword;
+  @FindBy(id = "confirmPassword")                                                                                       private WebElement loginConfirmPassword;
+  @FindBy(id = "newPasswordConfirm")                                                                                    private WebElement loginNewPasswordConfirm;
+  @FindBy(id = "messages")                                                                                              private WebElement mailcatcherMessages;
 
-  /**
-   * Login Page - WebElement Assertions
-   */
-  @FindBy(xpath = "//img[@class = 'adsh-logo']")
-  private WebElement assertLogo;
-  @FindBy(xpath = "//*[contains(text(), 'Hello!')]")
-  private WebElement helloText;
-  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Email required!')]")
-  private WebElement emailRequired;
-  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Invalid email!')]")
-  private WebElement invalidEmail;
+  @FindBy(name = "search")                                                                                              private WebElement mailcatcherSearch;
 
-  @FindBy(xpath = "//input[@name='email']/following-sibling::span[contains(text(),'Invalid email!')]")
-  private WebElement invalidEmailName;
+  @FindBy(css = "[data-test='auth-login-form-submit-button']")                                                          private WebElement loginButton;
+  @FindBy(css = "[data-test='auth-redirect-to-registration']")                                                          private WebElement registerButton;
+  @FindBy(css = "[data-test='header-choose-user-menu']")                                                                private WebElement userMenu;
+  @FindBy(css = "[data-test='auth-redirect-to-first-login']")                                                           private WebElement activationEmailLogIn;
+  @FindBy(css = "[data-test='auth-registration-form-submit-button']")                                                   private WebElement authRegistrationButton;
+  @FindBy(css = "[class='adsh-icon adsh-icon--small adsh-icon--append choose-user-menu-chevron ng-star-inserted']")     private WebElement headerChooseUserMenu;
+  @FindBy(css = "[data-test='header-choose-user-menu-advertiser']")                                                     private WebElement headerChooseUserMenuAdvertiser;
+  @FindBy(css = "[data-test='header-choose-user-menu-publisher']")                                                      private WebElement headerChooseUserMenuPublisher;
+  @FindBy(css = "[class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                         private WebElement settingsMenuChevron;
+  @FindBy(css = "[data-test='header-account-settings-button']")                                                         private WebElement accountSettings;
+  @FindBy(css = "[data-test='header-billing-payments-button']")                                                         private WebElement billingPayments;
+  @FindBy(css = "[data-test='settings-change-email-form-submit']")                                                      private WebElement changeEmail;
+  @FindBy(css = "[data-test='settings-change-password-form-submit']")                                                   private WebElement changePassword;
+  @FindBy(css = "[data-test='auth-redirect-to-first-login']")                                                           private WebElement firstLogin;
+  @FindBy(css = "[class='checkbox-label']")                                                                             private WebElement rememberMe;
+  @FindBy(css = "[data-test='settings-faq-link']")                                                                      private WebElement CheckOurFAQ;
+  @FindBy(css = "[class='logo-header']")                                                                                private WebElement FAQ;
+  @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
+  @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement adshDialogClose;
 
-  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")
-  private WebElement passwordEmptyRequired;
-  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")
-  private WebElement passwordMinimumRequired;
-
-  @FindBy(css = "[data-test='header-choose-user-menu']")
-  private WebElement userMenu;
-  @FindBy(css = "[data-test='auth-redirect-to-first-login']")
-  private WebElement activationEmailLogIn;
-  @FindBy(name = "search")
-  private WebElement mailcatcherSearch;
-  @FindBy(id = "messages")
-  private WebElement mailcatcherMessages;
-  @FindBy(xpath = "//*[contains(text(), 'The email has already been taken.')]")
-  private WebElement ngStarInserted;
-  @FindBy(css = "[data-test='auth-registration-form-submit-button']")
-  private WebElement authRegistrationButton;
-  @FindBy(css = "[class='adsh-icon adsh-icon--small adsh-icon--append choose-user-menu-chevron ng-star-inserted']")
-  private WebElement headerChooseUserMenu;
-  @FindBy(css = "[data-test='header-choose-user-menu-advertiser']")
-  private WebElement headerChooseUserMenuAdvertiser;
-  @FindBy(css = "[data-test='header-choose-user-menu-publisher']")
-  private WebElement headerChooseUserMenuPublisher;
-
-  @FindBy(css = "[class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")
-  private WebElement settingsMenuChevron;
-  @FindBy(css = "[data-test='header-account-settings-button']")
-  private WebElement accountSettings;
-  @FindBy(css = "[data-test='header-billing-payments-button']")
-  private WebElement billingPayments;
-  @FindBy(css = "[data-test='settings-change-email-form-submit']")
-  private WebElement changeEmail;
-  @FindBy(css = "[data-test='settings-change-password-form-submit']")
-  private WebElement changePassword;
-
-  @FindBy(xpath = "//span[contains(text(), 'Your email was changed successfully.')]")
-  private WebElement loginEmailAssert;
-  @FindBy(xpath = "//span[contains(text(), 'Password changed')]")
-  private WebElement loginPasswordAssert;
-  @FindBy(xpath = "//span[contains(text(), 'Minimum 8 signs required!')]")
-  private WebElement loginPasswordAssert2;
-  @FindBy(xpath = "//span[contains(text(), 'Passwords don't match!')]")
-  private WebElement loginPasswordAssert3;
-  @FindBy(xpath = "//span[contains(text(), 'Old password is not valid')]")
-  private WebElement loginPasswordAssert4;
-  @FindBy(css = "[data-test='auth-redirect-to-first-login']")
-  private WebElement firstLogin;
-  @FindBy(xpath = "//h2[contains(text(),'Activation Email')]")
-  private WebElement ActivationEmail;
-  @FindBy(css = "[class='checkbox-label']")
-  private WebElement rememberMe;
-  @FindBy(xpath = "//span[contains(text(), 'Email required!')]")
-  private WebElement loginEmailAssert2;
-  @FindBy(xpath = "//span[contains(text(), 'Invalid email!')]")
-  private WebElement loginEmailAssert3;
-  @FindBy(css = "[data-test='settings-faq-link']")
-  private WebElement CheckOurFAQ;
-  @FindBy(css = "[class='logo-header']")
-  private WebElement FAQ;
-  @FindBy(css = "[class='adsh-logo']")
-  private WebElement adshLogo;
-
-  @FindBy(css = "[class='adsh-dialog-close']")
-  private WebElement adshDialogClose;
-  @FindBy(xpath = "//h1[contains(text(), 'Email activation complete')]")
-  private WebElement adshDialogCloseAssert;
-
+  @FindBy(xpath = "//h2[contains(text(),'Activation Email')]")                                                          private WebElement ActivationEmail;
+  @FindBy(xpath = "//span[contains(text(), 'Email required!')]")                                                        private WebElement loginEmailAssert2;
+  @FindBy(xpath = "//span[contains(text(), 'Invalid email!')]")                                                         private WebElement loginEmailAssert3;
+  @FindBy(xpath = "//img[@class = 'adsh-logo']")                                                                        private WebElement assertLogo;
+  @FindBy(xpath = "//*[contains(text(), 'Hello!')]")                                                                    private WebElement helloText;
+  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Email required!')]")                   private WebElement emailRequired;
+  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Invalid email!')]")                    private WebElement invalidEmail;
+  @FindBy(xpath = "//input[@name='email']/following-sibling::span[contains(text(),'Invalid email!')]")                  private WebElement invalidEmailName;
+  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")              private WebElement passwordEmptyRequired;
+  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")      private WebElement passwordMinimumRequired;
+  @FindBy(xpath = "//*[contains(text(), 'The email has already been taken.')]")                                         private WebElement ngStarInserted;
+  @FindBy(xpath = "//span[contains(text(), 'Your email was changed successfully.')]")                                   private WebElement loginEmailAssert;
+  @FindBy(xpath = "//span[contains(text(), 'Password changed')]")                                                       private WebElement loginPasswordAssert;
+  @FindBy(xpath = "//span[contains(text(), 'Minimum 8 signs required!')]")                                              private WebElement loginPasswordAssert2;
+  @FindBy(xpath = "//span[contains(text(), 'Passwords don't match!')]")                                                 private WebElement loginPasswordAssert3;
+  @FindBy(xpath = "//span[contains(text(), 'Old password is not valid')]")                                              private WebElement loginPasswordAssert4;
+  @FindBy(xpath = "//h1[contains(text(), 'Email activation complete')]")                                                private WebElement adshDialogCloseAssert;
+  @FindBy(xpath = "//*[contains(text(), 'Invalid email!')]")                                                            private WebElement AssertLoginSignInError1;
+  @FindBy(xpath = "//*[contains(text(), 'Minimum 8 signs required!')]")                                                 private WebElement AssertLoginSignInError2;
 
   private WebElement userMenuAdvertiser;
 
@@ -134,7 +84,6 @@ public class LoginPage {
     PageFactory.initElements(driver, this);
   }
 
-
   public void loginSignIn(String loginAdService, String passwordAdService) {
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
     loginEmail.sendKeys(loginAdService);
@@ -142,6 +91,14 @@ public class LoginPage {
     Assert.assertTrue(loginButton.isEnabled());
     LOGGER.info("Button visibility: ok");
     loginButton.click();
+  }
+
+  public void loginSignInError() {
+    wait.until(ExpectedConditions.visibilityOf(AssertLoginSignInError1));
+    Assert.assertEquals("Invalid email!", AssertLoginSignInError1.getText());
+    System.out.println("-. Invalid email! - OK");
+    Assert.assertEquals("Minimum 8 signs required!", AssertLoginSignInError2.getText());
+    System.out.println("-. Minimum 8 signs required! - OK");
   }
 
   public void pageLayoutValidation() {
@@ -262,6 +219,7 @@ public class LoginPage {
 
   public void goToLoginRegistrRandom(String Password) throws InterruptedException {
     //                    Registr Random
+    int id=1;
     wait.until(ExpectedConditions.visibilityOf(registerButton));
     registerButton.click();
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
@@ -273,15 +231,16 @@ public class LoginPage {
 //    RandomPage
     RandomPage.create();
     RandomPage.store("user_email", randomsEmail);
+    RandomPage.store2("user_password", Password);
 
     loginEmail.sendKeys(randomsEmail);
     loginPassword.sendKeys(Password);
     loginConfirmPassword.sendKeys(Password);
-    System.out.println("LoginEmail: "+randomsEmail);
-    System.out.println("Password: "+Password);
+    System.out.println("LoginEmail: "+RandomPage.getFromStore("user_email"));
+    System.out.println("Password:   "+RandomPage.getFromStore2("user_password"));
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-    System.out.println("1. RegistrRandom - OK");
+    System.out.println(id+". RegistrRandom - OK"); id=id+1;
     //                    Milcatcher Random
     wait = new WebDriverWait(driver, 10);
     driver.get("http://mailcatcher.ads/");
@@ -291,7 +250,7 @@ public class LoginPage {
 
     // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println ("2. "+driver.getTitle()+" - "+handle);
+    System.out.println (id+". "+driver.getTitle()+" - "+handle);  id=id+1;
 
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
@@ -308,7 +267,7 @@ public class LoginPage {
       driver.switchTo().window(handle1);
       I=I+1;
     }
-    System.out.println("3. "+driver.getTitle());
+    System.out.println(id+". "+driver.getTitle());  id=id+1;
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
 
@@ -317,6 +276,8 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginEmail.sendKeys(randomsEmail);
     loginPassword.sendKeys(Password);
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
 

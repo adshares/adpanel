@@ -36,6 +36,13 @@ public class LoginTestCase extends BrowserTestCase {
     System.out.println("1. loginTest");
   }
   @Test
+  public void loginAsdf() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn("asdf", "asdf");
+    loginPage.loginSignInError();
+  }
+  @Test
   public void loginAdmin() {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
