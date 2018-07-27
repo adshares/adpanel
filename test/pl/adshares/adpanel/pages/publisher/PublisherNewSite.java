@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pl.adshares.adpanel.tools.RandomPage;
 
 public class PublisherNewSite {
   @FindBy(css = "[data-test='publisher-edit-site-basic-information-form-url']")   private WebElement websiteUrl;
@@ -40,24 +41,36 @@ public class PublisherNewSite {
     wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
     contentLanguageEnglish.click();
     saveButtonPublisherCampaign.click();
-    System.out.println("5. BasicInfo - OK");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". BasicInfo - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
   public void goToSiteAdditionalTargeting() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    System.out.println("5. BasicInfo - OK");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". BasicInfo - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
-  public void sitePublisherBasicInfoError(String Url) throws InterruptedException {
+  public void sitePublisherBasicInfoError(String Url)  {
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Please provide a valid URL.", AssertionPleaseProvideAValidURL.getText());
-    System.out.println("6. Please provide a valid URL. - OK ");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Please provide a valid URL. - OKK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
   public void backToDashboard() {
     wait.until(ExpectedConditions.visibilityOf(backToDashboard));
     backToDashboard.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    System.out.println("11. Back Basic Information - OK ");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Back Basic Information - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
 }

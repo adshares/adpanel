@@ -151,6 +151,7 @@
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
+
           <include name="loginTest"/>
           <include name="loginPopUpPublisher"/>
         </methods>

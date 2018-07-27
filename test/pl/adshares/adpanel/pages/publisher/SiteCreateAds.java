@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pl.adshares.adpanel.tools.RandomPage;
 
 import java.util.List;
 import java.util.Random;
@@ -58,18 +59,27 @@ public class SiteCreateAds {
   public void goToSummary() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    System.out.println("7. Create Ads - OK");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Create Ads - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
-  public void createAdUnitError() throws InterruptedException {
+  public void createAdUnitError() {
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Name of Unit required!", AssertionNameOfUnitRequired.getText());
-    System.out.println("8. Name of Unit required! - OK ");
+     int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Name of Unit required! - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
-  public void back() throws InterruptedException {
+  public void back() {
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    System.out.println("9. Back Create Ads - OK");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Back Create Ads - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 }

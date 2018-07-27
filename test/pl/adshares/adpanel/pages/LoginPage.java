@@ -96,9 +96,12 @@ public class LoginPage {
   public void loginSignInError() {
     wait.until(ExpectedConditions.visibilityOf(AssertLoginSignInError1));
     Assert.assertEquals("Invalid email!", AssertLoginSignInError1.getText());
-    System.out.println("-. Invalid email! - OK");
+    int id = 1;
+    System.out.println(id+". Invalid email! - OK"); id=id+1;
     Assert.assertEquals("Minimum 8 signs required!", AssertLoginSignInError2.getText());
-    System.out.println("-. Minimum 8 signs required! - OK");
+    System.out.println(id+". Minimum 8 signs required! - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void pageLayoutValidation() {
@@ -240,7 +243,7 @@ public class LoginPage {
     System.out.println("Password:   "+RandomPage.getFromStore2("user_password"));
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-    System.out.println(id+". RegistrRandom - OK"); id=id+1;
+    System.out.println(id+". Create Account - OK"); id=id+1;
     //                    Milcatcher Random
     wait = new WebDriverWait(driver, 10);
     driver.get("http://mailcatcher.ads/");
@@ -250,7 +253,7 @@ public class LoginPage {
 
     // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
     String handle = driver.getWindowHandle();
-    System.out.println (id+". "+driver.getTitle()+" - "+handle);  id=id+1;
+    System.out.println ("-. "+driver.getTitle()+" - "+handle);
 
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
@@ -267,7 +270,7 @@ public class LoginPage {
       driver.switchTo().window(handle1);
       I=I+1;
     }
-    System.out.println(id+". "+driver.getTitle());  id=id+1;
+    System.out.println("-. "+driver.getTitle());
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
 
@@ -284,16 +287,22 @@ public class LoginPage {
   public void logIn () {
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginButton.click();
-    System.out.println("4. Log in - OK");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". Log in - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
   public void logInRememberMe () {
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(rememberMe));
     rememberMe.click();
     loginButton.click();
-    System.out.println("4. Log in - OK");
+    System.out.println(id+". Log in - OK");
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
-  public void gotologinChangeEmail() throws InterruptedException {
+  public void gotologinChangeEmail() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS - TEST" parallel="false">
-  <test name="TC 4 - advertiserMyCampaign" group-by-instances="true">
+<suite name="TS - Publisher" parallel="false">
+
+  <test name="TC_14 - Weryfikacja - Back" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -11,7 +12,7 @@
       </class>
       <class name="pl.adshares.adpanel.AdvertiserTestCase">
         <methods>
-          <include name="advertiserCampaign"/>
+          <include name="saveAsDraftAdvertiserCampaign"/>
         </methods>
       </class>
     </classes>

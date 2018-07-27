@@ -36,7 +36,7 @@ public class LoginTestCase extends BrowserTestCase {
     System.out.println("1. loginTest");
   }
   @Test
-  public void loginAsdf() throws InterruptedException {
+  public void loginAsdf() {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn("asdf", "asdf");
@@ -139,7 +139,7 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-    public void loginChangeEmail() throws InterruptedException {
+    public void loginChangeEmail() {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail();
   }
@@ -191,10 +191,6 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
   }
-  @Test
-  public void loginSecondTab5() throws InterruptedException {
-    pageOpera = new PageOpera(driver);
-    pageOpera.OperaSecondTab();
-  }
+
 
 }

@@ -2,19 +2,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-  <test name="TC_10 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
+  <test name="TC_2 - Create Campaign">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginPopUpFirstAdvertiser"/>
         </methods>
       </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
+      <class name="pl.adshares.adpanel.AdvertiserTestCase">
         <methods>
-          <include name="AddSummary_down"/>
+          <include name="createAdvertiserCampaign"/>
         </methods>
       </class>
     </classes>
   </test>
+
+
 </suite>

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pl.adshares.adpanel.tools.RandomPage;
 
 
 public class HeaderBarPage {
@@ -41,7 +42,10 @@ public class HeaderBarPage {
 //    headerSettingsMenu.click();
 //    wait.until(ExpectedConditions.visibilityOf(logOut));
     logOut.click();
-    System.out.println("-. logOutTest");
+    int id = (int) RandomPage.getFromId("id");
+    System.out.println(id+". log Out - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
     return PageFactory.initElements(driver, HeaderBarPage.class);
   }
 
