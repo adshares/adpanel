@@ -4,12 +4,13 @@
     notification"
 >
   <div class="col-xs-2">
-    <img
+    <!-- TODO : wymaga posprzątania i przebudowy, pociągnąć logikę z serverem -->
+    <!-- <img
       class="
         adsh-icon
         adsh-icon--large"
       [src]="'assets/images/notifications/' + notificationTypesEnum[notification.notificationType].toLowerCase() + '.svg'"
-    >
+    > -->
   </div>
 
   <div
@@ -33,7 +34,7 @@
     >
       {{ notification.message }}
     </p>
-    <div
+    <!-- <div
       class="
         row
         adsh-copy
@@ -57,7 +58,7 @@
           {{ notificationActionsEnum[notificationAction] }}
         </span>
       </a>
-    </div>
+    </div> -->
   </div>
 </div>
 <hr>
