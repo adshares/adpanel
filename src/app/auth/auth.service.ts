@@ -27,12 +27,12 @@ export class AuthService {
     return this.http.get<User>(`${environment.apiUrl}/auth/check`);
   }
 
-  remindPassword(email: string, uri: string) {
+  recoveryPassword(email: string, uri: string) {
     return this.http.post(`${environment.apiUrl}/auth/recovery`, { email, uri });
   }
 
-  resetPassword(user: object,  uri: string) {
-     return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
+  resetPassword(user: object,  token: string) {
+     return this.http.patch(`${environment.apiUrl}/users`, { user, token });
    }
 
   emailActivation(token: string){

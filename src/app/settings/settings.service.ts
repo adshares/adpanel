@@ -17,12 +17,12 @@ export class SettingsService {
   }
 
   getNotificationsSettings(): Observable<NotificationItem[]> {
-    return this.http.get(`${environment.apiUrl}/notifications/settings`)
+    return this.http.get(`${environment.apiUrl}/settings/notifications`)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
   updateNotificationsSettings(newSettings: NotificationItem[]): Observable<NotificationItem[]> {
-    return this.http.patch(`${environment.apiUrl}/notifications/settings`, newSettings)
+    return this.http.patch(`${environment.apiUrl}/settings/notifications`, newSettings)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
