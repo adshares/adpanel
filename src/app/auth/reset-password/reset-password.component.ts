@@ -3,7 +3,7 @@ import { appSettings } from 'app-settings';
 import { LocalStorageUser, User } from "models/user.model";
 import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "auth/auth.service";
+import { ApiService } from "app/api/api.service";
 import { HandleSubscription } from "common/handle-subscription";
 import { MatDialog } from "@angular/material/dialog";
 
@@ -21,7 +21,7 @@ export class ResetPasswordComponent {
   isPasswordConfirm = false;
   confirmErrors= {};
   constructor(
-      private auth: AuthService,
+      private api: ApiService,
       private router: Router,
       private route: ActivatedRoute,
       private dialog: MatDialog,
@@ -31,7 +31,7 @@ export class ResetPasswordComponent {
         this.route.params.subscribe(
           params => {
             this.token = params['token'];
-            this.auth.checkRecoveryPasswordToken(this.token).subscribe(
+            this.api.auth.recoveryGet(this.token).subscribe(
               () => [],
               (err) => {
                 this.router.navigate(['/auth/forgotten-password']);
@@ -58,7 +58,7 @@ export class ResetPasswordComponent {
           password_new: this.confirmPasswordForm.value.password,
           token: this.token
       };
-      this.auth.resetPassword(
+      this.api.users.patchWithToken(
           user, this.token
       )
           .subscribe(

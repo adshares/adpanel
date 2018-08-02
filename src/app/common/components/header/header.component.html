@@ -279,7 +279,7 @@
 
         <li class="settings-menu__item">
           <span
-            (click)="logOut()"
+            (click)="logout()"
             data-test="header-log-out-button"
           >
             Log out
@@ -296,7 +296,7 @@
         align-center
         hidden-sm"
       *ngIf="userDataState.isAdmin"
-      (click)="logOut()"
+      (click)="logout()"
       data-test="header-log-out-button"
     >
       <span>
@@ -314,7 +314,7 @@
         visible-sm
         hidden-lg-up"
       *ngIf="!userDataState.isAdmin"
-      (click)="logOut()"
+      (click)="logout()"
       data-test="header-log-out-button"
     >
       <span>
@@ -329,7 +329,7 @@
         logout-on-small-devices
         visible-xs
         hidden-sm-up"
-      (click)="logOut()"
+      (click)="logout()"
       data-test="header-log-out-button"
     >
       Log out

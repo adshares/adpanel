@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import * as authActions from 'store/auth/auth.actions';
 import * as commonActions from 'store/common/common.actions';
 
-import { AuthService } from 'auth/auth.service';
+import { ApiService } from 'app/api/api.service';
 import { SessionService } from "app/session.service";
 import { User, LocalStorageUser } from 'models/user.model';
 import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
@@ -35,7 +35,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   criteriaError = false;
 
   constructor(
-    private auth: AuthService,
+    private api: ApiService,
     private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
@@ -83,7 +83,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    const loginSubscription = this.auth.loginUser(
+    const loginSubscription = this.api.auth.login(
       this.loginForm.value.email,
       this.loginForm.value.password
     )
