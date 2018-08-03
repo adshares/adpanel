@@ -65,7 +65,7 @@ export class RequestInterceptor implements HttpInterceptor {
       (err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           let crazy = !this.session.getUser();
-          this.session.dropUser();
+          this.session.drop();
           this.router.navigate(['/auth', 'login']);
           if (crazy) {
             this.dialogError('Login required', 'Last request required logged-in user.');

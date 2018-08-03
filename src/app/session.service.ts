@@ -6,11 +6,9 @@ import { LocalStorageUser } from 'models/user.model';
 @Injectable()
 export class SessionService {
 
-  dropNotifications() {
+  drop() {
+    localStorage.removeItem('adsharesAddress');
     localStorage.removeItem('notifications');
-  }
-
-  dropUser() {
     localStorage.removeItem('user');
   }
 

@@ -18,13 +18,11 @@ export class AuthService {
   logout() {
     this.api.auth.logout().subscribe(
       () => {
-        this.session.dropUser();
-        this.session.dropNotifications();
+        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       },
       () => {
-        this.session.dropUser();
-        this.session.dropNotifications();
+        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       }
     );
