@@ -9,9 +9,6 @@ import { User } from "models/user.model";
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 
-
-
-
 @Component({
   selector: 'app-email-not-activated-bar',
   templateUrl: './not-activated-bar.component.html',
