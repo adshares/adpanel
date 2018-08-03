@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppCommonModule } from './common/common.module';
+import { ApiModule } from './api/api.module';
 import { AuthModule } from './auth/auth.module';
 import { AdvertiserModule } from './advertiser/advertiser.module';
 import { AdminModule } from './admin/admin.module';
@@ -23,6 +24,7 @@ import { AdvertiserService } from './advertiser/advertiser.service';
 import { PublisherService } from './publisher/publisher.service';
 import { SettingsService } from './settings/settings.service';
 import { AdminService } from './admin/admin.service';
+import { AuthService } from 'app/auth.service';
 import { SessionService } from 'app/session.service';
 
 import { AdvertiserEffects } from './store/advertiser/advertiser.effects';
@@ -52,6 +54,7 @@ const appModules = [
     ErrorResponseDialogComponent,
   ],
   imports: [
+    ApiModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -77,6 +80,7 @@ const appModules = [
     PublisherService,
     SettingsService,
     AdminService,
+    AuthService,
     SessionService,
     AppComponent,
   ],

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'auth/auth.service'
+import { ApiService } from 'app/api/api.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { appSettings } from 'app-settings';
 import { User } from "models/user.model";
@@ -21,7 +21,7 @@ export class RegisterComponent extends HandleSubscription {
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   user: User;
   constructor(
-    private authService: AuthService,
+    private api: ApiService,
     private router: Router
   ) {
     super();
@@ -43,7 +43,7 @@ export class RegisterComponent extends HandleSubscription {
       isAdvertiser: false,
       isPublisher: false
     };
-    const registerSubscription = this.authService.registerUser(
+    const registerSubscription = this.api.users.post(
       user, uri
     )
       .subscribe(

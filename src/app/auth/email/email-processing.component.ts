@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from "@angular/material/dialog";
 
 import { SessionService } from "app/session.service";
-import { AuthService } from 'auth/auth.service';
+import { ApiService } from 'app/api/api.service';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
@@ -20,7 +20,7 @@ export class EmailProcessingComponent {
   ObjectKeys = Object.keys;
   error: boolean = false;
   constructor(
-    private auth: AuthService,
+    private api: ApiService,
     private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
@@ -95,7 +95,7 @@ export class EmailProcessingComponent {
   }
 
   emailActivation() {
-    this.auth.emailActivation(this.token)
+    this.api.users.emailActivate(this.token)
       .subscribe(
         (user) => {
           this.updateUserEmail(user);
@@ -110,7 +110,7 @@ export class EmailProcessingComponent {
   }
 
   emailChangeConfirmOld() {
-    this.auth.emailChangeConfirmOld(this.token)
+    this.api.users.emailConfirm1Old(this.token)
       .subscribe(
         () => {
           this.defaultRedirect();
@@ -128,7 +128,7 @@ export class EmailProcessingComponent {
   }
 
   emailChangeConfirmNew() {
-    this.auth.emailChangeConfirmNew(this.token)
+    this.api.users.emailConfirm2New(this.token)
       .subscribe(
         (user) => {
           this.updateUserEmail(user);

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { MatDialog } from "@angular/material/dialog";
 
-import { AuthService } from 'auth/auth.service';
+import { ApiService } from 'app/api/api.service';
 import { appSettings } from 'app-settings';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
@@ -23,7 +23,7 @@ export class ForgottenPasswordComponent {
 
   constructor(
     private router: Router,
-    private auth: AuthService,
+    private api: ApiService,
     private dialog: MatDialog,
   ) { }
 
@@ -38,7 +38,7 @@ export class ForgottenPasswordComponent {
     this.isSendingEmail = true;
     this.emailDoesntExist = false;
 
-    this.auth.recoveryPassword(formValues.email, uri)
+    this.api.auth.recoveryPost(formValues.email, uri)
       .subscribe(
         () => { this.alwaysGoodDialog(); },
         (err) => {

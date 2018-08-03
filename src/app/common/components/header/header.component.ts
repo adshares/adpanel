@@ -9,7 +9,7 @@ import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { userInitialState } from 'models/initial-state/user';
-import { AuthService } from 'auth/auth.service';
+import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
 
 @Component({
@@ -84,17 +84,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.dialog.open(AddFundsDialogComponent);
   }
 
-  logOut() {
-    this.auth.logOut().subscribe(
-      () => {
-        this.session.dropUser();
-        this.router.navigate(['/auth', 'login']);
-      },
-      () => {
-        this.session.dropUser();
-        this.router.navigate(['/auth', 'login']);
-      }
-    );
+  logout() {
+    this.auth.logout();
   }
 
   toggleNotificationsBar() {
