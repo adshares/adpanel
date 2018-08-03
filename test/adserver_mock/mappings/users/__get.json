@@ -12,7 +12,7 @@
     },
     "jsonBody": {
       "id": 1,
-      "email": "user1@example.com",
+      "email": "user@e11.click",
       "isAdvertiser": true,
       "isPublisher": true,
       "isAdmin": false,
@@ -20,7 +20,7 @@
       "authToken": "someauthtokenvalue",
       "financialData": {
         "userAddress": "0001-0000001F-34FC",
-        "userMemo": "User 0291",
+        "userMemo": "User f325626f35f6485c84cf90eb7011f1f7",
         "userAutomaticWithdrawPeriod": 1,
         "userAutomaticWithdrawAmount": 300,
         "totalFunds": 1276.60,
