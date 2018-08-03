@@ -12,7 +12,7 @@ export class CommonService {
   constructor(private http: HttpClient) { }
 
   getAdsharesAddress(): Observable<AdsharesAddress> {
-    return this.http.get<AdsharesAddress>(`${environment.apiUrl}/wallet/deposit`);
+    return this.http.get<AdsharesAddress>(`${environment.apiUrl}/config/adshares-address`);
   }
 
   getNotifications(): Observable<Notification[]> {
