@@ -1,7 +1,7 @@
 {
   "request": {
-    "method": "PATCH",
-    "url": "/user/1/email"
+    "method": "POST",
+    "url": "/users/email/activate/resend"
   },
   "response": {
     "status": 200,

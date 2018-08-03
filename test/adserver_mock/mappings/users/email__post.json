@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/users/1/email/activation"
+    "url": "/users/email"
   },
   "response": {
     "status": 200,
