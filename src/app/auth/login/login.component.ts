@@ -4,17 +4,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as authActions from 'store/auth/auth.actions';
-import * as commonActions from 'store/common/common.actions';
-
 import { ApiService } from 'app/api/api.service';
 import { SessionService } from "app/session.service";
+
 import { User, LocalStorageUser } from 'models/user.model';
 import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
+
 import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
@@ -46,7 +45,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
 
-    // this should be elsewhere anyway (?)
+    // SMELL: this should be elsewhere anyway (?)
     const user: LocalStorageUser = this.session.getUser();
     if (user) {
       this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
@@ -83,30 +82,30 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    const loginSubscription = this.api.auth.login(
+    this.api.auth.login(
       this.loginForm.value.email,
       this.loginForm.value.password
     )
-      .subscribe((userResponse: User) => {
-        this.saveUserDataToLocalStorage(userResponse);
-        if (userResponse.isAdmin) {
-          this.router.navigate(['/admin/dashboard']);
-          return;
-        }
-        this.showStartupPopups(userResponse);
-      },
+      .subscribe(
+        (user: User) => {
+          this.processLogin(user);
+          if (user.isAdmin) {
+            this.router.navigate(['/admin/dashboard']);
+            return;
+          }
+          this.showStartupPopups(user);
+        },
         (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;
-        });
-    this.subscriptions.push(loginSubscription);
+      });
   }
 
-  saveUserDataToLocalStorage(userResponse: User) {
+  processLogin(user: User) {
     const rememberUser = this.rememberUser.nativeElement.checked;
     const expirationSeconds = rememberUser ?
       appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
-    const dataToSave: LocalStorageUser = Object.assign({}, userResponse, {
+    const dataToSave: LocalStorageUser = Object.assign({}, user, {
       remember: rememberUser,
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds

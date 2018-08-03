@@ -10,7 +10,6 @@ import { fadeAnimation } from 'common/animations/fade.animation';
 import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { User, LocalStorageUser } from 'models/user.model';
-import { AdsharesAddress } from 'models/settings.model';
 import { Notification } from 'models/notification.model';
 
 import { AuthService } from 'app/auth.service';
@@ -43,7 +42,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    this.getAdsharesAddress();
     this.setNotificationUptadeInterval();
 
     // TODO ? wtf wtf
@@ -54,17 +52,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
-  }
-
-  getAdsharesAddress() {
-    if (this.session.getAdsharesAddress()) {
-      return;
-    }
-    this.commonService.getAdsharesAddress()
-      .subscribe((data: AdsharesAddress) => {
-        this.session.setAdsharesAddress(data.adsharesAddress);
-      });
-
   }
 
   getNotifications() {
