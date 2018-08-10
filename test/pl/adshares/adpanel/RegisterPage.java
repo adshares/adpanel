@@ -19,50 +19,30 @@ import java.util.Set;
 public class RegisterPage {
   private static final Logger LOGGER = Logger.getLogger(RegisterPage.class);
 
-  @FindBy(css = "[data-test='auth-registration-form-email']")
-  private WebElement registerEmailAddress;
-  @FindBy(css = "[data-test='auth-registration-form-password']")
-  private WebElement registerPassword;
-  @FindBy(css = "[data-test='auth-registration-form-confirm-password']")
-  private WebElement registerPasswordConfirm;
-  @FindBy(css = "[data-test='auth-registration-form-submit-button']")
-  private WebElement registerButton;
+  @FindBy(css = "[data-test='auth-registration-form-email']")                                                           private WebElement registerEmailAddress;
+  @FindBy(css = "[data-test='auth-registration-form-password']")                                                        private WebElement registerPassword;
+  @FindBy(css = "[data-test='auth-registration-form-confirm-password']")                                                private WebElement registerPasswordConfirm;
+  @FindBy(css = "[data-test='auth-registration-form-submit-button']")                                                   private WebElement registerButton;
 
-  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Email required!')]")
-  private WebElement emailRequired;
-  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Invalid email!')]")
-  private WebElement invalidEmail;
-  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")
-  private WebElement passwordEmptyRequired;
-  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")
-  private WebElement passwordMinimumRequired;
-  @FindBy(xpath = "//input[@id='confirmPassword']/following-sibling::span[contains(text(),'Passwords don')]")
-  private WebElement passwordDontMatch;
+  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Email required!')]")                   private WebElement emailRequired;
+  @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Invalid email!')]")                    private WebElement invalidEmail;
+  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")              private WebElement passwordEmptyRequired;
+  @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")      private WebElement passwordMinimumRequired;
+  @FindBy(xpath = "//input[@id='confirmPassword']/following-sibling::span[contains(text(),'Passwords don')]")           private WebElement passwordDontMatch;
 
-  @FindBy(css = "[data-test='auth-redirect-to-remind-password']")
-  private WebElement forgotPassword;
-  @FindBy(css = "[data-test='auth-remind-password-form-email']")
-  private WebElement emailAddress;
-  @FindBy(css = "[class='ng-star-inserted']")
-  private WebElement sendNewPassword;
-  @FindBy(css = "[data-test='auth-remind-password-form-submit-button']")
-  private WebElement sendLinkToResetPassword;
-  @FindBy(id = "messages")
-  private WebElement mailcatcherMessages;
-  @FindBy(id = "password")
-  private WebElement password;
-  @FindBy(id = "confirmPassword")
-  private WebElement confirmPassword;
-  @FindBy(css = "[data-test='auth-registration-form-submit-button']")
-  private WebElement resetPassword;
-  @FindBy(css = "[data-test='auth-redirect-to-first-login']")
-  private WebElement logIn;
-  @FindBy(css = "[data-test='auth-login-form-submit-button']")
-  private WebElement logIn2;
-  @FindBy(id = "email")
-  private WebElement email;
-  @FindBy(css = "[class='adsh-logo']")
-  private WebElement adshLogo;
+  @FindBy(css = "[data-test='auth-redirect-to-forgotten-password']")                                                    private WebElement forgotPassword;
+  @FindBy(css = "[data-test='auth-remind-password-form-email']")                                                        private WebElement emailAddress;
+  @FindBy(css = "[class='ng-star-inserted']")                                                                           private WebElement sendNewPassword;
+  @FindBy(css = "[data-test='auth-remind-password-form-submit-button']")                                                private WebElement sendLinkToResetPassword;
+  @FindBy(id = "messages")                                                                                              private WebElement mailcatcherMessages;
+  @FindBy(id = "password")                                                                                              private WebElement password;
+  @FindBy(id = "confirmPassword")                                                                                       private WebElement confirmPassword;
+  @FindBy(css = "[data-test='auth-registration-form-submit-button']")                                                   private WebElement resetPassword;
+  @FindBy(xpath = "//*[contains(text(),'Log In')]")                                                                     private WebElement logIn;
+  @FindBy(css = "[data-test='auth-login-form-submit-button']")                                                          private WebElement logIn2;
+  @FindBy(id = "email")                                                                                                 private WebElement email;
+  @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
+  @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement yourNewPasswordIsSet;
 
 
 
@@ -164,14 +144,14 @@ public class RegisterPage {
   }
 
   public void registerForgotPassword(Object user_email, String newPassword) throws InterruptedException {
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
+    System.out.println(id+". Forgot Password - OK"); id=id+1;
+
     wait.until(ExpectedConditions.visibilityOf(emailAddress));
     emailAddress.sendKeys((CharSequence) user_email);
-    System.out.println("-. user_email: "+user_email);
-//    System.out.println("user_email: " + RandomPage.getFromStore("user_email")+" user_email: "+user_email);
-    String handle = driver.getWindowHandle();
-    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
+    //String handle = driver.getWindowHandle();
     sendLinkToResetPassword.click();
     Set handles = driver.getWindowHandles();
     int I=2;
@@ -182,9 +162,9 @@ public class RegisterPage {
       I=I+1;
     }
     String handle1 = driver.getWindowHandle();
-    System.out.println("5.2. "+driver.getTitle()+" - "+handle1);
+    System.out.println("-. "+driver.getTitle()+" - "+handle1);
     //                    Mailcatcher
-    wait = new WebDriverWait(driver, 10);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
     Thread.sleep(4000);
@@ -202,29 +182,39 @@ public class RegisterPage {
       I=I+1;
     }
     String handle3 = driver.getWindowHandle();
-    System.out.println("5.3. "+driver.getTitle()+" - "+handle3);
-    wait = new WebDriverWait(driver, 10);
+    System.out.println("-. "+driver.getTitle()+" - "+handle3);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(password));
-
     password.sendKeys(newPassword);
     wait.until(ExpectedConditions.visibilityOf(confirmPassword));
     confirmPassword.sendKeys(newPassword);
+    password.getText();
+    confirmPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(resetPassword));
+
+    // TODO: 09.08.18 error - komunikat Reset your password. - Passwords don't match!
+    Thread.sleep(400000);
+
     resetPassword.click();
-    // TODO: 24.07.18 do poprawy dla Tomka resetPassword:[1xbłąd, 2xdziała już poprawnie]
-    //resetPassword.click();
-    wait.until(ExpectedConditions.visibilityOf(logIn));
-    logIn.click();
+    System.out.println(id+". Reset Password"); id=id+1;
+    wait.until(ExpectedConditions.visibilityOf(yourNewPasswordIsSet));
+    yourNewPasswordIsSet.click();
     wait.until(ExpectedConditions.visibilityOf(email));
     email.sendKeys((CharSequence) user_email);
     wait.until(ExpectedConditions.visibilityOf(password));
     password.sendKeys(newPassword);
-    System.out.println("6. New password: "+newPassword);
-    wait.until(ExpectedConditions.visibilityOf(logIn2));
-    logIn2.click();
+    wait.until(ExpectedConditions.visibilityOf(email));
+    email.getText();
+    wait.until(ExpectedConditions.visibilityOf(password));
+    password.getText();
+    wait.until(ExpectedConditions.visibilityOf(logIn));
+    logIn.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    System.out.println(id+". New password: "+newPassword); id=id+1;
     System.out.println("Koniec");
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
 }

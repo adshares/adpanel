@@ -3,6 +3,7 @@ package pl.adshares.adpanel;
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
+import pl.adshares.adpanel.tools.RandomPage;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
@@ -139,19 +140,67 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-    public void loginChangeEmail() {
+    public void loginChangeEmail_1() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail();
+    Random random = new Random();
+    int number = random.nextInt(1000000);
+    String s = String.format("%06d", number)+"e";
+    loginPage.gotologinChangeEmail("michal@"+s+".click", "test@"+s+".click");
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn("michal@"+s+".click", "12345678");
   }
+  @Test
+    public void loginChangeEmail_2() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_3() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_4() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_5() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_6() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_7() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("111michal@e11.click", "test@e11.click");
+  }
+
   @Test
   public void loginChangeEmailNegative()  {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmailNegative();
   }
   @Test
-  public void loginChangePassword() {
+  public void loginChangePassword() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangePassword();
+    Random random = new Random();
+    int number = random.nextInt(100000000);
+    String NewPassword = String.format("%08d", number);
+    loginPage.gotologinChangePassword(NewPassword);
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn((String) RandomPage.getFromStore("user_email"), NewPassword);
+    System.out.println("LoginEmail:  "+RandomPage.getFromStore("user_email"));
+    System.out.println("NewPassword: "+NewPassword);
+    Thread.sleep(10000);
   }
   @Test
   public void loginChangePasswordNegative() {

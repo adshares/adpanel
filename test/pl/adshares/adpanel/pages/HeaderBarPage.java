@@ -39,8 +39,7 @@ public class HeaderBarPage {
     Actions action = new Actions(driver);
     WebElement we = driver.findElement(By.cssSelector("div[data-test='header-toggle-settings-menu']"));
     action.moveToElement(we).moveToElement(driver.findElement(By.cssSelector("span[data-test='header-log-out-button']"))).click().build().perform();
-//    headerSettingsMenu.click();
-//    wait.until(ExpectedConditions.visibilityOf(logOut));
+    wait.until(ExpectedConditions.elementToBeClickable(logOut));
     logOut.click();
     int id = (int) RandomPage.getFromId("id");
     System.out.println(id+". log Out - OK"); id=id+1;

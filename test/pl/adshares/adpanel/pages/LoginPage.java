@@ -32,7 +32,8 @@ public class LoginPage {
 
   @FindBy(name = "search")                                                                                              private WebElement mailcatcherSearch;
 
-  @FindBy(css = "[data-test='auth-login-form-submit-button']")                                                          private WebElement loginButton;
+  @FindBy(xpath = "//*[contains(text(),'Log In')]")                                                                     private WebElement loginButton;
+
   @FindBy(css = "[data-test='auth-redirect-to-registration']")                                                          private WebElement registerButton;
   @FindBy(css = "[data-test='header-choose-user-menu']")                                                                private WebElement userMenu;
   @FindBy(css = "[data-test='auth-redirect-to-first-login']")                                                           private WebElement activationEmailLogIn;
@@ -63,14 +64,16 @@ public class LoginPage {
   @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")              private WebElement passwordEmptyRequired;
   @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")      private WebElement passwordMinimumRequired;
   @FindBy(xpath = "//*[contains(text(), 'The email has already been taken.')]")                                         private WebElement ngStarInserted;
-  @FindBy(xpath = "//span[contains(text(), 'Your email was changed successfully.')]")                                   private WebElement loginEmailAssert;
-  @FindBy(xpath = "//span[contains(text(), 'Password changed')]")                                                       private WebElement loginPasswordAssert;
+  @FindBy(xpath = "//*[contains(text(), 'Changing email is a 2 step process')]")                                        private WebElement loginEmailAssert;
+  @FindBy(xpath = "//*[contains(text(), 'Request Failed')]")                                                            private WebElement loginEmailAssert1;
+  @FindBy(xpath = "//*[contains(text(), 'Password changed')]")                                                          private WebElement loginPasswordAssert;
   @FindBy(xpath = "//span[contains(text(), 'Minimum 8 signs required!')]")                                              private WebElement loginPasswordAssert2;
   @FindBy(xpath = "//span[contains(text(), 'Passwords don't match!')]")                                                 private WebElement loginPasswordAssert3;
   @FindBy(xpath = "//span[contains(text(), 'Old password is not valid')]")                                              private WebElement loginPasswordAssert4;
   @FindBy(xpath = "//h1[contains(text(), 'Email activation complete')]")                                                private WebElement adshDialogCloseAssert;
   @FindBy(xpath = "//*[contains(text(), 'Invalid email!')]")                                                            private WebElement AssertLoginSignInError1;
   @FindBy(xpath = "//*[contains(text(), 'Minimum 8 signs required!')]")                                                 private WebElement AssertLoginSignInError2;
+
 
   private WebElement userMenuAdvertiser;
 
@@ -80,7 +83,7 @@ public class LoginPage {
 
   public LoginPage(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 20);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
@@ -117,7 +120,7 @@ public class LoginPage {
     loginButton.click();
     String emptyEmailInput = emailRequired.getText();
     Assert.assertEquals("Email required!", emptyEmailInput);
-    System.out.println("Email required - checked!");
+    System.out.println("1. Email required - checked!");
   }
 
   public void wrongEmailCorrectPassword(String passwordAdService) {
@@ -127,7 +130,7 @@ public class LoginPage {
     loginButton.click();
     String invalidEmailInput = invalidEmail.getText();
     Assert.assertEquals("Invalid email!", invalidEmailInput);
-    System.out.println("Invalid email - checked!");
+    System.out.println("2. Invalid email - checked!");
   }
 
   public void wrongPasswordCorrectEmail(String loginAdService) {
@@ -151,17 +154,17 @@ public class LoginPage {
     loginButton.click();
     String invalidPasswordInput = passwordEmptyRequired.getText();
     Assert.assertEquals("Password required", invalidPasswordInput);
-    System.out.println("Password required - checked!");
+    System.out.println("4. Password required - checked!");
     loginPassword.sendKeys("aaa");
     String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
     Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
-    System.out.println("Minimum 8 signs required - checked!");
+    System.out.println("5. Minimum 8 signs required - checked!");
     loginPassword.clear();
     driver.navigate().refresh();
     loginPassword.sendKeys("aaaaaaaa");
     Boolean notPresent = ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver);
     Assert.assertTrue(notPresent);
-    System.out.println("8 signs: Validation message is not present - checked!");
+    System.out.println("6. 8 signs: Validation message is not present - checked!");
     loginEmail.sendKeys("test@wp.pl");
     loginButton.click();
   }
@@ -237,8 +240,11 @@ public class LoginPage {
     RandomPage.store2("user_password", Password);
 
     loginEmail.sendKeys(randomsEmail);
+    loginEmail.getText();
     loginPassword.sendKeys(Password);
+    loginPassword.getText();
     loginConfirmPassword.sendKeys(Password);
+    loginConfirmPassword.getText();
     System.out.println("LoginEmail: "+RandomPage.getFromStore("user_email"));
     System.out.println("Password:   "+RandomPage.getFromStore2("user_password"));
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
@@ -276,15 +282,21 @@ public class LoginPage {
 
     wait.until(ExpectedConditions.visibilityOf(adshDialogCloseAssert));
     adshDialogClose.click();
-    wait.until(ExpectedConditions.visibilityOf(loginButton));
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
     loginEmail.sendKeys(randomsEmail);
+    wait.until(ExpectedConditions.visibilityOf(loginPassword));
     loginPassword.sendKeys(Password);
+    wait.until(ExpectedConditions.visibilityOf(loginButton));
     RandomPage.createId();
     RandomPage.id("id", id);
   }
 
 
   public void logIn () {
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.getText();
+    wait.until(ExpectedConditions.visibilityOf(loginPassword));
+    loginPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginButton.click();
     int id = (int) RandomPage.getFromId("id");
@@ -302,28 +314,51 @@ public class LoginPage {
     RandomPage.id("id", id);
   }
 
-  public void gotologinChangeEmail() {
+  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) throws InterruptedException {
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
-    Random random = new Random();
-    int number = random.nextInt(1000000);
-    String randoms = String.format("%06d", number);
-    //    Your email was changed successfully.
-    int I=1;
-    String[] myList = {"michal@e"+randoms+".click","michal.michal@e"+randoms+".click","michal@e"+randoms+".click.pl","MiChAl@e"+randoms+".click","michal123@e"+randoms+".click","michal_123@e"+randoms+".click","111michal@e"+randoms+".click"};
-    for (String List : myList){
-      wait.until(ExpectedConditions.visibilityOf(loginEmail));
-      loginEmail.sendKeys(List);
-      changeEmail.click();
-      wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
-      Assert.assertEquals("Your email was changed successfully.", loginEmailAssert.getText());
-      System.out.println(I+"z7. Your email was changed successfully. - OK    [ "+List+" ]");
-      loginEmail.clear();
-      I=I+1;
-    }
-    System.out.print("-. Koniec testu");
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.sendKeys(ChangeEmail);
+    changeEmail.click();
+    wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
+    Assert.assertEquals("Changing email is a 2 step process", loginEmailAssert.getText());
+    System.out.println(id+". Changing email is a 2 step process - OK    [ "+ChangeEmail+" ]"); id=id+1;
+    wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    adshDialogClose.click();
+
+    loginEmail.sendKeys(ChangeEmail2);
+    changeEmail.click();
+    wait.until(ExpectedConditions.visibilityOf(loginEmailAssert1));
+    Assert.assertEquals("Request Failed", loginEmailAssert1.getText());
+    System.out.println(id+". Request Failed - OK                        [ "+ChangeEmail2+" ]"); id=id+1;
+    wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    adshDialogClose.click();
+    loginEmail.clear();
+    RandomPage.createId();
+    RandomPage.id("id", id);
+
+//    Random random = new Random();
+//    int number = random.nextInt(1000000);
+//    String randoms = String.format("%06d", number);
+//    //    Your email was changed successfully.
+//    int I=1;
+//    String[] myList = {"michal@e"+randoms+".click","michal.michal@e"+randoms+".click","michal@e"+randoms+".click.pl","MiChAl@e"+randoms+".click","michal123@e"+randoms+".click","michal_123@e"+randoms+".click","111michal@e"+randoms+".click"};
+//    for (String List : myList){
+//      wait.until(ExpectedConditions.visibilityOf(loginEmail));
+//      loginEmail.sendKeys(List);
+//      changeEmail.click();
+////      Thread.sleep(1000000);
+//      wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
+//      Assert.assertEquals("Changing email is a 2 step process", loginEmailAssert.getText());
+//      System.out.println(I+". Changing email is a 2 step process - OK    [ "+List+" ]");
+//      wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+//      adshDialogClose.click();
+//      loginEmail.clear();
+//      I=I+1;
+//    }
   }
   public void gotologinChangeEmailNegative() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
@@ -354,22 +389,22 @@ public class LoginPage {
     System.out.print("-. Koniec testu");
   }
 
-  public void gotologinChangePassword() {
+  public void gotologinChangePassword(String NewPassword) throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     accountSettings.click();
     wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
     loginCurrentPassword.sendKeys("12345678");
-    Random random = new Random();
-    int number = random.nextInt(100000000);
-    String randoms = String.format("%08d", number);
-    loginNewPassword.sendKeys(randoms);
-    loginNewPasswordConfirm.sendKeys(randoms);
+    loginNewPassword.sendKeys(NewPassword);
+    loginNewPasswordConfirm.sendKeys(NewPassword);
     changePassword.click();
+
     wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert));
     String loginEmailAssertInput = loginPasswordAssert.getText();
     Assert.assertEquals("Password changed", loginEmailAssertInput);
     System.out.println("-. Password changed - OK");
+    wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    adshDialogClose.click();
   }
   public void gotologinChangePasswordNegative() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
@@ -435,21 +470,21 @@ public class LoginPage {
 
   public void loginSecondTab() {
     String handle = driver.getWindowHandle();
-    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
+    System.out.println ("-. "+driver.getTitle()+" (1) - "+handle);
     driver.close();
     // 5.2 Store and Print the name of all the windows open
     Set handles = driver.getWindowHandles();
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("5.2. "+handle1);
       driver.switchTo().window(handle1);
     }
-    System.out.println("5.3. "+driver.getTitle());
+    System.out.println("-. "+driver.getTitle());
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);
 //    driver.navigate().to("http://panel.ads/");
     driver.get("http://panel.ads/");
     String handle2 = driver.getWindowHandle();
-    System.out.println ("5.4. "+driver.getTitle()+" - "+handle2);
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    System.out.println ("-. "+driver.getTitle()+" (2) - "+handle2);
   }
 
   public void loginSecondTab2() {
