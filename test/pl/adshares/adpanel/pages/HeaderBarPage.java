@@ -42,7 +42,7 @@ public class HeaderBarPage {
     wait.until(ExpectedConditions.elementToBeClickable(logOut));
     logOut.click();
     int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". log Out - OK"); id=id+1;
+    System.out.println(id+". Log Out - OK"); id=id+1;
     RandomPage.createId();
     RandomPage.id("id", id);
     return PageFactory.initElements(driver, HeaderBarPage.class);

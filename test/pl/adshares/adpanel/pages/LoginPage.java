@@ -51,11 +51,13 @@ public class LoginPage {
   @FindBy(css = "[data-test='settings-faq-link']")                                                                      private WebElement CheckOurFAQ;
   @FindBy(css = "[class='logo-header']")                                                                                private WebElement FAQ;
   @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
+  @FindBy(css = "[data-test='header-dashboard-link']")                                                                  private WebElement headerDashboardLink;
   @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement adshDialogClose;
 
   @FindBy(xpath = "//h2[contains(text(),'Activation Email')]")                                                          private WebElement ActivationEmail;
   @FindBy(xpath = "//span[contains(text(), 'Email required!')]")                                                        private WebElement loginEmailAssert2;
   @FindBy(xpath = "//span[contains(text(), 'Invalid email!')]")                                                         private WebElement loginEmailAssert3;
+  @FindBy(xpath = "//*[contains(text(), 'The email must be a valid email address.')]")                                  private WebElement loginEmailAssert4;
   @FindBy(xpath = "//img[@class = 'adsh-logo']")                                                                        private WebElement assertLogo;
   @FindBy(xpath = "//*[contains(text(), 'Hello!')]")                                                                    private WebElement helloText;
   @FindBy(xpath = "//input[@id='email']/following-sibling::span[contains(text(),'Email required!')]")                   private WebElement emailRequired;
@@ -88,12 +90,19 @@ public class LoginPage {
   }
 
   public void loginSignIn(String loginAdService, String passwordAdService) {
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
     loginEmail.sendKeys(loginAdService);
     loginPassword.sendKeys(passwordAdService);
     Assert.assertTrue(loginButton.isEnabled());
     LOGGER.info("Button visibility: ok");
+    wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginButton.click();
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    wait.until(ExpectedConditions.visibilityOf(headerDashboardLink));
+    System.out.println(id+". Log In  - OK"); id=id+1;
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void loginSignInError() {
@@ -314,7 +323,7 @@ public class LoginPage {
     RandomPage.id("id", id);
   }
 
-  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) throws InterruptedException {
+  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) {
     int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
@@ -374,22 +383,33 @@ public class LoginPage {
     System.out.println("1z10. Email required! - OK");
 //    "Invalid email!"
     int I=2;
-    String[] myList = {"michał@ę11.click","michal@-e11.click","michal@e11.","@e11.click","michal@_e11.click","michal.e11.click","michal@e11","_michal@e11.click","-michal@e11.click"};
+    String[] myList = {"michał@ę11.click","michal@-e11.click","michal@e11.","@e11.click","michal@_e11.click","michal.e11.click"};
     for (String List : myList){
       wait.until(ExpectedConditions.visibilityOf(loginEmail));
       loginEmail.sendKeys(List);
       changeEmail.click();
       wait.until(ExpectedConditions.visibilityOf(loginEmailAssert3));
-//      String loginEmailAssertInput3 = loginEmailAssert3.getText();
       Assert.assertEquals("Invalid email!", loginEmailAssert3.getText());
       System.out.println(I+"z10. Invalid email! - OK    [ "+List+" ]");
       loginEmail.clear();
       I=I+1;
     }
+    String[] myList2 = {"michal@e11","-michal@e11.click","_michal@e11.click"};
+    for (String List2 : myList2){
+      wait.until(ExpectedConditions.visibilityOf(loginEmail));
+      loginEmail.sendKeys(List2);
+      changeEmail.click();
+      wait.until(ExpectedConditions.visibilityOf(loginEmailAssert4));
+      Assert.assertEquals("The email must be a valid email address.", loginEmailAssert4.getText());
+      System.out.println(I+"z10. The email must be a valid email address. - OK    [ "+List2+" ]");
+      loginEmail.clear();
+      I=I+1;
+    }
+
     System.out.print("-. Koniec testu");
   }
 
-  public void gotologinChangePassword(String NewPassword) throws InterruptedException {
+  public void gotologinChangePassword(String NewPassword) {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     accountSettings.click();
@@ -441,22 +461,22 @@ public class LoginPage {
 //    Assert.assertEquals("Old password is not valid!", loginPasswordAssert4.getText());
     System.out.println("3z3. Old password is not valid - OK");
   }
-  public void gotologinFAQ() {
+  public void gotologinFAQ() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
+    wait.until(ExpectedConditions.visibilityOf(billingPayments));
     billingPayments.click();
     wait.until(ExpectedConditions.visibilityOf(CheckOurFAQ));
-
 //    Zmiana zakładki
     String handle = driver.getWindowHandle();
-    System.out.println ("5.1. "+driver.getTitle()+" - "+handle);
-
+    System.out.println ("-. "+driver.getTitle()+" (1) - "+handle);
+    Thread.sleep(20000);
     CheckOurFAQ.click();
 //    Zmiana zakładki
     Set handles = driver.getWindowHandles();
     int I=2;
     for (String handle1:driver.getWindowHandles()) {
-      System.out.println("5."+I+". "+handle1);
+      System.out.println("-."+I+". "+handle1+"");
       driver.switchTo().window(handle1);
       I=I+1;
     }

@@ -30,21 +30,21 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginTest() {
+  public void loginTest() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn(loginAdService, passwordAdService);
     System.out.println("1. loginTest");
   }
   @Test
-  public void loginAsdf() {
+  public void loginAsdf() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn("asdf", "asdf");
     loginPage.loginSignInError();
   }
   @Test
-  public void loginAdmin() {
+  public void loginAdmin() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn("admin@e11.click", "adminadmin");
@@ -208,7 +208,7 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.gotologinChangePasswordNegative();
   }
   @Test
-  public void loginFAQ()  {
+  public void loginFAQ() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinFAQ();
   }
