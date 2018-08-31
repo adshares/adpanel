@@ -11,24 +11,29 @@ import {parseTargetingForBackend} from "common/components/targeting/targeting.he
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-
-  loginUser(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
-  }
-
-  registerUser(user, uri): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
-  }
-
+// guest access
   checkRecoveryPasswordToken(token: string) {
-      return this.http.get(`${environment.apiUrl}/auth/recovery/${token}`);
-  }
-  getUserData(): Observable<User> {
-    return this.http.get<User>(`${environment.apiUrl}/auth/check`);
+    return this.http.get(`${environment.authUrl}/recovery/${token}`);
   }
 
   remindPassword(email: string, uri: string) {
-    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email, uri });
+    return this.http.post(`${environment.authUrl}/recovery`, { email, uri });
+  }
+
+  loginUser(email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${environment.authUrl}/login`, { email, password });
+  }
+// user access
+  getUserData(): Observable<User> {
+    return this.http.get<User>(`${environment.authUrl}/check`);
+  }
+
+  logOut() {
+    return this.http.get(`${environment.authUrl}/logout`);
+  }
+// token access
+  registerUser(user, uri): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
   }
 
   resetPassword(user: object,  uri: string) {
@@ -45,10 +50,6 @@ export class AuthService {
 
   saveUsers(id: number, user): Observable<User> {
       return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
-  }
-
-  logOut() {
-    return this.http.get(`${environment.apiUrl}/auth/logout`);
   }
 
   emailChangeConfirmOld(token: string){

@@ -1,25 +1,18 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
-import { appSettings } from 'app-settings';
-import { LocalStorageUser } from 'models/user.model';
-import { SessionService } from "app/session.service";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-
+import {appSettings} from 'app-settings';
+import {LocalStorageUser} from 'models/user.model';
+import {SessionService} from "app/session.service";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 // TODO : ??
-import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
+import {PushNotificationsService} from 'common/components/push-notifications/push-notifications.service';
+import {pushNotificationTypesEnum} from 'models/enum/push-notification.enum';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -54,6 +47,9 @@ export class RequestInterceptor implements HttpInterceptor {
 
     // enabling cookies!
     request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.session.getUser().apiToken}`
+      },
       withCredentials: true
     });
 
