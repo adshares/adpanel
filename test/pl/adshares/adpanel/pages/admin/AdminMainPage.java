@@ -10,70 +10,40 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
+import pl.adshares.adpanel.pages.advertiser.EditCampaignTargetingPage;
+import pl.adshares.adpanel.tools.RandomPage;
 
 public class AdminMainPage {
 
   private static final Logger LOGGER = Logger.getLogger(AdminMainPage.class);
 
-  @FindBy(css = "button[data-test='header-admin-set-earning-dialog-open-button']")
-  private WebElement headerSetEarningButton;
-  @FindBy(css = "mat-slider[data-test='admin-earnings-slider']")
-  private WebElement earningSlider;
-  @FindBy(css = "input[data-test='admin-earnings-direct-input']")
-  private WebElement earningDirectInput;
-  @FindBy(css = "button[data-test='admin-earnings-save-button']")
-  private WebElement setEarningButton;
-  @FindBy(xpath = "//span[contains(text(),'Set your earnings')]")
-  private WebElement popUpTitle;
-  @FindBy(css = "img[class='adsh-logo']")
-  private WebElement logoAdshares;
+  @FindBy(id = "newPassword")                                                                                           private WebElement loginNewPassword;
+  @FindBy(id = "currentPassword")                                                                                       private WebElement loginCurrentPassword;
+  @FindBy(id = "newPasswordConfirm")                                                                                    private WebElement loginConfirmPassword;
 
-  @FindBy(xpath = "//button[contains(text(),'today')]")
-  private WebElement buttonToday;
-  @FindBy(xpath = "//button[contains(text(),'this week')]")
-  private WebElement buttonThisWeek;
-  @FindBy(xpath = "//button[contains(text(),'this month')]")
-  private WebElement buttonThisMonth;
+  @FindBy(css = "button[data-test='header-admin-set-earning-dialog-open-button']")                                      private WebElement headerSetEarningButton;
+  @FindBy(css = "mat-slider[data-test='admin-earnings-slider']")                                                        private WebElement earningSlider;
+  @FindBy(css = "input[data-test='admin-earnings-direct-input']")                                                       private WebElement earningDirectInput;
+  @FindBy(css = "button[data-test='admin-earnings-save-button']")                                                       private WebElement setEarningButton;
+  @FindBy(css = "[ng-reflect-value='saldo']")                                                                           private WebElement selectSaldo;
+  @FindBy(css = "[ng-reflect-value='views']")                                                                           private WebElement selectViews;
+  @FindBy(css = "[ng-reflect-value='clicks']")                                                                          private WebElement selectClicks;
+  @FindBy(css = "[id='mat-input-0']")                                                                                   private WebElement calender;
+  @FindBy(css = "[class='mat-calendar-period-button mat-button']")                                                      private WebElement calenderUp;
+  @FindBy(css = "img[class='adsh-logo']")                                                                               private WebElement logoAdshares;
+  @FindBy(css = "[data-test='chart-filter-by-type-asset-series-select']")                                               private WebElement select;
+  @FindBy(css = "[class='adsh-icon']")                                                                                  private WebElement adshIcon;
+  @FindBy(css = "[data-test='settings-change-password-form-submit']")                                                   private WebElement changePassword;
+  @FindBy(css = "[data-test='header-log-out-button']")                                                                  private WebElement logOut;
 
-
-  @FindBy(css = "[data-test='chart-filter-by-type-asset-series-select']")
-  private WebElement select;
-
-  @FindBy(css = "[ng-reflect-value='saldo']")
-  private WebElement selectSaldo;
-  @FindBy(css = "[ng-reflect-value='views']")
-  private WebElement selectViews;
-  @FindBy(css = "[ng-reflect-value='clicks']")
-  private WebElement selectClicks;
-
-  @FindBy(css = "[id='mat-input-0']")
-  private WebElement calender;
-  @FindBy(css = "[class='mat-calendar-period-button mat-button']")
-  private WebElement calenderUp;
-  @FindBy(xpath = "//div[contains(text(),'2018')]")
-  private WebElement calender2018;
-  @FindBy(xpath = "//div[contains(text(),'JAN')]")
-  private WebElement calenderJAN;
-  @FindBy(xpath = "//div[contains(text(),'1')]")
-  private WebElement calender1;
-
-  @FindBy(css = "[class='adsh-icon']")
-  private WebElement adshIcon;
-  @FindBy(xpath = "//span[contains(text(),'Notifications settings')]")
-  private WebElement notificationsSettings;
-
-
-  @FindBy(id = "newPassword")
-  private WebElement loginNewPassword;
-  @FindBy(id = "currentPassword")
-  private WebElement loginCurrentPassword;
-  @FindBy(id = "newPasswordConfirm")
-  private WebElement loginConfirmPassword;
-  @FindBy(css = "[data-test='settings-change-password-form-submit']")
-  private WebElement changePassword;
-  @FindBy(css = "[data-test='header-log-out-button']")
-  private WebElement logOut;
-
+  @FindBy(xpath = "//span[contains(text(),'Set your earnings')]")                                                       private WebElement popUpTitle;
+  @FindBy(xpath = "//button[contains(text(),'today')]")                                                                 private WebElement buttonToday;
+  @FindBy(xpath = "//button[contains(text(),'this week')]")                                                             private WebElement buttonThisWeek;
+  @FindBy(xpath = "//button[contains(text(),'this month')]")                                                            private WebElement buttonThisMonth;
+  @FindBy(xpath = "//div[contains(text(),'2018')]")                                                                     private WebElement calender2018;
+  @FindBy(xpath = "//div[contains(text(),'JAN')]")                                                                      private WebElement calenderJAN;
+  @FindBy(xpath = "//div[contains(text(),'1')]")                                                                        private WebElement calender1;
+  @FindBy(xpath = "//span[contains(text(),'Notifications settings')]")                                                  private WebElement notificationsSettings;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -93,30 +63,37 @@ public class AdminMainPage {
 
   private void setHValue(WebElement slider, double value)
   {
+    int id = (int) RandomPage.getFromId("id");
     double minValue = Double.parseDouble(slider.getAttribute("min"));
     double maxValue = Double.parseDouble(slider.getAttribute("max"));
     int sliderH = slider.getSize().height;
     int sliderW = slider.getSize().width;
-    System.out.println("2.1. sliderH: "+sliderH);
-    System.out.println("2.2. sliderW: "+sliderW);
+    System.out.println(id+". sliderH: "+sliderH);
+    System.out.println(id+". sliderW: "+sliderW);
     Actions action = new Actions(driver);
     action.dragAndDrop(earningSlider,earningSlider).perform();
-//    action.moveToElement(slider, (int) (value * sliderW / (maxValue - minValue)), sliderH / 2).click().build().perform();
+    //    action.moveToElement(slider, (int) (value * sliderW / (maxValue - minValue)), sliderH / 2).click().build().perform();
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void setEarnings() {
-        wait.until(ExpectedConditions.visibilityOf(popUpTitle));
+    int id = (int) RandomPage.getFromId("id");
+    wait.until(ExpectedConditions.visibilityOf(popUpTitle));
     Actions action = new Actions(driver);
     setHValue(earningSlider, 65.47);
     setEarningButton.click();
     // TODO: 18.07.18 SAVE - nie działa [logo click - sprawdzenie]
     wait.until(ExpectedConditions.visibilityOf(logoAdshares));
     logoAdshares.click();
-    System.out.println("3. Koniec testu");
+    System.out.println(id+". Koniec testu");
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
 
   public void setFilter()  {
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(buttonToday));
 //    selectClicks
     select.click();
@@ -129,7 +106,7 @@ public class AdminMainPage {
     calender2018.click();
     calenderJAN.click();
     calender1.click();
-    System.out.println("2. selectClicks - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
+    System.out.println(id+". selectClicks - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
 //    selectSaldo
     select.click();
     selectSaldo.click();
@@ -141,7 +118,7 @@ public class AdminMainPage {
     calender2018.click();
     calenderJAN.click();
     calender1.click();
-    System.out.println("3. selectSaldo - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
+    System.out.println(id+". selectSaldo - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
 //    selectViews
     select.click();
     selectViews.click();
@@ -153,9 +130,9 @@ public class AdminMainPage {
     calender2018.click();
     calenderJAN.click();
     calender1.click();
-    System.out.println("4. selectViews - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
-
-    System.out.print("6. Koniec testu");
+    System.out.println(id+". selectViews - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void ChangePassword(String CurrentPassword, String NewPassword, String ConfirmPassword) throws InterruptedException {

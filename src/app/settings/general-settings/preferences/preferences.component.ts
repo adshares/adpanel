@@ -12,10 +12,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 
-interface AfterRequestValidation {
-  password: { [key: string]: boolean };
-}
-
 @Component({
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
@@ -30,14 +26,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   user: LocalStorageUser;
 
   newPasswordConfirm = new FormControl();
-  afterRequestValidation: AfterRequestValidation = {
-    password: {
-      success: false,
-      wrongPreviousPassword: false,
-      passwordChangeFailed: false
-    }
-  };
-  errorsPasswordChange = {};
+  errorsPasswordChange = false;
   errorEmailChange = false;
 
   ObjectKeys = Object.keys;
@@ -117,33 +106,27 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     const newPassword = this.changePasswordForm.get('newPassword').value;
 
     this.changePasswordFormSubmitted = true;
-    Object.keys(this.afterRequestValidation.password).forEach(
-      (validation) => this.afterRequestValidation.password[validation] = false
-    );
 
     if (!this.changePasswordForm.valid || (this.newPasswordConfirm.value !== newPassword)) {
       return;
     }
-    const userData: LocalStorageUser = JSON.parse(localStorage.getItem('adshUser'));
     const user = {
       password_old: currentPassword,
       password_new: newPassword
     };
-    const changePasswordSubscription = this.settingsService.changePassword(user,
-      "/"
-    )
+    const changePasswordSubscription = this.settingsService.changePassword(user,'')
       .subscribe(
         () => {
           this.changePasswordForm.reset();
           this.newPasswordConfirm.setValue('');
-          this.afterRequestValidation.password.success = true;
+          this.dialog.open(ConfirmResponseDialogComponent,{
+            data: {
+              title: 'Password changed',
+              message: 'Your password has been changed as requested'
+            }
+          });
         },
         (err) => {
-          if (err.code === 412) {
-            this.afterRequestValidation.password.wrongPreviousPassword = true;
-          } else {
-            this.afterRequestValidation.password.passwordChangeFailed = true;
-          }
           this.errorsPasswordChange = err.error.errors;
         },
         () => this.changePasswordFormSubmitted = false

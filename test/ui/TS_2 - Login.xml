@@ -53,13 +53,79 @@
     </classes>
   </test>
 
-  <test name="TC 6 - Zmiana maila" group-by-instances="true">
+  <test name="TC_6 - Zmiana maila 1" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
-          <include name="loginChangeEmail"/>
+          <include name="loginChangeEmail_1"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 2" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_2"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 3" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_3"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 4" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_4"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 5" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_5"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 6" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_6"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Zmiana maila 7" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstPublisher"/>
+          <include name="loginChangeEmail_7"/>
         </methods>
       </class>
     </classes>
@@ -93,7 +159,6 @@
           <include name="loginRegisterRememberMe"/>
           <include name="loginPopUpFirstPublisher"/>
           <include name="loginSecondTab"/>
-          <include name="logOut"/>
         </methods>
       </class>
     </classes>

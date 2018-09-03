@@ -2,17 +2,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-  <test name="TC 11 - Otwarcie sesji równolegle w nowej karcie" group-by-instances="true">
+  <test name="TC_2 - Create Campaign">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab3"/>
-
+          <include name="loginPopUpFirstAdvertiser"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdvertiserTestCase">
+        <methods>
+          <include name="createAdvertiserCampaign"/>
         </methods>
       </class>
     </classes>
   </test>
+
 
 </suite>
