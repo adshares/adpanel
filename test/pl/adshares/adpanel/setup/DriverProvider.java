@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.util.Objects;
@@ -40,10 +41,19 @@ public class DriverProvider {
 
   static WebDriver getWebDriver() {
     if (driver == null) {
-      System.setProperty("webdriver.chrome.driver", getWebDriverFile("chromedriver").getAbsolutePath());
+//      System.setProperty("webdriver.chrome.driver", getWebDriverFile("chromedriver").getAbsolutePath());
+
       ChromeOptions chromeOptions = new ChromeOptions();
-      chromeOptions.addArguments("--start-maximized");
-      driver = new ChromeDriver(chromeOptions);
+      chromeOptions.addArguments("start-maximized");
+
+try{
+driver = new RemoteWebDriver(new java.net.URL("http://localhost:4444/wd/hub"), chromeOptions);
+}catch (java.net.MalformedURLException $e){
+throw new RuntimeException($e.getMessage());
+}
+
+//      driver = new ChromeDriver(chromeOptions);
+
       driver.get("http://panel.ads");
     }
     return driver;
