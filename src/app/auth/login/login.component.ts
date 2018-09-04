@@ -1,23 +1,18 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as authActions from 'store/auth/auth.actions';
-import * as commonActions from 'store/common/common.actions';
-
-import { AuthService } from 'auth/auth.service';
-import { SessionService } from "app/session.service";
-import { User, LocalStorageUser } from 'models/user.model';
-import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
-import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
-import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
-import { appSettings } from 'app-settings';
-import { userRolesEnum } from 'models/enum/user.enum';
-import { isUnixTimePastNow } from 'common/utilities/helpers';
+import {AuthService} from 'auth/auth.service';
+import {SessionService} from "app/session.service";
+import {LocalStorageUser, User} from 'models/user.model';
+import {CustomizeAccountChooseDialogComponent} from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
+import {AccountChooseDialogComponent} from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
+import {WalletDialogComponent} from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
+import {HandleSubscription} from 'common/handle-subscription';
+import {appSettings} from 'app-settings';
+import {isUnixTimePastNow} from 'common/utilities/helpers';
 
 
 @Component({
@@ -83,18 +78,20 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    const loginSubscription = this.auth.loginUser(
-      this.loginForm.value.email,
-      this.loginForm.value.password
-    )
-      .subscribe((userResponse: User) => {
-        this.saveUserDataToLocalStorage(userResponse);
-        if (userResponse.isAdmin) {
-          this.router.navigate(['/admin/dashboard']);
-          return;
-        }
-        this.showStartupPopups(userResponse);
-      },
+    const loginSubscription = this.auth
+      .loginUser(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      )
+      .subscribe(
+        (userResponse: User) => {
+          this.saveUserDataToLocalStorage(userResponse);
+          if (userResponse.isAdmin) {
+            this.router.navigate(['/admin/dashboard']);
+            return;
+          }
+          this.showStartupPopups(userResponse);
+        },
         (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;

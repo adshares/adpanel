@@ -17,7 +17,7 @@ interface User {
     isAdmin: boolean;
     isEmailConfirmed: boolean;
     password: string;
-    authToken?: string;
+    apiToken?: string;
     adserverWallet: UserAdserverWallet;
     uuid: string;
 }

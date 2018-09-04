@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://server.ads/app'
+  authUrl: 'http://server.ads/auth',
+  apiUrl: 'http://server.ads/panel'
 };
