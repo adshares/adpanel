@@ -26,14 +26,6 @@ export class SettingsService {
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
-  changeEmail(email: string, URIstep1: string, URIstep2: string) {
-    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
-  }
-
-  changePassword(user: object, uri: string) {
-      return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
-  }
-
   changeAutomaticWithdraw(period: string, amount: number) {
     return this.http.post(`${environment.apiUrl}/change_automatic_withdraw`, { period, amount });
   }
@@ -44,5 +36,13 @@ export class SettingsService {
 
   withdrawFunds(address: string, amount: number, memo: string) {
     return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { address, amount, memo });
+  }
+
+  changeEmail(email: string, URIstep1: string, URIstep2: string) {
+    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
+  }
+
+  changePassword(user: object, uri: string) {
+    return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
   }
 }
