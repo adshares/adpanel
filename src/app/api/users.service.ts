@@ -12,31 +12,39 @@ export class ApiUsersService {
 
   constructor(private http: HttpClient) { }
 
-  emailActivate(token: string){
-      return this.http.post(`${environment.apiUrl}/users/email/activate`, { user: { email_confirm_token: token } });
-  }
+  // user access
 
   emailActivateResend(uri){
-     return this.http.post(`${environment.apiUrl}/users/email/activate/resend`, {uri});
+    return this.http.post(`${environment.authUrl}/users/email/activate/resend`, {uri});
   }
 
+  // guest access
+
+  post(user, uri): Observable<User> {
+    return this.http.post<User>(`${environment.authUrl}/users`, {user, uri});
+  }
+
+  // ANY access
+
   emailConfirm1Old(token: string){
-      return this.http.get(`${environment.apiUrl}/users/email/confirm1Old/${token}`);
+      return this.http.get(`${environment.authUrl}/users/email/confirm1Old/${token}`);
   }
 
   emailConfirm2New(token: string){
-      return this.http.get(`${environment.apiUrl}/users/email/confirm2New/${token}`);
+      return this.http.get(`${environment.authUrl}/users/email/confirm2New/${token}`);
   }
 
+  emailActivate(token: string){
+    return this.http.post(`${environment.authUrl}/users/email/activate`, { user: { email_confirm_token: token } });
+  }
+
+  // token access
+
   patch(id: number, user): Observable<User> {
-      return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
+    return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
   }
 
   patchWithToken(user: object,  token: string) {
-     return this.http.patch(`${environment.apiUrl}/users`, { user, token });
-  }
-
-  post(user, uri): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/users`, {user, uri});
+    return this.http.patch(`${environment.apiUrl}/users`, { user, token });
   }
 }
