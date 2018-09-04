@@ -3,8 +3,9 @@ package pl.adshares.adpanel;
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.pages.register.RegisterConfirmation;
-import pl.adshares.adpanel.pages.register.RegisterPage;
+
 import pl.adshares.adpanel.setup.BrowserTestCase;
+import pl.adshares.adpanel.tools.RandomPage;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
@@ -16,7 +17,7 @@ public class RegisterTestCase extends BrowserTestCase {
   private RegisterConfirmation registerConfirmation;
   protected String loginAdService;
   protected String passwordAdService;
-
+  protected String RandomsEmail;
 
   @BeforeTest
   public void setUp() {
@@ -68,6 +69,6 @@ public class RegisterTestCase extends BrowserTestCase {
   @Test
   public void registerForgotPassword() throws InterruptedException {
     registerPage = new RegisterPage(driver);
-    registerPage.registerForgotPassword();
-      }
+    registerPage.registerForgotPassword(RandomPage.getFromStore("user_email"),"ADS11ads");
+  }
 }
