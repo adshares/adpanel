@@ -14,8 +14,8 @@
 
 # IDEs and editors
 /.idea/*
-!/.idea/copyright/*
-!/.idea/codeStyles/*
+!/.idea/copyright
+!/.idea/codeStyles
 .project
 .classpath
 .c9/
