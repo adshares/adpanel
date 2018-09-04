@@ -3,10 +3,13 @@ package pl.adshares.adpanel;
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
+import pl.adshares.adpanel.tools.RandomPage;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.Random;
 
 public class LoginTestCase extends BrowserTestCase {
 
@@ -17,6 +20,7 @@ public class LoginTestCase extends BrowserTestCase {
   private HeaderBarPage headerBarPage;
   private String loginAdService;
   private String passwordAdService;
+  private String randomsEmail;
 
   @BeforeTest
   public void setUp() {
@@ -26,14 +30,21 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void loginTest() {
+  public void loginTest() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn(loginAdService, passwordAdService);
     System.out.println("1. loginTest");
   }
   @Test
-  public void loginAdmin() {
+  public void loginAsdf() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn("asdf", "asdf");
+    loginPage.loginSignInError();
+  }
+  @Test
+  public void loginAdmin() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn("admin@e11.click", "adminadmin");
@@ -102,14 +113,14 @@ public class LoginTestCase extends BrowserTestCase {
   @Test
   public void loginRegisterRandom() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.goToLoginRegistrRandom();
+    loginPage.goToLoginRegistrRandom("12345678");
     loginPage .logIn();
   }
 
   @Test
   public void loginRegisterRememberMe() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.goToLoginRegistrRandom();
+    loginPage.goToLoginRegistrRandom("12345678");
     loginPage .logInRememberMe();
   }
 
@@ -119,7 +130,7 @@ public class LoginTestCase extends BrowserTestCase {
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
-    System.out.println("logOutTest");
+
   }
 
   @Test
@@ -129,19 +140,67 @@ public class LoginTestCase extends BrowserTestCase {
   }
 
   @Test
-    public void loginChangeEmail() {
+    public void loginChangeEmail_1() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail();
+    Random random = new Random();
+    int number = random.nextInt(1000000);
+    String s = String.format("%06d", number)+"e";
+    loginPage.gotologinChangeEmail("michal@"+s+".click", "test@"+s+".click");
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn("michal@"+s+".click", "12345678");
   }
+  @Test
+    public void loginChangeEmail_2() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_3() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_4() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_5() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_6() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
+  }
+  @Test
+  public void loginChangeEmail_7() throws InterruptedException {
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangeEmail("111michal@e11.click", "test@e11.click");
+  }
+
   @Test
   public void loginChangeEmailNegative()  {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmailNegative();
   }
   @Test
-  public void loginChangePassword() {
+  public void loginChangePassword() throws InterruptedException {
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangePassword();
+    Random random = new Random();
+    int number = random.nextInt(100000000);
+    String NewPassword = String.format("%08d", number);
+    loginPage.gotologinChangePassword(NewPassword);
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn((String) RandomPage.getFromStore("user_email"), NewPassword);
+    System.out.println("LoginEmail:  "+RandomPage.getFromStore("user_email"));
+    System.out.println("NewPassword: "+NewPassword);
+    Thread.sleep(10000);
   }
   @Test
   public void loginChangePasswordNegative() {
@@ -149,7 +208,7 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.gotologinChangePasswordNegative();
   }
   @Test
-  public void loginFAQ()  {
+  public void loginFAQ() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinFAQ();
   }
@@ -159,7 +218,6 @@ public class LoginTestCase extends BrowserTestCase {
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
-    System.out.println("logOutTest");
   }
   @Test
   public void loginSecondTab() {
@@ -182,10 +240,6 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
   }
-  @Test
-  public void loginSecondTab5() throws InterruptedException {
-    pageOpera = new PageOpera(driver);
-    pageOpera.OperaSecondTab();
-  }
+
 
 }
