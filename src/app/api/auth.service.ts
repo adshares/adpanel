@@ -12,24 +12,29 @@ export class ApiAuthService {
 
   constructor(private http: HttpClient) { }
 
-  check(): Observable<User> {
-    return this.http.get<User>(`${environment.apiUrl}/auth/check`);
-  }
+  // user access
 
-  login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/auth/login`, { email, password });
+  check(): Observable<User> {
+    return this.http.get<User>(`${environment.authUrl}/check`);
   }
 
   logout() {
-    return this.http.get(`${environment.apiUrl}/auth/logout`);
+    return this.http.get(`${environment.authUrl}/logout`);
   }
 
+  // guest access
+
   recoveryGet(token: string) {
-      return this.http.get(`${environment.apiUrl}/auth/recovery/${token}`);
+    return this.http.get(`${environment.authUrl}/recovery/${token}`);
   }
 
   recoveryPost(email: string, uri: string) {
-    return this.http.post(`${environment.apiUrl}/auth/recovery`, { email, uri });
+    return this.http.post(`${environment.authUrl}/recovery`, { email, uri });
+  }
+
+  // ANY access
+  login(email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${environment.authUrl}/login`, { email, password });
   }
 
 }

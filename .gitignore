@@ -13,7 +13,8 @@
 /server-mock/access_logs.db
 
 # IDEs and editors
-/.idea
+/.idea/*
+!/.idea/copyright
 .project
 .classpath
 .c9/
