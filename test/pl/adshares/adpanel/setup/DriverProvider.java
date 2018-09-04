@@ -11,6 +11,7 @@ import java.util.Objects;
 public class DriverProvider {
 
   private static final String DRIVERS_DIRECTORY = "build/drivers";
+  private static final String SYSTEM_PROP_WEBDRIVER_HEADLESS = "webdriver.headless";
   private static final String SYSTEM_PROP_WEBDRIVER_REMOTE = "webdriver.remote";
   private static final String SYSTEM_PROP_WEBDRIVER_REMOTE_URL = "webdriver.remote.url";
   private static final String SYSTEM_PROP_WEBDRIVER_CHROME_DRIVER = "webdriver.chrome.driver";
@@ -47,7 +48,11 @@ public class DriverProvider {
       ChromeOptions chromeOptions = new ChromeOptions();
       chromeOptions.addArguments("start-maximized");
 
-      boolean useRemoteWebDriver = System.getProperty(SYSTEM_PROP_WEBDRIVER_REMOTE, "0").equals("1");
+      if (System.getProperty(SYSTEM_PROP_WEBDRIVER_HEADLESS, "0").equals("1")) {
+        chromeOptions.addArguments("headless");
+      }
+
+      boolean useRemoteWebDriver = System.getProperty(SYSTEM_PROP_WEBDRIVER_REMOTE,"0").equals("1");
 
       if (useRemoteWebDriver) {
         try {
