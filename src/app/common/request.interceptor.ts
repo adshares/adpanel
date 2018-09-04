@@ -45,17 +45,20 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.url.startsWith(environment.authUrl)) {
-      request = request.clone({
-        withCredentials: true
-      });
-    } else {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.session.getUser().apiToken}`
+    request = request.clone(
+      (() => {
+        if (request.url.startsWith(environment.authUrl)) {
+          return {
+            withCredentials: true
+          }
+        } else {
+          return {
+            setHeaders: {
+              Authorization: `Bearer ${this.session.getUser().apiToken}`
+            }
+          }
         }
-      });
-    }
+      })());
 
     return next.handle(request).do(
       (event: HttpEvent<any>) => {
