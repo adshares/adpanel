@@ -73,6 +73,8 @@
         <configuration>
           <keepRunning>true</keepRunning>
           <dir>test/adserver_mock</dir>
+          <!--<dir>test/adserver_mock</dir>-->
+          <!--<dir>test/adserver</dir>-->
           <params>--port=80 --verbose</params>
         </configuration>
 

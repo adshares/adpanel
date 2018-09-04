@@ -2,15 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/first';
 import { MatDialog } from '@angular/material/dialog';
 
-import { AuthService } from 'auth/auth.service';
+import { ApiService } from 'app/api/api.service';
 import { SessionService } from "app/session.service";
 import { User } from "models/user.model";
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-
-
-
 
 @Component({
   selector: 'app-email-not-activated-bar',
@@ -21,7 +18,7 @@ export class EmailNotActivatedBarComponent implements OnInit {
   user: User;
   isEmailConfirmed;
   constructor(
-    private auth: AuthService,
+    private api: ApiService,
     private session: SessionService,
     private dialog: MatDialog,
   ) { }
@@ -31,7 +28,7 @@ export class EmailNotActivatedBarComponent implements OnInit {
   }
 
   resendActivationEmail() {
-    this.auth.emailActivationResend("/auth/email-activation/")
+    this.api.users.emailActivateResend("/auth/email-activation/")
       .subscribe(
           () => {
             this.dialog.open(ConfirmResponseDialogComponent,{

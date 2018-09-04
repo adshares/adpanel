@@ -17,21 +17,13 @@ export class SettingsService {
   }
 
   getNotificationsSettings(): Observable<NotificationItem[]> {
-    return this.http.get(`${environment.apiUrl}/notifications/settings`)
+    return this.http.get(`${environment.apiUrl}/settings/notifications`)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
   }
 
   updateNotificationsSettings(newSettings: NotificationItem[]): Observable<NotificationItem[]> {
-    return this.http.patch(`${environment.apiUrl}/notifications/settings`, newSettings)
+    return this.http.patch(`${environment.apiUrl}/settings/notifications`, newSettings)
       .map((notificationSettings: NotificationItem[]) => notificationSettings);
-  }
-
-  changeEmail(email: string, URIstep1: string, URIstep2: string) {
-    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
-  }
-
-  changePassword(user: object, uri: string) {
-      return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {
@@ -44,5 +36,13 @@ export class SettingsService {
 
   withdrawFunds(address: string, amount: number, memo: string) {
     return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { address, amount, memo });
+  }
+
+  changeEmail(email: string, URIstep1: string, URIstep2: string) {
+    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
+  }
+
+  changePassword(user: object, uri: string) {
+    return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
   }
 }

@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
@@ -16,10 +10,10 @@ import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from "app/session.service";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-
 // TODO : ??
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
+import { environment } from "environments/environment";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -51,11 +45,20 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    // enabling cookies!
-    request = request.clone({
-      withCredentials: true
-    });
+    request = request.clone(
+      (() => {
+        if (request.url.startsWith(environment.authUrl)) {
+          return {
+            withCredentials: true
+          }
+        } else {
+          return {
+            setHeaders: {
+              Authorization: `Bearer ${this.session.getUser().apiToken}`
+            }
+          }
+        }
+      })());
 
     return next.handle(request).do(
       (event: HttpEvent<any>) => {
@@ -65,7 +68,7 @@ export class RequestInterceptor implements HttpInterceptor {
       (err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
           let crazy = !this.session.getUser();
-          this.session.dropUser();
+          this.session.drop();
           this.router.navigate(['/auth', 'login']);
           if (crazy) {
             this.dialogError('Login required', 'Last request required logged-in user.');
@@ -80,7 +83,7 @@ export class RequestInterceptor implements HttpInterceptor {
         // }
 
         if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
-          this.dialogError('Connection failed','Could not connect to our server API. Please check your Internet connection and try again.');
+          this.dialogError('Connection failed', 'Could not connect to our server API. Please check your Internet connection and try again.');
           // TODO: WTF WTF WTF
           this.pushNotificationsService.addPushNotification({
             type: pushNotificationTypesEnum.ERROR,
@@ -91,7 +94,7 @@ export class RequestInterceptor implements HttpInterceptor {
         }
 
         if (err instanceof HttpErrorResponse && err.status === 500) {
-          this.dialogError('Server request failed','It looks like our request failed on the server returning code 500, please try again or contact our support.');
+          this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
           // TODO: wtf
           this.pushNotificationsService.addPushNotification({
             type: pushNotificationTypesEnum.ERROR,
@@ -113,7 +116,7 @@ export class RequestInterceptor implements HttpInterceptor {
       return;
     }
     const expirationSeconds = user.remember ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
-    Object.assign(user, { expiration: ((+new Date) / 1000 | 0) + expirationSeconds });
+    Object.assign(user, {expiration: ((+new Date) / 1000 | 0) + expirationSeconds});
     this.session.setUser(user);
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from "auth/auth.service";
+import { ApiService } from "app/api/api.service";
 import { Router } from "@angular/router";
 import { LocalStorageUser, User } from "models/user.model";
 import { SessionService } from "app/session.service";
@@ -19,7 +19,7 @@ export class CustomizeAccountChooseDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CustomizeAccountChooseDialogComponent>,
-    private auth: AuthService,
+    private api: ApiService,
     private session: SessionService,
     private router: Router,
   ) { }
@@ -31,7 +31,7 @@ export class CustomizeAccountChooseDialogComponent {
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
       };
-      this.auth.saveUsers(userData.id, updates).subscribe(
+      this.api.users.patch(userData.id, updates).subscribe(
         (userResponse: User) => {
           this.saveUserDataToLocalStorage(userResponse);
           this.redirectToDashboard(userResponse);

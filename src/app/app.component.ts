@@ -9,12 +9,10 @@ import { AppState } from 'models/app-state.model';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
-import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { User, LocalStorageUser } from 'models/user.model';
-import { AdsharesAddress } from 'models/settings.model';
 import { Notification } from 'models/notification.model';
 
-import { AuthService } from 'auth/auth.service';
+import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
 
 @Component({
@@ -38,12 +36,12 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
-    this.checkSessionTimeouts();
+    this.auth.timeout();
+
     if (!this.session.getUser()) {
       return;
     }
 
-    this.getAdsharesAddress();
     this.setNotificationUptadeInterval();
 
     // TODO ? wtf wtf
@@ -54,38 +52,6 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
-  }
-
-  // TODO: location?
-  checkSessionTimeouts() {
-    const user: LocalStorageUser = this.session.getUser();
-    if (!user) {
-      return;
-    }
-    if (isUnixTimePastNow(user.expiration)) {
-      this.auth.logOut().subscribe(
-        () => {
-          this.session.dropUser();
-          this.router.navigate(['/auth', 'login']);
-        },
-        () => {
-          // error or no error we are logged out here
-          this.session.dropUser();
-          this.router.navigate(['/auth', 'login']);
-        }
-      );
-    }
-  }
-
-  getAdsharesAddress() {
-    if (this.session.getAdsharesAddress()) {
-      return;
-    }
-    this.commonService.getAdsharesAddress()
-      .subscribe((data: AdsharesAddress) => {
-        this.session.setAdsharesAddress(data.adsharesAddress);
-      });
-
   }
 
   getNotifications() {

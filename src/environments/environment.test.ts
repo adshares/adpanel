@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://server.e11.click'
+  authUrl: 'http://server.e11.click/auth',
+  apiUrl: 'http://server.e11.click/panel'
 };

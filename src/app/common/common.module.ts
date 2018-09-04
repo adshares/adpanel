@@ -41,7 +41,6 @@ import { TargetingSelectComponent } from './components/targeting/targeting-selec
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
-import { AccountConfirmedAlertComponent } from './components/account-confirmed-alert/account-confirmed-alert.component';
 
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
@@ -85,7 +84,6 @@ const appComponents = [
   TargetingDisplayComponent,
   TableNavigationComponent,
   EditAssetNavigationComponent,
-  AccountConfirmedAlertComponent
 ];
 
 @NgModule({

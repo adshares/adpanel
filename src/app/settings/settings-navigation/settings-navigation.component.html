@@ -1,5 +1,5 @@
 <section class="settings-navigation">
-  <div class="col total-funds adsh-box adsh-box--large adsh-bg-blue">
+  <div *ngIf="(!user.isAdmin)" class="col total-funds adsh-box adsh-box--large adsh-bg-blue">
     <h6
             class="
         adsh-copy
@@ -34,10 +34,10 @@
           *ngFor="let settingsItem of settings"
           routerLinkActive="active"
   >
+  <div *ngIf="(!(settingsItem.admin === false && user.isAdmin))">
     <a
             [routerLink]="['/settings', settingsItem.link]"
             data-test="settings-category-link"
-            *ngIf="((settingsItem.admin === true && user.isAdmin) || (settingsItem.admin === false && (user.isPublisher || user.isAdvertiser)))"
     >
       <h3
               class="
@@ -60,9 +60,7 @@
               data-test="settings-category-link-direct"
       >
         <li *ngFor="let settingsValues of settingsItem.values">
-          <div class="row align-center" routerLinkActive="active"
-               *ngIf="((settingsItem.admin === true && user.isAdmin) || (settingsItem.admin === false && (user.isPublisher || user.isAdvertiser)))"
-          >
+          <div class="row align-center" routerLinkActive="active">
             <img
                     class="
                 adsh-icon
@@ -74,5 +72,6 @@
         </li>
       </a>
     </ul>
+  </div>
   </div>
 </section>

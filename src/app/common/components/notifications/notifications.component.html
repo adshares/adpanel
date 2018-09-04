@@ -16,7 +16,8 @@
       class="notification-wrapper"
       *ngFor="let notification of notifications"
     >
-      <app-notification
+      <!-- TODO: to wymaga całkowitej przebuowy, już wiem jak dokoncze wieczorem -->
+      <!-- <app-notification
         *ngIf="notification.userType === notificationUserTypesEnum.ADVERTISER"
         [notification]="notification"
         [notificationUserTypesEnum]="notificationUserTypesEnum"
@@ -31,14 +32,10 @@
         [notificationTypesEnum]="notificationTypesEnum"
         [notificationActionsEnum]="notificationActionsEnum"
         (onDismissNotification)="dismissNotification(notification)"
-      ></app-notification>
+      ></app-notification> -->
       <app-notification
-        *ngIf="notification.userType === notificationUserTypesEnum.GENERAL"
+        *ngIf="notification.userRole === 'all'"
         [notification]="notification"
-        [notificationUserTypesEnum]="notificationUserTypesEnum"
-        [notificationTypesEnum]="notificationTypesEnum"
-        [notificationActionsEnum]="notificationActionsEnum"
-        (onDismissNotification)="dismissNotification(notification)"
       ></app-notification>
     </div>
   </div>
