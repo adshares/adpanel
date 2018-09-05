@@ -24,6 +24,10 @@ export class ApiUsersService {
     return this.http.post<User>(`${environment.authUrl}/users`, {user, uri});
   }
 
+  patchWithToken(user: object,  token: string) {
+    return this.http.patch(`${environment.authUrl}/users`, { user, token });
+  }
+
   // ANY access
 
   emailConfirm1Old(token: string){
@@ -42,9 +46,5 @@ export class ApiUsersService {
 
   patch(id: number, user): Observable<User> {
     return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, { user });
-  }
-
-  patchWithToken(user: object,  token: string) {
-    return this.http.patch(`${environment.apiUrl}/users`, { user, token });
   }
 }
