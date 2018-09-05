@@ -13,18 +13,19 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 // TODO : ??
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
-import { environment } from "environments/environment";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 3;
+
   constructor(
     private router: Router,
     private pushNotificationsService: PushNotificationsService,
     private dialog: MatDialog,
     private session: SessionService,
-  ) { }
+  ) {
+  }
 
   dialogError(title, message) {
     if (this.openedErrorDialogs >= this.maxOpenedErrorDialogs) {
@@ -45,20 +46,14 @@ export class RequestInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone(
-      (() => {
-        if (request.url.startsWith(environment.authUrl)) {
-          return {
-            withCredentials: true
-          }
-        } else {
-          return {
-            setHeaders: {
-              Authorization: `Bearer ${this.session.getUser().apiToken}`
-            }
-          }
+    if (this.session.getUser() && this.session.getUser().apiToken) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.session.getUser().apiToken}`
         }
-      })());
+      });
+    }
+
 
     return next.handle(request).do(
       (event: HttpEvent<any>) => {
