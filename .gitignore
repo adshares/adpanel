@@ -21,7 +21,6 @@
 .settings/
 *.sublime-workspace
 *.iml
-
 .panel-dock-yarn-task-done
 
 # IDE - VSCode
