@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
@@ -10,16 +10,15 @@ import { FileUploader } from 'ng2-file-upload';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adTypesEnum, adSizesEnum, validImageTypes, adStatusesEnum } from 'models/enum/ad.enum';
-import { enumToArray } from 'common/utilities/helpers';
+import { adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes } from 'models/enum/ad.enum';
+import { cloneDeep, enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
-import { Ad } from 'models/campaign.model';
+import { Ad, Campaign } from 'models/campaign.model';
 import { environment } from 'environments/environment';
 import { appSettings } from 'app-settings';
-import { cloneDeep } from 'common/utilities/helpers';
 import { AppState } from 'models/app-state.model';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { Campaign } from 'models/campaign.model';
+import { SessionService } from "../../../session.service";
 
 interface ImagesStatus {
   overDrop: boolean[];
@@ -48,7 +47,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
-  uploader: FileUploader = new FileUploader({url: `${environment.apiUrl}/upload_ad`});
+  uploader: FileUploader = new FileUploader({
+    url: `${environment.apiUrl}/upload_ad`,
+    authToken: `Bearer ${this.session.getUser().apiToken}`
+  });
+
   imagesStatus: ImagesStatus = {
     upload: {
       processing: false,
@@ -62,7 +65,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private session: SessionService
   ) {
     super();
   }
@@ -110,10 +114,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   generateFormField(ad) {
-    const attachmentField = ad.type === adTypesEnum.IMAGE ?
-      { name: ad.shortHeadline, src: ad.imageUrl || '', size: ad.size } : (ad.html || '');
+    const attachmentField = ad.type === adTypesEnum.IMAGE
+      ? {name: ad.shortHeadline, src: ad.imageUrl || '', size: ad.size}
+      : (ad.html || '');
     const adTypeName = this.adTypes[ad.type];
-    const formGroup =  new FormGroup({
+    const formGroup = new FormGroup({
       shortHeadline: new FormControl(ad.shortHeadline, Validators.required),
       type: new FormControl(ad.type),
       size: new FormControl(ad.size),
@@ -157,7 +162,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   sendImage(image, adIndex) {
     image.method = 'POST';
-    image.withCredentials = false; // needed by mock server
+    // image.withCredentials = false; // needed by mock server
     image.url = `${environment.apiUrl}/campaigns/${this.ads[adIndex].id}/banner`;
     image.upload();
     image.onProgress = (progress) => {
@@ -188,7 +193,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   removeImage(adIndex) {
     const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id)
       .subscribe(() => {
-        Object.assign(this.ads[adIndex], { imageUrl: '', imageSize: '' });
+        Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
         this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
         this.imagesStatus.validation.splice(adIndex, 1);
       });
@@ -254,7 +259,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     if (!isDraft) {
       this.router.navigate(
         ['/advertiser', 'create-campaign', 'summary'],
-        { queryParams: { step: 4 } }
+        {queryParams: {step: 4}}
       );
     } else {
       const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
