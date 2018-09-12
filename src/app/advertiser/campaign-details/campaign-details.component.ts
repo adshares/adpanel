@@ -100,6 +100,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.campaign.basicInformation.status =
       statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
 
-    this.advertiserService.saveCampaign(this.campaign);
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign);
   }
 }

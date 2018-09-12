@@ -1,7 +1,7 @@
 import { AssetTargeting } from './targeting-option.model';
 
 interface Campaign {
-  id: number;
+  id?: number;
   basicInformation: CampaignBasicInformation;
   targeting: {
     requires: object;

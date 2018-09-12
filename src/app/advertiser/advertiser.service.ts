@@ -37,21 +37,27 @@ export class AdvertiserService {
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    if (campaign.id) {
-      return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, {campaign});
+  }
+
+  updateCampaign(id: number, campaign: Campaign): Observable<Campaign> {
+    if (campaign.targetingArray) {
+      const targetingObject = parseTargetingForBackend(campaign.targetingArray);
+
+      Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, {campaign});
+    return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  //
-  // patchTargetingCriteria(id: number): Observable<TargetingOption[]> {
-  //   return this.http.patch<TargetingOption[]>(`${environment.apiUrl}/campaigns/${id}/targeting`, { TargetingOption });
-  // }
+  updateTargetingCriterion(id: number, targetingOption: TargetingOption): Observable<TargetingOption[]> {
+    return this.http.patch<TargetingOption[]>(`${environment.apiUrl}/campaigns/${id}/targeting`, {targetingOption});
+  }
+
   saveAd(ad: Ad): Observable<Ad> {
     return this.http.post<Ad>(`${environment.apiUrl}/save_ad`, {ad});
   }
