@@ -48,16 +48,16 @@ jobs:
       script: sonar-scanner
 
     # Selenium tests
-    - stage: test
-      script:
-        - mvn clean install wiremock:run &
-        - ng serve --host 0.0.0.0 --port 80 --public-host panel.ads &
+#    - stage: test
+#      script:
+#        - mvn clean install wiremock:run &
+#        - ng serve --host 0.0.0.0 --port 80 --public-host panel.ads &
 #        - sleep 60
 #        - mvn verify
 
     # Build & deploy
-    - stage: deploy
-      script: ng build --env=dev --prod
+#    - stage: deploy
+#      script: ng build --env=dev --prod
 #      script: node --max_old_space_size=4096 node_modules\@angular\cli\bin\ng build --env=dev --prod
 
 # After a build, send email push-notification with the build results
