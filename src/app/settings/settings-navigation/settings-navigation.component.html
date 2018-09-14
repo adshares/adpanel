@@ -1,77 +1,79 @@
 <section class="settings-navigation">
-  <div *ngIf="(!user.isAdmin)" class="col total-funds adsh-box adsh-box--large adsh-bg-blue">
-    <h6
-            class="
-        adsh-copy
-        adsh-copy--small
-        adsh-white"
-    >
-      Total Funds:
-    </h6>
-    <span
-            class="
-        adsh-heading
-        adsh-heading--primary
-        adsh-white"
-            data-test="user-total-funds"
-    >
-      {{ adserverWallet.totalFunds | adsharesTokenValue }}
-    </span>
-    <span
-            class="
-        adsh-copy
-        adsh-copy--x-small
-        adsh-white
-        adsh-copy--bold"
-            data-test="user-total-funds-change"
-    >
-      {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
-    </span>
-  </div>
-
-  <div
-          class="settings-category"
-          *ngFor="let settingsItem of settings"
-          routerLinkActive="active"
-  >
-  <div *ngIf="(!(settingsItem.admin === false && user.isAdmin))">
-    <a
-            [routerLink]="['/settings', settingsItem.link]"
-            data-test="settings-category-link"
-    >
-      <h3
+  <!--
+    <div *ngIf="(!user.isAdmin)" class="col total-funds adsh-box adsh-box&#45;&#45;large adsh-bg-blue">
+      <h6
+              class="
+          adsh-copy
+          adsh-copy&#45;&#45;small
+          adsh-white"
+      >
+        Total Funds:
+      </h6>
+      <span
               class="
           adsh-heading
-          adsh-heading--secondary"
+          adsh-heading&#45;&#45;primary
+          adsh-white"
+              data-test="user-total-funds"
       >
-        {{ settingsItem.title }}
-      </h3>
-    </a>
-    <p class="adsh-copy">
-      {{ settingsItem.description }}
-    </p>
-    <ul
-            class="
+        {{ adserverWallet.totalFunds | adsharesTokenValue }}
+      </span>
+      <span
+              class="
+          adsh-copy
+          adsh-copy&#45;&#45;x-small
+          adsh-white
+          adsh-copy&#45;&#45;bold"
+              data-test="user-total-funds-change"
+      >
+        {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
+      </span>
+    </div>
+  -->
+
+  <div
+    class="settings-category"
+    *ngFor="let settingsItem of settings"
+    routerLinkActive="active"
+  >
+    <div *ngIf="(!(settingsItem.admin === false && user.isAdmin))">
+      <a
+        [routerLink]="['/settings', settingsItem.link]"
+        data-test="settings-category-link"
+      >
+        <h3
+          class="
+          adsh-heading
+          adsh-heading--secondary"
+        >
+          {{ settingsItem.title }}
+        </h3>
+      </a>
+      <p class="adsh-copy">
+        {{ settingsItem.description }}
+      </p>
+      <ul
+        class="
         adsh-copy
         adsh-copy--large"
-    >
-      <a
-              [routerLink]="['/settings', settingsItem.link]"
-              data-test="settings-category-link-direct"
       >
-        <li *ngFor="let settingsValues of settingsItem.values">
-          <div class="row align-center" routerLinkActive="active">
-            <img
-                    class="
+        <a
+          [routerLink]="['/settings', settingsItem.link]"
+          data-test="settings-category-link-direct"
+        >
+          <li *ngFor="let settingsValues of settingsItem.values">
+            <div class="row align-center" routerLinkActive="active">
+              <img
+                class="
                 adsh-icon
                 adsh-icon--prepend"
-                    [src]="settingsValues.icon"
-            >
-            <span>{{ settingsValues.name }}</span>
-          </div>
-        </li>
-      </a>
-    </ul>
-  </div>
+                [src]="settingsValues.icon"
+              >
+              <span>{{ settingsValues.name }}</span>
+            </div>
+          </li>
+        </a>
+      </ul>
+    </div>
   </div>
 </section>
