@@ -45,7 +45,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-    this.campaign = this.route.snapshot.data.campaign;
+    this.campaign = this.route.snapshot.data.campaign.campaign;
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -100,6 +100,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.campaign.basicInformation.status =
       statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
 
-    this.advertiserService.saveCampaign(this.campaign);
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign);
   }
 }
