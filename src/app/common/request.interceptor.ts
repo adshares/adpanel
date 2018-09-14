@@ -50,7 +50,7 @@ export class RequestInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.session.getUser().apiToken}`
-        },
+        },//TODO: Remember to remove this in prod
         setParams: {
           'XDEBUG_SESSION_START': 'PHPSTORM'
         }
