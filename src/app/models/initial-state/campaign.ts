@@ -23,7 +23,12 @@ export const campaignInitialState: Campaign = {
     dateStart: moment(new Date()).format('L'),
   },
 
-  targetingArray: {
+  targeting: {
+    requires: {},
+    excludes: {},
+  },
+
+targetingArray: {
     excludes: [],
     requires: []
   },
