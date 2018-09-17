@@ -93,7 +93,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           //   this.router.navigate(['/admin/dashboard']);
           //   return;
           // }
-          // this.showStartupPopups(user);
+          this.showStartupPopups(user);
           this.router.navigate(['/settings/general']);
         },
         (err) => {
