@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS_6 - Settings" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC_1 - Zmiana maila - negatywny" group-by-instances="true">
+<suite name="TS 6 - Settings" parallel="methods" thread-count="1" verbose="3">
+  <test name="TC 1 - Zmiana maila - negatywny" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -12,7 +12,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_2 - Zmiana hasła - negatywny" group-by-instances="true">
+  <test name="TC 2 - Zmiana hasła - negatywny" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -24,7 +24,7 @@
     </classes>
   </test>
 
-  <test name="TC_10 - FAQ" group-by-instances="true">
+  <test name="TC 10 - FAQ" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>

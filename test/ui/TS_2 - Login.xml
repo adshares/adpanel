@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS_2 - Login Control" parallel="methods" thread-count="1" verbose="3">
+<suite name="TS 2 - Login Control" parallel="methods" thread-count="1" verbose="3">
   <test name="TC 1 - Poprawne logowanie" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -52,8 +52,7 @@
       </class>
     </classes>
   </test>
-
-  <test name="TC_6 - Zmiana maila 1" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 1" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -64,7 +63,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 2" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 2" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -75,7 +74,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 3" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 3" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -86,7 +85,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 4" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 4" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -97,7 +96,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 5" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 5" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -108,7 +107,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 6" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 6" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -119,7 +118,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Zmiana maila 7" group-by-instances="true">
+  <test name="TC 6 - Zmiana maila 7" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -182,11 +181,11 @@
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
           <include name="loginSecondTab3"/>
-
         </methods>
       </class>
     </classes>
   </test>
+<!--
   <test name="TC 12 - Wygaśnięcie sesji" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -198,7 +197,8 @@
       </class>
     </classes>
   </test>
-
+-->
+<!--
   <test name="TC 13 - Logowanie jako Administrator" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -206,8 +206,8 @@
           <include name="loginAdmin"/>
         </methods>
       </class>
-     </classes>
+    </classes>
   </test>
-
+-->
 </suite>
 

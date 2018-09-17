@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS_1 - Registration Control" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC_1 - Rejestracja konta" group-by-instances="true">
+<suite name="TS 1 - Registration Control" parallel="methods" thread-count="1" verbose="3">
+<!--
+  <test name="TC 1 - Rejestracja konta" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -19,6 +20,7 @@
       </class>
     </classes>
   </test>
+-->
   <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -28,11 +30,11 @@
           <include name="logOutTest"/>
         </methods>
       </class>
-      <class name="pl.adshares.adpanel.RegisterTestCase">
-        <methods>
-          <include name="registerForgotPassword"/>
-        </methods>
-      </class>
+      <!--<class name="pl.adshares.adpanel.RegisterTestCase">-->
+        <!--<methods>-->
+          <!--<include name="registerForgotPassword"/>-->
+        <!--</methods>-->
+      <!--</class>-->
     </classes>
   </test>
 </suite>

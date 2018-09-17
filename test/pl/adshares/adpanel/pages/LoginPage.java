@@ -508,7 +508,7 @@ public class LoginPage {
   }
 
   public void loginSecondTab2() {
-    // TODO: 20.07.18 TC_10 Fail - użytkownik powinien być wylogowany
+    // TODO: 20.07.18 TC 10 Fail - użytkownik powinien być wylogowany
     wait.until(ExpectedConditions.visibilityOf(helloText));
     String loginEmailAssertInput = helloText.getText();
     Assert.assertEquals("Hello!", loginEmailAssertInput);
@@ -539,7 +539,7 @@ public class LoginPage {
     System.out.println("-. Koniec testu");
   }
   public void loginSecondTab4() throws InterruptedException {
-// TODO: 20.07.18 TC_12 Fail - wygaśniecie sesji - ustawienie w pliku
+// TODO: 20.07.18 TC 12 Fail - wygaśniecie sesji - ustawienie w pliku
     System.setProperty("webdriver.opera.driver", getWebDriverFile("operadriver").getAbsolutePath());
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--start-maximized");
