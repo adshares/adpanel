@@ -24,7 +24,7 @@ export class SettingsNavigationComponent {
                 { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
             ],
             admin: true,
-        },
+        }/*,
         {
             title: 'Billing & Payments',
             description: '',
@@ -34,7 +34,7 @@ export class SettingsNavigationComponent {
                 { name: 'Billing History', icon: 'assets/images/history.svg'}
             ],
             admin: false,
-        }
+        }*/
     ];
 
     constructor(
