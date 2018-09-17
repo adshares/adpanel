@@ -179,15 +179,15 @@ public class LoginPage {
   }
 
   public void goToLoginChangingTheDashboardBack() {
-    System.out.println("1. Dashboar Publisher");
+    System.out.println("1. Dashboard Publisher");
     wait.until(ExpectedConditions.visibilityOf(headerChooseUserMenu));
     headerChooseUserMenu.click();
     headerChooseUserMenuAdvertiser.click();
-    System.out.println("2. Dashboar Advertiser");
+    System.out.println("2. Dashboard Advertiser");
     wait.until(ExpectedConditions.visibilityOf(headerChooseUserMenu));
     headerChooseUserMenu.click();
     headerChooseUserMenuPublisher.click();
-    System.out.println("3. Dashboar Publisher Back");
+    System.out.println("3. Dashboard Publisher Back");
     }
 
   public void goToLoginRegistration() {

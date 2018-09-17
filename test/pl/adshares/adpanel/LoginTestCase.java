@@ -56,11 +56,13 @@ public class LoginTestCase extends BrowserTestCase {
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstPublisher();
   }
+
   @Test
   public void loginPopUpFirstAdvertiser(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiser();
   }
+
   @Test
   public void loginPopUpFirstAdvertiserPublisher(){
     dashboardPopup = new DashboardPopup(driver);
