@@ -1,7 +1,7 @@
 package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.enums.Properties;
-import pl.adshares.adpanel.pages.LoginPage;
+import pl.adshares.adpanel.pages.RegisterPage;
 import pl.adshares.adpanel.pages.register.RegisterConfirmation;
 
 import pl.adshares.adpanel.setup.BrowserTestCase;
@@ -15,8 +15,8 @@ public class RegisterTestCase extends BrowserTestCase {
 
   private RegisterPage registerPage;
   private RegisterConfirmation registerConfirmation;
-  protected String loginAdService;
-  protected String passwordAdService;
+  private String loginAdService;
+  private String passwordAdService;
   protected String RandomsEmail;
 
   @BeforeTest

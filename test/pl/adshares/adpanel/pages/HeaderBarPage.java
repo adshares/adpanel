@@ -48,17 +48,9 @@ public class HeaderBarPage {
     return PageFactory.initElements(driver, HeaderBarPage.class);
   }
 
-  public void goToGeneralSettings() {
-    headerSettingsMenu.click();
-    wait.until(ExpectedConditions.visibilityOf(accountSettingsButton));
-    accountSettingsButton.click();
-  }
 
-  public void goToBillingPayments() {
-    headerSettingsMenu.click();
-    wait.until(ExpectedConditions.visibilityOf(billingPaymentsButton));
-    billingPaymentsButton.click();
-  }
+
+
 
 
 }

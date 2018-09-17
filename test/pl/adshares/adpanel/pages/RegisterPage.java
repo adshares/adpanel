@@ -1,4 +1,4 @@
-package pl.adshares.adpanel;
+package pl.adshares.adpanel.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -193,8 +193,6 @@ public class RegisterPage {
     confirmPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(resetPassword));
 
-    // TODO: 09.08.18 error - komunikat Reset your password. - Passwords don't match!
-    Thread.sleep(400000);
 
     resetPassword.click();
     System.out.println(id+". Reset Password"); id=id+1;

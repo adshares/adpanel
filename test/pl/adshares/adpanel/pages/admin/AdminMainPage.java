@@ -83,7 +83,7 @@ public class AdminMainPage {
     Actions action = new Actions(driver);
     setHValue(earningSlider, 65.47);
     setEarningButton.click();
-    // TODO: 18.07.18 SAVE - nie działa [logo click - sprawdzenie]
+
     wait.until(ExpectedConditions.visibilityOf(logoAdshares));
     logoAdshares.click();
     System.out.println(id+". Koniec testu");
