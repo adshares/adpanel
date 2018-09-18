@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS_4 - Publisher" parallel="false">
-  <test name="TC_4 - Dodanie nowej Strony - informacje podstawowe" group-by-instances="true">
+<suite name="TS 4 - Publisher" parallel="false">
+  <test name="TC 4 - Dodanie nowej Strony - informacje podstawowe" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -16,7 +16,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_5 - Weryfikacja nowej Strony - informacje podstawowe" group-by-instances="true">
+  <test name="TC 5 - Weryfikacja nowej Strony - informacje podstawowe" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -31,7 +31,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - Dodanie nowej Strony - dodanie targetu kampanii" group-by-instances="true">
+  <test name="TC 6 - Dodanie nowej Strony - dodanie targetu kampanii" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -46,7 +46,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_7 - Dodanie nowej Strony - dodanie jednoski reklamy" group-by-instances="true">
+  <test name="TC 7 - Dodanie nowej Strony - dodanie jednoski reklamy" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -61,7 +61,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_8 - Weryfikacja nowej Strony - jednoski reklamy" group-by-instances="true">
+  <test name="TC 8 - Weryfikacja nowej Strony - jednoski reklamy" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -77,7 +77,7 @@
     </classes>
   </test>
 
-  <test name="TC_9 - Dodanie nowej Strony - podsumowanie [Site_up]" group-by-instances="true">
+  <test name="TC 9 - Dodanie nowej Strony - podsumowanie [Site_up]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -92,7 +92,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_10 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
+  <test name="TC 10 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -107,7 +107,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_11 - Dodanie nowej Strony - [Save as Draft]" group-by-instances="true">
+  <test name="TC 11 - Dodanie nowej Strony - [Save as Draft]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -122,7 +122,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_12 - Dodanie nowej Strony - [Back]" group-by-instances="true">
+  <test name="TC 12 - Dodanie nowej Strony - [Back]" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>

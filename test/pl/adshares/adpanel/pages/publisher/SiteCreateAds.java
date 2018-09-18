@@ -49,7 +49,7 @@ public class SiteCreateAds {
     nameOfUnit.sendKeys(NameOfUni);
     adTypeSelecetList.click();
     adTypeHtml.click();
-    List<WebElement> od = driver.findElements(By.xpath("//*[@id='cdk-accordion-child-2']/div/div[3]//div[@class ='site-edit-create-ad-units__ad-unit ng-star-inserted']"));
+    List<WebElement> od = driver.findElements(By.xpath("//*[@id='cdk-accordion-child-2']/div/div[3]//div[@class ='site-edit-create-ad-uniTS _ad-unit ng-star-inserted']"));
     int random = (int) (Math.random() * (1) + (-3));
     Random rand = new Random();
     int randomProduct = rand.nextInt(od.size());

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS_3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
+<suite name="TS 3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
   <test name="TC 1 - Logowanie z nieprawidłowymi danymi" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
@@ -97,7 +97,7 @@
 
 
 
-  <test name="TC_13 - Weryfikacja - Save as Draft" group-by-instances="true">
+  <test name="TC 13 - Weryfikacja - Save as Draft" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -112,7 +112,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_14 - Weryfikacja - Back" group-by-instances="true">
+  <test name="TC 14 - Weryfikacja - Back" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
@@ -130,7 +130,7 @@
 
 
 
-  <test name="TC_2 - Create Campaign">
+  <test name="TC 2 - Create Campaign">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
        <methods>

@@ -56,11 +56,13 @@ public class LoginTestCase extends BrowserTestCase {
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstPublisher();
   }
+
   @Test
   public void loginPopUpFirstAdvertiser(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiser();
   }
+
   @Test
   public void loginPopUpFirstAdvertiserPublisher(){
     dashboardPopup = new DashboardPopup(driver);
@@ -77,7 +79,6 @@ public class LoginTestCase extends BrowserTestCase {
       dashboardPopup = new DashboardPopup(driver);
       dashboardPopup.popUpAdvertiser();
   }
-
 
   @Test
   public void firstLoginPopUp() {
@@ -151,31 +152,37 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage.pageLayoutValidation();
     loginPage.loginSignIn("michal@"+s+".click", "12345678");
   }
+
   @Test
     public void loginChangeEmail_2() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
   }
+
   @Test
   public void loginChangeEmail_3() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
   }
+
   @Test
   public void loginChangeEmail_4() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
   }
+
   @Test
   public void loginChangeEmail_5() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
   }
+
   @Test
   public void loginChangeEmail_6() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
   }
+
   @Test
   public void loginChangeEmail_7() throws InterruptedException {
     loginPage = new LoginPage(driver);
@@ -187,6 +194,7 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmailNegative();
   }
+
   @Test
   public void loginChangePassword() throws InterruptedException {
     loginPage = new LoginPage(driver);
@@ -202,16 +210,19 @@ public class LoginTestCase extends BrowserTestCase {
     System.out.println("NewPassword: "+NewPassword);
     Thread.sleep(10000);
   }
+
   @Test
   public void loginChangePasswordNegative() {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePasswordNegative();
   }
+
   @Test
   public void loginFAQ() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.gotologinFAQ();
   }
+
   @Test
   public void logOut() {
     headerBarPage = new HeaderBarPage(driver);
@@ -219,22 +230,26 @@ public class LoginTestCase extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
   }
+
   @Test
   public void loginSecondTab() {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
   }
+
   @Test
   public void loginSecondTab2() {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
     loginPage.loginSecondTab2();
   }
+
   @Test
   public void loginSecondTab3() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab3();
   }
+
   @Test
   public void loginSecondTab4() throws InterruptedException {
     loginPage = new LoginPage(driver);

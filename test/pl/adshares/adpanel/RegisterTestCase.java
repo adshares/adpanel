@@ -21,7 +21,6 @@ public class RegisterTestCase extends BrowserTestCase {
 
   @BeforeTest
   public void setUp() {
-
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
@@ -59,6 +58,7 @@ public class RegisterTestCase extends BrowserTestCase {
     registerPage.wrongPasswordCorrectEmailRegister(loginAdService);
     System.out.println("<-- Register Page: Correct Email & wrong Password scenerio passed -->");
   }
+
   @Test
   public void registerPageCrossAccessWrongConfirmPasswordCorrectEmail(){
     registerPage = new RegisterPage(driver);
