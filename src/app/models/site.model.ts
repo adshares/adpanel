@@ -3,7 +3,7 @@ import { AssetTargeting } from './targeting-option.model';
 interface Site {
   id: number;
   status: number;
-  websiteUrl: string;
+  name: string;
   primaryLanguage: number;
 
   estimatedEarnings?: number;

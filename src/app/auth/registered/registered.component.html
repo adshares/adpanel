@@ -1,0 +1,66 @@
+<div
+  class="
+    col
+    justify-around
+    adsh-confirmation-wrapper"
+>
+  <div
+    class="
+      col
+      align-start"
+  >
+    <h2
+      class="
+        adsh-heading
+        adsh-heading--primary"
+    >
+      You've registered successfully.
+    </h2>
+    <p
+      class="
+        adsh-copy
+        adsh-copy--large"
+    >
+      You can already log into your account.
+      We have sent an activation email message to your account. Email activation is required for full access to adpanel.
+    </p>
+    <button
+      class="
+        adsh-btn
+        adsh-btn--wide
+        adsh-btn--submit
+        adsh-bg-blue"
+      routerLink="/auth/login"
+      data-test="auth-redirect-to-first-login"
+    >
+      Log in
+    </button>
+  </div>
+  <div
+    class="
+      adsh-box
+      adsh-box--light
+      adsh-box--large"
+  >
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large"
+      >
+        Please contact support if you will encounter any issue.
+      </p>
+      <p
+        class="
+          adsh-copy
+          adsh-copy--large
+          adsh-blue"
+      >
+        <a
+          [href]="'mailto:' + supportEmail"
+          data-test="common-support-email"
+        >
+          {{ supportEmail }}
+        </a>
+      </p>
+  </div>
+</div>

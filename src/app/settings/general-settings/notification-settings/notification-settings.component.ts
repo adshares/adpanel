@@ -15,7 +15,8 @@ import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
   styleUrls: ['./notification-settings.component.scss']
 })
 export class NotificationSettingsComponent extends HandleSubscription implements OnInit {
-  notificationsSettings: NotificationItem[];
+  notificationsSettings: any;//NotificationItem[];
+  // TODO: pipe pipe PipeTransform, Pipe
 
   constructor(
     private store: Store<AppState>,
@@ -26,13 +27,12 @@ export class NotificationSettingsComponent extends HandleSubscription implements
   }
 
   ngOnInit() {
-    const notificationSubscription = this.store.select('state', 'user', 'settings', 'notificationsSettings')
-      .subscribe((notificationsSettings: NotificationItem[]) => {
-        this.notificationsSettings = notificationsSettings;
-      });
-    this.subscriptions.push(notificationSubscription);
-
-    this.store.dispatch(new settingsActions.LoadNotificationsSettings(''));
+    this.settingsService.getNotificationsSettings().subscribe(
+      (data) => {
+        this.notificationsSettings = data;
+        console.log(data);
+      },
+    );
   }
 
   onNotificationChange(notification, notificationType) {

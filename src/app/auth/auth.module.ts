@@ -8,17 +8,11 @@ import { AppCommonModule } from 'common/common.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
-import { RemindPasswordComponent } from './remind-password/remind-password.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { RegisterConfirmComponent } from "auth/register-confirm/register-confirm.component";
-import { ConfirmPasswordComponent } from "./confirm-password/confirm-password.component";
-import { ConfirmationSendRecoveryPasswordComponent } from "auth/confirmation-send-recovery-password/confirmation-send-recovery-password.component";
-import { ConfirmPasswordBadTokenComponent } from "./confirm-password-bad-token/confirm-password-bad-token.component";
-import { ConfirmPasswordResetComponent } from "./confirm-password-reset/confirm-password-reset.component";
-import { ConfirmOldChangeEmailComponent } from "./confirm-old-change-email/confirm-old-change-email.component";
-import { ConfirmNewChangeEmailComponent } from "./confirm-new-change-email/confirm-new-change-email.component";
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { RegisteredComponent } from './registered/registered.component';
+import { EmailProcessingComponent } from "auth/email/email-processing.component";
+import { ResetPasswordComponent } from "auth/reset-password/reset-password.component";
 
 @NgModule({
   imports: [
@@ -30,22 +24,13 @@ import { ConfirmNewChangeEmailComponent } from "./confirm-new-change-email/confi
     AuthRoutingModule
   ],
   declarations: [
-    RegisterConfirmComponent,
+    EmailProcessingComponent,
     AuthComponent,
     LoginComponent,
     RegisterComponent,
-    RemindPasswordComponent,
-    ConfirmationComponent,
-    ConfirmPasswordComponent,
-    ConfirmationSendRecoveryPasswordComponent,
-    ConfirmPasswordBadTokenComponent,
-    ConfirmPasswordResetComponent,
-    ConfirmOldChangeEmailComponent,
-    ConfirmNewChangeEmailComponent
-
+    RegisteredComponent,
+    ForgottenPasswordComponent,
+    ResetPasswordComponent,
   ],
-  providers: [
-    AuthService
-  ]
 })
 export class AuthModule { }

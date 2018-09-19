@@ -13,7 +13,7 @@
 /server-mock/access_logs.db
 
 # IDEs and editors
-/.idea
+/.idea/
 .project
 .classpath
 .c9/
@@ -21,7 +21,6 @@
 .settings/
 *.sublime-workspace
 *.iml
-
 .panel-dock-yarn-task-done
 
 # IDE - VSCode

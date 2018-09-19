@@ -13,13 +13,12 @@ interface TargetingOptionValue {
   id: string;
   label: string;
   value: string;
-  selected?: boolean;
-  allow_input?: boolean;
   parent: Partial<TargetingOption>;
 
+  selected?: boolean;
+  allow_input?: boolean;
   isCustom?: boolean;
 }
-
 
 interface AssetTargeting {
   requires: TargetingOptionValue[];

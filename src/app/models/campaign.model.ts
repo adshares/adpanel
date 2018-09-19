@@ -1,15 +1,15 @@
 import { AssetTargeting } from './targeting-option.model';
 
 interface Campaign {
-  id: number;
+  id?: number;
   basicInformation: CampaignBasicInformation;
-
-  targetingArray?: AssetTargeting;
-  targeting?: {
+  targeting: {
     requires: object;
     excludes: object;
   };
-  ads?: Ad[];
+
+  targetingArray?: AssetTargeting;
+  ads: Ad[];
   clicks?: number;
   impressions?: number;
   CTR?: number;

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS 5 - Administration" parallel="methods" thread-count="1" verbose="3">
+
+  <test name="TC 1 - Ustaw swoje zarobki" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginAdmin"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdminTestCase">
+        <methods>
+          <include name="setYourEarningTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC 2 - Filtry wykresów" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginAdmin"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdminTestCase">
+        <methods>
+          <include name="setFilterTest"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="TC 3 - Zmiana hasła administratora" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginAdmin"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdminTestCase">
+        <methods>
+          <include name="ChangePassword"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

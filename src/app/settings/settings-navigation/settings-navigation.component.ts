@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from 'common/handle-subscription';
-
-import { AppState } from 'models/app-state.model';
-import {User, UserAdserverWallet, UserRoles} from 'models/user.model';
+import { SessionService } from "app/session.service";
+import {LocalStorageUser, UserAdserverWallet} from 'models/user.model';
 
 @Component({
     selector: 'app-settings-navigation',
     templateUrl: './settings-navigation.component.html',
     styleUrls: ['./settings-navigation.component.scss'],
 })
-export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
+export class SettingsNavigationComponent {
     adserverWallet: UserAdserverWallet;
-    userDataState: Store<User>;
-    userRoles: Store<UserRoles>
+    user: LocalStorageUser;
+    // userRoles: Store<UserRoles>
 
     settings = [
         {
@@ -26,8 +23,8 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
                 { name: 'Preferences', icon: 'assets/images/preferences.svg'},
                 { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
             ],
-            role: ["admin", "publisher", "advertiser"]
-        },
+            admin: true,
+        }/*,
         {
             title: 'Billing & Payments',
             description: '',
@@ -36,21 +33,18 @@ export class SettingsNavigationComponent extends HandleSubscription implements O
                 { name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
                 { name: 'Billing History', icon: 'assets/images/history.svg'}
             ],
-            role: ["advertiser", "publisher"]
-        }
+            admin: false,
+        }*/
     ];
 
-    constructor(private store: Store<AppState>) {
-        super();
-    }
+    constructor(
+      private session: SessionService,
+    ) {}
 
     ngOnInit() {
-        const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
-            .subscribe((adserverWallet: UserAdserverWallet) => {
-                this.adserverWallet = adserverWallet;
-            });
-        this.userDataState = this.store.select('state', 'user', 'data');
-
-        this.subscriptions.push(userAdserverWalletSubscription);
+      this.user = this.session.getUser();
+      this.adserverWallet = this.user.adserverWallet;
+      console.log(this.user);
+      console.log(this.adserverWallet);
     }
 }

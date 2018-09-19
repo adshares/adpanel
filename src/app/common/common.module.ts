@@ -36,12 +36,11 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
-import { ConfirmationAlertComponent } from './components/confirmation-alert/confirmation-alert.component';
+import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
-import { AccountConfirmedAlertComponent } from './components/account-confirmed-alert/account-confirmed-alert.component';
 
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
@@ -66,7 +65,7 @@ const dialogs = [
   WithdrawFundsDialogComponent,
   ChangeAddressDialogComponent,
   ChangeAutomaticWithdrawDialogComponent,
-  AddCustomTargetingDialogComponent
+  AddCustomTargetingDialogComponent,
 ];
 
 const appComponents = [
@@ -80,12 +79,11 @@ const appComponents = [
   ChartFilterComponent,
   ChartFilterByTypeComponent,
   FundsSummaryComponent,
-  ConfirmationAlertComponent,
+  EmailNotActivatedBarComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
   TableNavigationComponent,
   EditAssetNavigationComponent,
-  AccountConfirmedAlertComponent
 ];
 
 @NgModule({

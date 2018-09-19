@@ -1,69 +1,62 @@
-# Adshares
-
-## INDENTS
-
-Files use 2 space indents as reflected in .editorconfig.
-
-HTML files attributes should be started in new line if there is more than 1 attribute, e.g.
-
-1 attribute:
-```
-<p 
-  class="
-    adsh-copy
-    adsh-copy--large"
->
-  Lorem ipsum
+<p align="center">
+    <a href="https://adshares.net/" title="Adshares sp. z o.o." target="_blank">
+        <img src="https://adshares.net/logos/ads.svg" alt="Adshares" width="100" height="100">
+    </a>
 </p>
-```
+<h3 align="center"><small>Adshares - AdPanel</small></h3>
+<p align="center">
+    <a href="https://github.com/adshares/adpanel/issues/new?template=bug_report.md&labels=Bug">Report bug</a>
+    ·
+    <a href="https://github.com/adshares/adpanel/issues/new?template=feature_request.md&labels=New%20Feature">Request feature</a>
+    ·
+    <a href="https://github.com/adshares/adpanel/wiki">Wiki</a>
+</p>
+<p align="center">
+    <a href="https://travis-ci.org/adshares/adpanel" title="master" target="_blank">
+        <img src="https://travis-ci.org/adshares/adpanel.svg?branch=master" alt="Build Status">
+    </a>
+</p>
 
-2 or more attributes:
-```
-<div
-  *ngIf="password.valid"
-  class="input-valid"
-></div>
-```
+## Documentation
 
-## STYLES
+- [Wiki](https://github.com/adshares/adpanel/wiki)
+- [Changelog](CHANGELOG.md)
+- [Testing](https://github.com/adshares/adpanel/wiki/Testing)
 
-Root style file is located in **/src/styles.scss**
+## Contributing
 
-Style files (.scss) use BEM methodology e.g.
+- Please follow our [Contributing Guidelines](docs/CONTRIBUTING.md)
 
-```
-/* Block */
-.adsh-header
+### Authors
 
-/* Block with modifier */
-.adsh-header--wide
+- **[Tomek Grzechowski](https://github.com/yodahack)**
+- **[Maciej Pilarczyk](https://github.com/m-pilarczyk)**
+- **[Paweł Zaremba](https://github.com/pawzar)**
 
-/* Element in block */
-.adsh-header__navigation
+...and other [contributors](https://github.com/adshares/adpanel/contributors).
 
-/* Element in block with modifier */
-.adsh-header__navigation--active
+### Versioning
 
-```
+- We use [Semantic Versioning](http://semver.org/).
+- See available [versions](https://github.com/adshares/adpanel/tags). 
 
+### License
 
-## Development server
+This work is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This work is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+[GNU General Public License](LICENSE) for more details.
 
-## Build
+You should have received a copy of the License along with this work.
+If not, see <https://www.gnu.org/licenses/gpl.html>.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Related projects
 
+- [AdServer](https://github.com/adshares/adserver)
+- [PHP ADS Client](https://github.com/adshares/adpanel-php-client)
 
-## Create server mock
-
-To run server mock install node easy mock:
-`npm install -g easymock`
-
-Then run
-`easymock` in server-mock directory
-
-To add new possible endpoints add new json files in easy-mock direcotry with name consisting of url and method name divided by underscore. Files should countain json response returned from server.
-
-For more info visit: https://github.com/CyberAgent/node-easymock

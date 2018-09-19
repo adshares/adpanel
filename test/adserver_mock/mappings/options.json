@@ -8,9 +8,9 @@
     "status": 200,
     "headers": {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin" : "http://panel.ads",
-      "Access-Control-Allow-Methods" : "*",
-      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Origin": "http://panel.ads",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods" : "GET, POST, PUT, PATCH, DELETE, OPTIONS",
       "Access-Control-Allow-Headers": "Accept, Content-Type, Content-Encoding, Server, Transfer-Encoding, X-Requested-With, X-Authorization, Authorization",
       "X-Content-Type-Options" : "nosniff",
       "x-frame-options" : "DENY",

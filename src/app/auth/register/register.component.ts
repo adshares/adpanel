@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'auth/auth.service'
+import { ApiService } from 'app/api/api.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { appSettings } from 'app-settings';
 import { User } from "models/user.model";
@@ -14,21 +14,21 @@ import { User } from "models/user.model";
 })
 export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
-  errorsRegister= {};
+  errorsRegister = {};
 
   ObjectKeys = Object.keys;
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   user: User;
   constructor(
-    private authService: AuthService,
+    private api: ApiService,
     private router: Router
   ) {
     super();
   }
 
   register() {
-    const uri = '/auth/register-confirm/';
+    const uri = '/auth/email-activation/';
     const password = this.registrationForm.value.password;
     const confirmPassword = this.registrationForm.value.confirmPassword;
 
@@ -37,20 +37,20 @@ export class RegisterComponent extends HandleSubscription {
     }
 
     this.isRegistering = true;
-    const user = <User> {
-      email:  this.registrationForm.value.email,
+    const user = <User>{
+      email: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
-      isAdvertiser: true,
-      isPublisher: true
+      isAdvertiser: false,
+      isPublisher: false
     };
-    const registerSubscription = this.authService.registerUser(
-        user, uri
+    const registerSubscription = this.api.users.post(
+      user, uri
     )
       .subscribe(
-          () => this.router.navigate(['/auth', 'confirmation']),
-      (err) => {
-              this.errorsRegister = err.error.errors;
-              this.isRegistering = false;
+        () => this.router.navigate(['/auth', 'registered']),
+        (err) => {
+          this.errorsRegister = err.error.errors;
+          this.isRegistering = false;
         }
       );
 

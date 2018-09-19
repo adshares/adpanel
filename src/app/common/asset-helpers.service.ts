@@ -11,7 +11,7 @@ export class AssetHelpersService {
 
   redirectIfNameNotFilled(asset: Campaign | Site): boolean {
     const obligatoryField = this.isSite(asset) ?
-      asset['websiteUrl'] : asset['basicInformation']['name'];
+      asset['name'] : asset['basicInformation']['name'];
     const fieldFilled = obligatoryField !== '';
 
     if (!fieldFilled) {
@@ -28,6 +28,6 @@ export class AssetHelpersService {
   }
 
   isSite(object: any): boolean {
-    return 'websiteUrl' in object;
+    return 'name' in object;
   }
 }

@@ -1,9 +1,11 @@
 package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.enums.Properties;
+import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.pages.register.RegisterConfirmation;
-import pl.adshares.adpanel.pages.register.RegisterPage;
+
 import pl.adshares.adpanel.setup.BrowserTestCase;
+import pl.adshares.adpanel.tools.RandomPage;
 import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
@@ -15,11 +17,10 @@ public class RegisterTestCase extends BrowserTestCase {
   private RegisterConfirmation registerConfirmation;
   protected String loginAdService;
   protected String passwordAdService;
-
+  protected String RandomsEmail;
 
   @BeforeTest
   public void setUp() {
-
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
@@ -57,6 +58,7 @@ public class RegisterTestCase extends BrowserTestCase {
     registerPage.wrongPasswordCorrectEmailRegister(loginAdService);
     System.out.println("<-- Register Page: Correct Email & wrong Password scenerio passed -->");
   }
+
   @Test
   public void registerPageCrossAccessWrongConfirmPasswordCorrectEmail(){
     registerPage = new RegisterPage(driver);
@@ -64,4 +66,9 @@ public class RegisterTestCase extends BrowserTestCase {
     System.out.println("<-- Register Page: Correct Email & wrong Password Confirm scenerio passed -->");
   }
 
+  @Test
+  public void registerForgotPassword() throws InterruptedException {
+    registerPage = new RegisterPage(driver);
+    registerPage.registerForgotPassword(RandomPage.getFromStore("user_email"),"ADS11ads");
+  }
 }

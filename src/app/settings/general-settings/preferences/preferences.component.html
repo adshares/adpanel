@@ -46,6 +46,7 @@
               name="email"
               formControlName="email"
               data-test="settings-change-email-form-email"
+              [placeholder]="user.email"
             >
             <span
               class="input-valid"
@@ -65,15 +66,9 @@
             </span>
             <span
               class="error-msg"
-              *ngIf="afterRequestValidation.email.emailChangeFailed"
+              *ngIf="errorEmailChange"
             >
-              Something went wrong, please try again.
-            </span>
-            <span
-              class="success-msg"
-              *ngIf="afterRequestValidation.email.success"
-            >
-              Your email was changed successfully.
+              {{errorEmailChange}}
             </span>
           </div>
           <button
@@ -99,6 +94,7 @@
             align-start
             change-form"
         >
+
           <div class="row">
             <div class="adsh-form-input__box">
               <label
@@ -129,26 +125,7 @@
               >
                 Current password required!
               </span>
-              <span
-                class="error-msg"
-                *ngIf="afterRequestValidation.password.passwordChangeFailed"
-              >
-                Something went wrong, please try again later
-              </span>
-              <span
-                class="error-msg"
-                *ngIf="afterRequestValidation.password.wrongPreviousPassword"
-              >
-                Wrong password!
-              </span>
-              <span
-                class="success-msg"
-                *ngIf="afterRequestValidation.password.success"
-              >
-                Password changed
-              </span>
             </div>
-
             <div class="adsh-form-input__box">
               <label
                 for="newPassword"
@@ -216,7 +193,6 @@
               </span>
             </div>
           </div>
-
           <button
             class="
               adsh-btn
@@ -226,6 +202,13 @@
             Change password
           </button>
         </div>
+        <!-- <div
+                class="warning-msg"
+                *ngIf="graceTime"
+        >
+          You password was expire in 3 days!
+        </div> -->
+
       </form>
     </div>
   </div>

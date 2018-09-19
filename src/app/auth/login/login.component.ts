@@ -1,20 +1,19 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
-import * as authActions from 'store/auth/auth.actions';
-import * as commonActions from 'store/common/common.actions';
+import { ApiService } from 'app/api/api.service';
+import { SessionService } from "app/session.service";
 
-import { AuthService } from 'auth/auth.service';
 import { User, LocalStorageUser } from 'models/user.model';
 import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
+
 import { appSettings } from 'app-settings';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
@@ -32,19 +31,27 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   isLoggingIn = false;
   loginFormSubmitted = false;
-  criteriaError= false;
+  criteriaError = false;
 
   constructor(
-    private authService: AuthService,
+    private api: ApiService,
+    private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<AppState>
   ) {
     super();
   }
 
   ngOnInit() {
+
+    // SMELL: this should be elsewhere anyway (?)
+    const user: LocalStorageUser = this.session.getUser();
+    if (user) {
+      this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
+      return;
+    }
+
     this.createForm();
     this.checkIfUserRemembered();
   }
@@ -75,71 +82,70 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true;
 
-    const loginSubscription = this.authService.loginUser(
+    this.api.auth.login(
       this.loginForm.value.email,
       this.loginForm.value.password
     )
-      .subscribe((userResponse: User) => {
-        this.store.dispatch(new authActions.SetUser(userResponse));
-        this.saveUserDataToLocalStorage(userResponse);
-
-        if (userResponse.isAdmin) {
-          this.store.dispatch(new commonActions.SetActiveUserType(userRolesEnum.ADMIN));
-          this.router.navigate(['/admin/dashboard']);
-        } else {
-            this.showStartupPopups(userResponse);
-        }
-
-      },
-      (err) => {
+      .subscribe(
+        (user: User) => {
+          this.processLogin(user);
+          // if (user.isAdmin) {
+          //   this.router.navigate(['/admin/dashboard']);
+          //   return;
+          // }
+          this.showStartupPopups(user);
+          this.router.navigate(['/settings/general']);
+        },
+        (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;
       });
-    this.subscriptions.push(loginSubscription);
   }
 
-  saveUserDataToLocalStorage(userResponse: User) {
+  processLogin(user: User) {
     const rememberUser = this.rememberUser.nativeElement.checked;
     const expirationSeconds = rememberUser ?
       appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
-    const dataToSave: LocalStorageUser = Object.assign({}, userResponse, {
+    const dataToSave: LocalStorageUser = Object.assign({}, user, {
       remember: rememberUser,
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
-    localStorage.setItem('adshUser', JSON.stringify(dataToSave));
-
+    this.session.setUser(dataToSave);
   }
 
   showStartupPopups(user: User) {
-    const firstLogin = this.route.snapshot.queryParams['customize'];
-    if (firstLogin) {
-      const dialogRef = this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
 
-      dialogRef.afterClosed()
-        .subscribe((accounts) => this.handleCustomizeDialog(accounts));
-
-    } else if (user.isAdvertiser && user.isPublisher) {
-      const chooseAccount = localStorage.getItem("choose");
-      if(chooseAccount == "Advertiser"){
-          this.router.navigate(['/advertiser/dashboard']);
-      } else {
-          this.router.navigate(['/publisher/dashboard']);
+    if (user.isAdvertiser && user.isPublisher) {
+      const chooseAccount = this.session.getAccountTypeChoice();
+      if (!chooseAccount) {
+        this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+        return;
       }
-      if(!chooseAccount){
-          this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+      if (chooseAccount == "advertiser") {
+        this.router.navigate(['/advertiser/dashboard']);
+        return;
+      }
+      if (chooseAccount == "publisher") {
+        this.router.navigate(['/publisher/dashboard']);
+        return;
       }
     }
+    if (user.isAdvertiser) {
+      this.session.setAccountTypeChoice('advertiser');
+      this.router.navigate(['/advertiser/dashboard']);
+      return;
+    }
+    if (user.isPublisher) {
+      this.session.setAccountTypeChoice('publisher');
+      this.router.navigate(['/publisher/dashboard']);
+      return;
+    }
+    this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
   }
 
   handleCustomizeDialog(accounts) {
-    if (!accounts) {
-      return;
-    }
-    if (!accounts.advertiser.selected && accounts.publisher.selected) {
-      this.router.navigate(['/publisher/dashboard']);
-    }
-
+    // TODO : this does something? review fix display
     this.dialog.open(WalletDialogComponent);
   }
 }

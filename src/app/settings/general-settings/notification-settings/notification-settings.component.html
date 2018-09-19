@@ -39,12 +39,12 @@
             Email
           </div>
         </div>
-        <ul *ngIf="notificationsSettings.length > 0 ; else loading">
+        <ul *ngIf="notificationsSettings && notificationsSettings.payload; else loading">
           <li
             class="
               row
               align-center"
-            *ngFor="let notification of notificationsSettings"
+            *ngFor="let notification of notificationsSettings.payload"
           >
             <div class="col-xs-6">
               <h5
@@ -57,6 +57,20 @@
               </h5>
             </div>
             <div class="col-xs-4">
+              <mat-slide-toggle
+                color="primary"
+                aria-label="notification-component"
+                [checked]="notification.notify === true"
+              ></mat-slide-toggle>
+            </div>
+            <div class="col-xs-2">
+              <mat-slide-toggle
+                color="primary"
+                aria-label="notification-email"
+                [checked]="notification.email === true"
+              ></mat-slide-toggle>
+            </div>
+            <!-- <div class="col-xs-4">
               <mat-slide-toggle
                 color="primary"
                 (change)="onNotificationChange(notification, 'notification')"
@@ -75,7 +89,7 @@
                 ([ngModel])="notification.email"
                 data-test="settings-notification-toggle-for-email"
               ></mat-slide-toggle>
-            </div>
+            </div> -->
           </li>
         </ul>
         <ng-template #loading>

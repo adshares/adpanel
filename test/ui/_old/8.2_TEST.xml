@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS - Publisher" parallel="false">
+
+  <test name="TC 2 - Create Campaign">
+    <classes>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
+          <include name="loginRegisterRandom"/>
+          <include name="loginPopUpFirstAdvertiser"/>
+        </methods>
+      </class>
+      <class name="pl.adshares.adpanel.AdvertiserTestCase">
+        <methods>
+          <include name="createAdvertiserCampaign"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+</suite>
