@@ -60,11 +60,3 @@ If not, see <https://www.gnu.org/licenses/gpl.html>.
 - [AdServer](https://github.com/adshares/adserver)
 - [PHP ADS Client](https://github.com/adshares/adpanel-php-client)
 
-# Adshares
-
-## Testing
-> Maven command with default properties
-```
-mvn -Dwebdriver.remote=0 -Dwebdriver.remote.url="http://localhost:4444/wd/hub" -Dwebdriver.headless=0 verify
-```
-
