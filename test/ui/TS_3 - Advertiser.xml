@@ -3,7 +3,7 @@
 <suite name="TS 3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
   <test name="TC 1 - Logowanie z nieprawidłowymi danymi" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginAsdf"/>
         </methods>
@@ -12,7 +12,7 @@
   </test>
   <test name="TC 2 - Logowanie użytkownika" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -22,7 +22,7 @@
   </test>
   <test name="TC 3 - Wylogowanie" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -33,7 +33,7 @@
   </test>
   <test name="TC 4 - Weryfikacja zawartości głównej strony ogłoszeniodawcy" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -51,7 +51,7 @@
 
   <test name="TC 7 - Tworzenie kampanii - anulowanie" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -66,7 +66,7 @@
   </test>
   <test name="TC 8 - Tworzenie kampanii - podstawowe parametry" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -81,7 +81,7 @@
   </test>
   <test name="TC 9 - Tworzenie kampanii - targetowanie" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -99,7 +99,7 @@
 
   <test name="TC 13 - Weryfikacja - Save as Draft" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -114,7 +114,7 @@
   </test>
   <test name="TC 14 - Weryfikacja - Back" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstAdvertiser"/>
@@ -132,7 +132,7 @@
 
   <test name="TC 2 - Create Campaign">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
        <methods>
          <include name="loginRegisterRandom"/>
          <include name="loginPopUpFirstAdvertiser"/>

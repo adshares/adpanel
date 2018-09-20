@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pl.adshares.adpanel.tools.RandomPage;
+import pl.adshares.adpanel.tools.Maps;
 
 
 public class SiteSummary {
@@ -31,18 +31,18 @@ public class SiteSummary {
   public void publishNewSite() {
     wait.until(ExpectedConditions.visibilityOf(publishSiteButton));
     publishSiteButton.click();
-    int id = (int) RandomPage.getFromId("id");
+    int id = (int) Maps.getId("id");
     System.out.println(id+". Summary - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    Maps.createId();
+    Maps.id("id", id);
   }
   public void back() {
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
-    int id = (int) RandomPage.getFromId("id");
+    int id = (int) Maps.getId("id");
     System.out.println(id+". Back Summary - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    Maps.createId();
+    Maps.id("id", id);
   }
 
 }
