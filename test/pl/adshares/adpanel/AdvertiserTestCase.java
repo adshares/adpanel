@@ -46,7 +46,7 @@ public class AdvertiserTestCase extends BrowserTestCase {
     advertiserMainPage.createCampaignSaveData();
     advertiserMainPage.createCampaignAdditionalTargeting();
     advertiserMainPage.createCampaignAdditionalTargetingSaveDataAsDraft();
-    // TODO: 27.07.18 błąd 500 przy SaveDataAsDraft
+
     advertiserMainPage.createCampaignCreateAds();
     advertiserMainPage.createCampaignCreateAdsSaveData();
     advertiserMainPage.createCampaignSummary();

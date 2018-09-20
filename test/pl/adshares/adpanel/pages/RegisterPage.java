@@ -174,6 +174,10 @@ public class RegisterPage {
     password.getText();
     confirmPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(resetPassword));
+
+    // TODO: 09.08.18 error - komunikat Reset your password. - Passwords don't match!
+    Thread.sleep(400000);
+
     resetPassword.click();
     System.out.println("Click - Reset Password");
     wait.until(ExpectedConditions.visibilityOf(yourNewPasswordIsSet));

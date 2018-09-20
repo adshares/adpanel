@@ -130,7 +130,7 @@ public class PublisherTestCase extends BrowserTestCase {
     siteAdditionalTargeting.goToCreateAds();
     SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
     siteCreateAds.createAdUnit();
-    // TODO: 25.07.18 nie działa Save as Draft dla Creast Ad Units - Tomek
+
     System.out.println("4");
     siteCreateAds.adUnitTemplate("Test advertisement");
     System.out.println("5");
