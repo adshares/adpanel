@@ -273,9 +273,10 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("2z7 - logOut");
     loginPage.RandomEmail_Mailcatcher();
     System.out.println("3z7 - Mailcatcher");
+    Thread.sleep(1000000);
 
-//    class="adsh-dialog-close"
-//    Thread.sleep(200000);
+
+
     loginPage = new LoginPage(driver);
     loginPage.adshDialogClose();
     System.out.println("4z8 - logOut");

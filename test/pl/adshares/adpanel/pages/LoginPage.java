@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.log4testng.Logger;
 import pl.adshares.adpanel.tools.Maps;
 
@@ -85,14 +86,22 @@ public class LoginPage {
   private WebDriverWait wait;
   public String randomsEmail;
 
-
   public LoginPage(WebDriver driver) {
     this.driver = driver;
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
+  @BeforeClass
+  public void LoginPage(WebDriver driver) {
+    this.driver = driver;
+    wait = new WebDriverWait(driver, 30);
+    PageFactory.initElements(driver, this);
+  }
+
   public void adshDialogClose() throws InterruptedException {
+    System.out.println("---------- adshDialogClose ----------");
+    System.out.println("START - adshDialogClose");
     Thread.sleep(100000);
     // TODO: 20.09.18
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
