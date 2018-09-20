@@ -89,11 +89,12 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe(
         (user: User) => {
           this.processLogin(user);
-          if (user.isAdmin) {
-            this.router.navigate(['/admin/dashboard']);
-            return;
-          }
+          // if (user.isAdmin) {
+          //   this.router.navigate(['/admin/dashboard']);
+          //   return;
+          // }
           this.showStartupPopups(user);
+          this.router.navigate(['/settings/general']);
         },
         (err) => {
           this.criteriaError = true;

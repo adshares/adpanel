@@ -8,7 +8,7 @@ import pl.adshares.adpanel.tools.RandomPage;
 
 public class PublisherTestCase extends BrowserTestCase {
 
-//  TC_4
+//  TC 4
   @Test
   public void AddBasicInformation() {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -16,7 +16,7 @@ public class PublisherTestCase extends BrowserTestCase {
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
     publisherNewSite.sitePublisherBasicInfo("https://www.gazeta.pl");
   }
-  //  TC_5
+  //  TC 5
   @Test
   public void AddBasicInformationError() {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -25,7 +25,7 @@ public class PublisherTestCase extends BrowserTestCase {
     publisherNewSite.sitePublisherBasicInfo("");
     publisherNewSite.sitePublisherBasicInfoError("");
   }
-//  TC_6
+//  TC 6
   @Test
   public void AddAdditionalTargeting() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -39,7 +39,7 @@ public class PublisherTestCase extends BrowserTestCase {
     siteAdditionalTargeting.publisherRequiresJsSupport();
     siteAdditionalTargeting.goToCreateAds();
   }
-//  TC_7
+//  TC 7
   @Test
   public void AddAdditionalCreateAds() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -57,7 +57,7 @@ public class PublisherTestCase extends BrowserTestCase {
     siteCreateAds.adUnitTemplate("Test advertisement");
     siteCreateAds.goToSummary();
   }
-  //  TC_8
+  //  TC 8
   @Test
   public void AddAdditionalCreateAdsError() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -76,7 +76,7 @@ public class PublisherTestCase extends BrowserTestCase {
     siteCreateAds.goToSummary();
     siteCreateAds.createAdUnitError();
   }
-//  TC_9
+//  TC 9
   @Test
   public void AddSummary() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -95,7 +95,7 @@ public class PublisherTestCase extends BrowserTestCase {
     SiteSummary siteSummary = new SiteSummary(driver);
     siteSummary.publishNewSite();
   }
-//  TC_10
+//  TC 10
   @Test
   public void AddSummary_down() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -114,7 +114,7 @@ public class PublisherTestCase extends BrowserTestCase {
     SiteSummary siteSummary = new SiteSummary(driver);
     siteSummary.publishNewSite();
   }
-  //  TC_11
+  //  TC 11
   @Test
   public void SaveAsDraft() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -142,7 +142,7 @@ public class PublisherTestCase extends BrowserTestCase {
     System.out.println("7");
     siteSummary.publishNewSite();
   }
-  //  TC_12
+  //  TC 12
   @Test
   public void Back() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);

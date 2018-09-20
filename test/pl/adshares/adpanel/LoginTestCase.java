@@ -87,7 +87,6 @@ public class LoginTestCase extends BrowserTestCase {
     dashboardPopup.popUpAdvertiser();
   }
 
-
   @Test
   public void firstLoginPopUp() {
     dashboardPopup = new DashboardPopup(driver);

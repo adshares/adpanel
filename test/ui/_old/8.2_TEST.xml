@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS - Publisher" parallel="false">
 
-  <test name="TC_2 - Create Campaign">
+  <test name="TC 2 - Create Campaign">
     <classes>
       <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
