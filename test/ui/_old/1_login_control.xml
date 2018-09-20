@@ -3,7 +3,7 @@
 <suite name="Login Control Test Suite" parallel="methods" thread-count="1" verbose="3">
   <test name="Login Publisher - Correct Access" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginTest"/>
           <include name="popUpPublisher"/>
@@ -14,7 +14,7 @@
   </test>
 <test name="Login Advertiser - Correct Access" group-by-instances="true">
   <classes>
-    <class name="pl.adshares.adpanel.LoginTestCase">
+    <class name="pl.adshares.adpanel.AdPanel">
       <methods>
         <include name="loginTest"/>
         <include name="popUpAdvertiser"/>

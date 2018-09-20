@@ -4,7 +4,7 @@
 
   <test name="TC 1 - Ustaw swoje zarobki" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginAdmin"/>
         </methods>
@@ -18,7 +18,7 @@
   </test>
   <test name="TC 2 - Filtry wykresów" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginAdmin"/>
         </methods>
@@ -33,7 +33,7 @@
 
   <test name="TC 3 - Zmiana hasła administratora" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="loginAdmin"/>
         </methods>

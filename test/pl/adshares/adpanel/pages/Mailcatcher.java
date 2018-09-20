@@ -15,7 +15,6 @@ import java.util.List;
 import static org.openqa.selenium.WebElement.*;
 
 public class Mailcatcher {
-  private static final Logger LOGGER = Logger.getLogger(Mailcatcher.class);
 
   @FindBy(name = "search")
   private WebElement search;
@@ -33,8 +32,10 @@ public class Mailcatcher {
   private WebDriver driver;
   private WebDriverWait wait;
 
-  public Mailcatcher(WebDriver driver) throws InterruptedException {
-    this.driver = driver;
+  public Mailcatcher(WebDriver driver) {
+  }
+
+  public Object acceptance_message() throws InterruptedException {
     wait = new WebDriverWait(driver, 10);
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.addArguments("--start-maximized");
@@ -54,14 +55,10 @@ public class Mailcatcher {
     Thread.sleep(5000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     System.out.println("2. Mailcatcher - OK");
+    return null;
   }
 
 
-
-  public void goToLoginRegistrRandom2() throws InterruptedException {
-    wait.until(ExpectedConditions.titleIs(driver.getTitle()));
-    //Thread.sleep(12000);
-  }
 
 
 
