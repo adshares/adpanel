@@ -17,6 +17,22 @@
     </a>
 </p>
 
+## Quick Start
+
+Run: 
+```bash
+docker-compose run --rm --entrypoint yarn dev install
+docker-compose up --detach
+```
+
+Update your /etc/hosts to include:
+
+```
+127.0.0.1 panel.ads
+```
+
+Go to [http://panel.ads:8081/](http://panel.ads:8081/)
+
 ## Documentation
 
 - [Wiki](https://github.com/adshares/adpanel/wiki)
