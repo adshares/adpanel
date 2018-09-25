@@ -25,13 +25,8 @@ docker-compose run --rm --entrypoint yarn dev install
 docker-compose up --detach
 ```
 
-Update your /etc/hosts to include:
-
-```
-127.0.0.1 panel.ads
-```
-
-Go to [http://panel.ads:8081/](http://panel.ads:8081/)
+Go to:
+- [http://localhost:8102/](http://localhost:8102/) for the panel
 
 ## Documentation
 

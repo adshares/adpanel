@@ -11,6 +11,6 @@ services:
     restart: on-failure
     user: '1000'
     entrypoint: ['node_modules/@angular/cli/bin/ng']
-    command: ['serve','--environment','dev','--host','0.0.0.0','--port','8081','--public-host','panel.ads','--sourcemaps','--verbose']
+    command: ['serve','--environment','dev','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
     ports:
-    - "8081:8081"
+    - "8102:4200"
