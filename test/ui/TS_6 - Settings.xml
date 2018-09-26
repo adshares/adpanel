@@ -3,7 +3,7 @@
 <suite name="TS 6 - Settings" parallel="methods" thread-count="1" verbose="3">
   <test name="TC 1 - Zmiana maila - negatywny" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
+      <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
@@ -14,7 +14,7 @@
   </test>
   <test name="TC 2 - Zmiana hasła - negatywny" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
+      <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>
@@ -26,7 +26,7 @@
 
   <test name="TC 10 - FAQ" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
+      <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <include name="loginRegisterRandom"/>
           <include name="loginPopUpFirstPublisher"/>

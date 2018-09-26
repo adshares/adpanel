@@ -1,10 +1,15 @@
 package pl.adshares.adpanel;
 
+import pl.adshares.adpanel.data.campaign.CampaignAdv;
+import pl.adshares.adpanel.data.campaign.CampaignBasicInfo;
 import pl.adshares.adpanel.pages.DashboardPopup;
 import pl.adshares.adpanel.pages.advertiser.*;
 import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import org.testng.annotations.Test;
+import pl.adshares.adpanel.tools.RandomPage;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AdvertiserTestCase extends BrowserTestCase {
 
@@ -46,7 +51,7 @@ public class AdvertiserTestCase extends BrowserTestCase {
     advertiserMainPage.createCampaignSaveData();
     advertiserMainPage.createCampaignAdditionalTargeting();
     advertiserMainPage.createCampaignAdditionalTargetingSaveDataAsDraft();
-
+    // TODO: 27.07.18 błąd 500 przy SaveDataAsDraft
     advertiserMainPage.createCampaignCreateAds();
     advertiserMainPage.createCampaignCreateAdsSaveData();
     advertiserMainPage.createCampaignSummary();
