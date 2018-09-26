@@ -17,40 +17,34 @@
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>3.12.0</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>6.14.3</version>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom2</artifactId>
       <version>2.0.6</version>
     </dependency>
-
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>25.0-jre</version>
     </dependency>
-
     <!-- TODO: Remove from this repo -->
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
@@ -58,7 +52,6 @@
       <version>2.17.0</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -73,7 +66,7 @@
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_1 - Registration.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>
+            <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>-->
             <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_3 - Advertiser.xml</suiteXmlFile>-->
             <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_4 - Publisher.xml</suiteXmlFile>-->
             <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_5 - Administration.xml</suiteXmlFile>-->
@@ -119,10 +112,6 @@
         <configuration>
           <installationDirectory>${project.build.directory}/drivers</installationDirectory>
           <drivers>
-            <driver>
-              <name>operadriver</name>
-              <version>2.29</version>
-            </driver>
             <driver>
               <name>chromedriver</name>
             </driver>

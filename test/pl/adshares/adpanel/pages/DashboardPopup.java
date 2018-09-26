@@ -11,61 +11,65 @@ import org.testng.log4testng.Logger;
 public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(DashboardPopup.class);
 
-  @FindBy(xpath = "//h6[contains(text(),'Continue as')]")
-  private WebElement userPopUp;
-  @FindBy(css = "[data-test='common-account-choose-publisher']")
-  private WebElement userPopUpPublisher;
-  @FindBy(css = "[data-test='common-account-choose-advertiser']")
-  private WebElement userPopUpAdvertiser;
-  @FindBy(css = "div[data-test='common-choose-advertiser-account']")
-  private WebElement commonChooseAdvertiser;
-  @FindBy(css = "div[data-test='common-choose-publisher-account']")
-  private WebElement commonChoosePublisher;
-  @FindBy(xpath = "//button[contains(text(), 'Continue')]")
-  private WebElement continueButton;
+  @FindBy(xpath = "//h6[contains(text(),'Continue as')]")                                                               private WebElement userPopUp;
+  @FindBy(css = "[data-test='common-account-choose-publisher']")                                                        private WebElement userPopUpPublisher;
+  @FindBy(css = "[data-test='common-account-choose-advertiser']")                                                       private WebElement userPopUpAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-advertiser-account']")                                                    private WebElement commonChooseAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-publisher-account']")                                                     private WebElement commonChoosePublisher;
+  @FindBy(xpath = "//button[contains(text(), 'Continue')]")                                                             private WebElement continueButton;
 
-  @FindBy(xpath = "//button[contains(text(),'Continue')]")
-  private WebElement PopUpFirstContinue;
-  @FindBy(css = "[data-test='common-choose-publisher-account']")
-  private WebElement PopUpFirstPublisher;
-  @FindBy(css = "[data-test='common-choose-advertiser-account']")
-  private WebElement PopUpFirstAdvertiser;
-
-
+  @FindBy(xpath = "//button[contains(text(),'Continue')]")                                                              private WebElement PopUpFirstContinue;
+  @FindBy(css = "[data-test='common-choose-publisher-account']")                                                        private WebElement PopUpFirstPublisher;
+  @FindBy(css = "[data-test='common-choose-advertiser-account']")                                                       private WebElement PopUpFirstAdvertiser;
 
   private WebDriver driver;
   private WebDriverWait wait;
 
   public DashboardPopup(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 20);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
   public void popUpFirstPublisher() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstPublisher));
-    PopUpFirstPublisher.click();
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    PopUpFirstContinue.click();
-    System.out.println("---------- First Publisher ----------");
+    if(!driver.findElements(By.cssSelector("[data-test='common-choose-publisher-account']")).isEmpty()){
+      System.out.println("Skip >>>>> First Publisher");
+    }else{
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstPublisher));
+      PopUpFirstPublisher.click();
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+      PopUpFirstContinue.click();
+      System.out.println("---------- First Publisher ----------");
+    }
   }
   public void popUpFirstAdvertiser() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
-    PopUpFirstAdvertiser.click();
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    PopUpFirstContinue.click();
-    System.out.println("---------- First Advertiser ----------");
+    if (!driver.findElements(By.cssSelector("[data-test='common-choose-advertiser-account']")).isEmpty()) {
+      System.out.println("Skip >>>>> First Advertiser");
+    } else {
+        wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+        wait.until(ExpectedConditions.visibilityOf(PopUpFirstPublisher));
+        PopUpFirstAdvertiser.click();
+        wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+        PopUpFirstContinue.click();
+        System.out.println("---------- First Advertiser ----------");
+    }
   }
+
   public void popUpFirstAdvertiserPublisher() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
-    PopUpFirstAdvertiser.click();
-    PopUpFirstPublisher.click();
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    PopUpFirstContinue.click();
-    System.out.println("---------- First Advertiser + Publisher ----------");
+    if(!driver.findElements(By.cssSelector("[data-test='common-choose-advertiser-account']")).isEmpty()) {
+      System.out.println("Skip >>>>> First Advertiser + Publisher");
+    }else{
+        wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+        PopUpFirstAdvertiser.click();
+        PopUpFirstPublisher.click();
+        wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+        PopUpFirstContinue.click();
+        System.out.println("---------- First Advertiser + Publisher ----------");
+    }
   }
 
-
+//  data-test="common-account-choose-advertiser"
   public void popUpPublisher() {
     try {
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
@@ -108,7 +112,7 @@ public class DashboardPopup {
   }
 
   public void chooseAccountTypePublisherOnly() {
-    wait.until(ExpectedConditions.visibilityOf(continueButton));
+//    wait.until(ExpectedConditinew LoginPage(driver);ons.visibilityOf(continueButton));
     commonChoosePublisher.click();
     continueButton.click();
   }
