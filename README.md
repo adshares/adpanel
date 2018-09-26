@@ -17,6 +17,17 @@
     </a>
 </p>
 
+## Quick Start
+
+Run: 
+```bash
+docker-compose run --rm --entrypoint yarn dev install
+docker-compose up --detach
+```
+
+Go to:
+- [http://localhost:8102/](http://localhost:8102/) for the panel
+
 ## Documentation
 
 - [Wiki](https://github.com/adshares/adpanel/wiki)

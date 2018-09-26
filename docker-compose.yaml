@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  dev:
+    image: pawzar/devops:php-fpm
+    working_dir: /adpanel
+    volumes:
+    - .:/adpanel
+    env_file:
+    - docker-compose.dev.env
+    restart: on-failure
+    user: '1000'
+    entrypoint: ['node_modules/@angular/cli/bin/ng']
+    command: ['serve','--environment','dev','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
+    ports:
+    - "8102:4200"
