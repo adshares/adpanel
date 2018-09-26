@@ -69,6 +69,4 @@ public class RegisterTestCase extends BrowserTestCase {
     registerPage = new RegisterPage(driver);
     registerPage.registerForgotPassword(Maps.getEmail("email"),"ADS11ads");
   }
-
-
 }

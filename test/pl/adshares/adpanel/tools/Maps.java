@@ -25,10 +25,10 @@ public class Maps {
     id.put(name, value);
   }
 
-  public static Object getEmail(String name) {
+  public static String getEmail(String name) {
     return email.get(name);
   }
-  public static Object getPassword(String name) {
+  public static String getPassword(String name) {
     return password.get(name);
   }
   public static Object getId(String name) {

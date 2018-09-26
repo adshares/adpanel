@@ -55,17 +55,17 @@
       <!--</class>-->
     <!--</classes>-->
   <!--</test>-->
-  <test name="TC_6 1 - Zmiana maila 1" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangeEmail_1"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_6 1 - Zmiana maila 1" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangeEmail_1"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
   <!--<test name="TC_6 2 - Zmiana maila 2" group-by-instances="true">-->
     <!--<classes>-->
       <!--<class name="pl.adshares.adpanel.AdPanel">-->
@@ -134,20 +134,22 @@
   <!--</test>-->
   <!--<test name="TC 7 - Zmiana hasła" group-by-instances="true">-->
     <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel        <!-<methods>-->
-          <!--<include name="loginRegisterRandom"/>-->
-          <!--<include name="loginPopUpFirstPublisher"/>-->
-          <!--<include name="loginChangePassword"/>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangePassword"/>-->
         <!--</methods>-->
       <!--</class>-->
     <!--</classes>-->
   <!--</test>-->
   <!--<test name="TC 8 - Wylogowanie" group-by-instances="true">-->
     <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel        <!-<methods>-->
-          <!--<include name="loginRegisterRandom"/>-->
-          <!--<include name="loginPopUpFirstPublisher"/>-->
-          <!--<include name="logOut"/>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logOutTest"/>-->
         <!--</methods>-->
       <!--</class>-->
     <!--</classes>-->
@@ -156,9 +158,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRememberMe"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab"/>
+          <include name="logInRandomEmailRememberMe"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInSecondTab"/>
         </methods>
       </class>
     </classes>
@@ -167,34 +169,46 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab2"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInSecondTab2"/>
         </methods>
       </class>
     </classes>
   </test>
-<!--
+  <test name="TC 11 - Otwarcie sesji" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInSessionHoles"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
   <test name="TC 12 - Wygaśnięcie sesji" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel     <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginSecondTab4"/>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInSecondTab4"/>
         </methods>
       </class>
     </classes>
   </test>
--->
-<!--
   <test name="TC 13 - Logowanie jako Administrator" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel     <methods>
-          <include name="loginAdmin"/>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInAdminEmail"/>
+          <include name="logInPopUpFirstrPublisher"/>
+          <include name="logOutTest"/>
+          <include name="logInWithRolePublisher"/>
         </methods>
       </class>
     </classes>
   </test>
--->
 </suite>
 

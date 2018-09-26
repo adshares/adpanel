@@ -23,6 +23,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logOutTest"/>
           <include name="Registration_ForgotPassword"/>
         </methods>
       </class>

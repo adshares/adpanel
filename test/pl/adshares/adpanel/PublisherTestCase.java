@@ -164,13 +164,6 @@ public class PublisherTestCase extends BrowserTestCase {
   }
 
 
-
-
-
-
-
-
-
   @Test
   public void publiserEditSiteActive() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -198,6 +191,4 @@ public class PublisherTestCase extends BrowserTestCase {
     PublisherEditSite publisherEditSite = new PublisherEditSite(driver);
     publisherEditSite.sitePublisherBasicInfo("https://www.o2.pl");
   }
-
-
 }
