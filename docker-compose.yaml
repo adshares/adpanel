@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  dev:
+    image: pawzar/devops:php-fpm
+    working_dir: /adpanel
+    volumes:
+    - .:/adpanel
+    user: '1000'
+    entrypoint: ['node_modules/@angular/cli/bin/ng']
+    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']

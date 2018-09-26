@@ -17,6 +17,19 @@
     </a>
 </p>
 
+## Quick Start
+
+Run: 
+```bash
+cp --no-clobber .env.dist .env
+cp --no-clobber docker-compose.override.yaml.dist docker-compose.override.yaml
+docker-compose run --rm --entrypoint yarn dev install
+docker-compose up --detach
+```
+
+Go to:
+- [http://localhost:8102/](http://localhost:8102/) for the panel
+
 ## Documentation
 
 - [Wiki](https://github.com/adshares/adpanel/wiki)
