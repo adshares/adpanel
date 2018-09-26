@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  authUrl: 'http://server.ads/auth',
-  apiUrl: 'http://server.ads/panel'
+  authUrl: 'http://localhost:8101/auth',
+  apiUrl: 'http://localhost:8101/panel'
 };

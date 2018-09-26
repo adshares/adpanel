@@ -1,0 +1,66 @@
+version: "3"
+
+services:
+  dev:
+    ports:
+    - "80:80"
+    - "8102:4200"
+
+#
+#networks:
+#  default:
+#    external:
+#      name: adshares_net
+#
+#services:
+##  dev:
+##    image: dev-php-fpm:with-node
+##    volumes:
+##      - .:/www
+##      - .:/home/don/adshares/adpanel
+##    environment:
+##      DEBUG: 1
+#
+##  jdk:
+##    image: openjdk
+##    volumes:
+##      - .:/code
+##    working_dir: /code
+#
+##  maven:
+##    image: dev-maven
+##    build:
+##      context: ./docker/maven
+##      dockerfile: ./dockerfile
+##    volumes:
+##      - .:/code
+##    working_dir: /code
+#
+#  selenium:
+#    image: dev-selenium
+#    build:
+#      context: ./docker/selenium
+#      dockerfile: ./dockerfile
+#    volumes:
+#      - /dev/shm:/dev/shm
+#      - ./docker/selenium/entrypoint.sh:/opt/bin/entrypoint.sh
+#    working_dir: /code
+#    ports:
+#    - "4444:4444"
+#    - "5900:5900"
+#    environment:
+#      SCREEN_WIDTH: 1200
+#      SCREEN_HEIGHT: 900
+#    command: [
+#      "/opt/bin/entrypoint.sh",
+#      "--dynhost","adpanel","panel.ads",
+#      "--dynhost","adserver","server.ads",
+#      "--dynhost","adserver_db","adshares_adserver_db_1",
+#    ]
+#
+##docker run -d -p 4444:4444 -p 5900:5900 -v /dev/shm:/dev/shm selenium/standalone-chrome-debug:3.14.0-curium
+##doco exec -u root selenium bash
+##echo -e "`echo $(host -t A adpanel) | awk -F' ' '{print$4}'`\tpanel.ads" | tee --append /etc/hosts
+##echo -e "`echo $(host -t A mailcatcher) | awk -F' ' '{print$4}'`\tmailcatcher.ads" | tee --append /etc/hosts
+##echo -e "`echo $(host -t A adserver) | awk -F' ' '{print$4}'`\tserver.ads" | tee --append /etc/hosts
+#

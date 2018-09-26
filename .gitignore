@@ -1,4 +1,5 @@
 *.override.*
+!*.dist
 
 # compiled output
 /dist
