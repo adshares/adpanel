@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS - Publisher" parallel="false">
+<suite name="TS_1 - TEST" parallel="methods" thread-count="1" verbose="3">
 
-  <test name="TC 10 - FAQ" group-by-instances="true">
+  <test name="TC_6 1 - Zmiana maila 1" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-          <include name="loginFAQ"/>
+          <include name="logInSecondTab"/>
         </methods>
       </class>
     </classes>
   </test>
+
 </suite>
+

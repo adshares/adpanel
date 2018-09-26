@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pl.adshares.adpanel.tools.RandomPage;
+import pl.adshares.adpanel.tools.Maps;
 
 import java.util.List;
 import java.util.Random;
@@ -113,28 +113,28 @@ public class SiteAdditionalTargeting {
   public void goToCreateAds() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    int id = (int) RandomPage.getFromId("id");
+    int id = (int) Maps.getId("id");
     System.out.println(id+". Additional Targeting - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    Maps.createId();
+    Maps.id("id", id);
 
   }
   public void saveAsDraft() {
     wait.until(ExpectedConditions.visibilityOf(saveAsDraft));
     saveAsDraft.click();
-    int id = (int) RandomPage.getFromId("id");
+    int id = (int) Maps.getId("id");
     System.out.println(id+". Additional Targeting - SaveAsDraft"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    Maps.createId();
+    Maps.id("id", id);
   }
   public void back() {
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    int id = (int) RandomPage.getFromId("id");
+    int id = (int) Maps.getId("id");
     System.out.println(id+". Back Additional Targeting - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    Maps.createId();
+    Maps.id("id", id);
   }
 }

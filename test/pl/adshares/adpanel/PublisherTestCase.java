@@ -1,16 +1,14 @@
 package pl.adshares.adpanel;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pl.adshares.adpanel.pages.publisher.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import org.testng.annotations.Test;
-import pl.adshares.adpanel.tools.RandomPage;
 
 public class PublisherTestCase extends BrowserTestCase {
 
 //  TC 4
   @Test
-  public void AddBasicInformation() throws InterruptedException {
+  public void AddBasicInformation() {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
@@ -18,7 +16,7 @@ public class PublisherTestCase extends BrowserTestCase {
   }
   //  TC 5
   @Test
-  public void AddBasicInformationError() throws InterruptedException {
+  public void AddBasicInformationError() {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
@@ -132,7 +130,7 @@ public class PublisherTestCase extends BrowserTestCase {
     siteAdditionalTargeting.goToCreateAds();
     SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
     siteCreateAds.createAdUnit();
-    // TODO: 25.07.18 nie działa Save as Draft dla Creast Ad Units - Tomek
+
     System.out.println("4");
     siteCreateAds.adUnitTemplate("Test advertisement");
     System.out.println("5");
@@ -166,13 +164,6 @@ public class PublisherTestCase extends BrowserTestCase {
   }
 
 
-
-
-
-
-
-
-
   @Test
   public void publiserEditSiteActive() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
@@ -200,6 +191,4 @@ public class PublisherTestCase extends BrowserTestCase {
     PublisherEditSite publisherEditSite = new PublisherEditSite(driver);
     publisherEditSite.sitePublisherBasicInfo("https://www.o2.pl");
   }
-
-
 }
