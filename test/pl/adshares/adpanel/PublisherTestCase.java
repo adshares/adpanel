@@ -1,14 +1,16 @@
 package pl.adshares.adpanel;
 
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pl.adshares.adpanel.pages.publisher.*;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import org.testng.annotations.Test;
+import pl.adshares.adpanel.tools.RandomPage;
 
 public class PublisherTestCase extends BrowserTestCase {
 
 //  TC 4
   @Test
-  public void AddBasicInformation() {
+  public void AddBasicInformation() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
@@ -16,7 +18,7 @@ public class PublisherTestCase extends BrowserTestCase {
   }
   //  TC 5
   @Test
-  public void AddBasicInformationError() {
+  public void AddBasicInformationError() throws InterruptedException {
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);

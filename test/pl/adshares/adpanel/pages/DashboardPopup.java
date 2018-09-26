@@ -7,6 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
+import pl.adshares.adpanel.tools.RandomPage;
+
+import java.util.Random;
+import java.util.Set;
 
 public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(DashboardPopup.class);
@@ -47,14 +51,14 @@ public class DashboardPopup {
     PopUpFirstPublisher.click();
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     PopUpFirstContinue.click();
-    System.out.println("---------- First Publisher ----------");
+    System.out.println("-. Publisher");
   }
   public void popUpFirstAdvertiser() {
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
     PopUpFirstAdvertiser.click();
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     PopUpFirstContinue.click();
-    System.out.println("---------- First Advertiser ----------");
+    System.out.println("-. Advertiser");
   }
   public void popUpFirstAdvertiserPublisher() {
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
@@ -62,7 +66,7 @@ public class DashboardPopup {
     PopUpFirstPublisher.click();
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     PopUpFirstContinue.click();
-    System.out.println("---------- First Advertiser + Publisher ----------");
+    System.out.println("-. Advertiser / Publisher dashboard");
   }
 
 

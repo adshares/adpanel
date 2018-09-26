@@ -1,10 +1,13 @@
 package pl.adshares.adpanel;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 import pl.adshares.adpanel.pages.LoginPage;
 import pl.adshares.adpanel.pages.admin.AdminMainPage;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import org.testng.annotations.Test;
-import pl.adshares.adpanel.tools.Maps;
+import pl.adshares.adpanel.tools.RandomPage;
 
 public class AdminTestCase extends BrowserTestCase {
 
@@ -24,7 +27,7 @@ public class AdminTestCase extends BrowserTestCase {
   }
   @Test
   public void ChangePassword() throws InterruptedException {
-    int id = (int) Maps.getId("id");
+    int id = (int) RandomPage.getFromId("id");
     adminMainPage = new AdminMainPage(driver);
     adminMainPage.ChangePassword("adminadmin","12345678","12345678");
     System.out.println(id+". ChangePassword");
@@ -35,7 +38,7 @@ public class AdminTestCase extends BrowserTestCase {
     adminMainPage = new AdminMainPage(driver);
     adminMainPage.ChangePassword("12345678","adminadmin","adminadmin");
     System.out.println(id+". ChangePassword");
-    Maps.createId();
-    Maps.id("id", id);
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 }

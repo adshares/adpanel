@@ -1,4 +1,4 @@
-package pl.adshares.adpanel.pages;
+package pl.adshares.adpanel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -9,10 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pl.adshares.adpanel.tools.Maps;
+import org.testng.log4testng.Logger;
+import pl.adshares.adpanel.tools.RandomPage;
+
 import java.util.Set;
 
+//import static com.sun.deploy.uitoolkit.impl.awt.AWTClientPrintHelper.print;
+
 public class RegisterPage {
+  private static final Logger LOGGER = Logger.getLogger(RegisterPage.class);
 
   @FindBy(css = "[data-test='auth-registration-form-email']")                                                           private WebElement registerEmailAddress;
   @FindBy(css = "[data-test='auth-registration-form-password']")                                                        private WebElement registerPassword;
@@ -39,8 +44,12 @@ public class RegisterPage {
   @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
   @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement yourNewPasswordIsSet;
 
+
+
   private WebDriver driver;
   private WebDriverWait wait;
+  private Object LoginPage;
+
 
   public RegisterPage(WebDriver driver) {
     this.driver = driver;
@@ -135,14 +144,16 @@ public class RegisterPage {
   }
 
   public void registerForgotPassword(Object user_email, String newPassword) throws InterruptedException {
-    System.out.println("---------- Forgot Password ----------");
-    int id = (int) Maps.getId("id");
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
-    System.out.println("Click - Forgot Password");
+    System.out.println(id+". Forgot Password - OK"); id=id+1;
+
     wait.until(ExpectedConditions.visibilityOf(emailAddress));
     emailAddress.sendKeys((CharSequence) user_email);
+    //String handle = driver.getWindowHandle();
     sendLinkToResetPassword.click();
+    Set handles = driver.getWindowHandles();
     int I=2;
     for (String handle1:driver.getWindowHandles()) {
       if(I == 2){
@@ -150,8 +161,9 @@ public class RegisterPage {
       }
       I=I+1;
     }
-//                        Mailcatcher
-    System.out.println(driver.getCurrentUrl());
+    String handle1 = driver.getWindowHandle();
+    System.out.println("-. "+driver.getTitle()+" - "+handle1);
+    //                    Mailcatcher
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
@@ -159,12 +171,18 @@ public class RegisterPage {
     mailcatcherMessages.click();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
+    // 1.1 before clicking on the link
+    String handle2 = driver.getWindowHandle();
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     Thread.sleep(5000);
-     for (String handle3:driver.getWindowHandles()) {
+    // 1.2 Store and Print the name of all the windows open
+    Set handles3 = driver.getWindowHandles();
+    for (String handle3:driver.getWindowHandles()) {
       driver.switchTo().window(handle3);
+      I=I+1;
     }
-    System.out.println(driver.getCurrentUrl());
+    String handle3 = driver.getWindowHandle();
+    System.out.println("-. "+driver.getTitle()+" - "+handle3);
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(password));
@@ -175,7 +193,7 @@ public class RegisterPage {
     confirmPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(resetPassword));
     resetPassword.click();
-    System.out.println("Click - Reset Password");
+    System.out.println(id+". Reset Password"); id=id+1;
     wait.until(ExpectedConditions.visibilityOf(yourNewPasswordIsSet));
     yourNewPasswordIsSet.click();
     wait.until(ExpectedConditions.visibilityOf(email));
@@ -189,8 +207,10 @@ public class RegisterPage {
     wait.until(ExpectedConditions.visibilityOf(logIn));
     logIn.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
-    System.out.println("New password: "+newPassword); id=id+1;
-    Maps.createId();
-    Maps.id("id", id);
+    System.out.println(id+". New password: "+newPassword); id=id+1;
+    System.out.println("Koniec");
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
+
 }

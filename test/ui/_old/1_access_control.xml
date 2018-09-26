@@ -3,7 +3,8 @@
   <!--
   <test name="Register - Create Account" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel     <methods>
+      <class name="pl.adshares.adpanel.LoginTestCase">
+        <methods>
           <include name="registerTest"/>
         </methods>
       </class>
@@ -17,7 +18,7 @@
   -->
   <test name="Register - Create Account 2" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
+      <class name="pl.adshares.adpanel.LoginTestCase">
         <methods>
           <!--
           <include name="registerTest"/>
