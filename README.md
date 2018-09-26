@@ -21,7 +21,7 @@
 
 Run: 
 ```bash
-docker-compose run --rm --entrypoint bash cp docker-compose.override.yaml.dist docker-compose.override.yaml
+docker-compose run --rm --entrypoint cp dev --no-clobber docker-compose.override.yaml.dist docker-compose.override.yaml
 docker-compose run --rm --entrypoint yarn dev install
 docker-compose up --detach
 ```

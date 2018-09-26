@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 services:
   dev:
@@ -10,4 +10,4 @@ services:
     - docker-compose.dev.env
     user: '1000'
     entrypoint: ['node_modules/@angular/cli/bin/ng']
-    command: ['serve','--environment','${APP_ENV:-dev}','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
+    command: ['serve','--environment',"$${APP_ENV:-dev}",'--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
