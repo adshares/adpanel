@@ -10,14 +10,13 @@ export WEBSERVER_PORT=${WEBSERVER_PORT:-8102}
 
 export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
 
+export APP_ENV=${APP_ENV:-dev}
+
 [ -f .env ] || envsubst < .env.dist | tee .env
 
 source .env
 
-#[ -f src/environments/environment.ts ] ||
-envsubst < src/environments/environment.ts.dist | tee src/environments/environment.ts
-#[ -f src/environments/environment.dev.ts ] ||
-envsubst < src/environments/environment.ts.dist | tee src/environments/environment.dev.ts
+envsubst < src/environments/environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
 
 docker-compose config # just to check the config
 
