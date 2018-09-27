@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -x
+set -e
 
 export SYSTEM_USER_ID=`id --user`
 export SYSTEM_USER_NAME=`id --user --name`
@@ -14,7 +14,10 @@ export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
 
 source .env
 
-[ -f src/environments/environment.ts ] || envsubst < src/environments/environment.ts.dist | tee src/environments/environment.ts
+#[ -f src/environments/environment.ts ] ||
+envsubst < src/environments/environment.ts.dist | tee src/environments/environment.ts
+#[ -f src/environments/environment.dev.ts ] ||
+envsubst < src/environments/environment.ts.dist | tee src/environments/environment.dev.ts
 
 docker-compose config # just to check the config
 
