@@ -19,7 +19,8 @@
 
 ## Quick Start
 
-Run: 
+Run:
+
 ```bash
 cp --no-clobber .env.dist .env
 cp --no-clobber docker-compose.override.yaml.dist docker-compose.override.yaml
