@@ -9,6 +9,7 @@ import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.awt.*;
 import java.util.Random;
 
 public class AdPanel extends BrowserTestCase {
@@ -19,9 +20,9 @@ public class AdPanel extends BrowserTestCase {
 
   private RegisterPage registerPage;
   private LoginPage loginPage;
-  private PageOpera pageOpera;
   private DashboardPopup dashboardPopup;
   private HeaderBarPage headerBarPage;
+  private Mailcatcher mailcatcher;
   private String loginAdService;
   private String passwordAdService;
   private String randomsEmail;
@@ -77,26 +78,6 @@ public class AdPanel extends BrowserTestCase {
 //    loginPage.UserEmail(password);
 //    loginPage.logIn();
 //  }
-//  private void loginAdminEmail() throws InterruptedException {
-//    loginPage = new LoginPage(driver);
-//    loginPage.AdminEmail(password);
-//    loginPage.logIn();
-//  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -107,24 +88,16 @@ public class AdPanel extends BrowserTestCase {
     loginPage.logInRememberMe();
   }
   @Test
-  public void logInUserEmail() {
+  public void logInUserEmail() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.UserEmail(user,password);
     loginPage.logIn();
   }
   @Test
-  public void logInUserEmailRememberMe() {
+  public void logInUserEmailRememberMe() throws InterruptedException {
     loginPage = new LoginPage(driver);
     loginPage.UserEmail(user,password);
     loginPage.logInRememberMe();
-  }
-  @Test
-  public void logOutTest() {
-    headerBarPage = new HeaderBarPage(driver);
-    headerBarPage.logOut();
-    loginPage = new LoginPage(driver);
-    loginPage.pageLayoutValidation();
-
   }
 
   @Test
@@ -133,28 +106,10 @@ public class AdPanel extends BrowserTestCase {
     loginPage.goToLoginChangingTheDashboardBack();
   }
 
-
-
   @Test
   public void logInChangeEmailNegative()  {
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmailNegative();
-  }
-
-  @Test
-  public void logInChangePassword() throws InterruptedException {
-    loginPage = new LoginPage(driver);
-    Random random = new Random();
-    int number = random.nextInt(100000000);
-    String NewPassword = String.format("%08d", number);
-    loginPage.gotologinChangePassword(NewPassword);
-    headerBarPage = new HeaderBarPage(driver);
-    headerBarPage.logOut();
-    loginPage.pageLayoutValidation();
-    loginPage.loginSignIn((String) Maps.getEmail("user_email"), NewPassword);
-    System.out.println("LoginEmail:  "+ Maps.getPassword("user_email"));
-    System.out.println("NewPassword: "+NewPassword);
-    Thread.sleep(10000);
   }
 
   @Test
@@ -177,31 +132,6 @@ public class AdPanel extends BrowserTestCase {
     loginPage.pageLayoutValidation();
   }
 
-  @Test
-  public void logInSecondTab() {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSecondTab();
-  }
-
-  @Test
-  public void logInSecondTab2() {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSecondTab();
-    loginPage.loginSecondTab2();
-  }
-
-  @Test
-  public void logInSecondTab3() throws InterruptedException {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSecondTab3();
-  }
-
-  @Test
-  public void logInSecondTab4() throws InterruptedException {
-    loginPage = new LoginPage(driver);
-    loginPage.loginSecondTab4();
-  }
-
 
   //TEST
   @Test
@@ -209,8 +139,6 @@ public class AdPanel extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.RandomEmail("12345678");
   }
-
-
 
 
   @Test
@@ -248,35 +176,36 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void logInWithRolePublisher() {
-    System.out.println("---------- TS_1 - TC_3 ----------");
+    System.out.println("---------- TS_2 - TC_3 ----------");
   }
   @Test
   public void logInWithRoleAdvertiser() {
-    System.out.println("---------- TS_1 - TC_4 ----------");
+    System.out.println("---------- TS_2 - TC_4 ----------");
   }
   @Test
   public void logInWithRoleAdvertiserPublisher() {
-    System.out.println("---------- TS_1 - TC_5 ----------");
+    System.out.println("---------- TS_2 - TC_5 ----------");
   }
-
   @Test
   public void logInChangeEmail_1() throws InterruptedException {
-    System.out.println("---------- TS_1 - TC_6.1 ----------");
+    System.out.println("---------- TS_2 - TC_6.1 ----------");
     loginPage = new LoginPage(driver);
     Random random = new Random();
     int number = random.nextInt(1000000);
     String s = String.format("%06d", number)+"e";
+    Thread.sleep(1000);
+    loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal@"+s+".click", "test@"+s+".click");
-    System.out.println("1z7 - gotologinChangeEmail");
+    System.out.println("1z7 - OK");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
     System.out.println("2z7 - logOut");
-    loginPage.RandomEmail_Mailcatcher();
+    mailcatcher = new Mailcatcher(driver);
+    mailcatcher.mailcatcherEmail();
     System.out.println("3z7 - Mailcatcher");
-    Thread.sleep(1000000);
 
 
-
+    Thread.sleep(10000);
     loginPage = new LoginPage(driver);
     loginPage.adshDialogClose();
     System.out.println("4z8 - logOut");
@@ -291,41 +220,92 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("8z7 - logOut");
 
   }
-
   @Test
   public void logInChangeEmail_2() {
+    System.out.println("---------- TS_2 - TC_6.2 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
   }
-
   @Test
   public void loginChangeEmail_3() {
+    System.out.println("---------- TS_2 - TC_6.3 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
   }
-
   @Test
   public void logInChangeEmail_4() {
+    System.out.println("---------- TS_2 - TC_6.4 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
   }
-
   @Test
   public void logInChangeEmail_5() {
+    System.out.println("---------- TS_2 - TC_6.5 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
   }
-
   @Test
   public void logInChangeEmail_6() {
+    System.out.println("---------- TS_2 - TC_6.6 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
   }
-
   @Test
   public void logInChangeEmail_7() {
+    System.out.println("---------- TS_2 - TC_6.7 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("111michal@e11.click", "test@e11.click");
   }
-
+  @Test
+  public void logInChangePassword() {
+    System.out.println("---------- TS_2 - TC_7 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangePassword();
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+    loginPage.pageLayoutValidation();
+    loginPage.loginSignIn(Maps.getEmail("email"), Maps.getPassword("password"));
+    System.out.println("LoginEmail:  "+ Maps.getEmail("email"));
+    System.out.println("NewPassword: "+ Maps.getPassword("password"));
+  }
+  @Test
+  public void logOutTest() {
+    System.out.println("---------- TS_2 - TC_8 ----------");
+    headerBarPage = new HeaderBarPage(driver);
+    headerBarPage.logOut();
+//    loginPage = new LoginPage(driver);
+//    loginPage.pageLayoutValidation();
+  }
+  @Test
+  public void logInSecondTab() throws InterruptedException, AWTException {
+    System.out.println("---------- TS_2 - TC_9 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab();
+  }
+  @Test
+  public void logInSecondTab2() throws InterruptedException, AWTException {
+    System.out.println("---------- TS_2 TC_10 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab();
+    loginPage.loginSecondTab2();
+  }
+  @Test
+  public void logInSessionHoles() throws InterruptedException {
+    System.out.println("---------- TS_2 - TC_11 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab3();
+  }
+  @Test
+  public void logInSecondTab4() throws InterruptedException {
+    System.out.println("---------- TS_2 - TC_12 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.loginSecondTab4();
+  }
+  @Test
+  // TODO: 20.09.18 konto Admin w bazie danych
+  public void logInAdminEmail() throws InterruptedException {
+    System.out.println("---------- TS_2 - TC_13 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.AdminEmail(admin,password);
+  }
 }

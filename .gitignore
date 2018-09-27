@@ -1,4 +1,6 @@
+.env
 *.override.*
+!*.dist
 
 # compiled output
 /dist

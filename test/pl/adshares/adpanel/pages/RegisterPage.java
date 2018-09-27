@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import pl.adshares.adpanel.tools.Maps;
+import pl.adshares.adpanel.pages.LoginPage;
 import java.util.Set;
 
 public class RegisterPage {
@@ -41,6 +42,7 @@ public class RegisterPage {
 
   private WebDriver driver;
   private WebDriverWait wait;
+  private Mailcatcher mailcatcher;
 
   public RegisterPage(WebDriver driver) {
     this.driver = driver;
@@ -134,35 +136,21 @@ public class RegisterPage {
     registerButton.click();
   }
 
-  public void registerForgotPassword(Object user_email, String newPassword) throws InterruptedException {
+  public void registerForgotPassword(String Email, String newPassword) throws InterruptedException {
     System.out.println("---------- Forgot Password ----------");
-    int id = (int) Maps.getId("id");
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
     System.out.println("Click - Forgot Password");
     wait.until(ExpectedConditions.visibilityOf(emailAddress));
-    emailAddress.sendKeys((CharSequence) user_email);
+    emailAddress.sendKeys((CharSequence) Email);
     sendLinkToResetPassword.click();
-    int I=2;
+
+    mailcatcher = new Mailcatcher(driver);
+    mailcatcher.mailcatcherEmail();
+
+    System.out.println("---------- Reset Password ----------");
     for (String handle1:driver.getWindowHandles()) {
-      if(I == 2){
-        driver.switchTo().window(handle1);
-      }
-      I=I+1;
-    }
-//                        Mailcatcher
-    System.out.println(driver.getCurrentUrl());
-    wait = new WebDriverWait(driver, 30);
-    PageFactory.initElements(driver, this);
-    wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
-    Thread.sleep(4000);
-    mailcatcherMessages.click();
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-    Thread.sleep(5000);
-     for (String handle3:driver.getWindowHandles()) {
-      driver.switchTo().window(handle3);
+      driver.switchTo().window(handle1);
     }
     System.out.println(driver.getCurrentUrl());
     wait = new WebDriverWait(driver, 30);
@@ -174,16 +162,12 @@ public class RegisterPage {
     password.getText();
     confirmPassword.getText();
     wait.until(ExpectedConditions.visibilityOf(resetPassword));
-
-    // TODO: 09.08.18 error - komunikat Reset your password. - Passwords don't match!
-    Thread.sleep(400000);
-
     resetPassword.click();
     System.out.println("Click - Reset Password");
     wait.until(ExpectedConditions.visibilityOf(yourNewPasswordIsSet));
     yourNewPasswordIsSet.click();
     wait.until(ExpectedConditions.visibilityOf(email));
-    email.sendKeys((CharSequence) user_email);
+    email.sendKeys((CharSequence) Email);
     wait.until(ExpectedConditions.visibilityOf(password));
     password.sendKeys(newPassword);
     wait.until(ExpectedConditions.visibilityOf(email));
@@ -193,8 +177,6 @@ public class RegisterPage {
     wait.until(ExpectedConditions.visibilityOf(logIn));
     logIn.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
-    System.out.println("New password: "+newPassword); id=id+1;
-    Maps.createId();
-    Maps.id("id", id);
+    System.out.println("New password: "+newPassword);
   }
 }

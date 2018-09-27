@@ -1,0 +1,7 @@
+version: "2"
+
+services:
+  dev:
+    ports:
+    - "80:80"
+    - "8102:4200"
