@@ -3,14 +3,14 @@ version: "2"
 services:
   dev:
     build:
+      context: .
       dockerfile: ./dockerfile
       args:
         SYSTEM_USER_ID: ${SYSTEM_USER_ID}
         SYSTEM_USER_NAME: ${SYSTEM_USER_NAME}
-    image: pawzar/devops:php-fpm
     working_dir: /adpanel
     volumes:
     - .:/adpanel
-    user: '1000'
+    user: ${SYSTEM_USER_ID}
     entrypoint: ['node_modules/@angular/cli/bin/ng']
     command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
