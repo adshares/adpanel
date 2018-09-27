@@ -13,4 +13,4 @@ services:
     - .:/adpanel
     user: ${SYSTEM_USER_ID}
     entrypoint: ['node_modules/@angular/cli/bin/ng']
-    command: ['serve','--host','${SERVE_HOST}','--public-host','${SERVE_PUB_HOST}','--sourcemaps','--verbose']
+    command: ['serve','--host','0.0.0.0','--public-host','${ADPANEL_HOST}','--sourcemaps','--verbose']

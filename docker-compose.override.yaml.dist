@@ -3,4 +3,4 @@ version: "2"
 services:
   dev:
     ports:
-    - "8102:4200"
+    - "${ADPANEL_PORT}:4200"
