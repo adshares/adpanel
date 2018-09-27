@@ -65,8 +65,8 @@ public class RegisterTestCase extends BrowserTestCase {
   }
 
   @Test
-  public void registerForgotPassword() throws InterruptedException {
+  public void registerForgotPassword(String url_mamailcatcher) throws InterruptedException {
     registerPage = new RegisterPage(driver);
-    registerPage.registerForgotPassword(Maps.getEmail("email"),"ADS11ads");
+    registerPage.registerForgotPassword(Maps.getEmail("email"),"ADS11ads", url_mamailcatcher);
   }
 }

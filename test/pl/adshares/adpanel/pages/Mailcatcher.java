@@ -1,13 +1,12 @@
 package pl.adshares.adpanel.pages;
 
-import org.junit.Before;
+import pl.adshares.adpanel.tools.Maps;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class Mailcatcher {
@@ -31,7 +30,7 @@ public class Mailcatcher {
   @Test
   public void mailcatcherEmail() throws InterruptedException {
     System.out.println("---------- Mailcatcher ----------");
-    driver.get("http://mailcatcher.ads/");
+    driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
     System.out.println(driver.getCurrentUrl());
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
@@ -40,7 +39,6 @@ public class Mailcatcher {
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
     Thread.sleep(1000);
     driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-//    Thread.sleep(5000);
     driver.close();
   }
 }

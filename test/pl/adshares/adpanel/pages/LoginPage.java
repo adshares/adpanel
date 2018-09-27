@@ -8,13 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.log4testng.Logger;
 import pl.adshares.adpanel.tools.Maps;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.Random;
 import java.util.Set;
 
@@ -90,6 +88,7 @@ public class LoginPage {
   private WebDriver driver;
   private WebDriverWait wait;
   private Mailcatcher mailcatcher;
+  private LoginPage loginPage;
 
   public LoginPage(WebDriver driver) {
     this.driver = driver;
@@ -303,7 +302,7 @@ public class LoginPage {
   }
   public void RandomEmail_Mailcatcher() throws InterruptedException {
     System.out.println("---------- Mailcatcher ----------");
-    driver.get("http://mailcatcher.ads/");
+    driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
     System.out.println(driver.getCurrentUrl());
     PageFactory.initElements(driver, this);
     wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
@@ -549,72 +548,38 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(FAQ));
   }
 
-private void openNewTab(String url) {
-  ((JavascriptExecutor) driver).executeScript("window.open('" + url + "','_blank');");
-}
-
-public void loginSecondTab() throws InterruptedException, AWTException {
-  // TODO: 26.09.18
-//    System.out.println(driver.getTitle() + " (1) - " + driver.getWindowHandle());
-//    System.out.println("    - " + driver.getWindowHandles());
-//    Thread.sleep(5000);
-//    driver.quit();
-//    driver = (WebDriver) new LoginPage(driver);
-//    driver.get("http://panel.ads/");
-//    System.out.println(driver.getTitle() + " (1) - " + driver.getWindowHandle());
-//    Thread.sleep(5000);
-//    driver.get("http://wp.pl");
-//    System.out.println("    - " + driver.getWindowHandles());
-//
-////    driver.findElement(By.cssSelector("[class='ng-tns-c16-5 ng-star-inserted']")).sendKeys(Keys.F1);
-//    Thread.sleep(30000);
-//
-////    for (String handle1:driver.getWindowHandles()) {
-////      driver.switchTo().window(handle1);
-////    }
-//
-//    new LoginPage(driver);
-//
-//    driver.get("http://panel.ads/");
-//    PageFactory.initElements(driver, this);
-//    String handle2 = driver.getWindowHandle();
-//    wait.until(ExpectedConditions.visibilityOf(adshLogo));
-//    System.out.println (driver.getTitle()+" (2) - "+handle2);
-
-
-
-
-//  adshLogo.sendKeys(Keys.ENTER);
-  Thread.sleep(4000);
-  driver.get("http://www.google.com");
-
-  Robot robo = new Robot();
-  robo.keyPress(KeyEvent.VK_CONTROL);
-  robo.keyPress(KeyEvent.VK_T);
-  robo.keyRelease(KeyEvent.VK_CONTROL);
-  robo.keyRelease(KeyEvent.VK_T);
-
-  openNewTab("");
-
-
-
-
-  driver.findElement(By.xpath("//body")).sendKeys(Keys.chord(Keys.CONTROL, "t"));
-  System.out.println("Assert - Hello!");
-  Thread.sleep(10000);
-  driver.findElement(By.cssSelector("body")).sendKeys(Keys.chord(Keys.CONTROL, "t"));
-  System.out.println("Assert - Hello!");
-  Thread.sleep(100000);
-  driver.get("http://panel.ads/");
-  System.out.println(driver.getTitle() + " (1) - " + driver.getWindowHandle());
+  private void CONTROL_T() throws AWTException {
+    Robot robo = new Robot();
+    robo.keyPress(KeyEvent.VK_CONTROL);
+    robo.keyPress(KeyEvent.VK_T);
+    robo.keyRelease(KeyEvent.VK_CONTROL);
+    robo.keyRelease(KeyEvent.VK_T);
   }
 
+  public void loginSecondTab() {
+    System.out.println(driver.getTitle() + " (1) - " + driver.getWindowHandle());
+    try {
+      CONTROL_T();
+    } catch (AWTException e) {
+      e.printStackTrace();
+    }
+    driver.close();
+    try {
+      Thread.sleep(5000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    for (String handle1:driver.getWindowHandles()) {
+      driver.switchTo().window(handle1);
+    }
+    PageFactory.initElements(driver, this);
+    driver.get(Maps.get_url_panel("url_panel"));
+    System.out.println(driver.getTitle() + " (2) - " + driver.getWindowHandle());
+  }
 
   public void loginSecondTab2() {
-    // TODO: 20.07.18 TC_10 Fail - użytkownik powinien być wylogowany
     wait.until(ExpectedConditions.visibilityOf(helloText));
-    String loginEmailAssertInput = helloText.getText();
-    Assert.assertEquals("Hello!", loginEmailAssertInput);
+    Assert.assertEquals("Hello!", helloText.getText());
     System.out.println("Assert - Hello!");
   }
   public void loginSecondTab3() throws InterruptedException {
@@ -628,17 +593,16 @@ public void loginSecondTab() throws InterruptedException, AWTException {
     System.out.println(driver.getCurrentUrl());
     wait = new WebDriverWait(driver, 10);
     PageFactory.initElements(driver, this);
-    driver.get("http://panel.ads/");
+    driver.get(Maps.get_url_panel("url_panel"));
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     System.out.println(driver.getCurrentUrl());
   }
   public void loginSecondTab4() throws InterruptedException {
-// TODO: 20.07.18 TC_12 Fail - wygaśniecie sesji - ustawienie w pliku
     System.setProperty("webdriver.opera.driver", getWebDriverFile("operadriver").getAbsolutePath());
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--start-maximized");
     driver = new OperaDriver(operaOptions);
-    driver.get("http://panel.ads");
+    driver.get(Maps.get_url_panel("url_panel"));
     System.out.println("-. Hello! - OK");
     Thread.sleep(10000);
   }

@@ -1,7 +1,6 @@
 package pl.adshares.adpanel.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,9 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pl.adshares.adpanel.tools.Maps;
-import pl.adshares.adpanel.pages.LoginPage;
-import java.util.Set;
 
 public class RegisterPage {
 
@@ -136,7 +132,7 @@ public class RegisterPage {
     registerButton.click();
   }
 
-  public void registerForgotPassword(String Email, String newPassword) throws InterruptedException {
+  public void registerForgotPassword(String Email, String newPassword, String url_mamailcatcher) throws InterruptedException {
     System.out.println("---------- Forgot Password ----------");
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
@@ -178,5 +174,8 @@ public class RegisterPage {
     logIn.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     System.out.println("New password: "+newPassword);
+  }
+
+  public void registerForgotPassword(String email, String ads11ads) {
   }
 }

@@ -10,10 +10,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class AdPanel extends BrowserTestCase {
 
+  private String url_panel = "http://panel.ads/";
+  private String url_mailcatcher = "http://mailcatcher.ads/";
   private String user = "user@e11.click";
   private String admin = "admin@e11.click";
   private String password = "12345678";
@@ -32,6 +35,9 @@ public class AdPanel extends BrowserTestCase {
 
   @BeforeTest
   public void setUp() {
+    Maps.url();
+    Maps.url_panel("url_panel", url_panel);
+    Maps.url_mailcatcher("url_mailcatcher", url_mailcatcher);
 
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
@@ -153,7 +159,7 @@ public class AdPanel extends BrowserTestCase {
     loginPage.goToLoginRegistration();
   }
   @Test
-  public void Registration_ForgotPassword() throws InterruptedException {
+  public void Registration_ForgotPassword() {
     System.out.println("---------- TS_1 - TC_3 ----------");
     registerPage = new RegisterPage(driver);
     registerPage.registerForgotPassword(Maps.getEmail("email"),"ADS11ads");
@@ -187,7 +193,7 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("---------- TS_2 - TC_5 ----------");
   }
   @Test
-  public void logInChangeEmail_1() throws InterruptedException {
+  public void logInChangeEmail_1() throws InterruptedException, AWTException {
     System.out.println("---------- TS_2 - TC_6.1 ----------");
     loginPage = new LoginPage(driver);
     Random random = new Random();
@@ -203,7 +209,14 @@ public class AdPanel extends BrowserTestCase {
     mailcatcher = new Mailcatcher(driver);
     mailcatcher.mailcatcherEmail();
     System.out.println("3z7 - Mailcatcher");
-
+// TODO: 27.09.18 TC_6.1 Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
+    Robot robo = new Robot();
+    robo.keyPress(KeyEvent.VK_CONTROL);
+    robo.keyPress(KeyEvent.VK_SHIFT);
+    robo.keyPress(KeyEvent.VK_I);
+    robo.keyRelease(KeyEvent.VK_CONTROL);
+    robo.keyRelease(KeyEvent.VK_SHIFT);
+    robo.keyRelease(KeyEvent.VK_I);
 
     Thread.sleep(10000);
     loginPage = new LoginPage(driver);
@@ -218,7 +231,6 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("7z7 - loginSignIn");
     headerBarPage.logOut();
     System.out.println("8z7 - logOut");
-
   }
   @Test
   public void logInChangeEmail_2() {
@@ -273,17 +285,16 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("---------- TS_2 - TC_8 ----------");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
-//    loginPage = new LoginPage(driver);
-//    loginPage.pageLayoutValidation();
   }
   @Test
-  public void logInSecondTab() throws InterruptedException, AWTException {
+  public void logInSecondTab() {
     System.out.println("---------- TS_2 - TC_9 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
   }
   @Test
-  public void logInSecondTab2() throws InterruptedException, AWTException {
+  public void logInSecondTab2() {
+    // TODO: 27.09.18 TC_10 Error - remember me do not work
     System.out.println("---------- TS_2 TC_10 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
@@ -297,12 +308,13 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void logInSecondTab4() throws InterruptedException {
+    // TODO: 27.09.18 TC_12 Error - session expiration not work - setting in file
     System.out.println("---------- TS_2 - TC_12 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
   }
   @Test
-  // TODO: 20.09.18 konto Admin w bazie danych
+  // TODO: 27.09.18 TC_13 Error - admin account in the database
   public void logInAdminEmail() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_13 ----------");
     loginPage = new LoginPage(driver);
