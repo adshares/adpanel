@@ -19,3 +19,5 @@ source .env
 docker-compose config # just to check the config
 
 docker-compose run --rm --entrypoint yarn dev install
+
+docker-compose up --detach
