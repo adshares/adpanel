@@ -27,7 +27,6 @@ docker-compose up --detach
 
 # for some insight, logs can be followed with:
 docker-compose logs -f
-
 ```
 
 Go to:
