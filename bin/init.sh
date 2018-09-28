@@ -16,10 +16,9 @@ export APP_ENV=${APP_ENV:-dev}
 
 source .env
 
-envsubst < src/environments/environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
+envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
 
 docker-compose config # just to check the config
 
 docker-compose run --rm --entrypoint yarn dev install
 
-docker-compose up --detach

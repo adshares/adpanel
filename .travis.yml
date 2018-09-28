@@ -24,8 +24,9 @@ addons:
     github_token:
       secure: "Mrzs6YR8qwW/FamDoAofpWWE0ieCjOeRAOKVGCVJxpefWo3z37F2+Cxlm1HQ5hXCYsa8wh4oPJg2aJcAxvFo3j6pIgkWDjX62zAWgVUguPJtWCpPNsmGhlFPSNMZtoMQm680pmVGUU17fL9RCfav/17XcxC66VUIJv87OsBoCarx5215MX7yel2otBU5doq5O5po3/iwba9Pn2JsC2qPDD3YrRUHhN8Kl1jJSFp6V7ODrYkIiLdulz9PAhFYSp86Zz6gB2KRP1dkxy/WhdEgOA2BZgkoOmsJe3i9v91B+s0K6sqkm6ZPgo4sYNqwk6NdEmWpb7SHRCTh9QiTqVdarH+VWp3tmmRTbUmhT6390lBkbaR/PC6FLeRbO95ddTpNYPP3Fup+To9Il7pm0R/ok7pE12fgjnHXnNkdFsMXISzCjeuTKWS+DEtYao6aTwvXkIYj8ATvnQ6aWqtKMLK+0wApwyPh63eF3qZWfHG15Drz2qrfiAhaeSV/9bdy97tQhybvlPAdshWL8q4f5Vz6bDokZdq2fs/2Fr7eRDhCm91khW5gX2Ap9SJ8szRIqo1CVRNdBnzfzS8XX/dGiZPTudg/6ePElhMI9WjTUCXS0O/UingkvvJ88uYdVQhgteA8OWPo1D+CefGfa/GurXuIZCUM5U1SxaeLpeTOMRyk7Dc="
 
-# Install npm dependencies,
-# Create database, schema and fixtures
+before_install:
+  - envsubst < environment.ts.dist | tee src/environments/environment.dev.ts
+
 install:
   - yarn global add @angular/cli
   - yarn
@@ -33,8 +34,8 @@ install:
 stages:
   - build_check
   - quality
-  - test
-  - name: deploy
+#  - test
+#  - name: deploy
 #    if: branch = master
 
 jobs:
