@@ -13,5 +13,3 @@ services:
     user: ${SYSTEM_USER_ID}
     entrypoint: ['node_modules/@angular/cli/bin/ng']
     command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--public-host','${WEBSERVER_HOST}','--sourcemaps','--verbose']
-    ports:
-    - "${WEBSERVER_PORT}:4200"
