@@ -18,7 +18,4 @@ source .env
 
 envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
 
-docker-compose config # just to check the config
-
 docker-compose run --rm --entrypoint yarn dev install
-
