@@ -19,12 +19,14 @@
 
 ## Quick Start
 
-Run: 
+Run:
+
 ```bash
-cp --no-clobber .env.dist .env
-cp --no-clobber docker-compose.override.yaml.dist docker-compose.override.yaml
-docker-compose run --rm --entrypoint yarn dev install
+bin/init.sh
 docker-compose up --detach
+
+# for some insight, logs can be followed with:
+docker-compose logs -f
 ```
 
 Go to:

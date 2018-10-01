@@ -1,6 +1,7 @@
+src/environments/*
 .env
-*.override.*
 !*.dist
+!.gitkeep
 
 # compiled output
 /dist
