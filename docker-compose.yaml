@@ -2,10 +2,14 @@ version: "2"
 
 services:
   dev:
-    image: pawzar/devops:php-fpm
+    build:
+      context: .
+      args:
+        SYSTEM_USER_ID: ${SYSTEM_USER_ID}
+        SYSTEM_USER_NAME: ${SYSTEM_USER_NAME}
     working_dir: /adpanel
     volumes:
     - .:/adpanel
-    user: '1000'
+    user: ${SYSTEM_USER_ID}
     entrypoint: ['node_modules/@angular/cli/bin/ng']
-    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--public-host','panel.ads','--sourcemaps','--verbose']
+    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--port','9000','--public-host','${WEBSERVER_HOST}','--sourcemaps','--verbose']

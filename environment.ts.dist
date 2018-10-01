@@ -1,0 +1,5 @@
+export const environment = {
+  production: false,
+  authUrl: '${ADSERVER_URL}/auth',
+  apiUrl: '${ADSERVER_URL}/panel'
+};
