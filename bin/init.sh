@@ -48,7 +48,7 @@ fi
 
 if [ ${OPT_FORCE} -eq 1 ]
 then
-    rm -f .env environment.ts.dist
+    rm -f .env
 fi
 
 export SYSTEM_USER_ID=`id --user`
