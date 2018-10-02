@@ -125,7 +125,7 @@ public class EditCampaignTargetingPage {
     opt.click();
   }
 
-
+  //TODO waiting for frontend fix - visibility of category will be changed
   public void getSelectedOption() {
 //    showRequireBox();
 //    int size = requireSelectedOptionList.size();

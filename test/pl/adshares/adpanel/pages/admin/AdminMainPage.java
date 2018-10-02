@@ -1,5 +1,7 @@
 package pl.adshares.adpanel.pages.admin;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,7 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
-import pl.adshares.adpanel.tools.Maps;
+import pl.adshares.adpanel.pages.advertiser.EditCampaignTargetingPage;
+import pl.adshares.adpanel.tools.RandomPage;
 
 public class AdminMainPage {
 
@@ -60,7 +63,7 @@ public class AdminMainPage {
 
   private void setHValue(WebElement slider, double value)
   {
-    int id = (int) Maps.getId("id");
+    int id = (int) RandomPage.getFromId("id");
     double minValue = Double.parseDouble(slider.getAttribute("min"));
     double maxValue = Double.parseDouble(slider.getAttribute("max"));
     int sliderH = slider.getSize().height;
@@ -70,27 +73,27 @@ public class AdminMainPage {
     Actions action = new Actions(driver);
     action.dragAndDrop(earningSlider,earningSlider).perform();
     //    action.moveToElement(slider, (int) (value * sliderW / (maxValue - minValue)), sliderH / 2).click().build().perform();
-    Maps.createId();
-    Maps.id("id", id);
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void setEarnings() {
-    int id = (int) Maps.getId("id");
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(popUpTitle));
     Actions action = new Actions(driver);
     setHValue(earningSlider, 65.47);
     setEarningButton.click();
-
+    // TODO: 18.07.18 SAVE - nie działa [logo click - sprawdzenie]
     wait.until(ExpectedConditions.visibilityOf(logoAdshares));
     logoAdshares.click();
     System.out.println(id+". Koniec testu");
-    Maps.createId();
-    Maps.id("id", id);
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
 
   public void setFilter()  {
-    int id = (int) Maps.getId("id");
+    int id = (int) RandomPage.getFromId("id");
     wait.until(ExpectedConditions.visibilityOf(buttonToday));
 //    selectClicks
     select.click();
@@ -128,8 +131,8 @@ public class AdminMainPage {
     calenderJAN.click();
     calender1.click();
     System.out.println(id+". selectViews - buttonToday, buttonThisWeek, buttonThisMonth, 1/1/2018");
-    Maps.createId();
-    Maps.id("id", id);
+    RandomPage.createId();
+    RandomPage.id("id", id);
   }
 
   public void ChangePassword(String CurrentPassword, String NewPassword, String ConfirmPassword) throws InterruptedException {
