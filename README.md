@@ -19,16 +19,24 @@
 
 ## Quick Start
 
-Run: 
+When starting from scratch:
+
 ```bash
-cp --no-clobber .env.dist .env
-cp --no-clobber docker-compose.override.yaml.dist docker-compose.override.yaml
-docker-compose run --rm --entrypoint yarn dev install
-docker-compose up --detach
+bin/init.sh --build --run
 ```
 
-Go to:
-- [http://localhost:8102/](http://localhost:8102/) for the panel
+To rebuild everything:
+
+```bash
+bin/init.sh --clean --force --build --run
+```
+
+- Omit the `--run` option to generate a static version into `dist` directory without running a server. 
+- To see logs add `--logs` at the end of the above `init.sh` command.
+- To follow them,  use `--logs-follow`.
+
+With the default settings the panel will be available:
+- [http://localhost:8102/](http://localhost:8102/)
 
 ## Documentation
 
