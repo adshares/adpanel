@@ -58,7 +58,7 @@ export class ResetPasswordComponent {
           password_new: this.confirmPasswordForm.value.password,
           token: this.token
       };
-      this.api.users.patchWithToken(
+      this.api.users.resetPassword(
           user, this.token
       )
           .subscribe(

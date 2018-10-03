@@ -43,7 +43,7 @@ export class RegisterComponent extends HandleSubscription {
       isAdvertiser: false,
       isPublisher: false
     };
-    const registerSubscription = this.api.users.post(
+    const registerSubscription = this.api.users.register(
       user, uri
     )
       .subscribe(
