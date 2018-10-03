@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
-  authUrl: 'http://example.com/',
-  apiUrl: 'http://example.com/'
+  authUrl: 'http://localhost:8101/auth',
+  apiUrl: 'http://localhost:8101/api',
+  xdebug: true
 };

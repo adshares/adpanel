@@ -13,6 +13,7 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 // TODO : ??
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
+import { environment } from "environments/environment.ts";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -50,7 +51,12 @@ export class RequestInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.session.getUser().apiToken}`
-        },//TODO: Remember to remove this in prod
+        }
+      });
+    }
+
+    if (environment.xdebug) {
+      request = request.clone({
         setParams: {
           'XDEBUG_SESSION_START': 'PHPSTORM'
         }
