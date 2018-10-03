@@ -29,7 +29,6 @@ before_install:
 
 install:
   - yarn global add @angular/cli
-  - yarn
 
 stages:
   - build_check
