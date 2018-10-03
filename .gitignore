@@ -2,6 +2,7 @@ src/environments/*
 .env
 !*.dist
 !.gitkeep
+!src/environments/environment.ts
 
 # compiled output
 /dist
