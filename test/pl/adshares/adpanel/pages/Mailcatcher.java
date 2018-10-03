@@ -11,12 +11,20 @@ import org.testng.annotations.Test;
 
 public class Mailcatcher {
 
+//  Mailcatcher
   @FindBy(id = "messages")  private WebElement mailcatcherMessages;
   @FindBy(name = "search")  private WebElement search;
   @FindBy(id = "selected")  private WebElement selected;
   @FindBy(css = "[class='button button-blue']")  private WebElement button;
   @FindBy(css = "[data-message-id='1']")  private WebElement dataMessageId;
   @FindBy(css = "[class='clear']")  private WebElement clear;
+//  MailHog
+  @FindBy(css = "[class='msglist-message row ng-scope']")  private WebElement mailHogMessages;
+  @FindBy(css = "[class='button button-blue']")  private WebElement mailHogAccept;
+  @FindBy(xpath = "//*[@class='col-md-10']//tr[3]//td")  private WebElement mailHogTo;
+  @FindBy(id = "preview-html")   private WebElement mailHogHtml;
+
+
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -27,18 +35,38 @@ public class Mailcatcher {
     PageFactory.initElements(driver, this);
   }
 
+//  @Test
+//  public void mailcatcherEmail() throws InterruptedException {
+//    System.out.println("---------- Mailcatcher ----------");
+//    driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
+//    System.out.println(driver.getCurrentUrl());
+//    PageFactory.initElements(driver, this);
+//    wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
+//    Thread.sleep(4000);
+//    mailcatcherMessages.click();
+//    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
+//    Thread.sleep(1000);
+//    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+//    driver.close();
+//  }
+
+//  Mailcatcher>>MailHog
   @Test
   public void mailcatcherEmail() throws InterruptedException {
-    System.out.println("---------- Mailcatcher ----------");
-    driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
+    System.out.println("---------- MailHog ----------");
+    Thread.sleep(4000);
+    driver.get(Maps.get_url_mailhog("url_mailhog"));
     System.out.println(driver.getCurrentUrl());
     PageFactory.initElements(driver, this);
-    wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
-    Thread.sleep(4000);
-    mailcatcherMessages.click();
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+//
+//    String email=Maps.getEmail("email");
+//    wait.until(ExpectedConditions.v(email);
+
+
+    wait.until(ExpectedConditions.visibilityOf(mailHogMessages));
+    mailHogMessages.click();
+    System.out.println(mailHogTo.getText());
+    driver.findElement(By.id("preview-html")).sendKeys(Keys.TAB, Keys.TAB, Keys.ENTER);
     driver.close();
   }
 }

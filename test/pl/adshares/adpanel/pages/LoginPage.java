@@ -13,6 +13,7 @@ import pl.adshares.adpanel.tools.Maps;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -115,7 +116,9 @@ public class LoginPage {
           if(!driver.findElements(By.xpath("//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[1]//descendant::div[1]")).isEmpty()) {
             adshDialogClose1.click();
             System.out.println("adshDialogClose1");
-          }else{System.out.println("brak");}
+          }else{
+            System.out.println("brak");
+          }
         }
       }
     }
@@ -269,6 +272,7 @@ public class LoginPage {
 //  LOG IN RANDOM
   public void RandomEmail(String Password) throws InterruptedException {
     RandomEmail_Email(Password);
+//    Thread.sleep(1000);
     mailcatcher = new Mailcatcher(driver);
     mailcatcher.mailcatcherEmail();
 //    RandomEmail_Mailcatcher();

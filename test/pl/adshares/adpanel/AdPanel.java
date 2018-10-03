@@ -2,6 +2,7 @@ package pl.adshares.adpanel;
 
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.*;
+import pl.adshares.adpanel.pages.RegisterPage;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import pl.adshares.adpanel.tools.Maps;
 import pl.adshares.adpanel.tools.Structure;
@@ -15,7 +16,8 @@ import java.util.Random;
 
 public class AdPanel extends BrowserTestCase {
 
-  private String url_panel = "http://panel.ads/";
+  private String url_panel = "http://localhost:8102/";
+  private String url_mailhog = "http://localhost:8025/";
   private String url_mailcatcher = "http://mailcatcher.ads/";
   private String user = "user@e11.click";
   private String admin = "admin@e11.click";
@@ -38,6 +40,7 @@ public class AdPanel extends BrowserTestCase {
     Maps.url();
     Maps.url_panel("url_panel", url_panel);
     Maps.url_mailcatcher("url_mailcatcher", url_mailcatcher);
+    Maps.url_mailhog("url_mailhog", url_mailhog);
 
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
