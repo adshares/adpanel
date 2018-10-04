@@ -35,14 +35,5 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.saveCampaign(payload))
-    .do((campaign) => {
-      this.pushNotificationsService.addPushNotification({
-        type: pushNotificationTypesEnum.SUCCESS,
-        title: 'Success',
-        message: 'Campaign created!'
-      });
-
-      return campaign;
-    })
     .map((campaign) => new advertiserActions.AddCampaignToCampaignsSuccess(campaign));
 }
