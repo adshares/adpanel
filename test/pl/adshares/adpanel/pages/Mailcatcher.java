@@ -21,6 +21,7 @@ public class Mailcatcher {
 //  MailHog
   @FindBy(css = "[class='msglist-message row ng-scope']")  private WebElement mailHogMessages;
   @FindBy(css = "[class='button button-blue']")  private WebElement mailHogAccept;
+  @FindBy(xpath = "//*[@class='col-md-10']//tr[2]//td")  private WebElement mailHogSubject;
   @FindBy(xpath = "//*[@class='col-md-10']//tr[3]//td")  private WebElement mailHogTo;
   @FindBy(id = "preview-html")   private WebElement mailHogHtml;
 
@@ -65,7 +66,8 @@ public class Mailcatcher {
 
     wait.until(ExpectedConditions.visibilityOf(mailHogMessages));
     mailHogMessages.click();
-    System.out.println(mailHogTo.getText());
+    System.out.println("To:      "+mailHogTo.getText());
+    System.out.println("Subject: "+mailHogSubject.getText());
     driver.findElement(By.id("preview-html")).sendKeys(Keys.TAB, Keys.TAB, Keys.ENTER);
     driver.close();
   }

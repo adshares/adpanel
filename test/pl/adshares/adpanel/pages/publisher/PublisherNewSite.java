@@ -41,10 +41,7 @@ public class PublisherNewSite {
     wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
     contentLanguageEnglish.click();
     saveButtonPublisherCampaign.click();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". BasicInfo - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - BasicInfo");
   }
   public void goToSiteAdditionalTargeting() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
@@ -57,10 +54,7 @@ public class PublisherNewSite {
   public void sitePublisherBasicInfoError(String Url)  {
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Please provide a valid URL.", AssertionPleaseProvideAValidURL.getText());
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Please provide a valid URL. - OKK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Please provide a valid URL.");
   }
   public void backToDashboard() {
     wait.until(ExpectedConditions.visibilityOf(backToDashboard));

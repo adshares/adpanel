@@ -66,12 +66,7 @@ public class AdvertiserTestCase extends BrowserTestCase {
     advertiserMainPage.createCampaign();
     advertiserMainPage.createCampaignSaveData();
   }
-  @Test
-  public void backBasicInformationAdvertiserCampaign() {
-    advertiserMainPage = new AdvertiserMainPage(driver);
-    advertiserMainPage.createCampaign();
-    advertiserMainPage.createCampaignGoBack();
-  }
+
   @Test
   public void saveAdditionalTargetingCampaign() {
     advertiserMainPage = new AdvertiserMainPage(driver);
@@ -80,9 +75,5 @@ public class AdvertiserTestCase extends BrowserTestCase {
     advertiserMainPage.createCampaignAdditionalTargeting();
     advertiserMainPage.createCampaignAdditionalTargetingSaveData();
   }
-  @Test
-  public void advertiserCampaign() {
-    advertiserMainPage = new AdvertiserMainPage(driver);
-    advertiserMainPage.advertiserMyCampaign();
-  }
+
 }

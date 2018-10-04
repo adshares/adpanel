@@ -42,8 +42,11 @@ public class LoginPage {
   @FindBy(css = "[data-test='header-choose-user-menu-advertiser']")                                                     private WebElement headerChooseUserMenuAdvertiser;
   @FindBy(css = "[data-test='header-choose-user-menu-publisher']")                                                      private WebElement headerChooseUserMenuPublisher;
 //  @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
-  @FindBy(xpath = "//*[@data-test='header-toggle-settings-menu']//descendant::img[2]")                                  private WebElement settingsMenuChevron;
 
+
+  @FindBy(xpath = "//*[@data-test='header-toggle-settings-menu']//img[2]")                                                          private WebElement settingsMenu;
+  @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
+  @FindBy(css = "[data-test='header-log-out-button']")                                                                  private WebElement settingsLogOut;
   @FindBy(css = "[data-test='header-account-settings-button']")                                                         private WebElement accountSettings;
   @FindBy(css = "[data-test='header-billing-payments-button']")                                                         private WebElement billingPayments;
   @FindBy(css = "[data-test='settings-change-email-form-submit']")                                                      private WebElement changeEmail;
@@ -99,31 +102,9 @@ public class LoginPage {
 
   public void adshDialogClose() {
     System.out.println("---------- adshDialogClose ----------");
-    System.out.println("START - adshDialogClose");
-
-    if(!driver.findElements(By.xpath("//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[4]//descendant::div[1]")).isEmpty()) {
-      adshDialogClose4.click();
-      System.out.println("adshDialogClose4");
-    }else{
-      if(!driver.findElements(By.xpath("//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[3]//descendant::div[1]")).isEmpty()) {
-        adshDialogClose3.click();
-        System.out.println("adshDialogClose3");
-      }else{
-        if(!driver.findElements(By.xpath("//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[2]//descendant::div[1]")).isEmpty()) {
-          adshDialogClose2.click();
-          System.out.println("adshDialogClose2");
-        }else{
-          if(!driver.findElements(By.xpath("//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[1]//descendant::div[1]")).isEmpty()) {
-            adshDialogClose1.click();
-            System.out.println("adshDialogClose1");
-          }else{
-            System.out.println("brak");
-          }
-        }
-      }
-    }
-
-
+    wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    adshDialogClose.click();
+    Assert.assertEquals(adshDialogClose.getText(), "Hello!");
     System.out.println("KONIEC - adshDialogClose");
   }
   public void loginSignIn(String login, String password) {
@@ -241,7 +222,7 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(invalidEmail));
     String invalidEmailInput = invalidEmail.getText();
     Assert.assertEquals("Invalid email!", invalidEmailInput);
-    System.out.println("1. EMAIL INCORRECT");
+    System.out.println("1/5. EMAIL INCORRECT");
     //                    TEST EMAIL CORRECT = PASSWORD INCORRECT
     loginEmail.sendKeys("@e11.click");
     loginPassword.sendKeys("useruse");
@@ -250,23 +231,23 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(passwordMinimumRequired));
     String invalidPasswordInput2 = passwordMinimumRequired.getText();
     Assert.assertEquals("Minimum 8 signs required!", invalidPasswordInput2);
-    System.out.println("2. EMAIL CORRECT - PASSWORD INCORRECT");
+    System.out.println("2/5. EMAIL CORRECT - PASSWORD INCORRECT");
     //                    TEST EMAIL, PASSWORD CORRECT = CONFIRM PASSWORD INCORRECT
     loginPassword.sendKeys("r");
     loginConfirmPassword.sendKeys("useruse");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-    System.out.println("3. EMAIL, PASSWORD CORRECT - CONFIRM PASSWORD INCORRECT");
+    System.out.println("3/5. EMAIL, PASSWORD CORRECT - CONFIRM PASSWORD INCORRECT");
     //                    TEST EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT
     loginConfirmPassword.sendKeys("r");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-    System.out.println("4. EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT");
+    System.out.println("4/5. EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT");
     //                    5. TEST EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT
     wait.until(ExpectedConditions.visibilityOf(ngStarInserted));
     String invalidPasswordInput4 = ngStarInserted.getText();
     Assert.assertEquals("The email has already been taken.", invalidPasswordInput4);
-    System.out.println("5. The email has already been taken.");
+    System.out.println("5/5. The email has already been taken.");
   }
 
 //  LOG IN RANDOM
@@ -304,6 +285,8 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
   }
+
+  // TODO: 04.10.18 delete 
   public void RandomEmail_Mailcatcher() throws InterruptedException {
     System.out.println("---------- Mailcatcher ----------");
     driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
@@ -322,7 +305,7 @@ public class LoginPage {
   }
 
   private void LogInRandom_LogIn() {
-    System.out.println("---------- RandomEmail_LogIn ----------");
+    System.out.println("---------- adshDialogClose.click ----------");
 // 1.2 ZMIANA OKNA W CHROME - Store and Print the name of all the windows open
 //    Set handles = driver.getWindowHandles();
     for (String handle1:driver.getWindowHandles()) {
@@ -361,8 +344,8 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(loginButton));
     loginEmail.getText();
     loginPassword.getText();
-    System.out.println(Maps.getEmail("email"));
-    System.out.println(Maps.getPassword("password"));
+    System.out.println("LoginEmail: "+Maps.getEmail("email"));
+    System.out.println("Password:   "+Maps.getPassword("password"));
     loginButton.click();
     System.out.println(driver.getCurrentUrl());
 
@@ -402,9 +385,11 @@ public class LoginPage {
     logIn();
   }
 
-  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) {
+  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) throws InterruptedException {
     int id = (int) Maps.getId("id");
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+    Thread.sleep(1000);
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
@@ -469,16 +454,17 @@ public class LoginPage {
     }
   }
 
-  public void gotologinChangePassword() {
-//    wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
-//    settingsMenuChevron.click();
-//    wait.until(ExpectedConditions.visibilityOf(accountSettings));
-//    accountSettings.click();
-    wait.until(ExpectedConditions.elementToBeClickable(settingsMenuChevron));
-    JavascriptExecutor js =(JavascriptExecutor)driver;
-    js.executeScript("arguments[0].click();", settingsMenuChevron);
-    JavascriptExecutor js2 =(JavascriptExecutor)driver;
-    js2.executeScript("arguments[0].click();", accountSettings);
+  public void gotologinChangePassword() throws InterruptedException {
+    wait.until(ExpectedConditions.visibilityOf(settingsMenu));
+    Thread.sleep(1000);
+    settingsMenu.click();
+    wait.until(ExpectedConditions.visibilityOf(accountSettings));
+    accountSettings.click();
+//    wait.until(ExpectedConditions.elementToBeClickable(settingsMenuChevron));
+//    JavascriptExecutor js =(JavascriptExecutor)driver;
+//    js.executeScript("arguments[0].click();", settingsMenuChevron);
+//    JavascriptExecutor js2 =(JavascriptExecutor)driver;
+//    js2.executeScript("arguments[0].click();", accountSettings);
     wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
     loginCurrentPassword.sendKeys(Maps.getPassword("password"));
     Random random = new Random();
@@ -609,5 +595,21 @@ public class LoginPage {
     driver.get(Maps.get_url_panel("url_panel"));
     System.out.println("-. Hello! - OK");
     Thread.sleep(10000);
+  }
+
+  public void logInFail(String email, String password) {
+    System.out.println("---------- logInFail ----------");
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.sendKeys(email);
+    loginEmail.getText();
+    wait.until(ExpectedConditions.visibilityOf(loginPassword));
+    loginPassword.sendKeys(password);
+    loginPassword.getText();
+    wait.until(ExpectedConditions.visibilityOf(loginButton));
+    loginButton.click();
+    System.out.println(driver.getCurrentUrl());
+    wait.until(ExpectedConditions.visibilityOf(passwordOrEmailIsInvalid));
+    Assert.assertEquals("Password or email is invalid.", passwordOrEmailIsInvalid.getText());
+    System.out.println("1/1. Password or email is invalid.");
   }
 }

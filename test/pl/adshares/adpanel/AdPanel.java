@@ -3,6 +3,11 @@ package pl.adshares.adpanel;
 import pl.adshares.adpanel.enums.Properties;
 import pl.adshares.adpanel.pages.*;
 import pl.adshares.adpanel.pages.RegisterPage;
+import pl.adshares.adpanel.pages.advertiser.AdvertiserMainPage;
+import pl.adshares.adpanel.pages.publisher.PublisherMainPage;
+import pl.adshares.adpanel.pages.publisher.PublisherNewSite;
+import pl.adshares.adpanel.pages.publisher.SiteAdditionalTargeting;
+import pl.adshares.adpanel.pages.publisher.SiteCreateAds;
 import pl.adshares.adpanel.setup.BrowserTestCase;
 import pl.adshares.adpanel.tools.Maps;
 import pl.adshares.adpanel.tools.Structure;
@@ -28,6 +33,7 @@ public class AdPanel extends BrowserTestCase {
   private DashboardPopup dashboardPopup;
   private HeaderBarPage headerBarPage;
   private Mailcatcher mailcatcher;
+  private AdvertiserMainPage advertiserMainPage;
   private String loginAdService;
   private String passwordAdService;
   private String randomsEmail;
@@ -134,7 +140,7 @@ public class AdPanel extends BrowserTestCase {
   }
 
   @Test
-  public void logOut() {
+  public void logOut() throws InterruptedException {
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
@@ -162,7 +168,7 @@ public class AdPanel extends BrowserTestCase {
     loginPage.goToLoginRegistration();
   }
   @Test
-  public void Registration_ForgotPassword() {
+  public void Registration_ForgotPassword() throws InterruptedException {
     System.out.println("---------- TS_1 - TC_3 ----------");
     registerPage = new RegisterPage(driver);
     registerPage.registerForgotPassword(Maps.getEmail("email"),"ADS11ads");
@@ -196,16 +202,16 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("---------- TS_2 - TC_5 ----------");
   }
   @Test
-  public void logInChangeEmail_1() throws InterruptedException, AWTException {
+  public void logInChangeEmail_1() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.1 ----------");
     loginPage = new LoginPage(driver);
     Random random = new Random();
     int number = random.nextInt(1000000);
     String s = String.format("%06d", number)+"e";
-    Thread.sleep(1000);
+//    Thread.sleep(1000);
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal@"+s+".click", "test@"+s+".click");
-    System.out.println("1z7 - OK");
+    System.out.println("1/7. OK");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
     System.out.println("2z7 - logOut");
@@ -213,17 +219,20 @@ public class AdPanel extends BrowserTestCase {
     mailcatcher.mailcatcherEmail();
     System.out.println("3z7 - Mailcatcher");
 // TODO: 27.09.18 TC_6.1 Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
-    Robot robo = new Robot();
-    robo.keyPress(KeyEvent.VK_CONTROL);
-    robo.keyPress(KeyEvent.VK_SHIFT);
-    robo.keyPress(KeyEvent.VK_I);
-    robo.keyRelease(KeyEvent.VK_CONTROL);
-    robo.keyRelease(KeyEvent.VK_SHIFT);
-    robo.keyRelease(KeyEvent.VK_I);
+//    Robot robo = new Robot();
+//    robo.keyPress(KeyEvent.VK_CONTROL);
+//    robo.keyPress(KeyEvent.VK_SHIFT);
+//    robo.keyPress(KeyEvent.VK_I);
+//    robo.keyRelease(KeyEvent.VK_CONTROL);
+//    robo.keyRelease(KeyEvent.VK_SHIFT);
+//    robo.keyRelease(KeyEvent.VK_I);
 
-    Thread.sleep(10000);
+
+
+    Thread.sleep(100000);
     loginPage = new LoginPage(driver);
     loginPage.adshDialogClose();
+
     System.out.println("4z8 - logOut");
     headerBarPage.logOut();
     System.out.println("5z7 - logOut");
@@ -236,43 +245,43 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("8z7 - logOut");
   }
   @Test
-  public void logInChangeEmail_2() {
+  public void logInChangeEmail_2() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.2 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
   }
   @Test
-  public void loginChangeEmail_3() {
+  public void loginChangeEmail_3() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.3 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
   }
   @Test
-  public void logInChangeEmail_4() {
+  public void logInChangeEmail_4() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.4 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
   }
   @Test
-  public void logInChangeEmail_5() {
+  public void logInChangeEmail_5() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.5 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
   }
   @Test
-  public void logInChangeEmail_6() {
+  public void logInChangeEmail_6() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.6 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
   }
   @Test
-  public void logInChangeEmail_7() {
+  public void logInChangeEmail_7() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_6.7 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangeEmail("111michal@e11.click", "test@e11.click");
   }
   @Test
-  public void logInChangePassword() {
+  public void logInChangePassword() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_7 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePassword();
@@ -284,7 +293,7 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("NewPassword: "+ Maps.getPassword("password"));
   }
   @Test
-  public void logOutTest() {
+  public void logOutTest() throws InterruptedException {
     System.out.println("---------- TS_2 - TC_8 ----------");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
@@ -322,5 +331,102 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("---------- TS_2 - TC_13 ----------");
     loginPage = new LoginPage(driver);
     loginPage.AdminEmail(admin,password);
+  }
+
+  @Test
+  public void logInFail() throws InterruptedException {
+    System.out.println("---------- TS_3 - TC_1 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.logInFail("fail@e11.click", "failfail");
+  }
+  @Test
+  public void logInAdvertiser() {
+    System.out.println("---------- TS_3 - TC_2 ----------");
+  }
+  @Test
+  public void logInOutAdvertiser() {
+    System.out.println("---------- TS_3 - TC_3 ----------");
+  }
+  @Test
+  public void advertiserCampaign() {
+    System.out.println("---------- TS_3 - TC_4 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.advertiserMyCampaign();
+  }
+  @Test
+  public void backBasicInformationAdvertiserCampaign() {
+    System.out.println("---------- TS_3 - TC_7 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignGoBack();
+  }
+
+  @Test
+  public void AddBasicInformation() throws InterruptedException {
+    System.out.println("---------- TS_4 - TC_4 ----------");
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.gazeta.pl");
+  }
+  @Test
+  public void AddBasicInformationError() throws InterruptedException {
+    System.out.println("---------- TS_4 - TC_5 ----------");
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("");
+    publisherNewSite.sitePublisherBasicInfoError("");
+  }
+  @Test
+  public void AddAdditionalTargeting() throws InterruptedException {
+    System.out.println("---------- TS_4 - TC_6 ----------");
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.tvn24.pl");
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    siteAdditionalTargeting.publisherRequiresCreativeType();
+    siteAdditionalTargeting.publisherRequiresLanguage();
+    siteAdditionalTargeting.publisherRequiresScreen();
+    siteAdditionalTargeting.publisherRequiresJsSupport();
+    siteAdditionalTargeting.goToCreateAds();
+  }
+  @Test
+  public void AddAdditionalCreateAds() throws InterruptedException {
+    System.out.println("---------- TS_4 - TC_7 ----------");
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.tvnwarszawa.pl");
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    siteAdditionalTargeting.publisherRequiresCreativeType();
+    siteAdditionalTargeting.publisherRequiresLanguage();
+    siteAdditionalTargeting.publisherRequiresScreen();
+    siteAdditionalTargeting.publisherRequiresJsSupport();
+    siteAdditionalTargeting.goToCreateAds();
+    SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
+    siteCreateAds.createAdUnit();
+    siteCreateAds.adUnitTemplate("Test advertisement");
+    siteCreateAds.goToSummary();
+  }
+  @Test
+  public void AddAdditionalCreateAdsError() throws InterruptedException {
+    System.out.println("---------- TS_4 - TC_8 ----------");
+    PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.goToAddNewSite();
+    PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
+    publisherNewSite.sitePublisherBasicInfo("https://www.tvnwarszawa.pl");
+    SiteAdditionalTargeting siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    siteAdditionalTargeting.publisherRequiresCreativeType();
+    siteAdditionalTargeting.publisherRequiresLanguage();
+    siteAdditionalTargeting.publisherRequiresScreen();
+    siteAdditionalTargeting.publisherRequiresJsSupport();
+    siteAdditionalTargeting.goToCreateAds();
+    SiteCreateAds siteCreateAds = new SiteCreateAds(driver);
+    siteCreateAds.createAdUnit();
+    siteCreateAds.adUnitTemplate("");
+    siteCreateAds.goToSummary();
+    siteCreateAds.createAdUnitError();
   }
 }

@@ -36,11 +36,12 @@ public class PublisherMainPage {
     PageFactory.initElements(driver, this);
   }
 
-  public void goToAddNewSite() {
+  public void goToAddNewSite() throws InterruptedException {
     wait.until(ExpectedConditions.visibilityOf(logoAssertion));
     Assert.assertTrue(logoAssertion.isDisplayed());
     wait.until(ExpectedConditions.visibilityOf(newAddSiteToolBar));
     Assert.assertTrue(newAddSiteToolBar.isEnabled());
+    Thread.sleep(1000);
     newAddSiteToolBar.click();
   }
 

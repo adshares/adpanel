@@ -36,6 +36,10 @@ public class RegisterPage {
   @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
   @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement yourNewPasswordIsSet;
 
+  @FindBy(id = "email")                                                                                                 private WebElement loginEmail;
+  @FindBy(id = "password")                                                                                              private WebElement loginPassword;
+  @FindBy(xpath = "//*[contains(text(),'Log In')]")                                                                     private WebElement loginButton;
+
   private WebDriver driver;
   private WebDriverWait wait;
   private Mailcatcher mailcatcher;
@@ -132,8 +136,11 @@ public class RegisterPage {
     registerButton.click();
   }
 
-  public void registerForgotPassword(String Email, String newPassword, String url_mamailcatcher) throws InterruptedException {
+  public void registerForgotPassword(String Email, String newPassword) throws InterruptedException {
     System.out.println("---------- Forgot Password ----------");
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    wait.until(ExpectedConditions.visibilityOf(loginPassword));
+    wait.until(ExpectedConditions.visibilityOf(loginButton));
     wait.until(ExpectedConditions.visibilityOf(forgotPassword));
     forgotPassword.click();
     System.out.println("Click - Forgot Password");
@@ -176,6 +183,6 @@ public class RegisterPage {
     System.out.println("New password: "+newPassword);
   }
 
-  public void registerForgotPassword(String email, String ads11ads) {
-  }
+//  public void registerForgotPassword(String email, String ads11ads) {
+//  }
 }
