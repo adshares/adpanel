@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 
 import * as advertiserActions from './advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 
 @Injectable()
 export class AdvertiserEffects {
@@ -14,7 +13,8 @@ export class AdvertiserEffects {
     private actions$: Actions,
     private service: AdvertiserService,
     private pushNotificationsService: PushNotificationsService
-  ) { }
+  ) {
+  }
 
   @Effect()
   loadCampaigns$ = this.actions$
