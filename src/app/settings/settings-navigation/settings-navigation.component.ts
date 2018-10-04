@@ -21,7 +21,9 @@ export class SettingsNavigationComponent {
             link: 'general',
             values: [
                 { name: 'Preferences', icon: 'assets/images/preferences.svg'},
+/*
                 { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
+*/
             ],
             admin: true,
         }/*,

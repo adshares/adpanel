@@ -20,7 +20,7 @@ export const campaignInitialState: Campaign = {
     bidStrategyName: '',
     bidValue: null,
     budget: null,
-    dateStart: moment(new Date()).format('L'),
+    dateStart: moment(new Date()).format('YYYY-MM-DD'),
   },
 
   targeting: {

@@ -56,8 +56,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       bidStrategyName: campaignBasicInfoValue.bidStrategyName,
       bidValue: campaignBasicInfoValue.bidValue,
       budget: campaignBasicInfoValue.budget,
-      dateStart: moment(this.dateStart.value._d).format('L'),
-      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('L') : null
+      dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD'),
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD') : null
     };
 
     this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));

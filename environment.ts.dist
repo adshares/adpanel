@@ -1,5 +1,6 @@
 export const environment = {
   production: ${APP_PROD},
   authUrl: '${ADSERVER_URL}/auth',
-  apiUrl: '${ADSERVER_URL}/panel'
+  apiUrl: '${ADSERVER_URL}/api',
+  xdebug: ${REQUEST_XDEBUG}
 };

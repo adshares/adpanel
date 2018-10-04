@@ -7,9 +7,9 @@ interface Campaign {
     requires: object;
     excludes: object;
   };
+  ads: Ad[];
 
   targetingArray?: AssetTargeting;
-  ads: Ad[];
   clicks?: number;
   impressions?: number;
   CTR?: number;
