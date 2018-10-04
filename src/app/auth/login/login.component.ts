@@ -68,7 +68,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
       this.loginForm.get('email').setValue(userData.email);
-      this.loginForm.get('password').setValue('*'.repeat(parseInt(userData.passwordLength)));
+      this.loginForm.get('password').setValue('********');
       this.rememberUser.nativeElement.checked = true;
     }
   }

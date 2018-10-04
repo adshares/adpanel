@@ -38,11 +38,11 @@ export class SettingsService {
     return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { address, amount, memo });
   }
 
-  changeEmail(email: string, URIstep1: string, URIstep2: string) {
-    return this.http.post(`${environment.apiUrl}/users/email`, { email, URIstep1, URIstep2 });
+  changeEmail(email: string, UriStep1: string, UriStep2: string) {
+    return this.http.post(`${environment.authUrl}/email`, { email, UriStep1, UriStep2 });
   }
 
   changePassword(user: object, uri: string) {
-    return this.http.patch(`${environment.apiUrl}/users`, { user, uri });
+    return this.http.patch(`${environment.authUrl}/self`, { user, uri });
   }
 }

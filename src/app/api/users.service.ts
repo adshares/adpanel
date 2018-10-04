@@ -14,36 +14,32 @@ export class ApiUsersService {
   // user access
 
   emailActivateResend(uri) {
-    return this.http.post(`${environment.authUrl}/users/email/activate/resend`, {uri});
+    return this.http.post(`${environment.authUrl}/email/activate/resend`, {uri});
+  }
+
+  emailConfirm1Old(token: string) {
+    return this.http.get(`${environment.authUrl}/email/confirm1Old/${token}`);
+  }
+
+  emailConfirm2New(token: string) {
+    return this.http.get(`${environment.authUrl}/email/confirm2New/${token}`);
+  }
+
+  emailActivate(token: string) {
+    return this.http.post(`${environment.authUrl}/email/activate`, {user: {email_confirm_token: token}});
+  }
+
+  updateSelf(id: number, user): Observable<User> {
+    return this.http.patch<User>(`${environment.authUrl}/self`, {user});
   }
 
   // guest access
 
-  post(user, uri): Observable<User> {
-    return this.http.post<User>(`${environment.authUrl}/users`, {user, uri});
+  resetPassword(user: object, token: string) {
+    return this.http.patch(`${environment.authUrl}/password`, {user, token});
   }
 
-  patchWithToken(user: object, token: string) {
-    return this.http.patch(`${environment.authUrl}/users`, {user, token});
-  }
-
-  // * access
-
-  emailConfirm1Old(token: string) {
-    return this.http.get(`${environment.authUrl}/users/email/confirm1Old/${token}`);
-  }
-
-  emailConfirm2New(token: string) {
-    return this.http.get(`${environment.authUrl}/users/email/confirm2New/${token}`);
-  }
-
-  emailActivate(token: string) {
-    return this.http.post(`${environment.authUrl}/users/email/activate`, {user: {email_confirm_token: token}});
-  }
-
-  // API access
-
-  patch(id: number, user): Observable<User> {
-    return this.http.patch<User>(`${environment.apiUrl}/users/${id}`, {user});
+  register(user, uri): Observable<User> {
+    return this.http.post<User>(`${environment.authUrl}/register`, {user, uri});
   }
 }
