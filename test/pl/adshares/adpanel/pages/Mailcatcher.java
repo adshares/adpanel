@@ -53,9 +53,13 @@ public class Mailcatcher {
 
 //  Mailcatcher>>MailHog
   @Test
-  public void mailcatcherEmail() throws InterruptedException {
+  public void mailcatcherEmail() {
     System.out.println("---------- MailHog ----------");
-    Thread.sleep(4000);
+    try {
+      Thread.sleep(4000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     driver.get(Maps.get_url_mailhog("url_mailhog"));
     System.out.println(driver.getCurrentUrl());
     PageFactory.initElements(driver, this);

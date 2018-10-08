@@ -150,7 +150,7 @@ public class AdPanel extends BrowserTestCase {
 
   //TEST
   @Test
-  public void logIn_Mailcatcher() throws InterruptedException {
+  public void logIn_Mailcatcher() {
     loginPage = new LoginPage(driver);
     loginPage.RandomEmail("12345678");
   }
@@ -218,7 +218,7 @@ public class AdPanel extends BrowserTestCase {
     mailcatcher = new Mailcatcher(driver);
     mailcatcher.mailcatcherEmail();
     System.out.println("3z7 - Mailcatcher");
-// TODO: 27.09.18 TC_6.1 Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
+    // TODO: 05.10.18  TC_6.1 Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
 //    Robot robo = new Robot();
 //    robo.keyPress(KeyEvent.VK_CONTROL);
 //    robo.keyPress(KeyEvent.VK_SHIFT);
@@ -229,7 +229,7 @@ public class AdPanel extends BrowserTestCase {
 
 
 
-    Thread.sleep(100000);
+    Thread.sleep(10000);
     loginPage = new LoginPage(driver);
     loginPage.adshDialogClose();
 
@@ -313,13 +313,13 @@ public class AdPanel extends BrowserTestCase {
     loginPage.loginSecondTab2();
   }
   @Test
-  public void logInSessionHoles() throws InterruptedException {
+  public void logInSessionHoles() {
     System.out.println("---------- TS_2 - TC_11 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab3();
   }
   @Test
-  public void logInSecondTab4() throws InterruptedException {
+  public void logInSecondTab4() {
     // TODO: 27.09.18 TC_12 Error - session expiration not work - setting in file
     System.out.println("---------- TS_2 - TC_12 ----------");
     loginPage = new LoginPage(driver);
@@ -334,7 +334,7 @@ public class AdPanel extends BrowserTestCase {
   }
 
   @Test
-  public void logInFail() throws InterruptedException {
+  public void logInFail() {
     System.out.println("---------- TS_3 - TC_1 ----------");
     loginPage = new LoginPage(driver);
     loginPage.logInFail("fail@e11.click", "failfail");
@@ -359,6 +359,13 @@ public class AdPanel extends BrowserTestCase {
     advertiserMainPage = new AdvertiserMainPage(driver);
     advertiserMainPage.createCampaign();
     advertiserMainPage.createCampaignGoBack();
+  }
+  @Test
+  public void saveBasicInformationAdvertiserCampaign() {
+    System.out.println("---------- TS_3 - TC_8 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignSaveData();
   }
 
   @Test
@@ -412,7 +419,7 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void AddAdditionalCreateAdsError() throws InterruptedException {
-    System.out.println("---------- TS_4 - TC_8 ----------");
+
     PublisherMainPage publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.goToAddNewSite();
     PublisherNewSite publisherNewSite = new PublisherNewSite(driver);
@@ -428,5 +435,61 @@ public class AdPanel extends BrowserTestCase {
     siteCreateAds.adUnitTemplate("");
     siteCreateAds.goToSummary();
     siteCreateAds.createAdUnitError();
+  }
+  @Test
+  public void saveAdditionalTargetingCampaign() {
+    System.out.println("---------- TS_4 - TC_9 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignSaveData();
+    advertiserMainPage.createCampaignAdditionalTargeting();
+    advertiserMainPage.createCampaignAdditionalTargetingSaveData();
+  }
+  @Test
+  public void saveAsDraftAdvertiserCampaign() {
+    System.out.println("---------- TS_4 - TC_13 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignSaveData();
+    advertiserMainPage.createCampaignAdditionalTargeting();
+    advertiserMainPage.createCampaignAdditionalTargetingSaveDataAsDraft();
+    // TODO: 27.07.18 błąd 500 przy SaveDataAsDraft
+    advertiserMainPage.createCampaignCreateAds();
+    advertiserMainPage.createCampaignCreateAdsSaveData();
+    advertiserMainPage.createCampaignSummary();
+    advertiserMainPage.createCampaignSummaryGoBack();
+    advertiserMainPage.createCampaignCreateAdsGoBack();
+    advertiserMainPage.createCampaignAdditionalTargetingGoBack();
+    advertiserMainPage.createCampaignGoBack();
+  }
+  @Test
+  public void backAdvertiserCampaign() {
+    System.out.println("---------- TS_4 - TC_14 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignSaveData();
+    advertiserMainPage.createCampaignAdditionalTargeting();
+    advertiserMainPage.createCampaignAdditionalTargetingSaveData();
+    advertiserMainPage.createCampaignCreateAds();
+    advertiserMainPage.createCampaignCreateAdsSaveData();
+    advertiserMainPage.createCampaignSummary();
+    advertiserMainPage.createCampaignSummaryGoBack();
+    advertiserMainPage.createCampaignCreateAdsGoBack();
+    advertiserMainPage.createCampaignAdditionalTargetingGoBack();
+    advertiserMainPage.createCampaignGoBack();
+  }
+
+
+  @Test
+  public void createAdvertiserCampaign() {
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createCampaign();
+    advertiserMainPage.createCampaignSaveData();
+    advertiserMainPage.createCampaignAdditionalTargeting();
+    advertiserMainPage.createCampaignAdditionalTargetingSaveData();
+    advertiserMainPage.createCampaignCreateAds();
+    advertiserMainPage.createCampaignCreateAdsSaveData();
+    advertiserMainPage.createCampaignSummary();
+    advertiserMainPage.createCampaignSummaryStartCampaignButton();
   }
 }

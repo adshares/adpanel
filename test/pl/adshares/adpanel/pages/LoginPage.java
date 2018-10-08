@@ -108,7 +108,7 @@ public class LoginPage {
     System.out.println("KONIEC - adshDialogClose");
   }
   public void loginSignIn(String login, String password) {
-    int id = (int) Maps.getId("id");
+
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
     loginEmail.sendKeys(login);
     loginPassword.sendKeys(password);
@@ -118,9 +118,7 @@ public class LoginPage {
     loginButton.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(headerDashboardLink));
-    System.out.println(id+". Log In  - OK"); id=id+1;
-    Maps.createId();
-    Maps.id("id", id);
+    System.out.println("Assert - Log In");
   }
 
   public void loginSignInError() {
@@ -189,8 +187,8 @@ public class LoginPage {
     loginPassword.clear();
     driver.navigate().refresh();
     loginPassword.sendKeys("aaaaaaaa");
-    Boolean notPresent = ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver);
-    Assert.assertTrue(notPresent);
+    String notPresent = String.valueOf(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver));
+    Assert.assertTrue(Boolean.parseBoolean(notPresent));
     System.out.println("5z5. 8 signs: Validation message is not present - checked!");
     loginEmail.sendKeys("test@wp.pl");
     loginButton.click();
@@ -251,7 +249,7 @@ public class LoginPage {
   }
 
 //  LOG IN RANDOM
-  public void RandomEmail(String Password) throws InterruptedException {
+  public void RandomEmail(String Password)  {
     RandomEmail_Email(Password);
 //    Thread.sleep(1000);
     mailcatcher = new Mailcatcher(driver);
@@ -572,8 +570,12 @@ public class LoginPage {
     Assert.assertEquals("Hello!", helloText.getText());
     System.out.println("Assert - Hello!");
   }
-  public void loginSecondTab3() throws InterruptedException {
-    Thread.sleep(1000);
+  public void loginSecondTab3() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     System.out.println(driver.getCurrentUrl());
     adshLogo.click();
@@ -587,14 +589,18 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     System.out.println(driver.getCurrentUrl());
   }
-  public void loginSecondTab4() throws InterruptedException {
+  public void loginSecondTab4() {
     System.setProperty("webdriver.opera.driver", getWebDriverFile("operadriver").getAbsolutePath());
     OperaOptions operaOptions = new OperaOptions();
     operaOptions.addArguments("--start-maximized");
     driver = new OperaDriver(operaOptions);
     driver.get(Maps.get_url_panel("url_panel"));
     System.out.println("-. Hello! - OK");
-    Thread.sleep(10000);
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   public void logInFail(String email, String password) {

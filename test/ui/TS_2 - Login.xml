@@ -165,17 +165,17 @@
       </class>
     </classes>
   </test>
-  <test name="TC 10 - Zamknięcie karty przeglądarki - RemeberMe Off" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInSecondTab2"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC 10 - Zamknięcie karty przeglądarki - RemeberMe Off" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInSecondTab2"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
   <!--<test name="TC 11 - Otwarcie sesji" group-by-instances="true">-->
     <!--<classes>-->
       <!--<class name="pl.adshares.adpanel.AdPanel">-->

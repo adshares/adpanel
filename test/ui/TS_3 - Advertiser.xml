@@ -1,94 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC_1 - Logowanie z nieprawidłowymi danymi" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInFail"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_2 - Logowanie użytkownika" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInAdvertiser"/>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_3 - Wylogowanie" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInOutAdvertiser"/>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="logOutTest"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_4 - Weryfikacja zawartości głównej strony ogłoszeniodawcy" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInOutAdvertiser"/>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="advertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_7 - Tworzenie kampanii - anulowanie" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="backBasicInformationAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_1 - Logowanie z nieprawidłowymi danymi" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInFail"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_2 - Logowanie użytkownika" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInAdvertiser"/>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_3 - Wylogowanie" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInOutAdvertiser"/>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="logOutTest"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_4 - Weryfikacja zawartości głównej strony ogłoszeniodawcy" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInOutAdvertiser"/>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="advertiserCampaign"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
 
 
-
-  <test name="TC 8 - Tworzenie kampanii - podstawowe parametry" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="saveBasicInformationAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 9 - Tworzenie kampanii - targetowanie" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="saveAdditionalTargetingCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_7 - Tworzenie kampanii - anulowanie" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="backBasicInformationAdvertiserCampaign"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_8 - Tworzenie kampanii - podstawowe parametry" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="saveBasicInformationAdvertiserCampaign"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC 9 - Tworzenie kampanii - targetowanie" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="saveAdditionalTargetingCampaign"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
 
 
 
@@ -96,32 +87,24 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
           <include name="saveAsDraftAdvertiserCampaign"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 14 - Weryfikacja - Back" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="backAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC 14 - Weryfikacja - Back" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="backAdvertiserCampaign"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
 
 
 
@@ -129,12 +112,8 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
        <methods>
-         <include name="loginRegisterRandom"/>
-         <include name="loginPopUpFirstAdvertiser"/>
-       </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-       <methods>
+         <include name="logInRandomEmail"/>
+         <include name="logInPopUpFirstAdvertiser"/>
          <include name="createAdvertiserCampaign"/>
        </methods>
       </class>

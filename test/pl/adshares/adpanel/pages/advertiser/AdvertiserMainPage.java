@@ -18,14 +18,16 @@ import org.testng.annotations.AfterClass;
 
 public class AdvertiserMainPage {
 
-  @FindBy(css = "[data-test='header-create-new-asset-button']")                                                         private WebElement createNewCampaignTopButton;
+  @FindBy(css = "[data-test='header-create-new-asset-button']")                                                         private WebElement createNewCampaignTopButton2;
+  @FindBy(css = "[src='assets/images/plus-circle.svg']")                                                                private WebElement createNewCampaignTopButton3;
+  @FindBy(css = "[class='ng-star-inserted']")                                                                           private WebElement createNewCampaignTopButton;
   @FindBy(css = "[data-test='user-total-funds']")                                                                       private WebElement AssertUserTotalFunds;
   @FindBy(css = "[data-test='user-total-funds-in-currency']")                                                           private WebElement AssertUserTotalFundsInCurrency;
   @FindBy(css = "[class='ng-star-inserted']")                                                                           private WebElement AssertNgStarInserted;
   @FindBy(css = "[class='adsh-campaign-list__items']")                                                                  private WebElement AssertAdshCampaignListItems;
   @FindBy(css = "[data-test='user-address']")                                                                           private WebElement AssertUserAddress;
   @FindBy(xpath = "//*[contains(text(), 'Total Funds:')]")                                                              private WebElement AssertUserTotalFunds2;
-
+  @FindBy(xpath = "//*[contains(text(), 'Basic Information')]")                                                          private WebElement AssertBasicInformation ;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -38,7 +40,15 @@ public class AdvertiserMainPage {
 
   private void createNewCampaign() {
     wait.until(ExpectedConditions.visibilityOf(createNewCampaignTopButton));
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     createNewCampaignTopButton.click();
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation));
+    Assert.assertEquals("Basic Information", AssertBasicInformation.getText());
+    System.out.println("Assert - Create New Campaign");
   }
   public void createCampaign() {
 //    Krok 1. [Basic Information]
@@ -128,7 +138,7 @@ public class AdvertiserMainPage {
     LocalDate endDate = LocalDate.parse("5/8/2018", formatter);
     final CampaignBasicInfo campInfo = new CampaignBasicInfo("campaign 1", "http://google.com", "CPM", "0.01", "1", startDate, endDate);
     ecSummaryPage.checkCampaignSummary(campInfo);
-    System.out.println("Asert - Summary");
+    System.out.println("Assert - Summary");
   }
   public void createCampaignSummaryGoBack() {
 //    Krok 4. [Summary - goBack]
