@@ -160,7 +160,6 @@
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
-<!-- TODO: remember
     <button
       *ngIf="userDataState.isAdmin"
       (click)="openSetEarningsDialog()"
@@ -182,7 +181,6 @@
       >
       <span>Set your earnings</span>
     </button>
--->
     <div
       *ngIf="!userDataState.isAdmin"
       class="
@@ -238,7 +236,6 @@
           adsh-copy--large"
         [class.open]="settingsMenuOpen"
       >
-<!--
         <li class="settings-menu__item">
           <button
             class="
@@ -263,7 +260,6 @@
             </span>
           </button>
         </li>
--->
         <li
           class="settings-menu__item"
           routerLink="/settings/general"
@@ -271,7 +267,6 @@
         >
           Account Settings
         </li>
-<!--
         <li
           class="settings-menu__item"
           routerLink="/settings/billing"
@@ -279,7 +274,6 @@
         >
           Billing & Payments
         </li>
--->
         <li class="settings-menu__item">
           <span
             (click)="logout()"
