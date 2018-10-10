@@ -63,7 +63,6 @@ export class RequestInterceptor implements HttpInterceptor {
       });
     }
 
-
     return next.handle(request).do(
       (event: HttpEvent<any>) => {
         this.extendTokenExpiration();
