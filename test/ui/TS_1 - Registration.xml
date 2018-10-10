@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 1 - Registration Control" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC 1 - Rejestracja konta" group-by-instances="true">
+  <test name="TC_1 - Rejestracja konta" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
+          <include name="logInRandomEmail"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 2 - Niepoprawna rejestracja konta" group-by-instances="true">
+  <test name="TC_2 - Niepoprawna rejestracja konta" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterError"/>
+          <include name="Registration_Error"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 3 - Resetowanie hasła" group-by-instances="true">
+  <test name="TC_3 - Resetowanie hasła" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
           <include name="logOutTest"/>
         </methods>
       </class>

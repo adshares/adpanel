@@ -113,28 +113,19 @@ public class SiteAdditionalTargeting {
   public void goToCreateAds() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Additional Targeting - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
-
+    System.out.println("Assert - Additional Targeting");
   }
   public void saveAsDraft() {
     wait.until(ExpectedConditions.visibilityOf(saveAsDraft));
     saveAsDraft.click();
     int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Additional Targeting - SaveAsDraft"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Additional Targeting - SaveAsDraft");
   }
   public void back() {
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Back Additional Targeting - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Back Additional Targeting");
   }
 }

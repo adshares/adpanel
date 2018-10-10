@@ -59,27 +59,18 @@ public class SiteCreateAds {
   public void goToSummary() {
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Create Ads - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Create Ads");
   }
   public void createAdUnitError() {
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Name of Unit required!", AssertionNameOfUnitRequired.getText());
-     int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Name of Unit required! - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Name of Unit required!");
   }
   public void back() {
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Back Create Ads - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Back Create Ads");
   }
 }
