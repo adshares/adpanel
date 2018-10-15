@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Store} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
-import { AppState} from 'models/app-state.model';
+import { AppState } from 'models/app-state.model';
 import { User, UserAdserverWallet } from 'models/user.model';
 
 import { appSettings } from 'app-settings';
@@ -36,11 +36,19 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
+
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
         this.adserverWallet = user.adserverWallet;
       });
+
+    this.settingsService.checkUserStatus()
+      .subscribe((user: User) => {
+        this.isEmailConfirmed = user.isEmailConfirmed;
+        this.adserverWallet = user.adserverWallet;
+      });
+
     this.subscriptions.push(userDataSubscription);
 
     this.createForm();
