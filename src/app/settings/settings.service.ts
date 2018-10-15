@@ -48,6 +48,6 @@ export class SettingsService {
   }
 
   checkUserStatus(): Observable<User> {
-    return this.http.get(`${environment.authUrl}/check`);
+    return this.http.get<User>(`${environment.authUrl}/check`);
   }
 }
