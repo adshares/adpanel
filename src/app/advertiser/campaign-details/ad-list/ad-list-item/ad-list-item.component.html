@@ -19,7 +19,7 @@
         >
           <mat-slide-toggle
             color="primary"
-            [checked]="ad.status === adStatusesEnum.ARCHIVED"
+            [checked]="true || ad.status === adStatusesEnum.ARCHIVED"
             ([ngModel])="ad.status"
             (change)="changeAdStatus(ad.status)"
             data-test="advertiser-ad-change-ad-status-toggle"
@@ -28,7 +28,7 @@
       </div>
       <div
         class="
-          col-xs-4
+          col-xs-1
           row
           align-center"
       >
@@ -36,9 +36,24 @@
           class="
             adsh-heading
             adsh-heading--secondary"
-          data-test="advertiser-ad-short-headline"
+          data-test="advertiser-ad-type"
         >
-          {{ ad.shortHeadline }}
+          {{ adType() }}
+        </h4>
+      </div>
+      <div
+              class="
+          col-xs-3
+          row
+          align-center"
+      >
+        <h4
+                class="
+            adsh-heading
+            adsh-heading--secondary"
+                data-test="advertiser-ad-preview"
+        >
+            <img *ngIf="adType() === 'IMAGE'" src="{{ ad.imageUrl }}" width="150" alt="banner" />
         </h4>
       </div>
       <div
