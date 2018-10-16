@@ -28,5 +28,10 @@ interface AdsharesAddress {
   adsharesAddress: string;
 }
 
+interface DepositInfo {
+  address: string;
+  message: string;
+}
 
-export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings, AdsharesAddress };
+
+export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings, AdsharesAddress, DepositInfo };
