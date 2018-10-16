@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { Store } from '@ngrx/store';
 
 import { HandleSubscription } from 'common/handle-subscription';
-import { AdsharesAddress } from 'models/settings.model';
-import { AppState } from 'models/app-state.model';
-import { User } from 'models/user.model';
+import { DepositInfo } from 'models/settings.model';
 import { ApiService } from "app/api/api.service";
 import { SessionService } from "app/session.service";
 
@@ -34,16 +31,11 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     this.paymentMemo = user.adserverWallet.paymentMemo;
     this.isEmailConfirmed = user.isEmailConfirmed;
 
-    this.adsharesAddress = this.session.getAdsharesAddress();
-    if (this.adsharesAddress) {
-      return;
-    }
-
-    this.api.config.adsharesAddress()
-      .subscribe((data: AdsharesAddress) => {
-        this.session.setAdsharesAddress(data.adsharesAddress);
-        this.adsharesAddress = data.adsharesAddress;
-    });
+    this.api.config.depositInfo()
+      .subscribe((data: DepositInfo) => {
+        this.adsharesAddress = data.address;
+        this.paymentMemo = data.message;
+      });
   }
 
 }

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
 import { BillingHistoryItem, NotificationItem } from 'models/settings.model';
+import { User } from "models/user.model";
 
 @Injectable()
 export class SettingsService {
@@ -34,8 +35,8 @@ export class SettingsService {
     return this.http.patch(`${environment.apiUrl}/wallet/settings`, { newWithdrawAddress });
   }
 
-  withdrawFunds(address: string, amount: number, memo: string) {
-    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { address, amount, memo });
+  withdrawFunds(to: string, amount: number, memo: string) {
+    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { to, amount, memo });
   }
 
   changeEmail(email: string, UriStep1: string, UriStep2: string) {
@@ -44,5 +45,9 @@ export class SettingsService {
 
   changePassword(user: object, uri: string) {
     return this.http.patch(`${environment.authUrl}/self`, { user, uri });
+  }
+
+  checkUserStatus(): Observable<User> {
+    return this.http.get<User>(`${environment.authUrl}/check`);
   }
 }
