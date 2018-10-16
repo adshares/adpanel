@@ -17,7 +17,7 @@
           adsh-copy
           adsh-copy--large"
       >
-        Here you can change the email address you use on Adshares and your password
+        Deposit or withdraw funds
       </p>
 
       <div
@@ -40,23 +40,27 @@
               data-test="user-total-funds"
             >
               {{ adserverWallet.totalFunds | adsharesTokenValue }}
+<!--
               <span
                 class="
-                  adsh-copy--normal
-                  adsh-copy--light"
+                  adsh-copy&#45;&#45;normal
+                  adsh-copy&#45;&#45;light"
                 data-test="user-total-funds-in-currency"
               >
                 ({{ adserverWallet.totalFundsInCurrency | currency:'USD' }})
               </span>
+-->
             </h1>
+<!--
             <p
               class="
                 adsh-copy
-                adsh-copy--large"
+                adsh-copy&#45;&#45;large"
               data-test="settings-last-payment"
             >
               Last successful payment: {{ adserverWallet.lastPayment }}
             </p>
+-->
             <div
               class="
                 row
@@ -96,11 +100,12 @@
             </div>
           </div>
         </div>
+<!--
         <div
           class="
             col-xs-5
             adsh-box
-            adsh-box--large"
+            adsh-box&#45;&#45;large"
         >
           <div
             class="
@@ -117,7 +122,7 @@
                 class="
                   break-word
                   adsh-heading
-                  adsh-heading--secondary"
+                  adsh-heading&#45;&#45;secondary"
                 data-test="user-address"
               >
                 {{ adserverWallet.adsharesAddress }}
@@ -126,8 +131,8 @@
             <button
               class="
                 adsh-btn
-                adsh-btn--white
-                adsh-btn--no-border
+                adsh-btn&#45;&#45;white
+                adsh-btn&#45;&#45;no-border
                 adsh-blue"
               (click)="openChangeAddressDialog()"
               data-test="change-address-dialog-open-button"
@@ -149,7 +154,7 @@
               <p
                 class="
                   adsh-heading
-                  adsh-heading--secondary"
+                  adsh-heading&#45;&#45;secondary"
               >
                 <span data-test="user-automatic-withdraw-amount">
                   {{ adserverWallet.autoWithdrawAmount | adsharesTokenValue }}
@@ -166,8 +171,8 @@
             <button
               class="
                 adsh-btn
-                adsh-btn--white
-                adsh-btn--no-border
+                adsh-btn&#45;&#45;white
+                adsh-btn&#45;&#45;no-border
                 adsh-blue"
               (click)="openChangeAutomaticWithdrawsDialog()"
               data-test="change-automatic-withdraw-dialog-open-button"
@@ -176,6 +181,7 @@
             </button>
           </div>
         </div>
+-->
       </div>
 
       <div

@@ -15,18 +15,18 @@ export class SettingsNavigationComponent {
 
     settings = [
         {
-            title: 'General Settings',
+            title: 'Account Settings',
             description: 'Your changes to general settings from the Advertiser point ' +
             'will affect the changes in your Publisher account',
             link: 'general',
             values: [
-                { name: 'Preferences', icon: 'assets/images/preferences.svg'},
+                { name: 'Email & Password', icon: 'assets/images/preferences.svg'},
 /*
                 { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
 */
             ],
             admin: true,
-        }/*,
+        },
         {
             title: 'Billing & Payments',
             description: '',
@@ -36,7 +36,7 @@ export class SettingsNavigationComponent {
                 { name: 'Billing History', icon: 'assets/images/history.svg'}
             ],
             admin: false,
-        }*/
+        }
     ];
 
     constructor(
