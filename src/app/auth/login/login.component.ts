@@ -25,7 +25,7 @@ import { isUnixTimePastNow } from 'common/utilities/helpers';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends HandleSubscription implements OnInit {
-  @ViewChild('rememberUser') rememberUser: ElementRef;
+  // @ViewChild('rememberUser') rememberUser: ElementRef;
 
   loginForm: FormGroup;
 
@@ -53,7 +53,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
 
     this.createForm();
-    this.checkIfUserRemembered();
+    // this.checkIfUserRemembered();
   }
 
   createForm() {
@@ -64,13 +64,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   checkIfUserRemembered() {
-    const userData = JSON.parse(localStorage.getItem('adshUser'));
+    // const userData = JSON.parse(localStorage.getItem('adshUser'));
 
-    if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
-      this.loginForm.get('email').setValue(userData.email);
-      this.loginForm.get('password').setValue('********');
-      this.rememberUser.nativeElement.checked = true;
-    }
+    // if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
+    //   this.loginForm.get('email').setValue(userData.email);
+    //   this.loginForm.get('password').setValue('********');
+    //   this.rememberUser.nativeElement.checked = true;
+    // }
   }
 
   login() {
@@ -88,11 +88,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     )
       .subscribe(
         (user: User) => {
-          this.processLogin(user);
-          // if (user.isAdmin) {
-          //   this.router.navigate(['/admin/dashboard']);
-          //   return;
-          // }
+          // this.processLogin(user);
+          if (user.isAdmin) {
+            this.router.navigate(['/admin/dashboard']);
+            return;
+          }
           this.showStartupPopups(user);
           this.router.navigate(['/settings/general']);
         },
@@ -103,15 +103,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   processLogin(user: User) {
-    const rememberUser = this.rememberUser.nativeElement.checked;
-    const expirationSeconds = rememberUser ?
-      appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
-    const dataToSave: LocalStorageUser = Object.assign({}, user, {
-      remember: rememberUser,
-      passwordLength: this.loginForm.get('password').value.length,
-      expiration: ((+new Date) / 1000 | 0) + expirationSeconds
-    });
-    this.session.setUser(dataToSave);
+    // const rememberUser = this.rememberUser.nativeElement.checked;
+    // const expirationSeconds = rememberUser ?
+    //   appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
+    // const dataToSave: LocalStorageUser = Object.assign({}, user, {
+    //   remember: rememberUser,
+    //   passwordLength: this.loginForm.get('password').value.length,
+    //   expiration: ((+new Date) / 1000 | 0) + expirationSeconds
+    // });
+    // this.session.setUser(dataToSave);
   }
 
   showStartupPopups(user: User) {
