@@ -4,6 +4,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { adStatusesEnum } from 'models/enum/ad.enum';
 import { Ad } from 'models/campaign.model';
+import { adTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-list-item',
@@ -18,6 +19,10 @@ export class AdListItemComponent extends HandleSubscription {
   constructor(private advertiserService: AdvertiserService) {
     super();
   }
+
+  adType() {
+    return adTypesEnum[this.ad.type];
+  };
 
   changeAdStatus(status) {
     const statusActive = status !== this.adStatusesEnum.ACTIVE;
