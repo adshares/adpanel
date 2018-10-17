@@ -15,14 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-/**
- * Page for entering targeting filters (second stage of campaign editing).
- */
 public class EditCampaignSummaryPage {
 
-  /**
-   * Date pattern used on summary campaign page. It is used as pattern of DateTimeFormatter.
-   */
   private static final String DATE_PATTERN = "dd MMM uuuu";
 
   @FindBy(css = "[data-test='advertiser-campaign-name']")

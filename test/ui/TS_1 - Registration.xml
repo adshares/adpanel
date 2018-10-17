@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 1 - Registration Control" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC_1 - Rejestracja konta" group-by-instances="true">
+  <test name="TC_1 - logInRandomEmail" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
@@ -10,7 +10,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_2 - Niepoprawna rejestracja konta" group-by-instances="true">
+  <test name="TC_2 - Registration_Error" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
@@ -19,7 +19,7 @@
       </class>
     </classes>
   </test>
-  <test name="TC_3 - Resetowanie hasła" group-by-instances="true">
+  <test name="TC_3 - registerForgotPassword" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>

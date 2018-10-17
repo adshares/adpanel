@@ -1,48 +1,35 @@
 package pl.adshares.adpanel.pages;
 
+import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
-import pl.adshares.adpanel.tools.RandomPage;
-
-import java.util.Random;
-import java.util.Set;
 
 public class DashboardPopup {
   private static final Logger LOGGER = Logger.getLogger(DashboardPopup.class);
 
-  @FindBy(xpath = "//h6[contains(text(),'Continue as')]")
-  private WebElement userPopUp;
-  @FindBy(css = "[data-test='common-account-choose-publisher']")
-  private WebElement userPopUpPublisher;
-  @FindBy(css = "[data-test='common-account-choose-advertiser']")
-  private WebElement userPopUpAdvertiser;
-  @FindBy(css = "div[data-test='common-choose-advertiser-account']")
-  private WebElement commonChooseAdvertiser;
-  @FindBy(css = "div[data-test='common-choose-publisher-account']")
-  private WebElement commonChoosePublisher;
-  @FindBy(xpath = "//button[contains(text(), 'Continue')]")
-  private WebElement continueButton;
-
-  @FindBy(xpath = "//button[contains(text(),'Continue')]")
-  private WebElement PopUpFirstContinue;
-  @FindBy(css = "[data-test='common-choose-publisher-account']")
-  private WebElement PopUpFirstPublisher;
-  @FindBy(css = "[data-test='common-choose-advertiser-account']")
-  private WebElement PopUpFirstAdvertiser;
-
-
+  @FindBy(xpath = "//h6[contains(text(),'Continue as')]")                                                               private WebElement userPopUp;
+  @FindBy(css = "[data-test='common-account-choose-publisher']")                                                        private WebElement userPopUpPublisher;
+  @FindBy(css = "[data-test='common-account-choose-advertiser']")                                                       private WebElement userPopUpAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-advertiser-account']")                                                    private WebElement commonChooseAdvertiser;
+  @FindBy(css = "div[data-test='common-choose-publisher-account']")                                                     private WebElement commonChoosePublisher;
+  @FindBy(xpath = "//button[contains(text(),'Continue')]")                                                              private WebElement PopUpFirstContinue;
+  @FindBy(css = "[data-test='common-choose-publisher-account']")                                                        private WebElement PopUpFirstPublisher;
+  @FindBy(css = "[data-test='common-choose-advertiser-account']")                                                       private WebElement PopUpFirstAdvertiser;
 
   private WebDriver driver;
   private WebDriverWait wait;
 
   public DashboardPopup(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 20);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
@@ -68,7 +55,6 @@ public class DashboardPopup {
     PopUpFirstContinue.click();
     System.out.println("-. Advertiser / Publisher dashboard");
   }
-
 
   public void popUpPublisher() {
     try {
@@ -105,22 +91,21 @@ public class DashboardPopup {
   }
 
   public void chooseAccountTypeAllTypes() {
-    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     commonChooseAdvertiser.click();
     commonChoosePublisher.click();
-    continueButton.click();
+    PopUpFirstContinue.click();
   }
 
   public void chooseAccountTypePublisherOnly() {
-    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     commonChoosePublisher.click();
-    continueButton.click();
+    PopUpFirstContinue.click();
   }
 
   public void chooseAccountTypeAdvertiserOnly() {
-    wait.until(ExpectedConditions.visibilityOf(continueButton));
+    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     commonChooseAdvertiser.click();
-    continueButton.click();
+    PopUpFirstContinue.click();
   }
-
 }

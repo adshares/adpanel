@@ -23,26 +23,27 @@ public class SiteAdditionalTargeting {
   @FindBy(xpath = "//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']") private WebElement subTypes;
   @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")      private WebElement back;
   @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")      private WebElement saveAsDraft;
+  @FindBy(xpath = "//*[contains(text(), 'Create Ad Units')]")                                                           private WebElement AssertCreateAdUnits;
+  @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
+  @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
+  @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
 
   private WebDriver driver;
   private WebDriverWait wait;
 
   public SiteAdditionalTargeting(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 5000);
+    wait = new WebDriverWait(driver, 500);
     PageFactory.initElements(driver, this);
   }
 
-  /**
-   * default List index
-   * 1st index = creative type
-   * 2nd index = Language
-   * 3rd index = Screen
-   * 4th index = Js support
-   */
-  public void publisherRequiresCreativeType() throws InterruptedException {
+  public void publisherRequiresCreativeType() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
-    Thread.sleep(1000);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     List<WebElement> pubList = publisherList.findElements(By.cssSelector("[data-test='common-targeting-select-option']"));
     WebElement creaviteType = pubList.get(0);
     creaviteType.click();
@@ -109,23 +110,34 @@ public class SiteAdditionalTargeting {
     }
     addSelectedButton.click();
   }
-
-  public void goToCreateAds() {
+  public void additionalTargetingsaveSaveContinue() {
+    System.out.println("---------- additionalTargetingsaveSaveContinue ----------");
     wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
     saveButtonPublisherCampaign.click();
-    System.out.println("Assert - Additional Targeting");
+    wait.until(ExpectedConditions.visibilityOf(AssertCreateAdUnits));
+    Assert.assertEquals("Create Ad Units", AssertCreateAdUnits.getText());
+    System.out.println("Assert - "+AssertCreateAdUnits.getText());
   }
-  public void saveAsDraft() {
+  public void additionalTargetingsaveSaveDraft() {
+    System.out.println("---------- additionalTargetingsaveSaveDraft ----------");
     wait.until(ExpectedConditions.visibilityOf(saveAsDraft));
     saveAsDraft.click();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println("Assert - Additional Targeting - SaveAsDraft");
+    wait.until(ExpectedConditions.visibilityOf(AssertMySites));
+    Assert.assertEquals("My Sites", AssertMySites.getText());
+    System.out.println("Assert - "+AssertMySites.getText());
   }
-  public void back() {
+
+  public void additionalTargetingsaveBack() {
+    System.out.println("---------- additionalTargetingsaveBack ----------");
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    System.out.println("Assert - Back Additional Targeting");
+    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting1));
+    Assert.assertEquals("1. Requires", AssertAdditionalTargeting1.getText());
+    System.out.println("Assert - "+AssertAdditionalTargeting1.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting2));
+    Assert.assertEquals("2. Excludes", AssertAdditionalTargeting2.getText());
+    System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
   }
 }

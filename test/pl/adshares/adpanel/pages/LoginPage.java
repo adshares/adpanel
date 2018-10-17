@@ -10,10 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
 import pl.adshares.adpanel.tools.Maps;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -29,8 +27,7 @@ public class LoginPage {
   @FindBy(id = "confirmPassword")                                                                                       private WebElement loginConfirmPassword;
   @FindBy(id = "newPasswordConfirm")                                                                                    private WebElement loginNewPasswordConfirm;
   @FindBy(id = "messages")                                                                                              private WebElement mailcatcherMessages;
-  @FindBy(css = "//*[@class='button button-blue']")                                                                         private WebElement mailcatcherButton;
-
+  @FindBy(css = "//*[@class='button button-blue']")                                                                     private WebElement mailcatcherButton;
 
   @FindBy(name = "search")                                                                                              private WebElement mailcatcherSearch;
 
@@ -41,11 +38,6 @@ public class LoginPage {
   @FindBy(css = "[class='adsh-icon adsh-icon--small adsh-icon--append choose-user-menu-chevron ng-star-inserted']")     private WebElement headerChooseUserMenu;
   @FindBy(css = "[data-test='header-choose-user-menu-advertiser']")                                                     private WebElement headerChooseUserMenuAdvertiser;
   @FindBy(css = "[data-test='header-choose-user-menu-publisher']")                                                      private WebElement headerChooseUserMenuPublisher;
-//  @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
-
-
-  @FindBy(xpath = "//*[@data-test='header-toggle-settings-menu']//img[2]")                                                          private WebElement settingsMenu;
-  @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
   @FindBy(css = "[data-test='header-log-out-button']")                                                                  private WebElement settingsLogOut;
   @FindBy(css = "[data-test='header-account-settings-button']")                                                         private WebElement accountSettings;
   @FindBy(css = "[data-test='header-billing-payments-button']")                                                         private WebElement billingPayments;
@@ -57,8 +49,10 @@ public class LoginPage {
   @FindBy(css = "[class='logo-header']")                                                                                private WebElement FAQ;
   @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
   @FindBy(css = "[data-test='header-dashboard-link']")                                                                  private WebElement headerDashboardLink;
-  @FindBy(css = "[class='adsh-dialog-close']")                                                                    private WebElement adshDialogClose;
+  @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement adshDialogClose;
 
+  @FindBy(xpath = "//*[@data-test='header-toggle-settings-menu']//img[2]")                                              private WebElement settingsMenu;
+  @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
   @FindBy(xpath = "//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[1]//descendant::div[1]")       private WebElement adshDialogClose1;
   @FindBy(xpath = "//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[2]//descendant::div[1]")       private WebElement adshDialogClose2;
   @FindBy(xpath = "//*[@class='cdk-overlay-container']//descendant::mat-dialog-container[3]//descendant::div[1]")       private WebElement adshDialogClose3;
@@ -108,7 +102,6 @@ public class LoginPage {
     System.out.println("KONIEC - adshDialogClose");
   }
   public void loginSignIn(String login, String password) {
-
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
     loginEmail.sendKeys(login);
     loginPassword.sendKeys(password);
@@ -145,7 +138,7 @@ public class LoginPage {
     loginButton.click();
     String emptyEmailInput = emailRequired.getText();
     Assert.assertEquals("Email required!", emptyEmailInput);
-    System.out.println("1z5. Email required - checked!");
+    System.out.println("1/5. Email required - checked!");
   }
 
   public void wrongEmailCorrectPassword(String passwordAdService) {
@@ -155,7 +148,7 @@ public class LoginPage {
     loginButton.click();
     String invalidEmailInput = invalidEmail.getText();
     Assert.assertEquals("Invalid email!", invalidEmailInput);
-    System.out.println("1z2. Invalid email - checked!");
+    System.out.println("1/2. Invalid email - checked!");
   }
 
   public void wrongPasswordCorrectEmail(String loginAdService) {
@@ -165,31 +158,31 @@ public class LoginPage {
     loginButton.click();
     String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
     Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
-    System.out.println("2z2. Minimum 8 signs required - checked!");
+    System.out.println("2/2. Minimum 8 signs required - checked!");
   }
 
   public void loginInvalidEmailValidation()  {
     loginButton.click();
     String invalidEmailInput = passwordEmptyRequired.getText();
     Assert.assertEquals("Password required", invalidEmailInput);
-    System.out.println("2z5. Invalid Password required - checked!");
+    System.out.println("2/5. Invalid Password required - checked!");
   }
 
   public void loginPasswordValidation() {
     loginButton.click();
     String invalidPasswordInput = passwordEmptyRequired.getText();
     Assert.assertEquals("Password required", invalidPasswordInput);
-    System.out.println("3z5. Password required - checked!");
+    System.out.println("3/5. Password required - checked!");
     loginPassword.sendKeys("aaa");
     String invalidPasswordMinimumInput = passwordMinimumRequired.getText();
     Assert.assertEquals("Minimum 8 signs required!", invalidPasswordMinimumInput);
-    System.out.println("4z5. Minimum 8 signs required - checked!");
+    System.out.println("4/5. Minimum 8 signs required - checked!");
     loginPassword.clear();
     driver.navigate().refresh();
     loginPassword.sendKeys("aaaaaaaa");
     String notPresent = String.valueOf(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]"))).apply(driver));
     Assert.assertTrue(Boolean.parseBoolean(notPresent));
-    System.out.println("5z5. 8 signs: Validation message is not present - checked!");
+    System.out.println("5/5. 8 signs: Validation message is not present - checked!");
     loginEmail.sendKeys("test@wp.pl");
     loginButton.click();
   }
@@ -272,6 +265,8 @@ public class LoginPage {
     Maps.password("password", Password);
     Maps.createId();
     Maps.id("id",1);
+//    Maps.createCampaign();
+//    Maps.campaign_name("campaign_name",null);
     loginEmail.sendKeys(randomsEmail);
     loginEmail.getText();
     loginPassword.sendKeys(Password);
@@ -282,24 +277,6 @@ public class LoginPage {
     System.out.println("Password:   "+ Maps.getPassword("password"));
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
-  }
-
-  // TODO: 04.10.18 delete 
-  public void RandomEmail_Mailcatcher() throws InterruptedException {
-    System.out.println("---------- Mailcatcher ----------");
-    driver.get(Maps.get_url_mailcatcher("url_mailcatcher"));
-    System.out.println(driver.getCurrentUrl());
-    PageFactory.initElements(driver, this);
-    wait.until(ExpectedConditions.visibilityOf(mailcatcherMessages));
-    Thread.sleep(4000);
-    // 1.1 ZMIANA OKNA W CHROME - before clicking on the link
-    String handle = driver.getWindowHandle();
-    mailcatcherMessages.click();
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.ARROW_UP, Keys.ARROW_UP);
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("[class='mailcatcher js ']")).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-//    Thread.sleep(4500);
-    driver.close();
   }
 
   private void LogInRandom_LogIn() {
@@ -317,13 +294,13 @@ public class LoginPage {
     adshDialogClose.click();
   }
 
-  public void UserEmail(String Email, String Password) throws InterruptedException {
+  public void UserEmail(String Email, String Password) {
     Maps.create();
     Maps.email("email", Email);
     Maps.password("password", Password);
     logIn();
   }
-  public void AdminEmail(String Email, String Password) throws InterruptedException {
+  public void AdminEmail(String Email, String Password) {
     Maps.create();
     Maps.email("email", Email);
     Maps.password("password", Password);
@@ -331,7 +308,7 @@ public class LoginPage {
 //
   }
 //  LOG IN
-  public void logIn () throws InterruptedException {
+  public void logIn () {
     System.out.println("---------- logIn ----------");
     wait.until(ExpectedConditions.visibilityOf(loginEmail));
     loginEmail.sendKeys((CharSequence) Maps.getEmail("email"));
@@ -349,7 +326,7 @@ public class LoginPage {
 
     if(!driver.findElements(By.xpath("//*[contains(text(), 'Password or email is invalid.')]")).isEmpty()){
       RegisterEmail();
-      RandomEmail_Mailcatcher();
+      mailcatcher.mailcatcherEmail();
       LogInRandom_LogIn();
     }else{
       System.out.println("Skip >>>>> RegisterEmail");
@@ -374,7 +351,7 @@ public class LoginPage {
     authRegistrationButton.click();
   }
 
-  public void logInRememberMe () throws InterruptedException {
+  public void logInRememberMe () {
     System.out.println("---------- logInRememberMe ----------");
     System.out.println(driver.getCurrentUrl());
     System.out.println("JavascriptExecutor");
@@ -383,11 +360,15 @@ public class LoginPage {
     logIn();
   }
 
-  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) throws InterruptedException {
+  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) {
     int id = (int) Maps.getId("id");
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
-    Thread.sleep(1000);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
@@ -452,9 +433,13 @@ public class LoginPage {
     }
   }
 
-  public void gotologinChangePassword() throws InterruptedException {
+  public void gotologinChangePassword() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenu));
-    Thread.sleep(1000);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     settingsMenu.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
@@ -510,7 +495,7 @@ public class LoginPage {
           loginNewPasswordConfirm.sendKeys("87654321");
           System.out.println("3z3. Old password is not valid - OK");
   }
-  public void gotologinFAQ() throws InterruptedException {
+  public void gotologinFAQ() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     settingsMenuChevron.click();
     wait.until(ExpectedConditions.visibilityOf(billingPayments));
@@ -519,7 +504,11 @@ public class LoginPage {
 //    Zmiana zakładki
     String handle = driver.getWindowHandle();
     System.out.println ("-. "+driver.getTitle()+" (1) - "+handle);
-    Thread.sleep(20000);
+    try {
+      Thread.sleep(20000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     CheckOurFAQ.click();
 //    Zmiana zakładki
     Set handles = driver.getWindowHandles();
@@ -616,6 +605,6 @@ public class LoginPage {
     System.out.println(driver.getCurrentUrl());
     wait.until(ExpectedConditions.visibilityOf(passwordOrEmailIsInvalid));
     Assert.assertEquals("Password or email is invalid.", passwordOrEmailIsInvalid.getText());
-    System.out.println("1/1. Password or email is invalid.");
+    System.out.println("Assert - "+passwordOrEmailIsInvalid.getText());
   }
 }
