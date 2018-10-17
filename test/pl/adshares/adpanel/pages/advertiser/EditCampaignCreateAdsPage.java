@@ -11,9 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-/**
- * Page for entering targeting filters (second stage of campaign editing).
- */
 public class EditCampaignCreateAdsPage {
 
   private static final String CSS_SELECTOR_ADV_HEADLINE = "*[data-test='advertiser-edit-campaign-create-ads-form-short-headline'";
@@ -26,24 +23,15 @@ public class EditCampaignCreateAdsPage {
 //  @FindBy(css = "section.campaign-edit-create-ads")
 //  private WebElement section;
 
-  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-create-new-ad']")
-  private WebElement advButton;
-  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form']")
-  private List<WebElement> advFormList;
-
+  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-create-new-ad']")                                     private WebElement advButton;
+  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form']")                                              private List<WebElement> advFormList;
   //  private WebElement advTypeSelect;
-  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-type-option']")
-  private List<WebElement> advTypeOptionList;
+  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-type-option']")                               private List<WebElement> advTypeOptionList;
   //  private WebElement advSizeSelect;
-  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form-size-option']")
-  private List<WebElement> advSizeOptionList;
-
-  @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")
-  private WebElement backButton;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")
-  private WebElement saveAsDraftButton;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")
-  private WebElement saveButton;
+  @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form-size-option']")                                  private List<WebElement> advSizeOptionList;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")                                                 private WebElement backButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")                                                 private WebElement saveAsDraftButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")                                             private WebElement saveButton;
 
   private WebDriver driver;
   private WebDriverWait wait;

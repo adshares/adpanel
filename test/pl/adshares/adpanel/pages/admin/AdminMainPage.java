@@ -83,7 +83,7 @@ public class AdminMainPage {
     Actions action = new Actions(driver);
     setHValue(earningSlider, 65.47);
     setEarningButton.click();
-    // TODO: 18.07.18 SAVE - nie działa [logo click - sprawdzenie]
+    // TODO: 18.07.18 SAVE - error
     wait.until(ExpectedConditions.visibilityOf(logoAdshares));
     logoAdshares.click();
     System.out.println(id+". Koniec testu");
@@ -135,7 +135,7 @@ public class AdminMainPage {
     RandomPage.id("id", id);
   }
 
-  public void ChangePassword(String CurrentPassword, String NewPassword, String ConfirmPassword) throws InterruptedException {
+  public void ChangePassword(String CurrentPassword, String NewPassword, String ConfirmPassword) {
     wait.until(ExpectedConditions.visibilityOf(adshIcon));
     adshIcon.click();
     notificationsSettings.click();
@@ -149,7 +149,12 @@ public class AdminMainPage {
     wait.until(ExpectedConditions.visibilityOf(changePassword));
     changePassword.click();
     logOut.click();
-    Thread.sleep(4000);
+
+    try {
+      Thread.sleep(4000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     //System.out.println("-. z "+CurrentPassword+" na "+NewPassword);
   }
 

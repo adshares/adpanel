@@ -36,12 +36,16 @@ public class PublisherMainPage {
     PageFactory.initElements(driver, this);
   }
 
-  public void goToAddNewSite() throws InterruptedException {
+  public void AddNewSite() {
     wait.until(ExpectedConditions.visibilityOf(logoAssertion));
     Assert.assertTrue(logoAssertion.isDisplayed());
     wait.until(ExpectedConditions.visibilityOf(newAddSiteToolBar));
     Assert.assertTrue(newAddSiteToolBar.isEnabled());
-    Thread.sleep(1000);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     newAddSiteToolBar.click();
   }
 
@@ -53,13 +57,17 @@ public class PublisherMainPage {
   newAddSiteListBar.click();
   }
 
-  public void goToEditSiteActive() throws InterruptedException {
+  public void goToEditSiteActive() {
 //    Thread.sleep(10000);
     wait.until(ExpectedConditions.visibilityOf(logoAssertion));
     Assert.assertTrue(logoAssertion.isDisplayed());
     wait.until(ExpectedConditions.visibilityOf(editSiteListBar));
     Assert.assertTrue(editSiteListBar.isEnabled());
-    Thread.sleep(10000);
+    try {
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     editSiteListBar.click();
   }
 

@@ -7,35 +7,22 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pl.adshares.adpanel.tools.Maps;
 
-/**
- * Page for entering targeting filters (second stage of campaign editing).
- */
 public class EditCampaignTargetingPage {
 
-  /**
-   * CSS selector for require container
-   */
-  private static final String CSS_REQUIRE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
+//  private static final String CSS_REQUIRE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
+//  private static final String CSS_EXCLUDE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
+  private static final String CSS_REQUIRE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
+  private static final String CSS_EXCLUDE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
 
+  @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']")  private WebElement requireBox;
+  @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']")  private WebElement excludeBox;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")  private WebElement backButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")  private WebElement saveAsDraftButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")  private WebElement saveButton;
 
-  /**
-   * CSS selector for exclude container
-   */
-  private static final String CSS_EXCLUDE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
-
-  @FindBy(css = CSS_REQUIRE_BOX)
-  private WebElement requireBox;
-  @FindBy(css = CSS_EXCLUDE_BOX)
-  private WebElement excludeBox;
-
-  @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")
-  private WebElement backButton;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")
-  private WebElement saveAsDraftButton;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")
-  private WebElement saveButton;
-
+  @FindBy(id = "mat-expansion-panel-header-16") private WebElement hideBox;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -68,25 +55,14 @@ public class EditCampaignTargetingPage {
 //    }
 //  }
 
-  /**
-   * Unfolds require section
-   */
   public void showRequireBox() {
     showBox(requireBox);
   }
 
-  /**
-   * Unfolds exclude section
-   */
   public void showExcludeBox() {
     showBox(excludeBox);
   }
 
-  /**
-   * Unfolds page section
-   *
-   * @param box require/exclude section
-   */
   private void showBox(WebElement box) {
     wait.until(ExpectedConditions.visibilityOf(box));
     WebElement availOptionList = box.findElement(By.cssSelector("div.mat-expansion-panel-content"));
@@ -96,10 +72,117 @@ public class EditCampaignTargetingPage {
       wait.until(ExpectedConditions.visibilityOf(availOptionList));
     }
   }
+  private void lista() {
+    Maps.createLista();
+    int r = (int) (Math.random()*3);
+    String name1 = new String [] {"Site","User","Device"}[r];
+//    Site
+    if (r == 0){
+      int r1 = (int) (Math.random()*4);
+      String name2 = new String [] {"Site domain", "Inside frame", "Language", "Content keywords"}[r1];
+      if (r1 == 0){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"coinmarketcap.com", "icoalert.com"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 1){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Yes", "No"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 2){
+        int r11 = (int) (Math.random()*4);
+        String name3 = new String [] {"Polish", "English", "Italian", "Japanese"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 3){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"blockchain", "ico"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      Maps.lista2("lista2", name2);
+    }
+//    User
+    if (r == 1){
+      int r1 = (int) (Math.random()*6);
+      String name2 = new String [] {"Age", "Height", "Interest keywords", "Language", "Gender", "Geo"}[r1];
+      if (r1 == 0){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"18-35", "36-65"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 1){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"900 or more", "between 200 and 300"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 2){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"blockchain", "ico"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 3){
+        int r11 = (int) (Math.random()*4);
+        String name3 = new String [] {"Polish", "English", "Italian", "Japanese"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 4){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Male", "Female"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 5){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Continent", "Country"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      Maps.lista2("lista2", name2);
+    }
+//    Device
+    if (r == 2){
+      int r1 = (int) (Math.random()*6);
+      String name2 = new String [] {"Screen size", "Language", "Browser", "Operating system", "Geo", "Javascript support"}[r1];
+      if (r1 == 0){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Width", "Height"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 1){
+        int r11 = (int) (Math.random()*4);
+        String name3 = new String [] {"Polish", "English", "Italian", "Japanese"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 2){
+        int r11 = (int) (Math.random()*3);
+        String name3 = new String [] {"Chrome", "Edge", "Firefox"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 3){
+        int r11 = (int) (Math.random()*3);
+        String name3 = new String [] {"Linux", "Mac", "Windows"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 4){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Continent", "Country"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      if (r1 == 5){
+        int r11 = (int) (Math.random()*2);
+        String name3 = new String [] {"Yes", "No"}[r11];
+        Maps.lista3("lista3", name3);
+      }
+      Maps.lista2("lista2", name2);
+    }
+    Maps.lista1("lista1", name1);
+  }
 
   public void selectOption(TargetCategory category) {
-    String[] s1 = new String[]{"Site", "Site domain", "coinmarketcap.com"};
-
+    lista();
+    System.out.println("lista1: "+Maps.getLista1("lista1"));
+    System.out.println("lista2: "+Maps.getLista2("lista2"));
+    System.out.println("lista3: "+Maps.getLista3("lista3"));
+    String[] s1 = new String[]{Maps.getLista1("lista1"), Maps.getLista2("lista2"), Maps.getLista3("lista3")};
     WebElement box = null;
     switch (category) {
       case REQUIRED:
@@ -109,23 +192,35 @@ public class EditCampaignTargetingPage {
         box = excludeBox;
         break;
     }
-
     showBox(box);
     wait.until(ExpectedConditions.visibilityOf(box));
-
     String xpath;
     WebElement opt;
     for (String s : s1) {
-      xpath = String.format(".//div[@data-test='common-targeting-select-option' and normalize-space(.)='%s']", s);
+//      xpath = String.format(".//div[@data-test='common-targeting-select-option' and normalize-space(.)='%s']", s);
+      xpath = String.format(".//*[contains(text(), '%s')]", s);
       opt = box.findElement(By.xpath(xpath));
+      wait.until(ExpectedConditions.visibilityOf(opt));
+      System.out.println("xpath: "+xpath);
       opt.click();
     }
-    xpath = ".//*[@data-test='common-targeting-select-add-selected-options-button']";
+//    xpath = "//*[@data-test='common-targeting-select-add-selected-options-button']";
+    xpath = ".//*[contains(text(), 'Add Selected')]";
+    System.out.println("xpath: "+xpath);
     opt = box.findElement(By.xpath(xpath));
+    wait.until(ExpectedConditions.visibilityOf(opt));
     opt.click();
   }
 
-  //TODO waiting for frontend fix - visibility of category will be changed
+  public void sleep(String czas) {
+    try {
+      Thread.sleep(Long.parseLong(czas));
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+
   public void getSelectedOption() {
 //    showRequireBox();
 //    int size = requireSelectedOptionList.size();
@@ -147,7 +242,6 @@ public class EditCampaignTargetingPage {
   public void goBack() {
     wait.until(ExpectedConditions.visibilityOf(backButton));
     backButton.click();
-
     driver.switchTo().alert().accept();
   }
 
@@ -155,4 +249,6 @@ public class EditCampaignTargetingPage {
     REQUIRED,
     EXCLUDED
   }
+
+
 }

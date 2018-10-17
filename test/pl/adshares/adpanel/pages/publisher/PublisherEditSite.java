@@ -40,7 +40,7 @@ public class PublisherEditSite {
     PageFactory.initElements(driver, this);
   }
 
-  public void sitePublisherBasicInfo(String Url) throws InterruptedException {
+  public void sitePublisherBasicInfo(String Url) {
     wait.until(ExpectedConditions.visibilityOf(editButtonPublisherBasicInformation));
     editButtonPublisherBasicInformation.click();
     wait.until(ExpectedConditions.visibilityOf(publisherEditBasicInformation));
@@ -56,4 +56,15 @@ public class PublisherEditSite {
     publisherEditAdditionalInformation.click();
   }
 
+  public void viewSite() {
+  }
+
+  public void editBasicInformation() {
+  }
+
+  public void editAdditionalTargeting() {
+  }
+
+  public void editAds() {
+  }
 }

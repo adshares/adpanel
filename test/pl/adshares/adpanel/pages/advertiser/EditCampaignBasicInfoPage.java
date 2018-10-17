@@ -13,35 +13,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Page for entering basic campaign data (first stage of campaign editing).
- */
+import static java.lang.Thread.sleep;
+
 public class EditCampaignBasicInfoPage {
-  /**
-   * Date pattern used on basic information campaign page. It is used as pattern of DateTimeFormatter.
-   */
+
   private static final String DATE_PATTERN = "M/d/uuuu";
 
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-name']")
-  private WebElement campaignNameInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-target-url']")
-  private WebElement campaignTargetURLInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-strategy-select']")
-  private WebElement campaignBidStrategySelect;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-option']")
-  private List<WebElement> campaignBidStrategyList;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-value']")
-  private WebElement campaignBidValueInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget']")
-  private WebElement campaignBudgetInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-start-date']")
-  private WebElement campaignStartDateInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-end-date']")
-  private WebElement campaignEndDateInput;
-  @FindBy(css = "[data-test='advertiser-navigate-to-dashboard']")
-  private WebElement backButton;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")
-  private WebElement saveButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-name']")                                   private WebElement campaignNameInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-target-url']")                             private WebElement campaignTargetURLInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-strategy-select']")                    private WebElement campaignBidStrategySelect;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-option']")                                 private List<WebElement> campaignBidStrategyList;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-value']")                              private WebElement campaignBidValueInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget']")                                 private WebElement campaignBudgetInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-start-date']")                             private WebElement campaignStartDateInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-end-date']")                               private WebElement campaignEndDateInput;
+  @FindBy(css = "[data-test='advertiser-navigate-to-dashboard']")                                                       private WebElement backButton;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")                                             private WebElement saveButton;
+
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -54,13 +42,12 @@ public class EditCampaignBasicInfoPage {
 
   public void fillInForm(CampaignBasicInfo campInfo) {
     wait.until(ExpectedConditions.visibilityOf(campaignNameInput));
-
+    campaignNameInput.clear();
     campaignNameInput.sendKeys(campInfo.getName());
+    campaignTargetURLInput.clear();
     campaignTargetURLInput.sendKeys(campInfo.getTargetUrl());
-
     campaignBidStrategySelect.click();
     wait.until(ExpectedConditions.visibilityOf(campaignBidStrategyList.get(0)));
-
     // select bid strategy by text
     for (WebElement we : campaignBidStrategyList) {
       String text = we.getAttribute("value");
@@ -69,31 +56,26 @@ public class EditCampaignBasicInfoPage {
         break;
       }
     }
-
+    campaignBidValueInput.clear();
     campaignBidValueInput.sendKeys(campInfo.getBidValue());
+    campaignBudgetInput.clear();
     campaignBudgetInput.sendKeys(campInfo.getBudget());
-
     // set date
     clearInput(campaignStartDateInput);
     final LocalDate startDate = campInfo.getStartDate();
     final LocalDate endDate = campInfo.getEndDate();
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN, Locale.US);
-
     String startDateAsString = startDate.format(formatter);
     campaignStartDateInput.sendKeys(startDateAsString);
 
     if (endDate != null) {
       // end date should be input only, if it is defined
       String endDateAsString = endDate.format(formatter);
+      campaignEndDateInput.clear();
       campaignEndDateInput.sendKeys(endDateAsString);
     }
   }
 
-  /**
-   * Removes all characters from input.
-   *
-   * @param webElementInput input element
-   */
   private void clearInput(WebElement webElementInput) {
     // Characters are deleted by backspace.
     String value = webElementInput.getAttribute("value");
@@ -117,7 +99,6 @@ public class EditCampaignBasicInfoPage {
   public void goBack() {
     wait.until(ExpectedConditions.visibilityOf(backButton));
     backButton.click();
-
     driver.switchTo().alert().accept();
   }
 

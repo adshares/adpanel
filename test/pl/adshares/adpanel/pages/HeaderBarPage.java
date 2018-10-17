@@ -1,5 +1,6 @@
 package pl.adshares.adpanel.pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,21 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class HeaderBarPage {
 
-  /**
-   * Hover menu
-   */
-  @FindBy(css = "div[data-test='header-toggle-settings-menu']")
-  private WebElement headerSettingsMenu;
-  @FindBy(css = "span[data-test='header-log-out-button']")
-  private WebElement logOut;
-  @FindBy(css = "li[data-test='header-account-settings-button']")
-  private WebElement accountSettingsButton;
-  @FindBy(css = "li[data-test='header-billing-payments-button']")
-  private WebElement billingPaymentsButton;
-
+  @FindBy(css = "div[data-test='header-toggle-settings-menu']")                                                         private WebElement headerSettingsMenu;
+  @FindBy(css = "span[data-test='header-log-out-button']")                                                              private WebElement logOut;
+  @FindBy(css = "li[data-test='header-account-settings-button']")                                                       private WebElement accountSettingsButton;
+  @FindBy(css = "li[data-test='header-billing-payments-button']")                                                       private WebElement billingPaymentsButton;
   @FindBy(css = "[data-test='header-toggle-settings-menu']")                                                            private WebElement SettingsMenu;
   @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement SettingsMenuChevron;
   @FindBy(css = "[data-test='header-log-out-button']")                                                                  private WebElement SettingsLogOut;
@@ -49,13 +41,19 @@ public class HeaderBarPage {
 //    return PageFactory.initElements(driver, HeaderBarPage.class);
 //  }
 
-  public void logOut() throws InterruptedException {
+  public void logOut() {
     wait.until(ExpectedConditions.elementToBeClickable(SettingsMenu));
     wait.until(ExpectedConditions.elementToBeClickable(SettingsMenuChevron));
-    Thread.sleep(1000);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     SettingsMenuChevron.click();
     wait.until(ExpectedConditions.elementToBeClickable(SettingsLogOut));
     SettingsLogOut.click();
+//    Alert alert = driver.switchTo().alert();
+//    alert.accept();
   }
 
   public void goToGeneralSettings() {
