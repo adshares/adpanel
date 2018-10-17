@@ -25,7 +25,7 @@ function createTargetingChoice(
   const choiceSublistName = option['children'] ?
     'children' : (option['values'] ? 'values' : null);
 
-  Object.assign(targetingChoice, { id });
+  Object.assign(targetingChoice, {id});
 
   if (choiceSublistName) {
     const targetingChoiceSublist = [];
@@ -137,7 +137,7 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
 function createPathObject(obj, keyPath, value) {
   const lastKeyIndex = keyPath.length - 1;
 
-  for (let i = 0; i < lastKeyIndex; ++ i) {
+  for (let i = 0; i < lastKeyIndex; ++i) {
     const key = keyPath[i];
 
     if (!(key in obj)) {
@@ -161,8 +161,11 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
   const excludesResult = [];
   const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
 
-  generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
-  generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
+  if (targetingObject) {
+    generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
+    generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
+  }
+
   requiresResultKeys.forEach(
     requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
   );
@@ -192,7 +195,7 @@ function generateTargetingKeysArray(targetingObject, result, targetingOptionTopK
         key = temporaryKeyArray.join('-');
       }
 
-      key += (key === '' ? '': '-') + partialKey;
+      key += (key === '' ? '' : '-') + partialKey;
       generateTargetingKeysArray(targetingObject[partialKey], result, targetingOptionTopKeys, key);
 
       return;
@@ -228,7 +231,7 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
       const rawValue = customOptionParent['value_type'] === 'number' ?
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
-      const action =  customOptionParent['value_type'] === 'number' ?
+      const action = customOptionParent['value_type'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;
       const customOption = prepareCustomOption(
         rawValue,
