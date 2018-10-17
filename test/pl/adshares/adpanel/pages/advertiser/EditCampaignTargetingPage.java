@@ -21,7 +21,6 @@ public class EditCampaignTargetingPage {
   @FindBy(css = "[data-test='advertiser-edit-campaign-navigate-back']")  private WebElement backButton;
   @FindBy(css = "[data-test='advertiser-edit-campaign-save-as-draft']")  private WebElement saveAsDraftButton;
   @FindBy(css = "[data-test='advertiser-edit-campaign-save-and-continue']")  private WebElement saveButton;
-
   @FindBy(id = "mat-expansion-panel-header-16") private WebElement hideBox;
 
   private WebDriver driver;

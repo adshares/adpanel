@@ -20,9 +20,6 @@ public class EditCampaignCreateAdsPage {
   private static final String CSS_SELECTOR_ADV_SIZE_SELECT = "*[data-test='advertiser-edit-campaign-create-ads-form-size-select']";
   private static final String CSS_SELECTOR_ADV_TYPE_SELECT = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-type-select']";
 
-//  @FindBy(css = "section.campaign-edit-create-ads")
-//  private WebElement section;
-
   @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-create-new-ad']")                                     private WebElement advButton;
   @FindBy(css = "*[data-test='advertiser-edit-campaign-create-ads-form']")                                              private List<WebElement> advFormList;
   //  private WebElement advTypeSelect;

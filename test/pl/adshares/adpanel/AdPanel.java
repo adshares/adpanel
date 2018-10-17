@@ -567,7 +567,7 @@ public class AdPanel extends BrowserTestCase {
     publisherEditSite.editAdditionalTargeting();
   }
   @Test
-  public void publisherEditAds() {                             System.out.println("---------- TS_3 - TC_15 ----------");
+  public void publisherEditAds() {                             System.out.println("---------- TS_4 - TC_15 ----------");
     siteSummary = new SiteSummary(driver);
     publisherSummaryPublishSite();
     publisherEditSite = new PublisherEditSite(driver);

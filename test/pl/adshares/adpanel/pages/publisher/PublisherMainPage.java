@@ -9,9 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class PublisherMainPage {
-  /**
-   * Publisher paths
-   */
+
   @FindBy(css = "[data-test='header-create-new-asset-button']")
   private WebElement newAddSiteToolBar;
   @FindBy(css = "[data-test='publisher-create-new-site']")
@@ -21,9 +19,6 @@ public class PublisherMainPage {
   private WebElement editSiteListBar;
 
 
-  /**
-   * Dashboard Assertions
-   */
   @FindBy(xpath = "//img[@src='assets/images/logo--white.png']")
   private WebElement logoAssertion;
 

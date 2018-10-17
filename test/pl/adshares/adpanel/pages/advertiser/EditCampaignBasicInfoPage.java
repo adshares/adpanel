@@ -13,8 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 
-import static java.lang.Thread.sleep;
-
 public class EditCampaignBasicInfoPage {
 
   private static final String DATE_PATTERN = "M/d/uuuu";
