@@ -25,7 +25,7 @@ before_install:
   - envsubst < environment.ts.dist | tee src/environments/environment.dev.ts
 
 install:
-  - yarn global add @angular/cli
+  - yarn install
 
 stages:
   - build_check
@@ -38,7 +38,7 @@ jobs:
   include:
     # node.js build
     - stage: build_check
-      script: ng build --env=dev
+      script: node_modules/@angular/cli/bin/ng build --env=dev
 
     # Sonar Qube
     - stage: quality
