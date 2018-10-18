@@ -50,6 +50,14 @@ export class AdvertiserService {
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
   }
 
+  classifyCampaign(id: number) {
+    return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
+  }
+
+  removeClassifyCampaign(id: number) {
+      return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
+  }
+
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }

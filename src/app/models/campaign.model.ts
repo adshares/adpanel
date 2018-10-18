@@ -16,6 +16,8 @@ interface Campaign {
   averageCPC?: number;
   cost?: number;
   conversions?: number;
+  classificationStatus: number;
+  classificationTags?: string;
 }
 
 interface CampaignsTotals {
