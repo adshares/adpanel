@@ -11,6 +11,7 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { classificationStatusesEnum } from 'models/enum/classification.enum';
 import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -25,6 +26,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
+  classificationStatusesEnum = classificationStatusesEnum;
 
   barChartValue: number;
   barChartDifference: number;
@@ -101,5 +103,41 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
 
     this.advertiserService.updateCampaign(this.campaign.id, this.campaign);
+  }
+
+  classificationLabel() {
+    if (this.campaign.classificationStatus === this.classificationStatusesEnum.PROCESSING) {
+      return 'Processing';
+    }
+
+    if (this.campaign.classificationTags === null) {
+      return '';
+    }
+
+    return `[${this.campaign.classificationTags}]`;
+  }
+
+  onCampaignClassificationStatusChange(status) {
+    if(status === 0) {
+      this.advertiserService
+          .classifyCampaign(this.campaign.id)
+          .subscribe(data => {
+            console.log(data);
+          });
+    } else {
+      this.advertiserService
+          .removeClassifyCampaign(this.campaign.id)
+          .subscribe(data => {
+              console.log(data);
+          });
+    }
+  }
+
+  isClassificationChecked(status) {
+    if (status === this.classificationStatusesEnum.DISABLED) {
+      return false;
+    }
+
+    return true;
   }
 }
