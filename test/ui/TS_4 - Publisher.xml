@@ -1,182 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 4 - Publisher" parallel="false">
-  <test name="TC 4 - Dodanie nowej Strony - informacje podstawowe" group-by-instances="true">
+   <test name="TC_1 - Add new Site - BasicInformationSaveContinue" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddBasicInformation"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherBasicInformationSaveContinue"/>
+          <!--<include name="logOut"/>-->
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 5 - Weryfikacja nowej Strony - informacje podstawowe" group-by-instances="true">
+  <test name="TC_2 - Add new Site - BasicInformationBackToDashboard" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddBasicInformationError"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherBasicInformationBackToDashboard"/>
+          <!--<include name="logOut"/>-->
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 6 - Dodanie nowej Strony - dodanie targetu kampanii" group-by-instances="true">
+  <test name="TC_3 - Add new Site - AdditionalTargetingsaveSaveContinue" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddAdditionalTargeting"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherAdditionalTargetingsaveSaveContinue"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 7 - Dodanie nowej Strony - dodanie jednoski reklamy" group-by-instances="true">
+  <test name="TC_4 - Add new Site - AdditionalTargetingsaveSaveDraft" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddAdditionalCreateAds"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherAdditionalTargetingsaveSaveDraft"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 8 - Weryfikacja nowej Strony - jednoski reklamy" group-by-instances="true">
+  <test name="TC_5 - Add new Site - AdditionalTargetingsaveBack" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddAdditionalCreateAdsError"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherAdditionalTargetingsaveBack"/>
         </methods>
       </class>
     </classes>
   </test>
-
-  <test name="TC 9 - Dodanie nowej Strony - podsumowanie [Site_up]" group-by-instances="true">
+  <test name="TC_6 - Add new Site - CreateAdUnitsSaveContinue" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddSummary"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherCreateAdUnitsSaveContinue"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 10 - Dodanie nowej Strony - podsumowanie [Site_down]" group-by-instances="true">
+  <!--<test name="TC_7 - Add new Site - CreateAdUnitsSaveDraft" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="publisherCreateAdUnitsSaveDraft"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <test name="TC_8 - Add new Site - CreateAdUnitsBack" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="AddSummary_down"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherCreateAdUnitsBack"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 11 - Dodanie nowej Strony - [Save as Draft]" group-by-instances="true">
+  <!--<test name="TC_9 - Add new Site - SummaryPublishSite" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="publisherSummaryPublishSite"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_10 - Add new Site - SummarySaveDraft" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="publisherSummarySaveDraft"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_11 - Add new Site - SummaryBack" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="publisherSummaryBack"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_12 - ViewSite" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="publisherViewSite"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>
+  <test name="TC_13 - ViewSite - EditBasicInformation" group-by-instances="true">-->
+  <!--<classes>-->
+    <!--<class name="pl.adshares.adpanel.AdPanel">-->
+      <!--<methods>-->
+        <!--<include name="logInRandomEmail"/>-->
+        <!--<include name="logInPopUpFirstPublisher"/>-->
+        <!--<include name="publisherEditBasicInformation"/>-->
+      <!--</methods>-->
+    <!--</class>-->
+  <!--</classes>-->
+<!--</test>
+<test name="TC_14 - ViewSite - EditAdditionalTargeting" group-by-instances="true">-->
+  <!--<classes>-->
+    <!--<class name="pl.adshares.adpanel.AdPanel">-->
+      <!--<methods>-->
+        <!--<include name="logInRandomEmail"/>-->
+        <!--<include name="logInPopUpFirstPublisher"/>-->
+        <!--<include name="publisherEditAdditionalTargeting"/>-->
+      <!--</methods>-->
+    <!--</class>-->
+  <!--</classes>-->
+<!--</test>  <test name="TC_15 - ViewSite - EditAds" group-by-instances="true">-->
+  <!--<classes>-->
+    <!--<class name="pl.adshares.adpanel.AdPanel">-->
+      <!--<methods>-->
+        <!--<include name="logInRandomEmail"/>-->
+        <!--<include name="logInPopUpFirstPublisher"/>-->
+        <!--<include name="publisherEditAds"/>-->
+      <!--</methods>-->
+    <!--</class>-->
+  <!--</classes>-->
+<!--</test>-->
+  <test name="TC_16 - Add new Site - BasicInformationError" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="SaveAsDraft"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherBasicInformationError"/>
+          <!--<include name="logOut"/>-->
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 12 - Dodanie nowej Strony - [Back]" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="Back"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
-
-
-
-
-
-
-
-
-
-  <test name="TC 13 - Edit Site" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-
-          <include name="loginTest"/>
-          <include name="loginPopUpPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="publiserEditSiteActive"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 14 - Edit Site" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstPublisher"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.PublisherTestCase">
-        <methods>
-          <include name="publiserEditSiteEdit"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
 </suite>

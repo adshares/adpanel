@@ -1,7 +1,7 @@
 import { AssetTargeting } from './targeting-option.model';
 
 interface Site {
-  id: number;
+  id?: number;
   status: number;
   name: string;
   primaryLanguage: number;

@@ -1,148 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC 1 - Logowanie z nieprawidłowymi danymi" group-by-instances="true">
+  <test name="TC_1 - Create new Campaign - basicInformationSaveContinue" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginAsdf"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="basicInformationSaveContinue"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 2 - Logowanie użytkownika" group-by-instances="true">
+  <test name="TC_2 - Create new Campaign - basicInformationBackToDashboard" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="basicInformationBackToDashboard"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 3 - Wylogowanie" group-by-instances="true">
+  <test name="TC_3 - Create new Campaign - additionalTargetingsaveSaveContinue" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-          <include name="logOutTest"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="additionalTargetingsaveSaveContinue"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC 4 - Weryfikacja zawartości głównej strony ogłoszeniodawcy" group-by-instances="true">
+  <test name="TC_4 - Create new Campaign - additionalTargetingsaveSaveDraft" group-by-instances="true">
     <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="additionalTargetingsaveSaveDraft"/>
         </methods>
       </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
+    </classes>
+  </test>
+  <test name="TC_5 - Create new Campaign - additionalTargetingsaveBack" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="advertiserCampaign"/>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="additionalTargetingsaveBack"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - Create new Campaign - createAdsSaveContinue" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="createAdsSaveContinue"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_7 - Create new Campaign - createAdsSaveDraft" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="createAdsSaveDraft"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_8 - Create new Campaign - createAdsBack" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="createAdsBack"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_9 - Create new Campaign - summarySaveContinue" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="summarySaveContinue"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_10 - Create new Campaign - summarySaveDraft" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="summarySaveDraft"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_11 - Create new Campaign - summaryBack" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="summaryBack"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_12 - viewTheCampaign" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="viewTheCampaign"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_13 - viewTheCampaign - editBasicInformation" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="editBasicInformation"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_14 - viewTheCampaign - editAdditionalTargeting" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="editAdditionalTargeting"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_15 - viewTheCampaign - editAds" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="editAds"/>
         </methods>
       </class>
     </classes>
   </test>
 
 
-
-  <test name="TC 7 - Tworzenie kampanii - anulowanie" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="backBasicInformationAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 8 - Tworzenie kampanii - podstawowe parametry" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="saveBasicInformationAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 9 - Tworzenie kampanii - targetowanie" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="saveAdditionalTargetingCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
-
-
-  <test name="TC 13 - Weryfikacja - Save as Draft" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="saveAsDraftAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC 14 - Weryfikacja - Back" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-        <methods>
-          <include name="loginRegisterRandom"/>
-          <include name="loginPopUpFirstAdvertiser"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-        <methods>
-          <include name="backAdvertiserCampaign"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
-
-
-  <test name="TC 2 - Create Campaign">
-    <classes>
-      <class name="pl.adshares.adpanel.LoginTestCase">
-       <methods>
-         <include name="loginRegisterRandom"/>
-         <include name="loginPopUpFirstAdvertiser"/>
-       </methods>
-      </class>
-      <class name="pl.adshares.adpanel.AdvertiserTestCase">
-       <methods>
-         <include name="createAdvertiserCampaign"/>
-       </methods>
-      </class>
-    </classes>
-  </test>
 </suite>

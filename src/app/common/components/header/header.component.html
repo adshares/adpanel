@@ -12,15 +12,9 @@
       align-center"
   >
     <a
-      [routerLink]="['/', 'settings', 'general']"
-      data-test="header-dashboard-link"
-    >
-<!--
-    <a
       [routerLink]="['/', userRolesEnum[activeUserType].toLowerCase(), 'dashboard']"
       data-test="header-dashboard-link"
     >
--->
       <div
         class="
           adsh-navigation__item
@@ -37,7 +31,7 @@
         >
       </div>
     </a>
-    <!--<div
+    <div
       *ngIf="!userDataState.isAdmin"
       class="
         row
@@ -134,7 +128,7 @@
           <span>Admin</span>
         </li>
       </ul>
-    </div>-->
+    </div>
   </div>
 
 
@@ -143,7 +137,7 @@
       row
       align-center"
   >
-    <!--<button
+    <button
       *ngIf="!userDataState.isAdmin"
       class="
         adsh-btn
@@ -165,14 +159,14 @@
       >
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
-    </button>-->
+    </button>
     <button
       *ngIf="userDataState.isAdmin"
       (click)="openSetEarningsDialog()"
       class="
         adsh-btn
-        adsh-btn--with-icon
-        adsh-btn--wide
+        adsh-btn&#45;&#45;with-icon
+        adsh-btn&#45;&#45;wide
         adsh-bg-blue
         adsh-navigation__item
         row
@@ -182,7 +176,7 @@
       <img
         class="
             adsh-icon
-            adsh-icon--prepend"
+            adsh-icon&#45;&#45;prepend"
         src="assets/images/plus-circle.svg"
       >
       <span>Set your earnings</span>
@@ -223,7 +217,9 @@
           class="adsh-usd"
           data-test="user-total-funds-in-currency"
         >
+<!--
           ~ {{ userDataState.adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
+-->
         </span>
       </div>
       <img
@@ -242,7 +238,7 @@
           adsh-copy--large"
         [class.open]="settingsMenuOpen"
       >
-        <!--<li class="settings-menu__item">
+        <li class="settings-menu__item">
           <button
             class="
               adsh-btn
@@ -265,7 +261,7 @@
               Add Funds
             </span>
           </button>
-        </li>-->
+        </li>
         <li
           class="settings-menu__item"
           routerLink="/settings/general"
@@ -273,7 +269,6 @@
         >
           Account Settings
         </li>
-<!--
         <li
           class="settings-menu__item"
           routerLink="/settings/billing"
@@ -281,8 +276,6 @@
         >
           Billing & Payments
         </li>
--->
-
         <li class="settings-menu__item">
           <span
             (click)="logout()"

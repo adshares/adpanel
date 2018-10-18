@@ -1,21 +1,19 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
 import { ApiService } from 'app/api/api.service';
 import { SessionService } from "app/session.service";
 
-import { User, LocalStorageUser } from 'models/user.model';
+import { LocalStorageUser, User } from 'models/user.model';
 import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
 
 import { appSettings } from 'app-settings';
-import { userRolesEnum } from 'models/enum/user.enum';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
 
 
@@ -25,7 +23,7 @@ import { isUnixTimePastNow } from 'common/utilities/helpers';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends HandleSubscription implements OnInit {
-  @ViewChild('rememberUser') rememberUser: ElementRef;
+  // @ViewChild('rememberUser') rememberUser: ElementRef;
 
   loginForm: FormGroup;
 
@@ -68,8 +66,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     if (userData && userData.remember && !isUnixTimePastNow(userData.expiration)) {
       this.loginForm.get('email').setValue(userData.email);
-      this.loginForm.get('password').setValue('*'.repeat(parseInt(userData.passwordLength)));
-      this.rememberUser.nativeElement.checked = true;
+      this.loginForm.get('password').setValue('********');
+      // this.rememberUser.nativeElement.checked = true;
     }
   }
 
@@ -89,21 +87,21 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       .subscribe(
         (user: User) => {
           this.processLogin(user);
-          // if (user.isAdmin) {
-          //   this.router.navigate(['/admin/dashboard']);
-          //   return;
-          // }
+          if (user.isAdmin) {
+            this.router.navigate(['/admin/dashboard']);
+            return;
+          }
           this.showStartupPopups(user);
           this.router.navigate(['/settings/general']);
         },
         (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;
-      });
+        });
   }
 
   processLogin(user: User) {
-    const rememberUser = this.rememberUser.nativeElement.checked;
+    const rememberUser = false;//this.rememberUser.nativeElement.checked;
     const expirationSeconds = rememberUser ?
       appSettings.REMEMBER_USER_EXPIRATION_SECONDS : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS;
     const dataToSave: LocalStorageUser = Object.assign({}, user, {
@@ -115,11 +113,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   showStartupPopups(user: User) {
-
     if (user.isAdvertiser && user.isPublisher) {
       const chooseAccount = this.session.getAccountTypeChoice();
       if (!chooseAccount) {
-        this.dialog.open(AccountChooseDialogComponent, { disableClose: true });
+        this.dialog.open(AccountChooseDialogComponent, {disableClose: true});
         return;
       }
       if (chooseAccount == "advertiser") {
@@ -141,7 +138,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
-    this.dialog.open(CustomizeAccountChooseDialogComponent, { disableClose: true });
+    this.dialog.open(CustomizeAccountChooseDialogComponent, {disableClose: true});
   }
 
   handleCustomizeDialog(accounts) {

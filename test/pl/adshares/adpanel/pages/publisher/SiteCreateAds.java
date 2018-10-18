@@ -6,11 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pl.adshares.adpanel.tools.RandomPage;
-
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import pl.adshares.adpanel.tools.Maps;
 
 public class SiteCreateAds {
 
@@ -19,67 +15,104 @@ public class SiteCreateAds {
   @FindBy(css = "#shortHeadline")                                                         private WebElement nameOfUnit;
   @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-form-ad-type-select']")  private WebElement adTypeSelecetList;
   @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'html')]") private WebElement adTypeHtml;
-  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")                    private WebElement saveButtonPublisherCampaign;
+  @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'image')]") private WebElement adTypeImage;
+
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")                    private WebElement saveAndContinue;
+  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")                        private WebElement saveAsDraft;
+  @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")                        private WebElement back;
+  @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-form-ad-unit-select']")    private WebElement sizeOfUnit;
 //  Assertion
   @FindBy(css = "[class='error-msg ng-star-inserted']")                                   private WebElement AssertionErrorMsgNgStarInserted;
   @FindBy(xpath = "//span[contains(text(), 'Name of Unit required!')]")                   private WebElement AssertionNameOfUnitRequired;
-  @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")                            private WebElement back;
+  @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
+  @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
+  @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
+  @FindBy(xpath = "//*[contains(text(), 'Summary')]")                                                                   private WebElement AssertSummary;
 
   private WebDriver driver;
   private WebDriverWait wait;
 
   public SiteCreateAds(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 1000);
+    wait = new WebDriverWait(driver, 60);
     PageFactory.initElements(driver, this);
   }
 
-  public void createAdUnit() {
+  public void createNewAdUnit() {
+    System.out.println("---------- createNewAdUnit ----------");
     wait.until(ExpectedConditions.visibilityOf(createAdUnitDropDownButton));
     createAdUnitDropDownButton.click();
+    System.out.println("Click - createAdUnitDropDownButton");
   }
-
   public void editAdUnit() {
+    System.out.println("---------- editAdUnit ----------");
     wait.until(ExpectedConditions.visibilityOf(editCreateAdUnits));
     editCreateAdUnits.click();
   }
-
-  public void adUnitTemplate(String NameOfUni) {
+  public void adUnitHtml() {
+    System.out.println("---------- adUnitHtml ----------");
+    System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
+    if (Maps.get_campaign_name("campaign_name") == null) {
+      String name = "brak campaign";
+      Maps.createCampaign();
+      Maps.campaign_name("campaign_name",name);
+    }
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
-    nameOfUnit.sendKeys(NameOfUni);
+    nameOfUnit.sendKeys(Maps.get_campaign_name("campaign_name"));
+    System.out.println("NameOfUni:      "+Maps.get_campaign_name("campaign_name"));
     adTypeSelecetList.click();
     adTypeHtml.click();
-    List<WebElement> od = driver.findElements(By.xpath("//*[@id='cdk-accordion-child-2']/div/div[3]//div[@class ='site-edit-create-ad-uniTS _ad-unit ng-star-inserted']"));
-    int random = (int) (Math.random() * (1) + (-3));
-    Random rand = new Random();
-    int randomProduct = rand.nextInt(od.size());
-    od.get(randomProduct).click();
   }
-
-  public void goToSummary() {
-    wait.until(ExpectedConditions.visibilityOf(saveButtonPublisherCampaign));
-    saveButtonPublisherCampaign.click();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Create Ads - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+  public void adUnitImage() {
+    System.out.println("---------- adUnitImage ----------");
+    System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
+    if (Maps.get_campaign_name("campaign_name") == null) {
+      String name = "brak campaign";
+      Maps.createCampaign();
+      Maps.campaign_name("campaign_name",name);
+    }
+    wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
+    nameOfUnit.sendKeys(Maps.get_campaign_name("campaign_name"));
+    System.out.println("NameOfUni:      "+Maps.get_campaign_name("campaign_name"));
+    adTypeSelecetList.click();
+    adTypeImage.click();
   }
   public void createAdUnitError() {
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Name of Unit required!", AssertionNameOfUnitRequired.getText());
-     int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Name of Unit required! - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Assert - Name of Unit required!");
   }
-  public void back() {
+
+  public void createAdUnitsSaveContinue() {
+    System.out.println("---------- createAdUnitsSaveContinue ----------");
+    wait.until(ExpectedConditions.visibilityOf(saveAndContinue));
+    saveAndContinue.click();
+    System.out.println("Click - saveAndContinue");
+    wait.until(ExpectedConditions.visibilityOf(AssertSummary));
+    Assert.assertEquals("Summary", AssertSummary.getText());
+    System.out.println("Assert - "+AssertSummary.getText());
+  }
+  public void createAdUnitsSaveAsDraft() {
+    System.out.println("---------- createAdUnitsSaveAsDraft ----------");
+    wait.until(ExpectedConditions.visibilityOf(saveAsDraft));
+    saveAsDraft.click();
+    System.out.println("Click - saveAsDraft");
+    wait.until(ExpectedConditions.visibilityOf(AssertMySites));
+    Assert.assertEquals("My Sites", AssertMySites.getText());
+    System.out.println("Assert - "+AssertMySites.getText());
+  }
+  public void createAdUnitsBack() {
+    System.out.println("---------- createAdUnitsBack ----------");
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
     Alert alert = driver.switchTo().alert();
     alert.accept();
-    int id = (int) RandomPage.getFromId("id");
-    System.out.println(id+". Back Create Ads - OK"); id=id+1;
-    RandomPage.createId();
-    RandomPage.id("id", id);
+    System.out.println("Click - back");
+    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting1));
+    Assert.assertEquals("1. Requires", AssertAdditionalTargeting1.getText());
+    System.out.println("Assert - "+AssertAdditionalTargeting1.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting2));
+    Assert.assertEquals("2. Excludes", AssertAdditionalTargeting2.getText());
+    System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
   }
 }

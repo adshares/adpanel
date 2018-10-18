@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import pl.adshares.adpanel.tools.Maps;
 
 import java.io.File;
 import java.util.Objects;
@@ -72,7 +73,7 @@ public class DriverProvider {
 
       }
 
-      driver.get("http://panel.ads");
+      driver.get(Maps.get_url_panel("url_panel"));
     }
 
     return driver;

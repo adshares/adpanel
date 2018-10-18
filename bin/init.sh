@@ -51,15 +51,25 @@ then
     rm -f .env
 fi
 
+# Docker Compose
+
 export SYSTEM_USER_ID=`id --user`
 export SYSTEM_USER_NAME=`id --user --name`
 
 export WEBSERVER_HOST=${WEBSERVER_HOST:-localhost}
 export WEBSERVER_PORT=${WEBSERVER_PORT:-8102}
 
-export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
+# build
 
 export APP_ENV=${APP_ENV:-dev}
+
+# AdPanel ================================================
+
+export APP_PROD=${APP_PROD:-false}
+export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
+export REQUEST_XDEBUG=${REQUEST_XDEBUG:-true}
+
+# ========================================================
 
 [ -f .env ] || envsubst < .env.dist | tee .env
 

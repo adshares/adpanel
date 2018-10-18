@@ -31,7 +31,7 @@ export class CustomizeAccountChooseDialogComponent {
         isAdvertiser: accounts.advertiser.selected,
         isPublisher: accounts.publisher.selected
       };
-      this.api.users.patch(userData.id, updates).subscribe(
+      this.api.users.updateSelf(userData.id, updates).subscribe(
         (userResponse: User) => {
           this.saveUserDataToLocalStorage(userResponse);
           this.redirectToDashboard(userResponse);

@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 import { Campaign, CampaignsTotals } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { classificationStatusesEnum } from 'models/enum/classification.enum';
 
 export const campaignsTotalsInitialState: CampaignsTotals = {
   totalBudget: 0,
@@ -20,7 +21,7 @@ export const campaignInitialState: Campaign = {
     bidStrategyName: '',
     bidValue: null,
     budget: null,
-    dateStart: moment(new Date()).format('L'),
+    dateStart: moment(new Date()).format('YYYY-MM-DD'),
   },
 
   targeting: {
@@ -28,12 +29,14 @@ export const campaignInitialState: Campaign = {
     excludes: {},
   },
 
-targetingArray: {
+  targetingArray: {
     excludes: [],
     requires: []
   },
 
   ads: [],
 
-  id: 0
+  id: 0,
+
+  classificationStatus: classificationStatusesEnum.DISABLED,
 };
