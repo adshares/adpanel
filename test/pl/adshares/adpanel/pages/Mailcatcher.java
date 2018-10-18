@@ -25,8 +25,6 @@ public class Mailcatcher {
   @FindBy(xpath = "//*[@class='col-md-10']//tr[3]//td")  private WebElement mailHogTo;
   @FindBy(id = "preview-html")   private WebElement mailHogHtml;
 
-
-
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -63,11 +61,6 @@ public class Mailcatcher {
     driver.get(Maps.get_url_mailhog("url_mailhog"));
     System.out.println(driver.getCurrentUrl());
     PageFactory.initElements(driver, this);
-//
-//    String email=Maps.getEmail("email");
-//    wait.until(ExpectedConditions.v(email);
-
-
     wait.until(ExpectedConditions.visibilityOf(mailHogMessages));
     mailHogMessages.click();
     System.out.println("To:      "+mailHogTo.getText());
