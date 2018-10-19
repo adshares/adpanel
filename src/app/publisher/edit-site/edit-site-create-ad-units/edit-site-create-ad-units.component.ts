@@ -46,6 +46,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   ngOnInit() {
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
+    console.log(this.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
