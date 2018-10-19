@@ -29,7 +29,7 @@ interface SitesTotals {
 
 interface AdUnit {
   shortHeadline: string;
-  type: number;
+  type?: number;
   size: AdUnitSize;
   status: number;
 
@@ -43,8 +43,8 @@ interface AdUnit {
 }
 
 interface AdUnitSize {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
   size: number;
   tags: string[];
 

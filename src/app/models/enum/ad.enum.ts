@@ -5,6 +5,7 @@ export enum adTypesEnum {
 
 export enum adSizesEnum {
   "728x90",
+  "160x600",
   "900x120",
   "320x100",
   "336x280"
