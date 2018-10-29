@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Router, ActivatedRoute} from '@angular/router';
 import 'rxjs/add/operator/first';
+import {MatDialog} from "@angular/material";
 
-import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
-import { siteStatusEnum } from 'models/enum/site.enum';
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adUnitStatusesEnum } from 'models/enum/ad.enum';
+import {AppState} from 'models/app-state.model';
+import {Site} from 'models/site.model';
+import {siteStatusEnum} from 'models/enum/site.enum';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {adUnitStatusesEnum} from 'models/enum/ad.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
-import { TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
+import {HandleSubscription} from 'common/handle-subscription';
+import {TargetingOption} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -29,7 +31,8 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) {
     super();
   }
@@ -52,7 +55,21 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
     }
 
-    this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
-    this.router.navigate(['/publisher', 'dashboard']);
+    this.publisherService.saveSite(this.site).subscribe(
+      () => {
+        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+        this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
+        this.router.navigate(['/publisher', 'dashboard']);
+      },
+
+      (err) => {
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to save your site due to this error:  ${err}. Please try again later.`,
+          }
+        });
+      }
+    );
   }
 }
