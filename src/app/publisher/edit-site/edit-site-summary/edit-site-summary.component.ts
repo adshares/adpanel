@@ -47,6 +47,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   saveSite(isDraft) {
+    this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
