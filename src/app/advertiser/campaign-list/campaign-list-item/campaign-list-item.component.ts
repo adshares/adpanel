@@ -14,10 +14,6 @@ export class CampaignListItemComponent {
 
   campaignStatusesEnum = campaignStatusesEnum;
 
-  constructor(private router: Router) {
-    console.log(this.campaignStatusesEnum)
-  }
-
   navigateToCampaignDetails(campaignId: number) {
     this.router.navigate(['/advertiser', 'campaign', campaignId]);
   }

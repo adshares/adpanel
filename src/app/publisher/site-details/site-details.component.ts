@@ -82,13 +82,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentAssetId
       )
       .subscribe(data => {
-        this.barChartData.forEach(values => values[0].data = data.values);
+        this.barChartData.forEach(values => values[0].data = data[0].values);
         this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
+          chartLabels.labels = data[0].timestamps.map(timestamp => moment(timestamp).format('D'));
         });
-        this.barChartValue = data.total;
-        this.barChartDifference = data.difference;
-        this.barChartDifferenceInPercentage = data.differenceInPercentage;
+        this.barChartValue = data[0].total;
+        this.barChartDifference = data[0].difference;
+        this.barChartDifferenceInPercentage = data[0].differenceInPercentage;
       });
 
     this.subscriptions.push(chartDataSubscription);
