@@ -1,20 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adTypesEnum, adSizesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
-import { enumToArray, cloneDeep } from 'common/utilities/helpers';
-import { Site } from 'models/site.model';
-import { AppState } from 'models/app-state.model';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { AdUnitSize } from 'models/site.model';
-import { adUnitInitialState } from 'models/initial-state/ad-unit';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {adTypesEnum, adSizesEnum, adUnitStatusesEnum} from 'models/enum/ad.enum';
+import {enumToArray, cloneDeep} from 'common/utilities/helpers';
+import {Site} from 'models/site.model';
+import {AppState} from 'models/app-state.model';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {AdUnitSize} from 'models/site.model';
+import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
@@ -92,7 +92,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       (filtredAdUnitSize) => filtredAdUnitSize.id === savedAdUnit.size.id
     );
 
-    Object.assign(choosedAdSize, { selected: true });
+    Object.assign(choosedAdSize, {selected: true});
   }
 
   generateFormField(adUnit) {
@@ -125,20 +125,19 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   saveAdUnits(isDraft) {
     this.adUnitsSubmitted = true;
 
-    const adUnitsValid =
-      this.adUnitForms.every((adForm) => adForm.valid) &&
-      this.filtredAdUnitSizes.every(
-        (filtedAdUnitSizes) => filtedAdUnitSizes.some((adUnitSize) => adUnitSize.selected)
-      );
+    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
+      this.filtredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
 
     if (adUnitsValid) {
       this.changesSaved = true;
 
       const adUnitToSave = this.adUnitForms.map((form, index) => {
+        const selectedSize = this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+        const size = this.filtredAdUnitSizes[index][0];
         return {
           shortHeadline: form.get('shortHeadline').value,
           type: form.get('type').value,
-          size: this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected),
+          size: selectedSize || size,
           status: form.get('status').value
         };
       });
@@ -152,7 +151,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     if (!isDraft) {
       this.router.navigate(
         ['/publisher', 'create-site', 'summary'],
-        { queryParams: { step: 4 } }
+        {queryParams: {step: 4}}
       );
 
       return;
