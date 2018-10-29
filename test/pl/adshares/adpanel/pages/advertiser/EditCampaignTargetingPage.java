@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import pl.adshares.adpanel.tools.Maps;
 
 public class EditCampaignTargetingPage {
@@ -211,6 +212,36 @@ public class EditCampaignTargetingPage {
     opt.click();
   }
 
+
+  public void selectOptionTEST(TargetCategory category,String target_1,String target_2,String target_3) {
+    String[] s1 = new String[]{target_1, target_2, target_3};
+    WebElement box = null;
+    switch (category) {
+      case REQUIRED:
+        box = requireBox;
+        break;
+      case EXCLUDED:
+        box = excludeBox;
+        break;
+    }
+    showBox(box);
+    wait.until(ExpectedConditions.visibilityOf(box));
+    String xpath;
+    WebElement opt;
+    for (String s : s1) {
+      xpath = String.format(".//*[contains(text(), '%s')]", s);
+      opt = box.findElement(By.xpath(xpath));
+      wait.until(ExpectedConditions.visibilityOf(opt));
+//      System.out.println("xpath: "+xpath);
+      opt.click();
+    }
+    xpath = ".//*[contains(text(), 'Add Selected')]";
+//    System.out.println("xpath: "+xpath);
+    opt = box.findElement(By.xpath(xpath));
+    wait.until(ExpectedConditions.visibilityOf(opt));
+    opt.click();
+  }
+
   public void sleep(String czas) {
     try {
       Thread.sleep(Long.parseLong(czas));
@@ -218,6 +249,15 @@ public class EditCampaignTargetingPage {
       e.printStackTrace();
     }
   }
+
+
+
+
+
+
+
+
+
 
 
   public void getSelectedOption() {

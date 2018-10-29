@@ -265,4 +265,18 @@ public class AdvertiserMainPage {
     System.out.println("Assert editCreateAds");
     sleep(60000);
   }
+
+
+  public void additionalTargetingREQUIRED(String target_1, String target_2, String target_3) {                                                    // Krok 2. Additional Targeting
+//    System.out.println("---------- additionalTargeting ----------");
+    EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
+    ecTargetPage.selectOptionTEST(EditCampaignTargetingPage.TargetCategory.REQUIRED,target_1, target_2, target_3);
+    System.out.println("REQUIRED: "+target_1+" > "+target_2+" > "+target_3);
+  }
+  public void additionalTargetingEXCLUDED(String target_1, String target_2, String target_3) {                                                    // Krok 2. Additional Targeting
+//    System.out.println("---------- additionalTargeting ----------");
+    EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
+    ecTargetPage.selectOptionTEST(EditCampaignTargetingPage.TargetCategory.EXCLUDED,target_1, target_2, target_3);
+    System.out.println("EXCLUDED: "+target_1+" > "+target_2+" > "+target_3);
+  }
 }
