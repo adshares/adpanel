@@ -12,9 +12,11 @@ import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 export class CampaignListItemComponent {
   @Input() campaign: Campaign;
 
-  constructor(private router: Router) { }
-
   campaignStatusesEnum = campaignStatusesEnum;
+
+  constructor(private router: Router) {
+    console.log(this.campaignStatusesEnum)
+  }
 
   navigateToCampaignDetails(campaignId: number) {
     this.router.navigate(['/advertiser', 'campaign', campaignId]);
