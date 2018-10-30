@@ -11,6 +11,7 @@ import { adSizesEnum } from 'models/enum/ad.enum';
 })
 export class AdUnitsComponent {
   @Input() adUnit;
+  @Input() pageCodeCommon;
   adSizesEnum = adSizesEnum;
 
   constructor(private dialog: MatDialog) { }
@@ -18,9 +19,9 @@ export class AdUnitsComponent {
   openGetCodeDialog() {
     this.dialog.open(SiteCodeDialogComponent, {
       data: {
-        code: this.adUnit.code
+        code: this.adUnit.pageCode,
+        codeCommon: this.pageCodeCommon,
       }
     });
   }
-
 }

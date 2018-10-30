@@ -3,7 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import { User } from 'models/user.model';
-import { AppState } from 'models/app-state.model';
+// import { AppState } from 'models/app-state.model';
+import { SettingsService } from "settings/settings.service";
 import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
@@ -16,17 +17,23 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
-    private store: Store<AppState>,
+    // private store: Store<AppState>,
+    private settingsService: SettingsService,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     super();
   }
 
   ngOnInit() {
-    const userSubcrtiption = this.store.select('state', 'user', 'data')
+    // const userSubscription = this.store.select('state', 'user', 'data')
+    //   .subscribe((user: User) => {
+    //     this.isEmailConfirmed = user.isEmailConfirmed;
+    //   });
+    // this.subscriptions.push(userSubscription);
+
+    this.settingsService.checkUserStatus()
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
       });
-    this.subscriptions.push(userSubcrtiption);
   }
 }

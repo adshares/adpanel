@@ -17,6 +17,7 @@ interface Site {
     excludes: object;
   };
   adUnits?: AdUnit[];
+  pageCodeCommon?: string;
 }
 
 interface SitesTotals {
@@ -33,7 +34,7 @@ interface AdUnit {
   size: AdUnitSize;
   status: number;
 
-  code?: string;
+  pageCode?: string;
   budget?: number;
   clicks?: number;
   impressions?: number;
