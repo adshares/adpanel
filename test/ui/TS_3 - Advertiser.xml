@@ -7,7 +7,6 @@
         <methods>
           <include name="logInRandomEmail"/>
           <include name="logInPopUpFirstAdvertiser"/>
-          <include name="logInPopUpFirstAdvertiser"/>
           <include name="basicInformationSaveContinue"/>
         </methods>
       </class>

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import pl.adshares.adpanel.tools.RandomPage;
+import pl.adshares.adpanel.pages.advertiser.EditCampaignTargetingPage;
 
 import java.util.List;
 import java.util.Random;
@@ -28,6 +28,9 @@ public class SiteAdditionalTargeting {
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
 
+  @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-required']")  private WebElement requireBox;
+  @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-excluded']")  private WebElement excludeBox;
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -37,6 +40,15 @@ public class SiteAdditionalTargeting {
     PageFactory.initElements(driver, this);
   }
 
+  private void showBox(WebElement box) {
+    wait.until(ExpectedConditions.visibilityOf(box));
+    WebElement availOptionList = box.findElement(By.cssSelector("div.mat-expansion-panel-content"));
+    boolean isDisplayed = availOptionList.isDisplayed();
+    if (!isDisplayed) {
+      box.findElement(By.cssSelector("mat-expansion-panel-header")).click();
+      wait.until(ExpectedConditions.visibilityOf(availOptionList));
+    }
+  }
   public void publisherRequiresCreativeType() {
     wait.until(ExpectedConditions.visibilityOf(publisherList));
     try {
@@ -139,5 +151,38 @@ public class SiteAdditionalTargeting {
     wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting2));
     Assert.assertEquals("2. Excludes", AssertAdditionalTargeting2.getText());
     System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
+  }
+
+  public void additionalTargetingAll(TargetCategory category, String target_1, String target_2) {
+    String[] s1 = new String[]{target_1, target_2};
+    WebElement box = null;
+    switch (category) {
+      case REQUIRED:
+        box = requireBox;
+        break;
+      case EXCLUDED:
+        box = excludeBox;
+        break;
+    }
+    showBox(box);
+    wait.until(ExpectedConditions.visibilityOf(box));
+    String xpath;
+    WebElement opt;
+    for (String s : s1) {
+      xpath = String.format(".//*[contains(text(), '%s')]", s);
+      opt = box.findElement(By.xpath(xpath));
+      wait.until(ExpectedConditions.visibilityOf(opt));
+//      System.out.println("xpath: "+xpath);
+      opt.click();
+    }
+    xpath = ".//*[contains(text(), 'Add Selected')]";
+//    System.out.println("xpath: "+xpath);
+    opt = box.findElement(By.xpath(xpath));
+    wait.until(ExpectedConditions.visibilityOf(opt));
+    opt.click();
+  }
+  public enum TargetCategory {
+    REQUIRED,
+    EXCLUDED
   }
 }

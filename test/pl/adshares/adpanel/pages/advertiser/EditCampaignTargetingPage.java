@@ -14,8 +14,8 @@ public class EditCampaignTargetingPage {
 
 //  private static final String CSS_REQUIRE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
 //  private static final String CSS_EXCLUDE_BOX = "*[data-test='advertiser-edit-campaign-additional-targeting-accordion'] *[data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
-  private static final String CSS_REQUIRE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
-  private static final String CSS_EXCLUDE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
+//  private static final String CSS_REQUIRE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']";
+//  private static final String CSS_EXCLUDE_BOX = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']";
 
   @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-required']")  private WebElement requireBox;
   @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-additional-targeting-accordion-panel-excluded']")  private WebElement excludeBox;
@@ -179,17 +179,23 @@ public class EditCampaignTargetingPage {
 
   public void selectOption(TargetCategory category) {
     lista();
-    System.out.println("lista1: "+Maps.getLista1("lista1"));
-    System.out.println("lista2: "+Maps.getLista2("lista2"));
-    System.out.println("lista3: "+Maps.getLista3("lista3"));
+//    System.out.println("lista1: "+Maps.getLista1("lista1"));
+//    System.out.println("lista2: "+Maps.getLista2("lista2"));
+//    System.out.println("lista3: "+Maps.getLista3("lista3"));
     String[] s1 = new String[]{Maps.getLista1("lista1"), Maps.getLista2("lista2"), Maps.getLista3("lista3")};
     WebElement box = null;
     switch (category) {
       case REQUIRED:
         box = requireBox;
+        Maps.requires1("requires1",Maps.getLista1("lista1"));
+        Maps.requires2("requires2",Maps.getLista2("lista2"));
+        Maps.requires3("requires3",Maps.getLista3("lista3"));
         break;
       case EXCLUDED:
         box = excludeBox;
+        Maps.excludes1("excludes1",Maps.getLista1("lista1"));
+        Maps.excludes2("excludes2",Maps.getLista2("lista2"));
+        Maps.excludes3("excludes3",Maps.getLista3("lista3"));
         break;
     }
     showBox(box);
@@ -201,19 +207,19 @@ public class EditCampaignTargetingPage {
       xpath = String.format(".//*[contains(text(), '%s')]", s);
       opt = box.findElement(By.xpath(xpath));
       wait.until(ExpectedConditions.visibilityOf(opt));
-      System.out.println("xpath: "+xpath);
+//      System.out.println("xpath: "+xpath);
       opt.click();
     }
 //    xpath = "//*[@data-test='common-targeting-select-add-selected-options-button']";
     xpath = ".//*[contains(text(), 'Add Selected')]";
-    System.out.println("xpath: "+xpath);
+//    System.out.println("xpath: "+xpath);
     opt = box.findElement(By.xpath(xpath));
     wait.until(ExpectedConditions.visibilityOf(opt));
     opt.click();
   }
 
 
-  public void selectOptionTEST(TargetCategory category,String target_1,String target_2,String target_3) {
+  public void advertiserTargetingAll(TargetCategory category,String target_1,String target_2,String target_3) {
     String[] s1 = new String[]{target_1, target_2, target_3};
     WebElement box = null;
     switch (category) {

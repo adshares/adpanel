@@ -167,7 +167,7 @@
     <!--</class>-->
   <!--</classes>-->
 <!--</test>-->
-  <test name="TC_16 - Add new Site - BasicInformationError" group-by-instances="true">
+  <test name="TC_19 - Add new Site - BasicInformationError" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>

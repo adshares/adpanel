@@ -54,7 +54,7 @@ public class SiteCreateAds {
     System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
     if (Maps.get_campaign_name("campaign_name") == null) {
       String name = "brak campaign";
-      Maps.createCampaign();
+      Maps.createBasicInformation();
       Maps.campaign_name("campaign_name",name);
     }
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
@@ -68,7 +68,7 @@ public class SiteCreateAds {
     System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
     if (Maps.get_campaign_name("campaign_name") == null) {
       String name = "brak campaign";
-      Maps.createCampaign();
+      Maps.createBasicInformation();
       Maps.campaign_name("campaign_name",name);
     }
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));

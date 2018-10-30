@@ -70,13 +70,13 @@ public class PublisherMainPage {
   public void additionalTargetingREQUIRED(String target_1, String target_2) {                                                    // Krok 2. Additional Targeting
 //    System.out.println("---------- additionalTargeting ----------");
     SiteAdditionalTargeting ecTargetPage = new SiteAdditionalTargeting(driver);
-    ecTargetPage.publisherTargetingTEST(SiteAdditionalTargeting.TargetCategory.REQUIRED,target_1, target_2);
+    ecTargetPage.additionalTargetingAll(SiteAdditionalTargeting.TargetCategory.REQUIRED,target_1, target_2);
     System.out.println("REQUIRED: "+target_1+" > "+target_2);
   }
   public void additionalTargetingEXCLUDED(String target_1, String target_2) {                                                    // Krok 2. Additional Targeting
 //    System.out.println("---------- additionalTargeting ----------");
     SiteAdditionalTargeting ecTargetPage = new SiteAdditionalTargeting(driver);
-    ecTargetPage.publisherTargetingTEST(SiteAdditionalTargeting.TargetCategory.EXCLUDED,target_1, target_2);
+    ecTargetPage.additionalTargetingAll(SiteAdditionalTargeting.TargetCategory.EXCLUDED,target_1, target_2);
     System.out.println("EXCLUDED: "+target_1+" > "+target_2);
   }
 
