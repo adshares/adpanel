@@ -26,24 +26,23 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
-    if (site.targetingArray) {
-      const targetingObject = parseTargetingForBackend(site.targetingArray);
+    if (site.filtering) {
+      const targetingObject = parseTargetingForBackend(site.filtering);
 
-      Object.assign(site, {targeting: targetingObject});
+      Object.assign(site, {filtering: targetingObject});
     }
     return this.http.post<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
   saveSitePatch(site: Site): Observable<Site> {
-        if (site.targetingArray) {
-            const targetingObject = parseTargetingForBackend(site.targetingArray);
-
-            Object.assign(site, {targeting: targetingObject});
+        if (site.filtering) {
+            const targetingObject = parseTargetingForBackend(site.filtering);
+            Object.assign(site, {filtering: targetingObject});
         }
         return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
+  getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/targeting`);
   }
 

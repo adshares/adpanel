@@ -27,12 +27,12 @@ export class EditSiteComponent implements OnInit {
     this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite: Site) => {
-        if (!lastEditedSite.targetingArray) {
+        if (!lastEditedSite.filtering) {
           const targetingOptions = this.route.snapshot.data.targetingOptions;
 
           this.store.dispatch(
-            new publisherActions.SaveSiteTargeting(
-              parseTargetingOptionsToArray(lastEditedSite.targeting, targetingOptions)
+            new publisherActions.SaveSiteFiltering(
+              parseTargetingOptionsToArray(lastEditedSite.filtering, targetingOptions)
             )
           );
         }

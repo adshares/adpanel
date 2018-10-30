@@ -161,8 +161,8 @@
         </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targetingArray"
-            [items]="site.targetingArray.requires"
+            *ngIf="site.filtering.requires"
+            [items]="site.filtering.requires"
             [isExclude]="false"
             [canRemove]="false"
             [targetingOptions]="targetingOptionsToAdd"
@@ -186,8 +186,8 @@
         </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targetingArray"
-            [items]="site.targetingArray.excludes"
+            *ngIf="site.filtering.excludes"
+            [items]="site.filtering.excludes"
             [isExclude]="true"
             [canRemove]="false"
             [targetingOptions]="targetingOptionsToExclude"
@@ -263,30 +263,32 @@
     </a>
 
     <div class="row">
-      <a>
+      <span>
         <button
           class="
             adsh-btn
             adsh-btn--white
             adsh-blue
             save-as-draft"
+          type="button"
           (click)="saveSite(true)"
           data-test="publisher-edit-site-save-as-draft"
         >
           Save as Draft
         </button>
-      </a>
-      <a>
+      </span>
+      <span>
         <button
           class="
             adsh-btn
             adsh-btn--blue"
           (click)="saveSite(false)"
+          type="button"
           data-test="publisher-edit-site-start-campaign"
         >
           Publish site
         </button>
-      </a>
+      </span>
     </div>
   </div>
 </section>
