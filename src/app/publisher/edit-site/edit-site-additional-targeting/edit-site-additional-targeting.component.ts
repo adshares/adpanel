@@ -105,7 +105,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
         }
 
         const filtering = lastEditedSite.filtering;
-        console.log('site form store', filtering)
 
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
