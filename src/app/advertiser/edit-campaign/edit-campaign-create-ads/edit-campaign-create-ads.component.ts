@@ -245,8 +245,6 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       const adForm = this.adForms[adIndex];
       const adSize = adForm.get('size').value;
       const adSizeName = this.adSizes[adSize];
-
-      console.log(adSizeName);
   }
 
   saveCampaignAds(isDraft) {
