@@ -53,7 +53,7 @@
                 *ngIf="!adPanelsStatus[i]"
                 data-test="advertiser-edit-campaign-create-ads-form-short-headline"
               >
-                Title: {{ adForm.get('shortHeadline').value }}
+                Title: {{ adForm.get('name').value }}
               </span>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -71,24 +71,24 @@
             >
               <div class="adsh-form-input__box">
                 <label
-                  for="shortHeadline"
+                  for="name"
                   class="adsh-form-label"
                 >
                   Short Headline
                 </label>
                 <input
-                  id="shortHeadline"
+                  id="name"
                   class="adsh-form-input"
-                  formControlName="shortHeadline"
-                  data-test="advertiser-edit-campaign-create-ads-form-short-headline"
+                  formControlName="name"
+                  data-test="advertiser-edit-campaign-create-ads-form-name"
                 >
                 <span
-                  *ngIf="adForm.get('shortHeadline').valid"
+                  *ngIf="adForm.get('name').valid"
                   class="input-valid"
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adForm.get('shortHeadline').hasError('required') && adsSubmitted"
+                  *ngIf="adForm.get('name').hasError('required') && adsSubmitted"
                 >
                 Short headline required!
               </span>
@@ -133,6 +133,7 @@
                 <mat-select
                   class="adsh-select"
                   formControlName="size"
+                  (change)="setAdSize(i)"
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
@@ -392,20 +393,14 @@
             </div>
 
             <iframe
-              [ngStyle]="{
-              'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-              'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
-            }"
               *ngIf="adForm.get('image') && adForm.get('image').value.src"
               [src]="adForm.get('image').value.src | trustUrl"
-            ></iframe>
+            >
+
+            </iframe>
 
             <div *ngIf="ads[i].html">
               <iframe
-                [ngStyle]="{
-                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
-              }"
                 [srcdoc]="ads[i].html | trustHtml"
               ></iframe>
 
