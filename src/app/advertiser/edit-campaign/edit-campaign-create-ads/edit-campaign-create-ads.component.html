@@ -317,6 +317,7 @@
               <img
                 class="file-box__action-button"
                 src="/assets/images/trash-gray.svg"
+                *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
                 alt="Remove image"
                 (click)="removeImage(i)"
                 data-test="advertiser-edit-campaign-create-ads-form-remove-image"
@@ -423,7 +424,6 @@
               adsh-btn--white
               adsh-blue
               save-as-draft"
-            *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
             (click)="removeNewAd(i)"
             data-test="advertiser-edit-campaign-create-ads-form-remove-ad"
           >

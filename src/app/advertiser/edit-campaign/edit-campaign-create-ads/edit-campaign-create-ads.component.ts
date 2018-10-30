@@ -194,13 +194,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeImage(adIndex) {
-    const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id)
-      .subscribe(() => {
-        Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
-        this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
-        this.imagesStatus.validation.splice(adIndex, 1);
-      });
-    this.subscriptions.push(deleteAdSubscription);
+     Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
+     this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
+     this.imagesStatus.validation.splice(adIndex, 1);
   }
 
   saveHtml(adIndex) {
