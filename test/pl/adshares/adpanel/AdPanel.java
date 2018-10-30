@@ -220,13 +220,7 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("3/7 - Mailcatcher");
     // TODO: 05.10.18 TS_2/TC_6 - Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
     // TODO: 09.10.18 TS_2/TC_6 - Error -  Login require, Last request required logged-in user.
-//    Robot robo = new Robot();
-//    robo.keyPress(KeyEvent.VK_CONTROL);
-//    robo.keyPress(KeyEvent.VK_SHIFT);
-//    robo.keyPress(KeyEvent.VK_I);
-//    robo.keyRelease(KeyEvent.VK_CONTROL);
-//    robo.keyRelease(KeyEvent.VK_SHIFT);
-//    robo.keyRelease(KeyEvent.VK_I);
+
 
 
     try {
