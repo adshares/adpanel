@@ -70,7 +70,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
     this.changesSaved = true;
 
-    this.store.dispatch(new publisherActions.SaveSiteTargeting(chosenTargeting));
+    this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
@@ -104,10 +104,11 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
           return;
         }
 
-        const targeting = lastEditedSite.targetingArray;
+        const filtering = lastEditedSite.filtering;
+        console.log('site form store', filtering)
 
-        this.addedItems = [...targeting.requires];
-        this.excludedItems = [...targeting.excludes];
+        this.addedItems = [...filtering.requires];
+        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }

@@ -11,11 +11,8 @@ interface Site {
   impressions?: number;
   RPM?: number;
   averageCPC?: number;
-  targetingArray?: AssetTargeting;
-  targeting?: {
-    requires: object;
-    excludes: object;
-  };
+  filtering?: AssetTargeting;
+
   adUnits?: AdUnit[];
 }
 
