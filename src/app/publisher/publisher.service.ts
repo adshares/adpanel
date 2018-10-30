@@ -42,7 +42,7 @@ export class PublisherService {
         return this.http.patch<Site>(`${environment.apiUrl}/sites`, { site });
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
+  getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/targeting`);
   }
 

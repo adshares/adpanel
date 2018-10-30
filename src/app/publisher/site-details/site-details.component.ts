@@ -31,7 +31,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   siteStatusEnum = siteStatusEnum;
 
   ObjectKeys = Object.keys;
-  targeting: AssetTargeting = {
+  filtering: AssetTargeting = {
     requires: [],
     excludes: []
   };
@@ -45,7 +45,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
 
   currentChartFilterSettings: ChartFilterSettings;
-  targetingOptions: TargetingOption[];
+  filteringOptions: TargetingOption[];
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
 
-    this.getTargeting();
+    this.getFiltering();
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -110,14 +110,14 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  getTargeting() {
-    const getSiteTargetingSubscription = this.publisherService.getTargetingCriteria()
-      .map((targetingOptions) => prepareTargetingChoices(targetingOptions))
-      .subscribe(targetingOptions => {
-        this.targetingOptions = targetingOptions;
-        this.targeting = parseTargetingOptionsToArray(this.site.targeting, targetingOptions);
+  getFiltering() {
+    const getSiteFilteringSubscription = this.publisherService.getFilteringCriteria()
+      .map((filteringOptions) => prepareTargetingChoices(filteringOptions))
+      .subscribe(filteringOptions => {
+        this.filteringOptions = filteringOptions;
+        this.filtering = parseTargetingOptionsToArray(this.site.filtering, filteringOptions);
       });
-    this.subscriptions.push(getSiteTargetingSubscription);
+    this.subscriptions.push(getSiteFilteringSubscription);
   }
 
   onSiteStatusChange(status) {

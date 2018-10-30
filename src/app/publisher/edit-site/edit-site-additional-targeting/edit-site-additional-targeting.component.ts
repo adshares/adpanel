@@ -15,6 +15,8 @@ import { Site } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
+//TODO in PAN-25 -> replace rest of targeting variables with filtering ones
+
 @Component({
   selector: 'app-edit-site-additional-targeting',
   templateUrl: './edit-site-additional-targeting.component.html',
