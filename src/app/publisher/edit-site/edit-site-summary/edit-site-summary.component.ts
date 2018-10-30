@@ -50,10 +50,10 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   saveSite(isDraft) {
-    this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
+
     }
 
     this.publisherService.saveSite(this.site).subscribe(
@@ -64,10 +64,12 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
       },
 
       (err) => {
+        if (err.status === 500) return;
+
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to save your site due to this error:  ${err}. Please try again later.`,
+            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
           }
         });
       }
