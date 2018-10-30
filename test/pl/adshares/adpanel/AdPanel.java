@@ -339,7 +339,7 @@ public class AdPanel extends BrowserTestCase {
   public void createAdsSaveContinue() {                        System.out.println("---------- TS_3 - TC_6 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds();
+    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
     advertiserMainPage.createAdsSaveContinue();
     // TODO: 11.10.18 error - add jpg
   }
@@ -347,13 +347,13 @@ public class AdPanel extends BrowserTestCase {
   public void createAdsSaveDraft() {                           System.out.println("---------- TS_3 - TC_7 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds();
+    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
     advertiserMainPage.createAdsSaveAsDraft();
   }
   @Test
   public void createAdsBack() {                                System.out.println("---------- TS_3 - TC_8 ----------");
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds();
+    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
     advertiserMainPage.createAdsBack();
   }
   @Test
@@ -408,7 +408,18 @@ public class AdPanel extends BrowserTestCase {
     advertiserMainPage.editAds();
     // TODO: 12.10.18  
   }
-
+  @Test
+  public void basicInformationError() {                        System.out.println("---------- TS_3 - TC_19 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createNewCampaign();
+    advertiserMainPage.basicInformationError();
+  }
+  @Test
+  public void createAdsError() {                        System.out.println("---------- TS_3 - TC_20 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createAdsError("","html","","320x100");
+    additionalTargetingsaveSaveContinue();
+  }
 
 
   @Test

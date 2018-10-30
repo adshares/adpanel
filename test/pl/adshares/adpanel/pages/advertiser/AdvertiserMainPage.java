@@ -41,6 +41,10 @@ public class AdvertiserMainPage {
   @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-summary-navigate-to-create-ads']//button")                  private WebElement editCreateAds;
   @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-summary-navigate-to-additional-targeting']//button")        private WebElement editAdditionalTargeting;
 
+  @FindBy(xpath = "//*[contains(text(), 'Campaign name required!')]")                                                   private WebElement AssertBasicInformation8;
+  @FindBy(xpath = "//*[contains(text(), 'Please provide a valid URL.')]")                                               private WebElement AssertBasicInformation9;
+  @FindBy(xpath = "//*[contains(text(), 'Bid strategy required')]")                                                     private WebElement AssertBasicInformation10;
+
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -164,13 +168,9 @@ public class AdvertiserMainPage {
     ecTargetPage.goBack();
     System.out.println("Assert - Additional Targeting [Back]");
   }
-  public void createAds() {                                                                      // Krok 3. [Create Ads]
+  public void createAds(String short_headline, String ad_type,String size, String html_code) {                                                                      // Krok 3. [Create Ads]
     System.out.println("---------- createAds ----------");
     EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
-    String short_headline = "Advertisement #1";
-    String ad_type = "html";
-    String size = "900x120";
-    String html_code = "<div style=\"width:100px;height:50px;background-color:red;\" />";
     final CampaignAdv campAdv = new CampaignAdv(short_headline, ad_type, html_code, size);
     ecCreateAdsPage.addAdvertisement(campAdv);
 
@@ -293,7 +293,7 @@ public class AdvertiserMainPage {
     wait.until(ExpectedConditions.visibilityOf(editCreateAds));
     editCreateAds.click();
     System.out.println("Click - editCreateAds");
-    createAds();
+    createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
     createAdsSaveContinue();
     wait.until(ExpectedConditions.visibilityOf(editCreateAds));
     Assert.assertTrue(editCreateAds.isDisplayed());
@@ -311,5 +311,26 @@ public class AdvertiserMainPage {
     EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
     ecTargetPage.advertiserTargetingAll(EditCampaignTargetingPage.TargetCategory.EXCLUDED,target_1, target_2, target_3);
     System.out.println("EXCLUDED: "+target_1+" > "+target_2+" > "+target_3);
+  }
+
+  public void basicInformationError() {
+    EditCampaignBasicInfoPage ecBasicInformationPage = new EditCampaignBasicInfoPage(driver);
+    ecBasicInformationPage.saveData();
+    System.out.println("Click  - "+AssertBasicInformation.getText()+" [Save & Continue]");
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation8));
+    Assert.assertEquals("Campaign name required!", AssertBasicInformation8.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation9));
+    Assert.assertEquals("Please provide a valid URL.", AssertBasicInformation9.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation10));
+    Assert.assertEquals("Bid strategy required", AssertBasicInformation10.getText());
+  }
+
+  public void createAdsError(String short_headline, String ad_type, String html_code, String size) {
+    System.out.println("---------- createAds ----------");
+    EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
+    final CampaignAdv campAdv = new CampaignAdv(short_headline, ad_type, html_code, size);
+    ecCreateAdsPage.addAdvertisement(campAdv);
+    createAdsSaveContinue();
+
   }
 }
