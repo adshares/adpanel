@@ -157,12 +157,13 @@
             class="
               row
               justify-between
-              site-edit-create-ad-uniTS _ad-uniTS _container"
+              site-edit-create-ad-units__ad-units-container"
           >
             <div
-              class="site-edit-create-ad-uniTS _ad-unit"
-              [ngClass]="{'site-edit-create-ad-uniTS _ad-unit--selected': adUnit.selected}"
+              class="site-edit-create-ad-units__ad-unit"
+              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': adUnit.selected}"
               *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
+              role="button"
               (click)="selectAdUnit(adUnit, adUnitIindex)"
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
             >
