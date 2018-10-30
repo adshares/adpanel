@@ -179,4 +179,17 @@
       </class>
     </classes>
   </test>
+  <test name="TC_20 - Add new Site - CreateAdUnitsError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherCreateAdUnitsError"/>
+          <include name="sleep"/>
+          <!--<include name="logOut"/>-->
+        </methods>
+      </class>
+    </classes>
+  </test>
 </suite>

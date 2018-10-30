@@ -548,6 +548,14 @@ public class AdPanel extends BrowserTestCase {
     publisherNewSite.basicInformationError("");
   }
   @Test
+  public void publisherCreateAdUnitsError() {               System.out.println("---------- TS_4 - TC_20 ----------");
+    publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.AddNewSite();
+    siteCreateAds = new SiteCreateAds(driver);
+    publisherCreateAdUnitsSaveContinue();
+    siteCreateAds.createAdUnitsError("");
+  }
+  @Test
   public void logInAdminEmail() {                              System.out.println("---------- TS_5 - TC_1 ----------");
     loginPage = new LoginPage(driver);
     loginPage.AdminEmail(admin,password_admin);
