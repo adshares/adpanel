@@ -23,12 +23,6 @@ public class AdvertiserMainPage {
   @FindBy(css = "[data-test='header-create-new-asset-button']")                                                         private WebElement createNewCampaignTopButton2;
   @FindBy(css = "[src='assets/images/plus-circle.svg']")                                                                private WebElement createNewCampaignTopButton3;
   @FindBy(css = "[class='ng-star-inserted']")                                                                           private WebElement createNewCampaignTopButton;
-//  @FindBy(css = "[data-test='user-total-funds']")                                                                       private WebElement AssertUserTotalFunds;
-//  @FindBy(css = "[data-test='user-total-funds-in-currency']")                                                           private WebElement AssertUserTotalFundsInCurrency;
-//  @FindBy(css = "[class='ng-star-inserted']")                                                                           private WebElement AssertNgStarInserted;
-//  @FindBy(css = "[class='adsh-campaign-list__items']")                                                                  private WebElement AssertAdshCampaignListItems;
-//  @FindBy(css = "[data-test='user-address']")                                                                           private WebElement AssertUserAddress;
-//  @FindBy(xpath = "//*[contains(text(), 'Total Funds:')]")                                                              private WebElement AssertUserTotalFunds2;
   @FindBy(xpath = "//*[contains(text(), 'Basic Information')]")                                                         private WebElement AssertBasicInformation;
   @FindBy(xpath = "//*[contains(text(), 'Campaign Name')]")                                                             private WebElement AssertBasicInformation1;
   @FindBy(xpath = "//*[contains(text(), 'Target URL')]")                                                                private WebElement AssertBasicInformation2;
@@ -37,13 +31,10 @@ public class AdvertiserMainPage {
   @FindBy(xpath = "//*[contains(text(), 'Budget (ADS / per day)')]")                                                    private WebElement AssertBasicInformation5;
   @FindBy(xpath = "//*[contains(text(), 'Date of Start')]")                                                             private WebElement AssertBasicInformation6;
   @FindBy(xpath = "//*[contains(text(), 'Date of End')]")                                                               private WebElement AssertBasicInformation7;
-
   @FindBy(xpath = "//*[contains(text(), 'My Campaigns')]")                                                              private WebElement AssertMyCampaigns;
   @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'Create Ads')]")                                                                private WebElement AssertCreateAds;
-
-
   @FindBy(xpath = "//*[@class='adsh-campaign-list__items']")                                                            private WebElement campaignList;
   @FindBy(xpath = "//*[contains(text(), 'Edit Campaign')]")                                                             private WebElement editCampaign;
   @FindBy(xpath = "//*[@data-test='advertiser-edit-campaign-summary-navigate-to-basic-information']//button")           private WebElement editBasicInfo;
@@ -312,13 +303,11 @@ public class AdvertiserMainPage {
 
 
   public void additionalTargetingREQUIRED(String target_1, String target_2, String target_3) {                                                    // Krok 2. Additional Targeting
-//    System.out.println("---------- additionalTargeting ----------");
     EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
     ecTargetPage.advertiserTargetingAll(EditCampaignTargetingPage.TargetCategory.REQUIRED,target_1, target_2, target_3);
     System.out.println("REQUIRED: "+target_1+" > "+target_2+" > "+target_3);
   }
   public void additionalTargetingEXCLUDED(String target_1, String target_2, String target_3) {                                                    // Krok 2. Additional Targeting
-//    System.out.println("---------- additionalTargeting ----------");
     EditCampaignTargetingPage ecTargetPage = new EditCampaignTargetingPage(driver);
     ecTargetPage.advertiserTargetingAll(EditCampaignTargetingPage.TargetCategory.EXCLUDED,target_1, target_2, target_3);
     System.out.println("EXCLUDED: "+target_1+" > "+target_2+" > "+target_3);

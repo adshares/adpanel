@@ -16,7 +16,6 @@ public class SiteCreateAds {
   @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-form-ad-type-select']")  private WebElement adTypeSelecetList;
   @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'html')]") private WebElement adTypeHtml;
   @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'image')]") private WebElement adTypeImage;
-
   @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")                    private WebElement saveAndContinue;
   @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")                        private WebElement saveAsDraft;
   @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")                        private WebElement back;

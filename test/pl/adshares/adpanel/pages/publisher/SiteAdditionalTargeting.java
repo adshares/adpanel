@@ -27,7 +27,6 @@ public class SiteAdditionalTargeting {
   @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
-
   @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-required']")  private WebElement requireBox;
   @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-excluded']")  private WebElement excludeBox;
 

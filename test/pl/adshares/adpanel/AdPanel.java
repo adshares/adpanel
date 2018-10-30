@@ -52,20 +52,13 @@ public class AdPanel extends BrowserTestCase {
     Maps.url_mailhog("url_mailhog", url_mailhog);
     Maps.url_target("url_target", url_target);
 
-//    Random random = new Random();
-//    int number = random.nextInt(1000);
-//    String name = "Campaign "+number;
-//    Maps.createBasicInformation();
-//    Maps.campaign_name("campaign_name",name);
-//    Maps.createAdditionalTargeting();
-
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
   @Test
   public void sleep() {
     int s;
-    int x=100;
+    int x=1000;
     for (s=0; s<x; s++) {
       try {
         Thread.sleep(1000);
