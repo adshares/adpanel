@@ -44,7 +44,7 @@ interface CampaignBasicInformation {
 interface Ad {
   id: number;
   status: number;
-  shortHeadline: string;
+  name: string;
   type: number;
   size: number;
   clicks: number;
