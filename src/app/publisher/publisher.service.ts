@@ -47,6 +47,6 @@ export class PublisherService {
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
-    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/config/banners`);
+    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 }
