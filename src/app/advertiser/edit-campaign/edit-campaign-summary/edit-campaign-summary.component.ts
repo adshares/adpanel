@@ -13,6 +13,8 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -32,7 +34,8 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) {
     super();
   }
@@ -55,8 +58,22 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
       this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
     }
 
-    this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
-    this.router.navigate(['/advertiser', 'dashboard']);
+    this.advertiserService.saveCampaign(this.campaign).subscribe(
+        () => {
+            this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
+            this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
+            this.router.navigate(['/advertiser', 'dashboard']);
+        },
+
+        (err) => {
+            this.dialog.open(ErrorResponseDialogComponent, {
+                data: {
+                    title: 'Ups! Something went wrong...',
+                    message: `We weren\'t able to save your campaign due to this error:  ${err}. Please try again later.`,
+                }
+            });
+        }
+    );
   }
 
   toggleTooltip(state, adIndex) {
