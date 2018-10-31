@@ -15,6 +15,8 @@ import { classificationStatusesEnum } from 'models/enum/classification.enum';
 import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import {MatDialog} from "@angular/material";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 
 @Component({
   selector: 'app-campaign-details',
@@ -41,7 +43,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     private router: Router,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -84,7 +87,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
       ['/advertiser', 'create-campaign', 'summary'],
-      { queryParams: { step: 4} }
+      { queryParams: { step: 4, edit: true} }
     );
   }
 
@@ -102,7 +105,21 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.campaign.basicInformation.status =
       statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
 
-    this.advertiserService.updateCampaign(this.campaign.id, this.campaign);
+    this.advertiserService
+      .updateStatus(this.campaign.id, this.campaign.basicInformation.status)
+      .subscribe(
+          () => {},
+        (err) => {
+          if (err.status === 404) {
+            this.dialog.open(ErrorResponseDialogComponent, {
+              data: {
+                title: `Campaign cannot be found`,
+                message: `Given campaign (${this.campaign.id}) does not exist or does not belong to you`,
+              }
+            });
+          }
+        }
+      );
   }
 
   classificationLabel() {
