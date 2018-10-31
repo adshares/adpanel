@@ -87,7 +87,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
       ['/advertiser', 'create-campaign', 'summary'],
-      { queryParams: { step: 4} }
+      { queryParams: { step: 4, edit: true} }
     );
   }
 
@@ -108,6 +108,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.advertiserService
       .updateStatus(this.campaign.id, this.campaign.basicInformation.status)
       .subscribe(
+          () => {},
         (err) => {
           if (err.status === 404) {
             this.dialog.open(ErrorResponseDialogComponent, {
