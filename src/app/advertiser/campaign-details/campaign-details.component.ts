@@ -108,7 +108,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.advertiserService
       .updateStatus(this.campaign.id, this.campaign.basicInformation.status)
       .subscribe(
-        (onsuccess) => {},
         (err) => {
           if (err.status === 404) {
             this.dialog.open(ErrorResponseDialogComponent, {
