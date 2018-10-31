@@ -11,7 +11,7 @@ export const LOAD_SITES_TOTALS_SUCCESS = 'Sites totals loaded success';
 export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
 export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
-export const SAVE_LAST_EDITED_SITE_TARGETING = 'Site targeting saved';
+export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 export const ADD_SITE_TO_SITES = 'Site added to user sites';
 export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
@@ -51,8 +51,8 @@ export class SaveLastEditedSite implements Action {
   constructor(public payload: Site) { }
 }
 
-export class SaveSiteTargeting implements Action {
-  readonly type: string = SAVE_LAST_EDITED_SITE_TARGETING;
+export class SaveSiteFiltering implements Action {
+  readonly type: string = SAVE_LAST_EDITED_SITE_FILTERING;
   constructor(public payload: AssetTargeting) { }
 }
 
@@ -79,7 +79,7 @@ export type actions =
   ClearLastEditedSite |
   SetLastEditedSite |
   SaveLastEditedSite |
-  SaveSiteTargeting |
+  SaveSiteFiltering |
   SaveLastEditedSiteAdUnits |
   AddSiteToSites |
   AddSiteToSitesSuccess;
