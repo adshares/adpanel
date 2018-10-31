@@ -35,7 +35,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -56,6 +56,26 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     if (!isDraft) {
       this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
       this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
+    }
+
+    if (this.campaign.id && this.campaign.id !== 0) {
+        this.advertiserService.updateCampaign(this.campaign.id, this.campaign).subscribe(
+            () => {
+                this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
+                this.router.navigate(['/advertiser', 'dashboard']);
+            },
+
+            (err) => {
+                this.dialog.open(ErrorResponseDialogComponent, {
+                    data: {
+                        title: 'Ups! Something went wrong...',
+                        message: `We weren\'t able to save your campaign due to this error:  ${err}. Please try again later.`,
+                    }
+                });
+            }
+        );
+
+        return;
     }
 
     this.advertiserService.saveCampaign(this.campaign).subscribe(
