@@ -83,7 +83,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   navigateToEditCampaign() {
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
-      ['/advertiser', 'create-campaign', 'summary'],
+      ['/advertiser', 'edit-campaign', 'summary'],
       { queryParams: { step: 4} }
     );
   }
