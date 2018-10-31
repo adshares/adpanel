@@ -54,6 +54,16 @@ export class AdvertiserService {
     return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
   }
 
+  updateStatus(id: number, status: number) {
+    const body = {
+      campaign: {
+        status
+      }
+    };
+
+    return this.http.patch(`${environment.apiUrl}/campaigns/${id}`, body);
+  }
+
   removeClassifyCampaign(id: number) {
       return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
   }
