@@ -38,7 +38,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
         this.assetHelpers.redirectIfNameNotFilled(site);
         this.site = site;
