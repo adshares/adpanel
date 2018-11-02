@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/config/banners"
+    "url": "/options/sites/zones"
   },
   "response": {
     "status": 200,

@@ -32,7 +32,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     super();
   }
