@@ -17,9 +17,11 @@ import { enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TargetingOption } from 'models/targeting-option.model';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as publisherActions from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-site-details',
@@ -52,7 +54,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     private publisherService: PublisherService,
     private router: Router,
     private store: Store<AppState>,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -126,11 +129,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.status =
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
-    this.publisherService.saveSite(this.site).subscribe(
+    this.publisherService.updateSiteStatus(this.site.id, this.site).subscribe(
         () => {},
         (err) => {
-          // TODO: Done when config/banners endpoint is ready
-          console.log(err);
+          if (err.status === 500) return;
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Ups! Something went wrong...',
+              message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
+            }
+          });
         }
     );
   }
