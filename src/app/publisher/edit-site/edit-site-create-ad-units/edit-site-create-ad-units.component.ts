@@ -129,7 +129,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   isAdUnitSelected() {
     const showInfoBox = this.adUnitForms.map((form, index) => {
       return this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
-    };
+    });
     return this.filtredAdUnitSizes.length === 1 || showInfoBox;
   }
 
