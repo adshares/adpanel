@@ -1,11 +1,12 @@
 import * as PublisherActions from './publisher.actions';
-import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
-import { PublisherState } from 'models/app-state.model';
+import {siteInitialState, sitesTotalsInitialState} from 'models/initial-state/site';
+import {PublisherState} from 'models/app-state.model';
 
 const initialState: PublisherState = {
   sites: [],
   sitesTotals: sitesTotalsInitialState,
-  lastEditedSite: siteInitialState
+  lastEditedSite: siteInitialState,
+  languagesList: [],
 };
 
 export function publisherReducers(state = initialState, action: PublisherActions.actions) {
@@ -38,17 +39,23 @@ export function publisherReducers(state = initialState, action: PublisherActions
     case PublisherActions.SAVE_LAST_EDITED_SITE_FILTERING:
       return {
         ...state,
-        lastEditedSite: Object.assign({}, state.lastEditedSite, { filtering: action.payload })
+        lastEditedSite: Object.assign({}, state.lastEditedSite, {filtering: action.payload})
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
       return {
         ...state,
-        lastEditedSite: Object.assign({}, state.lastEditedSite, { adUnits: action.payload })
+        lastEditedSite: Object.assign({}, state.lastEditedSite, {adUnits: action.payload})
       };
     case PublisherActions.ADD_SITE_TO_SITES_SUCCESS:
       return {
         ...state,
         sites: [...state.sites, action.payload]
+      };
+
+    case PublisherActions.GET_LANGUAGES_LIST_SUCCESS:
+      return {
+        ...state,
+        languagesList: [...action.payload]
       };
     default:
       return state;

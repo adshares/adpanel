@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {environment} from 'environments/environment';
-import {Site, SitesTotals, AdUnitSize} from 'models/site.model';
+import {Site, SitesTotals, AdUnitSize, SiteLanguage} from 'models/site.model';
 import {TargetingOption} from 'models/targeting-option.model';
 import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
 import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
@@ -16,6 +16,10 @@ export class PublisherService {
 
   getSites(timespan: TimespanFilter): Observable<Site[]> {
     return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
+  }
+
+  getLanguagesList(): Observable<SiteLanguage[]> {
+    return this.http.get<SiteLanguage[]>(`${environment.apiUrl}/options/sites/languages`);
   }
 
   getSitesTotals(timespan: TimespanFilter): Observable<SitesTotals> {
@@ -38,7 +42,6 @@ export class PublisherService {
   updateSiteStatus(id: number, site: Site): Observable<Site> {
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
   }
-
 
   getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);

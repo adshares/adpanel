@@ -1,5 +1,5 @@
 import { Campaign, CampaignsTotals } from './campaign.model';
-import { Site, SitesTotals } from './site.model';
+import {Site, SiteLanguage, SitesTotals} from './site.model';
 import {
   BillingHistoryItem,
   NotificationItem,
@@ -31,6 +31,7 @@ interface PublisherState {
   sites: Site[];
   sitesTotals: SitesTotals;
   lastEditedSite: Site;
+  languagesList: SiteLanguage[];
 }
 
 interface SettingsState {
