@@ -23,7 +23,6 @@
       </class>
     </classes>
   </test>
-
   <test name="TC 10 - FAQ" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
