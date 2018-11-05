@@ -9,27 +9,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PublisherEditSite {
-  @FindBy(css = "[data-test='publisher-site-url']")
-  private WebElement websiteUrl;
-  @FindBy(css = "[data-status='publisher-site-status']")
-  private WebElement editButtonPublisher;
-  @FindBy(css = "[data-test='publisher-site-edit']")
-  private WebElement editButtonPublisherBasicInformation;
-
-  @FindBy(css = "[data-test='publisher-edit-site-summary-navigate-to-basic-information']")
-  private WebElement publisherEditBasicInformation;
-  @FindBy(css = "[data-test='publisher-edit-site-basic-information-form-url']")
-  private WebElement publisherEditBasicInformationFormUrl;
-  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")
-  private WebElement publisherEditBasicInformationSaveAndContinue;
-
-  @FindBy(css = "[data-test='publisher-edit-site-summary-navigate-to-additional-information']")
-  private WebElement publisherEditAdditionalInformation;
-
-
-  /**
-   * Publisher form Assertions
-   */
+  @FindBy(css = "[data-test='publisher-site-url']")                                                                     private WebElement websiteUrl;
+  @FindBy(css = "[data-status='publisher-site-status']")                                                                private WebElement editButtonPublisher;
+  @FindBy(css = "[data-test='publisher-site-edit']")                                                                    private WebElement editButtonPublisherBasicInformation;
+  @FindBy(css = "[data-test='publisher-edit-site-summary-navigate-to-basic-information']")                              private WebElement publisherEditBasicInformation;
+  @FindBy(css = "[data-test='publisher-edit-site-basic-information-form-url']")                                         private WebElement publisherEditBasicInformationFormUrl;
+  @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")                                                  private WebElement publisherEditBasicInformationSaveAndContinue;
+  @FindBy(css = "[data-test='publisher-edit-site-summary-navigate-to-additional-information']")                         private WebElement publisherEditAdditionalInformation;
 
   private WebDriver driver;
   private WebDriverWait wait;

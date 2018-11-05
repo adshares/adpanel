@@ -69,6 +69,7 @@ public class LoginPage {
   @FindBy(xpath = "//input[@name='email']/following-sibling::span[contains(text(),'Invalid email!')]")                  private WebElement invalidEmailName;
   @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Password required')]")              private WebElement passwordEmptyRequired;
   @FindBy(xpath = "//input[@id='password']/following-sibling::span[contains(text(),'Minimum 8 signs required!')]")      private WebElement passwordMinimumRequired;
+  @FindBy(css = "[class='error-msg ng-star-inserted']")                                                                 private WebElement passwordDontMatch;
   @FindBy(xpath = "//*[contains(text(), 'The email has already been taken.')]")                                         private WebElement ngStarInserted;
   @FindBy(xpath = "//*[contains(text(), 'Changing email is a 2 step process')]")                                        private WebElement loginEmailAssert;
   @FindBy(xpath = "//*[contains(text(), 'Request Failed')]")                                                            private WebElement loginEmailAssert1;
@@ -228,11 +229,15 @@ public class LoginPage {
     loginConfirmPassword.sendKeys("useruse");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
+    wait.until(ExpectedConditions.visibilityOf(passwordDontMatch));
+    String invalidPasswordInput3 = passwordDontMatch.getText();
+    Assert.assertEquals("Passwords don't match!", invalidPasswordInput3);
     System.out.println("3/5. EMAIL, PASSWORD CORRECT - CONFIRM PASSWORD INCORRECT");
     //                    TEST EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT
     loginConfirmPassword.sendKeys("r");
     wait.until(ExpectedConditions.visibilityOf(authRegistrationButton));
     authRegistrationButton.click();
+//    Assert.assertEquals("Minimum 8 signs required!1", invalidPasswordInput2);/
     System.out.println("4/5. EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT");
     //                    5. TEST EMAIL, PASSWORD, CONFIRM PASSWORD CORRECT
     wait.until(ExpectedConditions.visibilityOf(ngStarInserted));
@@ -360,12 +365,11 @@ public class LoginPage {
     logIn();
   }
 
-  public void gotologinChangeEmail(String ChangeEmail, String ChangeEmail2) {
-    int id = (int) Maps.getId("id");
+  public void gotologinChangeEmail(String ChangeEmail,String id) {
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     try {
-      Thread.sleep(1000);
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -377,23 +381,37 @@ public class LoginPage {
     changeEmail.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
     Assert.assertEquals("Changing email is a 2 step process", loginEmailAssert.getText());
-    System.out.println(id+". Changing email is a 2 step process - OK    "+ChangeEmail); id=id+1;
+    System.out.println(id+". Changing email is a 2 step process "+ChangeEmail);
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
     adshDialogClose.click();
-
-    loginEmail.sendKeys(ChangeEmail2);
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.clear();
+    wait.until(ExpectedConditions.visibilityOf(headerDashboardLink));
+    headerDashboardLink.click();
+    }
+  public void gotologinChangeEmail2(String ChangeEmail,String id) {
+    wait.until(ExpectedConditions.visibilityOf(adshLogo));
+    wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
+//    try {
+//      Thread.sleep(2000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+    settingsMenuChevron.click();
+    wait.until(ExpectedConditions.visibilityOf(accountSettings));
+    accountSettings.click();
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.sendKeys(ChangeEmail);
     changeEmail.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmailAssert1));
     Assert.assertEquals("Request Failed", loginEmailAssert1.getText());
-    System.out.println(id+". Request Failed - OK                        "+ChangeEmail2); id=id+1;
+    System.out.println(id+". Request Failed                     "+ChangeEmail);
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
     adshDialogClose.click();
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
     loginEmail.clear();
-    Maps.create();
-    Maps.email("email",ChangeEmail);
-    System.out.println("NewLoginEmail: "+ChangeEmail);
-    Maps.createId();
-    Maps.id("id", id);
+    wait.until(ExpectedConditions.visibilityOf(headerDashboardLink));
+    headerDashboardLink.click();
   }
 
   public void gotologinChangeEmailNegative() {
@@ -466,6 +484,44 @@ public class LoginPage {
     System.out.println("-. Password changed - OK");
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
     adshDialogClose.click();
+  }
+  public void gotologinChangePassword2() {
+    wait.until(ExpectedConditions.visibilityOf(settingsMenu));
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    settingsMenu.click();
+    wait.until(ExpectedConditions.visibilityOf(accountSettings));
+    accountSettings.click();
+
+    changePassword("1/10","a23456","12345678","12345678");
+    changePassword("2/10","a2345678","123456","12345678");
+    changePassword("3/10","a2345678","12345678","123456");
+    changePassword("4/10","87654321","12345678","12345678");
+    changePassword("5/10","a2345678","87654321","12345678");
+    changePassword("6/10","a2345678","12345678","87654321");
+    changePassword("7/10","","12345678","12345678");
+    changePassword("8/10","a2345678","","12345678");
+    changePassword("9/10","a2345678","12345678","");
+    changePassword("10/10","","","");
+  }
+  private void changePassword(String id, String Current_Password, String New_Password, String Confirm_Password) {
+    wait.until(ExpectedConditions.visibilityOf(loginCurrentPassword));
+    loginCurrentPassword.clear();
+    loginCurrentPassword.sendKeys(Current_Password);
+    wait.until(ExpectedConditions.visibilityOf(loginNewPassword));
+    loginNewPassword.clear();
+    loginNewPassword.sendKeys(New_Password);
+    wait.until(ExpectedConditions.visibilityOf(loginNewPasswordConfirm));
+    loginNewPasswordConfirm.clear();
+    loginNewPasswordConfirm.sendKeys(Confirm_Password);
+    wait.until(ExpectedConditions.visibilityOf(changePassword));
+    changePassword.click();
+    wait.until(ExpectedConditions.visibilityOf(loginPasswordAssert4));
+    Assert.assertEquals("Old password is not valid", loginPasswordAssert4.getText());
+    System.out.println(id+" Current_Password: "+Current_Password+"     New_Password: "+New_Password+"     Confirm_Password: "+Confirm_Password);
   }
   public void gotologinChangePasswordNegative() {
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));

@@ -167,13 +167,26 @@
     <!--</class>-->
   <!--</classes>-->
 <!--</test>-->
-  <test name="TC_16 - Add new Site - BasicInformationError" group-by-instances="true">
+  <test name="TC_19 - Add new Site - BasicInformationError" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="logInRandomEmail"/>
           <include name="logInPopUpFirstPublisher"/>
           <include name="publisherBasicInformationError"/>
+          <!--<include name="logOut"/>-->
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_20 - Add new Site - CreateAdUnitsError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherCreateAdUnitsError"/>
+          <include name="sleep"/>
           <!--<include name="logOut"/>-->
         </methods>
       </class>
