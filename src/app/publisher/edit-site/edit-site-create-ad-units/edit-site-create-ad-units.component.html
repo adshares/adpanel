@@ -129,9 +129,10 @@
                 col-xs-3
                 adsh-copy
                 adsh-copy--light"
-              >
+            >
               Size of Unit
             </div>
+
             <div class="col-xs-3">
               <div class="adsh-form-input__box">
                 <label class="adsh-form-label">Showing:</label>
@@ -201,19 +202,27 @@
               </div>
             </div>
           </div>
-
-          <button
-            class="
+          <div class="row">
+            <button
+              class="
               adsh-btn
               adsh-btn--white
               adsh-blue
               save-as-draft"
-            *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
-            (click)="removeNewAdUnit(adUnitIindex)"
-            data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
-          >
-            Delete Ad Unit
-          </button>
+              *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
+              (click)="removeNewAdUnit(adUnitIindex)"
+              data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
+            >
+              Delete Ad Unit
+            </button>
+            <span
+              class="error-msg"
+              *ngIf="adUnitsSubmitted && isAdUnitSelected()"
+            >
+                Ad unit size required!
+              </span>
+          </div>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>
@@ -221,9 +230,11 @@
 
   <div
     class="
+      row
       adsh-box
       adsh-box--large"
   >
+
     <button
       class="
         row

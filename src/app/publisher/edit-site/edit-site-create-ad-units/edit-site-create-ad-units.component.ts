@@ -16,6 +16,8 @@ import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {AdUnitSize} from 'models/site.model';
 import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -34,12 +36,14 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
 
+
   constructor(
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -122,9 +126,22 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     adUnit.selected = true;
   }
 
-  saveAdUnits(isDraft) {
-    this.adUnitsSubmitted = true;
+  isAdUnitSelected() {
+    return this.filtredAdUnitSizes.length === 1 || !!this.filtredAdUnitSizes.forEach(element => element.find(item => item.selected));
+  }
 
+  saveAdUnits(isDraft) {
+    if (!this.adUnitForms.length) {
+      this.dialog.open(ErrorResponseDialogComponent, {
+        data: {
+          title: 'Section required!',
+          message: `Create at least one ad unit to submit.`,
+        }
+      });
+      return;
+    };
+
+    this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
       this.filtredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
 
