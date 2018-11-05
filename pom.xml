@@ -73,9 +73,9 @@
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_1 - Registration.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_3 - Advertiser.xml</suiteXmlFile>
-            <suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_4 - Publisher.xml</suiteXmlFile>
+            <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_2 - Login.xml</suiteXmlFile>-->
+            <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_3 - Advertiser.xml</suiteXmlFile>-->
+            <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_4 - Publisher.xml</suiteXmlFile>-->
             <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_5 - Administration.xml</suiteXmlFile>-->
             <!--<suiteXmlFile>${project.build.testSourceDirectory}/ui/TS_6 - Settings.xml</suiteXmlFile>-->
           </suiteXmlFiles>
@@ -117,12 +117,10 @@
           </execution>
         </executions>
         <configuration>
+          <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
           <installationDirectory>${project.build.directory}/drivers</installationDirectory>
+          <skip>true</skip>
           <drivers>
-            <driver>
-              <name>operadriver</name>
-              <version>2.29</version>
-            </driver>
             <driver>
               <name>chromedriver</name>
             </driver>

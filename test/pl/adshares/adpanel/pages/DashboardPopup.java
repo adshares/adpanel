@@ -7,9 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 public class DashboardPopup {
@@ -94,18 +91,6 @@ public class DashboardPopup {
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     commonChooseAdvertiser.click();
     commonChoosePublisher.click();
-    PopUpFirstContinue.click();
-  }
-
-  public void chooseAccountTypePublisherOnly() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    commonChoosePublisher.click();
-    PopUpFirstContinue.click();
-  }
-
-  public void chooseAccountTypeAdvertiserOnly() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    commonChooseAdvertiser.click();
     PopUpFirstContinue.click();
   }
 }

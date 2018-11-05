@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TS_1 - TEST" parallel="methods" thread-count="1" verbose="3">
+
+
+
+  <test name="TC_20 - Create new Campaign - publisherCreateAdUnitsError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="createAdsError"/>
+          <include name="sleep"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_19 - Create new Campaign - basicInformationError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="basicInformationError"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+
+
+
+
+
+
+
+
+  <test name="TC_20 - Add new Site - CreateAdUnitsError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherCreateAdUnitsError"/>
+          <include name="sleep"/>
+          <!--<include name="logOut"/>-->
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+
+
+
+  <test name="TC_19 - Add new Site - BasicInformationError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherBasicInformationError"/>
+          <include name="sleep"/>
+          <!--<include name="logOut"/>-->
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="advertiserTargetingAll" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="advertiserTargetingAll"/>
+          <include name="sleep"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="publisherTargetingAll" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="publisherTargetingAll"/>
+          <include name="sleep"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+
+</suite>
+

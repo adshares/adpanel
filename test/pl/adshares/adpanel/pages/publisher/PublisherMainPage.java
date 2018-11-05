@@ -7,20 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pl.adshares.adpanel.pages.advertiser.EditCampaignTargetingPage;
 
 public class PublisherMainPage {
 
-  @FindBy(css = "[data-test='header-create-new-asset-button']")
-  private WebElement newAddSiteToolBar;
-  @FindBy(css = "[data-test='publisher-create-new-site']")
-  private WebElement newAddSiteListBar;
-  @FindBy(css = "[data-test='publisher-site-status']")
-  //@FindBy(css = "[data-test='data-status=active']")
-  private WebElement editSiteListBar;
-
-
-  @FindBy(xpath = "//img[@src='assets/images/logo--white.png']")
-  private WebElement logoAssertion;
+  @FindBy(css = "[data-test='header-create-new-asset-button']")                                                         private WebElement newAddSiteToolBar;
+  @FindBy(css = "[data-test='publisher-create-new-site']")                                                              private WebElement newAddSiteListBar;
+  @FindBy(css = "[data-test='publisher-site-status']")                                                                  private WebElement editSiteListBar;
+  @FindBy(xpath = "//img[@src='assets/images/logo--white.png']")                                                        private WebElement logoAssertion;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -66,5 +60,15 @@ public class PublisherMainPage {
     editSiteListBar.click();
   }
 
+  public void additionalTargetingREQUIRED(String target_1, String target_2) {                                                    // Krok 2. Additional Targeting
+    SiteAdditionalTargeting ecTargetPage = new SiteAdditionalTargeting(driver);
+    ecTargetPage.additionalTargetingAll(SiteAdditionalTargeting.TargetCategory.REQUIRED,target_1, target_2);
+    System.out.println("REQUIRED: "+target_1+" > "+target_2);
+  }
+  public void additionalTargetingEXCLUDED(String target_1, String target_2) {                                                    // Krok 2. Additional Targeting
+    SiteAdditionalTargeting ecTargetPage = new SiteAdditionalTargeting(driver);
+    ecTargetPage.additionalTargetingAll(SiteAdditionalTargeting.TargetCategory.EXCLUDED,target_1, target_2);
+    System.out.println("EXCLUDED: "+target_1+" > "+target_2);
+  }
 
 }

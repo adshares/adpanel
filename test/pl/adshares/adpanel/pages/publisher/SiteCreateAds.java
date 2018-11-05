@@ -16,7 +16,6 @@ public class SiteCreateAds {
   @FindBy(css = "[data-test='publisher-edit-site-create-ad-units-form-ad-type-select']")  private WebElement adTypeSelecetList;
   @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'html')]") private WebElement adTypeHtml;
   @FindBy(xpath = "//mat-option[@data-test='publisher-edit-site-create-ad-units-form-ad-type-option']/span[contains(text(),'image')]") private WebElement adTypeImage;
-
   @FindBy(css = "[data-test='publisher-edit-site-save-and-continue']")                    private WebElement saveAndContinue;
   @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")                        private WebElement saveAsDraft;
   @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")                        private WebElement back;
@@ -28,7 +27,7 @@ public class SiteCreateAds {
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
   @FindBy(xpath = "//*[contains(text(), 'Summary')]")                                                                   private WebElement AssertSummary;
-
+  @FindBy(xpath = "//*[contains(text(), 'Name of Unit required!')]")                                                    private WebElement AssertNameOfUnit;
   private WebDriver driver;
   private WebDriverWait wait;
 
@@ -54,7 +53,7 @@ public class SiteCreateAds {
     System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
     if (Maps.get_campaign_name("campaign_name") == null) {
       String name = "brak campaign";
-      Maps.createCampaign();
+      Maps.createBasicInformation();
       Maps.campaign_name("campaign_name",name);
     }
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
@@ -68,7 +67,7 @@ public class SiteCreateAds {
     System.out.println("campaign_name: "+Maps.get_campaign_name("campaign_name"));
     if (Maps.get_campaign_name("campaign_name") == null) {
       String name = "brak campaign";
-      Maps.createCampaign();
+      Maps.createBasicInformation();
       Maps.campaign_name("campaign_name",name);
     }
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
@@ -114,5 +113,18 @@ public class SiteCreateAds {
     wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting2));
     Assert.assertEquals("2. Excludes", AssertAdditionalTargeting2.getText());
     System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
+  }
+
+  public void createAdUnitsError(String name_of_unit) {
+    System.out.println("---------- createAdUnitsError ----------");
+    wait.until(ExpectedConditions.visibilityOf(createAdUnitDropDownButton));
+    createAdUnitDropDownButton.click();
+    System.out.println("Click - createAdUnitDropDownButton");
+    wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
+    nameOfUnit.sendKeys(name_of_unit);
+    wait.until(ExpectedConditions.visibilityOf(saveAndContinue));
+    saveAndContinue.click();
+    Assert.assertEquals("Name of Unit required!", AssertNameOfUnit.getText());
+    System.out.println("Assert - "+AssertNameOfUnit.getText());
   }
 }

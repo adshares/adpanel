@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TS 1 - Registration Control" parallel="methods" thread-count="1" verbose="3">
+<suite name="TS 1 - Registration Control" parallel="methods" thread-count="1" verbose="1">
   <test name="TC_1 - logInRandomEmail" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
@@ -23,14 +23,7 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logOutTest"/>
-        </methods>
-      </class>
-      <class name="pl.adshares.adpanel.RegisterTestCase">
-        <methods>
-          <include name="registerForgotPassword"/>
+          <include name="Registration_ForgotPassword"/>
         </methods>
       </class>
     </classes>
