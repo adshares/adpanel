@@ -87,7 +87,7 @@ export class AddSiteToSitesSuccess implements Action {
 
 export class GetLanguagesList implements Action {
   readonly type = GET_LANGUAGES_LIST;
-  constructor() {
+  constructor(public payload: any) {
   }
 }
 
