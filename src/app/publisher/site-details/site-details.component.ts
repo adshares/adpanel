@@ -118,6 +118,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .map((filteringOptions) => prepareTargetingChoices(filteringOptions))
       .subscribe(filteringOptions => {
         this.filteringOptions = filteringOptions;
+        console.log('options', this.filteringOptions)
         this.filtering = parseTargetingOptionsToArray(this.site.filtering, filteringOptions);
       });
     this.subscriptions.push(getSiteFilteringSubscription);

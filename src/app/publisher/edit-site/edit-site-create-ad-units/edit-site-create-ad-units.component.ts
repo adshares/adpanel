@@ -159,7 +159,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((site: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(site));
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
         this.router.navigate(['/publisher', 'dashboard']);
       });
     this.subscriptions.push(lastSiteSubscription);

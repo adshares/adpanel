@@ -21,12 +21,12 @@ export class TargetingDisplayComponent implements OnChanges {
   }[];
 
   ngOnChanges() {
-    this.prepareItemsToDisplay();
+      this.prepareItemsToDisplay();
   }
 
-  prepareItemsToDisplay() {
+  prepareItemsToDisplay(): void {
     this.viewModel = [];
-
+    if (!this.items.length) return;
     this.items.forEach((item) => {
       const itemLabelPath = getLabelPath(item.id, this.targetingOptions);
       const viewModelParentPathIndex = this.viewModel.findIndex(
@@ -48,7 +48,7 @@ export class TargetingDisplayComponent implements OnChanges {
     });
   }
 
-  removeItem(removedItem) {
+  removeItem(removedItem): void {
     const itemInItemsIndex = this.items.findIndex((itemInItems) => itemInItems.id === removedItem.id);
 
     this.items.splice(itemInItemsIndex, 1);

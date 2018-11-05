@@ -89,7 +89,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(lastEditedSite));
         this.router.navigate(['/publisher', 'dashboard']);
       });
     this.subscriptions.push(lastSiteSubscription);

@@ -39,6 +39,14 @@ export class PublisherService {
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
   }
 
+  updateSiteData(id: number, site: Site): Observable<Site> {
+    if (site.filtering) {
+      const targetingObject = parseTargetingForBackend(site.filtering);
+
+      Object.assign(site, {filtering: targetingObject});
+    }
+    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
+  }
 
   getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);

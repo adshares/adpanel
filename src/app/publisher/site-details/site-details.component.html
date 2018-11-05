@@ -124,6 +124,7 @@
     </div>
 
     <div
+      *ngIf="!!filtering.requires.length || !!filtering.excludes.length"
       class="
         adsh-box
         adsh-box--large
@@ -131,6 +132,7 @@
         row"
     >
       <div
+        *ngIf="!!filtering.requires.length"
         class="
           col-xs-12
           col-lg-6"
@@ -138,7 +140,6 @@
         <div>
           <app-targeting-display
             class="app-targeting-display"
-            *ngIf="filtering.requires"
             [items]="filtering.requires"
             [isExclude]="false"
             [canRemove]="false"
@@ -148,6 +149,7 @@
       </div>
 
       <div
+        *ngIf="!!filtering.excludes.length"
         class="
           col-xs-12
           col-lg-6"
@@ -155,7 +157,6 @@
         <div>
           <app-targeting-display
             class="app-targeting-display"
-            *ngIf="filtering.excludes"
             [items]="filtering.excludes"
             [isExclude]="true"
             [canRemove]="false"
