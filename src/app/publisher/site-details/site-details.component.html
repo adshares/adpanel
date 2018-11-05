@@ -247,7 +247,7 @@
       </div>
       <app-ad-units
         *ngFor="let adUnit of site.adUnits"
-        [pageCodeCommon]="site.pageCodeCommon"
+        [siteCode]="site.code"
         [adUnit]="adUnit"
       ></app-ad-units>
     </div>

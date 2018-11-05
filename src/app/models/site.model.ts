@@ -14,7 +14,7 @@ interface Site {
   filtering?: AssetTargeting;
 
   adUnits?: AdUnit[];
-  pageCodeCommon?: string;
+  code?: string;
 }
 
 interface SitesTotals {
@@ -31,7 +31,7 @@ interface AdUnit {
   size: AdUnitSize;
   status: number;
 
-  pageCode?: string;
+  code?: string;
   budget?: number;
   clicks?: number;
   impressions?: number;
