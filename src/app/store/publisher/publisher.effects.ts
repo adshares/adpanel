@@ -32,4 +32,11 @@ export class PublisherEffects {
     .map(toPayload)
     .switchMap((payload) => this.service.saveSite(payload))
     .map((site) => new publisherActions.AddSiteToSitesSuccess(site));
+
+  @Effect()
+  getLanguageList = this.actions$
+    .ofType(publisherActions.GET_LANGUAGES_LIST)
+    .map(toPayload)
+    .switchMap(() => this.service.getLanguagesList())
+    .map((list) => new publisherActions.GetLanguagesListSuccess(list));
 }

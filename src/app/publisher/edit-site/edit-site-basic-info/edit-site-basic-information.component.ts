@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 import 'rxjs/add/operator/take';
 
-import { AppState } from 'models/app-state.model';
+import {AppState} from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { primaryLanguageEnum } from 'models/enum/site.enum';
-import { cloneDeep, enumToArray } from 'common/utilities/helpers';
-import { siteInitialState } from 'models/initial-state/site';
-import { Site } from 'models/site.model';
-import { appSettings } from 'app-settings';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {cloneDeep} from 'common/utilities/helpers';
+import {siteInitialState} from 'models/initial-state/site';
+import {Site, SiteLanguage} from 'models/site.model';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -20,7 +18,7 @@ import { appSettings } from 'app-settings';
 })
 export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
   siteBasicInfoForm: FormGroup;
-  languages: string[] = enumToArray(primaryLanguageEnum);
+  languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;
   site: Site = cloneDeep(siteInitialState);
 
@@ -29,7 +27,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
     super();
   }
@@ -37,6 +35,18 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createForm();
+    this.getLanguages();
+  }
+
+  getLanguages() {
+    this.store.select('state', 'publisher', 'languagesList')
+      .subscribe((languagesList) => {
+        this.languages = languagesList;
+
+        if (!this.languages.length) {
+          this.store.dispatch(new PublisherActions.GetLanguagesList());
+        }
+      });
   }
 
   saveSiteBasicInformation() {
@@ -48,16 +58,18 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     const editSiteStep = this.goesToSummary ? 'summary' : 'additional-filtering';
     const param = this.goesToSummary ? 4 : 2;
 
-    Object.assign(this.site, {
+    this.site ={
+      ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
-      primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value
-    });
+      primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value,
+    };
+
     this.store.dispatch(new PublisherActions.SaveLastEditedSite(this.site));
     this.changesSaved = true;
 
     this.router.navigate(
       ['/publisher', 'create-site', editSiteStep],
-      { queryParams: { step: param } }
+      {queryParams: {step: param}}
     );
   }
 
@@ -69,9 +81,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
 
-
     this.getFormDataFromStore();
-
   }
 
   getFormDataFromStore() {
