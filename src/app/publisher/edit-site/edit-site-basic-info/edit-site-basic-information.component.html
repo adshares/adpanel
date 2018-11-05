@@ -90,12 +90,12 @@
           data-test="publisher-edit-site-basic-information-form-language-select"
         >
           <mat-option
-            *ngFor="let language of languages; let i = index"
-            [value]="i"
+            *ngFor="let language of languages"
+            [value]="language.code"
             class="site-edit-basic-information__language__option"
             data-test="publisher-edit-site-basic-information-form-language-option"
           >
-            {{ language }}
+            {{ language.name }}
           </mat-option>
         </mat-select>
 

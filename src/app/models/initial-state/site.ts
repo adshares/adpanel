@@ -7,13 +7,13 @@ export const sitesTotalsInitialState: SitesTotals = {
   totalImpressions: 0,
   averagePageRPM: 0,
   averageCPC: 0
-}
+};
 
 export const siteInitialState: Site = {
   id: 0,
   status: siteStatusEnum.DRAFT,
   name: '',
-  primaryLanguage: primaryLanguageEnum.POLISH,
+  primaryLanguage: '',
   filtering: {
     requires: [],
     excludes: []
