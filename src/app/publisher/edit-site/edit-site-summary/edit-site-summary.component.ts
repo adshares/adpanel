@@ -28,7 +28,6 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   createSiteMode: boolean;
   canSubmit: boolean;
 
-
   constructor(
     private store: Store<AppState>,
     private publisherService: PublisherService,
