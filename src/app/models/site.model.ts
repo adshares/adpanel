@@ -14,6 +14,7 @@ interface Site {
   filtering?: AssetTargeting;
 
   adUnits?: AdUnit[];
+  code?: string;
 }
 
 interface SitesTotals {
