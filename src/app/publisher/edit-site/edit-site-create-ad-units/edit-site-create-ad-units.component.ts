@@ -127,7 +127,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   isAdUnitSelected() {
-    return this.filtredAdUnitSizes.length === 1 || !!this.filtredAdUnitSizes.forEach(element => element.find(item => item.selected));
+    const showInfoBox = this.adUnitForms.map((form, index) => {
+      return this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+    };
+    return this.filtredAdUnitSizes.length === 1 || showInfoBox;
   }
 
   saveAdUnits(isDraft) {
@@ -139,8 +142,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         }
       });
       return;
-    };
-
+    }
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
       this.filtredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
