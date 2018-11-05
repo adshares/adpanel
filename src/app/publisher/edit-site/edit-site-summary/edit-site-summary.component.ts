@@ -32,42 +32,41 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     super();
   }
 
   ngOnInit() {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
         this.assetHelpers.redirectIfNameNotFilled(site);
         this.site = site;
       });
-    this.subscriptions.push(lastSiteSubscription);
-
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
   }
 
   saveSite(isDraft) {
-    this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
+
     }
 
     this.publisherService.saveSite(this.site).subscribe(
       () => {
-        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
         this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
+        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
         this.router.navigate(['/publisher', 'dashboard']);
       },
 
       (err) => {
+        if (err.status === 500) return;
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to save your site due to this error:  ${err}. Please try again later.`,
+            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
           }
         });
       }

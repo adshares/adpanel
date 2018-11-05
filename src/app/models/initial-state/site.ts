@@ -14,7 +14,7 @@ export const siteInitialState: Site = {
   status: siteStatusEnum.DRAFT,
   name: '',
   primaryLanguage: primaryLanguageEnum.POLISH,
-  targetingArray: {
+  filtering: {
     requires: [],
     excludes: []
   },

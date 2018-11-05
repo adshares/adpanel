@@ -138,11 +138,11 @@
         <div>
           <app-targeting-display
             class="app-targeting-display"
-            *ngIf="targeting.requires"
-            [items]="targeting.requires"
+            *ngIf="filtering.requires"
+            [items]="filtering.requires"
             [isExclude]="false"
             [canRemove]="false"
-            [targetingOptions]="targetingOptions"
+            [targetingOptions]="filteringOptions"
           ></app-targeting-display>
         </div>
       </div>
@@ -155,11 +155,11 @@
         <div>
           <app-targeting-display
             class="app-targeting-display"
-            *ngIf="targeting.excludes"
-            [items]="targeting.excludes"
+            *ngIf="filtering.excludes"
+            [items]="filtering.excludes"
             [isExclude]="true"
             [canRemove]="false"
-            [targetingOptions]="targetingOptions"
+            [targetingOptions]="filteringOptions"
           ></app-targeting-display>
         </div>
       </div>

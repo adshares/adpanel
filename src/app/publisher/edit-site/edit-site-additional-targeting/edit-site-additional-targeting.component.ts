@@ -15,6 +15,8 @@ import { Site } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
+//TODO in PAN-25 -> replace rest of targeting variables with filtering ones
+
 @Component({
   selector: 'app-edit-site-additional-targeting',
   templateUrl: './edit-site-additional-targeting.component.html',
@@ -70,7 +72,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
     this.changesSaved = true;
 
-    this.store.dispatch(new publisherActions.SaveSiteTargeting(chosenTargeting));
+    this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
@@ -104,10 +106,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
           return;
         }
 
-        const targeting = lastEditedSite.targetingArray;
+        const filtering = lastEditedSite.filtering;
 
-        this.addedItems = [...targeting.requires];
-        this.excludedItems = [...targeting.excludes];
+        this.addedItems = [...filtering.requires];
+        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }
