@@ -16,7 +16,6 @@ import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { MatDialog } from "@angular/material";
-import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as codes from 'common/utilities/codes';
 
