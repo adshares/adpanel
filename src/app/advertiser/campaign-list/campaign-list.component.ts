@@ -28,8 +28,6 @@ export class CampaignListComponent {
   }
 
   navigateToCreateCampaign() {
-    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
-
     this.router.navigate(
       [ 'advertiser', 'create-campaign', 'basic-information'],
       { queryParams: { step: 1 } }
