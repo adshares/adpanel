@@ -121,7 +121,7 @@
             class="
               adsh-icon
               adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="/assets/images/edit.svg"
             alt="Edit icon"
           >
           <span
@@ -130,6 +130,29 @@
               adsh-copy--dark"
           >
             Edit Campaign
+          </span>
+        </button>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-btn--no-border
+            btn-delete"
+          (click)="deleteCampaign()"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="/assets/images/x-circle--gray.svg"
+            alt="Delete icon"
+          >
+          <span
+            class="
+              adsh-copy
+              adsh-copy--dark"
+          >
+            Delete Campaign
           </span>
         </button>
       </div>
@@ -215,7 +238,7 @@
               class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="assets/images/calendar.svg"
+              src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
@@ -246,7 +269,7 @@
               class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="assets/images/calendar.svg"
+              src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
@@ -469,7 +492,7 @@
           (click)="navigateToCreateAd()"
         >
           <img
-            src="assets/images/plus-circle--blue.svg"
+            src="/assets/images/plus-circle--blue.svg"
             alt="Add new icon"
             class="
               adsh-icon
