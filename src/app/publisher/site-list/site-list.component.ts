@@ -31,8 +31,6 @@ export class SiteListComponent extends HandleSubscription {
   }
 
   navigateToCreateSite() {
-    this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
-
     this.router.navigate(
       [ 'publisher', 'create-site', 'basic-information'],
       { queryParams: { step: 1 } }
