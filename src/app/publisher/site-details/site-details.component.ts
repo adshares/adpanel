@@ -100,7 +100,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   navigateToEditSite() {
     this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'create-site', 'summary'],
+      ['/publisher', 'edit-site', 'summary'],
       { queryParams: { step: 4} }
     );
   }
@@ -108,7 +108,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   navigateToCreateAdUnits() {
     this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'create-site', 'create-ad-units'],
+      ['/publisher', 'edit-site', 'create-ad-units'],
       { queryParams: { step: 3, summary: true} }
     );
   }

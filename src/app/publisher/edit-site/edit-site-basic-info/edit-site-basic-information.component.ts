@@ -21,7 +21,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;
   site: Site = cloneDeep(siteInitialState);
-
+  createSiteMode: boolean;
   goesToSummary: boolean;
 
   constructor(
@@ -34,6 +34,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
+    this.createSiteMode = !!this.router.url.match('/create-site/');
     this.createForm();
     this.getLanguages();
   }
@@ -55,7 +56,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       return;
     }
 
-    const editSiteStep = this.goesToSummary ? 'summary' : 'additional-targeting';
+    const editSiteStep = this.goesToSummary ? 'summary' : 'additional-filtering';
     const param = this.goesToSummary ? 4 : 2;
 
     this.site ={
@@ -68,7 +69,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.changesSaved = true;
 
     this.router.navigate(
-      ['/publisher', 'create-site', editSiteStep],
+      ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
       {queryParams: {step: param}}
     );
   }

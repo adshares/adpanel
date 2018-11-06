@@ -35,7 +35,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
-
+  createSiteMode: boolean;
 
   constructor(
     private publisherService: PublisherService,
@@ -49,6 +49,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   ngOnInit() {
+    this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
@@ -169,7 +170,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   redirectAfterSave(isDraft) {
     if (!isDraft) {
       this.router.navigate(
-        ['/publisher', 'create-site', 'summary'],
+        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
         {queryParams: {step: 4}}
       );
 
@@ -178,7 +179,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((site: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(site));
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
         this.router.navigate(['/publisher', 'dashboard']);
       });
     this.subscriptions.push(lastSiteSubscription);
