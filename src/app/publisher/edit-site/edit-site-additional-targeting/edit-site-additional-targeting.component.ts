@@ -34,6 +34,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
+  createSiteMode: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   }
 
   ngOnInit() {
+    this.createSiteMode = !!this.router.url.match('/create-site/');
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
@@ -79,7 +81,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
       const param = this.goesToSummary ? 4 : 3;
 
       this.router.navigate(
-        ['/publisher', 'create-site', editSiteStep],
+        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
         { queryParams: { step: param } }
       );
 
@@ -89,7 +91,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(lastEditedSite));
         this.router.navigate(['/publisher', 'dashboard']);
       });
     this.subscriptions.push(lastSiteSubscription);
