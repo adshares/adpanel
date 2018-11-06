@@ -15,8 +15,9 @@ import { classificationStatusesEnum } from 'models/enum/classification.enum';
 import { createInitialArray } from 'common/utilities/helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { MatDialog } from "@angular/material";
+import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as codes from 'common/utilities/codes';
 
 @Component({
@@ -60,6 +61,32 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.subscriptions.push(chartFilterSubscription);
 
     this.getChartData(this.currentChartFilterSettings);
+  }
+
+  deleteCampaign() {
+    this.advertiserService.deleteCampaign(this.campaign.id)
+      .subscribe(
+        data => {
+          this.dialog.open(ConfirmResponseDialogComponent, (data && data.message) ? {
+            data: {
+              message: data.message,
+            }
+          } : null);
+
+          this.router.navigate(
+            ['/advertiser'],
+          );
+        },
+
+        () => {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Campaign cannot be deleted`,
+              message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
+            }
+          });
+        }
+      );
   }
 
   getChartData(chartFilterSettings) {

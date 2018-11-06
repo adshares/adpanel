@@ -30,6 +30,10 @@ export class AdvertiserService {
     return this.http.delete(`${environment.apiUrl}/campaigns/${id}/banner/${bId}`);
   }
 
+  deleteCampaign(id: number): Observable<Campaign> {
+    return this.http.delete<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
+  }
+
   saveCampaign(campaign: Campaign): Observable<Campaign> {
     if (campaign.targetingArray) {
       const targetingObject = parseTargetingForBackend(campaign.targetingArray);
