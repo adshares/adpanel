@@ -394,6 +394,10 @@
             </div>
 
             <iframe
+              [ngStyle]="{
+                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+              }"
               *ngIf="adForm.get('image') && adForm.get('image').value.src"
               [src]="adForm.get('image').value.src | trustUrl"
             >
@@ -402,6 +406,11 @@
 
             <div *ngIf="ads[i].html">
               <iframe
+              [ngStyle]="{
+                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+              }"
+
                 [srcdoc]="ads[i].html | trustHtml"
               ></iframe>
 

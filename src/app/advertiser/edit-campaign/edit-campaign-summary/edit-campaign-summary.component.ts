@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Router, ActivatedRoute} from '@angular/router';
 import 'rxjs/add/operator/first';
 
-import { AppState } from 'models/app-state.model';
-import { Campaign } from 'models/campaign.model';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { AdvertiserService } from 'advertiser/advertiser.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adStatusesEnum } from 'models/enum/ad.enum';
+import {AppState} from 'models/app-state.model';
+import {Campaign} from 'models/campaign.model';
+import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import {AdvertiserService} from 'advertiser/advertiser.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {adStatusesEnum} from 'models/enum/ad.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import { HandleSubscription } from 'common/handle-subscription';
-import { TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
+import {HandleSubscription} from 'common/handle-subscription';
+import {TargetingOption} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
 
@@ -40,7 +40,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((campaign: Campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
@@ -52,47 +52,57 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
   }
 
-  saveCampaign(isDraft) {
+  saveCampaign(isDraft): void {
     if (!isDraft) {
       this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
       this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
     }
 
-    if (this.campaign.id && this.campaign.id !== 0) {
-        this.advertiserService.updateCampaign(this.campaign.id, this.campaign).subscribe(
-            () => {
-                this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
-                this.router.navigate(['/advertiser', 'dashboard']);
-            },
-
-            (err) => {
-                this.dialog.open(ErrorResponseDialogComponent, {
-                    data: {
-                        title: 'Ups! Something went wrong...',
-                        message: `We weren\'t able to save your campaign due to this error:  ${err}. Please try again later.`,
-                    }
-                });
-            }
-        );
-
-        return;
+    if (this.isEditMode()) {
+      this.editCampaign();
+    } else {
+      this.createNewCampaign();
     }
+  }
 
+  private isEditMode(): boolean {
+    return this.campaign.id && this.campaign.id !== 0;
+  }
+
+  private editCampaign(): void {
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign).subscribe(
+      () => {
+        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
+        this.router.navigate(['/advertiser', 'dashboard']);
+      },
+
+      (err) => {
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to add a new campaign due to this error:  ${err}. Please try again later.`,
+          }
+        });
+      }
+    );
+  }
+
+  private createNewCampaign(): void {
     this.advertiserService.saveCampaign(this.campaign).subscribe(
-        () => {
-            this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(this.campaign));
-            this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
-            this.router.navigate(['/advertiser', 'dashboard']);
-        },
+      () => {
+        this.store.dispatch(new advertiserActions.AddCampaignToCampaignsSuccess(this.campaign));
+        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
+        this.router.navigate(['/advertiser', 'dashboard']);
+      },
 
-        (err) => {
-            this.dialog.open(ErrorResponseDialogComponent, {
-                data: {
-                    title: 'Ups! Something went wrong...',
-                    message: `We weren\'t able to save your campaign due to this error:  ${err}. Please try again later.`,
-                }
-            });
-        }
+      (err) => {
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to update your campaign due to this error:  ${err}. Please try again later.`,
+          }
+        });
+      }
     );
   }
 

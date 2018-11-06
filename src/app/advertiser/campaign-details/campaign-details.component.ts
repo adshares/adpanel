@@ -17,6 +17,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {MatDialog} from "@angular/material";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import * as codes from 'common/utilities/codes';
 
 @Component({
   selector: 'app-campaign-details',
@@ -110,7 +111,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       .subscribe(
           () => {},
         (err) => {
-          if (err.status === 404) {
+          if (err.status === codes.HTTP_NOT_FOUND) {
             this.dialog.open(ErrorResponseDialogComponent, {
               data: {
                 title: `Campaign cannot be found`,

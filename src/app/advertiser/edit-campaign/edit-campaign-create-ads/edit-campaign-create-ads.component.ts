@@ -197,6 +197,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
      Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
      this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
      this.imagesStatus.validation.splice(adIndex, 1);
+
+     this.adsSubmitted = false;
   }
 
   saveHtml(adIndex) {
@@ -257,6 +259,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       this.adForms.forEach((form, index) => this.updateAdInfo(index));
       this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
+    } else {
+        this.changesSaved = false;
     }
   }
 

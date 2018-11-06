@@ -4,8 +4,7 @@ interface Site {
   id?: number;
   status: number;
   name: string;
-  primaryLanguage: number;
-
+  primaryLanguage: string;
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
@@ -49,4 +48,10 @@ interface AdUnitSize {
   selected?: boolean;
 }
 
-export { Site, AdUnit, AdUnitSize, SitesTotals };
+interface SiteLanguage {
+  name: string,
+  code: string,
+}
+
+
+export { Site, AdUnit, AdUnitSize, SitesTotals, SiteLanguage };
