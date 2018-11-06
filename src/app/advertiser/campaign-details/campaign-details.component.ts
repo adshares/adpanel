@@ -66,13 +66,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   deleteCampaign() {
     this.advertiserService.deleteCampaign(this.campaign.id)
       .subscribe(
-        data => {
-          this.dialog.open(ConfirmResponseDialogComponent, (data && data.message) ? {
-            data: {
-              message: data.message,
-            }
-          } : null);
-
+        () => {
           this.router.navigate(
             ['/advertiser'],
           );
