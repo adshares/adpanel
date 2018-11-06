@@ -7,7 +7,7 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
+import {Site, SiteLanguage} from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
@@ -18,7 +18,7 @@ import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TargetingOption } from 'models/targeting-option.model';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import * as publisherActions from 'store/publisher/publisher.actions';
+import * as PublisherActions from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
 import {MatDialog} from "@angular/material";
@@ -31,6 +31,7 @@ import {MatDialog} from "@angular/material";
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
   siteStatusEnum = siteStatusEnum;
+  language: SiteLanguage;
 
   ObjectKeys = Object.keys;
   filtering: AssetTargeting = {
@@ -64,6 +65,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site = this.route.snapshot.data.site;
 
     this.getFiltering();
+    this.getLanguages();
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -74,6 +76,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.getChartData(this.currentChartFilterSettings);
   }
 
+  getLanguages() {
+    this.store.select('state', 'publisher', 'languagesList')
+      .subscribe((languagesList) => {
+        this.language = languagesList.find(lang => lang.code === this.site.primaryLanguage);
+
+        if (!languagesList.length) {
+          this.store.dispatch(new PublisherActions.GetLanguagesList());
+        }
+      });
+  }
   getChartData(chartFilterSettings) {
     this.barChartData.forEach(values => values[0].data = [] );
 
@@ -98,7 +110,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToEditSite() {
-    this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
+    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
       ['/publisher', 'edit-site', 'summary'],
       { queryParams: { step: 4} }
@@ -106,7 +118,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToCreateAdUnits() {
-    this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
+    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
       ['/publisher', 'edit-site', 'create-ad-units'],
       { queryParams: { step: 3, summary: true} }
