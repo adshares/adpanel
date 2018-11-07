@@ -75,11 +75,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   deleteSite() {
-    if (confirm('Do you confirm deletion?'))
+    if (confirm('Do you confirm deletion?')) {
       this.publisherService.deleteSite(this.site.id)
         .subscribe(
-          (confirmed) => {
-            if (!confirmed) alert();
+          () => {
             this.router.navigate(['/publisher', 'dashboard']);
           },
           () => {
@@ -91,6 +90,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
             });
           }
         );
+    }
   }
 
   getLanguages() {
