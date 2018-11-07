@@ -8,7 +8,8 @@ import { Notification } from 'models/notification.model';
 @Injectable()
 export class CommonService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getNotifications(): Observable<Notification[]> {
     return this.http.get<Notification[]>(`${environment.apiUrl}/notifications`);

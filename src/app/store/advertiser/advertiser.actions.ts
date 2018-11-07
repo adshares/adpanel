@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Campaign, CampaignBasicInformation, Ad } from 'models/campaign.model';
+import { Ad, Campaign, CampaignBasicInformation } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
@@ -17,62 +17,84 @@ export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
-  constructor(public payload: any) { }
+
+  constructor(public payload: any) {
+  }
 }
 
 export class SetLastEditedCampaign implements Action {
   readonly type = SET_LAST_EDITED_CAMPAIGN;
-  constructor(public payload: Campaign) { }
+
+  constructor(public payload: Campaign) {
+  }
 }
 
 export class SaveCampaignBasicInformation implements Action {
   readonly type = SAVE_CAMPAIGN_BASIC_INFORMATION;
-  constructor(public payload: CampaignBasicInformation) { }
+
+  constructor(public payload: CampaignBasicInformation) {
+  }
 }
 
 export class SaveCampaignTargeting implements Action {
   readonly type = SAVE_CAMPAIGN_TARGETING;
-  constructor(public payload: AssetTargeting) { }
+
+  constructor(public payload: AssetTargeting) {
+  }
 }
 
 export class SaveCampaignAds implements Action {
   readonly type = SAVE_CAMPAIGN_ADS;
-  constructor(public payload: Ad[]) { }
+
+  constructor(public payload: Ad[]) {
+  }
 }
 
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
-  constructor(public payload: Campaign) { }
+
+  constructor(public payload: Campaign) {
+  }
 }
 
 export class AddCampaignToCampaignsSuccess implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS;
-  constructor(public payload: Campaign) { }
+
+  constructor(public payload: Campaign) {
+  }
 }
 
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
-  constructor(public payload: TimespanFilter) { }
+
+  constructor(public payload: TimespanFilter) {
+  }
 }
 
 export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
-  constructor(public payload: any) { }
+
+  constructor(public payload: any) {
+  }
 }
 
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
-  constructor(public payload: TimespanFilter) { }
+
+  constructor(public payload: TimespanFilter) {
+  }
 }
 
 export class LoadCampaignsTotalsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS_SUCCESS;
-  constructor(public payload: any) { }
+
+  constructor(public payload: any) {
+  }
 }
 
 export type actions =
   ClearLastEditedCampaign |
-  SetLastEditedCampaign|
+  SetLastEditedCampaign |
   SaveCampaignBasicInformation |
   SaveCampaignTargeting |
   SaveCampaignAds |

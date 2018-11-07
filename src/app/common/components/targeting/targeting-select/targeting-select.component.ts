@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { findOptionList, findOption, getParentId, getLabelPath } from 'common/components/targeting/targeting.helpers';
+import { findOption, findOptionList, getLabelPath, getParentId } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({
@@ -130,7 +130,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
         (option) => option.id === oppositeOption.id
       );
 
-      Object.assign(oppositeOption, { selected: false });
+      Object.assign(oppositeOption, {selected: false});
       this.selectedItems.splice(opositeOptionIndex, 1);
     }
   }
@@ -147,7 +147,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       const itemInOptionsIndex = this.addedItems.findIndex((addedItem) => addedItem.id === option.id);
 
       if (itemInOptionsIndex < 0) {
-        Object.assign(option, { selected: false });
+        Object.assign(option, {selected: false});
       }
     });
   }
@@ -188,11 +188,11 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     // prepare list only for options that are not on bottom level as search
     // is done through visible items then
     options.forEach((option) => {
-       //not genering path for top level options
+      //not genering path for top level options
       if (option.id.split('-').length > 1) {
         const path = getLabelPath(option.id, this.targetingOptions);
 
-        Object.assign(option, { path });
+        Object.assign(option, {path});
       }
 
       this.targetingOptionsForSearch.push(option);
@@ -241,7 +241,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       const item = findOption(savedItem.id, this.targetingOptions);
 
       if (item) {
-        Object.assign(item, { selected: true });
+        Object.assign(item, {selected: true});
       }
     });
   }

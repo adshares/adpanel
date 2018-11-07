@@ -12,8 +12,8 @@ import { SessionService } from "app/session.service";
 })
 export class CustomizeAccountChooseDialogComponent {
   accounts = {
-    advertiser: { selected: false },
-    publisher: { selected: false },
+    advertiser: {selected: false},
+    publisher: {selected: false},
     isSelected: true
   };
 
@@ -22,7 +22,8 @@ export class CustomizeAccountChooseDialogComponent {
     private api: ApiService,
     private session: SessionService,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   checkAccountProperty(accounts) {
     if (accounts.advertiser.selected || accounts.publisher.selected) {

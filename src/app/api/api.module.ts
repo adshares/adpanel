@@ -8,10 +8,8 @@ import { ApiUsersService } from './users.service';
 
 
 @NgModule({
-  imports: [
-  ],
-  declarations: [
-  ],
+  imports: [],
+  declarations: [],
   providers: [
     ApiService,
     ApiAuthService,
@@ -20,4 +18,5 @@ import { ApiUsersService } from './users.service';
     ApiUsersService,
   ]
 })
-export class ApiModule { }
+export class ApiModule {
+}

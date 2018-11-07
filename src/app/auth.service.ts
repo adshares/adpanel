@@ -13,7 +13,8 @@ export class AuthService {
     private router: Router,
     private api: ApiService,
     private session: SessionService,
-  ) {}
+  ) {
+  }
 
   logout() {
     this.api.auth.logout().subscribe(

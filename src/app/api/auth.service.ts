@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { User, LocalStorageUser } from 'models/user.model';
-import {Site} from "models/site.model";
-import {parseTargetingForBackend} from "common/components/targeting/targeting.helpers";
+import { User } from 'models/user.model';
 
 @Injectable()
 export class ApiAuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   // user access
 
@@ -29,12 +28,12 @@ export class ApiAuthService {
   }
 
   recoveryPost(email: string, uri: string) {
-    return this.http.post(`${environment.authUrl}/recovery`, { email, uri });
+    return this.http.post(`${environment.authUrl}/recovery`, {email, uri});
   }
 
   // ANY access
   login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.authUrl}/login`, { email, password });
+    return this.http.post<User>(`${environment.authUrl}/login`, {email, password});
   }
 
 }

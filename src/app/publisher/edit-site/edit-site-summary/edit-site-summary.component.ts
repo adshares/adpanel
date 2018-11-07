@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material";
 
-import {AppState} from 'models/app-state.model';
-import {Site} from 'models/site.model';
-import {siteStatusEnum} from 'models/enum/site.enum';
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adUnitStatusesEnum} from 'models/enum/ad.enum';
+import { AppState } from 'models/app-state.model';
+import { Site } from 'models/site.model';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adUnitStatusesEnum } from 'models/enum/ad.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {HandleSubscription} from 'common/handle-subscription';
-import {TargetingOption} from 'models/targeting-option.model';
-import {cloneDeep} from 'common/utilities/helpers';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
+import { HandleSubscription } from 'common/handle-subscription';
+import { TargetingOption } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
 
 @Component({
   selector: 'app-edit-site-summary',

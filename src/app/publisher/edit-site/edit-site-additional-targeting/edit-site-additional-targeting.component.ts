@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
@@ -12,7 +12,6 @@ import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
-import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
@@ -82,7 +81,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
       this.router.navigate(
         ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
-        { queryParams: { step: param } }
+        {queryParams: {step: param}}
       );
 
       return;

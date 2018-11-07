@@ -70,7 +70,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, { adsharesAddress: address });
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {adsharesAddress: address});
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
     this.store.dispatch(new authActions.UpdateUserAddress(address));

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from "@angular/material/dialog";
 
 import { SessionService } from "app/session.service";
@@ -19,13 +18,15 @@ export class EmailProcessingComponent {
   token: any;
   ObjectKeys = Object.keys;
   error: boolean = false;
+
   constructor(
     private api: ApiService,
     private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.action = this.route.snapshot.url[0].path;
@@ -36,11 +37,11 @@ export class EmailProcessingComponent {
     // this should not happen
     if (!this.token) {
       this.defaultRedirect();
-      this.dialogError('Action stopped','Missing Token');
+      this.dialogError('Action stopped', 'Missing Token');
       return;
     }
 
-    switch(this.action) {
+    switch (this.action) {
       case 'email-activation':
         this.emailActivation();
         return;
@@ -53,17 +54,17 @@ export class EmailProcessingComponent {
     }
 
     this.defaultRedirect();
-    this.dialogError('Action stopped','Unknown execution');
+    this.dialogError('Action stopped', 'Unknown execution');
   }
 
   defaultRedirect() {
     const user = this.session.getUser();
     if (!user) {
-        this.router.navigate(['/auth/login']);
-        return;
+      this.router.navigate(['/auth/login']);
+      return;
     }
     const chooseAccount = this.session.getAccountTypeChoice();
-    this.router.navigate(['/'+chooseAccount+'/dashboard']);
+    this.router.navigate(['/' + chooseAccount + '/dashboard']);
   }
 
   dialogError(title, message) {
@@ -75,8 +76,8 @@ export class EmailProcessingComponent {
     });
   }
 
-  dialogConfirm(title,message) {
-    this.dialog.open(ConfirmResponseDialogComponent,{
+  dialogConfirm(title, message) {
+    this.dialog.open(ConfirmResponseDialogComponent, {
       data: {
         title: title,
         message: message,
@@ -100,11 +101,11 @@ export class EmailProcessingComponent {
         (user) => {
           this.updateUserEmail(user);
           this.defaultRedirect();
-          this.dialogConfirm('Email activation complete','Your email has been activated. You have now access to all features of the panel.');
+          this.dialogConfirm('Email activation complete', 'Your email has been activated. You have now access to all features of the panel.');
         },
         (err) => {
           this.defaultRedirect();
-          this.dialogError('Email activation failed','Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.');
+          this.dialogError('Email activation failed', 'Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.');
         }
       );
   }
@@ -114,14 +115,14 @@ export class EmailProcessingComponent {
       .subscribe(
         () => {
           this.defaultRedirect();
-          this.dialogConfirm('Changing email is a 2 step process','Now you need to verify your new email address.\nWe have sent an activation email to your new email address. Please check your incoming messages.');
+          this.dialogConfirm('Changing email is a 2 step process', 'Now you need to verify your new email address.\nWe have sent an activation email to your new email address. Please check your incoming messages.');
         },
         (err) => {
           this.defaultRedirect();
           if (err.error.errors.message) {
-            this.dialogError('Email change process step failed',err.error.errors.message );
+            this.dialogError('Email change process step failed', err.error.errors.message);
           } else {
-            this.dialogError('Email change process step failed', 'Unknown error. Please contact support.' );
+            this.dialogError('Email change process step failed', 'Unknown error. Please contact support.');
           }
         }
       );
@@ -133,14 +134,14 @@ export class EmailProcessingComponent {
         (user) => {
           this.updateUserEmail(user);
           this.defaultRedirect();
-          this.dialogConfirm('Email change process complete','Requested email address is now assigned to your account.');
+          this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
         },
         (err) => {
           this.defaultRedirect();
           if (err.error.errors.message) {
-            this.dialogError('Email change process final step failed',err.error.errors.message );
+            this.dialogError('Email change process final step failed', err.error.errors.message);
           } else {
-            this.dialogError('Email change process final step failed', 'Unknown error. Please contact support.' );
+            this.dialogError('Email change process final step failed', 'Unknown error. Please contact support.');
           }
         }
       );

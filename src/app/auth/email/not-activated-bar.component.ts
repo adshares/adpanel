@@ -17,11 +17,13 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 export class EmailNotActivatedBarComponent implements OnInit {
   user: User;
   isEmailConfirmed;
+
   constructor(
     private api: ApiService,
     private session: SessionService,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.isEmailConfirmed = this.session.getUser().isEmailConfirmed;
@@ -30,22 +32,22 @@ export class EmailNotActivatedBarComponent implements OnInit {
   resendActivationEmail() {
     this.api.users.emailActivateResend("/auth/email-activation/")
       .subscribe(
-          () => {
-            this.dialog.open(ConfirmResponseDialogComponent,{
-              data: {
-                title: 'Email activation',
-                message: 'We have just sent you a new email with activation link.\n Please check your incoming messages and activate your email account to get access to all features of the panel.'
-              }
-            });
-          },
-          (err) => {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: 'Resend failed',
-                message: err.error.errors.message,
-              }
-            });
-          }
+        () => {
+          this.dialog.open(ConfirmResponseDialogComponent, {
+            data: {
+              title: 'Email activation',
+              message: 'We have just sent you a new email with activation link.\n Please check your incoming messages and activate your email account to get access to all features of the panel.'
+            }
+          });
+        },
+        (err) => {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Resend failed',
+              message: err.error.errors.message,
+            }
+          });
+        }
       );
   }
 }

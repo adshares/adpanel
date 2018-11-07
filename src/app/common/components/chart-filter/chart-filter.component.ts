@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -6,9 +6,8 @@ import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 import * as moment from 'moment';
-import { appSettings } from 'app-settings';
-import {filterPresetsEnum} from "models/enum/chart.enum";
-import {enumToObjectArray} from "common/utilities/helpers";
+import { filterPresetsEnum } from "models/enum/chart.enum";
+import { enumToObjectArray } from "common/utilities/helpers";
 
 @Component({
   selector: 'app-chart-filter',
