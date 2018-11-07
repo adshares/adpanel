@@ -10,9 +10,11 @@ import { siteStatusEnum } from 'models/enum/site.enum.ts';
 export class SiteListItemComponent {
   @Input() site;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   siteStatusEnum = siteStatusEnum;
+
   navigateToCampaignDetails(siteId: number) {
     this.router.navigate(['/publisher', 'site', siteId]);
   }

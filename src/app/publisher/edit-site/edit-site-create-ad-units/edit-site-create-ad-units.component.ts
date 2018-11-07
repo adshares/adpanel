@@ -1,23 +1,21 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
-import {ActivatedRoute} from '@angular/router';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adTypesEnum, adSizesEnum, adUnitStatusesEnum} from 'models/enum/ad.enum';
-import {enumToArray, cloneDeep} from 'common/utilities/helpers';
-import {Site} from 'models/site.model';
-import {AppState} from 'models/app-state.model';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
-import {AdUnitSize} from 'models/site.model';
-import {adUnitInitialState} from 'models/initial-state/ad-unit';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adSizesEnum, adTypesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
+import { cloneDeep, enumToArray } from 'common/utilities/helpers';
+import { AdUnitSize, Site } from 'models/site.model';
+import { AppState } from 'models/app-state.model';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { adUnitInitialState } from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {MatDialog} from "@angular/material";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',

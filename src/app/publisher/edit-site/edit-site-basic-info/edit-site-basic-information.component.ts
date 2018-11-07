@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/take';
 
-import {AppState} from 'models/app-state.model';
+import { AppState } from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
-import {cloneDeep} from 'common/utilities/helpers';
-import {siteInitialState} from 'models/initial-state/site';
-import {Site, SiteLanguage} from 'models/site.model';
+import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import { cloneDeep } from 'common/utilities/helpers';
+import { siteInitialState } from 'models/initial-state/site';
+import { Site, SiteLanguage } from 'models/site.model';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -59,7 +59,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     const editSiteStep = this.goesToSummary ? 'summary' : 'additional-filtering';
     const param = this.goesToSummary ? 4 : 2;
 
-    this.site ={
+    this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
       primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value,

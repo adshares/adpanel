@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Notification } from 'models/notification.model';
 import {
-  notificationActionsEnum, notificationTypesEnum,
+  notificationActionsEnum,
+  notificationTypesEnum,
   notificationUserTypesEnum
 } from 'models/enum/notifications.enum';
 

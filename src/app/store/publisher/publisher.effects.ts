@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 
 import { PublisherService } from 'publisher/publisher.service';
@@ -10,7 +10,8 @@ export class PublisherEffects {
   constructor(
     private actions$: Actions,
     private service: PublisherService
-  ) { }
+  ) {
+  }
 
   @Effect()
   loadSites$ = this.actions$

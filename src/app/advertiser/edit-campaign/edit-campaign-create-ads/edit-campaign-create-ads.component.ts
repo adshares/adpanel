@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -203,11 +203,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeImage(adIndex) {
-     Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
-     this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
-     this.imagesStatus.validation.splice(adIndex, 1);
+    Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
+    this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
+    this.imagesStatus.validation.splice(adIndex, 1);
 
-     this.adsSubmitted = false;
+    this.adsSubmitted = false;
   }
 
   saveHtml(adIndex) {
@@ -249,9 +249,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   setAdSize(adIndex) {
-      const adForm = this.adForms[adIndex];
-      const adSize = adForm.get('size').value;
-      const adSizeName = this.adSizes[adSize];
+    const adForm = this.adForms[adIndex];
+    const adSize = adForm.get('size').value;
+    const adSizeName = this.adSizes[adSize];
   }
 
   saveCampaignAds(isDraft) {
@@ -269,7 +269,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
     } else {
-        this.changesSaved = false;
+      this.changesSaved = false;
     }
   }
 

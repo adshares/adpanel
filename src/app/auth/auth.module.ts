@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppCommonModule } from 'common/common.module';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -33,4 +32,5 @@ import { ResetPasswordComponent } from "auth/reset-password/reset-password.compo
     ResetPasswordComponent,
   ],
 })
-export class AuthModule { }
+export class AuthModule {
+}

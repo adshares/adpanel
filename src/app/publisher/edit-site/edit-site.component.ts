@@ -21,7 +21,8 @@ export class EditSiteComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.store.select('state', 'publisher', 'lastEditedSite')

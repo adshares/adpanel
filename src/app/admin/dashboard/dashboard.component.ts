@@ -7,7 +7,6 @@ import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { createInitialArray } from 'common/utilities/helpers';
 
@@ -22,8 +21,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: any = createInitialArray({ labels: [] }, 3);
-  barChartData: ChartData[][] = createInitialArray([{ data: [] }], 3);
+  barChartLabels: any = createInitialArray({labels: []}, 3);
+  barChartData: ChartData[][] = createInitialArray([{data: []}], 3);
 
   currentChartFilterSettings: ChartFilterSettings;
 
@@ -45,7 +44,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = [] );
+    this.barChartData.forEach(values => values[0].data = []);
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(

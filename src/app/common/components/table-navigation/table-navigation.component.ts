@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { TableColumnMetaData } from 'models/table.model';
 
@@ -14,43 +14,43 @@ export class TableNavigationComponent implements OnInit {
   navigationItems: TableColumnMetaData[] = [];
 
   adListNavigationItems = [
-    { title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true },
-    { title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true },
-    { title: 'Type', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true },
-    { title: 'Budget', columnWidth: 'col-xs-1', keys: ['budget'], sortAsc: true },
-    { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
-    { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true },
-    { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true },
-    { title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true }
+    {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
+    {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
+    {title: 'Type', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true},
+    {title: 'Budget', columnWidth: 'col-xs-1', keys: ['budget'], sortAsc: true},
+    {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
+    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true},
+    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true},
+    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
   ];
 
   campaignListNavigationItems = [
-    { title: 'Status', columnWidth: 'col-xs-1', keys: ['basicInformation', 'status'], sortAsc: true },
-    { title: 'Campaign Title', columnWidth: 'col-xs-4', keys: ['basicInformation', 'name'], sortAsc: true },
-    { title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true },
-    { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
-    { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true },
-    { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true },
-    { title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true }
+    {title: 'Status', columnWidth: 'col-xs-1', keys: ['basicInformation', 'status'], sortAsc: true},
+    {title: 'Campaign Title', columnWidth: 'col-xs-4', keys: ['basicInformation', 'name'], sortAsc: true},
+    {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
+    {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
+    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'CTR', columnWidth: 'col-xs-1', keys: ['CTR'], sortAsc: true},
+    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true},
+    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
   ];
 
   siteListNavigationItems = [
-    { title: 'Status', columnWidth: 'col-xs-1', keys: ['adUnits'], sortAsc: true },
-    { title: 'Website Name', columnWidth: 'col-xs-4', keys: ['name'], sortAsc: true },
-    { title: 'Estimated Earnings', columnWidth: 'col-xs-1', keys: ['estimatedEarnings'], sortAsc: true },
-    { title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true },
-    { title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true },
-    { title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['RPM'], sortAsc: true },
-    { title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true }
+    {title: 'Status', columnWidth: 'col-xs-1', keys: ['adUnits'], sortAsc: true},
+    {title: 'Website Name', columnWidth: 'col-xs-4', keys: ['name'], sortAsc: true},
+    {title: 'Estimated Earnings', columnWidth: 'col-xs-1', keys: ['estimatedEarnings'], sortAsc: true},
+    {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
+    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['RPM'], sortAsc: true},
+    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true}
   ];
 
   userListNavigationItems = [
-    { title: '', columnWidth: 'col-xs-4' },
-    { title: '', columnWidth: 'col-xs-2' },
-    { title: 'Profit', columnWidth: 'col-xs-2', keys: ['profit'], sortAsc: true },
-    { title: 'Top used keywords', columnWidth: 'col-xs-4' }
+    {title: '', columnWidth: 'col-xs-4'},
+    {title: '', columnWidth: 'col-xs-2'},
+    {title: 'Profit', columnWidth: 'col-xs-2', keys: ['profit'], sortAsc: true},
+    {title: 'Top used keywords', columnWidth: 'col-xs-4'}
   ];
 
   ngOnInit() {

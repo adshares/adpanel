@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonService } from 'common/common.service';
 
 import { SessionService } from "app/session.service";
@@ -6,7 +6,8 @@ import { SessionService } from "app/session.service";
 import { Notification } from 'models/notification.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import {
-  notificationActionsEnum, notificationTypesEnum,
+  notificationActionsEnum,
+  notificationTypesEnum,
   notificationUserTypesEnum
 } from 'models/enum/notifications.enum';
 

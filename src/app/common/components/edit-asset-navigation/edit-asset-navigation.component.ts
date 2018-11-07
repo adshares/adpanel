@@ -9,10 +9,10 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class EditAssetNavigationComponent implements OnInit {
   steps = [
-    { id: 1, name: 'Basic Information' },
-    { id: 2, name: 'Additional Targeting' },
-    { id: 3, name: 'Create Ads' },
-    { id: 4, name: 'Summary' }
+    {id: 1, name: 'Basic Information'},
+    {id: 2, name: 'Additional Targeting'},
+    {id: 3, name: 'Create Ads'},
+    {id: 4, name: 'Summary'}
   ];
 
   currentStep: number;

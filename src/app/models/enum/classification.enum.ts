@@ -1,5 +1,5 @@
 export enum classificationStatusesEnum {
-    DISABLED,
-    PROCESSING,
-    ENABLED
+  DISABLED,
+  PROCESSING,
+  ENABLED
 }

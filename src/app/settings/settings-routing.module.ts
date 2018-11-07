@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { SettingsComponent } from './settings.component';
 import { GeneralSettingsComponent } from './general-settings/general-settings.component';
@@ -10,8 +10,8 @@ const settingsRoutes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     children: [
-      { path: 'general', component: GeneralSettingsComponent },
-      { path: 'billing', component: BillingComponent }
+      {path: 'general', component: GeneralSettingsComponent},
+      {path: 'billing', component: BillingComponent}
     ]
   },
 ];
@@ -24,4 +24,5 @@ const settingsRoutes: Routes = [
     RouterModule
   ]
 })
-export class SettingsRoutingModule { }
+export class SettingsRoutingModule {
+}
