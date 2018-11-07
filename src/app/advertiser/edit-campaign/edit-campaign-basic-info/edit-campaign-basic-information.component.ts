@@ -11,6 +11,7 @@ import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
+import { calcCampaignBudgetPerDay, calcCampaignBudgetPerHour } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -20,6 +21,7 @@ import { appSettings } from 'app-settings';
 export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
+  budgetPerDay = new FormControl();
   dateStart = new FormControl();
   dateEnd = new FormControl();
   today = new Date();
@@ -83,6 +85,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       budget: new FormControl(initialBasicinfo.budget, Validators.required),
     });
 
+    this.budgetPerDay.valueChanges
+      .subscribe((val) => {
+        this.campaignBasicInfoForm.get('budget').setValue(calcCampaignBudgetPerHour(val).toFixed(11));
+      });
+
     this.getFormDataFromStore();
   }
 
@@ -90,6 +97,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
       .subscribe((lastEditedCampaign) => {
         this.campaignBasicInfoForm.patchValue(lastEditedCampaign);
+
+        if (lastEditedCampaign.budget) {
+          this.budgetPerDay.setValue(calcCampaignBudgetPerDay(lastEditedCampaign.budget));
+        }
+
         this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
 
         if (lastEditedCampaign.dateEnd) {

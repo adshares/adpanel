@@ -192,6 +192,51 @@
             row
             no-gutters"
         >
+
+          <div
+            class="
+              col
+              col-xs-5"
+          >
+            <div class="relative">
+              <label
+                for="campaign-budget-per-day"
+                class="adsh-form-label"
+              >
+                Budget (ADS / day)
+              </label>
+              <input
+                id="campaign-budget-per-day"
+                class="
+                  adsh-form-input
+                  input-budget"
+                type="number"
+                min="0.01"
+                name="campaignBudgetPerDay"
+                [formControl]="budgetPerDay"
+                data-test="advertiser-edit-campaign-basic-information-form-budget-per-day"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('budget').valid"
+                class="input-valid"
+              ></span>
+            </div>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('required', ['budget']) &&
+                campaignBasicInformationSubmitted"
+            >
+              Budget required
+            </span>
+          </div>
+          <!-- divider -->
+          <div
+            class="
+              col
+              col-xs-2"
+          >
+          </div>
           <div
             class="
               col
@@ -213,6 +258,7 @@
                 min="0.01"
                 name="campaignBudget"
                 formControlName="budget"
+                [readonly]="true"
                 data-test="advertiser-edit-campaign-basic-information-form-budget"
               >
               <span

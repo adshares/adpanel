@@ -54,7 +54,7 @@
           align-center"
         data-test="advertiser-campaign-bduget"
       >
-        <span>{{ campaign.basicInformation.budget | number:'1.2-2' }}/day</span>
+        <span>{{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.2-2' }}/day</span>
       </div>
       <div
         class="

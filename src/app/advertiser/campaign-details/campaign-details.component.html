@@ -235,7 +235,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-budget"
           >
-            {{ campaign.basicInformation.budget | number:'1.0-11' }}
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.0-11' }}
           </p>
         </div>
         <div>
@@ -360,7 +360,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-budget"
         >
-          {{ campaign.basicInformation.budget | number:'1.2-2' }}/day
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.2-2' }}/day
         </p>
         <p
           class="

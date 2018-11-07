@@ -28,6 +28,7 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
+import { CampaignBudgetPerDayPipe } from "common/pipes/campaign-budget-per-day.pipe";
 import { TrustUrlPipe } from 'common/pipes/trust.pipe';
 import { TrustHtmlPipe } from 'common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
@@ -79,6 +80,7 @@ const advertiserComponents = [
     TargetingCriteriaResolver
   ],
   declarations: [
+    CampaignBudgetPerDayPipe,
     TrustUrlPipe,
     TrustHtmlPipe,
     ...advertiserComponents,

@@ -1,5 +1,21 @@
 import { TableColumnMetaData } from 'models/table.model';
 
+/**
+ * Calculates campaign budget per hour in ADS.
+ * @param budgetPerHour budget/hour in ADS
+ */
+function calcCampaignBudgetPerDay(budgetPerHour: number): number {
+  return budgetPerHour * 24;
+}
+
+/**
+ * Calculates campaign budget per day in ADS.
+ * @param budgetPerDay budget/day in ADS
+ */
+function calcCampaignBudgetPerHour(budgetPerDay: number): number {
+  return Math.floor(budgetPerDay * 100000000000 / 24) / 100000000000;
+}
+
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
 }
@@ -95,6 +111,8 @@ function findValueByPathArray(object, pathArray) {
 }
 
 export {
+  calcCampaignBudgetPerDay,
+  calcCampaignBudgetPerHour,
   cloneDeep,
   enumToArray,
   enumToObject,
