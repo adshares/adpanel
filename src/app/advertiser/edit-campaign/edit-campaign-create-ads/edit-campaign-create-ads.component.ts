@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -61,6 +61,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     validation: []
   };
 
+  isEditMode: boolean = false;
+
   constructor(
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
@@ -72,6 +74,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   ngOnInit() {
+    this.isEditMode = !!this.router.url.match('/edit-campaign/');
+
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
@@ -86,7 +90,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
         if (savedAds) {
           savedAds.forEach((savedAd, index) => {
-            this.adForms.push(this.generateFormField(savedAd));
+            this.adForms.push(this.generateFormField(savedAd, this.isEditMode));
             this.ads.push(cloneDeep(savedAd));
             this.adPanelsStatus[index] = false;
           });
@@ -94,6 +98,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
+
     this.subscriptions.push(lastCampaignSubscription);
   }
 
@@ -103,7 +108,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.ads.push(cloneDeep(adInitialState));
-    this.adForms.push(this.generateFormField(adInitialState));
+    this.adForms.push(this.generateFormField(adInitialState, false));
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus.push(true);
   }
@@ -113,19 +118,23 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     this.adPanelsStatus[adIndex] = true;
   }
 
-  generateFormField(ad) {
-    const attachmentField = ad.type === adTypesEnum.IMAGE
-      ? {name: ad.name, src: ad.imageUrl || '', size: ad.size}
-      : (ad.html || '');
+  generateFormField(ad, disabledMode: boolean = false) {
     const adTypeName = this.adTypes[ad.type];
     const formGroup = new FormGroup({
       name: new FormControl(ad.name, Validators.required),
-      type: new FormControl(ad.type),
-      size: new FormControl(ad.size),
+      type: new FormControl({value: ad.type, disabled: disabledMode}),
+      size: new FormControl({value: ad.size, disabled: disabledMode}),
       status: new FormControl(ad.status)
     });
 
-    formGroup.controls[adTypeName] = new FormControl(attachmentField);
+    let state = {};
+    if (ad.type === adTypesEnum.IMAGE) {
+      state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
+    } else {
+      state = {value: ad.html, disabled: disabledMode};
+    }
+
+    formGroup.controls[adTypeName] = new FormControl(state);
     formGroup.updateValueAndValidity();
 
     return formGroup;
