@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AdvertiserComponent } from './advertiser.component';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
@@ -19,8 +19,8 @@ const advertiserRoutes: Routes = [
     component: AdvertiserComponent,
     canActivate: [AdvertiserGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
-      { path: 'dashboard', component: DashboardComponent },
+      {path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard'},
+      {path: 'dashboard', component: DashboardComponent},
       {
         path: 'campaign/:id',
         component: CampaignDetailsComponent,
@@ -31,11 +31,13 @@ const advertiserRoutes: Routes = [
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
-        resolve: { targetingOptions: TargetingCriteriaResolver },
+        resolve: {targetingOptions: TargetingCriteriaResolver},
         children: [
-          { path: 'basic-information',
+          {
+            path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
-            canDeactivate: [AdvertiserGuard] },
+            canDeactivate: [AdvertiserGuard]
+          },
           {
             path: 'additional-targeting',
             component: EditCampaignAdditionalTargetingComponent,
@@ -46,7 +48,8 @@ const advertiserRoutes: Routes = [
             component: EditCampaignCreateAdsComponent,
             canDeactivate: [AdvertiserGuard]
           },
-          { path: 'summary',
+          {
+            path: 'summary',
             component: EditCampaignSummaryComponent
           }
         ]
@@ -54,11 +57,13 @@ const advertiserRoutes: Routes = [
       {
         path: 'edit-campaign',
         component: EditCampaignComponent,
-        resolve: { targetingOptions: TargetingCriteriaResolver },
+        resolve: {targetingOptions: TargetingCriteriaResolver},
         children: [
-          { path: 'basic-information',
+          {
+            path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
-            canDeactivate: [AdvertiserGuard] },
+            canDeactivate: [AdvertiserGuard]
+          },
           {
             path: 'additional-targeting',
             component: EditCampaignAdditionalTargetingComponent,
@@ -69,7 +74,8 @@ const advertiserRoutes: Routes = [
             component: EditCampaignCreateAdsComponent,
             canDeactivate: [AdvertiserGuard]
           },
-          { path: 'summary',
+          {
+            path: 'summary',
             component: EditCampaignSummaryComponent
           }
         ]
@@ -86,4 +92,5 @@ const advertiserRoutes: Routes = [
     RouterModule
   ]
 })
-export class AdvertiserRoutingModule { }
+export class AdvertiserRoutingModule {
+}

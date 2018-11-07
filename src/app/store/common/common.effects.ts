@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 
 import { CommonService } from 'common/common.service';
@@ -10,7 +10,8 @@ export class CommonEffects {
   constructor(
     private actions$: Actions,
     private service: CommonService
-  ) {}
+  ) {
+  }
 
   @Effect()
   loadNotifications = this.actions$

@@ -7,7 +7,6 @@ import { AppState } from 'models/app-state.model';
 import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
-import * as publisherActions from 'store/publisher/publisher.actions';
 
 @Component({
   selector: 'app-site-list',
@@ -32,8 +31,8 @@ export class SiteListComponent extends HandleSubscription {
 
   navigateToCreateSite() {
     this.router.navigate(
-      [ 'publisher', 'create-site', 'basic-information'],
-      { queryParams: { step: 1 } }
+      ['publisher', 'create-site', 'basic-information'],
+      {queryParams: {step: 1}}
     );
   }
 }

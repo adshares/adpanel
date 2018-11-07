@@ -2,9 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
-import { adStatusesEnum } from 'models/enum/ad.enum';
+import { adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
 import { Ad } from 'models/campaign.model';
-import { adTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-list-item',

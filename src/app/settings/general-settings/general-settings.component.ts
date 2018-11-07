@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './general-settings.component.html',
   styleUrls: ['./general-settings.component.scss']
 })
-export class GeneralSettingsComponent {}
+export class GeneralSettingsComponent {
+}

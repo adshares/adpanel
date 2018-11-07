@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,7 +10,8 @@ import { User } from "models/user.model";
 @Injectable()
 export class SettingsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getBillingHistory(): Observable<BillingHistoryItem[]> {
     return this.http.get(`${environment.apiUrl}/wallet/history`)
@@ -28,23 +29,23 @@ export class SettingsService {
   }
 
   changeAutomaticWithdraw(period: string, amount: number) {
-    return this.http.post(`${environment.apiUrl}/change_automatic_withdraw`, { period, amount });
+    return this.http.post(`${environment.apiUrl}/change_automatic_withdraw`, {period, amount});
   }
 
   changeWithdrawAddress(newWithdrawAddress: string) {
-    return this.http.patch(`${environment.apiUrl}/wallet/settings`, { newWithdrawAddress });
+    return this.http.patch(`${environment.apiUrl}/wallet/settings`, {newWithdrawAddress});
   }
 
   withdrawFunds(to: string, amount: number, memo: string) {
-    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, { to, amount, memo });
+    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, {to, amount, memo});
   }
 
   changeEmail(email: string, UriStep1: string, UriStep2: string) {
-    return this.http.post(`${environment.authUrl}/email`, { email, UriStep1, UriStep2 });
+    return this.http.post(`${environment.authUrl}/email`, {email, UriStep1, UriStep2});
   }
 
   changePassword(user: object, uri: string) {
-    return this.http.patch(`${environment.authUrl}/self`, { user, uri });
+    return this.http.patch(`${environment.authUrl}/self`, {user, uri});
   }
 
   checkUserStatus(): Observable<User> {

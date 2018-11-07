@@ -9,22 +9,30 @@ export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw am
 
 export class SetUser implements Action {
   readonly type = SET_USER;
-  constructor(public payload: User) { }
+
+  constructor(public payload: User) {
+  }
 }
 
 export class UpdateUserAddress implements Action {
   readonly type = UPDATE_USER_ADDRESS;
-  constructor(public payload: string) { }
+
+  constructor(public payload: string) {
+  }
 }
 
 export class UpdateUserAutomaticWithdrawPeriod implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD;
-  constructor(public payload: number) { }
+
+  constructor(public payload: number) {
+  }
 }
 
 export class UpdateUserAutomaticWithdrawAmount implements Action {
   readonly type = UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT;
-  constructor(public payload: number) { }
+
+  constructor(public payload: number) {
+  }
 }
 
 export type actions =

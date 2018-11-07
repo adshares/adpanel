@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
@@ -12,7 +12,8 @@ export class SettingsEffects {
   constructor(
     private actions$: Actions,
     private service: SettingsService
-  ) { }
+  ) {
+  }
 
   @Effect()
   loadBillingHistory$: Observable<any> = this.actions$

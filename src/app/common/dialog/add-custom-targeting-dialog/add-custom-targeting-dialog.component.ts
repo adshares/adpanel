@@ -3,9 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TargetingOption } from 'models/targeting-option.model';
-import { selectCompare } from 'common/utilities/helpers';
+import { enumToArray, selectCompare } from 'common/utilities/helpers';
 import { customTargetingActionsEnum } from 'models/enum/custom-targeting-actions.enum';
-import { enumToArray } from 'common/utilities/helpers';
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers';
 
 @Component({
@@ -24,7 +23,8 @@ export class AddCustomTargetingDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddCustomTargetingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.selectedCategory = this.data.parentOption;

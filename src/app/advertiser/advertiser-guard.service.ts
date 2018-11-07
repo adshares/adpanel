@@ -1,18 +1,10 @@
-import {
-  Router,
-  CanActivate,
-  CanDeactivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanDeactivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 
 import { SessionService } from "app/session.service";
-import { LocalStorageUser } from 'models/user.model';
 
 export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean
@@ -24,7 +16,8 @@ export class AdvertiserGuard implements CanActivate, CanDeactivate<CanComponentD
   constructor(
     private router: Router,
     private session: SessionService,
-  ) { }
+  ) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot
