@@ -7,6 +7,7 @@ import { Ad, Campaign, CampaignsTotals } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import { EmptyObservable } from "rxjs/observable/EmptyObservable";
 
 @Injectable()
 export class AdvertiserService {
