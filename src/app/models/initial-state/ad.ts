@@ -1,5 +1,5 @@
 import { Ad } from 'models/campaign.model';
-import { adStatusesEnum, adTypesEnum, adSizesEnum } from 'models/enum/ad.enum';
+import { adSizesEnum, adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
 
 export const adInitialState: Ad = {
   id: 0,

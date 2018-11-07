@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatIconModule, MatSliderModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule, MatInputModule, MatSliderModule } from '@angular/material';
 
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -40,4 +39,5 @@ import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dial
     SetYourEarningsDialogComponent
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+}

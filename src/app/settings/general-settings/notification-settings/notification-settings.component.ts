@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'models/app-state.model';
-import { NotificationItem } from 'models/settings.model';
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import * as settingsActions from 'store/settings/settings.actions';

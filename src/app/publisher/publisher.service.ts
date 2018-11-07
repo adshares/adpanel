@@ -1,12 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from 'environments/environment';
-import {Site, SitesTotals, AdUnitSize, SiteLanguage} from 'models/site.model';
-import {TargetingOption} from 'models/targeting-option.model';
-import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
-import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
+import { environment } from 'environments/environment';
+import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 @Injectable()
 export class PublisherService {
@@ -37,6 +37,10 @@ export class PublisherService {
       Object.assign(site, {filtering: targetingObject});
     }
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site});
+  }
+
+  deleteSite(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${environment.apiUrl}/sites/${id}`);
   }
 
   updateSiteStatus(id: number, site: Site): Observable<Site> {

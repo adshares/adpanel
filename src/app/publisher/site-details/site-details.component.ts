@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -7,21 +7,19 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import {Site, SiteLanguage} from 'models/site.model';
+import { Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray } from 'common/utilities/helpers';
-import { enumToArray } from 'common/utilities/helpers';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
+import { createInitialArray, enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
-import { TargetingOption } from 'models/targeting-option.model';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: 'app-site-details',
@@ -44,8 +42,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 6);
-  barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
+  barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
+  barChartData: ChartData[][] = createInitialArray([{data: []}], 6);
 
   currentChartFilterSettings: ChartFilterSettings;
   filteringOptions: TargetingOption[];
@@ -76,6 +74,25 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.getChartData(this.currentChartFilterSettings);
   }
 
+  deleteSite() {
+    if (confirm('Do you confirm deletion?')) {
+      this.publisherService.deleteSite(this.site.id)
+        .subscribe(
+          () => {
+            this.router.navigate(['/publisher', 'dashboard']);
+          },
+          () => {
+            this.dialog.open(ErrorResponseDialogComponent, {
+              data: {
+                title: `Site cannot be deleted`,
+                message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
+              }
+            });
+          }
+        );
+    }
+  }
+
   getLanguages() {
     this.store.select('state', 'publisher', 'languagesList')
       .subscribe((languagesList) => {
@@ -86,8 +103,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         }
       });
   }
+
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = [] );
+    this.barChartData.forEach(values => values[0].data = []);
 
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
@@ -113,7 +131,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
       ['/publisher', 'edit-site', 'summary'],
-      { queryParams: { step: 4} }
+      {queryParams: {step: 4}}
     );
   }
 
@@ -121,7 +139,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
       ['/publisher', 'edit-site', 'create-ad-units'],
-      { queryParams: { step: 3, summary: true} }
+      {queryParams: {step: 3, summary: true}}
     );
   }
 
@@ -142,16 +160,17 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
     this.publisherService.updateSiteStatus(this.site.id, this.site).subscribe(
-        () => {},
-        (err) => {
-          if (err.status === 500) return;
-          this.dialog.open(ErrorResponseDialogComponent, {
-            data: {
-              title: 'Ups! Something went wrong...',
-              message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
-            }
-          });
-        }
+      () => {
+      },
+      (err) => {
+        if (err.status === 500) return;
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
+          }
+        });
+      }
     );
   }
 }

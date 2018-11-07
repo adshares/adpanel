@@ -20,6 +20,7 @@ export class RegisterComponent extends HandleSubscription {
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   user: User;
+
   constructor(
     private api: ApiService,
     private router: Router

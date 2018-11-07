@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { timer } from 'rxjs/observable/timer';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { CommonService } from 'common/common.service';
-import { AppState } from 'models/app-state.model';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { appSettings } from 'app-settings';
-import { userRolesEnum } from 'models/enum/user.enum';
-import { User, LocalStorageUser } from 'models/user.model';
 import { Notification } from 'models/notification.model';
 
 import { AuthService } from 'app/auth.service';
@@ -55,7 +52,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
   }
 
   getNotifications() {
-    if(!this.session.getUser()) {
+    if (!this.session.getUser()) {
       return;
     }
     this.commonService.getNotifications().subscribe(

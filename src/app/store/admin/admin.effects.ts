@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 
 import * as adminActions from './admin.actions';
@@ -10,7 +10,8 @@ export class AdminEffects {
   constructor(
     private actions$: Actions,
     private service: AdminService,
-  ) { }
+  ) {
+  }
 
   @Effect()
   loadUsers$ = this.actions$

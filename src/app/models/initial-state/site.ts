@@ -1,5 +1,5 @@
 import { Site, SitesTotals } from 'models/site.model';
-import { siteStatusEnum, primaryLanguageEnum } from 'models/enum/site.enum';
+import { siteStatusEnum } from 'models/enum/site.enum';
 
 export const sitesTotalsInitialState: SitesTotals = {
   totalEarnings: 0,

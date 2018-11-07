@@ -49,7 +49,7 @@ function enumToObjectArray(enumInput) {
 
   for (let enumMember in enumInput) {
     if (typeof enumInput[enumMember] === 'number') {
-      enumNameArrayObject.push({ id: enumInput[enumMember], name: enumMember.toLowerCase() });
+      enumNameArrayObject.push({id: enumInput[enumMember], name: enumMember.toLowerCase()});
     }
   }
 
@@ -99,7 +99,7 @@ function sortArrayByColumnMetaData<assetItem>(
     if (sortItem < nextSortItem) {
       return sortOrder;
     } else if (sortItem > nextSortItem) {
-      return - sortOrder;
+      return -sortOrder;
     } else {
       return 0;
     }

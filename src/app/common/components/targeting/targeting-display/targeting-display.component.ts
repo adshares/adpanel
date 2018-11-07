@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { TargetingOptionValue } from 'models/targeting-option.model';
 import { getLabelPath } from 'common/components/targeting/targeting.helpers';
@@ -21,7 +21,7 @@ export class TargetingDisplayComponent implements OnChanges {
   }[];
 
   ngOnChanges() {
-      this.prepareItemsToDisplay();
+    this.prepareItemsToDisplay();
   }
 
   prepareItemsToDisplay(): void {

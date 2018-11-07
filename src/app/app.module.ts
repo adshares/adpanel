@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +57,7 @@ const appModules = [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({ state: reducer }),
+    StoreModule.forRoot({state: reducer}),
     // FIXME clean dev import
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
@@ -90,4 +89,5 @@ const appModules = [
     ErrorResponseDialogComponent,
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

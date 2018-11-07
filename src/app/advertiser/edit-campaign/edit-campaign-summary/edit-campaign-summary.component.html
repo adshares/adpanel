@@ -363,7 +363,7 @@
 
         <iframe
           class="campaign-edit-summary__iframe"
-          *ngIf="ad.html"
+          *ngIf="ad.html && ad.html !== ''"
           [srcdoc]="ad.html | trustHtml"
           (mouseover)="toggleTooltip(true, adIndex)"
           (mouseleave)="toggleTooltip(false, adIndex)"

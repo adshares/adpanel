@@ -38,17 +38,17 @@ export class SessionService {
 
   isAdmin(): boolean {
     let u = this.getUser();
-    return u ? (u.isAdmin ? true : false ) : false;
+    return u ? (u.isAdmin ? true : false) : false;
   }
 
   isAdvertiser(): boolean {
     let u = this.getUser();
-    return u ? (u.isAdvertiser ? true : false ) : false;
+    return u ? (u.isAdvertiser ? true : false) : false;
   }
 
   isPublisher(): boolean {
     let u = this.getUser();
-    return u ? (u.isPublisher ? true : false ) : false;
+    return u ? (u.isPublisher ? true : false) : false;
   }
 
   setAccountTypeChoice(type: string) {

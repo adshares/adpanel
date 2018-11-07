@@ -67,7 +67,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
     this.router.navigate(
       ['/advertiser', 'create-campaign', editCampaignStep],
-      { queryParams: { step: param } }
+      {queryParams: {step: param}}
     );
   }
 

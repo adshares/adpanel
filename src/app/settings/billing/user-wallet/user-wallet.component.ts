@@ -10,7 +10,7 @@ import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-aut
 import { AppState } from 'models/app-state.model';
 import { UserAdserverWallet } from 'models/user.model';
 import { appSettings } from 'app-settings';
-import { withdrawPeriodsEnum} from 'models/enum/withdraw.enum';
+import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 
 import * as moment from 'moment';
 
@@ -52,7 +52,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
       .subscribe((adserverWallet: UserAdserverWallet) => {
         this.adserverWallet = adserverWallet;
-        Object.assign(this.adserverWallet, { lastPayment: moment(adserverWallet.lastPayment).format('DD/MM/YYYY, hh:mma') });
+        Object.assign(this.adserverWallet, {lastPayment: moment(adserverWallet.lastPayment).format('DD/MM/YYYY, hh:mma')});
       });
 
     this.subscriptions.push(userAdserverWalletSubscription);

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
@@ -11,8 +11,8 @@ const adminRoutes: Routes = [
     component: AdminComponent,
     canActivate: [AdminGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: '/admin/dashboard' },
-      { path: 'dashboard', component: DashboardComponent }
+      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard'},
+      {path: 'dashboard', component: DashboardComponent}
     ]
   }
 ];
@@ -25,4 +25,5 @@ const adminRoutes: Routes = [
     RouterModule
   ]
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {
+}

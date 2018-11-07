@@ -35,7 +35,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
   barChartLabels: string[] = [];
-  barChartData: ChartData[] = createInitialArray([{ data: [] }], 1);
+  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
 
@@ -108,7 +108,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
       ['/advertiser', 'edit-campaign', 'summary'],
-      { queryParams: { step: 4} }
+      {queryParams: {step: 4}}
     );
   }
 
@@ -116,7 +116,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
       ['/advertiser', 'create-campaign', 'create-ad'],
-      { queryParams: { step: 3, summary: true} }
+      {queryParams: {step: 3, summary: true}}
     );
   }
 
@@ -129,7 +129,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.advertiserService
       .updateStatus(this.campaign.id, this.campaign.basicInformation.status)
       .subscribe(
-          () => {},
+        () => {
+        },
         (err) => {
           if (err.status === codes.HTTP_NOT_FOUND) {
             this.dialog.open(ErrorResponseDialogComponent, {
@@ -156,18 +157,18 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   onCampaignClassificationStatusChange(status) {
-    if(status === 0) {
+    if (status === 0) {
       this.advertiserService
-          .classifyCampaign(this.campaign.id)
-          .subscribe(data => {
-            console.log(data);
-          });
+        .classifyCampaign(this.campaign.id)
+        .subscribe(data => {
+          console.log(data);
+        });
     } else {
       this.advertiserService
-          .removeClassifyCampaign(this.campaign.id)
-          .subscribe(data => {
-              console.log(data);
-          });
+        .removeClassifyCampaign(this.campaign.id)
+        .subscribe(data => {
+          console.log(data);
+        });
     }
   }
 
