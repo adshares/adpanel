@@ -81,6 +81,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
+//    this.onAdUnitSizeFilterChange(0);
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
   }
@@ -92,7 +93,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   selectChosenSize(savedAdUnit, adIndex) {
     const choosedAdSize = this.filtredAdUnitSizes[adIndex].find(
-      (filtredAdUnitSize) => filtredAdUnitSize.id === savedAdUnit.size.id
+      (filtredAdUnitSize) => filtredAdUnitSize.type === savedAdUnit.type
     );
 
     Object.assign(choosedAdSize, {selected: true});
@@ -113,7 +114,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const filterValue = this.adUnitForms[adUnitIindex].get('adUnitSizeFilter').value;
 
     this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) =>
-      filterValue === 'Recommended' ? true : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+      filterValue === 'Recommended' ? adUnitSize.tags.includes('best') : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
     );
   }
 
