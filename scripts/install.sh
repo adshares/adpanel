@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-mkdir -p ${ADPANEL_INSTALLATION_DIR}
-mv dist/* ${ADPANEL_INSTALLATION_DIR}/
+mkdir -p ${INSTALLATION_PATH}
+mv dist/* ${INSTALLATION_PATH}/
