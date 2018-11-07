@@ -69,7 +69,7 @@ export class AdvertiserService {
   }
 
   removeClassifyCampaign(id: number) {
-      return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
+    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
