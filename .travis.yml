@@ -17,12 +17,10 @@ env:
     - HOST_PATH=/home/travis/build/adshares/adpanel
     - BUILD_PATH=/build/adpanel
     - BUILD_NAME=adpanel_build
-  matrix:
-    - >-
-      APP_ENV=dev
-      APP_PROD="false"
-      ADSERVER_URL="http://example.com"
-      REQUEST_XDEBUG="false"
+    - APP_ENV=dev
+    - APP_PROD="false"
+    - ADSERVER_URL="http://example.com"
+    - REQUEST_XDEBUG="false"
 
 before_script:
   ## Setup test environment
@@ -37,7 +35,7 @@ before_script:
     -e APP_PROD=${APP_PROD}
     -e ADSERVER_URL=${ADSERVER_URL}
     -e REQUEST_XDEBUG=${REQUEST_XDEBUG}
-    -e ADPANEL_INSTALLATION_DIR=/var/www/adpanel
+    -e INSTALLATION_PATH=/var/www/adpanel
     --name $BUILD_NAME
     $DOCKER_IMAGE
     sleep infinity

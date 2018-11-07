@@ -11,10 +11,10 @@ if [ ! -v TRAVIS ]; then
   git clone \
     --depth=1 \
     https://github.com/adshares/adpanel.git \
-    --branch ${ADPANEL_INSTALLATION_BRANCH} \
-    ${ADPANEL_BUILD_PATH}/build
+    --branch ${ADPANEL_BRANCH} \
+    ${BUILD_PATH}/build
 
-  cd ${ADPANEL_BUILD_PATH}/build
+  cd ${BUILD_PATH}/build
 fi
 
 # Create environment
