@@ -44,6 +44,7 @@ interface AdUnitSize {
   name?: string;
   size: number;
   tags: string[];
+  type: string;
 
   selected?: boolean;
 }
