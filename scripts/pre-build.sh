@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # Ubuntu 18.04 only
 
 # Install dependencies for yarn operations

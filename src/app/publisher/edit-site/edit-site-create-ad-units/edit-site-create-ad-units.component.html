@@ -20,8 +20,7 @@
         adsh-copy
         adsh-copy--large"
     >
-      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
-      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      This is the place where you define boxes that will be placed on your pages for us to serve ads in.
     </p>
   </div>
   <div
@@ -85,7 +84,7 @@
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adUnitForm.get('shortHeadline').hasError('required') && adUnitsSubmitted"
+                  *ngIf="adUnitsSubmitted && adUnitForm.get('shortHeadline').hasError('required')"
                 >
                 Name of Unit required!
               </span>
@@ -162,8 +161,8 @@
           >
             <div
               class="site-edit-create-ad-units__ad-unit"
-              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': adUnit.selected}"
-              *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
+              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': !!adUnit.selected}"
+              *ngFor="let adUnit of filteredAdUnitSizes[adUnitIindex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIindex)"
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
@@ -217,7 +216,7 @@
             </button>
             <span
               class="error-msg"
-              *ngIf="adUnitsSubmitted && isAdUnitSelected()"
+              *ngIf="adUnitsSubmitted && !isAdUnitSelected()"
             >
                 Ad unit size required!
               </span>
