@@ -16,6 +16,7 @@ import { SiteDetailsComponent } from './site-details/site-details.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import { SiteListItemComponent } from './site-list/site-list-item/site-list-item.component';
 import { EditSiteComponent } from './edit-site/edit-site.component';
+import { EditSiteNavigationComponent } from './edit-site/edit-site-navigation/edit-site-navigation.component';
 import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
 import { EditSiteAdditionalTargetingComponent } from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
 import { EditSiteCreateAdUnitsComponent } from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
@@ -28,6 +29,7 @@ import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const editSiteComponents = [
   EditSiteComponent,
+  EditSiteNavigationComponent,
   EditSiteBasicInformationComponent,
   EditSiteAdditionalTargetingComponent,
   EditSiteCreateAdUnitsComponent,
