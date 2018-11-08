@@ -11,6 +11,7 @@ import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
+import { calcCampaignBudgetPerDay, calcCampaignBudgetPerHour } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -20,6 +21,7 @@ import { appSettings } from 'app-settings';
 export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
+  budgetPerDay = new FormControl();
   dateStart = new FormControl();
   dateEnd = new FormControl();
   today = new Date();
@@ -53,8 +55,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
-      bidStrategyName: campaignBasicInfoValue.bidStrategyName,
-      bidValue: campaignBasicInfoValue.bidValue,
+      maxCpc: campaignBasicInfoValue.maxCpc,
+      maxCpm: campaignBasicInfoValue.maxCpm,
       budget: campaignBasicInfoValue.budget,
       dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD'),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD') : null
@@ -78,10 +80,15 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP)
       ]),
-      bidStrategyName: new FormControl(initialBasicinfo.bidStrategyName, Validators.required),
-      bidValue: new FormControl(initialBasicinfo.bidValue, Validators.required),
+      maxCpc: new FormControl(initialBasicinfo.maxCpc, Validators.required),
+      maxCpm: new FormControl(initialBasicinfo.maxCpm, Validators.required),
       budget: new FormControl(initialBasicinfo.budget, Validators.required),
     });
+
+    this.budgetPerDay.valueChanges
+      .subscribe((val) => {
+        this.campaignBasicInfoForm.get('budget').setValue(calcCampaignBudgetPerHour(val).toFixed(11));
+      });
 
     this.getFormDataFromStore();
   }
@@ -90,6 +97,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
       .subscribe((lastEditedCampaign) => {
         this.campaignBasicInfoForm.patchValue(lastEditedCampaign);
+
+        if (lastEditedCampaign.budget) {
+          this.budgetPerDay.setValue(calcCampaignBudgetPerDay(lastEditedCampaign.budget));
+        }
+
         this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
 
         if (lastEditedCampaign.dateEnd) {
