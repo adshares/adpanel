@@ -19,10 +19,17 @@ public class AdPanel extends BrowserTestCase {
   private String url_mailhog = "http://localhost:8025/";
   private String url_mailcatcher = "http://mailcatcher.ads/";
   private String url_target = "http://localhost:8101/test-publisher/index.html";
-  private String user = "user@e11.click";
+  private String login_random = "tru";
+
   private String admin = "admin@e11.click";
   private String password_admin = "adminadmin";
-  private String password = "12345678";
+  private String user = "user@e11.click";
+  private String password = "useruser";
+  private String publisher = "publisher@e11.click";
+  private String password_publisher = "publisher";
+  private String advertiser = "advertiser@e11.click";
+  private String password_advertiser = "advertiser";
+
 
   private RegisterPage registerPage;
   private LoginPage loginPage;
@@ -69,10 +76,43 @@ public class AdPanel extends BrowserTestCase {
       x=x-1;
     }
   }
+
   @Test
-  public void logInPopUpFirstPublisher() {
+  public void logInUserPublisher() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(publisher,password_publisher);}
+    loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpFirstPublisher();
+    if (login_random=="true") {dashboardPopup.popUpFirstPublisher();}else{dashboardPopup.popUpPublisher();}
+  }
+  @Test
+  public void logInUserAdvertiser() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(advertiser,password_advertiser);}
+    loginPage.logIn();
+    dashboardPopup = new DashboardPopup(driver);
+    if (login_random=="true") {dashboardPopup.popUpFirstAdvertiser();}else{dashboardPopup.popUpAdvertiser();}
+  }
+  @Test
+  public void logInUserAdvertiserPublisher() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(user,password);}
+    loginPage.logIn();
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstAdvertiserPublisher();
+//    dashboardPopup.popUpAdvertiser();
+    dashboardPopup.popUpPublisher();
+  }
+
+  @Test
+  public void loginPopUpAdvertiser(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpAdvertiser();
+  }
+  @Test
+  public void logInPopUpPublisher(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpPublisher();
   }
   @Test
   public void logInPopUpFirstAdvertiser(){
@@ -80,20 +120,16 @@ public class AdPanel extends BrowserTestCase {
     dashboardPopup.popUpFirstAdvertiser();
   }
   @Test
+  public void logInPopUpFirstPublisher() {
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstPublisher();
+  }
+  @Test
   public void logInPopUpFirstAdvertiserPublisher(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiserPublisher();
   }
-  @Test
-  public void logInPopUpPublisher(){
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpPublisher();
-  }
-    @Test
-  public void loginPopUpAdvertiser(){
-      dashboardPopup = new DashboardPopup(driver);
-      dashboardPopup.popUpAdvertiser();
-  }
+
   @Test
   public void firstLogInPopUp() {
     dashboardPopup = new DashboardPopup(driver);
@@ -105,20 +141,13 @@ public class AdPanel extends BrowserTestCase {
     loginPage.RandomEmail(password);
     loginPage.logIn();
   }
-//  private void loginUserEmail() throws InterruptedException {
-//    loginPage = new LoginPage(driver);
-//    loginPage.UserEmail(password);
-//    loginPage.logIn();
-//  }
-
-
-
   @Test
   public void logInRandomEmailRememberMe() {
     loginPage = new LoginPage(driver);
     loginPage.RandomEmail(password);
     loginPage.logInRememberMe();
   }
+
   @Test
   public void logInUserEmail() {
     loginPage = new LoginPage(driver);
@@ -299,6 +328,10 @@ public class AdPanel extends BrowserTestCase {
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
   }
+  @Test
+  public void changeOfRole()                                  {System.out.println("---------- TS_2 - TC_17 ----------");
+                                          
+  }
 
    @Test
   public void basicInformationSaveContinue() {                  System.out.println("---------- TS_3 - TC_1 ----------");
@@ -339,7 +372,7 @@ public class AdPanel extends BrowserTestCase {
   public void createAdsSaveContinue() {                        System.out.println("---------- TS_3 - TC_6 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
+    advertiserMainPage.createAds();
     advertiserMainPage.createAdsSaveContinue();
     // TODO: 11.10.18 error - add jpg
   }
@@ -347,13 +380,13 @@ public class AdPanel extends BrowserTestCase {
   public void createAdsSaveDraft() {                           System.out.println("---------- TS_3 - TC_7 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
+    advertiserMainPage.createAds();
     advertiserMainPage.createAdsSaveAsDraft();
   }
   @Test
   public void createAdsBack() {                                System.out.println("---------- TS_3 - TC_8 ----------");
     additionalTargetingsaveSaveContinue();
-    advertiserMainPage.createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
+    advertiserMainPage.createAds();
     advertiserMainPage.createAdsBack();
   }
   @Test
@@ -417,8 +450,9 @@ public class AdPanel extends BrowserTestCase {
   @Test
   public void createAdsError() {                        System.out.println("---------- TS_3 - TC_20 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
-    advertiserMainPage.createAdsError("","html","","320x100");
     additionalTargetingsaveSaveContinue();
+    advertiserMainPage.createAdsError();
+//    additionalTargetingsaveSaveContinue();
   }
 
 
