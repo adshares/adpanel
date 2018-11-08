@@ -63,23 +63,27 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   deleteCampaign() {
-    this.advertiserService.deleteCampaign(this.campaign.id)
-      .subscribe(
-        () => {
-          this.router.navigate(
-            ['/advertiser'],
-          );
-        },
+    if (confirm('Do you confirm deletion?')) {
+      this.advertiserService.deleteCampaign(this.campaign.id)
+        .subscribe(
+          () => {
+            this.router.navigate(
+              ['/advertiser'],
+            );
+          },
 
-        () => {
-          this.dialog.open(ErrorResponseDialogComponent, {
-            data: {
-              title: `Campaign cannot be deleted`,
-              message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
+          (err) => {
+            if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+              this.dialog.open(ErrorResponseDialogComponent, {
+                data: {
+                  title: `Campaign cannot be deleted`,
+                  message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
+                }
+              });
             }
-          });
-        }
-      );
+          }
+        );
+    }
   }
 
   getChartData(chartFilterSettings) {
