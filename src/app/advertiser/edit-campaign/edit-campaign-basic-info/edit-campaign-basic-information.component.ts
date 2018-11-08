@@ -80,9 +80,18 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP)
       ]),
-      maxCpc: new FormControl(initialBasicinfo.maxCpc, Validators.required),
-      maxCpm: new FormControl(initialBasicinfo.maxCpm, Validators.required),
-      budget: new FormControl(initialBasicinfo.budget, Validators.required),
+      maxCpc: new FormControl(initialBasicinfo.maxCpc, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      maxCpm: new FormControl(initialBasicinfo.maxCpm, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      budget: new FormControl(initialBasicinfo.budget, [
+        Validators.required,
+        Validators.min(0),
+      ]),
     });
 
     this.budgetPerDay.valueChanges
