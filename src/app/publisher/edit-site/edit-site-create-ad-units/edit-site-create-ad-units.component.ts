@@ -144,8 +144,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       return;
     }
     this.adUnitsSubmitted = true;
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
-      this.filteredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
+    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
     if (adUnitsValid) {
       this.changesSaved = true;
