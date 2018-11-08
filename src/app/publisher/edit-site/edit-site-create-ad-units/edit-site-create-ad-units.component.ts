@@ -29,7 +29,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adSizesOptions: string[] = enumToArray(adSizesEnum);
   adSizesEnum = adSizesEnum;
   adUnitSizes: AdUnitSize[];
-  filtredAdUnitSizes: AdUnitSize[][] = [];
+  filteredAdUnitSizes: AdUnitSize[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
@@ -81,7 +81,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
-//    this.onAdUnitSizeFilterChange(0);
+    this.onAdUnitSizeFilterChange(0);
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
   }
@@ -92,15 +92,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   selectChosenSize(savedAdUnit, adIndex) {
-    const choosedAdSize = this.filtredAdUnitSizes[adIndex].find(
-      (filtredAdUnitSize) => filtredAdUnitSize.type === savedAdUnit.type
+    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
+      (filteredAdUnitSize) => filteredAdUnitSize.type === savedAdUnit.type
     );
 
-    Object.assign(choosedAdSize, {selected: true});
+    Object.assign(chosenAdSize, {selected: true});
   }
 
   generateFormField(adUnit) {
-    this.filtredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
+    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
     return new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
@@ -110,16 +110,16 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     });
   }
 
-  onAdUnitSizeFilterChange(adUnitIindex) {
-    const filterValue = this.adUnitForms[adUnitIindex].get('adUnitSizeFilter').value;
+  onAdUnitSizeFilterChange(adUnitIndex) {
+    const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) =>
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) =>
       filterValue === 'Recommended' ? adUnitSize.tags.includes('best') : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
     );
   }
 
   selectAdUnit(adUnit, adUnitIindex) {
-    this.filtredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
+    this.filteredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
       filtredAdUnit.selected = false;
     });
 
@@ -128,9 +128,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   isAdUnitSelected() {
     const showInfoBox = this.adUnitForms.map((form, index) => {
-      return this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+      return this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
     });
-    return this.filtredAdUnitSizes.length === 1 || showInfoBox;
+    return this.filteredAdUnitSizes.length === 1 || showInfoBox;
   }
 
   saveAdUnits(isDraft) {
@@ -145,14 +145,14 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     }
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
-      this.filtredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
+      this.filteredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
 
     if (adUnitsValid) {
       this.changesSaved = true;
 
       const adUnitToSave = this.adUnitForms.map((form, index) => {
-        const selectedSize = this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
-        const size = this.filtredAdUnitSizes[index][0];
+        const selectedSize = this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+        const size = this.filteredAdUnitSizes[index][0];
         return {
           shortHeadline: form.get('shortHeadline').value,
           type: form.get('type').value,

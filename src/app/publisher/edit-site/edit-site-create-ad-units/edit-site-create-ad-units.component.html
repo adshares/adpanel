@@ -162,7 +162,7 @@
             <div
               class="site-edit-create-ad-units__ad-unit"
               [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': !!adUnit.selected}"
-              *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
+              *ngFor="let adUnit of filteredAdUnitSizes[adUnitIindex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIindex)"
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
