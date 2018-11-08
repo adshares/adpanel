@@ -33,11 +33,10 @@ interface CampaignBasicInformation {
   status: number;
   name: string;
   targetUrl: string;
-  bidStrategyName: string;
-  bidValue: number;
+  maxCpc: number;
+  maxCpm: number;
   budget: number;
   dateStart: string;
-
   dateEnd?: string;
 }
 
