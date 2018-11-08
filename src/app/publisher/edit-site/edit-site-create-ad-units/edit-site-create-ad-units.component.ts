@@ -105,7 +105,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     return new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
-      adUnitSizeFilter: new FormControl('Recommended'),
+      adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status)
     });
   }
@@ -114,7 +114,12 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
     this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) =>
-      filterValue === 'Recommended' ? adUnitSize.tags.includes('best') : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+      filterValue === 'Recommended'
+        ? adUnitSize.tags.includes('best')
+        : (filterValue === 'All'
+          ? true
+          : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+        )
     );
   }
 
