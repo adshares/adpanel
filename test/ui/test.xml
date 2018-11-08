@@ -4,46 +4,13 @@
 
 
 
-  <test name="TC_20 - Create new Campaign - publisherCreateAdUnitsError" group-by-instances="true">
+  <test name="TC_17 - Login - changeOfRole" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="createAdsError"/>
-          <include name="sleep"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_19 - Create new Campaign - basicInformationError" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="basicInformationError"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-
-
-
-
-
-
-
-
-
-
-  <test name="TC_20 - Add new Site - CreateAdUnitsError" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="publisherCreateAdUnitsError"/>
+          <include name="logInUserRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiserPublisher"/>
+          <include name="changeOfRole"/>
           <include name="sleep"/>
           <!--<include name="logOut"/>-->
         </methods>
@@ -51,48 +18,6 @@
     </classes>
   </test>
 
-
-
-
-
-  <test name="TC_19 - Add new Site - BasicInformationError" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="publisherBasicInformationError"/>
-          <include name="sleep"/>
-          <!--<include name="logOut"/>-->
-        </methods>
-      </class>
-    </classes>
-  </test>
-
-  <test name="advertiserTargetingAll" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="advertiserTargetingAll"/>
-          <include name="sleep"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="publisherTargetingAll" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="publisherTargetingAll"/>
-          <include name="sleep"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
 
 
 </suite>

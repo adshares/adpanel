@@ -50,6 +50,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
+    this.adSizesOptions.unshift('All');
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
@@ -81,7 +82,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
-    this.onAdUnitSizeFilterChange(0);
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
   }
@@ -105,7 +105,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     return new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
-      adUnitSizeFilter: new FormControl('Recommended'),
+      adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status)
     });
   }
@@ -114,7 +114,12 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
     this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) =>
-      filterValue === 'Recommended' ? adUnitSize.tags.includes('best') : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+      filterValue === 'Recommended'
+        ? adUnitSize.tags.includes('best')
+        : (filterValue === 'All'
+          ? true
+          : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+        )
     );
   }
 
@@ -144,8 +149,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       return;
     }
     this.adUnitsSubmitted = true;
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
-      this.filteredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
+    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
     if (adUnitsValid) {
       this.changesSaved = true;

@@ -303,13 +303,13 @@ public class LoginPage {
     Maps.create();
     Maps.email("email", Email);
     Maps.password("password", Password);
-    logIn();
+//    logIn();
   }
   public void AdminEmail(String Email, String Password) {
     Maps.create();
     Maps.email("email", Email);
     Maps.password("password", Password);
-    logIn();
+//    logIn();
 //
   }
 //  LOG IN
