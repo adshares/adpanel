@@ -22,6 +22,7 @@ import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/cha
 import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { AddCustomTargetingDialogComponent } from './dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import { UserConfirmResponseDialogComponent } from './dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
@@ -63,6 +64,7 @@ const dialogs = [
   ChangeAddressDialogComponent,
   ChangeAutomaticWithdrawDialogComponent,
   AddCustomTargetingDialogComponent,
+  UserConfirmResponseDialogComponent,
 ];
 
 const appComponents = [
