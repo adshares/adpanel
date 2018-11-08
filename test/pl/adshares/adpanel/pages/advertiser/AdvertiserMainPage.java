@@ -44,6 +44,9 @@ public class AdvertiserMainPage {
   @FindBy(xpath = "//*[contains(text(), 'Campaign name required!')]")                                                   private WebElement AssertBasicInformation8;
   @FindBy(xpath = "//*[contains(text(), 'Please provide a valid URL.')]")                                               private WebElement AssertBasicInformation9;
   @FindBy(xpath = "//*[contains(text(), 'Bid strategy required')]")                                                     private WebElement AssertBasicInformation10;
+  @FindBy(xpath = "//*[contains(text(), 'Short headline required!')]")                                                  private WebElement AssertBasicInformation11;
+  @FindBy(xpath = "//*[contains(text(), 'Html required!')]")                                                            private WebElement AssertBasicInformation12;
+  @FindBy(xpath = "//*[contains(text(), 'Image required')]")                                                            private WebElement AssertBasicInformation13;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -168,8 +171,12 @@ public class AdvertiserMainPage {
     ecTargetPage.goBack();
     System.out.println("Assert - Additional Targeting [Back]");
   }
-  public void createAds(String short_headline, String ad_type,String size, String html_code) {                                                                      // Krok 3. [Create Ads]
+  public void createAds() {                                                                      // Krok 3. [Create Ads]
     System.out.println("---------- createAds ----------");
+    String short_headline="Advertisement #1";
+    String ad_type="html";
+    String size="900x120";
+    String html_code="<div style=\"width:100px;height:50px;background-color:red;\" />";
     EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
     final CampaignAdv campAdv = new CampaignAdv(short_headline, ad_type, html_code, size);
     ecCreateAdsPage.addAdvertisement(campAdv);
@@ -293,7 +300,7 @@ public class AdvertiserMainPage {
     wait.until(ExpectedConditions.visibilityOf(editCreateAds));
     editCreateAds.click();
     System.out.println("Click - editCreateAds");
-    createAds("Advertisement #1","html","900x120","<div style=\"width:100px;height:50px;background-color:red;\" />");
+    createAds();
     createAdsSaveContinue();
     wait.until(ExpectedConditions.visibilityOf(editCreateAds));
     Assert.assertTrue(editCreateAds.isDisplayed());
@@ -325,12 +332,29 @@ public class AdvertiserMainPage {
     Assert.assertEquals("Bid strategy required", AssertBasicInformation10.getText());
   }
 
-  public void createAdsError(String short_headline, String ad_type, String html_code, String size) {
+  public void createAdsError() {
     System.out.println("---------- createAds ----------");
+    String short_headline="";
+    String ad_type="html";
+    String html_code="";
+    String size="";
     EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
     final CampaignAdv campAdv = new CampaignAdv(short_headline, ad_type, html_code, size);
     ecCreateAdsPage.addAdvertisement(campAdv);
     createAdsSaveContinue();
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation11));
+    Assert.assertEquals("Short headline required!", AssertBasicInformation11.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation12));
+    Assert.assertEquals("Html required!", AssertBasicInformation12.getText());
+    ad_type="image";
+//    EditCampaignCreateAdsPage ecCreateAdsPage = new EditCampaignCreateAdsPage(driver);
+    final CampaignAdv campAdv2 = new CampaignAdv(short_headline, ad_type, html_code, size);
+    ecCreateAdsPage.addAdvertisement(campAdv2);
+    createAdsSaveContinue();
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation11));
+    Assert.assertEquals("Short headline required!", AssertBasicInformation11.getText());
+    wait.until(ExpectedConditions.visibilityOf(AssertBasicInformation13));
+    Assert.assertEquals("Image required", AssertBasicInformation13.getText());
 
   }
 }
