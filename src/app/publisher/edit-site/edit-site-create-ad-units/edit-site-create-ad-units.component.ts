@@ -50,6 +50,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
+    this.adSizesOptions.unshift('All');
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
@@ -81,7 +82,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
-    this.onAdUnitSizeFilterChange(0);
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
   }
