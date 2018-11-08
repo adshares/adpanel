@@ -65,7 +65,7 @@ export class AdvertiserService {
       }
     };
 
-    return this.http.patch(`${environment.apiUrl}/campaigns/${id}`, body);
+    return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
   }
 
   removeClassifyCampaign(id: number) {

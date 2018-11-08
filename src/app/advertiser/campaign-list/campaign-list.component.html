@@ -56,7 +56,7 @@
                 row
                 align-center"
             >
-              <span>{{ campaignsTotals.totalBudget | currency:'USD':'symbol':'1.2-2' }}/day</span>
+              <span>{{ campaignsTotals.totalBudget | campaignBudgetPerDay | number:'1.2-2' }}/day</span>
             </div>
             <div
               class="
@@ -88,7 +88,7 @@
                 row
                 align-center"
             >
-              <span>{{ campaignsTotals.averageCPC | currency:'USD':'symbol':'1.2-2' }}</span>
+              <span>{{ campaignsTotals.averageCPC | number:'1.2-2' }}</span>
             </div>
             <div
               class="
@@ -96,7 +96,7 @@
                 row
                 align-center"
             >
-              <span>{{ campaignsTotals.totalCost | currency:'USD':'symbol':'1.2-2' }}</span>
+              <span>{{ campaignsTotals.totalCost | number:'1.2-2' }}</span>
             </div>
           </div>
         </div>
