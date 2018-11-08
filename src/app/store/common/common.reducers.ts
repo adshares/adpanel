@@ -8,7 +8,7 @@ const initialState = {
   notifications: []
 };
 
-export function commonReducers(state = initialState , action: commonActions.actions ) {
+export function commonReducers(state = initialState, action: commonActions.actions) {
   switch (action.type) {
     case commonActions.SET_ACTIVE_USER_TYPE:
       return {
@@ -35,7 +35,7 @@ export function commonReducers(state = initialState , action: commonActions.acti
         ...state,
         notifications: action.payload
       };
-     default:
+    default:
       return state;
   }
 }

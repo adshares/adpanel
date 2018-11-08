@@ -3,12 +3,10 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { HandleSubscription } from 'common/handle-subscription';
-import { User, LocalStorageUser, UserAdserverWallet } from 'models/user.model';
-import { Notification } from 'models/notification.model';
+import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
 import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
-import { userInitialState } from 'models/initial-state/user';
 import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
 
@@ -60,7 +58,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
     this.router.navigate(
       [moduleDir, assetDir, 'basic-information'],
-      { queryParams: { step: 1 } }
+      {queryParams: {step: 1}}
     );
   }
 

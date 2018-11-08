@@ -31,6 +31,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
 
   ObjectKeys = Object.keys;
   graceTime = null;
+
   constructor(
     private settingsService: SettingsService,
     private route: ActivatedRoute,
@@ -73,7 +74,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       .subscribe(
         () => {
           this.changeEmailForm.get('email').setValue('');
-          this.dialog.open(ConfirmResponseDialogComponent,{
+          this.dialog.open(ConfirmResponseDialogComponent, {
             data: {
               title: 'Changing email is a 2 step process',
               message: 'First you need to verify your request using your current (old) email address.\nPlease check your email and follow instructions to confirm your request'
@@ -98,7 +99,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
         () => {
           this.changeEmailFormSubmitted = false;
         },
-    );
+      );
   }
 
   onChangePassword() {
@@ -114,12 +115,12 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       password_old: currentPassword,
       password_new: newPassword
     };
-    const changePasswordSubscription = this.settingsService.changePassword(user,'')
+    const changePasswordSubscription = this.settingsService.changePassword(user, '')
       .subscribe(
         () => {
           this.changePasswordForm.reset();
           this.newPasswordConfirm.setValue('');
-          this.dialog.open(ConfirmResponseDialogComponent,{
+          this.dialog.open(ConfirmResponseDialogComponent, {
             data: {
               title: 'Password changed',
               message: 'Your password has been changed as requested'

@@ -14,7 +14,8 @@ export class AdUnitsComponent {
   @Input() siteCode;
   adSizesEnum = adSizesEnum;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   openGetCodeDialog() {
     this.dialog.open(SiteCodeDialogComponent, {

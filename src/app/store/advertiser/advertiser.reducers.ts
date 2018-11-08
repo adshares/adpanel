@@ -23,7 +23,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
     case advertiserActions.SAVE_CAMPAIGN_BASIC_INFORMATION:
       return {
         ...state,
-        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { basicInformation: action.payload })
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {basicInformation: action.payload})
       };
     case advertiserActions.LOAD_CAMPAIGNS_SUCCESS:
       return {
@@ -38,12 +38,12 @@ export function advertiserReducers(state = initialState, action: advertiserActio
     case advertiserActions.SAVE_CAMPAIGN_TARGETING:
       return {
         ...state,
-        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { targetingArray: action.payload })
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {targetingArray: action.payload})
       };
     case advertiserActions.SAVE_CAMPAIGN_ADS:
       return {
         ...state,
-        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, { ads: action.payload })
+        lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {ads: action.payload})
       };
     case advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS:
       return {

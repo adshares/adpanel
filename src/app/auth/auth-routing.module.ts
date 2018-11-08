@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
@@ -10,18 +10,20 @@ import { EmailProcessingComponent } from "auth/email/email-processing.component"
 import { ResetPasswordComponent } from "auth/reset-password/reset-password.component";
 
 const authRoutes: Routes = [
-  { path: 'auth', component: AuthComponent, children: [
+  {
+    path: 'auth', component: AuthComponent, children: [
 
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'registered', component: RegisteredComponent },
-    { path: 'forgotten-password', component: ForgottenPasswordComponent },
-    { path: 'reset-password/:token', component: ResetPasswordComponent },
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegisterComponent},
+      {path: 'registered', component: RegisteredComponent},
+      {path: 'forgotten-password', component: ForgottenPasswordComponent},
+      {path: 'reset-password/:token', component: ResetPasswordComponent},
 
-    { path: 'email-activation/:token', component: EmailProcessingComponent },
-    { path: 'email-change-confirm-old/:token', component: EmailProcessingComponent },
-    { path: 'email-change-confirm-new/:token', component: EmailProcessingComponent },
-  ]},
+      {path: 'email-activation/:token', component: EmailProcessingComponent},
+      {path: 'email-change-confirm-old/:token', component: EmailProcessingComponent},
+      {path: 'email-change-confirm-new/:token', component: EmailProcessingComponent},
+    ]
+  },
 ];
 
 @NgModule({
@@ -32,4 +34,5 @@ const authRoutes: Routes = [
     RouterModule
   ]
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {
+}

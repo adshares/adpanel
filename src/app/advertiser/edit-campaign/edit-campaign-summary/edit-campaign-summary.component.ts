@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
 
-import {AppState} from 'models/app-state.model';
-import {Campaign} from 'models/campaign.model';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adStatusesEnum} from 'models/enum/ad.enum';
+import { AppState } from 'models/app-state.model';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adStatusesEnum } from 'models/enum/ad.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import {HandleSubscription} from 'common/handle-subscription';
-import {TargetingOption} from 'models/targeting-option.model';
-import {cloneDeep} from 'common/utilities/helpers';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {MatDialog} from "@angular/material";
+import { HandleSubscription } from 'common/handle-subscription';
+import { TargetingOption } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: 'app-edit-campaign-summary',

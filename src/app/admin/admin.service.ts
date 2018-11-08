@@ -8,7 +8,8 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class AdminService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getUsers(): Observable<UserInfoStats[]> {
     return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`);
@@ -19,6 +20,6 @@ export class AdminService {
   }
 
   setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
-    return this.http.patch<AdminSettings>(`${environment.apiUrl}/admin/settings`, { newSettings });
+    return this.http.patch<AdminSettings>(`${environment.apiUrl}/admin/settings`, {newSettings});
   }
 }

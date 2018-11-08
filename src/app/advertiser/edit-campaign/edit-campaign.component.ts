@@ -21,7 +21,8 @@ export class EditCampaignComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.store.select('state', 'advertiser', 'lastEditedCampaign')

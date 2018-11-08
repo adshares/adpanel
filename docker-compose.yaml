@@ -12,4 +12,4 @@ services:
     - .:/adpanel
     user: ${SYSTEM_USER_ID}
     entrypoint: ['node_modules/@angular/cli/bin/ng']
-    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--port','9000','--public-host','${WEBSERVER_HOST}','--sourcemaps','--verbose']
+    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--port','9000','--public-host','${WEBSERVER_HOST}']

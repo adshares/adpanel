@@ -12,5 +12,6 @@ export class ApiService {
     public config: ApiConfigService,
     public notifications: ApiNotificationsService,
     public users: ApiUsersService,
-  ) {}
+  ) {
+  }
 }
