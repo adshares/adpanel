@@ -35,4 +35,13 @@
       text-transform: capitalize;
     }
   }
+
+  & .adsh-form-label--shorter {
+    transform: translateY(12px);
+  }
+
+  & .adsh-copy__hint {
+    transform: translateY(-15px);
+  }
+
 }

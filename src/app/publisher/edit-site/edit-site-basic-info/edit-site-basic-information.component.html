@@ -76,14 +76,20 @@
       <div
         class="adsh-form-input__box
                site-edit-basic-information__language">
-        <mat-form-field>
-          <mat-label>
-            Content Language
-          </mat-label>
+        <label
+          for="languageInput"
+          class="adsh-form-label adsh-form-label--shorter"
+        >
+          Content Language
+        </label>
+        <mat-form-field appearance="standard" class="col">
           <input matInput
+                 class="
+                    adsh-form-input
+                    adsh-form-input--full"
+                 id="languageInput"
                  formControlName="primaryLanguage"
                  type="text"
-                 autocomplete="on"
                  [matAutocomplete]="auto"/>
           <mat-autocomplete
             #auto
@@ -99,10 +105,10 @@
         </mat-form-field>
         <span
           class="
-            adsh-copy
-            adsh-copy--large
-            adsh-copy--light"
-        >
+          adsh-copy
+          adsh-copy--large
+          adsh-copy--light
+          adsh-copy__hint">
           Please specify your primary language of your website.
         </span>
 
@@ -114,7 +120,6 @@
         </span>
       </div>
     </div>
-
     <div
       class="
         adsh-box

@@ -42,8 +42,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(val =>  val ? this.filterOptions(val) : this.languages.slice())
+        map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
+        map((val: SiteLanguage) =>  val ? this.filterOptions(val) : this.languages.slice())
       )
   }
 
