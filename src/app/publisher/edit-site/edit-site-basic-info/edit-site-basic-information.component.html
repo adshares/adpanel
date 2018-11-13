@@ -76,29 +76,27 @@
       <div
         class="adsh-form-input__box
                site-edit-basic-information__language">
-        <label
-          for="primaryLanguage"
-          class="adsh-form-label"
-        >
-          Content Language
-        </label>
-        <mat-select
-          class="adsh-select"
-          id="primaryLanguage"
-          name="primaryLanguage"
-          formControlName="primaryLanguage"
-          data-test="publisher-edit-site-basic-information-form-language-select"
-        >
-          <mat-option
-            *ngFor="let language of languages"
-            [value]="language.code"
-            class="site-edit-basic-information__language__option"
-            data-test="publisher-edit-site-basic-information-form-language-option"
+        <mat-form-field>
+          <mat-label>
+            Content Language
+          </mat-label>
+          <input matInput
+                 formControlName="primaryLanguage"
+                 type="text"
+                 autocomplete="on"
+                 [matAutocomplete]="auto"/>
+          <mat-autocomplete
+            #auto
+            [displayWith]="displayOption"
           >
-            {{ language.name }}
-          </mat-option>
-        </mat-select>
-
+            <mat-option
+              *ngFor="let language of filteredOptions | async "
+              [value]="language"
+            >
+              {{ language.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
         <span
           class="
             adsh-copy
