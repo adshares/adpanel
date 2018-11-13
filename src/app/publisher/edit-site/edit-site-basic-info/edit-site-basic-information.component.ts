@@ -43,7 +43,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       .pipe(
         startWith(''),
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
-        map((val: SiteLanguage) =>  val ? this.filterOptions(val) : this.languages.slice())
+        map((val: string) =>  val ? this.filterOptions(val) : this.languages.slice())
       )
   }
 
