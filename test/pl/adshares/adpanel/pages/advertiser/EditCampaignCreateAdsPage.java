@@ -13,9 +13,10 @@ import java.util.List;
 
 public class EditCampaignCreateAdsPage {
 
-  private static final String CSS_SELECTOR_ADV_HEADLINE = "*[data-test='advertiser-edit-campaign-create-ads-form-short-headline'";
+  private static final String CSS_SELECTOR_ADV_HEADLINE = "[data-test='advertiser-edit-campaign-create-ads-form-name']";
   private static final String CSS_SELECTOR_ADV_IMAGE_UPLOAD_INPUT = "*[data-test='advertiser-edit-campaign-create-ads-form-image-upload']";
-  private static final String CSS_SELECTOR_ADV_HTML_SAVE_BUTTON = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-html-save']";
+  private static final String CSS_SELECTOR_ADV_HTML_SAVE_BUTTON = "[data-test='advertiser-edit-campaign-create-ads-form-ad-html-save']";
+  @FindBy(xpath = "//*[contains(text(), 'Save Html')]")                                                                 private WebElement saveHtml;
   private static final String CSS_SELECTOR_ADV_HTML_TEXTAREA = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-html-textarea']";
   private static final String CSS_SELECTOR_ADV_SIZE_SELECT = "*[data-test='advertiser-edit-campaign-create-ads-form-size-select']";
   private static final String CSS_SELECTOR_ADV_TYPE_SELECT = "*[data-test='advertiser-edit-campaign-create-ads-form-ad-type-select']";
@@ -77,8 +78,10 @@ public class EditCampaignCreateAdsPage {
       // insert html
       WebElement htmlTextArea = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_HTML_TEXTAREA));
       htmlTextArea.sendKeys(campaignAdv.getResource());
-      WebElement saveHtmlButton = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_HTML_SAVE_BUTTON));
-      saveHtmlButton.click();
+//      WebElement saveHtmlButton = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_HTML_SAVE_BUTTON));
+//      saveHtmlButton.click();
+      wait.until(ExpectedConditions.visibilityOf(saveHtml));
+      saveHtml.click();
     } else {
       // upload image
       WebElement fileSelectInput = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_IMAGE_UPLOAD_INPUT));

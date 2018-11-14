@@ -97,48 +97,7 @@
           <div
             class="
               col
-              col-xs-4"
-          >
-            <label
-              for="campaignBidStrategy"
-              class="adsh-form-label"
-            >
-              Bid Strategy
-            </label>
-            <mat-select
-              class="adsh-select"
-              id="campaignBidStrategy"
-              name="campaignBidStrategy"
-              formControlName="bidStrategyName"
-              data-test="advertiser-edit-campaign-basic-information-form-bid-strategy-select"
-            >
-              <mat-option
-                value="CPC"
-                data-test="advertiser-edit-campaign-basic-information-form-option"
-              >
-                CPC
-              </mat-option>
-              <mat-option
-                value="CPM"
-                data-test="advertiser-edit-campaign-basic-information-form-option"
-              >
-                CPM
-              </mat-option>
-            </mat-select>
-            <span
-              class="error-msg"
-              *ngIf="
-                campaignBasicInfoForm.hasError('required', ['bidStrategyName']) &&
-                campaignBasicInformationSubmitted"
-            >
-              Bid strategy required
-            </span>
-          </div>
-          <div
-            class="
-              col
-              col-xs-8
-              input--right"
+              col-xs-5"
           >
             <div
               class="
@@ -146,44 +105,102 @@
                 relative"
             >
               <label
-                for="campaign-bid-value"
+                for="campaign-max-cpc"
                 class="adsh-form-label"
               >
-                Bid Value
+                Max CPC (ADS)
               </label>
               <input
-                id="campaign-bid-value"
-                class="adsh-form-input"
+                id="campaign-max-cpc"
+                class="
+                  adsh-form-input
+                  input-budget"
                 type="number"
                 min="0.01"
-                name="campaignBidValue"
-                formControlName="bidValue"
-                data-test="advertiser-edit-campaign-basic-information-form-bid-value"
+                name="campaignMaxCpc"
+                formControlName="maxCpc"
+                data-test="advertiser-edit-campaign-basic-information-form-max-cpc"
               >
               <span
-                *ngIf="campaignBasicInfoForm.get('bidValue').valid"
+                *ngIf="campaignBasicInfoForm.get('maxCpc').valid"
                 class="input-valid"
               ></span>
             </div>
             <span
               class="error-msg"
               *ngIf="
-                campaignBasicInfoForm.hasError('required', ['bidValue']) &&
+                campaignBasicInfoForm.hasError('required', ['maxCpc']) &&
                 campaignBasicInformationSubmitted"
             >
-              Bid value required
+              Max CPC required
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('min', ['maxCpc']) &&
+                campaignBasicInformationSubmitted"
+            >
+              Allowed minimum is 0
+            </span>
+          </div>
+          <!-- divider -->
+          <div
+            class="
+              col
+              col-xs-2"
+          >
+          </div>
+          <div
+            class="
+              col
+              col-xs-5"
+          >
+            <div
+              class="
+                col
+                relative"
+            >
+              <label
+                for="campaign-max-cpm"
+                class="adsh-form-label"
+              >
+                Max CPM (ADS)
+              </label>
+              <input
+                id="campaign-max-cpm"
+                class="
+                  adsh-form-input
+                  input-budget"
+                type="number"
+                min="0.01"
+                name="campaignMaxCpm"
+                formControlName="maxCpm"
+                data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
+                class="input-valid"
+              ></span>
+            </div>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('required', ['maxCpm']) &&
+                campaignBasicInformationSubmitted"
+            >
+              Max CPM required
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('min', ['maxCpm']) &&
+                campaignBasicInformationSubmitted"
+            >
+              Allowed minimum is 0
             </span>
           </div>
         </div>
       </div>
-      <p
-        class="
-          adsh-copy
-          adsh-copy--large
-          adsh-copy--light"
-      >
-        Choose how you’d like to set bids for your ads.
-      </p>
 
       <div class="adsh-form-input__box">
         <div
@@ -191,6 +208,60 @@
             row
             no-gutters"
         >
+
+          <div
+            class="
+              col
+              col-xs-5"
+          >
+            <div class="relative">
+              <label
+                for="campaign-budget-per-day"
+                class="adsh-form-label"
+              >
+                Budget (ADS / day)
+              </label>
+              <input
+                id="campaign-budget-per-day"
+                class="
+                  adsh-form-input
+                  input-budget"
+                type="number"
+                min="0.01"
+                name="campaignBudgetPerDay"
+                [formControl]="budgetPerDay"
+                (focus)="onFocus('campaign-budget-per-day')"
+                data-test="advertiser-edit-campaign-basic-information-form-budget-per-day"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('budget').valid"
+                class="input-valid"
+              ></span>
+            </div>
+            <span
+              class="error-msg"
+              *ngIf="
+                budgetPerDay.hasError('min') &&
+                campaignBasicInformationSubmitted"
+            >
+              Budget required
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="
+                budgetPerDay.hasError('min') &&
+                campaignBasicInformationSubmitted"
+            >
+              Allowed minimum is 0.01
+            </span>
+          </div>
+          <!-- divider -->
+          <div
+            class="
+              col
+              col-xs-2"
+          >
+          </div>
           <div
             class="
               col
@@ -201,15 +272,18 @@
                 for="campaign-budget"
                 class="adsh-form-label"
               >
-                Budget (ADS / per day)
+                Budget (ADS / hour)
               </label>
               <input
                 id="campaign-budget"
-                class="adsh-form-input"
+                class="
+                  adsh-form-input
+                  input-budget"
                 type="number"
                 min="0.01"
                 name="campaignBudget"
                 formControlName="budget"
+                (focus)="onFocus('campaign-budget')"
                 data-test="advertiser-edit-campaign-basic-information-form-budget"
               >
               <span
@@ -224,6 +298,14 @@
                 campaignBasicInformationSubmitted"
             >
               Budget required
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="
+                campaignBasicInfoForm.hasError('min', ['budget']) &&
+                campaignBasicInformationSubmitted"
+            >
+              Allowed minimum is 0.0004
             </span>
           </div>
         </div>
@@ -250,7 +332,7 @@
                 row"
             >
               <img
-                src="assets/images/calendar.svg"
+                src="/assets/images/calendar.svg"
                 alt="Add new icon"
                 class="
                   adsh-icon
@@ -313,7 +395,7 @@
                 row"
             >
               <img
-                src="assets/images/calendar.svg"
+                src="/assets/images/calendar.svg"
                 alt="Add new icon"
                 class="
                   adsh-icon

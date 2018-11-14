@@ -45,12 +45,16 @@ public class DashboardPopup {
     System.out.println("-. Advertiser");
   }
   public void popUpFirstAdvertiserPublisher() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
-    PopUpFirstAdvertiser.click();
-    PopUpFirstPublisher.click();
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    PopUpFirstContinue.click();
-    System.out.println("-. Advertiser / Publisher dashboard");
+    try {
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+      PopUpFirstAdvertiser.click();
+      PopUpFirstPublisher.click();
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+      PopUpFirstContinue.click();
+      System.out.println("Popup displayed    [Advertiser/Publisher]");
+    } catch (TimeoutException te){
+      System.out.println("No popup displayed [Advertiser/Publisher]");
+    }
   }
 
   public void popUpPublisher() {

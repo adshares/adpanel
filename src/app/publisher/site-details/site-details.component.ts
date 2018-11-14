@@ -20,6 +20,8 @@ import * as PublisherActions from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from "@angular/material";
+import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import * as codes from "common/utilities/codes";
 
 @Component({
   selector: 'app-site-details',
@@ -75,22 +77,33 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   deleteSite() {
-    if (confirm('Do you confirm deletion?')) {
-      this.publisherService.deleteSite(this.site.id)
-        .subscribe(
-          () => {
-            this.router.navigate(['/publisher', 'dashboard']);
-          },
-          () => {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: `Site cannot be deleted`,
-                message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
+    const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: 'Do you confirm deletion?',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.publisherService.deleteSite(this.site.id)
+            .subscribe(
+              () => {
+                this.router.navigate(['/publisher', 'dashboard']);
+              },
+              (err) => {
+                if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+                  this.dialog.open(ErrorResponseDialogComponent, {
+                    data: {
+                      title: `Site cannot be deleted`,
+                      message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
+                    }
+                  });
+                }
               }
-            });
-          }
-        );
-    }
+            );
+        }
+      },
+      () => {}
+    );
   }
 
   getLanguages() {
@@ -163,7 +176,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       () => {
       },
       (err) => {
-        if (err.status === 500) return;
+        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',

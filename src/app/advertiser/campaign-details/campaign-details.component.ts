@@ -17,6 +17,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import { MatDialog } from "@angular/material";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from 'common/utilities/codes';
 
 @Component({
@@ -63,22 +64,35 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   deleteCampaign() {
-    this.advertiserService.deleteCampaign(this.campaign.id)
-      .subscribe(
-        () => {
-          this.router.navigate(
-            ['/advertiser'],
-          );
-        },
+    const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: 'Do you confirm deletion?',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.advertiserService.deleteCampaign(this.campaign.id)
+            .subscribe(
+              () => {
+                this.router.navigate(
+                  ['/advertiser'],
+                );
+              },
 
-        () => {
-          this.dialog.open(ErrorResponseDialogComponent, {
-            data: {
-              title: `Campaign cannot be deleted`,
-              message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
-            }
-          });
+              (err) => {
+                if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+                  this.dialog.open(ErrorResponseDialogComponent, {
+                    data: {
+                      title: `Campaign cannot be deleted`,
+                      message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
+                    }
+                  });
+                }
+              }
+            );
         }
+      },
+      () => {}
       );
   }
 

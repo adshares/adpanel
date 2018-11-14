@@ -29,7 +29,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adSizesOptions: string[] = enumToArray(adSizesEnum);
   adSizesEnum = adSizesEnum;
   adUnitSizes: AdUnitSize[];
-  filtredAdUnitSizes: AdUnitSize[][] = [];
+  filteredAdUnitSizes: AdUnitSize[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
@@ -50,6 +50,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
+    this.adSizesOptions.unshift('All');
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
@@ -91,34 +92,39 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   selectChosenSize(savedAdUnit, adIndex) {
-    const choosedAdSize = this.filtredAdUnitSizes[adIndex].find(
-      (filtredAdUnitSize) => filtredAdUnitSize.id === savedAdUnit.size.id
+    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
+      (filteredAdUnitSize) => filteredAdUnitSize.type === savedAdUnit.type
     );
 
-    Object.assign(choosedAdSize, {selected: true});
+    Object.assign(chosenAdSize, {selected: true});
   }
 
   generateFormField(adUnit) {
-    this.filtredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
+    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
     return new FormGroup({
       shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
-      adUnitSizeFilter: new FormControl('Recommended'),
+      adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status)
     });
   }
 
-  onAdUnitSizeFilterChange(adUnitIindex) {
-    const filterValue = this.adUnitForms[adUnitIindex].get('adUnitSizeFilter').value;
+  onAdUnitSizeFilterChange(adUnitIndex) {
+    const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filtredAdUnitSizes[adUnitIindex] = this.adUnitSizes.filter((adUnitSize) =>
-      filterValue === 'Recommended' ? true : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) =>
+      filterValue === 'Recommended'
+        ? adUnitSize.tags.includes('best')
+        : (filterValue === 'All'
+          ? true
+          : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+        )
     );
   }
 
   selectAdUnit(adUnit, adUnitIindex) {
-    this.filtredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
+    this.filteredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
       filtredAdUnit.selected = false;
     });
 
@@ -127,9 +133,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   isAdUnitSelected() {
     const showInfoBox = this.adUnitForms.map((form, index) => {
-      return this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+      return this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
     });
-    return this.filtredAdUnitSizes.length === 1 || showInfoBox;
+    return this.filteredAdUnitSizes.length === 1 || showInfoBox;
   }
 
   saveAdUnits(isDraft) {
@@ -143,15 +149,14 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       return;
     }
     this.adUnitsSubmitted = true;
-    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid) &&
-      this.filtredAdUnitSizes.every(adUnit => adUnit.length === 1 || adUnit.some(unit => unit.selected));
+    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
     if (adUnitsValid) {
       this.changesSaved = true;
 
       const adUnitToSave = this.adUnitForms.map((form, index) => {
-        const selectedSize = this.filtredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
-        const size = this.filtredAdUnitSizes[index][0];
+        const selectedSize = this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
+        const size = this.filteredAdUnitSizes[index][0];
         return {
           shortHeadline: form.get('shortHeadline').value,
           type: form.get('type').value,
