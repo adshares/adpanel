@@ -3,13 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/take';
-
+import {map, startWith} from "rxjs/operators";
 import { AppState } from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
 import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { cloneDeep } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -23,6 +24,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   site: Site = cloneDeep(siteInitialState);
   createSiteMode: boolean;
   goesToSummary: boolean;
+  filteredOptions: Observable<object>;
 
   constructor(
     private router: Router,
@@ -35,8 +37,14 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.createForm();
     this.getLanguages();
+    this.createForm();
+    this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
+      .pipe(
+        startWith(''),
+        map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
+        map((val: string) =>  val ? this.filterOptions(val) : this.languages.slice())
+      )
   }
 
   getLanguages() {
@@ -58,11 +66,11 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
     const editSiteStep = this.goesToSummary ? 'summary' : 'additional-filtering';
     const param = this.goesToSummary ? 4 : 2;
-
+    const chosenLanguage = this.siteBasicInfoForm.controls['primaryLanguage'].value;
     this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
-      primaryLanguage: this.siteBasicInfoForm.controls['primaryLanguage'].value,
+      primaryLanguage: typeof  chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
 
     this.store.dispatch(new PublisherActions.SaveLastEditedSite(this.site));
@@ -75,11 +83,12 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   }
 
   createForm() {
+    const browserLanguage = window.navigator.language.split('-')[0];
     this.siteBasicInfoForm = new FormGroup({
       name: new FormControl(siteInitialState.name, [
         Validators.required
       ]),
-      primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
+      primaryLanguage: new FormControl(browserLanguage, Validators.required)
     });
 
     this.getFormDataFromStore();
@@ -92,5 +101,14 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
         this.site = cloneDeep(lastEditedSite);
         this.siteBasicInfoForm.patchValue(lastEditedSite);
       });
+  }
+
+  displayOption(language?): string {
+    return language ? language.name : ''
+  }
+
+  filterOptions(val: string): object[] {
+    const filterValue = val.toLowerCase();
+    return this.languages.filter(option => option.name.toLowerCase().includes(filterValue)  || option.code.toLowerCase().includes(filterValue))
   }
 }
