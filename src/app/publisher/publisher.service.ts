@@ -43,11 +43,11 @@ export class PublisherService {
     return this.http.delete<boolean>(`${environment.apiUrl}/sites/${id}`);
   }
 
-  updateSiteStatus(id: number, site: Site): Observable<Site> {
+  updateSiteData(id: number, site: Site): Observable<Site> {
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
   }
 
-  updateSiteData(id: number, site: Site): Observable<Site> {
+  updateSiteFiltering(id: number, site: Site): Observable<Site> {
     if (site.filtering) {
       const targetingObject = parseTargetingForBackend(site.filtering);
 

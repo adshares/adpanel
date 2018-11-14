@@ -172,7 +172,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.status =
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
-    this.publisherService.updateSiteStatus(this.site.id, this.site).subscribe(
+    this.publisherService.updateSiteData(this.site.id, this.site).subscribe(
       () => {
       },
       (err) => {

@@ -1,21 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adSizesEnum, adTypesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
-import { cloneDeep, enumToArray } from 'common/utilities/helpers';
-import { AdUnitSize, Site } from 'models/site.model';
-import { AppState } from 'models/app-state.model';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { adUnitInitialState } from 'models/initial-state/ad-unit';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {adSizesEnum, adTypesEnum, adUnitStatusesEnum} from 'models/enum/ad.enum';
+import {cloneDeep, enumToArray} from 'common/utilities/helpers';
+import {AdUnitSize, Site} from 'models/site.model';
+import {AppState} from 'models/app-state.model';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { MatDialog } from "@angular/material";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -121,21 +121,23 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
         )
     );
+
+    if (this.filteredAdUnitSizes[adUnitIndex].length === 1) {
+        this.selectAdUnit(this.filteredAdUnitSizes[adUnitIndex][0], adUnitIndex)
+    }
   }
 
-  selectAdUnit(adUnit, adUnitIindex) {
-    this.filteredAdUnitSizes[adUnitIindex].forEach((filtredAdUnit) => {
+  selectAdUnit(adUnit, adUnitIndex) {
+    this.filteredAdUnitSizes[adUnitIndex].forEach((filtredAdUnit) => {
       filtredAdUnit.selected = false;
     });
-
     adUnit.selected = true;
   }
 
   isAdUnitSelected() {
-    const showInfoBox = this.adUnitForms.map((form, index) => {
+    return this.adUnitForms.map((form, index) => {
       return this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
     });
-    return this.filteredAdUnitSizes.length === 1 || showInfoBox;
   }
 
   saveAdUnits(isDraft) {
