@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AppState } from 'models/app-state.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
@@ -26,6 +27,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   dateStart = new FormControl();
   dateEnd = new FormControl();
   calcBudgetToHour: boolean = true;
+  subscriptionArray: Subscription[] = [];
   today = new Date();
 
   goesToSummary: boolean;
@@ -41,6 +43,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createForm();
+  }
+
+  ngOnDestroy() {
+    this.subscriptionArray.forEach(subscription => subscription.unsubscribe());
   }
 
   saveCampaignBasicInformation() {
@@ -109,23 +115,27 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   }
 
   private subscribeBudgetChange() {
+    let subscription: Subscription;
+
     // calculate budget: hour -> day
-    this.campaignBasicInfoForm.get('budget').valueChanges
+    subscription = this.campaignBasicInfoForm.get('budget').valueChanges
       .subscribe((val) => {
         if (!this.calcBudgetToHour) {
           this.budgetValue = val;
           this.budgetPerDay.setValue(calcCampaignBudgetPerDay(val).toFixed(2));
         }
       }, () => {});
+    this.subscriptionArray.push(subscription);
 
     // calculate budget: day -> hour
-    this.budgetPerDay.valueChanges
+    subscription = this.budgetPerDay.valueChanges
       .subscribe((val) => {
         if (this.calcBudgetToHour) {
           this.budgetValue = calcCampaignBudgetPerHour(val);
           this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
         }
       }, () => {});
+    this.subscriptionArray.push(subscription);
   }
 
   getFormDataFromStore() {
