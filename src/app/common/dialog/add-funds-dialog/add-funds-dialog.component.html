@@ -21,7 +21,7 @@
       adsh-copy--large
       dialog-description"
   >
-    Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
+    Below are information needed to add funds to Your account.
   </p>
 
   <div
@@ -43,7 +43,8 @@
           adsh-form-input--full"
         name="adshares-address"
         [value]="adsharesAddress"
-        disabled
+        readonly
+        #address
         data-test="common-add-funds-dialog-adshares-address"
       >
       <span class="input-valid"></span>
@@ -53,8 +54,23 @@
         adsh-copy
         adsh-copy--large"
     >
-      You need to send cryptocurrency funds on this address
+      You need to send transfer to this address
     </p>
+    <div
+      class="
+        row
+        justify-end"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+        (click)="copyInput(address)"
+        data-test="common-add-funds-dialog-adshares-address-copy"
+      >
+        Copy to clipboard
+      </button>
+    </div>
 
     <div class="adsh-form-input__box">
       <label
@@ -71,7 +87,8 @@
         type="url"
         name="memo"
         [value]="paymentMemo"
-        disabled
+        readonly
+        #memo
         data-test="common-add-funds-dialog-user-memo"
       >
       <span class="input-valid"></span>
@@ -81,9 +98,24 @@
         adsh-copy
         adsh-copy--large"
     >
-      We will send you a notification when we receive a funds from your MEMO -
-      this is kind of profile name which we will recognize that you have paid.
+      Your MEMO allows us to add transferred funds to Your account.
+      We will send you a notification when we receive a transfer.
     </p>
+    <div
+      class="
+        row
+        justify-end"
+    >
+      <button
+        class="
+          adsh-btn
+          adsh-btn--blue"
+        (click)="copyInput(memo)"
+        data-test="common-add-funds-dialog-user-memo-copy"
+      >
+        Copy to clipboard
+      </button>
+    </div>
 
     <div class="row">
       <span
@@ -93,30 +125,9 @@
           col-xs-12"
         *ngIf="!isEmailConfirmed"
       >
-        Confirm email to add funds
+        Confirm email before deposit
       </span>
     </div>
   </div>
 
-  <div
-    class="
-      row
-      justify-center
-      adsh-btn--submit"
-  >
-    <button
-      class="
-        adsh-btn
-        adsh-btn--blue"
-      *ngIf="isEmailConfirmed"
-    >
-      <span *ngIf="!isFormBeingSubmitted ; else loading">
-        Deposit
-      </span>
-
-      <ng-template #loading>
-        <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-      </ng-template>
-    </button>
-  </div>
 </mat-dialog-content>
