@@ -8,8 +8,7 @@ services:
   - docker
 
 stages:
-  - build and install check
-  - quality
+  - Test build, install and code quality
 
 env:
   global:
@@ -40,14 +39,9 @@ before_script:
     $DOCKER_IMAGE
     sleep infinity
 
-after_script:
-  # Cleanup
-  - docker stop $BUILD_NAME && docker rm $BUILD_NAME
-
 jobs:
   include:
-    # node.js build
-    - stage: build and install check
+    - stage: Test build, install and code quality
       script:
         # Run pre-build script
         - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-build.sh"
@@ -61,9 +55,7 @@ jobs:
         # Run install script
         - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/install.sh"
 
-    # Sonar Qube
-    - stage: quality
-      script: sonar-scanner
+        - sonar-scanner
 
 # After a build, send email push-notification with the build results
 notifications:
