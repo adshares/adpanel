@@ -18,11 +18,10 @@ if [ -v INSTALL_NPM ]; then
 fi
 
 if [ -v INSTALL_YARN ]; then
-    curl --version || apt-get -qq -y install curl
+    curl --version || apt-get -qq -y --no-install-recommends install curl
     # Get yarn
-    php -r "copy('https://dl.yarnpkg.com/debian/pubkey.gpg', 'yarn.pubkey.gpg');"
-    cat yarn.pubkey.gpg | apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
 
     apt-get -qq update
 
@@ -30,7 +29,7 @@ if [ -v INSTALL_YARN ]; then
 fi
 
 # Install yarn
-apt-get -qq -y install $PACKAGE_LIST libpng-dev
+apt-get -qq -y --no-install-recommends install $PACKAGE_LIST libpng-dev
 
 # envsubst binary
-envsubst --version || apt-get -qq -y install gettext-base
+envsubst --version || apt-get -qq -y --no-install-recommends install gettext-base
