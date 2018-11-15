@@ -4,7 +4,7 @@ interface Site {
   id?: number;
   status: number;
   name: string;
-  primaryLanguage: string;
+  primaryLanguage: string | SiteLanguage;
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;

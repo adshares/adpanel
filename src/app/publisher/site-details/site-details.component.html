@@ -96,30 +96,30 @@
             data-test="publisher-site-status-toggle"
           ></mat-slide-toggle>
         </div>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
-            hidden-md"
-          (click)="navigateToEditSite()"
-          data-test="publisher-site-edit"
-        >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="assets/images/edit.svg"
-            alt="Edit icon"
-          >
-          <span
-            class="
-              adsh-copy
-              adsh-copy--dark"
-          >
-            Edit Site
-          </span>
-        </button>
+        <!--<button-->
+        <!--class="-->
+        <!--adsh-btn-->
+        <!--adsh-btn&#45;&#45;white-->
+        <!--adsh-btn&#45;&#45;no-border-->
+        <!--hidden-md"-->
+        <!--(click)="navigateToEditSite()"-->
+        <!--data-test="publisher-site-edit"-->
+        <!--&gt;-->
+        <!--<img-->
+        <!--class="-->
+        <!--adsh-icon-->
+        <!--adsh-icon&#45;&#45;prepend"-->
+        <!--src="assets/images/edit.svg"-->
+        <!--alt="Edit icon"-->
+        <!--&gt;-->
+        <!--<span-->
+        <!--class="-->
+        <!--adsh-copy-->
+        <!--adsh-copy&#45;&#45;dark"-->
+        <!--&gt;-->
+        <!--Edit Site-->
+        <!--</span>-->
+        <!--</button>-->
         <button
           class="
             adsh-btn
@@ -148,7 +148,10 @@
     <div
       class="
           adsh-box
-          ad-units"
+          ad-units
+          row
+          justify-between
+          align-center"
     >
       <p
         class="
@@ -161,49 +164,102 @@
           {{language.name}}
         </span>
       </p>
+      <button
+        class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+        (click)="navigateToEditSite('basic-information', 1)"
+        data-test="publisher-site-edit"
+      >
+        <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          src="assets/images/edit.svg"
+          alt="Edit icon"
+        >
+        <span
+          class="
+            adsh-copy
+            adsh-copy--dark"
+        >
+      Edit Basic Info
+      </span>
+      </button>
     </div>
-    <div
-      *ngIf="!!filtering.requires.length || !!filtering.excludes.length"
-      class="
+
+    <section class="adsh-box adsh-box--high">
+      <div class="row justify-end">
+        <button
+          class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+          (click)="navigateToEditSite('additional-filtering', 2)"
+          data-test="publisher-site-edit"
+        >
+          <img
+            class="
+            adsh-icon
+            adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon"
+          >
+          <span
+            class="
+            adsh-copy
+            adsh-copy--dark"
+          >
+            {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
+        </span>
+        </button>
+      </div>
+      <div
+        *ngIf="!!filtering.requires.length || !!filtering.excludes.length"
+        class="
         adsh-box
-        adsh-box--large
         adsh-copy
         row"
-    >
-      <div
-        *ngIf="!!filtering.requires.length"
-        class="
+      >
+        <div
+          *ngIf="!!filtering.requires.length"
+          class="
           col-xs-12
           col-lg-6"
-      >
-        <div>
-          <app-targeting-display
-            class="app-targeting-display"
-            [items]="filtering.requires"
-            [isExclude]="false"
-            [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
+        >
+          <div>
+            <app-targeting-display
+              class="app-targeting-display"
+              [items]="filtering.requires"
+              [isExclude]="false"
+              [canRemove]="false"
+              [targetingOptions]="filteringOptions"
+            ></app-targeting-display>
+          </div>
+        </div>
+
+        <div
+          *ngIf="!!filtering.excludes.length"
+          class="
+          col-xs-12
+          col-lg-6"
+        >
+          <div>
+            <app-targeting-display
+              class="app-targeting-display"
+              [items]="filtering.excludes"
+              [isExclude]="true"
+              [canRemove]="false"
+              [targetingOptions]="filteringOptions"
+            ></app-targeting-display>
+          </div>
         </div>
       </div>
 
-      <div
-        *ngIf="!!filtering.excludes.length"
-        class="
-          col-xs-12
-          col-lg-6"
-      >
-        <div>
-          <app-targeting-display
-            class="app-targeting-display"
-            [items]="filtering.excludes"
-            [isExclude]="true"
-            [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
-        </div>
-      </div>
-    </div>
+    </section>
 
     <div
       class="
@@ -275,15 +331,42 @@
       <div
         class="
           adsh-box
-          ad-units"
+          ad-units
+          row
+          justify-between
+          align-center"
       >
         <p
           class="
             adsh-copy
             adsh-copy--semi"
         >
-          List od Ad Units
+          List of Ad Units
         </p>
+        <button
+          class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+          (click)="navigateToEditSite('create-ad-units', 2)"
+          data-test="publisher-site-edit"
+        >
+          <img
+            class="
+            adsh-icon
+            adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon"
+          >
+          <span
+            class="
+            adsh-copy
+            adsh-copy--dark"
+          >
+      Edit Ad Units
+      </span>
+        </button>
       </div>
       <app-ad-units
         *ngFor="let adUnit of site.adUnits"

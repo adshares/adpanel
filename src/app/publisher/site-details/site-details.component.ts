@@ -140,11 +140,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartDataSubscription);
   }
 
-  navigateToEditSite() {
+  navigateToEditSite(path: string, step: number): void {
     this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'edit-site', 'summary'],
-      {queryParams: {step: 4}}
+      ['/publisher', 'edit-site', path],
+      {queryParams: {step, summary: true}}
     );
   }
 
@@ -172,7 +172,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.status =
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
-    this.publisherService.updateSiteStatus(this.site.id, this.site).subscribe(
+    this.publisherService.updateSiteData(this.site.id, this.site).subscribe(
       () => {
       },
       (err) => {
