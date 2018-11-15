@@ -13,7 +13,7 @@ stages:
 
 env:
   global:
-    - DOCKER_IMAGE=awlodarkiewicz/devops:build-latest
+    - DOCKER_IMAGE=awlodarkiewicz/devops:js
     - HOST_PATH=/home/travis/build/adshares/adpanel
     - BUILD_PATH=/build/adpanel
     - BUILD_NAME=adpanel_build
