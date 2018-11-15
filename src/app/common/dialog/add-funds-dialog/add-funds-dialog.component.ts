@@ -14,8 +14,8 @@ import { SessionService } from "app/session.service";
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
   isEmailConfirmed = false;
 
-  adsharesAddress: string;
-  paymentMemo: string;
+  adsharesAddress: string = '';
+  paymentMemo: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
@@ -28,7 +28,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   ngOnInit() {
 
     const user = this.session.getUser();
-    this.paymentMemo = user.adserverWallet.paymentMemo;
     this.isEmailConfirmed = user.isEmailConfirmed;
 
     this.api.config.depositInfo()
