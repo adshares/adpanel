@@ -140,7 +140,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     )
   }
 
-  saveAdUnits(isDraft: boolean): void {
+  saveAdUnits(isDraft: boolean) {
     if (!this.adUnitForms.length) {
       this.dialog.open(ErrorResponseDialogComponent, {
         data: {
