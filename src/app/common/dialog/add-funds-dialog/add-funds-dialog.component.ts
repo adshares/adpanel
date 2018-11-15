@@ -38,9 +38,9 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       });
   }
 
-  copyInput(elementId) {
-    elementId.select();
+  copyInput(input: HTMLInputElement) {
+    input.select();
     document.execCommand('copy');
-    elementId.setSelectionRange(0, 0);
+    input.setSelectionRange(0, 0);
   }
 }
