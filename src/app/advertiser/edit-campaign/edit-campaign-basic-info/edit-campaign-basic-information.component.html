@@ -108,7 +108,7 @@
                 for="campaign-max-cpc"
                 class="adsh-form-label"
               >
-                Max CPC
+                Max CPC (ADS)
               </label>
               <input
                 id="campaign-max-cpc"
@@ -164,7 +164,7 @@
                 for="campaign-max-cpm"
                 class="adsh-form-label"
               >
-                Max CPM
+                Max CPM (ADS)
               </label>
               <input
                 id="campaign-max-cpm"
@@ -230,6 +230,7 @@
                 min="0.01"
                 name="campaignBudgetPerDay"
                 [formControl]="budgetPerDay"
+                (focus)="onFocus('campaign-budget-per-day')"
                 data-test="advertiser-edit-campaign-basic-information-form-budget-per-day"
               >
               <span
@@ -240,7 +241,7 @@
             <span
               class="error-msg"
               *ngIf="
-                campaignBasicInfoForm.hasError('required', ['budget']) &&
+                budgetPerDay.hasError('min') &&
                 campaignBasicInformationSubmitted"
             >
               Budget required
@@ -248,10 +249,10 @@
             <span
               class="error-msg"
               *ngIf="
-                campaignBasicInfoForm.hasError('min', ['budget']) &&
+                budgetPerDay.hasError('min') &&
                 campaignBasicInformationSubmitted"
             >
-              Allowed minimum is 0
+              Allowed minimum is 0.01
             </span>
           </div>
           <!-- divider -->
@@ -282,7 +283,7 @@
                 min="0.01"
                 name="campaignBudget"
                 formControlName="budget"
-                [readonly]="true"
+                (focus)="onFocus('campaign-budget')"
                 data-test="advertiser-edit-campaign-basic-information-form-budget"
               >
               <span
@@ -304,7 +305,7 @@
                 campaignBasicInfoForm.hasError('min', ['budget']) &&
                 campaignBasicInformationSubmitted"
             >
-              Allowed minimum is 0
+              Allowed minimum is 0.0004
             </span>
           </div>
         </div>

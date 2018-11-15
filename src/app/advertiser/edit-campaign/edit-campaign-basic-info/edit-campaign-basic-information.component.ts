@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AppState } from 'models/app-state.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
@@ -21,9 +22,12 @@ import { calcCampaignBudgetPerDay, calcCampaignBudgetPerHour } from 'common/util
 export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
-  budgetPerDay = new FormControl();
+  budgetPerDay: FormControl;
+  budgetValue: number;
   dateStart = new FormControl();
   dateEnd = new FormControl();
+  calcBudgetToHour: boolean = true;
+  subscriptionArray: Subscription[] = [];
   today = new Date();
 
   goesToSummary: boolean;
@@ -39,6 +43,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createForm();
+  }
+
+  ngOnDestroy() {
+    this.subscriptionArray.forEach(subscription => subscription.unsubscribe());
   }
 
   saveCampaignBasicInformation() {
@@ -57,7 +65,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       targetUrl: campaignBasicInfoValue.targetUrl,
       maxCpc: campaignBasicInfoValue.maxCpc,
       maxCpm: campaignBasicInfoValue.maxCpm,
-      budget: campaignBasicInfoValue.budget,
+      budget: this.budgetValue,
       dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD'),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD') : null
     };
@@ -73,6 +81,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   createForm() {
     const initialBasicinfo = campaignInitialState.basicInformation;
+    this.budgetValue = (initialBasicinfo.budget === null) ? 0 : initialBasicinfo.budget;
 
     this.campaignBasicInfoForm = new FormGroup({
       name: new FormControl(initialBasicinfo.name, Validators.required),
@@ -90,16 +99,43 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       ]),
       budget: new FormControl(initialBasicinfo.budget, [
         Validators.required,
-        Validators.min(0),
+        Validators.min(0.0004),
       ]),
     });
 
-    this.budgetPerDay.valueChanges
-      .subscribe((val) => {
-        this.campaignBasicInfoForm.get('budget').setValue(calcCampaignBudgetPerHour(val).toFixed(11));
-      });
+    const initialBudgetPerDay = (initialBasicinfo.budget === null) ?
+      '' : calcCampaignBudgetPerDay(initialBasicinfo.budget);
+    this.budgetPerDay = new FormControl(initialBudgetPerDay, [
+      Validators.required,
+      Validators.min(0.01),
+    ]);
 
+    this.subscribeBudgetChange();
     this.getFormDataFromStore();
+  }
+
+  private subscribeBudgetChange() {
+    let subscription: Subscription;
+
+    // calculate budget: hour -> day
+    subscription = this.campaignBasicInfoForm.get('budget').valueChanges
+      .subscribe((val) => {
+        if (!this.calcBudgetToHour) {
+          this.budgetValue = val;
+          this.budgetPerDay.setValue(calcCampaignBudgetPerDay(val).toFixed(2));
+        }
+      }, () => {});
+    this.subscriptionArray.push(subscription);
+
+    // calculate budget: day -> hour
+    subscription = this.budgetPerDay.valueChanges
+      .subscribe((val) => {
+        if (this.calcBudgetToHour) {
+          this.budgetValue = calcCampaignBudgetPerHour(val);
+          this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+        }
+      }, () => {});
+    this.subscriptionArray.push(subscription);
   }
 
   getFormDataFromStore() {
@@ -116,6 +152,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
         if (lastEditedCampaign.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.dateEnd));
         }
-      });
+      }, () => {});
+  }
+
+  onFocus(elemId: string) {
+    this.calcBudgetToHour = 'campaign-budget' !== elemId;
   }
 }
