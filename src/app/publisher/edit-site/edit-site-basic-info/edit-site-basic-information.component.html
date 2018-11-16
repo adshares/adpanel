@@ -24,7 +24,7 @@
 
   <form
     [formGroup]="siteBasicInfoForm"
-    (ngSubmit)="saveSiteBasicInformation()"
+    (ngSubmit)="onSubmit()"
     class="adsh-form"
     data-test="publisher-edit-site-basic-information-form"
   >
@@ -147,11 +147,12 @@
           adsh-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
+
     </div>
   </form>
 </section>

@@ -77,7 +77,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   updateSite(): void {
     this.canSubmit = false;
     const siteId = this.site.id;
-    this.publisherService.updateSiteData(siteId, this.site).subscribe(
+    this.publisherService.updateSiteFiltering(siteId, this.site).subscribe(
       () => {
         this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
         this.store.dispatch(new publisherActions.ClearLastEditedSite({}));

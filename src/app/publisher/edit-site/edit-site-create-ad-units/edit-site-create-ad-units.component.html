@@ -25,7 +25,7 @@
   </div>
   <div
     class="adsh-box"
-    *ngFor="let adUnitForm of adUnitForms; let adUnitIindex = index"
+    *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index"
   >
     <form
       [formGroup]="adUnitForm"
@@ -33,9 +33,9 @@
     >
       <mat-accordion data-test="publisher-edit-site-create-ad-units-accordion">
         <mat-expansion-panel
-          (opened)="handlePanelExpand(adUnitIindex)"
-          (closed)="adUnitPanelsStatus[adUnitIindex] = false"
-          [expanded]="adUnitPanelsStatus[adUnitIindex]"
+          (opened)="handlePanelExpand(adUnitIndex)"
+          (closed)="adUnitPanelsStatus[adUnitIndex] = false"
+          [expanded]="adUnitPanelsStatus[adUnitIndex]"
           data-test="publisher-edit-site-create-ad-units-accordion-panel"
         >
           <mat-expansion-panel-header>
@@ -44,8 +44,8 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ adUnitIindex + 1 }}.&nbsp;
-              <span *ngIf="!adUnitPanelsStatus[adUnitIindex]">
+              {{ adUnitIndex + 1 }}.&nbsp;
+              <span *ngIf="!adUnitPanelsStatus[adUnitIndex]">
                 Title:
                 <span data-test="publisher-edit-site-create-ad-units-form-short-headline">
                   {{ adUnitForm.get('shortHeadline').value }}
@@ -138,7 +138,7 @@
                 <mat-select
                   class="adsh-select"
                   formControlName="adUnitSizeFilter"
-                  (change)="onAdUnitSizeFilterChange(adUnitIindex)"
+                  (change)="onAdUnitSizeFilterChange(adUnitIndex)"
                   data-test="publisher-edit-site-create-ad-units-form-size-select"
                 >
                   <mat-option
@@ -162,9 +162,9 @@
             <div
               class="site-edit-create-ad-units__ad-unit"
               [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': !!adUnit.selected}"
-              *ngFor="let adUnit of filteredAdUnitSizes[adUnitIindex]"
+              *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
-              (click)="selectAdUnit(adUnit, adUnitIindex)"
+              (click)="selectAdUnit(adUnit, adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
             >
               <div
@@ -209,7 +209,7 @@
               adsh-blue
               save-as-draft"
               *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
-              (click)="removeNewAdUnit(adUnitIindex)"
+              (click)="removeNewAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
               Delete Ad Unit
