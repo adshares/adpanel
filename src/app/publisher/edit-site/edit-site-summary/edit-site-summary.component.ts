@@ -44,6 +44,8 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
     this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
+        console.log('last', site)
+
         this.assetHelpers.redirectIfNameNotFilled(site);
         this.site = site;
       });

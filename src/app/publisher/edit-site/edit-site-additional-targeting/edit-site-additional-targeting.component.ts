@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { AppState } from 'models/app-state.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { Site } from 'models/site.model';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
+import {AppState} from 'models/app-state.model';
+import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {Site} from 'models/site.model';
+import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
+import {parseTargetingOptionsToArray, prepareTargetingChoices} from "common/components/targeting/targeting.helpers";
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -34,6 +35,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;
+  site: Site;
+  filtering;
+  filteringOptions;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,7 +69,34 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.excludedItems = [...items];
   }
 
-  saveSite(isDraft) {
+  onSubmit() {
+    return this.createSiteMode ? this.saveSite(false) : this.updateSite();
+  }
+
+  get siteToSave(): Site {
+    return {
+      ...this.site,
+      filtering: {
+        requires: [...this.addedItems],
+        excludes: [...this.excludedItems]
+      }
+    }
+  }
+
+  updateSite() {
+    this.changesSaved = true;
+    const updateSubscription = this.publisherService.updateSiteFiltering(this.siteToSave.id, this.siteToSave)
+      .subscribe(
+        () => {
+          this.store.dispatch(new publisherActions.ClearLastEditedSite());
+          this.router.navigate(['/publisher', 'site', this.site.id]);
+        }
+      );
+    this.subscriptions.push(updateSubscription);
+
+  }
+
+    saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
@@ -76,12 +107,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
-      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
-      const param = this.goesToSummary ? 4 : 3;
-
       this.router.navigate(
-        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
-        {queryParams: {step: param}}
+        ['/publisher', 'create-site', 'create-ad-units'],
+        {queryParams: {step: 3}}
       );
 
       return;
@@ -100,18 +128,31 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
+        this.site = lastEditedSite;
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
+        this.getFiltering(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
           return;
         }
-
-        const filtering = lastEditedSite.filtering;
-
-        this.addedItems = [...filtering.requires];
-        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }
+
+  getFiltering(site) {
+    const filteringSubscription = this.store.select('state', 'publisher', 'filteringCriteria')
+      .subscribe((filteringOptions) => {
+        this.filteringOptions = filteringOptions;
+        this.filtering = parseTargetingOptionsToArray(site.filtering, this.filteringOptions);
+        this.addedItems = [...this.filtering.requires];
+        this.excludedItems = [...this.filtering.excludes];
+
+        if (!filteringOptions.length) {
+          this.store.dispatch(new publisherActions.GetFilteringCriteria());
+        }
+      });
+    this.subscriptions.push(filteringSubscription);
+  }
+
 }

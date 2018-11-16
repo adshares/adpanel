@@ -1,12 +1,15 @@
 import { Action } from '@ngrx/store';
 
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
-import { AssetTargeting } from 'models/targeting-option.model';
+import {AssetTargeting, TargetingOption} from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
 export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loaded';
 export const GET_LANGUAGES_LIST_FAILURE = 'Languages loading failure';
+export const GET_FILTERING_CRITERIA = 'Getting filtering criteria';
+export const GET_FILTERING_CRITERIA_SUCCESS = 'Filtering criteria loaded';
+export const GET_FILTERING_CRITERIA_FAILURE = 'Filtering criteria loading failure';
 export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';
 export const LOAD_SITES_TOTALS = 'Sites totals loaded';
@@ -50,7 +53,7 @@ export class LoadSitesTotalsSuccess implements Action {
 export class ClearLastEditedSite implements Action {
   readonly type: string = CLEAR_LAST_EDITED_SITE;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 
@@ -116,11 +119,34 @@ export class GetLanguagesListFailure implements Action {
   constructor(public payload: any) {
   }
 }
+export class GetFilteringCriteria implements Action {
+  readonly type = GET_FILTERING_CRITERIA;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetFilteringCriteriaSuccess implements Action {
+  readonly type = GET_FILTERING_CRITERIA_SUCCESS;
+
+  constructor(public payload: TargetingOption[]) {
+  }
+}
+
+export class GetFilteringCriteriaFailure implements Action {
+  readonly type = GET_FILTERING_CRITERIA_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
 
 export type actions =
   GetLanguagesList |
   GetLanguagesListSuccess |
   GetLanguagesListFailure |
+  GetFilteringCriteria |
+  GetFilteringCriteriaSuccess |
+  GetFilteringCriteriaFailure |
   LoadSites |
   LoadSitesSuccess |
   LoadSitesTotals |

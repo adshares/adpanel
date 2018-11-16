@@ -56,7 +56,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       .first()
       .subscribe((lastEditedSite: Site) => {
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
-
         if (!siteUrlFilled) {
           this.changesSaved = true;
           return;
@@ -171,6 +170,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   redirectAfterSave(isDraft: boolean): void {
+
     if (!isDraft) {
       this.router.navigate(
         ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
@@ -179,6 +179,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
       return;
     }
+
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((site: Site) => {
