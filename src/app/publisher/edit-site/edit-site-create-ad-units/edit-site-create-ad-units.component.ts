@@ -151,12 +151,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     )
   }
 
-  isAdUnitSelected(): AdUnitSize[] {
-    return this.adUnitForms.map((form, index) => {
-      return this.filteredAdUnitSizes[index].find((adUnitSize) => adUnitSize.selected);
-    });
-  }
-
   onSubmit(): void {
     return this.createSiteMode ? this.saveAdUnits(false) : this.updateAdUnits();
   }

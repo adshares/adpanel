@@ -216,7 +216,7 @@
             </button>
             <span
               class="error-msg"
-              *ngIf="adUnitsSubmitted && !isAdUnitSelected()"
+              *ngIf="adUnitsSubmitted && !adUnitForm.get('size').value"
             >
                 Ad unit size required!
               </span>
