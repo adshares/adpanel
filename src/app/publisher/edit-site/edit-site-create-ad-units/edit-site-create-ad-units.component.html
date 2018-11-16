@@ -106,8 +106,8 @@
                   data-test="publisher-edit-site-create-ad-units-form-ad-type-select"
                 >
                   <mat-option
-                    *ngFor="let adType of adTypes; let i = index"
-                    [value]="i"
+                    *ngFor="let adType of adTypes;"
+                    [value]="adType"
                     data-test="publisher-edit-site-create-ad-units-form-ad-type-option"
                   >
                     {{ adType }}
@@ -287,7 +287,9 @@
 
     <div class="row">
       <button
+        *ngIf="createSiteMode"
         (click)="saveAdUnits(true)"
+        type="button"
         class="
           adsh-btn
           adsh-btn--white
@@ -298,13 +300,14 @@
         Save as Draft
       </button>
       <button
-        (click)="saveAdUnits(false)"
+        type="submit"
         class="
           adsh-btn
           adsh-btn--blue"
+        (click)="onSubmit()"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved ; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

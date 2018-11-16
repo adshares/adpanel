@@ -7,7 +7,7 @@ import 'rxjs/add/operator/first';
 
 import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adSizesEnum, adTypesEnum, adUnitStatusesEnum} from 'models/enum/ad.enum';
+import {adSizesEnum, adTypesOptions, adUnitStatusesEnum} from 'models/enum/ad.enum';
 import {cloneDeep, enumToArray} from 'common/utilities/helpers';
 import {AdUnit, AdUnitSize, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
@@ -16,6 +16,7 @@ import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
+import {ClearLastEditedSite} from "store/publisher/publisher.actions";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -25,7 +26,7 @@ import {MatDialog} from "@angular/material";
 export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
-  adTypes: string[] = enumToArray(adTypesEnum);
+  adTypes: string[] = adTypesOptions;
   adSizesOptions: string[] = enumToArray(adSizesEnum);
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
@@ -35,6 +36,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
+  site: Site;
 
   constructor(
     private publisherService: PublisherService,
@@ -52,6 +54,19 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
     this.adSizesOptions.unshift('Recommended');
     this.adSizesOptions.unshift('All');
+    this.fillFormWithData();
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .subscribe((site: Site) => {
+        this.site = site;
+      });
+    this.subscriptions.push(lastSiteSubscription);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  fillFormWithData(): void {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
@@ -77,11 +92,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     this.subscriptions.push(lastSiteSubscription);
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-  createEmptyAd():void {
+  createEmptyAd(): void {
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
@@ -94,7 +105,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   selectChosenSize(savedAdUnit: AdUnit, adIndex: number): void {
     const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
-      (filteredAdUnitSize) => filteredAdUnitSize.type === savedAdUnit.size.type
+      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.size.label
     );
     Object.assign(chosenAdSize, {selected: true});
   }
@@ -128,19 +139,54 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
     this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
     this.allAdUnitSizes[adUnitIndex].forEach((filteredAdUnit) => {
-      filteredAdUnit.selected = filteredAdUnit.type === this.adUnitForms[adUnitIndex].get('size').value.type;
+      filteredAdUnit.selected = filteredAdUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label;
     });
 
     this.filteredAdUnitSizes[adUnitIndex].forEach(adUnit => {
         adUnit.selected = false;
-        if (!!this.allAdUnitSizes[adUnitIndex].find(unit => unit.selected === true && unit.type === adUnit.type)) {
+        if (!!this.allAdUnitSizes[adUnitIndex].find(unit => unit.selected === true && unit.label === adUnit.label)) {
           adUnit.selected = true
         }
       }
     )
   }
 
-  saveAdUnits(isDraft: boolean) {
+  onSubmit(): void {
+    return this.createSiteMode ? this.saveAdUnits(false) : this.updateAdUnits();
+  }
+
+  updateAdUnits(): void {
+    const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    if (!adUnitsValid) return;
+    this.changesSaved = true;
+    this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
+
+    const updateSubscription = this.publisherService.updateSiteData(this.site.id, this.site)
+      .subscribe(
+        () => {
+          this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
+          this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+          this.router.navigate(['/publisher', 'site', this.site.id]);
+        },
+        (err) => {
+          console.error(`Error occured: ${err}`)
+        }
+      );
+    this.subscriptions.push(updateSubscription);
+  }
+
+  get adUnitsToSave(): AdUnit[] {
+    return this.adUnitForms.map((form) => {
+      return {
+        shortHeadline: form.get('shortHeadline').value,
+        type: form.get('type').value,
+        size: form.get('size').value,
+        status: form.get('status').value
+      };
+    });
+  }
+
+  saveAdUnits(isDraft: boolean): void {
     if (!this.adUnitForms.length) {
       this.dialog.open(ErrorResponseDialogComponent, {
         data: {
@@ -155,17 +201,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
     if (adUnitsValid) {
       this.changesSaved = true;
-
-      const adUnitToSave = this.adUnitForms.map((form) => {
-        return {
-          shortHeadline: form.get('shortHeadline').value,
-          type: form.get('type').value,
-          size: form.get('size').value,
-          status: form.get('status').value
-        };
-      });
-
-      this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(adUnitToSave));
+      this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
       this.redirectAfterSave(isDraft);
     }
   }
@@ -176,16 +212,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
         {queryParams: {step: 4}}
       );
-
       return;
     }
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
-      .subscribe((site: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
-        this.router.navigate(['/publisher', 'dashboard']);
-      });
-    this.subscriptions.push(lastSiteSubscription);
+    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
+    this.router.navigate(['/publisher', 'dashboard']);
   }
 
   removeNewAdUnit(adIndex: number): void {
