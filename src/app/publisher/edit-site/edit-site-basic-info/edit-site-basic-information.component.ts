@@ -66,7 +66,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
   }
 
-  saveSiteBasicInformation() {
+  saveSiteBasicInformation(): void {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
@@ -92,7 +92,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     };
   }
 
-  updateSite() {
+  updateSite(): void {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
@@ -108,7 +108,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     )
   }
 
-  createForm() {
+  createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
       name: new FormControl(siteInitialState.name, [
         Validators.required
@@ -119,7 +119,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.getFormDataFromStore();
   }
 
-  getFormDataFromStore() {
+  getFormDataFromStore(): void {
     this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite) => {
@@ -132,11 +132,14 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       });
   }
 
-  getSiteLanguage(languageCode?: string | SiteLanguage) {
-    const browserLanguageCode = navigator.language.split('-')[0];
-    const code = languageCode ?
-      (typeof languageCode === 'string' ? languageCode : languageCode.code)
-      : browserLanguageCode;
+  getSiteLanguage(languageCode?: string | SiteLanguage): SiteLanguage {
+    let code;
+
+    if (languageCode) {
+      code = typeof languageCode === 'string' ? languageCode : languageCode.code;
+    } else {
+      code = navigator.language.split('-')[0];
+    }
 
     return this.languages.find(lang =>  lang.code === code);
   }
