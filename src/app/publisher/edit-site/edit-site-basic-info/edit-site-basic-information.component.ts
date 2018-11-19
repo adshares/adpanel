@@ -39,9 +39,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-
     this.getLanguages();
-    this.createForm();
+
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
@@ -57,6 +56,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
         if (!this.languages.length) {
           this.store.dispatch(new PublisherActions.GetLanguagesList());
+        } else {
+          this.createForm();
         }
       });
   }
@@ -65,7 +66,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
   }
 
-  saveSiteBasicInformation() {
+  saveSiteBasicInformation(): void {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
@@ -77,7 +78,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.changesSaved = true;
 
     this.router.navigate(
-      ['/publisher', 'create-site' , editSiteStep],
+      ['/publisher', 'create-site', editSiteStep],
       {queryParams: {step: param}}
     );
   }
@@ -91,7 +92,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     };
   }
 
-  updateSite() {
+  updateSite(): void {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
@@ -107,7 +108,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     )
   }
 
-  createForm() {
+  createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
       name: new FormControl(siteInitialState.name, [
         Validators.required
@@ -118,18 +119,29 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.getFormDataFromStore();
   }
 
-  getFormDataFromStore() {
+  getFormDataFromStore(): void {
     this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite) => {
         this.site = cloneDeep(lastEditedSite);
-        this.site.primaryLanguage = this.getSiteLanguage(lastEditedSite.primaryLanguage);
+        this.site.primaryLanguage = this.getSiteLanguage(lastEditedSite.primaryLanguage) ?
+          this.getSiteLanguage(lastEditedSite.primaryLanguage) :
+          this.getSiteLanguage();
+
         this.siteBasicInfoForm.patchValue(this.site);
       });
   }
 
-  getSiteLanguage(code: string | SiteLanguage) {
-    return this.languages.find(lang => lang.code === code);
+  getSiteLanguage(languageCode?: string | SiteLanguage): SiteLanguage {
+    let code;
+
+    if (languageCode) {
+      code = typeof languageCode === 'string' ? languageCode : languageCode.code;
+    } else {
+      code = navigator.language.split('-')[0];
+    }
+
+    return this.languages.find(lang =>  lang.code === code);
   }
 
   displayOption(language?): string {
