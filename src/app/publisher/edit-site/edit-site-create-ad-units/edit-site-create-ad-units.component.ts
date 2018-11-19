@@ -155,6 +155,17 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     return this.createSiteMode ? this.saveAdUnits(false) : this.updateAdUnits();
   }
 
+  onStepBack(): void {
+    if (!this.createSiteMode) {
+      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
+        {queryParams: {step: 2}})
+    } else {
+      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.router.navigate(['/publisher', 'site', this.site.id]);
+    }
+  }
+
+
   updateAdUnits(): void {
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
     if (!adUnitsValid) return;

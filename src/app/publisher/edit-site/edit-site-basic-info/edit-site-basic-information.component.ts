@@ -65,6 +65,11 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
   }
 
+  onStepBack(): void {
+    this.createSiteMode ? this.router.navigate(['/publisher', 'dashboard']) :
+      this.router.navigate(['/publisher', 'site', this.site.id]);
+  }
+
   saveSiteBasicInformation() {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
@@ -77,7 +82,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.changesSaved = true;
 
     this.router.navigate(
-      ['/publisher', 'create-site' , editSiteStep],
+      ['/publisher', 'create-site', editSiteStep],
       {queryParams: {step: param}}
     );
   }
