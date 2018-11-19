@@ -13,7 +13,7 @@ import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {Site} from 'models/site.model';
 import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
-import {parseTargetingOptionsToArray, prepareTargetingChoices} from "common/components/targeting/targeting.helpers";
+import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -96,7 +96,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
   }
 
-    saveSite(isDraft) {
+  saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
