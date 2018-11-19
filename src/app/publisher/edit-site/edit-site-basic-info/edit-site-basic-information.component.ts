@@ -39,9 +39,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-
     this.getLanguages();
-    this.createForm();
+
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
@@ -57,6 +56,8 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
         if (!this.languages.length) {
           this.store.dispatch(new PublisherActions.GetLanguagesList());
+        } else {
+          this.createForm();
         }
       });
   }
@@ -77,7 +78,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     this.changesSaved = true;
 
     this.router.navigate(
-      ['/publisher', 'create-site' , editSiteStep],
+      ['/publisher', 'create-site', editSiteStep],
       {queryParams: {step: param}}
     );
   }
@@ -123,13 +124,21 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
       .take(1)
       .subscribe((lastEditedSite) => {
         this.site = cloneDeep(lastEditedSite);
-        this.site.primaryLanguage = this.getSiteLanguage(lastEditedSite.primaryLanguage);
+        this.site.primaryLanguage = this.getSiteLanguage(lastEditedSite.primaryLanguage) ?
+          this.getSiteLanguage(lastEditedSite.primaryLanguage) :
+          this.getSiteLanguage();
+
         this.siteBasicInfoForm.patchValue(this.site);
       });
   }
 
-  getSiteLanguage(code: string | SiteLanguage) {
-    return this.languages.find(lang => lang.code === code);
+  getSiteLanguage(languageCode?: string | SiteLanguage) {
+    const browserLanguageCode = navigator.language.split('-')[0];
+    const code = languageCode ?
+      (typeof languageCode === 'string' ? languageCode : languageCode.code)
+      : browserLanguageCode;
+
+    return this.languages.find(lang =>  lang.code === code);
   }
 
   displayOption(language?): string {
