@@ -14,7 +14,7 @@ import * as settingsActions from 'store/settings/settings.actions';
 export class BillingHistoryComponent implements OnInit {
   subscription: Subscription;
   billingHistory: BillingHistoryItem[];
-  showLoader: boolean;
+  showLoader: boolean = true;
 
 
   constructor(private store: Store<AppState>) {
