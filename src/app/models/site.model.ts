@@ -26,7 +26,7 @@ interface SitesTotals {
 
 interface AdUnit {
   shortHeadline: string;
-  type?: number;
+  type: string;
   size: AdUnitSize;
   status: number;
 
@@ -40,13 +40,12 @@ interface AdUnit {
 }
 
 interface AdUnitSize {
-  id?: number;
-  name?: string;
   size: number;
   tags: string[];
-  type: string;
-
+  label: string;
   selected?: boolean;
+  id?: number;
+  name?: string;
 }
 
 interface SiteLanguage {
