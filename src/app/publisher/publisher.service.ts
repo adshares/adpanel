@@ -51,7 +51,6 @@ export class PublisherService {
   updateSiteFiltering(id: number, site: Site): Observable<Site> {
     if (site.filtering) {
       const targetingObject = parseTargetingForBackend(site.filtering);
-      console.log(targetingObject)
 
       Object.assign(site, {filtering: targetingObject});
     }

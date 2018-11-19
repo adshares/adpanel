@@ -46,6 +46,14 @@ export function publisherReducers(state = initialState, action: PublisherActions
         }
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
+      const x =  {
+        ...state,
+        lastEditedSite: {
+          ...state.lastEditedSite,
+          adUnits: action.payload
+        }};
+        console.log('reducer', x.lastEditedSite)
+        console.log('reducer', x.lastEditedSite.adUnits)
       return {
         ...state,
         lastEditedSite: {

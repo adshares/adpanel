@@ -1,29 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/first';
-import { MatDialog } from "@angular/material";
+import {MatDialog} from "@angular/material";
 
-import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
-import { siteStatusEnum } from 'models/enum/site.enum';
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adUnitStatusesEnum } from 'models/enum/ad.enum';
+import {AppState} from 'models/app-state.model';
+import {Site} from 'models/site.model';
+import {siteStatusEnum} from 'models/enum/site.enum';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {adUnitStatusesEnum} from 'models/enum/ad.enum';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
-import { TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
+import {HandleSubscription} from 'common/handle-subscription';
+import {TargetingOption} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-site-summary',
   templateUrl: './edit-site-summary.component.html',
   styleUrls: ['./edit-site-summary.component.scss']
 })
-export class EditSiteSummaryComponent extends HandleSubscription implements OnInit {
+export class EditSiteSummaryComponent extends HandleSubscription implements OnInit, OnDestroy {
   site: Site;
+  subscriptions: Subscription[] = [];
   filteringOptions: TargetingOption[];
   createSiteMode: boolean;
   canSubmit: boolean;
@@ -40,19 +42,25 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+
     this.createSiteMode = !!this.router.url.match('/create-site/');
 
-    this.store.select('state', 'publisher', 'lastEditedSite')
-      .subscribe((site: Site) => {
-        console.log('last', site)
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .subscribe((lastEditedSite: Site) => {
+        this.site = cloneDeep(lastEditedSite);
+        console.log('const site 2', this.site);
 
-        this.assetHelpers.redirectIfNameNotFilled(site);
-        this.site = site;
+        // this.assetHelpers.redirectIfNameNotFilled(site.lastEditedSite);
       });
+    this.subscriptions.push(lastSiteSubscription);
 
 
     this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.site.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   saveSite(isDraft): void {

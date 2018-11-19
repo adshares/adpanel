@@ -55,6 +55,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
+        console.log('units last', lastEditedSite)
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
         if (!siteUrlFilled) {
           this.changesSaved = true;
@@ -149,6 +150,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       });
       return;
     }
+
+
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
@@ -163,6 +166,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           status: form.get('status').value
         };
       });
+      const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+        .first()
+        .subscribe((site: Site) => {
+          console.log('usits submit', site)
+        });
 
       this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(adUnitToSave));
       this.redirectAfterSave(isDraft);

@@ -73,6 +73,16 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     return this.createSiteMode ? this.saveSite(false) : this.updateSite();
   }
 
+  onStepBack(): void {
+    if (!this.createSiteMode) {
+      this.router.navigate(['/publisher', 'create-site', 'basic-information'],
+        {queryParams: {step: 1}})
+    } else {
+      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.router.navigate(['/publisher', 'site', this.site.id]);
+    }
+  }
+
   get siteToSave(): Site {
     return {
       ...this.site,
@@ -118,6 +128,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
+
         this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(lastEditedSite));
         this.router.navigate(['/publisher', 'dashboard']);
       });
