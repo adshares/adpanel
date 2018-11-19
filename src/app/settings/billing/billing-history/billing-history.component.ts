@@ -14,6 +14,8 @@ import * as settingsActions from 'store/settings/settings.actions';
 export class BillingHistoryComponent implements OnInit {
   subscription: Subscription;
   billingHistory: BillingHistoryItem[];
+  showLoader: boolean;
+
 
   constructor(private store: Store<AppState>) {
     this.subscription = store
@@ -22,6 +24,7 @@ export class BillingHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showLoader = Array.isArray(this.billingHistory);
     this.store.dispatch(new settingsActions.LoadBillingHistory(''));
   };
 
