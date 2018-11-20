@@ -42,22 +42,19 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-
     this.createSiteMode = !!this.router.url.match('/create-site/');
 
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((lastEditedSite: Site) => {
-        this.site = cloneDeep(lastEditedSite);
-        console.log('const site 2', this.site);
-
-        // this.assetHelpers.redirectIfNameNotFilled(site.lastEditedSite);
+        this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+        this.site = Object.assign({}, lastEditedSite);
       });
+
     this.subscriptions.push(lastSiteSubscription);
+    this.assetHelpers.redirectIfNameNotFilled(this.site);
 
-
-    this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
-    this.site.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
   }
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

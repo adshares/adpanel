@@ -104,8 +104,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const updateSubscription = this.publisherService.updateSiteFiltering(this.siteToSave.id, this.siteToSave)
       .subscribe(
         () => {
+          const siteId = this.site.id;
           this.store.dispatch(new publisherActions.ClearLastEditedSite());
-          this.router.navigate(['/publisher', 'site', this.site.id]);
+          this.router.navigate(['/publisher', 'site', siteId]);
         }
       );
     this.subscriptions.push(updateSubscription);
@@ -119,7 +120,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     };
 
     this.changesSaved = true;
-
     this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
@@ -127,12 +127,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
         ['/publisher', 'create-site', 'create-ad-units'],
         {queryParams: {step: 3}}
       );
-
       return;
     }
-
     this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-
+    this.store.dispatch(new publisherActions.ClearLastEditedSite());
   }
 
   getSiteFromStore() {

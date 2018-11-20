@@ -33,8 +33,6 @@ export class PublisherService {
   saveSite(site: Site): Observable<Site> {
     if (site.filtering) {
       const targetingObject = parseTargetingForBackend(site.filtering);
-      console.log(targetingObject)
-
       Object.assign(site, {filtering: targetingObject});
     }
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site});

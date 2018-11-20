@@ -52,8 +52,6 @@ export function publisherReducers(state = initialState, action: PublisherActions
           ...state.lastEditedSite,
           adUnits: action.payload
         }};
-        console.log('reducer', x.lastEditedSite)
-        console.log('reducer', x.lastEditedSite.adUnits)
       return {
         ...state,
         lastEditedSite: {
