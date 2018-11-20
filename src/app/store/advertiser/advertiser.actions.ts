@@ -18,7 +18,7 @@ export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 
