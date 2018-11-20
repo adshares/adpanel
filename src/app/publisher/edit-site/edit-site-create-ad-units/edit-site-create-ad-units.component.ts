@@ -157,11 +157,12 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
 
   onStepBack(): void {
     if (!this.createSiteMode) {
+      const siteId = this.site.id;
+      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.router.navigate(['/publisher', 'site', siteId]);
+    } else {
       this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
         {queryParams: {step: 2}})
-    } else {
-      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-      this.router.navigate(['/publisher', 'site', this.site.id]);
     }
   }
 
@@ -175,9 +176,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     const updateSubscription = this.publisherService.updateSiteData(this.site.id, this.site)
       .subscribe(
         () => {
+          const siteId = this.site.id;
           this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
           this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-          this.router.navigate(['/publisher', 'site', this.site.id]);
+          this.router.navigate(['/publisher', 'site', siteId]);
         },
         (err) => {
           console.error(`Error occured: ${err}`)
