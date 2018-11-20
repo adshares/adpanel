@@ -161,7 +161,8 @@
           >
             <div
               class="site-edit-create-ad-units__ad-unit"
-              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': !!adUnit.selected}"
+              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected':
+              adUnitForm.get('size').value && adUnitForm.get('size').value.label === adUnit.label}"
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
