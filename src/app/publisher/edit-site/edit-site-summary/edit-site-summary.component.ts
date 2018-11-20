@@ -15,7 +15,6 @@ import {HandleSubscription} from 'common/handle-subscription';
 import {TargetingOption} from 'models/targeting-option.model';
 import {cloneDeep} from 'common/utilities/helpers';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -52,9 +51,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
     this.subscriptions.push(lastSiteSubscription);
     this.assetHelpers.redirectIfNameNotFilled(this.site);
-
   }
-
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
