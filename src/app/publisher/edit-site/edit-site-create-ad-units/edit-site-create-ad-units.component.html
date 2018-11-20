@@ -270,20 +270,17 @@
       row
       justify-between"
   >
-    <a
-      routerLink="../additional-filtering"
-      [queryParams]="{step: 2}"
-      data-test="publisher-edit-site-navigate-back"
-    >
       <button
         class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
+        role="link"
+        (click)="onStepBack()"
       >
-        Back
+        {{createSiteMode ? 'Back' : 'Back to Site Details'}}
+
       </button>
-    </a>
 
     <div class="row">
       <button

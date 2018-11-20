@@ -127,20 +127,19 @@
         row
         justify-between"
     >
-      <a
-        routerLink="../../dashboard"
-        data-test="publisher-navigate-to-dashboard"
-      >
+
         <button
           type="button"
           class="
             adsh-btn
             adsh-btn--white
             adsh-blue"
-        >
-          Back to Dashboard
+          role="link"
+          (click)="onStepBack()"
+          >
+          {{createSiteMode ? 'Back to Dashboard' : 'Back to Site Details'}}
         </button>
-      </a>
+
       <button
         class="
           adsh-btn
