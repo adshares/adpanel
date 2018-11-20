@@ -8,6 +8,7 @@ import { SettingsService } from 'settings/settings.service';
 import { AppState } from 'models/app-state.model';
 import { User, UserAdserverWallet } from 'models/user.model';
 
+import { adsToClicks } from 'common/utilities/helpers';
 import { appSettings } from 'app-settings';
 
 @Component({
@@ -81,7 +82,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     const changeWithdrawAddressSubscription = this.settingsService.withdrawFunds(
       this.withdrawFundsForm.value.address,
-      this.withdrawFundsForm.value.amount,
+      adsToClicks(this.withdrawFundsForm.value.amount),
       this.withdrawFundsForm.value.memo
     )
       .subscribe(() => this.dialogRef.close());
