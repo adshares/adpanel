@@ -61,6 +61,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     validation: []
   };
 
+  isEditMode: boolean = false;
+
   constructor(
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
@@ -72,6 +74,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   ngOnInit() {
+    this.isEditMode = !!this.router.url.match('/edit-campaign/');
+
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
@@ -86,7 +90,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
         if (savedAds) {
           savedAds.forEach((savedAd, index) => {
-            this.adForms.push(this.generateFormField(savedAd));
+            this.adForms.push(this.generateFormField(savedAd, this.isEditMode));
             this.ads.push(cloneDeep(savedAd));
             this.adPanelsStatus[index] = false;
           });
@@ -94,6 +98,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
+
     this.subscriptions.push(lastCampaignSubscription);
   }
 
@@ -103,7 +108,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   createEmptyAd() {
     this.ads.push(cloneDeep(adInitialState));
-    this.adForms.push(this.generateFormField(adInitialState));
+    this.adForms.push(this.generateFormField(adInitialState, false));
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus.push(true);
   }
@@ -113,19 +118,23 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     this.adPanelsStatus[adIndex] = true;
   }
 
-  generateFormField(ad) {
-    const attachmentField = ad.type === adTypesEnum.IMAGE
-      ? {name: ad.shortHeadline, src: ad.imageUrl || '', size: ad.size}
-      : (ad.html || '');
+  generateFormField(ad, disabledMode: boolean = false) {
     const adTypeName = this.adTypes[ad.type];
     const formGroup = new FormGroup({
-      shortHeadline: new FormControl(ad.shortHeadline, Validators.required),
-      type: new FormControl(ad.type),
-      size: new FormControl(ad.size),
+      name: new FormControl(ad.name, Validators.required),
+      type: new FormControl({value: ad.type, disabled: disabledMode}),
+      size: new FormControl({value: ad.size, disabled: disabledMode}),
       status: new FormControl(ad.status)
     });
 
-    formGroup.controls[adTypeName] = new FormControl(attachmentField);
+    let state = {};
+    if (ad.type === adTypesEnum.IMAGE) {
+      state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
+    } else {
+      state = {value: ad.html, disabled: disabledMode};
+    }
+
+    formGroup.controls[adTypeName] = new FormControl(state);
     formGroup.updateValueAndValidity();
 
     return formGroup;
@@ -163,7 +172,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   sendImage(image, adIndex) {
     image.method = 'POST';
     // image.withCredentials = false; // needed by mock server
-    image.url = `${environment.apiUrl}/campaigns/${this.ads[adIndex].id}/banner`;
+    image.url = `${environment.apiUrl}/campaigns/banner`;
     image.upload();
     image.onProgress = (progress) => {
       this.imagesStatus.upload.processing = true;
@@ -183,7 +192,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         size: parsedResponse.size
       });
     };
-    image.onError = () => this.imagesStatus.validation[adIndex].upload = false;
+    image.onError = () => {
+      this.imagesStatus.upload.processing = false;
+      this.imagesStatus.validation[adIndex].upload = false;
+    };
     image.onComplete = (res) => {
       this.imagesStatus.upload.processing = false;
       this.uploader.queue.pop();
@@ -191,13 +203,11 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   removeImage(adIndex) {
-    const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id)
-      .subscribe(() => {
-        Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
-        this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
-        this.imagesStatus.validation.splice(adIndex, 1);
-      });
-    this.subscriptions.push(deleteAdSubscription);
+    Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
+    this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
+    this.imagesStatus.validation.splice(adIndex, 1);
+
+    this.adsSubmitted = false;
   }
 
   saveHtml(adIndex) {
@@ -209,7 +219,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   updateAdInfo(adIndex) {
     Object.assign(this.ads[adIndex], {
       type: this.adForms[adIndex].get('type').value,
-      shortHeadline: this.adForms[adIndex].get('shortHeadline').value,
+      name: this.adForms[adIndex].get('name').value,
       size: this.adForms[adIndex].get('size').value,
       status: this.adForms[adIndex].get('status').value
     });
@@ -238,6 +248,12 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     adForm.updateValueAndValidity();
   }
 
+  setAdSize(adIndex) {
+    const adForm = this.adForms[adIndex];
+    const adSize = adForm.get('size').value;
+    const adSizeName = this.adSizes[adSize];
+  }
+
   saveCampaignAds(isDraft) {
     this.adsSubmitted = true;
     this.changesSaved = true;
@@ -252,6 +268,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       this.adForms.forEach((form, index) => this.updateAdInfo(index));
       this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
       this.redirectAfterSave(isDraft);
+    } else {
+      this.changesSaved = false;
     }
   }
 

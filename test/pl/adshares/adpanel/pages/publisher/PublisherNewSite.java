@@ -71,12 +71,12 @@ public class PublisherNewSite {
     Assert.assertEquals("My Sites", AssertMySites.getText());
     System.out.println("Assert - "+AssertMySites.getText());
   }
-  public void basicInformationError(String Url)  {
+  public void basicInformationError(String website_name_or_url)  {
     System.out.println("---------- publisherBasicInformationError ----------");
     wait.until(ExpectedConditions.visibilityOf(websiteUrl));
     websiteUrl.clear();
-    websiteUrl.sendKeys(Url);
-    System.out.println("Url: "+Url);
+    websiteUrl.sendKeys(website_name_or_url);
+    System.out.println("website_name_or_url: "+website_name_or_url);
     contentLanguage.click();
     wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
     contentLanguageEnglish.click();

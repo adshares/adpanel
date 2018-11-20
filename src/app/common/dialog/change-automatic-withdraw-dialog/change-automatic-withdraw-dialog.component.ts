@@ -46,7 +46,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
         this.currentPeriod = user.adserverWallet.autoWithdrawPeriod;
         this.currentAmount = user.adserverWallet.autoWithdrawAmount;
         this.isEmailConfirmed = user.isEmailConfirmed;
-    });
+      });
 
     this.subscriptions.push(userSubscription);
   }

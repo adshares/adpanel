@@ -30,6 +30,10 @@ export class AdvertiserService {
     return this.http.delete(`${environment.apiUrl}/campaigns/${id}/banner/${bId}`);
   }
 
+  deleteCampaign(id: number): Observable<Campaign> {
+    return this.http.delete<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
+  }
+
   saveCampaign(campaign: Campaign): Observable<Campaign> {
     if (campaign.targetingArray) {
       const targetingObject = parseTargetingForBackend(campaign.targetingArray);
@@ -54,8 +58,18 @@ export class AdvertiserService {
     return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
   }
 
+  updateStatus(id: number, status: number) {
+    const body = {
+      campaign: {
+        status
+      }
+    };
+
+    return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
+  }
+
   removeClassifyCampaign(id: number) {
-      return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
+    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {

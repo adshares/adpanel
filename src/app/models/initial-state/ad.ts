@@ -1,10 +1,10 @@
 import { Ad } from 'models/campaign.model';
-import { adStatusesEnum, adTypesEnum, adSizesEnum } from 'models/enum/ad.enum';
+import { adSizesEnum, adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
 
 export const adInitialState: Ad = {
   id: 0,
   status: adStatusesEnum.DRAFT,
-  shortHeadline: '',
+  name: '',
   type: adTypesEnum.IMAGE,
   size: adSizesEnum['728x90'],
   clicks: 0,

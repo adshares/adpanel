@@ -33,18 +33,17 @@ interface CampaignBasicInformation {
   status: number;
   name: string;
   targetUrl: string;
-  bidStrategyName: string;
-  bidValue: number;
+  maxCpc: number;
+  maxCpm: number;
   budget: number;
   dateStart: string;
-
   dateEnd?: string;
 }
 
 interface Ad {
   id: number;
   status: number;
-  shortHeadline: string;
+  name: string;
   type: number;
   size: number;
   clicks: number;

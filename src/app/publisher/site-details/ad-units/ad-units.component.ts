@@ -11,16 +11,18 @@ import { adSizesEnum } from 'models/enum/ad.enum';
 })
 export class AdUnitsComponent {
   @Input() adUnit;
+  @Input() siteCode;
   adSizesEnum = adSizesEnum;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   openGetCodeDialog() {
     this.dialog.open(SiteCodeDialogComponent, {
       data: {
-        code: this.adUnit.code
+        code: this.adUnit.code,
+        siteCode: this.siteCode,
       }
     });
   }
-
 }

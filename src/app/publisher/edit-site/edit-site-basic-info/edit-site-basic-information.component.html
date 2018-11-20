@@ -24,7 +24,7 @@
 
   <form
     [formGroup]="siteBasicInfoForm"
-    (ngSubmit)="saveSiteBasicInformation()"
+    (ngSubmit)="onSubmit()"
     class="adsh-form"
     data-test="publisher-edit-site-basic-information-form"
   >
@@ -77,34 +77,38 @@
         class="adsh-form-input__box
                site-edit-basic-information__language">
         <label
-          for="primaryLanguage"
-          class="adsh-form-label"
+          for="languageInput"
+          class="adsh-form-label adsh-form-label--shorter"
         >
           Content Language
         </label>
-        <mat-select
-          class="adsh-select"
-          id="primaryLanguage"
-          name="primaryLanguage"
-          formControlName="primaryLanguage"
-          data-test="publisher-edit-site-basic-information-form-language-select"
-        >
-          <mat-option
-            *ngFor="let language of languages; let i = index"
-            [value]="i"
-            class="site-edit-basic-information__language__option"
-            data-test="publisher-edit-site-basic-information-form-language-option"
+        <mat-form-field appearance="standard" class="col">
+          <input matInput
+                 class="
+                    adsh-form-input
+                    adsh-form-input--full"
+                 id="languageInput"
+                 formControlName="primaryLanguage"
+                 type="text"
+                 [matAutocomplete]="auto"/>
+          <mat-autocomplete
+            #auto
+            [displayWith]="displayOption"
           >
-            {{ language }}
-          </mat-option>
-        </mat-select>
-
+            <mat-option
+              *ngFor="let language of filteredOptions | async "
+              [value]="language"
+            >
+              {{ language.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
         <span
           class="
-            adsh-copy
-            adsh-copy--large
-            adsh-copy--light"
-        >
+          adsh-copy
+          adsh-copy--large
+          adsh-copy--light
+          adsh-copy__hint">
           Please specify your primary language of your website.
         </span>
 
@@ -116,7 +120,6 @@
         </span>
       </div>
     </div>
-
     <div
       class="
         adsh-box
@@ -124,31 +127,31 @@
         row
         justify-between"
     >
-      <a
-        routerLink="../../dashboard"
-        data-test="publisher-navigate-to-dashboard"
-      >
+
         <button
           type="button"
           class="
             adsh-btn
             adsh-btn--white
             adsh-blue"
-        >
-          Back to Dashboard
+          role="link"
+          (click)="onStepBack()"
+          >
+          {{createSiteMode ? 'Back to Dashboard' : 'Back to Site Details'}}
         </button>
-      </a>
+
       <button
         class="
           adsh-btn
           adsh-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
       </button>
+
     </div>
   </form>
 </section>

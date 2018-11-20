@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { PublisherComponent } from './publisher.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,8 +21,8 @@ const publisherRoutes: Routes = [
     component: PublisherComponent,
     canActivate: [PublisherGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard' },
-      { path: 'dashboard', component: DashboardComponent},
+      {path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard'},
+      {path: 'dashboard', component: DashboardComponent},
       {
         path: 'site/:id',
         component: SiteDetailsComponent,
@@ -33,14 +33,15 @@ const publisherRoutes: Routes = [
       {
         path: 'create-site',
         component: EditSiteComponent,
-        resolve: { targetingOptions: TargetingCriteriaResolver },
+        resolve: {targetingOptions: TargetingCriteriaResolver},
         children: [
-          { path: 'basic-information',
+          {
+            path: 'basic-information',
             component: EditSiteBasicInformationComponent,
             canDeactivate: [PublisherGuard]
           },
           {
-            path: 'additional-targeting',
+            path: 'additional-filtering',
             component: EditSiteAdditionalTargetingComponent,
             canDeactivate: [PublisherGuard]
           },
@@ -48,7 +49,34 @@ const publisherRoutes: Routes = [
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
             canDeactivate: [PublisherGuard],
-            resolve: { adUnitSizes: AdUnitSizesResolver }
+            resolve: {adUnitSizes: AdUnitSizesResolver}
+          },
+          {
+            path: 'summary',
+            component: EditSiteSummaryComponent
+          }
+        ]
+      },
+      {
+        path: 'edit-site',
+        component: EditSiteComponent,
+        resolve: {targetingOptions: TargetingCriteriaResolver},
+        children: [
+          {
+            path: 'basic-information',
+            component: EditSiteBasicInformationComponent,
+            canDeactivate: [PublisherGuard]
+          },
+          {
+            path: 'additional-filtering',
+            component: EditSiteAdditionalTargetingComponent,
+            canDeactivate: [PublisherGuard]
+          },
+          {
+            path: 'create-ad-units',
+            component: EditSiteCreateAdUnitsComponent,
+            canDeactivate: [PublisherGuard],
+            resolve: {adUnitSizes: AdUnitSizesResolver}
           },
           {
             path: 'summary',
@@ -68,4 +96,5 @@ const publisherRoutes: Routes = [
     RouterModule
   ]
 })
-export class PublisherRoutingModule { }
+export class PublisherRoutingModule {
+}

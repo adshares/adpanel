@@ -1,11 +1,6 @@
 import { Campaign, CampaignsTotals } from './campaign.model';
-import { Site, SitesTotals } from './site.model';
-import {
-  BillingHistoryItem,
-  NotificationItem,
-  UserInfoStats,
-  AdminSettings
-} from './settings.model';
+import { Site, SiteLanguage, SitesTotals } from './site.model';
+import { AdminSettings, BillingHistoryItem, NotificationItem, UserInfoStats } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
@@ -31,6 +26,7 @@ interface PublisherState {
   sites: Site[];
   sitesTotals: SitesTotals;
   lastEditedSite: Site;
+  languagesList: SiteLanguage[];
 }
 
 interface SettingsState {
@@ -55,4 +51,4 @@ interface CommonState {
   notifications: Notification[];
 }
 
-export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState};
+export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState };

@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { TargetingOptionValue } from 'models/targeting-option.model';
 import { getLabelPath } from 'common/components/targeting/targeting.helpers';
@@ -24,9 +24,9 @@ export class TargetingDisplayComponent implements OnChanges {
     this.prepareItemsToDisplay();
   }
 
-  prepareItemsToDisplay() {
+  prepareItemsToDisplay(): void {
     this.viewModel = [];
-
+    if (!this.items.length) return;
     this.items.forEach((item) => {
       const itemLabelPath = getLabelPath(item.id, this.targetingOptions);
       const viewModelParentPathIndex = this.viewModel.findIndex(
@@ -48,7 +48,7 @@ export class TargetingDisplayComponent implements OnChanges {
     });
   }
 
-  removeItem(removedItem) {
+  removeItem(removedItem): void {
     const itemInItemsIndex = this.items.findIndex((itemInItems) => itemInItems.id === removedItem.id);
 
     this.items.splice(itemInItemsIndex, 1);

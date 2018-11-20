@@ -20,13 +20,12 @@
         adsh-copy
         adsh-copy--large"
     >
-      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
-      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      This is the place where you define boxes that will be placed on your pages for us to serve ads in.
     </p>
   </div>
   <div
     class="adsh-box"
-    *ngFor="let adUnitForm of adUnitForms; let adUnitIindex = index"
+    *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index"
   >
     <form
       [formGroup]="adUnitForm"
@@ -34,9 +33,9 @@
     >
       <mat-accordion data-test="publisher-edit-site-create-ad-units-accordion">
         <mat-expansion-panel
-          (opened)="handlePanelExpand(adUnitIindex)"
-          (closed)="adUnitPanelsStatus[adUnitIindex] = false"
-          [expanded]="adUnitPanelsStatus[adUnitIindex]"
+          (opened)="handlePanelExpand(adUnitIndex)"
+          (closed)="adUnitPanelsStatus[adUnitIndex] = false"
+          [expanded]="adUnitPanelsStatus[adUnitIndex]"
           data-test="publisher-edit-site-create-ad-units-accordion-panel"
         >
           <mat-expansion-panel-header>
@@ -45,8 +44,8 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ adUnitIindex + 1 }}.&nbsp;
-              <span *ngIf="!adUnitPanelsStatus[adUnitIindex]">
+              {{ adUnitIndex + 1 }}.&nbsp;
+              <span *ngIf="!adUnitPanelsStatus[adUnitIndex]">
                 Title:
                 <span data-test="publisher-edit-site-create-ad-units-form-short-headline">
                   {{ adUnitForm.get('shortHeadline').value }}
@@ -85,7 +84,7 @@
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adUnitForm.get('shortHeadline').hasError('required') && adUnitsSubmitted"
+                  *ngIf="adUnitsSubmitted && adUnitForm.get('shortHeadline').hasError('required')"
                 >
                 Name of Unit required!
               </span>
@@ -107,8 +106,8 @@
                   data-test="publisher-edit-site-create-ad-units-form-ad-type-select"
                 >
                   <mat-option
-                    *ngFor="let adType of adTypes; let i = index"
-                    [value]="i"
+                    *ngFor="let adType of adTypes;"
+                    [value]="adType"
                     data-test="publisher-edit-site-create-ad-units-form-ad-type-option"
                   >
                     {{ adType }}
@@ -129,16 +128,17 @@
                 col-xs-3
                 adsh-copy
                 adsh-copy--light"
-              >
+            >
               Size of Unit
             </div>
+
             <div class="col-xs-3">
               <div class="adsh-form-input__box">
                 <label class="adsh-form-label">Showing:</label>
                 <mat-select
                   class="adsh-select"
                   formControlName="adUnitSizeFilter"
-                  (change)="onAdUnitSizeFilterChange(adUnitIindex)"
+                  (change)="onAdUnitSizeFilterChange(adUnitIndex)"
                   data-test="publisher-edit-site-create-ad-units-form-size-select"
                 >
                   <mat-option
@@ -157,13 +157,14 @@
             class="
               row
               justify-between
-              site-edit-create-ad-uniTS _ad-uniTS _container"
+              site-edit-create-ad-units__ad-units-container"
           >
             <div
-              class="site-edit-create-ad-uniTS _ad-unit"
-              [ngClass]="{'site-edit-create-ad-uniTS _ad-unit--selected': adUnit.selected}"
-              *ngFor="let adUnit of filtredAdUnitSizes[adUnitIindex]"
-              (click)="selectAdUnit(adUnit, adUnitIindex)"
+              class="site-edit-create-ad-units__ad-unit"
+              [ngClass]="{'site-edit-create-ad-units__ad-unit--selected': !!adUnit.selected}"
+              *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
+              role="button"
+              (click)="selectAdUnit(adUnit, adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
             >
               <div
@@ -200,19 +201,27 @@
               </div>
             </div>
           </div>
-
-          <button
-            class="
+          <div class="row">
+            <button
+              class="
               adsh-btn
               adsh-btn--white
               adsh-blue
               save-as-draft"
-            *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
-            (click)="removeNewAdUnit(adUnitIindex)"
-            data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
-          >
-            Delete Ad Unit
-          </button>
+              *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
+              (click)="removeNewAdUnit(adUnitIndex)"
+              data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
+            >
+              Delete Ad Unit
+            </button>
+            <span
+              class="error-msg"
+              *ngIf="adUnitsSubmitted && !adUnitForm.get('size').value"
+            >
+                Ad unit size required!
+              </span>
+          </div>
+
         </mat-expansion-panel>
       </mat-accordion>
     </form>
@@ -220,9 +229,11 @@
 
   <div
     class="
+      row
       adsh-box
       adsh-box--large"
   >
+
     <button
       class="
         row
@@ -259,24 +270,23 @@
       row
       justify-between"
   >
-    <a
-      routerLink="../additional-targeting"
-      [queryParams]="{step: 2}"
-      data-test="publisher-edit-site-navigate-back"
-    >
       <button
         class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
+        role="link"
+        (click)="onStepBack()"
       >
-        Back
+        {{createSiteMode ? 'Back' : 'Back to Site Details'}}
+
       </button>
-    </a>
 
     <div class="row">
       <button
+        *ngIf="createSiteMode"
         (click)="saveAdUnits(true)"
+        type="button"
         class="
           adsh-btn
           adsh-btn--white
@@ -287,13 +297,14 @@
         Save as Draft
       </button>
       <button
-        (click)="saveAdUnits(false)"
+        type="submit"
         class="
           adsh-btn
           adsh-btn--blue"
+        (click)="onSubmit()"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved ; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

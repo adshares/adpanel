@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 
 import { PublisherService } from 'publisher/publisher.service';
@@ -10,7 +10,8 @@ export class PublisherEffects {
   constructor(
     private actions$: Actions,
     private service: PublisherService
-  ) { }
+  ) {
+  }
 
   @Effect()
   loadSites$ = this.actions$
@@ -32,4 +33,11 @@ export class PublisherEffects {
     .map(toPayload)
     .switchMap((payload) => this.service.saveSite(payload))
     .map((site) => new publisherActions.AddSiteToSitesSuccess(site));
+
+  @Effect()
+  getLanguageList = this.actions$
+    .ofType(publisherActions.GET_LANGUAGES_LIST)
+    .map(toPayload)
+    .switchMap(() => this.service.getLanguagesList())
+    .map((list) => new publisherActions.GetLanguagesListSuccess(list));
 }

@@ -4,18 +4,20 @@
 
 
 
-
-  <test name="TC 10 - Zamknięcie karty przeglądarki - RemeberMe Off" group-by-instances="true">
+  <test name="TC_17 - Login - changeOfRole" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInUserEmail"/>
-          <include name="logInPopUpPublisher"/>
-          <include name="logInSecondTab2"/>
+          <include name="logInUserRandomEmail"/>
+          <include name="logInPopUpFirstAdvertiserPublisher"/>
+          <include name="changeOfRole"/>
+          <include name="sleep"/>
+          <!--<include name="logOut"/>-->
         </methods>
       </class>
     </classes>
   </test>
+
 
 
 </suite>

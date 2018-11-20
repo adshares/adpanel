@@ -1,0 +1,52 @@
+<mat-dialog-content class="text-center">
+  <div
+    (click)="dialogRef.close()"
+    class="adsh-dialog-close"
+  ></div>
+  <h1
+    class="
+      adsh-heading
+      adsh-heading--primary"
+  >
+    {{ title }}
+  </h1>
+
+  <p
+    class="
+      adsh-copy
+      adsh-copy--large
+      adsh-customize-subheading
+      adsh-success
+      adsh-success--large
+      adsh-multiline"
+  >
+    {{ message }}
+  </p>
+
+  <button
+    class="
+      adsh-btn
+      adsh-btn--white"
+    mat-button
+    [mat-dialog-close]=false
+  >
+    <span
+      class="
+        adsh-copy
+        adsh-copy--dark"
+    >
+      No
+    </span>
+  </button>
+
+  <button
+    class="
+      adsh-btn
+      adsh-btn--blue"
+    mat-button
+    [mat-dialog-close]=true
+    cdkFocusInitial
+  >
+    <span>Yes</span>
+  </button>
+</mat-dialog-content>

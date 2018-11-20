@@ -20,8 +20,7 @@
         adsh-copy
         adsh-copy--large"
     >
-      Etiam pretium dapibus congue. Praesent a lorem erat. Morbi mollis posuere lacus, vel semper risus.
-      Nulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Below is summary of all the data defining your site.
     </p>
   </div>
 
@@ -126,10 +125,10 @@
           adsh-heading
           adsh-heading--secondary"
       >
-        2. Additional Targeting
+        2. Filtering
       </h3>
       <a
-        routerLink="../additional-targeting"
+        routerLink="../additional-filtering"
         [queryParams]="{step: 2, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-additional-information"
       >
@@ -161,11 +160,11 @@
         </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targetingArray"
-            [items]="site.targetingArray.requires"
+            *ngIf="site.filtering.requires"
+            [items]="site.filtering.requires"
             [isExclude]="false"
             [canRemove]="false"
-            [targetingOptions]="targetingOptionsToAdd"
+            [targetingOptions]="filteringOptions"
           ></app-targeting-display>
         </div>
       </div>
@@ -186,11 +185,11 @@
         </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.targetingArray"
-            [items]="site.targetingArray.excludes"
+            *ngIf="site.filtering.excludes"
+            [items]="site.filtering.excludes"
             [isExclude]="true"
             [canRemove]="false"
-            [targetingOptions]="targetingOptionsToExclude"
+            [targetingOptions]="filteringOptions"
           ></app-targeting-display>
         </div>
       </div>
@@ -248,6 +247,7 @@
       justify-between"
   >
     <a
+      *ngIf="this.createSiteMode"
       routerLink="../create-ad-units"
       [queryParams]="{step: 3}"
       data-test="publisher-edit-site-navigate-back"
@@ -262,31 +262,55 @@
       </button>
     </a>
 
+    <button
+      *ngIf="!this.createSiteMode"
+      class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+      (click)="navigateToSiteDetails()"
+    >
+      Back
+    </button>
+
     <div class="row">
-      <a>
         <button
+          *ngIf="createSiteMode"
           class="
             adsh-btn
             adsh-btn--white
             adsh-blue
             save-as-draft"
+          type="button"
           (click)="saveSite(true)"
           data-test="publisher-edit-site-save-as-draft"
         >
           Save as Draft
         </button>
-      </a>
-      <a>
         <button
+          *ngIf="createSiteMode"
+          [disabled]="canSubmit"
           class="
             adsh-btn
             adsh-btn--blue"
           (click)="saveSite(false)"
+          type="button"
           data-test="publisher-edit-site-start-campaign"
         >
           Publish site
         </button>
-      </a>
+      <button
+          *ngIf="!createSiteMode"
+          [disabled]="canSubmit"
+          class="
+            adsh-btn
+            adsh-btn--blue"
+          (click)="updateSite()"
+          type="button"
+          data-test="publisher-edit-site-start-campaign"
+        >
+          Update site
+        </button>
     </div>
   </div>
 </section>

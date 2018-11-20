@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
@@ -12,7 +12,6 @@ import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
-import { AssetTargeting } from 'models/targeting-option.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
 @Component({
@@ -76,7 +75,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
       this.router.navigate(
         ['/advertiser', 'create-campaign', editCampaignStep],
-        { queryParams: { step: param } }
+        {queryParams: {step: param}}
       );
 
       return;

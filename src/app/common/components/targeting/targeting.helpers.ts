@@ -79,7 +79,7 @@ export function findOption(
 ): TargetingOption | TargetingOptionValue {
   const optionList = findOptionList(optionId, options);
 
-  return optionList.find((option) => optionId === option.id)
+  return optionList && optionList.find((option) => optionId === option.id);
 }
 
 export function getParentId(optionId: string): string {
@@ -229,7 +229,7 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
-      const rawValue = customOptionParent['value_type'] === 'number' ?
+      const rawValue = customOptionParent && customOptionParent['value_type'] === 'number' ?
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
       const action = customOptionParent['value_type'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;

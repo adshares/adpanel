@@ -112,7 +112,7 @@ const chartOptions: ChartOptions = {
         fontSize: 13,
         beginAtZero: true,
 
-        callback: function(value, index, values) {
+        callback: function (value, index, values) {
           if (values.length <= 1) {
             return moment(value).format('HH:mm A');
           } else if (values.length <= 7) {

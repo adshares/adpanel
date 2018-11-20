@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -7,19 +7,21 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
+import { Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray } from 'common/utilities/helpers';
-import { enumToArray } from 'common/utilities/helpers';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
+import { createInitialArray, enumToArray } from 'common/utilities/helpers';
 import { chartSeriesEnum } from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
-import { TargetingOption } from 'models/targeting-option.model';
-import * as publisherActions from 'store/publisher/publisher.actions';
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import * as PublisherActions from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
+import { MatDialog } from "@angular/material";
+import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import * as codes from "common/utilities/codes";
 
 @Component({
   selector: 'app-site-details',
@@ -29,9 +31,10 @@ import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/co
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   site: Site;
   siteStatusEnum = siteStatusEnum;
+  language: SiteLanguage;
 
   ObjectKeys = Object.keys;
-  targeting: AssetTargeting = {
+  filtering: AssetTargeting = {
     requires: [],
     excludes: []
   };
@@ -41,18 +44,19 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = createInitialArray({ labels: [] }, 6);
-  barChartData: ChartData[][] = createInitialArray([{ data: [] }], 6);
+  barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
+  barChartData: ChartData[][] = createInitialArray([{data: []}], 6);
 
   currentChartFilterSettings: ChartFilterSettings;
-  targetingOptions: TargetingOption[];
+  filteringOptions: TargetingOption[];
 
   constructor(
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private router: Router,
     private store: Store<AppState>,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -60,7 +64,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
 
-    this.getTargeting();
+    this.getFiltering();
+    this.getLanguages();
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -71,8 +76,49 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.getChartData(this.currentChartFilterSettings);
   }
 
+  deleteSite() {
+    const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: 'Do you confirm deletion?',
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.publisherService.deleteSite(this.site.id)
+            .subscribe(
+              () => {
+                this.router.navigate(['/publisher', 'dashboard']);
+              },
+              (err) => {
+                if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+                  this.dialog.open(ErrorResponseDialogComponent, {
+                    data: {
+                      title: `Site cannot be deleted`,
+                      message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
+                    }
+                  });
+                }
+              }
+            );
+        }
+      },
+      () => {}
+    );
+  }
+
+  getLanguages() {
+    this.store.select('state', 'publisher', 'languagesList')
+      .subscribe((languagesList) => {
+        this.language = languagesList.find(lang => lang.code === this.site.primaryLanguage);
+
+        if (!languagesList.length) {
+          this.store.dispatch(new PublisherActions.GetLanguagesList());
+        }
+      });
+  }
+
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = [] );
+    this.barChartData.forEach(values => values[0].data = []);
 
     const chartDataSubscription = this.chartService
       .getAssetChartDataForPublisher(
@@ -94,30 +140,30 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartDataSubscription);
   }
 
-  navigateToEditSite() {
-    this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
+  navigateToEditSite(path: string, step: number): void {
+    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'create-site', 'summary'],
-      { queryParams: { step: 4} }
+      ['/publisher', 'edit-site', path],
+      {queryParams: {step, summary: true}}
     );
   }
 
   navigateToCreateAdUnits() {
-    this.store.dispatch(new publisherActions.SetLastEditedSite(this.site));
+    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'create-site', 'create-ad-units'],
-      { queryParams: { step: 3, summary: true} }
+      ['/publisher', 'edit-site', 'create-ad-units'],
+      {queryParams: {step: 3, summary: true}}
     );
   }
 
-  getTargeting() {
-    const getSiteTargetingSubscription = this.publisherService.getTargetingCriteria()
-      .map((targetingOptions) => prepareTargetingChoices(targetingOptions))
-      .subscribe(targetingOptions => {
-        this.targetingOptions = targetingOptions;
-        // this.targeting = parseTargetingOptionsToArray(this.site.targeting, targetingOptions);
+  getFiltering() {
+    const getSiteFilteringSubscription = this.publisherService.getFilteringCriteria()
+      .map((filteringOptions) => prepareTargetingChoices(filteringOptions))
+      .subscribe(filteringOptions => {
+        this.filteringOptions = filteringOptions;
+        this.filtering = parseTargetingOptionsToArray(this.site.filtering, filteringOptions);
       });
-    this.subscriptions.push(getSiteTargetingSubscription);
+    this.subscriptions.push(getSiteFilteringSubscription);
   }
 
   onSiteStatusChange(status) {
@@ -126,12 +172,18 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.status =
       statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
 
-    this.publisherService.saveSite(this.site).subscribe(
-        () => {},
-        (err) => {
-          // TODO: Done when config/banners endpoint is ready
-          console.log(err);
-        }
+    this.publisherService.updateSiteData(this.site.id, this.site).subscribe(
+      () => {
+      },
+      (err) => {
+        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
+          }
+        });
+      }
     );
   }
 }

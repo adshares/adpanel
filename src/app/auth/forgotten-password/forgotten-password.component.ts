@@ -25,7 +25,8 @@ export class ForgottenPasswordComponent {
     private router: Router,
     private api: ApiService,
     private dialog: MatDialog,
-  ) { }
+  ) {
+  }
 
   sendRemindPasswordEmail() {
     if (!this.remindPasswordForm.valid) {
@@ -40,7 +41,9 @@ export class ForgottenPasswordComponent {
 
     this.api.auth.recoveryPost(formValues.email, uri)
       .subscribe(
-        () => { this.alwaysGoodDialog(); },
+        () => {
+          this.alwaysGoodDialog();
+        },
         (err) => {
           this.isSendingEmail = false;
           this.alwaysGoodDialog();
@@ -50,7 +53,7 @@ export class ForgottenPasswordComponent {
   }
 
   alwaysGoodDialog() {
-    this.dialog.open(ConfirmResponseDialogComponent,{
+    this.dialog.open(ConfirmResponseDialogComponent, {
       data: {
         title: 'Password reset email sent',
         message: 'You will soon receive message with password reset link if your email is registered in our user database.\n Please check your email account for incoming message.',

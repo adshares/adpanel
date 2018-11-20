@@ -1,4 +1,20 @@
-import { TableColumnMetaData } from 'models/table.model';
+import {TableColumnMetaData} from 'models/table.model';
+
+/**
+ * Calculates campaign budget per hour in ADS.
+ * @param budgetPerHour budget/hour in ADS
+ */
+function calcCampaignBudgetPerDay(budgetPerHour: number): number {
+  return budgetPerHour * 24;
+}
+
+/**
+ * Calculates campaign budget per day in ADS.
+ * @param budgetPerDay budget/day in ADS
+ */
+function calcCampaignBudgetPerHour(budgetPerDay: number): number {
+  return Math.floor(budgetPerDay * 100000000000 / 24) / 100000000000;
+}
 
 function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
@@ -33,11 +49,45 @@ function enumToObjectArray(enumInput) {
 
   for (let enumMember in enumInput) {
     if (typeof enumInput[enumMember] === 'number') {
-      enumNameArrayObject.push({ id: enumInput[enumMember], name: enumMember.toLowerCase() });
+      enumNameArrayObject.push({id: enumInput[enumMember], name: enumMember.toLowerCase()});
     }
   }
 
   return enumNameArrayObject;
+}
+
+function formatMoney(
+  value,
+  precision: number = 11,
+  trim: boolean = false,
+  decimal: string = '.',
+  thousand: string = ','
+): string {
+  const r = trim;
+  const p = Math.max(precision, 2);
+  const d = decimal;
+  const t = thousand;
+  let v = value;
+
+  v = ((v || '0') + '').padStart(11, '0');
+  const l = v.length - 11;
+  const a = v.substr(0, l) || '0';
+  const j = a.length > 3 ? a.length % 3 : 0;
+  let b = Math.round(parseInt((v + '0')
+    .substr(l, p + 1)) / 10)
+    .toString()
+    .padStart(p, '0')
+  ;
+  if (r) {
+    b = b.replace(/([0-9]{2})0+$/, '$1');
+  }
+
+  return (
+    (j ? a.substr(0, j) + t : '') +
+    a.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) +
+    d +
+    b
+  );
 }
 
 function isUnixTimePastNow(unixTime): boolean {
@@ -83,7 +133,7 @@ function sortArrayByColumnMetaData<assetItem>(
     if (sortItem < nextSortItem) {
       return sortOrder;
     } else if (sortItem > nextSortItem) {
-      return - sortOrder;
+      return -sortOrder;
     } else {
       return 0;
     }
@@ -95,10 +145,13 @@ function findValueByPathArray(object, pathArray) {
 }
 
 export {
+  calcCampaignBudgetPerDay,
+  calcCampaignBudgetPerHour,
   cloneDeep,
   enumToArray,
   enumToObject,
   enumToObjectArray,
+  formatMoney,
   isUnixTimePastNow,
   selectCompare,
   createInitialArray,

@@ -13,8 +13,7 @@
     max-width: 2000px;
   }
 
-  &__ad-uniTS _container {
-    background: pal(gray, ultra-light);
+  &__ad-units-container {
     padding: 0 30px;
     margin: 30px 0;
   }
@@ -37,9 +36,11 @@
     margin: 20px 0;
     border-radius: 2px;
     border: 2px solid pal(gray, ultra-light);
+    cursor: pointer;
+    pointer-events: all;
 
     &--selected {
-      border: 2px solid pal(blue);
+      background: pal(gray, ultra-light);
     }
 
     &__visualization {
@@ -63,6 +64,17 @@
         min-height: 150px;
         margin-bottom: 15px;
       }
+    }
+  }
+
+  & .error-msg {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:after {
+      position: static;
     }
   }
 }

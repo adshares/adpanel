@@ -36,9 +36,9 @@
           class="
             adsh-heading
             adsh-heading--secondary"
-          data-test="advertiser-ad-type"
+          data-test="advertiser-ad-name"
         >
-          {{ adType() }}
+          {{ ad.name }}
         </h4>
       </div>
       <div
@@ -47,14 +47,10 @@
           row
           align-center"
       >
-        <h4
-                class="
-            adsh-heading
-            adsh-heading--secondary"
-                data-test="advertiser-ad-preview"
-        >
-            <img *ngIf="adType() === 'IMAGE'" src="{{ ad.imageUrl }}" width="150" alt="banner" />
-        </h4>
+        <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
+          <img *ngIf="adType() === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner" class="adsh advertiser-detail-image-preview" />
+          <span *ngIf="adType() === 'HTML'">{{ adType() }}</span>
+        </span>
       </div>
       <div
         class="
@@ -63,7 +59,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-budget">
-        {{ ad.budget | currency:'USD':'symbol':'1.2-2' }} /day
+        {{ ad.budget | number:'1.2-2' }} /day
       </span>
       </div>
       <div
@@ -102,7 +98,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-average-cpc">
-        {{ ad.averageCPC | currency:'USD':'symbol':'1.2-2' }}
+        {{ ad.averageCPC | number:'1.2-2' }}
       </span>
       </div>
       <div
@@ -112,7 +108,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-cost">
-        {{ ad.cost | currency:'USD':'symbol':'1.2-2' }}
+        {{ ad.cost | number:'1.2-2' }}
       </span>
       </div>
     </div>

@@ -7,9 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 public class DashboardPopup {
@@ -48,12 +45,16 @@ public class DashboardPopup {
     System.out.println("-. Advertiser");
   }
   public void popUpFirstAdvertiserPublisher() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
-    PopUpFirstAdvertiser.click();
-    PopUpFirstPublisher.click();
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    PopUpFirstContinue.click();
-    System.out.println("-. Advertiser / Publisher dashboard");
+    try {
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstAdvertiser));
+      PopUpFirstAdvertiser.click();
+      PopUpFirstPublisher.click();
+      wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
+      PopUpFirstContinue.click();
+      System.out.println("Popup displayed    [Advertiser/Publisher]");
+    } catch (TimeoutException te){
+      System.out.println("No popup displayed [Advertiser/Publisher]");
+    }
   }
 
   public void popUpPublisher() {
@@ -94,18 +95,6 @@ public class DashboardPopup {
     wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
     commonChooseAdvertiser.click();
     commonChoosePublisher.click();
-    PopUpFirstContinue.click();
-  }
-
-  public void chooseAccountTypePublisherOnly() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    commonChoosePublisher.click();
-    PopUpFirstContinue.click();
-  }
-
-  public void chooseAccountTypeAdvertiserOnly() {
-    wait.until(ExpectedConditions.visibilityOf(PopUpFirstContinue));
-    commonChooseAdvertiser.click();
     PopUpFirstContinue.click();
   }
 }

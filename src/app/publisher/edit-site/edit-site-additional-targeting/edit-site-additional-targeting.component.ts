@@ -1,19 +1,20 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
-import { AppState } from 'models/app-state.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { PublisherService } from 'publisher/publisher.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { Site } from 'models/site.model';
-import { AssetTargeting } from 'models/targeting-option.model';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
+import {AppState} from 'models/app-state.model';
+import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {PublisherService} from 'publisher/publisher.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {Site} from 'models/site.model';
+import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
+
+//TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
 @Component({
   selector: 'app-edit-site-additional-targeting',
@@ -26,12 +27,13 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   goesToSummary: boolean;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
-
+  site: Site;
   subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
+  createSiteMode: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,10 +46,17 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   }
 
   ngOnInit() {
+    this.createSiteMode = !!this.router.url.match('/create-site/');
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getSiteFromStore();
+
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .subscribe((lastEditedSite: Site) => {
+        this.site = lastEditedSite;
+      });
+    this.subscriptions.push(lastSiteSubscription);
   }
 
   ngOnDestroy() {
@@ -62,6 +71,18 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.excludedItems = [...items];
   }
 
+
+  onStepBack(): void {
+    if (!this.createSiteMode) {
+      const siteId = this.site.id;
+      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.router.navigate(['/publisher', 'site', siteId]);
+    } else {
+      this.router.navigate(['/publisher', 'create-site', 'basic-information'],
+        {queryParams: {step: 1}})
+    }
+  }
+
   saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
@@ -70,27 +91,22 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
     this.changesSaved = true;
 
-    this.store.dispatch(new publisherActions.SaveSiteTargeting(chosenTargeting));
+    this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
       const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
       const param = this.goesToSummary ? 4 : 3;
 
       this.router.navigate(
-        ['/publisher', 'create-site', editSiteStep],
-        { queryParams: { step: param } }
+        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
+        {queryParams: {step: param}}
       );
 
       return;
     }
 
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
-      .subscribe((lastEditedSite: Site) => {
-        this.store.dispatch(new publisherActions.AddSiteToSites(lastEditedSite));
-        this.router.navigate(['/publisher', 'dashboard']);
-      });
-    this.subscriptions.push(lastSiteSubscription);
+    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
+
   }
 
   getSiteFromStore() {
@@ -104,10 +120,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
           return;
         }
 
-        const targeting = lastEditedSite.targetingArray;
+        const filtering = lastEditedSite.filtering;
 
-        this.addedItems = [...targeting.requires];
-        this.excludedItems = [...targeting.excludes];
+        this.addedItems = [...filtering.requires];
+        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }

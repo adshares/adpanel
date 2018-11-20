@@ -4,19 +4,16 @@ interface Site {
   id?: number;
   status: number;
   name: string;
-  primaryLanguage: number;
-
+  primaryLanguage: string | SiteLanguage;
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
   RPM?: number;
   averageCPC?: number;
-  targetingArray?: AssetTargeting;
-  targeting?: {
-    requires: object;
-    excludes: object;
-  };
+  filtering?: AssetTargeting;
+
   adUnits?: AdUnit[];
+  code?: string;
 }
 
 interface SitesTotals {
@@ -29,7 +26,7 @@ interface SitesTotals {
 
 interface AdUnit {
   shortHeadline: string;
-  type: number;
+  type: string;
   size: AdUnitSize;
   status: number;
 
@@ -43,12 +40,18 @@ interface AdUnit {
 }
 
 interface AdUnitSize {
-  id: number;
-  name: string;
   size: number;
   tags: string[];
-
+  label: string;
   selected?: boolean;
+  id?: number;
+  name?: string;
 }
 
-export { Site, AdUnit, AdUnitSize, SitesTotals };
+interface SiteLanguage {
+  name: string,
+  code: string,
+}
+
+
+export { Site, AdUnit, AdUnitSize, SitesTotals, SiteLanguage };

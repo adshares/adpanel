@@ -39,9 +39,9 @@ export class SetYourEarningsDialogComponent extends HandleSubscription implement
       distinctUntilChanged()
     )
       .subscribe((newValue: number) => {
-        this.adminService.setAdminSettings({ earnings: newValue })
+        this.adminService.setAdminSettings({earnings: newValue})
           .subscribe((newSettings) => this.store.dispatch(new adminActions.SetAdminSettings(newSettings)));
-       });
+      });
     this.subscriptions.push(adminSettingsChangeSubscription);
   }
 

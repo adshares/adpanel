@@ -121,7 +121,7 @@
             class="
               adsh-icon
               adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="/assets/images/edit.svg"
             alt="Edit icon"
           >
           <span
@@ -130,6 +130,29 @@
               adsh-copy--dark"
           >
             Edit Campaign
+          </span>
+        </button>
+        <button
+          class="
+            adsh-btn
+            adsh-btn--white
+            adsh-btn--no-border
+            btn-delete"
+          (click)="deleteCampaign()"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon--prepend"
+            src="/assets/images/x-circle--gray.svg"
+            alt="Delete icon"
+          >
+          <span
+            class="
+              adsh-copy
+              adsh-copy--dark"
+          >
+            Delete Campaign
           </span>
         </button>
       </div>
@@ -170,15 +193,32 @@
               adsh-copy--small
               label"
           >
-            Bid Strategy
+            Max Cpc
           </p>
           <p
             class="
               adsh-copy--dark
               adsh-copy--semi"
-            data-test="advertiser-campaign-bid-strategy"
+            data-test="advertiser-campaign-max-cpc"
           >
-            {{ campaign.basicInformation.bidStrategyName }} ({{ campaign.basicInformation.bidValue | currency:'USD':'symbol':'1.2-2' }})
+            {{ campaign.basicInformation.maxCpc | number:'1.0-11' }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="
+              adsh-copy--small
+              label"
+          >
+            Max Cpm
+          </p>
+          <p
+            class="
+              adsh-copy--dark
+              adsh-copy--semi"
+            data-test="advertiser-campaign-max-cpm"
+          >
+            {{ campaign.basicInformation.maxCpm | number:'1.0-11' }}
           </p>
         </div>
         <div>
@@ -195,7 +235,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-budget"
           >
-            {{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.0-2' }}
           </p>
         </div>
         <div>
@@ -215,7 +255,7 @@
               class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="assets/images/calendar.svg"
+              src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
@@ -246,7 +286,7 @@
               class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="assets/images/calendar.svg"
+              src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
@@ -320,7 +360,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-budget"
         >
-          {{ campaign.basicInformation.budget | currency:'USD':'symbol':'1.2-2' }}/day
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.2-2' }}/day
         </p>
         <p
           class="
@@ -378,7 +418,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-cost"
         >
-          {{ campaign.cost | currency:'USD':'symbol':'1.2-2' }}
+          {{ campaign.cost | number:'1.2-2' }}
         </p>
         <p
           class="
@@ -433,7 +473,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-cost-converions-ratio"
         >
-          {{ campaign.cost / campaign.conversions | currency:'USD'  }}
+          {{ campaign.cost / campaign.conversions | number:'1.2-2'  }}
         </p>
         <p
           class="
@@ -469,7 +509,7 @@
           (click)="navigateToCreateAd()"
         >
           <img
-            src="assets/images/plus-circle--blue.svg"
+            src="/assets/images/plus-circle--blue.svg"
             alt="Add new icon"
             class="
               adsh-icon

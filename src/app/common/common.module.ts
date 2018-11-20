@@ -1,19 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogContent, MatDialogModule } from '@angular/material';
+import { MatDialogContent, MatDialogModule, MatInputModule, MatSlideToggle, MatSpinner } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSpinner, MatSlideToggle } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 
 import { CommonService } from './common.service';
@@ -25,6 +22,7 @@ import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/cha
 import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { AddCustomTargetingDialogComponent } from './dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import { UserConfirmResponseDialogComponent } from './dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
@@ -66,6 +64,7 @@ const dialogs = [
   ChangeAddressDialogComponent,
   ChangeAutomaticWithdrawDialogComponent,
   AddCustomTargetingDialogComponent,
+  UserConfirmResponseDialogComponent,
 ];
 
 const appComponents = [
@@ -117,4 +116,5 @@ const appComponents = [
   ]
 })
 
-export class AppCommonModule { }
+export class AppCommonModule {
+}

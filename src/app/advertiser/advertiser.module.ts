@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -28,8 +27,8 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
-import { TrustUrlPipe } from 'common/pipes/trust.pipe';
-import { TrustHtmlPipe } from 'common/pipes/trust.pipe';
+import { CampaignBudgetPerDayPipe } from "common/pipes/campaign-budget-per-day.pipe";
+import { TrustHtmlPipe, TrustUrlPipe } from 'common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
@@ -79,10 +78,12 @@ const advertiserComponents = [
     TargetingCriteriaResolver
   ],
   declarations: [
+    CampaignBudgetPerDayPipe,
     TrustUrlPipe,
     TrustHtmlPipe,
     ...advertiserComponents,
     ...editCampaignComponents
   ]
 })
-export class AdvertiserModule { }
+export class AdvertiserModule {
+}

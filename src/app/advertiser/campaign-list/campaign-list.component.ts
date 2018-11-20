@@ -6,7 +6,6 @@ import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignsTotals } from 'models/campaign.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list',
@@ -21,18 +20,17 @@ export class CampaignListComponent {
   constructor(
     private router: Router,
     private store: Store<AppState>
-  ) {}
+  ) {
+  }
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);
   }
 
   navigateToCreateCampaign() {
-    this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
-
     this.router.navigate(
-      [ 'advertiser', 'create-campaign', 'basic-information'],
-      { queryParams: { step: 1 } }
+      ['advertiser', 'create-campaign', 'basic-information'],
+      {queryParams: {step: 1}}
     );
   }
 }

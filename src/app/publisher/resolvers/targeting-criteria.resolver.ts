@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { PublisherService } from 'publisher/publisher.service';
@@ -8,10 +8,11 @@ import { prepareTargetingChoices } from 'common/components/targeting/targeting.h
 
 @Injectable()
 export class TargetingCriteriaResolver implements Resolve<any> {
-  constructor(private publisherService: PublisherService) { }
+  constructor(private publisherService: PublisherService) {
+  }
 
   resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
-    return this.publisherService.getTargetingCriteria()
-      .map((targetingOptions) => prepareTargetingChoices(targetingOptions));
+    return this.publisherService.getFilteringCriteria()
+      .map((filteringOptions) => prepareTargetingChoices(filteringOptions));
   }
 }

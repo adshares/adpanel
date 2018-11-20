@@ -19,9 +19,17 @@ public class AdPanel extends BrowserTestCase {
   private String url_mailhog = "http://localhost:8025/";
   private String url_mailcatcher = "http://mailcatcher.ads/";
   private String url_target = "http://localhost:8101/test-publisher/index.html";
-  private String user = "user@e11.click";
+  private String login_random = "tru";
+
   private String admin = "admin@e11.click";
-  private String password = "12345678";
+  private String password_admin = "adminadmin";
+  private String user = "user@e11.click";
+  private String password = "useruser";
+  private String publisher = "publisher@e11.click";
+  private String password_publisher = "publisher";
+  private String advertiser = "advertiser@e11.click";
+  private String password_advertiser = "advertiser";
+
 
   private RegisterPage registerPage;
   private LoginPage loginPage;
@@ -51,27 +59,60 @@ public class AdPanel extends BrowserTestCase {
     Maps.url_mailhog("url_mailhog", url_mailhog);
     Maps.url_target("url_target", url_target);
 
-    Random random = new Random();
-    int number = random.nextInt(1000);
-    String name = "Campaign "+number;
-    Maps.createCampaign();
-    Maps.campaign_name("campaign_name",name);
-
     loginAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.EMAIL);
     passwordAdService = Xml.getValue(Structure.CONFIG_PROPERTIES, Properties.PROPERTY, Properties.PASSWORD);
   }
   @Test
   public void sleep() {
-    try {
-      Thread.sleep(10000000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+    int s;
+    int x=1000;
+    for (s=0; s<x; s++) {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      System.out.println("sleep: "+x+"s.");
+      x=x-1;
     }
   }
+
   @Test
-  public void logInPopUpFirstPublisher() {
+  public void logInUserPublisher() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(publisher,password_publisher);}
+    loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpFirstPublisher();
+    if (login_random=="true") {dashboardPopup.popUpFirstPublisher();}else{dashboardPopup.popUpPublisher();}
+  }
+  @Test
+  public void logInUserAdvertiser() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(advertiser,password_advertiser);}
+    loginPage.logIn();
+    dashboardPopup = new DashboardPopup(driver);
+    if (login_random=="true") {dashboardPopup.popUpFirstAdvertiser();}else{dashboardPopup.popUpAdvertiser();}
+  }
+  @Test
+  public void logInUserAdvertiserPublisher() {
+    loginPage = new LoginPage(driver);
+    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(user,password);}
+    loginPage.logIn();
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstAdvertiserPublisher();
+//    dashboardPopup.popUpAdvertiser();
+    dashboardPopup.popUpPublisher();
+  }
+
+  @Test
+  public void loginPopUpAdvertiser(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpAdvertiser();
+  }
+  @Test
+  public void logInPopUpPublisher(){
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpPublisher();
   }
   @Test
   public void logInPopUpFirstAdvertiser(){
@@ -79,20 +120,16 @@ public class AdPanel extends BrowserTestCase {
     dashboardPopup.popUpFirstAdvertiser();
   }
   @Test
+  public void logInPopUpFirstPublisher() {
+    dashboardPopup = new DashboardPopup(driver);
+    dashboardPopup.popUpFirstPublisher();
+  }
+  @Test
   public void logInPopUpFirstAdvertiserPublisher(){
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiserPublisher();
   }
-  @Test
-  public void logInPopUpPublisher(){
-    dashboardPopup = new DashboardPopup(driver);
-    dashboardPopup.popUpPublisher();
-  }
-    @Test
-  public void loginPopUpAdvertiser(){
-      dashboardPopup = new DashboardPopup(driver);
-      dashboardPopup.popUpAdvertiser();
-  }
+
   @Test
   public void firstLogInPopUp() {
     dashboardPopup = new DashboardPopup(driver);
@@ -104,20 +141,13 @@ public class AdPanel extends BrowserTestCase {
     loginPage.RandomEmail(password);
     loginPage.logIn();
   }
-//  private void loginUserEmail() throws InterruptedException {
-//    loginPage = new LoginPage(driver);
-//    loginPage.UserEmail(password);
-//    loginPage.logIn();
-//  }
-
-
-
   @Test
   public void logInRandomEmailRememberMe() {
     loginPage = new LoginPage(driver);
     loginPage.RandomEmail(password);
     loginPage.logInRememberMe();
   }
+
   @Test
   public void logInUserEmail() {
     loginPage = new LoginPage(driver);
@@ -202,14 +232,14 @@ public class AdPanel extends BrowserTestCase {
   public void logInWithRoleAdvertiserPublisher() {              System.out.println("---------- TS_2 - TC_5 ----------");
   }
   @Test
-  public void logInChangeEmail_1() {                          System.out.println("---------- TS_2 - TC_6.1 ----------");
+  public void logInChangeEmail_1() {                            System.out.println("---------- TS_2 - TC_6 ----------");
     loginPage = new LoginPage(driver);
     Random random = new Random();
     int number = random.nextInt(1000000);
     String s = String.format("%06d", number)+"e";
 //    Thread.sleep(1000);
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal@"+s+".click", "test@"+s+".click");
+    loginPage.gotologinChangeEmail("michal@"+s+".click","");
     System.out.println("1/7. OK");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
@@ -217,15 +247,9 @@ public class AdPanel extends BrowserTestCase {
     mailcatcher = new Mailcatcher(driver);
     mailcatcher.mailcatcherEmail();
     System.out.println("3/7 - Mailcatcher");
-    // TODO: 05.10.18 TC_6.1 Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
-    // TODO: 09.10.18 TC_6.1 Error -  Login require, Last request required logged-in user.
-//    Robot robo = new Robot();
-//    robo.keyPress(KeyEvent.VK_CONTROL);
-//    robo.keyPress(KeyEvent.VK_SHIFT);
-//    robo.keyPress(KeyEvent.VK_I);
-//    robo.keyRelease(KeyEvent.VK_CONTROL);
-//    robo.keyRelease(KeyEvent.VK_SHIFT);
-//    robo.keyRelease(KeyEvent.VK_I);
+    // TODO: 05.10.18 TS_2/TC_6 - Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
+    // TODO: 09.10.18 TS_2/TC_6 - Error -  Login require, Last request required logged-in user.
+
 
 
     try {
@@ -247,38 +271,21 @@ public class AdPanel extends BrowserTestCase {
     headerBarPage.logOut();
     System.out.println("8z7 - logOut");
   }
+
+  // TODO: 22.10.18 TS_2/TC_7 - Error
   @Test
-  public void logInChangeEmail_2() {                          System.out.println("---------- TS_2 - TC_6.2 ----------");
+  public void logInChangeEmail_2() {                            System.out.println("---------- TS_2 - TC_7 ----------");
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal.michal@e11.click", "test@e11.click");
+    loginPage.gotologinChangeEmail("michal@e11.click","1/7");
+    loginPage.gotologinChangeEmail2("michal.michal@e11.click","2/7");
+    loginPage.gotologinChangeEmail2("michal@e11.click.pl","3/7");
+    loginPage.gotologinChangeEmail2("MiChAl@e11.click","4/7");
+    loginPage.gotologinChangeEmail2("michal123@e11.click","5/7");
+    loginPage.gotologinChangeEmail2("michal_123@e11.click","6/7");
+    loginPage.gotologinChangeEmail2("111michal@e11.click","7/7");
   }
   @Test
-  public void loginChangeEmail_3() {                          System.out.println("---------- TS_2 - TC_6.3 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal@e11.click.pl", "test@e11.click");
-  }
-  @Test
-  public void logInChangeEmail_4() {                          System.out.println("---------- TS_2 - TC_6.4 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("MiChAl@e11.click", "test@e11.click");
-  }
-  @Test
-  public void logInChangeEmail_5() {                          System.out.println("---------- TS_2 - TC_6.5 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal123@e11.click", "test@e11.click");
-  }
-  @Test
-  public void logInChangeEmail_6() {                          System.out.println("---------- TS_2 - TC_6.6 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal_123@e11.click", "test@e11.click");
-  }
-  @Test
-  public void logInChangeEmail_7() {                          System.out.println("---------- TS_2 - TC_6.7 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("111michal@e11.click", "test@e11.click");
-  }
-  @Test
-  public void logInChangePassword() {                           System.out.println("---------- TS_2 - TC_7 ----------");
+  public void logInChangePassword1() {                           System.out.println("---------- TS_2 - TC_8 ----------");
     loginPage = new LoginPage(driver);
     loginPage.gotologinChangePassword();
     headerBarPage = new HeaderBarPage(driver);
@@ -289,52 +296,44 @@ public class AdPanel extends BrowserTestCase {
     System.out.println("NewPassword: "+ Maps.getPassword("password"));
   }
   @Test
-  public void logOutTest() {                                    System.out.println("---------- TS_2 - TC_8 ----------");
+  public void logInChangePassword2() {                           System.out.println("---------- TS_2 - TC_9 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.gotologinChangePassword2();
+      }
+  @Test
+  public void logOutTest() {                                    System.out.println("---------- TS_2 - TC_10 ----------");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
   }
   @Test
-  public void logInSecondTab() {                                System.out.println("---------- TS_2 - TC_9 ----------");
+  public void logInSecondTab() {                                System.out.println("---------- TS_2 - TC_11 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
   }
   @Test
-  public void logInSecondTab2() {                                System.out.println("---------- TS_2 TC_10 ----------");
-    // TODO: 27.09.18 TC_10 Error - remember me do not work
+  public void logInSecondTab2() {                                System.out.println("---------- TS_2 TC_12 ----------");
+    // TODO: 27.09.18 TS_2/TC_10 Error - remember me do not work
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
     loginPage.loginSecondTab2();
   }
   @Test
-  public void logInSessionHoles() {                            System.out.println("---------- TS_2 - TC_11 ----------");
+  public void logInSessionHoles() {                            System.out.println("---------- TS_2 - TC_13 ----------");
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab3();
   }
   @Test
-  public void logInSecondTab4() {                              System.out.println("---------- TS_2 - TC_12 ----------");
-    // TODO: 27.09.18 TC_12 Error - session expiration not work - setting in file
+  public void logInSecondTab4() {                              System.out.println("---------- TS_2 - TC_14 ----------");
+    // TODO: 27.09.18 TS_2/TC_14 Error - session expiration not work - setting in file
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab4();
   }
   @Test
-  // TODO: 27.09.18 TC_13 Error - admin account in the database
-  public void logInAdminEmail() {                              System.out.println("---------- TS_2 - TC_13 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.AdminEmail(admin,password);
-  }
-  @Test
-  public void logInFail() {                                    System.out.println("---------- TS_2 - TC_14 ----------");
-    loginPage = new LoginPage(driver);
-    loginPage.logInFail("fail@e11.click", "failfail");
-  }
-  @Test
-  public void logInAdvertiser() {                              System.out.println("---------- TS_2 - TC_15 ----------");
-  }
-  @Test
-  public void logInOutAdvertiser() {                           System.out.println("---------- TS_2 - TC_16 ----------");
+  public void changeOfRole()                                  {System.out.println("---------- TS_2 - TC_17 ----------");
+                                          
   }
 
-  @Test
+   @Test
   public void basicInformationSaveContinue() {                  System.out.println("---------- TS_3 - TC_1 ----------");
     advertiserMainPage = new AdvertiserMainPage(driver);
     advertiserMainPage.createNewCampaign();
@@ -442,7 +441,19 @@ public class AdPanel extends BrowserTestCase {
     advertiserMainPage.editAds();
     // TODO: 12.10.18  
   }
-
+  @Test
+  public void basicInformationError() {                        System.out.println("---------- TS_3 - TC_19 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    advertiserMainPage.createNewCampaign();
+    advertiserMainPage.basicInformationError();
+  }
+  @Test
+  public void createAdsError() {                        System.out.println("---------- TS_3 - TC_20 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    additionalTargetingsaveSaveContinue();
+    advertiserMainPage.createAdsError();
+//    additionalTargetingsaveSaveContinue();
+  }
 
 
   @Test
@@ -575,10 +586,158 @@ public class AdPanel extends BrowserTestCase {
     publisherEditSite.editAds();
   }
   @Test
-  public void publisherBasicInformationError() {               System.out.println("---------- TS_4 - TC_16 ----------");
+  public void publisherBasicInformationError() {               System.out.println("---------- TS_4 - TC_19 ----------");
     publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.AddNewSite();
     publisherNewSite = new PublisherNewSite(driver);
     publisherNewSite.basicInformationError("");
+  }
+  @Test
+  public void publisherCreateAdUnitsError() {               System.out.println("---------- TS_4 - TC_20 ----------");
+    publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.AddNewSite();
+    siteCreateAds = new SiteCreateAds(driver);
+    publisherCreateAdUnitsSaveContinue();
+    siteCreateAds.createAdUnitsError("");
+  }
+  @Test
+  public void logInAdminEmail() {                              System.out.println("---------- TS_5 - TC_1 ----------");
+    loginPage = new LoginPage(driver);
+    loginPage.AdminEmail(admin,password_admin);
+  }
+  @Test
+  public void advertiserTargetingAll() {                              System.out.println("---------- advertiserTargetingAll ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    basicInformationSaveContinue();
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Site domain","coinmarketcap.com");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Site domain","icoalert.com");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Inside frame","Yes");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Inside frame","No");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Language","Polish");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Language","English");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Language","Italian");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Language","Japanese");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Content keywords","blockchain");
+    advertiserMainPage.additionalTargetingREQUIRED("Site","Content keywords","ico");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Age","18-35");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Age","36-65");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Height","900 or more");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Height","between 200 and 300");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Interest keywords","blockchain");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Interest keywords","ico");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Language","Polish");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Language","English");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Language","Italian");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Language","Japanese");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Gender","Male");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Gender","Female");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Geo","Continent");
+    advertiserMainPage.additionalTargetingREQUIRED("User","Geo","Country");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Screen size","Width");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Screen size","Height");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Language","Polish");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Language","English");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Language","Italian");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Language","Japanese");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Browser","Chrome");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Browser","Edge");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Browser","Firefox");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Operating system","Linux");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Operating system","Mac");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Operating system","Windows");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Geo","Continent");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Geo","Country");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Javascript support","Yes");
+    advertiserMainPage.additionalTargetingREQUIRED("Device","Javascript support","No");
+
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Site domain","coinmarketcap.com");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Site domain","icoalert.com");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Inside frame","Yes");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Inside frame","No");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Language","Polish");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Language","English");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Language","Italian");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Language","Japanese");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Content keywords","blockchain");
+    advertiserMainPage.additionalTargetingEXCLUDED("Site","Content keywords","ico");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Age","18-35");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Age","36-65");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Height","900 or more");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Height","between 200 and 300");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Interest keywords","blockchain");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Interest keywords","ico");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Language","Polish");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Language","English");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Language","Italian");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Language","Japanese");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Gender","Male");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Gender","Female");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Geo","Continent");
+    advertiserMainPage.additionalTargetingEXCLUDED("User","Geo","Country");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Screen size","Width");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Screen size","Height");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Language","Polish");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Language","English");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Language","Italian");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Language","Japanese");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Browser","Chrome");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Browser","Edge");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Browser","Firefox");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Operating system","Linux");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Operating system","Mac");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Operating system","Windows");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Geo","Continent");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Geo","Country");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Javascript support","Yes");
+    advertiserMainPage.additionalTargetingEXCLUDED("Device","Javascript support","No");
+  }
+  @Test
+  public void publisherTargetingAll() {                              System.out.println("---------- publisherTargetingAll ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    publisherBasicInformationSaveContinue();
+    publisherMainPage = new PublisherMainPage(driver);
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Audio Ad (Auto-Play)");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Audio Ad (User Initiated)");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","In-Banner Video Ad (Auto-Play)");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","In-Banner Video Ad (User Initiated)");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Provocative or Suggestive Imagery");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Shaky, Flashing, Flickering, Extreme Animation, Smileys");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Surveys");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Text Only");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","User Interactive (e.g., Embedded Games)");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Windows Dialog or Alert Style");
+    publisherMainPage.additionalTargetingREQUIRED("Creative type","Has Audio On/Off Button");
+    publisherMainPage.additionalTargetingREQUIRED("Language","Polish");
+    publisherMainPage.additionalTargetingREQUIRED("Language","English");
+    publisherMainPage.additionalTargetingREQUIRED("Language","Italian");
+    publisherMainPage.additionalTargetingREQUIRED("Language","Japanese");
+    publisherMainPage.additionalTargetingREQUIRED("Browser","Firefox");
+    publisherMainPage.additionalTargetingREQUIRED("Browser","Chrome");
+    publisherMainPage.additionalTargetingREQUIRED("Browser","Safari");
+    publisherMainPage.additionalTargetingREQUIRED("Browser","Edge");
+    publisherMainPage.additionalTargetingREQUIRED("Javascript support","Yes");
+    publisherMainPage.additionalTargetingREQUIRED("Javascript support","No");
+
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Audio Ad (Auto-Play)");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Audio Ad (User Initiated)");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","In-Banner Video Ad (Auto-Play)");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","In-Banner Video Ad (User Initiated)");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Provocative or Suggestive Imagery");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Shaky, Flashing, Flickering, Extreme Animation, Smileys");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Surveys");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Text Only");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","User Interactive (e.g., Embedded Games)");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Windows Dialog or Alert Style");
+    publisherMainPage.additionalTargetingEXCLUDED("Creative type","Has Audio On/Off Button");
+    publisherMainPage.additionalTargetingEXCLUDED("Language","Polish");
+    publisherMainPage.additionalTargetingEXCLUDED("Language","English");
+    publisherMainPage.additionalTargetingEXCLUDED("Language","Italian");
+    publisherMainPage.additionalTargetingEXCLUDED("Language","Japanese");
+    publisherMainPage.additionalTargetingEXCLUDED("Browser","Firefox");
+    publisherMainPage.additionalTargetingEXCLUDED("Browser","Chrome");
+    publisherMainPage.additionalTargetingEXCLUDED("Browser","Safari");
+    publisherMainPage.additionalTargetingEXCLUDED("Browser","Edge");
+    publisherMainPage.additionalTargetingEXCLUDED("Javascript support","Yes");
+    publisherMainPage.additionalTargetingEXCLUDED("Javascript support","No");
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
+import { MatDialog } from "@angular/material";
 
 import { AppState } from 'models/app-state.model';
 import { Site } from 'models/site.model';
@@ -13,6 +14,8 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -21,38 +24,83 @@ import { cloneDeep } from 'common/utilities/helpers';
 })
 export class EditSiteSummaryComponent extends HandleSubscription implements OnInit {
   site: Site;
-  targetingOptionsToAdd: TargetingOption[];
-  targetingOptionsToExclude: TargetingOption[];
+  filteringOptions: TargetingOption[];
+  createSiteMode: boolean;
+  canSubmit: boolean;
 
   constructor(
     private store: Store<AppState>,
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     super();
   }
 
   ngOnInit() {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    this.createSiteMode = !!this.router.url.match('/create-site/');
+
+    this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
         this.assetHelpers.redirectIfNameNotFilled(site);
         this.site = site;
       });
-    this.subscriptions.push(lastSiteSubscription);
 
-    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
-    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+
+    this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+    this.site.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
   }
 
-  saveSite(isDraft) {
+  saveSite(isDraft): void {
+    this.canSubmit = false;
+
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
       this.site.adUnits.forEach(adUnit => adUnit.status = adUnitStatusesEnum.ACTIVE);
     }
 
-    this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
-    this.router.navigate(['/publisher', 'dashboard']);
+    this.publisherService.saveSite(this.site).subscribe(
+      () => {
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
+        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+        this.router.navigate(['/publisher', 'dashboard']);
+      },
+      (err) => {
+        this.canSubmit = true;
+        this.showErrorInformation(err);
+      }
+    );
+  }
+
+  updateSite(): void {
+    this.canSubmit = false;
+    const siteId = this.site.id;
+    this.publisherService.updateSiteFiltering(siteId, this.site).subscribe(
+      () => {
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
+        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+        this.navigateToSiteDetails(siteId);
+      },
+      (err) => {
+        this.canSubmit = true;
+        this.showErrorInformation(err);
+      }
+    )
+  }
+
+  showErrorInformation(err: { status: number, error: { message: string } }): void {
+    if (err.status === 500) return;
+    this.dialog.open(ErrorResponseDialogComponent, {
+      data: {
+        title: 'Ups! Something went wrong...',
+        message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
+      }
+    });
+  }
+
+  navigateToSiteDetails(id: number): void {
+    this.router.navigate(['/publisher', 'site', id]);
   }
 }
