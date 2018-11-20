@@ -28,14 +28,13 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   goesToSummary: boolean;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
-
+  site: Site;
   subscriptions: Subscription[] = [];
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;
-  site: Site;
   filtering;
   filteringOptions;
 
@@ -55,6 +54,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getSiteFromStore();
+
+    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .subscribe((lastEditedSite: Site) => {
+        this.site = lastEditedSite;
+      });
+    this.subscriptions.push(lastSiteSubscription);
   }
 
   ngOnDestroy() {
@@ -75,11 +80,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
 
   onStepBack(): void {
     if (!this.createSiteMode) {
+      const siteId = this.site.id;
+      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.router.navigate(['/publisher', 'site', siteId]);
+    } else {
       this.router.navigate(['/publisher', 'create-site', 'basic-information'],
         {queryParams: {step: 1}})
-    } else {
-      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-      this.router.navigate(['/publisher', 'site', this.site.id]);
     }
   }
 
@@ -125,14 +131,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
       return;
     }
 
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
-      .subscribe((lastEditedSite: Site) => {
+    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
 
-        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(lastEditedSite));
-        this.router.navigate(['/publisher', 'dashboard']);
-      });
-    this.subscriptions.push(lastSiteSubscription);
   }
 
   getSiteFromStore() {

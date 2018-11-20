@@ -43,7 +43,7 @@
             Link
           </div>
         </div>
-        <ul *ngIf="billingHistory.length > 0 ; else loading">
+        <ul *ngIf="!showLoader; else loading">
           <li *ngFor="let billingHistoryItem of billingHistory">
             <app-billing-history-withdrawal
               class="
