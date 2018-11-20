@@ -61,7 +61,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         Validators.pattern(appSettings.ADDRESS_REGEXP)
       ]),
       amount: new FormControl('', [Validators.required]),
-      memo: new FormControl('', [Validators.maxLength(32)])
+      memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{64}'))
     });
   }
 
