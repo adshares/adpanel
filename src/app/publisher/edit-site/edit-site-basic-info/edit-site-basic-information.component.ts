@@ -66,7 +66,12 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
   }
 
-  saveSiteBasicInformation(): void {
+  onStepBack(): void {
+    this.createSiteMode ? this.router.navigate(['/publisher', 'dashboard']) :
+      this.router.navigate(['/publisher', 'site', this.site.id]);
+  }
+
+  saveSiteBasicInformation() {
     this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
