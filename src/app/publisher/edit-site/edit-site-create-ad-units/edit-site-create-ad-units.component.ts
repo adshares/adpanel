@@ -211,6 +211,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       });
       return;
     }
+
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
@@ -222,6 +223,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   redirectAfterSave(isDraft: boolean): void {
+
     if (!isDraft) {
       this.router.navigate(
         ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],

@@ -63,10 +63,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
-
-    this.getFiltering();
     this.getLanguages();
-
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -74,6 +71,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription);
 
     this.getChartData(this.currentChartFilterSettings);
+    this.getFilteringFiltering();
   }
 
   deleteSite() {
@@ -117,6 +115,17 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
   }
 
+  getFilteringFiltering() {
+    this.store.select('state', 'publisher', 'filteringCriteria')
+      .subscribe((filteringOptions) => {
+        this.filteringOptions = filteringOptions;
+        this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+        if (!filteringOptions.length) {
+          this.store.dispatch(new PublisherActions.GetFilteringCriteria());
+        }
+      });
+  }
+
   getChartData(chartFilterSettings) {
     this.barChartData.forEach(values => values[0].data = []);
 
@@ -154,16 +163,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       ['/publisher', 'edit-site', 'create-ad-units'],
       {queryParams: {step: 3, summary: true}}
     );
-  }
-
-  getFiltering() {
-    const getSiteFilteringSubscription = this.publisherService.getFilteringCriteria()
-      .map((filteringOptions) => prepareTargetingChoices(filteringOptions))
-      .subscribe(filteringOptions => {
-        this.filteringOptions = filteringOptions;
-        this.filtering = parseTargetingOptionsToArray(this.site.filtering, filteringOptions);
-      });
-    this.subscriptions.push(getSiteFilteringSubscription);
   }
 
   onSiteStatusChange(status) {
