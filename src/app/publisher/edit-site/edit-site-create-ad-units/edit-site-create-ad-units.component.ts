@@ -134,6 +134,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
         )
     );
+
+    this.filteredAdUnitSizes[adUnitIndex].find(adUnit =>
+      adUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label).selected = true;
   }
 
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
@@ -165,7 +168,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         {queryParams: {step: 2}})
     }
   }
-
 
   updateAdUnits(): void {
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
