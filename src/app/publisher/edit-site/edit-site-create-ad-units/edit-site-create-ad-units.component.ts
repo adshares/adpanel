@@ -134,24 +134,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
           : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
         )
     );
-
-    this.filteredAdUnitSizes[adUnitIndex].find(adUnit =>
-      adUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label).selected = true;
   }
 
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
     this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
-    this.allAdUnitSizes[adUnitIndex].forEach((filteredAdUnit) => {
-      filteredAdUnit.selected = filteredAdUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label;
-    });
-
-    this.filteredAdUnitSizes[adUnitIndex].forEach(adUnit => {
-        adUnit.selected = false;
-        if (!!this.allAdUnitSizes[adUnitIndex].find(unit => unit.selected === true && unit.label === adUnit.label)) {
-          adUnit.selected = true
-        }
-      }
-    )
   }
 
   onSubmit(): void {
