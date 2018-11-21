@@ -1,5 +1,12 @@
 import {TableColumnMetaData} from 'models/table.model';
 
+function adsToClicks(amount: number): number {
+  let arr = amount.toFixed(12).split('.');
+  arr[1] = arr[1].padEnd(11, '0').substring(0, 11);
+
+  return parseInt(arr[0] + arr[1]);
+}
+
 /**
  * Calculates campaign budget per hour in ADS.
  * @param budgetPerHour budget/hour in ADS
@@ -145,6 +152,7 @@ function findValueByPathArray(object, pathArray) {
 }
 
 export {
+  adsToClicks,
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
