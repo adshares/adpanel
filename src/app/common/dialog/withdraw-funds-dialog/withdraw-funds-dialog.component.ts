@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { MatDialogRef } from '@angular/material';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { HandleSubscription } from 'common/handle-subscription';
-import { SettingsService } from 'settings/settings.service';
-import { AppState } from 'models/app-state.model';
-import { User, UserAdserverWallet } from 'models/user.model';
+import {HandleSubscription} from 'common/handle-subscription';
+import {SettingsService} from 'settings/settings.service';
+import {AppState} from 'models/app-state.model';
+import {User, UserAdserverWallet} from 'models/user.model';
 
-import { adsToClicks } from 'common/utilities/helpers';
-import { appSettings } from 'app-settings';
+import {adsToClicks} from 'common/utilities/helpers';
+import {appSettings} from 'app-settings';
+import {CalculateWithdrawalItem} from "models/settings.model";
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -24,6 +25,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   memoInputActive = false;
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
+  showAddressError = false;
   isEmailConfirmed = false;
 
   txFee: number = appSettings.TX_FEE;
@@ -37,7 +39,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
@@ -51,11 +52,10 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       });
 
     this.subscriptions.push(userDataSubscription);
-
     this.createForm();
   }
 
-  createForm() {
+  createForm(): void {
     this.withdrawFundsForm = new FormGroup({
       address: new FormControl(this.adserverWallet.adsharesAddress, [
         Validators.required,
@@ -66,12 +66,12 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     });
   }
 
-  toggleMemoInput(event, state) {
+  toggleMemoInput(event: Event, state: boolean) {
     event.preventDefault();
     this.memoInputActive = state;
   }
 
-  withdrawFunds() {
+  withdrawFunds(): void {
     this.withdrawFormSubmitted = true;
 
     if (!this.withdrawFundsForm.valid) {
@@ -88,5 +88,21 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(changeWithdrawAddressSubscription);
+  }
+
+  getMaxWithdrawAmount() {
+    if (!this.withdrawFundsForm.get('address').valid) {
+      this.showAddressError = true;
+      return;
+    }
+    this.settingsService.calculateWithdrawal(this.withdrawFundsForm.get('address').value)
+      .subscribe(
+        (response: CalculateWithdrawalItem) => {
+          this.withdrawFundsForm.get('amount').setValue(response.amount);
+        },
+        (err) => {
+          console.error('Calculation failed: ', err)
+        }
+      )
   }
 }
