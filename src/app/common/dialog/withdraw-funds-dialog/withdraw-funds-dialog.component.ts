@@ -53,7 +53,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     this.subscriptions.push(userDataSubscription);
     this.createForm();
-    this.showAddressError = this.withdrawFundsForm && !this.withdrawFundsForm.get('address').valid && this.withdrawFormSubmitted;
   }
 
   createForm(): void {
