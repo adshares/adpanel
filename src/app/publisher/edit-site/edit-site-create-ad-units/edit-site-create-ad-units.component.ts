@@ -156,9 +156,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   updateAdUnits(): void {
+    this.adUnitsSubmitted = true;
+
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
     if (!adUnitsValid) return;
-    this.changesSaved = true;
+
     this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
 
     const updateSubscription = this.publisherService.updateSiteData(this.site.id, this.site)
