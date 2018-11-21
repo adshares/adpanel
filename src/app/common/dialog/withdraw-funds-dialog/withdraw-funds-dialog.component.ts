@@ -98,7 +98,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     this.settingsService.calculateWithdrawal(this.withdrawFundsForm.get('address').value)
       .subscribe(
         (response: CalculateWithdrawalItem) => {
-          this.withdrawFundsForm.get('amount').setValue(response.total);
+          this.withdrawFundsForm.get('amount').setValue(response.amount);
         },
         (err) => {
           console.error('Calculation failed: ', err)

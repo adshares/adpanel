@@ -36,8 +36,8 @@ export class SettingsService {
     return this.http.patch(`${environment.apiUrl}/wallet/settings`, {newWithdrawAddress});
   }
 
-  calculateWithdrawal(to: string): Observable<CalculateWithdrawalItem> {
-    return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, {to});
+  calculateWithdrawal(to: string, amount?: number): Observable<CalculateWithdrawalItem> {
+    return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, {to, amount});
   }
 
   withdrawFunds(to: string, amount: number, memo: string) {
