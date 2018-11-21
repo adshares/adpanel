@@ -25,6 +25,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   memoInputActive = false;
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
+  showAddressError = false;
   isEmailConfirmed = false;
 
   txFee: number = appSettings.TX_FEE;
@@ -38,7 +39,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
@@ -52,8 +52,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       });
 
     this.subscriptions.push(userDataSubscription);
-
     this.createForm();
+    this.showAddressError = this.withdrawFundsForm && !this.withdrawFundsForm.get('address').valid && this.withdrawFormSubmitted;
   }
 
   createForm(): void {
@@ -92,9 +92,11 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   getMaxWithdrawAmount() {
-    // TODO remove amount when is not needed on the backend
-    this.settingsService.calculateWithdrawal(this.withdrawFundsForm.get('address').value,
-      this.withdrawFundsForm.get('amount').value)
+    if (!this.withdrawFundsForm.get('address').valid) {
+      this.showAddressError = true;
+      return;
+    }
+    this.settingsService.calculateWithdrawal(this.withdrawFundsForm.get('address').value)
       .subscribe(
         (response: CalculateWithdrawalItem) => {
           this.withdrawFundsForm.get('amount').setValue(response.total);

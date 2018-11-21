@@ -57,7 +57,7 @@
         ></span>
         <span
           class="error-msg"
-          *ngIf="!withdrawFundsForm.get('address').valid && withdrawFormSubmitted"
+          *ngIf="(!this.withdrawFundsForm.get('address').valid && this.withdrawFormSubmitted) || this.showAddressError"
         >
           Please provide a valid address.
         </span>
