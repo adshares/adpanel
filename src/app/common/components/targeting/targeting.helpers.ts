@@ -160,7 +160,6 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
   const requiresResult = [];
   const excludesResult = [];
   const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
-
   if (targetingObject) {
     generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
     generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
@@ -223,7 +222,9 @@ function addTargetingOptionToResult(resultKey, result, targetingOptions) {
 
 function addCustomOptionToResult(optionKeys, results, targetingOptions) {
   optionKeys.forEach(optionKey => {
-    const addedResultIndex = results.findIndex(result => result.id === optionKey);
+    const addedResultIndex = !!results.length && results.findIndex(result => {
+
+      return result.id === optionKey});
 
     if (addedResultIndex === -1) {
       const parentKeyPathArray = optionKey.split('-');

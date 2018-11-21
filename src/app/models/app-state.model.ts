@@ -4,6 +4,7 @@ import { AdminSettings, BillingHistoryItem, NotificationItem, UserInfoStats } fr
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
+import {TargetingOption} from "models/targeting-option.model";
 
 
 interface AppState {
@@ -27,6 +28,7 @@ interface PublisherState {
   sitesTotals: SitesTotals;
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
+  filteringCriteria: TargetingOption[];
 }
 
 interface SettingsState {

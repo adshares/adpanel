@@ -24,7 +24,7 @@ export class BillingHistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showLoader = Array.isArray(this.billingHistory);
+    this.showLoader = !Array.isArray(this.billingHistory);
     this.store.dispatch(new settingsActions.LoadBillingHistory(''));
   };
 
