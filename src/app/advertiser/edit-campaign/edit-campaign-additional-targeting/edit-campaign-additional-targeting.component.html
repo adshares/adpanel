@@ -150,6 +150,7 @@
 
     <div class="row">
       <button
+        *ngIf="createCampaignMode"
         (click)="saveCampaignTargeting(true)"
         class="
           adsh-btn
@@ -161,13 +162,13 @@
         Save as Draft
       </button>
       <button
-        (click)="saveCampaignTargeting(false)"
+        (click)="onSubmit()"
         class="
           adsh-btn
           adsh-btn--blue"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved; else loading">{{createCampaignMode ? 'Save & Continue' : 'Update'}}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

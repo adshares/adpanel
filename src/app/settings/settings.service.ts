@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-import { BillingHistoryItem, NotificationItem } from 'models/settings.model';
+import {BillingHistoryItem, CalculateWithdrawalItem, NotificationItem} from 'models/settings.model';
 import { User } from "models/user.model";
 
 @Injectable()
@@ -34,6 +34,10 @@ export class SettingsService {
 
   changeWithdrawAddress(newWithdrawAddress: string) {
     return this.http.patch(`${environment.apiUrl}/wallet/settings`, {newWithdrawAddress});
+  }
+
+  calculateWithdrawal(to: string, amount?: number): Observable<CalculateWithdrawalItem> {
+    return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, {to, amount});
   }
 
   withdrawFunds(to: string, amount: number, memo: string) {

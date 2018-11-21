@@ -33,5 +33,18 @@ interface DepositInfo {
   message: string;
 }
 
+interface CalculateWithdrawalItem {
+  amount: number;
+  fee: number;
+  total: number;
+}
 
-export { BillingHistoryItem, NotificationItem, UserInfoStats, AdminSettings, AdsharesAddress, DepositInfo };
+export {
+  BillingHistoryItem,
+  NotificationItem,
+  UserInfoStats,
+  AdminSettings,
+  AdsharesAddress,
+  DepositInfo,
+  CalculateWithdrawalItem
+};
