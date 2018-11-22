@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpErrorResponse} from "@angular/common/http";
 
 import {HandleSubscription} from 'common/handle-subscription';
 import {SettingsService} from 'settings/settings.service';
 import {AppState} from 'models/app-state.model';
 import {User, UserAdserverWallet} from 'models/user.model';
 
-import {adsToClicks} from 'common/utilities/helpers';
+import {adsToClicks, formatMoney} from 'common/utilities/helpers';
 import {appSettings} from 'app-settings';
 import {CalculateWithdrawalItem} from "models/settings.model";
 import * as codes from 'common/utilities/codes';
@@ -30,7 +31,9 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   showAddressError = false;
   isEmailConfirmed = false;
 
-  txFee: number = appSettings.TX_FEE;
+  calculatedFee: number;
+  calculatedTotal: number;
+  calculatedLeft: number;
 
   constructor(
     public dialogRef: MatDialogRef<WithdrawFundsDialogComponent>,
@@ -56,6 +59,46 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     this.subscriptions.push(userDataSubscription);
     this.createForm();
+  }
+
+  onCalculateWithdrawalError(err: HttpErrorResponse): void {
+    if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+      this.dialog.open(ErrorResponseDialogComponent, {
+        data: {
+          title: `Error during calculation`,
+          message: `Please check, if address and amount are correct.`,
+        }
+      });
+    }
+
+    this.calculatedFee = undefined;
+    this.calculatedTotal = undefined;
+    this.calculatedLeft = undefined;
+  }
+
+  onCalculateWithdrawalSuccess(response: CalculateWithdrawalItem): void {
+    this.withdrawFundsForm.get('amount').setValue(formatMoney(response.amount, 11, false, '.', ''));
+
+    this.calculatedFee = response.fee;
+    this.calculatedTotal = response.total;
+    this.calculatedLeft = this.adserverWallet ? (this.adserverWallet.totalFunds - response.total) : undefined;
+  }
+
+  calculateFee(): void {
+    this.withdrawFormSubmitted = true;
+
+    if (!this.withdrawFundsForm.valid) {
+      return;
+    }
+
+    this.settingsService.calculateWithdrawal(
+      this.withdrawFundsForm.value.address,
+      adsToClicks(this.withdrawFundsForm.value.amount)
+    )
+      .subscribe(
+        (response: CalculateWithdrawalItem) => this.onCalculateWithdrawalSuccess(response),
+        (err: HttpErrorResponse) => this.onCalculateWithdrawalError(err)
+      );
   }
 
   createForm(): void {
@@ -90,7 +133,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     )
       .subscribe(
         () => this.dialogRef.close(),
-        (err) => {
+        (err: HttpErrorResponse) => {
           this.withdrawFormSubmitted = false;
           this.isFormBeingSubmitted = false;
           if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
@@ -114,19 +157,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     }
     this.settingsService.calculateWithdrawal(this.withdrawFundsForm.get('address').value)
       .subscribe(
-        (response: CalculateWithdrawalItem) => {
-          this.withdrawFundsForm.get('amount').setValue(response.amount);
-        },
-        (err) => {
-          if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: `Error during calculation`,
-                message: `Please check, if address and amount are correct.`,
-              }
-            });
-          }
-        }
-      )
+        (response: CalculateWithdrawalItem) => this.onCalculateWithdrawalSuccess(response),
+        (err) => this.onCalculateWithdrawalError(err)
+      );
   }
 }
