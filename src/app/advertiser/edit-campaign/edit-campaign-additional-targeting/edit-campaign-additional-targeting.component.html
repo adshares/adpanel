@@ -133,21 +133,16 @@
       row
       justify-between"
   >
-    <a
-      routerLink="../basic-information"
-      [queryParams]="{step: 1}"
-      data-test="advertiser-edit-campaign-navigate-back"
-    >
-      <button
-        class="
+    <button
+      class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
-      >
-        Back
-      </button>
-    </a>
-
+      role="link"
+      (click)="onStepBack()"
+    >
+      Back
+    </button>
     <div class="row">
       <button
         *ngIf="createCampaignMode"
