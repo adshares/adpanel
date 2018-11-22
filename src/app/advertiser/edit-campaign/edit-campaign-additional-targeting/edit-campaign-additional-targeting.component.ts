@@ -1,18 +1,18 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
-import { Store } from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import { AppState } from 'models/app-state.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
-import { AdvertiserService } from 'advertiser/advertiser.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
-import { Campaign } from 'models/campaign.model';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
+import {AppState} from 'models/app-state.model';
+import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
+import {cloneDeep} from 'common/utilities/helpers';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
+import {AdvertiserService} from 'advertiser/advertiser.service';
+import {AssetHelpersService} from 'common/asset-helpers.service';
+import {Campaign} from 'models/campaign.model';
+import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
@@ -64,9 +64,16 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.excludedItems = [...items];
   }
 
+  onStepBack() {
+    this.createCampaignMode ? this.router.navigate(
+      ['/advertiser', 'create-campaign', 'basic-information'],
+      {queryParams: {step: 1}}
+    ) : this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+  }
+
   onSubmit() {
     this.createCampaignMode ?
-    this.saveCampaignTargeting(false) : this.updateTargeting();
+      this.saveCampaignTargeting(false) : this.updateTargeting();
   }
 
   updateTargeting(): void {
