@@ -1,7 +1,11 @@
 import {TableColumnMetaData} from 'models/table.model';
 
-function adsToClicks(amount: number): number {
-  let arr = amount.toFixed(12).split('.');
+function adsToClicks(amount: any): number {
+  if (typeof amount === 'number') {
+    amount = amount.toFixed(12);
+  }
+
+  let arr = amount.split('.');
   arr[1] = arr[1].padEnd(11, '0').substring(0, 11);
 
   return parseInt(arr[0] + arr[1]);
