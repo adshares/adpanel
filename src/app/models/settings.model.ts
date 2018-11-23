@@ -1,5 +1,7 @@
 interface BillingHistoryItem {
+  amount: number,
   status: number;
+  type: number;
   date: Date;
   address: string;
   link: string;
