@@ -3,20 +3,19 @@
 <suite name="TS_1 - TEST" parallel="methods" thread-count="1" verbose="3">
 
 
-
-  <test name="TC_17 - Login - changeOfRole" group-by-instances="true">
+  <test name="TC_6 - logOutChangeEmail" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInUserRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiserPublisher"/>
-          <include name="changeOfRole"/>
-          <include name="sleep"/>
-          <!--<include name="logOut"/>-->
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logOutChangeEmail"/>
         </methods>
       </class>
     </classes>
   </test>
+
+
 
 
 

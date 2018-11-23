@@ -59,6 +59,7 @@ public class DashboardPopup {
 
   public void popUpPublisher() {
     try {
+      wait = new WebDriverWait(driver, 2);
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-publisher']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
@@ -66,28 +67,22 @@ public class DashboardPopup {
       userPopUpPublisher.click();
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
-      LOGGER.info("No popup displayed");
-      System.out.println("Fail - No popup displayed");
-    } finally {
-      LOGGER.info("User choose publisher dashboard");
-      System.out.println("User choose Publisher dashboard");
-
+      LOGGER.info("Skip >>>>> No popup Publisher");
+      System.out.println("Skip >>>>> No popup Publisher");
     }
   }
 
   public void popUpAdvertiser() {
     try {
+      wait = new WebDriverWait(driver, 2);
       wait.until(ExpectedConditions.visibilityOf(userPopUp));
       String textAssertion = driver.findElement(By.xpath("//button[@data-test='common-account-choose-advertiser']")).getText();
       Assert.assertEquals(textAssertion, "Continue");
       userPopUpAdvertiser.click();
       wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("[data-test='header-active-user-type']"))));
     } catch (TimeoutException te) {
-      LOGGER.info("No popup displayed");
-      System.out.println("No popup displayed");
-    } finally {
-      LOGGER.info("User choose advertiser dashboard ");
-      System.out.println("User choose Advertiser dashboard");
+      LOGGER.info("Skip >>>>> No popup Advertiser");
+      System.out.println("Skip >>>>> No popup Advertiser");
     }
   }
 

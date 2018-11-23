@@ -55,13 +55,24 @@
       </class>
     </classes>
   </test>
-  <test name="TC_6 - logInChangeEmail_1" group-by-instances="true">
+  <test name="TC_6 - logInChangeEmail" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
           <include name="logInRandomEmail"/>
           <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangeEmail_1"/>
+          <include name="logInChangeEmail"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_6 - logOutChangeEmail" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInRandomEmail"/>
+          <include name="logInPopUpFirstPublisher"/>
+          <include name="logOutChangeEmail"/>
         </methods>
       </class>
     </classes>

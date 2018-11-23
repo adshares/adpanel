@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 3 - Advertiser" parallel="methods" thread-count="1" verbose="3">
-  <!--<test name="TC_1 - Create new Campaign - basicInformationSaveContinue" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstAdvertiser"/>-->
-          <!--<include name="basicInformationSaveContinue"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_2 - Create new Campaign - basicInformationBackToDashboard" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstAdvertiser"/>-->
-          <!--<include name="basicInformationBackToDashboard"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_3 - Create new Campaign - additionalTargetingsaveSaveContinue" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstAdvertiser"/>-->
-          <!--<include name="additionalTargetingsaveSaveContinue"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_4 - Create new Campaign - additionalTargetingsaveSaveDraft" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstAdvertiser"/>-->
-          <!--<include name="additionalTargetingsaveSaveDraft"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_5 - Create new Campaign - additionalTargetingsaveBack" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstAdvertiser"/>-->
-          <!--<include name="additionalTargetingsaveBack"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
+  <test name="TC_1 - Create new Campaign - basicInformationSaveContinue" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="basicInformationSaveContinue"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_2 - Create new Campaign - basicInformationBackToDashboard" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="basicInformationBackToDashboard"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_3 - Create new Campaign - additionalTargetingsaveSaveContinue" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="additionalTargetingsaveSaveContinue"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_4 - Create new Campaign - additionalTargetingsaveSaveDraft" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="additionalTargetingsaveSaveDraft"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_5 - Create new Campaign - additionalTargetingsaveBack" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="additionalTargetingsaveBack"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
   <test name="TC_6 - Create new Campaign - createAdsSaveContinue" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="createAdsSaveContinue"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -71,9 +71,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="createAdsSaveDraft"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -82,9 +82,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="createAdsBack"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -93,9 +93,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="summarySaveContinue"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -104,9 +104,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="summarySaveDraft"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -115,9 +115,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="summaryBack"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -126,9 +126,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="viewTheCampaign"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -137,9 +137,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="editBasicInformation"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -148,9 +148,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="editAdditionalTargeting"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -159,32 +159,46 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="editAds"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
   </test>
 
-  <test name="TC_19 - Create new Campaign - basicInformationError" group-by-instances="true">
+
+  <test name="TC_17 - viewTheCampaign - statusCampaign" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="basicInformationError"/>
+          <include name="logInUserAdvertiser"/>
+          <include name="statusCampaign"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
   </test>
-  <test name="TC_20 - Create new Campaign - publisherCreateAdUnitsError" group-by-instances="true">
+
+
+  <test name="TC_19 - Create new Campaign - basicInformationError" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
+          <include name="logInUserAdvertiser"/>
           <include name="basicInformationError"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_20 - Create new Campaign - createAdsError" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiser"/>
+          <include name="createAdsError"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>

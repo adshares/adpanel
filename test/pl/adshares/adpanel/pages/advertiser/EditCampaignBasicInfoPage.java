@@ -7,11 +7,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pl.adshares.adpanel.tools.Maps;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class EditCampaignBasicInfoPage {
 
@@ -20,9 +22,11 @@ public class EditCampaignBasicInfoPage {
   @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-name']")                                   private WebElement campaignNameInput;
   @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-target-url']")                             private WebElement campaignTargetURLInput;
   @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-strategy-select']")                    private WebElement campaignBidStrategySelect;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-option']")                                 private List<WebElement> campaignBidStrategyList;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-bid-value']")                              private WebElement campaignBidValueInput;
-  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget']")                                 private WebElement campaignBudgetInput;
+//  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-option']")                                 private List<WebElement> campaignBidStrategyList;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-max-cpc']")                                private WebElement campaignMaxCPCInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-max-cpm']")                                private WebElement campaignMaxCPMInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget-per-day']")                         private WebElement campaignADSdayInput;
+  @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-budget']")                                 private WebElement campaignADSHourInput;
   @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-start-date']")                             private WebElement campaignStartDateInput;
   @FindBy(css = "[data-test='advertiser-edit-campaign-basic-information-form-end-date']")                               private WebElement campaignEndDateInput;
   @FindBy(css = "[data-test='advertiser-navigate-to-dashboard']")                                                       private WebElement backButton;
@@ -44,21 +48,36 @@ public class EditCampaignBasicInfoPage {
     campaignNameInput.sendKeys(campInfo.getName());
     campaignTargetURLInput.clear();
     campaignTargetURLInput.sendKeys(campInfo.getTargetUrl());
-    campaignBidStrategySelect.click();
-    wait.until(ExpectedConditions.visibilityOf(campaignBidStrategyList.get(0)));
-    // select bid strategy by text
-    for (WebElement we : campaignBidStrategyList) {
-      String text = we.getAttribute("value");
-      if (campInfo.getBidStrategy().equals(text)) {
-        we.click();
-        break;
-      }
+//    campaignBidStrategySelect.click();
+//    wait.until(ExpectedConditions.visibilityOf(campaignBidStrategyList.get(0)));
+//    // select bid strategy by text
+//    for (WebElement we : campaignBidStrategyList) {
+//      String text = we.getAttribute("value");
+//      if (campInfo.getBidStrategy().equals(text)) {
+//        we.click();
+//        break;
+//      }
+//    }
+    campaignMaxCPCInput.clear();
+    campaignMaxCPCInput.sendKeys(campInfo.getMax_CPC());
+    campaignMaxCPMInput.clear();
+    campaignMaxCPMInput.sendKeys(campInfo.getMax_CPM());
+
+    String[] ADS = {"ADS_day","ADS_hour"};
+    String random_ADS = (ADS[new Random().nextInt(ADS.length)]);
+    if (random_ADS=="ADS_day") {
+      campaignADSdayInput.clear();
+      campaignADSdayInput.sendKeys(campInfo.getADS_day());
+      Maps.ADS_day("ADS_day",campInfo.getADS_day());
+    } else {
+      campaignADSHourInput.clear();
+      campaignADSHourInput.sendKeys(campInfo.getADS_hour());
+      Maps.ADS_hour("ADS_hour",campInfo.getADS_hour());
     }
-    campaignBidValueInput.clear();
-    campaignBidValueInput.sendKeys(campInfo.getBidValue());
-    campaignBudgetInput.clear();
-    campaignBudgetInput.sendKeys(campInfo.getBudget());
-    // set date
+//    campaignADSdayInput.clear();
+//    campaignADSdayInput.sendKeys(campInfo.getADS_day());
+//    campaignADSHourInput.clear();
+//    campaignADSHourInput.sendKeys(campInfo.getADS_hour());
     clearInput(campaignStartDateInput);
     final LocalDate startDate = campInfo.getStartDate();
     final LocalDate endDate = campInfo.getEndDate();
