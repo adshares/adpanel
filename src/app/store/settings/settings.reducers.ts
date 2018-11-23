@@ -1,8 +1,9 @@
 import * as settingsActions from './settings.actions';
-import { SettingsState } from 'models/app-state.model';
+import {SettingsState} from 'models/app-state.model';
+import {billingHistoryInitialState} from "models/initial-state/billing-history";
 
 const initialState: SettingsState = {
-  billingHistory: [],
+  billingHistory: billingHistoryInitialState,
   notificationsSettings: []
 };
 

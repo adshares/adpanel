@@ -80,14 +80,14 @@
     class="break-word"
   >
     <a
-      *ngIf="billingHistoryItem.link"
-      href="{{ billingHistoryItem.link }}"
+      *ngIf="link"
+      href="{{ link }}"
       data-test="settings-billing-history-item-link"
     >
-      {{ billingHistoryItem.link }}
+      {{ link }}
     </a>
     <span
-      *ngIf="!billingHistoryItem.link"
+      *ngIf="!link"
       data-test="settings-billing-history-item-link"
     >
       -

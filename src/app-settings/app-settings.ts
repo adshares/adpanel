@@ -1,4 +1,6 @@
 export const appSettings = {
+  // ADS Operator URL
+  ADS_OPERATOR_URL: 'https://operator1.e11.click',
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
   // max byte size of ad image
