@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
+import {MatDialog} from "@angular/material";
 import 'rxjs/add/operator/take';
+import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {AppState} from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -10,10 +12,8 @@ import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {cloneDeep} from 'common/utilities/helpers';
 import {siteInitialState} from 'models/initial-state/site';
 import {Site, SiteLanguage} from 'models/site.model';
-import {Observable} from "rxjs";
 import {PublisherService} from "publisher/publisher.service";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'app-edit-site-basic-information',
