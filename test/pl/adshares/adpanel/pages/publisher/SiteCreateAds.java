@@ -116,7 +116,7 @@ public class SiteCreateAds {
     sizeSelectList.click();
     System.out.println("Click - sizeSelectList");
 
-    wait.until(ExpectedConditions.visibilityOf(listShowing));
+//    wait.until(ExpectedConditions.visibilityOf(listShowing));
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e1) {

@@ -27,6 +27,7 @@ public class PublisherNewSite {
   @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
+  @FindBy(id = "cdk-overlay-10")                                                                                        private WebElement contentLanguageAutocomplete;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -69,8 +70,30 @@ public class PublisherNewSite {
     System.out.println("Url:              "+Url);
 
     wait.until(ExpectedConditions.visibilityOf(contentLanguage));
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
     contentLanguage.clear();
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
     contentLanguage.sendKeys(content_language);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
+//    wait.until(ExpectedConditions.visibilityOf(contentLanguageAutocomplete));
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e1) {
+      e1.printStackTrace();
+    }
+//    contentLanguageAutocomplete.click();
     System.out.println("content_language: "+content_language);
 
     Assert.assertEquals("Website name", AssertWebsiteName.getText());
