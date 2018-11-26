@@ -1,14 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {MatDialog} from "@angular/material";
-import {Subscription} from 'rxjs/Subscription';
-import {Store} from '@ngrx/store';
-
-import {AppState} from 'models/app-state.model';
-import {billingHistoryInitialState} from "models/initial-state/billing-history";
 import {BillingHistory} from 'models/settings.model';
 import {SettingsService} from "settings/settings.service";
-import * as settingsActions from 'store/settings/settings.actions';
 import * as codes from "common/utilities/codes";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 
@@ -18,25 +12,26 @@ import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/
   styleUrls: ['./billing-history.component.scss'],
 })
 export class BillingHistoryComponent implements OnInit {
-  subscription: Subscription;
-  billingHistory: BillingHistory;
+  emptyBillingHistory: BillingHistory = {
+    limit: 10,
+    offset: 0,
+    itemsCount: 0,
+    itemsCountAll: 0,
+    items: [],
+  };
+  billingHistory: BillingHistory = this.emptyBillingHistory;
   showLoader: boolean = true;
 
-  constructor(private store: Store<AppState>, private settingsService: SettingsService, private dialog: MatDialog) {
-    this.subscription = store
-      .select('state', 'user', 'settings', 'billingHistory')
-      .subscribe(billingHistory => this.billingHistory = billingHistory);
+  constructor(private settingsService: SettingsService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
-    this.showLoader = null === this.billingHistory;
-    this.store.dispatch(new settingsActions.LoadBillingHistory(''));
+    this.getBillingHistory();
   };
 
-  handlePage(event: any): void {
+  getBillingHistory(limit?: number, offset?: number): void {
     this.showLoader = true;
-    const limit = event.pageSize;
-    const offset = event.pageIndex * limit;
+
     this.settingsService.getBillingHistory(limit, offset)
       .subscribe(
         (billingHistory: BillingHistory) => {
@@ -52,9 +47,15 @@ export class BillingHistoryComponent implements OnInit {
               }
             });
           }
-          this.billingHistory = billingHistoryInitialState;
+          this.billingHistory = this.emptyBillingHistory;
           this.showLoader = false;
         }
       );
+  }
+
+  handlePaginationEvent(event: any): void {
+    const limit = event.pageSize;
+    const offset = event.pageIndex * limit;
+    this.getBillingHistory(limit, offset);
   }
 }

@@ -16,12 +16,6 @@ export class SettingsEffects {
   }
 
   @Effect()
-  loadBillingHistory$: Observable<any> = this.actions$
-    .ofType(settingsActions.LOAD_BILLING_HISTORY)
-    .switchMap(() => this.service.getBillingHistory())
-    .map((billingHistory) => new settingsActions.LoadBillingHistorySuccess(billingHistory));
-
-  @Effect()
   loadNotificationsSettings$: Observable<any> = this.actions$
     .ofType(settingsActions.LOAD_NOTIFICATIONS_SETTINGS)
     .switchMap(() => this.service.getNotificationsSettings())

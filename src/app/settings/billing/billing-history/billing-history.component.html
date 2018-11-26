@@ -17,8 +17,23 @@
           adsh-copy
           adsh-copy--large"
       >
-        List of all accounts' events.
+        List of all account's events.
       </p>
+      <div
+        class="
+          row
+          justify-end"
+      >
+        <button
+          class="
+            adsh-btn
+	          adsh-btn--blue"
+          (click)="getBillingHistory()"
+          data-test="settings-billing-history-refresh-button"
+        >
+          Refresh
+        </button>
+      </div>
       <div
         class="
           billing-table
@@ -65,7 +80,7 @@
           [showFirstLastButtons]="true"
           [length]="billingHistory.itemsCountAll"
           [pageSize]="billingHistory.limit"
-          (page)="pageEvent = handlePage($event)"
+          (page)="handlePaginationEvent($event)"
         >
         </mat-paginator>
         <ng-template #loading>

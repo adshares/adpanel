@@ -1,19 +1,12 @@
 import * as settingsActions from './settings.actions';
 import {SettingsState} from 'models/app-state.model';
-import {billingHistoryInitialState} from "models/initial-state/billing-history";
 
 const initialState: SettingsState = {
-  billingHistory: billingHistoryInitialState,
   notificationsSettings: []
 };
 
 export function settingsReducers(state = initialState, action: settingsActions.actions) {
   switch (action.type) {
-    case settingsActions.LOAD_BILLING_HISTORY_SUCCESS:
-      return {
-        ...state,
-        billingHistory: action.payload
-      };
     case settingsActions.LOAD_NOTIFICATIONS_SETTINGS_SUCCESS:
       return {
         ...state,
