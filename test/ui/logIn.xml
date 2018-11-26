@@ -4,22 +4,33 @@
 
 
 
-    <test name="LOG_IN_SLEEP" group-by-instances="true">
-      <classes>
-        <class name="pl.adshares.adpanel.AdPanel">
-          <methods>
-            <include name="logInUserAdvertiserPublisher"/>
-            <include name="sleep"/>
-          </methods>
-        </class>
-      </classes>
-    </test>
+    <!--<test name="LOG_IN_SLEEP" group-by-instances="true">-->
+      <!--<classes>-->
+        <!--<class name="pl.adshares.adpanel.AdPanel">-->
+          <!--<methods>-->
+            <!--<include name="logInUserPublisher"/>-->
+            <!--<include name="sleep"/>-->
+          <!--</methods>-->
+        <!--</class>-->
+      <!--</classes>-->
+    <!--</test>-->
+  <test name="LOG_IN_SLEEP" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserAdvertiserPublisher"/>
+          <include name="sleep"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
 
   <!--<test name="LOG_IN_SLEEP" group-by-instances="true">-->
     <!--<classes>-->
       <!--<class name="pl.adshares.adpanel.AdPanel">-->
         <!--<methods>-->
-          <!--<include name="logInUserPublisher"/>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiserPublisher"/>-->
           <!--<include name="sleep"/>-->
         <!--</methods>-->
       <!--</class>-->

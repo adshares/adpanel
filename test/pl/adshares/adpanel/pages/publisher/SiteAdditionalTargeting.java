@@ -1,9 +1,6 @@
 package pl.adshares.adpanel.pages.publisher;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,12 +18,13 @@ public class SiteAdditionalTargeting {
   @FindBy(css = "div.targeting-select-wrapper")                         private WebElement publisherList;
   @FindBy(xpath = "//button[contains(text(), 'Add Selected')]")         private WebElement addSelectedButton;
   @FindBy(xpath = "//div[@data-test='common-targeting-select-navigate-to-parent-button']/following-sibling::div[@class='ng-star-inserted']") private WebElement subTypes;
-  @FindBy(css = "[data-test='publisher-edit-site-navigate-back']")      private WebElement back;
-  @FindBy(css = "[data-test='publisher-edit-site-save-as-draft']")      private WebElement saveAsDraft;
+  @FindBy(xpath = "//*[contains(text(), 'Back')]")                                                                      private WebElement back;
+  @FindBy(xpath = "//*[contains(text(), 'Save as Draft')]")                                                             private WebElement saveAsDraft;
   @FindBy(xpath = "//*[contains(text(), 'Create Ad Units')]")                                                           private WebElement AssertCreateAdUnits;
   @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
   @FindBy(xpath = "//*[contains(text(), '2. Excludes')]")                                                               private WebElement AssertAdditionalTargeting2;
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
+  @FindBy(xpath = "//*[contains(text(), 'Website name')]")                                                              private WebElement AssertWebsiteName;
   @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-required']")  private WebElement requireBox;
   @FindBy(xpath = "//*[@data-test='publisher-edit-site-additional-targeting-accordion-panel-excluded']")  private WebElement excludeBox;
 
@@ -35,8 +33,26 @@ public class SiteAdditionalTargeting {
 
   public SiteAdditionalTargeting(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 500);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
+  }
+
+  private void alert() {
+    int i=0;
+    while (i++<5) {
+      try {
+        Alert alert = driver.switchTo().alert();
+        System.out.println("Alert - " + alert.getText());
+        alert.accept();
+      } catch (NoAlertPresentException e) {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e1) {
+          e1.printStackTrace();
+        }
+        continue;
+      }
+    }
   }
 
   private void showBox(WebElement box) {
@@ -142,14 +158,10 @@ public class SiteAdditionalTargeting {
     System.out.println("---------- additionalTargetingsaveBack ----------");
     wait.until(ExpectedConditions.visibilityOf(back));
     back.click();
-    Alert alert = driver.switchTo().alert();
-    alert.accept();
-    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting1));
-    Assert.assertEquals("1. Requires", AssertAdditionalTargeting1.getText());
-    System.out.println("Assert - "+AssertAdditionalTargeting1.getText());
-    wait.until(ExpectedConditions.visibilityOf(AssertAdditionalTargeting2));
-    Assert.assertEquals("2. Excludes", AssertAdditionalTargeting2.getText());
-    System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
+    alert();
+    wait.until(ExpectedConditions.visibilityOf(AssertWebsiteName));
+    Assert.assertEquals("Website name", AssertWebsiteName.getText());
+    System.out.println("Assert - "+AssertWebsiteName.getText());
   }
 
   public void additionalTargetingAll(TargetCategory category, String target_1, String target_2) {

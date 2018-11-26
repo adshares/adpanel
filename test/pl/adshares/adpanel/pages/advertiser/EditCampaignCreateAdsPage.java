@@ -1,5 +1,6 @@
 package pl.adshares.adpanel.pages.advertiser;
 
+import org.openqa.selenium.interactions.Actions;
 import pl.adshares.adpanel.data.campaign.CampaignAdv;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +37,7 @@ public class EditCampaignCreateAdsPage {
 
   public EditCampaignCreateAdsPage(WebDriver driver) {
     this.driver = driver;
-    wait = new WebDriverWait(driver, 10);
+    wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
 
@@ -81,13 +82,13 @@ public class EditCampaignCreateAdsPage {
 //      WebElement saveHtmlButton = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_HTML_SAVE_BUTTON));
 //      saveHtmlButton.click();
       wait.until(ExpectedConditions.visibilityOf(saveHtml));
-      saveHtml.click();
+      Actions actions = new Actions(driver);
+      actions.moveToElement(saveHtml).click().perform();
     } else {
       // upload image
       WebElement fileSelectInput = advBody.findElement(By.cssSelector(CSS_SELECTOR_ADV_IMAGE_UPLOAD_INPUT));
       fileSelectInput.sendKeys(campaignAdv.getResource());
     }
-
   }
 
   public void saveData() {

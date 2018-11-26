@@ -11,7 +11,6 @@ import pl.adshares.adpanel.tools.Structure;
 import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.util.Random;
 
 public class AdPanel extends BrowserTestCase {
 
@@ -19,7 +18,7 @@ public class AdPanel extends BrowserTestCase {
   private String url_mailhog = "http://localhost:8025/";
   private String url_mailcatcher = "http://mailcatcher.ads/";
   private String url_target = "http://localhost:8101/test-publisher/index.html";
-  private String login_random = "tru";
+  private String login_random = "false";
 
   private String admin = "admin@e11.click";
   private String password_admin = "adminadmin";
@@ -80,23 +79,23 @@ public class AdPanel extends BrowserTestCase {
   @Test
   public void logInUserPublisher() {
     loginPage = new LoginPage(driver);
-    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(publisher,password_publisher);}
+    if (login_random.equals("true")) {loginPage.RandomEmail(password);}else{loginPage.UserEmail(publisher,password_publisher);}
     loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
-    if (login_random=="true") {dashboardPopup.popUpFirstPublisher();}else{dashboardPopup.popUpPublisher();}
+    if (login_random.equals("true")) {dashboardPopup.popUpFirstPublisher();}else{dashboardPopup.popUpPublisher();}
   }
   @Test
   public void logInUserAdvertiser() {
     loginPage = new LoginPage(driver);
-    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(advertiser,password_advertiser);}
+    if (login_random.equals("true")) {loginPage.RandomEmail(password);}else{loginPage.UserEmail(advertiser,password_advertiser);}
     loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
-    if (login_random=="true") {dashboardPopup.popUpFirstAdvertiser();}else{dashboardPopup.popUpAdvertiser();}
+    if (login_random.equals("true")) {dashboardPopup.popUpFirstAdvertiser();}else{dashboardPopup.popUpAdvertiser();}
   }
   @Test
   public void logInUserAdvertiserPublisher() {
     loginPage = new LoginPage(driver);
-    if (login_random=="true") {loginPage.RandomEmail(password);}else{loginPage.UserEmail(user,password);}
+    if (login_random.equals("true")) {loginPage.RandomEmail(password);}else{loginPage.UserEmail(user,password);}
     loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiserPublisher();
@@ -187,12 +186,12 @@ public class AdPanel extends BrowserTestCase {
 
   @Test
   public void logOut() {
+    System.out.println("---------- logOut ----------");
     headerBarPage = new HeaderBarPage(driver);
     headerBarPage.logOut();
     loginPage = new LoginPage(driver);
     loginPage.pageLayoutValidation();
   }
-
 
   @Test
   public void Registration_RandomEmail() {                      System.out.println("---------- TS_1 - TC_1 ----------");
@@ -232,51 +231,40 @@ public class AdPanel extends BrowserTestCase {
   public void logInWithRoleAdvertiserPublisher() {              System.out.println("---------- TS_2 - TC_5 ----------");
   }
   @Test
-  public void logInChangeEmail_1() {                            System.out.println("---------- TS_2 - TC_6 ----------");
-    loginPage = new LoginPage(driver);
-    Random random = new Random();
-    int number = random.nextInt(1000000);
-    String s = String.format("%06d", number)+"e";
-//    Thread.sleep(1000);
-    loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal@"+s+".click","");
-    System.out.println("1/7. OK");
-    headerBarPage = new HeaderBarPage(driver);
-    headerBarPage.logOut();
-    System.out.println("2/7 - logOut");
-    mailcatcher = new Mailcatcher(driver);
-    mailcatcher.mailcatcherEmail();
-    System.out.println("3/7 - Mailcatcher");
-    // TODO: 05.10.18 TS_2/TC_6 - Error - notifications, count, sites ?XDEBUG_SESSION_START=PHPSTORM
-    // TODO: 09.10.18 TS_2/TC_6 - Error -  Login require, Last request required logged-in user.
-
-
-
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    loginPage = new LoginPage(driver);
-    loginPage.adshDialogClose();
-
-    System.out.println("4z8 - logOut");
-    headerBarPage.logOut();
-    System.out.println("5z7 - logOut");
-    mailcatcher.mailcatcherEmail();
-    System.out.println("6z7 - Mailcatcher");
-//    loginPage.logIn();
-    loginPage.loginSignIn("michal@"+s+".click", "12345678");
-    System.out.println("7z7 - loginSignIn");
-    headerBarPage.logOut();
-    System.out.println("8z7 - logOut");
+  public void logInChangeEmail() {                        System.out.println("---------- TS_2 - TC_6 logIn ----------");
+    System.out.print("1/8 ");    loginPage = new LoginPage(driver);             loginPage.gotologinChangeEmail();
+    System.out.print("2/8 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
+    System.out.print("3/8 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("4/8 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
+    System.out.print("5/8 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("6/8 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
+    System.out.print("7/8 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.get_new_email("new_email"), Maps.getPassword("password"));
+    System.out.print("8/8 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
+  }
+  @Test
+  public void logOutChangeEmail() {                      System.out.println("---------- TS_2 - TC_6 logOut ----------");
+    System.out.print("1/16 ");    loginPage = new LoginPage(driver);              loginPage.gotologinChangeEmail();
+    System.out.print("2/16 ");    headerBarPage = new HeaderBarPage(driver);      headerBarPage.logOut();
+    System.out.print("3/16 ");    mailcatcher = new Mailcatcher(driver);          mailcatcher.mailcatcherEmail();
+    System.out.print("4/16 ");    loginPage = new LoginPage(driver);              loginPage.adshDialogCloseAndWindow();
+    System.out.print("5/16 ");    loginPage = new LoginPage(driver);              loginPage.loginSignIn(Maps.getEmail("email"), Maps.getPassword("password"));
+    System.out.print("6/16 ");    mailcatcher = new Mailcatcher(driver);          mailcatcher.mailcatcherEmail();
+    System.out.print("7/16 ");    loginPage = new LoginPage(driver);              loginPage.adshDialogCloseAndWindow();
+    System.out.print("8/16 ");    headerBarPage = new HeaderBarPage(driver);      headerBarPage.logOut();
+    System.out.print("9/16 ");    mailcatcher = new Mailcatcher(driver);          mailcatcher.mailcatcherEmail();
+    System.out.print("10/16 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("11/16 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.getEmail("email"), Maps.getPassword("password"));
+    System.out.print("12/16 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
+    System.out.print("13/16 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("14/16 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
+    System.out.print("15/16 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.get_new_email("new_email"), Maps.getPassword("password"));
+    System.out.print("16/16 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
   }
 
-  // TODO: 22.10.18 TS_2/TC_7 - Error
   @Test
   public void logInChangeEmail_2() {                            System.out.println("---------- TS_2 - TC_7 ----------");
     loginPage = new LoginPage(driver);
-    loginPage.gotologinChangeEmail("michal@e11.click","1/7");
+    loginPage.gotologinChangeEmail();
     loginPage.gotologinChangeEmail2("michal.michal@e11.click","2/7");
     loginPage.gotologinChangeEmail2("michal@e11.click.pl","3/7");
     loginPage.gotologinChangeEmail2("MiChAl@e11.click","4/7");
@@ -415,7 +403,6 @@ public class AdPanel extends BrowserTestCase {
     advertiserMainPage = new AdvertiserMainPage(driver);
     summarySaveContinue();
     advertiserMainPage.viewTheCampaign();
-    // TODO: 11.10.18 error - no position - F5 + sleep
   }
   @Test
   public void editBasicInformation() {                         System.out.println("---------- TS_3 - TC_13 ----------");
@@ -423,7 +410,8 @@ public class AdPanel extends BrowserTestCase {
     viewTheCampaign();
     advertiserMainPage.editTheCampaign();
     advertiserMainPage.editBasicInformation();
-    // TODO: 12.10.18  
+    advertiserMainPage.summary();
+    advertiserMainPage.summarySaveContinue();
   }
   @Test
   public void editAdditionalTargeting() {                      System.out.println("---------- TS_3 - TC_14 ----------");
@@ -431,7 +419,8 @@ public class AdPanel extends BrowserTestCase {
     viewTheCampaign();
     advertiserMainPage.editTheCampaign();
     advertiserMainPage.editAdditionalTargeting();
-    // TODO: 12.10.18  
+    advertiserMainPage.summary();
+    advertiserMainPage.summarySaveContinue();
   }
   @Test
   public void editAds() {                                      System.out.println("---------- TS_3 - TC_15 ----------");
@@ -439,7 +428,17 @@ public class AdPanel extends BrowserTestCase {
     viewTheCampaign();
     advertiserMainPage.editTheCampaign();
     advertiserMainPage.editAds();
-    // TODO: 12.10.18  
+    advertiserMainPage.summary();
+    advertiserMainPage.summarySaveContinue();
+  }
+  @Test
+  public void statusCampaign() {                               System.out.println("---------- TS_3 - TC_17 ----------");
+    advertiserMainPage = new AdvertiserMainPage(driver);
+    summarySaveContinue();
+    advertiserMainPage.viewTheCampaign2();
+    advertiserMainPage.statusCampaign();
+    advertiserMainPage.viewTheCampaign2();
+    advertiserMainPage.statusCampaign();
   }
   @Test
   public void basicInformationError() {                        System.out.println("---------- TS_3 - TC_19 ----------");
@@ -452,7 +451,6 @@ public class AdPanel extends BrowserTestCase {
     advertiserMainPage = new AdvertiserMainPage(driver);
     additionalTargetingsaveSaveContinue();
     advertiserMainPage.createAdsError();
-//    additionalTargetingsaveSaveContinue();
   }
 
 
@@ -461,7 +459,7 @@ public class AdPanel extends BrowserTestCase {
     publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.AddNewSite();
     publisherNewSite = new PublisherNewSite(driver);
-    publisherNewSite.basicInformation(Maps.get_url_target("url_target"));
+    publisherNewSite.basicInformation();
     publisherNewSite.basicInformationSaveContinue();
   }
   @Test
@@ -469,7 +467,7 @@ public class AdPanel extends BrowserTestCase {
     publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.AddNewSite();
     publisherNewSite = new PublisherNewSite(driver);
-    publisherNewSite.basicInformation(Maps.get_url_target("url_target"));
+    publisherNewSite.basicInformation();
     publisherNewSite.basicInformationBackToDashboard();
   }
   @Test
@@ -479,7 +477,7 @@ public class AdPanel extends BrowserTestCase {
     siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
     siteAdditionalTargeting.publisherRequiresCreativeType();
     siteAdditionalTargeting.publisherRequiresLanguage();
-    siteAdditionalTargeting.publisherRequiresScreen();
+//    siteAdditionalTargeting.publisherRequiresScreen();
     siteAdditionalTargeting.publisherRequiresJsSupport();
     siteAdditionalTargeting.additionalTargetingsaveSaveContinue();
   }
@@ -490,7 +488,7 @@ public class AdPanel extends BrowserTestCase {
     siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
     siteAdditionalTargeting.publisherRequiresCreativeType();
     siteAdditionalTargeting.publisherRequiresLanguage();
-    siteAdditionalTargeting.publisherRequiresScreen();
+//    siteAdditionalTargeting.publisherRequiresScreen();
     siteAdditionalTargeting.publisherRequiresJsSupport();
     siteAdditionalTargeting.additionalTargetingsaveSaveDraft();
   }
@@ -501,7 +499,7 @@ public class AdPanel extends BrowserTestCase {
     siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
     siteAdditionalTargeting.publisherRequiresCreativeType();
     siteAdditionalTargeting.publisherRequiresLanguage();
-    siteAdditionalTargeting.publisherRequiresScreen();
+//    siteAdditionalTargeting.publisherRequiresScreen();
     siteAdditionalTargeting.publisherRequiresJsSupport();
     siteAdditionalTargeting.additionalTargetingsaveBack();
   }
@@ -512,7 +510,7 @@ public class AdPanel extends BrowserTestCase {
     publisherAdditionalTargetingsaveSaveContinue();
     siteCreateAds = new SiteCreateAds(driver);
     siteCreateAds.createNewAdUnit();
-    siteCreateAds.adUnitHtml();
+    siteCreateAds.adUnitImage();
     siteCreateAds.createAdUnitsSaveContinue();
   }
   @Test
@@ -521,7 +519,7 @@ public class AdPanel extends BrowserTestCase {
     publisherAdditionalTargetingsaveSaveContinue();
     siteCreateAds = new SiteCreateAds(driver);
     siteCreateAds.createNewAdUnit();
-    siteCreateAds.adUnitImage();
+    siteCreateAds.adUnitHtml();
     siteCreateAds.createAdUnitsSaveAsDraft();
   }
   @Test

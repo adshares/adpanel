@@ -50,6 +50,7 @@ public class LoginPage {
   @FindBy(css = "[class='adsh-logo']")                                                                                  private WebElement adshLogo;
   @FindBy(css = "[data-test='header-dashboard-link']")                                                                  private WebElement headerDashboardLink;
   @FindBy(css = "[class='adsh-dialog-close']")                                                                          private WebElement adshDialogClose;
+  @FindBy(css = "[class='text-center mat-dialog-content']")                                                             private WebElement adshDialogGetText;
 
   @FindBy(xpath = "//*[@data-test='header-toggle-settings-menu']//img[2]")                                              private WebElement settingsMenu;
   @FindBy(xpath = "//*[@class='adsh-icon adsh-icon--small adsh-icon--append settings-menu-chevron']")                   private WebElement settingsMenuChevron;
@@ -94,17 +95,31 @@ public class LoginPage {
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
-
+  public void adshDialogCloseAndWindow() {
+    System.out.println("---------- adshDialogCloseAndWindow ----------");
+    for (String handle1:driver.getWindowHandles()) {
+      driver.switchTo().window(handle1);
+    }
+    PageFactory.initElements(driver, this);
+    wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    System.out.println(adshDialogGetText.getText());
+    adshDialogClose.click();
+  }
   public void adshDialogClose() {
     System.out.println("---------- adshDialogClose ----------");
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
+    System.out.println(adshDialogGetText.getText());
     adshDialogClose.click();
     Assert.assertEquals(adshDialogClose.getText(), "Hello!");
-    System.out.println("KONIEC - adshDialogClose");
   }
+
   public void loginSignIn(String login, String password) {
+    System.out.println("---------- loginSignIn ----------");
     wait.until(ExpectedConditions.titleIs(driver.getTitle()));
+    wait.until(ExpectedConditions.visibilityOf(loginEmail));
+    loginEmail.clear();
     loginEmail.sendKeys(login);
+    loginPassword.clear();
     loginPassword.sendKeys(password);
     Assert.assertTrue(loginButton.isEnabled());
     LOGGER.info("Button visibility: ok");
@@ -112,7 +127,8 @@ public class LoginPage {
     loginButton.click();
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(headerDashboardLink));
-    System.out.println("Assert - Log In");
+    System.out.println("Email Address: "+login);
+    System.out.println("Password:      "+password);
   }
 
   public void loginSignInError() {
@@ -249,10 +265,8 @@ public class LoginPage {
 //  LOG IN RANDOM
   public void RandomEmail(String Password)  {
     RandomEmail_Email(Password);
-//    Thread.sleep(1000);
     mailcatcher = new Mailcatcher(driver);
     mailcatcher.mailcatcherEmail();
-//    RandomEmail_Mailcatcher();
     LogInRandom_LogIn();
   }
   private void RandomEmail_Email(String Password) {
@@ -365,7 +379,12 @@ public class LoginPage {
     logIn();
   }
 
-  public void gotologinChangeEmail(String ChangeEmail,String id) {
+  public void gotologinChangeEmail() {
+    System.out.println("---------- gotologinChangeEmail ----------");
+    Random random = new Random();
+    int number = random.nextInt(1000000);
+    String new_mail = String.format("%06d", number) + "@new.mail";
+    Maps.new_email("new_email", new_mail);
     wait.until(ExpectedConditions.visibilityOf(adshLogo));
     wait.until(ExpectedConditions.visibilityOf(settingsMenuChevron));
     try {
@@ -377,11 +396,12 @@ public class LoginPage {
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmail));
-    loginEmail.sendKeys(ChangeEmail);
+    loginEmail.sendKeys(Maps.get_new_email("new_email"));
     changeEmail.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmailAssert));
     Assert.assertEquals("Changing email is a 2 step process", loginEmailAssert.getText());
-    System.out.println(id+". Changing email is a 2 step process "+ChangeEmail);
+    System.out.println("Changing email is a 2 step process ");
+    System.out.println("New mail: "+Maps.get_new_email("new_email"));
     wait.until(ExpectedConditions.visibilityOf(adshDialogClose));
     adshDialogClose.click();
     wait.until(ExpectedConditions.visibilityOf(loginEmail));
@@ -495,7 +515,6 @@ public class LoginPage {
     settingsMenu.click();
     wait.until(ExpectedConditions.visibilityOf(accountSettings));
     accountSettings.click();
-
     changePassword("1/10","a23456","12345678","12345678");
     changePassword("2/10","a2345678","123456","12345678");
     changePassword("3/10","a2345678","12345678","123456");
