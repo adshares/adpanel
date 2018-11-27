@@ -1,8 +1,18 @@
 interface BillingHistoryItem {
+  amount: number,
   status: number;
+  type: number;
   date: Date;
   address: string;
-  link: string;
+  txid: string;
+}
+
+interface BillingHistory {
+  limit: number;
+  offset: number;
+  itemsCount: number;
+  itemsCountAll: number;
+  items: BillingHistoryItem[];
 }
 
 interface NotificationItem {
@@ -41,6 +51,7 @@ interface CalculateWithdrawalItem {
 
 export {
   BillingHistoryItem,
+  BillingHistory,
   NotificationItem,
   UserInfoStats,
   AdminSettings,

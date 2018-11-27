@@ -17,8 +17,23 @@
           adsh-copy
           adsh-copy--large"
       >
-        In addition to these alerts, when necessary, we may send you communications about your advertising agreement with Adshares.
+        List of all account's events.
       </p>
+      <div
+        class="
+          row
+          justify-end"
+      >
+        <button
+          class="
+            adsh-btn
+	          adsh-btn--blue"
+          (click)="getBillingHistory()"
+          data-test="settings-billing-history-refresh-button"
+        >
+          Refresh
+        </button>
+      </div>
       <div
         class="
           billing-table
@@ -30,21 +45,27 @@
             align-center
             no-gutters"
         >
-          <div class="col-xs-2">
+          <div class="col-xs-1">
             Status
+          </div>
+          <div class="col-xs-1">
+            Type
+          </div>
+          <div class="col-xs-2">
+            Amount
           </div>
           <div class="col-xs-2">
             Date
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2">
             Address
           </div>
-          <div class="col-xs-5">
+          <div class="col-xs-4">
             Link
           </div>
         </div>
         <ul *ngIf="!showLoader; else loading">
-          <li *ngFor="let billingHistoryItem of billingHistory">
+          <li *ngFor="let billingHistoryItem of billingHistory.items">
             <app-billing-history-withdrawal
               class="
                 row
@@ -55,6 +76,13 @@
             </app-billing-history-withdrawal>
           </li>
         </ul>
+        <mat-paginator
+          [showFirstLastButtons]="true"
+          [length]="billingHistory.itemsCountAll"
+          [pageSize]="billingHistory.limit"
+          (page)="handlePaginationEvent($event)"
+        >
+        </mat-paginator>
         <ng-template #loading>
           <div class="loading-wrapper">
             <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>

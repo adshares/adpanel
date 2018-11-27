@@ -1,6 +1,6 @@
 import { Campaign, CampaignsTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
-import { AdminSettings, BillingHistoryItem, NotificationItem, UserInfoStats } from './settings.model';
+import { AdminSettings, NotificationItem, UserInfoStats } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
@@ -32,7 +32,6 @@ interface PublisherState {
 }
 
 interface SettingsState {
-  billingHistory: BillingHistoryItem[];
   notificationsSettings: NotificationItem[];
 }
 
