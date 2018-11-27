@@ -130,7 +130,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
       return;
     }
     this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-    this.store.dispatch(new publisherActions.ClearLastEditedSite());
+    this.router.navigate(['/publisher', 'dashboard']);
   }
 
   getSiteFromStore() {
