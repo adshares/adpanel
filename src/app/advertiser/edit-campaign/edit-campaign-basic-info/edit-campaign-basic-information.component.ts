@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 
-import { AppState } from 'models/app-state.model';
-import { campaignInitialState } from 'models/initial-state/campaign';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import {AppState} from 'models/app-state.model';
+import {CampaignBasicInformation} from "models/campaign.model";
+import {campaignInitialState} from 'models/initial-state/campaign';
+import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import { HandleLeaveEditProcess } from 'common/handle-leave-edit-process';
+import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 
 import * as moment from 'moment';
-import { appSettings } from 'app-settings';
-import { calcCampaignBudgetPerDay, calcCampaignBudgetPerHour } from 'common/utilities/helpers';
+import {appSettings} from 'app-settings';
+import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -26,7 +27,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   budgetValue: number;
   dateStart = new FormControl();
   dateEnd = new FormControl();
-  calcBudgetToHour: boolean = true;
+  calcBudgetToHour: boolean = false;
   subscriptionArray: Subscription[] = [];
   today = new Date();
 
@@ -49,6 +50,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.subscriptionArray.forEach(subscription => subscription.unsubscribe());
   }
 
+  private setBudgetValue(value?: number): void {
+    this.budgetValue = (value !== null) ? value : 0;
+  }
+
   saveCampaignBasicInformation() {
     this.campaignBasicInformationSubmitted = true;
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
@@ -63,9 +68,9 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
-      maxCpc: campaignBasicInfoValue.maxCpc,
-      maxCpm: campaignBasicInfoValue.maxCpm,
-      budget: this.budgetValue,
+      maxCpc: adsToClicks(campaignBasicInfoValue.maxCpc),
+      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm),
+      budget: adsToClicks(this.budgetValue),
       dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD'),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD') : null
     };
@@ -81,7 +86,12 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   createForm() {
     const initialBasicinfo = campaignInitialState.basicInformation;
-    this.budgetValue = (initialBasicinfo.budget === null) ? 0 : initialBasicinfo.budget;
+    this.setBudgetValue(initialBasicinfo.budget);
+
+    this.budgetPerDay = new FormControl('', [
+      Validators.required,
+      Validators.min(0.01),
+    ]);
 
     this.campaignBasicInfoForm = new FormGroup({
       name: new FormControl(initialBasicinfo.name, Validators.required),
@@ -103,13 +113,6 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       ]),
     });
 
-    const initialBudgetPerDay = (initialBasicinfo.budget === null) ?
-      '' : calcCampaignBudgetPerDay(initialBasicinfo.budget);
-    this.budgetPerDay = new FormControl(initialBudgetPerDay, [
-      Validators.required,
-      Validators.min(0.01),
-    ]);
-
     this.subscribeBudgetChange();
     this.getFormDataFromStore();
   }
@@ -121,8 +124,9 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     subscription = this.campaignBasicInfoForm.get('budget').valueChanges
       .subscribe((val) => {
         if (!this.calcBudgetToHour) {
-          this.budgetValue = val;
-          this.budgetPerDay.setValue(calcCampaignBudgetPerDay(val).toFixed(2));
+          this.setBudgetValue(val);
+          const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+          this.budgetPerDay.setValue(budgetPerDayValue);
         }
       }, () => {});
     this.subscriptionArray.push(subscription);
@@ -131,28 +135,50 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     subscription = this.budgetPerDay.valueChanges
       .subscribe((val) => {
         if (this.calcBudgetToHour) {
-          this.budgetValue = calcCampaignBudgetPerHour(val);
+          this.setBudgetValue(calcCampaignBudgetPerHour(val));
           this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
         }
       }, () => {});
     this.subscriptionArray.push(subscription);
   }
 
-  getFormDataFromStore() {
-    this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
-      .subscribe((lastEditedCampaign) => {
-        this.campaignBasicInfoForm.patchValue(lastEditedCampaign);
+  private convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
+    const basicInformation = {
+      status: lastEditedCampaign.status,
+      name: lastEditedCampaign.name,
+      targetUrl: lastEditedCampaign.targetUrl,
+      maxCpc: null,
+      maxCpm: null,
+      budget: null,
+    };
+    if (lastEditedCampaign.maxCpc !== null) {
+      basicInformation.maxCpc = formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
+    }
+    if (lastEditedCampaign.maxCpm !== null) {
+      basicInformation.maxCpm = formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', '');
+    }
+    if (lastEditedCampaign.budget !== null) {
+      basicInformation.budget = formatMoney(lastEditedCampaign.budget, 4, true, '.', '');
+    }
+    return basicInformation;
+  }
 
-        if (lastEditedCampaign.budget) {
-          this.budgetPerDay.setValue(calcCampaignBudgetPerDay(lastEditedCampaign.budget));
-        }
+  getFormDataFromStore() {
+    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
+      .subscribe((lastEditedCampaign: CampaignBasicInformation) => {
+        this.setBudgetValue(lastEditedCampaign.budget);
+        const basicInformation = this.convertBasicInfo(lastEditedCampaign);
+
+        this.campaignBasicInfoForm.patchValue(basicInformation);
 
         this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
 
         if (lastEditedCampaign.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.dateEnd));
         }
-      }, () => {});
+      }, () => {
+      });
+    this.subscriptionArray.push(subscription);
   }
 
   onFocus(elemId: string) {
