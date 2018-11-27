@@ -2,13 +2,10 @@
 
 .billing-table {
   margin: 30px 0;
+  max-width: 100%;
 
-  ul {
-    margin-top: 10px;
-
-    li {
-      padding: 10px 20px;
-      border: 1px solid pal(gray, light);
-    }
+  &__head {
+    margin-bottom: 10px;
+    display: block;
   }
 }

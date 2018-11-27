@@ -1,96 +1,71 @@
-<div class="col-xs-1">
-  <div
-    class="
+<tr class="billing-table-row row">
+  <td class="col-xs-1">
+    <div
+      class="
       adsh-box
       adsh-box--small
-      billing-table-status
+      billing-table-row__status
       text-center"
-    data-status="Active"
-  >
+      data-status="Active"
+    >
     <span data-test="settings-billing-history-item-status">
       {{ status }}
     </span>
-  </div>
-</div>
-<div class="col-xs-1">
-  <div
-    class="
-      adsh-box
-      adsh-box--small
-      billing-table-status
-      text-center"
-  >
+    </div>
+  </td>
+  <td class="col-xs-1" title="{{type}}">
+
     <span data-test="settings-billing-history-item-type">
-      {{ type }}
+      <fa-icon class="billing-table-row__type billing-table-row__type--{{type}}"
+               [icon]="icon"> </fa-icon>
     </span>
-  </div>
-</div>
-<div class="col-xs-2">
-  <div
-    class="
-      adsh-box
-      adsh-box--small
-      billing-table-status
-      text-center"
-  >
-    <span data-test="settings-billing-history-item-amount">
-      {{ billingHistoryItem.amount | adsharesTokenValue }}
-    </span>
-  </div>
-</div>
-<div
-  class="
-    row
-    align-center
-    col-xs-2"
->
-  <img
-    class="
+  </td>
+  <td class="col-xs-2 billing-table-row__amount"
+      data-test="settings-billing-history-item-amount">
+    {{ billingHistoryItem.amount | adsharesTokenValue }}
+  </td>
+  <td class="col-xs-3">
+    <img
+      class="
       adsh-icon
       adsh-icon--prepend"
-    src="assets/images/calendar.svg"
-    alt="Calendar Icon"
-  >
-  <p
-    class="
+      src="assets/images/calendar.svg"
+      alt="Calendar Icon"
+    >
+    <span
+      class="
       adsh-copy
       adsh-copy--large
       adsh-copy--semi
       adsh-copy--x-dark"
-    data-test="settings-billing-history-item-date"
-  >
-    {{ billingHistoryItem.date }}
-  </p>
-</div>
-<div class="col-xs-2">
-  <p
-    class="
+      data-test="settings-billing-history-item-date"
+    >
+      {{ billingHistoryItem.date }}
+    </span>
+  </td>
+  <td class="col-xs-2">
+    <span
+      class="
       break-word
       adsh-copy
       adsh-copy--large
       adsh-copy--semi
       adsh-copy--x-dark"
-    data-test="settings-billing-history-item-address"
-  >
-    {{ billingHistoryItem.address }}
-  </p>
-</div>
-<div class="col-xs-4">
-  <p
-    class="break-word"
-  >
-    <a
-      *ngIf="link"
-      href="{{ link }}"
-      data-test="settings-billing-history-item-link"
+      data-test="settings-billing-history-item-address"
     >
-      {{ link }}
-    </a>
-    <span
-      *ngIf="!link"
-      data-test="settings-billing-history-item-link"
-    >
-      -
+      {{ billingHistoryItem.address }}
     </span>
-  </p>
-</div>
+  </td>
+  <td class="col-xs-2">
+    <a *ngIf="link"
+       href="{{ link }}"
+       data-test="settings-billing-history-item-link"
+    >
+      {{billingHistoryItem.txid}}
+    </a>
+    <span *ngIf="!link"
+          data-test="settings-billing-history-item-link">
+    </span>
+  </td>
+</tr>
+
