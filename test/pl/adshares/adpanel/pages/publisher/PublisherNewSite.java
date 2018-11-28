@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import pl.adshares.adpanel.tools.Maps;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ public class PublisherNewSite {
   @FindBy(xpath = "//*[contains(text(), 'Back to Dashboard')]")                                                         private WebElement backToDashboard;
   @FindBy(css = "[class='error-msg ng-star-inserted']")                           private WebElement AssertionErrorMsgNgStarInserted;
   @FindBy(xpath = "//span[contains(text(), 'Please provide a valid URL.')]")      private WebElement AssertionPleaseProvideAValidURL;
+  @FindBy(xpath = "//span[contains(text(), 'Content Language required')]")        private WebElement AssertionContentLanguageRequired;
   @FindBy(xpath = "//*[contains(text(), 'Website name')]")                                                              private WebElement AssertWebsiteName;
   @FindBy(xpath = "//*[contains(text(), 'Content Language')]")                                                          private WebElement AssertContentLanguage;
   @FindBy(xpath = "//*[contains(text(), '1. Requires')]")                                                               private WebElement AssertAdditionalTargeting1;
@@ -51,7 +53,7 @@ public class PublisherNewSite {
         } catch (InterruptedException e1) {
           e1.printStackTrace();
         }
-        continue;
+//        continue;
       }
     }
   }
@@ -70,32 +72,13 @@ public class PublisherNewSite {
     System.out.println("Url:              "+Url);
 
     wait.until(ExpectedConditions.visibilityOf(contentLanguage));
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
     contentLanguage.clear();
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
     contentLanguage.sendKeys(content_language);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
 //    wait.until(ExpectedConditions.visibilityOf(contentLanguageAutocomplete));
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
 //    contentLanguageAutocomplete.click();
-    System.out.println("content_language: "+content_language);
 
+    Maps.url_target("url_target",Url);
+    System.out.println("content_language: "+content_language);
     Assert.assertEquals("Website name", AssertWebsiteName.getText());
     System.out.println("Assert - "+AssertWebsiteName.getText());
     Assert.assertEquals("Content Language", AssertContentLanguage.getText());
@@ -123,20 +106,19 @@ public class PublisherNewSite {
     Assert.assertEquals("My Sites", AssertMySites.getText());
     System.out.println("Assert - "+AssertMySites.getText());
   }
-  public void basicInformationError(String website_name_or_url)  {
+  public void basicInformationError()  {
     System.out.println("---------- publisherBasicInformationError ----------");
     wait.until(ExpectedConditions.visibilityOf(websiteUrl));
     websiteUrl.clear();
-    websiteUrl.sendKeys(website_name_or_url);
-    System.out.println("website_name_or_url: "+website_name_or_url);
-    contentLanguage.click();
-    wait.until(ExpectedConditions.visibilityOf(contentLanguageEnglish));
-    contentLanguageEnglish.click();
+    wait.until(ExpectedConditions.visibilityOf(contentLanguage));
+    contentLanguage.clear();
     wait.until(ExpectedConditions.visibilityOf(saveContinue));
     saveContinue.click();
     System.out.println("Click - saveButtonPublisherCampaign");
     wait.until(ExpectedConditions.visibilityOf(AssertionErrorMsgNgStarInserted));
     Assert.assertEquals("Please provide a valid URL.", AssertionPleaseProvideAValidURL.getText());
     System.out.println("Assert - "+AssertionPleaseProvideAValidURL.getText());
+//    Assert.assertEquals("Please provide a valid URL.", AssertionContentLanguageRequired.getText());
+//    System.out.println("Assert - "+AssertionContentLanguageRequired.getText());
   }
 }

@@ -32,6 +32,7 @@ public class SiteCreateAds {
   @FindBy(xpath = "//*[contains(text(), 'My Sites')]")                                                                  private WebElement AssertMySites;
   @FindBy(xpath = "//*[contains(text(), 'Summary')]")                                                                   private WebElement AssertSummary;
   @FindBy(xpath = "//*[contains(text(), 'Name of Unit required!')]")                                                    private WebElement AssertNameOfUnit;
+  @FindBy(xpath = "//*[contains(text(), 'Ad unit size required!')]")                                                    private WebElement AssertAdUnitSize;
 
   private WebDriver driver;
   private WebDriverWait wait;
@@ -189,16 +190,18 @@ public class SiteCreateAds {
     System.out.println("Assert - "+AssertAdditionalTargeting2.getText());
   }
 
-  public void createAdUnitsError(String name_of_unit) {
+  public void createAdUnitsError() {
     System.out.println("---------- createAdUnitsError ----------");
     wait.until(ExpectedConditions.visibilityOf(createAdUnitDropDownButton));
     createAdUnitDropDownButton.click();
     System.out.println("Click - createAdUnitDropDownButton");
     wait.until(ExpectedConditions.visibilityOf(nameOfUnit));
-    nameOfUnit.sendKeys(name_of_unit);
+    nameOfUnit.clear();
     wait.until(ExpectedConditions.visibilityOf(saveAndContinue));
     saveAndContinue.click();
     Assert.assertEquals("Name of Unit required!", AssertNameOfUnit.getText());
     System.out.println("Assert - "+AssertNameOfUnit.getText());
+    Assert.assertEquals("Ad unit size required!", AssertAdUnitSize.getText());
+    System.out.println("Assert - "+AssertAdUnitSize.getText());
   }
 }

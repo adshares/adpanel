@@ -66,18 +66,19 @@ public class AdvertiserMainPage {
     wait = new WebDriverWait(driver, 30);
     PageFactory.initElements(driver, this);
   }
-  private void sleep(int czas) {
-      int x=0;
-      for (x=0; x>czas; x--) {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-        System.out.println("sleep: "+czas+"s.");
-        x=x-1;
+
+  private static void sleep(int seconds) {
+    while (0<seconds){
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
       }
+      System.out.println("sleep: "+seconds+"s.");
+      seconds--;
+    }
   }
+
   public void createNewCampaign() {//header-create-new-asset-button
     System.out.println("---------- headerCreateNewCampaign ----------");
     wait.until(ExpectedConditions.visibilityOf(createNewCampaignTopButton));
@@ -104,8 +105,7 @@ public class AdvertiserMainPage {
     Assert.assertEquals("Budget (ADS / hour)", AssertBasicInformation6.getText());
     Assert.assertEquals("Date of Start", AssertBasicInformation7.getText());
     Assert.assertEquals("Date of End", AssertBasicInformation8.getText());
-    Random random = new Random();
-    int number = random.nextInt(1000);
+    int number = new Random().nextInt(1000);
     String campaign_name = "campaign_"+number;
     String target_url = "https://github.com/adshares/adpanel/branches";
     String Max_CPC = String.valueOf(number);
@@ -199,7 +199,7 @@ public class AdvertiserMainPage {
     createAdsHtml();
     createAdsImage();
   }
-  public void createAdsHtml() {                                                                      // Krok 3. [Create Ads]
+  private void createAdsHtml() {                                                                      // Krok 3. [Create Ads]
     System.out.println("---------- createAds - HTML ----------");
     String[] size = {"728x90","300x250","336x280","300x600","320x100","468x60","234x60","125x125","120x600","160x600","180x150","120x240","200x200","300x1050","250x250","320x50","970x90","970x250","750x100","750x200","750x300"};
     String html_short_headline="Advertisr HTML";
@@ -221,7 +221,7 @@ public class AdvertiserMainPage {
     System.out.println("html_size:           "+Maps.get_html_size("html_size"));
     System.out.println("html_code:           "+Maps.get_html_code("html_code"));
   }
-  public void createAdsImage() {                                                                      // Krok 3. [Create Ads]
+  private void createAdsImage() {                                                                      // Krok 3. [Create Ads]
     System.out.println("---------- createAds - IMAGE----------");
     String[] size = {"728x90","300x250","336x280","300x600","320x100","468x60","234x60","125x125","120x600","160x600","180x150","120x240","200x200","300x1050","250x250","320x50","970x90","970x250","750x100","750x200","750x300"};
     String image_short_headline="Advertiser IMAGE";

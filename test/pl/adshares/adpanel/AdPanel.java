@@ -12,6 +12,8 @@ import pl.adshares.adpanel.tools.Xml;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 public class AdPanel extends BrowserTestCase {
 
   private String url_panel = "http://localhost:8102/";
@@ -63,16 +65,15 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void sleep() {
-    int s;
-    int x=1000;
-    for (s=0; s<x; s++) {
+    int seconds = 1000;
+    while (0<seconds){
       try {
         Thread.sleep(1000);
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      System.out.println("sleep: "+x+"s.");
-      x=x-1;
+      System.out.println("sleep: "+seconds+"s.");
+      seconds--;
     }
   }
 
@@ -99,8 +100,16 @@ public class AdPanel extends BrowserTestCase {
     loginPage.logIn();
     dashboardPopup = new DashboardPopup(driver);
     dashboardPopup.popUpFirstAdvertiserPublisher();
-//    dashboardPopup.popUpAdvertiser();
-    dashboardPopup.popUpPublisher();
+    switch (new Random().nextInt(2)) {
+      case 0:
+        dashboardPopup.popUpAdvertiser();
+        System.out.println("popUpAdvertiser");
+        break;
+      case 1:
+        dashboardPopup.popUpPublisher();
+        System.out.println("popUpPublisher");
+        break;
+    }
   }
 
   @Test
@@ -232,14 +241,13 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void logInChangeEmail() {                        System.out.println("---------- TS_2 - TC_6 logIn ----------");
-    System.out.print("1/8 ");    loginPage = new LoginPage(driver);             loginPage.gotologinChangeEmail();
-    System.out.print("2/8 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
-    System.out.print("3/8 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
-    System.out.print("4/8 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
-    System.out.print("5/8 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
-    System.out.print("6/8 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
-    System.out.print("7/8 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.get_new_email("new_email"), Maps.getPassword("password"));
-    System.out.print("8/8 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
+    System.out.print("1/7 ");    loginPage = new LoginPage(driver);             loginPage.gotologinChangeEmail();
+    System.out.print("2/7 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
+    System.out.print("3/7 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("4/7 ");    mailcatcher = new Mailcatcher(driver);         mailcatcher.mailcatcherEmail();
+    System.out.print("5/7 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
+    System.out.print("6/7 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
+    System.out.print("7/7 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.get_new_email("new_email"), Maps.getPassword("password"));
   }
   @Test
   public void logOutChangeEmail() {                      System.out.println("---------- TS_2 - TC_6 logOut ----------");
@@ -258,7 +266,6 @@ public class AdPanel extends BrowserTestCase {
     System.out.print("13/16 ");    loginPage = new LoginPage(driver);             loginPage.adshDialogCloseAndWindow();
     System.out.print("14/16 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
     System.out.print("15/16 ");    loginPage = new LoginPage(driver);             loginPage.loginSignIn(Maps.get_new_email("new_email"), Maps.getPassword("password"));
-    System.out.print("16/16 ");    headerBarPage = new HeaderBarPage(driver);     headerBarPage.logOut();
   }
 
   @Test
@@ -295,12 +302,13 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void logInSecondTab() {                                System.out.println("---------- TS_2 - TC_11 ----------");
+    // TODO: 27.11.18  TS_2/TC_11 Error - remember me [On] do not work
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
   }
   @Test
   public void logInSecondTab2() {                                System.out.println("---------- TS_2 TC_12 ----------");
-    // TODO: 27.09.18 TS_2/TC_10 Error - remember me do not work
+    // TODO: 27.09.18 TS_2/TC_12 Error - remember me [Off] do not work
     loginPage = new LoginPage(driver);
     loginPage.loginSecondTab();
     loginPage.loginSecondTab2();
@@ -318,7 +326,11 @@ public class AdPanel extends BrowserTestCase {
   }
   @Test
   public void changeOfRole()                                  {System.out.println("---------- TS_2 - TC_17 ----------");
-                                          
+    headerBarPage = new HeaderBarPage(driver);
+    System.out.print("1/4 ");    headerBarPage.changeOfRole();
+    System.out.print("2/4 ");    headerBarPage.changeOfRole();
+    System.out.print("3/4 ");    headerBarPage.changeOfRole();
+    System.out.print("4/4 ");    headerBarPage.changeOfRole();
   }
 
    @Test
@@ -588,15 +600,17 @@ public class AdPanel extends BrowserTestCase {
     publisherMainPage = new PublisherMainPage(driver);
     publisherMainPage.AddNewSite();
     publisherNewSite = new PublisherNewSite(driver);
-    publisherNewSite.basicInformationError("");
+    publisherNewSite.basicInformationError();
   }
   @Test
   public void publisherCreateAdUnitsError() {               System.out.println("---------- TS_4 - TC_20 ----------");
-    publisherMainPage = new PublisherMainPage(driver);
-    publisherMainPage.AddNewSite();
+    siteAdditionalTargeting = new SiteAdditionalTargeting(driver);
+    publisherAdditionalTargetingsaveSaveContinue();
     siteCreateAds = new SiteCreateAds(driver);
-    publisherCreateAdUnitsSaveContinue();
-    siteCreateAds.createAdUnitsError("");
+//    siteCreateAds.createNewAdUnit();
+
+
+    siteCreateAds.createAdUnitsError();
   }
   @Test
   public void logInAdminEmail() {                              System.out.println("---------- TS_5 - TC_1 ----------");

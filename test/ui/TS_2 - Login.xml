@@ -1,127 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS_2 - Login Control" parallel="methods" thread-count="1" verbose="3">
-  <test name="TC_1 - logInPageObjectValidation" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInPageObjectValidation"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_2 - logInPageCrossAccessValidation" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInPageCrossAccessValidation"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_3 - logInWithRolePublisher" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logOutTest"/>
-          <include name="logInWithRolePublisher"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_4 - logInWithRoleAdvertiser" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiser"/>
-          <include name="logOutTest"/>
-          <include name="logInWithRoleAdvertiser"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_5 - logInWithRoleAdvertiserPublisher" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiserPublisher"/>
-          <include name="logOutTest"/>
-          <include name="logInWithRoleAdvertiserPublisher"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_6 - logInChangeEmail" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangeEmail"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_6 - logOutChangeEmail" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logOutChangeEmail"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_7 - logInChangeEmailError" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangeEmail"/>
-          <include name="logInChangeEmail_2"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_8 - logInChangePassword" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangePassword1"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_9 - logInChangePasswordErroro" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInChangePassword2"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
-  <test name="TC_10 - logOutTest" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logOutTest"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_1 - logInPageObjectValidation" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInPageObjectValidation"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_2 - logInPageCrossAccessValidation" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInPageCrossAccessValidation"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_3 - logInWithRolePublisher" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logOutTest"/>-->
+          <!--<include name="logInWithRolePublisher"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_4 - logInWithRoleAdvertiser" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiser"/>-->
+          <!--<include name="logOutTest"/>-->
+          <!--<include name="logInWithRoleAdvertiser"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_5 - logInWithRoleAdvertiserPublisher" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstAdvertiserPublisher"/>-->
+          <!--<include name="logOutTest"/>-->
+          <!--<include name="logInWithRoleAdvertiserPublisher"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_6 - logInChangeEmail" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangeEmail"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_6 - logOutChangeEmail" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logOutChangeEmail"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_7 - logInChangeEmailError" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangeEmail_2"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_8 - logInChangePassword" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangePassword1"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_9 - logInChangePasswordErroro" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInRandomEmail"/>-->
+          <!--<include name="logInPopUpFirstPublisher"/>-->
+          <!--<include name="logInChangePassword2"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
+  <!--<test name="TC_10 - logOutTest" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInUserPublisher"/>-->
+          <!--<include name="logOutTest"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
   <!--<test name="TC_11 - RemeberMe On" group-by-instances="true">-->
     <!--<classes>-->
       <!--<class name="pl.adshares.adpanel.AdPanel">-->
@@ -144,17 +147,17 @@
       <!--</class>-->
     <!--</classes>-->
   <!--</test>-->
-  <test name="TC_13 - logInSessionHoles" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
-          <include name="logInSessionHoles"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_13 - logInSessionHoles" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInUserPublisher"/>-->
+          <!--<include name="logInSessionHoles"/>-->
+          <!--<include name="logOut"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
   <!--<test name="TC_14 - logInSecondTab4" group-by-instances="true">-->
     <!--<classes>-->
       <!--<class name="pl.adshares.adpanel.AdPanel">-->
@@ -174,28 +177,27 @@
           <!--<include name="logInPopUpFirstrPublisher"/>-->
           <!--<include name="logOutTest"/>-->
           <!--<include name="logInWithRolePublisher"/>-->
+          <!--<include name="logOut"/>-->
         <!--</methods>-->
       <!--</class>-->
     <!--</classes>-->
   <!--</test>-->
-  <test name="TC_16 - Login - logInFail" group-by-instances="true">
-    <classes>
-      <class name="pl.adshares.adpanel.AdPanel">
-        <methods>
-          <include name="logInFail"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!--<test name="TC_16 - Login - logInFail" group-by-instances="true">-->
+    <!--<classes>-->
+      <!--<class name="pl.adshares.adpanel.AdPanel">-->
+        <!--<methods>-->
+          <!--<include name="logInFail"/>-->
+        <!--</methods>-->
+      <!--</class>-->
+    <!--</classes>-->
+  <!--</test>-->
   <test name="TC_17 - Login - changeOfRole" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstAdvertiserPublisher"/>
+          <include name="logInUserAdvertiserPublisher"/>
           <include name="changeOfRole"/>
-          <include name="sleep"/>
-          <!--<include name="logOut"/>-->
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>

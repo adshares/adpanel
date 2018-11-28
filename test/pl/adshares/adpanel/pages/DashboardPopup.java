@@ -1,6 +1,5 @@
 package pl.adshares.adpanel.pages;
 
-import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
