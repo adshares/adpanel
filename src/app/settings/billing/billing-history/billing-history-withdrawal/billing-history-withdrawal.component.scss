@@ -14,17 +14,17 @@
     @include font-weight(bold);
     max-width: 150px;
 
-    &__0 {
+    &[data-status="ACCEPTED"] {
       color: pal(green);
       background-color: pal(green, light);
     }
 
-    &__1 {
+    &[data-status="PENDING"] {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
     }
 
-    &__2 {
+    &[data-status="REJECTED"] {
       color: pal(red);
       background-color: pal(red, light);
     }
