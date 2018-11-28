@@ -201,7 +201,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-max-cpc"
           >
-            {{ campaign.basicInformation.maxCpc | number:'1.0-11' }}
+            {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
           </p>
         </div>
         <div>
@@ -218,7 +218,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-max-cpm"
           >
-            {{ campaign.basicInformation.maxCpm | number:'1.0-11' }}
+            {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
           </p>
         </div>
         <div>
@@ -235,7 +235,7 @@
               adsh-copy--semi"
             data-test="advertiser-campaign-budget"
           >
-            {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.0-2' }}
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
           </p>
         </div>
         <div>
@@ -360,7 +360,7 @@
             adsh-heading--primary"
           data-test="advertiser-campaign-budget"
         >
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | number:'1.2-2' }}/day
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
         </p>
         <p
           class="
