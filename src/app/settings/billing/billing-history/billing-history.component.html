@@ -34,48 +34,43 @@
           Refresh
         </button>
       </div>
-      <div
+
+      <table
         class="
           billing-table
           adsh-copy"
       >
-        <div
-          class="
-            row
-            align-center
-            no-gutters"
-        >
-          <div class="col-xs-1">
+        <thead class="billing-table__head">
+        <tr class="row">
+          <th class="col-xs-1" scope="col">
             Status
-          </div>
-          <div class="col-xs-1">
+          </th>
+          <th class="col-xs-1" scope="col">
             Type
-          </div>
-          <div class="col-xs-2">
+          </th>
+          <th class="col-xs-2" scope="col">
             Amount
-          </div>
-          <div class="col-xs-2">
+          </th>
+          <th class="col-xs-3" scope="col">
             Date
-          </div>
-          <div class="col-xs-2">
+          </th>
+          <th class="col-xs-2" scope="col">
             Address
-          </div>
-          <div class="col-xs-4">
-            Link
-          </div>
-        </div>
-        <ul *ngIf="!showLoader; else loading">
-          <li *ngFor="let billingHistoryItem of billingHistory.items">
-            <app-billing-history-withdrawal
-              class="
-                row
-                align-center"
-              [billingHistoryItem]="billingHistoryItem"
-              data-test="settings-billing-history-item"
-            >
-            </app-billing-history-withdrawal>
-          </li>
-        </ul>
+          </th>
+          <th class="col-xs-2" scope="col">
+            Transaction
+          </th>
+        </tr>
+        </thead>
+
+
+        <tbody *ngIf="!showLoader; else loading">
+        <app-billing-history-withdrawal
+          *ngFor="let billingHistoryItem of billingHistory.items"
+          [billingHistoryItem]="billingHistoryItem"
+          data-test="settings-billing-history-item">
+        </app-billing-history-withdrawal>
+        </tbody>
         <mat-paginator
           [showFirstLastButtons]="true"
           [length]="billingHistory.itemsCountAll"
@@ -88,26 +83,26 @@
             <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
           </div>
         </ng-template>
-      </div>
+      </table>
     </div>
 
-<!--
-    <button
-      *ngIf="billingHistory.length > 0"
-      class="
-        adsh-btn
-        adsh-btn&#45;&#45;white
-        adsh-blue"
-      data-test="settings-billing-history-save-as-pdf"
-    >
-      <img
-        class="
-          adsh-icon
-          adsh-icon&#45;&#45;prepend"
-        src="assets/images/download.svg"
-      >
-      Save as PDF
-    </button>
--->
+    <!--
+        <button
+          *ngIf="billingHistory.length > 0"
+          class="
+            adsh-btn
+            adsh-btn&#45;&#45;white
+            adsh-blue"
+          data-test="settings-billing-history-save-as-pdf"
+        >
+          <img
+            class="
+              adsh-icon
+              adsh-icon&#45;&#45;prepend"
+            src="assets/images/download.svg"
+          >
+          Save as PDF
+        </button>
+    -->
   </div>
 </section>

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from "@angular/material";
 
 import { SettingsRoutingModule } from './settings-routing.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import { AppCommonModule } from 'common/common.module';
 import { WalletDialogComponent } from './dialogs/wallet-dialog/wallet-dialog.component';
@@ -16,6 +17,9 @@ import { UserWalletComponent } from './billing/user-wallet/user-wallet.component
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component';
 import { SettingsNavigationComponent } from './settings-navigation/settings-navigation.component';
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
 
 @NgModule({
   imports: [
@@ -25,6 +29,7 @@ import { BillingHistoryWithdrawalComponent } from './billing/billing-history/bil
     FormsModule,
     MatPaginatorModule,
     SettingsRoutingModule,
+    FontAwesomeModule
   ],
   declarations: [
     WalletDialogComponent,
