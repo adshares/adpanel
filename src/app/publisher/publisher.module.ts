@@ -12,7 +12,6 @@ import {
 } from "@angular/material";
 import {PublisherRoutingModule} from './publisher-routing.module';
 import {PublisherGuard} from './publisher-guard.service';
-
 import {AppCommonModule} from 'common/common.module';
 import {PublisherComponent} from './publisher.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -64,7 +63,7 @@ const publisherComponents = [
     MatInputModule,
     MatSelectModule,
     MatExpansionModule,
-    ChartsModule
+    ChartsModule,
   ],
   providers: [
     PublisherGuard,
