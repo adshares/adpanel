@@ -14,19 +14,19 @@
     @include font-weight(bold);
     max-width: 150px;
 
-    &[data-status="Active"] {
+    &__0 {
       color: pal(green);
       background-color: pal(green, light);
     }
 
-    &[data-status="Inactive"] {
-      color: pal(blue);
-      background-color: pal(blue, light);
-    }
-
-    &[data-status="Archived"] {
+    &__1 {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
+    }
+
+    &__2 {
+      color: pal(red);
+      background-color: pal(red, light);
     }
   }
 
