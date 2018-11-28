@@ -14,19 +14,19 @@
     @include font-weight(bold);
     max-width: 150px;
 
-    &[data-status="Active"] {
+    &[data-status="ACCEPTED"] {
       color: pal(green);
       background-color: pal(green, light);
     }
 
-    &[data-status="Inactive"] {
-      color: pal(blue);
-      background-color: pal(blue, light);
-    }
-
-    &[data-status="Archived"] {
+    &[data-status="PENDING"] {
       color: pal(gray);
       background-color: pal(gray, ultra-light);
+    }
+
+    &[data-status="REJECTED"] {
+      color: pal(red);
+      background-color: pal(red, light);
     }
   }
 
