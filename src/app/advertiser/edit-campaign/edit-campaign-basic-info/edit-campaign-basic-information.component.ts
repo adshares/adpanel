@@ -51,7 +51,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   }
 
   private setBudgetValue(value?: number): void {
-    this.budgetValue = (value !== null) ? value : 0;
+    this.budgetValue = value || 0;
   }
 
   saveCampaignBasicInformation() {
