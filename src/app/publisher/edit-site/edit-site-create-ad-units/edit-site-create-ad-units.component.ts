@@ -16,7 +16,6 @@ import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
-import {ClearLastEditedSite} from "store/publisher/publisher.actions";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -27,7 +26,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
-  adSizesOptions: string[] = enumToArray(adSizesEnum);
+  adSizesOptions: string[]=[];
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
   filteredAdUnitSizes: AdUnitSize[][] = [];
@@ -52,14 +51,26 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
-    this.adSizesOptions.unshift('Recommended');
-    this.adSizesOptions.unshift('All');
+
+    this.getOptions();
     this.fillFormWithData();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
         this.site = site;
       });
     this.subscriptions.push(lastSiteSubscription);
+  }
+
+  getOptions(): void {
+    const tags = this.adUnitSizesArray
+      .map(unit => unit.tags)
+      .reduce((arr1, arr2) => arr1.concat(arr2))
+      .filter((item, pos, self) => self.indexOf(item) === pos)
+      .filter(item => item !== 'best');
+    this.adSizesOptions.push('Recommended');
+    this.adSizesOptions.push('All');
+    this.adSizesOptions.push(...tags);
+
   }
 
   ngOnDestroy() {
@@ -127,14 +138,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) =>
-      filterValue === 'Recommended'
-        ? adUnitSize.tags.includes('best')
-        : (filterValue === 'All'
-          ? true
-          : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
-        )
-    );
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) => {
+      if (filterValue === 'Recommended') {
+        return adUnitSize.tags.includes('best')
+      } else if (filterValue === 'All') {
+        return true
+      } else {
+        return adUnitSize.tags.includes(filterValue)
+      }
+    });
   }
 
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
