@@ -26,7 +26,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
-  adSizesOptions: string[] = enumToArray(adSizesEnum);
+  adSizesOptions: string[]=[];
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
   filteredAdUnitSizes: AdUnitSize[][] = [];
@@ -51,6 +51,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
+
     this.getOptions();
     this.fillFormWithData();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
@@ -66,10 +67,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       .reduce((arr1, arr2) => arr1.concat(arr2))
       .filter((item, pos, self) => self.indexOf(item) === pos)
       .filter(item => item !== 'best');
+    this.adSizesOptions.push('Recommended');
+    this.adSizesOptions.push('All');
+    this.adSizesOptions.push(...tags);
 
-    this.adSizesOptions.unshift(...tags);
-    this.adSizesOptions.unshift('Recommended');
-    this.adSizesOptions.unshift('All');
   }
 
   ngOnDestroy() {
@@ -142,10 +143,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
         return adUnitSize.tags.includes('best')
       } else if (filterValue === 'All') {
         return true
-      } else if (filterValue === 'Desktop' || filterValue === 'PL' || filterValue === 'Mobile') {
-        return adUnitSize.tags.includes(filterValue)
       } else {
-        return parseInt(adSizesEnum[filterValue]) === adUnitSize.size
+        return adUnitSize.tags.includes(filterValue)
       }
     });
   }
