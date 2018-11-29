@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
+import {MatDialog} from '@angular/material';
 
 import {FileUploader} from 'ng2-file-upload';
 
@@ -19,6 +20,8 @@ import {appSettings} from 'app-settings';
 import {AppState} from 'models/app-state.model';
 import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {SessionService} from "../../../session.service";
+import {SiteCodeDialogComponent} from "publisher/dialogs/site-code-dialog/site-code-dialog.component";
+import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
 
 interface ImagesStatus {
   overDrop: boolean[];
@@ -69,7 +72,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private store: Store<AppState>,
-    private session: SessionService
+    private session: SessionService,
+    private matDialog: MatDialog,
   ) {
     super();
   }
@@ -170,6 +174,22 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     }
   }
 
+  showImageSizeWarning(adSize: string, imageSize: string): void {
+    const imageSizesArray = imageSize.split('x');
+    const adSizesArray = adSize.split('x');
+    const showWarning = adSizesArray.find((size, index) => parseInt(size)  < parseInt(imageSizesArray[index]));
+
+    if (!showWarning) return;
+
+    this.matDialog.open(WarningDialogComponent, {
+      data: {
+        title: 'Inconsistent sizes',
+        message: 'Size of uploaded image is grater than selected ad size. \n ' +
+          'You may consider changing ad banner size or upload new image',
+      }
+    });
+  }
+
   sendImage(image, adIndex): void {
     image.method = 'POST';
     // image.withCredentials = false; // needed by mock server
@@ -181,6 +201,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     };
     image.onSuccess = (res) => {
       const parsedResponse = JSON.parse(res);
+
+      this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
 
       Object.assign(this.ads[adIndex], {
         imageUrl: parsedResponse.imageUrl,

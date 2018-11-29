@@ -32,6 +32,7 @@ import { TrustHtmlPipe, TrustUrlPipe } from 'common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
 
 const matModules = [
   MatExpansionModule,
