@@ -28,7 +28,7 @@
           class="
             adsh-btn
 	          adsh-btn--blue"
-          (click)="getBillingHistory()"
+          (click)="refresh()"
           data-test="settings-billing-history-refresh-button"
         >
           Refresh
@@ -72,6 +72,7 @@
         </app-billing-history-withdrawal>
         </tbody>
         <mat-paginator
+          #paginator
           [showFirstLastButtons]="true"
           [length]="billingHistory.itemsCountAll"
           [pageSize]="billingHistory.limit"

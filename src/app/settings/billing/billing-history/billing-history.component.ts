@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
-import {MatDialog} from "@angular/material";
+import {MatDialog, MatPaginator} from "@angular/material";
 import {BillingHistory} from 'models/settings.model';
 import {SettingsService} from "settings/settings.service";
 import * as codes from "common/utilities/codes";
@@ -12,6 +12,7 @@ import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/
   styleUrls: ['./billing-history.component.scss'],
 })
 export class BillingHistoryComponent implements OnInit {
+  @ViewChild('paginator') paginator: MatPaginator;
   emptyBillingHistory: BillingHistory = {
     limit: 10,
     offset: 0,
@@ -57,5 +58,10 @@ export class BillingHistoryComponent implements OnInit {
     const limit = event.pageSize;
     const offset = event.pageIndex * limit;
     this.getBillingHistory(limit, offset);
+  }
+
+  refresh(): void {
+    this.paginator.firstPage();
+    this.getBillingHistory();
   }
 }
