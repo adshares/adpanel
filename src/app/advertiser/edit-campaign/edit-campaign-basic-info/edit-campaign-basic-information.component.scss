@@ -23,8 +23,16 @@
   .input-budget {
     width: calc(100% - 32px);
   }
+
+  & .adsh-form-input {
+    overflow: hidden;
+  }
 }
 
-.adsh-form-input.adsh-form-input--datepicker {
+.adsh-form-input--date {
   max-height: 45px;
+  padding: 3px 10px 0;
+  border: 0;
+  color: pal(black, mid-light);
+
 }

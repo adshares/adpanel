@@ -107,3 +107,12 @@ mat-chip:not(.mat-basic-chip) {
 .mat-datepicker-toggle {
   visibility: hidden !important;
 }
+
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+  background-color: pal(blue);
+  color: #fff;
+}
+
+.owl-dt-container-control-button .owl-dt-control-button-content {
+  color: palette(blue);
+}
