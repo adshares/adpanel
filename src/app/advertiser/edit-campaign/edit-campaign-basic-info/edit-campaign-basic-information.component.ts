@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
@@ -20,17 +20,16 @@ import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, format
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
   budgetValue: number;
-  dateStart = new FormControl();
+  dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
   calcBudgetToHour: boolean = false;
   subscriptionArray: Subscription[] = [];
   today = new Date();
-
   goesToSummary: boolean;
 
   constructor(
@@ -71,8 +70,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       maxCpc: adsToClicks(campaignBasicInfoValue.maxCpc),
       maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm),
       budget: adsToClicks(this.budgetValue),
-      dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD'),
-      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD') : null
+      dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD LT'),
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD LT') : null
     };
 
     this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));
@@ -87,6 +86,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   createForm() {
     const initialBasicinfo = campaignInitialState.basicInformation;
     this.setBudgetValue(initialBasicinfo.budget);
+    this.dateStart.setValue(initialBasicinfo.dateStart);
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
@@ -128,7 +128,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
           const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
           this.budgetPerDay.setValue(budgetPerDayValue);
         }
-      }, () => {});
+      }, () => {
+      });
     this.subscriptionArray.push(subscription);
 
     // calculate budget: day -> hour
@@ -138,7 +139,8 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
           this.setBudgetValue(calcCampaignBudgetPerHour(val));
           this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
         }
-      }, () => {});
+      }, () => {
+      });
     this.subscriptionArray.push(subscription);
   }
 

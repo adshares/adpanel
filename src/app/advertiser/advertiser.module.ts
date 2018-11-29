@@ -11,7 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { AppCommonModule } from 'common/common.module';
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
@@ -32,6 +33,16 @@ import { TrustHtmlPipe, TrustUrlPipe } from 'common/pipes/trust.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+
+export const DATE_MOMENT_FORMATS = {
+  parseInput: 'l LT',
+  fullPickerInput: 'l LT',
+  datePickerInput: 'l',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
 
 const matModules = [
   MatExpansionModule,
@@ -70,13 +81,18 @@ const advertiserComponents = [
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    OwlMomentDateTimeModule,
     ...matModules
   ],
   providers: [
     AdvertiserGuard,
     CampaignResolver,
-    TargetingCriteriaResolver
+    TargetingCriteriaResolver,
+    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_MOMENT_FORMATS}
   ],
+
   declarations: [
     CampaignBudgetPerDayPipe,
     TrustUrlPipe,

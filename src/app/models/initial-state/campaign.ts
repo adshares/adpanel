@@ -21,7 +21,7 @@ export const campaignInitialState: Campaign = {
     maxCpc: null,
     maxCpm: null,
     budget: null,
-    dateStart: moment(new Date()).format('YYYY-MM-DD'),
+    dateStart: moment(new Date()).format('l LT'),
   },
 
   targeting: {

@@ -315,6 +315,7 @@
         <div
           class="
             row
+            justify-between
             no-gutters"
         >
           <div
@@ -328,30 +329,29 @@
               class="
                 adsh-form-input
                 adsh-form-input--narrow
-                adsh-form-input--datepicker
                 row"
             >
               <img
+                [owlDateTimeTrigger]="dateStartPicker"
                 src="/assets/images/calendar.svg"
                 alt="Add new icon"
-                class="
-                  adsh-icon
-                  adsh-icon--prepend"
-              >
+                class="adsh-icon">
               <input
-                (click)="dateStartPicker.open()"
-                matInput
-                [min]="today"
-                [matDatepicker]="dateStartPicker"
+                class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--date
+                row"
+                [owlDateTime]="dateStartPicker"
                 [formControl]="dateStart"
+                [owlDateTimeTrigger]="dateStartPicker"
+                [min]="today"
+                matInput
+                type="text"
                 required
                 data-test="advertiser-edit-campaign-basic-information-form-start-date"
               >
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="dateStartPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #dateStartPicker></mat-datepicker>
+              <owl-date-time #dateStartPicker></owl-date-time>
             </mat-form-field>
 
             <span
@@ -391,30 +391,27 @@
               class="
                 adsh-form-input
                 adsh-form-input--narrow
-                adsh-form-input--datepicker
                 row"
             >
               <img
+                [owlDateTimeTrigger]="dateEndPicker"
                 src="/assets/images/calendar.svg"
                 alt="Add new icon"
-                class="
-                  adsh-icon
-                  adsh-icon--prepend"
-              >
+                class="adsh-icon">
               <input
-                (click)="dateEndPicker.open()"
+                class="
+                adsh-form-input
+                adsh-form-input--narrow
+                adsh-form-input--date
+                row"
+                [owlDateTime]="dateEndPicker"
+                [owlDateTimeTrigger]="dateEndPicker"
                 matInput
                 [min]="dateStart.value"
-                [matDatepicker]="dateEndPicker"
                 [formControl]="dateEnd"
                 data-test="advertiser-edit-campaign-basic-information-form-end-date"
               >
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="dateEndPicker"
-              >
-              </mat-datepicker-toggle>
-              <mat-datepicker #dateEndPicker></mat-datepicker>
+              <owl-date-time #dateEndPicker></owl-date-time>
             </mat-form-field>
           </div>
         </div>
