@@ -31,6 +31,7 @@ const advertiserRoutes: Routes = [
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
+        resolve: {targetingOptions: TargetingCriteriaResolver},
         children: [
           {
             path: 'basic-information',
@@ -39,7 +40,6 @@ const advertiserRoutes: Routes = [
           },
           {
             path: 'additional-targeting',
-            resolve: {targetingOptions: TargetingCriteriaResolver},
             component: EditCampaignAdditionalTargetingComponent,
             canDeactivate: [AdvertiserGuard]
           },
