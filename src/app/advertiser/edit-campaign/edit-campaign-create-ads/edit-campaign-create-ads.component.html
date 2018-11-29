@@ -333,7 +333,8 @@
               html-textarea-wrapper"
             *ngIf="
               (adForm.get('type').value === 1 && !ads[i]) ||
-              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
+              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html)) ||
+              (adForm.get('type').value === 1 && editHtmlMode[i])"
           >
           <span
             class="
@@ -383,7 +384,7 @@
               adsh-box__preview"
             *ngIf="
               (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
-              (adForm.get('type').value === 1) && ads[i].html"
+              (adForm.get('type').value === 1) && ads[i].html && !editHtmlMode[i]"
           >
             <div
               class="
@@ -406,13 +407,25 @@
 
             <div *ngIf="ads[i].html">
               <iframe
-              [ngStyle]="{
+                [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
 
                 [srcdoc]="ads[i].html | trustHtml"
               ></iframe>
+
+              <button
+                *ngIf="!isEditMode"
+                class="
+                  adsh-btn
+                  adsh-btn--white
+                  adsh-blue"
+                (click)="editCode(i)"
+                data-test="advertiser-edit-campaign-create-ads-form-ad-html-clear"
+              >
+                Edit Code
+              </button>
 
               <button
                 *ngIf="!isEditMode"
