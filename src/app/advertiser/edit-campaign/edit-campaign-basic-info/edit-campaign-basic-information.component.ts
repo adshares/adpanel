@@ -70,9 +70,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       maxCpc: adsToClicks(campaignBasicInfoValue.maxCpc),
       maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm),
       budget: adsToClicks(this.budgetValue),
-      dateStart: moment(this.dateStart.value._d).format('YYYY-MM-DD LT'),
-      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format('YYYY-MM-DD LT') : null
+      dateStart: moment(this.dateStart.value._d).format(),
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     };
+
+    console.log('asd', basicInformation.dateStart)
 
     this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));
     this.changesSaved = true;
