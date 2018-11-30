@@ -13,20 +13,21 @@ public class CampaignAdv {
    * <li>absolute path to image file, when it is IMAGE.</li>
    * </ul>
    */
-  private final String resource;
   private final String size;
+  private final String resource;
+
 
   /**
    * @param headline advertisement headline
    * @param type     "html" or "image"
-   * @param resource html code, when type is "html"; absolute path to image file, when it is "image"
    * @param size     size of advertisement, eg. "300x100"
+   * @param resource html code, when type is "html"; absolute path to image file, when it is "image"
    */
-  public CampaignAdv(String headline, String type, String resource, String size) {
+  public CampaignAdv(String headline, String type, String size, String resource ) {
     this.headline = headline;
     this.type = type;
-    this.resource = resource;
     this.size = size;
+    this.resource = resource;
   }
 
   public String getHeadline() {
@@ -37,12 +38,13 @@ public class CampaignAdv {
     return type;
   }
 
+  public String getSize() {
+    return size;
+  }
+
   public String getResource() {
     return resource;
   }
 
-  public String getSize() {
-    return size;
-  }
 
 }
