@@ -80,6 +80,10 @@
     color: pal(red);
   }
 
+  &--orange {
+    color: palette(orange, dark);
+  }
+
   &--normal {
     @include font-weight(normal);
   }
