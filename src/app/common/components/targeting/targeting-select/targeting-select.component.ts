@@ -102,7 +102,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       this.itemsToRemove.splice(itemToRemoveIndex, 1);
     }
 
-    if (option.parent.value_type === 'boolean') {
+    if (option.parent.valueType === 'boolean') {
       this.deselectOppositeBoolean(option);
     }
   }

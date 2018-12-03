@@ -42,7 +42,7 @@ function createTargetingChoice(
   if (targetingChoice.value) {
     Object.assign(targetingChoice, {
       parent: {
-        value_type: parentOption.value_type,
+        valueType: parentOption.valueType,
         allow_input: parentOption.allow_input
       }
     });
@@ -230,9 +230,9 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
-      const rawValue = customOptionParent && customOptionParent['value_type'] === 'number' ?
+      const rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
-      const action = customOptionParent['value_type'] === 'number' ?
+      const action = customOptionParent['valueType'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;
       const customOption = prepareCustomOption(
         rawValue,
@@ -269,9 +269,9 @@ export function prepareCustomOption(
   targetingOptions: TargetingOption[],
   action: number
 ) {
-  const optionLabel = parentOption['value_type'] === 'number' ?
+  const optionLabel = parentOption['valueType'] === 'number' ?
     `${customTargetingActionsEnum[action]} ${value}` : value;
-  const optionValue = parentOption['value_type'] === 'number' ?
+  const optionValue = parentOption['valueType'] === 'number' ?
     getnerateNumberOptionValue(value, action) : value;
   const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
 
@@ -279,7 +279,7 @@ export function prepareCustomOption(
     id: generateIdForCustomOption(parentOption, optionValue, targetingOptions, targetingOptionTopKeys),
     label: optionLabel,
     parent: {
-      value_type: parentOption['value_type'],
+      valueType: parentOption['valueType'],
       allow_input: parentOption['allow_input']
     },
     value: optionValue,
