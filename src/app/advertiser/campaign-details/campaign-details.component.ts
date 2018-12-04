@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
@@ -19,14 +19,15 @@ import { MatDialog } from "@angular/material";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from 'common/utilities/codes';
-import * as PublisherActions from "store/publisher/publisher.actions";
+import {AssetTargeting} from "models/targeting-option.model";
+import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 
 @Component({
   selector: 'app-campaign-details',
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss']
 })
-export class CampaignDetailsComponent extends HandleSubscription implements OnInit {
+export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
@@ -38,7 +39,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   barChartDifferenceInPercentage: number;
   barChartLabels: string[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
-
+  targeting: AssetTargeting = {
+    requires: [],
+    excludes: []
+  };
+  targetingOptions: AssetTargeting;
   currentChartFilterSettings: ChartFilterSettings;
 
   constructor(
@@ -54,6 +59,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     this.campaign = this.route.snapshot.data.campaign.campaign;
+    this.targetingOptions = this.route.snapshot.data.targetingOptions;
+    this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -64,12 +71,17 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.getChartData(this.currentChartFilterSettings);
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
+
   deleteCampaign() {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Do you confirm deletion?',
       }
     });
+
     dialogRef.afterClosed().subscribe(result => {
         if (result) {
           this.advertiserService.deleteCampaign(this.campaign.id)
@@ -180,10 +192,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   isClassificationChecked(status) {
-    if (status === this.classificationStatusesEnum.DISABLED) {
-      return false;
-    }
-
-    return true;
+    return status !== this.classificationStatusesEnum.DISABLED;
   }
 }

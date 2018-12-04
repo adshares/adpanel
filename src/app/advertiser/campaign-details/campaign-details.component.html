@@ -290,51 +290,50 @@
             adsh-icon--prepend"
             src="assets/images/edit.svg"
             alt="Edit icon">
-          <!--<span-->
-            <!--class="-->
-            <!--adsh-copy-->
-            <!--adsh-copy&#45;&#45;dark">-->
-            <!--{{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}-->
-        <!--</span>-->
+          <span
+            class="
+            adsh-copy
+            adsh-copy--dark">
+            {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
+        </span>
         </button>
-      <!--</div>-->
-      <!--<div-->
-        <!--*ngIf="!!filtering.requires.length || !!filtering.excludes.length"-->
-        <!--class="-->
-        <!--adsh-box-->
-        <!--adsh-copy-->
-        <!--row">-->
-        <!--<div-->
-          <!--*ngIf="!!filtering.requires.length"-->
-          <!--class="-->
-          <!--col-xs-12-->
-          <!--col-lg-6">-->
-          <!--<div>-->
-            <!--<app-targeting-display-->
-              <!--class="app-targeting-display"-->
-              <!--[items]="filtering.requires"-->
-              <!--[isExclude]="false"-->
-              <!--[canRemove]="false"-->
-              <!--[targetingOptions]="filteringOptions"-->
-            <!--&gt;</app-targeting-display>-->
-          <!--</div>-->
-        <!--</div>-->
+      </div>
+      <div
+        *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
+        class="
+        adsh-box
+        adsh-copy
+        row">
+        <div *ngIf="!!targeting.requires.length"
+          class="
+          col-xs-12
+          col-lg-6">
+          <div>
+            <app-targeting-display
+              class="app-targeting-display"
+              [items]="targeting.requires"
+              [isExclude]="false"
+              [canRemove]="false"
+              [targetingOptions]="targetingOptions"
+            ></app-targeting-display>
+          </div>
+        </div>
 
-        <!--<div-->
-          <!--*ngIf="!!filtering.excludes.length"-->
-          <!--class="-->
-          <!--col-xs-12-->
-          <!--col-lg-6">-->
-          <!--<div>-->
-            <!--<app-targeting-display-->
-              <!--class="app-targeting-display"-->
-              <!--[items]="targeting.excludes"-->
-              <!--[isExclude]="true"-->
-              <!--[canRemove]="false"-->
-              <!--[targetingOptions]="filteringOptions"-->
-            <!--&gt;</app-targeting-display>-->
-          <!--</div>-->
-        <!--</div>-->
+        <div
+          *ngIf="!!targeting.excludes.length"
+          class="
+          col-xs-12
+          col-lg-6">
+          <div>
+            <app-targeting-display
+              class="app-targeting-display"
+              [items]="targeting.excludes"
+              [isExclude]="true"
+              [canRemove]="false"
+              [targetingOptions]="targetingOptions"
+            ></app-targeting-display>
+          </div>
+        </div>
       </div>
     </section>
     <!--mock chart-->
