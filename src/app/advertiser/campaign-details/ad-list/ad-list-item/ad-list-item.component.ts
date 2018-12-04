@@ -27,7 +27,7 @@ export class AdListItemComponent extends HandleSubscription {
     const statusActive = status !== this.adStatusesEnum.ACTIVE;
 
     this.ad.status =
-      statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.ARCHIVED;
+      statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
 
     const saveAdSubscription = this.advertiserService.saveAd(this.ad).subscribe();
     this.subscriptions.push(saveAdSubscription);

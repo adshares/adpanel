@@ -31,8 +31,8 @@ export enum adSizesEnum {
 
 export enum adStatusesEnum {
   DRAFT,
+  INACTIVE,
   ACTIVE,
-  ARCHIVED
 };
 
 export enum validImageTypes {
