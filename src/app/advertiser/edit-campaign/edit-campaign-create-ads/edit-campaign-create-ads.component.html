@@ -498,23 +498,20 @@
       row
       justify-between"
   >
-    <a
-      routerLink="../additional-targeting"
-      [queryParams]="{step: 2}"
-      data-test="advertiser-edit-campaign-navigate-back"
-    >
       <button
         class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
+        (click)="onStepBack()"
+        data-test="advertiser-edit-campaign-navigate-back"
       >
         Back
       </button>
-    </a>
 
     <div class="row">
       <button
+        *ngIf="!isEditMode"
         (click)="saveCampaignAds(true)"
         class="
           adsh-btn
@@ -525,14 +522,14 @@
       >
         Save as Draft
       </button>
-      <button
+      <button class="adsh-btn
+                     adsh-btn--blue"
         (click)="saveCampaignAds(false)"
-        class="
-          adsh-btn
-          adsh-btn--blue"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
-        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved ; else loading">
+          {{isEditMode ? 'Update' : 'Save & Continue'}}
+        </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

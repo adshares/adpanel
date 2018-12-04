@@ -64,8 +64,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     overDrop: [],
     validation: []
   };
-
-  isEditMode: boolean = false;
+  campaignId: number = null;
+  isEditMode: boolean;
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -84,6 +84,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
+        this.campaignId = lastEditedCampaign.id;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
 
         if (!campaignNameFilled) {
@@ -323,5 +324,15 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   removeNewAd(adIndex): void {
     [this.adForms, this.ads, this.adPanelsStatus, this.imagesStatus.overDrop, this.imagesStatus.validation]
       .forEach((list) => list.splice(adIndex, 1))
+  }
+
+  onStepBack(): void {
+    if (this.isEditMode) {
+      this.router.navigate(['/advertiser', 'campaign', this.campaignId]);
+    } else {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+      this.router.navigate(['/advertiser', 'create-site', 'additional-targeting'],
+        {queryParams: {step: 2}})
+    }
   }
 }

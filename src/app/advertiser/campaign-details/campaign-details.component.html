@@ -4,17 +4,14 @@
       class="
         row
         align-center
-        breadcrumbs"
-    >
+        breadcrumbs">
       <a
         routerLink="/advertiser/dashboard"
-        data-test="advertiser-navigate-to-dashboard"
-      >
+        data-test="advertiser-navigate-to-dashboard">
         <p
           class="
             adsh-copy
-            adsh-copy--small"
-        >
+            adsh-copy--small">
           My Campaigns
         </p>
       </a>
@@ -23,16 +20,14 @@
           adsh-circle
           adsh-circle--x-small
           adsh-circle--navy
-          breadcrumbs-divider"
-      >
+          breadcrumbs-divider">
       </div>
       <p
         class="
           adsh-copy
           adsh-copy--small
           adsh-copy--x-dark
-          adsh-copy--semi"
-      >
+          adsh-copy--semi">
         {{ campaign.basicInformation.name }}
       </p>
     </div>
@@ -41,18 +36,15 @@
         row
         no-gutters
         justify-between
-        align-center"
-    >
+        align-center">
       <div
         class="
           col-xs-5
-          col-md-4"
-      >
+          col-md-4">
         <h1
           class="
             adsh-heading
-            adsh-heading--primary"
-        >
+            adsh-heading--primary">
           {{ campaign.basicInformation.name }}
         </h1>
       </div>
@@ -63,23 +55,23 @@
           col-md-8
           row
           justify-end
-          align-center"
-      >
+          align-center">
 
         <div class="row status-toggle-wrapper">
           <p>
             <span class="adsh-copy">Classification: </span>
-            <span class="adsh-copy adsh-copy--x-dark lowercase-to-capitalize" data-test="advertiser-campaign-classification">
+            <span class="adsh-copy adsh-copy--x-dark lowercase-to-capitalize"
+                  data-test="advertiser-campaign-classification">
               {{ classificationLabel() }}
             </span>
           </p>
           <mat-slide-toggle
-                  color="primary"
-                  [checked]="isClassificationChecked(campaign.classificationStatus)"
-                  [disabled]="isClassificationChecked(campaign.classificationStatus)"
-                  ([ngModel])="campaign.classificationStatus"
-                  (change)="onCampaignClassificationStatusChange(campaign.classificationStatus)"
-                  data-test="advertiser-campaign-classification-status-toggle"
+            color="primary"
+            [checked]="isClassificationChecked(campaign.classificationStatus)"
+            [disabled]="isClassificationChecked(campaign.classificationStatus)"
+            ([ngModel])="campaign.classificationStatus"
+            (change)="onCampaignClassificationStatusChange(campaign.classificationStatus)"
+            data-test="advertiser-campaign-classification-status-toggle"
           ></mat-slide-toggle>
         </div>
 
@@ -87,8 +79,7 @@
         <div
           class="
             row
-            status-toggle-wrapper"
-        >
+            status-toggle-wrapper">
           <p>
             <span class="adsh-copy">Status: </span>
             <span
@@ -114,205 +105,244 @@
             adsh-btn
             adsh-btn--white
             adsh-btn--no-border
-            hidden-md"
-          (click)="navigateToEditCampaign()"
-        >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="/assets/images/edit.svg"
-            alt="Edit icon"
-          >
-          <span
-            class="
-              adsh-copy
-              adsh-copy--dark"
-          >
-            Edit Campaign
-          </span>
-        </button>
-        <button
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border
             btn-delete"
-          (click)="deleteCampaign()"
-        >
+          (click)="deleteCampaign()">
           <img
             class="
               adsh-icon
               adsh-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
-            alt="Delete icon"
-          >
+            alt="Delete icon">
           <span
             class="
               adsh-copy
-              adsh-copy--dark"
-          >
+              adsh-copy--dark">
             Delete Campaign
           </span>
         </button>
       </div>
     </div>
 
-    <div
-      class="
-        adsh-box
-        adsh-box--large"
-    >
-      <div
-        class="
-          row
-          align-center
-          adsh-copy
-          campaign-basic-information"
-      >
-        <div>
-          <p
-            class="
-              adsh-copy--small
-              label"
-          >
-            Target URL:
-          </p>
-          <p
-            class="
-              adsh-copy--dark
-              adsh-copy--semi"
-            data-test="advertiser-campaign-target-url"
-          >
-            {{ campaign.basicInformation.targetUrl }}
-          </p>
-        </div>
-        <div>
-          <p
-            class="
-              adsh-copy--small
-              label"
-          >
-            Max Cpc
-          </p>
-          <p
-            class="
-              adsh-copy--dark
-              adsh-copy--semi"
-            data-test="advertiser-campaign-max-cpc"
-          >
-            {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
-          </p>
-        </div>
-        <div>
-          <p
-            class="
-              adsh-copy--small
-              label"
-          >
-            Max Cpm
-          </p>
-          <p
-            class="
-              adsh-copy--dark
-              adsh-copy--semi"
-            data-test="advertiser-campaign-max-cpm"
-          >
-            {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
-          </p>
-        </div>
-        <div>
-          <p
-            class="
-              adsh-copy--small
-              label"
-          >
-            Budget
-          </p>
-          <p
-            class="
-              adsh-copy--dark
-              adsh-copy--semi"
-            data-test="advertiser-campaign-budget"
-          >
-            {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
-          </p>
-        </div>
-        <div>
-          <p
-            class="
-              adsh-copy--small
-              label"
-          >
-            Date of Start
-          </p>
-          <div
-            class="
-              row
-              align-center"
-          >
-            <img
-              class="
-                adsh-icon
-                adsh-icon--prepend"
-              src="/assets/images/calendar.svg"
-              alt="Calendar Icon"
-            >
-            <p
-              class="
-                adsh-copy--dark
-                adsh-copy--semi"
-              data-test="advertiser-campaign-start-date"
-            >
-              {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+    <div class="adsh-box
+                adsh-box--large">
+      <div class="row
+                  justify-between">
+        <div class="row
+                    align-center
+                    adsh-copy
+                    campaign-basic-information">
+          <div>
+            <p class="adsh-copy--small
+                      label">
+              Target URL:
+            </p>
+            <p class="adsh-copy--dark adsh-copy--semi"
+              data-test="advertiser-campaign-target-url">
+              {{ campaign.basicInformation.targetUrl }}
             </p>
           </div>
+          <div>
+            <p
+              class="
+              adsh-copy--small
+              label">
+              Max Cpc
+            </p>
+            <p
+              class="
+              adsh-copy--dark
+              adsh-copy--semi"
+              data-test="advertiser-campaign-max-cpc">
+              {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
+            </p>
+          </div>
+          <div>
+            <p
+              class="
+              adsh-copy--small
+              label">
+              Max Cpm
+            </p>
+            <p
+              class="
+              adsh-copy--dark
+              adsh-copy--semi"
+              data-test="advertiser-campaign-max-cpm">
+              {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
+            </p>
+          </div>
+          <div>
+            <p
+              class="
+              adsh-copy--small
+              label">
+              Budget
+            </p>
+            <p
+              class="
+              adsh-copy--dark
+              adsh-copy--semi"
+              data-test="advertiser-campaign-budget">
+              {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
+            </p>
+          </div>
+          <div>
+            <p
+              class="
+              adsh-copy--small
+              label">
+              Date of Start
+            </p>
+            <div
+              class="
+              row
+              align-center">
+              <img
+                class="
+                adsh-icon
+                adsh-icon--prepend"
+                src="/assets/images/calendar.svg"
+                alt="Calendar Icon">
+              <p
+                class="
+                adsh-copy--dark
+                adsh-copy--semi"
+                data-test="advertiser-campaign-start-date">
+                {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+              </p>
+            </div>
 
-        </div>
-        <div>
-          <p
-            class="
+          </div>
+          <div>
+            <p
+              class="
               adsh-copy--small
               label"
-          >
-            Date of End
-          </p>
-          <div
-            class="
+            >
+              Date of End
+            </p>
+            <div
+              class="
               row
               align-center"
-          >
-            <img
-              class="
+            >
+              <img
+                class="
                 adsh-icon
                 adsh-icon--prepend"
-              src="/assets/images/calendar.svg"
-              alt="Calendar Icon"
-            >
-            <p
-              *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-              class="
+                src="/assets/images/calendar.svg"
+                alt="Calendar Icon"
+              >
+              <p
+                *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
+                class="
                 adsh-copy--dark
                 adsh-copy--semi"
-              data-test="advertiser-campaign-end-date"
-            >
-              {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
-            </p>
-            <ng-template #dateEndEmpty>
-              -
-            </ng-template>
+                data-test="advertiser-campaign-end-date"
+              >
+                {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+              </p>
+              <ng-template #dateEndEmpty>
+                -
+              </ng-template>
+            </div>
           </div>
         </div>
+        <button
+          class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+          (click)="navigateToCampaignEdition('basic-information', 1)"
+          data-test="publisher-site-edit">
+          <img
+            class="
+            adsh-icon
+            adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon">
+          <span
+            class="
+            adsh-copy
+            adsh-copy--dark">
+            Edit Basic Info
+         </span>
+        </button>
       </div>
     </div>
 
+    <!--Targeting details section-->
+
+    <section class="adsh-box adsh-box--high">
+      <div class="row justify-end">
+        <button
+          class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+          (click)="navigateToCampaignEdition('additional-targeting', 2)"
+          data-test="publisher-site-edit">
+          <img
+            class="
+            adsh-icon
+            adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon">
+          <!--<span-->
+            <!--class="-->
+            <!--adsh-copy-->
+            <!--adsh-copy&#45;&#45;dark">-->
+            <!--{{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}-->
+        <!--</span>-->
+        </button>
+      <!--</div>-->
+      <!--<div-->
+        <!--*ngIf="!!filtering.requires.length || !!filtering.excludes.length"-->
+        <!--class="-->
+        <!--adsh-box-->
+        <!--adsh-copy-->
+        <!--row">-->
+        <!--<div-->
+          <!--*ngIf="!!filtering.requires.length"-->
+          <!--class="-->
+          <!--col-xs-12-->
+          <!--col-lg-6">-->
+          <!--<div>-->
+            <!--<app-targeting-display-->
+              <!--class="app-targeting-display"-->
+              <!--[items]="filtering.requires"-->
+              <!--[isExclude]="false"-->
+              <!--[canRemove]="false"-->
+              <!--[targetingOptions]="filteringOptions"-->
+            <!--&gt;</app-targeting-display>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div-->
+          <!--*ngIf="!!filtering.excludes.length"-->
+          <!--class="-->
+          <!--col-xs-12-->
+          <!--col-lg-6">-->
+          <!--<div>-->
+            <!--<app-targeting-display-->
+              <!--class="app-targeting-display"-->
+              <!--[items]="targeting.excludes"-->
+              <!--[isExclude]="true"-->
+              <!--[canRemove]="false"-->
+              <!--[targetingOptions]="filteringOptions"-->
+            <!--&gt;</app-targeting-display>-->
+          <!--</div>-->
+        <!--</div>-->
+      </div>
+    </section>
     <!--mock chart-->
     <div
       class="
         adsh-box
         adsh-box--large
-        hidden-md"
-    >
+        hidden-md">
       <app-chart-filter-by-type
         (updateId)="appChartRef.updateChartDataSeries($event)"
         (updateSeries)="appChartRef.updateChartDataAssetId($event)"
@@ -340,100 +370,86 @@
     <div
       class="
         row
-        campaign-details-statistics"
-    >
+        campaign-details-statistics">
       <div
         class="
           adsh-box
-          adsh-box--large"
-      >
+          adsh-box--large">
         <p
           class="
             adsh-copy
-            adsh-copy--small"
-        >
+            adsh-copy--small">
           Budget
         </p>
         <p
           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-budget"
-        >
+          data-test="advertiser-campaign-budget">
           {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
-            adsh-blue"
-        >
+            adsh-blue">
           - (-%)
         </p>
       </div>
       <div
         class="
           adsh-box
-          adsh-box--large"
-      >
+          adsh-box--large">
         <p
           class="
             adsh-copy
-            adsh-copy--small"
-        >
+            adsh-copy--small">
           Clicks
         </p>
         <p
           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-clicks"
-        >
+          data-test="advertiser-campaign-clicks">
           {{ campaign.clicks }}
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
-            adsh-blue"
-        >
+            adsh-blue">
           - (-%)
         </p>
       </div>
       <div
         class="
           adsh-box
-          adsh-box--large"
-      >
+          adsh-box--large">
         <p
           class="
             adsh-copy
-            adsh-copy--small"
-        >
+            adsh-copy--small">
           Cost
         </p>
         <p
           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-cost"
-        >
+          data-test="advertiser-campaign-cost">
           {{ campaign.cost | number:'1.2-2' }}
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
-            adsh-blue"
-        >
+            adsh-blue">
           - (-%)
         </p>
       </div>
       <div
         class="
           adsh-box
-          adsh-box--large"
-      >
+          adsh-box--large">
         <p
           class="
             adsh-copy
@@ -442,62 +458,95 @@
           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-conversions"
-        >
+          data-test="advertiser-campaign-conversions">
           {{ campaign.conversions }}
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
-            adsh-blue"
-        >
+            adsh-blue">
           - (-%)
         </p>
       </div>
       <div
         class="
           adsh-box
-          adsh-box--large"
-      >
+          adsh-box--large">
         <p
           class="
             adsh-copy
-            adsh-copy--small"
-        >
+            adsh-copy--small">
           Cost/Conv
         </p>
         <p
           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-cost-converions-ratio"
-        >
-          {{ campaign.cost / campaign.conversions | number:'1.2-2'  }}
+          data-test="advertiser-campaign-cost-converions-ratio">
+          {{ campaign.cost / campaign.conversions | number:'1.2-2' }}
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
-            adsh-blue"
-        >
+            adsh-blue">
           - (-%)
         </p>
       </div>
     </div>
 
-    <app-ad-list [adList]="campaign.ads"></app-ad-list>
+    <!--̣Campaign list section-->
+
+    <section class="col">
+      <div
+        class="
+          adsh-box
+          row
+          justify-between
+          align-center">
+        <p
+          class="
+            adsh-copy
+            adsh-copy--semi"
+        >
+          List of Ads
+        </p>
+        <button
+          class="
+           adsh-btn
+           adsh-btn--white
+           adsh-btn--no-border
+           hidden-md"
+          (click)="navigateToCampaignEdition('create-ad', 3)"
+          data-test="publisher-site-edit">
+          <img
+            class="
+            adsh-icon
+            adsh-icon--prepend"
+            src="assets/images/edit.svg"
+            alt="Edit icon">
+          <span
+            class="
+            adsh-copy
+            adsh-copy--dark">
+             Edit Ads
+          </span>
+        </button>
+      </div>
+      <app-ad-list [adList]="campaign.ads"></app-ad-list>
+
+    </section>
+
 
     <div
       class="
         adsh-box
-        hidden-md"
-    >
+        hidden-md">
       <div
         class="
           row
-          justify-center"
-      >
+          justify-center">
         <button
           class="
             row
@@ -506,20 +555,17 @@
             adsh-btn--large
             adsh-btn--white
             adsh-btn--no-border"
-          (click)="navigateToCreateAd()"
-        >
+          (click)="navigateToCampaignEdition('create-ad', 3)">
           <img
             src="/assets/images/plus-circle--blue.svg"
             alt="Add new icon"
             class="
               adsh-icon
-              adsh-icon--prepend"
-          >
+              adsh-icon--prepend">
           <span
             class="
               adsh-heading
-              adsh-heading--secondary"
-          >
+              adsh-heading--secondary">
             Create new Ad
           </span>
         </button>

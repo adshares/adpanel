@@ -387,23 +387,17 @@
                 Optional
               </span>
             </div>
-            <mat-form-field
-              class="
-                adsh-form-input
-                adsh-form-input--narrow
-                row"
-            >
-              <img
-                [owlDateTimeTrigger]="dateEndPicker"
-                src="/assets/images/calendar.svg"
-                alt="Add new icon"
-                class="adsh-icon">
-              <input
-                class="
-                adsh-form-input
-                adsh-form-input--narrow
-                adsh-form-input--date
-                row"
+            <mat-form-field class="adsh-form-input
+                                   adsh-form-input--narrow
+                                   row">
+              <img [owlDateTimeTrigger]="dateEndPicker"
+                   src="/assets/images/calendar.svg"
+                   alt="Add new icon"
+                   class="adsh-icon">
+              <input class="adsh-form-input
+                       adsh-form-input--narrow
+                       adsh-form-input--date
+                       row"
                 [owlDateTime]="dateEndPicker"
                 [owlDateTimeTrigger]="dateEndPicker"
                 matInput
@@ -417,36 +411,23 @@
         </div>
       </div>
     </div>
-
     <div
-      class="
-        adsh-box
-        adsh-box--large
-        row
-        justify-between"
-    >
-      <a
-        routerLink="../../dashboard"
-        data-test="advertiser-navigate-to-dashboard"
-      >
-        <button
-          type="button"
-          class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
-        >
-          Back to Dashboard
-        </button>
-      </a>
-      <button
-        class="
-          adsh-btn
-          adsh-btn--blue"
-        data-test="advertiser-edit-campaign-save-and-continue"
-      >
+      class="adsh-box
+             adsh-box--large
+             row
+             justify-between">
+      <button type="button"
+              class="adsh-btn
+                     adsh-btn--white
+                     adsh-blue"
+              (click)="onStepBack()"
+              data-test="advertiser-navigate-to-dashboard">
+        {{ createCampaignMode ? 'Back to Dashboard' : 'Back' }}
+      </button>
+      <button class="adsh-btn adsh-btn--blue"
+              data-test="advertiser-edit-campaign-save-and-continue">
         <span *ngIf="!changesSaved; else loading">
-          Save & Continue
+        {{ createCampaignMode ? 'Save & Continue' : 'Update' }}
         </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>

@@ -19,6 +19,7 @@ import { MatDialog } from "@angular/material";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from 'common/utilities/codes';
+import * as PublisherActions from "store/publisher/publisher.actions";
 
 @Component({
   selector: 'app-campaign-details',
@@ -118,19 +119,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.subscriptions.push(chartDataSubscription);
   }
 
-  navigateToEditCampaign() {
+  navigateToCampaignEdition(path: string, step: number): void {
     this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
     this.router.navigate(
-      ['/advertiser', 'edit-campaign', 'summary'],
-      {queryParams: {step: 4}}
-    );
-  }
-
-  navigateToCreateAd() {
-    this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
-    this.router.navigate(
-      ['/advertiser', 'create-campaign', 'create-ad'],
-      {queryParams: {step: 3, summary: true}}
+      ['/advertiser', 'edit-campaign', path],
+      {queryParams: {step}}
     );
   }
 
