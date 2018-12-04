@@ -64,7 +64,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     overDrop: [],
     validation: []
   };
-  campaignId: number = null;
+  campaign: Campaign = null;
   isEditMode: boolean;
 
   constructor(
@@ -84,7 +84,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
-        this.campaignId = lastEditedCampaign.id;
+        this.campaign = lastEditedCampaign;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
 
         if (!campaignNameFilled) {
@@ -178,7 +178,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   showImageSizeWarning(adSize: string, imageSize: string): void {
     const imageSizesArray = imageSize.split('x');
     const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size)  < parseInt(imageSizesArray[index]));
+    const showWarning = adSizesArray.find((size, index) => parseInt(size) < parseInt(imageSizesArray[index]));
 
     if (!showWarning) return;
 
@@ -284,23 +284,40 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const adSizeName = this.adSizes[adSize];
   }
 
-  saveCampaignAds(isDraft): void {
+  onSubmit() {
     this.adsSubmitted = true;
     this.changesSaved = true;
 
     this.adForms.forEach((adForm) => adForm.updateValueAndValidity());
+    this.adForms.forEach((form, index) => this.updateAdInfo(index));
 
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
-      this.adForms.forEach((form, index) => this.updateAdInfo(index));
-      this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
-      this.redirectAfterSave(isDraft);
+      this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(false)
     } else {
       this.changesSaved = false;
     }
+  }
+
+  updateCampaign() {
+    this.campaign = {
+      ...this.campaign,
+      ads: this.ads
+    };
+
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+      .subscribe(() => {
+        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+        this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+      })
+  };
+
+  saveCampaignAds(isDraft): void {
+    this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
+    this.redirectAfterSave(isDraft);
   }
 
   redirectAfterSave(isDraft): void {
@@ -328,7 +345,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   onStepBack(): void {
     if (this.isEditMode) {
-      this.router.navigate(['/advertiser', 'campaign', this.campaignId]);
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
       this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'create-site', 'additional-targeting'],

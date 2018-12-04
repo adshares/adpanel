@@ -14,6 +14,7 @@ import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import * as moment from 'moment';
 import {appSettings} from 'app-settings';
 import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
+import {AdvertiserService} from "advertiser/advertiser.service";
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -32,12 +33,13 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   today = new Date();
   goesToSummary: boolean;
   createCampaignMode: boolean;
-  campaignId: number = null;
+  campaign: Campaign;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private advertiserService: AdvertiserService,
   ) {
     super();
   }
@@ -57,17 +59,18 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.budgetValue = value || 0;
   }
 
-  saveCampaignBasicInformation() {
+  onSubmit() {
     this.campaignBasicInformationSubmitted = true;
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
+    this.createCampaignMode  ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
+  }
 
+  get campaignBasicInfo(): CampaignBasicInformation {
     const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
-    const editCampaignStep = this.goesToSummary ? 'summary' : 'additional-targeting';
-    const param = this.goesToSummary ? 4 : 2;
 
-    const basicInformation = {
+   return {
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
@@ -77,14 +80,29 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     };
+  }
 
-    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));
+  saveCampaignBasicInformation() {
+    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(this.campaignBasicInfo));
     this.changesSaved = true;
-
     this.router.navigate(
-      ['/advertiser', 'create-campaign', editCampaignStep],
-      {queryParams: {step: param}}
+      ['/advertiser', 'create-campaign', 'additional-targeting'],
+      {queryParams: {step: 2}}
     );
+  }
+
+  updateCampaignBasicInfo() {
+    this.campaign = {
+      ...this.campaign,
+      basicInformation: this.campaignBasicInfo,
+    };
+
+    console.log('campaign', this.campaign)
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+      .subscribe(
+        () => { console.log('hurra')},
+      (err) => {console.error(err)}
+      )
   }
 
   createForm() {
@@ -172,7 +190,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   getFormDataFromStore() {
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
       .subscribe((lastEditedCampaign: Campaign) => {
-        this.campaignId = lastEditedCampaign.id;
+        this.campaign = lastEditedCampaign;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
@@ -192,6 +210,6 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   onStepBack(): void {
     this.createCampaignMode ? this.router.navigate(['/advertiser', 'dashboard']) :
-      this.router.navigate(['/advertiser', 'campaign', this.campaignId]);
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
   }
 }

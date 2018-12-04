@@ -524,7 +524,7 @@
       </button>
       <button class="adsh-btn
                      adsh-btn--blue"
-        (click)="saveCampaignAds(false)"
+        (click)="onSubmit()"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved ; else loading">

@@ -70,7 +70,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription);
 
     this.getChartData(this.currentChartFilterSettings);
-    this.getFilteringFiltering();
+    this.getFiltering();
   }
 
   deleteSite() {
@@ -114,7 +114,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
   }
 
-  getFilteringFiltering() {
+  getFiltering() {
     this.store.select('state', 'publisher', 'filteringCriteria')
       .subscribe((filteringOptions) => {
         this.filteringOptions = filteringOptions;
@@ -153,14 +153,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.router.navigate(
       ['/publisher', 'edit-site', path],
       {queryParams: {step, summary: true}}
-    );
-  }
-
-  navigateToCreateAdUnits() {
-    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
-    this.router.navigate(
-      ['/publisher', 'edit-site', 'create-ad-units'],
-      {queryParams: {step: 3, summary: true}}
     );
   }
 
