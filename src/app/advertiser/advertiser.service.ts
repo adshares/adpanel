@@ -58,7 +58,6 @@ export class AdvertiserService {
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
   }
 
-
   classifyCampaign(id: number) {
     return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
   }

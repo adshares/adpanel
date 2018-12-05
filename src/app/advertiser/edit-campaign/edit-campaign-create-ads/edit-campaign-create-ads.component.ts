@@ -138,7 +138,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     if (ad.type === adTypesEnum.IMAGE) {
       state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
     } else {
-      state = {value: ad.html, disabled: disabledMode};
+      state = ad.html;
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
@@ -179,14 +179,14 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   showImageSizeWarning(adSize: string, imageSize: string): void {
     const imageSizesArray = imageSize.split('x');
     const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size) < parseInt(imageSizesArray[index]));
+    const showWarning = adSizesArray.find((size, index) => parseInt(size) !== parseInt(imageSizesArray[index]));
 
     if (!showWarning) return;
 
     this.matDialog.open(WarningDialogComponent, {
       data: {
         title: 'Inconsistent sizes',
-        message: 'Size of uploaded image is grater than selected ad size. \n ' +
+        message: 'Size of uploaded image is different than selected ad size. \n ' +
           'You may consider changing ad banner size or upload new image',
       }
     });
