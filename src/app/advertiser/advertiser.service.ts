@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { Ad, Campaign, CampaignsTotals } from 'models/campaign.model';
+import {Ad, Campaign, CampaignBasicInformation, CampaignsTotals} from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
@@ -53,6 +53,7 @@ export class AdvertiserService {
 
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
   }
+
 
   classifyCampaign(id: number) {
     return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);

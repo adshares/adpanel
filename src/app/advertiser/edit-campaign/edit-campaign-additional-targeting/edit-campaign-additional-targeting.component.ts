@@ -64,11 +64,15 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.excludedItems = [...items];
   }
 
-  onStepBack() {
-    this.createCampaignMode ? this.router.navigate(
-      ['/advertiser', 'create-campaign', 'basic-information'],
-      {queryParams: {step: 1}}
-    ) : this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+  onStepBack(): void {
+    if (this.createCampaignMode) {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+      this.router.navigate(
+        ['/advertiser', 'create-campaign', 'basic-information'],
+        {queryParams: {step: 1}});
+    } else {
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+    }
   }
 
   onSubmit() {
