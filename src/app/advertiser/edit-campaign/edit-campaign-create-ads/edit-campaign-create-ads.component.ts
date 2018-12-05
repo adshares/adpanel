@@ -137,7 +137,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     if (ad.type === adTypesEnum.IMAGE) {
       state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
     } else {
-      state = {value: ad.html, disabled: disabledMode};
+      state = ad.html;
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
