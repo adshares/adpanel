@@ -10,11 +10,12 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 import {NavigationStart, Router} from "@angular/router";
 import * as advertiserActions from "store/advertiser/advertiser.actions";
 import {Subscription} from "rxjs";
+import {AppState} from "models/app-state.model";
 
 @Injectable()
 export class AdvertiserService {
 
-  constructor(private http: HttpClient, private router: Router, private store: Store) {
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {
   }
 
   getCampaigns(): Observable<Campaign[]> {
