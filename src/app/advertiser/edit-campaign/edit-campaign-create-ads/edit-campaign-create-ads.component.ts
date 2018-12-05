@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
@@ -80,6 +80,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
 
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
@@ -104,13 +105,14 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
-    this.subscriptions.push(lastCampaignSubscription);
-
+    this.subscriptions.push(lastCampaignSubscription, subscription);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+
 
   createEmptyAd(): void {
     this.ads.push(cloneDeep(adInitialState));
