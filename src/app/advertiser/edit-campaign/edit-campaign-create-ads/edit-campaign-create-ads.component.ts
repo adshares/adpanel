@@ -12,7 +12,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes} from 'models/enum/ad.enum';
-import {cloneDeep, enumToArray} from 'common/utilities/helpers';
+import {cloneDeep, enumToArray, simpleValidateHtmlStr} from 'common/utilities/helpers';
 import {adInitialState} from 'models/initial-state/ad';
 import {Ad, Campaign} from 'models/campaign.model';
 import {environment} from 'environments/environment';
@@ -235,10 +235,20 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   saveHtml(adIndex) {
+    const html = this.adForms[adIndex].get('html').value;
+
+    if (!simpleValidateHtmlStr(html)) {
+      this.matDialog.open(WarningDialogComponent, {
+        data: {
+          title: 'Possibly invalid HTML',
+          message: 'You may want to check your HTML input',
+        }
+      });
+    }
     this.editHtmlMode[adIndex] = false;
     this.ads[adIndex] = {
       ...this.ads[adIndex],
-      html: this.adForms[adIndex].get('html').value,
+      html,
     };
   }
 
@@ -293,8 +303,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
+      this.adForms.every((adForm, index) => !!this.ads[index].imageUrl || !!adForm.get('html')) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
-
     if (adsValid) {
       this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(false)
     } else {
