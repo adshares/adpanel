@@ -178,7 +178,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   showImageSizeWarning(adSize: string, imageSize: string): void {
     const imageSizesArray = imageSize.split('x');
     const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size) < parseInt(imageSizesArray[index]));
+    const showWarning = adSizesArray.find((size, index) => {
+      return parseInt(size) < parseInt(imageSizesArray[index]) || parseInt(size) > parseInt(imageSizesArray[index])
+    });
 
     if (!showWarning) return;
 
