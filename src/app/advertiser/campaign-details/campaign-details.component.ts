@@ -1,23 +1,23 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import { Campaign } from 'models/campaign.model';
-import { AppState } from 'models/app-state.model';
-import { AdvertiserService } from 'advertiser/advertiser.service';
-import { ChartComponent } from 'common/components/chart/chart.component';
-import { ChartService } from 'common/chart.service';
-import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { classificationStatusesEnum } from 'models/enum/classification.enum';
-import { createInitialArray } from 'common/utilities/helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import {Campaign} from 'models/campaign.model';
+import {AppState} from 'models/app-state.model';
+import {AdvertiserService} from 'advertiser/advertiser.service';
+import {ChartComponent} from 'common/components/chart/chart.component';
+import {ChartService} from 'common/chart.service';
+import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import {ChartData} from 'models/chart/chart-data.model';
+import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import {classificationStatusesEnum} from 'models/enum/classification.enum';
+import {createInitialArray} from 'common/utilities/helpers';
+import {HandleSubscription} from 'common/handle-subscription';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import { MatDialog } from "@angular/material";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import {MatDialog} from "@angular/material";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from 'common/utilities/codes';
 import {AssetTargeting} from "models/targeting-option.model";
 import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
@@ -59,8 +59,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     this.campaign = this.route.snapshot.data.campaign.campaign;
-    this.targetingOptions = this.route.snapshot.data.targetingOptions;
-    this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+    this.getTargeting();
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
@@ -105,8 +104,18 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
             );
         }
       },
-      () => {}
-      );
+      () => {
+      }
+    );
+  }
+
+  getTargeting() {
+    this.campaign.targeting= {
+      requires: this.campaign.targeting.requires || [],
+      excludes: this.campaign.targeting.excludes || [],
+    };
+    this.targetingOptions = this.route.snapshot.data.targetingOptions;
+    this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
   }
 
   getChartData(chartFilterSettings) {

@@ -19,7 +19,7 @@ export class AdListItemComponent extends HandleSubscription {
     super();
   }
 
-  adType() {
+  get adType() {
     return adTypesEnum[this.ad.type];
   };
 

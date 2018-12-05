@@ -97,10 +97,13 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       basicInformation: this.campaignBasicInfo,
     };
 
-    console.log('campaign', this.campaign)
     this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
       .subscribe(
-        () => { console.log('hurra')},
+        () => {
+          const id = this.campaign.id;
+          this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+          this.router.navigate(['/advertiser', 'campaign', id]);
+        },
       (err) => {console.error(err)}
       )
   }
@@ -194,6 +197,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
+
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
         if (lastEditedCampaign.basicInformation.dateEnd) {
