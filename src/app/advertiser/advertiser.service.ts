@@ -87,9 +87,6 @@ export class AdvertiserService {
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
    return shouldSubscribe && this.router.events
       .filter(event => event instanceof NavigationStart)
-      .subscribe((event: NavigationStart) => {
-        console.log('asd')
-        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign())
-      });
+      .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
   }
 }

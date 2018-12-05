@@ -81,6 +81,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
+    subscription && this.subscriptions.push(subscription);
 
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
@@ -105,14 +106,12 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
           this.createEmptyAd();
         }
       });
-    this.subscriptions.push(lastCampaignSubscription, subscription);
+    this.subscriptions.push(lastCampaignSubscription);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-
-
 
   createEmptyAd(): void {
     this.ads.push(cloneDeep(adInitialState));

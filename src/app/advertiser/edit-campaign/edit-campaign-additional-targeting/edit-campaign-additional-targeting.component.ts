@@ -48,8 +48,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
-
     this.getTargetingFromStore();
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
+    subscription && this.subscriptions.push(subscription);
   }
 
   ngOnDestroy() {
