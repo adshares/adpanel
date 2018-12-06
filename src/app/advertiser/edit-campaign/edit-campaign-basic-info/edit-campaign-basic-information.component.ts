@@ -46,8 +46,9 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   ngOnInit() {
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
-
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
+    subscription && this.subscriptionArray.push(subscription);
     this.createForm();
   }
 

@@ -1,17 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import {Store} from "@ngrx/store";
 import { environment } from 'environments/environment';
-import {Ad, Campaign, CampaignBasicInformation, CampaignsTotals} from 'models/campaign.model';
+import {Ad, Campaign, CampaignsTotals} from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {NavigationStart, Router} from "@angular/router";
+import * as advertiserActions from "store/advertiser/advertiser.actions";
+import {Subscription} from "rxjs";
+import {AppState} from "models/app-state.model";
 
 @Injectable()
 export class AdvertiserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {
   }
 
   getCampaigns(): Observable<Campaign[]> {
@@ -54,7 +58,6 @@ export class AdvertiserService {
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
   }
 
-
   classifyCampaign(id: number) {
     return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
   }
@@ -77,11 +80,13 @@ export class AdvertiserService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  updateTargetingCriterion(id: number, targetingOption: TargetingOption): Observable<TargetingOption[]> {
-    return this.http.patch<TargetingOption[]>(`${environment.apiUrl}/campaigns/${id}/targeting`, {targetingOption});
-  }
-
   saveAd(ad: Ad): Observable<Ad> {
     return this.http.post<Ad>(`${environment.apiUrl}/save_ad`, {ad});
+  }
+
+  cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
+   return shouldSubscribe && this.router.events
+      .filter(event => event instanceof NavigationStart)
+      .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
   }
 }
