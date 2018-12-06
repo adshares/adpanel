@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes} from 'models/enum/ad.enum';
-import {cloneDeep, enumToArray} from 'common/utilities/helpers';
+import {cloneDeep, enumToArray, simpleValidateHtmlStr} from 'common/utilities/helpers';
 import {adInitialState} from 'models/initial-state/ad';
 import {Ad, Campaign} from 'models/campaign.model';
 import {environment} from 'environments/environment';
@@ -64,8 +64,8 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     overDrop: [],
     validation: []
   };
-
-  isEditMode: boolean = false;
+  campaign: Campaign = null;
+  isEditMode: boolean;
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -80,10 +80,13 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
+    subscription && this.subscriptions.push(subscription);
 
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
+        this.campaign = lastEditedCampaign;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
 
         if (!campaignNameFilled) {
@@ -104,7 +107,6 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
         }
       });
     this.subscriptions.push(lastCampaignSubscription);
-
   }
 
   ngOnDestroy() {
@@ -136,7 +138,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     if (ad.type === adTypesEnum.IMAGE) {
       state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
     } else {
-      state = {value: ad.html, disabled: disabledMode};
+      state = ad.html;
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
@@ -177,14 +179,14 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   showImageSizeWarning(adSize: string, imageSize: string): void {
     const imageSizesArray = imageSize.split('x');
     const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size)  < parseInt(imageSizesArray[index]));
+    const showWarning = adSizesArray.find((size, index) => parseInt(size) !== parseInt(imageSizesArray[index]));
 
     if (!showWarning) return;
 
     this.matDialog.open(WarningDialogComponent, {
       data: {
         title: 'Inconsistent sizes',
-        message: 'Size of uploaded image is grater than selected ad size. \n ' +
+        message: 'Size of uploaded image is different than selected ad size. \n ' +
           'You may consider changing ad banner size or upload new image',
       }
     });
@@ -234,10 +236,20 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   saveHtml(adIndex) {
+    const html = this.adForms[adIndex].get('html').value;
+
+    if (!simpleValidateHtmlStr(html)) {
+      this.matDialog.open(WarningDialogComponent, {
+        data: {
+          title: 'Possibly invalid HTML',
+          message: 'You may want to check your HTML input',
+        }
+      });
+    }
     this.editHtmlMode[adIndex] = false;
     this.ads[adIndex] = {
       ...this.ads[adIndex],
-      html: this.adForms[adIndex].get('html').value,
+      html,
     };
   }
 
@@ -283,23 +295,40 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     const adSizeName = this.adSizes[adSize];
   }
 
-  saveCampaignAds(isDraft): void {
+  onSubmit() {
     this.adsSubmitted = true;
     this.changesSaved = true;
 
     this.adForms.forEach((adForm) => adForm.updateValueAndValidity());
+    this.adForms.forEach((form, index) => this.updateAdInfo(index));
 
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
+      this.adForms.every((adForm, index) => !!this.ads[index].imageUrl || !!adForm.get('html')) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
-
     if (adsValid) {
-      this.adForms.forEach((form, index) => this.updateAdInfo(index));
-      this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
-      this.redirectAfterSave(isDraft);
+      this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(false)
     } else {
       this.changesSaved = false;
     }
+  }
+
+  updateCampaign() {
+    this.campaign = {
+      ...this.campaign,
+      ads: this.ads
+    };
+
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+      .subscribe(() => {
+        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+        this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+      })
+  };
+
+  saveCampaignAds(isDraft): void {
+    this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
+    this.redirectAfterSave(isDraft);
   }
 
   redirectAfterSave(isDraft): void {
@@ -323,5 +352,15 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   removeNewAd(adIndex): void {
     [this.adForms, this.ads, this.adPanelsStatus, this.imagesStatus.overDrop, this.imagesStatus.validation]
       .forEach((list) => list.splice(adIndex, 1))
+  }
+
+  onStepBack(): void {
+    if (this.isEditMode) {
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+    } else {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+      this.router.navigate(['/advertiser', 'create-site', 'additional-targeting'],
+        {queryParams: {step: 2}})
+    }
   }
 }

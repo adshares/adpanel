@@ -1,17 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import {Store} from "@ngrx/store";
 import { environment } from 'environments/environment';
-import { Campaign, CampaignsTotals } from 'models/campaign.model';
+import {Campaign, CampaignsTotals} from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {NavigationStart, Router} from "@angular/router";
+import * as advertiserActions from "store/advertiser/advertiser.actions";
+import {Subscription} from "rxjs";
+import {AppState} from "models/app-state.model";
 
 @Injectable()
 export class AdvertiserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {
   }
 
   getCampaigns(): Observable<Campaign[]> {
@@ -84,5 +88,11 @@ export class AdvertiserService {
     };
 
     return this.http.put(`${environment.apiUrl}/campaigns/${campaignId}/banner/${adId}/status`, body);
+  }
+
+  cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
+   return shouldSubscribe && this.router.events
+      .filter(event => event instanceof NavigationStart)
+      .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
   }
 }

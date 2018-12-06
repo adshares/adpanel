@@ -18,7 +18,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
 
-import { parseTargetingOptionsToArray, prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from "@angular/material";
 import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from "common/utilities/codes";
@@ -33,7 +33,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   siteStatusEnum = siteStatusEnum;
   language: SiteLanguage;
 
-  ObjectKeys = Object.keys;
   filtering: AssetTargeting = {
     requires: [],
     excludes: []
@@ -71,7 +70,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription);
 
     this.getChartData(this.currentChartFilterSettings);
-    this.getFilteringFiltering();
+    this.getFiltering();
   }
 
   deleteSite() {
@@ -115,7 +114,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
   }
 
-  getFilteringFiltering() {
+  getFiltering() {
     this.store.select('state', 'publisher', 'filteringCriteria')
       .subscribe((filteringOptions) => {
         this.filteringOptions = filteringOptions;
@@ -154,14 +153,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.router.navigate(
       ['/publisher', 'edit-site', path],
       {queryParams: {step, summary: true}}
-    );
-  }
-
-  navigateToCreateAdUnits() {
-    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
-    this.router.navigate(
-      ['/publisher', 'edit-site', 'create-ad-units'],
-      {queryParams: {step: 3, summary: true}}
     );
   }
 

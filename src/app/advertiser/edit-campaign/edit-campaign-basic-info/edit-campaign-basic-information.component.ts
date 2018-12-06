@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 
 import {AppState} from 'models/app-state.model';
-import {CampaignBasicInformation} from "models/campaign.model";
+import {CampaignBasicInformation, Campaign} from "models/campaign.model";
 import {campaignInitialState} from 'models/initial-state/campaign';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -14,6 +14,7 @@ import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import * as moment from 'moment';
 import {appSettings} from 'app-settings';
 import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
+import {AdvertiserService} from "advertiser/advertiser.service";
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -31,17 +32,23 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   subscriptionArray: Subscription[] = [];
   today = new Date();
   goesToSummary: boolean;
+  createCampaignMode: boolean;
+  campaign: Campaign;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private advertiserService: AdvertiserService,
   ) {
     super();
   }
 
   ngOnInit() {
+    this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
+    subscription && this.subscriptionArray.push(subscription);
     this.createForm();
   }
 
@@ -53,17 +60,18 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.budgetValue = value || 0;
   }
 
-  saveCampaignBasicInformation() {
+  onSubmit() {
     this.campaignBasicInformationSubmitted = true;
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
+    this.createCampaignMode  ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
+  }
 
+  get campaignBasicInfo(): CampaignBasicInformation {
     const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
-    const editCampaignStep = this.goesToSummary ? 'summary' : 'additional-targeting';
-    const param = this.goesToSummary ? 4 : 2;
 
-    const basicInformation = {
+   return {
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
@@ -73,16 +81,32 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     };
+  }
 
-    console.log('asd', basicInformation.dateStart)
-
-    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(basicInformation));
+  saveCampaignBasicInformation() {
+    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(this.campaignBasicInfo));
     this.changesSaved = true;
-
     this.router.navigate(
-      ['/advertiser', 'create-campaign', editCampaignStep],
-      {queryParams: {step: param}}
+      ['/advertiser', 'create-campaign', 'additional-targeting'],
+      {queryParams: {step: 2}}
     );
+  }
+
+  updateCampaignBasicInfo() {
+    this.campaign = {
+      ...this.campaign,
+      basicInformation: this.campaignBasicInfo,
+    };
+
+    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+      .subscribe(
+        () => {
+          const id = this.campaign.id;
+          this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+          this.router.navigate(['/advertiser', 'campaign', id]);
+        },
+      (err) => {console.error(err)}
+      )
   }
 
   createForm() {
@@ -146,7 +170,7 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
     this.subscriptionArray.push(subscription);
   }
 
-  private convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
+  private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
     const basicInformation = {
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
@@ -168,17 +192,17 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   }
 
   getFormDataFromStore() {
-    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign', 'basicInformation')
-      .subscribe((lastEditedCampaign: CampaignBasicInformation) => {
-        this.setBudgetValue(lastEditedCampaign.budget);
-        const basicInformation = this.convertBasicInfo(lastEditedCampaign);
-
+    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
+      .subscribe((lastEditedCampaign: Campaign) => {
+        this.campaign = lastEditedCampaign;
+        this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
+        const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
 
-        this.dateStart.setValue(moment(lastEditedCampaign.dateStart));
+        this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
-        if (lastEditedCampaign.dateEnd) {
-          this.dateEnd.setValue(moment(lastEditedCampaign.dateEnd));
+        if (lastEditedCampaign.basicInformation.dateEnd) {
+          this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
         }
       }, () => {
       });
@@ -187,5 +211,10 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
 
   onFocus(elemId: string) {
     this.calcBudgetToHour = 'campaign-budget' !== elemId;
+  }
+
+  onStepBack(): void {
+    this.createCampaignMode ? this.router.navigate(['/advertiser', 'dashboard']) :
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
   }
 }

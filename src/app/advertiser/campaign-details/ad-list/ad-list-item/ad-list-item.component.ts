@@ -22,7 +22,7 @@ export class AdListItemComponent {
   constructor(private route: ActivatedRoute, private advertiserService: AdvertiserService, private dialog: MatDialog) {
   }
 
-  adType() {
+  get adType() {
     return adTypesEnum[this.ad.type];
   };
 

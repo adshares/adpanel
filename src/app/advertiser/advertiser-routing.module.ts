@@ -25,6 +25,7 @@ const advertiserRoutes: Routes = [
         path: 'campaign/:id',
         component: CampaignDetailsComponent,
         resolve: {
+          targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver
         }
       },

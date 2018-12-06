@@ -48,8 +48,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
-
     this.getTargetingFromStore();
+    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
+    subscription && this.subscriptions.push(subscription);
   }
 
   ngOnDestroy() {
@@ -64,11 +65,15 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     this.excludedItems = [...items];
   }
 
-  onStepBack() {
-    this.createCampaignMode ? this.router.navigate(
-      ['/advertiser', 'create-campaign', 'basic-information'],
-      {queryParams: {step: 1}}
-    ) : this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+  onStepBack(): void {
+    if (this.createCampaignMode) {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+      this.router.navigate(
+        ['/advertiser', 'create-campaign', 'basic-information'],
+        {queryParams: {step: 1}});
+    } else {
+      this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+    }
   }
 
   onSubmit() {
