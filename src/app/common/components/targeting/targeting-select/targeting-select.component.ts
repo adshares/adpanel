@@ -126,12 +126,9 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
 
     if (oppositeOption && oppositeOption['selected']) {
-      const opositeOptionIndex = this.selectedItems.findIndex(
-        (option) => option.id === oppositeOption.id
-      );
+      this.itemsToRemove.push(cloneDeep(oppositeOption));
 
       Object.assign(oppositeOption, {selected: false});
-      this.selectedItems.splice(opositeOptionIndex, 1);
     }
   }
 
