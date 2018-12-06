@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {Store} from "@ngrx/store";
 import { environment } from 'environments/environment';
-import {Ad, Campaign, CampaignsTotals} from 'models/campaign.model';
+import {Campaign, CampaignsTotals} from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
@@ -80,8 +80,14 @@ export class AdvertiserService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  saveAd(ad: Ad): Observable<Ad> {
-    return this.http.post<Ad>(`${environment.apiUrl}/save_ad`, {ad});
+  updateAdStatus(campaignId: number, adId: number, status: number): Observable<Object> {
+    const body = {
+      banner: {
+        status
+      }
+    };
+
+    return this.http.put(`${environment.apiUrl}/campaigns/${campaignId}/banner/${adId}/status`, body);
   }
 
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {

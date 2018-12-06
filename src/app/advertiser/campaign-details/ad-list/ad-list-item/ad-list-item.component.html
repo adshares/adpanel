@@ -19,7 +19,7 @@
         >
           <mat-slide-toggle
             color="primary"
-            [checked]="true || ad.status === adStatusesEnum.ARCHIVED"
+            [checked]="ad.status === adStatusesEnum.ACTIVE"
             ([ngModel])="ad.status"
             (change)="changeAdStatus(ad.status)"
             data-test="advertiser-ad-change-ad-status-toggle"
