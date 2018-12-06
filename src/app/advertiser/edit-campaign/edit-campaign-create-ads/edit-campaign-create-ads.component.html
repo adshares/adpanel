@@ -393,17 +393,18 @@
                 adsh-copy--light">
               Preview
             </div>
-
-            <iframe
-              [ngStyle]="{
+            <div class="image-banner"
+                 [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
-              *ngIf="adForm.get('image') && adForm.get('image').value.src"
-              [src]="adForm.get('image').value.src | trustUrl"
-            >
+                 *ngIf="adForm.get('image') && adForm.get('image').value.src">
+              <img [src]="adForm.get('image').value.src | trustUrl"
+                   [style.transform]="'scale('+ scaleImageToMatchBanner(i)+ ')'"
+              />
+            </div>
 
-            </iframe>
+
 
             <div *ngIf="ads[i].html">
               <iframe
@@ -497,16 +498,16 @@
       row
       justify-between"
   >
-      <button
-        class="
+    <button
+      class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
-        (click)="onStepBack()"
-        data-test="advertiser-edit-campaign-navigate-back"
-      >
-        Back
-      </button>
+      (click)="onStepBack()"
+      data-test="advertiser-edit-campaign-navigate-back"
+    >
+      Back
+    </button>
 
     <div class="row">
       <button
@@ -523,8 +524,8 @@
       </button>
       <button class="adsh-btn
                      adsh-btn--blue"
-        (click)="onSubmit()"
-        data-test="advertiser-edit-campaign-save-and-continue"
+              (click)="onSubmit()"
+              data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved ; else loading">
           {{isEditMode ? 'Update' : 'Save & Continue'}}
