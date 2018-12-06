@@ -92,6 +92,15 @@
       }
     }
   }
+
+  .image-banner {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background: pal(gray, x-light);
+    border: 1px solid pal(gray, light);
+  }
 }
 
 .drag-and-drop-box {

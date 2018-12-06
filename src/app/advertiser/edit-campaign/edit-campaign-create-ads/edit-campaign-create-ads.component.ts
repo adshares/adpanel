@@ -176,6 +176,18 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     }
   }
 
+  scaleImageToMatchBanner(index) {
+    const image = Array.from(document.querySelectorAll('.image-banner img')) as Array<HTMLElement>;
+    const bannerWidth = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[0]);
+    const bannerHeight = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[1]);
+    const imageWidth = image[index].offsetWidth;
+    const imageHeight = image[index].offsetHeight;
+    const heightRatio = bannerHeight / imageHeight;
+    const widthRatio = bannerWidth / imageWidth;
+
+    return heightRatio <= widthRatio ? heightRatio : widthRatio;
+  }
+
   showImageSizeWarning(adSize: string, imageSize: string): void {
     const imageSizesArray = imageSize.split('x');
     const adSizesArray = adSize.split('x');
