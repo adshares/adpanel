@@ -13,6 +13,7 @@ import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {Site} from 'models/site.model';
 import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
+import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -34,6 +35,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;
+  filtering;
+  filteringOptions;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +74,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.excludedItems = [...items];
   }
 
+  onSubmit() {
+    return this.createSiteMode ? this.saveSite(false) : this.updateSite();
+  }
 
   onStepBack(): void {
     if (!this.createSiteMode) {
@@ -83,6 +89,30 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     }
   }
 
+  get siteToSave(): Site {
+    return {
+      ...this.site,
+      filtering: {
+        requires: [...this.addedItems],
+        excludes: [...this.excludedItems]
+      }
+    }
+  }
+
+  updateSite() {
+    this.changesSaved = true;
+    const updateSubscription = this.publisherService.updateSiteFiltering(this.siteToSave.id, this.siteToSave)
+      .subscribe(
+        () => {
+          const siteId = this.site.id;
+          this.store.dispatch(new publisherActions.ClearLastEditedSite());
+          this.router.navigate(['/publisher', 'site', siteId]);
+        }
+      );
+    this.subscriptions.push(updateSubscription);
+
+  }
+
   saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
@@ -90,41 +120,48 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     };
 
     this.changesSaved = true;
-
     this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
     if (!isDraft) {
-      const editSiteStep = this.goesToSummary ? 'summary' : 'create-ad-units';
-      const param = this.goesToSummary ? 4 : 3;
-
       this.router.navigate(
-        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', editSiteStep],
-        {queryParams: {step: param}}
+        ['/publisher', 'create-site', 'create-ad-units'],
+        {queryParams: {step: 3}}
       );
-
       return;
     }
-
     this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-
+    this.router.navigate(['/publisher', 'dashboard']);
   }
 
   getSiteFromStore() {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
       .subscribe((lastEditedSite: Site) => {
+        this.site = lastEditedSite;
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
+        this.getFiltering(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
           return;
         }
-
-        const filtering = lastEditedSite.filtering;
-
-        this.addedItems = [...filtering.requires];
-        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }
+
+  getFiltering(site) {
+    const filteringSubscription = this.store.select('state', 'publisher', 'filteringCriteria')
+      .subscribe((filteringOptions) => {
+        this.filteringOptions = filteringOptions;
+        this.filtering = parseTargetingOptionsToArray(site.filtering, this.filteringOptions);
+        this.addedItems = [...this.filtering.requires];
+        this.excludedItems = [...this.filtering.excludes];
+
+        if (!filteringOptions.length) {
+          this.store.dispatch(new publisherActions.GetFilteringCriteria());
+        }
+      });
+    this.subscriptions.push(filteringSubscription);
+  }
+
 }

@@ -2,7 +2,7 @@ interface TargetingOption {
   id: string;
   key: string;
   label: string;
-  value_type: string;
+  valueType: string;
   allow_input: boolean;
 
   children?: TargetingOption[];

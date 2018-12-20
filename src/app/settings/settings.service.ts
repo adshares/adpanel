@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { environment } from 'environments/environment';
-import { BillingHistoryItem, NotificationItem } from 'models/settings.model';
-import { User } from "models/user.model";
+import {environment} from 'environments/environment';
+import {BillingHistory, CalculateWithdrawalItem, NotificationItem} from 'models/settings.model';
+import {User} from "models/user.model";
 
 @Injectable()
 export class SettingsService {
@@ -13,9 +13,17 @@ export class SettingsService {
   constructor(private http: HttpClient) {
   }
 
-  getBillingHistory(): Observable<BillingHistoryItem[]> {
-    return this.http.get(`${environment.apiUrl}/wallet/history`)
-      .map((billingHisory: BillingHistoryItem[]) => billingHisory);
+  getBillingHistory(limit?: number, offset?: number): Observable<BillingHistory> {
+    let params = {};
+    if (limit) {
+      params['limit'] = limit.toString();
+    }
+    if (offset) {
+      params['offset'] = offset.toString();
+    }
+
+    return this.http.get(`${environment.apiUrl}/wallet/history`, {params: params})
+      .map((billingHistory: BillingHistory) => billingHistory);
   }
 
   getNotificationsSettings(): Observable<NotificationItem[]> {
@@ -34,6 +42,10 @@ export class SettingsService {
 
   changeWithdrawAddress(newWithdrawAddress: string) {
     return this.http.patch(`${environment.apiUrl}/wallet/settings`, {newWithdrawAddress});
+  }
+
+  calculateWithdrawal(to: string, amount?: number): Observable<CalculateWithdrawalItem> {
+    return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, {to, amount});
   }
 
   withdrawFunds(to: string, amount: number, memo: string) {

@@ -19,7 +19,7 @@
         >
           <mat-slide-toggle
             color="primary"
-            [checked]="true || ad.status === adStatusesEnum.ARCHIVED"
+            [checked]="ad.status === adStatusesEnum.ACTIVE"
             ([ngModel])="ad.status"
             (change)="changeAdStatus(ad.status)"
             data-test="advertiser-ad-change-ad-status-toggle"
@@ -48,8 +48,8 @@
           align-center"
       >
         <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
-          <img *ngIf="adType() === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner" class="adsh advertiser-detail-image-preview" />
-          <span *ngIf="adType() === 'HTML'">{{ adType() }}</span>
+          <img *ngIf="adType === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner" class="adsh advertiser-detail-image-preview" />
+          <span *ngIf="adType === 'HTML'">{{ adType }}</span>
         </span>
       </div>
       <div

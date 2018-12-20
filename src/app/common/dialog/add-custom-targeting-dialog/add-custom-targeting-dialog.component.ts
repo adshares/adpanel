@@ -34,7 +34,7 @@ export class AddCustomTargetingDialogComponent implements OnInit {
   createForm() {
     this.customTargetingFormSubmitted = false;
 
-    if (this.selectedCategory.value_type === 'number') {
+    if (this.selectedCategory.valueType === 'number') {
       this.customTargetingForm = new FormGroup({
         customTargetingValue: new FormControl(null, [Validators.required, Validators.min(0)]),
         customTargetingAction: new FormControl(0, Validators.required)
@@ -49,7 +49,7 @@ export class AddCustomTargetingDialogComponent implements OnInit {
   }
 
   addCustomTareting() {
-    const action = this.selectedCategory.value_type == 'number' ?
+    const action = this.selectedCategory.valueType == 'number' ?
       this.customTargetingForm.get('customTargetingAction').value : null;
 
     this.customTargetingFormSubmitted = true;

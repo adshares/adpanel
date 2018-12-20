@@ -1,5 +1,16 @@
 import {TableColumnMetaData} from 'models/table.model';
 
+function adsToClicks(amount: any): number {
+  if (typeof amount === 'number') {
+    amount = amount.toFixed(12);
+  }
+
+  let arr = amount.split('.');
+  arr[1] = arr[1].padEnd(11, '0').substring(0, 11);
+
+  return parseInt(arr[0] + arr[1]);
+}
+
 /**
  * Calculates campaign budget per hour in ADS.
  * @param budgetPerHour budget/hour in ADS
@@ -67,9 +78,15 @@ function formatMoney(
   const p = Math.max(precision, 2);
   const d = decimal;
   const t = thousand;
-  let v = value;
+  let v = ((value || '0') + '');
 
-  v = ((v || '0') + '').padStart(11, '0');
+  let s = '';
+  if (value < 0) {
+    s = '-';
+    v = v.substr(1);
+  }
+
+  v = v.padStart(11, '0');
   const l = v.length - 11;
   const a = v.substr(0, l) || '0';
   const j = a.length > 3 ? a.length % 3 : 0;
@@ -83,6 +100,7 @@ function formatMoney(
   }
 
   return (
+    s +
     (j ? a.substr(0, j) + t : '') +
     a.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) +
     d +
@@ -144,12 +162,20 @@ function findValueByPathArray(object, pathArray) {
   return pathArray.reduce((obj, partialPath) => obj[partialPath], object);
 }
 
+const simpleValidateHtmlStr = (html: string): boolean =>  {
+  const doc = document.createElement('div');
+  doc.innerHTML = html;
+  return (doc.innerHTML === html);
+};
+
 export {
+  adsToClicks,
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
   enumToArray,
   enumToObject,
+  simpleValidateHtmlStr,
   enumToObjectArray,
   formatMoney,
   isUnixTimePastNow,

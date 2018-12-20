@@ -161,7 +161,7 @@
         Site language:
         <span
           class="lowercase">
-          {{language.name}}
+          {{language && language.name}}
         </span>
       </p>
       <button
@@ -334,8 +334,7 @@
           ad-units
           row
           justify-between
-          align-center"
-      >
+          align-center">
         <p
           class="
             adsh-copy
@@ -349,7 +348,7 @@
            adsh-btn--white
            adsh-btn--no-border
            hidden-md"
-          (click)="navigateToEditSite('create-ad-units', 2)"
+          (click)="navigateToEditSite('create-ad-units', 3)"
           data-test="publisher-site-edit"
         >
           <img
@@ -362,10 +361,9 @@
           <span
             class="
             adsh-copy
-            adsh-copy--dark"
-          >
-      Edit Ad Units
-      </span>
+            adsh-copy--dark">
+             Edit Ad Units
+          </span>
         </button>
       </div>
       <app-ad-units
@@ -390,7 +388,7 @@
           adsh-btn--no-border
           adsh-heading
           adsh-heading--secondary"
-        (click)="navigateToCreateAdUnits()"
+        (click)="navigateToEditSite('create-ad-units', 3)"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img

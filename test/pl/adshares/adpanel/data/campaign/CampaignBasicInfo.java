@@ -1,29 +1,25 @@
 package pl.adshares.adpanel.data.campaign;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class CampaignBasicInfo {
   private final String name;
   private final String targetUrl;
-  private final String bidStrategy;
-  private final String bidValue;
-  private final String budget;
+  private final String Max_CPC;
+  private final String Max_CPM;
+  private final String ADS_day;
+  private final String ADS_hour;
   private final LocalDate startDate;
   private final LocalDate endDate;
 
-
-  public CampaignBasicInfo(String name, String targetUrl, String bidStrategy, String bidValue, String budget, LocalDate startDate) {
-    this(name, targetUrl, bidStrategy, bidValue, budget, startDate, null);
-  }
-
-  public CampaignBasicInfo(String name, String targetUrl, String bidStrategy, String bidValue, String budget, LocalDate startDate, LocalDate endDate) {
+  public CampaignBasicInfo(String name, String targetUrl, String Max_CPC, String Max_CPM, String ADS_day, String ADS_hour, LocalDate startDate, LocalDate endDate) {
     this.name = name;
     this.targetUrl = targetUrl;
-    this.bidStrategy = bidStrategy;
-    this.bidValue = bidValue;
-    this.budget = budget;
+    this.Max_CPC = Max_CPC;
+    this.Max_CPM = Max_CPM;
+    this.ADS_day = ADS_day;
+    this.ADS_hour = ADS_hour;
     this.startDate = startDate;
     this.endDate = endDate;
   }
@@ -31,30 +27,24 @@ public class CampaignBasicInfo {
   public String getName() {
     return name;
   }
-
   public String getTargetUrl() {
     return targetUrl;
   }
-
-  public String getBidStrategy() {
-    return bidStrategy;
+  public String getMax_CPC() {
+    return Max_CPC;
   }
-
-  public String getBidValue() {
-    return bidValue;
+  public String getMax_CPM() {
+    return Max_CPM;
   }
-
-  public String getBudget() {
-    return budget;
+  public String getADS_day() {
+    return ADS_day;
   }
-
+  public String getADS_hour() {
+    return ADS_hour;
+  }
   public LocalDate getStartDate() {
     return startDate;
   }
-
-  /**
-   * @return campaign end date or <b>null</b> if end is not defined
-   */
   public LocalDate getEndDate() {
     return endDate;
   }
@@ -66,16 +56,16 @@ public class CampaignBasicInfo {
     CampaignBasicInfo that = (CampaignBasicInfo) o;
     return Objects.equals(getName(), that.getName()) &&
       Objects.equals(getTargetUrl(), that.getTargetUrl()) &&
-      Objects.equals(getBidStrategy(), that.getBidStrategy()) &&
-      (new BigDecimal(getBidValue()).compareTo(new BigDecimal(that.getBidValue())) == 0) &&
-      (new BigDecimal(getBudget()).compareTo(new BigDecimal(that.getBudget())) == 0) &&
+      Objects.equals(getMax_CPC(), that.getMax_CPC()) &&
+      Objects.equals(getMax_CPM(), that.getMax_CPM()) &&
+      Objects.equals(getADS_day(), that.getADS_day()) &&
+      Objects.equals(getADS_hour(), that.getADS_hour()) &&
       getStartDate().isEqual(that.getStartDate()) &&
       ((getEndDate() == null && that.getEndDate() == null) || (getEndDate() != null && that.getEndDate() != null && getEndDate().isEqual(that.getEndDate())));
   }
 
   @Override
   public int hashCode() {
-
-    return Objects.hash(getName(), getTargetUrl(), getBidStrategy(), getBidValue(), getBudget(), getStartDate(), getEndDate());
+    return Objects.hash(getName(), getTargetUrl(), getMax_CPC(), getMax_CPM(), getADS_day(), getADS_hour(), getStartDate(), getEndDate());
   }
 }

@@ -28,6 +28,7 @@ $palette-colors: (
     base: #24d17e
   ),
   orange: (
+    dark: #ff9931,
     light: #e9faf2,
     base: #faf2cc
   ),
@@ -41,7 +42,7 @@ $palette-colors: (
   )
 );
 
-$main_colors: white, navy, blue, green, red;
+$main_colors: white, navy, blue, green, red, orange;
 
 
 @function palette($palette, $tone: 'base') {

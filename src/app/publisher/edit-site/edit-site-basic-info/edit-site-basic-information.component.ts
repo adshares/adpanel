@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
+import {MatDialog} from "@angular/material";
 import 'rxjs/add/operator/take';
+import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {AppState} from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -10,8 +12,8 @@ import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {cloneDeep} from 'common/utilities/helpers';
 import {siteInitialState} from 'models/initial-state/site';
 import {Site, SiteLanguage} from 'models/site.model';
-import {Observable} from "rxjs";
 import {PublisherService} from "publisher/publisher.service";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -32,6 +34,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -76,6 +79,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     if (!this.siteBasicInfoForm.valid) {
       return;
     }
+
     this.adjustSiteDataBeforeSave();
     const editSiteStep = this.goesToSummary ? 'summary' : 'additional-filtering';
     const param = this.goesToSummary ? 4 : 2;
@@ -89,7 +93,22 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   }
 
   adjustSiteDataBeforeSave(): void {
-    const chosenLanguage = this.siteBasicInfoForm.controls['primaryLanguage'].value;
+    let chosenLanguage = this.siteBasicInfoForm.controls['primaryLanguage'].value;
+
+    if (typeof chosenLanguage === 'string') {
+      chosenLanguage = this.getSiteLanguage(chosenLanguage)
+    }
+
+    if (!chosenLanguage) {
+      this.dialog.open(ErrorResponseDialogComponent, {
+        data: {
+          title: 'Invalid site language!',
+          message: `Fill site language field with correct data and submit`,
+        }
+      });
+      return;
+    }
+
     this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
@@ -138,15 +157,17 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   }
 
   getSiteLanguage(languageCode?: string | SiteLanguage): SiteLanguage {
-    let code;
+    let data;
 
     if (languageCode) {
-      code = typeof languageCode === 'string' ? languageCode : languageCode.code;
+      data = typeof languageCode === 'string' ? languageCode : languageCode.code;
     } else {
-      code = navigator.language.split('-')[0];
+      data = navigator.language.split('-')[0];
     }
 
-    return this.languages.find(lang =>  lang.code === code);
+    data = data.toLowerCase();
+
+    return this.languages.find(lang => lang.code.toLowerCase() === data || lang.name.toLowerCase() === data);
   }
 
   displayOption(language?): string {

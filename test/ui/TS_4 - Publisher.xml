@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TS 4 - Publisher" parallel="false">
-   <test name="TC_1 - Add new Site - BasicInformationSaveContinue" group-by-instances="true">
+  <test name="TC_1 - Add new Site - BasicInformationSaveContinue" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherBasicInformationSaveContinue"/>
-          <!--<include name="logOut"/>-->
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -17,10 +16,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherBasicInformationBackToDashboard"/>
-          <!--<include name="logOut"/>-->
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -29,9 +27,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherAdditionalTargetingsaveSaveContinue"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -40,9 +38,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherAdditionalTargetingsaveSaveDraft"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -51,9 +49,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherAdditionalTargetingsaveBack"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -62,119 +60,118 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherCreateAdUnitsSaveContinue"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
   </test>
-  <!--<test name="TC_7 - Add new Site - CreateAdUnitsSaveDraft" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstPublisher"/>-->
-          <!--<include name="publisherCreateAdUnitsSaveDraft"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
+  <test name="TC_7 - Add new Site - CreateAdUnitsSaveDraft" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherCreateAdUnitsSaveDraft"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
   <test name="TC_8 - Add new Site - CreateAdUnitsBack" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherCreateAdUnitsBack"/>
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
   </test>
-  <!--<test name="TC_9 - Add new Site - SummaryPublishSite" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstPublisher"/>-->
-          <!--<include name="publisherSummaryPublishSite"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_10 - Add new Site - SummarySaveDraft" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstPublisher"/>-->
-          <!--<include name="publisherSummarySaveDraft"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_11 - Add new Site - SummaryBack" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstPublisher"/>-->
-          <!--<include name="publisherSummaryBack"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>-->
-  <!--<test name="TC_12 - ViewSite" group-by-instances="true">-->
-    <!--<classes>-->
-      <!--<class name="pl.adshares.adpanel.AdPanel">-->
-        <!--<methods>-->
-          <!--<include name="logInRandomEmail"/>-->
-          <!--<include name="logInPopUpFirstPublisher"/>-->
-          <!--<include name="publisherViewSite"/>-->
-        <!--</methods>-->
-      <!--</class>-->
-    <!--</classes>-->
-  <!--</test>
-  <test name="TC_13 - ViewSite - EditBasicInformation" group-by-instances="true">-->
-  <!--<classes>-->
-    <!--<class name="pl.adshares.adpanel.AdPanel">-->
-      <!--<methods>-->
-        <!--<include name="logInRandomEmail"/>-->
-        <!--<include name="logInPopUpFirstPublisher"/>-->
-        <!--<include name="publisherEditBasicInformation"/>-->
-      <!--</methods>-->
-    <!--</class>-->
-  <!--</classes>-->
-<!--</test>
-<test name="TC_14 - ViewSite - EditAdditionalTargeting" group-by-instances="true">-->
-  <!--<classes>-->
-    <!--<class name="pl.adshares.adpanel.AdPanel">-->
-      <!--<methods>-->
-        <!--<include name="logInRandomEmail"/>-->
-        <!--<include name="logInPopUpFirstPublisher"/>-->
-        <!--<include name="publisherEditAdditionalTargeting"/>-->
-      <!--</methods>-->
-    <!--</class>-->
-  <!--</classes>-->
-<!--</test>  <test name="TC_15 - ViewSite - EditAds" group-by-instances="true">-->
-  <!--<classes>-->
-    <!--<class name="pl.adshares.adpanel.AdPanel">-->
-      <!--<methods>-->
-        <!--<include name="logInRandomEmail"/>-->
-        <!--<include name="logInPopUpFirstPublisher"/>-->
-        <!--<include name="publisherEditAds"/>-->
-      <!--</methods>-->
-    <!--</class>-->
-  <!--</classes>-->
-<!--</test>-->
+  <test name="TC_9 - Add new Site - SummaryPublishSite" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherSummaryPublishSite"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_10 - Add new Site - SummarySaveDraft" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherSummarySaveDraft"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_11 - Add new Site - SummaryBack" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherSummaryBack"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_12 - ViewSite" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherViewSite"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_13 - ViewSite - EditBasicInformation" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherEditBasicInformation"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_14 - ViewSite - EditAdditionalTargeting" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherEditAdditionalTargeting"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TC_15 - ViewSite - EditAds" group-by-instances="true">
+    <classes>
+      <class name="pl.adshares.adpanel.AdPanel">
+        <methods>
+          <include name="logInUserPublisher"/>
+          <include name="publisherEditAds"/>
+          <include name="logOut"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
   <test name="TC_19 - Add new Site - BasicInformationError" group-by-instances="true">
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherBasicInformationError"/>
-          <!--<include name="logOut"/>-->
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>
@@ -183,11 +180,9 @@
     <classes>
       <class name="pl.adshares.adpanel.AdPanel">
         <methods>
-          <include name="logInRandomEmail"/>
-          <include name="logInPopUpFirstPublisher"/>
+          <include name="logInUserPublisher"/>
           <include name="publisherCreateAdUnitsError"/>
-          <include name="sleep"/>
-          <!--<include name="logOut"/>-->
+          <include name="logOut"/>
         </methods>
       </class>
     </classes>

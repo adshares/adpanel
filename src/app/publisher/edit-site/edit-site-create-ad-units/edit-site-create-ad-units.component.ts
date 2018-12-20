@@ -16,7 +16,6 @@ import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
-import {ClearLastEditedSite} from "store/publisher/publisher.actions";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
@@ -27,7 +26,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
-  adSizesOptions: string[] = enumToArray(adSizesEnum);
+  adSizesOptions: string[]=[];
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
   filteredAdUnitSizes: AdUnitSize[][] = [];
@@ -52,14 +51,26 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
-    this.adSizesOptions.unshift('Recommended');
-    this.adSizesOptions.unshift('All');
+
+    this.getOptions();
     this.fillFormWithData();
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((site: Site) => {
         this.site = site;
       });
     this.subscriptions.push(lastSiteSubscription);
+  }
+
+  getOptions(): void {
+    const tags = this.adUnitSizesArray
+      .map(unit => unit.tags)
+      .reduce((arr1, arr2) => arr1.concat(arr2))
+      .filter((item, pos, self) => self.indexOf(item) === pos)
+      .filter(item => item !== 'best');
+    this.adSizesOptions.push('Recommended');
+    this.adSizesOptions.push('All');
+    this.adSizesOptions.push(...tags);
+
   }
 
   ngOnDestroy() {
@@ -93,6 +104,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   createEmptyAd(): void {
+    this.adUnitsSubmitted = false;
     this.adUnitForms.push(this.generateFormField(adUnitInitialState));
     this.adUnitPanelsStatus.fill(false);
     this.adUnitPanelsStatus.push(true);
@@ -126,32 +138,19 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) =>
-      filterValue === 'Recommended'
-        ? adUnitSize.tags.includes('best')
-        : (filterValue === 'All'
-          ? true
-          : parseInt(adSizesEnum[filterValue]) === adUnitSize.size
-        )
-    );
-
-    this.filteredAdUnitSizes[adUnitIndex].find(adUnit =>
-      adUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label).selected = true;
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) => {
+      if (filterValue === 'Recommended') {
+        return adUnitSize.tags.includes('best')
+      } else if (filterValue === 'All') {
+        return true
+      } else {
+        return adUnitSize.tags.includes(filterValue)
+      }
+    });
   }
 
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
     this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
-    this.allAdUnitSizes[adUnitIndex].forEach((filteredAdUnit) => {
-      filteredAdUnit.selected = filteredAdUnit.label === this.adUnitForms[adUnitIndex].get('size').value.label;
-    });
-
-    this.filteredAdUnitSizes[adUnitIndex].forEach(adUnit => {
-        adUnit.selected = false;
-        if (!!this.allAdUnitSizes[adUnitIndex].find(unit => unit.selected === true && unit.label === adUnit.label)) {
-          adUnit.selected = true
-        }
-      }
-    )
   }
 
   onSubmit(): void {
@@ -170,9 +169,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   updateAdUnits(): void {
+    this.adUnitsSubmitted = true;
+
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
     if (!adUnitsValid) return;
-    this.changesSaved = true;
+
     this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
 
     const updateSubscription = this.publisherService.updateSiteData(this.site.id, this.site)
@@ -211,6 +212,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
       });
       return;
     }
+
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
@@ -222,6 +224,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   redirectAfterSave(isDraft: boolean): void {
+
     if (!isDraft) {
       this.router.navigate(
         ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],

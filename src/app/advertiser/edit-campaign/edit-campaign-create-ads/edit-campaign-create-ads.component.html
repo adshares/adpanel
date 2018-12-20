@@ -333,7 +333,8 @@
               html-textarea-wrapper"
             *ngIf="
               (adForm.get('type').value === 1 && !ads[i]) ||
-              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html))"
+              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html)) ||
+              (adForm.get('type').value === 1 && editHtmlMode[i])"
           >
           <span
             class="
@@ -383,7 +384,7 @@
               adsh-box__preview"
             *ngIf="
               (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
-              (adForm.get('type').value === 1) && ads[i].html"
+              (adForm.get('type').value === 1) && ads[i].html && !editHtmlMode[i]"
           >
             <div
               class="
@@ -392,27 +393,39 @@
                 adsh-copy--light">
               Preview
             </div>
-
-            <iframe
-              [ngStyle]="{
+            <div class="image-banner"
+                 [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
-              *ngIf="adForm.get('image') && adForm.get('image').value.src"
-              [src]="adForm.get('image').value.src | trustUrl"
-            >
+                 *ngIf="adForm.get('image') && adForm.get('image').value.src">
+              <img [src]="adForm.get('image').value.src | trustUrl"
+                   [style.transform]="'scale('+ scaleImageToMatchBanner(i)+ ')'"
+              />
+            </div>
 
-            </iframe>
+
 
             <div *ngIf="ads[i].html">
               <iframe
-              [ngStyle]="{
+                [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }"
 
                 [srcdoc]="ads[i].html | trustHtml"
               ></iframe>
+
+              <button
+                class="
+                  adsh-btn
+                  adsh-btn--white
+                  adsh-blue"
+                (click)="editCode(i)"
+                data-test="advertiser-edit-campaign-create-ads-form-ad-html-clear"
+              >
+                Edit Code
+              </button>
 
               <button
                 *ngIf="!isEditMode"
@@ -485,23 +498,20 @@
       row
       justify-between"
   >
-    <a
-      routerLink="../additional-targeting"
-      [queryParams]="{step: 2}"
-      data-test="advertiser-edit-campaign-navigate-back"
-    >
-      <button
-        class="
+    <button
+      class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
-      >
-        Back
-      </button>
-    </a>
+      (click)="onStepBack()"
+      data-test="advertiser-edit-campaign-navigate-back"
+    >
+      Back
+    </button>
 
     <div class="row">
       <button
+        *ngIf="!isEditMode"
         (click)="saveCampaignAds(true)"
         class="
           adsh-btn
@@ -512,14 +522,14 @@
       >
         Save as Draft
       </button>
-      <button
-        (click)="saveCampaignAds(false)"
-        class="
-          adsh-btn
-          adsh-btn--blue"
-        data-test="advertiser-edit-campaign-save-and-continue"
+      <button class="adsh-btn
+                     adsh-btn--blue"
+              (click)="onSubmit()"
+              data-test="advertiser-edit-campaign-save-and-continue"
       >
-        <span *ngIf="!changesSaved ; else loading">Save & Continue</span>
+        <span *ngIf="!changesSaved ; else loading">
+          {{isEditMode ? 'Update' : 'Save & Continue'}}
+        </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
