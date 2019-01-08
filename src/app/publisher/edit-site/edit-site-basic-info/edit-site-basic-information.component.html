@@ -44,11 +44,11 @@
         >
         <span
           class="input-valid"
-          *ngIf="siteBasicInfoForm.controls['name'].valid && siteBasicInfoForm.controls['name'].touched"
+          *ngIf="siteBasicInfoForm.get('name').valid && siteBasicInfoForm.get('name').touched"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!siteBasicInfoForm.controls['name'].valid && siteBasicInfoSubmitted"
+          *ngIf="!siteBasicInfoForm.get('name').valid && siteBasicInfoSubmitted"
         >
           Please provide a valid URL.
         </span>
