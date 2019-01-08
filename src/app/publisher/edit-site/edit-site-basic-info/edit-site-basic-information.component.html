@@ -34,23 +34,21 @@
         </label>
 
         <input
+          formControlName="name"
           id="siteUrl"
           class="
             adsh-form-input
             adsh-form-input--full"
-          name="siteUrl"
-          type="url"
-          formControlName="name"
+          type="text"
           data-test="publisher-edit-site-basic-information-form-url"
         >
-
         <span
           class="input-valid"
-          *ngIf="siteBasicInfoForm.get('name').valid && siteBasicInfoForm.get('name').touched"
+          *ngIf="siteBasicInfoForm.controls['name'].valid && siteBasicInfoForm.controls['name'].touched"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!siteBasicInfoForm.get('name').valid && siteBasicInfoSubmitted"
+          *ngIf="!siteBasicInfoForm.controls['name'].valid && siteBasicInfoSubmitted"
         >
           Please provide a valid URL.
         </span>
