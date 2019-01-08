@@ -42,9 +42,10 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createSiteMode = !!this.router.url.match('/create-site/');
+    this.createForm();
     this.getLanguages();
 
-    this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
+    this.filteredOptions =  this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
@@ -60,7 +61,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
         if (!this.languages.length) {
           this.store.dispatch(new PublisherActions.GetLanguagesList());
         } else {
-          this.createForm();
+          this.getFormDataFromStore();
         }
       });
   }
@@ -134,13 +135,9 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
-      name: new FormControl(siteInitialState.name, [
-        Validators.required
-      ]),
+      name: new FormControl(siteInitialState.name,  Validators.required),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
-
-    this.getFormDataFromStore();
   }
 
   getFormDataFromStore(): void {
