@@ -32,6 +32,7 @@
           List of all campaigns
         </p>
       </div>
+<!--
       <div
         class="
           col-xs-12
@@ -42,13 +43,15 @@
           (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
         ></app-chart-filter>
       </div>
+-->
     </div>
 
     <div *ngIf="campaigns">
+<!--
       <div
         class="
           adsh-box
-          adsh-box--large
+          adsh-box&#45;&#45;large
           hidden-md"
       >
         <app-chart-filter-by-type
@@ -74,6 +77,7 @@
           ></app-chart>
         </div>
       </div>
+-->
 
       <app-campaign-list
         [campaigns]="campaigns"
