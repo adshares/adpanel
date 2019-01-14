@@ -46,7 +46,7 @@
 -->
     </div>
 
-    <div *ngIf="campaigns.length">
+    <div *ngIf="!!campaigns.length">
 <!--
       <div
         class="
@@ -87,7 +87,7 @@
 
     <div
       class="hidden-md"
-      *ngIf="!campaigns"
+      *ngIf="!campaigns.length"
     >
       <div
         class="
