@@ -14,6 +14,7 @@ import {AppState} from "models/app-state.model";
 import {MatDialog} from "@angular/material";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {siteStatusEnum} from "models/enum/site.enum";
+import * as codes from 'common/utilities/codes';
 
 @Injectable()
 export class PublisherService {
@@ -88,7 +89,7 @@ export class PublisherService {
         this.router.navigate(['/publisher', 'dashboard']);
       },
       (err) => {
-        if (err.status === 500) return;
+        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',
