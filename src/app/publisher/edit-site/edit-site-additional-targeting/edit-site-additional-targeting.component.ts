@@ -122,15 +122,15 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.changesSaved = true;
     this.store.dispatch(new publisherActions.SaveSiteFiltering(chosenTargeting));
 
-    if (!isDraft) {
-      this.router.navigate(
-        ['/publisher', 'create-site', 'create-ad-units'],
-        {queryParams: {step: 3}}
-      );
+    if (isDraft) {
+      this.publisherService.saveAsDraft(this.site);
       return;
     }
-    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-    this.router.navigate(['/publisher', 'dashboard']);
+
+    this.router.navigate(
+      ['/publisher', 'create-site', 'create-ad-units'],
+      {queryParams: {step: 3}}
+    );
   }
 
   getSiteFromStore() {
