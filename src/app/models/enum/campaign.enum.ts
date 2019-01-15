@@ -1,5 +1,6 @@
 export enum campaignStatusesEnum {
   DRAFT,
   INACTIVE,
-  ACTIVE
+  ACTIVE,
+  SUSPENDED
 }
