@@ -1,17 +1,30 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+import {Router} from "@angular/router";
 
-import { environment } from 'environments/environment';
-import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
-import { TargetingOption } from 'models/targeting-option.model';
-import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {environment} from 'environments/environment';
+import {AdUnitSize, Site, SiteLanguage, SitesTotals} from 'models/site.model';
+import {TargetingOption} from 'models/targeting-option.model';
+import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
+import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
+import * as publisherActions from "store/publisher/publisher.actions";
+import {AppState} from "models/app-state.model";
+import {MatDialog} from "@angular/material";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {siteStatusEnum} from "models/enum/site.enum";
+import * as codes from 'common/utilities/codes';
 
 @Injectable()
 export class PublisherService {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private store: Store<AppState>,
+    private router: Router,
+    private dialog: MatDialog
+  ) {
   }
 
   getSites(timespan: TimespanFilter): Observable<Site[]> {
@@ -61,5 +74,29 @@ export class PublisherService {
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
     return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
+  }
+
+  saveAsDraft(site: Site): void {
+    site = {
+      ...site,
+      status: siteStatusEnum.DRAFT
+    };
+
+    this.saveSite(site).subscribe(
+      () => {
+        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
+        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+        this.router.navigate(['/publisher', 'dashboard']);
+      },
+      (err) => {
+        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: 'Ups! Something went wrong...',
+            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
+          }
+        });
+      }
+    );
   }
 }

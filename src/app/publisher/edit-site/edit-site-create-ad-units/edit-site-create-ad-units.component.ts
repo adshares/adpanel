@@ -26,7 +26,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
-  adSizesOptions: string[]=[];
+  adSizesOptions: string[] = [];
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
   filteredAdUnitSizes: AdUnitSize[][] = [];
@@ -224,16 +224,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   redirectAfterSave(isDraft: boolean): void {
-
-    if (!isDraft) {
-      this.router.navigate(
-        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
-        {queryParams: {step: 4}}
-      );
+    if (isDraft) {
+      this.publisherService.saveAsDraft(this.site);
       return;
     }
-    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-    this.router.navigate(['/publisher', 'dashboard']);
+
+    this.router.navigate(
+      ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
+      {queryParams: {step: 4}}
+    );
   }
 
   removeNewAdUnit(adIndex: number): void {
