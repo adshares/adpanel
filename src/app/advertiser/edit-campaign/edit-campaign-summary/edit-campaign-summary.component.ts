@@ -80,7 +80,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to add a new campaign due to this error:  ${err}. Please try again later.`,
+            message: `We weren\'t able to update your campaign due to this error:  ${err}. Please try again later.`,
           }
         });
       }
@@ -99,7 +99,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
             title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to update your campaign due to this error:  ${err}. Please try again later.`,
+            message: `We weren\'t able to add a new campaign due to this error:  ${err}. Please try again later.`,
           }
         });
       }
