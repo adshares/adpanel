@@ -54,12 +54,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getSiteFromStore();
-
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .subscribe((lastEditedSite: Site) => {
-        this.site = lastEditedSite;
-      });
-    this.subscriptions.push(lastSiteSubscription);
   }
 
   ngOnDestroy() {
@@ -153,10 +147,10 @@ export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess
     const filteringSubscription = this.store.select('state', 'publisher', 'filteringCriteria')
       .subscribe((filteringOptions) => {
         this.filteringOptions = filteringOptions;
-        this.filtering = parseTargetingOptionsToArray(site.filtering, this.filteringOptions);
+        this.filtering = this.createSiteMode ? site.filtering : parseTargetingOptionsToArray(site.filtering, this.filteringOptions);
+
         this.addedItems = [...this.filtering.requires];
         this.excludedItems = [...this.filtering.excludes];
-
         if (!filteringOptions.length) {
           this.store.dispatch(new publisherActions.GetFilteringCriteria());
         }
