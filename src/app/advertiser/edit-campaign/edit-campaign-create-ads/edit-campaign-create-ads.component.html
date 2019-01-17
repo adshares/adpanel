@@ -392,7 +392,7 @@
                 adsh-copy--light">
               Preview
             </div>
-            <div class="image-banner"
+            <div class="banner image-banner"
                  [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
@@ -405,7 +405,8 @@
 
 
 
-            <div *ngIf="ads[i].html">
+            <div *ngIf="ads[i].html"
+                 class="banner">
               <iframe
                 [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
