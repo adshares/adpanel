@@ -158,13 +158,13 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   onStepBack(): void {
-    if (!this.createSiteMode) {
+    if (this.createSiteMode) {
+      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
+        {queryParams: {step: 2}})
+    } else {
       const siteId = this.site.id;
       this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
       this.router.navigate(['/publisher', 'site', siteId]);
-    } else {
-      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
-        {queryParams: {step: 2}})
     }
   }
 

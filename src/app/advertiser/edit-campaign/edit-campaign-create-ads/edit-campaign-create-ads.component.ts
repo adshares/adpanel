@@ -368,10 +368,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   onStepBack(): void {
     if (this.isEditMode) {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
-      this.router.navigate(['/advertiser', 'create-site', 'additional-targeting'],
+      this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'],
         {queryParams: {step: 2}})
     }
   }
