@@ -110,7 +110,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   getTargeting() {
-    this.campaign.targeting= {
+    this.campaign.targeting = {
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
@@ -120,14 +120,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   getChartData(chartFilterSettings) {
     this.barChartData[0].data = [];
-
     const chartDataSubscription = this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentAssetId,
-        chartFilterSettings.currentSeries
+        this.campaign.id,
+        chartFilterSettings.currentSeries,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;

@@ -498,6 +498,40 @@
 
     <!--̣Campaign list section-->
 
+    <div
+      class="
+          adsh-box
+          adsh-box--large
+          hidden-md"
+    >
+      <div>
+        <app-chart-filter
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
+      </div>
+
+      <div
+        class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+      >
+        <app-chart
+          class="
+              chart
+              row
+              align-center
+              justify-center"
+          (update)="getChartData($event)"
+          [barChartData]="barChartData"
+          [barChartLabels]="barChartLabels"
+        ></app-chart>
+      </div>
+    </div>
+
+    <!--̣Campaign list section-->
+
     <section class="col">
       <div
         class="
