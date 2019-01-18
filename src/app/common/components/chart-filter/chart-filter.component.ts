@@ -52,7 +52,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
 
     if (!isFromDatepicker) {
       this.dateFrom.setValue(moment().startOf('day').subtract(from, 'days'));
-      this.dateTo.setValue(moment().startOf('day').subtract(1, 'seconds'));
+      this.dateTo.setValue(moment().startOf('day'));
     }
   }
 
