@@ -1,20 +1,28 @@
 export enum adminChartSeriesEnum {
   SALDO,
-  VIEWS,
+  VIEW,
   CLICKS
 }
 
 export enum chartSeriesEnum {
-  VIEWS,
-  IMPRESSIONS,
-  CLICKS,
-  RPM,
+  VIEW,
+  CLICK,
   CPC,
-  CTR
+  CTR,
+  CPM,
+  SUM
+}
+export enum advChartSeriesEnum {
+  VIEW,
+  CLICK,
+  CPC,
+  CTR,
+  CPM,
+  SUM
 }
 
 export enum filterPresetsEnum {
-  'Today' = 1,
+  'Today' = 0,
   'This Week' = 7,
-  'This Month' = 30
+  'Last 30 days' = 30
 }

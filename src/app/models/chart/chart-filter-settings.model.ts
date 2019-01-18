@@ -3,7 +3,9 @@ export interface ChartFilterSettings {
   currentFrom: string;
   currentFrequency: string;
   currentAssetId: number;
+  currentBannerId: number;
   currentSeries?: string;
+  type?: string;
 }
 
 export interface TimespanFilter {

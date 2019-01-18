@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { ChartReceivedData } from 'models/chart/chart-received-data.model';
-import { environment } from 'environments/environment';
+import {ChartReceivedData} from 'models/chart/chart-received-data.model';
+import {environment} from 'environments/environment';
 
 @Injectable()
 export class ChartService {
@@ -12,9 +12,29 @@ export class ChartService {
   constructor(private http: HttpClient) {
   }
 
-  getAssetChartData(from, to, frequency, id, series): Observable<ChartReceivedData> {
-    return this.http.post(`${environment.apiUrl}/chart`, {from, to, frequency, id, series})
-      .map((chartData: any) => chartData);
+  getAssetChartData(from, to, frequency, campaignId: number, type: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/campaigns/stats/chart/${type}/${frequency}/${from}/${to}`, {
+      params: {
+        campaign_id: `${campaignId}`
+      }
+    })
+      .map((chartData: any) => {
+        let dataObject = {
+          timestamps: [],
+          values: [],
+          total: 0,
+        };
+
+        chartData.map((arr) => {
+          dataObject = {
+            ...dataObject,
+            timestamps: [...dataObject.timestamps, arr[0]],
+            values: [...dataObject.values, arr[1]],
+            total: dataObject.total + arr[1]
+          };
+        });
+        return dataObject
+      })
   }
 
   getAssetChartDataForPublisher(from, to, frequency, id): Observable<ChartReceivedData> {

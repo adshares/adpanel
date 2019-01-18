@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
-import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {Component, EventEmitter, OnChanges, OnInit, Output} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {HandleSubscription} from 'common/handle-subscription';
+import {AppState} from 'models/app-state.model';
+import {ChartFilterSettings, FilterPreset, TimespanFilter} from 'models/chart/chart-filter-settings.model';
 
 import * as moment from 'moment';
-import { filterPresetsEnum } from "models/enum/chart.enum";
-import { enumToObjectArray } from "common/utilities/helpers";
+import {filterPresetsEnum} from "models/enum/chart.enum";
+import {enumToObjectArray} from "common/utilities/helpers";
 
 @Component({
   selector: 'app-chart-filter',
@@ -43,16 +43,16 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   filterChart(from, to, isFromDatepicker) {
+
     const timespan = {
-      from: isNaN(from) ? from.value._d : moment().subtract(from, 'days'),
+      from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
       to: isNaN(to) ? to.value._d : moment()
     };
-
     this.filter.emit(timespan);
 
     if (!isFromDatepicker) {
-      this.dateFrom.setValue(moment().subtract(from, 'days'));
-      this.dateTo.setValue(moment());
+      this.dateFrom.setValue(moment().startOf('day').subtract(from, 'days'));
+      this.dateTo.setValue(moment().startOf('day').subtract(1, 'seconds'));
     }
   }
 

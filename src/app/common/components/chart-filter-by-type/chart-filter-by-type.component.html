@@ -1,11 +1,11 @@
 <div class="filters">
   <div class="row user-filters">
     <div
+      *ngIf="!userData.isAdmin"
       class="
         col-xs-12
         col-sm-6
         col-md-2"
-      *ngIf="!userData.isAdmin"
     >
       <mat-select
         class="adsh-select"

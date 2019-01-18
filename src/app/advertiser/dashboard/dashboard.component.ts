@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ChartComponent } from 'common/components/chart/chart.component';
-import { CampaignListComponent } from 'advertiser/campaign-list/campaign-list.component';
-import { ChartService } from 'common/chart.service';
-import { HandleSubscription } from 'common/handle-subscription';
-import { Campaign, CampaignsTotals } from 'models/campaign.model';
-import { AppState } from 'models/app-state.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { createInitialArray } from 'common/utilities/helpers';
+import {ChartComponent} from 'common/components/chart/chart.component';
+import {CampaignListComponent} from 'advertiser/campaign-list/campaign-list.component';
+import {ChartService} from 'common/chart.service';
+import {HandleSubscription} from 'common/handle-subscription';
+import {Campaign, CampaignsTotals} from 'models/campaign.model';
+import {AppState} from 'models/app-state.model';
+import {ChartData} from 'models/chart/chart-data.model';
+import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import {createInitialArray} from 'common/utilities/helpers';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
@@ -65,7 +65,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentAssetId,
-        chartFilterSettings.currentSeries
+        chartFilterSettings.currentSeries,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
