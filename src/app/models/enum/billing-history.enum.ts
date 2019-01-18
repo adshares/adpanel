@@ -3,6 +3,7 @@ export enum billingHistoryItemStatusEnum {
   PENDING,
   REJECTED,
   BLOCKED,
+  PROCESSING,
 }
 
 export enum billingHistoryItemTypeEnum {
