@@ -38,7 +38,7 @@
           col-md-9"
       >
         <app-chart-filter
-          *ngIf="campaigns"
+          *ngIf="!!campaigns.length"
           (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
         ></app-chart-filter>
       </div>
