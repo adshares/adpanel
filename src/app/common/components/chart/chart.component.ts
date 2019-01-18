@@ -45,15 +45,16 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
 
   updateChartData(timespan) {
     const from = this.currentChartFilterSettings.currentFrom = moment(timespan.from).startOf('day').format();
-    const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).format();
+    const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).endOf('day').format();
     const daysSpan = moment(to).diff(moment(from), 'days');
-    if (daysSpan <= 1) {
+
+    if (daysSpan <= 2) {
       this.currentChartFilterSettings.currentFrequency = 'hour';
-    } else if (daysSpan <= 7) {
-      this.currentChartFilterSettings.currentFrequency = 'day';
     } else if (daysSpan <= 31) {
+      this.currentChartFilterSettings.currentFrequency = 'day';
+    } else if (daysSpan <= 182) {
       this.currentChartFilterSettings.currentFrequency = 'week';
-    } else if (daysSpan <= 365){
+    } else if (daysSpan <= 730){
       this.currentChartFilterSettings.currentFrequency = 'month';
     } else {
       this.currentChartFilterSettings.currentFrequency = 'year';
