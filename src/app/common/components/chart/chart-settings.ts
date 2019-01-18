@@ -1,7 +1,22 @@
-import { ChartOptions } from 'models/chart/chart-options.model';
-import { ChartColors } from 'models/chart/chart-colors.model';
-import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
+import {ChartOptions} from 'models/chart/chart-options.model';
+import {ChartColors} from 'models/chart/chart-colors.model';
+import {ChartJsComputedData, TooltipItem} from 'models/chart/chart-other.model';
 import * as moment from 'moment';
+
+const adjustLabelFormat = (value, index, values, fullDateFormat) => {
+  const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
+  if (daysSpan === 0) {
+    return moment(value).format('LT');
+  } else if (daysSpan <= 2) {
+    return moment(value).format('ddd LT');
+  } else if (daysSpan <= 7) {
+    return moment(value).format(fullDateFormat);
+  } else if (daysSpan <= 31) {
+    return moment(value).format(fullDateFormat);
+  } else if (daysSpan > 31) {
+    return moment(value).format(fullDateFormat);
+  }
+};
 
 const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,
@@ -13,7 +28,8 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        return moment(data.labels[tooltipItems[0].index]).format('DD MMM YYYY') || '';
+        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels, 'DD MMM YYYY');
+        return value;
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
         let label = data.datasets[0].currentSeries || '';
@@ -111,18 +127,7 @@ const chartOptions: ChartOptions = {
         fontColor: '#aebac7',
         fontSize: 13,
         beginAtZero: true,
-
-        callback: function (value, index, values) {
-          if (values.length <= 1) {
-            return moment(value).format('HH:mm A');
-          } else if (values.length <= 7) {
-            return moment(value).format('DD/MM/YYYY HH:mm A');
-          } else if (values.length <= 31) {
-            return moment(value).format('DD/MM/YYYY');
-          } else {
-            return moment(value).format('DD/MM/YYYY');
-          }
-        }
+        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'DD/MM/Y'),
       }
     }],
     yAxes: [{
@@ -152,4 +157,4 @@ const chartColors: ChartColors[] = [
   }
 ];
 
-export { chartOptions, chartColors };
+export {chartOptions, chartColors};
