@@ -4,7 +4,7 @@ import {ChartJsComputedData, TooltipItem} from 'models/chart/chart-other.model';
 import * as moment from 'moment';
 
 const adjustLabelFormat = (value, index, values, fullDateFormat) => {
-  const daysSpan = moment(values[values.length -1]).diff(moment(values[0]), 'days');
+  const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
   if (daysSpan === 0) {
     return moment(value).format('LT');
   } else if (daysSpan <= 2) {
@@ -13,7 +13,7 @@ const adjustLabelFormat = (value, index, values, fullDateFormat) => {
     return moment(value).format(fullDateFormat);
   } else if (daysSpan <= 31) {
     return moment(value).format(fullDateFormat);
-  } else if (daysSpan > 31){
+  } else if (daysSpan > 31) {
     return moment(value).format(fullDateFormat);
   }
 };
@@ -127,8 +127,8 @@ const chartOptions: ChartOptions = {
         fontColor: '#aebac7',
         fontSize: 13,
         beginAtZero: true,
-        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'DD/MM/Y')
-
+        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'DD/MM/Y'),
+      }
     }],
     yAxes: [{
       gridLines: {
