@@ -14,7 +14,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ChartsModule } from 'ng2-charts';
 
 import { CommonService } from './common.service';
-import { CustomizeAccountChooseDialogComponent } from './dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dialog.component';
@@ -57,7 +56,6 @@ const matModules = [
 ];
 
 const dialogs = [
-  CustomizeAccountChooseDialogComponent,
   AccountChooseDialogComponent,
   LeaveEditProcessDialogComponent,
   AddFundsDialogComponent,

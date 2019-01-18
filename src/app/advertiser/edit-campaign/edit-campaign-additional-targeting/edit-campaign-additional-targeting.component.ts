@@ -67,11 +67,11 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   onStepBack(): void {
     if (this.createCampaignMode) {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(
         ['/advertiser', 'create-campaign', 'basic-information'],
         {queryParams: {step: 1}});
     } else {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     }
   }
