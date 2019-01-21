@@ -37,6 +37,31 @@ export class ChartService {
       })
   }
 
+  getTableStatisticksData(role: string, dateStart: string, dateEnd: string, id ): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/${role}/stats/table/${dateStart}/${dateEnd}`, {
+      params: {
+        campaign_id: `${id}`
+      }
+    })
+      .map((chartData: any) => {
+        let dataObject = {
+          timestamps: [],
+          values: [],
+          total: 0,
+        };
+
+        chartData.map((arr) => {
+          dataObject = {
+            ...dataObject,
+            timestamps: [...dataObject.timestamps, arr[0]],
+            values: [...dataObject.values, arr[1]],
+            total: dataObject.total + arr[1]
+          };
+        });
+        return dataObject
+      })
+  }
+
   getAssetChartDataForPublisher(from, to, frequency, id): Observable<ChartReceivedData> {
     return this.http.post(`${environment.apiUrl}/publisher_chart`, {from, to, frequency, id})
       .map((chartData: any) => chartData);

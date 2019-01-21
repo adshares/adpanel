@@ -14,6 +14,8 @@ export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
 export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
+export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loaded';
+export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loaded success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -64,6 +66,18 @@ export class AddCampaignToCampaignsSuccess implements Action {
   }
 }
 
+export class LoadCampaignBannerData implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA;
+
+  constructor(public payload: any) {
+  }
+}
+export class LoadCampaignBannerDataSuccess implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 

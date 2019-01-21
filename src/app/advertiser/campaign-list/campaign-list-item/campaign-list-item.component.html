@@ -63,7 +63,7 @@
           align-center"
         data-test="advertiser-campaign-clicks"
       >
-        <span>{{ campaign.clicks }}</span>
+        <span>{{ campaignTotals.clicks }}</span>
       </div>
       <div
         class="
@@ -72,7 +72,7 @@
           align-center"
         data-test="advertiser-campaign-impressions"
       >
-        <span>{{ campaign.impressions }}</span>
+        <span>{{ campaignTotals.impressions }}</span>
       </div>
       <div
         class="
@@ -81,7 +81,7 @@
           align-center"
         data-test="advertiser-campaign-ctr"
       >
-        <span>{{ campaign.CTR | percent:'1.2-2' }}</span>
+        <span>{{ campaignTotals.ctr | percent:'1.2-2' }}</span>
       </div>
       <div
         class="
@@ -90,7 +90,7 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ campaign.averageCPC | number:'1.2-2' }}</span>
+        <span>{{ campaignTotals.averageCpc }} ADS</span>
       </div>
       <div
         class="
@@ -99,7 +99,7 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ campaign.cost | number:'1.2-2' }}</span>
+        <span>{{ campaignTotals.cost }} ADS</span>
       </div>
       <div
         class="
