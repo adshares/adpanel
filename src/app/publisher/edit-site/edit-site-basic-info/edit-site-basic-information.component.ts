@@ -34,9 +34,7 @@ export class EditSiteBasicInformationComponent implements OnInit {
     private publisherService: PublisherService,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);

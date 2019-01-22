@@ -73,7 +73,6 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     private session: SessionService,
     private matDialog: MatDialog,
   ) {
-    super();
   }
 
   ngOnInit() {

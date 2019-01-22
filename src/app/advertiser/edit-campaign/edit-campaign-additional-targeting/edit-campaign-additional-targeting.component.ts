@@ -18,7 +18,7 @@ import {TargetingSelectComponent} from 'common/components/targeting/targeting-se
   templateUrl: './edit-campaign-additional-targeting.component.html',
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
-export class EditCampaignAdditionalTargetingComponent  implements OnInit, OnDestroy {
+export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestroy {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
@@ -38,9 +38,7 @@ export class EditCampaignAdditionalTargetingComponent  implements OnInit, OnDest
     private router: Router,
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);

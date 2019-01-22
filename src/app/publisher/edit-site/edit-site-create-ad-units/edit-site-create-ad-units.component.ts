@@ -43,9 +43,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');

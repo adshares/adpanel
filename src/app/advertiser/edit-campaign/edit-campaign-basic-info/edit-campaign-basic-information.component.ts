@@ -39,9 +39,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
