@@ -34,7 +34,7 @@ export class UpdateNotificationSettings implements Action {
 export class GetCurrentBalance implements Action {
   readonly type: string = GET_CURRENT_BALANCE;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 

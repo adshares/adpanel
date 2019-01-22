@@ -9,6 +9,9 @@ import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-fund
 import { userRolesEnum } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
+import {Store} from "@ngrx/store";
+import {AppState} from "models/app-state.model";
+import * as settingsActions from 'store/settings/settings.actions';
 
 @Component({
   selector: 'app-header',
@@ -33,12 +36,14 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     private dialog: MatDialog,
     public auth: AuthService,
     private session: SessionService,
+    private store: Store<AppState>
+
   ) {
     super();
   }
 
   ngOnInit() {
-
+    this.store.dispatch(new settingsActions.GetCurrentBalance());
     let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.userDataState = this.session.getUser();

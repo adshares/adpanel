@@ -30,6 +30,7 @@ export class SettingsEffects {
   @Effect()
   getWalletBalanceInterval$: Observable<any> = this.actions$
     .ofType(settingsActions.GET_CURRENT_BALANCE)
+    .take(1)
     .switchMap(() => Observable
       .timer(0, 100000)
       .switchMap(() => this.service.getNotificationsSettings()  //TODO request here
