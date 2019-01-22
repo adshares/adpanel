@@ -9,7 +9,6 @@ import {CampaignBasicInformation, Campaign} from "models/campaign.model";
 import {campaignInitialState} from 'models/initial-state/campaign';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 
 import * as moment from 'moment';
 import {appSettings} from 'app-settings';
@@ -21,7 +20,7 @@ import {AdvertiserService} from "advertiser/advertiser.service";
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;

@@ -8,7 +8,6 @@ import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {AppState} from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {cloneDeep} from 'common/utilities/helpers';
 import {siteInitialState} from 'models/initial-state/site';
 import {Site, SiteLanguage} from 'models/site.model';
@@ -20,7 +19,7 @@ import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/
   templateUrl: './edit-site-basic-information.component.html',
   styleUrls: ['./edit-site-basic-information.component.scss']
 })
-export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditSiteBasicInformationComponent implements OnInit {
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;

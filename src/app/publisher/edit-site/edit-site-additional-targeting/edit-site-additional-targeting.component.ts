@@ -8,7 +8,6 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 import {AppState} from 'models/app-state.model';
 import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
 import {cloneDeep} from 'common/utilities/helpers';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {Site} from 'models/site.model';
@@ -22,7 +21,7 @@ import {parseTargetingOptionsToArray} from "common/components/targeting/targetin
   templateUrl: './edit-site-additional-targeting.component.html',
   styleUrls: ['./edit-site-additional-targeting.component.scss']
 })
-export class EditSiteAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
 
   goesToSummary: boolean;
