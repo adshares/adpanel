@@ -10,12 +10,16 @@ export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
+export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
+export const LOAD_CAMPAIGNS_FAILURE = 'Campaigns loaded failure';
 export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
+export const LOAD_CAMPAIGNS_TOTALS_FAILURE = 'Campaigns totals loaded failure';
 export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loaded';
 export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loaded success';
+export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loaded failure';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -66,6 +70,13 @@ export class AddCampaignToCampaignsSuccess implements Action {
   }
 }
 
+export class AddCampaignToCampaignsFailure implements Action {
+  readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE;
+
+  constructor() {
+  }
+}
+
 export class LoadCampaignBannerData implements Action {
   readonly type: string = LOAD_CAMPAIGN_BANNER_DATA;
 
@@ -76,6 +87,13 @@ export class LoadCampaignBannerDataSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+
+export class LoadCampaignBannerDataFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 export class LoadCampaigns implements Action {
@@ -89,6 +107,12 @@ export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+export class LoadCampaignsFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 
@@ -106,6 +130,13 @@ export class LoadCampaignsTotalsSuccess implements Action {
   }
 }
 
+export class LoadCampaignsTotalsFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   ClearLastEditedCampaign |
   SetLastEditedCampaign |
@@ -113,8 +144,12 @@ export type actions =
   SaveCampaignTargeting |
   SaveCampaignAds |
   AddCampaignToCampaigns |
+  AddCampaignToCampaignsFailure |
   AddCampaignToCampaignsSuccess |
   LoadCampaigns |
   LoadCampaignsSuccess |
   LoadCampaignsTotals |
-  LoadCampaignsTotalsSuccess;
+  LoadCampaignsTotalsSuccess |
+  LoadCampaignsTotalsFailure |
+  LoadCampaignsFailure |
+  LoadCampaignBannerDataFailure;

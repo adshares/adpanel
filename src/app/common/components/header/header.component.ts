@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
 
-import { HandleSubscription } from 'common/handle-subscription';
-import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
-import { SetYourEarningsDialogComponent } from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
-import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
-import { userRolesEnum } from 'models/enum/user.enum';
-import { AuthService } from 'app/auth.service';
-import { SessionService } from "app/session.service";
+import {HandleSubscription} from 'common/handle-subscription';
+import {User, UserAdserverWallet} from 'models/user.model';
+import {SetYourEarningsDialogComponent} from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import {AddFundsDialogComponent} from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
+import {userRolesEnum} from 'models/enum/user.enum';
+import {AuthService} from 'app/auth.service';
+import {SessionService} from "app/session.service";
 import {Store} from "@ngrx/store";
-import {AppState} from "models/app-state.model";
+import {AppState, SettingsState} from "models/app-state.model";
 import * as settingsActions from 'store/settings/settings.actions';
 
 @Component({
@@ -19,11 +19,11 @@ import * as settingsActions from 'store/settings/settings.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  adserverWallet: UserAdserverWallet;
+  totalFunds:number;
   activeUserType: number;
 
   userRolesEnum = userRolesEnum;
-  userDataState: LocalStorageUser;
+  userDataState: User;
 
   settingsMenuOpen = false;
   chooseUserMenuOpen = false;
@@ -37,7 +37,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     public auth: AuthService,
     private session: SessionService,
     private store: Store<AppState>
-
   ) {
     super();
   }
@@ -48,6 +47,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.userDataState = this.session.getUser();
     this.notificationsTotal = this.session.getNotificationsCount();
+    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
+      .subscribe((state: SettingsState) => {
+        this.totalFunds = state.totalFunds
+      });
+    this.subscriptions.push(userDataStateSubscription);
   }
 
   navigateToCreateNewAsset() {

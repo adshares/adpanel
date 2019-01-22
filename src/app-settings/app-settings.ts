@@ -6,9 +6,9 @@ export const appSettings = {
   // max byte size of ad image
   MAX_AD_IMAGE_SIZE: 512000,
   // seconds of how long remebered user auth token will be stored
-  REMEMBER_USER_EXPIRATION_SECONDS: 259200,
+  REMEMBER_USER_EXPIRATION_SECONDS: 2,
   // seconds of how long not remebered user auth token will be stored
-  AUTH_TOKEN_EXPIRATION_SECONDS: 900,
+  AUTH_TOKEN_EXPIRATION_SECONDS: 9,
   // update notification time in milliseconds
   UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 60000,
   // dismiss push notification time in milliseconds

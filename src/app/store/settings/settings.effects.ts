@@ -7,37 +7,37 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-
+import * as authActions from 'store/auth/auth.actions';
 import * as settingsActions from './settings.actions';
 import {SettingsService} from 'settings/settings.service';
-import {BillingHistory} from "models/settings.model";
-
+import {ApiAuthService} from "../../api/auth.service";
+import {Action} from "@ngrx/store/store";
+import {of} from "rxjs/observable/of";
 
 @Injectable()
 export class SettingsEffects {
   constructor(
     private actions$: Actions,
-    private service: SettingsService
+    private service: SettingsService,
+    private authService: ApiAuthService
   ) {
   }
 
-  @Effect()
-  loadNotificationsSettings$: Observable<any> = this.actions$
-    .ofType(settingsActions.LOAD_NOTIFICATIONS_SETTINGS)
-    .switchMap(() => this.service.getNotificationsSettings())
-    .map((notificationsSettings) => new settingsActions.LoadNotificationsSettingsSuccess(notificationsSettings));
+  // @Effect()
+  // loadNotificationsSettings$: Observable<any> = this.actions$
+  //   .ofType(settingsActions.LOAD_NOTIFICATIONS_SETTINGS)
+  //   .switchMap(() => this.service.getNotificationsSettings())
+  //   .map((notificationsSettings) => new settingsActions.LoadNotificationsSettingsSuccess(notificationsSettings));
 
   @Effect()
-  getWalletBalanceInterval$: Observable<any> = this.actions$
+  getWalletBalanceInterval$: Observable<Action> = this.actions$
     .ofType(settingsActions.GET_CURRENT_BALANCE)
-    .take(1)
+
     .switchMap(() => Observable
-      .timer(0, 100000)
-      .switchMap(() => this.service.getNotificationsSettings()  //TODO request here
-        .map((res) => {
-          console.log('DZIAŁAM')
-          return new settingsActions.GetCurrentBalanceSuccess(res)})
+      .timer(0, 5000)
+      .switchMap(() => this.authService.check()
+        .map((res) => new settingsActions.GetCurrentBalanceSuccess(res.adserverWallet.totalFunds))
         .catch(err => Observable.of(new settingsActions.GetCurrentBalanceFailure(err)))
       )
-    );
+    )
 }

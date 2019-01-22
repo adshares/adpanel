@@ -1,6 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
-import {NotificationItem} from 'models/settings.model';
+import { NotificationItem } from 'models/settings.model';
 
 export const LOAD_NOTIFICATIONS_SETTINGS = 'Notifications Settings loaded';
 export const LOAD_NOTIFICATIONS_SETTINGS_SUCCESS = 'Notifications Settings loaded success';
@@ -41,10 +41,9 @@ export class GetCurrentBalance implements Action {
 export class GetCurrentBalanceSuccess implements Action {
   readonly type: string = GET_CURRENT_BALANCE_SUCCESS;
 
-  constructor(public payload: any) {
+  constructor(public payload: number) {
   }
 }
-
 export class GetCurrentBalanceFailure implements Action {
   readonly type: string = GET_CURRENT_BALANCE_FAILURE;
 
@@ -55,5 +54,5 @@ export class GetCurrentBalanceFailure implements Action {
 export type actions = LoadNotificationsSettings
   | UpdateNotificationSettings
   | GetCurrentBalance
-  | GetCurrentBalanceFailure
-  | GetCurrentBalanceSuccess;
+  | GetCurrentBalanceSuccess
+  | GetCurrentBalanceFailure;
