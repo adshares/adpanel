@@ -34,6 +34,7 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;
+  changesSaved: boolean = false;
   filtering;
   filteringOptions;
 

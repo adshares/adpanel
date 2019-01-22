@@ -34,6 +34,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
+  changesSaved: boolean = false;
   site: Site;
 
   constructor(

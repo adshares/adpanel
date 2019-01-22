@@ -53,7 +53,7 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     url: `${environment.apiUrl}/upload_ad`,
     authToken: `Bearer ${this.session.getUser().apiToken}`
   });
-
+  changesSaved: boolean = false;
   imagesStatus: ImagesStatus = {
     upload: {
       processing: false,

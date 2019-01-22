@@ -33,6 +33,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   goesToSummary: boolean;
   createCampaignMode: boolean;
   campaign: Campaign;
+  changesSaved:boolean;
 
   constructor(
     private router: Router,

@@ -31,6 +31,7 @@ export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestr
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createCampaignMode: boolean;
+  changesSaved:boolean;
 
   constructor(
     private route: ActivatedRoute,

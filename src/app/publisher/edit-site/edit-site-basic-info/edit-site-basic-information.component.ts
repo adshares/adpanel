@@ -27,6 +27,7 @@ export class EditSiteBasicInformationComponent implements OnInit {
   createSiteMode: boolean;
   goesToSummary: boolean;
   filteredOptions: Observable<object>;
+  changesSaved:boolean = false;
 
   constructor(
     private router: Router,
