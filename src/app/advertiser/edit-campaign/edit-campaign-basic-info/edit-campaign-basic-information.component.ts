@@ -98,11 +98,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       basicInformation: this.campaignBasicInfo,
     };
 
-    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+    this.advertiserService.updateCampaign(this.campaign)
       .subscribe(
         () => {
           const id = this.campaign.id;
-          this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+          this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
           this.router.navigate(['/advertiser', 'campaign', id]);
         },
       (err) => {console.error(err)}

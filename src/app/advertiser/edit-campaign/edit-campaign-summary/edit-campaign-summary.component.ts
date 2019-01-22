@@ -70,7 +70,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
   }
 
   private editCampaign(): void {
-    this.advertiserService.updateCampaign(this.campaign.id, this.campaign).subscribe(
+    this.advertiserService.updateCampaign(this.campaign).subscribe(
       () => {
         this.store.dispatch(new advertiserActions.ClearLastEditedCampaign({}));
         this.router.navigate(['/advertiser', 'dashboard']);

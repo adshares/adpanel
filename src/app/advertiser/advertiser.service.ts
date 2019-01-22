@@ -50,14 +50,13 @@ export class AdvertiserService {
     return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, {campaign});
   }
 
-  updateCampaign(id: number, campaign: Campaign): Observable<Campaign> {
+  updateCampaign(campaign: Campaign): Observable<Campaign> {
     if (campaign.targetingArray) {
       const targetingObject = parseTargetingForBackend(campaign.targetingArray);
-
       Object.assign(campaign, {targeting: targetingObject});
     }
 
-    return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${id}`, {campaign});
+    return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
   }
 
   classifyCampaign(id: number) {
