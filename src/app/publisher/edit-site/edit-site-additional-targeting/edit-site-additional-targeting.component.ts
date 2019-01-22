@@ -44,9 +44,7 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
     private router: Router,
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
