@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import {Store} from "@ngrx/store";
-import { environment } from 'environments/environment';
-import {Campaign, CampaignsTotals} from 'models/campaign.model';
-import { TargetingOption } from 'models/targeting-option.model';
-import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {environment} from 'environments/environment';
+import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {TargetingOption} from 'models/targeting-option.model';
+import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
 import {NavigationStart, Router} from "@angular/router";
 import * as advertiserActions from "store/advertiser/advertiser.actions";
 import {Subscription} from "rxjs";
@@ -22,8 +21,11 @@ export class AdvertiserService {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
-  getCampaignsTotals(timespan: TimespanFilter): Observable<CampaignsTotals> {
-    return this.http.get<CampaignsTotals>(`${environment.apiUrl}/campaigns/count`);//, { timespan });// FIXME
+  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
+    const options = campaignId && {
+      params: {campaign_id: `${campaignId}`}
+    };
+    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table/${dateStart}/${dateEnd}`, options);
   }
 
   getCampaign(id: number): Observable<Campaign> {
@@ -91,7 +93,7 @@ export class AdvertiserService {
   }
 
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
-   return shouldSubscribe && this.router.events
+    return shouldSubscribe && this.router.events
       .filter(event => event instanceof NavigationStart)
       .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
   }

@@ -6,7 +6,11 @@
   data-test="advertiser-navigate-to-campaign-details"
 >
   <div class="adsh-campaign-list__item">
+    <ng-template #loading>
+      <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+    </ng-template>
     <div
+      *ngIf="campaign && campaignTotals; else loading"
       class="
         row
         align-center
@@ -63,7 +67,7 @@
           align-center"
         data-test="advertiser-campaign-clicks"
       >
-        <span>{{ campaign.clicks }}</span>
+        <span>{{ campaignTotals.clicks || '0' }}</span>
       </div>
       <div
         class="
@@ -72,7 +76,7 @@
           align-center"
         data-test="advertiser-campaign-impressions"
       >
-        <span>{{ campaign.impressions }}</span>
+        <span>{{ campaignTotals.impressions || '0' }}</span>
       </div>
       <div
         class="
@@ -81,7 +85,7 @@
           align-center"
         data-test="advertiser-campaign-ctr"
       >
-        <span>{{ campaign.CTR | percent:'1.2-2' }}</span>
+        <span>{{ campaignTotals.ctr | percent:'1.2-2' || '0%' }}</span>
       </div>
       <div
         class="
@@ -90,7 +94,7 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ campaign.averageCPC | number:'1.2-2' }}</span>
+        <span>{{ campaignTotals.averageCpc | adsharesTokenValue:2}} </span>
       </div>
       <div
         class="
@@ -99,7 +103,7 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ campaign.cost | number:'1.2-2' }}</span>
+        <span>{{ campaignTotals.cost | adsharesTokenValue:2 }}</span>
       </div>
       <div
         class="

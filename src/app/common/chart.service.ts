@@ -13,11 +13,12 @@ export class ChartService {
   }
 
   getAssetChartData(from, to, frequency, campaignId: number, type: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/campaigns/stats/chart/${type}/${frequency}/${from}/${to}`, {
+    const options = campaignId && {
       params: {
         campaign_id: `${campaignId}`
       }
-    })
+    };
+    return this.http.get(`${environment.apiUrl}/campaigns/stats/chart/${type}/${frequency}/${from}/${to}`, options)
       .map((chartData: any) => {
         let dataObject = {
           timestamps: [],

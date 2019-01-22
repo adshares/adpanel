@@ -1,16 +1,17 @@
 import * as moment from 'moment';
 
-import { Campaign, CampaignsTotals } from 'models/campaign.model';
+import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { classificationStatusesEnum } from 'models/enum/classification.enum';
 
-export const campaignsTotalsInitialState: CampaignsTotals = {
+export const campaignsTotalsInitialState: CampaignTotals = {
+  campaignId: 0,
   totalBudget: 0,
-  totalClicks: 0,
-  totalImpressions: 0,
-  averageCTR: 0,
-  averageCPC: 0,
-  totalCost: 0
+  clicks: 0,
+  impressions: 0,
+  ctr: 0,
+  averageCpc: 0,
+  cost: 0
 };
 
 export const campaignInitialState: Campaign = {

@@ -1,11 +1,11 @@
 import * as advertiserActions from './advertiser.actions';
-import { AdvertiserState } from 'models/app-state.model';
-import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
+import {AdvertiserState} from 'models/app-state.model';
+import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
-  campaignsTotals: campaignsTotalsInitialState
+  campaignsTotals: [campaignsTotalsInitialState]
 };
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions) {
@@ -49,6 +49,32 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       return {
         ...state,
         campaigns: [...state.campaigns, action.payload]
+      };
+    case advertiserActions.LOAD_CAMPAIGN_BANNER_DATA_SUCCESS:
+
+      const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
+      const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
+      const bannersData = [];
+
+      campaign.ads.forEach(add => {
+        action.payload.forEach(element => {
+          if (element.bannerId === add.id) {
+            bannersData.push({
+              ...add,
+              id: element.bannerId,
+              averageCpc: element.averageCpc,
+              clicks: element.clicks,
+              cost: element.cost,
+              ctr: element.ctr,
+              impressions: element.impressions,
+
+            })
+          }
+        })
+      });
+      return {
+        ...state,
+        campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}]
       };
     default:
       return state;

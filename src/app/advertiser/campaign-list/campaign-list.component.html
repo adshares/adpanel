@@ -17,90 +17,92 @@
 
     <div *ngIf="(campaigns && campaignsTotals); else loading">
       <app-campaign-list-item
-        *ngFor="let campaign of campaigns"
+        *ngFor="let campaign of campaigns; let i = index"
         [campaign]="campaign"
+        [campaignTotals]="getCampaignTotals(campaign.id)"
+        [filterSettings]="filterSettings"
       ></app-campaign-list-item>
 
-      <div class="adsh-box">
-        <div class="adsh-campaign-list__item">
-          <div
-            class="
-              row
-              align-center
-              adsh-copy
-              adsh-copy--semi"
-          >
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            ></div>
-            <div
-              class="
-                col-xs-4
-                row
-                align-center"
-            >
-              <h4
-                class="
-                  adsh-heading
-                  adsh-heading--secondary"
-              >
-                Total - All Campaigns
-              </h4>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.totalBudget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.totalClicks }}</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.totalImpressions }}</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.averageCTR | percent:'1.2-2' }}</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.averageCPC | number:'1.2-2' }}</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.totalCost | number:'1.2-2' }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!--<div class="adsh-box">-->
+        <!--<div class="adsh-campaign-list__item">-->
+          <!--<div-->
+            <!--class="-->
+              <!--row-->
+              <!--align-center-->
+              <!--adsh-copy-->
+              <!--adsh-copy&#45;&#45;semi"-->
+          <!--&gt;-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-4-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<h4-->
+                <!--class="-->
+                  <!--adsh-heading-->
+                  <!--adsh-heading&#45;&#45;secondary"-->
+              <!--&gt;-->
+                <!--Total - All Campaigns-->
+              <!--</h4>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals.totalBudget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day</span>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals[i].totalClicks }}</span>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals.totalImpressions }}</span>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals.averageCTR | percent:'1.2-2' }}</span>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals.averageCPC | number:'1.2-2' }}</span>-->
+            <!--</div>-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-xs-1-->
+                <!--row-->
+                <!--align-center"-->
+            <!--&gt;-->
+              <!--<span>{{ campaignsTotals.totalCost | number:'1.2-2' }}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
     </div>
   </div>
