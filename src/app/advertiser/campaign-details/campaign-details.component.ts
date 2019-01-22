@@ -221,15 +221,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (status === 0) {
       this.advertiserService
         .classifyCampaign(this.campaign.id)
-        .subscribe(data => {
-          console.log(data);
-        });
+        .subscribe(() => {});
     } else {
       this.advertiserService
         .removeClassifyCampaign(this.campaign.id)
-        .subscribe(data => {
-          console.log(data);
-        });
+        .subscribe(() => {});
     }
   }
 

@@ -29,7 +29,6 @@ export class NotificationSettingsComponent extends HandleSubscription implements
     this.settingsService.getNotificationsSettings().subscribe(
       (data) => {
         this.notificationsSettings = data;
-        console.log(data);
       },
     );
   }
