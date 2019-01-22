@@ -403,7 +403,7 @@
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-cost">
-          {{ campaignsTotals.cost }}
+          {{ campaignsTotals.cost | adsharesTokenValue:2}}
         </p>
         <p
           class="
@@ -454,7 +454,7 @@
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-cost-converions-ratio">
-          {{ campaignsTotals.cost / campaign.conversions | number:'1.2-2' }}
+          {{ campaignsTotals.cost / campaign.conversions | adsharesTokenValue:2 }}
         </p>
         <ng-template #loadingTotals>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>

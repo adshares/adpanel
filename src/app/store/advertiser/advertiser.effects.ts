@@ -21,13 +21,12 @@ export class AdvertiserEffects {
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getCampaigns())
-    .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns))
+    .switchMap(() => this.service.getCampaigns())
+    .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
 
   @Effect()
   loadCampaignBannersData$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGN_BANNER_DATA)
-    .take(1)
     .map(toPayload)
     .switchMap((payload) =>  {
       return this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)})

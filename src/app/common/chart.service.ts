@@ -13,36 +13,12 @@ export class ChartService {
   }
 
   getAssetChartData(from, to, frequency, campaignId: number, type: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/campaigns/stats/chart/${type}/${frequency}/${from}/${to}`, {
+    const options = campaignId && {
       params: {
         campaign_id: `${campaignId}`
       }
-    })
-      .map((chartData: any) => {
-        let dataObject = {
-          timestamps: [],
-          values: [],
-          total: 0,
-        };
-
-        chartData.map((arr) => {
-          dataObject = {
-            ...dataObject,
-            timestamps: [...dataObject.timestamps, arr[0]],
-            values: [...dataObject.values, arr[1]],
-            total: dataObject.total + arr[1]
-          };
-        });
-        return dataObject
-      })
-  }
-
-  getTableStatisticksData(role: string, dateStart: string, dateEnd: string, id ): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/${role}/stats/table/${dateStart}/${dateEnd}`, {
-      params: {
-        campaign_id: `${id}`
-      }
-    })
+    };
+    return this.http.get(`${environment.apiUrl}/campaigns/stats/chart/${type}/${frequency}/${from}/${to}`, options)
       .map((chartData: any) => {
         let dataObject = {
           timestamps: [],

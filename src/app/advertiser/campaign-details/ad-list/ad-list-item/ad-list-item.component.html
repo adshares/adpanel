@@ -90,7 +90,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-average-cpc">
-        {{ ad.averageCpc }} ADS
+        {{ ad.averageCpc | adsharesTokenValue:2}}
       </span>
       </div>
       <div
@@ -100,7 +100,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-cost">
-        {{ ad.cost }} ADS
+        {{ ad.cost | adsharesTokenValue:2}}
       </span>
       </div>
     </div>

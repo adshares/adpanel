@@ -22,10 +22,11 @@ export class AdvertiserService {
   }
 
 
-  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId: number = 0): Observable<CampaignTotals[]> {
-    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table/${dateStart}/${dateEnd}`, {
+  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
+    const options = campaignId && {
       params: {campaign_id: `${campaignId}`}
-    });
+    };
+    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table/${dateStart}/${dateEnd}`, options);
   }
 
   getCampaign(id: number): Observable<Campaign> {
