@@ -47,7 +47,5 @@ export class SettingsNavigationComponent {
   ngOnInit() {
     this.user = this.session.getUser();
     this.adserverWallet = this.user.adserverWallet;
-    console.log(this.user);
-    console.log(this.adserverWallet);
   }
 }
