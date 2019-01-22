@@ -26,8 +26,8 @@ interface CampaignTotals {
   clicks: number;
   impressions: number;
   ctr: number;
-  averageCpc: string;
-  cost: string;
+  averageCpc: number;
+  cost: number;
 }
 
 interface CampaignBasicInformation {

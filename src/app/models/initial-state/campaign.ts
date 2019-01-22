@@ -10,8 +10,8 @@ export const campaignsTotalsInitialState: CampaignTotals = {
   clicks: 0,
   impressions: 0,
   ctr: 0,
-  averageCpc: '0',
-  cost: '0'
+  averageCpc: 0,
+  cost: 0
 };
 
 export const campaignInitialState: Campaign = {

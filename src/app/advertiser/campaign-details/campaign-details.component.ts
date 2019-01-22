@@ -214,7 +214,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (this.campaign.classificationTags === null) {
       return '';
     }
-
     return `[${this.campaign.classificationTags}]`;
   }
 

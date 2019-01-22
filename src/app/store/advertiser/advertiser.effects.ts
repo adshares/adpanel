@@ -40,16 +40,7 @@ export class AdvertiserEffects {
     .switchMap((payload) => {
       return this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`)
     })
-    .map((campaignsTotals) => {
-      const campaigns = campaignsTotals.map(campaign => {
-        return {
-          ...campaign,
-          cost: formatMoney(campaign.cost, 3, true, '.', ''),
-          averageCpc: formatMoney(campaign.averageCpc, 3, true, '.', '')
-        }
-      });
-      return new advertiserActions.LoadCampaignsTotalsSuccess(campaigns)
-    });
+    .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals));
 
   @Effect()
   addCampaignToCampaigns = this.actions$

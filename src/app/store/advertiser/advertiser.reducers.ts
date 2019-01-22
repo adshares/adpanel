@@ -1,7 +1,6 @@
 import * as advertiserActions from './advertiser.actions';
 import {AdvertiserState} from 'models/app-state.model';
 import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-state/campaign';
-import {formatMoney} from "common/utilities/helpers";
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
@@ -63,9 +62,9 @@ export function advertiserReducers(state = initialState, action: advertiserActio
             bannersData.push({
               ...add,
               id: element.bannerId,
-              averageCpc: formatMoney(element.averageCpc, 3, true, '.', ''),
+              averageCpc: element.averageCpc,
               clicks: element.clicks,
-              cost: formatMoney(element.cost, 3, true, '.', ''),
+              cost: element.cost,
               ctr: element.ctr,
               impressions: element.impressions,
 

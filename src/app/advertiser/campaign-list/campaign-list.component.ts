@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 
 import {AppState} from 'models/app-state.model';
 import {Campaign, CampaignTotals} from 'models/campaign.model';
-import {formatMoney, sortArrayByColumnMetaData} from 'common/utilities/helpers';
+import {sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import {TableColumnMetaData} from 'models/table.model';
 import {HandleSubscription} from "common/handle-subscription";
 import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
