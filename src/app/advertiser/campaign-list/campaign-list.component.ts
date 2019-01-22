@@ -31,8 +31,6 @@ export class CampaignListComponent extends HandleSubscription implements OnInit 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
       .subscribe((campaignsTotals: CampaignTotals[]) => {
         this.campaignsTotals = campaignsTotals;
-
-
       });
 
     this.subscriptions.push(campaignsTotalsSubscription);

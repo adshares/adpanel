@@ -6,7 +6,7 @@ import {formatMoney} from "common/utilities/helpers";
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
-  campaignsTotals: campaignsTotalsInitialState
+  campaignsTotals: [campaignsTotalsInitialState]
 };
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions) {
