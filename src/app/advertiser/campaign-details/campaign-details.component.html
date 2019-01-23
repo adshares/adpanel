@@ -410,7 +410,7 @@
         </ng-template>
       </div>
       <div *ngIf="campaign.conversions"
-        class="
+           class="
           adsh-box
           adsh-box--large">
         <p
@@ -433,7 +433,7 @@
         </p>
       </div>
       <div *ngIf="campaign.conversions"
-        class="
+           class="
           adsh-box
           adsh-box--large">
         <p
@@ -490,7 +490,7 @@
               row
               align-center
               justify-center"
-          (update)="getChartData($event)"
+          (update)="getChartData($event, campaign.id)"
           [barChartData]="barChartData"
           [barChartLabels]="barChartLabels"
         ></app-chart>
@@ -499,7 +499,7 @@
 
     <!--̣Campaign list section-->
 
-    <section class="col">
+    <section *ngIf="campaign.ads.length" class="col">
       <div
         class="
           adsh-box
@@ -535,10 +535,8 @@
           </span>
         </button>
       </div>
-      <app-ad-list [adList]="campaign.ads"></app-ad-list>
-
+      <app-ad-list *ngIf="campaign.ads.length" [adList]="campaign.ads"></app-ad-list>
     </section>
-
 
     <div
       class="
@@ -567,7 +565,7 @@
             class="
               adsh-heading
               adsh-heading--secondary">
-            Create new Ad
+              {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
           </span>
         </button>
       </div>

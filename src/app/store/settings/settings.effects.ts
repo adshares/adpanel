@@ -3,16 +3,18 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import "rxjs/add/observable/timer";
+import "rxjs/add/operator/takeUntil";
+
 import * as authActions from 'store/auth/auth.actions';
 import * as settingsActions from './settings.actions';
 import {SettingsService} from 'settings/settings.service';
 import {ApiAuthService} from "../../api/auth.service";
 import {Action} from "@ngrx/store/store";
-import {of} from "rxjs/observable/of";
+
 
 @Injectable()
 export class SettingsEffects {
@@ -35,6 +37,7 @@ export class SettingsEffects {
 
     .switchMap(() => Observable
       .timer(0, 5000)
+      .takeUntil(this.actions$.ofType(authActions.USER_LOG_OUT_SUCCESS))
       .switchMap(() => this.authService.check()
         .map((res) => new settingsActions.GetCurrentBalanceSuccess(res.adserverWallet.totalFunds))
         .catch(err => Observable.of(new settingsActions.GetCurrentBalanceFailure(err)))

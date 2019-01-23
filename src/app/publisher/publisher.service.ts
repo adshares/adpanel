@@ -35,8 +35,11 @@ export class PublisherService {
     return this.http.get<SiteLanguage[]>(`${environment.apiUrl}/options/sites/languages`);
   }
 
-  getSitesTotals(timespan: TimespanFilter): Observable<SitesTotals> {
-    return this.http.get<SitesTotals>(`${environment.apiUrl}/sites/count`);
+  getSitesTotals(dateStart: string, dateEnd: string, siteId?: number): Observable<SitesTotals[]> {
+    const options = siteId && {
+      params: {site_id: `${siteId}`}
+    };
+    return this.http.get<SitesTotals[]>(`${environment.apiUrl}/sites/stats/table/${dateStart}/${dateEnd}`, options);
   }
 
   getSite(id: number): Observable<Site> {

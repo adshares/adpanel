@@ -37,17 +37,14 @@ const advertiserRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'additional-targeting',
             component: EditCampaignAdditionalTargetingComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'create-ad',
             component: EditCampaignCreateAdsComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'summary',
@@ -63,17 +60,14 @@ const advertiserRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'additional-targeting',
             component: EditCampaignAdditionalTargetingComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'create-ad',
             component: EditCampaignCreateAdsComponent,
-            canDeactivate: [AdvertiserGuard]
           },
           {
             path: 'summary',

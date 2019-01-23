@@ -333,42 +333,43 @@
     >
       Log out
     </span>
-
-    <div
-      class="
-        adsh-bg-navy--light
-        adsh-navigation__item
-        adsh-btn
-        adsh-btn--small
-        row
-        align-center
-        relative
-        hidden-sm"
-      (click)="toggleNotificationsBar()"
-      data-test="notifications-toggle-notifications-bar"
-    >
-      <img
-        class="adsh-icon"
-        src="assets/images/bell.svg"
-      >
-      <div
-        class="
-          adsh-circle
-          adsh-bg-green
-          absolute"
-      >
-        <span
-          class="
-            absolute
-            notifications-total"
-        >
-          {{ notificationsTotal }}
-        </span>
-      </div>
-    </div>
+    <!-- TODO PAN-183 remove notification -->
+    <!--<div-->
+      <!--class="-->
+        <!--adsh-bg-navy&#45;&#45;light-->
+        <!--adsh-navigation__item-->
+        <!--adsh-btn-->
+        <!--adsh-btn&#45;&#45;small-->
+        <!--row-->
+        <!--align-center-->
+        <!--relative-->
+        <!--hidden-sm"-->
+      <!--(click)="toggleNotificationsBar()"-->
+      <!--data-test="notifications-toggle-notifications-bar"-->
+    <!--&gt;-->
+      <!--<img-->
+        <!--class="adsh-icon"-->
+        <!--src="assets/images/bell.svg"-->
+      <!--&gt;-->
+      <!--<div-->
+        <!--class="-->
+          <!--adsh-circle-->
+          <!--adsh-bg-green-->
+          <!--absolute"-->
+      <!--&gt;-->
+        <!--<span-->
+          <!--class="-->
+            <!--absolute-->
+            <!--notifications-total"-->
+        <!--&gt;-->
+          <!--{{ notificationsTotal }}-->
+        <!--</span>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </section>
 
-<app-notifications
-  [notificationsBarOpen]="notificationsBarOpen"
-  (onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>
+<!-- TODO PAN-183 remove notification -->
+<!--<app-notifications-->
+  <!--[notificationsBarOpen]="notificationsBarOpen"-->
+  <!--(onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>-->

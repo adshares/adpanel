@@ -39,7 +39,8 @@ export class AppComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    this.setNotificationUptadeInterval();
+    // TODO PAN-183 remove notification
+    // this.setNotificationUpdateInterval();
 
     // TODO ? wtf wtf
     this.router.events.subscribe((event) => {
@@ -62,7 +63,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     )
   }
 
-  setNotificationUptadeInterval() {
+  setNotificationUpdateInterval() {
     this.updateNotificationTimer = timer(0, appSettings.UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL)
       .subscribe(() => this.getNotifications());
     this.subscriptions.push(this.updateNotificationTimer);

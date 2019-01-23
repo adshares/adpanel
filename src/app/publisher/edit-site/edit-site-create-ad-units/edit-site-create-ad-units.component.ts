@@ -11,7 +11,6 @@ import {adSizesEnum, adTypesOptions, adUnitStatusesEnum} from 'models/enum/ad.en
 import {cloneDeep, enumToArray} from 'common/utilities/helpers';
 import {AdUnit, AdUnitSize, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
@@ -22,7 +21,7 @@ import {MatDialog} from "@angular/material";
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
@@ -35,6 +34,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
+  changesSaved: boolean = false;
   site: Site;
 
   constructor(
@@ -44,9 +44,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');

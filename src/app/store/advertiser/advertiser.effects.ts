@@ -20,8 +20,10 @@ export class AdvertiserEffects {
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
-    .switchMap(() => this.service.getCampaigns())
-      .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns));
+    .switchMap(() => this.service.getCampaigns()
+      .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns))
+      .catch(() =>  Observable.of(new advertiserActions.LoadCampaignsFailure()))
+    );
 
   @Effect()
   loadCampaignBannersData$ = this.actions$
@@ -49,4 +51,12 @@ export class AdvertiserEffects {
       .map((campaign) => new advertiserActions.AddCampaignToCampaignsSuccess(campaign))
       .catch(() => Observable.of(new advertiserActions.AddCampaignToCampaignsFailure()))
     );
+
+  @Effect()
+  updateCampaign = this.actions$
+    .ofType(advertiserActions.UPDATE_CAMPAIGN)
+    .map(toPayload)
+    .map(payload => new advertiserActions.UpdateCampaignSuccess(payload))
+  // .map(() => new advertiserActions.ClearLastEditedCampaign())
+
 }
