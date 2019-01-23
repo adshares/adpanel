@@ -18,9 +18,7 @@ import {Ad, Campaign} from 'models/campaign.model';
 import {environment} from 'environments/environment';
 import {appSettings} from 'app-settings';
 import {AppState} from 'models/app-state.model';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {SessionService} from "../../../session.service";
-import {SiteCodeDialogComponent} from "publisher/dialogs/site-code-dialog/site-code-dialog.component";
 import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
 
 interface ImagesStatus {
@@ -41,7 +39,7 @@ interface ImagesStatus {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
@@ -55,7 +53,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     url: `${environment.apiUrl}/upload_ad`,
     authToken: `Bearer ${this.session.getUser().apiToken}`
   });
-
+  changesSaved: boolean = false;
   imagesStatus: ImagesStatus = {
     upload: {
       processing: false,
@@ -75,7 +73,6 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     private session: SessionService,
     private matDialog: MatDialog,
   ) {
-    super();
   }
 
   ngOnInit() {

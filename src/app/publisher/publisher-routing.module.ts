@@ -38,17 +38,14 @@ const publisherRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
-            canDeactivate: [PublisherGuard]
           },
           {
             path: 'additional-filtering',
             component: EditSiteAdditionalTargetingComponent,
-            canDeactivate: [PublisherGuard]
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            canDeactivate: [PublisherGuard],
             resolve: {adUnitSizes: AdUnitSizesResolver}
           },
           {
@@ -65,17 +62,14 @@ const publisherRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
-            canDeactivate: [PublisherGuard]
           },
           {
             path: 'additional-filtering',
             component: EditSiteAdditionalTargetingComponent,
-            canDeactivate: [PublisherGuard]
           },
           {
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
-            canDeactivate: [PublisherGuard],
             resolve: {adUnitSizes: AdUnitSizesResolver}
           },
           {
