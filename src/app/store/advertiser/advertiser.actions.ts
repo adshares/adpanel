@@ -1,7 +1,7 @@
-import { Action } from '@ngrx/store';
-import { Ad, Campaign, CampaignBasicInformation } from 'models/campaign.model';
-import { AssetTargeting } from 'models/targeting-option.model';
-import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {Action} from '@ngrx/store';
+import {Ad, Campaign, CampaignBasicInformation} from 'models/campaign.model';
+import {AssetTargeting} from 'models/targeting-option.model';
+import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
@@ -16,6 +16,8 @@ export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
 export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loaded';
 export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loaded success';
+export const UPDATE_CAMPAIGN = 'Campaign update';
+export const UPDATE_CAMPAIGN_SUCCESS = 'Campaign update success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -52,6 +54,20 @@ export class SaveCampaignAds implements Action {
   }
 }
 
+export class UpdateCampaign implements Action {
+  readonly type = UPDATE_CAMPAIGN;
+
+  constructor(public payload: Campaign) {
+  }
+}
+
+export class UpdateCampaignSuccess implements Action {
+  readonly type = UPDATE_CAMPAIGN_SUCCESS;
+
+  constructor(public payload: Campaign) {
+  }
+}
+
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
 
@@ -72,12 +88,14 @@ export class LoadCampaignBannerData implements Action {
   constructor(public payload: any) {
   }
 }
+
 export class LoadCampaignBannerDataSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
 
   constructor(public payload: any) {
   }
 }
+
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 

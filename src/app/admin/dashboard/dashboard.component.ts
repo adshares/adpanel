@@ -51,7 +51,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.from,
         chartFilterSettings.to,
         chartFilterSettings.frequency,
-        chartFilterSettings.assetId,
         chartFilterSettings.series,
       )
       .subscribe(data => {

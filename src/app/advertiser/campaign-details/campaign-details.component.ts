@@ -84,7 +84,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
     this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
-        this.campaign = campaigns.find(el => el.id === id);
+        if (!campaigns || !campaigns.length) return;
+        this.campaign = campaigns.find(el => {return el.id === id});
         if(this.campaign) {
           this.getTargeting();
         }
@@ -92,7 +93,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
       .subscribe((campaignsTotals: CampaignTotals[]) => {
-        if (campaignsTotals.length) {
+        if (campaignsTotals && campaignsTotals.length) {
           this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
         }
       });
@@ -159,8 +160,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        id,
         chartFilterSettings.currentSeries,
+        id,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;

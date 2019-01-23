@@ -25,8 +25,9 @@ export class PublisherEffects {
   loadSitesTotals$ = this.actions$
     .ofType(publisherActions.LOAD_SITES_TOTALS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getSitesTotals(payload))
-    .map((sitesTotals) => new publisherActions.LoadSitesTotalsSuccess(sitesTotals));
+    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`))
+    .map((sitesTotals) => {
+      return new publisherActions.LoadSitesTotalsSuccess(sitesTotals)});
 
   @Effect()
   addSiteToSites = this.actions$

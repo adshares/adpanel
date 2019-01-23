@@ -12,7 +12,7 @@ export class ChartService {
   constructor(private http: HttpClient) {
   }
 
-  getAssetChartData(from, to, frequency, campaignId: number, type: string): Observable<any> {
+  getAssetChartData(from, to, frequency, type: string, campaignId?: number): Observable<any> {
     const options = campaignId && {
       params: {
         campaign_id: `${campaignId}`
