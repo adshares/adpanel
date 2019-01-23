@@ -4,6 +4,6 @@ export const environment = {
   production: ${APP_PROD},
   serverUrl: serverUrl,
   authUrl: serverUrl + '/auth',
-  apiUrl: serverUrl '/api',
+  apiUrl: serverUrl + '/api',
   xdebug: ${REQUEST_XDEBUG}
 };
