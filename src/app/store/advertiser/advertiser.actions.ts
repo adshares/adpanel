@@ -89,7 +89,7 @@ export class AddCampaignToCampaignsSuccess implements Action {
 export class AddCampaignToCampaignsFailure implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE;
 
-  constructor() {
+  constructor(public payload?: any) {
   }
 }
 
@@ -103,7 +103,7 @@ export class LoadCampaignBannerData implements Action {
 export class LoadCampaignBannerDataSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 
