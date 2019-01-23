@@ -13,7 +13,7 @@ import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { createInitialArray, enumToArray } from 'common/utilities/helpers';
-import { chartSeriesEnum } from 'models/enum/chart.enum';
+import {chartSeriesEnum, pubChartSeriesEnum} from 'models/enum/chart.enum';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -38,13 +38,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     excludes: []
   };
 
-  chartSeries: string[] = enumToArray(chartSeriesEnum);
+  chartSeries: string[] = enumToArray(pubChartSeriesEnum);
 
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
   barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
-  barChartData: ChartData[][] = createInitialArray([{data: []}], 6);
+  barChartData: ChartData[] = createInitialArray([{data: []}], 6);
 
   currentChartFilterSettings: ChartFilterSettings;
   filteringOptions: TargetingOption[];
@@ -62,15 +62,28 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
+    console.log('site', this.site)
     this.getLanguages();
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.subscriptions.push(chartFilterSubscription);
 
-    this.getChartData(this.currentChartFilterSettings);
+
+    const sitesSubscription = this.store.select('state', 'publisher', 'sites')
+      .subscribe((sites: Site[]) => {
+        if(!sites.length) {
+          this.store.dispatch(new PublisherActions.LoadSites({
+            from: this.currentChartFilterSettings.currentFrom,
+            to: this.currentChartFilterSettings.currentTo
+          }))
+        }
+      });
+
+    this.subscriptions.push(chartFilterSubscription, );
+
     this.getFiltering();
+    this.getChartData(this.currentChartFilterSettings);
   }
 
   deleteSite() {
@@ -126,23 +139,25 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = []);
+    // this.barChartData.forEach(values => values[0].data = []);
+    this.barChartData[0].data = [];
 
     const chartDataSubscription = this.chartService
-      .getAssetChartDataForPublisher(
+      .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentAssetId
+        chartFilterSettings.currentSeries,
+        'sites',
+        this.site.id
       )
       .subscribe(data => {
-        this.barChartData.forEach(values => values[0].data = data[0].values);
-        this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data[0].timestamps.map(timestamp => moment(timestamp).format('D'));
-        });
-        this.barChartValue = data[0].total;
-        this.barChartDifference = data[0].difference;
-        this.barChartDifferenceInPercentage = data[0].differenceInPercentage;
+        this.barChartData[0].data = data.values;
+
+        this.barChartLabels = data.timestamps.map(item => moment(item).format());
+        this.barChartValue = data.total;
+        this.barChartDifference = data.difference;
+        this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
     this.subscriptions.push(chartDataSubscription);

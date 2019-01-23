@@ -96,30 +96,6 @@
             data-test="publisher-site-status-toggle"
           ></mat-slide-toggle>
         </div>
-        <!--<button-->
-        <!--class="-->
-        <!--adsh-btn-->
-        <!--adsh-btn&#45;&#45;white-->
-        <!--adsh-btn&#45;&#45;no-border-->
-        <!--hidden-md"-->
-        <!--(click)="navigateToEditSite()"-->
-        <!--data-test="publisher-site-edit"-->
-        <!--&gt;-->
-        <!--<img-->
-        <!--class="-->
-        <!--adsh-icon-->
-        <!--adsh-icon&#45;&#45;prepend"-->
-        <!--src="assets/images/edit.svg"-->
-        <!--alt="Edit icon"-->
-        <!--&gt;-->
-        <!--<span-->
-        <!--class="-->
-        <!--adsh-copy-->
-        <!--adsh-copy&#45;&#45;dark"-->
-        <!--&gt;-->
-        <!--Edit Site-->
-        <!--</span>-->
-        <!--</button>-->
         <button
           class="
             adsh-btn
@@ -261,12 +237,21 @@
 
     </section>
 
-<!--
+
     <div
       class="
         row
         justify-between"
     >
+      <div
+        class="
+          col-xs-12
+          col-md-9"
+      >
+        <app-chart-filter
+          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
+        ></app-chart-filter>
+      </div>
       <div
         class="
           col
@@ -319,7 +304,6 @@
               row
               align-center
               justify-center"
-            [seriesType]="chartSeriesType"
             (update)="getChartData($event)"
             [barChartData]="barChartData[i]"
             [barChartLabels]="barChartLabels[i].labels"
@@ -327,7 +311,7 @@
         </div>
       </div>
     </div>
--->
+
 
     <div class="col">
       <div

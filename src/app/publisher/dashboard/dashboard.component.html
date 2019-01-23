@@ -32,7 +32,6 @@
           List of all sites
         </p>
       </div>
-<!--
       <div
         class="
           col-xs-12
@@ -43,72 +42,40 @@
           (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
         ></app-chart-filter>
       </div>
--->
     </div>
 
     <div *ngIf="!!sites.length">
-<!--
+
       <div
         class="
-          row
-          justify-between"
+          adsh-box
+          adsh-box&#45;&#45;large
+          hidden-md"
       >
+        <app-chart-filter-by-type
+          (updateId)="appChartRef.updateChartDataAssetId($event)"
+          (updateSeries)="appChartRef.updateChartDataSeries($event)"
+        ></app-chart-filter-by-type>
         <div
           class="
-            col-md-6
-            col
-            adsh-box
-            adsh-box&#45;&#45;large
-            chart-box"
-          *ngFor="let chartSeriesType of chartSeries; let i = index"
+            row
+            align-center
+            justify-center
+            chart-wrapper"
         >
-          <div class="chart-stats">
-            <p
-              class="
-                chart-name
-                adsh-copy"
-            >
-              {{ chartSeriesType }}:
-            </p>
-            <div
-              class="
-                row
-                align-center"
-            >
-              <span
-                class="
-                  adsh-heading
-                  adsh-heading&#45;&#45;primary"
-              >
-                {{ barChartValue }}
-              </span>
-              <span class="chart-change">
-                {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
-              </span>
-            </div>
-          </div>
-          <div
+          <app-chart
             class="
+              chart
               row
               align-center
-              justify-center
-              chart-wrapper"
-          >
-            <app-chart
-              class="
-                chart
-                row
-                align-center
-                justify-center"
-              [seriesType]="chartSeriesType"
-              (update)="getChartData($event)"
-              [barChartData]="barChartData[i]"
-              [barChartLabels]="barChartLabels[i].labels"
-            ></app-chart>
-          </div>
+              justify-center"
+            (update)="getChartData($event)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
         </div>
       </div>
--->
+<!--&ndash;&gt;-->
 
       <app-site-list
         [sites]="sites"

@@ -161,6 +161,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries,
+        'campaigns',
         id,
       )
       .subscribe(data => {

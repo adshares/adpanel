@@ -14,6 +14,7 @@ export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';
 export const LOAD_SITES_TOTALS = 'Sites totals loaded';
 export const LOAD_SITES_TOTALS_SUCCESS = 'Sites totals loaded success';
+export const LOAD_SITES_TOTALS_FAILURE = 'Sites totals loaded failure';
 export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
 export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
@@ -39,7 +40,7 @@ export class LoadSitesSuccess implements Action {
 export class LoadSitesTotals implements Action {
   readonly type: string = LOAD_SITES_TOTALS;
 
-  constructor(public payload: TimespanFilter) {
+  constructor(public payload?: any) {
   }
 }
 
@@ -47,6 +48,13 @@ export class LoadSitesTotalsSuccess implements Action {
   readonly type: string = LOAD_SITES_TOTALS_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+
+export class LoadSitesTotalsFailure implements Action {
+  readonly type: string = LOAD_SITES_TOTALS_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 
@@ -157,4 +165,5 @@ export type actions =
   SaveSiteFiltering |
   SaveLastEditedSiteAdUnits |
   AddSiteToSites |
-  AddSiteToSitesSuccess;
+  AddSiteToSitesSuccess |
+  LoadSitesTotalsFailure;

@@ -27,7 +27,7 @@ export class PublisherService {
   ) {
   }
 
-  getSites(timespan: TimespanFilter): Observable<Site[]> {
+  getSites(): Observable<Site[]> {
     return this.http.get<Site[]>(`${environment.apiUrl}/sites`);
   }
 
@@ -36,7 +36,7 @@ export class PublisherService {
   }
 
   getSitesTotals(dateStart: string, dateEnd: string, siteId?: number): Observable<SitesTotals[]> {
-    const options = siteId && {
+    const options = siteId > 0 && {
       params: {site_id: `${siteId}`}
     };
     return this.http.get<SitesTotals[]>(`${environment.apiUrl}/sites/stats/table/${dateStart}/${dateEnd}`, options);
