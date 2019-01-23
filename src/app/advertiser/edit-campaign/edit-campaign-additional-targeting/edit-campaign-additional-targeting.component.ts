@@ -87,11 +87,11 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
       requires: this.addedItems,
       excludes: this.excludedItems
     };
-    const newCampaign = {...this.campaign, targetingArray: {...targeting}};
+    const updatedCampaign = {...this.campaign, targetingArray: {...targeting}};
 
-    this.advertiserService.updateCampaign(newCampaign)
+    this.advertiserService.updateCampaign(updatedCampaign)
       .subscribe(() => {
-        this.store.dispatch(new advertiserActions.UpdateCampaign(newCampaign));
+        this.store.dispatch(new advertiserActions.UpdateCampaign(updatedCampaign));
         this.router.navigate(['/advertiser', 'campaign', campaignId]);
       })
 

@@ -60,7 +60,6 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       };
     case advertiserActions.LOAD_CAMPAIGN_BANNER_DATA_SUCCESS:
       if (action.payload.length <= 0) return state;
-
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
       const bannersData = [];
