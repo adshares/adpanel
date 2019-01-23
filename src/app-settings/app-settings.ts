@@ -1,3 +1,5 @@
+import { environment } from 'environments/environment';
+
 export const appSettings = {
   // ADS Operator URL
   ADS_OPERATOR_URL: 'https://operator1.e11.click',
@@ -5,18 +7,20 @@ export const appSettings = {
   ROUTER_TRANSITION_DURATION: 200,
   // max byte size of ad image
   MAX_AD_IMAGE_SIZE: 512000,
-  // seconds of how long remebered user auth token will be stored
+  // seconds of how long remembered user auth token will be stored
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
-  // seconds of how long not remebered user auth token will be stored
+  // seconds of how long not remembered user auth token will be stored
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
   // update notification time in milliseconds
   UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 60000,
   // dismiss push notification time in milliseconds
   DISMISS_PUSH_NOTIFICATION_INTERVAL: 10000,
-  // withraw amounts values
+  // withdraw amounts values
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
   // privacy policy link
-  PRIVACY_POLICY_LINK: 'https://adshares.net/privacy.txt',
+  PRIVACY_POLICY_LINK: environment.serverUrl + '/policies/privacy.html',
+  // terms of service link
+  TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/tos.html',
   // faq link
   FAQ_LINK: 'https://adshares.net/faq.html',
   // support email
