@@ -8,7 +8,6 @@ import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {AppState} from 'models/app-state.model';
 import * as PublisherActions from 'store/publisher/publisher.actions';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {cloneDeep} from 'common/utilities/helpers';
 import {siteInitialState} from 'models/initial-state/site';
 import {Site, SiteLanguage} from 'models/site.model';
@@ -20,7 +19,7 @@ import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/
   templateUrl: './edit-site-basic-information.component.html',
   styleUrls: ['./edit-site-basic-information.component.scss']
 })
-export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess implements OnInit {
+export class EditSiteBasicInformationComponent implements OnInit {
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;
@@ -28,6 +27,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
   createSiteMode: boolean;
   goesToSummary: boolean;
   filteredOptions: Observable<object>;
+  changesSaved:boolean = false;
 
   constructor(
     private router: Router,
@@ -35,16 +35,15 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
     private publisherService: PublisherService,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createSiteMode = !!this.router.url.match('/create-site/');
+    this.createForm();
     this.getLanguages();
 
-    this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
+    this.filteredOptions =  this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
@@ -60,7 +59,7 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
         if (!this.languages.length) {
           this.store.dispatch(new PublisherActions.GetLanguagesList());
         } else {
-          this.createForm();
+          this.getFormDataFromStore();
         }
       });
   }
@@ -134,13 +133,9 @@ export class EditSiteBasicInformationComponent extends HandleLeaveEditProcess im
 
   createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
-      name: new FormControl(siteInitialState.name, [
-        Validators.required
-      ]),
+      name: new FormControl(siteInitialState.name,  Validators.required),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
-
-    this.getFormDataFromStore();
   }
 
   getFormDataFromStore(): void {

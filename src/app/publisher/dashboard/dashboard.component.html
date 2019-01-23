@@ -32,6 +32,7 @@
           List of all sites
         </p>
       </div>
+<!--
       <div
         class="
           col-xs-12
@@ -42,9 +43,11 @@
           (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
         ></app-chart-filter>
       </div>
+-->
     </div>
 
-    <div *ngIf="sites">
+    <div *ngIf="!!sites.length">
+<!--
       <div
         class="
           row
@@ -55,7 +58,7 @@
             col-md-6
             col
             adsh-box
-            adsh-box--large
+            adsh-box&#45;&#45;large
             chart-box"
           *ngFor="let chartSeriesType of chartSeries; let i = index"
         >
@@ -75,7 +78,7 @@
               <span
                 class="
                   adsh-heading
-                  adsh-heading--primary"
+                  adsh-heading&#45;&#45;primary"
               >
                 {{ barChartValue }}
               </span>
@@ -105,6 +108,7 @@
           </div>
         </div>
       </div>
+-->
 
       <app-site-list
         [sites]="sites"
@@ -115,7 +119,7 @@
 
     <div
       class="hidden-md"
-      *ngIf="!sites"
+      *ngIf="!sites.length"
     >
       <div
         class="

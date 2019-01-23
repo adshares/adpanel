@@ -44,18 +44,20 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   }
 
   updateChartData(timespan) {
-    const from = this.currentChartFilterSettings.currentFrom = moment(timespan.from).format();
-    const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).format();
+    const from = this.currentChartFilterSettings.currentFrom = moment(timespan.from).startOf('day').format();
+    const to = this.currentChartFilterSettings.currentTo = moment(timespan.to).endOf('day').format();
     const daysSpan = moment(to).diff(moment(from), 'days');
 
-    if (daysSpan <= 1) {
-      this.currentChartFilterSettings.currentFrequency = 'hours';
-    } else if (daysSpan <= 7) {
-      this.currentChartFilterSettings.currentFrequency = 'quarters';
+    if (daysSpan <= 2) {
+      this.currentChartFilterSettings.currentFrequency = 'hour';
     } else if (daysSpan <= 31) {
-      this.currentChartFilterSettings.currentFrequency = 'days';
+      this.currentChartFilterSettings.currentFrequency = 'day';
+    } else if (daysSpan <= 182) {
+      this.currentChartFilterSettings.currentFrequency = 'week';
+    } else if (daysSpan <= 730){
+      this.currentChartFilterSettings.currentFrequency = 'month';
     } else {
-      this.currentChartFilterSettings.currentFrequency = 'lastThirty';
+      this.currentChartFilterSettings.currentFrequency = 'year';
     }
 
     this.updateCurrentFilterSettingsInStore();
@@ -70,6 +72,12 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
 
   updateChartDataAssetId(assetId) {
     this.currentChartFilterSettings.currentAssetId = assetId;
+    this.updateCurrentFilterSettingsInStore();
+    this.update.emit(this.currentChartFilterSettings);
+  }
+
+  updateChartDataBannerId(id: number): void {
+    this.currentChartFilterSettings.currentBannerId = id;
     this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }

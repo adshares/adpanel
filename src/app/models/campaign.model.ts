@@ -20,13 +20,14 @@ interface Campaign {
   classificationTags?: string;
 }
 
-interface CampaignsTotals {
+interface CampaignTotals {
+  campaignId: number;
   totalBudget: number;
-  totalClicks: number;
-  totalImpressions: number;
-  averageCTR: number;
-  averageCPC: number;
-  totalCost: number;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  averageCpc: number;
+  cost: number;
 }
 
 interface CampaignBasicInformation {
@@ -48,8 +49,8 @@ interface Ad {
   size: number;
   clicks: number;
   impressions: number;
-  CTR: number;
-  averageCPC: number;
+  ctr: number;
+  averageCpc: number;
   cost: number;
   budget: number;
 
@@ -58,4 +59,4 @@ interface Ad {
   html?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad, CampaignsTotals };
+export { Campaign, CampaignBasicInformation, Ad, CampaignTotals };

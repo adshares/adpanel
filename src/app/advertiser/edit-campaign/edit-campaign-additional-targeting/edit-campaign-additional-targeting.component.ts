@@ -8,7 +8,6 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {AppState} from 'models/app-state.model';
 import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
 import {cloneDeep} from 'common/utilities/helpers';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {Campaign} from 'models/campaign.model';
@@ -19,7 +18,7 @@ import {TargetingSelectComponent} from 'common/components/targeting/targeting-se
   templateUrl: './edit-campaign-additional-targeting.component.html',
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
-export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestroy {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
@@ -32,6 +31,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createCampaignMode: boolean;
+  changesSaved:boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,9 +39,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
     private router: Router,
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
@@ -67,11 +65,11 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
 
   onStepBack(): void {
     if (this.createCampaignMode) {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(
         ['/advertiser', 'create-campaign', 'basic-information'],
         {queryParams: {step: 1}});
     } else {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     }
   }
@@ -87,10 +85,11 @@ export class EditCampaignAdditionalTargetingComponent extends HandleLeaveEditPro
       requires: this.addedItems,
       excludes: this.excludedItems
     };
+    const updatedCampaign = {...this.campaign, targetingArray: {...targeting}};
 
-    this.advertiserService.updateCampaign(this.campaign.id, {...this.campaign, targetingArray: {...targeting}})
+    this.advertiserService.updateCampaign(updatedCampaign)
       .subscribe(() => {
-        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+        this.store.dispatch(new advertiserActions.UpdateCampaign(updatedCampaign));
         this.router.navigate(['/advertiser', 'campaign', campaignId]);
       })
 

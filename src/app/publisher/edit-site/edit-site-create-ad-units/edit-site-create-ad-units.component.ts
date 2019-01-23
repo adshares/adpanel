@@ -11,7 +11,6 @@ import {adSizesEnum, adTypesOptions, adUnitStatusesEnum} from 'models/enum/ad.en
 import {cloneDeep, enumToArray} from 'common/utilities/helpers';
 import {AdUnit, AdUnitSize, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
@@ -22,11 +21,11 @@ import {MatDialog} from "@angular/material";
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
-  adSizesOptions: string[]=[];
+  adSizesOptions: string[] = [];
   adSizesEnum = adSizesEnum;
   adUnitSizesArray: AdUnitSize[];
   filteredAdUnitSizes: AdUnitSize[][] = [];
@@ -35,6 +34,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   adUnitPanelsStatus: boolean[] = [];
   adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
+  changesSaved: boolean = false;
   site: Site;
 
   constructor(
@@ -44,9 +44,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
@@ -158,13 +156,13 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   onStepBack(): void {
-    if (!this.createSiteMode) {
+    if (this.createSiteMode) {
+      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
+        {queryParams: {step: 2}})
+    } else {
       const siteId = this.site.id;
       this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
       this.router.navigate(['/publisher', 'site', siteId]);
-    } else {
-      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
-        {queryParams: {step: 2}})
     }
   }
 
@@ -224,16 +222,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleLeaveEditProcess imple
   }
 
   redirectAfterSave(isDraft: boolean): void {
-
-    if (!isDraft) {
-      this.router.navigate(
-        ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
-        {queryParams: {step: 4}}
-      );
+    if (isDraft) {
+      this.publisherService.saveAsDraft(this.site);
       return;
     }
-    this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-    this.router.navigate(['/publisher', 'dashboard']);
+
+    this.router.navigate(
+      ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
+      {queryParams: {step: 4}}
+    );
   }
 
   removeNewAdUnit(adIndex: number): void {

@@ -66,7 +66,7 @@
           class="
             adsh-form-input
             adsh-form-input--full"
-          type="url"
+          type="text"
           name="campaignTargetURL"
           formControlName="targetUrl"
           data-test="advertiser-edit-campaign-basic-information-form-target-url"
@@ -389,12 +389,12 @@
                        adsh-form-input--narrow
                        adsh-form-input--date
                        row"
-                [owlDateTime]="dateEndPicker"
-                [owlDateTimeTrigger]="dateEndPicker"
-                matInput
-                [min]="dateStart.value"
-                [formControl]="dateEnd"
-                data-test="advertiser-edit-campaign-basic-information-form-end-date"
+                     [owlDateTime]="dateEndPicker"
+                     [owlDateTimeTrigger]="dateEndPicker"
+                     matInput
+                     [min]="dateStart.value"
+                     [formControl]="dateEnd"
+                     data-test="advertiser-edit-campaign-basic-information-form-end-date"
               >
               <owl-date-time #dateEndPicker></owl-date-time>
             </mat-form-field>

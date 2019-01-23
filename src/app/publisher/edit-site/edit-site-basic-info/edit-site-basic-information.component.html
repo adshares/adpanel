@@ -34,16 +34,14 @@
         </label>
 
         <input
+          formControlName="name"
           id="siteUrl"
           class="
             adsh-form-input
             adsh-form-input--full"
-          name="siteUrl"
-          type="url"
-          formControlName="name"
+          type="text"
           data-test="publisher-edit-site-basic-information-form-url"
         >
-
         <span
           class="input-valid"
           *ngIf="siteBasicInfoForm.get('name').valid && siteBasicInfoForm.get('name').touched"

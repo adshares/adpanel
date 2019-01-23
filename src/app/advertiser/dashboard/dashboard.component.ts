@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ChartComponent } from 'common/components/chart/chart.component';
-import { CampaignListComponent } from 'advertiser/campaign-list/campaign-list.component';
-import { ChartService } from 'common/chart.service';
-import { HandleSubscription } from 'common/handle-subscription';
-import { Campaign, CampaignsTotals } from 'models/campaign.model';
-import { AppState } from 'models/app-state.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { createInitialArray } from 'common/utilities/helpers';
+import {ChartComponent} from 'common/components/chart/chart.component';
+import {CampaignListComponent} from 'advertiser/campaign-list/campaign-list.component';
+import {ChartService} from 'common/chart.service';
+import {HandleSubscription} from 'common/handle-subscription';
+import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {AppState} from 'models/app-state.model';
+import {ChartData} from 'models/chart/chart-data.model';
+import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import {createInitialArray} from 'common/utilities/helpers';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
@@ -24,7 +24,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
   campaigns: Campaign[];
-  campaignsTotals: CampaignsTotals;
+  campaignsTotals: CampaignTotals[];
 
   barChartValue: number;
   barChartDifference: number;
@@ -49,7 +49,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartFilterSubscription);
-
     this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
 
@@ -64,12 +63,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentAssetId,
-        chartFilterSettings.currentSeries
+        chartFilterSettings.currentSeries,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
+
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
@@ -89,8 +88,9 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignsTotals) => this.campaignsTotals = campaignsTotals);
-
+      .subscribe((campaignsTotals: CampaignTotals[]) => {
+        this.campaignsTotals = campaignsTotals;
+      });
     this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
   }
 }

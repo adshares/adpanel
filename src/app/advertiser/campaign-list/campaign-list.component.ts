@@ -1,11 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 
-import { AppState } from 'models/app-state.model';
-import { Campaign, CampaignsTotals } from 'models/campaign.model';
-import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
-import { TableColumnMetaData } from 'models/table.model';
+import {AppState} from 'models/app-state.model';
+import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {sortArrayByColumnMetaData} from 'common/utilities/helpers';
+import {TableColumnMetaData} from 'models/table.model';
+import {HandleSubscription} from "common/handle-subscription";
+import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
 
 @Component({
   selector: 'app-campaign-list',
@@ -13,15 +15,30 @@ import { TableColumnMetaData } from 'models/table.model';
   styleUrls: ['./campaign-list.component.scss']
 })
 
-export class CampaignListComponent {
+export class CampaignListComponent extends HandleSubscription implements OnInit {
   @Input() campaigns: Campaign[];
-  @Input() campaignsTotals: CampaignsTotals;
+  @Input() filterSettings: ChartFilterSettings[];
+  campaignsTotals: CampaignTotals[];
 
   constructor(
     private router: Router,
     private store: Store<AppState>
   ) {
+    super();
   }
+
+  ngOnInit() {
+    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
+      .subscribe((campaignsTotals: CampaignTotals[]) => {
+        this.campaignsTotals = campaignsTotals;
+      });
+
+    this.subscriptions.push(campaignsTotalsSubscription);
+  }
+
+  getCampaignTotals = (id): CampaignTotals => {
+    return this.campaignsTotals.find(campaign => id === campaign.campaignId);
+  };
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);

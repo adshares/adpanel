@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { Notification } from 'models/notification.model';
-import { LocalStorageUser } from 'models/user.model';
+import {Notification} from 'models/notification.model';
+import {LocalStorageUser} from 'models/user.model';
+import {AppState} from "models/app-state.model";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class SessionService {
+
+  constructor(private store: Store<AppState>) {}
 
   drop() {
     localStorage.removeItem('adsharesAddress');

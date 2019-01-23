@@ -19,6 +19,7 @@ export class RegisterComponent extends HandleSubscription {
   ObjectKeys = Object.keys;
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
+  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK;
   user: User;
 
   constructor(

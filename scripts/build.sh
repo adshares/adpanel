@@ -26,9 +26,12 @@ envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
 yarn install
 
 # Build project
-if [ ${APP_ENV} == 'dev' ];
+if [[ ${APP_ENV} == 'dev' ]]
 then
-  node_modules/@angular/cli/bin/ng build --environment dev --sourcemaps --verbose
+  node_modules/@angular/cli/bin/ng build --environment dev --sourcemaps --verbose --target development
+elif [[ ${APP_ENV} == 'prod' ]]
+then
+  node_modules/@angular/cli/bin/ng build --environment ${APP_ENV} --bundle-dependencies all --build-optimizer --target production
 else
   node_modules/@angular/cli/bin/ng build --environment ${APP_ENV}
 fi

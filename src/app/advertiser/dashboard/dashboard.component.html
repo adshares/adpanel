@@ -38,17 +38,17 @@
           col-md-9"
       >
         <app-chart-filter
-          *ngIf="campaigns"
+          *ngIf="!!campaigns.length"
           (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
         ></app-chart-filter>
       </div>
     </div>
 
-    <div *ngIf="campaigns">
+    <div *ngIf="!!campaigns.length">
       <div
         class="
           adsh-box
-          adsh-box--large
+          adsh-box&#45;&#45;large
           hidden-md"
       >
         <app-chart-filter-by-type
@@ -74,16 +74,15 @@
           ></app-chart>
         </div>
       </div>
-
       <app-campaign-list
         [campaigns]="campaigns"
-        [campaignsTotals]="campaignsTotals"
+        [filterSettings]="currentChartFilterSettings"
       ></app-campaign-list>
     </div>
 
     <div
       class="hidden-md"
-      *ngIf="!campaigns"
+      *ngIf="!campaigns.length"
     >
       <div
         class="

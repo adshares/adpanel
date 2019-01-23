@@ -18,9 +18,7 @@ import {Ad, Campaign} from 'models/campaign.model';
 import {environment} from 'environments/environment';
 import {appSettings} from 'app-settings';
 import {AppState} from 'models/app-state.model';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 import {SessionService} from "../../../session.service";
-import {SiteCodeDialogComponent} from "publisher/dialogs/site-code-dialog/site-code-dialog.component";
 import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
 
 interface ImagesStatus {
@@ -41,7 +39,7 @@ interface ImagesStatus {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
@@ -55,7 +53,7 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     url: `${environment.apiUrl}/upload_ad`,
     authToken: `Bearer ${this.session.getUser().apiToken}`
   });
-
+  changesSaved: boolean = false;
   imagesStatus: ImagesStatus = {
     upload: {
       processing: false,
@@ -75,7 +73,6 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
     private session: SessionService,
     private matDialog: MatDialog,
   ) {
-    super();
   }
 
   ngOnInit() {
@@ -177,11 +174,12 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
   }
 
   scaleImageToMatchBanner(index) {
-    const image = Array.from(document.querySelectorAll('.image-banner img')) as Array<HTMLElement>;
+    const banners = Array.from(document.querySelectorAll('.banner')) as Array<HTMLElement>;
+    const image = banners[index].querySelector('img');
     const bannerWidth = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[0]);
     const bannerHeight = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[1]);
-    const imageWidth = image[index].offsetWidth;
-    const imageHeight = image[index].offsetHeight;
+    const imageWidth = image.offsetWidth;
+    const imageHeight = image.offsetHeight;
     const heightRatio = bannerHeight / imageHeight;
     const widthRatio = bannerWidth / imageWidth;
 
@@ -331,9 +329,9 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
       ads: this.ads
     };
 
-    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+    this.advertiserService.updateCampaign(this.campaign)
       .subscribe(() => {
-        this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+        this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
         this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
       })
   };
@@ -368,10 +366,10 @@ export class EditCampaignCreateAdsComponent extends HandleLeaveEditProcess imple
 
   onStepBack(): void {
     if (this.isEditMode) {
+      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
-      this.router.navigate(['/advertiser', 'create-site', 'additional-targeting'],
+      this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'],
         {queryParams: {step: 2}})
     }
   }

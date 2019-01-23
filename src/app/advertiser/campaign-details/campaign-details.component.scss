@@ -35,8 +35,8 @@
     }
 
     @include media(lg-up) {
-      flex-basis: calc(20% - 8px);
-      max-width: calc(20% - 8px);
+      flex-basis: calc(33.3% - 8px);
+      max-width: calc(33.3% - 8px);
       margin: 0 5px;
     }
 

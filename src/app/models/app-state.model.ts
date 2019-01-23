@@ -1,4 +1,4 @@
-import { Campaign, CampaignsTotals } from './campaign.model';
+import { Campaign, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import { AdminSettings, NotificationItem, UserInfoStats } from './settings.model';
 import { User } from './user.model';
@@ -19,8 +19,8 @@ interface AppState {
 
 interface AdvertiserState {
   lastEditedCampaign: Campaign;
-  campaigns: Campaign[];
-  campaignsTotals: CampaignsTotals;
+  campaigns: Campaign[] | null;
+  campaignsTotals: CampaignTotals[];
 }
 
 interface PublisherState {
@@ -33,6 +33,7 @@ interface PublisherState {
 
 interface SettingsState {
   notificationsSettings: NotificationItem[];
+  totalFunds: number;
 }
 
 interface UserState {

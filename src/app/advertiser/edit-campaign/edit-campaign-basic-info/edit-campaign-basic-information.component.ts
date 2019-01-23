@@ -9,7 +9,6 @@ import {CampaignBasicInformation, Campaign} from "models/campaign.model";
 import {campaignInitialState} from 'models/initial-state/campaign';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import {HandleLeaveEditProcess} from 'common/handle-leave-edit-process';
 
 import * as moment from 'moment';
 import {appSettings} from 'app-settings';
@@ -21,7 +20,7 @@ import {AdvertiserService} from "advertiser/advertiser.service";
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent extends HandleLeaveEditProcess implements OnInit, OnDestroy {
+export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
@@ -34,15 +33,14 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
   goesToSummary: boolean;
   createCampaignMode: boolean;
   campaign: Campaign;
+  changesSaved:boolean;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-  ) {
-    super();
-  }
+  ) {}
 
   ngOnInit() {
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
@@ -98,11 +96,11 @@ export class EditCampaignBasicInformationComponent extends HandleLeaveEditProces
       basicInformation: this.campaignBasicInfo,
     };
 
-    this.advertiserService.updateCampaign(this.campaign.id, this.campaign)
+    this.advertiserService.updateCampaign(this.campaign)
       .subscribe(
         () => {
           const id = this.campaign.id;
-          this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+          this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
           this.router.navigate(['/advertiser', 'campaign', id]);
         },
       (err) => {console.error(err)}

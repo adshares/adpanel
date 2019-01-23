@@ -8,7 +8,6 @@ import { ApiService } from 'app/api/api.service';
 import { SessionService } from "app/session.service";
 
 import { LocalStorageUser, User } from 'models/user.model';
-import { CustomizeAccountChooseDialogComponent } from 'common/dialog/customize-account-choose-dialog/customize-account-choose-dialog.component';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
 import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -92,7 +91,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
             return;
           }
           this.showStartupPopups(user);
-          this.router.navigate(['/settings/general']);
         },
         (err) => {
           this.criteriaError = true;
@@ -138,7 +136,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
-    this.dialog.open(CustomizeAccountChooseDialogComponent, {disableClose: true});
   }
 
   handleCustomizeDialog(accounts) {

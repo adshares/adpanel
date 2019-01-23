@@ -1,7 +1,7 @@
-import { Action } from '@ngrx/store';
-import { Ad, Campaign, CampaignBasicInformation } from 'models/campaign.model';
-import { AssetTargeting } from 'models/targeting-option.model';
-import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
+import {Action} from '@ngrx/store';
+import {Ad, Campaign, CampaignBasicInformation} from 'models/campaign.model';
+import {AssetTargeting} from 'models/targeting-option.model';
+import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
@@ -10,10 +10,18 @@ export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
+export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';
 export const LOAD_CAMPAIGNS = 'Campaigns loaded';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loaded success';
+export const LOAD_CAMPAIGNS_FAILURE = 'Campaigns loaded failure';
 export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loaded';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loaded success';
+export const LOAD_CAMPAIGNS_TOTALS_FAILURE = 'Campaigns totals loaded failure';
+export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loaded';
+export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loaded success';
+export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loaded failure';
+export const UPDATE_CAMPAIGN = 'Campaign update';
+export const UPDATE_CAMPAIGN_SUCCESS = 'Campaign update success';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -50,6 +58,20 @@ export class SaveCampaignAds implements Action {
   }
 }
 
+export class UpdateCampaign implements Action {
+  readonly type = UPDATE_CAMPAIGN;
+
+  constructor(public payload: Campaign) {
+  }
+}
+
+export class UpdateCampaignSuccess implements Action {
+  readonly type = UPDATE_CAMPAIGN_SUCCESS;
+
+  constructor(public payload: Campaign) {
+  }
+}
+
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
 
@@ -64,6 +86,33 @@ export class AddCampaignToCampaignsSuccess implements Action {
   }
 }
 
+export class AddCampaignToCampaignsFailure implements Action {
+  readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadCampaignBannerData implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class LoadCampaignBannerDataSuccess implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadCampaignBannerDataFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 
@@ -75,6 +124,12 @@ export class LoadCampaignsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGNS_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+export class LoadCampaignsFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 
@@ -92,6 +147,13 @@ export class LoadCampaignsTotalsSuccess implements Action {
   }
 }
 
+export class LoadCampaignsTotalsFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_TOTALS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   ClearLastEditedCampaign |
   SetLastEditedCampaign |
@@ -99,8 +161,13 @@ export type actions =
   SaveCampaignTargeting |
   SaveCampaignAds |
   AddCampaignToCampaigns |
+  AddCampaignToCampaignsFailure |
   AddCampaignToCampaignsSuccess |
   LoadCampaigns |
   LoadCampaignsSuccess |
+  LoadCampaignsFailure |
   LoadCampaignsTotals |
-  LoadCampaignsTotalsSuccess;
+  LoadCampaignsTotalsSuccess |
+  LoadCampaignsTotalsFailure |
+  LoadCampaignsFailure |
+  LoadCampaignBannerDataFailure;

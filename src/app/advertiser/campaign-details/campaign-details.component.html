@@ -1,4 +1,4 @@
-<section class="dashboard-view">
+<section *ngIf="campaign; else loading" class="dashboard-view">
   <div class="container">
     <div
       class="
@@ -62,13 +62,13 @@
             <span class="adsh-copy">Classification: </span>
             <span class="adsh-copy adsh-copy--x-dark lowercase-to-capitalize"
                   data-test="advertiser-campaign-classification">
-              {{ classificationLabel() }}
+              {{ classificationLabel }}
             </span>
           </p>
           <mat-slide-toggle
             color="primary"
-            [checked]="isClassificationChecked(campaign.classificationStatus)"
-            [disabled]="isClassificationChecked(campaign.classificationStatus)"
+            [checked]="isClassificationChecked"
+            [disabled]="isClassificationChecked"
             ([ngModel])="campaign.classificationStatus"
             (change)="onCampaignClassificationStatusChange(campaign.classificationStatus)"
             data-test="advertiser-campaign-classification-status-toggle"
@@ -137,7 +137,7 @@
               Target URL:
             </p>
             <p class="adsh-copy--dark adsh-copy--semi"
-              data-test="advertiser-campaign-target-url">
+               data-test="advertiser-campaign-target-url">
               {{ campaign.basicInformation.targetUrl }}
             </p>
           </div>
@@ -305,7 +305,7 @@
         adsh-copy
         row">
         <div *ngIf="!!targeting.requires.length"
-          class="
+             class="
           col-xs-12
           col-lg-6">
           <div>
@@ -336,38 +336,9 @@
         </div>
       </div>
     </section>
-    <!--mock chart-->
     <div
       class="
-        adsh-box
-        adsh-box--large
-        hidden-md">
-      <app-chart-filter-by-type
-        (updateId)="appChartRef.updateChartDataSeries($event)"
-        (updateSeries)="appChartRef.updateChartDataAssetId($event)"
-      ></app-chart-filter-by-type>
-      <div
-        class="
-          row
-          align-center
-          justify-center
-          chart-wrapper"
-      >
-        <app-chart
-          class="
-            chart
-            row
-            align-center
-            justify-center"
-          (update)="getChartData($event)"
-          [barChartData]="barChartData"
-          [barChartLabels]="barChartLabels"
-        ></app-chart>
-      </div>
-    </div>
-
-    <div
-      class="
+        justify-center
         row
         campaign-details-statistics">
       <div
@@ -405,20 +376,17 @@
             adsh-copy--small">
           Clicks
         </p>
-        <p
-          class="
+        <p *ngIf="campaignsTotals; else loadingTotals"
+           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-clicks">
-          {{ campaign.clicks }}
+           data-test="advertiser-campaign-clicks">
+          {{ campaignsTotals.clicks }}
         </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
+        <ng-template #loadingTotals>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+
       </div>
       <div
         class="
@@ -430,23 +398,19 @@
             adsh-copy--small">
           Cost
         </p>
-        <p
-          class="
+        <p *ngIf="campaignsTotals; else loadingTotals"
+           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-cost">
-          {{ campaign.cost | number:'1.2-2' }}
+           data-test="advertiser-campaign-cost">
+          {{ campaignsTotals.cost | adsharesTokenValue:2}}
         </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
+        <ng-template #loadingTotals>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
       </div>
-      <div
-        class="
+      <div *ngIf="campaign.conversions"
+           class="
           adsh-box
           adsh-box--large">
         <p
@@ -468,8 +432,8 @@
           - (-%)
         </p>
       </div>
-      <div
-        class="
+      <div *ngIf="campaign.conversions"
+           class="
           adsh-box
           adsh-box--large">
         <p
@@ -478,13 +442,16 @@
             adsh-copy--small">
           Cost/Conv
         </p>
-        <p
-          class="
+        <p *ngIf="campaignsTotals; else loadingTotals"
+           class="
             adsh-heading
             adsh-heading--primary"
-          data-test="advertiser-campaign-cost-converions-ratio">
-          {{ campaign.cost / campaign.conversions | number:'1.2-2' }}
+           data-test="advertiser-campaign-cost-converions-ratio">
+          {{ campaignsTotals.cost / campaign.conversions | adsharesTokenValue:2 }}
         </p>
+        <ng-template #loadingTotals>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
         <p
           class="
             adsh-copy
@@ -495,9 +462,44 @@
       </div>
     </div>
 
+
     <!--̣Campaign list section-->
 
-    <section class="col">
+    <div
+      class="
+          adsh-box
+          adsh-box--large
+          hidden-md"
+    >
+      <div>
+        <app-chart-filter
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
+      </div>
+
+      <div
+        class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+      >
+        <app-chart
+          class="
+              chart
+              row
+              align-center
+              justify-center"
+          (update)="getChartData($event, campaign.id)"
+          [barChartData]="barChartData"
+          [barChartLabels]="barChartLabels"
+        ></app-chart>
+      </div>
+    </div>
+
+    <!--̣Campaign list section-->
+
+    <section *ngIf="campaign.ads.length" class="col">
       <div
         class="
           adsh-box
@@ -533,10 +535,8 @@
           </span>
         </button>
       </div>
-      <app-ad-list [adList]="campaign.ads"></app-ad-list>
-
+      <app-ad-list *ngIf="campaign.ads.length" [adList]="campaign.ads"></app-ad-list>
     </section>
-
 
     <div
       class="
@@ -565,10 +565,13 @@
             class="
               adsh-heading
               adsh-heading--secondary">
-            Create new Ad
+              {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
           </span>
         </button>
       </div>
     </div>
   </div>
 </section>
+<ng-template #loading>
+  <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+</ng-template>
