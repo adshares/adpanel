@@ -4,7 +4,6 @@ import {Notification} from 'models/notification.model';
 import {LocalStorageUser} from 'models/user.model';
 import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
-import {SetUser} from "store/auth/auth.actions";
 
 @Injectable()
 export class SessionService {
@@ -70,6 +69,5 @@ export class SessionService {
 
   setUser(user: LocalStorageUser) {
     localStorage.setItem('user', JSON.stringify(user));
-    this.store.dispatch(new SetUser(user));
   }
 }

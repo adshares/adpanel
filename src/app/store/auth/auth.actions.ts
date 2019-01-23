@@ -1,11 +1,13 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
-import { User } from 'models/user.model';
+import {User} from 'models/user.model';
 
 export const SET_USER = 'Set user';
 export const UPDATE_USER_ADDRESS = 'User Address updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
+export const USER_LOG_OUT_SUCCESS = 'User logged out success';
+
 
 export class SetUser implements Action {
   readonly type = SET_USER;
@@ -35,8 +37,16 @@ export class UpdateUserAutomaticWithdrawAmount implements Action {
   }
 }
 
-export type actions =
-  SetUser |
-  UpdateUserAddress |
-  UpdateUserAutomaticWithdrawPeriod |
-  UpdateUserAutomaticWithdrawAmount;
+export class UserLogOutSuccess implements Action {
+  readonly type = USER_LOG_OUT_SUCCESS;
+
+  constructor(public payload?: number) {
+  }
+}
+
+
+export type actions = SetUser
+  | UpdateUserAddress
+  | UpdateUserAutomaticWithdrawPeriod
+  | UpdateUserAutomaticWithdrawAmount
+  | UserLogOutSuccess;

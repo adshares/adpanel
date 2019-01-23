@@ -2,7 +2,8 @@ import * as settingsActions from './settings.actions';
 import {SettingsState} from 'models/app-state.model';
 
 const initialState: SettingsState = {
-  notificationsSettings: []
+  notificationsSettings: [],
+  totalFunds: 0
 };
 
 export function settingsReducers(state = initialState, action: settingsActions.actions) {
@@ -16,6 +17,12 @@ export function settingsReducers(state = initialState, action: settingsActions.a
       return {
         ...state,
         notificationsSettings: action.payload
+      };
+
+    case settingsActions.GET_CURRENT_BALANCE_SUCCESS:
+      return {
+        ...state,
+        totalFunds: action.payload
       };
     default:
       return state;
