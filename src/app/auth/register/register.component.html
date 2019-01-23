@@ -131,6 +131,56 @@
         </span>
       </div>
 
+      <div
+        class="
+          adsh-form-input__box
+          adsh__registration-consent"
+      >
+        <p
+          class="
+            adsh-copy
+            adsh-copy--small"
+        >
+          <input
+            id="acceptTerms"
+            name="acceptTerms"
+            type="checkbox"
+            ngModel
+            #acceptTerms="ngModel"
+            required
+            data-test="auth-registration-form-accept-terms-checkbox"
+          >
+          <label
+            for="acceptTerms"
+            class="checkbox-label"
+          ></label>
+          I agree to Adshares'
+          <a
+            class="adsh-blue"
+            [href]="termsOfServiceLink"
+            target="_blank"
+            data-test="common-terms-of-service-link"
+          >
+            Terms of Service
+          </a>
+          and
+          <a
+            class="adsh-blue"
+            [href]="privacyPolicyLink"
+            target="_blank"
+            data-test="common-privacy-policy-link"
+          >
+            Privacy Policy.
+          </a>
+        </p>
+        <span
+          class="error-msg"
+          *ngIf="!acceptTerms.value && registrationForm.submitted"
+        >
+          Terms must be accepted
+        </span>
+      </div>
+
       <button
         class="
           adsh-btn
@@ -147,29 +197,6 @@
         </ng-template>
       </button>
     </form>
-    <p
-      class="
-        adsh-copy
-        adsh-copy--small
-        adsh__registration-consent"
-    >
-      By clicking "Register" I agree to Adshares
-      <a
-        class="adsh-blue"
-        href="#"
-      >
-        Terms of Service
-      </a>
-      and
-      <a
-        class="adsh-blue"
-        [href]="privacyPolicyLink"
-        target="_blank"
-        data-test="common-privacy-policy-link"
-      >
-        Privacy Policy.
-      </a>
-    </p>
   </div>
   <div>
     <p
