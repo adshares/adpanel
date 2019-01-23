@@ -20,7 +20,7 @@ export const appSettings = {
   // privacy policy link
   PRIVACY_POLICY_LINK: environment.serverUrl + '/policies/privacy.html',
   // terms of service link
-  TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/tos.html',
+  TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/terms.html',
   // faq link
   FAQ_LINK: 'https://adshares.net/faq.html',
   // support email
