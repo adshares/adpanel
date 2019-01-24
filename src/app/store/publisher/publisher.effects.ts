@@ -30,8 +30,7 @@ export class PublisherEffects {
         sites.forEach(site => {
           site.filtering.requires = site.filtering.requires || [];
           site.filtering.excludes = site.filtering.excludes || [];
-        })
-        console.log(`sites effect`, sites)
+        });
 
         return [
           new publisherActions.LoadSitesSuccess(sites),

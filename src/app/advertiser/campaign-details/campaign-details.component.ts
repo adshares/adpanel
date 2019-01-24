@@ -10,18 +10,17 @@ import {ChartComponent} from 'common/components/chart/chart.component';
 import {ChartService} from 'common/chart.service';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import {ChartData} from 'models/chart/chart-data.model';
+import {AssetTargeting} from "models/targeting-option.model";
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 import {createInitialArray} from 'common/utilities/helpers';
+import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 import {HandleSubscription} from 'common/handle-subscription';
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {MatDialog} from "@angular/material";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import * as codes from 'common/utilities/codes';
-import {AssetTargeting} from "models/targeting-option.model";
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
-import {take} from "rxjs/operator/take";
 
 @Component({
   selector: 'app-campaign-details',

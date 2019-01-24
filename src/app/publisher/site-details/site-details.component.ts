@@ -13,7 +13,7 @@ import {ChartLabels} from 'models/chart/chart-labels.model';
 import {ChartData} from 'models/chart/chart-data.model';
 import {AssetTargeting, TargetingOption} from 'models/targeting-option.model';
 import {createInitialArray, enumToArray} from 'common/utilities/helpers';
-import { pubChartSeriesEnum} from 'models/enum/chart.enum';
+import {pubChartSeriesEnum} from 'models/enum/chart.enum';
 import {siteStatusEnum} from 'models/enum/site.enum';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -81,7 +81,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
           }))
         } else {
           this.site = sites.find(el => el.id === this.site.id);
-          console.log(this.site)
           this.getFiltering();
           this.chartSeries.forEach(element => {
             this.getChartData(this.currentChartFilterSettings, element)
@@ -138,10 +137,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   getFiltering() {
     this.store.select('state', 'publisher', 'filteringCriteria')
       .subscribe((filteringOptions) => {
-        this.filteringOptions = filteringOptions;
-        this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
         if (!filteringOptions.length) {
           this.store.dispatch(new PublisherActions.GetFilteringCriteria());
+        } else {
+          this.filteringOptions = filteringOptions;
+
+          if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
+            this.filtering = this.site.filtering;
+          } else {
+            this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+          }
         }
       });
   }
@@ -160,8 +165,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        console.log('DATA', this.barChartData)
-
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

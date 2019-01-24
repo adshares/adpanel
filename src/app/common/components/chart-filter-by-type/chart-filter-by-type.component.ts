@@ -41,7 +41,6 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         this.userData = userData;
         this.userData.isPublisher =  !!this.router.url.match('/publisher/');
         this.userData.isAdvertiser =  !!this.router.url.match('/advertiser/');
-        console.log('user', this.userData)
         this.setInitialDataByUserType();
       });
 
@@ -49,9 +48,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   }
 
   setInitialDataByUserType() {
-    console.log('is publisher', this.userData.isPublisher)
     if (this.userData.isAdvertiser) {
-      console.log('adv')
        this.chartSeries =  enumToArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
@@ -64,7 +61,6 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         });
       this.subscriptions.push(userCampaignsSubscription);
     } else if (this.userData.isPublisher) {
-      console.log('adv')
 
       this.chartSeries =  enumToArray(pubChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'publisher', 'sites')
@@ -80,8 +76,6 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     } else {
       this.chartSeries =  enumToArray(advChartSeriesEnum);
     }
-    console.log('this.char', this.chartSeries)
-
   }
 
   updateAssetId(event) {
