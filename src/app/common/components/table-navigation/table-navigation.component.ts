@@ -38,11 +38,11 @@ export class TableNavigationComponent implements OnInit {
   siteListNavigationItems = [
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
     {title: 'Website Name', columnWidth: 'col-xs-4', keys: ['name'], sortAsc: true},
-    {title: 'Estimated Earnings', columnWidth: 'col-xs-1', keys: ['estimatedEarnings'], sortAsc: true},
+    {title: 'Estimated Revenue', columnWidth: 'col-xs-1', keys: ['estimatedEarnings'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['RPM'], sortAsc: true},
-    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCPC'], sortAsc: true}
+    {title: 'Average Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true}
   ];
 
   userListNavigationItems = [

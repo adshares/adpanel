@@ -245,15 +245,6 @@
     >
       <div
         class="
-          col-xs-12
-          col-md-9"
-      >
-        <app-chart-filter
-          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
-        ></app-chart-filter>
-      </div>
-      <div
-        class="
           col
           col-md-6
           adsh-box
@@ -261,6 +252,7 @@
           chart-box"
         *ngFor="let chartSeriesType of chartSeries; let i = index"
       >
+        {{chartSeriesType}}
         <div class="chart-stats">
           <p
             class="
@@ -299,12 +291,13 @@
             chart-wrapper"
         >
           <app-chart
+            *ngIf="!!barChartData;"
             class="
               chart
               row
               align-center
               justify-center"
-            (update)="getChartData($event)"
+            (update)="getChartData($event, chartSeriesType)"
             [barChartData]="barChartData[i]"
             [barChartLabels]="barChartLabels[i].labels"
           ></app-chart>

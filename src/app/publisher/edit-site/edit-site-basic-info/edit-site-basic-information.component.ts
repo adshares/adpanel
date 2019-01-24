@@ -27,7 +27,7 @@ export class EditSiteBasicInformationComponent implements OnInit {
   createSiteMode: boolean;
   goesToSummary: boolean;
   filteredOptions: Observable<object>;
-  changesSaved:boolean = false;
+  changesSaved: boolean = false;
 
   constructor(
     private router: Router,
@@ -35,7 +35,8 @@ export class EditSiteBasicInformationComponent implements OnInit {
     private publisherService: PublisherService,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
@@ -43,7 +44,7 @@ export class EditSiteBasicInformationComponent implements OnInit {
     this.createForm();
     this.getLanguages();
 
-    this.filteredOptions =  this.siteBasicInfoForm.get('primaryLanguage').valueChanges
+    this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
       .pipe(
         startWith(''),
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
@@ -121,19 +122,12 @@ export class EditSiteBasicInformationComponent implements OnInit {
       return;
     }
     this.adjustSiteDataBeforeSave();
-    this.publisherService.updateSiteData(this.site.id, this.site).subscribe(
-      () => {
-        this.router.navigate(['/publisher', 'site', this.site.id]);
-      },
-      (err) => {
-        console.error('Error occurred:', err)
-      }
-    )
+    this.store.dispatch(new PublisherActions.UpdateSite(this.site));
   }
 
   createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
-      name: new FormControl(siteInitialState.name,  Validators.required),
+      name: new FormControl(siteInitialState.name, Validators.required),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
   }

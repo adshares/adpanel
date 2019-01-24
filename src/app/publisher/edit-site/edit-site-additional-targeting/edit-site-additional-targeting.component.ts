@@ -93,16 +93,7 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
 
   updateSite() {
     this.changesSaved = true;
-    const updateSubscription = this.publisherService.updateSiteFiltering(this.siteToSave.id, this.siteToSave)
-      .subscribe(
-        () => {
-          const siteId = this.site.id;
-          this.store.dispatch(new publisherActions.ClearLastEditedSite());
-          this.router.navigate(['/publisher', 'site', siteId]);
-        }
-      );
-    this.subscriptions.push(updateSubscription);
-
+    this.store.dispatch(new publisherActions.UpdateSiteFiltering(this.siteToSave));
   }
 
   saveSite(isDraft) {

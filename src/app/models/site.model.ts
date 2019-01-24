@@ -5,14 +5,16 @@ interface Site {
   status: number;
   name: string;
   primaryLanguage: string | SiteLanguage;
+  filtering?: AssetTargeting;
+  adUnits?: AdUnit[];
+
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
-  RPM?: number;
-  averageCPC?: number;
-  filtering?: AssetTargeting;
-
-  adUnits?: AdUnit[];
+  rpm?: number;
+  ctr?: number;
+  cost?: number;
+  averageRpc?: number;
   code?: string;
 }
 

@@ -22,6 +22,12 @@ export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 export const ADD_SITE_TO_SITES = 'Site added to user sites';
 export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
+export const UPDATE_SITE = 'Campaign update';
+export const UPDATE_SITE_SUCCESS = 'Campaign update success';
+export const UPDATE_SITE_FAILURE = 'Campaign update success';
+export const UPDATE_SITE_FILTERING = 'Campaign update';
+export const UPDATE_SITE_FILTERING_SUCCESS = 'Campaign update success';
+export const UPDATE_SITE_FILTERING_FAILURE = 'Campaign update success';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -40,7 +46,7 @@ export class LoadSitesSuccess implements Action {
 export class LoadSitesTotals implements Action {
   readonly type: string = LOAD_SITES_TOTALS;
 
-  constructor(public payload?: any) {
+  constructor(public payload: any) {
   }
 }
 
@@ -148,6 +154,48 @@ export class GetFilteringCriteriaFailure implements Action {
   }
 }
 
+export class UpdateSite implements Action {
+  readonly type = UPDATE_SITE;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteSuccess implements Action {
+  readonly type = UPDATE_SITE_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFailure implements Action {
+  readonly type = UPDATE_SITE_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class UpdateSiteFiltering implements Action {
+  readonly type = UPDATE_SITE_FILTERING;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFilteringSuccess implements Action {
+  readonly type = UPDATE_SITE_FILTERING_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFilteringFailure implements Action {
+  readonly type = UPDATE_SITE_FILTERING_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   GetLanguagesList |
   GetLanguagesListSuccess |
@@ -166,4 +214,10 @@ export type actions =
   SaveLastEditedSiteAdUnits |
   AddSiteToSites |
   AddSiteToSitesSuccess |
-  LoadSitesTotalsFailure;
+  LoadSitesTotalsFailure |
+  UpdateSite |
+  UpdateSiteSuccess |
+  UpdateSiteFailure |
+  UpdateSiteFiltering |
+  UpdateSiteFilteringSuccess |
+  UpdateSiteFilteringFailure;

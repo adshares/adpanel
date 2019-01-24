@@ -59,7 +59,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings) {
-    // this.barChartData.forEach(values => values[0].data = []);
     this.barChartData[0].data = [];
     console.log(chartFilterSettings.currentAssetId)
     const chartDataSubscription = this.chartService
@@ -80,12 +79,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-
-    this.store.dispatch(new publisherActions.LoadSitesTotals({
-      from: chartFilterSettings.currentFrom,
-      to: chartFilterSettings.currentTo
-    }));
-
     this.subscriptions.push(chartDataSubscription);
   }
 
@@ -93,7 +86,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     from = moment(from).format();
     to = moment(to).format();
     this.store.dispatch(new publisherActions.LoadSites({from, to}));
-    this.store.dispatch(new publisherActions.LoadSitesTotals({from, to}));
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => this.sites = sites);
