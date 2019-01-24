@@ -389,12 +389,12 @@
                        adsh-form-input--narrow
                        adsh-form-input--date
                        row"
-                [owlDateTime]="dateEndPicker"
-                [owlDateTimeTrigger]="dateEndPicker"
-                matInput
-                [min]="dateStart.value"
-                [formControl]="dateEnd"
-                data-test="advertiser-edit-campaign-basic-information-form-end-date"
+                     [owlDateTime]="dateEndPicker"
+                     [owlDateTimeTrigger]="dateEndPicker"
+                     matInput
+                     [min]="dateStart.value"
+                     [formControl]="dateEnd"
+                     data-test="advertiser-edit-campaign-basic-information-form-end-date"
               >
               <owl-date-time #dateEndPicker></owl-date-time>
             </mat-form-field>

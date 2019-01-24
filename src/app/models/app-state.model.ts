@@ -33,6 +33,7 @@ interface PublisherState {
 
 interface SettingsState {
   notificationsSettings: NotificationItem[];
+  totalFunds: number;
 }
 
 interface UserState {
