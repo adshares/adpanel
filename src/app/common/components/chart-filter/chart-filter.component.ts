@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {HandleSubscription} from 'common/handle-subscription';
@@ -16,6 +16,7 @@ import {enumToObjectArray} from "common/utilities/helpers";
 })
 export class ChartFilterComponent extends HandleSubscription implements OnInit, OnChanges {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
+  @Input() small: boolean = false;
   dateFrom = new FormControl(moment(new Date()).subtract(1, 'months'));
   dateTo = new FormControl(moment(new Date()));
   today = new Date();

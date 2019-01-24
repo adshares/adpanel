@@ -46,7 +46,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
   barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
-  barChartData: ChartData[] = createInitialArray([{data: []}], 6);
+  barChartData;
 
   currentChartFilterSettings: ChartFilterSettings;
   filteringOptions: TargetingOption[];
@@ -152,7 +152,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings, chartType) {
-    this.barChartData[0].data = [];
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(
@@ -164,10 +163,17 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.site.id
       )
       .subscribe(data => {
-        this.barChartData[0].data = data.values;
-        this.barChartLabels = data.timestamps.map(item => moment(item).format());
-        this.barChartValue = data.total;
-        this.barChartDifference = data.difference;
+        this.barChartData = {
+          ...this.barChartData,
+          [chartType]: {
+            data: [{
+              data: data.values,
+              currentSeries: chartType
+            }],
+            total: data.total,
+            labels: data.timestamps.map(item => moment(item).format())
+          }
+        };
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
