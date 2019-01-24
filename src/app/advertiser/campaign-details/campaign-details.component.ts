@@ -84,8 +84,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        this.campaign = campaigns.find(el => {return el.id === id});
-        if(this.campaign) {
+        this.campaign = campaigns.find(el => {
+          return el.id === id
+        });
+        if (this.campaign) {
           this.getTargeting();
         }
       });
@@ -96,7 +98,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
         }
       });
-    this.subscriptions.push( campaignsTotalsSubscription, chartFilterSubscription);
+    this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
   }
 
   loadCampaigns(from, to, id) {
@@ -148,8 +150,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
-    this.targetingOptions = this.route.snapshot.data.targetingOptions;
-    this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+    if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
+      this.targeting = this.campaign.targeting as AssetTargeting;
+    } else {
+      this.targetingOptions = this.route.snapshot.data.targetingOptions;
+      this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+    }
   }
 
   getChartData(chartFilterSettings, id) {
@@ -207,7 +213,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   get classificationLabel() {
-    if(!this.campaign) return;
+    if (!this.campaign) return;
     if (this.campaign.classificationStatus === this.classificationStatusesEnum.PROCESSING) {
       return 'Processing';
     }
@@ -222,11 +228,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (status === 0) {
       this.advertiserService
         .classifyCampaign(this.campaign.id)
-        .subscribe(() => {});
+        .subscribe(() => {
+        });
     } else {
       this.advertiserService
         .removeClassifyCampaign(this.campaign.id)
-        .subscribe(() => {});
+        .subscribe(() => {
+        });
     }
   }
 

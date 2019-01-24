@@ -25,10 +25,11 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {basicInformation: action.payload})
       };
-    case advertiserActions.UPDATE_CAMPAIGN_SUCCESS:
 
+    case advertiserActions.UPDATE_CAMPAIGN_SUCCESS:
       const campaigns = state.campaigns.filter(campaign => {
-        return campaign.id !== action.payload.id});
+        return campaign.id !== action.payload.id
+      });
       return {
         ...state,
         campaigns: [...campaigns, action.payload]
@@ -63,22 +64,25 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
       const bannersData = [];
-      campaign.ads.forEach(add => {
-        action.payload.forEach(element => {
-          if (element.bannerId === add.id) {
-            bannersData.push({
-              ...add,
-              id: element.bannerId,
-              averageCpc: element.averageCpc,
-              clicks: element.clicks,
-              cost: element.cost,
-              ctr: element.ctr,
-              impressions: element.impressions,
+      if (campaign.ads && campaign.ads.length > 0) {
+        campaign.ads.forEach(add => {
+          action.payload.forEach(element => {
+            if (element.bannerId === add.id) {
+              bannersData.push({
+                ...add,
+                id: element.bannerId,
+                averageCpc: element.averageCpc,
+                clicks: element.clicks,
+                cost: element.cost,
+                ctr: element.ctr,
+                impressions: element.impressions,
 
-            })
-          }
-        })
-      });
+              })
+            }
+          })
+        });
+      }
+
       return {
         ...state,
         campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}]
