@@ -238,71 +238,73 @@
     </section>
 
 
-    <!--<div-->
-      <!--class="-->
-        <!--row-->
-        <!--justify-between"-->
-    <!--&gt;-->
-      <!--<div-->
-        <!--class="-->
-          <!--col-->
-          <!--col-md-6-->
-          <!--adsh-box-->
-          <!--adsh-box&#45;&#45;large-->
-          <!--chart-box"-->
-        <!--*ngFor="let chartSeriesType of chartSeries; let i = index"-->
-      <!--&gt;-->
-        <!--<div class="chart-stats">-->
-          <!--<p-->
-            <!--class="-->
-              <!--chart-name-->
-              <!--adsh-copy"-->
-            <!--data-test="chart-series-type"-->
-          <!--&gt;-->
-            <!--{{ chartSeriesType }}:-->
-          <!--</p>-->
-          <!--<div-->
-            <!--class="-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span-->
-              <!--class="-->
-                <!--adsh-heading-->
-                <!--adsh-heading&#45;&#45;primary"-->
-              <!--data-test="chart-value"-->
-            <!--&gt;-->
-              <!--{{ site[chartSeriesType] || 0 }}-->
-            <!--</span>-->
-            <!--<span-->
-              <!--class="chart-change"-->
-              <!--data-test="chart-value-difference"-->
-            <!--&gt;-->
-              <!--{{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})-->
-            <!--</span>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div-->
-          <!--class="-->
-            <!--row-->
-            <!--align-center-->
-            <!--justify-center-->
-            <!--chart-wrapper"-->
-        <!--&gt;-->
-          <!--&lt;!&ndash;<app-chart&ndash;&gt;-->
-            <!--&lt;!&ndash;*ngIf="!!barChartData;"&ndash;&gt;-->
-            <!--&lt;!&ndash;class="&ndash;&gt;-->
-              <!--&lt;!&ndash;chart&ndash;&gt;-->
-              <!--&lt;!&ndash;row&ndash;&gt;-->
-              <!--&lt;!&ndash;align-center&ndash;&gt;-->
-              <!--&lt;!&ndash;justify-center"&ndash;&gt;-->
-            <!--&lt;!&ndash;(update)="getChartData($event, chartSeriesType)"&ndash;&gt;-->
-            <!--&lt;!&ndash;[barChartData]="barChartData[i]"&ndash;&gt;-->
-            <!--&lt;!&ndash;[barChartLabels]="barChartLabels[i].labels"&ndash;&gt;-->
-          <!--&lt;!&ndash;&gt;</app-chart>&ndash;&gt;-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div
+      class="
+        row
+        justify-between"
+    >
+      <div
+        class="
+          col
+          col-md-6
+          adsh-box
+          adsh-box--large
+          chart-box"
+        *ngFor="let chartSeriesType of chartSeries; let i = index"
+      >
+        <div class="chart-stats">
+          <p
+            class="
+              chart-name
+              adsh-copy"
+            data-test="chart-series-type"
+          >
+            {{ chartSeriesType }}:
+          </p>
+          <div
+            class="
+              row
+              align-center"
+          >
+            <span *ngIf="barChartData && barChartData[chartSeriesType]"
+                  class="
+                adsh-heading
+                adsh-heading--primary"
+                  data-test="chart-value"
+            >
+              {{ (chartSeriesType === 'rpm' || chartSeriesType === 'sum' || chartSeriesType === 'ctr'  ) ?
+              ((barChartData[chartSeriesType].total || 0) | adsharesTokenValue:2) :
+              barChartData[chartSeriesType].total }}
+            </span>
+            <span
+              class="chart-change"
+              data-test="chart-value-difference"
+            >
+            </span>
+          </div>
+        </div>
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            *ngIf="barChartData && barChartData[chartSeriesType]"
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            [seriesType]="chartSeriesType"
+            (update)="getChartData($event, chartSeriesType)"
+            [barChartData]="barChartData[chartSeriesType].data"
+            [barChartLabels]="barChartData[chartSeriesType].labels"
+          ></app-chart>
+        </div>
+      </div>
+    </div>
 
 
     <div class="col">
