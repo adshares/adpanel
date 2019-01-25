@@ -9,12 +9,13 @@ import { SessionService } from "app/session.service";
 
 import { LocalStorageUser, User } from 'models/user.model';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
-import { WalletDialogComponent } from 'settings/dialogs/wallet-dialog/wallet-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
 
 import { appSettings } from 'app-settings';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
-
+import {Store} from "@ngrx/store";
+import {AppState} from "models/app-state.model";
+import * as authActions from 'store/auth/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private store: Store<AppState>
   ) {
     super();
   }
@@ -107,6 +109,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       passwordLength: this.loginForm.get('password').value.length,
       expiration: ((+new Date) / 1000 | 0) + expirationSeconds
     });
+
+    this.store.dispatch(new authActions.UserLogInSuccess(dataToSave));
+
     this.session.setUser(dataToSave);
   }
 
@@ -136,10 +141,5 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.router.navigate(['/publisher/dashboard']);
       return;
     }
-  }
-
-  handleCustomizeDialog(accounts) {
-    // TODO : this does something? review fix display
-    this.dialog.open(WalletDialogComponent);
   }
 }

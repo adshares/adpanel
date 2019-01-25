@@ -1,4 +1,5 @@
 import * as advertiserActions from './advertiser.actions';
+import * as authActions  from '../auth/auth.actions';
 import {AdvertiserState} from 'models/app-state.model';
 import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-state/campaign';
 
@@ -8,7 +9,7 @@ const initialState: AdvertiserState = {
   campaignsTotals: [campaignsTotalsInitialState]
 };
 
-export function advertiserReducers(state = initialState, action: advertiserActions.actions) {
+export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
   switch (action.type) {
     case advertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
       return {
@@ -25,10 +26,11 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {basicInformation: action.payload})
       };
-    case advertiserActions.UPDATE_CAMPAIGN_SUCCESS:
 
+    case advertiserActions.UPDATE_CAMPAIGN_SUCCESS:
       const campaigns = state.campaigns.filter(campaign => {
-        return campaign.id !== action.payload.id});
+        return campaign.id !== action.payload.id
+      });
       return {
         ...state,
         campaigns: [...campaigns, action.payload]
@@ -63,26 +65,33 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
       const bannersData = [];
-      campaign.ads.forEach(add => {
-        action.payload.forEach(element => {
-          if (element.bannerId === add.id) {
-            bannersData.push({
-              ...add,
-              id: element.bannerId,
-              averageCpc: element.averageCpc,
-              clicks: element.clicks,
-              cost: element.cost,
-              ctr: element.ctr,
-              impressions: element.impressions,
+      if (campaign.ads && campaign.ads.length > 0) {
+        campaign.ads.forEach(add => {
+          action.payload.forEach(element => {
+            if (element.bannerId === add.id) {
+              bannersData.push({
+                ...add,
+                id: element.bannerId,
+                averageCpc: element.averageCpc,
+                clicks: element.clicks,
+                cost: element.cost,
+                ctr: element.ctr,
+                impressions: element.impressions,
 
-            })
-          }
-        })
-      });
+              })
+            }
+          })
+        });
+      }
+
       return {
         ...state,
         campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}]
       };
+
+    case authActions.USER_LOG_IN_SUCCESS:
+    case authActions.USER_LOG_OUT_SUCCESS:
+      return initialState;
     default:
       return state;
   }

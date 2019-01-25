@@ -14,6 +14,7 @@ export const LOAD_SITES = 'Sites loaded';
 export const LOAD_SITES_SUCCESS = 'Sites loaded success';
 export const LOAD_SITES_TOTALS = 'Sites totals loaded';
 export const LOAD_SITES_TOTALS_SUCCESS = 'Sites totals loaded success';
+export const LOAD_SITES_TOTALS_FAILURE = 'Sites totals loaded failure';
 export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
 export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
@@ -21,6 +22,12 @@ export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 export const ADD_SITE_TO_SITES = 'Site added to user sites';
 export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
+export const UPDATE_SITE = 'Site update';
+export const UPDATE_SITE_SUCCESS = 'Site update success';
+export const UPDATE_SITE_FAILURE = 'Site update failure';
+export const UPDATE_SITE_FILTERING = 'Site filtering update';
+export const UPDATE_SITE_FILTERING_SUCCESS = 'Site filtering update success';
+export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -39,7 +46,7 @@ export class LoadSitesSuccess implements Action {
 export class LoadSitesTotals implements Action {
   readonly type: string = LOAD_SITES_TOTALS;
 
-  constructor(public payload: TimespanFilter) {
+  constructor(public payload: any) {
   }
 }
 
@@ -47,6 +54,13 @@ export class LoadSitesTotalsSuccess implements Action {
   readonly type: string = LOAD_SITES_TOTALS_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+
+export class LoadSitesTotalsFailure implements Action {
+  readonly type: string = LOAD_SITES_TOTALS_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 
@@ -140,6 +154,48 @@ export class GetFilteringCriteriaFailure implements Action {
   }
 }
 
+export class UpdateSite implements Action {
+  readonly type = UPDATE_SITE;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteSuccess implements Action {
+  readonly type = UPDATE_SITE_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFailure implements Action {
+  readonly type = UPDATE_SITE_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class UpdateSiteFiltering implements Action {
+  readonly type = UPDATE_SITE_FILTERING;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFilteringSuccess implements Action {
+  readonly type = UPDATE_SITE_FILTERING_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteFilteringFailure implements Action {
+  readonly type = UPDATE_SITE_FILTERING_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   GetLanguagesList |
   GetLanguagesListSuccess |
@@ -157,4 +213,11 @@ export type actions =
   SaveSiteFiltering |
   SaveLastEditedSiteAdUnits |
   AddSiteToSites |
-  AddSiteToSitesSuccess;
+  AddSiteToSitesSuccess |
+  LoadSitesTotalsFailure |
+  UpdateSite |
+  UpdateSiteSuccess |
+  UpdateSiteFailure |
+  UpdateSiteFiltering |
+  UpdateSiteFilteringSuccess |
+  UpdateSiteFilteringFailure;

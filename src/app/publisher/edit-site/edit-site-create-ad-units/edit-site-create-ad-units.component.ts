@@ -173,20 +173,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     if (!adUnitsValid) return;
 
     this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
-
-    const updateSubscription = this.publisherService.updateSiteData(this.site.id, this.site)
-      .subscribe(
-        () => {
-          const siteId = this.site.id;
-          this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-          this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-          this.router.navigate(['/publisher', 'site', siteId]);
-        },
-        (err) => {
-          console.error(`Error occured: ${err}`)
-        }
-      );
-    this.subscriptions.push(updateSubscription);
+    this.store.dispatch(new publisherActions.UpdateSite(this.site));
   }
 
   get adUnitsToSave(): AdUnit[] {

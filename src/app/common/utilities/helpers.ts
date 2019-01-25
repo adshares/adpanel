@@ -88,13 +88,17 @@ function formatMoney(
 
   v = v.padStart(11, '0');
   const l = v.length - 11;
-  const a = v.substr(0, l) || '0';
+  let a = v.substr(0, l) || '0';
   const j = a.length > 3 ? a.length % 3 : 0;
-  let b = Math.round(parseInt((v + '0')
-    .substr(l, p + 1)) / 10)
-    .toString()
-    .padStart(p, '0')
+  let b = Math.round(
+    parseInt((v + '0').substr(l, p + 1)) / 10
+    ).toString()
   ;
+  if (b.length > p) {
+    b = '0';
+    a = (parseInt(a) + 1).toString();
+  }
+  b = b.padStart(p, '0');
   if (r) {
     b = b.replace(/([0-9]{2})0+$/, '$1');
   }

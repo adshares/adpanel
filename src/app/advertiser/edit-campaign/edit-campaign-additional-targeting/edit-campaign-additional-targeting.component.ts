@@ -31,7 +31,7 @@ export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestr
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createCampaignMode: boolean;
-  changesSaved:boolean;
+  changesSaved: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +39,8 @@ export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestr
     private router: Router,
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
@@ -80,19 +81,12 @@ export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestr
   }
 
   updateTargeting(): void {
-    const campaignId = this.campaign.id;
     const targeting = {
       requires: this.addedItems,
       excludes: this.excludedItems
     };
     const updatedCampaign = {...this.campaign, targetingArray: {...targeting}};
-
-    this.advertiserService.updateCampaign(updatedCampaign)
-      .subscribe(() => {
-        this.store.dispatch(new advertiserActions.UpdateCampaign(updatedCampaign));
-        this.router.navigate(['/advertiser', 'campaign', campaignId]);
-      })
-
+    this.store.dispatch(new advertiserActions.UpdateCampaign(updatedCampaign));
   }
 
   saveCampaignTargeting(isDraft) {

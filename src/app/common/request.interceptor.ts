@@ -18,7 +18,7 @@ import { environment } from "environments/environment.ts";
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   openedErrorDialogs: number = 0;
-  maxOpenedErrorDialogs: number = 3;
+  maxOpenedErrorDialogs: number = 1;
 
   constructor(
     private router: Router,

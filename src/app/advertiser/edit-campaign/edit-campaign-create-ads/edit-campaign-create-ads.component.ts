@@ -328,12 +328,7 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
       ...this.campaign,
       ads: this.ads
     };
-
-    this.advertiserService.updateCampaign(this.campaign)
-      .subscribe(() => {
-        this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
-        this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
-      })
+    this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
   };
 
   saveCampaignAds(isDraft): void {

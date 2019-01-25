@@ -24,6 +24,9 @@ export function authReducers(state = initialState, action: authActions.actions) 
         ...state,
         adserverWallet: Object.assign({}, state.adserverWallet, {autoWithdrawAmount: action.payload})
       };
+    case authActions.USER_LOG_OUT_SUCCESS:
+    case authActions.USER_LOG_IN_SUCCESS:
+      return initialState;
     default:
       return state;
   }

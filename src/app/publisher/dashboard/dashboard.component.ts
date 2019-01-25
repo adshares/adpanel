@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import { ChartService } from 'common/chart.service';
-import { ChartComponent } from 'common/components/chart/chart.component';
-import { SiteListComponent } from 'publisher/site-list/site-list.component';
-import { HandleSubscription } from 'common/handle-subscription';
-import { Site, SitesTotals } from 'models/site.model';
-import { chartSeriesEnum } from 'models/enum/chart.enum';
-import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
-import { AppState } from 'models/app-state.model';
-import { createInitialArray, enumToArray } from 'common/utilities/helpers';
+import {ChartService} from 'common/chart.service';
+import {ChartComponent} from 'common/components/chart/chart.component';
+import {SiteListComponent} from 'publisher/site-list/site-list.component';
+import {HandleSubscription} from 'common/handle-subscription';
+import {Site, SitesTotals} from 'models/site.model';
+import {chartSeriesEnum} from 'models/enum/chart.enum';
+import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
+import {ChartData} from 'models/chart/chart-data.model';
+import {ChartLabels} from 'models/chart/chart-labels.model';
+import {AppState} from 'models/app-state.model';
+import {createInitialArray, enumToArray} from 'common/utilities/helpers';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 
@@ -33,8 +33,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
-  barChartData: ChartData[][] = createInitialArray([{data: []}], 6);
+  barChartLabels: string[] = [];
+  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
   userHasConfirmedEmail: Store<boolean>;
 
   currentChartFilterSettings: ChartFilterSettings;
@@ -59,26 +59,24 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = []);
-
+    this.barChartData[0].data = [];
     const chartDataSubscription = this.chartService
-      .getAssetChartDataForPublisher(
+      .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentAssetId
+        chartFilterSettings.currentSeries,
+        'sites',
+        chartFilterSettings.currentAssetId,
       )
       .subscribe(data => {
-        this.barChartData.forEach(values => values[0].data = data[0].values);
-        this.barChartData.forEach(chartData => chartData[0].currentSeries = this.currentChartFilterSettings.currentSeries);
-        this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data[0].timestamps.map(timestamp => moment(timestamp).format());
-        });
-        this.barChartValue = data[0].total;
-        this.barChartDifference = data[0].difference;
-        this.barChartDifferenceInPercentage = data[0].differenceInPercentage;
-      });
+        this.barChartData[0].data = data.values;
 
+        this.barChartLabels = data.timestamps.map(item => moment(item).format());
+        this.barChartValue = data.total;
+        this.barChartDifference = data.difference;
+        this.barChartDifferenceInPercentage = data.differenceInPercentage;
+      });
     this.subscriptions.push(chartDataSubscription);
   }
 
@@ -86,7 +84,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     from = moment(from).format();
     to = moment(to).format();
     this.store.dispatch(new publisherActions.LoadSites({from, to}));
-    this.store.dispatch(new publisherActions.LoadSitesTotals({from, to}));
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => this.sites = sites);

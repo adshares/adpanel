@@ -7,7 +7,7 @@ export const UPDATE_USER_ADDRESS = 'User Address updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_PERIOD = 'User Automatic Withdraw period updated';
 export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw amount updated';
 export const USER_LOG_OUT_SUCCESS = 'User logged out success';
-
+export const USER_LOG_IN_SUCCESS = 'User logged in success';
 
 export class SetUser implements Action {
   readonly type = SET_USER;
@@ -44,9 +44,17 @@ export class UserLogOutSuccess implements Action {
   }
 }
 
+export class UserLogInSuccess implements Action {
+  readonly type = USER_LOG_IN_SUCCESS;
+
+  constructor(public payload?: any) {
+  }
+}
+
 
 export type actions = SetUser
   | UpdateUserAddress
   | UpdateUserAutomaticWithdrawPeriod
   | UpdateUserAutomaticWithdrawAmount
-  | UserLogOutSuccess;
+  | UserLogOutSuccess
+  | UserLogInSuccess;

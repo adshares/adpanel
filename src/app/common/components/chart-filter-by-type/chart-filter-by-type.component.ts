@@ -3,9 +3,11 @@ import {Store} from '@ngrx/store';
 
 import {User} from 'models/user.model';
 import {AppState} from 'models/app-state.model';
-import {adminChartSeriesEnum, advChartSeriesEnum} from 'models/enum/chart.enum';
+import {adminChartSeriesEnum, advChartSeriesEnum, pubChartSeriesEnum} from 'models/enum/chart.enum';
 import {enumToArray} from 'common/utilities/helpers';
 import {HandleSubscription} from 'common/handle-subscription';
+import {Site} from "models/site.model";
+import {Router} from "@angular/router";
 
 interface AssetInfo {
   id: number;
@@ -29,23 +31,25 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   chartSeries: string[];
   assetsInfo: AssetInfo[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
     super();
   }
 
   ngOnInit() {
     const userDataSubscription = this.store.select('state', 'user', 'data')
-      .subscribe(userData => this.userData = userData);
+      .subscribe(userData => {
+        this.userData = userData;
+        this.userData.isPublisher = !!this.router.url.match('/publisher/');
+        this.userData.isAdvertiser = !!this.router.url.match('/advertiser/');
+        this.setInitialDataByUserType();
+      });
+
     this.subscriptions.push(userDataSubscription);
-    this.setInitialDataByUserType();
   }
 
   setInitialDataByUserType() {
-    this.chartSeries = this.userData.isAdmin &&
-      enumToArray(adminChartSeriesEnum) || this.userData.isAdvertiser && enumToArray(advChartSeriesEnum);
-
     if (this.userData.isAdvertiser) {
-
+       this.chartSeries =  enumToArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
           this.assetsInfo = campaigns.map(
@@ -56,6 +60,20 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
           this.assetsInfo.unshift({id: 0, name: 'All Campaigns'});
         });
       this.subscriptions.push(userCampaignsSubscription);
+    } else if (this.userData.isPublisher) {
+      this.chartSeries =  enumToArray(pubChartSeriesEnum);
+      const userSiteSubscription = this.store.select('state', 'publisher', 'sites')
+        .subscribe((sites: Site[]) => {
+          this.assetsInfo = sites.map(
+            site => {
+              return {id: site.id, name: site.name}
+            }
+          );
+          this.assetsInfo.unshift({id: 0, name: 'All Sites'});
+        });
+      this.subscriptions.push(userSiteSubscription);
+    } else {
+      this.chartSeries =  enumToArray(advChartSeriesEnum);
     }
   }
 
