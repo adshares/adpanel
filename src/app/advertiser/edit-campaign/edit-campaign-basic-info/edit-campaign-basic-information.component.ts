@@ -33,14 +33,15 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   goesToSummary: boolean;
   createCampaignMode: boolean;
   campaign: Campaign;
-  changesSaved:boolean;
+  changesSaved: boolean;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
@@ -63,13 +64,13 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
-    this.createCampaignMode  ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
+    this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
   }
 
   get campaignBasicInfo(): CampaignBasicInformation {
     const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
 
-   return {
+    return {
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
@@ -95,16 +96,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
       ...this.campaign,
       basicInformation: this.campaignBasicInfo,
     };
-
-    this.advertiserService.updateCampaign(this.campaign)
-      .subscribe(
-        () => {
-          const id = this.campaign.id;
-          this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
-          this.router.navigate(['/advertiser', 'campaign', id]);
-        },
-      (err) => {console.error(err)}
-      )
+    this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
   }
 
   createForm() {

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { siteStatusEnum } from 'models/enum/site.enum.ts';
+import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
+import {siteStatusEnum} from 'models/enum/site.enum.ts';
 
 @Component({
   selector: 'app-site-list-item',

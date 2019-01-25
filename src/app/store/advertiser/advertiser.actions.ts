@@ -22,6 +22,7 @@ export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loaded
 export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loaded failure';
 export const UPDATE_CAMPAIGN = 'Campaign update';
 export const UPDATE_CAMPAIGN_SUCCESS = 'Campaign update success';
+export const UPDATE_CAMPAIGN_FAILURE = 'Campaign update failure';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -72,6 +73,13 @@ export class UpdateCampaignSuccess implements Action {
   }
 }
 
+export class UpdateCampaignFailure implements Action {
+  readonly type = UPDATE_CAMPAIGN_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export class AddCampaignToCampaigns implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS;
 
@@ -113,6 +121,7 @@ export class LoadCampaignBannerDataFailure implements Action {
   constructor(public payload?: any) {
   }
 }
+
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 
@@ -170,4 +179,7 @@ export type actions =
   LoadCampaignsTotalsSuccess |
   LoadCampaignsTotalsFailure |
   LoadCampaignsFailure |
-  LoadCampaignBannerDataFailure;
+  LoadCampaignBannerDataFailure |
+  UpdateCampaign |
+  UpdateCampaignSuccess |
+  UpdateCampaignFailure;

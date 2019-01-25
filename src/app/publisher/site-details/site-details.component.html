@@ -96,30 +96,6 @@
             data-test="publisher-site-status-toggle"
           ></mat-slide-toggle>
         </div>
-        <!--<button-->
-        <!--class="-->
-        <!--adsh-btn-->
-        <!--adsh-btn&#45;&#45;white-->
-        <!--adsh-btn&#45;&#45;no-border-->
-        <!--hidden-md"-->
-        <!--(click)="navigateToEditSite()"-->
-        <!--data-test="publisher-site-edit"-->
-        <!--&gt;-->
-        <!--<img-->
-        <!--class="-->
-        <!--adsh-icon-->
-        <!--adsh-icon&#45;&#45;prepend"-->
-        <!--src="assets/images/edit.svg"-->
-        <!--alt="Edit icon"-->
-        <!--&gt;-->
-        <!--<span-->
-        <!--class="-->
-        <!--adsh-copy-->
-        <!--adsh-copy&#45;&#45;dark"-->
-        <!--&gt;-->
-        <!--Edit Site-->
-        <!--</span>-->
-        <!--</button>-->
         <button
           class="
             adsh-btn
@@ -261,7 +237,7 @@
 
     </section>
 
-<!--
+
     <div
       class="
         row
@@ -272,7 +248,7 @@
           col
           col-md-6
           adsh-box
-          adsh-box&#45;&#45;large
+          adsh-box--large
           chart-box"
         *ngFor="let chartSeriesType of chartSeries; let i = index"
       >
@@ -290,19 +266,20 @@
               row
               align-center"
           >
-            <span
-              class="
+            <span *ngIf="barChartData && barChartData[chartSeriesType]"
+                  class="
                 adsh-heading
-                adsh-heading&#45;&#45;primary"
-              data-test="chart-value"
+                adsh-heading--primary"
+                  data-test="chart-value"
             >
-              {{ barChartValue }}
+              {{ (chartSeriesType === 'rpm' || chartSeriesType === 'sum' || chartSeriesType === 'ctr'  ) ?
+              ((barChartData[chartSeriesType].total || 0) | adsharesTokenValue:2) :
+              barChartData[chartSeriesType].total }}
             </span>
             <span
               class="chart-change"
               data-test="chart-value-difference"
             >
-              {{ barChartDifference }} ({{ barChartDifferenceInPercentage | percent }})
             </span>
           </div>
         </div>
@@ -314,20 +291,21 @@
             chart-wrapper"
         >
           <app-chart
+            *ngIf="barChartData && barChartData[chartSeriesType]"
             class="
               chart
               row
               align-center
               justify-center"
             [seriesType]="chartSeriesType"
-            (update)="getChartData($event)"
-            [barChartData]="barChartData[i]"
-            [barChartLabels]="barChartLabels[i].labels"
+            (update)="getChartData($event, chartSeriesType)"
+            [barChartData]="barChartData[chartSeriesType].data"
+            [barChartLabels]="barChartData[chartSeriesType].labels"
           ></app-chart>
         </div>
       </div>
     </div>
--->
+
 
     <div class="col">
       <div

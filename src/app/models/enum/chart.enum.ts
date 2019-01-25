@@ -12,6 +12,15 @@ export enum chartSeriesEnum {
   CPM,
   SUM
 }
+
+export enum pubChartSeriesEnum {
+  VIEW,
+  CLICK,
+  RPC,
+  CTR,
+  RPM,
+  SUM
+}
 export enum advChartSeriesEnum {
   VIEW,
   CLICK,

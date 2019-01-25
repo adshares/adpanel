@@ -52,6 +52,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.to,
         chartFilterSettings.frequency,
         chartFilterSettings.series,
+        'campaigns'
       )
       .subscribe(data => {
         this.barChartData.forEach(values => values[0].data = data.values);
