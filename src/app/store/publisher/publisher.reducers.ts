@@ -26,7 +26,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
           ...site,
           ...matchingSite
         }
-      })
+      });
       return {
         ...state,
         sites,

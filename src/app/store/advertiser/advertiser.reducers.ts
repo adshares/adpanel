@@ -41,9 +41,18 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         campaigns: action.payload
       };
     case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
+      const campaignsWithTotals = state.campaigns.map(campaign => {
+        const matchingCampaign = action.payload.find(stats => stats.campaignId === campaign.id);
+        if (!matchingCampaign) return campaign;
+        return {
+          ...campaign,
+          ...matchingCampaign
+        }
+      });
       return {
         ...state,
-        campaignsTotals: action.payload
+        campaigns: campaignsWithTotals
+        // campaignsTotals: action.payload
       };
     case advertiserActions.SAVE_CAMPAIGN_TARGETING:
       return {

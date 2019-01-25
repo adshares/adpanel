@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {Campaign} from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import * as advertiserActions from "store/advertiser/advertiser.actions";
 import {AppState} from "models/app-state.model";
@@ -15,7 +15,6 @@ import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
 })
 export class CampaignListItemComponent {
   @Input() campaign: Campaign;
-  @Input() campaignTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings;
 
   constructor(private router: Router, private store: Store<AppState>) {

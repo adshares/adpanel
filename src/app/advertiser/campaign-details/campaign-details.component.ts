@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {Campaign} from 'models/campaign.model';
 import {AppState} from 'models/app-state.model';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {ChartComponent} from 'common/components/chart/chart.component';
@@ -92,13 +92,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        if (campaignsTotals && campaignsTotals.length) {
-          this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
-        }
-      });
-    this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
+    this.subscriptions.push(chartFilterSubscription);
   }
 
   loadCampaigns(from, to, id) {
