@@ -1,4 +1,5 @@
 import * as advertiserActions from './advertiser.actions';
+import * as authActions  from '../auth/auth.actions';
 import {AdvertiserState} from 'models/app-state.model';
 import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-state/campaign';
 
@@ -8,7 +9,7 @@ const initialState: AdvertiserState = {
   campaignsTotals: [campaignsTotalsInitialState]
 };
 
-export function advertiserReducers(state = initialState, action: advertiserActions.actions) {
+export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
   switch (action.type) {
     case advertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
       return {
@@ -87,6 +88,10 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}]
       };
+
+    case authActions.USER_LOG_IN_SUCCESS:
+    case authActions.USER_LOG_OUT_SUCCESS:
+      return initialState;
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 import * as PublisherActions from './publisher.actions';
+import * as authActions  from '../auth/auth.actions';
 import {siteInitialState, sitesTotalsInitialState} from 'models/initial-state/site';
 import {PublisherState} from 'models/app-state.model';
 
@@ -10,7 +11,7 @@ const initialState: PublisherState = {
   filteringCriteria: [],
 };
 
-export function publisherReducers(state = initialState, action: PublisherActions.actions) {
+export function publisherReducers(state = initialState, action: PublisherActions.actions | authActions.actions) {
   switch (action.type) {
     case PublisherActions.LOAD_SITES_SUCCESS:
       return {
@@ -79,6 +80,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         filteringCriteria: [...action.payload]
       };
+
     case PublisherActions.UPDATE_SITE || PublisherActions.UPDATE_SITE_FILTERING:
       const oldSites = state.sites.filter(site => site.id !== action.payload.id);
       return {
@@ -88,6 +90,10 @@ export function publisherReducers(state = initialState, action: PublisherActions
           ...action.payload
         ]
       };
+
+    case authActions.USER_LOG_IN_SUCCESS:
+    case authActions.USER_LOG_OUT_SUCCESS:
+      return initialState;
 
     default:
       return state;
