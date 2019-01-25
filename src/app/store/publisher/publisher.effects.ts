@@ -44,7 +44,7 @@ export class PublisherEffects {
   loadSitesTotals$ = this.actions$
     .ofType(publisherActions.LOAD_SITES_TOTALS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id && payload.id)
+    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
       .map((sitesTotals) => new publisherActions.LoadSitesTotalsSuccess(sitesTotals))
       .catch(() => Observable.of(new publisherActions.LoadSitesTotalsFailure()))
     );
@@ -78,7 +78,6 @@ export class PublisherEffects {
     .switchMap(payload => this.service.updateSiteData(payload.id, payload)
       .switchMap(() => {
         this.router.navigate(['/publisher', 'site', payload.id]);
-
         return [
         new publisherActions.UpdateSiteSuccess(payload),
         new publisherActions.ClearLastEditedSite(),

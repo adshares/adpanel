@@ -25,9 +25,9 @@ export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
 export const UPDATE_SITE = 'Site update';
 export const UPDATE_SITE_SUCCESS = 'Site update success';
 export const UPDATE_SITE_FAILURE = 'Site update failure';
-export const UPDATE_SITE_FILTERING = 'Site update';
-export const UPDATE_SITE_FILTERING_SUCCESS = 'Site update success';
-export const UPDATE_SITE_FILTERING_FAILURE = 'Site update failure';
+export const UPDATE_SITE_FILTERING = 'Site filtering update';
+export const UPDATE_SITE_FILTERING_SUCCESS = 'Site filtering update success';
+export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
