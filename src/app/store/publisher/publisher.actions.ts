@@ -5,16 +5,19 @@ import {AssetTargeting, TargetingOption} from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
-export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loaded';
+export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading';
 export const GET_LANGUAGES_LIST_FAILURE = 'Languages loading failure';
 export const GET_FILTERING_CRITERIA = 'Getting filtering criteria';
-export const GET_FILTERING_CRITERIA_SUCCESS = 'Filtering criteria loaded';
+export const GET_FILTERING_CRITERIA_SUCCESS = 'Filtering criteria loading';
 export const GET_FILTERING_CRITERIA_FAILURE = 'Filtering criteria loading failure';
-export const LOAD_SITES = 'Sites loaded';
-export const LOAD_SITES_SUCCESS = 'Sites loaded success';
-export const LOAD_SITES_TOTALS = 'Sites totals loaded';
-export const LOAD_SITES_TOTALS_SUCCESS = 'Sites totals loaded success';
-export const LOAD_SITES_TOTALS_FAILURE = 'Sites totals loaded failure';
+export const LOAD_SITE = 'Site loading';
+export const LOAD_SITE_SUCCESS = 'Site loading success';
+export const LOAD_SITE_FAILURE = 'Site loading failure';
+export const LOAD_SITES = 'Sites loading';
+export const LOAD_SITES_SUCCESS = 'Sites loading success';
+export const LOAD_SITES_TOTALS = 'Sites totals loading';
+export const LOAD_SITES_TOTALS_SUCCESS = 'Sites totals loading success';
+export const LOAD_SITES_TOTALS_FAILURE = 'Sites totals loading failure';
 export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
 export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
@@ -40,6 +43,26 @@ export class LoadSitesSuccess implements Action {
   readonly type: string = LOAD_SITES_SUCCESS;
 
   constructor(public payload: any) {
+  }
+}
+export class LoadSite implements Action {
+  readonly type: string = LOAD_SITE;
+
+  constructor(public payload: number) {
+  }
+}
+
+export class LoadSiteSuccess implements Action {
+  readonly type: string = LOAD_SITE_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class LoadSiteFailure implements Action {
+  readonly type: string = LOAD_SITE_FAILURE;
+
+  constructor(public payload?: any) {
   }
 }
 
@@ -203,6 +226,11 @@ export type actions =
   GetFilteringCriteria |
   GetFilteringCriteriaSuccess |
   GetFilteringCriteriaFailure |
+  LoadSite |
+  LoadSiteSuccess |
+  LoadSiteFailure |
+  LoadSitesTotalsSuccess |
+  LoadSitesTotalsFailure |
   LoadSites |
   LoadSitesSuccess |
   LoadSitesTotals |

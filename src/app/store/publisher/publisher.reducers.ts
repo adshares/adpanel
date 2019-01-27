@@ -18,6 +18,15 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         sites: action.payload
       };
+
+      case PublisherActions.LOAD_SITE_SUCCESS:
+      return {
+        ...state,
+        sites: [
+          ...state.sites,
+          ...action.payload
+        ]
+      };
     case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
       const sites = state.sites.map(site => {
         const matchingSite = action.payload.find(stats => stats.siteId === site.id);
@@ -26,7 +35,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
           ...site,
           ...matchingSite
         }
-      })
+      });
       return {
         ...state,
         sites,

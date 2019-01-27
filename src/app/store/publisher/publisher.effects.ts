@@ -41,6 +41,15 @@ export class PublisherEffects {
     );
 
   @Effect()
+  loadSite$ = this.actions$
+    .ofType(publisherActions.LOAD_SITE)
+    .map(toPayload)
+    .switchMap((id) => this.service.getSite(id)
+      .map((site) => new publisherActions.LoadSiteSuccess(site))
+      .catch(() => Observable.of(new publisherActions.LoadSiteFailure()))
+    );
+
+  @Effect()
   loadSitesTotals$ = this.actions$
     .ofType(publisherActions.LOAD_SITES_TOTALS)
     .map(toPayload)

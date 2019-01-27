@@ -27,6 +27,25 @@ export class AdvertiserEffects {
     );
 
   @Effect()
+  loadCampaign$ = this.actions$
+    .ofType(advertiserActions.LOAD_CAMPAIGN)
+    .map(toPayload)
+    .switchMap((id) => this.service.getCampaign(id)
+      .map((campaign) => new advertiserActions.LoadCampaignSuccess(campaign))
+      .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
+    );
+
+  @Effect()
+  loadCampaignTotals$ = this.actions$
+    .ofType(advertiserActions.LOAD_CAMPAIGN_TOTALS)
+    .map(toPayload)
+    .switchMap((payload) => this.service
+        .getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
+      .map((data) => new advertiserActions.LoadCampaignTotalsSuccess(data))
+      .catch(() => Observable.of(new advertiserActions.LoadCampaignTotalsFailure()))
+    );
+
+  @Effect()
   loadCampaignBannersData$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGN_BANNER_DATA)
     .map(toPayload)

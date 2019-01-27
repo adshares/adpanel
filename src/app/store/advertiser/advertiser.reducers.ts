@@ -40,7 +40,30 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: action.payload
       };
-    case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
+
+      case advertiserActions.LOAD_CAMPAIGN_SUCCESS:
+      return {
+        ...state,
+        campaigns: [
+          ...state.campaigns,
+          ...action.payload
+        ]
+      };
+    case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS:
+      const currentCampaign = state.campaigns.find(c => c.id === action.payload.campaignId);
+      const filteredCampaigns = state.campaigns.filter(c => c.id !== action.payload.campaignId);
+      return {
+        ...state,
+        campaigns: [
+          ...filteredCampaigns,
+          {
+            ...currentCampaign,
+            ...action.payload
+          }
+        ]
+      };
+
+      case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
       return {
         ...state,
         campaignsTotals: action.payload
