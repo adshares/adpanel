@@ -22,7 +22,8 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
     .switchMap(() => this.service.getCampaigns()
-      .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns))
+      .switchMap((campaigns) => Observable.of([new advertiserActions.LoadCampaignsSuccess(campaigns),
+      new advertiserActions.LoadCampaignsTotals({from, to})]))
       .catch(() => Observable.of(new advertiserActions.LoadCampaignsFailure()))
     );
 
@@ -32,7 +33,6 @@ export class AdvertiserEffects {
     .map(toPayload)
     .switchMap((payload) => this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
       .map((banners) => {
-        console.log('pappapa', banners)
         return new advertiserActions.LoadCampaignBannerDataSuccess(banners)})
       .catch(() => Observable.of(new advertiserActions.LoadCampaignBannerDataFailure()))
     );

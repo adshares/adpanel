@@ -35,12 +35,12 @@ export class SettingsEffects {
   getWalletBalanceInterval$: Observable<Action> = this.actions$
     .ofType(settingsActions.GET_CURRENT_BALANCE)
 
-    .switchMap(() => Observable
-      .timer(0, 5000)
-      .takeUntil(this.actions$.ofType(authActions.USER_LOG_OUT_SUCCESS))
+    // .switchMap(() => Observable
+      // .timer(0, 500000000000000000000000)
+      // .takeUntil(this.actions$.ofType(authActions.USER_LOG_OUT_SUCCESS))
       .switchMap(() => this.authService.check()
         .map((res) => new settingsActions.GetCurrentBalanceSuccess(res.adserverWallet.totalFunds))
         .catch(err => Observable.of(new settingsActions.GetCurrentBalanceFailure(err)))
       )
-    )
+    // )
 }

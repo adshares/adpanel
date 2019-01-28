@@ -76,6 +76,8 @@ export function advertiserReducers(state = initialState, action: advertiserActio
 
         })
       });
+      console.log('asd', action.payload.data)
+      console.log('asd', campaignsWithTotal)
       return {
         ...state,
         campaigns: campaignsWithTotal,
@@ -86,7 +88,8 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload.data.campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload.data.campaignId);
       const bannersData = [];
-      if (campaign.ads !== undefined && campaign.ads.length > 0) {
+
+      if (!!campaign && typeof  campaign.ads !== 'undefined' && campaign.ads.length > 0) {
         campaign.ads.forEach(add => {
           action.payload.data.forEach(element => {
             if (element.bannerId === add.id) {
@@ -98,7 +101,6 @@ export function advertiserReducers(state = initialState, action: advertiserActio
                 cost: element.cost,
                 ctr: element.ctr,
                 impressions: element.impressions,
-
               })
             }
           })
