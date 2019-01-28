@@ -33,7 +33,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   classificationStatusesEnum = classificationStatusesEnum;
-  campaignsTotals;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -92,13 +91,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        if (campaignsTotals && campaignsTotals.length) {
-          this.campaignsTotals = campaignsTotals;
-        }
-      });
-    this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
+
+    this.subscriptions.push(chartFilterSubscription);
   }
 
   loadCampaigns(from, to, id) {
