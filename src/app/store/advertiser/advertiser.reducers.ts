@@ -65,7 +65,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
       const bannersData = [];
-      if (campaign.ads && campaign.ads.length > 0) {
+      if (campaign.ads !== undefined && campaign.ads.length > 0) {
         campaign.ads.forEach(add => {
           action.payload.forEach(element => {
             if (element.bannerId === add.id) {
