@@ -3,7 +3,7 @@ import { adSizesEnum, adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
 
 export const adInitialState: Ad = {
   id: 0,
-  status: adStatusesEnum.DRAFT,
+  status: adStatusesEnum.ACTIVE,
   name: '',
   type: adTypesEnum.IMAGE,
   size: adSizesEnum['728x90'],

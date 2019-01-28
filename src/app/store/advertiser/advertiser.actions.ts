@@ -8,24 +8,31 @@ export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
 export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
 export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
+
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';
+
 export const LOAD_CAMPAIGNS = 'Campaigns loading';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loading success';
 export const LOAD_CAMPAIGNS_FAILURE = 'Campaigns loading failure';
+
 export const LOAD_CAMPAIGN = 'Campaign loading';
 export const LOAD_CAMPAIGN_SUCCESS = 'Campaign loading success';
 export const LOAD_CAMPAIGN_FAILURE = 'Campaign loading failure';
+
 export const LOAD_CAMPAIGN_TOTALS = 'Campaign totals loading';
-export const LOAD_CAMPAIGN_TOTALS_SUCCESS = 'Campaigns totals loading success';
-export const LOAD_CAMPAIGN_TOTALS_FAILURE = 'Campaigns totals loading failure';
+export const LOAD_CAMPAIGN_TOTALS_SUCCESS = 'Campaign totals loading success';
+export const LOAD_CAMPAIGN_TOTALS_FAILURE = 'Campaign totals loading failure';
+
 export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loading';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loading success';
 export const LOAD_CAMPAIGNS_TOTALS_FAILURE = 'Campaigns totals loading failure';
+
 export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loading';
 export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loading success';
 export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loading failure';
+
 export const UPDATE_CAMPAIGN = 'Campaign update';
 export const UPDATE_CAMPAIGN_SUCCESS = 'Campaign update success';
 export const UPDATE_CAMPAIGN_FAILURE = 'Campaign update failure';
@@ -215,23 +222,29 @@ export type actions =
   SaveCampaignBasicInformation |
   SaveCampaignTargeting |
   SaveCampaignAds |
+
   AddCampaignToCampaigns |
   AddCampaignToCampaignsFailure |
   AddCampaignToCampaignsSuccess |
+
   LoadCampaigns |
   LoadCampaignsSuccess |
   LoadCampaignsFailure |
+
   LoadCampaign |
   LoadCampaignSuccess |
   LoadCampaignFailure |
+
   LoadCampaignTotals |
   LoadCampaignTotalsSuccess |
   LoadCampaignTotalsFailure |
+
   LoadCampaignsTotals |
   LoadCampaignsTotalsSuccess |
   LoadCampaignsTotalsFailure |
-  LoadCampaignsFailure |
+
   LoadCampaignBannerDataFailure |
+
   UpdateCampaign |
   UpdateCampaignSuccess |
   UpdateCampaignFailure;

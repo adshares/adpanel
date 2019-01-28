@@ -31,7 +31,9 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.LOAD_CAMPAIGN)
     .map(toPayload)
     .switchMap((id) => this.service.getCampaign(id)
-      .map((campaign) => new advertiserActions.LoadCampaignSuccess(campaign))
+      .map((payload) =>{
+        const campaign = payload.campaign;
+        return new advertiserActions.LoadCampaignSuccess(campaign)})
       .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
     );
 

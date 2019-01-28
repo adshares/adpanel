@@ -58,8 +58,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.data.campaign.campaign.id;
-
+    const id = this.route.snapshot.data.campaign.id;
+console.log('----', this.route.snapshot.data.campaign)
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -67,19 +67,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       });
 
 
-    this.store.select('state', 'advertiser', 'campaigns')
-      .take(1)
-      .subscribe((campaigns: Campaign[]) => {
-        if (!campaigns.length || !campaigns.find(el => el.id === id)) {
-          this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo, id)
-        } else {
-          this.store.dispatch(new advertiserActions.LoadCampaignBannerData({
-            from: this.currentChartFilterSettings.currentFrom,
-            to: this.currentChartFilterSettings.currentTo,
-            id: id
-          }))
-        }
-      });
 
     this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
@@ -87,6 +74,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.campaign = campaigns.find(el => {
           return el.id === id
         });
+        console.log('this.campaign', this.campaign)
         if (this.campaign) {
           this.getTargeting();
         }
@@ -99,14 +87,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
     this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
-  }
-
-  loadCampaigns(from, to, id) {
-    from = moment(from).format();
-    to = moment(to).format();
-    this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
-    this.store.dispatch(new advertiserActions.LoadCampaignsTotals({from, to}));
-    this.store.dispatch(new advertiserActions.LoadCampaignBannerData({from, to, id: id}))
   }
 
   deleteCampaign() {

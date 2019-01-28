@@ -21,11 +21,13 @@ export class CampaignResolver implements Resolve<Campaign> {
     this.store.take(1).subscribe(store => {
       const currentCampaign = store.state.advertiser.campaigns
         .find(campaign => campaign.id === route.params.id);
+      const dateTo = moment().format();
+      const dateFrom = moment().subtract(7,'d').format();
 
       if (!currentCampaign) {
-        const dateTo = moment().format('YYYY-MM-DD');
-        const dateFrom = moment().subtract(7,'d').format('YYYY-MM-DD');
         this.store.dispatch(new LoadCampaign(route.params.id));
+        this.store.dispatch(new LoadCampaignTotals({from: dateFrom, to: dateTo, id: route.params.id}));
+      } else {
         this.store.dispatch(new LoadCampaignTotals({from: dateFrom, to: dateTo, id: route.params.id}));
       }
     });
@@ -34,7 +36,7 @@ export class CampaignResolver implements Resolve<Campaign> {
   waitForCampaignDataToLoad(route: ActivatedRouteSnapshot): Observable<Campaign> {
     return this.store.select('state', 'advertiser', 'campaigns')
       .map(campaigns => campaigns.find(campaign => campaign.id !== route.params.id))
-      .filter(campaign => !!campaign)
+      .filter(campaign => !!campaign && !!campaign.cost)
       .take(1);
   }
 }

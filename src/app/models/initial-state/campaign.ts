@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 
-import { Campaign, CampaignTotals } from 'models/campaign.model';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { classificationStatusesEnum } from 'models/enum/classification.enum';
+import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import {classificationStatusesEnum} from 'models/enum/classification.enum';
 
 export const campaignsTotalsInitialState: CampaignTotals = {
   campaignId: 0,
