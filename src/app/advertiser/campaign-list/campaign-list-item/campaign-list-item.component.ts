@@ -17,7 +17,6 @@ export class CampaignListItemComponent {
   }
 
   navigateToCampaignDetails(campaignId: number) {
-    console.log('here', campaignId)
     this.router.navigate(['/advertiser', 'campaign', campaignId]);
   }
 }

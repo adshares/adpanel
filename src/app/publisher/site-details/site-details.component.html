@@ -273,8 +273,8 @@
                   data-test="chart-value"
             >
               {{ (chartSeriesType === 'rpm' || chartSeriesType === 'sum' || chartSeriesType === 'ctr'  ) ?
-              ((barChartData[chartSeriesType].total || 0) | adsharesTokenValue:2) :
-              barChartData[chartSeriesType].total }}
+              ((site[chartSeriesType] || 0) | adsharesTokenValue:2) :
+              (site[chartSeriesType] || 0)}}
             </span>
             <span
               class="chart-change"

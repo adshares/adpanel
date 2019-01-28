@@ -25,7 +25,7 @@ export class AdvertiserService {
     const options = campaignId && {
       params: {campaign_id: `${campaignId}`}
     };
-    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table/${dateStart}/${dateEnd}`, options);
+    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
   getCampaign(id: number): Observable<{ campaign: Campaign }> {

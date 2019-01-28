@@ -144,7 +144,6 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       return {
         ...state,
         campaigns: [...filteredCampaigns, {...selectedCampaign, ads: [...bannersData]}],
-        campaignsTotals: action.payload.total
       };
 
     case authActions.USER_LOG_IN_SUCCESS:

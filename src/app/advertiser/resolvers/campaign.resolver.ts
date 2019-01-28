@@ -13,30 +13,29 @@ export class CampaignResolver implements Resolve<Campaign> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<Campaign> {
-    this.initCampaignData(route);
+    const id = Number(route.params.id);
 
-    return this.waitForCampaignDataToLoad(route)
+    this.initCampaignData(id);
+    return this.waitForCampaignDataToLoad(id)
   }
 
-  initCampaignData(route: ActivatedRouteSnapshot): void {
+  initCampaignData(id: number): void {
     this.store.take(1).subscribe(store => {
       const currentCampaign = store.state.advertiser.campaigns
-        .find(campaign => campaign.id === route.params.id);
+        .find(campaign => campaign.id === id);
       if (!currentCampaign) {
-        this.store.dispatch(new LoadCampaign(route.params.id));
+        this.store.dispatch(new LoadCampaign(id));
       } else {
         const dateTo = moment().format();
         const dateFrom = moment().subtract(7,'d').format();
-        this.store.dispatch(new LoadCampaignTotals({from: dateFrom, to: dateTo, id: route.params.id}));
+        this.store.dispatch(new LoadCampaignTotals({from: dateFrom, to: dateTo, id}));
       }
     });
   }
 
-  waitForCampaignDataToLoad(route: ActivatedRouteSnapshot): Observable<Campaign> {
+  waitForCampaignDataToLoad(id: number): Observable<Campaign> {
     return this.store.select('state', 'advertiser', 'campaigns')
-      .map(campaigns => campaigns.find(campaign => {
-        return campaign.id === Number(route.params.id)}))
-      .do(c=> console.log('abc', c))
+      .map(campaigns => campaigns.find(campaign => campaign.id === id))
       .filter(campaign => !!campaign )
       .take(1);
   }

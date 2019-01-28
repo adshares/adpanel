@@ -11,6 +11,7 @@ import * as publisherActions from './publisher.actions';
 import {prepareTargetingChoices} from "common/components/targeting/targeting.helpers";
 import {Observable} from "rxjs";
 import "rxjs/add/operator/takeLast";
+import * as moment from "moment";
 
 @Injectable()
 export class PublisherEffects {
@@ -25,16 +26,14 @@ export class PublisherEffects {
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
     .map(toPayload)
-    .switchMap((payload) => this.service.getSites()
+    .switchMap(() => this.service.getSites()
       .switchMap((sites) => {
-        sites.forEach(site => {
-          site.filtering.requires = site.filtering.requires || [];
-          site.filtering.excludes = site.filtering.excludes || [];
-        });
+        const to = moment().format();
+        const from = moment().subtract(7, 'd').format();
 
         return [
           new publisherActions.LoadSitesSuccess(sites),
-          new publisherActions.LoadSitesTotals(payload)
+          new publisherActions.LoadSitesTotals({from, to})
         ]
       })
       .catch(() => Observable.of(new publisherActions.LoadSitesTotalsFailure()))
@@ -45,15 +44,32 @@ export class PublisherEffects {
     .ofType(publisherActions.LOAD_SITE)
     .map(toPayload)
     .switchMap((id) => this.service.getSite(id)
-      .map((site) => new publisherActions.LoadSiteSuccess(site))
+      .switchMap((site) => {
+        const to = moment().format();
+        const from = moment().subtract(7, 'd').format();
+
+        return [
+          new publisherActions.LoadSiteSuccess(site),
+          new publisherActions.LoadSitesTotals({from, to})
+        ]
+      })
       .catch(() => Observable.of(new publisherActions.LoadSiteFailure()))
+    );
+
+  @Effect()
+  loadSiteTotals$ = this.actions$
+    .ofType(publisherActions.LOAD_SITE_TOTALS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
+      .map((sitesTotals) => new publisherActions.LoadSiteTotalsSuccess(sitesTotals))
+      .catch(() => Observable.of(new publisherActions.LoadSiteTotalsFailure()))
     );
 
   @Effect()
   loadSitesTotals$ = this.actions$
     .ofType(publisherActions.LOAD_SITES_TOTALS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
+    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`)
       .map((sitesTotals) => new publisherActions.LoadSitesTotalsSuccess(sitesTotals))
       .catch(() => Observable.of(new publisherActions.LoadSitesTotalsFailure()))
     );
@@ -88,9 +104,10 @@ export class PublisherEffects {
       .switchMap(() => {
         this.router.navigate(['/publisher', 'site', payload.id]);
         return [
-        new publisherActions.UpdateSiteSuccess(payload),
-        new publisherActions.ClearLastEditedSite(),
-      ]})
+          new publisherActions.UpdateSiteSuccess(payload),
+          new publisherActions.ClearLastEditedSite(),
+        ]
+      })
       .catch(() => Observable.of(new publisherActions.UpdateSiteFailure()))
     );
 

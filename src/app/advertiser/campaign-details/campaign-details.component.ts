@@ -58,7 +58,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     const id = this.route.snapshot.data.campaign.id;
-    console.log(id)
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
