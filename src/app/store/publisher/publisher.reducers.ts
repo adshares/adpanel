@@ -39,7 +39,6 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         sites,
-        // sitesTotals: action.payload
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {

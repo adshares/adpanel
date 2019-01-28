@@ -15,12 +15,10 @@
       ></app-table-navigation>
     </div>
 
-    <div *ngIf="(campaigns && campaignsTotals); else loading">
+    <div *ngIf="campaigns; else loading">
       <app-campaign-list-item
         *ngFor="let campaign of campaigns; let i = index"
         [campaign]="campaign"
-        [campaignTotals]="getCampaignTotals(campaign.id)"
-        [filterSettings]="filterSettings"
       ></app-campaign-list-item>
 
       <!--<div class="adsh-box">-->

@@ -5,12 +5,11 @@ import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 
 export const campaignsTotalsInitialState: CampaignTotals = {
-  campaignId: 0,
-  totalBudget: 0,
   clicks: 0,
   impressions: 0,
   ctr: 0,
   averageCpc: 0,
+  averageCpm: 0,
   cost: 0
 };
 

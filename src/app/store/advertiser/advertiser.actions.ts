@@ -138,7 +138,7 @@ export class LoadCampaignBannerDataFailure implements Action {
 export class LoadCampaigns implements Action {
   readonly type: string = LOAD_CAMPAIGNS;
 
-  constructor(public payload: TimespanFilter) {
+  constructor(public payload?: any) {
   }
 }
 

@@ -85,10 +85,35 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: [...state.campaigns, action.payload]
       };
+    case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
+      const campaignsWithTotal = [];
+      state.campaigns.forEach(campaign => {
+        action.payload.data.forEach(data => {
+          if (campaignsWithTotal.find(el => el.id === campaign.id)) {
+            if (data.campaignId === campaign.id) {
+              campaignsWithTotal.push({
+                ...campaign,
+                ...data
+              })
+            } else {
+              campaignsWithTotal.push({
+                ...campaign,
+                ...data
+              })
+            }
+          }
+
+        })
+      });
+      console.log('asd', action.payload.data)
+      console.log('asd', campaignsWithTotal)
+      return {
+        ...state,
+        campaigns: campaignsWithTotal,
+        campaignsTotals: action.payload.total
+      };
     case advertiserActions.LOAD_CAMPAIGN_BANNER_DATA_SUCCESS:
-    case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS:
       if (action.payload.length <= 0) return state;
-      console.log('action payload', action.payload)
       const campaign = state.campaigns.find(campaign => campaign.id === action.payload[0].campaignId);
       const newCampaigns = state.campaigns.filter(campaign => campaign.id !== action.payload[0].campaignId);
       const bannersData = [];
@@ -113,7 +138,8 @@ export function advertiserReducers(state = initialState, action: advertiserActio
 
       return {
         ...state,
-        campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}]
+        campaigns: [...newCampaigns, {...campaign, ads: [...bannersData]}],
+        campaignsTotals: action.payload.total
       };
 
     case authActions.USER_LOG_IN_SUCCESS:

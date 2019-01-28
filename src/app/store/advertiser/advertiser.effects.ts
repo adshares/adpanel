@@ -7,6 +7,8 @@ import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs/Observable';
 import * as advertiserActions from './advertiser.actions';
 import "rxjs/add/operator/take";
+import * as moment from "moment";
+import {LoadCampaignTotals} from "./advertiser.actions";
 
 @Injectable()
 export class AdvertiserEffects {
@@ -22,38 +24,14 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
     .switchMap(() => this.service.getCampaigns()
-      .map((campaigns) => new advertiserActions.LoadCampaignsSuccess(campaigns))
+      .switchMap((campaigns) => {
+        const from = moment().subtract(7, 'd').format();
+        const to = moment().format();
+        return Observable.from([
+          new advertiserActions.LoadCampaignsSuccess(campaigns),
+          new advertiserActions.LoadCampaignsTotals({from, to})])
+      })
       .catch(() => Observable.of(new advertiserActions.LoadCampaignsFailure()))
-    );
-
-  @Effect()
-  loadCampaign$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGN)
-    .map(toPayload)
-    .switchMap((id) => this.service.getCampaign(id)
-      .map((payload) =>{
-        const campaign = payload.campaign;
-        return new advertiserActions.LoadCampaignSuccess(campaign)})
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
-    );
-
-  @Effect()
-  loadCampaignTotals$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGN_TOTALS)
-    .map(toPayload)
-    .switchMap((payload) => this.service
-        .getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
-      .map((data) => new advertiserActions.LoadCampaignTotalsSuccess(data))
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignTotalsFailure()))
-    );
-
-  @Effect()
-  loadCampaignBannersData$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGN_BANNER_DATA)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
-      .map((banners) => new advertiserActions.LoadCampaignBannerDataSuccess(banners))
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignBannerDataFailure()))
     );
 
   @Effect()
@@ -63,6 +41,34 @@ export class AdvertiserEffects {
     .switchMap((payload) => this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`)
       .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals))
       .catch(() => Observable.of(new advertiserActions.AddCampaignToCampaignsFailure()))
+    );
+
+  @Effect()
+  loadCampaign$ = this.actions$
+    .ofType(advertiserActions.LOAD_CAMPAIGN)
+    .map(toPayload)
+    .switchMap((id) => this.service.getCampaign(id)
+      .switchMap((payload) => {
+        const from= moment().subtract(30, 'd').format();
+        const to = moment().format();
+        const campaign = payload.campaign;
+        return Observable.from(
+          [
+            new advertiserActions.LoadCampaignSuccess(campaign),
+            new LoadCampaignTotals({from, to, id: campaign.id})
+          ])
+      })
+      .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
+    );
+
+  @Effect()
+  loadCampaignTotals$ = this.actions$
+    .ofType(advertiserActions.LOAD_CAMPAIGN_TOTALS)
+    .map(toPayload)
+    .switchMap((payload) => this.service
+      .getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
+      .map((data) => new advertiserActions.LoadCampaignTotalsSuccess(data))
+      .catch(() => Observable.of(new advertiserActions.LoadCampaignTotalsFailure()))
     );
 
   @Effect()
@@ -87,7 +93,7 @@ export class AdvertiserEffects {
         ];
       })
       .catch((err) => {
-        return Observable.of(new advertiserActions.UpdateCampaignFailure()
+        return Observable.of(new advertiserActions.UpdateCampaignFailure(err)
         )
       })
     )

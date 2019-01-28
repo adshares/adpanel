@@ -33,7 +33,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   classificationStatusesEnum = classificationStatusesEnum;
-  campaignsTotals;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -80,13 +79,8 @@ console.log('----', this.route.snapshot.data.campaign)
         }
       });
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        if (campaignsTotals && campaignsTotals.length) {
-          this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
-        }
-      });
-    this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
+
+    this.subscriptions.push(chartFilterSubscription);
   }
 
   deleteCampaign() {
