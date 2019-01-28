@@ -49,14 +49,13 @@ export class AdvertiserEffects {
     .map(toPayload)
     .switchMap((id) => this.service.getCampaign(id)
       .switchMap((payload) => {
-        const from= moment().subtract(30, 'd').format();
+        const from = moment().subtract(30, 'd').format();
         const to = moment().format();
         const campaign = payload.campaign;
-        return Observable.from(
-          [
-            new advertiserActions.LoadCampaignSuccess(campaign),
-            new LoadCampaignTotals({from, to, id: campaign.id})
-          ])
+        return [
+          new advertiserActions.LoadCampaignSuccess(campaign),
+          new LoadCampaignTotals({from, to, id: campaign.id})
+        ]
       })
       .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
     );

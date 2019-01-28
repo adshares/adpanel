@@ -58,7 +58,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     const id = this.route.snapshot.data.campaign.id;
-console.log('----', this.route.snapshot.data.campaign)
+    console.log(id)
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -73,7 +73,6 @@ console.log('----', this.route.snapshot.data.campaign)
         this.campaign = campaigns.find(el => {
           return el.id === id
         });
-        console.log('this.campaign', this.campaign)
         if (this.campaign) {
           this.getTargeting();
         }
