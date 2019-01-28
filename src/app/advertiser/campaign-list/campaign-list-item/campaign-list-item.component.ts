@@ -15,12 +15,10 @@ import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
 })
 export class CampaignListItemComponent {
   @Input() campaign: Campaign;
-  @Input() campaignTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings;
 
   constructor(private router: Router, private store: Store<AppState>) {
   }
-
   campaignStatusesEnum = campaignStatusesEnum;
 
   navigateToCampaignDetails(campaignId: number) {

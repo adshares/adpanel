@@ -67,7 +67,7 @@
           align-center"
         data-test="advertiser-campaign-clicks"
       >
-        <span>{{ campaignTotals ? campaignTotals.clicks : '0' }}</span>
+        <span>{{ campaign ? campaign.clicks : '0' }}</span>
       </div>
       <div
         class="
@@ -76,7 +76,7 @@
           align-center"
         data-test="advertiser-campaign-impressions"
       >
-        <span>{{ campaignTotals ? campaignTotals.impressions : '0' }}</span>
+        <span>{{ campaign ? campaign.impressions : '0' }}</span>
       </div>
       <div
         class="
@@ -85,7 +85,7 @@
           align-center"
         data-test="advertiser-campaign-ctr"
       >
-        <span>{{ campaignTotals ? (campaignTotals.ctr | percent:'1.2-2') : '0%' }}</span>
+        <span>{{ campaign ? (campaign.ctr | percent:'1.2-2') : '0%' }}</span>
       </div>
       <div
         class="
@@ -94,7 +94,7 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ (campaignTotals ? campaignTotals.averageCpc : 0) | adsharesTokenValue:2}} </span>
+        <span>{{ (campaign ? campaign.averageCpc : 0) | adsharesTokenValue:2}} </span>
       </div>
       <div
         class="
@@ -103,7 +103,7 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ (campaignTotals ? campaignTotals.cost : 0) | adsharesTokenValue:2 }}</span>
+        <span>{{ (campaign ? campaign.cost : 0) | adsharesTokenValue:2 }}</span>
       </div>
       <div
         class="

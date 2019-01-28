@@ -95,7 +95,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
       .subscribe((campaignsTotals: CampaignTotals[]) => {
         if (campaignsTotals && campaignsTotals.length) {
-          this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
+          this.campaignsTotals = campaignsTotals;
         }
       });
     this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);

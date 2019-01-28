@@ -15,30 +15,14 @@ import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
   styleUrls: ['./campaign-list.component.scss']
 })
 
-export class CampaignListComponent extends HandleSubscription implements OnInit {
+export class CampaignListComponent {
   @Input() campaigns: Campaign[];
   @Input() filterSettings: ChartFilterSettings[];
-  campaignsTotals: CampaignTotals[];
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
-  ) {
-    super();
-  }
+  ) {}
 
-  ngOnInit() {
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        this.campaignsTotals = campaignsTotals;
-      });
-
-    this.subscriptions.push(campaignsTotalsSubscription);
-  }
-
-  getCampaignTotals = (id): CampaignTotals => {
-    return this.campaignsTotals.find(campaign => id === campaign.campaignId);
-  };
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);
