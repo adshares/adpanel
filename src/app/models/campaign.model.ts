@@ -21,12 +21,11 @@ interface Campaign {
 }
 
 interface CampaignTotals {
-  campaignId: number;
-  totalBudget: number;
   clicks: number;
   impressions: number;
   ctr: number;
   averageCpc: number;
+  averageCpm: number;
   cost: number;
 }
 
