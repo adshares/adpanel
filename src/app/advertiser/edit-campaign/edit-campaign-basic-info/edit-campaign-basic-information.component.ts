@@ -94,8 +94,9 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   updateCampaignBasicInfo() {
     this.campaign = {
       ...this.campaign,
-      basicInformation: this.campaignBasicInfo,
+      basicInformation: {...this.campaignBasicInfo, status: this.campaign.basicInformation.status},
     };
+
     this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
   }
 
