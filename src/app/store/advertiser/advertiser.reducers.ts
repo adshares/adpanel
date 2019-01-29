@@ -2,7 +2,6 @@ import * as advertiserActions from './advertiser.actions';
 import * as authActions from '../auth/auth.actions';
 import {AdvertiserState} from 'models/app-state.model';
 import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-state/campaign';
-import {s} from "@angular/core/src/render3";
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
@@ -52,19 +51,16 @@ export function advertiserReducers(state = initialState, action: advertiserActio
           }
         ]
       };
-
     case advertiserActions.SAVE_CAMPAIGN_TARGETING:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {targetingArray: action.payload})
       };
-
     case advertiserActions.SAVE_CAMPAIGN_ADS:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {ads: action.payload})
       };
-
     case advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS:
       return {
         ...state,

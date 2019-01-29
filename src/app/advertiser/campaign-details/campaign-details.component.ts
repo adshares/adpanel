@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {Campaign} from 'models/campaign.model';
 import {AppState} from 'models/app-state.model';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {ChartComponent} from 'common/components/chart/chart.component';

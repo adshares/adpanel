@@ -357,14 +357,14 @@
             adsh-heading
             adsh-heading--primary"
           data-test="advertiser-campaign-budget">
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
         </p>
         <p
           class="
             adsh-copy
             adsh-copy--x-small
             adsh-blue">
-          - (-%)
+          /day
         </p>
       </div>
       <div
@@ -382,7 +382,7 @@
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-clicks">
-          {{ campaign.clicks }}
+          {{ campaign.clicks || 0 }}
         </p>
         <ng-template #loadingTotals>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
@@ -404,7 +404,7 @@
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-cost">
-          {{ campaign.cost | adsharesTokenValue:2}}
+          {{ (campaign.cost || 0) | adsharesTokenValue:2}}
         </p>
         <ng-template #loadingTotals>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
@@ -423,7 +423,7 @@
             adsh-heading
             adsh-heading--primary"
           data-test="advertiser-campaign-conversions">
-          {{ campaign.conversions }}
+          {{ campaign.conversions || 0 }}
         </p>
         <p
           class="
