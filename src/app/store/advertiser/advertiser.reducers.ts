@@ -102,16 +102,19 @@ export function advertiserReducers(state = initialState, action: advertiserActio
     case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS:
       const selectedCampaign = state.campaigns.find(el => el.id === action.payload.total.campaignId);
       const filteredCampaigns = state.campaigns.filter(el => el.id !== action.payload.total.campaignId);
-      if (action.payload.data.length <= 0) return {
-        ...state,
-        campaigns: [
-          ...filteredCampaigns,
-          {
-            ...selectedCampaign,
-            ...action.payload.total
-          }
-        ]
-      };
+
+      if (action.payload.data.length <= 0) {
+        return {
+          ...state,
+          campaigns: [
+            ...filteredCampaigns,
+            {
+              ...selectedCampaign,
+              ...action.payload.total
+            }
+          ]
+        };
+      }
 
       const bannersData = [];
       if (selectedCampaign.ads !== undefined && selectedCampaign.ads.length > 0) {
@@ -139,7 +142,11 @@ export function advertiserReducers(state = initialState, action: advertiserActio
 
       return {
         ...state,
-        campaigns: [...filteredCampaigns, {...selectedCampaign, ads: [...bannersData]}],
+        campaigns: [...filteredCampaigns, {
+          ...selectedCampaign,
+          ...action.payload.total,
+          ads: [...bannersData]
+        }],
       };
 
     case authActions.USER_LOG_IN_SUCCESS:

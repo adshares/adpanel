@@ -399,16 +399,13 @@
             adsh-copy--small">
           Cost
         </p>
-        <p *ngIf="campaign; else loadingTotals"
+        <p *ngIf="campaign.cost"
            class="
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-cost">
-          {{ (campaign.cost || 0) | adsharesTokenValue:2}}
+          {{ campaign.cost  | adsharesTokenValue:4}}
         </p>
-        <ng-template #loadingTotals>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
       </div>
       <div *ngIf="campaign.conversions"
            class="
