@@ -12,8 +12,8 @@ interface Campaign {
   targetingArray?: AssetTargeting;
   clicks?: number;
   impressions?: number;
-  CTR?: number;
-  averageCPC?: number;
+  ctr?: number;
+  averageCpc?: number;
   cost?: number;
   conversions?: number;
   classificationStatus: number;

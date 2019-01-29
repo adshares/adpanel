@@ -6,7 +6,7 @@ import {ChartComponent} from 'common/components/chart/chart.component';
 import {CampaignListComponent} from 'advertiser/campaign-list/campaign-list.component';
 import {ChartService} from 'common/chart.service';
 import {HandleSubscription} from 'common/handle-subscription';
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {Campaign} from 'models/campaign.model';
 import {AppState} from 'models/app-state.model';
 import {ChartData} from 'models/chart/chart-data.model';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
@@ -24,8 +24,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
   campaigns: Campaign[];
-  campaignsTotals: CampaignTotals[];
-
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -89,10 +87,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        this.campaignsTotals = campaignsTotals;
-      });
-    this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
+    this.subscriptions.push(campaignsSubscription);
   }
 }
