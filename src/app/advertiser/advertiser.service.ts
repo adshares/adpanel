@@ -25,11 +25,11 @@ export class AdvertiserService {
     const options = campaignId && {
       params: {campaign_id: `${campaignId}`}
     };
-    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table/${dateStart}/${dateEnd}`, options);
+    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
-  getCampaign(id: number): Observable<Campaign> {
-    return this.http.get<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
+  getCampaign(id: number): Observable<{ campaign: Campaign }> {
+    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
   deleteAdImage(id: number, bId: number) {

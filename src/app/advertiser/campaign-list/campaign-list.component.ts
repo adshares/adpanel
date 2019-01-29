@@ -1,8 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Campaign} from 'models/campaign.model';
+import {Store} from '@ngrx/store';
+
+import {AppState} from 'models/app-state.model';
+import {Campaign, CampaignTotals} from 'models/campaign.model';
 import {sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import {TableColumnMetaData} from 'models/table.model';
+import {HandleSubscription} from "common/handle-subscription";
 import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
 
 @Component({
@@ -18,6 +22,7 @@ export class CampaignListComponent {
   constructor(
     private router: Router,
   ) {}
+
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.campaigns = sortArrayByColumnMetaData(this.campaigns, columnMetaData);

@@ -64,6 +64,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
+    this.filteringOptions = this.route.snapshot.data.filteringOptions;
 
     this.getLanguages();
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
@@ -135,20 +136,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getFiltering() {
-    this.store.select('state', 'publisher', 'filteringCriteria')
-      .subscribe((filteringOptions) => {
-        if (!filteringOptions.length) {
-          this.store.dispatch(new PublisherActions.GetFilteringCriteria());
-        } else {
-          this.filteringOptions = filteringOptions;
-
-          if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
-            this.filtering = this.site.filtering;
-          } else {
-            this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
-          }
-        }
-      });
+    this.site.filtering= {
+      requires: this.site.filtering.requires || [],
+      excludes: this.site.filtering.excludes || [],
+    };
+    this.filtering = this.site.filtering
   }
 
   getChartData(chartFilterSettings, chartType) {

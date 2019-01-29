@@ -27,7 +27,8 @@ const publisherRoutes: Routes = [
         path: 'site/:id',
         component: SiteDetailsComponent,
         resolve: {
-          site: SiteResolver
+          site: SiteResolver,
+          filteringOptions: TargetingCriteriaResolver
         }
       },
       {

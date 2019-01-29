@@ -18,19 +18,45 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         sites: action.payload
       };
-    case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
-      const sites = state.sites.map(site => {
-        const matchingSite = action.payload.find(stats => stats.siteId === site.id);
-        if (!matchingSite) return site;
-        return {
-          ...site,
-          ...matchingSite
-        }
-      });
+
+      case PublisherActions.LOAD_SITE_SUCCESS:
       return {
         ...state,
-        sites,
-        // sitesTotals: action.payload
+        sites: [
+          ...state.sites,
+          ...action.payload
+        ]
+      };
+    case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
+      const sitesWithTotal = [];
+      if (action.payload.data.length <= 0) {
+        return {
+          ...state,
+          sitesTotals: action.payload.total
+        }
+      }
+      state.sites.forEach(site => {
+        action.payload.data.forEach(data => {
+          if (!sitesWithTotal.length || sitesWithTotal.find(el => el.id !== site.id)) {
+            if (data.siteId === site.id) {
+              sitesWithTotal.push({
+                ...site,
+                ...data
+              })
+            } else {
+              sitesWithTotal.push({
+                ...site,
+              })
+            }
+          }
+
+        })
+      });
+
+      return {
+        ...state,
+        sites: sitesWithTotal,
+        sitesTotals: action.payload.total
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {
