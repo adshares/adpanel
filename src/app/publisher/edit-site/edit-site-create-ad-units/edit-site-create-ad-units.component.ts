@@ -203,6 +203,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
     if (adUnitsValid) {
+      this.adUnitsSubmitted = false;
       this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
       this.redirectAfterSave(isDraft);
     }

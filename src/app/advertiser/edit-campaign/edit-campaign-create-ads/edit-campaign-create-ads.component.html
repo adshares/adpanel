@@ -61,7 +61,7 @@
                   class="error-msg error-msg--small"
                   *ngIf="(adsSubmitted && !adPanelsStatus[i]) &&
                 (
-                (adForm.get('name').hasError('required') && adsSubmitted) ||
+                (adForm.get('name').hasError('required')) ||
                  (adForm.get('html') && adForm.get('html').hasError('required'))  ||
                  (adForm.get('image') && adForms[i].get('image').value.src === '')
                 )"
