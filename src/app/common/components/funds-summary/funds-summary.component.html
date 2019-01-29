@@ -38,7 +38,7 @@
               adsh-heading--primary"
             data-test="user-total-funds"
           >
-            {{ adserverWallet.totalFunds | adsharesTokenValue }}
+            {{ totalFunds | adsharesTokenValue:2 }}
           </span>
           <span
             class="
@@ -48,7 +48,7 @@
               adsh-copy--bold"
             data-test="user-total-funds-change"
           >
-            {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
+            {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / totalFunds | percent }})
           </span>
         </div>
         <div
@@ -176,7 +176,7 @@
               row
               align-center
               adsh-funds-summary__withdraw-funds"
-            *ngIf="adserverWallet.totalFunds > 0 || selectedRole !== 'Publisher'"
+            *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
             data-test="withdraw-funds-dialog-open-button"
           >
