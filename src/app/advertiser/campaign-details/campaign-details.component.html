@@ -404,7 +404,7 @@
             adsh-heading
             adsh-heading--primary"
            data-test="advertiser-campaign-cost">
-          {{ campaign.cost  | adsharesTokenValue:4}}
+          {{ (campaign.cost || 0)  | adsharesTokenValue:4}}
         </p>
       </div>
       <div *ngIf="campaign.conversions"
@@ -474,7 +474,16 @@
           (filter)="appChartRef.updateChartData($event)"
         ></app-chart-filter>
       </div>
-
+      <div
+        class="
+          adsh-box
+          adsh-box&#45;&#45;large
+          hidden-md"
+      >
+        <app-chart-filter-by-type
+          [detailsPage]="true"
+          (updateSeries)="appChartRef.updateChartDataSeries($event)"
+        ></app-chart-filter-by-type>
       <div
         class="
             row
@@ -492,6 +501,7 @@
           [barChartData]="barChartData"
           [barChartLabels]="barChartLabels"
         ></app-chart>
+      </div>
       </div>
     </div>
 

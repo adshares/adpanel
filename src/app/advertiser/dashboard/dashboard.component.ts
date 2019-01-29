@@ -24,6 +24,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
   campaigns: Campaign[];
+  campaignsTotals: CampaignTotals;
 
   barChartValue: number;
   barChartDifference: number;
@@ -81,6 +82,10 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new advertiserActions.LoadCampaigns());
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
-    this.subscriptions.push(campaignsSubscription);
+
+    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
+      .subscribe((totals: CampaignTotals) => this.campaignsTotals = totals);
+
+    this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
   }
 }

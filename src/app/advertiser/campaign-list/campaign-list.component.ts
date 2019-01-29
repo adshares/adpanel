@@ -17,6 +17,7 @@ import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
 
 export class CampaignListComponent {
   @Input() campaigns: Campaign[];
+  @Input() campaignsTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings[];
 
   constructor(

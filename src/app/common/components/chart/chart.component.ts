@@ -11,6 +11,8 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartOptions } from 'models/chart/chart-options.model';
 import * as commonActions from 'store/common/common.actions';
+import {chartSeriesEnum} from "models/enum/chart.enum";
+import {enumToArray} from "common/utilities/helpers";
 
 
 @Component({
@@ -28,6 +30,7 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   currentChartFilterSettings: ChartFilterSettings;
   barChartOptions: ChartOptions = chartOptions;
   barChartColors: ChartColors[] = chartColors;
+  initialSeries = enumToArray(chartSeriesEnum)[0];
 
   constructor(private store: Store<AppState>) {
     super();
@@ -86,7 +89,16 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
     this.store.dispatch(new commonActions.SetChartFilterSettings(this.currentChartFilterSettings));
   }
 
+  resetSettings() {
+    const reset = {
+      ...this.currentChartFilterSettings,
+      currentSeries: this.initialSeries
+    };
+    this.store.dispatch(new commonActions.SetChartFilterSettings(reset));
+  }
+
   ngOnDestroy() {
+    this.resetSettings();
     const tooltip = document.getElementById('chartjs-tooltip');
 
     if (tooltip) {

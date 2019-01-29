@@ -6,7 +6,7 @@ import {campaignInitialState, campaignsTotalsInitialState} from 'models/initial-
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
-  campaignsTotals: [campaignsTotalsInitialState]
+  campaignsTotals: campaignsTotalsInitialState
 };
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
