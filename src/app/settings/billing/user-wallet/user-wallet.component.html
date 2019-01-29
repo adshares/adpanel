@@ -39,7 +39,7 @@
                 adsh-heading--primary"
               data-test="user-total-funds"
             >
-              {{ adserverWallet.totalFunds | adsharesTokenValue }}
+              {{ totalFunds | adsharesTokenValue }}
 <!--
               <span
                 class="
@@ -100,90 +100,7 @@
             </div>
           </div>
         </div>
-<!--
-        <div
-          class="
-            col-xs-5
-            adsh-box
-            adsh-box&#45;&#45;large"
-        >
-          <div
-            class="
-              row
-              justify-between
-              no-wrap
-              withdrawal"
-          >
-            <div class="col">
-              <p class="adsh-copy">
-                Your Withdraw Address
-              </p>
-              <p
-                class="
-                  break-word
-                  adsh-heading
-                  adsh-heading&#45;&#45;secondary"
-                data-test="user-address"
-              >
-                {{ adserverWallet.adsharesAddress }}
-              </p>
-            </div>
-            <button
-              class="
-                adsh-btn
-                adsh-btn&#45;&#45;white
-                adsh-btn&#45;&#45;no-border
-                adsh-blue"
-              (click)="openChangeAddressDialog()"
-              data-test="change-address-dialog-open-button"
-            >
-              Change Address
-            </button>
-          </div>
-          <div
-            class="
-              row
-              justify-between
-              no-wrap
-              withdrawal"
-          >
-            <div class="col">
-              <p class="adsh-copy">
-                Automatic Withdraws
-              </p>
-              <p
-                class="
-                  adsh-heading
-                  adsh-heading&#45;&#45;secondary"
-              >
-                <span data-test="user-automatic-withdraw-amount">
-                  {{ adserverWallet.autoWithdrawAmount | adsharesTokenValue }}
-                </span>
-                <span>are accrued after</span>
-                <span
-                  class="period"
-                  data-test="user-automatic-withdraw-period"
-                >
-                  {{ periodsEnum[adserverWallet.autoWithdrawPeriod] }}
-                </span>
-              </p>
-            </div>
-            <button
-              class="
-                adsh-btn
-                adsh-btn&#45;&#45;white
-                adsh-btn&#45;&#45;no-border
-                adsh-blue"
-              (click)="openChangeAutomaticWithdrawsDialog()"
-              data-test="change-automatic-withdraw-dialog-open-button"
-            >
-              Change Withdraw
-            </button>
-          </div>
-        </div>
--->
       </div>
-
       <div
         class="
           row
