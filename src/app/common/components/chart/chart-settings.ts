@@ -13,8 +13,12 @@ const adjustLabelFormat = (value, index, values, fullDateFormat) => {
     return moment(value).format(fullDateFormat);
   } else if (daysSpan <= 31) {
     return moment(value).format(fullDateFormat);
-  } else if (daysSpan > 31) {
+  } else if (daysSpan <= 31) {
     return moment(value).format(fullDateFormat);
+  } else if (daysSpan <= 730) {
+    return moment(value).format('MMM YYYY');
+  } else {
+    return moment(value).format('YYYY');
   }
 };
 
