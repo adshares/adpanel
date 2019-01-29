@@ -1,5 +1,5 @@
 .adsh-btn {
-  border: none;
+  border: 2px solid transparent;
   border-radius: 2px;
   padding: 13px 25px 14px;
   @include font(14, medium);
@@ -88,6 +88,11 @@
 
   &.disabled {
     cursor: not-allowed;
+  }
+
+  &--light-border {
+    background-color: pal(white);
+    border: 2px solid pal(gray, light);
   }
 
   &.selected {

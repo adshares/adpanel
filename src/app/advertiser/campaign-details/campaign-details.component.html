@@ -469,22 +469,24 @@
           adsh-box--large
           hidden-md"
     >
-      <div>
-        <app-chart-filter
-          (filter)="appChartRef.updateChartData($event)"
-        ></app-chart-filter>
-      </div>
-
       <div
         class="
           adsh-box
           adsh-box&#45;&#45;large
           hidden-md"
       >
-        <app-chart-filter-by-type
-          [detailsPage]="true"
-          (updateSeries)="appChartRef.updateChartDataSeries($event)"
-        ></app-chart-filter-by-type>
+        <div class="justify-between row">
+
+          <app-chart-filter-by-type
+            class="details-filters"
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"
+          ></app-chart-filter-by-type>
+          <app-chart-filter
+            class="details-filters"
+            (filter)="appChartRef.updateChartData($event)"
+          ></app-chart-filter>
+        </div>
         <div
           class="
             row
