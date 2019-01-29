@@ -66,6 +66,7 @@ export class EditSiteBasicInformationComponent implements OnInit {
   }
 
   onSubmit() {
+    this.siteBasicInfoSubmitted = true;
     return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
   }
 
@@ -75,7 +76,6 @@ export class EditSiteBasicInformationComponent implements OnInit {
   }
 
   saveSiteBasicInformation() {
-    this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
     }
@@ -117,10 +117,10 @@ export class EditSiteBasicInformationComponent implements OnInit {
   }
 
   updateSite(): void {
-    this.siteBasicInfoSubmitted = true;
     if (!this.siteBasicInfoForm.valid) {
       return;
     }
+    this.changesSaved = true;
     this.adjustSiteDataBeforeSave();
     this.store.dispatch(new PublisherActions.UpdateSite(this.site));
   }

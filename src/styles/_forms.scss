@@ -163,7 +163,6 @@ input[type=radio]:checked + label {
   }
 }
 
-
 .error-msg {
   position: relative;
   @include font(11, medium);
@@ -179,12 +178,21 @@ input[type=radio]:checked + label {
     width: 100%;
   }
 
-  &:after {
+  &:not(.error-msg--small):after {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
     top: 6px;
     right: 5px;
+  }
+
+  &--small {
+    min-width: 35px;
+    font-size: 22px;
+    height: 35px;
+    line-height: 1;
+    text-align: center;
+    margin: 0 24px;
   }
 }
 
@@ -200,6 +208,7 @@ input[type=radio]:checked + label {
     content: url('/assets/images/confirm_icon.svg');
   }
 }
+
 .warning-msg {
   @extend .error-msg;
   color: pal(black);
