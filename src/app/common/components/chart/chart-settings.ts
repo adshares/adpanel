@@ -28,7 +28,7 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels, 'DD MMM YYYY');
+        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels, 'L');
         return value;
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
@@ -127,7 +127,7 @@ const chartOptions: ChartOptions = {
         fontColor: '#aebac7',
         fontSize: 13,
         beginAtZero: true,
-        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'DD/MM/Y'),
+        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'L'),
       }
     }],
     yAxes: [{
