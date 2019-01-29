@@ -5,7 +5,11 @@ interface Site {
   status: number;
   name: string;
   primaryLanguage: string | SiteLanguage;
-  filtering?: AssetTargeting;
+  filtering: {
+    requires: object;
+    excludes: object;
+  };
+  filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
 
   estimatedEarnings?: number;

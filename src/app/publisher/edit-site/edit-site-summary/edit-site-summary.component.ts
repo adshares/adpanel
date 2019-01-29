@@ -45,7 +45,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .subscribe((lastEditedSite: Site) => {
-        this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+        this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
         this.site = Object.assign({}, lastEditedSite);
       });
 
@@ -81,7 +81,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   updateSite(): void {
     this.canSubmit = false;
     const siteId = this.site.id;
-    this.store.dispatch(new publisherActions.UpdateSiteFiltering(this.site))
+    this.store.dispatch(new publisherActions.UpdateSiteFiltering(this.site));
     this.navigateToSiteDetails(siteId);
   }
 

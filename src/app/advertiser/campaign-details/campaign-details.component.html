@@ -399,7 +399,7 @@
             adsh-copy--small">
           Cost
         </p>
-        <p *ngIf="campaign.cost"
+        <p *ngIf="campaign"
            class="
             adsh-heading
             adsh-heading--primary"
@@ -484,24 +484,24 @@
           [detailsPage]="true"
           (updateSeries)="appChartRef.updateChartDataSeries($event)"
         ></app-chart-filter-by-type>
-      <div
-        class="
+        <div
+          class="
             row
             align-center
             justify-center
             chart-wrapper"
-      >
-        <app-chart
-          class="
+        >
+          <app-chart
+            class="
               chart
               row
               align-center
               justify-center"
-          (update)="getChartData($event, campaign.id)"
-          [barChartData]="barChartData"
-          [barChartLabels]="barChartLabels"
-        ></app-chart>
-      </div>
+            (update)="getChartData($event, campaign.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
+        </div>
       </div>
     </div>
 

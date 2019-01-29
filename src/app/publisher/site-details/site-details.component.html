@@ -240,49 +240,28 @@
 
     <div
       class="
-        row
-        justify-between"
-    >
-      <div
-        class="
-          col
-          col-md-6
           adsh-box
           adsh-box--large
-          chart-box"
-        *ngFor="let chartSeriesType of chartSeries; let i = index"
+          hidden-md"
+    >
+      <div class="justify-between row">
+
+        <app-chart-filter-by-type
+          class="details-filters"
+          [detailsPage]="true"
+          (updateSeries)="appChartRef.updateChartDataSeries($event)"
+        ></app-chart-filter-by-type>
+        <app-chart-filter
+          class="details-filters"
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
+      </div>
+      <div
+        class="
+          adsh-box
+          adsh-box&#45;&#45;large
+          hidden-md"
       >
-        <div class="chart-stats">
-          <p
-            class="
-              chart-name
-              adsh-copy"
-            data-test="chart-series-type"
-          >
-            {{ chartSeriesType }}:
-          </p>
-          <div
-            class="
-              row
-              align-center"
-          >
-            <span *ngIf="barChartData && barChartData[chartSeriesType]"
-                  class="
-                adsh-heading
-                adsh-heading--primary"
-                  data-test="chart-value"
-            >
-              {{ (chartSeriesType === 'rpm' || chartSeriesType === 'sum' || chartSeriesType === 'ctr'  ) ?
-              ((site[chartSeriesType] || 0) | adsharesTokenValue:2) :
-              (site[chartSeriesType] || 0)}}
-            </span>
-            <span
-              class="chart-change"
-              data-test="chart-value-difference"
-            >
-            </span>
-          </div>
-        </div>
         <div
           class="
             row
@@ -291,16 +270,14 @@
             chart-wrapper"
         >
           <app-chart
-            *ngIf="barChartData && barChartData[chartSeriesType]"
             class="
               chart
               row
               align-center
               justify-center"
-            [seriesType]="chartSeriesType"
-            (update)="getChartData($event, chartSeriesType)"
-            [barChartData]="barChartData[chartSeriesType].data"
-            [barChartLabels]="barChartData[chartSeriesType].labels"
+            (update)="getChartData($event, site.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
           ></app-chart>
         </div>
       </div>

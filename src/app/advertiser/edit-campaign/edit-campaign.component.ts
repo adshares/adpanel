@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
@@ -15,22 +15,25 @@ import { Campaign } from 'models/campaign.model';
   styleUrls: ['./edit-campaign.component.scss'],
   animations: [fadeAnimation]
 })
-export class EditCampaignComponent implements OnInit {
+export class EditCampaignComponent implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
+  isEditMode: boolean;
 
   constructor(
     private store: Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
+    this.isEditMode = !!this.router.url.match('/edit-campaign/');
+
     this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .take(1)
       .subscribe((lastEditedCampaign: Campaign) => {
         if (!lastEditedCampaign.targetingArray) {
           const targetingOptions = this.route.snapshot.data.targetingOptions;
-
           this.store.dispatch(
             new advertiserAction.SaveCampaignTargeting(
               parseTargetingOptionsToArray(lastEditedCampaign.targeting, targetingOptions)
@@ -38,5 +41,11 @@ export class EditCampaignComponent implements OnInit {
           );
         }
       });
+  }
+
+  ngOnDestroy() {
+    if (this.isEditMode) {
+      this.store.dispatch(new advertiserAction.ClearLastEditedCampaign())
+    }
   }
 }
