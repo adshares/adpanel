@@ -12,7 +12,7 @@ import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-sit
 
 import { PublisherGuard } from './publisher-guard.service';
 import { SiteResolver } from './resolvers/site.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import { FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const publisherRoutes: Routes = [
@@ -28,13 +28,13 @@ const publisherRoutes: Routes = [
         component: SiteDetailsComponent,
         resolve: {
           site: SiteResolver,
-          filteringOptions: TargetingCriteriaResolver
+          filteringOptions: FilteringCriteriaResolver
         }
       },
       {
         path: 'create-site',
         component: EditSiteComponent,
-        resolve: {targetingOptions: TargetingCriteriaResolver},
+        resolve: {filteringOptions: FilteringCriteriaResolver},
         children: [
           {
             path: 'basic-information',
@@ -58,7 +58,7 @@ const publisherRoutes: Routes = [
       {
         path: 'edit-site',
         component: EditSiteComponent,
-        resolve: {targetingOptions: TargetingCriteriaResolver},
+        resolve: {filteringOptions: FilteringCriteriaResolver},
         children: [
           {
             path: 'basic-information',

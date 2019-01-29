@@ -15,6 +15,10 @@ export const siteInitialState: Site = {
   name: '',
   primaryLanguage: '',
   filtering: {
+    requires: {},
+    excludes: {}
+  },
+  filteringArray: {
     requires: [],
     excludes: []
   },

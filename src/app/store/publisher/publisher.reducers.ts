@@ -24,7 +24,10 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         sites: [
           ...state.sites,
-          ...action.payload
+          {
+            ...siteInitialState,
+            ...action.payload
+          }
         ]
       };
     case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
@@ -78,7 +81,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         lastEditedSite: {
           ...state.lastEditedSite,
-          filtering: action.payload
+          filteringArray: action.payload
         }
       };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:

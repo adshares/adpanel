@@ -130,9 +130,7 @@ export class EditCampaignAdditionalTargetingComponent implements OnInit, OnDestr
           this.changesSaved = true;
           return;
         }
-
         const targeting = lastEditedCampaign.targetingArray;
-
         this.addedItems = [...targeting.requires];
         this.excludedItems = [...targeting.excludes];
       });

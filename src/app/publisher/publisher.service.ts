@@ -8,7 +8,6 @@ import {environment} from 'environments/environment';
 import {AdUnitSize, Site, SiteLanguage, SitesTotals} from 'models/site.model';
 import {TargetingOption} from 'models/targeting-option.model';
 import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
-import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
 import * as publisherActions from "store/publisher/publisher.actions";
 import {AppState} from "models/app-state.model";
 import {MatDialog} from "@angular/material";
@@ -47,8 +46,8 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
-    if (site.filtering) {
-      const targetingObject = parseTargetingForBackend(site.filtering);
+    if (site.filteringArray) {
+      const targetingObject = parseTargetingForBackend(site.filteringArray);
       Object.assign(site, {filtering: targetingObject});
     }
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site});
@@ -63,8 +62,8 @@ export class PublisherService {
   }
 
   updateSiteFiltering(id: number, site: Site): Observable<Site> {
-    if (site.filtering) {
-      const targetingObject = parseTargetingForBackend(site.filtering);
+    if (site.filteringArray) {
+      const targetingObject = parseTargetingForBackend(site.filteringArray);
 
       Object.assign(site, {filtering: targetingObject});
     }

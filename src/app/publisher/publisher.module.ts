@@ -27,7 +27,7 @@ import {EditSiteSummaryComponent} from './edit-site/edit-site-summary/edit-site-
 import {AdUnitsComponent} from './site-details/ad-units/ad-units.component';
 import {SiteCodeDialogComponent} from './dialogs/site-code-dialog/site-code-dialog.component';
 import {SiteResolver} from './resolvers/site.resolver';
-import {TargetingCriteriaResolver} from './resolvers/targeting-criteria.resolver';
+import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 
 
@@ -68,7 +68,7 @@ const publisherComponents = [
   providers: [
     PublisherGuard,
     SiteResolver,
-    TargetingCriteriaResolver,
+    FilteringCriteriaResolver,
     AdUnitSizesResolver
   ],
   declarations: [
