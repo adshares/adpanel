@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import {Site} from 'models/site.model';
 import {Store} from "@ngrx/store";
 import {AppState} from "models/app-state.model";
-import {LoadSite, LoadSitesTotals, LoadSiteTotals} from "store/publisher/publisher.actions";
+import {LoadSite, LoadSiteTotals} from "store/publisher/publisher.actions";
 
 
 @Injectable()

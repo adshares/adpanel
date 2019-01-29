@@ -160,8 +160,8 @@
         </p>
         <div class="site-edit-summary__targeting--margin-fix">
           <app-targeting-display
-            *ngIf="site.filtering.requires"
-            [items]="site.filtering.requires"
+            *ngIf="site.filteringArray.requires"
+            [items]="site.filteringArray.requires"
             [isExclude]="false"
             [canRemove]="false"
             [targetingOptions]="filteringOptions"
