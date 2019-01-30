@@ -45,15 +45,29 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
+              <div class="row justify-between align-center">
+                <div>
               <span>
                 {{ i + 1 }}.&nbsp;
               </span>
-              <span
-                *ngIf="!adPanelsStatus[i]"
-                data-test="advertiser-edit-campaign-create-ads-form-short-headline"
-              >
+                  <span
+                    *ngIf="!adPanelsStatus[i]"
+                    data-test="advertiser-edit-campaign-create-ads-form-short-headline">
                 Title: {{ adForm.get('name').value }}
               </span>
+                </div>
+
+                <div
+                  class="error-msg error-msg--small"
+                  *ngIf="(adsSubmitted && !adPanelsStatus[i]) &&
+                (
+                (adForm.get('name').hasError('required')) ||
+                 (adForm.get('html') && adForm.get('html').hasError('required'))  ||
+                 (adForm.get('image') && adForms[i].get('image').value.src === '')
+                )"
+                > ! </div>
+              </div>
+
             </mat-panel-title>
           </mat-expansion-panel-header>
 
@@ -402,7 +416,6 @@
                    [style.transform]="'scale('+ scaleImageToMatchBanner(i)+ ')'"
               />
             </div>
-
 
 
             <div *ngIf="ads[i].html"

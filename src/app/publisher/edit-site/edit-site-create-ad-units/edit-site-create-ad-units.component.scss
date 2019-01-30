@@ -67,7 +67,7 @@
     }
   }
 
-  & .error-msg {
+  & .error-msg:not(.error-msg--small) {
     padding: 8px;
     display: flex;
     align-items: center;

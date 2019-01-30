@@ -44,13 +44,23 @@
                 adsh-heading
                 adsh-heading--secondary"
             >
-              {{ adUnitIndex + 1 }}.&nbsp;
-              <span *ngIf="!adUnitPanelsStatus[adUnitIndex]">
-                Title:
-                <span data-test="publisher-edit-site-create-ad-units-form-short-headline">
-                  {{ adUnitForm.get('shortHeadline').value }}
-                </span>
-              </span>
+              <div class="row justify-between align-center">
+                <div>
+                  <span>{{ adUnitIndex + 1 }}.</span>
+                  <span *ngIf="!adUnitPanelsStatus[adUnitIndex]"
+                        data-test="publisher-edit-site-create-ad-units-form-short-headline">
+                    Title: {{ adUnitForm.get('shortHeadline').value }}
+                  </span>
+                </div>
+
+                <div
+                  class="error-msg error-msg--small"
+                  *ngIf="(adUnitsSubmitted && !adUnitPanelsStatus[adUnitIndex]) && (
+                  adUnitForm.get('shortHeadline').hasError('required') ||
+                 !adUnitForm.get('size').value)"
+                > !
+                </div>
+              </div>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
@@ -271,16 +281,16 @@
       row
       justify-between"
   >
-      <button
-        class="
+    <button
+      class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
-        role="link"
-        (click)="onStepBack()"
-      >
-        Back
-      </button>
+      role="link"
+      (click)="onStepBack()"
+    >
+      Back
+    </button>
 
     <div class="row">
       <button

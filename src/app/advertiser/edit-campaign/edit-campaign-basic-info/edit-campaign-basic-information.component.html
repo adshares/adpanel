@@ -412,6 +412,7 @@
                      adsh-btn--white
                      adsh-blue"
               (click)="onStepBack()"
+              [disabled]="campaignBasicInformationSubmitted || changesSaved"
               data-test="advertiser-navigate-to-dashboard">
         {{ createCampaignMode ? 'Back to Dashboard' : 'Back' }}
       </button>
