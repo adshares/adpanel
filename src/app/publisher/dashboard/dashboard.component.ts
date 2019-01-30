@@ -28,8 +28,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   sites: Site[];
   sitesTotals: SitesTotals;
 
-  chartSeries: string[] = enumToArray(chartSeriesEnum);
-
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;

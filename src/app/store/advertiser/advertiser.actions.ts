@@ -148,12 +148,14 @@ export class LoadCampaignsSuccess implements Action {
   constructor(public payload: Campaign[]) {
   }
 }
+
 export class LoadCampaignsFailure implements Action {
   readonly type: string = LOAD_CAMPAIGNS_FAILURE;
 
   constructor(public payload?: any) {
   }
 }
+
 export class LoadCampaign implements Action {
   readonly type: string = LOAD_CAMPAIGN;
 
@@ -167,6 +169,7 @@ export class LoadCampaignSuccess implements Action {
   constructor(public payload: Campaign) {
   }
 }
+
 export class LoadCampaignFailure implements Action {
   readonly type: string = LOAD_CAMPAIGN_FAILURE;
 
@@ -177,7 +180,7 @@ export class LoadCampaignFailure implements Action {
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
 
-  constructor(public payload: TimespanFilter) {
+  constructor(public payload: TimespanFilter | { currentFrom: string, currentTo: string }) {
   }
 }
 
@@ -198,7 +201,7 @@ export class LoadCampaignsTotalsFailure implements Action {
 export class LoadCampaignTotals implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS;
 
-  constructor(public payload: {from: string, to: string, id: number}) {
+  constructor(public payload: { from: string, to: string, id: number }) {
   }
 }
 

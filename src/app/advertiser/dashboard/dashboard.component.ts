@@ -46,9 +46,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
+        this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
+
       });
+
     this.subscriptions.push(chartFilterSubscription);
-    this.loadCampaigns();
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
@@ -72,14 +74,15 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
+
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
     this.subscriptions.push(chartDataSubscription);
   }
 
-  loadCampaigns() {
-    this.store.dispatch(new advertiserActions.LoadCampaigns());
+  loadCampaigns(from: string, to: string) {
+    this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
 

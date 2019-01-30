@@ -40,19 +40,16 @@ export function publisherReducers(state = initialState, action: PublisherActions
       }
       state.sites.forEach(site => {
         action.payload.data.forEach(data => {
-          if (!sitesWithTotal.length || sitesWithTotal.find(el => el.id !== site.id)) {
-            if (data.siteId === site.id) {
+            if (data.siteId === site.id && !sitesWithTotal.find(el => el.id === site.id)) {
               sitesWithTotal.push({
                 ...site,
                 ...data
               })
-            } else {
+            } else if (!sitesWithTotal.find(el => el.id === site.id)) {
               sitesWithTotal.push({
                 ...site,
               })
             }
-          }
-
         })
       });
 
