@@ -45,7 +45,6 @@ done
 export SYSTEM_USER_ID=`id --user`
 export SYSTEM_USER_NAME=`id --user --name`
 
-export ADSERVER_URL=${ADSERVER_URL:-https://test-server.e11.click}
 export WEBSERVER_PORT=${WEBSERVER_PORT:-8102}
 
 # build
