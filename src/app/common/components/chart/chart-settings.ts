@@ -9,10 +9,6 @@ const adjustLabelFormat = (value, index, values, fullDateFormat) => {
     return moment(value).format('LT');
   } else if (daysSpan <= 2) {
     return moment(value).format('ddd LT');
-  } else if (daysSpan <= 7) {
-    return moment(value).format(fullDateFormat);
-  } else if (daysSpan <= 31) {
-    return moment(value).format(fullDateFormat);
   } else if (daysSpan <= 31) {
     return moment(value).format(fullDateFormat);
   } else if (daysSpan <= 730) {
