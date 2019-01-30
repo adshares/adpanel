@@ -43,6 +43,7 @@ With the default settings the panel will be available:
 - [Wiki](https://github.com/adshares/adpanel/wiki)
 - [Changelog](CHANGELOG.md)
 - [Testing](https://github.com/adshares/adpanel/wiki/Testing)
+- [Attribution](https://github.com/adshares/adpanel/attribution.txt)
 
 ## Contributing
 
@@ -53,6 +54,10 @@ With the default settings the panel will be available:
 - **[Tomek Grzechowski](https://github.com/yodahack)**
 - **[Maciej Pilarczyk](https://github.com/m-pilarczyk)**
 - **[Paweł Zaremba](https://github.com/pawzar)**
+- **[Katarzyna Marciniszyn ](https://github.com/Meskat)**
+- **[Paweł Podkalicki](https://github.com/PawelPodkalicki)**
+- **[Przemysław Furtak](https://github.com/c3zi)**
+
 
 ...and other [contributors](https://github.com/adshares/adpanel/contributors).
 
