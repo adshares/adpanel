@@ -305,7 +305,7 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     const adSizeName = this.adSizes[adSize];
   }
 
-  onSubmit() {
+  onSubmit(isDraft: boolean = false): void {
     this.adsSubmitted = true;
     this.changesSaved = true;
 
@@ -317,7 +317,7 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
       this.adForms.every((adForm, index) => !!this.ads[index].imageUrl || !!adForm.get('html')) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
     if (adsValid) {
-      this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(false)
+      this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(isDraft)
     } else {
       this.changesSaved = false;
     }

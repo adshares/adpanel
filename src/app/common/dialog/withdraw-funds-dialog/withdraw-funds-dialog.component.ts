@@ -6,7 +6,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 import {HandleSubscription} from 'common/handle-subscription';
 import {SettingsService} from 'settings/settings.service';
-import {AppState} from 'models/app-state.model';
+import {AppState, SettingsState} from 'models/app-state.model';
 import {User, UserAdserverWallet} from 'models/user.model';
 
 import {adsToClicks, formatMoney} from 'common/utilities/helpers';
@@ -30,6 +30,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   withdrawFormSubmitted = false;
   showAddressError = false;
   isEmailConfirmed = false;
+  totalFunds: number;
 
   calculatedFee: number;
   calculatedTotal: number;
@@ -50,14 +51,17 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         this.isEmailConfirmed = user.isEmailConfirmed;
         this.adserverWallet = user.adserverWallet;
       });
-
+    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
+      .subscribe((state: SettingsState) => {
+        this.totalFunds = state.totalFunds
+      });
     this.settingsService.checkUserStatus()
       .subscribe((user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
         this.adserverWallet = user.adserverWallet;
       });
 
-    this.subscriptions.push(userDataSubscription);
+    this.subscriptions.push(userDataSubscription, userDataStateSubscription);
     this.createForm();
   }
 

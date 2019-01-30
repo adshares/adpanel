@@ -9,12 +9,12 @@ const adjustLabelFormat = (value, index, values, fullDateFormat) => {
     return moment(value).format('LT');
   } else if (daysSpan <= 2) {
     return moment(value).format('ddd LT');
-  } else if (daysSpan <= 7) {
-    return moment(value).format(fullDateFormat);
   } else if (daysSpan <= 31) {
     return moment(value).format(fullDateFormat);
-  } else if (daysSpan > 31) {
-    return moment(value).format(fullDateFormat);
+  } else if (daysSpan <= 730) {
+    return moment(value).format('MMM YYYY');
+  } else {
+    return moment(value).format('YYYY');
   }
 };
 
@@ -28,7 +28,7 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels, 'DD MMM YYYY');
+        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels, 'L');
         return value;
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
@@ -127,7 +127,7 @@ const chartOptions: ChartOptions = {
         fontColor: '#aebac7',
         fontSize: 13,
         beginAtZero: true,
-        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'DD/MM/Y'),
+        callback: (value, index, values) => adjustLabelFormat(value, index, values, 'L'),
       }
     }],
     yAxes: [{

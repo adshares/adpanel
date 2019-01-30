@@ -167,11 +167,10 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   }
 
   updateAdUnits(): void {
-    this.adUnitsSubmitted = true;
-
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
+    this.adUnitsSubmitted = true;
     if (!adUnitsValid) return;
-
+    this.adUnitsSubmitted = false;
     this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
     this.store.dispatch(new publisherActions.UpdateSite(this.site));
   }
@@ -188,6 +187,8 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   }
 
   saveAdUnits(isDraft: boolean): void {
+    this.changesSaved = true;
+
     if (!this.adUnitForms.length) {
       this.dialog.open(ErrorResponseDialogComponent, {
         data: {
@@ -202,13 +203,14 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
     if (adUnitsValid) {
-      this.changesSaved = true;
+      this.adUnitsSubmitted = false;
       this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
       this.redirectAfterSave(isDraft);
     }
   }
 
   redirectAfterSave(isDraft: boolean): void {
+    this.changesSaved = false;
     if (isDraft) {
       this.publisherService.saveAsDraft(this.site);
       return;

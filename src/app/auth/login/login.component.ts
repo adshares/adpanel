@@ -51,6 +51,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       return;
     }
 
+    this.store.dispatch(new authActions.UserLogOutSuccess());
+
     this.createForm();
     this.checkIfUserRemembered();
   }

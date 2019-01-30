@@ -4,12 +4,11 @@ import { HandleSubscription } from 'common/handle-subscription';
 
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
-import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { UserAdserverWallet } from 'models/user.model';
 import { appSettings } from 'app-settings';
-import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 import { SessionService } from "app/session.service";
+import {AppState, SettingsState} from "models/app-state.model";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-user-wallet',
@@ -19,12 +18,13 @@ import { SessionService } from "app/session.service";
 export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
 
-  periodsEnum = withdrawPeriodsEnum;
   adserverWallet: UserAdserverWallet;
+  totalFunds: number;
 
   constructor(
     private dialog: MatDialog,
-    private session: SessionService
+    private session: SessionService,
+    private store: Store<AppState>
   ) {
     super();
   }
@@ -37,15 +37,12 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     this.dialog.open(WithdrawFundsDialogComponent);
   }
 
-  openChangeAddressDialog() {
-    this.dialog.open(ChangeAddressDialogComponent);
-  }
-
-  openChangeAutomaticWithdrawsDialog() {
-    this.dialog.open(ChangeAutomaticWithdrawDialogComponent);
-  }
-
   ngOnInit() {
     this.adserverWallet = this.session.getUser().adserverWallet;
+
+    this.store.select('state', 'user', 'settings')
+      .subscribe((state: SettingsState) => {
+        this.totalFunds = state.totalFunds
+      });
   }
 }

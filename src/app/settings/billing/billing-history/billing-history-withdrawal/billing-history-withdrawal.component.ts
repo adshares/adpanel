@@ -20,7 +20,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   ngOnInit() {
     this.getIcon();
 
-    this.billingHistoryItem.date = moment(this.billingHistoryItem.date).format('DD/MM/YYYY');
+    this.billingHistoryItem.date = moment(this.billingHistoryItem.date).format('L hh:mm');
     if (this.billingHistoryItem.txid) {
       this.link = appSettings.ADS_OPERATOR_URL + '/blockexplorer/transactions/' + this.billingHistoryItem.txid;
     }

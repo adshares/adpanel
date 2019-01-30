@@ -24,7 +24,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
   campaigns: Campaign[];
-  campaignsTotals: CampaignTotals[];
+  campaignsTotals: CampaignTotals;
 
   barChartValue: number;
   barChartDifference: number;
@@ -46,12 +46,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
+        this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
+
       });
 
     this.subscriptions.push(chartFilterSubscription);
-    this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
-
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
 
@@ -74,25 +74,21 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
+
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
     this.subscriptions.push(chartDataSubscription);
   }
 
-  loadCampaigns(from, to) {
-    from = moment(from).format();
-    to = moment(to).format();
+  loadCampaigns(from: string, to: string) {
     this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
-    this.store.dispatch(new advertiserActions.LoadCampaignsTotals({from, to}));
-
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        this.campaignsTotals = campaignsTotals;
-      });
+      .subscribe((totals: CampaignTotals) => this.campaignsTotals = totals);
+
     this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
   }
 }

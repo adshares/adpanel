@@ -117,23 +117,25 @@
         justify-between"
     >
 
-        <button
-          type="button"
-          class="
+      <button
+        type="button"
+        class="
             adsh-btn
             adsh-btn--white
             adsh-blue"
-          role="link"
-          (click)="onStepBack()"
-          >
-          {{createSiteMode ? 'Back to Dashboard' : 'Back'}}
-        </button>
+        role="link"
+        (click)="onStepBack()"
+        [disabled]="changesSaved"
+      >
+        {{createSiteMode ? 'Back to Dashboard' : 'Back'}}
+      </button>
 
       <button
         class="
           adsh-btn
           adsh-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
+        [disabled]="changesSaved || siteBasicInfoSubmitted"
       >
         <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
         <ng-template #loading>

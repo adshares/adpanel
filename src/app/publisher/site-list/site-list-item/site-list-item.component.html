@@ -54,7 +54,7 @@
           align-center"
       >
         <span data-test="publisher-site-estimated-earnings">
-          {{ site.cost | adsharesTokenValue:2 }}
+          {{ (site.cost || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
       <div
@@ -74,7 +74,7 @@
           align-center"
       >
         <span data-test="publisher-site-impressions">
-          {{ site.impressions }}
+          {{ (site.impressions || 0) }}
         </span>
       </div>
       <div
@@ -84,7 +84,7 @@
           align-center"
       >
         <span data-test="publisher-site-rpm">
-          {{ site.RPM | percent:'1.2-2' }}
+          {{ (site.rpm || 0) | percent:'1.2-2' }}
         </span>
       </div>
       <div
@@ -94,7 +94,7 @@
           align-center"
       >
         <span data-test="publisher-site-average=rpc">
-          {{ site.averageRpc | adsharesTokenValue:2 }}
+          {{ (site.averageRpc || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
       <div

@@ -20,7 +20,7 @@ interface AppState {
 interface AdvertiserState {
   lastEditedCampaign: Campaign;
   campaigns: Campaign[] | null;
-  campaignsTotals: CampaignTotals[];
+  campaignsTotals: CampaignTotals;
 }
 
 interface PublisherState {

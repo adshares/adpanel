@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import {Campaign} from 'models/campaign.model';
 import {AppState} from 'models/app-state.model';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {ChartComponent} from 'common/components/chart/chart.component';
@@ -33,7 +33,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   classificationStatusesEnum = classificationStatusesEnum;
-  campaignsTotals;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -58,28 +57,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.data.campaign.campaign.id;
-
+    const id = this.route.snapshot.data.campaign.id;
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
         this.getChartData(this.currentChartFilterSettings, id)
       });
 
-
-    this.store.select('state', 'advertiser', 'campaigns')
-      .take(1)
-      .subscribe((campaigns: Campaign[]) => {
-        if (!campaigns.length || !campaigns.find(el => el.id === id)) {
-          this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo, id)
-        } else {
-          this.store.dispatch(new advertiserActions.LoadCampaignBannerData({
-            from: this.currentChartFilterSettings.currentFrom,
-            to: this.currentChartFilterSettings.currentTo,
-            id: id
-          }))
-        }
-      });
 
     this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
@@ -92,21 +76,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
 
-    const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
-      .subscribe((campaignsTotals: CampaignTotals[]) => {
-        if (campaignsTotals && campaignsTotals.length) {
-          this.campaignsTotals = campaignsTotals.find(el => el.campaignId === id);
-        }
-      });
-    this.subscriptions.push(campaignsTotalsSubscription, chartFilterSubscription);
-  }
 
-  loadCampaigns(from, to, id) {
-    from = moment(from).format();
-    to = moment(to).format();
-    this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
-    this.store.dispatch(new advertiserActions.LoadCampaignsTotals({from, to}));
-    this.store.dispatch(new advertiserActions.LoadCampaignBannerData({from, to, id: id}))
+    this.subscriptions.push(chartFilterSubscription);
   }
 
   deleteCampaign() {
@@ -145,11 +116,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   getTargeting() {
-    if (this.targeting.requires.length || this.targeting.excludes.length || !this.campaign) return;
     this.campaign.targeting = {
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
+    if (this.targeting.requires.length || this.targeting.excludes.length || !this.campaign) return;
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {

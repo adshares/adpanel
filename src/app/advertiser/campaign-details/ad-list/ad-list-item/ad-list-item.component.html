@@ -50,7 +50,7 @@
       >
         <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
           <img *ngIf="adType === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner"
-               class="adsh advertiser-detail-image-preview"/>
+               class="advertiser-detail-image-preview"/>
           <span *ngIf="adType === 'HTML'">{{ adType }}</span>
         </span>
       </div>
@@ -60,7 +60,7 @@
           row
           align-center">
       <span data-test="advertiser-ad-clicks">
-        {{ ad.clicks }}
+        {{ ad.clicks || 0}}
       </span>
       </div>
       <div
@@ -70,7 +70,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-impressions">
-        {{ ad.impressions }}
+        {{ ad.impressions || 0 }}
       </span>
       </div>
       <div
@@ -80,7 +80,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-ctr">
-        {{ ad.ctr | percent:'1.2-2' }}
+        {{ (ad.ctr || 0) | percent:'1.2-2' }}
       </span>
       </div>
       <div
@@ -90,7 +90,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-average-cpc">
-        {{ ad.averageCpc | adsharesTokenValue:2}}
+        {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
       </span>
       </div>
       <div
@@ -100,7 +100,7 @@
           align-center"
       >
       <span data-test="advertiser-ad-cost">
-        {{ ad.cost | adsharesTokenValue:2}}
+        {{ (ad.cost || 0) | adsharesTokenValue:2}}
       </span>
       </div>
     </div>

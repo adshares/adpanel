@@ -36,7 +36,6 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   createSiteMode: boolean;
   changesSaved: boolean = false;
   filtering;
-  filteringOptions;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,8 +47,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
-    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
+    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
+    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getSiteFromStore();
   }
@@ -93,7 +92,7 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
 
   updateSite() {
     this.changesSaved = true;
-    this.store.dispatch(new publisherActions.UpdateSiteFiltering(this.siteToSave));
+    this.store.dispatch(new publisherActions.UpdateSite(this.siteToSave));
   }
 
   saveSite(isDraft) {
@@ -122,29 +121,15 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
       .subscribe((lastEditedSite: Site) => {
         this.site = lastEditedSite;
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
-        this.getFiltering(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
           return;
         }
+        const filtering = lastEditedSite.filteringArray;
+        this.addedItems = [...filtering.requires];
+        this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);
   }
-
-  getFiltering(site) {
-    const filteringSubscription = this.store.select('state', 'publisher', 'filteringCriteria')
-      .subscribe((filteringOptions) => {
-        this.filteringOptions = filteringOptions;
-        this.filtering = this.createSiteMode ? site.filtering : parseTargetingOptionsToArray(site.filtering, this.filteringOptions);
-
-        this.addedItems = [...this.filtering.requires];
-        this.excludedItems = [...this.filtering.excludes];
-        if (!filteringOptions.length) {
-          this.store.dispatch(new publisherActions.GetFilteringCriteria());
-        }
-      });
-    this.subscriptions.push(filteringSubscription);
-  }
-
 }

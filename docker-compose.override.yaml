@@ -2,5 +2,12 @@ version: "2"
 
 services:
   dev:
+    build:
+      context: .
+      args:
+        SYSTEM_USER_ID: ${SYSTEM_USER_ID}
+        SYSTEM_USER_NAME: ${SYSTEM_USER_NAME}
     ports:
     - "${WEBSERVER_PORT}:9000"
+    command: ['serve','--environment','${APP_ENV}','--host','0.0.0.0','--port','9000','--public-host','${WEBSERVER_HOST}']
+    user: ${SYSTEM_USER_ID}

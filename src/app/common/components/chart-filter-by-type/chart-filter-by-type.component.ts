@@ -8,6 +8,7 @@ import {enumToArray} from 'common/utilities/helpers';
 import {HandleSubscription} from 'common/handle-subscription';
 import {Site} from "models/site.model";
 import {Router} from "@angular/router";
+import {Ad} from "models/campaign.model";
 
 interface AssetInfo {
   id: number;
@@ -22,6 +23,7 @@ interface AssetInfo {
 export class ChartFilterByTypeComponent extends HandleSubscription implements OnInit {
   @Output() updateId: EventEmitter<number> = new EventEmitter();
   @Output() updateSeries: EventEmitter<string> = new EventEmitter();
+  @Input() detailsPage: boolean;
 
   userData: User;
 
@@ -49,7 +51,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
 
   setInitialDataByUserType() {
     if (this.userData.isAdvertiser) {
-       this.chartSeries =  enumToArray(advChartSeriesEnum);
+      this.chartSeries = enumToArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
           this.assetsInfo = campaigns.map(
@@ -61,7 +63,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         });
       this.subscriptions.push(userCampaignsSubscription);
     } else if (this.userData.isPublisher) {
-      this.chartSeries =  enumToArray(pubChartSeriesEnum);
+      this.chartSeries = enumToArray(pubChartSeriesEnum);
       const userSiteSubscription = this.store.select('state', 'publisher', 'sites')
         .subscribe((sites: Site[]) => {
           this.assetsInfo = sites.map(
@@ -73,7 +75,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         });
       this.subscriptions.push(userSiteSubscription);
     } else {
-      this.chartSeries =  enumToArray(advChartSeriesEnum);
+      this.chartSeries = enumToArray(advChartSeriesEnum);
     }
   }
 

@@ -39,17 +39,14 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     requires: [],
     excludes: []
   };
-
-  chartSeries: string[] = enumToArray(pubChartSeriesEnum);
-
+  filteringOptions: AssetTargeting;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = createInitialArray({labels: []}, 6);
-  barChartData;
+  barChartLabels: string[] = [];
+  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
-  filteringOptions: TargetingOption[];
 
   constructor(
     private route: ActivatedRoute,
@@ -64,32 +61,21 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
-
+    this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.getLanguages();
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
 
-
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
-        if (!sites.length) {
-          this.store.dispatch(new PublisherActions.LoadSites({
-            from: this.currentChartFilterSettings.currentFrom,
-            to: this.currentChartFilterSettings.currentTo
-          }))
-        } else {
-          this.site = sites.find(el => el.id === this.site.id);
-          this.getFiltering();
-          this.chartSeries.forEach(element => {
-            this.getChartData(this.currentChartFilterSettings, element)
-          });
-        }
+        this.site = sites.find(el => el.id === this.site.id);
+        this.getChartData(this.currentChartFilterSettings, this.site.id);
+        this.getFiltering();
       });
 
     this.subscriptions.push(chartFilterSubscription, sitesSubscription);
-
   }
 
   deleteSite() {
@@ -135,45 +121,35 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getFiltering() {
-    this.store.select('state', 'publisher', 'filteringCriteria')
-      .subscribe((filteringOptions) => {
-        if (!filteringOptions.length) {
-          this.store.dispatch(new PublisherActions.GetFilteringCriteria());
-        } else {
-          this.filteringOptions = filteringOptions;
-
-          if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
-            this.filtering = this.site.filtering;
-          } else {
-            this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
-          }
-        }
-      });
+    this.site.filtering= {
+      requires: this.site.filtering.requires || [],
+      excludes: this.site.filtering.excludes || [],
+    };
+    if (this.filtering.requires.length || this.filtering.excludes.length || !this.site) return;
+    if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
+      this.filtering = this.site.filtering as AssetTargeting;
+    } else {
+      this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+    }
   }
 
-  getChartData(chartFilterSettings, chartType) {
+  getChartData(chartFilterSettings, id) {
+    this.barChartData[0].data = [];
 
     const chartDataSubscription = this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartType,
+        chartFilterSettings.currentSeries,
         'sites',
-        this.site.id
+        id
       )
       .subscribe(data => {
-        this.barChartData = {
-          ...this.barChartData,
-          [chartType]: {
-            data: [{
-              data: data.values,
-              currentSeries: chartType
-            }],
-            total: data.total,
-            labels: data.timestamps.map(item => moment(item).format())
-          }
-        };
+        this.barChartData[0].data = data.values;
+        this.barChartLabels = data.timestamps.map((item) => moment(item).format());
+        this.barChartValue = data.total;
+        this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 

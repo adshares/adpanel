@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Subscription} from 'rxjs/Subscription';
 
+
 import {AppState} from 'models/app-state.model';
 import {CampaignBasicInformation, Campaign} from "models/campaign.model";
 import {campaignInitialState} from 'models/initial-state/campaign';
@@ -64,6 +65,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
+    this.campaignBasicInformationSubmitted =false
     this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
   }
 
@@ -92,10 +94,12 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   }
 
   updateCampaignBasicInfo() {
+    this.changesSaved = true;
     this.campaign = {
       ...this.campaign,
-      basicInformation: this.campaignBasicInfo,
+      basicInformation: {...this.campaignBasicInfo, status: this.campaign.basicInformation.status},
     };
+
     this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
   }
 
