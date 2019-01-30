@@ -2,8 +2,6 @@
 
 set -e
 
-OPT_CLEAN=0
-OPT_FORCE=0
 OPT_BUILD=0
 OPT_BUILD_MAPS=0
 OPT_RUN=0
@@ -13,13 +11,6 @@ OPT_LOGS_FOLLOW=0
 while [ "$1" != "" ]
 do
     case "$1" in
-        --clean )
-            OPT_CLEAN=1
-            OPT_FORCE=1
-        ;;
-        --force )
-            OPT_FORCE=1
-        ;;
         --build )
             OPT_BUILD=1
         ;;
@@ -54,21 +45,10 @@ export APP_ENV=${APP_ENV:-dev}
 # AdPanel ================================================
 
 export APP_PROD=${APP_PROD:-false}
-export ADSERVER_URL=${ADSERVER_URL:-https://test-server.e11.click}
+export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
 export REQUEST_XDEBUG=${REQUEST_XDEBUG:-true}
 
 # ========================================================
-
-if [ ${OPT_CLEAN} -eq 1 ]
-then
-    echo " > Destroy containers"
-    docker-compose down && echo " < DONE" || echo " < INFO: Containers already down"
-fi
-
-if [ ${OPT_FORCE} -eq 1 ]
-then
-    rm -f .env
-fi
 
 [ -f .env ] || envsubst < .env.dist | tee .env
 
