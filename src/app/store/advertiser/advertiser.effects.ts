@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs/Observable';
 import * as advertiserActions from './advertiser.actions';
+import * as authActions from 'store/auth/auth.actions';
 
 import "rxjs/add/operator/take";
 import * as moment from "moment";
@@ -23,6 +24,7 @@ export class AdvertiserEffects {
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
+    .takeUntil(this.actions$.ofType(authActions.USER_LOG_OUT_SUCCESS))
     .switchMap((payload) => this.service.getCampaigns()
       .switchMap((campaigns) => {
         return Observable.from([
