@@ -75,22 +75,18 @@ export function advertiserReducers(state = initialState, action: advertiserActio
           campaignsTotals: action.payload.total
         }
       }
-      state.campaigns.forEach(campaign => {
+      state.campaigns.map(campaign => {
         action.payload.data.forEach(data => {
-          if (!campaignsWithTotal.length || campaignsWithTotal.find(el => el.id !== campaign.id)) {
-            if (data.campaignId === campaign.id) {
-              campaignsWithTotal.push({
-                ...campaign,
-                ...data
-              })
-            } else {
-              campaignsWithTotal.push({
-                ...campaign,
-              })
-            }
-          }
 
-        })
+          if (data.campaignId === campaign.id && !campaignsWithTotal.find(el => el.id === campaign.id)) {
+            campaignsWithTotal.push({
+              ...campaign,
+              ...data
+            })
+          } else if (!campaignsWithTotal.find(el => el.id === campaign.id)) {
+            campaignsWithTotal.push({...campaign})
+          }
+        });
       });
 
       return {
@@ -120,8 +116,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       if (selectedCampaign.ads !== undefined && selectedCampaign.ads.length > 0) {
         selectedCampaign.ads.forEach(add => {
           action.payload.data.forEach(element => {
-            if (!bannersData.length || bannersData.find(el => el.id !== add.id)) {
-              if (element.bannerId === add.id) {
+              if (element.bannerId === add.id && !bannersData.find(el => el.id === add.id)) {
                 bannersData.push({
                   ...add,
                   id: element.bannerId,
@@ -132,10 +127,9 @@ export function advertiserReducers(state = initialState, action: advertiserActio
                   impressions: element.impressions,
 
                 })
-              } else {
+              } else if (!bannersData.find(el => el.id === add.id)) {
                 bannersData.push(add)
               }
-            }
           })
         });
       }
