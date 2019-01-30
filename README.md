@@ -43,7 +43,7 @@ With the default settings the panel will be available:
 - [Wiki](https://github.com/adshares/adpanel/wiki)
 - [Changelog](CHANGELOG.md)
 - [Testing](https://github.com/adshares/adpanel/wiki/Testing)
-- [Attribution](https://github.com/adshares/adpanel/attribution.txt)
+- [Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
 
 ## Contributing
 
