@@ -147,6 +147,7 @@
       <button
         *ngIf="createSiteMode"
         (click)="saveSite(true)"
+        [disabled]="changesSaved"
         class="
           adsh-btn
           adsh-btn--white

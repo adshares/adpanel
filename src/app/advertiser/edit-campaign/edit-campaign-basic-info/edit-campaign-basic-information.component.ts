@@ -65,6 +65,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
     if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
       return;
     }
+    this.campaignBasicInformationSubmitted =false
     this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
   }
 
@@ -93,10 +94,12 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   }
 
   updateCampaignBasicInfo() {
+    this.changesSaved = true;
     this.campaign = {
       ...this.campaign,
-      basicInformation: this.campaignBasicInfo,
+      basicInformation: {...this.campaignBasicInfo, status: this.campaign.basicInformation.status},
     };
+
     this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
   }
 
