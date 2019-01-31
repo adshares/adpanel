@@ -31,6 +31,7 @@ interface SitesTotals {
 }
 
 interface AdUnit {
+  id?: number
   shortHeadline: string;
   type: string;
   size: AdUnitSize;
