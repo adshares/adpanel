@@ -24,7 +24,6 @@ export class AdvertiserEffects {
   loadCampaigns$ = this.actions$
     .ofType(advertiserActions.LOAD_CAMPAIGNS)
     .map(toPayload)
-    .takeUntil(this.actions$.ofType(authActions.USER_LOG_OUT_SUCCESS))
     .switchMap((payload) => this.service.getCampaigns()
       .switchMap((campaigns) => {
         return Observable.from([
