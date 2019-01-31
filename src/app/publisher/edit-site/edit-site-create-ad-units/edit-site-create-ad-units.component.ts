@@ -7,8 +7,8 @@ import 'rxjs/add/operator/first';
 
 import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adSizesEnum, adTypesOptions, adUnitStatusesEnum} from 'models/enum/ad.enum';
-import {cloneDeep, enumToArray} from 'common/utilities/helpers';
+import {adSizesEnum, adTypesOptions} from 'models/enum/ad.enum';
+import {cloneDeep} from 'common/utilities/helpers';
 import {AdUnit, AdUnitSize, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
 import {adUnitInitialState} from 'models/initial-state/ad-unit';
@@ -32,7 +32,6 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   allAdUnitSizes: AdUnitSize[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
-  adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
@@ -224,7 +223,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeNewAdUnit(adIndex: number): void {
+  removeAdUnit(adIndex: number): void {
     this.adUnitForms.splice(adIndex, 1);
     this.adUnitPanelsStatus.splice(adIndex, 1);
   }
