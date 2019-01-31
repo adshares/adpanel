@@ -219,8 +219,7 @@
               adsh-btn--white
               adsh-blue
               save-as-draft"
-              *ngIf="adUnitForm.get('status').value === adUnitStatusesEnum.DRAFT"
-              (click)="removeNewAdUnit(adUnitIndex)"
+              (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
               Delete Ad Unit

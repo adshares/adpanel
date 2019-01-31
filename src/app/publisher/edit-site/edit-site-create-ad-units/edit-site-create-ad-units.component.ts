@@ -7,8 +7,8 @@ import 'rxjs/add/operator/first';
 
 import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adSizesEnum, adTypesOptions, adUnitStatusesEnum} from 'models/enum/ad.enum';
-import {cloneDeep, enumToArray} from 'common/utilities/helpers';
+import {adSizesEnum, adTypesOptions} from 'models/enum/ad.enum';
+import {cloneDeep} from 'common/utilities/helpers';
 import {AdUnit, AdUnitSize, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
 import {adUnitInitialState} from 'models/initial-state/ad-unit';
@@ -32,7 +32,6 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
   allAdUnitSizes: AdUnitSize[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
-  adUnitStatusesEnum = adUnitStatusesEnum;
   createSiteMode: boolean;
   changesSaved: boolean = false;
   site: Site;
@@ -129,7 +128,8 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
       type: new FormControl(adUnit.type, Validators.required),
       adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status),
-      size: new FormControl(adUnit.size, Validators.required)
+      size: new FormControl(adUnit.size, Validators.required),
+      id: new FormControl(adUnit.id),
     });
   }
 
@@ -181,7 +181,8 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
         shortHeadline: form.get('shortHeadline').value,
         type: form.get('type').value,
         size: form.get('size').value,
-        status: form.get('status').value
+        status: form.get('status').value,
+        id: form.get('id').value,
       };
     });
   }
@@ -222,7 +223,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     );
   }
 
-  removeNewAdUnit(adIndex: number): void {
+  removeAdUnit(adIndex: number): void {
     this.adUnitForms.splice(adIndex, 1);
     this.adUnitPanelsStatus.splice(adIndex, 1);
   }
