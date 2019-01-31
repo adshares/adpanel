@@ -129,7 +129,8 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
       type: new FormControl(adUnit.type, Validators.required),
       adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status),
-      size: new FormControl(adUnit.size, Validators.required)
+      size: new FormControl(adUnit.size, Validators.required),
+      id: new FormControl(adUnit.id),
     });
   }
 
@@ -181,7 +182,8 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
         shortHeadline: form.get('shortHeadline').value,
         type: form.get('type').value,
         size: form.get('size').value,
-        status: form.get('status').value
+        status: form.get('status').value,
+        id: form.get('id').value,
       };
     });
   }
