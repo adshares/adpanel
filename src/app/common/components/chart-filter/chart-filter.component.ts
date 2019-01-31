@@ -44,10 +44,10 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   filterChart(from, to, isFromDatepicker) {
-
+    // FIMXE could be
     const timespan = {
       from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
-      to: isNaN(to) ? to.value._d : moment()
+      to: isNaN(to) ? moment(to.value._d).endOf('day') : moment().endOf('day')
     };
     this.filter.emit(timespan);
 
@@ -59,7 +59,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
 
   filterChartByDatepicker(from, to, fromDatepicker = true) {
     this.dateFrom.setValue(from.value);
-    this.dateTo.setValue(to.value);
+    this.dateTo.setValue(moment(to).endOf('day'));
 
     const datesSet = from.value && to.value;
     const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;

@@ -1,3 +1,5 @@
+import {Moment} from "moment";
+
 export interface ChartFilterSettings {
   currentTo: string;
   currentFrom: string;
@@ -9,8 +11,8 @@ export interface ChartFilterSettings {
 }
 
 export interface TimespanFilter {
-  from: string;
-  to: string;
+  from: string | Moment;
+  to: string | Moment;
 }
 
 export interface FilterPreset {
