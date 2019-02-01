@@ -22,6 +22,9 @@ fi
 # Create environment
 envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
 
+# Add version based on GIT commit hash (short version)
+./scripts/version.sh
+
 # Install dependencies
 yarn install
 
