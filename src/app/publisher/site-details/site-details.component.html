@@ -100,7 +100,6 @@
           class="
             adsh-btn
             adsh-btn--white
-            adsh-btn--no-border
             btn-delete"
           (click)="deleteSite()"
         >
@@ -108,16 +107,11 @@
             class="
               adsh-icon
               adsh-icon--prepend"
-            src="/assets/images/x-circle--gray.svg"
-            alt="Delete icon"
+            src="/assets/images/x-circle--dark.svg"
+            alt=""
           >
-          <span
-            class="
-              adsh-copy
-              adsh-copy--dark"
-          >
-            Delete Site
-          </span>
+          <span class="adsh-copy--dark">Delete Site</span>
+
         </button>
       </div>
     </div>
@@ -143,7 +137,7 @@
       <button
         class="
            adsh-btn
-           adsh-btn--white
+           adsh-btn--blue
            adsh-btn--no-border
            hidden-md"
         (click)="navigateToEditSite('basic-information', 1)"
@@ -154,15 +148,9 @@
             adsh-icon
             adsh-icon--prepend"
           src="assets/images/edit.svg"
-          alt="Edit icon"
-        >
-        <span
-          class="
-            adsh-copy
-            adsh-copy--dark"
+          alt=""
         >
       Edit Basic Info
-      </span>
       </button>
     </div>
 
@@ -171,7 +159,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--white
+           adsh-btn--blue
            adsh-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('additional-filtering', 2)"
@@ -182,15 +170,9 @@
             adsh-icon
             adsh-icon--prepend"
             src="assets/images/edit.svg"
-            alt="Edit icon"
-          >
-          <span
-            class="
-            adsh-copy
-            adsh-copy--dark"
+            alt=""
           >
             {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
-        </span>
         </button>
       </div>
       <div
@@ -302,7 +284,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--white
+           adsh-btn--blue
            adsh-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('create-ad-units', 3)"
@@ -313,14 +295,9 @@
             adsh-icon
             adsh-icon--prepend"
             src="assets/images/edit.svg"
-            alt="Edit icon"
+            alt=""
           >
-          <span
-            class="
-            adsh-copy
-            adsh-copy--dark">
              Edit Ad Units
-          </span>
         </button>
       </div>
       <app-ad-units
