@@ -189,7 +189,7 @@
 .adsh-box {
   border-radius: 2px;
   background-color: pal(white);
-  border: 1px solid #f0f0f0; // TODO use var instead of hex
+  border: 1px solid pal(gray, nearly-white);
   padding: 13px 15px;
   margin: 2px 0;
 
