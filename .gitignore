@@ -53,3 +53,5 @@ Thumbs.db
 
 # QA
 /.scannerwork
+
+src/version.ts

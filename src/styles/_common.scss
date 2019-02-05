@@ -189,8 +189,13 @@
 .adsh-box {
   border-radius: 2px;
   background-color: pal(white);
+  border: 1px solid pal(gray, nearly-white);
   padding: 13px 15px;
   margin: 2px 0;
+
+  & .adsh-box {
+    border: none
+  }
 
   &--large {
     padding: 25px;

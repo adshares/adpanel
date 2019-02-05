@@ -105,7 +105,6 @@
           class="
             adsh-btn
             adsh-btn--white
-            adsh-btn--no-border
             btn-delete"
           (click)="deleteCampaign()">
           <img
@@ -113,7 +112,7 @@
               adsh-icon
               adsh-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
-            alt="Delete icon">
+            alt="">
           <span
             class="
               adsh-copy
@@ -203,7 +202,7 @@
                 adsh-icon
                 adsh-icon--prepend"
                 src="/assets/images/calendar.svg"
-                alt="Calendar Icon">
+                alt="">
               <p
                 class="
                 adsh-copy--dark
@@ -232,7 +231,7 @@
                 adsh-icon
                 adsh-icon--prepend"
                 src="/assets/images/calendar.svg"
-                alt="Calendar Icon"
+                alt=""
               >
               <p
                 *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
@@ -252,8 +251,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--white
-           adsh-btn--no-border
+           adsh-btn--blue
            hidden-md"
           (click)="navigateToCampaignEdition('basic-information', 1)"
           data-test="publisher-site-edit">
@@ -262,26 +260,20 @@
             adsh-icon
             adsh-icon--prepend"
             src="assets/images/edit.svg"
-            alt="Edit icon">
-          <span
-            class="
-            adsh-copy
-            adsh-copy--dark">
+            alt="">
             Edit Basic Info
-         </span>
         </button>
       </div>
     </div>
 
     <!--Targeting details section-->
 
-    <section class="adsh-box adsh-box--high">
+    <section class="adsh-box adsh-box--high adsh-box--large">
       <div class="row justify-end">
         <button
           class="
            adsh-btn
-           adsh-btn--white
-           adsh-btn--no-border
+           adsh-btn--blue
            hidden-md"
           (click)="navigateToCampaignEdition('additional-targeting', 2)"
           data-test="publisher-site-edit">
@@ -290,13 +282,8 @@
             adsh-icon
             adsh-icon--prepend"
             src="assets/images/edit.svg"
-            alt="Edit icon">
-          <span
-            class="
-            adsh-copy
-            adsh-copy--dark">
+            alt="">
             {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
-        </span>
         </button>
       </div>
       <div
@@ -527,8 +514,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--white
-           adsh-btn--no-border
+           adsh-btn--blue
            hidden-md"
           (click)="navigateToCampaignEdition('create-ad', 3)"
           data-test="publisher-site-edit">
@@ -538,12 +524,7 @@
             adsh-icon--prepend"
             src="assets/images/edit.svg"
             alt="Edit icon">
-          <span
-            class="
-            adsh-copy
-            adsh-copy--dark">
              Edit Ads
-          </span>
         </button>
       </div>
       <app-ad-list *ngIf="campaign.ads.length" [adList]="campaign.ads"></app-ad-list>
@@ -571,7 +552,7 @@
             alt="Add new icon"
             class="
               adsh-icon
-              adsh-icon--prepend">
+              adsh-icon--prepend"/>
           <span
             class="
               adsh-heading
