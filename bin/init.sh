@@ -78,3 +78,5 @@ then
         docker-compose logs
     fi
 fi
+
+./scripts/version.sh
