@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
-import { VERSION } from 'version';
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +17,6 @@ export class AuthComponent {
 
   constructor(
   ) {
-    this.version = VERSION;
+    this.version = environment.version;
   }
 }
