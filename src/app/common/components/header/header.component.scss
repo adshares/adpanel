@@ -2,7 +2,7 @@
 
 .adsh-header {
   width: 100vw;
-  height: 86px;
+  height: 60px;
   background: pal(navy);
 
   @include media(sm-down-without-sm) {
@@ -16,7 +16,7 @@
   }
 
   &-userselect {
-    width: 185px;
+    width: 195px;
     background: pal(white);
     padding: 0 20px;
 
@@ -43,6 +43,7 @@
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
+    padding: 0 25px;
 
     @include media(xxl-up) {
       height: 60px;

@@ -24,6 +24,11 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
 
   filterPresets: FilterPreset[] = enumToObjectArray(filterPresetsEnum);
   currentChartFilterSettings: ChartFilterSettings;
+  currentFilterPreset: FilterPreset;
+  currentFromFilter: string;
+  currentToFilter: string;
+
+  datepickerVisible: boolean = false;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -44,6 +49,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   filterChart(from, to, isFromDatepicker) {
+    this.datepickerVisible = false;
     const timespan = {
       from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
       to: isNaN(to) ? moment(to.value._d).endOf('day') : moment().endOf('day')
@@ -73,5 +79,12 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   updateCurrentDaysSpan() {
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
+    this.currentFilterPreset = this.filterPresets.find(p => p.id === this.currentDaysSpan);
+    this.currentFromFilter = moment(this.currentChartFilterSettings.currentTo).format('L');
+    this.currentToFilter = moment(this.currentChartFilterSettings.currentFrom).format('L');
+  }
+
+  showDatepicker() {
+    this.datepickerVisible = true;
   }
 }
