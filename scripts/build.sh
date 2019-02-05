@@ -19,11 +19,8 @@ if [ ! -v TRAVIS ]; then
   cd ${BUILD_PATH}/build
 fi
 
-# Create environment
-envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
-
 # Add version based on GIT commit hash (short version)
-./scripts/version.sh
+./scripts/_environment.sh
 
 # Install dependencies
 yarn install
@@ -34,7 +31,7 @@ then
   node_modules/@angular/cli/bin/ng build --environment dev --sourcemaps --verbose --target development
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-  node_modules/@angular/cli/bin/ng build --environment ${APP_ENV} --bundle-dependencies all --build-optimizer --target production
+  node_modules/@angular/cli/bin/ng build --environment prod --bundle-dependencies all --build-optimizer --target production
 else
   node_modules/@angular/cli/bin/ng build --environment ${APP_ENV}
 fi

@@ -19,47 +19,27 @@
 
 ## Quick Start
 
-When starting from scratch:
+Nodejs and yarn (or at least npm) need to be present in the system, then run:
 
 ```bash
-bin/init.sh --build --run
+git clone https://github.com/adshares/adpanel.git
+cd adpanel
+./scripts/_environment.sh
+yarn install
+node_modules/@angular/cli/bin/ng serve
 ```
-
-To rebuild everything:
-
-```bash
-bin/init.sh --clean --force --build --run
-```
-
-- Omit the `--run` option to generate a static version into `dist` directory without running a server. 
-- To see logs add `--logs` at the end of the above `init.sh` command.
-- To follow them,  use `--logs-follow`.
-
-With the default settings the panel will be available:
-- [http://localhost:8102/](http://localhost:8102/)
 
 ## Documentation
 
 - [Wiki](https://github.com/adshares/adpanel/wiki)
 - [Changelog](CHANGELOG.md)
 - [Testing](https://github.com/adshares/adpanel/wiki/Testing)
-- [Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
+- [Authors](https://github.com/adshares/adpanel/contributors)
+- [OSS Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
 
 ## Contributing
 
 - Please follow our [Contributing Guidelines](docs/CONTRIBUTING.md)
-
-### Authors
-
-- **[Tomek Grzechowski](https://github.com/yodahack)**
-- **[Maciej Pilarczyk](https://github.com/m-pilarczyk)**
-- **[Paweł Zaremba](https://github.com/pawzar)**
-- **[Katarzyna Marciniszyn ](https://github.com/Meskat)**
-- **[Paweł Podkalicki](https://github.com/PawelPodkalicki)**
-- **[Przemysław Furtak](https://github.com/c3zi)**
-
-
-...and other [contributors](https://github.com/adshares/adpanel/contributors).
 
 ### Versioning
 
