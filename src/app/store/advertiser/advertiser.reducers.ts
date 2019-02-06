@@ -83,10 +83,12 @@ export function advertiserReducers(state = initialState, action: advertiserActio
               ...campaign,
               ...data
             })
-          } else if (!campaignsWithTotal.find(el => el.id === campaign.id)) {
-            campaignsWithTotal.push({...campaign})
           }
         });
+
+        if (!campaignsWithTotal.find(el => el.id === campaign.id)) {
+          campaignsWithTotal.push({...campaign})
+        }
       });
 
       return {
