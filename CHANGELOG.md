@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Improves Event statistics
+### Improved
+- Event statistics
+### Fixed:
+- Banner visibility detection
+- Double finder script loading
 
 ## [0.1.0] - 2019-01-31
 - Deployment of the AdPanel Release Candidate to https://demo.adshares.net with:
