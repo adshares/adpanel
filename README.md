@@ -19,19 +19,31 @@
 
 ## Quick Start
 
-Nodejs and yarn (or at least npm) need to be present in the system, then run:
+> Requirements:
+> - [Nodejs](https://nodejs.org/en/) 
+> - [yarn](https://yarnpkg.com/en/) (or at least npm)
 
+Clone the repo and enter the dir containing it
 ```bash
 git clone https://github.com/adshares/adpanel.git
 cd adpanel
-./scripts/_environment.sh
+```
+Prepare environment
+```bash
+cp src/environments/environment.ts src/environments/environment.dev.ts
+```
+Install node dependencies
+```bash
 yarn install
+```
+Start a development web server
+```bash
 node_modules/@angular/cli/bin/ng serve
 ```
 
+## 
 ## Documentation
 
-- [Wiki](https://github.com/adshares/adpanel/wiki)
 - [Changelog](CHANGELOG.md)
 - [Testing](https://github.com/adshares/adpanel/wiki/Testing)
 - [Authors](https://github.com/adshares/adpanel/contributors)
@@ -65,4 +77,3 @@ If not, see <https://www.gnu.org/licenses/gpl.html>.
 
 - [AdServer](https://github.com/adshares/adserver)
 - [PHP ADS Client](https://github.com/adshares/adpanel-php-client)
-
