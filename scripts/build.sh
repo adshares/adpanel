@@ -2,12 +2,8 @@
 
 set -e
 
-env | sort
-
-if [ ! -v TRAVIS ]; then
-  # Checkout repo and change directory
-
-  # Install git
+if [[ -v GIT_CLONE ]]
+then
   git --version || apt-get -qq -y install git
 
   git clone \
@@ -19,19 +15,26 @@ if [ ! -v TRAVIS ]; then
   cd ${BUILD_PATH}/build
 fi
 
-# Add version based on GIT commit hash (short version)
-./scripts/_environment.sh
+GIT_TAG=$(git tag -l --points-at HEAD | head -n 1)
+GIT_HASH="#"$(git rev-parse --short HEAD)
 
-# Install dependencies
+export APP_VERSION=${APP_VERSION:-${GIT_TAG:-${GIT_HASH}}}
+export APP_PROD=${APP_PROD:-false}
+export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
+export DEV_XDEBUG=${DEV_XDEBUG:-false}
+
+export APP_ENV=${APP_ENV:-dev}
+
+envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
+
 yarn install
 
-# Build project
 if [[ ${APP_ENV} == 'dev' ]]
 then
-  node_modules/@angular/cli/bin/ng build --environment dev --sourcemaps --verbose --target development
+  node_modules/@angular/cli/bin/ng build
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-  node_modules/@angular/cli/bin/ng build --environment prod --bundle-dependencies all --build-optimizer --target production
+  node_modules/@angular/cli/bin/ng build --prod
 else
   node_modules/@angular/cli/bin/ng build --environment ${APP_ENV}
 fi
