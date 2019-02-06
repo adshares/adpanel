@@ -1,8 +1,10 @@
+let serverUrl = '${ADSERVER_URL}';
+
 export const environment = {
   production: ${APP_PROD},
-  serverUrl: '${ADSERVER_URL}',
-  authUrl: '${ADSERVER_URL}/auth',
-  apiUrl: '${ADSERVER_URL}/api',
+  serverUrl: serverUrl,
+  authUrl: serverUrl + '/auth',
+  apiUrl: serverUrl + '/api',
   xdebug: ${DEV_XDEBUG},
   version: '${APP_VERSION}'
 };
