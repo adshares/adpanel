@@ -2,6 +2,7 @@
 
 set -e
 
+
 if [[ -v GIT_CLONE ]]
 then
   git --version || apt-get -qq -y install git
@@ -15,26 +16,29 @@ then
   cd ${BUILD_PATH}/build
 fi
 
+NG_COMMAND=${1:-build}
+
 GIT_TAG=$(git tag -l --points-at HEAD | head -n 1)
 GIT_HASH="#"$(git rev-parse --short HEAD)
 
 export APP_VERSION=${APP_VERSION:-${GIT_TAG:-${GIT_HASH}}}
-export APP_PROD=${APP_PROD:-false}
+export APP_PROD=${APP_PROD:-true}
 export ADSERVER_URL=${ADSERVER_URL:-http://localhost:8101}
 export DEV_XDEBUG=${DEV_XDEBUG:-false}
 
-export APP_ENV=${APP_ENV:-dev}
+export APP_ENV=${APP_ENV:-prod}
 
-envsubst < environment.ts.dist | tee src/environments/environment.${APP_ENV}.ts
+envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
 
 yarn install
 
 if [[ ${APP_ENV} == 'dev' ]]
 then
-  node_modules/@angular/cli/bin/ng build
+  node_modules/@angular/cli/bin/ng ${NG_COMMAND}
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-  node_modules/@angular/cli/bin/ng build --prod
+  node_modules/@angular/cli/bin/ng ${NG_COMMAND} --prod
 else
-  node_modules/@angular/cli/bin/ng build --environment ${APP_ENV}
+  echo "ERROR: Unsupported environment ($APP_ENV)."
+  exit 1
 fi
