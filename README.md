@@ -30,7 +30,7 @@ It connects to an active [AdServer](https://github.com/adshares/adserver)'s API.
 Clone and build for `production` environment
 ```bash
 git clone https://github.com/adshares/adpanel.git
-adpanel/scripts/build.sh https://your.adpanel.server.name
+adpanel/scripts/build.sh https://your.ADSERVER.hostname
 ```
 and point your web server to the location of the `dist` directory.
 
