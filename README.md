@@ -27,13 +27,10 @@ It connects to an active [AdServer](https://github.com/adshares/adserver)'s API.
 > - [yarn](https://yarnpkg.com/en/) (or at least npm)
 > - `envsubst` command from the `gettext-base` package (you might need to remove `cmdtest` first)
 
+Clone and build for `production` environment
 ```bash
 git clone https://github.com/adshares/adpanel.git
-cd adpanel
-```
-Build for `production` environment (minified and all)
-```bash
-ADSERVER_URL="https://your.adpanel.server.name" scripts/build.sh
+adpanel/scripts/build.sh https://your.adpanel.server.name
 ```
 and point your web server to the location of the `dist` directory.
 
@@ -41,10 +38,8 @@ and point your web server to the location of the `dist` directory.
 
 - [Changelog](CHANGELOG.md)
 - [Contributing Guidelines](docs/CONTRIBUTING.md)
-- [Testing](https://github.com/adshares/adpanel/wiki/Testing)
-- [Authors](https://github.com/adshares/adpanel/contributors)
-- [OSS Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
-- [Versions](https://github.com/adshares/adpanel/tags) (we use [Semantic Versioning](http://semver.org/))
+- [Authors](https://github.com/adshares/adpanel/contributors) and [OSS Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
+- Available [Versions](https://github.com/adshares/adpanel/tags) (we use [Semantic Versioning](http://semver.org/))
 
 ### Related projects
 
