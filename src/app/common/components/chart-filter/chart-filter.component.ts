@@ -49,7 +49,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   filterChart(from, to, isFromDatepicker) {
-    this.datepickerVisible = false;
+    this.hideDatepicker();
     const timespan = {
       from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
       to: isNaN(to) ? moment(to.value._d).endOf('day') : moment().endOf('day')
@@ -86,5 +86,9 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
 
   showDatepicker() {
     this.datepickerVisible = true;
+  }
+
+  hideDatepicker() {
+    this.datepickerVisible = false;
   }
 }

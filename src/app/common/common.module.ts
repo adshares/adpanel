@@ -13,6 +13,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ChartsModule } from 'ng2-charts';
 
+import { ClickOutsideDirective } from './clickOutside.directive'
+
 import { CommonService } from './common.service';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
@@ -96,6 +98,7 @@ const appComponents = [
     ...matModules,
   ],
   declarations: [
+    ClickOutsideDirective,
     ...dialogs,
     ...appComponents,
   ],
