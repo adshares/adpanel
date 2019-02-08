@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import {PublisherService} from 'publisher/publisher.service';
@@ -15,14 +14,14 @@ import {adUnitInitialState} from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
+import {HandleSubscription} from "common/handle-subscription";
 
 @Component({
   selector: 'app-edit-site-create-ad-units',
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription[] = [];
+export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
   adUnitForms: FormGroup[] = [];
   adTypes: string[] = adTypesOptions;
   adSizesOptions: string[] = [];
@@ -43,7 +42,9 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private dialog: MatDialog
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
@@ -70,10 +71,6 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
   fillFormWithData(): void {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .first()
@@ -87,7 +84,7 @@ export class EditSiteCreateAdUnitsComponent implements OnInit, OnDestroy {
 
         const savedAdUnits = lastEditedSite.adUnits;
 
-        if (savedAdUnits) {
+        if (!!savedAdUnits.length) {
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
             this.adUnitPanelsStatus[index] = false;
