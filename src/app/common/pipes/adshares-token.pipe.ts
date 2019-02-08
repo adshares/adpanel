@@ -7,6 +7,6 @@ import { formatMoney } from 'common/utilities/helpers';
 
 export class AdsharesTokenPipe implements PipeTransform {
   transform(value, precision: number = 11) {
-    return formatMoney(value, precision) + ' ADS';
+    return formatMoney(Math.round(value), precision) + ' ADS';
   }
 }
