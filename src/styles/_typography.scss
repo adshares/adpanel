@@ -99,6 +99,10 @@
   &--uppercase {
     text-transform: uppercase;
   }
+
+  &--lineheight-reset {
+    line-height: 1;
+  }
 }
 
 .text-center {
