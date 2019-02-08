@@ -180,17 +180,25 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return heightRatio <= widthRatio ? heightRatio : widthRatio;
   }
 
-  showImageSizeWarning(adSize: string, imageSize: string): void {
+  selectProperBannerSize(imageSize: string, index: number) {
     const imageSizesArray = imageSize.split('x');
-    const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size) !== parseInt(imageSizesArray[index]));
+    const sizesOptionsArray = this.adSizes.map(size => size.split('x'));
+    const findMatch = sizesOptionsArray.find(size =>
+      (size[0] === imageSizesArray[0]) && (size[1] === imageSizesArray[1]));
 
-    if (!showWarning) return;
+    if (!!findMatch) {
+      const sizeIndex = this.adSizes.findIndex(size => size === findMatch.join('x'));
+      this.adForms[index].get('size').setValue(sizeIndex);
+    } else {
+      this.showImageSizeWarning();
+    }
+  }
 
+  showImageSizeWarning(): void {
     this.matDialog.open(WarningDialogComponent, {
       data: {
         title: 'Inconsistent sizes',
-        message: 'Size of uploaded image is different than selected ad size. \n ' +
+        message: 'We couldn\'t find size option matching uploaded banner dimensions. \n ' +
           'You may consider changing ad banner size or upload new image',
       }
     });
@@ -208,7 +216,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     image.onSuccess = (res) => {
       const parsedResponse = JSON.parse(res);
 
-      this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
+
+      this.selectProperBannerSize(parsedResponse.size, adIndex);
+      // this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
 
       Object.assign(this.ads[adIndex], {
         imageUrl: parsedResponse.imageUrl,
@@ -295,7 +305,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   setAdSize(adIndex): void {
     const adForm = this.adForms[adIndex];
+    console.log('form', adForm)
     const adSize = adForm.get('size').value;
+    console.log('adSize', adSize)
     const adSizeName = this.adSizes[adSize];
   }
 
