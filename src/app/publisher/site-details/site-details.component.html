@@ -115,9 +115,56 @@
         </button>
       </div>
     </div>
+
+    <!-- chart-->
     <div
       class="
           adsh-box
+          hidden-md"
+    >
+      <div class="justify-between row">
+
+        <app-chart-filter-by-type
+          class="details-filters"
+          [detailsPage]="true"
+          (updateSeries)="appChartRef.updateChartDataSeries($event)"
+        ></app-chart-filter-by-type>
+        <app-chart-filter
+          class="details-filters"
+          (filter)="appChartRef.updateChartData($event)"
+        ></app-chart-filter>
+      </div>
+      <div
+        class="
+          adsh-box
+          hidden-md"
+      >
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            (update)="getChartData($event, site.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
+        </div>
+      </div>
+    </div>
+    <!-- chart end-->
+
+    <div
+      class="
+          adsh-box
+          adsh-box--high
           ad-units
           row
           justify-between
@@ -137,7 +184,7 @@
       <button
         class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            adsh-btn--no-border
            hidden-md"
         (click)="navigateToEditSite('basic-information', 1)"
@@ -147,7 +194,7 @@
           class="
             adsh-icon
             adsh-icon--prepend"
-          src="assets/images/edit.svg"
+          src="assets/images/edit-blue.svg"
           alt=""
         >
       Edit Basic Info
@@ -159,7 +206,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            adsh-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('additional-filtering', 2)"
@@ -169,7 +216,7 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt=""
           >
             {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
@@ -219,53 +266,6 @@
 
     </section>
 
-
-    <div
-      class="
-          adsh-box
-          adsh-box--large
-          hidden-md"
-    >
-      <div class="justify-between row">
-
-        <app-chart-filter-by-type
-          class="details-filters"
-          [detailsPage]="true"
-          (updateSeries)="appChartRef.updateChartDataSeries($event)"
-        ></app-chart-filter-by-type>
-        <app-chart-filter
-          class="details-filters"
-          (filter)="appChartRef.updateChartData($event)"
-        ></app-chart-filter>
-      </div>
-      <div
-        class="
-          adsh-box
-          adsh-box&#45;&#45;large
-          hidden-md"
-      >
-        <div
-          class="
-            row
-            align-center
-            justify-center
-            chart-wrapper"
-        >
-          <app-chart
-            class="
-              chart
-              row
-              align-center
-              justify-center"
-            (update)="getChartData($event, site.id)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
-        </div>
-      </div>
-    </div>
-
-
     <div class="col">
       <div
         class="
@@ -284,7 +284,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            adsh-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('create-ad-units', 3)"
@@ -294,7 +294,7 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt=""
           >
              Edit Ad Units
@@ -329,7 +329,7 @@
           class="
             adsh-icon
             adsh-icon--prepend"
-          src="assets/images/plus-circle--blue.svg"
+          src="assets/images/plus-circle--edit-blue.svg"
         >
         Create new Ad Unit
       </button>

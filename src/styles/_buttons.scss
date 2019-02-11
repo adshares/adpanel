@@ -67,6 +67,17 @@
     }
   }
 
+  &--edit {
+    color: pal(blue);
+    min-width: 200px;
+    max-height: 46px;
+
+    &:hover {
+      background-color: pal(gray, ultra-light);
+      color: darken(pal(blue), 5);
+    }
+  }
+
   &--green {
     background-color: pal(green);
 

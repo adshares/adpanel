@@ -31,6 +31,7 @@
         {{ campaign.basicInformation.name }}
       </p>
     </div>
+
     <div
       class="
         row
@@ -123,8 +124,52 @@
       </div>
     </div>
 
-    <div class="adsh-box
-                adsh-box--large">
+    <!-- chart-->
+    <div
+      class="
+          adsh-box
+          hidden-md"
+    >
+      <div
+        class="
+          adsh-box
+          hidden-md"
+      >
+        <div class="justify-between row">
+
+          <app-chart-filter-by-type
+            class="details-filters"
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"
+          ></app-chart-filter-by-type>
+          <app-chart-filter
+            class="details-filters"
+            (filter)="appChartRef.updateChartData($event)"
+          ></app-chart-filter>
+        </div>
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            (update)="getChartData($event, campaign.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
+        </div>
+      </div>
+    </div>
+    <!-- chart end-->
+
+    <div class="adsh-box">
       <div class="row
                   justify-between">
         <div class="row
@@ -251,7 +296,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            hidden-md"
           (click)="navigateToCampaignEdition('basic-information', 1)"
           data-test="publisher-site-edit">
@@ -259,7 +304,7 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt="">
             Edit Basic Info
         </button>
@@ -268,12 +313,12 @@
 
     <!--Targeting details section-->
 
-    <section class="adsh-box adsh-box--high adsh-box--large">
+    <section class="adsh-box adsh-box--high">
       <div class="row justify-end">
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            hidden-md"
           (click)="navigateToCampaignEdition('additional-targeting', 2)"
           data-test="publisher-site-edit">
@@ -281,7 +326,7 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt="">
             {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
         </button>
@@ -330,9 +375,7 @@
         row
         campaign-details-statistics">
       <div
-        class="
-          adsh-box
-          adsh-box--large">
+        class="adsh-box">
         <p
           class="
             adsh-copy
@@ -355,9 +398,7 @@
         </p>
       </div>
       <div
-        class="
-          adsh-box
-          adsh-box--large">
+        class="adsh-box">
         <p
           class="
             adsh-copy
@@ -377,9 +418,7 @@
 
       </div>
       <div
-        class="
-          adsh-box
-          adsh-box--large">
+        class="adsh-box">
         <p
           class="
             adsh-copy
@@ -395,9 +434,7 @@
         </p>
       </div>
       <div *ngIf="campaign.conversions"
-           class="
-          adsh-box
-          adsh-box--large">
+           class="adsh-box">
         <p
           class="
             adsh-copy
@@ -418,9 +455,7 @@
         </p>
       </div>
       <div *ngIf="campaign.conversions"
-           class="
-          adsh-box
-          adsh-box--large">
+           class="adsh-box">
         <p
           class="
             adsh-copy
@@ -447,54 +482,6 @@
       </div>
     </div>
 
-
-    <!--̣Campaign list section-->
-
-    <div
-      class="
-          adsh-box
-          adsh-box--large
-          hidden-md"
-    >
-      <div
-        class="
-          adsh-box
-          adsh-box&#45;&#45;large
-          hidden-md"
-      >
-        <div class="justify-between row">
-
-          <app-chart-filter-by-type
-            class="details-filters"
-            [detailsPage]="true"
-            (updateSeries)="appChartRef.updateChartDataSeries($event)"
-          ></app-chart-filter-by-type>
-          <app-chart-filter
-            class="details-filters"
-            (filter)="appChartRef.updateChartData($event)"
-          ></app-chart-filter>
-        </div>
-        <div
-          class="
-            row
-            align-center
-            justify-center
-            chart-wrapper"
-        >
-          <app-chart
-            class="
-              chart
-              row
-              align-center
-              justify-center"
-            (update)="getChartData($event, campaign.id)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
-        </div>
-      </div>
-    </div>
-
     <!--̣Campaign list section-->
 
     <section *ngIf="campaign.ads.length" class="col">
@@ -514,7 +501,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            hidden-md"
           (click)="navigateToCampaignEdition('create-ad', 3)"
           data-test="publisher-site-edit">
@@ -522,7 +509,7 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt="Edit icon">
              Edit Ads
         </button>
@@ -543,7 +530,6 @@
             row
             align-center
             adsh-btn
-            adsh-btn--large
             adsh-btn--white
             adsh-btn--no-border"
           (click)="navigateToCampaignEdition('create-ad', 3)">
