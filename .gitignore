@@ -3,6 +3,7 @@ src/environments/*
 !*.dist
 !.gitkeep
 !src/environments/environment.ts
+!src/environments/environment.ts.template
 
 # compiled output
 /dist

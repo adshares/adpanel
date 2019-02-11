@@ -1,8 +1,0 @@
-export const environment = {
-  production: ${APP_PROD},
-  serverUrl: '${ADSERVER_URL}',
-  authUrl: '${ADSERVER_URL}/auth',
-  apiUrl: '${ADSERVER_URL}/api',
-  xdebug: ${DEV_XDEBUG},
-  version: '${APP_VERSION}'
-};

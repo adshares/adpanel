@@ -15,8 +15,7 @@
     height: 100px;
   }
 
-  &-userselect {
-    width: 195px;
+  &--userselect {
     background: pal(white);
     padding: 0 20px;
 
@@ -43,7 +42,6 @@
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
-    padding: 0 25px;
 
     @include media(xxl-up) {
       height: 60px;

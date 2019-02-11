@@ -3,7 +3,7 @@
         <img src="https://adshares.net/logos/ads.svg" alt="Adshares" width="100" height="100">
     </a>
 </p>
-<h3 align="center"><small>Adshares - AdPanel</small></h3>
+<h3 align="center"><small>Adshares / AdPanel</small></h3>
 <p align="center">
     <a href="https://github.com/adshares/adpanel/issues/new?template=bug_report.md&labels=Bug">Report bug</a>
     ·
@@ -17,34 +17,33 @@
     </a>
 </p>
 
-## Quick Start
+AdPanel is a front-end application for advertising inventory management (both Advertiser & Publisher side).
+It connects to an active [AdServer](https://github.com/adshares/adserver)'s API.
 
-Nodejs and yarn (or at least npm) need to be present in the system, then run:
+## Quick Start (on Ubuntu 18.04 LTS)
 
+> Requirements:
+> - [Nodejs](https://nodejs.org/en/) 
+> - [yarn](https://yarnpkg.com/en/) (or at least npm)
+> - `envsubst` command from the `gettext-base` package (you might need to remove `cmdtest` first)
+
+Clone and build for `production` environment
 ```bash
 git clone https://github.com/adshares/adpanel.git
-cd adpanel
-./scripts/_environment.sh
-yarn install
-node_modules/@angular/cli/bin/ng serve
+adpanel/scripts/build.sh https://your.ADSERVER.hostname
 ```
+and point your web server to the location of the `dist` directory.
 
-## Documentation
+## More Info
 
-- [Wiki](https://github.com/adshares/adpanel/wiki)
 - [Changelog](CHANGELOG.md)
-- [Testing](https://github.com/adshares/adpanel/wiki/Testing)
-- [Authors](https://github.com/adshares/adpanel/contributors)
-- [OSS Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
+- [Contributing Guidelines](docs/CONTRIBUTING.md)
+- [Authors](https://github.com/adshares/adpanel/contributors) and [OSS Attribution](https://github.com/adshares/adpanel/oss-attribution/attribution.txt)
+- Available [Versions](https://github.com/adshares/adpanel/tags) (we use [Semantic Versioning](http://semver.org/))
 
-## Contributing
+### Related projects
 
-- Please follow our [Contributing Guidelines](docs/CONTRIBUTING.md)
-
-### Versioning
-
-- We use [Semantic Versioning](http://semver.org/).
-- See available [versions](https://github.com/adshares/adpanel/tags). 
+- [AdServer](https://github.com/adshares/adserver) - the core logic behind it all
 
 ### License
 
@@ -60,9 +59,3 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 
 You should have received a copy of the License along with this work.
 If not, see <https://www.gnu.org/licenses/gpl.html>.
-
-## Related projects
-
-- [AdServer](https://github.com/adshares/adserver)
-- [PHP ADS Client](https://github.com/adshares/adpanel-php-client)
-
