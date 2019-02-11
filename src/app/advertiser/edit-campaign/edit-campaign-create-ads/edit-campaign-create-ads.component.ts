@@ -181,13 +181,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   selectProperBannerSize(imageSize: string, index: number) {
-    const imageSizesArray = imageSize.split('x');
-    const sizesOptionsArray = this.adSizes.map(size => size.split('x'));
-    const findMatch = sizesOptionsArray.find(size =>
-      (size[0] === imageSizesArray[0]) && (size[1] === imageSizesArray[1]));
-
-    if (!!findMatch) {
-      const sizeIndex = this.adSizes.findIndex(size => size === findMatch.join('x'));
+    const sizeIndex = this.adSizes.findIndex(size => size === imageSize);
+    if (sizeIndex !== -1) {
       this.adForms[index].get('size').setValue(sizeIndex);
     } else {
       this.showImageSizeWarning();
@@ -305,9 +300,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   setAdSize(adIndex): void {
     const adForm = this.adForms[adIndex];
-    console.log('form', adForm)
     const adSize = adForm.get('size').value;
-    console.log('adSize', adSize)
     const adSizeName = this.adSizes[adSize];
   }
 
