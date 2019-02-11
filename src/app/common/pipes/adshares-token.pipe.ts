@@ -2,7 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {formatMoney} from 'common/utilities/helpers';
 
 function removeDecimalPart(value) {
-  return ("" + value).split('.')[0];
+  return (`${value}`).split('.')[0];
 }
 
 @Pipe({
@@ -11,6 +11,6 @@ function removeDecimalPart(value) {
 
 export class AdsharesTokenPipe implements PipeTransform {
   transform(value, precision: number = 11) {
-    return formatMoney(removeDecimalPart(value), precision) + ' ADS';
+    return `${formatMoney(removeDecimalPart(value), precision)} ADS`;
   }
 }
