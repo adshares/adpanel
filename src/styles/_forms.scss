@@ -125,12 +125,13 @@ input[type=radio]:checked + label {
   @include font(14, semi);
   background: pal(white);
   margin: 0 auto;
-  padding: 0 0 0 15px;
+  padding: 0 35px 0 15px;
   height: 42px;
   border: 1px solid pal(gray, x-light);
   /* needed */
   appearance: none;
   outline: none;
+  box-sizing: border-box;
 
   &:after {
     position: absolute;

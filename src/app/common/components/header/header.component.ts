@@ -26,7 +26,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   userDataState: User;
 
   settingsMenuOpen = false;
-  chooseUserMenuOpen = false;
   notificationsBarOpen = false;
 
   notificationsTotal: number;
@@ -59,12 +58,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER;
     const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site';
 
-    // if (isUserAdvertiser) {
-    //   this.store.dispatch(new advertiserActions.ClearLastEditedCampaign(''));
-    // } else {
-    //   this.store.dispatch(new publisherActions.ClearLastEditedSite(''));
-    // }
-
     this.router.navigate(
       [moduleDir, assetDir, 'basic-information'],
       {queryParams: {step: 1}}
@@ -77,14 +70,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   setActiveUserType(userType) {
     this.session.setAccountTypeChoice(userRolesEnum[userType].toLowerCase());
+    this.router.navigate([`/${userRolesEnum[userType].toLowerCase()}`, 'dashboard'])
   }
 
   toggleSettingsMenu(state) {
     this.settingsMenuOpen = state;
-  }
-
-  toggleChooseUserMenu(state) {
-    this.chooseUserMenuOpen = state;
   }
 
   openAddFundsDialog() {

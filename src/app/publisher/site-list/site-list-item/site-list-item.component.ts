@@ -15,7 +15,7 @@ export class SiteListItemComponent {
 
   siteStatusEnum = siteStatusEnum;
 
-  navigateToCampaignDetails(siteId: number) {
+  navigateToSiteDetails(siteId: number) {
     this.router.navigate(['/publisher', 'site', siteId]);
   }
 }

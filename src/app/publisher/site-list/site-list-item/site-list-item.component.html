@@ -1,12 +1,13 @@
 <div
-  class="
-    adsh-box
-    clickable-row"
-  (click)="navigateToCampaignDetails(site.id)"
+  class="adsh-box"
   data-test="publisher-navigate-to-site-details"
 >
   <div class="site-list__item">
+    <ng-template #loading>
+      <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+    </ng-template>
     <div
+      *ngIf="site; else loading"
       class="
         row
         align-center
@@ -34,14 +35,16 @@
       </div>
       <div
         class="
-          col-xs-4
+          col-xs-5
           row
+          clickable-row
           align-center"
       >
         <h4
           class="
             adsh-heading
             adsh-heading--secondary"
+          (click)="navigateToSiteDetails(site.id)"
           data-test="publisher-site-url"
         >
           {{ site.name }}
@@ -101,9 +104,11 @@
         class="
           col-xs-1
           row
+          clickable-row
           align-center
           justify-center
           adsh-site-list__item-site-details"
+        (click)="navigateToSiteDetails(site.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"
