@@ -2,11 +2,9 @@
 
 set -e
 
-envsubst --version &>/dev/null || (echo "[ERROR] Missing 'envsubst' command" && exit 127)
-yarn --version &>/dev/null || (echo "[ERROR] Missing 'yarn' command" && exit 127)
-
 HERE=$(dirname $(readlink -f "$0"))
 TOP=$(dirname ${HERE})
+
 cd ${TOP}
 
 if [[ -v GIT_CLONE ]]
@@ -34,8 +32,10 @@ export DEV_XDEBUG=${DEV_XDEBUG:-false}
 
 export APP_ENV=${APP_ENV:-prod}
 
+envsubst --version &>/dev/null || (echo "[ERROR] Missing 'envsubst' command" && exit 127)
 envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
 
+yarn --version &>/dev/null || (echo "[ERROR] Missing 'yarn' command" && exit 127)
 yarn install
 
 if [[ ${APP_ENV} == 'dev' ]]

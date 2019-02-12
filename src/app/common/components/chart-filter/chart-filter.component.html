@@ -1,143 +1,163 @@
 <div
-  class="
-    chart-filters
-    col"
+  class="filters"
+  (clickOutside)="hideDatepicker()"
 >
+  <button
+    class="
+      adsh-select
+      lowercase-to-capitalize
+    "
+    (click)="showDatepicker()"
+  >
+    <span *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
+    <span *ngIf="!currentFilterPreset">From {{ currentFromFilter }} to {{currentToFilter }}</span>
+  </button>
   <div
     class="
-      row
-      filter-row
-      align-center
-      justify-end"
+      chart-filters
+      adsh-box"
+    [class.visible]="datepickerVisible"
   >
-    <span
+    <div
       class="
-        adsh-copy
-        hidden-md"
+        row
+        filter-row
+        align-center
+        justify-end"
     >
-      Sort by Date Range
-    </span>
-    <button
-      type="button"
-      *ngFor="let preset of filterPresets"
+      <span
+        class="
+          adsh-copy
+          hidden-md"
+      >
+        Sort by Date Range
+      </span>
+      <button
+        type="button"
+        *ngFor="let preset of filterPresets"
+        class="
+            adsh-btn
+            adsh-button--small
+            adsh-bg-white
+            adsh-navy
+            lowercase-to-capitalize"
+        [class.selected]="preset.id === currentDaysSpan"
+        (click)="filterChart(preset.id, 0)"
+        data-test="chart-filter-preset"
+      >
+        {{ preset.name }}
+      </button>
+    </div>
+
+    <div
       class="
+        row
+        filter-row
+        align-center
+        justify-end"
+    >
+      <span
+        class="
+          adsh-copy
+          hidden-md"
+      >
+        or Select Manually
+      </span>
+      <label
+        class="
+          adsh-copy
+          adsh-copy--small"
+      >
+        From
+      </label>
+      <mat-form-field
+        class="
+          adsh-form-input
+          adsh-form-input--narrow
+          adsh-form-input--datepicker
+          adsh-form-input--datepicker--narrow
+          row"
+      >
+        <img
+          src="assets/images/calendar.svg"
+          alt="Add new icon"
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          (click)="dateFromPicker.open()"
+        >
+        <input
+          (click)="dateFromPicker.open()"
+          matInput
+          [matDatepicker]="dateFromPicker"
+          [formControl]="dateFrom"
+          required
+          [max]="dateTo.value || today"
+          data-test="chart-filter-custom-date-from"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dateFromPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateFromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <label
+        class="
+          adsh-copy
+          adsh-copy--small"
+      >
+        To
+      </label>
+      <mat-form-field
+        class="
+          adsh-form-input
+          adsh-form-input--narrow
+          adsh-form-input--datepicker
+          adsh-form-input--datepicker--narrow
+          row"
+      >
+        <img
+          src="assets/images/calendar.svg"
+          alt="Add new icon"
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          (click)="dateToPicker.open()"
+        >
+        <input
+          (click)="dateToPicker.open()"
+          matInput
+          [matDatepicker]="dateToPicker"
+          [formControl]="dateTo"
+          required
+          [min]="dateFrom.value"
+          [max]="today"
+          data-test="chart-filter-custom-date-to"
+        >
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="dateToPicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateToPicker></mat-datepicker>
+      </mat-form-field>
+      <button
+        type="button"
+        class="
           adsh-btn
           adsh-button--small
-          adsh-bg-white
-          adsh-navy
-          lowercase-to-capitalize"
-      [class.selected]="preset.id === currentDaysSpan"
-      (click)="filterChart(preset.id, 0)"
-      data-test="chart-filter-preset"
-    >
-      {{ preset.name }}
-    </button>
-  </div>
-
-  <div
-    class="
-      row
-      filter-row
-      align-center
-      justify-end"
-  >
-    <span
-      class="
-        adsh-copy
-        hidden-md"
-    >
-      or Select Manually
-    </span>
-    <label
-      class="
-        adsh-copy
-        adsh-copy--small"
-    >
-      From
-    </label>
-    <mat-form-field
-      class="
-        adsh-form-input
-        adsh-form-input--narrow
-        adsh-form-input--datepicker
-        adsh-form-input--datepicker--narrow
-        row"
-    >
-      <img
-        src="assets/images/calendar.svg"
-        alt="Add new icon"
-        class="
-          adsh-icon
-          adsh-icon--prepend"
-        (click)="dateFromPicker.open()"
+          adsh-bg-gray--light
+          adsh-navy"
+        [class.disabled]="!dateTo.value || !dateFrom.value"
+        (click)="filterChartByDatepicker(dateFrom, dateTo)"
+        data-test="chart-filter-apply-datespan-button"
       >
-      <input
-        (click)="dateFromPicker.open()"
-        matInput
-        [matDatepicker]="dateFromPicker"
-        [formControl]="dateFrom"
-        required
-        [max]="dateTo.value || today"
-        data-test="chart-filter-custom-date-from"
-      >
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="dateFromPicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #dateFromPicker></mat-datepicker>
-    </mat-form-field>
-
-    <label
-      class="
-        adsh-copy
-        adsh-copy--small"
-    >
-      To
-    </label>
-    <mat-form-field
-      class="
-        adsh-form-input
-        adsh-form-input--narrow
-        adsh-form-input--datepicker
-        adsh-form-input--datepicker--narrow
-        row"
-    >
-      <img
-        src="assets/images/calendar.svg"
-        alt="Add new icon"
-        class="
-          adsh-icon
-          adsh-icon--prepend"
-        (click)="dateToPicker.open()"
-      >
-      <input
-        (click)="dateToPicker.open()"
-        matInput
-        [matDatepicker]="dateToPicker"
-        [formControl]="dateTo"
-        required
-        [min]="dateFrom.value"
-        [max]="today"
-        data-test="chart-filter-custom-date-to"
-      >
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="dateToPicker"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #dateToPicker></mat-datepicker>
-    </mat-form-field>
-    <button
-      type="button"
-      class="
-        adsh-btn
-        adsh-button--small
-        adsh-bg-white
-        adsh-navy"
-      [class.disabled]="!dateTo.value || !dateFrom.value"
-      (click)="filterChartByDatepicker(dateFrom, dateTo)"
-      data-test="chart-filter-apply-datespan-button"
-    >
-      Apply
-    </button>
+        Apply
+        <img
+          class="adsh-icon--append"
+          src="assets/images/chevron--right.svg"
+        >
+      </button>
+    </div>
   </div>
 </div>

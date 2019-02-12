@@ -1,8 +1,5 @@
 <div
-  class="
-    adsh-box
-    clickable-row"
-  (click)="navigateToCampaignDetails(campaign.id)"
+  class="adsh-box"
   data-test="advertiser-navigate-to-campaign-details"
 >
   <div class="adsh-campaign-list__item">
@@ -14,8 +11,7 @@
       class="
         row
         align-center
-        adsh-copy
-        adsh-copy--semi"
+        adsh-copy"
     >
       <div
         class="
@@ -40,12 +36,14 @@
         class="
           col-xs-4
           row
+          clickable-row
           align-center"
       >
         <h4
           class="
             adsh-heading
             adsh-heading--secondary"
+          (click)="navigateToCampaignDetails(campaign.id)"
           data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
@@ -109,9 +107,11 @@
         class="
           col-xs-1
           row
+          clickable-row
           align-center
           justify-center
           adsh-campaign-list__item-campaign-details"
+        (click)="navigateToCampaignDetails(campaign.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"
