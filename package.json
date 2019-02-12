@@ -3,7 +3,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test"
+    "test": "ng test",
+    "dev": "ng serve --environment=dev --host=0.0.0.0 --port=9000 --public-host=localhost"
   },
   "private": true,
   "dependencies": {
