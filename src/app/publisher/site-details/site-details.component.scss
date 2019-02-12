@@ -14,8 +14,10 @@
 }
 
 .status-wrapper {
-  .adsh-select {
-    margin-top: 20px;
+  margin-right: 24px;
+
+  .adsh-select{
+    border: 1px solid pal(gray, light);
   }
 }
 

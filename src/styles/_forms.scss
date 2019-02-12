@@ -145,6 +145,7 @@ input[type=radio]:checked + label {
   }
 
   .mat-select-value {
+    text-align: initial;
     vertical-align: middle; // vertically alligned selected value
   }
 
