@@ -32,29 +32,28 @@
           List of all campaigns
         </p>
       </div>
-      <div
-        class="
-          col-xs-12
-          col-md-9"
-      >
-        <app-chart-filter
-          *ngIf="!!campaigns.length"
-          (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
-        ></app-chart-filter>
-      </div>
     </div>
 
     <div *ngIf="!!campaigns.length">
       <div
         class="
           adsh-box
-          adsh-box&#45;&#45;large
           hidden-md"
       >
-        <app-chart-filter-by-type
-          (updateId)="appChartRef.updateChartDataAssetId($event)"
-          (updateSeries)="appChartRef.updateChartDataSeries($event)"
-        ></app-chart-filter-by-type>
+        <div class="row">
+          <div class="col-xs-6">
+            <app-chart-filter-by-type
+              (updateId)="appChartRef.updateChartDataAssetId($event)"
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"
+            ></app-chart-filter-by-type>
+          </div>
+          <div class="col-xs-6">
+            <app-chart-filter
+              *ngIf="!!campaigns.length"
+              (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
+            ></app-chart-filter>
+          </div>
+        </div>
         <div
           class="
             row
@@ -129,9 +128,7 @@
                 adsh-icon--prepend"
             >
             <span
-              class="
-                adsh-heading
-                adsh-heading--secondary"
+              class="adsh-heading"
             >
               Create now
             </span>
@@ -139,7 +136,6 @@
         </a>
       </div>
     </div>
-
 <!--
     <app-funds-summary></app-funds-summary>
 -->

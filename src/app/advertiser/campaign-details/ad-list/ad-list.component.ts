@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Ad } from 'models/campaign.model';
+import {Ad, Campaign} from 'models/campaign.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 
@@ -11,8 +11,9 @@ import { TableColumnMetaData } from 'models/table.model';
 })
 export class AdListComponent {
   @Input() adList: Ad[];
+  @Input() campaign: Campaign;
 
   sortTable(columnMetaData: TableColumnMetaData) {
-    this.adList = sortArrayByColumnMetaData(this.adList, columnMetaData);
+    this.adList = sortArrayByColumnMetaData(this.campaign.ads, columnMetaData);
   }
 }
