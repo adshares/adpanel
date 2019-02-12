@@ -18,7 +18,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
     {title: 'Type', columnWidth: 'col-xs-5', keys: ['type'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'View', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
@@ -29,7 +29,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Campaign Title', columnWidth: 'col-xs-4', keys: ['basicInformation', 'name'], sortAsc: true},
     {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'View', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
@@ -40,7 +40,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Website Name', columnWidth: 'col-xs-4', keys: ['name'], sortAsc: true},
     {title: 'Estimated Revenue', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'View', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
     {title: 'Average Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true}
   ];
