@@ -40,10 +40,10 @@ yarn install
 
 if [[ ${APP_ENV} == 'dev' ]]
 then
-  node_modules/@angular/cli/bin/ng build
+  yarn build
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-  node_modules/@angular/cli/bin/ng build --prod
+  yarn ng build --prod
 else
   echo "ERROR: Unsupported environment ($APP_ENV)."
   exit 1
