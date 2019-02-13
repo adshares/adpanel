@@ -11,6 +11,8 @@ const adjustLabelFormat = (value, index, values) => {
     return moment(value).format('ddd LT');
   } else if (daysSpan <= 31) {
     return moment(value).format('D MMM');
+  } else if (daysSpan <= 182) {
+    return moment(value).format('W [week,] MMM YYYY');
   } else if (daysSpan <= 730) {
     return moment(value).format('MMM YYYY');
   } else {
