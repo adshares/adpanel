@@ -407,3 +407,12 @@ router-outlet ~ * {
 .break-word {
   word-wrap: break-word;
 }
+
+.status-wrapper {
+  min-width: 140px;
+  margin-right: 8px;
+
+  .adsh-select{
+    border: 1px solid pal(gray, light);
+  }
+}

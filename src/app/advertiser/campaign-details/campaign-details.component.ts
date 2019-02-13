@@ -21,7 +21,6 @@ import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/
 import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import * as codes from 'common/utilities/codes';
-import {siteStatusEnum} from "models/enum/site.enum";
 
 @Component({
   selector: 'app-campaign-details',
@@ -32,7 +31,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
-  campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   classificationStatusesEnum = classificationStatusesEnum;
   barChartValue: number;
@@ -74,7 +72,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.campaign = campaigns.find(el => {
           return el.id === id
         });
-        this.currentCampaignStatus = siteStatusEnum[this.campaign.basicInformation.status].toLowerCase();
+        this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
 
         if (this.campaign) {
           this.getTargeting();
