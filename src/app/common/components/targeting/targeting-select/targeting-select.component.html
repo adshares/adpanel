@@ -81,16 +81,6 @@
       data-test="common-targeting-select-option-label"
     >
       {{ option.label }}
-
-      <span
-        class="
-          adsh-copy--small
-          adsh-copy--light"
-        *ngIf="searchTerm !== '' && option.path"
-        data-test="common-targeting-select-option-parent-path"
-      >
-        ({{option.path}})
-      </span>
     </span>
 
     <img

@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
-import { findOption, findOptionList, getLabelPath, getParentId } from 'common/components/targeting/targeting.helpers';
-import { cloneDeep } from 'common/utilities/helpers';
+import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
+import {AddCustomTargetingDialogComponent} from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import {HandleSubscription} from 'common/handle-subscription';
+import {findOption, findOptionList, getParentId} from 'common/components/targeting/targeting.helpers';
+import {cloneDeep} from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-targeting-select',
@@ -39,14 +39,10 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     this.selectSavedItemOnList();
   }
 
-  ngOnChanges() {
-    this.deselectRemovedOptions();
-  }
-
   changeViewModel(options: (TargetingOption | TargetingOptionValue)[]) {
     const firstOption = options[0];
-
     this.viewModel = options;
+
     this.selectedItems = [];
     this.itemsToRemove = [];
 
@@ -64,9 +60,8 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   handleOptionClick(option: TargetingOption | TargetingOptionValue) {
-    const optionSublist = option['children'] || option['values'];
-
     this.searchTerm = '';
+    const optionSublist = option['children'] || option['values'];
 
     if (optionSublist) {
       this.changeViewModel(optionSublist);
@@ -150,6 +145,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   handleItemsChange() {
+    this.searchTerm = '';
     this.selectedItems.forEach((item) => {
       if (!this.addedItems.find((addedItem) => addedItem.id === item.id)) {
         this.addedItems = [...this.addedItems, item];
@@ -181,19 +177,11 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);
   }
 
-  prepareTargetingOptionsForSearch(options: TargetingOption[] = this.targetingOptions) {
-    // prepare list only for options that are not on bottom level as search
-    // is done through visible items then
-    options.forEach((option) => {
-      //not genering path for top level options
-      if (option.id.split('-').length > 1) {
-        const path = getLabelPath(option.id, this.targetingOptions);
+  prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
+    const allOptions = options || this.targetingOptions.reduce((prev, next) => prev.concat(next.values), []);
 
-        Object.assign(option, {path});
-      }
-
+    allOptions.forEach((option) => {
       this.targetingOptionsForSearch.push(option);
-
       if (option.children) {
         this.prepareTargetingOptionsForSearch(option.children);
       }
@@ -207,7 +195,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       this.backAvailable = false;
       this.parentOption = null;
       this.prepareSearchViewModel();
-
       return;
     }
 
@@ -216,8 +203,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   prepareSearchViewModel() {
     const pattern = new RegExp(this.searchTerm, 'i');
-    // bottom level options are searched only from visible ones
-    const searchModel = this.optionsHasValue ? this.viewModel : this.targetingOptionsForSearch;
+    const searchModel = this.targetingOptionsForSearch;
     const searchViewModel = searchModel.filter((option) =>
       pattern.test(option.label.toLowerCase())
     );
