@@ -140,18 +140,26 @@ function sortArrayByColumnMetaData<assetItem>(
   }
 
   const sortOrder = columnMetaData.sortAsc ? -1 : 1;
-
+  console.group('-----');
+  console.log('sortArray', sortArray);
+  console.log('columnMetaData', columnMetaData);
+  console.log('sortOrder', sortOrder);
+  console.groupEnd();
   columnMetaData.sortAsc = !columnMetaData.sortAsc;
 
-  return sortArray.slice().sort((item, nextItem) => {
+  const x = sortArray.slice().sort((item, nextItem) => {
+    console.group('sorting');
+    console.log('item', item);
+    console.log('nextItem', nextItem);
     let sortItem = findValueByPathArray(item, columnMetaData.keys);
     let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
-
+    console.log('sortItem ', sortItem)
+    console.log('nextSortItem ', nextSortItem)
     if (typeof sortItem === 'string') {
       sortItem = sortItem.toLowerCase();
       nextSortItem = nextSortItem.toLowerCase();
     }
-
+    console.groupEnd()
     if (sortItem < nextSortItem) {
       return sortOrder;
     } else if (sortItem > nextSortItem) {
@@ -160,13 +168,23 @@ function sortArrayByColumnMetaData<assetItem>(
       return 0;
     }
   });
+  return x;
 }
 
 function findValueByPathArray(object, pathArray) {
+  console.log('obj', object);
+  console.log('path', pathArray);
+
+  pathArray.reduce((obj, partialPath) => {
+    console.log('obj', obj);
+    console.log('partialPath', partialPath);
+    console.log('result', {obj[partialPath], object});
+    return {obj[partialPath], object}
+  });
   return pathArray.reduce((obj, partialPath) => obj[partialPath], object);
 }
 
-const simpleValidateHtmlStr = (html: string): boolean =>  {
+const simpleValidateHtmlStr = (html: string): boolean => {
   const doc = document.createElement('div');
   doc.innerHTML = html;
   return (doc.innerHTML === html);
