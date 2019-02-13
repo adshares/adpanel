@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
-import { adSizesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-units',
