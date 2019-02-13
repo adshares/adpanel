@@ -33,6 +33,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   site: Site;
   siteStatusEnum = siteStatusEnum;
+  siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
 
   filtering: AssetTargeting = {
@@ -40,6 +41,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     excludes: []
   };
   filteringOptions: AssetTargeting;
+  currentSiteStatus: string;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -61,6 +63,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
+    this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.getLanguages();
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
@@ -121,7 +124,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   getFiltering() {
-    this.site.filtering= {
+    this.site.filtering = {
       requires: this.site.filtering.requires || [],
       excludes: this.site.filtering.excludes || [],
     };
@@ -165,9 +168,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   onSiteStatusChange(status) {
-    const statusActive = status !== this.siteStatusEnum.ACTIVE;
-    this.site.status =
-      statusActive ? this.siteStatusEnum.ACTIVE : this.siteStatusEnum.INACTIVE;
+    this.site.status = this.siteStatusEnumArray.findIndex(el => el === status.value);
+    this.currentSiteStatus = status.value;
     this.store.dispatch(new PublisherActions.UpdateSite(this.site));
   }
 }

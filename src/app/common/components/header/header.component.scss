@@ -35,6 +35,11 @@
       flex-direction: column;
     }
   }
+
+  &__logo-subtitle {
+    text-transform: uppercase;
+    color: pal(red, dark);
+  }
 }
 
 .adsh-navigation {

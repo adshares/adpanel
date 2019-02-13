@@ -72,29 +72,24 @@
           justify-end
           align-center"
       >
-        <div
-          class="
-            row
-            status-toggle-wrapper"
+        <div class="
+                status-wrapper
+                col-xs-12
+                col-sm-6
+                col-md-4"
         >
-          <p>
-            <span class="adsh-copy">Status: </span>
-            <span
-              class="
-                adsh-copy
-                adsh-copy--x-dark
-                lowercase-to-capitalize"
+          <mat-select class="adsh-select"
+                      [(value)]="currentSiteStatus"
+                      (change)="onSiteStatusChange($event)"
+                      data-test="publisher-site-status-select"
+          >
+            <mat-option *ngFor="let option of siteStatusEnumArray"
+                        [value]="option"
+                        data-test="publisher-site-status-select-option"
             >
-              {{ siteStatusEnum[site.status] }}
-            </span>
-          </p>
-          <mat-slide-toggle
-            color="primary"
-            [checked]="site.status === siteStatusEnum.ACTIVE "
-            ([ngModel])="site.status"
-            (change)="onSiteStatusChange(site.status)"
-            data-test="publisher-site-status-toggle"
-          ></mat-slide-toggle>
+              {{ option }}
+            </mat-option>
+          </mat-select>
         </div>
         <button
           class="
@@ -197,7 +192,7 @@
           src="assets/images/edit-blue.svg"
           alt=""
         >
-      Edit Basic Info
+        Edit Basic Info
       </button>
     </div>
 
@@ -219,7 +214,7 @@
             src="assets/images/edit-blue.svg"
             alt=""
           >
-            {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
+          {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
         </button>
       </div>
       <div
@@ -297,7 +292,7 @@
             src="assets/images/edit-blue.svg"
             alt=""
           >
-             Edit Ad Units
+          Edit Ad Units
         </button>
       </div>
       <app-ad-units

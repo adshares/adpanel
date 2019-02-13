@@ -13,7 +13,7 @@ import {ChartData} from 'models/chart/chart-data.model';
 import {AssetTargeting} from "models/targeting-option.model";
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
-import {createInitialArray} from 'common/utilities/helpers';
+import {createInitialArray, enumToArray} from 'common/utilities/helpers';
 import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 import {HandleSubscription} from 'common/handle-subscription';
 import {MatDialog} from "@angular/material";
@@ -31,7 +31,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
-  campaignStatusesEnum = campaignStatusesEnum;
+  campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   classificationStatusesEnum = classificationStatusesEnum;
   barChartValue: number;
   barChartDifference: number;
@@ -44,6 +44,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   };
   targetingOptions: AssetTargeting;
   currentChartFilterSettings: ChartFilterSettings;
+  currentCampaignStatus: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,6 +72,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.campaign = campaigns.find(el => {
           return el.id === id
         });
+        this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
+
         if (this.campaign) {
           this.getTargeting();
         }
@@ -160,10 +163,9 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   onCampaignStatusChange(status) {
-    const statusActive = status !== this.campaignStatusesEnum.ACTIVE;
+    this.currentCampaignStatus = status.value;
 
-    this.campaign.basicInformation.status =
-      statusActive ? this.campaignStatusesEnum.ACTIVE : this.campaignStatusesEnum.INACTIVE;
+    this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
 
     this.advertiserService
       .updateStatus(this.campaign.id, this.campaign.basicInformation.status)

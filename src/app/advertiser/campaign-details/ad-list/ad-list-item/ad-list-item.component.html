@@ -44,7 +44,7 @@
       <div
         class="
           adsh-ad-list__item--type
-          col-xs-5
+          col-xs-4
           row
           align-center"
       >
@@ -102,6 +102,22 @@
       <span data-test="advertiser-ad-cost">
         {{ (ad.cost || 0) | adsharesTokenValue:2}}
       </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          clickable-row
+          clickable-area
+          align-center
+          justify-center
+          adsh-campaign-list__item-campaign-details"
+        (click)="navigateToAdEdition()"
+      >
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@
       <div
         class="
           adsh-navigation__item
-          row
+          col
           align-center"
       >
         <img
@@ -29,6 +29,8 @@
             assets/images/logo--white@3x.png 3x"
           alt="Adshares Logo"
         >
+        <span class="adsh-copy
+                     adsh-header__logo-subtitle">Testnet</span>
       </div>
     </a>
       <button
@@ -47,7 +49,7 @@
         <img
           class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
           [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         />
         Advertiser
@@ -68,7 +70,7 @@
         <img
           class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
           [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         />
        Publisher
@@ -85,8 +87,8 @@
       *ngIf="!userDataState.isAdmin"
       class="
         adsh-btn
-        adsh-btn&#45;&#45;with-icon
-        adsh-btn&#45;&#45;wide
+        adsh-btn--with-icon
+        adsh-btn--wide
         adsh-bg-blue
         adsh-navigation__item
         row
@@ -98,7 +100,7 @@
       <img
           class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
@@ -109,8 +111,8 @@
       (click)="openSetEarningsDialog()"
       class="
         adsh-btn
-        adsh-btn&#45;&#45;with-icon
-        adsh-btn&#45;&#45;wide
+        adsh-btn--with-icon
+        adsh-btn--wide
         adsh-bg-blue
         adsh-navigation__item
         row
@@ -120,7 +122,7 @@
       <img
         class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
       <span>Set your earnings</span>
@@ -186,9 +188,9 @@
           <button
             class="
               adsh-btn
-              adsh-btn&#45;&#45;large
-              adsh-btn&#45;&#45;blue
-              adsh-btn&#45;&#45;small
+              adsh-btn--large
+              adsh-btn--blue
+              adsh-btn--small
               row
               align-center"
             (click)="openAddFundsDialog()"
@@ -197,7 +199,7 @@
             <img
               class="
                 adsh-icon
-                adsh-icon&#45;&#45;prepend
+                adsh-icon--prepend
                 close"
               src="assets/images/plus-circle.svg"
             >
@@ -280,10 +282,10 @@
     <!-- TODO PAN-183 remove notification -->
     <!--<div-->
       <!--class="-->
-        <!--adsh-bg-navy&#45;&#45;light-->
+        <!--adsh-bg-navy--light-->
         <!--adsh-navigation__item-->
         <!--adsh-btn-->
-        <!--adsh-btn&#45;&#45;small-->
+        <!--adsh-btn--small-->
         <!--row-->
         <!--align-center-->
         <!--relative-->

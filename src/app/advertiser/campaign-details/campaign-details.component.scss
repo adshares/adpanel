@@ -55,12 +55,6 @@
   }
 }
 
-.status-wrapper {
-  .adsh-status {
-    margin-left: 5px;
-  }
-}
-
 .chart-wrapper {
   height: 250px;
   width: 100%;
@@ -71,6 +65,11 @@
 
   > * {
     margin: 0 5px;
+  }
+}
+.dashboard-view {
+  .adsh-box {
+    min-height: 42px;
   }
 }
 
