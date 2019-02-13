@@ -25,14 +25,20 @@ It connects to an active [AdServer](https://github.com/adshares/adserver)'s API.
 > Requirements:
 > - [Nodejs](https://nodejs.org/en/) 
 > - [yarn](https://yarnpkg.com/en/) (or at least npm)
-> - `envsubst` command from the `gettext-base` package (you might need to remove `cmdtest` first)
+> - A HTTP Server of your choice
 
-Clone and build for `production` environment
+Install dependencies
 ```bash
-git clone https://github.com/adshares/adpanel.git
-adpanel/scripts/build.sh https://your.ADSERVER.hostname
+apt-get -y --no-install-recommends install gettext-base
+```
+
+Clone and build static version for `production` environment
+```bash
+git clone https://github.com/adshares/adpanel.git && cd adpanel
+scripts/build.sh https://your.ADSERVER.hostname
 ```
 and point your web server to the location of the `dist` directory.
+> Running AdPanel without a web server will result in problems with API communication.
 
 ## More Info
 
