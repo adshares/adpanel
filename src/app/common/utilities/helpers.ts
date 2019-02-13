@@ -140,18 +140,15 @@ function sortArrayByColumnMetaData<assetItem>(
   }
 
   const sortOrder = columnMetaData.sortAsc ? -1 : 1;
-
   columnMetaData.sortAsc = !columnMetaData.sortAsc;
 
   return sortArray.slice().sort((item, nextItem) => {
     let sortItem = findValueByPathArray(item, columnMetaData.keys);
     let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
-
     if (typeof sortItem === 'string') {
       sortItem = sortItem.toLowerCase();
       nextSortItem = nextSortItem.toLowerCase();
     }
-
     if (sortItem < nextSortItem) {
       return sortOrder;
     } else if (sortItem > nextSortItem) {
@@ -163,10 +160,11 @@ function sortArrayByColumnMetaData<assetItem>(
 }
 
 function findValueByPathArray(object, pathArray) {
-  return pathArray.reduce((obj, partialPath) => obj[partialPath], object);
+  const key = pathArray[0];
+  return object[key] || 0;
 }
 
-const simpleValidateHtmlStr = (html: string): boolean =>  {
+const simpleValidateHtmlStr = (html: string): boolean => {
   const doc = document.createElement('div');
   doc.innerHTML = html;
   return (doc.innerHTML === html);
