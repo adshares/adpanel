@@ -43,7 +43,7 @@ then
   yarn build
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-  yarn ng build --prod
+  yarn build --prod
 else
   echo "ERROR: Unsupported environment ($APP_ENV)."
   exit 1
