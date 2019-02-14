@@ -56,7 +56,8 @@
           row
           align-center"
       >
-        <span data-test="publisher-site-estimated-earnings">
+        <span data-test="publisher-site-estimated-earnings"
+              [title]="(site.cost || 0) | adsharesTokenValue">
           {{ (site.cost || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
@@ -96,7 +97,8 @@
           row
           align-center"
       >
-        <span data-test="publisher-site-average=rpc">
+        <span data-test="publisher-site-average=rpc"
+              [title]="(site.averageRpc || 0) | adsharesTokenValue">
           {{ (site.averageRpc || 0) | adsharesTokenValue:2 }}
         </span>
       </div>

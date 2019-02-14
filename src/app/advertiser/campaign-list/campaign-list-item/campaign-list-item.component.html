@@ -56,7 +56,9 @@
           align-center"
         data-test="advertiser-campaign-bduget"
       >
-        <span>{{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day</span>
+        <span>
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
+        </span>
       </div>
       <div
         class="
@@ -92,7 +94,8 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ (campaign.averageCpc || 0) | adsharesTokenValue:2}} </span>
+        <span [title]="(campaign.averageCpc || 0) | adsharesTokenValue">
+          {{ (campaign.averageCpc || 0) | adsharesTokenValue:2}} </span>
       </div>
       <div
         class="
@@ -101,7 +104,8 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ (campaign.cost || 0) | adsharesTokenValue:2 }}</span>
+        <span [title]="(campaign.cost || 0) | adsharesTokenValue">
+          {{ (campaign.cost || 0) | adsharesTokenValue:2 }}</span>
       </div>
       <div
         class="
