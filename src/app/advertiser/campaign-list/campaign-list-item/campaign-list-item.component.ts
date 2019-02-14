@@ -20,7 +20,7 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 })
 export class CampaignListItemComponent implements OnInit {
   @Input() campaign: Campaign;
-  campaignStatusesEnum =campaignStatusesEnum;
+  campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   currentCampaignStatus: string;
 
