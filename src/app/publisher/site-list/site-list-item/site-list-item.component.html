@@ -23,14 +23,26 @@
         <div
           class="
             adsh-box
-            adsh-box--small
+            adsh-box--no-padding
             adsh-status
             text-center"
-          [attr.data-status]="siteStatusEnum[site.status].toLowerCase()"
+          [attr.data-status]="currentSiteStatus"
         >
-          <span data-test="publisher-site-status">
-            {{ siteStatusEnum[site.status] }}
-          </span>
+          <div>
+            <mat-select [(value)]="currentSiteStatus"
+                        (change)="onSiteStatusChange($event)"
+                        data-test="advertiser-campaign-status-select"
+            >
+
+              <mat-option *ngFor="let option of siteStatusEnumArray"
+                          [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
+                          [value]="option"
+                          data-test="advertiser-campaign-status-select-option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </div>
         </div>
       </div>
       <div

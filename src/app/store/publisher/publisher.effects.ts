@@ -112,6 +112,15 @@ export class PublisherEffects {
     );
 
   @Effect()
+  updateSiteStatus = this.actions$
+    .ofType(publisherActions.UPDATE_SITE_STATUS)
+    .map(toPayload)
+    .switchMap(payload => this.service.updateSiteData(payload.id, payload)
+      .map(() => new publisherActions.UpdateSiteStatusSuccess(payload))
+      .catch(() => Observable.of(new publisherActions.UpdateSiteStatusFailure()))
+    );
+
+  @Effect()
   updateSiteFiltering = this.actions$
     .ofType(publisherActions.UPDATE_SITE_FILTERING)
     .map(toPayload)

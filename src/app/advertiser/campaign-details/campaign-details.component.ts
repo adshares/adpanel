@@ -31,6 +31,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaign: Campaign;
+  campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   classificationStatusesEnum = classificationStatusesEnum;
   barChartValue: number;
@@ -164,25 +165,9 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   onCampaignStatusChange(status) {
     this.currentCampaignStatus = status.value;
-
     this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
-
-    this.advertiserService
-      .updateStatus(this.campaign.id, this.campaign.basicInformation.status)
-      .subscribe(
-        () => {
-        },
-        (err) => {
-          if (err.status === codes.HTTP_NOT_FOUND) {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: `Campaign cannot be found`,
-                message: `Given campaign (${this.campaign.id}) does not exist or does not belong to you`,
-              }
-            });
-          }
-        }
-      );
+    this.store.dispatch(new advertiserActions.UpdateCampaignStatus(
+      {id: this.campaign.id, status: this.campaign.basicInformation.status}));
   }
 
   get classificationLabel() {

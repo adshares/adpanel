@@ -85,6 +85,9 @@
                       data-test="advertiser-campaign-status-select"
           >
             <mat-option *ngFor="let option of campaignStatusesEnumArray"
+                        [ngClass]="{'hidden': (
+                                    option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
+                                    option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
                         [value]="option"
                         data-test="advertiser-campaign-status-select-option"
             >
