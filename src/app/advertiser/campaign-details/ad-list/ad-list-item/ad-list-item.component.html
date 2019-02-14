@@ -89,7 +89,8 @@
           row
           align-center"
       >
-      <span data-test="advertiser-ad-average-cpc">
+      <span data-test="advertiser-ad-average-cpc"
+            [title]="(ad.averageCpc || 0) | adsharesTokenValue">
         {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
       </span>
       </div>
@@ -99,7 +100,8 @@
           row
           align-center"
       >
-      <span data-test="advertiser-ad-cost">
+      <span data-test="advertiser-ad-cost"
+            [title]=" (ad.cost || 0) | adsharesTokenValue">
         {{ (ad.cost || 0) | adsharesTokenValue:2}}
       </span>
       </div>
