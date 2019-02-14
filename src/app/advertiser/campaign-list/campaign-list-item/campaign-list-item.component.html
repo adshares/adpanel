@@ -22,14 +22,29 @@
         <div
           class="
             adsh-box
-            adsh-box--small
+            adsh-box--no-padding
             adsh-status
             text-center"
-          [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
+          [attr.data-status]="currentCampaignStatus"
         >
-          <span data-test="advertiser-campaign-status">
-            {{ campaignStatusesEnum[campaign.basicInformation.status] }}
-          </span>
+          <div >
+            <mat-select [(value)]="currentCampaignStatus"
+                        (change)="onCampaignStatusChange($event)"
+                        data-test="advertiser-campaign-status-select"
+            >
+
+              <mat-option *ngFor="let option of campaignStatusesEnumArray"
+                          [ngClass]="{'hidden': (
+                                    option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
+                                    option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
+                          [value]="option"
+                          data-test="advertiser-campaign-status-select-option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </div>
+
         </div>
       </div>
       <div

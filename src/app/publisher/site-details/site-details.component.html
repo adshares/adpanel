@@ -84,6 +84,7 @@
                       data-test="publisher-site-status-select"
           >
             <mat-option *ngFor="let option of siteStatusEnumArray"
+                        [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
                         [value]="option"
                         data-test="publisher-site-status-select-option"
             >

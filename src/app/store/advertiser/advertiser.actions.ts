@@ -33,9 +33,13 @@ export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loading';
 export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loading success';
 export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loading failure';
 
-export const UPDATE_CAMPAIGN = 'Campaign update';
-export const UPDATE_CAMPAIGN_SUCCESS = 'Campaign update success';
-export const UPDATE_CAMPAIGN_FAILURE = 'Campaign update failure';
+export const UPDATE_CAMPAIGN = 'Update campaign';
+export const UPDATE_CAMPAIGN_SUCCESS = 'Update campaign success';
+export const UPDATE_CAMPAIGN_FAILURE = 'Update campaign failure';
+
+export const UPDATE_CAMPAIGN_STATUS = 'Update campaign status';
+export const UPDATE_CAMPAIGN_STATUS_SUCCESS = 'Update campaign status success';
+export const UPDATE_CAMPAIGN_STATUS_FAILURE = 'Update campaign status failure';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -88,6 +92,27 @@ export class UpdateCampaignSuccess implements Action {
 
 export class UpdateCampaignFailure implements Action {
   readonly type = UPDATE_CAMPAIGN_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class UpdateCampaignStatus implements Action {
+  readonly type = UPDATE_CAMPAIGN_STATUS;
+
+  constructor(public payload: {id: number, status: number}) {
+  }
+}
+
+export class UpdateCampaignStatusSuccess implements Action {
+  readonly type = UPDATE_CAMPAIGN_STATUS_SUCCESS;
+
+  constructor(public payload?: Campaign) {
+  }
+}
+
+export class UpdateCampaignStatusFailure implements Action {
+  readonly type = UPDATE_CAMPAIGN_STATUS_FAILURE;
 
   constructor(public payload?: any) {
   }
@@ -250,4 +275,8 @@ export type actions =
 
   UpdateCampaign |
   UpdateCampaignSuccess |
-  UpdateCampaignFailure;
+  UpdateCampaignFailure |
+
+  UpdateCampaignStatus |
+  UpdateCampaignStatusSuccess |
+  UpdateCampaignStatusFailure;
