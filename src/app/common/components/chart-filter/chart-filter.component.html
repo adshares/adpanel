@@ -99,7 +99,9 @@
           matSuffix
           [for]="dateFromPicker"
         ></mat-datepicker-toggle>
-        <mat-datepicker #dateFromPicker></mat-datepicker>
+        <mat-datepicker #dateFromPicker
+                        (opened)="setCalendarStatus(true)"
+                        (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
 
       <label
@@ -139,7 +141,9 @@
           matSuffix
           [for]="dateToPicker"
         ></mat-datepicker-toggle>
-        <mat-datepicker #dateToPicker></mat-datepicker>
+        <mat-datepicker #dateToPicker
+                        (opened)="setCalendarStatus(true)"
+                        (closed)="setCalendarStatus(false)"></mat-datepicker>
       </mat-form-field>
       <button
         type="button"
