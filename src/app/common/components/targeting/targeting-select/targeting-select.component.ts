@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
@@ -12,17 +12,16 @@ import {cloneDeep} from 'common/utilities/helpers';
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent extends HandleSubscription implements OnInit {
+export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
   @Input() targetingOptions;
-  @Input() addedItems;
+  @Input() addedItems: TargetingOptionValue[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
-
+  selectedItems: TargetingOptionValue[] = [];
   viewModel: (TargetingOption | TargetingOptionValue)[];
   parentViewModel: (TargetingOption | TargetingOptionValue)[];
   parentOption: TargetingOption | TargetingOptionValue;
   targetingOptionsForSearch: TargetingOption[] = [];
-  selectedItems: TargetingOptionValue[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
 
   backAvailable = false;
@@ -34,8 +33,16 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+    this.selectedItems = this.addedItems;
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
+    this.selectSavedItemOnList();
+  }
+
+  ngOnChanges() {
+    if (this.selectedItems.length === this.addedItems.length) return;
+    this.selectedItems = this.addedItems;
+    this.deselectRemovedOptions();
     this.selectSavedItemOnList();
   }
 
@@ -43,7 +50,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     const firstOption = options[0];
     this.viewModel = options;
 
-    this.selectedItems = [];
     this.itemsToRemove = [];
 
     this.backAvailable = !this.targetingOptions.some(
@@ -70,31 +76,25 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   toggleItem(option: TargetingOptionValue) {
     const itemToAddIndex = this.selectedItems.findIndex((item) => item.id === option.id);
-    const itemToRemoveIndex = this.itemsToRemove.findIndex((item) => item.id === option.id);
+    const itemToRemoveIndex = this.selectedItems.findIndex((item) => item.id === option.id);
 
     option.selected = !option.selected;
 
     if (option.selected) {
-      this.handleAddItem(option, itemToAddIndex, itemToRemoveIndex);
-
+      this.handleAddItem(option, itemToAddIndex);
       return;
+    } else {
+      this.handleRemoveItem(option, itemToRemoveIndex);
     }
-
-    this.handleRemoveItem(option, itemToAddIndex, itemToRemoveIndex);
-
   }
 
   handleAddItem(
     option: TargetingOptionValue,
     itemToAddIndex: number,
-    itemToRemoveIndex: number
   ) {
     if (itemToAddIndex === -1) {
       this.selectedItems.push(cloneDeep(option));
-    }
-
-    if (itemToRemoveIndex >= 0) {
-      this.itemsToRemove.splice(itemToRemoveIndex, 1);
+      this.itemsChange.emit(this.selectedItems);
     }
 
     if (option.parent.valueType === 'boolean') {
@@ -104,25 +104,20 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   handleRemoveItem(
     option: TargetingOptionValue,
-    itemToAddIndex: number,
     itemToRemoveIndex: number
   ) {
-    if (itemToAddIndex >= 0) {
-      this.selectedItems.splice(itemToAddIndex, 1);
-    }
-
-    if (itemToRemoveIndex === -1) {
-      this.itemsToRemove.push(cloneDeep(option));
-    }
+    this.selectedItems.splice(itemToRemoveIndex, 1);
+    this.itemsChange.emit(this.selectedItems);
+    this.deselectRemovedOptions();
   }
 
   deselectOppositeBoolean(option: TargetingOptionValue) {
     const optionList = findOptionList(option.id, this.targetingOptions);
     const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
-
+    this.itemsChange.emit(this.selectedItems);
     if (oppositeOption && oppositeOption['selected']) {
-      this.itemsToRemove.push(cloneDeep(oppositeOption));
-
+      this.selectedItems = [...this.selectedItems.filter((option) => option.id !== oppositeOption.id)];
+      this.itemsChange.emit(this.selectedItems);
       Object.assign(oppositeOption, {selected: false});
     }
   }
@@ -130,41 +125,19 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions) {
     options.forEach((option) => {
       const sublist = option['children'] || option['values'];
-
       if (sublist) {
         this.deselectRemovedOptions(sublist);
         return;
       }
-
-      const itemInOptionsIndex = this.addedItems.findIndex((addedItem) => addedItem.id === option.id);
-
+      const itemInOptionsIndex = this.selectedItems.findIndex((addedItem) => addedItem.id === option.id);
       if (itemInOptionsIndex < 0) {
         Object.assign(option, {selected: false});
       }
     });
   }
 
-  handleItemsChange() {
-    this.searchTerm = '';
-    this.selectedItems.forEach((item) => {
-      if (!this.addedItems.find((addedItem) => addedItem.id === item.id)) {
-        this.addedItems = [...this.addedItems, item];
-      }
-    });
-    this.itemsToRemove.forEach((item) => {
-      const itemToRemoveIndex = this.addedItems.findIndex((addedItem) => addedItem.id === item.id);
-
-      if (itemToRemoveIndex > -1) {
-        this.addedItems.splice(itemToRemoveIndex, 1);
-      }
-    });
-    this.itemsChange.emit(this.addedItems);
-    this.setInitialState();
-  }
-
   setInitialState() {
     this.changeViewModel(this.targetingOptions);
-    this.selectedItems = [];
     this.itemsToRemove = [];
     this.parentOption = null;
     this.backAvailable = false;
@@ -216,7 +189,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   selectSavedItemOnList() {
-    this.addedItems.forEach((savedItem) => {
+    this.selectedItems.forEach((savedItem) => {
       if (savedItem.isCustom) {
         return;
       }
@@ -246,8 +219,8 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     const customDialogCloseSubscription = addCustomOptionDialog.afterClosed()
       .subscribe((customOption) => {
         if (customOption) {
-          this.addedItems.push(customOption);
-          this.itemsChange.emit(this.addedItems);
+          this.selectedItems.push(customOption);
+          this.itemsChange.emit(this.selectedItems);
           this.setInitialState();
         }
       });

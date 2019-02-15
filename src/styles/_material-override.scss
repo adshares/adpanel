@@ -56,12 +56,13 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-chip-remove {
-  margin: 0 5px 3px;
-  background-color: pal(gray);
+  margin: 0  0 5px 8px;
+  background-color: white;
+  border: 2px solid pal(red, dark);
+  color: pal(red, dark);
   border-radius: 50%;
-  padding: 5px;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 .mat-slider-thumb-label {

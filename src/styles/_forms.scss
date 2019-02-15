@@ -1,3 +1,13 @@
+.checkmark-unselected {
+  position: absolute;
+  bottom: 7px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: pal(gray, light);
+}
+
 .checkmark,
 .input-valid {
   position: absolute;
@@ -7,7 +17,11 @@
   height: 16px;
   border-radius: 50%;
   background: pal(green);
+}
 
+.checkmark,
+.input-valid,
+.checkmark-unselected {
   &:after {
     content: '';
     position: absolute;
