@@ -194,16 +194,18 @@
   margin-top: 2px;
 
   & .adsh-box {
-    border: none
+    border: none;
+    padding: 0;
+    margin: 0;
   }
 
   &--large {
     padding: 25px;
-    margin: 10px 0;
+    margin-top: 2px;
   }
 
   &--high {
-    margin: 10px 0;
+    margin-top: 2px;
   }
 
   &--small {

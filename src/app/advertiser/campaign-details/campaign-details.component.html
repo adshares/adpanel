@@ -300,7 +300,7 @@
             adsh-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-            Edit Basic Info
+          Edit Basic Info
         </button>
       </div>
     </div>
@@ -322,19 +322,20 @@
             adsh-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-            {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
+          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
         </button>
       </div>
       <div
         *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
         class="
-        adsh-box
         adsh-copy
         row">
         <div *ngIf="!!targeting.requires.length"
              class="
           col-xs-12
-          col-lg-6">
+          col-lg-6
+          adsh-box--no-padding"
+        >
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -350,7 +351,8 @@
           *ngIf="!!targeting.excludes.length"
           class="
           col-xs-12
-          col-lg-6">
+          col-lg-6
+          adsh-box--no-padding">
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -363,118 +365,6 @@
         </div>
       </div>
     </section>
-    <div
-      class="
-        justify-center
-        row
-        campaign-details-statistics">
-      <div
-        class="adsh-box">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Budget
-        </p>
-        <p
-          class="
-            adsh-heading
-            adsh-heading--primary"
-          data-test="advertiser-campaign-budget">
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
-        </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          /day
-        </p>
-      </div>
-      <div
-        class="adsh-box">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Clicks
-        </p>
-        <p *ngIf="campaign; else loadingTotals"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-clicks">
-          {{ campaign.clicks || 0 }}
-        </p>
-        <ng-template #loadingTotals>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-
-      </div>
-      <div
-        class="adsh-box">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Cost
-        </p>
-        <p *ngIf="campaign"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-cost">
-          {{ (campaign.cost || 0)  | adsharesTokenValue:4}}
-        </p>
-      </div>
-      <div *ngIf="campaign.conversions"
-           class="adsh-box">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">Conversions</p>
-        <p
-          class="
-            adsh-heading
-            adsh-heading--primary"
-          data-test="advertiser-campaign-conversions">
-          {{ campaign.conversions || 0 }}
-        </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
-      </div>
-      <div *ngIf="campaign.conversions"
-           class="adsh-box">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Cost/Conv
-        </p>
-        <p *ngIf="campaign; else loadingTotals"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-cost-converions-ratio">
-          {{ campaign.cost / campaign.conversions | adsharesTokenValue:2 }}
-        </p>
-        <ng-template #loadingTotals>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
-      </div>
-    </div>
 
     <!--̣Campaign list section-->
 
