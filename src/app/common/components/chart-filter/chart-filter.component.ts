@@ -16,7 +16,10 @@ import {enumToObjectArray} from "common/utilities/helpers";
 })
 export class ChartFilterComponent extends HandleSubscription implements OnInit, OnChanges {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
+  @Output('closed') closedStream: EventEmitter<boolean>;
+  @Output('opened') openedStream: EventEmitter<boolean>;
   @Input() small: boolean = false;
+
   dateFrom = new FormControl(moment(new Date()).subtract(1, 'months'));
   dateTo = new FormControl(moment(new Date()));
   today = new Date();
@@ -29,6 +32,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   currentToFilter: string;
 
   datepickerVisible: boolean = false;
+  calendarOpened: boolean;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -89,6 +93,14 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   hideDatepicker() {
-    this.datepickerVisible = false;
+    if (!this.calendarOpened) {
+      this.datepickerVisible = false;
+    }
+  }
+
+  setCalendarStatus(status) {
+    setTimeout(() => {
+      this.calendarOpened = status;
+    }, 500)
   }
 }
