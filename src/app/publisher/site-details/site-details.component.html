@@ -53,7 +53,7 @@
         class="
           row
           col-xs-5
-          col-md-8"
+          col-md-7"
       >
         <h1
           class="
@@ -67,30 +67,23 @@
       <div
         class="
           col-xs-7
-          col-md-4
+          col-md-5
           row
           justify-end
           align-center"
       >
-        <div class="
-                status-wrapper
-                col-xs-12
-                col-sm-6
-                col-md-4"
-        >
-          <mat-select class="adsh-select"
-                      [(value)]="currentSiteStatus"
-                      (change)="onSiteStatusChange($event)"
-                      data-test="publisher-site-status-select"
-          >
-            <mat-option *ngFor="let option of siteStatusEnumArray"
-                        [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
-                        [value]="option"
-                        data-test="publisher-site-status-select-option"
-            >
-              {{ option }}
-            </mat-option>
-          </mat-select>
+        <div class="row status-button-wrapper">
+          <span class="adsh-copy"> Site is </span>
+          <span class="adsh-copy lowercase-to-capitalize"
+                data-test="publisher-site-status"
+                [attr.data-status]="currentSiteStatus">
+              {{ currentSiteStatus }}
+            </span>
+          <button class="adsh-btn adsh-btn--white adsh-status adsh-status--btn"
+                  (click)="onSiteStatusChange()"
+                  [attr.data-status]="currentSiteStatus">
+            {{ statusButtonLabel }}
+          </button>
         </div>
         <button
           class="

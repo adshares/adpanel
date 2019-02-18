@@ -61,24 +61,6 @@
   width: 100%;
 }
 
-.status-toggle-wrapper {
-  > * {
-    align-items: center;
-    margin: 0 5px;
-    display: flex;
-  }
-
-  [data-status="active"] {
-    color: pal(green);
-  }
-
-  .adsh-copy[data-status="inactive"],
-  .adsh-copy[data-status="suspended"],
-  .adsh-copy[data-status="archived"],
-  .adsh-copy[data-status="draft"] {
-    color: pal(red, dark);
-  }
-}
 .dashboard-view {
   .adsh-box {
     min-height: 42px;
