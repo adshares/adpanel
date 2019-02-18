@@ -53,6 +53,7 @@
   .adsh-heading--primary {
     margin: 6px 0;
   }
+
 }
 
 .chart-wrapper {
@@ -61,10 +62,21 @@
 }
 
 .status-toggle-wrapper {
-  margin-right: 30px;
-
   > * {
+    align-items: center;
     margin: 0 5px;
+    display: flex;
+  }
+
+  [data-status="active"] {
+    color: pal(green);
+  }
+
+  .adsh-copy[data-status="inactive"],
+  .adsh-copy[data-status="suspended"],
+  .adsh-copy[data-status="archived"],
+  .adsh-copy[data-status="draft"] {
+    color: pal(red, dark);
   }
 }
 .dashboard-view {

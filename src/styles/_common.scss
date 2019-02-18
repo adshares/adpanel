@@ -353,6 +353,24 @@ router-outlet ~ * {
     color: pal(gray);
     background-color: pal(gray, ultra-light);
   }
+
+  &--btn {
+    min-width: auto;
+    width: auto;
+
+    &[data-status="active"] {
+      color: pal(green) !important;
+      background-color: pal(green, light);
+    }
+
+    &[data-status="inactive"],
+    &[data-status="suspended"],
+    &[data-status="archived"],
+    &[data-status="draft"] {
+      color: pal(red) !important;
+      background-color: pal(red, light);
+    }
+  }
 }
 
 .adsh-ad-list__sort {
