@@ -13,11 +13,8 @@
   }
 
   &__info-box {
-    min-height: 400px;
-
     .adsh-copy--large {
       display: inline-block;
-      margin: 8px 0;
     }
 
     .adsh-select {
@@ -26,8 +23,12 @@
     }
   }
 
+  .adsh-form-label {
+    margin-top: 0;
+  }
+
 .adsh-box {
-    margin: 30px 0;
+    margin: 8px 0;
   }
 
   &__language {

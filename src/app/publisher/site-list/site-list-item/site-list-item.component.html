@@ -28,7 +28,7 @@
             text-center"
           [attr.data-status]="currentSiteStatus"
         >
-          <div>
+          <div class="status-wrapper__list-item">
             <mat-select [(value)]="currentSiteStatus"
                         (change)="onSiteStatusChange($event)"
                         data-test="advertiser-campaign-status-select"

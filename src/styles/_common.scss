@@ -199,6 +199,10 @@
     margin: 0;
   }
 
+  &--mid-size {
+    padding: 10px;
+  }
+
   &--large {
     padding: 25px;
     margin-top: 2px;
@@ -256,7 +260,7 @@
 
 .adsh-chip-box {
   background-color: pal(gray, x-light);
-  color: pal(gray, mid-dark);
+  color: pal(gray, dark);
   @include font(11, semi);
   padding: 7px;
   border-radius: 2px;
@@ -428,9 +432,14 @@ router-outlet ~ * {
   word-wrap: break-word;
 }
 
+
 .status-wrapper {
   min-width: 140px;
   margin-right: 8px;
+
+  &__list-item {
+    padding: 4px;
+  }
 
   .adsh-select {
     border: 1px solid pal(gray, light);
