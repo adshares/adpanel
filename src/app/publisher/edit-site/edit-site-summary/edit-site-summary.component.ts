@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/first';
@@ -14,16 +14,14 @@ import {HandleSubscription} from 'common/handle-subscription';
 import {TargetingOption} from 'models/targeting-option.model';
 import {cloneDeep} from 'common/utilities/helpers';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-edit-site-summary',
   templateUrl: './edit-site-summary.component.html',
   styleUrls: ['./edit-site-summary.component.scss']
 })
-export class EditSiteSummaryComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class EditSiteSummaryComponent extends HandleSubscription implements OnInit {
   site: Site;
-  subscriptions: Subscription[] = [];
   filteringOptions: TargetingOption[];
   createSiteMode: boolean;
   canSubmit: boolean;
@@ -50,10 +48,6 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
     this.subscriptions.push(lastSiteSubscription);
     this.assetHelpers.redirectIfNameNotFilled(this.site);
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   saveSite(isDraft): void {
