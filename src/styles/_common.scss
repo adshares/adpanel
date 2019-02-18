@@ -432,9 +432,14 @@ router-outlet ~ * {
   word-wrap: break-word;
 }
 
+
 .status-wrapper {
   min-width: 140px;
   margin-right: 8px;
+
+  &__list-item {
+    padding: 4px;
+  }
 
   .adsh-select {
     border: 1px solid pal(gray, light);

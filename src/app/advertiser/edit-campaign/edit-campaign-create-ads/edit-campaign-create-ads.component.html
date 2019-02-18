@@ -25,7 +25,7 @@
   </div>
 
   <div
-    class="adsh-box"
+    class="adsh-box adsh-box--no-padding"
     *ngFor="let adForm of adForms; let i = index"
   >
     <form
@@ -402,8 +402,9 @@
             <div
               class="
                 col-xs-12
-                adsh-copy--small
-                adsh-copy--light">
+                adsh-copy
+                adsh-copy--light
+                adsh-box--no-padding">
               Preview
             </div>
             <div class="banner image-banner"
@@ -472,8 +473,10 @@
 
   <div
     class="
+      row
+      justify-center
       adsh-box
-      adsh-box--large"
+      adsh-box--no-padding"
   >
     <button
       class="
