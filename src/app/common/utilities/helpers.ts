@@ -160,8 +160,8 @@ function sortArrayByColumnMetaData<assetItem>(
 }
 
 function findValueByPathArray(object, pathArray) {
-  const key = pathArray[0];
-  return object[key] || 0;
+  return pathArray.length === 1 ? (object[pathArray[0]] || 0) :
+    pathArray.reduce((obj, partialPath) => obj[partialPath], object)
 }
 
 const simpleValidateHtmlStr = (html: string): boolean => {
