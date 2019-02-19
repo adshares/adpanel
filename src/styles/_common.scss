@@ -357,6 +357,24 @@ router-outlet ~ * {
     color: pal(gray);
     background-color: pal(gray, ultra-light);
   }
+
+  &--btn {
+    min-width: auto;
+    width: auto;
+
+    &[data-status="active"] {
+      color: pal(green) !important;
+      background-color: pal(green, light);
+    }
+
+    &[data-status="inactive"],
+    &[data-status="suspended"],
+    &[data-status="archived"],
+    &[data-status="draft"] {
+      color: pal(red) !important;
+      background-color: pal(red, light);
+    }
+  }
 }
 
 .adsh-ad-list__sort {
@@ -443,6 +461,27 @@ router-outlet ~ * {
 
   .adsh-select {
     border: 1px solid pal(gray, light);
+  }
+}
+
+.status-button-wrapper {
+  margin-right: 16px;
+
+  > * {
+    align-items: center;
+    margin: 0 5px;
+    display: flex;
+  }
+
+  [data-status="active"] {
+    color: pal(green);
+  }
+
+  .adsh-copy[data-status="inactive"],
+  .adsh-copy[data-status="suspended"],
+  .adsh-copy[data-status="archived"],
+  .adsh-copy[data-status="draft"] {
+    color: pal(red, dark);
   }
 }
 

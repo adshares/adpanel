@@ -167,9 +167,22 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  onSiteStatusChange(status) {
-    this.site.status = this.siteStatusEnumArray.findIndex(el => el === status.value);
-    this.currentSiteStatus = status.value;
+  onSiteStatusChange() {
+    if (this.canActivateSite) {
+      this.currentSiteStatus = 'active';
+    } else {
+      this.currentSiteStatus = 'inactive';
+    }
+    this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
     this.store.dispatch(new PublisherActions.UpdateSite(this.site));
+  }
+
+  get canActivateSite(): boolean {
+    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
+      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 }
