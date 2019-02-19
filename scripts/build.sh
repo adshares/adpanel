@@ -48,3 +48,5 @@ else
   echo "ERROR: Unsupported environment ($APP_ENV)."
   exit 1
 fi
+
+envsubst < info.json.template | tee dist/info.json
