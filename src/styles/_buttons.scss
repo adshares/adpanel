@@ -54,7 +54,6 @@
   &--white {
     background-color: pal(white);
     border: 1px solid pal(gray, light);
-    min-width: 200px;
 
     &:hover {
       background-color: pal(gray, ultra-light);

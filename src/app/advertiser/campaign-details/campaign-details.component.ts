@@ -163,11 +163,26 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  onCampaignStatusChange(status) {
-    this.currentCampaignStatus = status.value;
-    this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
+  onCampaignStatusChange() {
+    if (this.canActivateCampaign) {
+      this.currentCampaignStatus = 'active';
+    } else {
+      this.currentCampaignStatus = 'inactive';
+    }
+    this.campaign.basicInformation.status =
+      this.campaignStatusesEnumArray.findIndex(el => el === this.currentCampaignStatus);
     this.store.dispatch(new advertiserActions.UpdateCampaignStatus(
       {id: this.campaign.id, status: this.campaign.basicInformation.status}));
+  }
+
+  get canActivateCampaign(): boolean {
+    return (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase()) ||
+      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase()) ||
+      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateCampaign ? 'Activate' : 'Deactivate'
   }
 
   get classificationLabel() {

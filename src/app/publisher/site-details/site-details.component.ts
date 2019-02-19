@@ -9,11 +9,9 @@ import {HandleSubscription} from 'common/handle-subscription';
 import {AppState} from 'models/app-state.model';
 import {Site, SiteLanguage} from 'models/site.model';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
-import {ChartLabels} from 'models/chart/chart-labels.model';
 import {ChartData} from 'models/chart/chart-data.model';
-import {AssetTargeting, TargetingOption} from 'models/targeting-option.model';
+import {AssetTargeting} from 'models/targeting-option.model';
 import {createInitialArray, enumToArray} from 'common/utilities/helpers';
-import {pubChartSeriesEnum} from 'models/enum/chart.enum';
 import {siteStatusEnum} from 'models/enum/site.enum';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -167,9 +165,22 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  onSiteStatusChange(status) {
-    this.site.status = this.siteStatusEnumArray.findIndex(el => el === status.value);
-    this.currentSiteStatus = status.value;
+  onSiteStatusChange() {
+    if (this.canActivateSite) {
+      this.currentSiteStatus = 'active';
+    } else {
+      this.currentSiteStatus = 'inactive';
+    }
+    this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
     this.store.dispatch(new PublisherActions.UpdateSite(this.site));
+  }
+
+  get canActivateSite(): boolean {
+    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
+      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 }

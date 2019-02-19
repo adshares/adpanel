@@ -1,5 +1,5 @@
 export interface TableColumnMetaData {
-  title: string;
+  title?: string;
   columnWidth: string;
 
   keys?: string[];

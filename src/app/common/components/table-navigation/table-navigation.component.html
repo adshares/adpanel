@@ -1,14 +1,16 @@
-<div
+<thead class=" adsh-box table-nav__header">
+<tr
   *ngFor="let menuItem of navigationItems"
   class="
     row
-    align-center"
+    align-center
+    adsh-copy--semi"
   [ngClass]="menuItem.columnWidth"
   (click)="sortTableByKey(menuItem)"
   data-test="common-sort-assets-toggle"
 >
   {{ menuItem.title }}
-  <div
+  <th
     *ngIf="menuItem.title"
     class="
       col
@@ -24,5 +26,7 @@
         adsh-sort-triangle--down"
       [class.active]="menuItem.sortAsc && menuItem.isSortedBy"
     ></div>
-  </div>
-</div>
+  </th>
+</tr>
+</thead>
+

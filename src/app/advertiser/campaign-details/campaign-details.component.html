@@ -41,7 +41,7 @@
       <div
         class="
           col-xs-5
-          col-md-8">
+          col-md-7">
         <h1
           class="
             adsh-heading
@@ -53,48 +53,43 @@
       <div
         class="
           col-xs-7
-          col-md-4
+          col-md-5
           row
           justify-end
           align-center">
 
-        <!--
-        <div class="row status-toggle-wrapper">
-          <p>
-            <span class="adsh-copy">Classification: </span>
-            <span class="adsh-copy adsh-copy--x-dark lowercase-to-capitalize"
-                  data-test="advertiser-campaign-classification">
-              {{ classificationLabel }}
+        <div class="row status-button-wrapper">
+          <span class="adsh-copy">Classification is </span>
+          <span class="adsh-copy lowercase-to-capitalize"
+                data-test="advertiser-campaign-classification"
+                [attr.data-status]="currentCampaignStatus">
+              {{ currentCampaignStatus }}
             </span>
-          </p>
-          <mat-slide-toggle
-            color="primary"
-            [checked]="isClassificationChecked"
-            [disabled]="isClassificationChecked"
-            ([ngModel])="campaign.classificationStatus"
-            (change)="onCampaignClassificationStatusChange(campaign.classificationStatus)"
-            data-test="advertiser-campaign-classification-status-toggle"
-          ></mat-slide-toggle>
+          <button class="adsh-btn adsh-btn--white adsh-status adsh-status--btn"
+                  (click)="onCampaignStatusChange($event)"
+                  [attr.data-status]="currentCampaignStatus">
+            {{ statusButtonLabel }}
+          </button>
         </div>
-        -->
 
-        <div class="status-wrapper">
-          <mat-select class="adsh-select"
-                      [(value)]="currentCampaignStatus"
-                      (change)="onCampaignStatusChange($event)"
-                      data-test="advertiser-campaign-status-select"
-          >
-            <mat-option *ngFor="let option of campaignStatusesEnumArray"
-                        [ngClass]="{'hidden': (
-                                    option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
-                                    option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
-                        [value]="option"
-                        data-test="advertiser-campaign-status-select-option"
-            >
-              {{ option }}
-            </mat-option>
-          </mat-select>
-        </div>
+
+        <!--<div class="status-wrapper">-->
+        <!--<mat-select class="adsh-select"-->
+        <!--[(value)]="currentCampaignStatus"-->
+        <!--(change)="onCampaignStatusChange($event)"-->
+        <!--data-test="advertiser-campaign-status-select"-->
+        <!--&gt;-->
+        <!--<mat-option *ngFor="let option of campaignStatusesEnumArray"-->
+        <!--[ngClass]="{'hidden': (-->
+        <!--option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||-->
+        <!--option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"-->
+        <!--[value]="option"-->
+        <!--data-test="advertiser-campaign-status-select-option"-->
+        <!--&gt;-->
+        <!--{{ option }}-->
+        <!--</mat-option>-->
+        <!--</mat-select>-->
+        <!--</div>-->
 
         <button
           class="

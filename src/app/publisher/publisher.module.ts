@@ -29,6 +29,10 @@ import {SiteCodeDialogComponent} from './dialogs/site-code-dialog/site-code-dial
 import {SiteResolver} from './resolvers/site.resolver';
 import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
 
 
 const editSiteComponents = [
@@ -64,6 +68,7 @@ const publisherComponents = [
     MatSelectModule,
     MatExpansionModule,
     ChartsModule,
+    FontAwesomeModule
   ],
   providers: [
     PublisherGuard,
