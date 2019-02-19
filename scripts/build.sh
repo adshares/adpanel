@@ -36,6 +36,7 @@ export APP_ENV=${APP_ENV:-prod}
 
 envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
 
+yarn --version &>/dev/null || (echo "[ERROR] Missing 'yarn' command" && exit 127)
 yarn install
 
 if [[ ${APP_ENV} == 'dev' ]]
