@@ -1,0 +1,4 @@
+{
+  "api-server-base-url":"${ADSERVER_URL}",
+  "api-base-url":"${ADSERVER_URL}"
+}
