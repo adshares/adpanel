@@ -40,6 +40,10 @@ export const UPDATE_SITE = 'Site update';
 export const UPDATE_SITE_SUCCESS = 'Site update success';
 export const UPDATE_SITE_FAILURE = 'Site update failure';
 
+export const UPDATE_SITE_STATUS = 'Update site status';
+export const UPDATE_SITE_STATUS_SUCCESS = 'Update site status success';
+export const UPDATE_SITE_STATUS_FAILURE = 'Update site status failure';
+
 export const UPDATE_SITE_FILTERING = 'Site filtering update';
 export const UPDATE_SITE_FILTERING_SUCCESS = 'Site filtering update success';
 export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
@@ -239,6 +243,27 @@ export class UpdateSiteFailure implements Action {
   }
 }
 
+export class UpdateSiteStatus implements Action {
+  readonly type = UPDATE_SITE_STATUS;
+
+  constructor(public payload: number) {
+  }
+}
+
+export class UpdateSiteStatusSuccess implements Action {
+  readonly type = UPDATE_SITE_STATUS_SUCCESS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteStatusFailure implements Action {
+  readonly type = UPDATE_SITE_STATUS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export class UpdateSiteFiltering implements Action {
   readonly type = UPDATE_SITE_FILTERING;
 
@@ -298,6 +323,10 @@ export type actions =
   UpdateSite |
   UpdateSiteSuccess |
   UpdateSiteFailure |
+
+  UpdateSiteStatus |
+  UpdateSiteStatusSuccess |
+  UpdateSiteStatusFailure |
 
   UpdateSiteFiltering |
   UpdateSiteFilteringSuccess |

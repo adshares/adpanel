@@ -1,8 +1,5 @@
 <div
-  class="
-    adsh-box
-    clickable-row"
-  (click)="navigateToCampaignDetails(campaign.id)"
+  class="adsh-box"
   data-test="advertiser-navigate-to-campaign-details"
 >
   <div class="adsh-campaign-list__item">
@@ -14,8 +11,7 @@
       class="
         row
         align-center
-        adsh-copy
-        adsh-copy--semi"
+        adsh-copy"
     >
       <div
         class="
@@ -26,26 +22,43 @@
         <div
           class="
             adsh-box
-            adsh-box--small
+            adsh-box--no-padding
             adsh-status
             text-center"
-          [attr.data-status]="campaignStatusesEnum[campaign.basicInformation.status].toLowerCase()"
+          [attr.data-status]="currentCampaignStatus"
         >
-          <span data-test="advertiser-campaign-status">
-            {{ campaignStatusesEnum[campaign.basicInformation.status] }}
-          </span>
+          <div class="status-wrapper__list-item">
+            <mat-select [(value)]="currentCampaignStatus"
+                        (change)="onCampaignStatusChange($event)"
+                        data-test="advertiser-campaign-status-select"
+            >
+
+              <mat-option *ngFor="let option of campaignStatusesEnumArray"
+                          [ngClass]="{'hidden': (
+                                    option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
+                                    option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
+                          [value]="option"
+                          data-test="advertiser-campaign-status-select-option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </div>
+
         </div>
       </div>
       <div
         class="
           col-xs-4
           row
+          clickable-row
           align-center"
       >
         <h4
           class="
             adsh-heading
             adsh-heading--secondary"
+          (click)="navigateToCampaignDetails(campaign.id)"
           data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
@@ -58,7 +71,9 @@
           align-center"
         data-test="advertiser-campaign-bduget"
       >
-        <span>{{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day</span>
+        <span>
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
+        </span>
       </div>
       <div
         class="
@@ -94,7 +109,8 @@
           align-center"
         data-test="advertiser-campaign-average-cpc"
       >
-        <span>{{ (campaign.averageCpc || 0) | adsharesTokenValue:2}} </span>
+        <span [title]="(campaign.averageCpc || 0) | adsharesTokenValue">
+          {{ (campaign.averageCpc || 0) | adsharesTokenValue:2}} </span>
       </div>
       <div
         class="
@@ -103,15 +119,18 @@
           align-center"
         data-test="advertiser-campaign-cost"
       >
-        <span>{{ (campaign.cost || 0) | adsharesTokenValue:2 }}</span>
+        <span [title]="(campaign.cost || 0) | adsharesTokenValue">
+          {{ (campaign.cost || 0) | adsharesTokenValue:2 }}</span>
       </div>
       <div
         class="
           col-xs-1
           row
+          clickable-row
           align-center
           justify-center
           adsh-campaign-list__item-campaign-details"
+        (click)="navigateToCampaignDetails(campaign.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"

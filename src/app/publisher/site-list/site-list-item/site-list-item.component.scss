@@ -1,0 +1,10 @@
+@import '../../../../styles.scss';
+
+.adsh-site-list {
+  &__sort {
+    margin-left: 5px;
+  }
+  &__items > .adsh-box:first-of-type {
+    padding: 10px;
+  }
+}

@@ -7,16 +7,16 @@
   }
 
   &--primary {
-    @include font(20, bold);
+    @include font(18, bold);
     letter-spacing: -0.1px;
     margin: 10px 0;
 
     @include media(md-up) {
-      @include font(25, bold);
+      @include font(20, bold);
     }
 
     @include media(lg-up) {
-      @include font(30, bold);
+      @include font(22, bold);
     }
   }
 
@@ -44,7 +44,6 @@
 
   &--large {
     @include font(14, normal);
-    line-height: 1.57;
     margin: 5px 0;
   }
 
@@ -98,6 +97,10 @@
 
   &--uppercase {
     text-transform: uppercase;
+  }
+
+  &--lineheight-reset {
+    line-height: 1;
   }
 }
 

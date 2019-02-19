@@ -2,7 +2,7 @@
 
 .campaign-basic-information {
   > div {
-    margin: 15px 50px 0 0;
+    margin-right: 45px;
   }
 
   .label {
@@ -55,14 +55,8 @@
   }
 }
 
-.status-wrapper {
-  .adsh-status {
-    margin-left: 5px;
-  }
-}
-
 .chart-wrapper {
-  height: 500px;
+  height: 250px;
   width: 100%;
 }
 
@@ -71,6 +65,11 @@
 
   > * {
     margin: 0 5px;
+  }
+}
+.dashboard-view {
+  .adsh-box {
+    min-height: 42px;
   }
 }
 

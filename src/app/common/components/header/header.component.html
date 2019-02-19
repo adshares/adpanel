@@ -18,7 +18,7 @@
       <div
         class="
           adsh-navigation__item
-          row
+          col
           align-center"
       >
         <img
@@ -29,106 +29,52 @@
             assets/images/logo--white@3x.png 3x"
           alt="Adshares Logo"
         >
+        <span class="adsh-copy
+                     adsh-header__logo-subtitle">Testnet</span>
       </div>
     </a>
-    <div
-      *ngIf="!userDataState.isAdmin"
-      class="
-        row
-        align-center
-        justify-between
-        relative
-        adsh-bg-navy&#45;&#45;light
-        adsh-navigation__item
-        adsh-header-userselect"
-      (mouseover)="toggleChooseUserMenu(true)"
-      (mouseleave)="toggleChooseUserMenu(false)"
-      data-test="header-choose-user-menu"
-    >
-      <div
-        class="
-          row
-          align-center"
+      <button
+        type="button"
+        *ngIf="!userDataState.isAdmin"
+        class="adsh-btn--no-border
+               row
+               align-center
+               adsh-navigation__item
+               adsh-header--userselect
+               adsh-copy--uppercase
+               adsh-copy--semi
+               adsh-copy--lineheight-reset"
+        (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
       >
         <img
           class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
-          src="assets/images/user.svg"
-        >
-        <span
-          class="
-            adsh-copy
-            adsh-copy&#45;&#45;large
-            adsh-copy&#45;&#45;semi
-            adsh-copy&#45;&#45;x-dark"
-          data-test="header-active-user-type"
-        >
-          {{ userRolesEnum[activeUserType] }}
-        </span>
-      </div>
-
-      <img
-        class="
-          adsh-icon
-          adsh-icon&#45;&#45;small
-          adsh-icon&#45;&#45;append
-          choose-user-menu-chevron"
-        [class.up]="chooseUserMenuOpen"
+            adsh-icon--prepend"
+          [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        />
+        Advertiser
+      </button>
+      <button
+        type="button"
         *ngIf="!userDataState.isAdmin"
-        src="assets/images/chevron&#45;&#45;gray.svg"
+        class="adsh-btn--no-border
+               row
+               align-center
+               adsh-navigation__item
+               adsh-header--userselect
+               adsh-copy--uppercase
+               adsh-copy--semi
+               adsh-copy--lineheight-reset"
+        (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
       >
-      <ul
-        class="
-          choose-user-menu
-          adsh-copy
-          adsh-copy&#45;&#45;large"
-        [class.open]="chooseUserMenuOpen"
-      >
-        <li
-          class="choose-user-menu__item"
-          [value]="userRolesEnum.ADVERTISER"
-          routerLink="/advertiser/dashboard"
-          *ngIf="!userDataState.isAdmin && userDataState.isAdvertiser"
-          (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
-          data-test="header-choose-user-menu-advertiser"
-        >
-          <img
-            class="adsh-icon adsh-icon&#45;&#45;prepend"
-            src="assets/images/user.svg"
-          >
-          <span>Advertiser</span>
-        </li>
-        <li
-          class="choose-user-menu__item"
-          [value]="userRolesEnum.PUBLISHER"
-          routerLink="/publisher/dashboard"
-          *ngIf="!userDataState.isAdmin && userDataState.isPublisher"
-          (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
-          data-test="header-choose-user-menu-publisher"
-        >
-          <img
-            class="adsh-icon adsh-icon&#45;&#45;prepend"
-            src="assets/images/user.svg"
-          >
-          <span>Publisher</span>
-        </li>
-        <li
-          class="choose-user-menu__item"
-          [value]="userRolesEnum.ADMIN"
-          routerLink="/admin/dashboard"
-          *ngIf="userDataState.isAdmin"
-          (click)="setActiveUserType(userRolesEnum.ADMIN)"
-          data-test="header-choose-user-menu-admin"
-        >
-          <img
-            class="adsh-icon adsh-icon&#45;&#45;prepend"
-            src="assets/images/user.svg"
-          >
-          <span>Admin</span>
-        </li>
-      </ul>
-    </div>
+        <img
+          class="
+            adsh-icon
+            adsh-icon--prepend"
+          [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        />
+       Publisher
+      </button>
   </div>
 
 
@@ -141,8 +87,8 @@
       *ngIf="!userDataState.isAdmin"
       class="
         adsh-btn
-        adsh-btn&#45;&#45;with-icon
-        adsh-btn&#45;&#45;wide
+        adsh-btn--with-icon
+        adsh-btn--wide
         adsh-bg-blue
         adsh-navigation__item
         row
@@ -154,7 +100,7 @@
       <img
           class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
@@ -165,8 +111,8 @@
       (click)="openSetEarningsDialog()"
       class="
         adsh-btn
-        adsh-btn&#45;&#45;with-icon
-        adsh-btn&#45;&#45;wide
+        adsh-btn--with-icon
+        adsh-btn--wide
         adsh-bg-blue
         adsh-navigation__item
         row
@@ -176,7 +122,7 @@
       <img
         class="
             adsh-icon
-            adsh-icon&#45;&#45;prepend"
+            adsh-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
       <span>Set your earnings</span>
@@ -242,10 +188,10 @@
           <button
             class="
               adsh-btn
-              adsh-btn&#45;&#45;large
-              adsh-btn&#45;&#45;blue
-              adsh-btn&#45;&#45;small
+              adsh-btn--blue
+              adsh-btn--tiny
               row
+              justify-between
               align-center"
             (click)="openAddFundsDialog()"
             data-test="add-funds-dialog-open-button"
@@ -253,7 +199,6 @@
             <img
               class="
                 adsh-icon
-                adsh-icon&#45;&#45;prepend
                 close"
               src="assets/images/plus-circle.svg"
             >
@@ -336,10 +281,10 @@
     <!-- TODO PAN-183 remove notification -->
     <!--<div-->
       <!--class="-->
-        <!--adsh-bg-navy&#45;&#45;light-->
+        <!--adsh-bg-navy--light-->
         <!--adsh-navigation__item-->
         <!--adsh-btn-->
-        <!--adsh-btn&#45;&#45;small-->
+        <!--adsh-btn--small-->
         <!--row-->
         <!--align-center-->
         <!--relative-->

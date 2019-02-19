@@ -1,7 +1,7 @@
 .adsh-btn {
   border: 2px solid transparent;
   border-radius: 2px;
-  padding: 13px 25px 14px;
+  padding: 10px;
   @include font(14, medium);
   color: pal(white);
   background: transparent;
@@ -24,6 +24,10 @@
 
   &--x-small {
     padding: 6px 15px;
+  }
+
+  &--tiny {
+    padding: 8px;
   }
 
   &--no-vertical-padding {
@@ -64,6 +68,17 @@
 
     &:hover {
       background-color: darken(pal(blue), 5);
+    }
+  }
+
+  &--edit {
+    color: pal(blue);
+    min-width: 130px;
+    max-height: 46px;
+
+    &:hover {
+      background-color: pal(gray, ultra-light);
+      color: darken(pal(blue), 5);
     }
   }
 

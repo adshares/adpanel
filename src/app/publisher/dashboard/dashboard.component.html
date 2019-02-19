@@ -32,16 +32,6 @@
           List of all sites
         </p>
       </div>
-      <div
-        class="
-          col-xs-12
-          col-md-9"
-      >
-        <app-chart-filter
-          *ngIf="sites"
-          (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
-        ></app-chart-filter>
-      </div>
     </div>
 
     <div *ngIf="!!sites.length">
@@ -49,13 +39,22 @@
       <div
         class="
           adsh-box
-          adsh-box&#45;&#45;large
           hidden-md"
       >
-        <app-chart-filter-by-type
-          (updateId)="appChartRef.updateChartDataAssetId($event)"
-          (updateSeries)="appChartRef.updateChartDataSeries($event)"
-        ></app-chart-filter-by-type>
+        <div class="row">
+          <div class="col-xs-6">
+            <app-chart-filter-by-type
+              (updateId)="appChartRef.updateChartDataAssetId($event)"
+              (updateSeries)="appChartRef.updateChartDataSeries($event)"
+            ></app-chart-filter-by-type>
+          </div>
+          <div class="col-xs-6">
+            <app-chart-filter
+              *ngIf="!!sites.length"
+              (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
+            ></app-chart-filter>
+          </div>
+        </div>
         <div
           class="
             row
@@ -75,14 +74,11 @@
           ></app-chart>
         </div>
       </div>
-<!--&ndash;&gt;-->
-
       <app-site-list
         [sites]="sites"
         [sitesTotals]="sitesTotals"
       ></app-site-list>
     </div>
-
 
     <div
       class="hidden-md"
@@ -132,9 +128,7 @@
                 adsh-icon--prepend"
             >
             <span
-              class="
-                adsh-heading
-                adsh-heading--secondary"
+              class="adsh-heading"
             >
               Create now
             </span>

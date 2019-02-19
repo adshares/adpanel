@@ -1,12 +1,13 @@
 <div
-  class="
-    adsh-box
-    clickable-row"
-  (click)="navigateToCampaignDetails(site.id)"
+  class="adsh-box"
   data-test="publisher-navigate-to-site-details"
 >
   <div class="site-list__item">
+    <ng-template #loading>
+      <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+    </ng-template>
     <div
+      *ngIf="site; else loading"
       class="
         row
         align-center
@@ -22,26 +23,40 @@
         <div
           class="
             adsh-box
-            adsh-box--small
+            adsh-box--no-padding
             adsh-status
             text-center"
-          [attr.data-status]="siteStatusEnum[site.status].toLowerCase()"
+          [attr.data-status]="currentSiteStatus"
         >
-          <span data-test="publisher-site-status">
-            {{ siteStatusEnum[site.status] }}
-          </span>
+          <div class="status-wrapper__list-item">
+            <mat-select [(value)]="currentSiteStatus"
+                        (change)="onSiteStatusChange($event)"
+                        data-test="advertiser-campaign-status-select"
+            >
+
+              <mat-option *ngFor="let option of siteStatusEnumArray"
+                          [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
+                          [value]="option"
+                          data-test="advertiser-campaign-status-select-option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </div>
         </div>
       </div>
       <div
         class="
-          col-xs-4
+          col-xs-5
           row
+          clickable-row
           align-center"
       >
         <h4
           class="
             adsh-heading
             adsh-heading--secondary"
+          (click)="navigateToSiteDetails(site.id)"
           data-test="publisher-site-url"
         >
           {{ site.name }}
@@ -53,7 +68,8 @@
           row
           align-center"
       >
-        <span data-test="publisher-site-estimated-earnings">
+        <span data-test="publisher-site-estimated-earnings"
+              [title]="(site.cost || 0) | adsharesTokenValue">
           {{ (site.cost || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
@@ -93,7 +109,8 @@
           row
           align-center"
       >
-        <span data-test="publisher-site-average=rpc">
+        <span data-test="publisher-site-average=rpc"
+              [title]="(site.averageRpc || 0) | adsharesTokenValue">
           {{ (site.averageRpc || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
@@ -101,9 +118,11 @@
         class="
           col-xs-1
           row
+          clickable-row
           align-center
           justify-center
           adsh-site-list__item-site-details"
+        (click)="navigateToSiteDetails(site.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"

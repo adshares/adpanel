@@ -31,6 +31,7 @@
         {{ campaign.basicInformation.name }}
       </p>
     </div>
+
     <div
       class="
         row
@@ -40,7 +41,7 @@
       <div
         class="
           col-xs-5
-          col-md-4">
+          col-md-8">
         <h1
           class="
             adsh-heading
@@ -52,7 +53,7 @@
       <div
         class="
           col-xs-7
-          col-md-8
+          col-md-4
           row
           justify-end
           align-center">
@@ -77,30 +78,24 @@
         </div>
         -->
 
-        <div
-          class="
-            row
-            status-toggle-wrapper">
-          <p>
-            <span class="adsh-copy">Status: </span>
-            <span
-              class="
-                adsh-copy
-                adsh-copy--x-dark
-                lowercase-to-capitalize"
-              data-test="advertiser-campaign-status"
+        <div class="status-wrapper">
+          <mat-select class="adsh-select"
+                      [(value)]="currentCampaignStatus"
+                      (change)="onCampaignStatusChange($event)"
+                      data-test="advertiser-campaign-status-select"
+          >
+            <mat-option *ngFor="let option of campaignStatusesEnumArray"
+                        [ngClass]="{'hidden': (
+                                    option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
+                                    option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
+                        [value]="option"
+                        data-test="advertiser-campaign-status-select-option"
             >
-              {{ campaignStatusesEnum[campaign.basicInformation.status] }}
-            </span>
-          </p>
-          <mat-slide-toggle
-            color="primary"
-            [checked]="campaign.basicInformation.status === campaignStatusesEnum.ACTIVE"
-            ([ngModel])="campaign.basicInformation.status"
-            (change)="onCampaignStatusChange(campaign.basicInformation.status)"
-            data-test="advertiser-campaign-status-toggle"
-          ></mat-slide-toggle>
+              {{ option }}
+            </mat-option>
+          </mat-select>
         </div>
+
         <button
           class="
             adsh-btn
@@ -123,8 +118,52 @@
       </div>
     </div>
 
-    <div class="adsh-box
-                adsh-box--large">
+    <!-- chart-->
+    <div
+      class="
+          adsh-box
+          hidden-md"
+    >
+      <div
+        class="
+          adsh-box
+          hidden-md"
+      >
+        <div class="justify-between row">
+
+          <app-chart-filter-by-type
+            class="details-filters"
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"
+          ></app-chart-filter-by-type>
+          <app-chart-filter
+            class="details-filters"
+            (filter)="appChartRef.updateChartData($event)"
+          ></app-chart-filter>
+        </div>
+        <div
+          class="
+            row
+            align-center
+            justify-center
+            chart-wrapper"
+        >
+          <app-chart
+            class="
+              chart
+              row
+              align-center
+              justify-center"
+            (update)="getChartData($event, campaign.id)"
+            [barChartData]="barChartData"
+            [barChartLabels]="barChartLabels"
+          ></app-chart>
+        </div>
+      </div>
+    </div>
+    <!-- chart end-->
+
+    <div class="adsh-box">
       <div class="row
                   justify-between">
         <div class="row
@@ -251,7 +290,7 @@
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            hidden-md"
           (click)="navigateToCampaignEdition('basic-information', 1)"
           data-test="publisher-site-edit">
@@ -259,21 +298,21 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt="">
-            Edit Basic Info
+          Edit Basic Info
         </button>
       </div>
     </div>
 
     <!--Targeting details section-->
 
-    <section class="adsh-box adsh-box--high adsh-box--large">
+    <section class="adsh-box adsh-box--high">
       <div class="row justify-end">
         <button
           class="
            adsh-btn
-           adsh-btn--blue
+           adsh-btn--edit
            hidden-md"
           (click)="navigateToCampaignEdition('additional-targeting', 2)"
           data-test="publisher-site-edit">
@@ -281,21 +320,22 @@
             class="
             adsh-icon
             adsh-icon--prepend"
-            src="assets/images/edit.svg"
+            src="assets/images/edit-blue.svg"
             alt="">
-            {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
+          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
         </button>
       </div>
       <div
         *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
         class="
-        adsh-box
         adsh-copy
         row">
         <div *ngIf="!!targeting.requires.length"
              class="
           col-xs-12
-          col-lg-6">
+          col-lg-6
+          adsh-box--no-padding"
+        >
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -311,7 +351,8 @@
           *ngIf="!!targeting.excludes.length"
           class="
           col-xs-12
-          col-lg-6">
+          col-lg-6
+          adsh-box--no-padding">
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -324,176 +365,6 @@
         </div>
       </div>
     </section>
-    <div
-      class="
-        justify-center
-        row
-        campaign-details-statistics">
-      <div
-        class="
-          adsh-box
-          adsh-box--large">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Budget
-        </p>
-        <p
-          class="
-            adsh-heading
-            adsh-heading--primary"
-          data-test="advertiser-campaign-budget">
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
-        </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          /day
-        </p>
-      </div>
-      <div
-        class="
-          adsh-box
-          adsh-box--large">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Clicks
-        </p>
-        <p *ngIf="campaign; else loadingTotals"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-clicks">
-          {{ campaign.clicks || 0 }}
-        </p>
-        <ng-template #loadingTotals>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-
-      </div>
-      <div
-        class="
-          adsh-box
-          adsh-box--large">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Cost
-        </p>
-        <p *ngIf="campaign"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-cost">
-          {{ (campaign.cost || 0)  | adsharesTokenValue:4}}
-        </p>
-      </div>
-      <div *ngIf="campaign.conversions"
-           class="
-          adsh-box
-          adsh-box--large">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">Conversions</p>
-        <p
-          class="
-            adsh-heading
-            adsh-heading--primary"
-          data-test="advertiser-campaign-conversions">
-          {{ campaign.conversions || 0 }}
-        </p>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
-      </div>
-      <div *ngIf="campaign.conversions"
-           class="
-          adsh-box
-          adsh-box--large">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--small">
-          Cost/Conv
-        </p>
-        <p *ngIf="campaign; else loadingTotals"
-           class="
-            adsh-heading
-            adsh-heading--primary"
-           data-test="advertiser-campaign-cost-converions-ratio">
-          {{ campaign.cost / campaign.conversions | adsharesTokenValue:2 }}
-        </p>
-        <ng-template #loadingTotals>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-        <p
-          class="
-            adsh-copy
-            adsh-copy--x-small
-            adsh-blue">
-          - (-%)
-        </p>
-      </div>
-    </div>
-
-
-    <!--̣Campaign list section-->
-
-    <div
-      class="
-          adsh-box
-          adsh-box--large
-          hidden-md"
-    >
-      <div
-        class="
-          adsh-box
-          adsh-box&#45;&#45;large
-          hidden-md"
-      >
-        <div class="justify-between row">
-
-          <app-chart-filter-by-type
-            class="details-filters"
-            [detailsPage]="true"
-            (updateSeries)="appChartRef.updateChartDataSeries($event)"
-          ></app-chart-filter-by-type>
-          <app-chart-filter
-            class="details-filters"
-            (filter)="appChartRef.updateChartData($event)"
-          ></app-chart-filter>
-        </div>
-        <div
-          class="
-            row
-            align-center
-            justify-center
-            chart-wrapper"
-        >
-          <app-chart
-            class="
-              chart
-              row
-              align-center
-              justify-center"
-            (update)="getChartData($event, campaign.id)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
-        </div>
-      </div>
-    </div>
 
     <!--̣Campaign list section-->
 
@@ -511,28 +382,16 @@
         >
           List of Ads
         </p>
-        <button
-          class="
-           adsh-btn
-           adsh-btn--blue
-           hidden-md"
-          (click)="navigateToCampaignEdition('create-ad', 3)"
-          data-test="publisher-site-edit">
-          <img
-            class="
-            adsh-icon
-            adsh-icon--prepend"
-            src="assets/images/edit.svg"
-            alt="Edit icon">
-             Edit Ads
-        </button>
       </div>
-      <app-ad-list *ngIf="campaign.ads.length" [adList]="campaign.ads"></app-ad-list>
+      <app-ad-list *ngIf="campaign.ads.length"
+                   [adList]="campaign.ads"
+                   [campaign]="campaign"></app-ad-list>
     </section>
 
     <div
       class="
         adsh-box
+        adsh-box--no-padding
         hidden-md">
       <div
         class="
@@ -543,7 +402,6 @@
             row
             align-center
             adsh-btn
-            adsh-btn--large
             adsh-btn--white
             adsh-btn--no-border"
           (click)="navigateToCampaignEdition('create-ad', 3)">
@@ -567,3 +425,4 @@
 <ng-template #loading>
   <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
 </ng-template>
+
