@@ -1,7 +1,7 @@
 .checkmark,
 .input-valid {
   position: absolute;
-  bottom: 14px;
+  bottom: 7px;
   right: 14px;
   width: 16px;
   height: 16px;
@@ -31,7 +31,7 @@
   &-label {
     @include font(12, medium);
     color: pal(gray);
-    margin: 16px 0 7px;
+    margin: 7px 0 2px;
     display: inline-block;
   }
 
@@ -125,12 +125,13 @@ input[type=radio]:checked + label {
   @include font(14, semi);
   background: pal(white);
   margin: 0 auto;
-  padding: 0 0 0 15px;
+  padding: 0 35px 0 15px;
   height: 42px;
   border: 1px solid pal(gray, x-light);
   /* needed */
   appearance: none;
   outline: none;
+  box-sizing: border-box;
 
   &:after {
     position: absolute;
@@ -145,6 +146,7 @@ input[type=radio]:checked + label {
   }
 
   .mat-select-value {
+    text-align: initial;
     vertical-align: middle; // vertically alligned selected value
   }
 

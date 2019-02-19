@@ -13,7 +13,7 @@ $palette-colors: (
     mid-light: #d3d7dc,
     base: #aebac7,
     light-dark: #abb4bd,
-    mid-dark: #99a3ae,
+    mid-dark: #6c6d6e, // previously: #99a3ae,
     dark: #4e576e
   ),
   white: (
@@ -39,7 +39,8 @@ $palette-colors: (
   ),
   red: (
     light: #fff2f2,
-    base: #ff7e7e
+    base: #ff7e7e,
+    dark: #f0001e,
   )
 );
 

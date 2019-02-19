@@ -35,7 +35,7 @@
 
   &--x-small {
     width: 5px;
-  	height: 5px;
+    height: 5px;
   }
 
   &.inactive {
@@ -99,7 +99,7 @@
   height: 18px;
 
   &--prepend {
-    margin-right: 15px;
+    margin-right: 10px;
 
     &.close {
       margin-right: 8px;
@@ -127,16 +127,16 @@
   &:before {
     border-color: pal(navy);
     border-style: solid;
-  	border-width: 0.15em 0.15em 0 0;
-  	content: '';
-  	display: inline-block;
-  	height: 4px;
-  	left: 7px;
-  	position: absolute;
-  	top: 5px;
-  	transform: rotate(135deg);
-  	vertical-align: top;
-  	width: 4px;
+    border-width: 0.15em 0.15em 0 0;
+    content: '';
+    display: inline-block;
+    height: 4px;
+    left: 7px;
+    position: absolute;
+    top: 5px;
+    transform: rotate(135deg);
+    vertical-align: top;
+    width: 4px;
   }
 
   &--left:before {
@@ -190,20 +190,26 @@
   border-radius: 2px;
   background-color: pal(white);
   border: 1px solid pal(gray, nearly-white);
-  padding: 13px 15px;
-  margin: 2px 0;
+  padding: 5px 7px;
+  margin-top: 2px;
 
   & .adsh-box {
-    border: none
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &--mid-size {
+    padding: 10px;
   }
 
   &--large {
     padding: 25px;
-    margin: 10px 0;
+    margin-top: 2px;
   }
 
   &--high {
-    margin: 10px 0;
+    margin-top: 2px;
   }
 
   &--small {
@@ -246,11 +252,15 @@
   &--dashed {
     border-style: dashed;
   }
+
+  &--no-padding {
+    padding: 0;
+  }
 }
 
 .adsh-chip-box {
   background-color: pal(gray, x-light);
-  color: pal(gray, mid-dark);
+  color: pal(gray, dark);
   @include font(11, semi);
   padding: 7px;
   border-radius: 2px;
@@ -281,6 +291,9 @@
   background-color: pal(navy, light);
 }
 
+.adsh-bg-gray--light {
+  background-color: pal(gray, light);
+}
 
 /*
   positioning
@@ -304,15 +317,25 @@ router-outlet ~ * {
   min-height: 100%
 }
 
-
 /*
   status
 */
 
 .adsh-status {
-  @include font(10, bold);
+  @include font(12, bold);
   text-transform: uppercase;
-  width: 75px;
+  width: 100%;
+  padding: 4px 5px;
+
+  & .mat-select-value-text {
+    font-weight: bold;
+  }
+
+  & .mat-select-arrow {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    margin: 0 0 0 3px;
+  }
 
   &[data-status="active"] {
     color: pal(green);
@@ -322,6 +345,11 @@ router-outlet ~ * {
   &[data-status="inactive"] {
     color: pal(blue);
     background-color: pal(blue, light);
+  }
+
+  &[data-status="suspended"] {
+    color: pal(red);
+    background-color: pal(red, light);
   }
 
   &[data-status="archived"],
@@ -350,7 +378,7 @@ router-outlet ~ * {
 */
 
 .breadcrumbs {
-  margin-bottom: 20px;
+  margin: 6px 0;
 
   &-divider {
     margin: 0 10px;
@@ -362,8 +390,11 @@ router-outlet ~ * {
   width: 100%;
 }
 
+.clickable-area {
+  padding: 30px 0;
+}
+
 .clickable-row:hover {
-  background-color: pal(gray, ultra-light);
   cursor: pointer;
 }
 
@@ -399,4 +430,22 @@ router-outlet ~ * {
 
 .break-word {
   word-wrap: break-word;
+}
+
+
+.status-wrapper {
+  min-width: 140px;
+  margin-right: 8px;
+
+  &__list-item {
+    padding: 4px;
+  }
+
+  .adsh-select {
+    border: 1px solid pal(gray, light);
+  }
+}
+
+.hidden {
+  display: none !important;
 }

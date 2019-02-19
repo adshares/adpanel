@@ -1,5 +1,10 @@
 @import '../../../../../styles.scss';
 
+.app-targeting-display {
+  display: flex;
+  margin-bottom: 4px;
+}
+
 .hide-remove {
   .mat-chip-remove {
     display: none;
@@ -10,10 +15,6 @@
   &__exclude-text {
     color: pal(red);
   }
-}
-
-.selected-chips {
-  margin-top: 5px;
 }
 
 .chip {

@@ -24,7 +24,7 @@
     </p>
   </div>
   <div
-    class="adsh-box"
+    class="adsh-box adsh-box--no-padding"
     *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index"
   >
     <form
@@ -67,7 +67,8 @@
           <div
             class="
               row
-              no-gutters"
+              no-gutters
+              justify-between"
           >
             <div
               class="
@@ -101,46 +102,6 @@
               </div>
             </div>
 
-            <div
-              class="
-                col-md-offset-1
-                col-md-5
-                col-lg-2
-                col-xxl-2"
-            >
-              <div class="adsh-form-input__box">
-                <label class="adsh-form-label">Ad Type</label>
-                <mat-select
-                  class="adsh-select"
-                  formControlName="type"
-                  data-test="publisher-edit-site-create-ad-units-form-ad-type-select"
-                >
-                  <mat-option
-                    *ngFor="let adType of adTypes;"
-                    [value]="adType"
-                    data-test="publisher-edit-site-create-ad-units-form-ad-type-option"
-                  >
-                    {{ adType }}
-                  </mat-option>
-                </mat-select>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="
-              row
-              align-end
-              justify-between"
-          >
-            <div
-              class="
-                col-xs-3
-                adsh-copy
-                adsh-copy--light"
-            >
-              Size of Unit
-            </div>
 
             <div class="col-xs-3">
               <div class="adsh-form-input__box">
@@ -161,13 +122,44 @@
                 </mat-select>
               </div>
             </div>
+
+            <!--   AD type -->
+            <!--<div-->
+            <!--class="-->
+            <!--col-md-offset-1-->
+            <!--col-md-5-->
+            <!--col-lg-2-->
+            <!--col-xxl-2"-->
+            <!--&gt;-->
+            <!--<div class="adsh-form-input__box">-->
+            <!--<label class="adsh-form-label">Ad Type</label>-->
+            <!--<mat-select-->
+            <!--class="adsh-select"-->
+            <!--formControlName="type"-->
+            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-select"-->
+            <!--&gt;-->
+            <!--<mat-option-->
+            <!--*ngFor="let adType of adTypes;"-->
+            <!--[value]="adType"-->
+            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-option"-->
+            <!--&gt;-->
+            <!--{{ adType }}-->
+            <!--</mat-option>-->
+            <!--</mat-select>-->
+            <!--</div>-->
+            <!--</div>-->
           </div>
 
           <div
             class="
-              row
-              justify-between
-              site-edit-create-ad-units__ad-units-container"
+                adsh-form-label
+                site-edit-create-ad-units__unit-label"
+          >
+            Size of Unit
+          </div>
+          <div
+            [ngClass]="filteredAdUnitSizes[adUnitIndex].length > 4 ? 'justify-between' : 'justify-start'"
+            class="row"
           >
             <div
               class="site-edit-create-ad-units__ad-unit"
@@ -183,42 +175,47 @@
                   row
                   align-center
                   justify-center
-                  site-edit-create-ad-uniTS _ad-unit__visualization-box"
+                  site-edit-create-ad-unit__ad-unit__visualization-box"
               >
                 <div
                   [ngClass]="adUnit.type"
-                  class="site-edit-create-ad-uniTS _ad-unit__visualization"
+                  class="adsh-copy site-edit-create-ad-units_ad-unit__visualization"
                   data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-                >
-                  {{ adSizesEnum[adUnit.size] }}
+                > {{ adUnit.name }}
                 </div>
               </div>
 
-              <div
+              <strong
                 class="
+                  site-edit-create-ad-units__ad-unit-title
                   adsh-heading
                   adsh-heading--secondary"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
-                {{ adUnit.name }}
+                {{ adSizesEnum[adUnit.size] }}
+
+              </strong>
+              <div>
+                <div
+                  class="adsh-chip-box"
+                  *ngFor="let tag of adUnit.tags"
+                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+                >
+                  {{ tag }}
+                </div>
               </div>
 
-              <div
-                class="adsh-chip-box"
-                *ngFor="let tag of adUnit.tags"
-                data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
-              >
-                {{ tag }}
-              </div>
             </div>
           </div>
-          <div class="row">
+          <div class="
+                     row
+                     justify-end
+                     site-edit-create-ad-units__delete-btn-wrapper">
             <button
               class="
               adsh-btn
               adsh-btn--white
-              adsh-blue
-              save-as-draft"
+              adsh-blue"
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
@@ -240,16 +237,15 @@
   <div
     class="
       row
+      justify-center
       adsh-box
-      adsh-box--large"
+      adsh-box--no-padding"
   >
-
     <button
       class="
         row
         align-center
         adsh-btn
-        adsh-btn--large
         adsh-btn--white
         adsh-btn--no-border"
       (click)="createEmptyAd()"

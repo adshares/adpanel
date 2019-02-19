@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationStart, Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 import {MatDialog} from '@angular/material';
 
@@ -12,6 +11,8 @@ import * as advertiserActions from 'store/advertiser/advertiser.actions';
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes} from 'models/enum/ad.enum';
+import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
+import {HandleSubscription} from "common/handle-subscription";
 import {cloneDeep, enumToArray, simpleValidateHtmlStr} from 'common/utilities/helpers';
 import {adInitialState} from 'models/initial-state/ad';
 import {Ad, Campaign} from 'models/campaign.model';
@@ -19,7 +20,6 @@ import {environment} from 'environments/environment';
 import {appSettings} from 'app-settings';
 import {AppState} from 'models/app-state.model';
 import {SessionService} from "../../../session.service";
-import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
 
 interface ImagesStatus {
   overDrop: boolean[];
@@ -39,8 +39,7 @@ interface ImagesStatus {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription[] = [];
+export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   adSizes: string[] = enumToArray(adSizesEnum);
@@ -73,19 +72,18 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     private session: SessionService,
     private matDialog: MatDialog,
   ) {
+    super();
   }
 
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
     subscription && this.subscriptions.push(subscription);
-
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
-
         if (!campaignNameFilled) {
           this.changesSaved = true;
           return;
@@ -93,7 +91,7 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
 
         const savedAds = lastEditedCampaign.ads;
 
-        if (savedAds) {
+        if (!!savedAds.length) {
           savedAds.forEach((savedAd, index) => {
             this.adForms.push(this.generateFormField(savedAd, this.isEditMode));
             this.ads.push(cloneDeep(savedAd));
@@ -104,10 +102,6 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
         }
       });
     this.subscriptions.push(lastCampaignSubscription);
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   createEmptyAd(): void {
@@ -186,17 +180,20 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     return heightRatio <= widthRatio ? heightRatio : widthRatio;
   }
 
-  showImageSizeWarning(adSize: string, imageSize: string): void {
-    const imageSizesArray = imageSize.split('x');
-    const adSizesArray = adSize.split('x');
-    const showWarning = adSizesArray.find((size, index) => parseInt(size) !== parseInt(imageSizesArray[index]));
+  selectProperBannerSize(imageSize: string, index: number) {
+    const sizeIndex = this.adSizes.findIndex(size => size === imageSize);
+    if (sizeIndex !== -1) {
+      this.adForms[index].get('size').setValue(sizeIndex);
+    } else {
+      this.showImageSizeWarning();
+    }
+  }
 
-    if (!showWarning) return;
-
+  showImageSizeWarning(): void {
     this.matDialog.open(WarningDialogComponent, {
       data: {
         title: 'Inconsistent sizes',
-        message: 'Size of uploaded image is different than selected ad size. \n ' +
+        message: 'We couldn\'t find size option matching uploaded banner dimensions. \n ' +
           'You may consider changing ad banner size or upload new image',
       }
     });
@@ -214,7 +211,9 @@ export class EditCampaignCreateAdsComponent implements OnInit, OnDestroy {
     image.onSuccess = (res) => {
       const parsedResponse = JSON.parse(res);
 
-      this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
+
+      this.selectProperBannerSize(parsedResponse.size, adIndex);
+      // this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
 
       Object.assign(this.ads[adIndex], {
         imageUrl: parsedResponse.imageUrl,

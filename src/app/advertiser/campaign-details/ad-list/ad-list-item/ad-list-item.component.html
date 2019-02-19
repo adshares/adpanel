@@ -1,4 +1,4 @@
-<div class="adsh-box">
+<div class="adsh-box adsh-box--no-padding">
   <div class="adsh-ad-list__item">
     <div
       class="
@@ -44,7 +44,7 @@
       <div
         class="
           adsh-ad-list__item--type
-          col-xs-5
+          col-xs-4
           row
           align-center"
       >
@@ -89,7 +89,8 @@
           row
           align-center"
       >
-      <span data-test="advertiser-ad-average-cpc">
+      <span data-test="advertiser-ad-average-cpc"
+            [title]="(ad.averageCpc || 0) | adsharesTokenValue">
         {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
       </span>
       </div>
@@ -99,9 +100,26 @@
           row
           align-center"
       >
-      <span data-test="advertiser-ad-cost">
+      <span data-test="advertiser-ad-cost"
+            [title]=" (ad.cost || 0) | adsharesTokenValue">
         {{ (ad.cost || 0) | adsharesTokenValue:2}}
       </span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          clickable-row
+          clickable-area
+          align-center
+          justify-center
+          adsh-campaign-list__item-campaign-details"
+        (click)="navigateToAdEdition()"
+      >
+        <img
+          src="/assets/images/chevron--right.svg"
+          alt="Campaign Details Icon"
+        >
       </div>
     </div>
   </div>

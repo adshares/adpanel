@@ -1,13 +1,16 @@
 import {Component, Input} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MatDialog} from "@angular/material";
 
 import {AdvertiserService} from 'advertiser/advertiser.service';
 import {adStatusesEnum, adTypesEnum} from 'models/enum/ad.enum';
-import {Ad} from 'models/campaign.model';
+import {Ad, Campaign} from 'models/campaign.model';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as codes from "common/utilities/codes";
+import * as advertiserActions from "store/advertiser/advertiser.actions";
+import {Store} from "@ngrx/store";
+import {AppState} from "models/app-state.model";
 
 @Component({
   selector: 'app-ad-list-item',
@@ -16,10 +19,15 @@ import * as codes from "common/utilities/codes";
 })
 export class AdListItemComponent {
   @Input() ad: Ad;
+  @Input() campaign: Campaign;
 
   adStatusesEnum = adStatusesEnum;
 
-  constructor(private route: ActivatedRoute, private advertiserService: AdvertiserService, private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute,
+              private advertiserService: AdvertiserService,
+              private dialog: MatDialog,
+              private router: Router,
+              private store: Store<AppState>) {
   }
 
   get adType() {
@@ -49,4 +57,13 @@ export class AdListItemComponent {
       }
     );
   }
+
+  navigateToAdEdition(): void {
+    this.store.dispatch(new advertiserActions.SetLastEditedCampaign(this.campaign));
+    this.router.navigate(
+      ['/advertiser', 'edit-campaign', 'create-ad'],
+      {queryParams: {step: 3}}
+    );
+  }
+
 }

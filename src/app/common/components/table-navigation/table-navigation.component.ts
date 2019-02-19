@@ -16,11 +16,11 @@ export class TableNavigationComponent implements OnInit {
   adListNavigationItems = [
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
-    {title: 'Type', columnWidth: 'col-xs-5', keys: ['type'], sortAsc: true},
+    {title: 'Type', columnWidth: 'col-xs-4', keys: ['type'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
-    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
+    {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
   ];
 
@@ -29,20 +29,20 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Campaign Title', columnWidth: 'col-xs-4', keys: ['basicInformation', 'name'], sortAsc: true},
     {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
-    {title: 'Average CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
+    {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true}
   ];
 
   siteListNavigationItems = [
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
-    {title: 'Website Name', columnWidth: 'col-xs-4', keys: ['name'], sortAsc: true},
-    {title: 'Estimated Revenue', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
+    {title: 'Website Name', columnWidth: 'col-xs-5', keys: ['name'], sortAsc: true},
+    {title: 'Est. Revenue', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
-    {title: 'Impressions', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
+    {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
-    {title: 'Average Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true}
+    {title: 'Avg. Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true}
   ];
 
   userListNavigationItems = [

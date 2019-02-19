@@ -1,22 +1,47 @@
-import {Component, Input} from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Campaign} from 'models/campaign.model';
-import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import * as codes from "common/utilities/codes";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {AdvertiserService} from "advertiser/advertiser.service";
+import {enumToArray} from "common/utilities/helpers";
+import {MatDialog} from "@angular/material";
+import {AppState} from "models/app-state.model";
+import {Store} from "@ngrx/store";
+
+import * as advertiserActions from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list-item',
   templateUrl: './campaign-list-item.component.html',
   styleUrls: ['./campaign-list-item.component.scss'],
 })
-export class CampaignListItemComponent {
+export class CampaignListItemComponent implements OnInit {
   @Input() campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
+  campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
+  currentCampaignStatus: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private dialog: MatDialog,
+              private advertiserService: AdvertiserService,
+              private store: Store<AppState>) {
+  }
+
+  ngOnInit() {
+    this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
   }
 
   navigateToCampaignDetails(campaignId: number) {
     this.router.navigate(['/advertiser', 'campaign', campaignId]);
+  }
+
+  onCampaignStatusChange(status) {
+    this.currentCampaignStatus = status.value;
+    this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
+    this.store.dispatch(new advertiserActions.UpdateCampaignStatus(
+      {id: this.campaign.id, status: this.campaign.basicInformation.status}));
   }
 }

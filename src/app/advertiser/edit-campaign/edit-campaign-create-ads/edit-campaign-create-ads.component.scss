@@ -18,11 +18,9 @@
   }
 
   .adsh-box {
-    margin: 30px 0;
+    margin: 8px 0;
 
-    &__preview{
-      padding: 18px 20px;
-
+    &__preview {
       iframe {
         background-color: pal(gray, x-light);
         margin: 124px auto 157px;

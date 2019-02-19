@@ -99,6 +99,17 @@ export class AdvertiserEffects {
         return Observable.of(new advertiserActions.UpdateCampaignFailure(err)
         )
       })
-    )
+    );
 
+  @Effect()
+  updateCampaignStatus = this.actions$
+    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.updateStatus(payload.id, payload.status)
+      .map(() => new advertiserActions.UpdateCampaignStatusSuccess(payload))
+      .catch((err) => {
+        return Observable.of(new advertiserActions.UpdateCampaignStatusFailure(err)
+        )
+      })
+    );
 }

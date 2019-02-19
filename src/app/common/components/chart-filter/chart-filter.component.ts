@@ -16,7 +16,10 @@ import {enumToObjectArray} from "common/utilities/helpers";
 })
 export class ChartFilterComponent extends HandleSubscription implements OnInit, OnChanges {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
+  @Output('closed') closedStream: EventEmitter<boolean>;
+  @Output('opened') openedStream: EventEmitter<boolean>;
   @Input() small: boolean = false;
+
   dateFrom = new FormControl(moment(new Date()).subtract(1, 'months'));
   dateTo = new FormControl(moment(new Date()));
   today = new Date();
@@ -24,6 +27,12 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
 
   filterPresets: FilterPreset[] = enumToObjectArray(filterPresetsEnum);
   currentChartFilterSettings: ChartFilterSettings;
+  currentFilterPreset: FilterPreset;
+  currentFromFilter: string;
+  currentToFilter: string;
+
+  datepickerVisible: boolean = false;
+  calendarOpened: boolean;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -44,6 +53,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   }
 
   filterChart(from, to, isFromDatepicker) {
+    this.hideDatepicker();
     const timespan = {
       from: isNaN(from) ? from.value._d : moment().startOf('day').subtract(from, 'days'),
       to: isNaN(to) ? moment(to.value._d).endOf('day') : moment().endOf('day')
@@ -73,5 +83,24 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   updateCurrentDaysSpan() {
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
+    this.currentFilterPreset = this.filterPresets.find(p => p.id === this.currentDaysSpan);
+    this.currentFromFilter = moment(this.currentChartFilterSettings.currentTo).format('L');
+    this.currentToFilter = moment(this.currentChartFilterSettings.currentFrom).format('L');
+  }
+
+  showDatepicker() {
+    this.datepickerVisible = true;
+  }
+
+  hideDatepicker() {
+    if (!this.calendarOpened) {
+      this.datepickerVisible = false;
+    }
+  }
+
+  setCalendarStatus(status) {
+    setTimeout(() => {
+      this.calendarOpened = status;
+    }, 500)
   }
 }
