@@ -40,9 +40,9 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   ngOnChanges() {
+    this.deselectRemovedOptions();
     if (this.selectedItems.length === this.addedItems.length) return;
     this.selectedItems = this.addedItems;
-    this.deselectRemovedOptions();
     this.selectSavedItemOnList();
   }
 
@@ -75,16 +75,14 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   toggleItem(option: TargetingOptionValue) {
-    const itemToAddIndex = this.selectedItems.findIndex((item) => item.id === option.id);
-    const itemToRemoveIndex = this.selectedItems.findIndex((item) => item.id === option.id);
+    const optionIndex = this.selectedItems.findIndex((item) => item.id === option.id);
 
     option.selected = !option.selected;
 
     if (option.selected) {
-      this.handleAddItem(option, itemToAddIndex);
-      return;
+      this.handleAddItem(option, optionIndex);
     } else {
-      this.handleRemoveItem(option, itemToRemoveIndex);
+      this.handleRemoveItem(option, optionIndex);
     }
   }
 
@@ -108,18 +106,16 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   ) {
     this.selectedItems.splice(itemToRemoveIndex, 1);
     this.itemsChange.emit(this.selectedItems);
-    this.deselectRemovedOptions();
   }
 
   deselectOppositeBoolean(option: TargetingOptionValue) {
     const optionList = findOptionList(option.id, this.targetingOptions);
     const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
-    this.itemsChange.emit(this.selectedItems);
     if (oppositeOption && oppositeOption['selected']) {
       this.selectedItems = [...this.selectedItems.filter((option) => option.id !== oppositeOption.id)];
-      this.itemsChange.emit(this.selectedItems);
       Object.assign(oppositeOption, {selected: false});
     }
+    this.itemsChange.emit(this.selectedItems);
   }
 
   deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions) {
@@ -130,6 +126,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
         return;
       }
       const itemInOptionsIndex = this.selectedItems.findIndex((addedItem) => addedItem.id === option.id);
+      this.selectedItems = this.addedItems;
       if (itemInOptionsIndex < 0) {
         Object.assign(option, {selected: false});
       }
