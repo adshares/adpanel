@@ -1,15 +1,41 @@
 <div class="dashboard-view">
   <div class="container">
-    <button
-      type="button"
-      class="
+
+    <div>
+      <button
+        type="button"
+        class="
         adsh-btn
         adsh-btn--white
         adsh-blue"
-      role="link"
-      (click)="onStepBack()"
-    >
-      {{isGlobal ? 'Back to Dashboard' : 'Back to Site'}}
-    </button>
+        role="link"
+        (click)="onStepBack()"
+      >
+        {{isGlobal ? 'Back to Dashboard' : 'Back to Site'}}
+      </button>
+    </div>
+
+    <div class="adsh-ad-list__items">
+      <div class="adsh-box">
+
+        <!-- TODO create custom navigation bar-->
+        <app-table-navigation
+          [navigationName]="'adListNavigation'"
+          class="
+            row
+            adsh-copy
+            adsh-copy--small"
+          (sortTable)="sortTable($event)"
+        ></app-table-navigation>
+
+      </div>
+
+      <app-classifier-list-item
+        *ngFor="let bannerClassification of bannerClassifications"
+        [bannerClassification]="bannerClassification"
+        [siteId]="siteId"
+      ></app-classifier-list-item>
+    </div>
+
   </div>
 </div>

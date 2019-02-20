@@ -30,6 +30,7 @@ import {SiteResolver} from './resolvers/site.resolver';
 import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {ClassifierComponent} from './classifier/classifier.component';
+import {ClassifierListItemComponent} from './classifier/classifier-list-item/classifier-list-item.component';
 
 
 const editSiteComponents = [
@@ -50,6 +51,7 @@ const publisherComponents = [
   AdUnitsComponent,
   SiteCodeDialogComponent,
   ClassifierComponent,
+  ClassifierListItemComponent,
 ];
 
 @NgModule({
