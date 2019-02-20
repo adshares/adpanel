@@ -6,10 +6,10 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs/Observable';
 import * as advertiserActions from './advertiser.actions';
-import * as authActions from 'store/auth/auth.actions';
-
 import "rxjs/add/operator/take";
 import * as moment from "moment";
+import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import {MatDialog} from "@angular/material";
 
 @Injectable()
 export class AdvertiserEffects {
@@ -17,6 +17,7 @@ export class AdvertiserEffects {
     private actions$: Actions,
     private service: AdvertiserService,
     private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -42,9 +43,9 @@ export class AdvertiserEffects {
       const to = moment(payload.to).format();
 
       return this.service.getCampaignsTotals(
-      `${from}`, `${to}`)
-      .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals))
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignsTotalsFailure()))
+        `${from}`, `${to}`)
+        .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals))
+        .catch(() => Observable.of(new advertiserActions.LoadCampaignsTotalsFailure()))
     });
 
   @Effect()
@@ -111,5 +112,34 @@ export class AdvertiserEffects {
         return Observable.of(new advertiserActions.UpdateCampaignStatusFailure(err)
         )
       })
+    );
+
+  @Effect()
+  deleteCampaign = this.actions$
+    .ofType(advertiserActions.DELETE_CAMPAIGN)
+    .map(toPayload)
+    .switchMap((payload) => this.service.deleteCampaign(payload)
+      .map(() => {
+        this.router.navigate(['/advertiser', 'dashboard']);
+        return new advertiserActions.DeleteCampaignSuccess(payload)
+      })
+      .catch((err) => {
+        return Observable.of(new advertiserActions.DeleteCampaignFailure(err)
+        )
+      })
+    );
+
+  @Effect()
+  errorHandle = this.actions$
+    .ofType(advertiserActions.DELETE_CAMPAIGN_FAILURE)
+    .map(toPayload)
+    .map(() => {
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            title: `Campaign cannot be deleted`,
+            message: `Given campaign cannot be deleted at this moment. Please try again, later`,
+          }
+        });
+      }
     );
 }
