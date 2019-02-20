@@ -109,26 +109,9 @@
     >
       {{ option.label }}
     </span>
-
-    <span
-      *ngIf="optionsHasValue"
-      class="adsh-circle inactive"
-    ></span>
-
-    <span
-      *ngIf="option.selected"
-      class="input-valid"
+    <span [ngClass]="{'input-valid': option.selected}"
+      class="checkmark-unselected"
     ></span>
   </div>
 </div>
 
-<button
-  *ngIf="optionsHasValue"
-  (click)="handleItemsChange()"
-  class="
-    adsh-btn
-    adsh-btn--blue"
-  data-test="common-targeting-select-add-selected-options-button"
->
-  Add Selected
-</button>
