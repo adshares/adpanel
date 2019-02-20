@@ -29,6 +29,7 @@ import {SiteCodeDialogComponent} from './dialogs/site-code-dialog/site-code-dial
 import {SiteResolver} from './resolvers/site.resolver';
 import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
+import {ClassifierComponent} from './classifier/classifier.component';
 
 
 const editSiteComponents = [
@@ -47,7 +48,8 @@ const publisherComponents = [
   SiteListComponent,
   SiteListItemComponent,
   AdUnitsComponent,
-  SiteCodeDialogComponent
+  SiteCodeDialogComponent,
+  ClassifierComponent,
 ];
 
 @NgModule({

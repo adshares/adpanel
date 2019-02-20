@@ -167,6 +167,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
+  navigateToClassification(): void {
+    this.router.navigate(
+      ['/publisher', 'site', this.site.id, 'classifier'],
+    );
+  }
+
   onSiteStatusChange() {
     if (this.canActivateSite) {
       this.currentSiteStatus = 'active';
