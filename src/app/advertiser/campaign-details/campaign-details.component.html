@@ -65,32 +65,12 @@
                 [attr.data-status]="currentCampaignStatus">
               {{ currentCampaignStatus }}
             </span>
-          <button class="adsh-btn adsh-btn--white adsh-status adsh-status--btn"
+          <button class="adsh-btn adsh-btn--white adsh-status--btn adsh-copy--dark"
                   (click)="onCampaignStatusChange($event)"
                   [attr.data-status]="currentCampaignStatus">
             {{ statusButtonLabel }}
           </button>
         </div>
-
-
-        <!--<div class="status-wrapper">-->
-        <!--<mat-select class="adsh-select"-->
-        <!--[(value)]="currentCampaignStatus"-->
-        <!--(change)="onCampaignStatusChange($event)"-->
-        <!--data-test="advertiser-campaign-status-select"-->
-        <!--&gt;-->
-        <!--<mat-option *ngFor="let option of campaignStatusesEnumArray"-->
-        <!--[ngClass]="{'hidden': (-->
-        <!--option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||-->
-        <!--option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"-->
-        <!--[value]="option"-->
-        <!--data-test="advertiser-campaign-status-select-option"-->
-        <!--&gt;-->
-        <!--{{ option }}-->
-        <!--</mat-option>-->
-        <!--</mat-select>-->
-        <!--</div>-->
-
         <button
           class="
             adsh-btn
