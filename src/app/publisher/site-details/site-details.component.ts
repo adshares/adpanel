@@ -11,7 +11,7 @@ import {Site, SiteLanguage} from 'models/site.model';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import {ChartData} from 'models/chart/chart-data.model';
 import {AssetTargeting} from 'models/targeting-option.model';
-import {createInitialArray, enumToArray} from 'common/utilities/helpers';
+import {createInitialArray, enumToArray, sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import {siteStatusEnum} from 'models/enum/site.enum';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -21,6 +21,7 @@ import {MatDialog} from "@angular/material";
 import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as codes from "common/utilities/codes";
 import {ChartComponent} from "common/components/chart/chart.component";
+import {TableColumnMetaData} from "models/table.model";
 
 @Component({
   selector: 'app-site-details',
@@ -30,6 +31,7 @@ import {ChartComponent} from "common/components/chart/chart.component";
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   site: Site;
+  adUnit: Site;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
@@ -77,6 +79,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartFilterSubscription, sitesSubscription);
+  }
+
+  sortTable(columnMetaData: TableColumnMetaData) {
+    this.site.adUnits = sortArrayByColumnMetaData(this.site.adUnits, columnMetaData);
   }
 
   deleteSite() {

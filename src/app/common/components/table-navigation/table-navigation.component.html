@@ -10,8 +10,8 @@
   data-test="common-sort-assets-toggle"
 >
   {{ menuItem.title }}
-  <th
-    *ngIf="menuItem.title"
+   <th
+    *ngIf="!menuItem.hideArrows"
     class="
       col
       adsh-ad-list__sort"

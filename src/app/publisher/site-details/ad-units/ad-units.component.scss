@@ -2,7 +2,7 @@
 
 .ad-unit {
   &__cell {
-    margin: 0;
+    margin: 0 0 0 0.5rem;
     padding: 0;
     display: flex;
     align-items: center;
@@ -16,6 +16,10 @@
       max-width: 100%;
       padding: 4px;
     }
+  }
+
+  &__cell-value {
+    margin-left: 0.5rem;
   }
 
   &__btn-icon {

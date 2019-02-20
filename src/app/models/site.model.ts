@@ -36,14 +36,14 @@ interface AdUnit {
   type: string;
   size: AdUnitSize;
   status: number;
-
   code?: string;
-  budget?: number;
+
   clicks?: number;
   impressions?: number;
-  CTR?: number;
-  averageCPC?: number;
-  cost?: number;
+  ctr?: number;
+  averageRpc?: number;
+  averageRpm?: number;
+  revenue?: number;
 }
 
 interface AdUnitSize {

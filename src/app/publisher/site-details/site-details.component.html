@@ -298,10 +298,11 @@
       >
         <app-table-navigation
           [navigationName]="'adUnitsNavigation'"
-          class="
-                    row
-                    adsh-copy
-                    adsh-copy--small"
+          (sortTable)="sortTable($event)"
+
+          class="row
+                 adsh-copy
+                 adsh-copy--small"
         ></app-table-navigation>
         <app-ad-units
           *ngFor="let adUnit of site.adUnits"

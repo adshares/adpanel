@@ -1,5 +1,4 @@
 <tr class="adsh-box row justify-between">
-  <!-- unit min / name / size / tags -->
   <td class="col-xs-1 ad-unit__thumbnail-wrapper ad-unit__cell">
     <img class="ad-unit__thumbnail"
          src="/assets/images/board_ads_q_b_800.png"
@@ -20,13 +19,13 @@
     </div>
   </td>
 
-  <!-- est. rev / clicks / views / page PRM (???) /  avg rpc / code -->
-
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> 10 ADS</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> 10 ADS</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> 10 ADS</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> 10 ADS</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> 10 ADS</td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
+  </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
+  </td>
   <td class="col-xs-1 ad-unit__cell">
     <button
       class="
@@ -37,7 +36,7 @@
       (click)="openGetCodeDialog()"
       data-test="publisher-ad-unit-get-code-button"
     >
-      <fa-icon class="ad-unit__btn-icon" [icon]="codeIcon"> </fa-icon>
+      <fa-icon class="ad-unit__btn-icon" [icon]="codeIcon"></fa-icon>
       Get Code
     </button>
   </td>
