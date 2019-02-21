@@ -68,6 +68,13 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Code', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
+  classifierListNavigationItems = [
+    {title: 'Ad', columnWidth: 'col-xs-5', hideArrows: true},
+    {title: 'Ad data', columnWidth: 'col-xs-1', hideArrows: true},
+    {title: 'Campaign', columnWidth: 'col-xs-4', hideArrows: true},
+    {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
+  ];
+
   ngOnInit() {
     switch (this.navigationName) {
       case 'adListNavigation':
@@ -84,6 +91,9 @@ export class TableNavigationComponent implements OnInit {
         break;
       case 'adUnitsNavigation':
         this.navigationItems = [...this.adUnitsNavigation];
+        break;
+      case 'classifierListNavigation':
+        this.navigationItems = [...this.classifierListNavigationItems];
         break;
     }
   }

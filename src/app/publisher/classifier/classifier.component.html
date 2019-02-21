@@ -15,27 +15,25 @@
       </button>
     </div>
 
-    <div class="adsh-ad-list__items">
-      <div class="adsh-box">
-
-        <!-- TODO create custom navigation bar-->
-        <app-table-navigation
-          [navigationName]="'adListNavigation'"
-          class="
-            row
-            adsh-copy
-            adsh-copy--small"
-          (sortTable)="sortTable($event)"
-        ></app-table-navigation>
-
-      </div>
-
+    <table
+      class="
+        col
+        adsh-ad-list"
+    >
+      <app-table-navigation
+        [navigationName]="'classifierListNavigation'"
+        (sortTable)="sortTable($event)"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+      ></app-table-navigation>
       <app-classifier-list-item
         *ngFor="let bannerClassification of bannerClassifications"
         [bannerClassification]="bannerClassification"
         [siteId]="siteId"
       ></app-classifier-list-item>
-    </div>
+    </table>
 
   </div>
 </div>

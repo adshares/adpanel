@@ -1,36 +1,50 @@
-<div class="adsh-box adsh-box--no-padding">
-  <div class="adsh-ad-list__item">
-    <div
-      class="
-        row
-        align-center
-        adsh-copy
-        adsh-copy--semi"
-    >
+<tr class="adsh-box row justify-between no-gutters">
+  <td class="col-xs-5">
+    <!-- TODO change with banner preview component -->
+    <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
+      <img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"
+        class="advertiser-detail-image-preview"/>
+      <span *ngIf="bannerClassification.type === 'html'">html</span>
+    </span>
+  </td>
+  <td class="col-xs-1 col">
+    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ bannerClassification.type }} </span>
+    <span class="text-left adsh-copy adsh-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
+  </td>
+  <td class="col-xs-4 col adsh-copy adsh-copy--semi">
+    <span>
+      Budget: {{ bannerClassification.budget | adsharesTokenValue:4 }}
+    </span>
+    <span>
+      CPC: {{ bannerClassification.cpc | adsharesTokenValue:4 }}
+    </span>
+    <span>
+      CPM: {{ bannerClassification.cpm | adsharesTokenValue:4 }}
+    </span>
+  </td>
+  <td class="col-xs-2">
+    <div>
       <button
         *ngIf="classified !== APPROVED"
-        type="button"
         class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
         (click)="setBannerClassification(APPROVED)"
       >
-        approve
+        Approve
       </button>
-
       <button
         *ngIf="classified !== REJECTED"
-        type="button"
         class="
           adsh-btn
           adsh-btn--white
           adsh-blue"
         (click)="setBannerClassification(REJECTED)"
       >
-        reject
+        Reject
       </button>
-
     </div>
-  </div>
-</div>
+  </td>
+</tr>
+
