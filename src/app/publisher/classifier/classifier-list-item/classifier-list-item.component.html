@@ -1,11 +1,13 @@
 <tr class="adsh-box row justify-between no-gutters">
   <td class="col-xs-5">
     <!-- TODO change with banner preview component -->
-    <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
-      <img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"
-        class="advertiser-detail-image-preview"/>
-      <span *ngIf="bannerClassification.type === 'html'">html</span>
-    </span>
+    <img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"/>
+
+    <iframe
+      *ngIf="bannerClassification.type === 'html'"
+      [src]="bannerClassification.url | trustUrl"
+      [sandbox]="'allow-same-origin allow-scripts'"
+    ></iframe>
   </td>
   <td class="col-xs-1 col">
     <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ bannerClassification.type }} </span>
