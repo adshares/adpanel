@@ -4,6 +4,7 @@ export enum billingHistoryItemStatusEnum {
   REJECTED,
   BLOCKED,
   PROCESSING,
+  AWAITING_APPROVAL,
 }
 
 export enum billingHistoryItemTypeEnum {
