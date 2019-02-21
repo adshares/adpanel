@@ -42,7 +42,7 @@ export class ClassifierListItemComponent implements OnInit {
     const previousClassified = this.classified;
     this.setClassified(isApproved);
 
-    this.publisherService.setBannerClassification(this.bannerClassification, this.siteId).subscribe(
+    this.publisherService.setBannerClassification(this.bannerClassification.bannerId, isApproved, this.siteId).subscribe(
       () => {
       },
       (error: HttpErrorResponse) => {

@@ -122,7 +122,14 @@ export class PublisherService {
     return this.http.get<BannerClassification[]>(`${environment.apiUrl}/classifications/${siteId || ''}`, {params: params});
   }
 
-  setBannerClassification(bannerClassification: BannerClassification, siteId?: number): Observable<number> {
-    return this.http.put<number>(`${environment.apiUrl}/classifications/${siteId || ''}`, bannerClassification);
+  setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
+    const body = {
+      classification: {
+        banner_id: bannerId,
+        status: status,
+      }
+    };
+
+    return this.http.patch<number>(`${environment.apiUrl}/classifications/${siteId || ''}`, body);
   }
 }
