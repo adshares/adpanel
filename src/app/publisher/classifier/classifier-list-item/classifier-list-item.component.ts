@@ -13,6 +13,10 @@ import * as codes from 'common/utilities/codes';
 export class ClassifierListItemComponent implements OnInit {
   @Input() bannerClassification: BannerClassification;
   @Input() siteId: number;
+
+  readonly APPROVED: boolean = true;
+  readonly REJECTED: boolean = false;
+
   isGlobal: boolean;
 
   constructor(private publisherService: PublisherService) {
@@ -30,12 +34,12 @@ export class ClassifierListItemComponent implements OnInit {
     }
   }
 
-  getClassified(): boolean | null {
+  get classified(): boolean | null {
     return this.isGlobal ? this.bannerClassification.classifiedGlobal : this.bannerClassification.classifiedSite;
   }
 
   setBannerClassification(isApproved: boolean): void {
-    const previousClassified = this.getClassified();
+    const previousClassified = this.classified;
     this.setClassified(isApproved);
 
     this.publisherService.setBannerClassification(this.bannerClassification, this.siteId).subscribe(

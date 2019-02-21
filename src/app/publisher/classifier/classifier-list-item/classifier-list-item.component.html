@@ -8,23 +8,25 @@
         adsh-copy--semi"
     >
       <button
+        *ngIf="classified !== APPROVED"
         type="button"
         class="
-        adsh-btn
-        adsh-btn--white
-        adsh-blue"
-        (click)="setBannerClassification(true)"
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+        (click)="setBannerClassification(APPROVED)"
       >
         approve
       </button>
 
       <button
+        *ngIf="classified !== REJECTED"
         type="button"
         class="
-        adsh-btn
-        adsh-btn--white
-        adsh-blue"
-        (click)="setBannerClassification(false)"
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+        (click)="setBannerClassification(REJECTED)"
       >
         reject
       </button>
