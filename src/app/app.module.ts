@@ -44,7 +44,6 @@ const appModules = [
   SettingsModule,
   AdminModule
 ];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,8 +56,7 @@ const appModules = [
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({state: reducer}),
-    // FIXME clean dev import
-    !environment.production ? StoreDevtoolsModule.instrument() : [], // REMOVE CON
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       AdvertiserEffects,
       PublisherEffects,

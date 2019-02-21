@@ -125,8 +125,24 @@ export class AdvertiserEffects {
     );
 
   @Effect()
+  deleteCampaign = this.actions$
+    .ofType(advertiserActions.DELETE_CAMPAIGN)
+    .map(toPayload)
+    .switchMap((payload) => this.service.deleteCampaign(2190)
+      .map(() => {
+        this.router.navigate(['/advertiser', 'dashboard']);
+        return new advertiserActions.DeleteCampaignSuccess(payload)
+      })
+      .catch(() => {
+        return Observable.of(new advertiserActions.DeleteCampaignFailure(
+          `Given campaign cannot be deleted at this moment. Please try again later.`)
+        )
+      })
+    );
+
+  @Effect({dispatch: false})
   handleErrors = this.actions$
-    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS_FAILURE)
+    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS_FAILURE, advertiserActions.DELETE_CAMPAIGN_FAILURE)
     .map(toPayload)
     .do(payload => {
       this.dialog.open(ErrorResponseDialogComponent, {
@@ -135,8 +151,5 @@ export class AdvertiserEffects {
           message: `${payload}`,
         }
       });
-    })
-    .map(() => Observable.of(null));
-
-
+    });
 }
