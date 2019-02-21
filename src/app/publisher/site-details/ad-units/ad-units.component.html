@@ -1,67 +1,44 @@
-<div class="adsh-box">
-  <div class="
-      ad
-      row
-      align-center
-      justify-between"
-  >
-    <div class="
-        row
-        justify-between"
+<tr class="adsh-box row justify-between">
+  <td class="col-xs-1 ad-unit__thumbnail-wrapper ad-unit__cell">
+    <img class="ad-unit__thumbnail"
+         src="/assets/images/board_ads_q_b_800.png"
+         alt="ad-thumbnail"/>
+  </td>
+
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ adUnit.shortHeadline }}</td>
+  <td class="col-xs-1 col justify-around ad-unit__cell ad-unit__cell--start">
+    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ adUnit.size.label }} </span>
+    <span class="text-left adsh-copy adsh-copy--bold"> {{ adUnit.size.width }} x {{adUnit.size.height }} </span>
+  </td>
+  <td class="row col-xs-2 ad-unit__cell">
+    <div class="adsh-chip-box ad-unit__chip-box"
+         *ngFor="let tag of tags"
+         data-test="publisher-ad-unit-tag"
     >
-      <div class="
-          thumbnail-wrapper
-          relative"
-      >
-        <img class="thumbnail"
-             src="/assets/images/board_ads_q_b_800.png"
-             alt="ad-thumbnail"
-        >
-      </div>
-      <div
-        class="
-          col
-          justify-between"
-      >
-        <div>
-          <h6
-            class="
-              adsh-heading
-              adsh-heading--secondary"
-            data-test="publisher-ad-unit-short-headline"
-          >
-            {{ adUnit.shortHeadline }}
-          </h6>
-          <p
-            class="
-              adsh-copy
-              adsh-blue"
-            data-test="publisher-ad-unit-size"
-          >
-            {{ adUnit.size.name }}&nbsp;{{ adUnit.size.width }} x {{ adUnit.size.height }}
-          </p>
-        </div>
-        <div class="row">
-          <div
-            class="adsh-chip-box"
-            *ngFor="let tag of tags"
-            data-test="publisher-ad-unit-tag"
-          >
-            {{ tag }}
-          </div>
-        </div>
-      </div>
+      {{ tag }}
     </div>
+  </td>
+
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
+  </td>
+  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
+  </td>
+  <td class="col-xs-1 ad-unit__cell">
     <button
       class="
         adsh-btn
-        adsh-btn--blue
-        adsh-btn--wide"
+        adsh-btn--with-icon
+        adsh-btn--edit"
       *ngIf="adUnit.code"
       (click)="openGetCodeDialog()"
       data-test="publisher-ad-unit-get-code-button"
     >
+      <fa-icon class="ad-unit__btn-icon" [icon]="codeIcon"></fa-icon>
       Get Code
     </button>
-  </div>
-</div>
+  </td>
+</tr>
+

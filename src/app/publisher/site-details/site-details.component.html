@@ -298,11 +298,27 @@
           Edit Ad Units
         </button>
       </div>
-      <app-ad-units
-        *ngFor="let adUnit of site.adUnits"
-        [siteCode]="site.code"
-        [adUnit]="adUnit"
-      ></app-ad-units>
+
+      <!---->
+      <table
+        class="
+              col
+              adsh-ad-list"
+      >
+        <app-table-navigation
+          [navigationName]="'adUnitsNavigation'"
+          (sortTable)="sortTable($event)"
+
+          class="row
+                 adsh-copy
+                 adsh-copy--small"
+        ></app-table-navigation>
+        <app-ad-units
+          *ngFor="let adUnit of site.adUnits"
+          [siteCode]="site.code"
+          [adUnit]="adUnit"
+        ></app-ad-units>
+      </table>
     </div>
 
     <div

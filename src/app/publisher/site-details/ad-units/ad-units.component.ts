@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material';
+import {faCode} from '@fortawesome/free-solid-svg-icons';
 
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 
@@ -12,6 +13,7 @@ export class AdUnitsComponent implements OnInit{
   @Input() adUnit;
   @Input() siteCode;
   tags: string[];
+  codeIcon = faCode;
 
   constructor(private dialog: MatDialog) {
   }

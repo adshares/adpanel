@@ -26,11 +26,15 @@ import {EditSiteCreateAdUnitsComponent} from './edit-site/edit-site-create-ad-un
 import {EditSiteSummaryComponent} from './edit-site/edit-site-summary/edit-site-summary.component';
 import {AdUnitsComponent} from './site-details/ad-units/ad-units.component';
 import {SiteCodeDialogComponent} from './dialogs/site-code-dialog/site-code-dialog.component';
+import {ClassifierComponent} from './classifier/classifier.component';
+import {ClassifierListItemComponent} from './classifier/classifier-list-item/classifier-list-item.component';
 import {SiteResolver} from './resolvers/site.resolver';
 import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
-import {ClassifierComponent} from './classifier/classifier.component';
-import {ClassifierListItemComponent} from './classifier/classifier-list-item/classifier-list-item.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
 
 
 const editSiteComponents = [
@@ -68,6 +72,7 @@ const publisherComponents = [
     MatSelectModule,
     MatExpansionModule,
     ChartsModule,
+    FontAwesomeModule
   ],
   providers: [
     PublisherGuard,

@@ -36,7 +36,6 @@ import { reducer } from './store/index';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-
 const appModules = [
   AppCommonModule,
   AuthModule,
@@ -58,7 +57,6 @@ const appModules = [
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({state: reducer}),
-    // FIXME clean dev import
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
       AdvertiserEffects,

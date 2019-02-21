@@ -17,10 +17,8 @@ import {createInitialArray, enumToArray} from 'common/utilities/helpers';
 import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 import {HandleSubscription} from 'common/handle-subscription';
 import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import * as codes from 'common/utilities/codes';
 
 @Component({
   selector: 'app-campaign-details',
@@ -67,21 +65,21 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       });
 
 
-    this.store.select('state', 'advertiser', 'campaigns')
+    const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
         this.campaign = campaigns.find(el => {
-          return el.id === id
+          return el.id === id;
         });
-        this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
 
         if (this.campaign) {
+          this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
         }
       });
 
 
-    this.subscriptions.push(chartFilterSubscription);
+    this.subscriptions.push(chartFilterSubscription, campaignSubscription);
   }
 
   deleteCampaign() {
@@ -93,28 +91,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
     dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          this.advertiserService.deleteCampaign(this.campaign.id)
-            .subscribe(
-              () => {
-                this.router.navigate(
-                  ['/advertiser'],
-                );
-              },
-
-              (err) => {
-                if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
-                  this.dialog.open(ErrorResponseDialogComponent, {
-                    data: {
-                      title: `Campaign cannot be deleted`,
-                      message: `Given campaign (${this.campaign.id}) cannot be deleted at this moment. Please try again, later`,
-                    }
-                  });
-                }
-              }
-            );
+          this.store.dispatch(new advertiserActions.DeleteCampaign(this.campaign.id));
         }
-      },
-      () => {
       }
     );
   }
