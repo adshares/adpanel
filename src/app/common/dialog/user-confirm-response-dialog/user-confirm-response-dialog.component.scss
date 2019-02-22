@@ -1,5 +1,11 @@
-.adsh-success {
-  &--large {
-    font-size: 1.5rem !important;
+.dialog{
+  &__confirm-btn {
+    min-width: 120px;
+    margin-left: 16px;
+  }
+  .adsh-success {
+    &--large {
+      font-size: 1.5rem !important;
+    }
   }
 }
