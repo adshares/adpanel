@@ -1,19 +1,6 @@
 <tr class="adsh-box row justify-between no-gutters align-center classifier-list-item__row">
   <td class="col-xs-7 row">
-    <!-- TODO change with banner preview component -->
-  <app-banner-preview [banner]="bannerClassification">
-
-  </app-banner-preview>
-    <!--<img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"-->
-         <!--class="classifier-list-item__banner"-->
-    <!--/>-->
-
-    <!--<iframe-->
-      <!--*ngIf="bannerClassification.type === 'html'"-->
-      <!--[src]="bannerClassification.url | trustUrl"-->
-      <!--[sandbox]="'allow-same-origin allow-scripts'"-->
-      <!--class="classifier-list-item__banner"-->
-    <!--&gt;</iframe>-->
+  <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
   </td>
   <td class="col-xs-1 col">
     <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ bannerClassification.type }} </span>
