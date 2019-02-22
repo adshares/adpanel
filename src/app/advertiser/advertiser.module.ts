@@ -95,7 +95,6 @@ const advertiserComponents = [
 
   declarations: [
     CampaignBudgetPerDayPipe,
-    TrustHtmlPipe,
     ...advertiserComponents,
     ...editCampaignComponents
   ]

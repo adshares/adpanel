@@ -1,28 +1,39 @@
-<tr class="adsh-box row justify-between no-gutters">
-  <td class="col-xs-5">
+<tr class="adsh-box row justify-between no-gutters align-center classifier-list-item__row">
+  <td class="col-xs-7 row">
     <!-- TODO change with banner preview component -->
-    <img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"/>
+  <app-banner-preview [banner]="bannerClassification">
 
-    <iframe
-      *ngIf="bannerClassification.type === 'html'"
-      [src]="bannerClassification.url | trustUrl"
-      [sandbox]="'allow-same-origin allow-scripts'"
-    ></iframe>
+  </app-banner-preview>
+    <!--<img *ngIf="bannerClassification.type === 'image'" src="{{ bannerClassification.url }}" alt="banner"-->
+         <!--class="classifier-list-item__banner"-->
+    <!--/>-->
+
+    <!--<iframe-->
+      <!--*ngIf="bannerClassification.type === 'html'"-->
+      <!--[src]="bannerClassification.url | trustUrl"-->
+      <!--[sandbox]="'allow-same-origin allow-scripts'"-->
+      <!--class="classifier-list-item__banner"-->
+    <!--&gt;</iframe>-->
   </td>
   <td class="col-xs-1 col">
     <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ bannerClassification.type }} </span>
     <span class="text-left adsh-copy adsh-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
   </td>
-  <td class="col-xs-4 col adsh-copy adsh-copy--semi">
-    <span>
-      Budget: {{ bannerClassification.budget | adsharesTokenValue:4 }}
-    </span>
-    <span>
-      CPC: {{ bannerClassification.cpc | adsharesTokenValue:4 }}
-    </span>
-    <span>
-      CPM: {{ bannerClassification.cpm | adsharesTokenValue:4 }}
-    </span>
+  <td class="col-xs-2 col adsh-copy adsh-copy--semi">
+    <ul>
+      <li>
+        Budget:
+        <span class="adsh-copy"> {{ bannerClassification.budget | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPC:
+        <span class="adsh-copy"> {{ bannerClassification.cpc | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPM:
+        <span class="adsh-copy"> {{ bannerClassification.cpm | adsharesTokenValue:4 }} </span>
+      </li>
+    </ul>
   </td>
   <td class="col-xs-2">
     <div>
@@ -31,7 +42,7 @@
         class="
           adsh-btn
           adsh-btn--white
-          adsh-blue"
+          adsh-copy--green"
         (click)="setBannerClassification(APPROVED)"
       >
         Approve
@@ -41,7 +52,7 @@
         class="
           adsh-btn
           adsh-btn--white
-          adsh-blue"
+          adsh-copy--red"
         (click)="setBannerClassification(REJECTED)"
       >
         Reject

@@ -69,9 +69,9 @@ export class TableNavigationComponent implements OnInit {
   ];
 
   classifierListNavigationItems = [
-    {title: 'Ad', columnWidth: 'col-xs-5', hideArrows: true},
+    {title: 'Ad', columnWidth: 'col-xs-7', hideArrows: true},
     {title: 'Ad data', columnWidth: 'col-xs-1', hideArrows: true},
-    {title: 'Campaign', columnWidth: 'col-xs-4', hideArrows: true},
+    {title: 'Campaign', columnWidth: 'col-xs-2', hideArrows: true},
     {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
   ];
 

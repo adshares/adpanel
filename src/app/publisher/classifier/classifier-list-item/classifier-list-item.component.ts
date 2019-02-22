@@ -4,6 +4,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {PublisherService} from 'publisher/publisher.service';
 import {BannerClassification} from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
+import {adTypesEnum} from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-classifier-list-item',
@@ -24,6 +25,10 @@ export class ClassifierListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.isGlobal = this.siteId === null;
+    this.bannerClassification = {
+      ...this.bannerClassification,
+      type: adTypesEnum[this.bannerClassification.type.toUpperCase()],
+    }
   }
 
   setClassified(isApproved: boolean | null): void {

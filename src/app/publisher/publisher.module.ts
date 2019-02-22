@@ -72,7 +72,7 @@ const publisherComponents = [
     MatSelectModule,
     MatExpansionModule,
     ChartsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     PublisherGuard,
