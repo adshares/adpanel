@@ -3,7 +3,7 @@
   <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
   </td>
   <td class="col-xs-1 col">
-    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ bannerClassification.type }} </span>
+    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ adTypesEnum[bannerClassification.type] }} </span>
     <span class="text-left adsh-copy adsh-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
   </td>
   <td class="col-xs-2 col adsh-copy adsh-copy--semi">

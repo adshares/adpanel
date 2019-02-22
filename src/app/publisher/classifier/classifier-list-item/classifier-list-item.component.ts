@@ -14,10 +14,10 @@ import {adTypesEnum} from "models/enum/ad.enum";
 export class ClassifierListItemComponent implements OnInit {
   @Input() bannerClassification: BannerClassification;
   @Input() siteId: number;
-
   readonly APPROVED: boolean = true;
   readonly REJECTED: boolean = false;
 
+  adTypesEnum = adTypesEnum;
   isGlobal: boolean;
 
   constructor(private publisherService: PublisherService) {
@@ -27,7 +27,7 @@ export class ClassifierListItemComponent implements OnInit {
     this.isGlobal = this.siteId === null;
     this.bannerClassification = {
       ...this.bannerClassification,
-      type: adTypesEnum[this.bannerClassification.type.toUpperCase()],
+      type: this.adTypesEnum[this.bannerClassification.type.toUpperCase()],
     }
   }
 
