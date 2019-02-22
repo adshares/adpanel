@@ -88,7 +88,7 @@
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
             </span>
-          <button class="adsh-btn adsh-btn--white adsh-status adsh-status--btn"
+          <button class="adsh-btn adsh-btn--white adsh-status--btn"
                   (click)="onSiteStatusChange()"
                   [attr.data-status]="currentSiteStatus">
             {{ statusButtonLabel }}
@@ -98,7 +98,9 @@
           class="
             adsh-btn
             adsh-btn--white
-            btn-delete"
+            adsh-btn--with-icon
+            btn-delete
+            adsh-copy--dark"
           (click)="deleteSite()"
         >
           <img
@@ -108,7 +110,7 @@
             src="/assets/images/x-circle--dark.svg"
             alt=""
           >
-          <span class="adsh-copy--dark">Delete Site</span>
+         Delete Site
 
         </button>
       </div>

@@ -44,7 +44,6 @@ const appModules = [
   SettingsModule,
   AdminModule
 ];
-
 @NgModule({
   declarations: [
     AppComponent,

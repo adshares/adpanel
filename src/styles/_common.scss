@@ -96,7 +96,7 @@
 }
 
 .adsh-icon {
-  height: 18px;
+  height: 16px;
 
   &--prepend {
     margin-right: 10px;
@@ -204,7 +204,7 @@
   }
 
   &--large {
-    padding: 25px;
+    padding: 20px;
     margin-top: 2px;
   }
 
@@ -361,18 +361,10 @@ router-outlet ~ * {
   &--btn {
     min-width: auto;
     width: auto;
+    color: pal(gray, dark) !important;
 
     &[data-status="active"] {
-      color: pal(green) !important;
-      background-color: pal(green, light);
-    }
-
-    &[data-status="inactive"],
-    &[data-status="suspended"],
-    &[data-status="archived"],
-    &[data-status="draft"] {
-      color: pal(red) !important;
-      background-color: pal(red, light);
+      color: pal(green);
     }
   }
 }
@@ -465,11 +457,11 @@ router-outlet ~ * {
 }
 
 .status-button-wrapper {
-  margin-right: 16px;
+  margin-right: 8px;
 
   > * {
     align-items: center;
-    margin: 0 5px;
+    margin: 0 4px;
     display: flex;
   }
 

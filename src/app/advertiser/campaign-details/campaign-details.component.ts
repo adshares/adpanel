@@ -68,6 +68,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
+
         this.campaign = campaigns.find(el => {
           return el.id === id;
         });
@@ -142,15 +143,15 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   onCampaignStatusChange() {
+    let status;
     if (this.canActivateCampaign) {
-      this.currentCampaignStatus = 'active';
+      status = this.campaignStatusesEnum.ACTIVE;
     } else {
-      this.currentCampaignStatus = 'inactive';
+      status = this.campaignStatusesEnum.INACTIVE;
     }
-    this.campaign.basicInformation.status =
-      this.campaignStatusesEnumArray.findIndex(el => el === this.currentCampaignStatus);
+
     this.store.dispatch(new advertiserActions.UpdateCampaignStatus(
-      {id: this.campaign.id, status: this.campaign.basicInformation.status}));
+      {id: this.campaign.id, status}));
   }
 
   get canActivateCampaign(): boolean {
@@ -172,7 +173,9 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (this.campaign.classificationTags === null) {
       return '';
     }
-    return `[${this.campaign.classificationTags}]`;
+    return `
+  [${this.campaign.classificationTags}]
+`;
   }
 
   onCampaignClassificationStatusChange(status) {

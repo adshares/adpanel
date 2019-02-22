@@ -1,4 +1,4 @@
-<mat-dialog-content class="text-center">
+<mat-dialog-content class="text-center dialog">
   <div
     (click)="dialogRef.close()"
     class="adsh-dialog-close"
@@ -26,27 +26,24 @@
   <button
     class="
       adsh-btn
-      adsh-btn--white"
+      adsh-btn--white
+      adsh-copy--dark"
     mat-button
     [mat-dialog-close]=false
   >
-    <span
-      class="
-        adsh-copy
-        adsh-copy--dark"
-    >
-      No
-    </span>
+    No
   </button>
 
   <button
     class="
+      dialog__confirm-btn
       adsh-btn
-      adsh-btn--blue"
+      adsh-btn--blue
+      adsh-copy--white"
     mat-button
     [mat-dialog-close]=true
     cdkFocusInitial
   >
-    <span>Yes</span>
+    Yes
   </button>
 </mat-dialog-content>

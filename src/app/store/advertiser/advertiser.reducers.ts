@@ -34,6 +34,21 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: [...campaigns, action.payload]
       };
+    case advertiserActions.UPDATE_CAMPAIGN_STATUS_SUCCESS:
+      const mappedCampaigns = state.campaigns.map(campaign => {
+        return campaign.id !== action.payload.id ? campaign : {
+          ...campaign,
+          basicInformation: {
+            ...campaign.basicInformation,
+            status: action.payload.status
+          }
+        }
+      });
+
+      return {
+        ...state,
+        campaigns: mappedCampaigns
+      };
     case advertiserActions.LOAD_CAMPAIGNS_SUCCESS:
       return {
         ...state,
