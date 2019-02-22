@@ -1,10 +1,12 @@
 <div class="banner-preview">
-  <img *ngIf="banner.type === 0" src="{{ banner.url || banner.imageUrl }}" alt="banner miniature"
-       class="banner-preview__banner"
-  />
-  <div class="banner-preview__lightbox">
-    <img *ngIf="banner.type === 0" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
-  </div>
+  <ng-container *ngIf="banner.type === 0">
+    <img  src="{{ banner.url || banner.imageUrl }}" alt="banner miniature"
+          class="banner-preview__banner"
+    />
+    <div class="banner-preview__lightbox">
+      <img *ngIf="banner.type === 0" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
+    </div>
+  </ng-container>
 
   <ng-container *ngIf="banner.type === 1 && banner.html">
     <iframe
@@ -41,8 +43,8 @@
       seamless="seamless"
       class="banner-preview__lightbox "
       [ngStyle]="{
-                'width': banner.creativeWidth + 'px',
-                'height': banner.creativeHeight + 'px',
+                'width': banner.width + 'px',
+                'height': banner.height + 'px',
                 'overflow': 'visible'
               }"
     ></iframe>
