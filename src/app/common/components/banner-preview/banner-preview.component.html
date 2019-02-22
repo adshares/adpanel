@@ -13,7 +13,7 @@
   <iframe
     *ngIf="banner.type === 1"
     [srcdoc]="banner.html && (banner.html | trustHtml)"
-    [src]="banner.url && (banner.html | trustUrl)"
+    [src]="banner.url && (banner.url | trustUrl)"
     [sandbox]="'allow-same-origin allow-scripts'"
     scrolling="no"
     seamless="seamless"
