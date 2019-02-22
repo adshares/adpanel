@@ -5,20 +5,24 @@
 
   <iframe
     *ngIf="banner.type === 1"
-    [srcdoc]="banner.html | trustHtml"
+    [srcdoc]="banner.html && (banner.html | trustHtml)"
+    [src]="banner.url && (banner.url | trustUrl)"
     [sandbox]="'allow-same-origin allow-scripts'"
+    scrolling="no"
     class="banner-preview__banner"
   ></iframe>
-
   <iframe
     *ngIf="banner.type === 1"
-    [srcdoc]="banner.html | trustHtml"
+    [srcdoc]="banner.html && (banner.html | trustHtml)"
+    [src]="banner.url && (banner.html | trustUrl)"
     [sandbox]="'allow-same-origin allow-scripts'"
+    scrolling="no"
+    seamless="seamless"
     class="banner-preview__lightbox "
     [ngStyle]="{
                 'width': banner.creativeWidth + 'px',
                 'height': banner.creativeHeight + 'px',
-                'overflow': 'hidden'
+                'overflow': 'visible'
               }"
   ></iframe>
 
