@@ -12,7 +12,6 @@ import {PublisherService} from 'publisher/publisher.service';
 import {AssetHelpersService} from 'common/asset-helpers.service';
 import {Site} from 'models/site.model';
 import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -36,6 +35,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   createSiteMode: boolean;
   changesSaved: boolean = false;
   filtering;
+  isCheckedRequireClassified: boolean;
+  isCheckedExcludeUnclassified: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,7 +86,9 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
       ...this.site,
       filtering: {
         requires: [...this.addedItems],
-        excludes: [...this.excludedItems]
+        excludes: [...this.excludedItems],
+        requireClassified: this.isCheckedRequireClassified,
+        excludeUnclassified: this.isCheckedExcludeUnclassified,
       }
     }
   }
@@ -98,7 +101,9 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
-      excludes: this.excludedItems
+      excludes: this.excludedItems,
+      requiredClassified: this.isCheckedRequireClassified,
+      excludedUnclassified: this.isCheckedExcludeUnclassified,
     };
 
     this.changesSaved = true;
@@ -129,6 +134,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
+        this.isCheckedRequireClassified = filtering.requireClassified || false;
+        this.isCheckedExcludeUnclassified = filtering.excludeUnclassified || false;
       });
     this.subscriptions.push(lastSiteSubscription);
   }

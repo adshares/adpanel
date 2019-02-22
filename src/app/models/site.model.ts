@@ -8,6 +8,8 @@ interface Site {
   filtering: {
     requires: object;
     excludes: object;
+    requireClassified: boolean;
+    excludeUnclassified: boolean;
   };
   filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
