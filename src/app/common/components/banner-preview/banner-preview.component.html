@@ -2,7 +2,6 @@
   <img *ngIf="banner.type === 0" src="{{ banner.url || banner.imageUrl }}" alt="banner miniature"
        class="banner-preview__banner"
   />
-
   <iframe
     *ngIf="banner.type === 1"
     [srcdoc]="banner.html && (banner.html | trustHtml)"
@@ -25,7 +24,6 @@
                 'overflow': 'visible'
               }"
   ></iframe>
-
   <div class="banner-preview__lightbox">
     <img *ngIf="banner.type === 0" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
   </div>
