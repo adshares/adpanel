@@ -30,6 +30,7 @@ export class EmailProcessingComponent {
 
   ngOnInit() {
     this.action = this.route.snapshot.url[0].path;
+    console.log(this.route.snapshot.url);
     this.route.params.subscribe(params => {
       this.token = params['token'];
     });
@@ -44,6 +45,9 @@ export class EmailProcessingComponent {
     switch (this.action) {
       case 'email-activation':
         this.emailActivation();
+        return;
+      case 'withdrawal-confirmation':
+        this.confirmWithdrawal();
         return;
       case 'email-change-confirm-old':
         this.emailChangeConfirmOld();
@@ -106,6 +110,20 @@ export class EmailProcessingComponent {
         (err) => {
           this.defaultRedirect();
           this.dialogError('Email activation failed', 'Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.');
+        }
+      );
+  }
+
+  confirmWithdrawal() {
+    this.api.users.confirmWithdrawal(this.token)
+      .subscribe(
+        (user) => {
+          this.router.navigate(['/settings/billing'])
+          this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
+        },
+        (err) => {
+          this.defaultRedirect();
+          this.dialogError('Withdrawal confirmation failed', 'Token is invalid.');
         }
       );
   }
