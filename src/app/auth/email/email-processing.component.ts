@@ -30,7 +30,7 @@ export class EmailProcessingComponent {
 
   ngOnInit() {
     this.action = this.route.snapshot.url[0].path;
-    console.log(this.route.snapshot.url);
+
     this.route.params.subscribe(params => {
       this.token = params['token'];
     });
