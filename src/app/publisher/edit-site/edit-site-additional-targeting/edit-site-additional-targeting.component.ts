@@ -134,8 +134,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
-        this.isCheckedRequireClassified = filtering.requireClassified || false;
-        this.isCheckedExcludeUnclassified = filtering.excludeUnclassified || false;
+        this.isCheckedRequireClassified = filtering.requireClassified;
+        this.isCheckedExcludeUnclassified = filtering.excludeUnclassified;
       });
     this.subscriptions.push(lastSiteSubscription);
   }

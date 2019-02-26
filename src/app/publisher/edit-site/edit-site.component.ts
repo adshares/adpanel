@@ -42,9 +42,13 @@ export class EditSiteComponent implements OnInit, OnDestroy {
             )
           );
         } else {
+          const requireClassified = lastEditedSite.filtering.requireClassified || false;
+          const excludeUnclassified = lastEditedSite.filtering.excludeUnclassified || false;
           const filtering = {
             requires,
-            excludes
+            excludes, 
+            requireClassified,
+            excludeUnclassified,
           } as AssetTargeting;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(filtering)

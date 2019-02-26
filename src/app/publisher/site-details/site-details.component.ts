@@ -131,6 +131,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site.filtering = {
       requires: this.site.filtering.requires || [],
       excludes: this.site.filtering.excludes || [],
+      requireClassified: this.site.filtering.requireClassified || false,
+      excludeUnclassified: this.site.filtering.excludeUnclassified || false,
     };
     if (this.filtering.requires.length || this.filtering.excludes.length || !this.site) return;
     if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
