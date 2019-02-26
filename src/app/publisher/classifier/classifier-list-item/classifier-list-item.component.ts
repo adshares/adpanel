@@ -31,7 +31,7 @@ export class ClassifierListItemComponent implements OnInit {
     }
   }
 
-  setClassified(isApproved: boolean | null): void {
+  setClassificationStatus(isApproved: boolean | null): void {
     if (this.isGlobal) {
       this.bannerClassification.classifiedGlobal = isApproved;
     } else {
@@ -43,15 +43,15 @@ export class ClassifierListItemComponent implements OnInit {
     return this.isGlobal ? this.bannerClassification.classifiedGlobal : this.bannerClassification.classifiedSite;
   }
 
-  setBannerClassification(isApproved: boolean): void {
+  classifyBanner(isApproved: boolean): void {
     const previousClassified = this.classified;
-    this.setClassified(isApproved);
+    this.setClassificationStatus(isApproved);
 
     this.publisherService.setBannerClassification(this.bannerClassification.bannerId, isApproved, this.siteId).subscribe(
       () => {
       },
       (error: HttpErrorResponse) => {
-        this.setClassified(previousClassified);
+        this.setClassificationStatus(previousClassified);
         if (error.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
           // TODO handle error
           console.error('ClassifierListItemComponent', error);
