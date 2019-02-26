@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
-import {PublisherService} from 'publisher/publisher.service';
-import {BannerClassification} from 'models/classifier.model';
+import { PublisherService } from 'publisher/publisher.service';
+import { BannerClassification } from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
-import {adTypesEnum} from "models/enum/ad.enum";
+import { adTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-classifier-list-item',

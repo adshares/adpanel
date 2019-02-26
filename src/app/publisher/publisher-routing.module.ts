@@ -1,20 +1,20 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import {PublisherComponent} from './publisher.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {ClassifierComponent} from './classifier/classifier.component';
-import {SiteDetailsComponent} from './site-details/site-details.component';
-import {EditSiteComponent} from './edit-site/edit-site.component';
-import {EditSiteBasicInformationComponent} from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
-import {EditSiteAdditionalTargetingComponent} from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
-import {EditSiteCreateAdUnitsComponent} from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
-import {EditSiteSummaryComponent} from './edit-site/edit-site-summary/edit-site-summary.component';
+import { PublisherComponent } from './publisher.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClassifierComponent } from './classifier/classifier.component';
+import { SiteDetailsComponent } from './site-details/site-details.component';
+import { EditSiteComponent } from './edit-site/edit-site.component';
+import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
+import { EditSiteAdditionalTargetingComponent } from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
+import { EditSiteCreateAdUnitsComponent } from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
+import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-site-summary.component';
 
-import {PublisherGuard} from './publisher-guard.service';
-import {SiteResolver} from './resolvers/site.resolver';
-import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
-import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
+import { PublisherGuard } from './publisher-guard.service';
+import { SiteResolver } from './resolvers/site.resolver';
+import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
+import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const publisherRoutes: Routes = [
   {

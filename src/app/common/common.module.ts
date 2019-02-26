@@ -35,7 +35,7 @@ import { ChartFilterComponent } from './components/chart-filter/chart-filter.com
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import { AdsharesTokenPipe } from './pipes/adshares-token.pipe';
-import { TrustUrlPipe, TrustHtmlPipe } from './pipes/trust.pipe';
+import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
@@ -45,8 +45,8 @@ import { EditAssetNavigationComponent } from './components/edit-asset-navigation
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
 import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
-import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
-import {BannerPreviewComponent} from "common/components/banner-preview/banner-preview.component";
+import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
+import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component';
 
 const matModules = [
   MatDialogModule,

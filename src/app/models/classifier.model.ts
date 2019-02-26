@@ -12,4 +12,4 @@ interface BannerClassification {
   classifiedSite?: boolean;
 }
 
-export {BannerClassification};
+export { BannerClassification };

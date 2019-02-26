@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {PublisherService} from 'publisher/publisher.service';
-import {Site} from 'models/site.model';
-import {BannerClassification} from 'models/classifier.model';
-import {TableColumnMetaData} from 'models/table.model';
-import {HttpErrorResponse} from '@angular/common/http';
+import { PublisherService } from 'publisher/publisher.service';
+import { Site } from 'models/site.model';
+import { BannerClassification } from 'models/classifier.model';
+import { TableColumnMetaData } from 'models/table.model';
+import { HttpErrorResponse } from '@angular/common/http';
 import * as codes from 'common/utilities/codes';
 
 

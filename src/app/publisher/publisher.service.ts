@@ -1,19 +1,19 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Store} from '@ngrx/store';
-import {Router} from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
-import {environment} from 'environments/environment';
-import {AdUnitSize, Site, SiteLanguage, SitesTotals} from 'models/site.model';
-import {TargetingOption} from 'models/targeting-option.model';
-import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
-import * as publisherActions from "store/publisher/publisher.actions";
-import {AppState} from "models/app-state.model";
-import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {siteStatusEnum} from "models/enum/site.enum";
-import {BannerClassification} from 'models/classifier.model';
+import { environment } from 'environments/environment';
+import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import * as publisherActions from 'store/publisher/publisher.actions';
+import { AppState } from 'models/app-state.model';
+import { MatDialog } from '@angular/material';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { BannerClassification } from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
 
 @Injectable()
