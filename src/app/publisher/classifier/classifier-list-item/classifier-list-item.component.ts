@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { BannerClassification } from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
 import { adTypesEnum } from 'models/enum/ad.enum';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 
 @Component({
   selector: 'app-classifier-list-item',
@@ -20,7 +22,7 @@ export class ClassifierListItemComponent implements OnInit {
   adTypesEnum = adTypesEnum;
   isGlobal: boolean;
 
-  constructor(private publisherService: PublisherService) {
+  constructor(private publisherService: PublisherService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -53,8 +55,12 @@ export class ClassifierListItemComponent implements OnInit {
       (error: HttpErrorResponse) => {
         this.setClassificationStatus(previousClassified);
         if (error.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
-          // TODO handle error
-          console.error('ClassifierListItemComponent', error);
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Error ${error.status}`,
+              message: `Change is not available at this moment. Please, try again later.`,
+            }
+          });
         }
       }
     );
