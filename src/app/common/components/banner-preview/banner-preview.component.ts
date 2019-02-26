@@ -10,6 +10,7 @@ import { adTypesEnum } from 'models/enum/ad.enum';
 })
 export class BannerPreviewComponent {
   @Input() banner: BannerClassification | Ad;
+  readonly IFRAME_TITLE: string = 'Banner Preview';
 
   constructor() {
   }
