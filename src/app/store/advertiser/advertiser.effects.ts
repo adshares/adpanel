@@ -128,7 +128,7 @@ export class AdvertiserEffects {
   deleteCampaign = this.actions$
     .ofType(advertiserActions.DELETE_CAMPAIGN)
     .map(toPayload)
-    .switchMap((payload) => this.service.deleteCampaign(2190)
+    .switchMap((payload) => this.service.deleteCampaign(payload)
       .map(() => {
         this.router.navigate(['/advertiser', 'dashboard']);
         return new advertiserActions.DeleteCampaignSuccess(payload)
