@@ -34,6 +34,14 @@
         [siteId]="siteId"
       ></app-classifier-list-item>
     </table>
+    <mat-paginator
+      #paginator
+      [hidePageSize]="true"
+      [length]="totalCount"
+      [pageSize]="PAGE_SIZE"
+      (page)="handlePaginationEvent($event)"
+    >
+    </mat-paginator>
 
   </div>
 </div>

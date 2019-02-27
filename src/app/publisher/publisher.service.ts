@@ -13,7 +13,7 @@ import { AppState } from 'models/app-state.model';
 import { MatDialog } from '@angular/material';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
-import { BannerClassification } from 'models/classifier.model';
+import { BannerClassificationResponse } from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
 
 @Injectable()
@@ -110,7 +110,7 @@ export class PublisherService {
     );
   }
 
-  getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassification[]> {
+  getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassificationResponse> {
     const params = {};
     if (limit) {
       params['limit'] = `${limit}`;
@@ -119,7 +119,7 @@ export class PublisherService {
       params['offset'] = `${offset}`;
     }
 
-    return this.http.get<BannerClassification[]>(`${environment.apiUrl}/classifications/${siteId || ''}`, {params: params});
+    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`, {params: params});
   }
 
   setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {

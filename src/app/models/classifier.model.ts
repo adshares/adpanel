@@ -12,4 +12,12 @@ interface BannerClassification {
   classifiedSite?: boolean;
 }
 
-export { BannerClassification };
+interface BannerClassificationResponse {
+  limit: number;
+  offset: number;
+  itemsCount: number;
+  itemsCountAll: number;
+  items: BannerClassification[];
+}
+
+export { BannerClassification, BannerClassificationResponse };

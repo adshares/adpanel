@@ -8,6 +8,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatOptionModule,
+  MatPaginatorModule,
   MatSelectModule
 } from '@angular/material';
 import { PublisherRoutingModule } from './publisher-routing.module';
@@ -70,6 +71,7 @@ const publisherComponents = [
     MatOptionModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatExpansionModule,
     ChartsModule,
