@@ -19,7 +19,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 export class ClassifierComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
-  readonly PAGE_SIZE: number = 1;
+  readonly PAGE_SIZE: number = 20;
   siteId?: number;
   isGlobal: boolean = true;
   isLoading: boolean = true;
