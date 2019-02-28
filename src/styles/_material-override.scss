@@ -117,3 +117,11 @@ mat-chip:not(.mat-basic-chip) {
 .owl-dt-container-control-button .owl-dt-control-button-content {
   color: palette(blue);
 }
+
+.mat-checkbox-label {
+  color: pal(navy, light);
+}
+
+.mat-checkbox-frame {
+  border: 2px solid pal(navy, light);
+}
