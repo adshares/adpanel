@@ -23,6 +23,8 @@ export const siteInitialState: Site = {
   filteringArray: {
     requires: [],
     excludes: [],
+    requireClassified: false,
+    excludeUnclassified: false,
   },
   adUnits: []
 };
