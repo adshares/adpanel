@@ -118,8 +118,18 @@ mat-chip:not(.mat-basic-chip) {
   color: palette(blue);
 }
 
+.mat-checkbox-layout {
+  align-items: flex-end;
+  &:first-of-type {
+    margin-bottom: 4px;
+  }
+}
+
 .mat-checkbox-label {
   color: pal(navy, light);
+  font-family: "AvenirNext-Regular", sans-serif;
+  font-size: 15px;
+  line-height: 1;
 }
 
 .mat-checkbox-frame {
