@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {AppState} from 'models/app-state.model';
-import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
-import {cloneDeep} from 'common/utilities/helpers';
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {Site} from 'models/site.model';
-import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
+import { AppState } from 'models/app-state.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { Site } from 'models/site.model';
+import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -44,7 +44,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
     private router: Router,
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
@@ -102,8 +103,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,
-      requiredClassified: this.isCheckedRequireClassified,
-      excludedUnclassified: this.isCheckedExcludeUnclassified,
+      requireClassified: this.isCheckedRequireClassified,
+      excludeUnclassified: this.isCheckedExcludeUnclassified,
     };
 
     this.changesSaved = true;

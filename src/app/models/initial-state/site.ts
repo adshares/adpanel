@@ -16,11 +16,13 @@ export const siteInitialState: Site = {
   primaryLanguage: '',
   filtering: {
     requires: {},
-    excludes: {}
+    excludes: {},
+    requireClassified: false,
+    excludeUnclassified: false,
   },
   filteringArray: {
     requires: [],
-    excludes: []
+    excludes: [],
   },
   adUnits: []
 };
