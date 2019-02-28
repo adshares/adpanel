@@ -25,4 +25,9 @@ interface AssetTargeting {
   excludes: TargetingOptionValue[];
 }
 
-export { TargetingOption, TargetingOptionValue, AssetTargeting };
+interface SiteAssetTargeting extends AssetTargeting {
+  requireClassified: boolean;
+  excludeUnclassified: boolean;
+}
+
+export { TargetingOption, TargetingOptionValue, AssetTargeting, SiteAssetTargeting };
