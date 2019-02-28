@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/take';
 
-import {fadeAnimation} from 'common/animations/fade.animation';
-import {AppState} from 'models/app-state.model';
+import { fadeAnimation } from 'common/animations/fade.animation';
+import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {parseTargetingOptionsToArray} from 'common/components/targeting/targeting.helpers';
-import {Site} from 'models/site.model';
-import {AssetTargeting} from "models/targeting-option.model";
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { Site } from 'models/site.model';
+import { SiteAssetTargeting } from 'models/targeting-option.model';
 
 @Component({
   selector: 'app-edit-site',
@@ -19,6 +19,7 @@ import {AssetTargeting} from "models/targeting-option.model";
 export class EditSiteComponent implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
   isEditMode: boolean;
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -27,29 +28,33 @@ export class EditSiteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   this.isEditMode = !!this.router.url.match('/edit-site/');
+    this.isEditMode = !!this.router.url.match('/edit-site/');
     this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite: Site) => {
         const requires = lastEditedSite.filtering.requires || [];
         const excludes = lastEditedSite.filtering.excludes || [];
+        const requireClassified = lastEditedSite.filtering.requireClassified || false;
+        const excludeUnclassified = lastEditedSite.filtering.excludeUnclassified || false;
         if (!lastEditedSite.filteringArray && !Array.isArray(excludes) ||
           !Array.isArray(requires)) {
           const filteringOptions = this.route.snapshot.data.filteringOptions;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(
-              parseTargetingOptionsToArray({requires, excludes}, filteringOptions)
+              {
+                ...parseTargetingOptionsToArray({requires, excludes}, filteringOptions),
+                requireClassified,
+                excludeUnclassified,
+              }
             )
           );
         } else {
-          const requireClassified = lastEditedSite.filtering.requireClassified || false;
-          const excludeUnclassified = lastEditedSite.filtering.excludeUnclassified || false;
           const filtering = {
             requires,
-            excludes, 
+            excludes,
             requireClassified,
             excludeUnclassified,
-          } as AssetTargeting;
+          } as SiteAssetTargeting;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(filtering)
           )

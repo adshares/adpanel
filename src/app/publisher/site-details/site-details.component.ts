@@ -1,27 +1,27 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import {ChartService} from 'common/chart.service';
-import {PublisherService} from 'publisher/publisher.service';
-import {HandleSubscription} from 'common/handle-subscription';
-import {AppState} from 'models/app-state.model';
-import {Site, SiteLanguage} from 'models/site.model';
-import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
-import {ChartData} from 'models/chart/chart-data.model';
-import {AssetTargeting} from 'models/targeting-option.model';
-import {createInitialArray, enumToArray, sortArrayByColumnMetaData} from 'common/utilities/helpers';
-import {siteStatusEnum} from 'models/enum/site.enum';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { ChartService } from 'common/chart.service';
+import { PublisherService } from 'publisher/publisher.service';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { Site, SiteLanguage } from 'models/site.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { AssetTargeting, SiteAssetTargeting } from 'models/targeting-option.model';
+import { createInitialArray, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import * as PublisherActions from 'store/publisher/publisher.actions';
 
-import {parseTargetingOptionsToArray} from 'common/components/targeting/targeting.helpers';
-import {MatDialog} from "@angular/material";
-import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
-import * as codes from "common/utilities/codes";
-import {ChartComponent} from "common/components/chart/chart.component";
-import {TableColumnMetaData} from "models/table.model";
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { MatDialog } from '@angular/material';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import * as codes from 'common/utilities/codes';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { TableColumnMetaData } from 'models/table.model';
 
 @Component({
   selector: 'app-site-details',
@@ -36,9 +36,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
 
-  filtering: AssetTargeting = {
+  filtering: SiteAssetTargeting = {
     requires: [],
-    excludes: []
+    excludes: [],
+    requireClassified: false,
+    excludeUnclassified: false,
   };
   filteringOptions: AssetTargeting;
   currentSiteStatus: string;
@@ -134,11 +136,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       requireClassified: this.site.filtering.requireClassified || false,
       excludeUnclassified: this.site.filtering.excludeUnclassified || false,
     };
+
     if (this.filtering.requires.length || this.filtering.excludes.length || !this.site) return;
     if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
-      this.filtering = this.site.filtering as AssetTargeting;
+      this.filtering = this.site.filtering as SiteAssetTargeting;
     } else {
-      this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+      this.filtering = {
+        ...parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions),
+        requireClassified: this.site.filtering.requireClassified,
+        excludeUnclassified: this.site.filtering.excludeUnclassified,
+      };
     }
   }
 
