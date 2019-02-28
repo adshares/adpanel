@@ -84,7 +84,7 @@
               adsh-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
             alt="">
-            Delete Campaign
+          Delete Campaign
         </button>
       </div>
     </div>
@@ -136,6 +136,7 @@
 
     <div class="adsh-box">
       <div class="row
+                  no-wrap
                   justify-between">
         <div class="row
                     align-center
@@ -146,7 +147,7 @@
                       label">
               Target URL:
             </p>
-            <p class="adsh-copy--dark adsh-copy--semi"
+            <p class="adsh-copy adsh-copy--dark adsh-copy--semi"
                data-test="advertiser-campaign-target-url">
               {{ campaign.basicInformation.targetUrl }}
             </p>
@@ -262,7 +263,8 @@
           class="
            adsh-btn
            adsh-btn--edit
-           hidden-md"
+           hidden-md
+           no-wrap"
           (click)="navigateToCampaignEdition('basic-information', 1)"
           data-test="publisher-site-edit">
           <img

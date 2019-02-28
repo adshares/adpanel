@@ -1,4 +1,4 @@
-let serverUrl = 'https://test-server.e11.click';
+let serverUrl = 'http://localhost:8101';
 
 export const environment = {
   production: false,
