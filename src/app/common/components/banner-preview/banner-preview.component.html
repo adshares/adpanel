@@ -10,18 +10,14 @@
 
   <ng-container *ngIf="!isImage() && banner.html">
     <iframe
-      [srcdoc]="banner.html | trustHtml"
+      [srcdoc]="HTML_SRCDOC_PREFIX+banner.html | trustHtml"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
-      scrolling="no"
-      class="banner-preview__banner"
     ></iframe>
     <iframe
-      [srcdoc]="banner.html | trustHtml"
+      [srcdoc]="HTML_SRCDOC_PREFIX+banner.html | trustHtml"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
-      scrolling="no"
-      seamless="seamless"
       class="banner-preview__lightbox"
       [ngStyle]="{
                 'width': banner.creativeWidth + 'px',
@@ -36,15 +32,12 @@
       [src]="banner.url | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
-      scrolling="no"
       class="banner-preview__banner"
     ></iframe>
     <iframe
       [src]="banner.url | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
-      scrolling="no"
-      seamless="seamless"
       class="banner-preview__lightbox"
       [ngStyle]="{
                 'width': banner.width + 'px',
