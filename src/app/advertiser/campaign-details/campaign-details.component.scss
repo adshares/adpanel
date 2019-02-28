@@ -1,8 +1,11 @@
 @import '../../../styles.scss';
 
 .campaign-basic-information {
-  > div {
-    margin-right: 45px;
+  > div:not(:last-of-type) {
+    margin-right: 25px;
+    max-width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .label {
