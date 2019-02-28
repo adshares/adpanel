@@ -130,6 +130,28 @@
     class="
       adsh-box
       adsh-box--large
+      col"
+  >
+    <mat-checkbox
+      id="require-classified-checkbox"
+      [(ngModel)]="isCheckedRequireClassified"
+      data-test="publisher-edit-site-require-classified-checkbox"
+    >
+      Allow only approved banners
+    </mat-checkbox>
+    <mat-checkbox
+      id="exclude-unclassified-checkbox"
+      [(ngModel)]="isCheckedExcludeUnclassified"
+      data-test="publisher-edit-site-exclude-unclassified-checkbox"
+    >
+      Skip rejected banners
+    </mat-checkbox>
+  </div>
+
+  <div
+    class="
+      adsh-box
+      adsh-box--large
       row
       justify-between"
   >
@@ -139,8 +161,9 @@
           adsh-btn--white
           adsh-blue"
       role="link"
-      (click)="onStepBack()">
-        Back
+      (click)="onStepBack()"
+    >
+      Back
     </button>
 
     <div class="row">

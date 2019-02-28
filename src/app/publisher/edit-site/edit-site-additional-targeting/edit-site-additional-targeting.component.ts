@@ -1,18 +1,17 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/first';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {AppState} from 'models/app-state.model';
-import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
-import {cloneDeep} from 'common/utilities/helpers';
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {Site} from 'models/site.model';
-import {TargetingSelectComponent} from 'common/components/targeting/targeting-select/targeting-select.component';
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
+import { AppState } from 'models/app-state.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { Site } from 'models/site.model';
+import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -36,6 +35,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   createSiteMode: boolean;
   changesSaved: boolean = false;
   filtering;
+  isCheckedRequireClassified: boolean;
+  isCheckedExcludeUnclassified: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
     private router: Router,
     private publisherService: PublisherService,
     private assetHelpers: AssetHelpersService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
@@ -85,7 +87,9 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
       ...this.site,
       filtering: {
         requires: [...this.addedItems],
-        excludes: [...this.excludedItems]
+        excludes: [...this.excludedItems],
+        requireClassified: this.isCheckedRequireClassified,
+        excludeUnclassified: this.isCheckedExcludeUnclassified,
       }
     }
   }
@@ -98,7 +102,9 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   saveSite(isDraft) {
     const chosenTargeting = {
       requires: this.addedItems,
-      excludes: this.excludedItems
+      excludes: this.excludedItems,
+      requireClassified: this.isCheckedRequireClassified,
+      excludeUnclassified: this.isCheckedExcludeUnclassified,
     };
 
     this.changesSaved = true;
@@ -129,6 +135,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
+        this.isCheckedRequireClassified = filtering.requireClassified;
+        this.isCheckedExcludeUnclassified = filtering.excludeUnclassified;
       });
     this.subscriptions.push(lastSiteSubscription);
   }

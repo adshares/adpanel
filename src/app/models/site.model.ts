@@ -1,4 +1,4 @@
-import { AssetTargeting } from './targeting-option.model';
+import { SiteAssetTargeting } from './targeting-option.model';
 
 interface Site {
   id?: number;
@@ -8,8 +8,10 @@ interface Site {
   filtering: {
     requires: object;
     excludes: object;
+    requireClassified: boolean;
+    excludeUnclassified: boolean;
   };
-  filteringArray?: AssetTargeting;
+  filteringArray?: SiteAssetTargeting;
   adUnits?: AdUnit[];
 
   estimatedEarnings?: number;
