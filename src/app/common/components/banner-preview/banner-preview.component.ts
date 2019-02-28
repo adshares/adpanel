@@ -15,7 +15,7 @@ export class BannerPreviewComponent {
   constructor() {
   }
   
-  private isImage() {
+  get isImage() {
     return this.banner.type === adTypesEnum.IMAGE;
   }
 }

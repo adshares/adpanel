@@ -1,14 +1,14 @@
 <div class="banner-preview">
-  <ng-container *ngIf="isImage()">
+  <ng-container *ngIf="isImage">
     <img  src="{{ banner.url || banner.imageUrl }}" alt="banner miniature"
           class="banner-preview__banner"
     />
     <div class="banner-preview__lightbox">
-      <img *ngIf="isImage()" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
+      <img *ngIf="isImage" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!isImage() && banner.html">
+  <ng-container *ngIf="!isImage && banner.html">
     <iframe
       [srcdoc]="banner.html | trustHtml"
       [sandbox]="'allow-same-origin allow-scripts'"
@@ -30,7 +30,7 @@
     ></iframe>
   </ng-container>
 
-  <ng-container *ngIf="!isImage() && banner.url">
+  <ng-container *ngIf="!isImage && banner.url">
     <iframe
       [src]="banner.url | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
