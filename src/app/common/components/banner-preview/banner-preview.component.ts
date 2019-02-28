@@ -11,7 +11,6 @@ import { adTypesEnum } from 'models/enum/ad.enum';
 export class BannerPreviewComponent {
   @Input() banner: BannerClassification | Ad;
   readonly IFRAME_TITLE: string = 'Banner Preview';
-  readonly HTML_SRCDOC_PREFIX: string = '<style>body{margin:0;padding:0;}</style>';
 
   constructor() {
   }
