@@ -1,17 +1,17 @@
-import { SiteAssetTargeting } from './targeting-option.model';
+import { AssetTargeting } from './targeting-option.model';
 
 interface Site {
   id?: number;
   status: number;
   name: string;
   primaryLanguage: string | SiteLanguage;
+  requireClassified: boolean;
+  excludeUnclassified: boolean;
   filtering: {
     requires: object;
     excludes: object;
-    requireClassified: boolean;
-    excludeUnclassified: boolean;
   };
-  filteringArray?: SiteAssetTargeting;
+  filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
 
   estimatedEarnings?: number;
