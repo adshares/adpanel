@@ -1,0 +1,67 @@
+<div class="dashboard-view">
+  <div class="container">
+
+    <div>
+      <button
+        type="button"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+        (click)="onStepBack()"
+      >
+        {{isGlobal ? 'Back to Dashboard' : 'Back to Site'}}
+      </button>
+      <button
+        type="button"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-blue"
+        (click)="refresh()"
+      >
+        Refresh
+      </button>
+    </div>
+
+    <table
+      class="
+        col
+        adsh-ad-list"
+    >
+      <app-table-navigation
+        [navigationName]="'classifierListNavigation'"
+        (sortTable)="sortTable($event)"
+        class="
+          row
+          adsh-copy
+          adsh-copy--small"
+      ></app-table-navigation>
+      <ng-container *ngIf="!isLoading; else loading">
+        <app-classifier-list-item
+          *ngFor="let bannerClassification of bannerClassifications"
+          [bannerClassification]="bannerClassification"
+          [siteId]="siteId"
+        ></app-classifier-list-item>
+      </ng-container>
+
+      <ng-template #loading>
+        <div class="adsh-box">
+          <div class="loading-wrapper">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </div>
+      </ng-template>
+    </table>
+
+    <mat-paginator
+        #paginator
+      [hidePageSize]="true"
+      [length]="totalCount"
+      [pageSize]="PAGE_SIZE"
+      (page)="handlePaginationEvent($event)"
+    >
+    </mat-paginator>
+
+  </div>
+</div>

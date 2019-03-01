@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PublisherComponent } from './publisher.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ClassifierComponent } from './classifier/classifier.component';
 import { SiteDetailsComponent } from './site-details/site-details.component';
 import { EditSiteComponent } from './edit-site/edit-site.component';
 import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
@@ -12,7 +13,7 @@ import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-sit
 
 import { PublisherGuard } from './publisher-guard.service';
 import { SiteResolver } from './resolvers/site.resolver';
-import { FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
+import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 
 const publisherRoutes: Routes = [
@@ -25,11 +26,21 @@ const publisherRoutes: Routes = [
       {path: 'dashboard', component: DashboardComponent},
       {
         path: 'site/:id',
-        component: SiteDetailsComponent,
         resolve: {
           site: SiteResolver,
           filteringOptions: FilteringCriteriaResolver
-        }
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: SiteDetailsComponent,
+          },
+          {
+            path: 'classifier',
+            component: ClassifierComponent,
+          }
+        ]
       },
       {
         path: 'create-site',
@@ -78,7 +89,11 @@ const publisherRoutes: Routes = [
             component: EditSiteSummaryComponent
           }
         ]
-      }
+      },
+      {
+        path: 'classifier',
+        component: ClassifierComponent,
+      },
     ]
   },
 ];
