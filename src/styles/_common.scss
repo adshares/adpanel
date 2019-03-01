@@ -322,39 +322,37 @@ router-outlet ~ * {
 */
 
 .adsh-status {
-  @include font(12, bold);
+  @include font(11, semi);
   text-transform: uppercase;
   width: 100%;
-  padding: 4px 5px;
-
-  & .mat-select-value-text {
-    font-weight: bold;
-  }
+  border: none;
+  padding: 4px 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: pal(navy, base);
 
   & .mat-select-arrow {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
     margin: 0 0 0 3px;
   }
 
   &[data-status="active"] {
-    color: pal(green);
     background-color: pal(green, light);
   }
 
   &[data-status="inactive"] {
-    color: pal(blue);
     background-color: pal(blue, light);
   }
 
   &[data-status="suspended"] {
-    color: pal(red);
     background-color: pal(red, light);
   }
 
   &[data-status="archived"],
   &[data-status="draft"] {
-    color: pal(gray);
     background-color: pal(gray, ultra-light);
   }
 
@@ -442,13 +440,16 @@ router-outlet ~ * {
   word-wrap: break-word;
 }
 
-
 .status-wrapper {
   min-width: 140px;
   margin-right: 8px;
 
   &__list-item {
     padding: 4px;
+
+    .mat-select-value {
+      display: none;
+    }
   }
 
   .adsh-select {

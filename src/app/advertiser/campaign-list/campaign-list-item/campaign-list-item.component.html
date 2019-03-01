@@ -19,16 +19,12 @@
           row
           align-center"
       >
-        <div
-          class="
-            adsh-box
-            adsh-box--no-padding
-            adsh-status
-            text-center"
-          [attr.data-status]="currentCampaignStatus"
+        <div class="adsh-status"
+             [attr.data-status]="currentCampaignStatus"
         >
+          {{ currentCampaignStatus }}
           <div class="status-wrapper__list-item">
-            <mat-select [(value)]="currentCampaignStatus"
+            <mat-select [value]=" "
                         (change)="onCampaignStatusChange($event)"
                         data-test="advertiser-campaign-status-select"
             >
@@ -134,7 +130,7 @@
       >
         <img
           src="/assets/images/chevron--right.svg"
-          alt="Campaign Details Icon"
+          [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
         >
       </div>
     </div>

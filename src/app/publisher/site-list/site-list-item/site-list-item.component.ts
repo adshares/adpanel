@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Store} from "@ngrx/store";
 import {siteStatusEnum} from 'models/enum/site.enum.ts';
 import {enumToArray} from "common/utilities/helpers";
 import {MatDialog} from "@angular/material";
-import * as PublisherActions from "store/publisher/publisher.actions";
+import {UpdateSiteStatus} from "store/publisher/publisher.actions";
 import {AppState} from "models/app-state.model";
-import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-site-list-item',
@@ -30,7 +30,7 @@ export class SiteListItemComponent implements OnInit {
   onSiteStatusChange(status) {
     this.site.status = this.siteStatusEnumArray.findIndex(el => el === status.value);
     this.currentSiteStatus = status.value;
-    this.store.dispatch(new PublisherActions.UpdateSiteStatus(this.site));
+    this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 
   navigateToSiteDetails(siteId: number) {

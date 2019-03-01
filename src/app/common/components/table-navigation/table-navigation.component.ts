@@ -21,7 +21,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
-    {columnWidth: 'col-xs-1', hideArrows: true}
+    {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
   campaignListNavigationItems = [
@@ -33,7 +33,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
-    {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
+    {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
   siteListNavigationItems = [
@@ -44,8 +44,8 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
     {title: 'Avg. Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
-    {columnWidth: 'col-xs-1', hideArrows: true}
-  ];
+    {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
+    ];
 
   userListNavigationItems = [
     {title: '', columnWidth: 'col-xs-4'},
