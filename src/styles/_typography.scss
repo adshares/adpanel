@@ -1,5 +1,6 @@
 .adsh-heading {
   color: pal(navy);
+  word-break: break-all;
 
   &--hero {
     @include font(64, bold);
