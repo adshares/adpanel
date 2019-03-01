@@ -8,7 +8,7 @@ import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
-import { SiteAssetTargeting } from 'models/targeting-option.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 
 @Component({
   selector: 'app-edit-site',
@@ -34,27 +34,19 @@ export class EditSiteComponent implements OnInit, OnDestroy {
       .subscribe((lastEditedSite: Site) => {
         const requires = lastEditedSite.filtering.requires || [];
         const excludes = lastEditedSite.filtering.excludes || [];
-        const requireClassified = lastEditedSite.filtering.requireClassified || false;
-        const excludeUnclassified = lastEditedSite.filtering.excludeUnclassified || false;
         if (!lastEditedSite.filteringArray && !Array.isArray(excludes) ||
           !Array.isArray(requires)) {
           const filteringOptions = this.route.snapshot.data.filteringOptions;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(
-              {
-                ...parseTargetingOptionsToArray({requires, excludes}, filteringOptions),
-                requireClassified,
-                excludeUnclassified,
-              }
+              parseTargetingOptionsToArray({requires, excludes}, filteringOptions)
             )
           );
         } else {
           const filtering = {
             requires,
             excludes,
-            requireClassified,
-            excludeUnclassified,
-          } as SiteAssetTargeting;
+          } as AssetTargeting;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(filtering)
           )

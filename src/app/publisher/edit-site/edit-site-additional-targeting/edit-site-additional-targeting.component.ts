@@ -88,9 +88,9 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
       filtering: {
         requires: [...this.addedItems],
         excludes: [...this.excludedItems],
-        requireClassified: this.isCheckedRequireClassified,
-        excludeUnclassified: this.isCheckedExcludeUnclassified,
-      }
+      },
+      requireClassified: this.isCheckedRequireClassified,
+      excludeUnclassified: this.isCheckedExcludeUnclassified,
     }
   }
 
@@ -100,11 +100,11 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   }
 
   saveSite(isDraft) {
+    this.site.requireClassified = this.isCheckedRequireClassified;
+    this.site.excludeUnclassified = this.isCheckedExcludeUnclassified;
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,
-      requireClassified: this.isCheckedRequireClassified,
-      excludeUnclassified: this.isCheckedExcludeUnclassified,
     };
 
     this.changesSaved = true;
@@ -135,8 +135,8 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
-        this.isCheckedRequireClassified = filtering.requireClassified;
-        this.isCheckedExcludeUnclassified = filtering.excludeUnclassified;
+        this.isCheckedRequireClassified = lastEditedSite.requireClassified;
+        this.isCheckedExcludeUnclassified = lastEditedSite.excludeUnclassified;
       });
     this.subscriptions.push(lastSiteSubscription);
   }

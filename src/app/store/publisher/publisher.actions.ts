@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
-import { SiteAssetTargeting, TargetingOption } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
@@ -156,7 +156,7 @@ export class SaveLastEditedSite implements Action {
 export class SaveSiteFiltering implements Action {
   readonly type: string = SAVE_LAST_EDITED_SITE_FILTERING;
 
-  constructor(public payload: SiteAssetTargeting) {
+  constructor(public payload: AssetTargeting) {
   }
 }
 

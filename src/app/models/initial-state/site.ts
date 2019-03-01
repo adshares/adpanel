@@ -14,17 +14,15 @@ export const siteInitialState: Site = {
   status: siteStatusEnum.DRAFT,
   name: '',
   primaryLanguage: '',
+  requireClassified: false,
+  excludeUnclassified: false,
   filtering: {
     requires: {},
-    excludes: {},
-    requireClassified: false,
-    excludeUnclassified: false,
+    excludes: {}
   },
   filteringArray: {
     requires: [],
-    excludes: [],
-    requireClassified: false,
-    excludeUnclassified: false,
+    excludes: []
   },
   adUnits: []
 };
