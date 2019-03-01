@@ -282,17 +282,15 @@
 
     <section class="adsh-box adsh-box--high">
       <div class="row justify-end">
-        <button
-          class="
-           adsh-btn
-           adsh-btn--edit
-           hidden-md"
-          (click)="navigateToCampaignEdition('additional-targeting', 2)"
-          data-test="publisher-site-edit">
+        <button class="self-end
+                       adsh-btn
+                       adsh-btn--edit
+                       hidden-md"
+                (click)="navigateToCampaignEdition('additional-targeting', 2)"
+                data-test="publisher-site-edit">
           <img
-            class="
-            adsh-icon
-            adsh-icon--prepend"
+            class="adsh-icon
+                     adsh-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
           {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
@@ -309,6 +307,9 @@
           col-lg-6
           adsh-box--no-padding"
         >
+          <h2 class="adsh-targeting-details__title
+                     adsh-copy--large
+                     adsh-copy--semi">Requires: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -326,6 +327,9 @@
           col-xs-12
           col-lg-6
           adsh-box--no-padding">
+          <h2 class="adsh-targeting-details__title
+                     adsh-copy--large
+                     adsh-copy--semi">Excludes: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
