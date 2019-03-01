@@ -1,15 +1,15 @@
-import {Component, Input} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MatDialog} from "@angular/material";
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {adStatusesEnum, adTypesEnum} from 'models/enum/ad.enum';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {HTTP_INTERNAL_SERVER_ERROR} from "common/utilities/codes";
-import {SetLastEditedCampaign} from "store/advertiser/advertiser.actions";
-import {Store} from "@ngrx/store";
-import {Ad, Campaign} from 'models/campaign.model';
-import {AppState} from "models/app-state.model";
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MatDialog } from "@angular/material";
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
+import { SetLastEditedCampaign } from "store/advertiser/advertiser.actions";
+import { Store } from "@ngrx/store";
+import { Ad, Campaign } from 'models/campaign.model';
+import { AppState } from "models/app-state.model";
 
 @Component({
   selector: 'app-ad-list-item',
@@ -40,7 +40,8 @@ export class AdListItemComponent {
       statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
 
     this.advertiserService.updateAdStatus(this.campaign.id, this.ad.id, this.ad.status).subscribe(
-      () => {},
+      () => {
+      },
       (err: HttpErrorResponse) => {
         this.ad.status = status;
         if (err.status !== HTTP_INTERNAL_SERVER_ERROR) {

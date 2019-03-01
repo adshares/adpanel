@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {siteStatusEnum} from 'models/enum/site.enum.ts';
-import {enumToArray} from "common/utilities/helpers";
-import {MatDialog} from "@angular/material";
-import {UpdateSiteStatus} from "store/publisher/publisher.actions";
-import {AppState} from "models/app-state.model";
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from "@ngrx/store";
+import { siteStatusEnum } from 'models/enum/site.enum.ts';
+import { enumToArray } from "common/utilities/helpers";
+import { MatDialog } from "@angular/material";
+import { UpdateSiteStatus } from "store/publisher/publisher.actions";
+import { AppState } from "models/app-state.model";
 
 @Component({
   selector: 'app-site-list-item',

@@ -1,23 +1,23 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-
-import {Campaign} from 'models/campaign.model';
-import {AppState} from 'models/app-state.model';
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {ChartComponent} from 'common/components/chart/chart.component';
-import {ChartService} from 'common/chart.service';
-import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
-import {ChartData} from 'models/chart/chart-data.model';
-import {AssetTargeting} from "models/targeting-option.model";
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import {classificationStatusesEnum} from 'models/enum/classification.enum';
-import {createInitialArray, enumToArray} from 'common/utilities/helpers';
-import {parseTargetingOptionsToArray} from "common/components/targeting/targeting.helpers";
-import {HandleSubscription} from 'common/handle-subscription';
-import {MatDialog} from "@angular/material";
-import {UserConfirmResponseDialogComponent} from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import { Campaign } from 'models/campaign.model';
+import { AppState } from 'models/app-state.model';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { ChartService } from 'common/chart.service';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { AssetTargeting } from "models/targeting-option.model";
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { classificationStatusesEnum } from 'models/enum/classification.enum';
+import { createInitialArray, enumToArray } from 'common/utilities/helpers';
+import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
+import { HandleSubscription } from 'common/handle-subscription';
+import { MatDialog } from "@angular/material";
+import { UserConfirmResponseDialogComponent } from
+    "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import {
   DeleteCampaign,
   UpdateCampaignStatus,

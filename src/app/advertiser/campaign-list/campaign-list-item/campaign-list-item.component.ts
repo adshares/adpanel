@@ -1,14 +1,13 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges} from '@angular/core';
-import {Router} from '@angular/router';
-
-import {Campaign} from 'models/campaign.model';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import {AdvertiserService} from "advertiser/advertiser.service";
-import {enumToArray} from "common/utilities/helpers";
-import {MatDialog} from "@angular/material";
-import {AppState} from "models/app-state.model";
-import {Store} from "@ngrx/store";
-import {UpdateCampaignStatus} from 'store/advertiser/advertiser.actions';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { AdvertiserService } from "advertiser/advertiser.service";
+import { enumToArray } from "common/utilities/helpers";
+import { MatDialog } from "@angular/material";
+import { AppState } from "models/app-state.model";
+import { Store } from "@ngrx/store";
+import { UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list-item',
