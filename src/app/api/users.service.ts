@@ -29,6 +29,10 @@ export class ApiUsersService {
     return this.http.post(`${environment.authUrl}/email/activate`, {user: {email_confirm_token: token}});
   }
 
+  confirmWithdrawal(token: string) {
+    return this.http.post(`${environment.apiUrl}/wallet/confirm-withdrawal`, {token: token});
+  }
+
   updateSelf(id: number, user): Observable<User> {
     return this.http.patch<User>(`${environment.authUrl}/self`, {user});
   }

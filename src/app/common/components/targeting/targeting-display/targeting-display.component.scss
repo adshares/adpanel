@@ -26,8 +26,10 @@
 }
 
 .remove {
+  color: pal(red, dark);
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-58%,-52%);
+  font-weight: bold;
+  transform: translate(-50%, -50%);
 }

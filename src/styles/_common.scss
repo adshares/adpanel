@@ -96,7 +96,7 @@
 }
 
 .adsh-icon {
-  height: 18px;
+  height: 16px;
 
   &--prepend {
     margin-right: 10px;
@@ -204,7 +204,7 @@
   }
 
   &--large {
-    padding: 25px;
+    padding: 20px;
     margin-top: 2px;
   }
 
@@ -322,40 +322,48 @@ router-outlet ~ * {
 */
 
 .adsh-status {
-  @include font(12, bold);
+  @include font(11, semi);
   text-transform: uppercase;
   width: 100%;
-  padding: 4px 5px;
-
-  & .mat-select-value-text {
-    font-weight: bold;
-  }
+  border: none;
+  padding: 4px 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: pal(navy, base);
 
   & .mat-select-arrow {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
     margin: 0 0 0 3px;
   }
 
   &[data-status="active"] {
-    color: pal(green);
     background-color: pal(green, light);
   }
 
   &[data-status="inactive"] {
-    color: pal(blue);
     background-color: pal(blue, light);
   }
 
   &[data-status="suspended"] {
-    color: pal(red);
     background-color: pal(red, light);
   }
 
   &[data-status="archived"],
   &[data-status="draft"] {
-    color: pal(gray);
     background-color: pal(gray, ultra-light);
+  }
+
+  &--btn {
+    min-width: auto;
+    width: auto;
+    color: pal(gray, dark) !important;
+
+    &[data-status="active"] {
+      color: pal(green);
+    }
   }
 }
 
@@ -428,10 +436,20 @@ router-outlet ~ * {
   }
 }
 
+// targeting
+
+.adsh-targeting-details {
+  &__title {
+    transform: translateY(-32px);
+    z-index: 999999999999999;
+    position: absolute;
+    font-size: 14px;
+  }
+}
+
 .break-word {
   word-wrap: break-word;
 }
-
 
 .status-wrapper {
   min-width: 140px;
@@ -439,10 +457,35 @@ router-outlet ~ * {
 
   &__list-item {
     padding: 4px;
+
+    .mat-select-value {
+      display: none;
+    }
   }
 
   .adsh-select {
     border: 1px solid pal(gray, light);
+  }
+}
+
+.status-button-wrapper {
+  margin-right: 8px;
+
+  > * {
+    align-items: center;
+    margin: 0 4px;
+    display: flex;
+  }
+
+  [data-status="active"] {
+    color: pal(green);
+  }
+
+  .adsh-copy[data-status="inactive"],
+  .adsh-copy[data-status="suspended"],
+  .adsh-copy[data-status="archived"],
+  .adsh-copy[data-status="draft"] {
+    color: pal(red, dark);
   }
 }
 

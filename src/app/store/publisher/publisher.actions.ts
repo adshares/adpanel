@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
-import {AssetTargeting, TargetingOption} from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
@@ -201,6 +201,7 @@ export class GetLanguagesListFailure implements Action {
   constructor(public payload: any) {
   }
 }
+
 export class GetFilteringCriteria implements Action {
   readonly type = GET_FILTERING_CRITERIA;
 

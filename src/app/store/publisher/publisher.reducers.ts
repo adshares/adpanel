@@ -1,5 +1,5 @@
 import * as PublisherActions from './publisher.actions';
-import * as authActions  from '../auth/auth.actions';
+import * as authActions from '../auth/auth.actions';
 import {siteInitialState, sitesTotalsInitialState} from 'models/initial-state/site';
 import {PublisherState} from 'models/app-state.model';
 
@@ -19,7 +19,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         sites: action.payload
       };
 
-      case PublisherActions.LOAD_SITE_SUCCESS:
+    case PublisherActions.LOAD_SITE_SUCCESS:
       return {
         ...state,
         sites: [
@@ -40,16 +40,16 @@ export function publisherReducers(state = initialState, action: PublisherActions
       }
       state.sites.forEach(site => {
         action.payload.data.forEach(data => {
-            if (data.siteId === site.id && !sitesWithTotal.find(el => el.id === site.id)) {
-              sitesWithTotal.push({
-                ...site,
-                ...data
-              })
-            } else if (!sitesWithTotal.find(el => el.id === site.id)) {
-              sitesWithTotal.push({
-                ...site,
-              })
-            }
+          if (data.siteId === site.id && !sitesWithTotal.find(el => el.id === site.id)) {
+            sitesWithTotal.push({
+              ...site,
+              ...data
+            })
+          } else if (!sitesWithTotal.find(el => el.id === site.id)) {
+            sitesWithTotal.push({
+              ...site,
+            })
+          }
         })
       });
 
@@ -58,6 +58,56 @@ export function publisherReducers(state = initialState, action: PublisherActions
         sites: sitesWithTotal,
         sitesTotals: action.payload.total
       };
+
+    case PublisherActions.LOAD_SITE_TOTALS_SUCCESS:
+      const selectedSite = state.sites.find(el => el.id === action.payload.total.siteId);
+      const filteredSites = state.sites.filter(el => el.id !== action.payload.total.siteId);
+
+      if (action.payload.data.length <= 0) {
+        return {
+          ...state,
+          sites: [
+            ...filteredSites,
+            {
+              ...selectedSite,
+              ...action.payload.total
+            }
+          ]
+        };
+      }
+
+      const adUnitData = [];
+      if (selectedSite.adUnits !== undefined && selectedSite.adUnits.length > 0) {
+        selectedSite.adUnits.forEach(unit => {
+          action.payload.data.forEach(element => {
+            if (element.zoneId === unit.id && !adUnitData.find(el => el.id === unit.id)) {
+              adUnitData.push({
+                ...unit,
+                id: element.zoneId,
+                averageRpc: element.averageCpc,
+                averageRpm: element.averageRpm,
+                clicks: element.clicks,
+                ctr: element.ctr,
+                revenue: element.revenue,
+                impressions: element.impressions,
+
+              })
+            } else if (!adUnitData.find(el => el.id === unit.id)) {
+              adUnitData.push(unit)
+            }
+          })
+        });
+      }
+
+      return {
+        ...state,
+        sites: [...filteredSites, {
+          ...selectedSite,
+          ...action.payload.total,
+
+        }],
+      };
+
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {
         ...state,

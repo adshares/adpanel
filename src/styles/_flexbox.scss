@@ -63,6 +63,11 @@
 
 .no-wrap {
   flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .no-gutters {

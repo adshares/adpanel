@@ -11,15 +11,16 @@
   @include media(xxxl-up) {
     max-width: 2000px;
   }
+
+  &__checkbox-container {
+    padding: 16px 32px;
+  }
 }
 
 .targeting-select-wrapper {
   margin-top: 30px;
 }
 
-.targeting-accordion {
-  > .adsh-box {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.adsh-box {
+  margin-top: 8px;
 }

@@ -14,6 +14,8 @@ export const siteInitialState: Site = {
   status: siteStatusEnum.DRAFT,
   name: '',
   primaryLanguage: '',
+  requireClassified: false,
+  excludeUnclassified: false,
   filtering: {
     requires: {},
     excludes: {}
