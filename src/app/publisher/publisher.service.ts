@@ -50,7 +50,8 @@ export class PublisherService {
       const targetingObject = parseTargetingForBackend(site.filteringArray);
       Object.assign(site, {filtering: targetingObject});
     }
-    return this.http.post<Site>(`${environment.apiUrl}/sites`, {site});
+    const {filteringArray, ...reducedSite} = site;
+    return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
   }
 
   deleteSite(id: number): Observable<boolean> {
@@ -58,7 +59,8 @@ export class PublisherService {
   }
 
   updateSiteData(id: number, site: Site): Observable<Site> {
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
+    const {filteringArray, ...reducedSite} = site;
+    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
   }
 
   updateSiteStatus(id: number, status: number): Observable<number> {
