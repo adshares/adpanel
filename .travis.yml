@@ -41,21 +41,24 @@ before_script:
 
 jobs:
   include:
-    - stage: Test build, install and code quality
+    - stage: Code Quality
       script:
-        # Run pre-build script
-        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-build.sh"
-
-        # Run build script
-        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/build.sh"
-
-        # Run pre-install script
-        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-install.sh"
-
-        # Run install script
-        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/install.sh"
-
         - sonar-scanner
+
+#    - stage: Test build, install
+#      if: type = pull_request AND branch = master
+#      script:
+#        # Run pre-build script
+#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-build.sh"
+#
+#        # Run build script
+#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/build.sh"
+#
+#        # Run pre-install script
+#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-install.sh"
+#
+#        # Run install script
+#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/install.sh"
 
 # After a build, send email push-notification with the build results
 notifications:
