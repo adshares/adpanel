@@ -438,10 +438,20 @@ router-outlet ~ * {
   }
 }
 
+// targeting
+
+.adsh-targeting-details {
+  &__title {
+    transform: translateY(-32px);
+    z-index: 999999999999999;
+    position: absolute;
+    font-size: 14px;
+  }
+}
+
 .break-word {
   word-wrap: break-word;
 }
-
 
 .status-wrapper {
   min-width: 140px;
