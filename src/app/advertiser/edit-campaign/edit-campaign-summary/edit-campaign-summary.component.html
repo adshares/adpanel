@@ -10,15 +10,15 @@
   >
     <h1
       class="
-        adsh-heading
-        adsh-heading--primary"
+        dwmth-heading
+        dwmth-heading--primary"
     >
       Summary
     </h1>
     <p
       class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
     >
       Below is summary of all the data defining your campaign.
     </p>
@@ -26,8 +26,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       campaign-edit-summary__basic-info-wrapper"
   >
     <div
@@ -38,8 +38,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         1. Basic Information
       </h3>
@@ -50,9 +50,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -64,8 +64,8 @@
         class="
           col-xs-12
           campaign-edit-summary__info-cell
-          adsh-copy--small
-          adsh-copy--light"
+          dwmth-copy--small
+          dwmth-copy--light"
       >
         Campaign Name:
       </div>
@@ -85,21 +85,21 @@
       class="
         row
         align-center
-        adsh-copy
+        dwmth-copy
         campaign-edit-summary__basic-info"
     >
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Target URL:
         </p>
         <p
           class="
-            adsh-copy--dark
-            adsh-copy--semi"
+            dwmth-copy--dark
+            dwmth-copy--semi"
           data-test="advertiser-campaign-target-url"
         >
           {{ campaign.basicInformation.targetUrl }}
@@ -108,15 +108,15 @@
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Max CPC
         </p>
         <p
           class="
-            adsh-copy--dark
-            adsh-copy--semi"
+            dwmth-copy--dark
+            dwmth-copy--semi"
           data-test="advertiser-campaign-max-cpc"
         >
           {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
@@ -125,15 +125,15 @@
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Max CPM
         </p>
         <p
           class="
-            adsh-copy--dark
-            adsh-copy--semi"
+            dwmth-copy--dark
+            dwmth-copy--semi"
           data-test="advertiser-campaign-max-cpm"
         >
           {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
@@ -142,15 +142,15 @@
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Budget
         </p>
         <p
           class="
-            adsh-copy--dark
-            adsh-copy--semi"
+            dwmth-copy--dark
+            dwmth-copy--semi"
           data-test="advertiser-campaign-budget"
         >
           {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
@@ -159,7 +159,7 @@
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Date of Start
@@ -171,15 +171,15 @@
         >
           <img
             class="
-              adsh-icon
-              adsh-icon--prepend"
+              dwmth-icon
+              dwmth-icon--prepend"
             src="/assets/images/calendar.svg"
             alt="Calendar Icon"
           >
           <p
             class="
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy--dark
+              dwmth-copy--semi"
             data-test="advertiser-campaign-start-date"
           >
             {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
@@ -190,7 +190,7 @@
       <div>
         <p
           class="
-            adsh-copy--small
+            dwmth-copy--small
             label"
         >
           Date of End
@@ -202,16 +202,16 @@
         >
           <img
             class="
-              adsh-icon
-              adsh-icon--prepend"
+              dwmth-icon
+              dwmth-icon--prepend"
             src="/assets/images/calendar.svg"
             alt="Calendar Icon"
           >
           <p
             *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
             class="
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy--dark
+              dwmth-copy--semi"
             data-test="advertiser-campaign-end-date"
           >
             {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
@@ -226,8 +226,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       campaign-edit-summary__targeting-info"
   >
     <div
@@ -238,8 +238,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         2. Additional Targeting
       </h3>
@@ -250,9 +250,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -267,9 +267,9 @@
       >
         <p
           class="
-            adsh-copy
-            adsh-copy--large
-            adsh-copy--x-dark
+            dwmth-copy
+            dwmth-copy--large
+            dwmth-copy--x-dark
             targeting-title"
         >
           Requires:
@@ -292,9 +292,9 @@
       >
         <p
           class="
-            adsh-copy
-            adsh-copy--large
-            adsh-copy--x-dark
+            dwmth-copy
+            dwmth-copy--large
+            dwmth-copy--x-dark
             targeting-title"
         >
           Excludes:
@@ -314,9 +314,9 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
-      campaign-edit-summary__ads-info"
+      dwmth-box
+      dwmth-box--large
+      campaign-edit-summary__poster-info"
   >
     <div
       class="
@@ -326,8 +326,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         3. Ads
       </h3>
@@ -338,9 +338,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -350,7 +350,7 @@
     <div class="row">
       <div
         *ngFor="let ad of campaign.ads; let adIndex = index"
-        class="campaign-ads"
+        class="campaign-poster"
       >
         <iframe
           class="campaign-edit-summary__iframe"
@@ -369,24 +369,24 @@
         ></iframe>
 
         <div
-          class="adsh-tooltip"
+          class="dwmth-tooltip"
           [class.active]="tooltipActive && currentTooltipIndex === adIndex"
           data-test="advertiser-campaign-summary-ad-tooltip"
         >
           <div class="triangle"></div>
           <p
             class="
-              adsh-heading
-              adsh-heading--secondary"
+              dwmth-heading
+              dwmth-heading--secondary"
             data-test="advertiser-ad-short-headline"
           >
             {{ ad.name }}
           </p>
           <p
             class="
-              adsh-copy
-              adsh-copy--x-small
-              adsh-copy--blue"
+              dwmth-copy
+              dwmth-copy--x-small
+              dwmth-copy--blue"
             data-test="advertiser-ad-size"
           >
             {{ ad.imageSize }}
@@ -398,8 +398,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       row
       justify-between"
   >
@@ -410,9 +410,9 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
       >
         Back
       </button>
@@ -422,9 +422,9 @@
       <a>
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue
             save-as-draft"
           (click)="saveCampaign(true)"
           data-test="advertiser-edit-campaign-save-as-draft"
@@ -435,8 +435,8 @@
       <a>
         <button
           class="
-            adsh-btn
-            adsh-btn--blue"
+            dwmth-btn
+            dwmth-btn--blue"
           (click)="saveCampaign(false)"
           data-test="advertiser-edit-campaign-start-campaign"
         >

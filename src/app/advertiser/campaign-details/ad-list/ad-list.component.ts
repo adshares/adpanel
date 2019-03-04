@@ -5,7 +5,7 @@ import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
 
 @Component({
-  selector: 'app-ad-list',
+  selector: 'app-poster-list',
   templateUrl: './ad-list.component.html',
   styleUrls: ['./ad-list.component.scss'],
 })

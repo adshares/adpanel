@@ -4,13 +4,13 @@
     campaign-list"
 >
   <div class="campaign-list__items">
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <app-table-navigation
         [navigationName]="'campaignListNavigation'"
         class="
           row
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
     </div>
@@ -22,14 +22,14 @@
       ></app-campaign-list-item>
 
       <div *ngIf="campaigns.length > 0"
-        class="adsh-box">
-        <div class="adsh-campaign-list__item">
+        class="dwmth-box">
+        <div class="dwmth-campaign-list__item">
           <div
             class="
               row
               align-center
-              adsh-copy
-              adsh-copy--semi"
+              dwmth-copy
+              dwmth-copy--semi"
           >
             <div
               class="
@@ -45,8 +45,8 @@
             >
               <h4
                 class="
-                  adsh-heading
-                  adsh-heading--secondary"
+                  dwmth-heading
+                  dwmth-heading--secondary"
               >
                 Total - All Campaigns
               </h4>
@@ -114,7 +114,7 @@
 
   <div
     class="
-      adsh-box
+      dwmth-box
       hidden-md"
   >
     <div
@@ -124,17 +124,17 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-btn--no-border
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-btn--no-border
+          dwmth-blue"
         (click)="navigateToCreateCampaign()"
         data-test="advertiser-create-new-campaign"
       >
         <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           src="assets/images/plus-circle--blue.svg"
         >
         Add new campaign

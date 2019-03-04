@@ -5,7 +5,7 @@ import {faCode} from '@fortawesome/free-solid-svg-icons';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 
 @Component({
-  selector: 'app-ad-units',
+  selector: 'app-poster-units',
   templateUrl: './ad-units.component.html',
   styleUrls: ['./ad-units.component.scss'],
 })
