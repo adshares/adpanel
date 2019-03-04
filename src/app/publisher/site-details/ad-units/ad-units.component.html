@@ -5,7 +5,7 @@
          alt="ad-thumbnail"/>
   </td>
 
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ adUnit.shortHeadline }}</td>
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ adUnit.shortHeadline }}</td>
   <td class="col-xs-1 col justify-around ad-unit__cell ad-unit__cell--start">
     <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ adUnit.size.label }} </span>
     <span class="text-left adsh-copy adsh-copy--bold"> {{ adUnit.size.width }} x {{adUnit.size.height }} </span>
@@ -19,12 +19,12 @@
     </div>
   </td>
 
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
   </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 adsh-copy ad-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
   </td>
   <td class="col-xs-1 ad-unit__cell">
     <button

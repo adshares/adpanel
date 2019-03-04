@@ -309,8 +309,7 @@
           (sortTable)="sortTable($event)"
 
           class="row
-                 adsh-copy
-                 adsh-copy--small"
+                 adsh-copy"
         ></app-table-navigation>
         <app-ad-units
           *ngFor="let adUnit of site.adUnits"
@@ -332,9 +331,8 @@
         class="
           adsh-btn
           adsh-btn--white
-          adsh-btn--no-border
-          adsh-heading
-          adsh-heading--secondary"
+          adsh-blue
+          adsh-btn--no-border"
         (click)="navigateToEditSite('create-ad-units', 3)"
         data-test="publisher-site-create-new-ad-unit"
       >

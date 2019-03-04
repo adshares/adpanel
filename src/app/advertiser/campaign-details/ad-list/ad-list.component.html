@@ -3,22 +3,20 @@
     col
     adsh-ad-list"
 >
-  <div class="adsh-ad-list__items">
-    <div class="adsh-box">
-      <app-table-navigation
-        [navigationName]="'adListNavigation'"
-        class="
+  <table class="adsh-ad-list__items">
+    <app-table-navigation
+      [navigationName]="'adListNavigation'"
+      class="
           row
-          adsh-copy
-          adsh-copy--small"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
-    </div>
-
+          adsh-copy"
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
+    <tbody>
     <app-ad-list-item
       *ngFor="let ad of adList"
       [ad]="ad"
       [campaign]="campaign"
     ></app-ad-list-item>
-  </div>
+    </tbody>
+  </table>
 </section>

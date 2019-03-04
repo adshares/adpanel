@@ -65,7 +65,7 @@
       <p
         class="
           adsh-copy
-          adsh-copy--large
+          adsh-copy--blue
           adsh-customize-subheading"
       >
         You will send your funds on this address.
@@ -121,40 +121,34 @@
         </span>
       </div>
 
-      <div
-        class="
+      <div class="
+          withdraw-funds__btns-wrapper
           row
-          justify-center
-          adsh-btn--submit"
-      >
+          justify-between">
         <button class="
-          adsh-btn
-          adsh-btn--blue"
+                     adsh-btn
+                     adsh-btn--white
+                     adsh-copy--blue"
                 type="button"
                 (click)="getMaxWithdrawAmount()"
                 data-test="common-withdraw-funds-form-btn-withdraw-max"
         >
           Withdraw Max
         </button>
-      </div>
 
-      <div
-        class="
-          row
-          justify-center
-          adsh-btn--submit"
-      >
         <button
-          class="
-            adsh-btn
-            adsh-btn--blue"
+          class="adsh-btn
+                 adsh-btn--white
+                 adsh-copy--blue"
           type="button"
           (click)="calculateFee()"
           data-test="common-withdraw-funds-form-btn-calc-fee"
         >
           Calculate fee
         </button>
+
       </div>
+
 
       <div
         *ngIf="calculatedFee !== undefined"
@@ -254,12 +248,13 @@
         class="
           row
           justify-center
-          adsh-btn--submit"
+          withdraw-funds__btns-wrapper"
       >
         <button
           class="
             adsh-btn
-            adsh-btn--blue"
+            adsh-btn--blue
+            adsh-btn--block "
           data-test="common-withdraw-funds-form-submit-button"
           *ngIf="isEmailConfirmed"
         >

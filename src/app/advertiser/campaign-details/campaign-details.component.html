@@ -302,10 +302,9 @@
         adsh-copy
         row">
         <div *ngIf="!!targeting.requires.length"
-             class="
-          col-xs-12
-          col-lg-6
-          adsh-box--no-padding"
+             class="col-xs-12
+                    col-lg-6
+                    adsh-box--no-padding"
         >
           <h2 class="adsh-targeting-details__title
                      adsh-copy--large
@@ -345,58 +344,41 @@
 
     <!--̣Campaign list section-->
 
-    <section *ngIf="campaign.ads.length" class="col">
-      <div
-        class="
-          adsh-box
-          row
-          justify-between
-          align-center">
-        <p
-          class="
-            adsh-copy
-            adsh-copy--semi"
-        >
-          List of Ads
-        </p>
-      </div>
+    <table *ngIf="campaign.ads.length" class="col">
       <app-ad-list *ngIf="campaign.ads.length"
                    [adList]="campaign.ads"
                    [campaign]="campaign"></app-ad-list>
-    </section>
+      <!--<tr-->
+        <!--class="-->
+          <!--adsh-box-->
+          <!--adsh-box&#45;&#45;no-padding-->
+          <!--adsh-box&#45;&#45;no-margin-->
+          <!--hidden-md-->
+          <!--row-->
+          <!--justify-center">-->
+        <!---->
+        <!--<td>-->
+          <!--<button-->
+            <!--class="-->
+            <!--row-->
+            <!--align-center-->
+            <!--adsh-btn-->
+            <!--adsh-btn&#45;&#45;white-->
+            <!--adsh-copy&#45;&#45;blue-->
+            <!--adsh-btn&#45;&#45;no-border"-->
+            <!--(click)="navigateToCampaignEdition('create-ad', 3)">-->
+            <!--<img-->
+              <!--src="/assets/images/plus-circle&#45;&#45;blue.svg"-->
+              <!--alt="Add new icon"-->
+              <!--class="-->
+              <!--adsh-icon-->
+              <!--adsh-icon&#45;&#45;prepend"/>-->
+            <!--{{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}-->
+          <!--</button>-->
+        <!--</td>-->
+      <!--</tr>-->
+    </table>
 
-    <div
-      class="
-        adsh-box
-        adsh-box--no-padding
-        hidden-md">
-      <div
-        class="
-          row
-          justify-center">
-        <button
-          class="
-            row
-            align-center
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border"
-          (click)="navigateToCampaignEdition('create-ad', 3)">
-          <img
-            src="/assets/images/plus-circle--blue.svg"
-            alt="Add new icon"
-            class="
-              adsh-icon
-              adsh-icon--prepend"/>
-          <span
-            class="
-              adsh-heading
-              adsh-heading--secondary">
-              {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
-          </span>
-        </button>
-      </div>
-    </div>
   </div>
 </section>
 <ng-template #loading>

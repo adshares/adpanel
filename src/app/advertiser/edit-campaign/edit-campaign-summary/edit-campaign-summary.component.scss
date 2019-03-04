@@ -8,6 +8,10 @@
   .label {
     margin-bottom: 5px;
   }
+
+  .adsh-heading {
+    margin-bottom: 22px;
+  }
 }
 
 .campaign-edit-summary {
@@ -28,14 +32,13 @@
   }
 
   .adsh-box {
-    margin: 30px 0;
+    margin: 10px 0;
 
     .campaign-info {
       &--primary {
-        @extend .adsh-heading--primary;
+        @extend .adsh-copy;
         color: pal(navy);
         padding-left: 0;
-        margin: 10px 0 30px;
       }
     }
   }
@@ -56,13 +59,9 @@
     }
   }
 
-  &__targeting--margin-fix {
-    margin-left: -25px;
-  }
-
   &__basic-info {
     &-wrapper {
-      padding: 30px 30px 46px;
+      padding: 20px;
     }
 
     .adsh-heading {

@@ -28,7 +28,7 @@ button {
 }
 
 .parent-option {
-  @include font(12, normal);
+  @include font(14, normal);
 
   &-box {
     padding: 6px 15px;

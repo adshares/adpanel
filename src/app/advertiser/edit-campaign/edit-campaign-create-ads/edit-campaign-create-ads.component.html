@@ -18,7 +18,7 @@
     <p
       class="
         adsh-copy
-        adsh-copy--large"
+        adsh-copy--medium"
     >
       Below you can create list of advertisements displayed during this campaign.
     </p>
@@ -65,7 +65,8 @@
                  (adForm.get('html') && adForm.get('html').hasError('required'))  ||
                  (adForm.get('image') && adForms[i].get('image').value.src === '')
                 )"
-                > ! </div>
+                > !
+                </div>
               </div>
 
             </mat-panel-title>
@@ -240,11 +241,7 @@
                   (change)="uploadImage(uploader.queue[0], i)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
-              <p
-                class="
-                  adsh-copy
-                  adsh-copy--large"
-              >
+              <p class="adsh-copy">
                 We support JPG and PNG files. Make sure that your files is no more than 500 kb.
               </p>
             </div>
@@ -476,7 +473,7 @@
       row
       justify-center
       adsh-box
-      adsh-box--no-padding"
+      adsh-box--no-margin"
   >
     <button
       class="
@@ -485,6 +482,7 @@
         adsh-btn
         adsh-btn--large
         adsh-btn--white
+        adsh-blue
         adsh-btn--no-border"
       (click)="createEmptyAd()"
       data-test="advertiser-edit-campaign-create-ads-create-new-ad"
@@ -496,13 +494,7 @@
           adsh-icon
           adsh-icon--prepend"
       >
-      <span
-        class="
-          adsh-heading
-          adsh-heading--secondary"
-      >
-        Create new Ad
-      </span>
+      Create new Ad
     </button>
   </div>
 

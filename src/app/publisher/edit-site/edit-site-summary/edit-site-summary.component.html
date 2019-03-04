@@ -18,7 +18,7 @@
     <p
       class="
         adsh-copy
-        adsh-copy--large"
+        adsh-copy--medium"
     >
       Below is summary of all the data defining your site.
     </p>
@@ -60,46 +60,46 @@
     </div>
 
     <div class="row">
-      <div
-        class="
-          col-xs-12
-          site-edit-summary__info-cell
-          adsh-copy--small
+      <div class="col
+                  site-edit-summary__basic-info-element">
+        <p
+          class="
+          adsh-copy
           adsh-copy--light"
-      >
-        Website name
+        >
+          Website name
+        </p>
+
+        <p
+          class="
+          adsh-copy
+          adsh-copy--semi
+          adsh-copy--medium
+          adsh-copy--x-dark"
+          data-test="publisher-site-url"
+        >
+          {{ site.name }}
+        </p>
       </div>
 
-      <div
-        class="
-          col-xs-12
-          site-edit-summary__info-cell
-          site-info--primary"
-        data-test="publisher-site-url"
-      >
-        {{ site.name }}
-      </div>
-    </div>
-
-    <div class="row">
       <div
         class="
           col-xs-4
-          site-edit-summary__info-cell"
-        >
+          col"
+      >
         <p
-          class="
-            adsh-copy--small
-            adsh-copy--light"
+          class="adsh-copy
+          adsh-copy--light"
         >
           Content Language
         </p>
 
         <p
           class="
-            adsh-heading
-            adsh-heading--secondary
-            site-edit-summary__language"
+            adsh-copy
+            adsh-copy--semi
+            adsh-copy--medium
+            adsh-copy--x-dark"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -152,13 +152,12 @@
         <p
           class="
             adsh-copy
-            adsh-copy--large
             adsh-copy--x-dark
             targeting-title"
         >
           Requires:
         </p>
-        <div class="site-edit-summary__targeting--margin-fix">
+        <div>
           <app-targeting-display
             *ngIf="site.filteringArray.requires"
             [items]="site.filteringArray.requires"
@@ -177,13 +176,12 @@
         <p
           class="
             adsh-copy
-            adsh-copy--large
             adsh-copy--x-dark
             targeting-title"
         >
           Excludes:
         </p>
-        <div class="site-edit-summary__targeting--margin-fix">
+        <div>
           <app-targeting-display
             *ngIf="site.filtering.excludes"
             [items]="site.filtering.excludes"
@@ -231,11 +229,51 @@
       </a>
     </div>
 
-    <div>
-      <app-ad-units
+    <div *ngIf="!!site.adUnits.length"
+         class="row"
+         [ngClass]="site.adUnits.length > 4 ? 'justify-between' : 'justify-start'">
+
+      <div
+        class="row site-edit-summary__ad-unit"
         *ngFor="let adUnit of site.adUnits"
-        [adUnit]="adUnit"
-      ></app-ad-units>
+        data-test="publisher-edit-site-summary-ad-units"
+      >
+        <div
+          class="
+                  row
+                  align-center
+                  justify-center
+                  site-edit-create-ad-unit__ad-unit__visualization-box"
+        >
+          <div
+            class="adsh-copy site-edit-summary_ad-unit__visualization"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+          > {{ adUnit.size.name }}
+          </div>
+        </div>
+
+        <strong
+          class="
+                  site-edit-summary__ad-unit-title
+                  adsh-copy
+                  adsh-copy--semi
+                  adsh-copy--x-dark
+                  adsh-copy--medium"
+          data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
+        >
+          {{ adUnit.size.width }} x {{ adUnit.size.height }}
+
+        </strong>
+        <div>
+          <div
+            class="adsh-chip-box"
+            *ngFor="let tag of adUnit.size.tags"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+          >
+            {{ tag }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -274,43 +312,43 @@
     </button>
 
     <div class="row">
-        <button
-          *ngIf="createSiteMode"
-          class="
+      <button
+        *ngIf="createSiteMode"
+        class="
             adsh-btn
             adsh-btn--white
             adsh-blue
             save-as-draft"
-          type="button"
-          (click)="saveSite(true)"
-          data-test="publisher-edit-site-save-as-draft"
-        >
-          Save as Draft
-        </button>
-        <button
-          *ngIf="createSiteMode"
-          [disabled]="canSubmit"
-          class="
-            adsh-btn
-            adsh-btn--blue"
-          (click)="saveSite(false)"
-          type="button"
-          data-test="publisher-edit-site-start-campaign"
-        >
-          Publish site
-        </button>
+        type="button"
+        (click)="saveSite(true)"
+        data-test="publisher-edit-site-save-as-draft"
+      >
+        Save as Draft
+      </button>
       <button
-          *ngIf="!createSiteMode"
-          [disabled]="canSubmit"
-          class="
+        *ngIf="createSiteMode"
+        [disabled]="canSubmit"
+        class="
             adsh-btn
             adsh-btn--blue"
-          (click)="updateSite()"
-          type="button"
-          data-test="publisher-edit-site-start-campaign"
-        >
-          Update site
-        </button>
+        (click)="saveSite(false)"
+        type="button"
+        data-test="publisher-edit-site-start-campaign"
+      >
+        Publish site
+      </button>
+      <button
+        *ngIf="!createSiteMode"
+        [disabled]="canSubmit"
+        class="
+            adsh-btn
+            adsh-btn--blue"
+        (click)="updateSite()"
+        type="button"
+        data-test="publisher-edit-site-start-campaign"
+      >
+        Update site
+      </button>
     </div>
   </div>
 </section>

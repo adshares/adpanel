@@ -190,7 +190,7 @@
   border-radius: 2px;
   background-color: pal(white);
   border: 1px solid pal(gray, nearly-white);
-  padding: 5px 7px;
+  padding: 8px 7px;
   margin-top: 2px;
 
   & .adsh-box {
@@ -256,12 +256,16 @@
   &--no-padding {
     padding: 0;
   }
+
+  &--no-margin {
+    margin: 0;
+  }
 }
 
 .adsh-chip-box {
   background-color: pal(gray, x-light);
   color: pal(gray, dark);
-  @include font(11, semi);
+  @include font(14, semi);
   padding: 7px;
   border-radius: 2px;
   display: inline-table;
@@ -322,7 +326,7 @@ router-outlet ~ * {
 */
 
 .adsh-status {
-  @include font(11, semi);
+  @include font(14, semi);
   text-transform: uppercase;
   width: 100%;
   border: none;
@@ -362,7 +366,7 @@ router-outlet ~ * {
     color: pal(gray, dark) !important;
 
     &[data-status="active"] {
-      color: pal(green);
+      color: pal(green, dark);
     }
   }
 }
@@ -421,7 +425,7 @@ router-outlet ~ * {
     opacity: 1;
     left: 78%;
     z-index: 999;
-    box-shadow: 0 20px 100px 0 rgba(38, 58, 124, 0.05);
+    box-shadow: 3px 6px 20px 0 rgba(38, 58, 124, 0.04);
   }
 
   .triangle {

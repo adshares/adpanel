@@ -9,7 +9,7 @@ import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site
   templateUrl: './ad-units.component.html',
   styleUrls: ['./ad-units.component.scss'],
 })
-export class AdUnitsComponent implements OnInit{
+export class AdUnitsComponent implements OnInit {
   @Input() adUnit;
   @Input() siteCode;
   tags: string[];

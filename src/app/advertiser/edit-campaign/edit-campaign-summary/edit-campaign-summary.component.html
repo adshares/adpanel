@@ -60,165 +60,164 @@
     </div>
 
     <div class="row">
-      <div
-        class="
-          col-xs-12
-          campaign-edit-summary__info-cell
-          adsh-copy--small
-          adsh-copy--light"
-      >
-        Campaign Name:
-      </div>
 
       <div
         class="
-          col-xs-12
-          campaign-edit-summary__info-cell
-          campaign-info--primary"
-        data-test="advertiser-campaign-name"
-      >
-        {{ campaign.basicInformation.name }}
-      </div>
-    </div>
-
-    <div
-      class="
         row
         align-center
         adsh-copy
         campaign-edit-summary__basic-info"
-    >
-      <div>
-        <p
-          class="
-            adsh-copy--small
-            label"
-        >
-          Target URL:
-        </p>
-        <p
-          class="
-            adsh-copy--dark
-            adsh-copy--semi"
-          data-test="advertiser-campaign-target-url"
-        >
-          {{ campaign.basicInformation.targetUrl }}
-        </p>
-      </div>
-      <div>
-        <p
-          class="
-            adsh-copy--small
-            label"
-        >
-          Max CPC
-        </p>
-        <p
-          class="
-            adsh-copy--dark
-            adsh-copy--semi"
-          data-test="advertiser-campaign-max-cpc"
-        >
-          {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
-        </p>
-      </div>
-      <div>
-        <p
-          class="
-            adsh-copy--small
-            label"
-        >
-          Max CPM
-        </p>
-        <p
-          class="
-            adsh-copy--dark
-            adsh-copy--semi"
-          data-test="advertiser-campaign-max-cpm"
-        >
-          {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
-        </p>
-      </div>
-      <div>
-        <p
-          class="
-            adsh-copy--small
-            label"
-        >
-          Budget
-        </p>
-        <p
-          class="
-            adsh-copy--dark
-            adsh-copy--semi"
-          data-test="advertiser-campaign-budget"
-        >
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
-        </p>
-      </div>
-      <div>
-        <p
-          class="
-            adsh-copy--small
-            label"
-        >
-          Date of Start
-        </p>
-        <div
-          class="
-            row
-            align-center"
-        >
-          <img
-            class="
-              adsh-icon
-              adsh-icon--prepend"
-            src="/assets/images/calendar.svg"
-            alt="Calendar Icon"
-          >
+      >
+        <div>
           <p
             class="
-              adsh-copy--dark
-              adsh-copy--semi"
-            data-test="advertiser-campaign-start-date"
+            adsh-copy--small
+            label"
           >
-            {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+            Campaign Name:
+          </p>
+          <p
+            class="
+            adsh-copy--dark
+            adsh-copy--semi"
+            data-test="advertiser-campaign-name"
+          >
+            {{ campaign.basicInformation.name }}
           </p>
         </div>
 
-      </div>
-      <div>
-        <p
-          class="
+        <div>
+          <p
+            class="
             adsh-copy--small
             label"
-        >
-          Date of End
-        </p>
-        <div
-          class="
+          >
+            Target URL:
+          </p>
+          <p
+            class="
+            adsh-copy--dark
+            adsh-copy--semi"
+            data-test="advertiser-campaign-target-url"
+          >
+            {{ campaign.basicInformation.targetUrl }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="
+            adsh-copy--small
+            label"
+          >
+            Max CPC
+          </p>
+          <p
+            class="
+            adsh-copy--dark
+            adsh-copy--semi"
+            data-test="advertiser-campaign-max-cpc"
+          >
+            {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="
+            adsh-copy--small
+            label"
+          >
+            Max CPM
+          </p>
+          <p
+            class="
+            adsh-copy--dark
+            adsh-copy--semi"
+            data-test="advertiser-campaign-max-cpm"
+          >
+            {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="
+            adsh-copy--small
+            label"
+          >
+            Budget
+          </p>
+          <p
+            class="
+            adsh-copy--dark
+            adsh-copy--semi"
+            data-test="advertiser-campaign-budget"
+          >
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
+          </p>
+        </div>
+        <div>
+          <p
+            class="
+            adsh-copy--small
+            label"
+          >
+            Date of Start
+          </p>
+          <div
+            class="
             row
             align-center"
-        >
-          <img
-            class="
+          >
+            <img
+              class="
               adsh-icon
               adsh-icon--prepend"
-            src="/assets/images/calendar.svg"
-            alt="Calendar Icon"
-          >
-          <p
-            *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-            class="
+              src="/assets/images/calendar.svg"
+              alt="Calendar Icon"
+            >
+            <p
+              class="
               adsh-copy--dark
               adsh-copy--semi"
-            data-test="advertiser-campaign-end-date"
+              data-test="advertiser-campaign-start-date"
+            >
+              {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+            </p>
+          </div>
+
+        </div>
+        <div>
+          <p
+            class="
+            adsh-copy--small
+            label"
           >
-            {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+            Date of End
           </p>
-          <ng-template #dateEndEmpty>
-            -
-          </ng-template>
+          <div
+            class="
+            row
+            align-center"
+          >
+            <img
+              class="
+              adsh-icon
+              adsh-icon--prepend"
+              src="/assets/images/calendar.svg"
+              alt="Calendar Icon"
+            >
+            <p
+              *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
+              class="
+              adsh-copy--dark
+              adsh-copy--semi"
+              data-test="advertiser-campaign-end-date"
+            >
+              {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+            </p>
+            <ng-template #dateEndEmpty>
+              -
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>
@@ -268,21 +267,18 @@
         <p
           class="
             adsh-copy
-            adsh-copy--large
             adsh-copy--x-dark
             targeting-title"
         >
           Requires:
         </p>
-        <div class="campaign-edit-summary__targeting--margin-fix">
-          <app-targeting-display
-            *ngIf="campaign.targetingArray"
-            [items]="campaign.targetingArray.requires"
-            [isExclude]="false"
-            [canRemove]="false"
-            [targetingOptions]="targetingOptionsToAdd"
-          ></app-targeting-display>
-        </div>
+        <app-targeting-display
+          *ngIf="campaign.targetingArray"
+          [items]="campaign.targetingArray.requires"
+          [isExclude]="false"
+          [canRemove]="false"
+          [targetingOptions]="targetingOptionsToAdd"
+        ></app-targeting-display>
       </div>
 
       <div
@@ -293,7 +289,6 @@
         <p
           class="
             adsh-copy
-            adsh-copy--large
             adsh-copy--x-dark
             targeting-title"
         >

@@ -18,7 +18,7 @@
     <p
       class="
         adsh-copy
-        adsh-copy--large"
+        adsh-copy--medium"
     >
       This is the place where you define boxes that will be placed on your pages for us to serve ads in.
     </p>
@@ -188,8 +188,10 @@
               <strong
                 class="
                   site-edit-create-ad-units__ad-unit-title
-                  adsh-heading
-                  adsh-heading--secondary"
+                  adsh-copy
+                  adsh-copy--semi
+                  adsh-copy--x-dark
+                  adsh-copy--medium"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
                 {{ adSizesEnum[adUnit.size] }}
@@ -239,7 +241,7 @@
       row
       justify-center
       adsh-box
-      adsh-box--no-padding"
+      adsh-box--no-margin"
   >
     <button
       class="
@@ -247,6 +249,7 @@
         align-center
         adsh-btn
         adsh-btn--white
+        adsh-blue
         adsh-btn--no-border"
       (click)="createEmptyAd()"
       data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
@@ -258,13 +261,7 @@
           adsh-icon
           adsh-icon--prepend"
       >
-      <span
-        class="
-          adsh-heading
-          adsh-heading--secondary"
-      >
         Create new Ad Unit
-      </span>
     </button>
   </div>
 

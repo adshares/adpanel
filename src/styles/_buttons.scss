@@ -1,8 +1,8 @@
 .adsh-btn {
+  @include font(16, normal);
   border: 1px solid transparent;
   border-radius: 2px;
-  padding: 8px 16px;
-  @include font(14, medium);
+  padding: 12px 16px;
   color: pal(white);
   background: transparent;
   transition: background-color 0.2s ease;
@@ -12,6 +12,7 @@
   justify-content: center;
   text-align: center;
   cursor: pointer;
+  line-height: 1;
 
   &--wide {
     padding: 10px 16px;

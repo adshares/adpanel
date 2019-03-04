@@ -1,125 +1,110 @@
-<div class="adsh-box adsh-box--no-padding">
-  <div>
+<tr
+  class="
+       adsh-box adsh-box--no-padding
+       row
+       align-center
+       adsh-copy"
+>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+  >
     <div
-      class="
-        row
-        align-center
-        adsh-copy
-        adsh-copy--semi"
+      class="text-center"
+      [attr.data-status]="ad.status"
     >
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-        <div
-          class="text-center"
-          [attr.data-status]="ad.status"
-        >
-          <mat-slide-toggle
-            color="primary"
-            [checked]="ad.status === adStatusesEnum.ACTIVE"
-            ([ngModel])="ad.status"
-            (change)="changeAdStatus(ad.status)"
-            data-test="advertiser-ad-change-ad-status-toggle"
-          ></mat-slide-toggle>
-        </div>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-        <h4
-          class="
-            adsh-heading
-            adsh-heading--secondary"
-          data-test="advertiser-ad-name"
-        >
-          {{ ad.name }}
-        </h4>
-      </div>
-      <div
-        class="
-          col-xs-4
-          row
-          align-center"
-      >
-        <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
-          <img *ngIf="adType === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner"
-               class="advertiser-detail-image-preview"/>
-          <span *ngIf="adType === 'HTML'">{{ adType }}</span>
-        </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center">
-      <span data-test="advertiser-ad-clicks">
-        {{ ad.clicks || 0}}
-      </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-      <span data-test="advertiser-ad-impressions">
-        {{ ad.impressions || 0 }}
-      </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-      <span data-test="advertiser-ad-ctr">
-        {{ (ad.ctr || 0) | percent:'1.2-2' }}
-      </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-      <span data-test="advertiser-ad-average-cpc"
-            [title]="(ad.averageCpc || 0) | adsharesTokenValue">
-        {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
-      </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          align-center"
-      >
-      <span data-test="advertiser-ad-cost"
-            [title]=" (ad.cost || 0) | adsharesTokenValue">
-        {{ (ad.cost || 0) | adsharesTokenValue:2}}
-      </span>
-      </div>
-      <div
-        class="
-          col-xs-1
-          row
-          clickable-row
-          clickable-area
-          align-center
-          justify-center
-          adsh-campaign-list__item-campaign-details"
-        (click)="navigateToAdEdition()"
-      >
-        <img
-          src="/assets/images/chevron--right.svg"
-          alt="Edit Ads"
-        >
-      </div>
+      <mat-slide-toggle
+        color="primary"
+        [checked]="ad.status === adStatusesEnum.ACTIVE"
+        ([ngModel])="ad.status"
+        (change)="changeAdStatus(ad.status)"
+        data-test="advertiser-ad-change-ad-status-toggle"
+      ></mat-slide-toggle>
     </div>
-  </div>
-</div>
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-name"
+  >
+    {{ ad.name }}
+  </td>
+  <td
+    class="
+         col-xs-4
+         row
+         align-center"
+  >
+    <span class="adsh-copy" data-test="advertiser-ad-type">
+      <img *ngIf="adType === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner"
+           class="advertiser-detail-image-preview"/>
+      <span *ngIf="adType === 'HTML'">{{ adType }}</span>
+    </span>
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-clicks">
+    {{ ad.clicks || 0}}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-impressions"
+  >
+    {{ ad.impressions || 0 }}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-ctr"
+  >
+    {{ (ad.ctr || 0) | percent:'1.2-2' }}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-average-cpc"
+    [title]="(ad.averageCpc || 0) | adsharesTokenValue"
+  >
+    {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         align-center"
+    data-test="advertiser-ad-cost"
+    [title]=" (ad.cost || 0) | adsharesTokenValue"
+  >
+    {{ (ad.cost || 0) | adsharesTokenValue:2}}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         clickable-row
+         clickable-area
+         align-center
+         justify-center
+         adsh-campaign-list__item-campaign-details"
+    (click)="navigateToAdEdition()"
+  >
+    <img
+      src="/assets/images/chevron--right.svg"
+      alt="Edit Ads"
+    >
+  </td>
+</tr>

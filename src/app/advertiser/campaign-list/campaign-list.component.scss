@@ -4,7 +4,13 @@
   &__sort {
     margin-left: 5px;
   }
-  &__items > .adsh-box:first-of-type {
-    padding: 10px;
+  &__items {
+    tr {
+      height: 53px;
+    }
+
+    & > .adsh-box:first-of-type {
+      padding: 10px;
+    }
   }
 }

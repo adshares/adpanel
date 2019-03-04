@@ -40,7 +40,6 @@
               </mat-option>
             </mat-select>
           </div>
-
         </div>
       </div>
       <div
@@ -50,15 +49,13 @@
           clickable-row
           align-center"
       >
-        <h4
-          class="
-            adsh-heading
-            adsh-heading--secondary"
+        <span
+          class="adsh-copy adsh-copy--no-wrap adsh-copy--bold"
           (click)="navigateToCampaignDetails(campaign.id)"
           data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
-        </h4>
+        </span>
       </div>
       <div
         class="

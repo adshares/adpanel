@@ -62,7 +62,7 @@ export class PublisherService {
   }
 
   updateSiteStatus(id: number, status: number): Observable<number> {
-    return this.http.put<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
+    return this.http.patch<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
   }
 
   updateSiteFiltering(id: number, site: Site): Observable<Site> {
