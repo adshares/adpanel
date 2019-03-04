@@ -1,10 +1,10 @@
-<thead class=" adsh-box table-nav__header">
+<thead class=" dwmth-box table-nav__header">
 <tr
   *ngFor="let menuItem of navigationItems"
   class="
     row
     align-center
-    adsh-copy--semi"
+    dwmth-copy--semi"
   [ngClass]="menuItem.columnWidth"
   (click)="sortTableByKey(menuItem)"
   data-test="common-sort-assets-toggle"
@@ -15,16 +15,16 @@
     *ngIf="!menuItem.hideArrows"
     class="
       col
-      adsh-ad-list__sort"
+      dwmth-posters-list__sort"
   >
     <div
-      class="adsh-sort-triangle"
+      class="dwmth-sort-triangle"
       [class.active]="!menuItem.sortAsc && menuItem.isSortedBy"
     ></div>
     <div
       class="
-        adsh-sort-triangle
-        adsh-sort-triangle--down"
+        dwmth-sort-triangle
+        dwmth-sort-triangle--down"
       [class.active]="menuItem.sortAsc && menuItem.isSortedBy"
     ></div>
   </th>

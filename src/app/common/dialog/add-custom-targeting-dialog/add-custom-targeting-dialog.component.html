@@ -6,20 +6,20 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="adsh-dialog-close"
+    class="dwmth-dialog-close"
   ></div>
   <h1
     class="
-      adsh-heading
-      adsh-heading--primary"
+      dwmth-heading
+      dwmth-heading--primary"
   >
     Add Custom Targeting
   </h1>
 
   <p
     class="
-      adsh-copy
-      adsh-copy--large
+      dwmth-copy
+      dwmth-copy--large
       dialog-description"
   >
     You can add own targeting option.
@@ -32,11 +32,11 @@
         col-sm-8
         col-md-4
         center
-        adsh-form-input__box"
+        dwmth-form-input__box"
     >
-      <label class="adsh-form-label">Category</label>
+      <label class="dwmth-form-label">Category</label>
       <mat-select
-        class="adsh-select"
+        class="dwmth-select"
         [(value)]="selectedCategory"
         [compareWith]="selectCompare"
         (change)="createForm()"
@@ -53,22 +53,22 @@
     <form
       [formGroup]="customTargetingForm"
       (ngSubmit)="addCustomTareting()"
-      class="adsh-form"
+      class="dwmth-form"
     >
       <div
-        class="adsh-form-input__box"
+        class="dwmth-form-input__box"
         *ngIf="selectedCategory.valueType === 'string'">
         <label
           for="customTextValue"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Text
         </label>
         <input
           id="customTextValue"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           type="text"
           formControlName="customTargetingValue"
         >
@@ -99,12 +99,12 @@
       </div>
 
       <div
-        class="adsh-form-input__box"
+        class="dwmth-form-input__box"
         *ngIf="selectedCategory.valueType === 'number'">
-        <span class="adsh-form-label">Action</span>
+        <span class="dwmth-form-label">Action</span>
         <mat-select
           class="
-            adsh-select
+            dwmth-select
             add-custom-targeting-dialog__action-select
           "
           formControlName="customTargetingAction"
@@ -119,15 +119,15 @@
 
         <label
           for="customNumberValue"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Amount
         </label>
         <input
           id="customNumberValue"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           type="number"
           formControlName="customTargetingValue"
         >
@@ -160,9 +160,9 @@
       <div class="row">
         <button
           class="
-            adsh-btn
-            adsh-btn--wide
-            adsh-btn--blue
+            dwmth-btn
+            dwmth-btn--wide
+            dwmth-btn--blue
             add-custom-targeting-dialog__submit-button"
           type="submit"
         >

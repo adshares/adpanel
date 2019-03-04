@@ -1,6 +1,6 @@
 <section
   class="
-    adsh-edit-asset__navigation
+    dwmth-edit-asset__navigation
     row
     align-center"
 >
@@ -14,24 +14,24 @@
       <div
         *ngFor="let step of steps"
         class="
-          adsh-edit-asset__navigation-step
+          dwmth-edit-asset__navigation-step
           row
           align-center"
       >
         <div
-          class="adsh-circle"
+          class="dwmth-circle"
           [class.inactive]="currentStep < step.id"
           [class.active]="currentStep == step.id"
           [class.done]="currentStep > step.id">
         </div>
         <p
           class="
-          adsh-copy
-          adsh-copy--large"
+          dwmth-copy
+          dwmth-copy--large"
         >
           {{ step.name }}
         </p>
-        <div class="adsh-step-link-indicator"></div>
+        <div class="dwmth-step-link-indicator"></div>
       </div>
   </div>
 </section>

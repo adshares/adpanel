@@ -17,12 +17,12 @@
     margin: 0 auto;
   }
 
-  .adsh-box {
+  .dwmth-box {
     margin: 30px 0;
 
     .site-info {
       &--primary {
-        @extend .adsh-heading--primary;
+        @extend .dwmth-heading--primary;
         color: pal(navy);
         padding-left: 0;
         margin: 10x 0 30px;
@@ -41,7 +41,7 @@
   &__basic-info{
     padding: 30px 30px 46px;
 
-    .adsh-heading {
+    .dwmth-heading {
       margin-bottom: 32px;
     }
   }
@@ -49,15 +49,15 @@
   &__targeting-info {
     padding: 41px 30px 38px;
 
-    .adsh-heading {
+    .dwmth-heading {
       margin-bottom: 22px;
     }
   }
 
-  &__ads-info {
+  &__poster-info {
     padding: 40px 30px 42px;
 
-    .adsh-heading {
+    .dwmth-heading {
       margin-bottom: 25px;
     }
   }

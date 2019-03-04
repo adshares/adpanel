@@ -1,6 +1,6 @@
 @import '../../styles.scss';
 
-.adsh-auth {
+.dwmth-auth {
   height: 100vh;
   width: 100vw;
   background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
@@ -86,7 +86,7 @@
   }
 }
 
-.adsh-circle {
+.dwmth-circle {
   margin: 0 15px;
 }
 
@@ -95,7 +95,7 @@
   overflow: hidden;
   height: 100vh;
 
-  .adsh-auth__content {
+  .dwmth-auth__content {
     position: relative;
   }
 

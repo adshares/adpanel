@@ -7,8 +7,8 @@
     <!-- TODO : wymaga posprzątania i przebudowy, pociągnąć logikę z serverem -->
     <!-- <img
       class="
-        adsh-icon
-        adsh-icon--large"
+        dwmth-icon
+        dwmth-icon--large"
       [src]="'assets/images/notifications/' + notificationTypesEnum[notification.notificationType].toLowerCase() + '.svg'"
     > -->
   </div>
@@ -21,15 +21,15 @@
     <h4
       *ngIf="notification.title"
       class="
-        adsh-heading
-        adsh-heading--secondary"
+        dwmth-heading
+        dwmth-heading--secondary"
     >
       {{ notification.title }}
     </h4>
     <p
       class="
-        adsh-copy
-        adsh-copy--small
+        dwmth-copy
+        dwmth-copy--small
         notification-message"
     >
       {{ notification.message }}
@@ -37,9 +37,9 @@
     <!-- <div
       class="
         row
-        adsh-copy
-        adsh-copy--small
-        adsh-copy--uppercase
+        dwmth-copy
+        dwmth-copy--small
+        dwmth-copy--uppercase
         notification-actions"
       data-test="notifications-dismiss-notification"
     >

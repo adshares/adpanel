@@ -1,8 +1,8 @@
-<section class="adsh-funds-summary">
+<section class="dwmth-funds-summary">
   <div
     class="
-      adsh-box
-      adsh-box--large"
+      dwmth-box
+      dwmth-box--large"
   >
     <div
       class="
@@ -23,29 +23,29 @@
             col
             col-xs-12
             col-sm-4
-            adsh-funds-summary__totals"
+            dwmth-funds-summary__totals"
         >
           <h6
             class="
-              adsh-copy
-              adsh-copy--small"
+              dwmth-copy
+              dwmth-copy--small"
           >
             Total Funds:
           </h6>
           <span
             class="
-              adsh-heading
-              adsh-heading--primary"
+              dwmth-heading
+              dwmth-heading--primary"
             data-test="user-total-funds"
           >
             {{ totalFunds | adsharesTokenValue:2 }}
           </span>
           <span
             class="
-              adsh-copy
-              adsh-copy--x-small
-              adsh-blue
-              adsh-copy--bold"
+              dwmth-copy
+              dwmth-copy--x-small
+              dwmth-blue
+              dwmth-copy--bold"
             data-test="user-total-funds-change"
           >
             {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / totalFunds | percent }})
@@ -56,21 +56,21 @@
             col
             col-xs-12
             col-sm-4
-            adsh-funds-summary__automatic-withdrawal"
+            dwmth-funds-summary__automatic-withdrawal"
         >
           <h6
             class="
-              adsh-copy
-              adsh-copy--small"
+              dwmth-copy
+              dwmth-copy--small"
           >
             Automatic Withdraws
           </h6>
           <p
             class="
               withdraw-data
-              adsh-copy
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy
+              dwmth-copy--dark
+              dwmth-copy--semi"
           >
             <span data-test="user-automatic-withdraw-amount">
               {{ adserverWallet.autoWithdrawAmount | adsharesTokenValue }}
@@ -85,9 +85,9 @@
           </p>
           <a
             class="
-              adsh-copy
-              adsh-copy--large
-              adsh-blue"
+              dwmth-copy
+              dwmth-copy--large
+              dwmth-blue"
             (click)="openChangeAutomaticWithdrawsDialog()"
             data-test="change-automatic-withdraw-dialog-open-button"
           >
@@ -99,12 +99,12 @@
             col
             col-xs-12
             col-sm-4
-            adsh-funds-summary__withdrawal-address"
+            dwmth-funds-summary__withdrawal-address"
         >
           <h6
             class="
-              adsh-copy
-              adsh-copy--small"
+              dwmth-copy
+              dwmth-copy--small"
           >
             Your Withdraw Address
           </h6>
@@ -112,18 +112,18 @@
             class="
               break-word
               withdraw-data
-              adsh-copy
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy
+              dwmth-copy--dark
+              dwmth-copy--semi"
             data-test="user-address"
           >
             {{ adserverWallet.adsharesAddress }}
           </p>
           <a
             class="
-              adsh-copy
-              adsh-copy--large
-              adsh-blue"
+              dwmth-copy
+              dwmth-copy--large
+              dwmth-blue"
             (click)="openChangeAddressDialog()"
             data-test="change-address-dialog-open-button"
           >
@@ -144,12 +144,12 @@
         >
           <button
             class="
-              adsh-btn
-              adsh-btn--large
-              adsh-btn--white
+              dwmth-btn
+              dwmth-btn--large
+              dwmth-btn--white
               row
               align-center
-              adsh-funds-summary__deposit-funds"
+              dwmth-funds-summary__deposit-funds"
             (click)="openAddFundsDialog()"
             data-test="add-funds-dialog-open-button"
           >
@@ -157,25 +157,25 @@
               src="/assets/images/credit-card--blue.svg"
               alt="Credit Card Icon"
               class="
-                adsh-icon
-                adsh-icon--prepend"
+                dwmth-icon
+                dwmth-icon--prepend"
             >
             <span
               class="
-                adsh-copy
-                adsh-blue"
+                dwmth-copy
+                dwmth-blue"
             >
               Deposit Funds
             </span>
           </button>
           <button
             class="
-              adsh-btn
-              adsh-btn--large
-              adsh-btn--blue
+              dwmth-btn
+              dwmth-btn--large
+              dwmth-btn--blue
               row
               align-center
-              adsh-funds-summary__withdraw-funds"
+              dwmth-funds-summary__withdraw-funds"
             *ngIf="totalFunds > 0 || selectedRole !== 'Publisher'"
             (click)="openWithdrawFundsDialog()"
             data-test="withdraw-funds-dialog-open-button"
@@ -184,13 +184,13 @@
               src="/assets/images/credit-card--white.svg"
               alt="Credit Card Icon"
               class="
-                adsh-icon
-                adsh-icon--prepend"
+                dwmth-icon
+                dwmth-icon--prepend"
             >
             <span
               class="
-                adsh-copy
-                adsh-white"
+                dwmth-copy
+                dwmth-white"
             >
               Withdraw Funds
             </span>
