@@ -247,7 +247,7 @@ export class UpdateSiteFailure implements Action {
 export class UpdateSiteStatus implements Action {
   readonly type = UPDATE_SITE_STATUS;
 
-  constructor(public payload: number) {
+  constructor(public payload: Site) {
   }
 }
 
