@@ -1,0 +1,59 @@
+<div class="banner-preview">
+  <ng-container *ngIf="isImage">
+    <img
+      [src]="bannerUrl"
+      alt="banner miniature"
+      class="banner-preview__banner"
+    />
+    <div class="banner-preview__lightbox">
+      <img
+        [src]="bannerUrl"
+        alt="banner in natural size"
+      />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!isImage && isBannerInputTypeAd">
+    <iframe
+      [srcdoc]="bannerHtml | trustHtml"
+      [sandbox]="'allow-same-origin allow-scripts'"
+      [title]="IFRAME_TITLE"
+      scrolling="no"
+      class="banner-preview__banner"
+    ></iframe>
+    <iframe
+      [srcdoc]="bannerHtml | trustHtml"
+      [sandbox]="'allow-same-origin allow-scripts'"
+      [title]="IFRAME_TITLE"
+      scrolling="no"
+      class="banner-preview__lightbox"
+      [ngStyle]="{
+                'width': banner.creativeWidth + 'px',
+                'height': banner.creativeHeight + 'px',
+                'overflow': 'hidden'
+              }"
+    ></iframe>
+  </ng-container>
+
+  <ng-container *ngIf="!isImage && !isBannerInputTypeAd">
+    <iframe
+      [src]="bannerUrl | trustUrl"
+      [sandbox]="'allow-same-origin allow-scripts'"
+      [title]="IFRAME_TITLE"
+      scrolling="no"
+      class="banner-preview__banner"
+    ></iframe>
+    <iframe
+      [src]="bannerUrl | trustUrl"
+      [sandbox]="'allow-same-origin allow-scripts'"
+      [title]="IFRAME_TITLE"
+      scrolling="no"
+      class="banner-preview__lightbox"
+      [ngStyle]="{
+                'width': banner.width + 'px',
+                'height': banner.height + 'px',
+                'overflow': 'hidden'
+              }"
+    ></iframe>
+  </ng-container>
+</div>
