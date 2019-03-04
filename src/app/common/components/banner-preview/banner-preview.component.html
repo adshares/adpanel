@@ -1,23 +1,28 @@
 <div class="banner-preview">
   <ng-container *ngIf="isImage">
-    <img  src="{{ banner.url || banner.imageUrl }}" alt="banner miniature"
-          class="banner-preview__banner"
+    <img
+      [src]="bannerUrl"
+      alt="banner miniature"
+      class="banner-preview__banner"
     />
     <div class="banner-preview__lightbox">
-      <img *ngIf="isImage" src="{{ banner.url || banner.imageUrl }}" alt="banner in natural size"/>
+      <img
+        [src]="bannerUrl"
+        alt="banner in natural size"
+      />
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!isImage && banner.html">
+  <ng-container *ngIf="!isImage && isBannerInputTypeAd">
     <iframe
-      [srcdoc]="banner.html | trustHtml"
+      [srcdoc]="bannerHtml | trustHtml"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
       scrolling="no"
       class="banner-preview__banner"
     ></iframe>
     <iframe
-      [srcdoc]="banner.html | trustHtml"
+      [srcdoc]="bannerHtml | trustHtml"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
       scrolling="no"
@@ -30,16 +35,16 @@
     ></iframe>
   </ng-container>
 
-  <ng-container *ngIf="!isImage && banner.url">
+  <ng-container *ngIf="!isImage && !isBannerInputTypeAd">
     <iframe
-      [src]="banner.url | trustUrl"
+      [src]="bannerUrl | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
       scrolling="no"
       class="banner-preview__banner"
     ></iframe>
     <iframe
-      [src]="banner.url | trustUrl"
+      [src]="bannerUrl | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
       [title]="IFRAME_TITLE"
       scrolling="no"
