@@ -1,21 +1,21 @@
 <section class="notification-settings">
   <div
     class="
-      adsh-box
-      adsh-box--large"
+      dwmth-box
+      dwmth-box--large"
   >
     <div class="col">
       <h2
         class="
-          adsh-heading
-          adsh-heading--primary"
+          dwmth-heading
+          dwmth-heading--primary"
       >
         Billing History
       </h2>
       <p
         class="
-          adsh-copy
-          adsh-copy--large"
+          dwmth-copy
+          dwmth-copy--large"
       >
         List of all account's events.
       </p>
@@ -26,8 +26,8 @@
       >
         <button
           class="
-            adsh-btn
-	          adsh-btn--blue"
+            dwmth-btn
+	          dwmth-btn--blue"
           (click)="refresh()"
           data-test="settings-billing-history-refresh-button"
         >
@@ -38,7 +38,7 @@
       <table
         class="
           billing-table
-          adsh-copy"
+          dwmth-copy"
       >
         <thead class="billing-table__head">
         <tr class="row">
@@ -91,15 +91,15 @@
         <button
           *ngIf="billingHistory.length > 0"
           class="
-            adsh-btn
-            adsh-btn&#45;&#45;white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn&#45;&#45;white
+            dwmth-blue"
           data-test="settings-billing-history-save-as-pdf"
         >
           <img
             class="
-              adsh-icon
-              adsh-icon&#45;&#45;prepend"
+              dwmth-icon
+              dwmth-icon&#45;&#45;prepend"
             src="assets/images/download.svg"
           >
           Save as PDF

@@ -1,11 +1,11 @@
-<div class="adsh-box adsh-box--no-padding">
+<div class="dwmth-box dwmth-box--no-padding">
   <div>
     <div
       class="
         row
         align-center
-        adsh-copy
-        adsh-copy--semi"
+        dwmth-copy
+        dwmth-copy--semi"
     >
       <div
         class="
@@ -34,8 +34,8 @@
       >
         <h4
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
           data-test="advertiser-ad-name"
         >
           {{ ad.name }}
@@ -47,9 +47,9 @@
           row
           align-center"
       >
-        <span class="adsh-heading adsh-heading--secondary" data-test="advertiser-ad-type">
+        <span class="dwmth-heading dwmth-heading--secondary" data-test="advertiser-ad-type">
           <img *ngIf="adType === 'IMAGE'" src="{{ ad.imageUrl }}" alt="banner"
-               class="advertiser-detail-image-preview"/>
+               class="dwmth-detail-image-preview"/>
           <span *ngIf="adType === 'HTML'">{{ adType }}</span>
         </span>
       </div>
@@ -112,12 +112,12 @@
           clickable-area
           align-center
           justify-center
-          adsh-campaign-list__item-campaign-details"
+          dwmth-campaign-list__item-campaign-details"
         (click)="navigateToAdEdition()"
       >
         <img
           src="/assets/images/chevron--right.svg"
-          alt="Edit Ads"
+          alt="Edit"
         >
       </div>
     </div>

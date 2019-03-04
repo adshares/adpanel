@@ -1,18 +1,18 @@
 <section class="settings-navigation">
-    <div *ngIf="(!user.isAdmin)" class="col total-funds adsh-box adsh-box&#45;&#45;large adsh-bg-blue">
+    <div *ngIf="(!user.isAdmin)" class="col total-funds dwmth-box dwmth-box&#45;&#45;large dwmth-bg-blue">
       <h6
               class="
-          adsh-copy
-          adsh-copy&#45;&#45;small
-          adsh-white"
+          dwmth-copy
+          dwmth-copy&#45;&#45;small
+          dwmth-white"
       >
         Total Funds:
       </h6>
       <span
               class="
-          adsh-heading
-          adsh-heading&#45;&#45;primary
-          adsh-white"
+          dwmth-heading
+          dwmth-heading&#45;&#45;primary
+          dwmth-white"
               data-test="user-total-funds"
       >
         {{ totalFunds | adsharesTokenValue:2 }}
@@ -20,10 +20,10 @@
 <!--
       <span
               class="
-          adsh-copy
-          adsh-copy&#45;&#45;x-small
-          adsh-white
-          adsh-copy&#45;&#45;bold"
+          dwmth-copy
+          dwmth-copy&#45;&#45;x-small
+          dwmth-white
+          dwmth-copy&#45;&#45;bold"
               data-test="user-total-funds-change"
       >
         {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
@@ -43,19 +43,19 @@
       >
         <h3
           class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
         >
           {{ settingsItem.title }}
         </h3>
       </a>
-      <p class="adsh-copy">
+      <p class="dwmth-copy">
         {{ settingsItem.description }}
       </p>
       <ul
         class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
       >
         <a
           [routerLink]="['/settings', settingsItem.link]"
@@ -65,8 +65,8 @@
             <div class="row align-center" routerLinkActive="active">
               <img
                 class="
-                adsh-icon
-                adsh-icon--prepend"
+                dwmth-icon
+                dwmth-icon--prepend"
                 [src]="settingsValues.icon"
               >
               <span>{{ settingsValues.name }}</span>

@@ -13,21 +13,21 @@
   }
 
   &__info-box {
-    .adsh-copy--large {
+    .dwmth-copy--large {
       display: inline-block;
     }
 
-    .adsh-select {
+    .dwmth-select {
       width: 220px;
       margin: 0;
     }
   }
 
-  .adsh-form-label {
+  .dwmth-form-label {
     margin-top: 0;
   }
 
-.adsh-box {
+.dwmth-box {
     margin: 8px 0;
   }
 
@@ -37,11 +37,11 @@
     }
   }
 
-  & .adsh-form-label--shorter {
+  & .dwmth-form-label--shorter {
     transform: translateY(12px);
   }
 
-  & .adsh-copy__hint {
+  & .dwmth-copy__hint {
     transform: translateY(-15px);
   }
 

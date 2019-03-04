@@ -8,7 +8,7 @@
     class="targeting-accordion"
     data-test="advertiser-edit-campaign-additional-targeting-accordion"
   >
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
         (closed)="requirePanelOpenState = false"
@@ -17,8 +17,8 @@
       >
         <mat-expansion-panel-header
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
         >
           <mat-panel-title>
             1. Requires
@@ -27,9 +27,9 @@
 
         <div class="row">
           <div class="col-xs-6 no-gutters
-                      adsh-box--no-padding">
+                      dwmth-box--no-padding">
             <p
-              class="adsh-copy"
+              class="dwmth-copy"
             >
               In this window, you can select the keywords that will help you
               choose the sites that are related to your campaign and meet your requirements.
@@ -67,7 +67,7 @@
     </div>
 
 
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
         (closed)="excludePanelOpenState = false"
@@ -75,8 +75,8 @@
       >
         <mat-expansion-panel-header
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
         >
           <mat-panel-title>
             2. Excludes
@@ -87,8 +87,8 @@
           <div class="col-xs-6">
             <p
               class="
-                adsh-copy
-                adsh-copy--large"
+                dwmth-copy
+                dwmth-copy--large"
             >
               Some missing text
             </p>
@@ -127,16 +127,16 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       row
       justify-between"
   >
     <button
       class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
       role="link"
       (click)="onStepBack()"
     >
@@ -147,9 +147,9 @@
         *ngIf="createCampaignMode"
         (click)="saveCampaignTargeting(true)"
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue
           save-as-draft"
         data-test="advertiser-edit-campaign-save-as-draft"
       >
@@ -158,8 +158,8 @@
       <button
         (click)="onSubmit()"
         class="
-          adsh-btn
-          adsh-btn--blue"
+          dwmth-btn
+          dwmth-btn--blue"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">{{createCampaignMode ? 'Save & Continue' : 'Update'}}</span>
