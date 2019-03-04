@@ -35,7 +35,7 @@
   text-align: right;
   position: relative;
 
-  > .adsh-select {
+  > .dwmth-select {
     height: 34px;
     width: auto;
     text-align: left;
@@ -66,12 +66,12 @@
   }
 }
 
-.adsh-form-input--datepicker, .adsh-form-select--datepicker {
+.dwmth-form-input--datepicker, .dwmth-form-select--datepicker {
   background: white;
   border: none;
   padding: 0 10px;
 }
 
-.adsh-form-input--datepicker .adsh-icon {
+.dwmth-form-input--datepicker .dwmth-icon {
   height: 11px;
 }

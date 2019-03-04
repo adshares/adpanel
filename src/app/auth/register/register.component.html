@@ -1,27 +1,27 @@
 <div
   class="
     col
-    adsh__registration-wrapper"
+    dwmth__registration-wrapper"
 >
   <div>
     <h2
       class="
-        adsh-heading
-        adsh-heading--primary"
+        dwmth-heading
+        dwmth-heading--primary"
     >
       Create Account
     </h2>
     <p
       class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
     >
       We need your basic information to create your account.
     </p>
     <div
             class="error-msg
-                adsh-copy
-                adsh-copy--large"
+                dwmth-copy
+                dwmth-copy--large"
             *ngIf="errorsRegister && ObjectKeys(errorsRegister).length > 0"
     >
       <div *ngFor="let errorForm of ObjectKeys(errorsRegister)">{{ errorsRegister[errorForm] }}</div>
@@ -30,19 +30,19 @@
     <form
       #registrationForm="ngForm"
       (ngSubmit)="register()"
-      class="adsh-form"
+      class="dwmth-form"
       data-test="auth-registration-form"
     >
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="email"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Email Address
         </label>
         <input
           id="email"
-          class="adsh-form-input"
+          class="dwmth-form-input"
           type="email"
           name="email"
           ngModel
@@ -69,16 +69,16 @@
         </span>
       </div>
 
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="password"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Password
         </label>
         <input
           id="password"
-          class="adsh-form-input"
+          class="dwmth-form-input"
           name="password"
           type="password"
           ngModel
@@ -102,16 +102,16 @@
         </span>
       </div>
 
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="confirmPassword"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Confirm Password
         </label>
         <input
           id="confirmPassword"
-          class="adsh-form-input"
+          class="dwmth-form-input"
           name="confirmPassword"
           type="password"
           ngModel
@@ -133,13 +133,13 @@
 
       <div
         class="
-          adsh-form-input__box
-          adsh__registration-consent"
+          dwmth-form-input__box
+          dwmth__registration-consent"
       >
         <p
           class="
-            adsh-copy
-            adsh-copy--small"
+            dwmth-copy
+            dwmth-copy--small"
         >
           <input
             id="acceptTerms"
@@ -156,7 +156,7 @@
           ></label>
           I agree to Adshares'
           <a
-            class="adsh-blue"
+            class="dwmth-blue"
             [href]="termsOfServiceLink"
             target="_blank"
             data-test="common-terms-of-service-link"
@@ -165,7 +165,7 @@
           </a>
           and
           <a
-            class="adsh-blue"
+            class="dwmth-blue"
             [href]="privacyPolicyLink"
             target="_blank"
             data-test="common-privacy-policy-link"
@@ -183,10 +183,10 @@
 
       <button
         class="
-          adsh-btn
-          adsh-btn--wide
-          adsh-btn--blue
-          adsh-form-submit-btn"
+          dwmth-btn
+          dwmth-btn--wide
+          dwmth-btn--blue
+          dwmth-form-submit-btn"
         data-test="auth-registration-form-submit-button"
       >
         <span *ngIf="!isRegistering ; else loading">
@@ -201,12 +201,12 @@
   <div>
     <p
       class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
     >
       Maybe you already have an account?
       <a
-        class="adsh-blue"
+        class="dwmth-blue"
         routerLink="/auth/login"
         data-test="auth-redirect-to-login"
       >

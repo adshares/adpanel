@@ -1,10 +1,10 @@
-<div class="adsh-form-input__box">
+<div class="dwmth-form-input__box">
   <input
     [(ngModel)]="searchTerm"
     (input)="onSearchTermChange()"
     class="
-      adsh-form-input
-      adsh-form-input--full"
+      dwmth-form-input
+      dwmth-form-input--full"
     data-test="common-targeting-select-search-input"
   >
   <img
@@ -20,8 +20,8 @@
   *ngIf="backAvailable"
   (click)="changeViewModel(parentViewModel)"
   class="
-    adsh-box
-    adsh-box--light-border
+    dwmth-box
+    dwmth-box--light-border
     parent-option-box"
   data-test="common-targeting-select-navigate-to-parent-button"
 >
@@ -31,7 +31,7 @@
   >
   <span
     class="
-      adsh-copy
+      dwmth-copy
       parent-option"
     data-test="common-targeting-select-parent-option"
   >
@@ -41,9 +41,9 @@
 
 <div
   class="
-    adsh-box
-    adsh-box--light-border
-    adsh-box--no-top-border
+    dwmth-box
+    dwmth-box--light-border
+    dwmth-box--no-top-border
     option
     relative"
   *ngIf="parentOption && parentOption.allow_input"
@@ -52,10 +52,10 @@
 >
   <span
     class="
-      adsh-copy
-      adsh-copy--large
-      adsh-copy--x-dark
-      adsh-copy--semi">
+      dwmth-copy
+      dwmth-copy--large
+      dwmth-copy--x-dark
+      dwmth-copy--semi">
     Add custom
   </span>
 </div>
@@ -63,9 +63,9 @@
 <div *ngFor="let option of viewModel">
   <div
     class="
-      adsh-box
-      adsh-box--light-border
-      adsh-box--no-top-border
+      dwmth-box
+      dwmth-box--light-border
+      dwmth-box--no-top-border
       option
       relative"
     *ngIf="!optionsHasValue"
@@ -74,10 +74,10 @@
   >
     <span
       class="
-        adsh-copy
-        adsh-copy--large
-        adsh-copy--x-dark
-        adsh-copy--semi"
+        dwmth-copy
+        dwmth-copy--large
+        dwmth-copy--x-dark
+        dwmth-copy--semi"
       data-test="common-targeting-select-option-label"
     >
       {{ option.label }}
@@ -92,9 +92,9 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--light-border
-      adsh-box--no-top-border
+      dwmth-box
+      dwmth-box--light-border
+      dwmth-box--no-top-border
       option
       relative"
     *ngIf="optionsHasValue"
@@ -102,10 +102,10 @@
   >
     <span
       class="
-        adsh-copy
-        adsh-copy--large
-        adsh-copy--x-dark
-        adsh-copy--semi"
+        dwmth-copy
+        dwmth-copy--large
+        dwmth-copy--x-dark
+        dwmth-copy--semi"
     >
       {{ option.label }}
     </span>

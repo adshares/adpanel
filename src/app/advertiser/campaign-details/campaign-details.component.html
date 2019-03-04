@@ -10,24 +10,24 @@
         data-test="advertiser-navigate-to-dashboard">
         <p
           class="
-            adsh-copy
-            adsh-copy--small">
+            dwmth-copy
+            dwmth-copy--small">
           My Campaigns
         </p>
       </a>
       <div
         class="
-          adsh-circle
-          adsh-circle--x-small
-          adsh-circle--navy
+          dwmth-circle
+          dwmth-circle--x-small
+          dwmth-circle--navy
           breadcrumbs-divider">
       </div>
       <p
         class="
-          adsh-copy
-          adsh-copy--small
-          adsh-copy--x-dark
-          adsh-copy--semi">
+          dwmth-copy
+          dwmth-copy--small
+          dwmth-copy--x-dark
+          dwmth-copy--semi">
         {{ campaign.basicInformation.name }}
       </p>
     </div>
@@ -44,8 +44,8 @@
           col-md-7">
         <h1
           class="
-            adsh-heading
-            adsh-heading--primary">
+            dwmth-heading
+            dwmth-heading--primary">
           {{ campaign.basicInformation.name }}
         </h1>
       </div>
@@ -59,13 +59,13 @@
           align-center">
 
         <div class="row status-button-wrapper">
-          <span class="adsh-copy">Campaign is </span>
-          <span class="adsh-copy lowercase-to-capitalize"
+          <span class="dwmth-copy">Campaign is </span>
+          <span class="dwmth-copy lowercase-to-capitalize"
                 data-test="advertiser-campaign-classification"
                 [attr.data-status]="currentCampaignStatus">
               {{ currentCampaignStatus }}
             </span>
-          <button class="adsh-btn adsh-btn--white adsh-status--btn adsh-copy--dark"
+          <button class="dwmth-btn dwmth-btn--white dwmth-status--btn dwmth-copy--dark"
                   (click)="onCampaignStatusChange($event)"
                   [attr.data-status]="currentCampaignStatus">
             {{ statusButtonLabel }}
@@ -73,15 +73,15 @@
         </div>
         <button
           class="
-            adsh-btn
-            adsh-btn--white
+            dwmth-btn
+            dwmth-btn--white
             btn-delete
-            adsh-copy--dark"
+            dwmth-copy--dark"
           (click)="deleteCampaign()">
           <img
             class="
-              adsh-icon
-              adsh-icon--prepend"
+              dwmth-icon
+              dwmth-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
             alt="">
           Delete Campaign
@@ -92,12 +92,12 @@
     <!-- chart-->
     <div
       class="
-          adsh-box
+          dwmth-box
           hidden-md"
     >
       <div
         class="
-          adsh-box
+          dwmth-box
           hidden-md"
       >
         <div class="justify-between row">
@@ -134,20 +134,20 @@
     </div>
     <!-- chart end-->
 
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <div class="row
                   no-wrap
                   justify-between">
         <div class="row
                     align-center
-                    adsh-copy
+                    dwmth-copy
                     campaign-basic-information">
           <div>
-            <p class="adsh-copy--small
+            <p class="dwmth-copy--small
                       label">
               Target URL:
             </p>
-            <p class="adsh-copy adsh-copy--dark adsh-copy--semi"
+            <p class="dwmth-copy dwmth-copy--dark dwmth-copy--semi"
                data-test="advertiser-campaign-target-url">
               {{ campaign.basicInformation.targetUrl }}
             </p>
@@ -155,14 +155,14 @@
           <div>
             <p
               class="
-              adsh-copy--small
+              dwmth-copy--small
               label">
               Max Cpc
             </p>
             <p
               class="
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy--dark
+              dwmth-copy--semi"
               data-test="advertiser-campaign-max-cpc">
               {{ campaign.basicInformation.maxCpc | adsharesTokenValue:4 }}
             </p>
@@ -170,14 +170,14 @@
           <div>
             <p
               class="
-              adsh-copy--small
+              dwmth-copy--small
               label">
               Max Cpm
             </p>
             <p
               class="
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy--dark
+              dwmth-copy--semi"
               data-test="advertiser-campaign-max-cpm">
               {{ campaign.basicInformation.maxCpm | adsharesTokenValue:4 }}
             </p>
@@ -185,14 +185,14 @@
           <div>
             <p
               class="
-              adsh-copy--small
+              dwmth-copy--small
               label">
               Budget
             </p>
             <p
               class="
-              adsh-copy--dark
-              adsh-copy--semi"
+              dwmth-copy--dark
+              dwmth-copy--semi"
               data-test="advertiser-campaign-budget">
               {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}
             </p>
@@ -200,7 +200,7 @@
           <div>
             <p
               class="
-              adsh-copy--small
+              dwmth-copy--small
               label">
               Date of Start
             </p>
@@ -210,14 +210,14 @@
               align-center">
               <img
                 class="
-                adsh-icon
-                adsh-icon--prepend"
+                dwmth-icon
+                dwmth-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt="">
               <p
                 class="
-                adsh-copy--dark
-                adsh-copy--semi"
+                dwmth-copy--dark
+                dwmth-copy--semi"
                 data-test="advertiser-campaign-start-date">
                 {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
               </p>
@@ -227,7 +227,7 @@
           <div>
             <p
               class="
-              adsh-copy--small
+              dwmth-copy--small
               label"
             >
               Date of End
@@ -239,16 +239,16 @@
             >
               <img
                 class="
-                adsh-icon
-                adsh-icon--prepend"
+                dwmth-icon
+                dwmth-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt=""
               >
               <p
                 *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
                 class="
-                adsh-copy--dark
-                adsh-copy--semi"
+                dwmth-copy--dark
+                dwmth-copy--semi"
                 data-test="advertiser-campaign-end-date"
               >
                 {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
@@ -261,16 +261,16 @@
         </div>
         <button
           class="
-           adsh-btn
-           adsh-btn--edit
+           dwmth-btn
+           dwmth-btn--edit
            hidden-md
            no-wrap"
           (click)="navigateToCampaignEdition('basic-information', 1)"
           data-test="publisher-site-edit">
           <img
             class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
           Edit Basic Info
@@ -280,17 +280,17 @@
 
     <!--Targeting details section-->
 
-    <section class="adsh-box adsh-box--high">
+    <section class="dwmth-box dwmth-box--high">
       <div class="row justify-end">
         <button class="self-end
-                       adsh-btn
-                       adsh-btn--edit
+                       dwmth-btn
+                       dwmth-btn--edit
                        hidden-md"
                 (click)="navigateToCampaignEdition('additional-targeting', 2)"
                 data-test="publisher-site-edit">
           <img
-            class="adsh-icon
-                     adsh-icon--prepend"
+            class="dwmth-icon
+                     dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
           {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
@@ -299,17 +299,17 @@
       <div
         *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
         class="
-        adsh-copy
+        dwmth-copy
         row">
         <div *ngIf="!!targeting.requires.length"
              class="
           col-xs-12
           col-lg-6
-          adsh-box--no-padding"
+          dwmth-box--no-padding"
         >
-          <h2 class="adsh-targeting-details__title
-                     adsh-copy--large
-                     adsh-copy--semi">Requires: </h2>
+          <h2 class="dwmth-targeting-details__title
+                     dwmth-copy--large
+                     dwmth-copy--semi">Requires: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -326,10 +326,10 @@
           class="
           col-xs-12
           col-lg-6
-          adsh-box--no-padding">
-          <h2 class="adsh-targeting-details__title
-                     adsh-copy--large
-                     adsh-copy--semi">Excludes: </h2>
+          dwmth-box--no-padding">
+          <h2 class="dwmth-targeting-details__title
+                     dwmth-copy--large
+                     dwmth-copy--semi">Excludes: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -348,27 +348,27 @@
     <section *ngIf="campaign.ads.length" class="col">
       <div
         class="
-          adsh-box
+          dwmth-box
           row
           justify-between
           align-center">
         <p
           class="
-            adsh-copy
-            adsh-copy--semi"
+            dwmth-copy
+            dwmth-copy--semi"
         >
           List of Ads
         </p>
       </div>
-      <app-ad-list *ngIf="campaign.ads.length"
+      <app-poster-list *ngIf="campaign.ads.length"
                    [adList]="campaign.ads"
-                   [campaign]="campaign"></app-ad-list>
+                   [campaign]="campaign"></app-poster-list>
     </section>
 
     <div
       class="
-        adsh-box
-        adsh-box--no-padding
+        dwmth-box
+        dwmth-box--no-padding
         hidden-md">
       <div
         class="
@@ -378,20 +378,20 @@
           class="
             row
             align-center
-            adsh-btn
-            adsh-btn--white
-            adsh-btn--no-border"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-btn--no-border"
           (click)="navigateToCampaignEdition('create-ad', 3)">
           <img
             src="/assets/images/plus-circle--blue.svg"
             alt="Add new icon"
             class="
-              adsh-icon
-              adsh-icon--prepend"/>
+              dwmth-icon
+              dwmth-icon--prepend"/>
           <span
             class="
-              adsh-heading
-              adsh-heading--secondary">
+              dwmth-heading
+              dwmth-heading--secondary">
               {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
           </span>
         </button>

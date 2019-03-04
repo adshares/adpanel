@@ -1,21 +1,21 @@
 <section class="preferences">
   <div
     class="
-      adsh-box
-      adsh-box--large"
+      dwmth-box
+      dwmth-box--large"
   >
     <div class="col">
       <h2
         class="
-          adsh-heading
-          adsh-heading--primary"
+          dwmth-heading
+          dwmth-heading--primary"
       >
         Your Wallet
       </h2>
       <p
         class="
-          adsh-copy
-          adsh-copy--large"
+          dwmth-copy
+          dwmth-copy--large"
       >
         Deposit or withdraw funds
       </p>
@@ -29,22 +29,22 @@
           <div
             class="
               col
-              adsh-box
-              adsh-box--light-border
-              adsh-box--large"
+              dwmth-box
+              dwmth-box--light-border
+              dwmth-box--large"
           >
             <h1
               class="
-                adsh-heading
-                adsh-heading--primary"
+                dwmth-heading
+                dwmth-heading--primary"
               data-test="user-total-funds"
             >
               {{ totalFunds | adsharesTokenValue }}
 <!--
               <span
                 class="
-                  adsh-copy&#45;&#45;normal
-                  adsh-copy&#45;&#45;light"
+                  dwmth-copy&#45;&#45;normal
+                  dwmth-copy&#45;&#45;light"
                 data-test="user-total-funds-in-currency"
               >
                 ({{ adserverWallet.totalFundsInCurrency | currency:'USD' }})
@@ -54,8 +54,8 @@
 <!--
             <p
               class="
-                adsh-copy
-                adsh-copy&#45;&#45;large"
+                dwmth-copy
+                dwmth-copy&#45;&#45;large"
               data-test="settings-last-payment"
             >
               Last successful payment: {{ adserverWallet.lastPayment }}
@@ -68,31 +68,31 @@
             >
               <button
                 class="
-                  adsh-btn
-                  adsh-btn--white
-                  adsh-blue"
+                  dwmth-btn
+                  dwmth-btn--white
+                  dwmth-blue"
                 (click)="openAddFundsDialog()"
                 data-test="add-funds-dialog-open-button"
               >
                 <img
                   class="
-                    adsh-icon
-                    adsh-icon--prepend"
+                    dwmth-icon
+                    dwmth-icon--prepend"
                   src="assets/images/credit-card--blue.svg"
                 >
                   Deposit Funds
               </button>
               <button
                 class="
-                  adsh-btn
-                  adsh-btn--blue"
+                  dwmth-btn
+                  dwmth-btn--blue"
                 (click)="openWithdrawFundsDialog()"
                 data-test="withdraw-funds-dialog-open-button"
               >
                 <img
                   class="
-                    adsh-icon
-                    adsh-icon--prepend"
+                    dwmth-icon
+                    dwmth-icon--prepend"
                   src="assets/images/credit-card--white.svg"
                 >
                   Withdraw Funds
@@ -113,10 +113,10 @@
         >
           <button
             class="
-              adsh-btn
-              adsh-btn--white
-              adsh-btn--no-border
-              adsh-blue"
+              dwmth-btn
+              dwmth-btn--white
+              dwmth-btn--no-border
+              dwmth-blue"
           >
             Check our FAQ
           </button>

@@ -17,8 +17,8 @@
     >
       <h1
         class="
-          adsh-heading
-          adsh-heading--primary"
+          dwmth-heading
+          dwmth-heading--primary"
       >
         Users
         <span data-test="admin-user-list-user-count">({{ userCount }})</span>
@@ -37,8 +37,8 @@
         <label
           for="search"
           class="
-            adsh-copy
-            adsh-copy--large
+            dwmth-copy
+            dwmth-copy--large
             search-label"
         >
           Search users
@@ -47,7 +47,7 @@
           id="search"
           class="
             search
-            adsh-form-input"
+            dwmth-form-input"
           placeholder="Search by email"
           matInput
           [(ngModel)]="userSearch"
@@ -86,8 +86,8 @@
           ></label>
           <span
             class="
-              adsh-heading
-              adsh-heading--secondary"
+              dwmth-heading
+              dwmth-heading--secondary"
             data-test="admin-user-types-radio-value"
           >
             {{ type }}
@@ -98,13 +98,13 @@
   </div>
 
   <div class="user-list__items">
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <app-table-navigation
         [navigationName]="'userListNavigation'"
         class="
           row
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
     </div>

@@ -17,7 +17,7 @@ import {MatDialog} from "@angular/material";
 import {HandleSubscription} from "common/handle-subscription";
 
 @Component({
-  selector: 'app-edit-site-create-ad-units',
+  selector: 'app-edit-site-create-poster-units',
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })

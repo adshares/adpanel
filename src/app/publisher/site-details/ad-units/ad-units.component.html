@@ -1,17 +1,17 @@
-<tr class="adsh-box row justify-between">
-  <td class="col-xs-1 ad-unit__thumbnail-wrapper ad-unit__cell">
-    <img class="ad-unit__thumbnail"
+<tr class="dwmth-box row justify-between">
+  <td class="col-xs-1 poster-unit__thumbnail-wrapper poster-unit__cell">
+    <img class="poster-unit__thumbnail"
          src="/assets/images/board_ads_q_b_800.png"
          alt="ad-thumbnail"/>
   </td>
 
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ adUnit.shortHeadline }}</td>
-  <td class="col-xs-1 col justify-around ad-unit__cell ad-unit__cell--start">
-    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ adUnit.size.label }} </span>
-    <span class="text-left adsh-copy adsh-copy--bold"> {{ adUnit.size.width }} x {{adUnit.size.height }} </span>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ adUnit.shortHeadline }}</td>
+  <td class="col-xs-1 col justify-around poster-unit__cell poster-unit__cell--start">
+    <span class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ adUnit.size.label }} </span>
+    <span class="text-left dwmth-copy dwmth-copy--bold"> {{ adUnit.size.width }} x {{adUnit.size.height }} </span>
   </td>
-  <td class="row col-xs-2 ad-unit__cell">
-    <div class="adsh-chip-box ad-unit__chip-box"
+  <td class="row col-xs-2 poster-unit__cell">
+    <div class="dwmth-chip-box poster-unit__chip-box"
          *ngFor="let tag of tags"
          data-test="publisher-ad-unit-tag"
     >
@@ -19,24 +19,24 @@
     </div>
   </td>
 
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
   </td>
-  <td class="col-xs-1 adsh-copy adsh-copy--semi ad-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
   </td>
-  <td class="col-xs-1 ad-unit__cell">
+  <td class="col-xs-1 poster-unit__cell">
     <button
       class="
-        adsh-btn
-        adsh-btn--with-icon
-        adsh-btn--edit"
+        dwmth-btn
+        dwmth-btn--with-icon
+        dwmth-btn--edit"
       *ngIf="adUnit.code"
       (click)="openGetCodeDialog()"
       data-test="publisher-ad-unit-get-code-button"
     >
-      <fa-icon class="ad-unit__btn-icon" [icon]="codeIcon"></fa-icon>
+      <fa-icon class="poster-unit__btn-icon" [icon]="codeIcon"></fa-icon>
       Get Code
     </button>
   </td>
