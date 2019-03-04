@@ -1,0 +1,50 @@
+<tr class="adsh-box row justify-between no-gutters align-center classifier-list-item__row">
+  <td class="col-xs-7 row">
+  <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
+  </td>
+  <td class="col-xs-1 col">
+    <span class="text-left adsh-copy adsh-copy--blue adsh-copy--small"> {{ adTypesEnum[bannerClassification.type] }} </span>
+    <span class="text-left adsh-copy adsh-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
+  </td>
+  <td class="col-xs-2 col adsh-copy adsh-copy--semi">
+    <ul>
+      <li>
+        Budget:
+        <span class="adsh-copy"> {{ bannerClassification.budget | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPC:
+        <span class="adsh-copy"> {{ bannerClassification.cpc | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPM:
+        <span class="adsh-copy"> {{ bannerClassification.cpm | adsharesTokenValue:4 }} </span>
+      </li>
+    </ul>
+  </td>
+  <td class="col-xs-2">
+    <div>
+      <button
+        *ngIf="classified !== APPROVED"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-copy--green"
+        (click)="classifyBanner(APPROVED)"
+      >
+        Approve
+      </button>
+      <button
+        *ngIf="classified !== REJECTED"
+        class="
+          adsh-btn
+          adsh-btn--white
+          adsh-copy--red"
+        (click)="classifyBanner(REJECTED)"
+      >
+        Reject
+      </button>
+    </div>
+  </td>
+</tr>
+

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {TableColumnMetaData} from 'models/table.model';
+import { TableColumnMetaData } from 'models/table.model';
 
 @Component({
   selector: 'app-table-navigation',
@@ -21,7 +21,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
-    {columnWidth: 'col-xs-1', hideArrows: true}
+    {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
   campaignListNavigationItems = [
@@ -33,7 +33,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
-    {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
+    {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
   siteListNavigationItems = [
@@ -44,8 +44,8 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
     {title: 'Avg. Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
-    {columnWidth: 'col-xs-1', hideArrows: true}
-  ];
+    {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
+    ];
 
   userListNavigationItems = [
     {title: '', columnWidth: 'col-xs-4'},
@@ -68,6 +68,13 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Code', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
+  classifierListNavigationItems = [
+    {title: 'Ad', columnWidth: 'col-xs-7', hideArrows: true},
+    {title: 'Ad data', columnWidth: 'col-xs-1', hideArrows: true},
+    {title: 'Campaign', columnWidth: 'col-xs-2', hideArrows: true},
+    {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
+  ];
+
   ngOnInit() {
     switch (this.navigationName) {
       case 'adListNavigation':
@@ -84,6 +91,9 @@ export class TableNavigationComponent implements OnInit {
         break;
       case 'adUnitsNavigation':
         this.navigationItems = [...this.adUnitsNavigation];
+        break;
+      case 'classifierListNavigation':
+        this.navigationItems = [...this.classifierListNavigationItems];
         break;
     }
   }

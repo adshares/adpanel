@@ -83,6 +83,10 @@
     color: pal(red);
   }
 
+  &--green {
+    color: pal(green, dark);
+  }
+
   &--orange {
     color: palette(orange, dark);
   }

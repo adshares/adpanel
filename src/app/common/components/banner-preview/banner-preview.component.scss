@@ -1,0 +1,24 @@
+.banner-preview {
+  position: relative;
+  cursor: pointer;
+
+  &__banner {
+    height: auto;
+    width: auto;
+    max-width: 95%;
+    max-height: 100px;
+  }
+
+  &__lightbox {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    z-index: 999;
+  }
+
+  &:hover .banner-preview__lightbox {
+    display: flex;
+  }
+}
