@@ -1,24 +1,24 @@
 <section
   class="
     col
-    adsh-ad-list"
+    dwmth-posters-list"
 >
-  <div class="adsh-ad-list__items">
-    <div class="adsh-box">
+  <div class="dwmth-posters-list__items">
+    <div class="dwmth-box">
       <app-table-navigation
         [navigationName]="'adListNavigation'"
         class="
           row
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
     </div>
 
-    <app-ad-list-item
+    <app-poster-list-item
       *ngFor="let ad of adList"
       [ad]="ad"
       [campaign]="campaign"
-    ></app-ad-list-item>
+    ></app-poster-list-item>
   </div>
 </section>

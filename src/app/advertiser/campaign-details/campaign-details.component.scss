@@ -1,15 +1,18 @@
 @import '../../../styles.scss';
 
 .campaign-basic-information {
-  > div {
-    margin-right: 45px;
+  > div:not(:last-of-type) {
+    margin-right: 25px;
+    max-width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .label {
     margin-bottom: 5px;
   }
 
-  .adsh-icon {
+  .dwmth-icon {
     margin: 0 4px 0 0;
     width: 15px;
     height: 15px;
@@ -50,9 +53,10 @@
     }
   }
 
-  .adsh-heading--primary {
+  .dwmth-heading--primary {
     margin: 6px 0;
   }
+
 }
 
 .chart-wrapper {
@@ -60,15 +64,8 @@
   width: 100%;
 }
 
-.status-toggle-wrapper {
-  margin-right: 30px;
-
-  > * {
-    margin: 0 5px;
-  }
-}
 .dashboard-view {
-  .adsh-box {
+  .dwmth-box {
     min-height: 42px;
   }
 }

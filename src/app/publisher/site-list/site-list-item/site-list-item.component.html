@@ -1,5 +1,5 @@
 <div
-  class="adsh-box"
+  class="dwmth-box"
   data-test="publisher-navigate-to-site-details"
 >
   <div class="site-list__item">
@@ -11,7 +11,7 @@
       class="
         row
         align-center
-        adsh-copy
+        dwmth-copy
         "
     >
       <div
@@ -20,16 +20,12 @@
           row
           align-center"
       >
-        <div
-          class="
-            adsh-box
-            adsh-box--no-padding
-            adsh-status
-            text-center"
+        <div class="dwmth-status"
           [attr.data-status]="currentSiteStatus"
         >
+          {{ currentSiteStatus }}
           <div class="status-wrapper__list-item">
-            <mat-select [(value)]="currentSiteStatus"
+            <mat-select [value]=" "
                         (change)="onSiteStatusChange($event)"
                         data-test="advertiser-campaign-status-select"
             >
@@ -54,8 +50,8 @@
       >
         <h4
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
           (click)="navigateToSiteDetails(site.id)"
           data-test="publisher-site-url"
         >
@@ -121,12 +117,12 @@
           clickable-row
           align-center
           justify-center
-          adsh-site-list__item-site-details"
+          dwmth-site-list__item-site-details"
         (click)="navigateToSiteDetails(site.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"
-          alt="Campaign Details Icon"
+          [alt]="'Go to  ' + site.name + ' details'"
         >
       </div>
     </div>

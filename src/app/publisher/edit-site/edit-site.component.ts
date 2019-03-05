@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/take';
 
-import {fadeAnimation} from 'common/animations/fade.animation';
-import {AppState} from 'models/app-state.model';
+import { fadeAnimation } from 'common/animations/fade.animation';
+import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {parseTargetingOptionsToArray} from 'common/components/targeting/targeting.helpers';
-import {Site} from 'models/site.model';
-import {AssetTargeting} from "models/targeting-option.model";
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { Site } from 'models/site.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 
 @Component({
   selector: 'app-edit-site',
@@ -19,6 +19,7 @@ import {AssetTargeting} from "models/targeting-option.model";
 export class EditSiteComponent implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
   isEditMode: boolean;
+
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute,
@@ -27,7 +28,7 @@ export class EditSiteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-   this.isEditMode = !!this.router.url.match('/edit-site/');
+    this.isEditMode = !!this.router.url.match('/edit-site/');
     this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite: Site) => {
@@ -44,7 +45,7 @@ export class EditSiteComponent implements OnInit, OnDestroy {
         } else {
           const filtering = {
             requires,
-            excludes
+            excludes,
           } as AssetTargeting;
           this.store.dispatch(
             new publisherActions.SaveSiteFiltering(filtering)

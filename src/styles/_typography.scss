@@ -1,5 +1,6 @@
-.adsh-heading {
+.dwmth-heading {
   color: pal(navy);
+  word-break: break-all;
 
   &--hero {
     @include font(64, bold);
@@ -38,9 +39,11 @@
   }
 }
 
-.adsh-copy {
+.dwmth-copy {
   color: pal(gray, mid-dark);
   @include font(13, normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &--large {
     @include font(14, normal);
@@ -64,6 +67,7 @@
   }
 
   &--dark {
+    line-height: 1;
     color: pal(gray, dark);
   }
 
@@ -72,7 +76,7 @@
   }
 
   &--blue {
-    color: pal(blue);
+    color: darken(pal(blue), 5);
   }
 
   &--red {
@@ -106,6 +110,10 @@
 
 .text-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .lowercase-to-capitalize {

@@ -5,20 +5,20 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="adsh-dialog-close"
+    class="dwmth-dialog-close"
   ></div>
   <h1
     class="
-      adsh-heading
-      adsh-heading--primary"
+      dwmth-heading
+      dwmth-heading--primary"
   >
     Add Funds
   </h1>
 
   <p
     class="
-      adsh-copy
-      adsh-copy--large
+      dwmth-copy
+      dwmth-copy--large
       dialog-description"
   >
     Below are information needed to add funds to Your account.
@@ -30,18 +30,18 @@
       add-funds-content
       dialog-main-content"
   >
-    <div class="adsh-form-input__box">
+    <div class="dwmth-form-input__box">
       <label
         for="adshares-address"
-        class="adsh-form-label"
+        class="dwmth-form-label"
       >
         Our Adshares Address
       </label>
       <input
         id="adshares-address"
         class="
-          adsh-form-input
-          adsh-form-input--full"
+          dwmth-form-input
+          dwmth-form-input--full"
         name="adshares-address"
         [value]="adsharesAddress"
         readonly
@@ -52,8 +52,8 @@
     </div>
     <p
       class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
     >
       You need to send transfer to this address
     </p>
@@ -64,8 +64,8 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--blue"
+          dwmth-btn
+          dwmth-btn--blue"
         (click)="copyInput(address)"
         data-test="common-add-funds-dialog-adshares-address-copy"
       >
@@ -73,18 +73,18 @@
       </button>
     </div>
 
-    <div class="adsh-form-input__box">
+    <div class="dwmth-form-input__box">
       <label
         for="memo"
-        class="adsh-form-label"
+        class="dwmth-form-label"
       >
         Message
       </label>
       <input
         id="memo"
         class="
-          adsh-form-input
-          adsh-form-input--full"
+          dwmth-form-input
+          dwmth-form-input--full"
         type="url"
         name="memo"
         [value]="paymentMemo"
@@ -96,8 +96,8 @@
     </div>
     <p
       class="
-        adsh-copy
-        adsh-copy--large"
+        dwmth-copy
+        dwmth-copy--large"
     >
       The message allows us to add transferred funds to your account.
       We will send you a notification when we receive a transfer.
@@ -109,8 +109,8 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--blue"
+          dwmth-btn
+          dwmth-btn--blue"
         (click)="copyInput(memo)"
         data-test="common-add-funds-dialog-user-memo-copy"
       >

@@ -4,7 +4,7 @@
   Dots / Icons / Navigation icon styling / Validation icon styling
 */
 
-.adsh-logo {
+.dwmth-logo {
   height: auto;
   max-width: 100px;
   margin-bottom: 10px;
@@ -20,7 +20,7 @@
   }
 }
 
-.adsh-circle {
+.dwmth-circle {
   $module: &;
 
   width: 18px;
@@ -89,14 +89,14 @@
   }
 }
 
-.adsh-step-link-indicator {
+.dwmth-step-link-indicator {
   width: 64px;
   margin: 0 30px;
   border: 1px dashed pal(gray, light);
 }
 
-.adsh-icon {
-  height: 18px;
+.dwmth-icon {
+  height: 16px;
 
   &--prepend {
     margin-right: 10px;
@@ -123,7 +123,7 @@
   }
 }
 
-.adsh-chevron {
+.dwmth-chevron {
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -165,7 +165,7 @@
 
 }
 
-.adsh-sort-triangle {
+.dwmth-sort-triangle {
   width: 5px;
   height: 7px;
   border-bottom: solid 5px pal(gray, mid-light);
@@ -186,14 +186,14 @@
   boxes
 */
 
-.adsh-box {
+.dwmth-box {
   border-radius: 2px;
   background-color: pal(white);
   border: 1px solid pal(gray, nearly-white);
   padding: 5px 7px;
   margin-top: 2px;
 
-  & .adsh-box {
+  & .dwmth-box {
     border: none;
     padding: 0;
     margin: 0;
@@ -204,7 +204,7 @@
   }
 
   &--large {
-    padding: 25px;
+    padding: 20px;
     margin-top: 2px;
   }
 
@@ -258,7 +258,7 @@
   }
 }
 
-.adsh-chip-box {
+.dwmth-chip-box {
   background-color: pal(gray, x-light);
   color: pal(gray, dark);
   @include font(11, semi);
@@ -278,20 +278,20 @@
 */
 
 @each $color in $main_colors {
-  .adsh-#{$color} {
+  .dwmth-#{$color} {
     color: pal($color);
   }
 
-  .adsh-bg-#{$color} {
+  .dwmth-bg-#{$color} {
     background-color: pal($color);
   }
 }
 
-.adsh-bg-navy--light {
+.dwmth-bg-navy--light {
   background-color: pal(navy, light);
 }
 
-.adsh-bg-gray--light {
+.dwmth-bg-gray--light {
   background-color: pal(gray, light);
 }
 
@@ -321,45 +321,53 @@ router-outlet ~ * {
   status
 */
 
-.adsh-status {
-  @include font(12, bold);
+.dwmth-status {
+  @include font(11, semi);
   text-transform: uppercase;
   width: 100%;
-  padding: 4px 5px;
-
-  & .mat-select-value-text {
-    font-weight: bold;
-  }
+  border: none;
+  padding: 4px 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: pal(navy, base);
 
   & .mat-select-arrow {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
     margin: 0 0 0 3px;
   }
 
   &[data-status="active"] {
-    color: pal(green);
     background-color: pal(green, light);
   }
 
   &[data-status="inactive"] {
-    color: pal(blue);
     background-color: pal(blue, light);
   }
 
   &[data-status="suspended"] {
-    color: pal(red);
     background-color: pal(red, light);
   }
 
   &[data-status="archived"],
   &[data-status="draft"] {
-    color: pal(gray);
     background-color: pal(gray, ultra-light);
+  }
+
+  &--btn {
+    min-width: auto;
+    width: auto;
+    color: pal(gray, dark) !important;
+
+    &[data-status="active"] {
+      color: pal(green);
+    }
   }
 }
 
-.adsh-ad-list__sort {
+.dwmth-posters-list__sort {
   margin-left: 6px;
 }
 
@@ -398,7 +406,7 @@ router-outlet ~ * {
   cursor: pointer;
 }
 
-.adsh-tooltip {
+.dwmth-tooltip {
   padding: 20px 25px;
   min-width: 200px;
   max-width: 300px;
@@ -428,10 +436,20 @@ router-outlet ~ * {
   }
 }
 
+// targeting
+
+.dwmth-targeting-details {
+  &__title {
+    transform: translateY(-32px);
+    z-index: 999999999999999;
+    position: absolute;
+    font-size: 14px;
+  }
+}
+
 .break-word {
   word-wrap: break-word;
 }
-
 
 .status-wrapper {
   min-width: 140px;
@@ -439,10 +457,35 @@ router-outlet ~ * {
 
   &__list-item {
     padding: 4px;
+
+    .mat-select-value {
+      display: none;
+    }
   }
 
-  .adsh-select {
+  .dwmth-select {
     border: 1px solid pal(gray, light);
+  }
+}
+
+.status-button-wrapper {
+  margin-right: 8px;
+
+  > * {
+    align-items: center;
+    margin: 0 4px;
+    display: flex;
+  }
+
+  [data-status="active"] {
+    color: pal(green);
+  }
+
+  .dwmth-copy[data-status="inactive"],
+  .dwmth-copy[data-status="suspended"],
+  .dwmth-copy[data-status="archived"],
+  .dwmth-copy[data-status="draft"] {
+    color: pal(red, dark);
   }
 }
 

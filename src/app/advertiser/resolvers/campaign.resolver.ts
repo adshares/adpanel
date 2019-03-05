@@ -26,8 +26,8 @@ export class CampaignResolver implements Resolve<Campaign> {
       if (!currentCampaign) {
         this.store.dispatch(new LoadCampaign(id));
       } else {
+        const dateFrom = moment().subtract(30, 'd').format();
         const dateTo = moment().format();
-        const dateFrom = moment().subtract(7,'d').format();
         this.store.dispatch(new LoadCampaignTotals({from: dateFrom, to: dateTo, id}));
       }
     });

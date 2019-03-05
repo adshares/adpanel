@@ -1,11 +1,11 @@
-<div class="adsh-box">
+<div class="dwmth-box">
   <div class="user-item">
     <div
       class="
         row
         align-center
-        adsh-copy
-        adsh-copy--semi"
+        dwmth-copy
+        dwmth-copy--semi"
     >
       <div
         class="
@@ -15,8 +15,8 @@
       >
         <div
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
         >
           {{ userInfoStats.email }}
         </div>
@@ -26,8 +26,8 @@
           col-xs-2
           row
           align-center
-          adsh-copy
-          adsh-copy--large"
+          dwmth-copy
+          dwmth-copy--large"
       >
         {{
           userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
@@ -39,8 +39,8 @@
           col-xs-2
           row
           align-center
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
         [ngClass]="{'positive': userInfoStats.profit > 0, 'negative': userInfoStats.profit < 0 }"
       >
         {{ userInfoStats.profit | currency:'USD':true  }}
@@ -53,8 +53,8 @@
       >
         <div
           class="
-            adsh-chip-box
-            adsh-chip-box--dark"
+            dwmth-chip-box
+            dwmth-chip-box--dark"
           *ngFor="let keyword of userInfoStats.topKeywords"
         >
           {{ keyword }}

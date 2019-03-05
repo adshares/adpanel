@@ -1,24 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-
-import {Campaign} from 'models/campaign.model';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import * as codes from "common/utilities/codes";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {AdvertiserService} from "advertiser/advertiser.service";
-import {enumToArray} from "common/utilities/helpers";
-import {MatDialog} from "@angular/material";
-import {AppState} from "models/app-state.model";
-import {Store} from "@ngrx/store";
-
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
+import { Campaign } from 'models/campaign.model';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { AdvertiserService } from "advertiser/advertiser.service";
+import { enumToArray } from "common/utilities/helpers";
+import { MatDialog } from "@angular/material";
+import { AppState } from "models/app-state.model";
+import { Store } from "@ngrx/store";
+import { UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
 
 @Component({
   selector: 'app-campaign-list-item',
   templateUrl: './campaign-list-item.component.html',
   styleUrls: ['./campaign-list-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CampaignListItemComponent implements OnInit {
+
+export class CampaignListItemComponent implements OnChanges {
   @Input() campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
@@ -30,7 +28,7 @@ export class CampaignListItemComponent implements OnInit {
               private store: Store<AppState>) {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
   }
 
@@ -39,9 +37,8 @@ export class CampaignListItemComponent implements OnInit {
   }
 
   onCampaignStatusChange(status) {
-    this.currentCampaignStatus = status.value;
     this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
-    this.store.dispatch(new advertiserActions.UpdateCampaignStatus(
+    this.store.dispatch(new UpdateCampaignStatus(
       {id: this.campaign.id, status: this.campaign.basicInformation.status}));
   }
 }

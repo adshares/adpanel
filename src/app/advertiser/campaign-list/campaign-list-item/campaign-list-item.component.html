@@ -1,8 +1,8 @@
 <div
-  class="adsh-box"
+  class="dwmth-box"
   data-test="advertiser-navigate-to-campaign-details"
 >
-  <div class="adsh-campaign-list__item">
+  <div class="dwmth-campaign-list__item">
     <ng-template #loading>
       <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
     </ng-template>
@@ -11,7 +11,7 @@
       class="
         row
         align-center
-        adsh-copy"
+        dwmth-copy"
     >
       <div
         class="
@@ -19,16 +19,12 @@
           row
           align-center"
       >
-        <div
-          class="
-            adsh-box
-            adsh-box--no-padding
-            adsh-status
-            text-center"
-          [attr.data-status]="currentCampaignStatus"
+        <div class="dwmth-status"
+             [attr.data-status]="currentCampaignStatus"
         >
+          {{ currentCampaignStatus }}
           <div class="status-wrapper__list-item">
-            <mat-select [(value)]="currentCampaignStatus"
+            <mat-select [value]=" "
                         (change)="onCampaignStatusChange($event)"
                         data-test="advertiser-campaign-status-select"
             >
@@ -56,8 +52,8 @@
       >
         <h4
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
           (click)="navigateToCampaignDetails(campaign.id)"
           data-test="advertiser-campaign-name"
         >
@@ -129,12 +125,12 @@
           clickable-row
           align-center
           justify-center
-          adsh-campaign-list__item-campaign-details"
+          dwmth-campaign-list__item-campaign-details"
         (click)="navigateToCampaignDetails(campaign.id)"
       >
         <img
           src="/assets/images/chevron--right.svg"
-          alt="Campaign Details Icon"
+          [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
         >
       </div>
     </div>

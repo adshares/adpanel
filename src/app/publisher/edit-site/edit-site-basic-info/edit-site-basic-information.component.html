@@ -6,8 +6,8 @@
   <div class="text-center">
     <h1
       class="
-        adsh-heading
-        adsh-heading--primary"
+        dwmth-heading
+        dwmth-heading--primary"
     >
       Basic Information
     </h1>
@@ -16,19 +16,19 @@
   <form
     [formGroup]="siteBasicInfoForm"
     (ngSubmit)="onSubmit()"
-    class="adsh-form"
+    class="dwmth-form"
     data-test="publisher-edit-site-basic-information-form"
   >
     <div
       class="
-        adsh-box
-        adsh-box--large
+        dwmth-box
+        dwmth-box--large
         site-edit-basic-information__info-box"
     >
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="siteUrl"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Website name
         </label>
@@ -37,8 +37,8 @@
           formControlName="name"
           id="siteUrl"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           type="text"
           data-test="publisher-edit-site-basic-information-form-url"
         >
@@ -56,26 +56,26 @@
 
       <span
         class="
-          adsh-copy
-          adsh-copy--large
-          adsh-copy--light">
+          dwmth-copy
+          dwmth-copy--large
+          dwmth-copy--light">
         Enter your primary website or URL
       </span>
 
       <div
-        class="adsh-form-input__box
+        class="dwmth-form-input__box
                site-edit-basic-information__language">
         <label
           for="languageInput"
-          class="adsh-form-label adsh-form-label--shorter"
+          class="dwmth-form-label dwmth-form-label--shorter"
         >
           Content Language
         </label>
         <mat-form-field appearance="standard" class="col">
           <input matInput
                  class="
-                    adsh-form-input
-                    adsh-form-input--full"
+                    dwmth-form-input
+                    dwmth-form-input--full"
                  id="languageInput"
                  formControlName="primaryLanguage"
                  type="text"
@@ -94,10 +94,10 @@
         </mat-form-field>
         <span
           class="
-          adsh-copy
-          adsh-copy--large
-          adsh-copy--light
-          adsh-copy__hint">
+          dwmth-copy
+          dwmth-copy--large
+          dwmth-copy--light
+          dwmth-copy__hint">
           Please specify your primary language of your website.
         </span>
 
@@ -111,8 +111,8 @@
     </div>
     <div
       class="
-        adsh-box
-        adsh-box--large
+        dwmth-box
+        dwmth-box--large
         row
         justify-between"
     >
@@ -120,9 +120,9 @@
       <button
         type="button"
         class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         role="link"
         (click)="onStepBack()"
         [disabled]="changesSaved"
@@ -132,8 +132,8 @@
 
       <button
         class="
-          adsh-btn
-          adsh-btn--blue"
+          dwmth-btn
+          dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         [disabled]="changesSaved || siteBasicInfoSubmitted"
       >

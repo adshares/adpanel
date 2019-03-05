@@ -41,6 +41,10 @@ export const UPDATE_CAMPAIGN_STATUS = 'Update campaign status';
 export const UPDATE_CAMPAIGN_STATUS_SUCCESS = 'Update campaign status success';
 export const UPDATE_CAMPAIGN_STATUS_FAILURE = 'Update campaign status failure';
 
+export const DELETE_CAMPAIGN = 'Delete campaign';
+export const DELETE_CAMPAIGN_SUCCESS = 'Delete campaign success';
+export const DELETE_CAMPAIGN_FAILURE = 'Delete campaign failure';
+
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
 
@@ -100,7 +104,7 @@ export class UpdateCampaignFailure implements Action {
 export class UpdateCampaignStatus implements Action {
   readonly type = UPDATE_CAMPAIGN_STATUS;
 
-  constructor(public payload: {id: number, status: number}) {
+  constructor(public payload: { id: number, status: number }) {
   }
 }
 
@@ -244,6 +248,27 @@ export class LoadCampaignTotalsFailure implements Action {
   }
 }
 
+export class DeleteCampaign implements Action {
+  readonly type: string = DELETE_CAMPAIGN;
+
+  constructor(public payload: number) {
+  }
+}
+
+export class DeleteCampaignSuccess implements Action {
+  readonly type: string = DELETE_CAMPAIGN_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class DeleteCampaignFailure implements Action {
+  readonly type: string = DELETE_CAMPAIGN_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   ClearLastEditedCampaign |
   SetLastEditedCampaign |
@@ -276,6 +301,10 @@ export type actions =
   UpdateCampaign |
   UpdateCampaignSuccess |
   UpdateCampaignFailure |
+
+  DeleteCampaign |
+  DeleteCampaignSuccess |
+  DeleteCampaignFailure |
 
   UpdateCampaignStatus |
   UpdateCampaignStatusSuccess |
