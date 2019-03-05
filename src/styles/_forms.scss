@@ -1,6 +1,6 @@
 .checkmark-unselected {
   position: absolute;
-  bottom: 7px;
+  bottom: 7px !important;
   right: 14px;
   width: 16px;
   height: 16px;
@@ -11,7 +11,7 @@
 .checkmark,
 .input-valid {
   position: absolute;
-  bottom: 7px;
+  bottom: 15px;
   right: 14px;
   width: 16px;
   height: 16px;
@@ -43,9 +43,9 @@
   }
 
   &-label {
-    @include font(12, medium);
+    @include font(16, medium);
     color: pal(gray);
-    margin: 7px 0 2px;
+    margin: 10px 0 4px;
     display: inline-block;
   }
 
@@ -56,7 +56,7 @@
     border: solid 1px pal(gray, light);
     padding: 13px 13px 13px 18px;
     max-width: 320px;
-    @include font(13, medium);
+    @include font(16, medium);
 
     //full input width accounts for input's padding
     &--full {
@@ -181,7 +181,7 @@ input[type=radio]:checked + label {
 
 .error-msg {
   position: relative;
-  @include font(11, medium);
+  @include font(14, medium);
   color: pal(red);
   background-color: pal(red, light);
   border: 1px solid pal(red);

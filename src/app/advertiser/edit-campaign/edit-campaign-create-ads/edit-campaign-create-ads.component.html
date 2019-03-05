@@ -18,7 +18,7 @@
     <p
       class="
         dwmth-copy
-        dwmth-copy--large"
+        dwmth-copy--medium"
     >
       Below you can create list of advertisements displayed during this campaign.
     </p>
@@ -240,11 +240,7 @@
                   (change)="uploadImage(uploader.queue[0], i)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
-              <p
-                class="
-                  dwmth-copy
-                  dwmth-copy--large"
-              >
+              <p class="dwmth-copy">
                 We support JPG and PNG files. Make sure that your files is no more than 500 kb.
               </p>
             </div>
@@ -476,15 +472,14 @@
       row
       justify-center
       dwmth-box
-      dwmth-box--no-padding"
+      dwmth-box--no-margin"
   >
     <button
       class="
-        row
         align-center
         dwmth-btn
-        dwmth-btn--large
         dwmth-btn--white
+        dwmth-blue
         dwmth-btn--no-border"
       (click)="createEmptyAd()"
       data-test="advertiser-edit-campaign-create-ads-create-new-ad"
@@ -496,16 +491,9 @@
           dwmth-icon
           dwmth-icon--prepend"
       >
-      <span
-        class="
-          dwmth-heading
-          dwmth-heading--secondary"
-      >
-        Create new Ad
-      </span>
+      Create new Ad
     </button>
   </div>
-
 
   <div
     class="

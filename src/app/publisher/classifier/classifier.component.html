@@ -5,9 +5,9 @@
       <button
         type="button"
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
         (click)="onStepBack()"
       >
         {{isGlobal ? 'Back to Dashboard' : 'Back to Site'}}
@@ -15,9 +15,9 @@
       <button
         type="button"
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
         (click)="refresh()"
       >
         Refresh
@@ -27,15 +27,15 @@
     <table
       class="
         col
-        adsh-ad-list"
+        dwmth-ad-list"
     >
       <app-table-navigation
         [navigationName]="'classifierListNavigation'"
         (sortTable)="sortTable($event)"
         class="
           row
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
       ></app-table-navigation>
       <ng-container *ngIf="!isLoading; else loading">
         <app-classifier-list-item
@@ -46,7 +46,7 @@
       </ng-container>
 
       <ng-template #loading>
-        <div class="adsh-box">
+        <div class="dwmth-box">
           <div class="loading-wrapper">
             <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
           </div>

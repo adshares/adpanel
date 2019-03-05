@@ -1,20 +1,19 @@
 <section class="settings-navigation">
-    <div *ngIf="(!user.isAdmin)" class="col total-funds dwmth-box dwmth-box&#45;&#45;large dwmth-bg-blue">
-      <h6
-              class="
+  <div *ngIf="(!user.isAdmin)" class="col total-funds dwmth-box dwmth-box--large dwmth-bg-blue">
+    <h6
+      class="
           dwmth-copy
-          dwmth-copy&#45;&#45;small
           dwmth-white"
-      >
-        Total Funds:
-      </h6>
-      <span
-              class="
+    >
+      Total Funds:
+    </h6>
+    <span
+      class="
           dwmth-heading
-          dwmth-heading&#45;&#45;primary
+          dwmth-heading--primary
           dwmth-white"
-              data-test="user-total-funds"
-      >
+      data-test="user-total-funds"
+    >
         {{ totalFunds | adsharesTokenValue:2 }}
       </span>
 <!--
@@ -43,8 +42,8 @@
       >
         <h3
           class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          dwmth-copy--large
+          dwmth-copy--x-dark"
         >
           {{ settingsItem.title }}
         </h3>
@@ -55,13 +54,14 @@
       <ul
         class="
         dwmth-copy
-        dwmth-copy--large"
+        dwmth-copy--x-dark"
       >
-        <a
-          [routerLink]="['/settings', settingsItem.link]"
-          data-test="settings-category-link-direct"
-        >
-          <li *ngFor="let settingsValues of settingsItem.values">
+
+        <li *ngFor="let settingsValues of settingsItem.values">
+          <a
+            [routerLink]="['/settings', settingsItem.link]"
+            data-test="settings-category-link-direct"
+          >
             <div class="row align-center" routerLinkActive="active">
               <img
                 class="
@@ -69,10 +69,10 @@
                 dwmth-icon--prepend"
                 [src]="settingsValues.icon"
               >
-              <span>{{ settingsValues.name }}</span>
+              <span class="dwmth-copy">{{ settingsValues.name }}</span>
             </div>
-          </li>
-        </a>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

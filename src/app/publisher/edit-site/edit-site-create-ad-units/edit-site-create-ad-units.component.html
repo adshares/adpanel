@@ -188,8 +188,10 @@
               <strong
                 class="
                   site-edit-create-posters-units__poster-unit-title
-                  dwmth-heading
-                  dwmth-heading--secondary"
+                  dwmth-copy
+                  dwmth-copy--semi
+                  dwmth-copy--x-dark
+                  dwmth-copy--medium"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
                 {{ adSizesEnum[adUnit.size] }}
@@ -239,7 +241,7 @@
       row
       justify-center
       dwmth-box
-      dwmth-box--no-padding"
+      dwmth-box--no-margin"
   >
     <button
       class="
@@ -247,6 +249,7 @@
         align-center
         dwmth-btn
         dwmth-btn--white
+        dwmth-blue
         dwmth-btn--no-border"
       (click)="createEmptyAd()"
       data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
@@ -258,13 +261,7 @@
           dwmth-icon
           dwmth-icon--prepend"
       >
-      <span
-        class="
-          dwmth-heading
-          dwmth-heading--secondary"
-      >
         Create new Ad Unit
-      </span>
     </button>
   </div>
 
