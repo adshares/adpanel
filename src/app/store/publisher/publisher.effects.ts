@@ -47,10 +47,9 @@ export class PublisherEffects {
       .switchMap((site) => {
         const to = moment().format();
         const from = moment().subtract(7, 'd').format();
-
         return [
           new publisherActions.LoadSiteSuccess(site),
-          new publisherActions.LoadSitesTotals({from, to})
+          new publisherActions.LoadSiteTotals({from, to, id})
         ]
       })
       .catch(() => Observable.of(new publisherActions.LoadSiteFailure()))

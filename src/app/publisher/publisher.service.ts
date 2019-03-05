@@ -39,7 +39,6 @@ export class PublisherService {
     const options = siteId > 0 && {
       params: {site_id: `${siteId}`}
     };
-
     return this.http.get<SitesTotals[]>(`${environment.apiUrl}/sites/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 

@@ -1,7 +1,7 @@
 import * as PublisherActions from './publisher.actions';
 import * as authActions from '../auth/auth.actions';
-import {siteInitialState, sitesTotalsInitialState} from 'models/initial-state/site';
-import {PublisherState} from 'models/app-state.model';
+import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
+import { PublisherState } from 'models/app-state.model';
 
 const initialState: PublisherState = {
   sites: [],
@@ -63,49 +63,36 @@ export function publisherReducers(state = initialState, action: PublisherActions
       const selectedSite = state.sites.find(el => el.id === action.payload.total.siteId);
       const filteredSites = state.sites.filter(el => el.id !== action.payload.total.siteId);
 
-      if (action.payload.data.length <= 0) {
-        return {
-          ...state,
-          sites: [
-            ...filteredSites,
-            {
-              ...selectedSite,
-              ...action.payload.total
-            }
-          ]
-        };
-      }
-
-      const adUnitData = [];
-      if (selectedSite.adUnits !== undefined && selectedSite.adUnits.length > 0) {
-        selectedSite.adUnits.forEach(unit => {
-          action.payload.data.forEach(element => {
-            if (element.zoneId === unit.id && !adUnitData.find(el => el.id === unit.id)) {
-              adUnitData.push({
+      if (action.payload.data.length > 0 && selectedSite.adUnits !== undefined && selectedSite.adUnits.length > 0) {
+        const reducedUnits = [selectedSite.adUnits, action.payload.data].reduce((units, data) => units.map((unit) => {
+            if (data.find(el => el.zoneId === unit.id)) {
+              return {
                 ...unit,
-                id: element.zoneId,
-                averageRpc: element.averageCpc,
-                averageRpm: element.averageRpm,
-                clicks: element.clicks,
-                ctr: element.ctr,
-                revenue: element.revenue,
-                impressions: element.impressions,
-
-              })
-            } else if (!adUnitData.find(el => el.id === unit.id)) {
-              adUnitData.push(unit)
+                ...data.find(el => el.zoneId === unit.id)
+              }
+            } else {
+              return unit;
             }
           })
-        });
-      }
+        );
+        return {
+          ...state,
+          sites: [...filteredSites, {
+            ...{...selectedSite, adUnits: reducedUnits},
+            ...action.payload.total,
 
+          }],
+        };
+      }
       return {
         ...state,
-        sites: [...filteredSites, {
-          ...selectedSite,
-          ...action.payload.total,
-
-        }],
+        sites: [
+          ...filteredSites,
+          {
+            ...selectedSite,
+            ...action.payload.total
+          }
+        ]
       };
 
     case PublisherActions.SAVE_LAST_EDITED_SITE:
