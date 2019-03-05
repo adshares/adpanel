@@ -60,7 +60,7 @@ export class RegisterComponent extends HandleSubscription {
             this.dialog.open(ErrorResponseDialogComponent, {
               data: {
                 title: `Error ${error.status} during registration`,
-                message: `Registering an e-mail ${user.email} is not available. Please, use another e-mail or try again later.`,
+                message: `Registering ${user.email} e-mail is not possible. Please, use another one.`,
               }
             });
           }
