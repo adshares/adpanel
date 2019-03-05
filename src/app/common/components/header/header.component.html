@@ -1,6 +1,6 @@
 <section
   class="
-    adsh-header
+    dwmth-header
     container-fluid
     row
     align-center
@@ -17,39 +17,39 @@
     >
       <div
         class="
-          adsh-navigation__item
+          dwmth-navigation__item
           col
           align-center"
       >
         <img
-          class="adsh-logo"
+          class="dwmth-logo"
           src="assets/images/logo--white.png"
           srcset="
             assets/images/logo--white@2x.png 2x,
             assets/images/logo--white@3x.png 3x"
           alt="Adshares Logo"
         >
-        <span class="adsh-copy
-                     adsh-header__logo-subtitle">Testnet</span>
+        <span class="dwmth-copy
+                     dwmth-header__logo-subtitle">Testnet</span>
       </div>
     </a>
       <button
         type="button"
         *ngIf="!userDataState.isAdmin"
-        class="adsh-btn--no-border
+        class="dwmth-btn--no-border
                row
                align-center
-               adsh-navigation__item
-               adsh-header--userselect
-               adsh-copy--uppercase
-               adsh-copy--semi
-               adsh-copy--lineheight-reset"
+               dwmth-navigation__item
+               dwmth-header--userselect
+               dwmth-copy--uppercase
+               dwmth-copy--semi
+               dwmth-copy--lineheight-reset"
         (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
       >
         <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         />
         Advertiser
@@ -57,20 +57,20 @@
       <button
         type="button"
         *ngIf="!userDataState.isAdmin"
-        class="adsh-btn--no-border
+        class="dwmth-btn--no-border
                row
                align-center
-               adsh-navigation__item
-               adsh-header--userselect
-               adsh-copy--uppercase
-               adsh-copy--semi
-               adsh-copy--lineheight-reset"
+               dwmth-navigation__item
+               dwmth-header--userselect
+               dwmth-copy--uppercase
+               dwmth-copy--semi
+               dwmth-copy--lineheight-reset"
         (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
       >
         <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         />
        Publisher
@@ -86,11 +86,11 @@
     <button
       *ngIf="!userDataState.isAdmin"
       class="
-        adsh-btn
-        adsh-btn--with-icon
-        adsh-btn--wide
-        adsh-bg-blue
-        adsh-navigation__item
+        dwmth-btn
+        dwmth-btn--with-icon
+        dwmth-btn--wide
+        dwmth-bg-blue
+        dwmth-navigation__item
         row
         align-center
         hidden-md"
@@ -99,8 +99,8 @@
     >
       <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           src="assets/images/plus-circle.svg"
       >
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
@@ -110,19 +110,19 @@
       *ngIf="userDataState.isAdmin"
       (click)="openSetEarningsDialog()"
       class="
-        adsh-btn
-        adsh-btn--with-icon
-        adsh-btn--wide
-        adsh-bg-blue
-        adsh-navigation__item
+        dwmth-btn
+        dwmth-btn--with-icon
+        dwmth-btn--wide
+        dwmth-bg-blue
+        dwmth-navigation__item
         row
         align-center"
       data-test="header-admin-set-earning-dialog-open-button"
     >
       <img
         class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
       <span>Set your earnings</span>
@@ -133,10 +133,10 @@
         row
         align-center
         relative
-        adsh-bg-navy--light
-        adsh-navigation__item
-        adsh-btn
-        adsh-btn--no-vertical-padding
+        dwmth-bg-navy--light
+        dwmth-navigation__item
+        dwmth-btn
+        dwmth-btn--no-vertical-padding
         hidden-lg"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
@@ -144,8 +144,8 @@
     >
       <img
         class="
-          adsh-icon
-          adsh-icon--prepend"
+          dwmth-icon
+          dwmth-icon--prepend"
         src="assets/images/credit-card--white.svg"
       >
       <div
@@ -154,13 +154,13 @@
           justify-start"
       >
         <span
-          class="adsh-adst"
+          class="dwmth-tokens"
           data-test="user-total-funds"
         >
           {{ totalFunds | adsharesTokenValue:2 }}
         </span>
         <span
-          class="adsh-usd"
+          class="dwmth-usd"
           data-test="user-total-funds-in-currency"
         >
 <!--
@@ -170,9 +170,9 @@
       </div>
       <img
         class="
-          adsh-icon
-          adsh-icon--small
-          adsh-icon--append
+          dwmth-icon
+          dwmth-icon--small
+          dwmth-icon--append
           settings-menu-chevron"
         [class.up]="settingsMenuOpen"
         src="assets/images/chevron--gray.svg"
@@ -180,15 +180,15 @@
       <ul
         class="
           settings-menu
-          adsh-copy"
+          dwmth-copy"
         [class.open]="settingsMenuOpen"
       >
         <li class="settings-menu__item">
           <button
             class="
-              adsh-btn
-              adsh-btn--blue
-              adsh-btn--tiny
+              dwmth-btn
+              dwmth-btn--blue
+              dwmth-btn--tiny
               row
               justify-between
               align-center"
@@ -197,7 +197,7 @@
           >
             <img
               class="
-                adsh-icon
+                dwmth-icon
                 close"
               src="assets/images/plus-circle.svg"
             >
@@ -231,8 +231,8 @@
 
     <button
       class="
-        adsh-btn
-        adsh-btn--transparent
+        dwmth-btn
+        dwmth-btn--transparent
         row
         align-center
         hidden-sm"
@@ -247,8 +247,8 @@
 
     <button
       class="
-        adsh-btn
-        adsh-btn--transparent
+        dwmth-btn
+        dwmth-btn--transparent
         row
         align-center
         hidden-sm
@@ -265,8 +265,8 @@
 
     <span
       class="
-        adsh-copy
-        adsh-white
+        dwmth-copy
+        dwmth-white
         logout-on-small-devices
         visible-xs
         hidden-sm-up"
@@ -278,10 +278,10 @@
     <!-- TODO PAN-183 remove notification -->
     <!--<div-->
       <!--class="-->
-        <!--adsh-bg-navy--light-->
-        <!--adsh-navigation__item-->
-        <!--adsh-btn-->
-        <!--adsh-btn--small-->
+        <!--dwmth-bg-navy--light-->
+        <!--dwmth-navigation__item-->
+        <!--dwmth-btn-->
+        <!--dwmth-btn--small-->
         <!--row-->
         <!--align-center-->
         <!--relative-->
@@ -290,13 +290,13 @@
       <!--data-test="notifications-toggle-notifications-bar"-->
     <!--&gt;-->
       <!--<img-->
-        <!--class="adsh-icon"-->
+        <!--class="dwmth-icon"-->
         <!--src="assets/images/bell.svg"-->
       <!--&gt;-->
       <!--<div-->
         <!--class="-->
-          <!--adsh-circle-->
-          <!--adsh-bg-green-->
+          <!--dwmth-circle-->
+          <!--dwmth-bg-green-->
           <!--absolute"-->
       <!--&gt;-->
         <!--<span-->

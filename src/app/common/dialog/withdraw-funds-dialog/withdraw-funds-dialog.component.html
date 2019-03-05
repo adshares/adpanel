@@ -5,21 +5,21 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="adsh-dialog-close"
+    class="dwmth-dialog-close"
   ></div>
   <h1
     class="
-      adsh-heading
-      adsh-heading--primary"
+      dwmth-heading
+      dwmth-heading--primary"
   >
     Withdraw Funds
   </h1>
 
   <p
     class="
-      adsh-copy
-      adsh-copy--large
-      adsh-customize-subheading"
+      dwmth-copy
+      dwmth-copy--large
+      dwmth-customize-subheading"
   >
     Fill the form below to withdraw funds.
   </p>
@@ -32,21 +32,21 @@
     <form
       [formGroup]="withdrawFundsForm"
       (ngSubmit)="withdrawFunds()"
-      class="adsh-form"
+      class="dwmth-form"
       data-test="common-withdraw-funds-form"
     >
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="address"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Your Wallet Address
         </label>
         <input
           id="address"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           name="address"
           formControlName="address"
           data-test="common-withdraw-funds-form-address"
@@ -64,39 +64,39 @@
       </div>
       <p
         class="
-          adsh-copy
-          adsh-copy--blue
-          adsh-customize-subheading"
+          dwmth-copy
+          dwmth-copy--blue
+          dwmth-customize-subheading"
       >
         You will send your funds on this address.
       </p>
 
       <div class="total-funds">
-        <p class="adsh-form-label">
+        <p class="dwmth-form-label">
           Total Funds
         </p>
         <h1
           class="
-            adsh-heading
-            adsh-heading--primary"
+            dwmth-heading
+            dwmth-heading--primary"
           data-test="user-total-funds"
         >
           {{ totalFunds | adsharesTokenValue}}
         </h1>
       </div>
 
-      <div class="adsh-form-input__box">
+      <div class="dwmth-form-input__box">
         <label
           for="amount"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Withdraw Amount (ADS)
         </label>
         <input
           id="amount"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           type="number"
           name="amount"
           formControlName="amount"
@@ -126,38 +126,43 @@
           row
           justify-between">
         <button class="
-                     adsh-btn
-                     adsh-btn--white
-                     adsh-copy--blue"
+                     dwmth-btn
+                     dwmth-btn--white
+                     dwmth-copy--blue"
                 type="button"
                 (click)="getMaxWithdrawAmount()"
                 data-test="common-withdraw-funds-form-btn-withdraw-max"
         >
           Withdraw Max
         </button>
+      </div>
 
+      <div
+        class="
+          row
+          justify-center
+          dwmth-btn--submit"
+      >
         <button
-          class="adsh-btn
-                 adsh-btn--white
-                 adsh-copy--blue"
+          class="
+            dwmth-btn
+            dwmth-btn--blue"
           type="button"
           (click)="calculateFee()"
           data-test="common-withdraw-funds-form-btn-calc-fee"
         >
           Calculate fee
         </button>
-
       </div>
-
 
       <div
         *ngIf="calculatedFee !== undefined"
         class="
           calculations
-          adsh-copy
-          adsh-copy--large
-          adsh-copy--x-dark
-          adsh-copy--semi"
+          dwmth-copy
+          dwmth-copy--large
+          dwmth-copy--x-dark
+          dwmth-copy--semi"
       >
         <p>
           Transaction Fee:
@@ -191,10 +196,10 @@
 
       <button
         class="
-          adsh-btn
-          adsh-btn--large
-          adsh-btn--white
-          adsh-btn--block
+          dwmth-btn
+          dwmth-btn--large
+          dwmth-btn--white
+          dwmth-btn--block
           row
           align-center"
         (click)="toggleMemoInput($event, !memoInputActive);"
@@ -203,35 +208,35 @@
         <img
           alt="Credit Card Icon"
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           src="/assets/images/plus-circle--blue.svg"
         >
         <span
           class="
-            adsh-copy
-            adsh-copy--x-dark
-            adsh-copy--semi"
+            dwmth-copy
+            dwmth-copy--x-dark
+            dwmth-copy--semi"
         >
           Add message
         </span>
       </button>
 
       <div
-        class="adsh-form-input__box"
+        class="dwmth-form-input__box"
         *ngIf="memoInputActive"
       >
         <label
           for="address"
-          class="adsh-form-label"
+          class="dwmth-form-label"
         >
           Message
         </label>
         <input
           id="memo"
           class="
-            adsh-form-input
-            adsh-form-input--full"
+            dwmth-form-input
+            dwmth-form-input--full"
           name="memo"
           formControlName="memo"
           data-test="common-withdraw-funds-form-memo-input"
@@ -252,9 +257,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--blue
-            adsh-btn--block "
+            dwmth-btn
+            dwmth-btn--blue
+            dwmth-btn--block "
           data-test="common-withdraw-funds-form-submit-button"
           *ngIf="isEmailConfirmed"
         >

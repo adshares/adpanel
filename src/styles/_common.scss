@@ -4,7 +4,7 @@
   Dots / Icons / Navigation icon styling / Validation icon styling
 */
 
-.adsh-logo {
+.dwmth-logo {
   height: auto;
   max-width: 100px;
   margin-bottom: 10px;
@@ -20,7 +20,7 @@
   }
 }
 
-.adsh-circle {
+.dwmth-circle {
   $module: &;
 
   width: 18px;
@@ -89,13 +89,13 @@
   }
 }
 
-.adsh-step-link-indicator {
+.dwmth-step-link-indicator {
   width: 64px;
   margin: 0 30px;
   border: 1px dashed pal(gray, light);
 }
 
-.adsh-icon {
+.dwmth-icon {
   height: 16px;
 
   &--prepend {
@@ -123,7 +123,7 @@
   }
 }
 
-.adsh-chevron {
+.dwmth-chevron {
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -165,7 +165,7 @@
 
 }
 
-.adsh-sort-triangle {
+.dwmth-sort-triangle {
   width: 5px;
   height: 7px;
   border-bottom: solid 5px pal(gray, mid-light);
@@ -186,14 +186,14 @@
   boxes
 */
 
-.adsh-box {
+.dwmth-box {
   border-radius: 2px;
   background-color: pal(white);
   border: 1px solid pal(gray, nearly-white);
   padding: 8px 7px;
   margin-top: 2px;
 
-  & .adsh-box {
+  & .dwmth-box {
     border: none;
     padding: 0;
     margin: 0;
@@ -262,7 +262,7 @@
   }
 }
 
-.adsh-chip-box {
+.dwmth-chip-box {
   background-color: pal(gray, x-light);
   color: pal(gray, dark);
   @include font(14, semi);
@@ -282,20 +282,20 @@
 */
 
 @each $color in $main_colors {
-  .adsh-#{$color} {
+  .dwmth-#{$color} {
     color: pal($color);
   }
 
-  .adsh-bg-#{$color} {
+  .dwmth-bg-#{$color} {
     background-color: pal($color);
   }
 }
 
-.adsh-bg-navy--light {
+.dwmth-bg-navy--light {
   background-color: pal(navy, light);
 }
 
-.adsh-bg-gray--light {
+.dwmth-bg-gray--light {
   background-color: pal(gray, light);
 }
 
@@ -325,7 +325,7 @@ router-outlet ~ * {
   status
 */
 
-.adsh-status {
+.dwmth-status {
   @include font(14, semi);
   text-transform: uppercase;
   width: 100%;
@@ -371,7 +371,7 @@ router-outlet ~ * {
   }
 }
 
-.adsh-ad-list__sort {
+.dwmth-posters-list__sort {
   margin-left: 6px;
 }
 
@@ -410,7 +410,7 @@ router-outlet ~ * {
   cursor: pointer;
 }
 
-.adsh-tooltip {
+.dwmth-tooltip {
   padding: 20px 25px;
   min-width: 200px;
   max-width: 300px;
@@ -442,7 +442,7 @@ router-outlet ~ * {
 
 // targeting
 
-.adsh-targeting-details {
+.dwmth-targeting-details {
   &__title {
     transform: translateY(-32px);
     z-index: 999999999999999;
@@ -467,7 +467,7 @@ router-outlet ~ * {
     }
   }
 
-  .adsh-select {
+  .dwmth-select {
     border: 1px solid pal(gray, light);
   }
 }
@@ -485,10 +485,10 @@ router-outlet ~ * {
     color: pal(green);
   }
 
-  .adsh-copy[data-status="inactive"],
-  .adsh-copy[data-status="suspended"],
-  .adsh-copy[data-status="archived"],
-  .adsh-copy[data-status="draft"] {
+  .dwmth-copy[data-status="inactive"],
+  .dwmth-copy[data-status="suspended"],
+  .dwmth-copy[data-status="archived"],
+  .dwmth-copy[data-status="draft"] {
     color: pal(red, dark);
   }
 }

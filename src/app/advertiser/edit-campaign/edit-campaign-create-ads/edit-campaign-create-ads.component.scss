@@ -1,6 +1,6 @@
 @import '../../../../styles.scss';
 
-.campaign-edit-create-ads {
+.campaign-edit-create-bnr {
   max-width: 800px;
   margin: 0 auto;
 
@@ -17,8 +17,8 @@
     margin: 0 auto;
   }
 
-  .adsh-box {
-    margin: 10px 0;
+  .dwmth-box {
+    margin: 8px 0;
 
     &__preview {
       iframe {
@@ -28,8 +28,8 @@
       }
     }
 
-    .adsh-textarea-input {
-      @extend .adsh-form-input;
+    .dwmth-textarea-input {
+      @extend .dwmth-form-input;
       width: 100%;
       max-width: 100%;
     }
@@ -65,7 +65,7 @@
       }
 
       .file-box__file-sub-info {
-        @extend .adsh-copy;
+        @extend .dwmth-copy;
         line-height: 18px;
         color: pal(blue, base);
         font-weight: inherit;
@@ -91,7 +91,7 @@
     }
   }
 
-  .image-banner {
+  .image-poster {
     display: flex;
     overflow: hidden;
     align-items: center;
@@ -123,7 +123,7 @@
   }
 }
 
-.adsh-form-input__box {
+.dwmth-form-input__box {
   margin-right: 15px;
 }
 

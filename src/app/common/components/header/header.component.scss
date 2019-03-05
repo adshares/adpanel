@@ -1,6 +1,6 @@
 @import '../../../../styles.scss';
 
-.adsh-header {
+.dwmth-header {
   width: 100vw;
   height: 60px;
   background: pal(navy);
@@ -35,13 +35,13 @@
   }
 }
 
-.adsh-navigation {
+.dwmth-navigation {
   &__item {
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
 
-    .adsh-logo {
+    .dwmth-logo {
       margin-right: 15px;
 
       @include media(md-up) {
@@ -49,12 +49,12 @@
       }
     }
 
-    .adsh-chevron {
+    .dwmth-chevron {
       right: 10px;
       top: 15px;
     }
 
-    .adsh-circle {
+    .dwmth-circle {
       top: 6px;
       right: 6px;
     }
@@ -66,12 +66,12 @@
   }
 }
 
-.adsh-adst {
+.dwmth-tokens {
   @include font(14, semi);
   margin-bottom: 2px;
 }
 
-.adsh-usd {
+.dwmth-usd {
   @include font(9, semi);
   color: pal(gray);
 }

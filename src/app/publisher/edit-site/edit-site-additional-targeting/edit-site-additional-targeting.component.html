@@ -8,7 +8,7 @@
     class="targeting-accordion"
     data-test="publisher-edit-site-additional-targeting-accordion"
   >
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
         (closed)="requirePanelOpenState = false"
@@ -17,8 +17,8 @@
       >
         <mat-expansion-panel-header
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
         >
           <mat-panel-title>
             1. Requires
@@ -27,7 +27,7 @@
 
         <div class="row">
           <div class="col-xs-6 no-gutters">
-            <p  class="adsh-copy"
+            <p  class="dwmth-copy"
             >
               In this window you can select the keywords that will help you
               choose the ads that are related to your site and meet your requirements.
@@ -65,7 +65,7 @@
     </div>
 
 
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
         (closed)="excludePanelOpenState = false"
@@ -73,8 +73,8 @@
       >
         <mat-expansion-panel-header
           class="
-            adsh-heading
-            adsh-heading--secondary"
+            dwmth-heading
+            dwmth-heading--secondary"
         >
           <mat-panel-title>
             2. Excludes
@@ -83,7 +83,7 @@
 
         <div class="row">
           <div class="col-xs-6">
-            <p class="adsh-copy"
+            <p class="dwmth-copy"
             >
               In this window you can select the keywords prohibited on your site.
             </p>
@@ -122,7 +122,7 @@
 
   <div
     class="
-      adsh-box
+      dwmth-box
       site-edit-additional-targeting__checkbox-container
       col"
   >
@@ -144,16 +144,16 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       row
       justify-between"
   >
     <button
       class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
       role="link"
       (click)="onStepBack()"
     >
@@ -166,9 +166,9 @@
         (click)="saveSite(true)"
         [disabled]="changesSaved"
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
@@ -177,8 +177,8 @@
       <button
         (click)="onSubmit()"
         class="
-          adsh-btn
-          adsh-btn--blue"
+          dwmth-btn
+          dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>

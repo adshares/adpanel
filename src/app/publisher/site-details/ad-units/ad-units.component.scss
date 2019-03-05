@@ -1,6 +1,6 @@
 @import '../../../../styles';
 
-.ad-unit {
+.poster-unit {
   &__cell {
     margin: 0 0 0 0.5rem;
     padding: 0;
@@ -11,7 +11,7 @@
       align-items: flex-start;
     }
 
-    & .adsh-btn--edit {
+    & .dwmth-btn--edit {
       min-width: unset;
       max-width: 100%;
       margin-left: -8px;

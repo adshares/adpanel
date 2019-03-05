@@ -2,7 +2,7 @@
   color: pal(gray, dark);
 }
 
-.adsh-heading {
+.dwmth-heading {
   color: pal(navy);
   word-break: break-all;
 
@@ -43,7 +43,7 @@
   }
 }
 
-.adsh-copy {
+.dwmth-copy {
   color: pal(gray, mid-dark);
   @include font(16, normal);
   overflow: hidden;

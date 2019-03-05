@@ -6,9 +6,9 @@
   <table class="campaign-list__items">
     <app-table-navigation
       [navigationName]="'campaignListNavigation'"
-      class="adsh-box
+      class="dwmth-box
                row
-               adsh-copy"
+               dwmth-copy"
       (sortTable)="sortTable($event)"
     ></app-table-navigation>
 
@@ -19,11 +19,11 @@
       ></app-campaign-list-item>
 
     <tr *ngIf="campaigns.length > 0"
-        class="adsh-box adsh-campaign-list__item
+        class="dwmth-box dwmth-campaign-list__item
               row
               align-center
-              adsh-copy
-              adsh-copy--semi">
+              dwmth-copy
+              dwmth-copy--semi">
 
       <td
         class="
@@ -39,8 +39,8 @@
       >
               <span
                 class="
-                  adsh-copy
-                  adsh-copy--bold"
+                  dwmth-copy
+                  dwmth-copy--bold"
               >
                 Total - All Campaigns
               </span>
@@ -97,8 +97,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--no-margin
+      dwmth-box
+      dwmth-box--no-margin
       hidden-md"
   >
     <div
@@ -108,17 +108,17 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-btn--no-border
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-btn--no-border
+          dwmth-blue"
         (click)="navigateToCreateCampaign()"
         data-test="advertiser-create-new-campaign"
       >
         <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           src="assets/images/plus-circle--blue.svg"
         >
         Add new campaign

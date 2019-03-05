@@ -1,6 +1,6 @@
 @import '../../../../styles.scss';
 
-.site-edit-create-ad-units {
+.site-edit-create-posters-units {
   width: 80%;
   max-width: 1200px;
   margin: 0 auto;
@@ -13,12 +13,12 @@
     max-width: 2000px;
   }
 
-  &__ad-unit-title {
+  &__poster-unit-title {
     display: block;
   }
 
-  .adsh-box {
-    margin: 4px 0;
+  .dwmth-box {
+    margin: 8px 0;
   }
 
   &--narrow {
@@ -26,7 +26,7 @@
     margin: 0 auto;
   }
 
-  &__ad-unit {
+  &__poster-unit {
     text-align: center;
     background: white;
     padding: 7px;
@@ -92,11 +92,11 @@
     margin: 16px 0 0;
   }
 
-  .adsh-chip-box {
+  .dwmth-chip-box {
     margin-bottom: 4px;
   }
 
-  .adsh-form-label {
+  .dwmth-form-label {
     margin: 0;
   }
 }

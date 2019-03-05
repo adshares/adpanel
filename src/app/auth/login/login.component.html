@@ -1,20 +1,20 @@
 <div
   class="
     col
-    adsh-login-wrapper"
+    dwmth-login-wrapper"
 >
   <div>
       <h2
         class="
-          adsh-heading
-          adsh-heading--primary"
+          dwmth-heading
+          dwmth-heading--primary"
       >
         Hello!
       </h2>
       <p
         class="
-          adsh-copy
-          adsh-copy--large"
+          dwmth-copy
+          dwmth-copy--large"
       >
         Please log in to your account.
       </p>
@@ -22,7 +22,7 @@
       <form
         [formGroup]="loginForm"
         (ngSubmit)="login()"
-        class="adsh-form"
+        class="dwmth-form"
         data-test="auth-login-form"
       >
         <div
@@ -31,16 +31,16 @@
         >
           Password or email is invalid.
         </div>
-        <div class="adsh-form-input__box">
+        <div class="dwmth-form-input__box">
           <label
             for="email"
-            class="adsh-form-label"
+            class="dwmth-form-label"
           >
             Email Address
           </label>
           <input
             id="email"
-            class="adsh-form-input"
+            class="dwmth-form-input"
             type="email"
             name="email"
             formControlName="email"
@@ -64,16 +64,16 @@
           </span>
         </div>
 
-        <div class="adsh-form-input__box">
+        <div class="dwmth-form-input__box">
           <label
               for="password"
-              class="adsh-form-label"
+              class="dwmth-form-label"
           >
             Password
           </label>
           <input
               id="password"
-              class="adsh-form-input"
+              class="dwmth-form-input"
               type="password"
               name="password"
               formControlName="password"
@@ -119,7 +119,7 @@
             row
             align-center
             justify-between
-            adsh-login__remember"
+            dwmth-login__remember"
         >
 <!--
           <div
@@ -139,16 +139,16 @@
             ></label>
             <span
               class="
-                adsh-copy
-                adsh-copy&#45;&#45;large
-                adsh-copy&#45;&#45;x-dark"
+                dwmth-copy
+                dwmth-copy&#45;&#45;large
+                dwmth-copy&#45;&#45;x-dark"
             >
               Remember me
             </span>
           </div>
 -->
           <a
-            class="adsh-copy"
+            class="dwmth-copy"
             routerLink="/auth/forgotten-password"
             data-test="auth-redirect-to-forgotten-password"
           >
@@ -158,10 +158,10 @@
 
         <button
           class="
-            adsh-btn
-            adsh-btn--wide
-            adsh-btn--blue
-            adsh-form-submit-btn"
+            dwmth-btn
+            dwmth-btn--wide
+            dwmth-btn--blue
+            dwmth-form-submit-btn"
           data-test="auth-login-form-submit-button"
         >
           <span *ngIf="!isLoggingIn ; else loading">
@@ -174,10 +174,10 @@
       </form>
   </div>
 
-  <p class="adsh-copy">
+  <p class="dwmth-copy">
     Don't have an account?
     <a
-      class="adsh-blue"
+      class="dwmth-blue"
       routerLink="/auth/register"
       data-test="auth-redirect-to-registration"
     >

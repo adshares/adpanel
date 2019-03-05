@@ -4,7 +4,7 @@
 >
   <button
     class="
-      adsh-select
+      dwmth-select
       lowercase-to-capitalize
     "
     (click)="showDatepicker()"
@@ -15,7 +15,7 @@
   <div
     class="
       chart-filters
-      adsh-box"
+      dwmth-box"
     [class.visible]="datepickerVisible"
   >
     <div
@@ -27,7 +27,7 @@
     >
       <span
         class="
-          adsh-copy
+          dwmth-copy
           hidden-md"
       >
         Sort by Date Range
@@ -36,10 +36,10 @@
         type="button"
         *ngFor="let preset of filterPresets"
         class="
-            adsh-btn
-            adsh-button--small
-            adsh-bg-white
-            adsh-navy
+            dwmth-btn
+            dwmth-button--small
+            dwmth-bg-white
+            dwmth-navy
             lowercase-to-capitalize"
         [class.selected]="preset.id === currentDaysSpan"
         (click)="filterChart(preset.id, 0)"
@@ -58,32 +58,32 @@
     >
       <span
         class="
-          adsh-copy
+          dwmth-copy
           hidden-md"
       >
         or Select Manually
       </span>
       <label
         class="
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
       >
         From
       </label>
       <mat-form-field
         class="
-          adsh-form-input
-          adsh-form-input--narrow
-          adsh-form-input--datepicker
-          adsh-form-input--datepicker--narrow
+          dwmth-form-input
+          dwmth-form-input--narrow
+          dwmth-form-input--datepicker
+          dwmth-form-input--datepicker--narrow
           row"
       >
         <img
           src="assets/images/calendar.svg"
           alt="Add new icon"
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           (click)="dateFromPicker.open()"
         >
         <input
@@ -106,25 +106,25 @@
 
       <label
         class="
-          adsh-copy
-          adsh-copy--small"
+          dwmth-copy
+          dwmth-copy--small"
       >
         To
       </label>
       <mat-form-field
         class="
-          adsh-form-input
-          adsh-form-input--narrow
-          adsh-form-input--datepicker
-          adsh-form-input--datepicker--narrow
+          dwmth-form-input
+          dwmth-form-input--narrow
+          dwmth-form-input--datepicker
+          dwmth-form-input--datepicker--narrow
           row"
       >
         <img
           src="assets/images/calendar.svg"
           alt="Add new icon"
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           (click)="dateToPicker.open()"
         >
         <input
@@ -148,17 +148,17 @@
       <button
         type="button"
         class="
-          adsh-btn
-          adsh-button--small
-          adsh-bg-gray--light
-          adsh-navy"
+          dwmth-btn
+          dwmth-button--small
+          dwmth-bg-gray--light
+          dwmth-navy"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterChartByDatepicker(dateFrom, dateTo)"
         data-test="chart-filter-apply-datespan-button"
       >
         Apply
         <img
-          class="adsh-icon--append"
+          class="dwmth-icon--append"
           src="assets/images/chevron--right.svg"
         >
       </button>

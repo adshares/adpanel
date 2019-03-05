@@ -4,12 +4,12 @@
     site-list"
 >
   <div class="site-list__items">
-    <div class="adsh-box">
+    <div class="dwmth-box">
       <app-table-navigation
         [navigationName]="'siteListNavigation'"
         class="
           row
-          adsh-copy"
+          dwmth-copy"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
     </div>
@@ -20,13 +20,13 @@
         [site]="site"
       ></app-site-list-item>
 
-      <!--<div class="adsh-box">-->
+      <!--<div class="dwmth-box">-->
         <!--<div-->
           <!--class="-->
             <!--row-->
             <!--align-center-->
-            <!--adsh-copy-->
-            <!--adsh-copy&#45;&#45;semi"-->
+            <!--dwmth-copy-->
+            <!--dwmth-copy&#45;&#45;semi"-->
         <!--&gt;-->
           <!--<div-->
             <!--class="-->
@@ -36,8 +36,8 @@
           <!--&gt;-->
             <!--<h4-->
               <!--class="-->
-                <!--adsh-heading-->
-                <!--adsh-heading&#45;&#45;secondary"-->
+                <!--dwmth-heading-->
+                <!--dwmth-heading&#45;&#45;secondary"-->
             <!--&gt;-->
               <!--Total - All Sites-->
             <!--</h4>-->
@@ -95,7 +95,7 @@
 
   <div
     class="
-      adsh-box
+      dwmth-box
       hidden-md"
   >
     <div
@@ -105,17 +105,17 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-btn--no-border
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-btn--no-border
+          dwmth-blue"
         (click)="navigateToCreateSite()"
         data-test="publisher-create-new-site"
       >
         <img
           class="
-            adsh-icon
-            adsh-icon--prepend"
+            dwmth-icon
+            dwmth-icon--prepend"
           src="assets/images/plus-circle--blue.svg"
         >
         Add new site

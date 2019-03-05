@@ -1,5 +1,5 @@
 <div
-  class="adsh-box"
+  class="dwmth-box"
   data-test="publisher-navigate-to-site-details"
 >
   <div class="site-list__item">
@@ -11,7 +11,7 @@
       class="
         row
         align-center
-        adsh-copy
+        dwmth-copy
         "
     >
       <div
@@ -20,7 +20,7 @@
           row
           align-center"
       >
-        <div class="adsh-status"
+        <div class="dwmth-status"
           [attr.data-status]="currentSiteStatus"
         >
           {{ currentSiteStatus }}
@@ -49,7 +49,7 @@
           align-center"
       >
         <span
-          class="adsh-copy adsh-copy--bold"
+          class="dwmth-copy dwmth-copy--bold"
           (click)="navigateToSiteDetails(site.id)"
           data-test="publisher-site-url"
         >
@@ -115,7 +115,7 @@
           clickable-row
           align-center
           justify-center
-          adsh-site-list__item-site-details"
+          dwmth-site-list__item-site-details"
         (click)="navigateToSiteDetails(site.id)"
       >
         <img

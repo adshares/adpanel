@@ -12,7 +12,7 @@ import { Ad, Campaign } from 'models/campaign.model';
 import { AppState } from "models/app-state.model";
 
 @Component({
-  selector: 'app-ad-list-item',
+  selector: 'app-poster-list-item',
   templateUrl: './ad-list-item.component.html',
   styleUrls: ['./ad-list-item.component.scss'],
 })

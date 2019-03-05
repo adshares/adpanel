@@ -157,7 +157,8 @@ export function publisherReducers(state = initialState, action: PublisherActions
         filteringCriteria: [...action.payload]
       };
 
-    case PublisherActions.UPDATE_SITE || PublisherActions.UPDATE_SITE_FILTERING:
+    case PublisherActions.UPDATE_SITE:
+    case PublisherActions.UPDATE_SITE_FILTERING:
       const oldSites = state.sites.filter(site => site.id !== action.payload.id);
       return {
         ...state,

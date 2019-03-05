@@ -10,15 +10,15 @@
   >
     <h1
       class="
-        adsh-heading
-        adsh-heading--primary"
+        dwmth-heading
+        dwmth-heading--primary"
     >
       Summary
     </h1>
     <p
       class="
-        adsh-copy
-        adsh-copy--medium"
+        dwmth-copy
+        dwmth-copy--medium"
     >
       Below is summary of all the data defining your site.
     </p>
@@ -26,8 +26,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       campaign-edit-summary__basic-info"
   >
     <div
@@ -38,8 +38,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         1. Basic Information
       </h3>
@@ -50,9 +50,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -64,18 +64,18 @@
                   site-edit-summary__basic-info-element">
         <p
           class="
-          adsh-copy
-          adsh-copy--light"
+          dwmth-copy
+          dwmth-copy--light"
         >
           Website name
         </p>
 
         <p
           class="
-          adsh-copy
-          adsh-copy--semi
-          adsh-copy--medium
-          adsh-copy--x-dark"
+          dwmth-copy
+          dwmth-copy--semi
+          dwmth-copy--medium
+          dwmth-copy--x-dark"
           data-test="publisher-site-url"
         >
           {{ site.name }}
@@ -88,18 +88,18 @@
           col"
       >
         <p
-          class="adsh-copy
-          adsh-copy--light"
+          class="dwmth-copy
+          dwmth-copy--light"
         >
           Content Language
         </p>
 
         <p
           class="
-            adsh-copy
-            adsh-copy--semi
-            adsh-copy--medium
-            adsh-copy--x-dark"
+            dwmth-copy
+            dwmth-copy--semi
+            dwmth-copy--medium
+            dwmth-copy--x-dark"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -110,8 +110,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       site-edit-summary__targeting-info"
   >
     <div
@@ -122,8 +122,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         2. Filtering
       </h3>
@@ -134,9 +134,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -151,8 +151,8 @@
       >
         <p
           class="
-            adsh-copy
-            adsh-copy--x-dark
+            dwmth-copy
+            dwmth-copy--x-dark
             targeting-title"
         >
           Requires:
@@ -175,8 +175,8 @@
       >
         <p
           class="
-            adsh-copy
-            adsh-copy--x-dark
+            dwmth-copy
+            dwmth-copy--x-dark
             targeting-title"
         >
           Excludes:
@@ -196,9 +196,9 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
-      site-edit-summary__ads-info"
+      dwmth-box
+      dwmth-box--large
+      site-edit-summary__poster-info"
   >
     <div
       class="
@@ -208,8 +208,8 @@
     >
       <h3
         class="
-          adsh-heading
-          adsh-heading--secondary"
+          dwmth-heading
+          dwmth-heading--secondary"
       >
         3. Ad Units
       </h3>
@@ -220,9 +220,9 @@
       >
         <button
           class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue"
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
         >
           Edit
         </button>
@@ -234,7 +234,7 @@
          [ngClass]="site.adUnits.length > 4 ? 'justify-between' : 'justify-start'">
 
       <div
-        class="row site-edit-summary__ad-unit"
+        class="row site-edit-summary__poster-unit"
         *ngFor="let adUnit of site.adUnits"
         data-test="publisher-edit-site-summary-ad-units"
       >
@@ -243,30 +243,28 @@
                   row
                   align-center
                   justify-center
-                  site-edit-create-ad-unit__ad-unit__visualization-box"
+                  site-edit-create-posters-units__poster-unit__visualization-box"
         >
           <div
-            class="adsh-copy site-edit-summary_ad-unit__visualization"
+            class="dwmth-copy site-edit-summary__poster-unit__visualization"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
           > {{ adUnit.size.name }}
           </div>
         </div>
 
         <strong
-          class="
-                  site-edit-summary__ad-unit-title
-                  adsh-copy
-                  adsh-copy--semi
-                  adsh-copy--x-dark
-                  adsh-copy--medium"
-          data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
+          class="dwmth-copy
+                 dwmth-copy--semi
+                 dwmth-copy--x-dark
+                 dwmth-copy--medium"
+          data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
           {{ adUnit.size.width }} x {{ adUnit.size.height }}
 
         </strong>
         <div>
           <div
-            class="adsh-chip-box"
+            class="dwmth-chip-box"
             *ngFor="let tag of adUnit.size.tags"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
           >
@@ -279,8 +277,8 @@
 
   <div
     class="
-      adsh-box
-      adsh-box--large
+      dwmth-box
+      dwmth-box--large
       row
       justify-between"
   >
@@ -292,9 +290,9 @@
     >
       <button
         class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
       >
         Back
       </button>
@@ -303,9 +301,9 @@
     <button
       *ngIf="!this.createSiteMode"
       class="
-          adsh-btn
-          adsh-btn--white
-          adsh-blue"
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-blue"
       (click)="navigateToSiteDetails()"
     >
       Back
@@ -315,9 +313,9 @@
       <button
         *ngIf="createSiteMode"
         class="
-            adsh-btn
-            adsh-btn--white
-            adsh-blue
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue
             save-as-draft"
         type="button"
         (click)="saveSite(true)"
@@ -329,8 +327,8 @@
         *ngIf="createSiteMode"
         [disabled]="canSubmit"
         class="
-            adsh-btn
-            adsh-btn--blue"
+            dwmth-btn
+            dwmth-btn--blue"
         (click)="saveSite(false)"
         type="button"
         data-test="publisher-edit-site-start-campaign"
@@ -341,8 +339,8 @@
         *ngIf="!createSiteMode"
         [disabled]="canSubmit"
         class="
-            adsh-btn
-            adsh-btn--blue"
+            dwmth-btn
+            dwmth-btn--blue"
         (click)="updateSite()"
         type="button"
         data-test="publisher-edit-site-start-campaign"
