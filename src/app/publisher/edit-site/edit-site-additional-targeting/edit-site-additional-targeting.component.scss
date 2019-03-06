@@ -21,6 +21,30 @@
   margin-top: 30px;
 }
 
+.classification-section {
+  &__title {
+    line-height: 64px;
+  }
+
+  &__info {
+    margin-bottom: 24px;
+  }
+
+  &__info-create-site {
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  &__link {
+    padding: 4px 8px 4px 0;
+    max-width: 300px;
+
+    &:hover {
+      color: darken(pal(blue), 10%);
+    }
+  }
+}
+
 .dwmth-box {
   margin-top: 8px;
 }

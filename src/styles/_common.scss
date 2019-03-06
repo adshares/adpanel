@@ -493,6 +493,10 @@ router-outlet ~ * {
   }
 }
 
+.dwmth-targeting-display__preview {
+  margin-left: 26px;
+}
+
 .hidden {
   display: none !important;
 }

@@ -1,9 +1,7 @@
 <section
-  class="
-    col
-    campaign-list"
+  class="col"
 >
-  <table class="campaign-list__items">
+  <table class="">
     <app-table-navigation
       [navigationName]="'campaignListNavigation'"
       class="dwmth-box
@@ -12,14 +10,16 @@
       (sortTable)="sortTable($event)"
     ></app-table-navigation>
 
+
     <tbody *ngIf="campaigns; else loading">
-      <app-campaign-list-item
-        *ngFor="let campaign of campaigns; let i = index"
-        [campaign]="campaign"
-      ></app-campaign-list-item>
+    <app-campaign-list-item
+      *ngFor="let campaign of campaigns; let i = index"
+      [campaign]="campaign"
+    ></app-campaign-list-item>
 
     <tr *ngIf="campaigns.length > 0"
-        class="dwmth-box dwmth-campaign-list__item
+        class="dwmth-box
+               dwmth-posters-list__item
               row
               align-center
               dwmth-copy

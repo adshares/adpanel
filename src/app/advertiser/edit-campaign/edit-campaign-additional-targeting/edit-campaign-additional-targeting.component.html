@@ -56,14 +56,16 @@
         </div>
       </mat-expansion-panel>
 
-      <app-targeting-display
-        [items]="addedItems"
-        [canRemove]="true"
-        [isExclude]="false"
-        (itemsChange)="updateAddedItems($event)"
-        [targetingOptions]="targetingOptionsToAdd"
-        *ngIf="!requirePanelOpenState"
-      ></app-targeting-display>
+      <div class="dwmth-targeting-display__preview">
+        <app-targeting-display
+          [items]="addedItems"
+          [canRemove]="true"
+          [isExclude]="false"
+          (itemsChange)="updateAddedItems($event)"
+          [targetingOptions]="targetingOptionsToAdd"
+          *ngIf="!requirePanelOpenState"
+        ></app-targeting-display>
+      </div>
     </div>
 
 
@@ -88,7 +90,8 @@
             <p
               class="dwmth-copy"
             >
-              Some missing text
+              In this window, you can select the keywords that will help you
+              exclude the sites that don't match your targeting.
             </p>
 
             <div class="targeting-select-wrapper">
@@ -112,14 +115,17 @@
         </div>
       </mat-expansion-panel>
 
-      <app-targeting-display
-        [items]="excludedItems"
-        [canRemove]="true"
-        [isExclude]="true"
-        (itemsChange)="updateExcludedItems($event)"
-        [targetingOptions]="targetingOptionsToExclude"
-        *ngIf="!excludePanelOpenState"
-      ></app-targeting-display>
+      <div class="dwmth-targeting-display__preview">
+        <app-targeting-display
+          [items]="excludedItems"
+          [canRemove]="true"
+          [isExclude]="true"
+          (itemsChange)="updateExcludedItems($event)"
+          [targetingOptions]="targetingOptionsToExclude"
+          *ngIf="!excludePanelOpenState"
+        ></app-targeting-display>
+      </div>
+
     </div>
   </mat-accordion>
 
