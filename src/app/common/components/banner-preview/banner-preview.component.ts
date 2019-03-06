@@ -31,7 +31,13 @@ export class BannerPreviewComponent implements OnInit {
       this.bannerUrl = (<Ad>this.banner).imageUrl;
       this.bannerHtml = (<Ad>this.banner).html;
     }
-    this.canLoadIframeContent(this.bannerUrl)
+
+    if (this.isBannerInputTypeAd && !this.isImage) {
+      this.canLoadIframeContent(this.bannerUrl)
+    } else {
+      this.isLoading = false;
+      this.showIframe = true;
+    }
   }
 
   get isImage() {
