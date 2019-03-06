@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BannerClassification } from 'models/classifier.model';
 import { Ad } from 'models/campaign.model';
 import { adTypesEnum } from 'models/enum/ad.enum';
+import { HTTP_OK } from "common/utilities/codes";
 
 @Component({
   selector: 'app-banner-preview',
@@ -15,6 +16,8 @@ export class BannerPreviewComponent implements OnInit {
   isBannerInputTypeAd: boolean;
   bannerUrl: string;
   bannerHtml: string;
+  showIframe: boolean = false;
+  isLoading: boolean = true;
 
   constructor() {
   }
@@ -28,9 +31,32 @@ export class BannerPreviewComponent implements OnInit {
       this.bannerUrl = (<Ad>this.banner).imageUrl;
       this.bannerHtml = (<Ad>this.banner).html;
     }
+
+    if (this.isBannerInputTypeAd && !this.isImage) {
+      this.canLoadIframeContent(this.bannerUrl)
+    } else {
+      this.isLoading = false;
+      this.showIframe = true;
+    }
   }
 
   get isImage() {
     return this.banner.type === adTypesEnum.IMAGE;
+  }
+
+  canLoadIframeContent(url: string) {
+    fetch(url)
+      .then(res => {
+        this.isLoading = false;
+        if (res.status === HTTP_OK) {
+          this.showIframe = true;
+        } else {
+          this.showIframe = false;
+        }
+      })
+      .catch(() => {
+        this.showIframe = false;
+        this.isLoading = false;
+      })
   }
 }
