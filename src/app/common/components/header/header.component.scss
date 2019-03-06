@@ -29,9 +29,9 @@
   }
 
   &__logo-subtitle {
-    @include font-size(14);
     text-transform: uppercase;
     color: pal(red, dark);
+    font-size: 14px;
   }
 }
 
