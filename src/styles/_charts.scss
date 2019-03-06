@@ -28,7 +28,7 @@
   }
 
   &-change {
-    @include font(10, bold);
+    @include font(14, bold);
     color: pal(blue);
     margin-left: 10px;
   }
@@ -52,6 +52,6 @@
 
   .chartjs-tooltip__title {
     color: #7a89b0;
-    @include font(10, semi);
+    @include font(14, semi);
   }
 }

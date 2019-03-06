@@ -12,6 +12,7 @@ import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 
@@ -83,12 +84,14 @@ export class EditSiteAdditionalTargetingComponent implements OnInit, OnDestroy {
   }
 
   get siteToSave(): Site {
+    const filtering = {
+      requires: [...this.addedItems],
+      excludes: [...this.excludedItems],
+    };
+
     return {
       ...this.site,
-      filtering: {
-        requires: [...this.addedItems],
-        excludes: [...this.excludedItems],
-      },
+      filtering: parseTargetingForBackend(filtering),
       requireClassified: this.isCheckedRequireClassified,
       excludeUnclassified: this.isCheckedExcludeUnclassified,
     }

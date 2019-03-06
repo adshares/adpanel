@@ -18,7 +18,7 @@
     <p
       class="
         dwmth-copy
-        dwmth-copy--large"
+        dwmth-copy--medium"
     >
       Below is summary of all the data defining your site.
     </p>
@@ -60,46 +60,46 @@
     </div>
 
     <div class="row">
-      <div
-        class="
-          col-xs-12
-          site-edit-summary__info-cell
-          dwmth-copy--small
+      <div class="col
+                  site-edit-summary__basic-info-element">
+        <p
+          class="
+          dwmth-copy
           dwmth-copy--light"
-      >
-        Website name
+        >
+          Website name
+        </p>
+
+        <p
+          class="
+          dwmth-copy
+          dwmth-copy--semi
+          dwmth-copy--medium
+          dwmth-copy--x-dark"
+          data-test="publisher-site-url"
+        >
+          {{ site.name }}
+        </p>
       </div>
 
-      <div
-        class="
-          col-xs-12
-          site-edit-summary__info-cell
-          site-info--primary"
-        data-test="publisher-site-url"
-      >
-        {{ site.name }}
-      </div>
-    </div>
-
-    <div class="row">
       <div
         class="
           col-xs-4
-          site-edit-summary__info-cell"
-        >
+          col"
+      >
         <p
-          class="
-            dwmth-copy--small
-            dwmth-copy--light"
+          class="dwmth-copy
+          dwmth-copy--light"
         >
           Content Language
         </p>
 
         <p
           class="
-            dwmth-heading
-            dwmth-heading--secondary
-            site-edit-summary__language"
+            dwmth-copy
+            dwmth-copy--semi
+            dwmth-copy--medium
+            dwmth-copy--x-dark"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -152,13 +152,12 @@
         <p
           class="
             dwmth-copy
-            dwmth-copy--large
             dwmth-copy--x-dark
             targeting-title"
         >
           Requires:
         </p>
-        <div class="site-edit-summary__targeting--margin-fix">
+        <div>
           <app-targeting-display
             *ngIf="site.filteringArray.requires"
             [items]="site.filteringArray.requires"
@@ -177,13 +176,12 @@
         <p
           class="
             dwmth-copy
-            dwmth-copy--large
             dwmth-copy--x-dark
             targeting-title"
         >
           Excludes:
         </p>
-        <div class="site-edit-summary__targeting--margin-fix">
+        <div>
           <app-targeting-display
             *ngIf="site.filtering.excludes"
             [items]="site.filtering.excludes"
@@ -231,11 +229,49 @@
       </a>
     </div>
 
-    <div>
-      <app-poster-units
+    <div *ngIf="!!site.adUnits.length"
+         class="row"
+         [ngClass]="site.adUnits.length > 4 ? 'justify-between' : 'justify-start'">
+
+      <div
+        class="row site-edit-summary__poster-unit"
         *ngFor="let adUnit of site.adUnits"
-        [adUnit]="adUnit"
-      ></app-poster-units>
+        data-test="publisher-edit-site-summary-ad-units"
+      >
+        <div
+          class="
+                  row
+                  align-center
+                  justify-center
+                  site-edit-create-posters-units__poster-unit__visualization-box"
+        >
+          <div
+            class="dwmth-copy site-edit-summary__poster-unit__visualization"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+          > {{ adUnit.size.name }}
+          </div>
+        </div>
+
+        <strong
+          class="dwmth-copy
+                 dwmth-copy--semi
+                 dwmth-copy--x-dark
+                 dwmth-copy--medium"
+          data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
+        >
+          {{ adUnit.size.width }} x {{ adUnit.size.height }}
+
+        </strong>
+        <div>
+          <div
+            class="dwmth-chip-box"
+            *ngFor="let tag of adUnit.size.tags"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+          >
+            {{ tag }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -274,43 +310,43 @@
     </button>
 
     <div class="row">
-        <button
-          *ngIf="createSiteMode"
-          class="
+      <button
+        *ngIf="createSiteMode"
+        class="
             dwmth-btn
             dwmth-btn--white
             dwmth-blue
             save-as-draft"
-          type="button"
-          (click)="saveSite(true)"
-          data-test="publisher-edit-site-save-as-draft"
-        >
-          Save as Draft
-        </button>
-        <button
-          *ngIf="createSiteMode"
-          [disabled]="canSubmit"
-          class="
-            dwmth-btn
-            dwmth-btn--blue"
-          (click)="saveSite(false)"
-          type="button"
-          data-test="publisher-edit-site-start-campaign"
-        >
-          Publish site
-        </button>
+        type="button"
+        (click)="saveSite(true)"
+        data-test="publisher-edit-site-save-as-draft"
+      >
+        Save as Draft
+      </button>
       <button
-          *ngIf="!createSiteMode"
-          [disabled]="canSubmit"
-          class="
+        *ngIf="createSiteMode"
+        [disabled]="canSubmit"
+        class="
             dwmth-btn
             dwmth-btn--blue"
-          (click)="updateSite()"
-          type="button"
-          data-test="publisher-edit-site-start-campaign"
-        >
-          Update site
-        </button>
+        (click)="saveSite(false)"
+        type="button"
+        data-test="publisher-edit-site-start-campaign"
+      >
+        Publish site
+      </button>
+      <button
+        *ngIf="!createSiteMode"
+        [disabled]="canSubmit"
+        class="
+            dwmth-btn
+            dwmth-btn--blue"
+        (click)="updateSite()"
+        type="button"
+        data-test="publisher-edit-site-start-campaign"
+      >
+        Update site
+      </button>
     </div>
   </div>
 </section>

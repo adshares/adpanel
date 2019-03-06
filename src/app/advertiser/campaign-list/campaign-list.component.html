@@ -3,108 +3,91 @@
     col
     campaign-list"
 >
-  <div class="campaign-list__items">
-    <div class="dwmth-box">
-      <app-table-navigation
-        [navigationName]="'campaignListNavigation'"
-        class="
-          row
-          dwmth-copy
-          dwmth-copy--small"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
-    </div>
+  <table class="campaign-list__items">
+    <app-table-navigation
+      [navigationName]="'campaignListNavigation'"
+      class="dwmth-box
+               row
+               dwmth-copy"
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
 
-    <div *ngIf="campaigns; else loading">
+    <tbody *ngIf="campaigns; else loading">
       <app-campaign-list-item
         *ngFor="let campaign of campaigns; let i = index"
         [campaign]="campaign"
       ></app-campaign-list-item>
 
-      <div *ngIf="campaigns.length > 0"
-        class="dwmth-box">
-        <div class="dwmth-campaign-list__item">
-          <div
-            class="
+    <tr *ngIf="campaigns.length > 0"
+        class="dwmth-box dwmth-campaign-list__item
               row
               align-center
               dwmth-copy
-              dwmth-copy--semi"
-          >
-            <div
-              class="
+              dwmth-copy--semi">
+
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            ></div>
-            <div
-              class="
-                col-xs-4
+      ></td>
+      <td
+        class="
+                col-xs-5
                 row
                 align-center"
-            >
-              <h4
+      >
+              <span
                 class="
-                  dwmth-heading
-                  dwmth-heading--secondary"
+                  dwmth-copy
+                  dwmth-copy--bold"
               >
                 Total - All Campaigns
-              </h4>
-            </div>
-            <div
-              class="
+              </span>
+      </td>
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            >
-              <!--<span>{{ (campaignsTotals.basicInformation.budget || 0) | campaignBudgetPerDay | adsharesTokenValue:2 }}/day</span>-->
-            </div>
-            <div
-              class="
+      >
+        <span>{{ campaignsTotals.clicks }}</span>
+      </td>
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            >
-              <span>{{ campaignsTotals.clicks }}</span>
-            </div>
-            <div
-              class="
+      >
+        <span>{{ campaignsTotals.impressions }}</span>
+      </td>
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            >
-              <span>{{ campaignsTotals.impressions }}</span>
-            </div>
-            <div
-              class="
+      >
+        <span>{{ campaignsTotals.ctr | percent:'1.2-2' }}</span>
+      </td>
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            >
-              <span>{{ campaignsTotals.ctr | percent:'1.2-2' }}</span>
-            </div>
-            <div
-              class="
+      >
+        <span>{{ campaignsTotals.averageCpc | adsharesTokenValue:2 }}</span>
+      </td>
+      <td
+        class="
                 col-xs-1
                 row
                 align-center"
-            >
-              <span>{{ campaignsTotals.averageCpc | adsharesTokenValue:2 }}</span>
-            </div>
-            <div
-              class="
-                col-xs-1
-                row
-                align-center"
-            >
-              <span>{{ campaignsTotals.cost | adsharesTokenValue:2 }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+      >
+        <span>{{ campaignsTotals.cost | adsharesTokenValue:2 }}</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
   <ng-template #loading>
     <div class="loading-wrapper">
@@ -115,6 +98,7 @@
   <div
     class="
       dwmth-box
+      dwmth-box--no-margin
       hidden-md"
   >
     <div

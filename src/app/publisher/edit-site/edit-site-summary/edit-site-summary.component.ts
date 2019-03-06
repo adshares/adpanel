@@ -14,6 +14,7 @@ import {HandleSubscription} from 'common/handle-subscription';
 import {TargetingOption} from 'models/targeting-option.model';
 import {cloneDeep} from 'common/utilities/helpers';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { adSizesEnum } from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -38,6 +39,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+
     this.createSiteMode = !!this.router.url.match('/create-site/');
 
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')

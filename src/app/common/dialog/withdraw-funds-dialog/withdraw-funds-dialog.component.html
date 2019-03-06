@@ -65,7 +65,7 @@
       <p
         class="
           dwmth-copy
-          dwmth-copy--large
+          dwmth-copy--blue
           dwmth-customize-subheading"
       >
         You will send your funds on this address.
@@ -121,15 +121,14 @@
         </span>
       </div>
 
-      <div
-        class="
+      <div class="
+          withdraw-funds__btns-wrapper
           row
-          justify-center
-          dwmth-btn--submit"
-      >
+          justify-between">
         <button class="
-          dwmth-btn
-          dwmth-btn--blue"
+                     dwmth-btn
+                     dwmth-btn--white
+                     dwmth-copy--blue"
                 type="button"
                 (click)="getMaxWithdrawAmount()"
                 data-test="common-withdraw-funds-form-btn-withdraw-max"
@@ -254,12 +253,13 @@
         class="
           row
           justify-center
-          dwmth-btn--submit"
+          withdraw-funds__btns-wrapper"
       >
         <button
           class="
             dwmth-btn
-            dwmth-btn--blue"
+            dwmth-btn--blue
+            dwmth-btn--block "
           data-test="common-withdraw-funds-form-submit-button"
           *ngIf="isEmailConfirmed"
         >

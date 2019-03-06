@@ -1,4 +1,4 @@
-<app-email-not-activated-bar  *ngIf="!(userHasConfirmedEmail | async)"></app-email-not-activated-bar>
+<app-email-not-activated-bar *ngIf="!(userHasConfirmedEmail | async)"></app-email-not-activated-bar>
 
 <section
   class="
@@ -14,8 +14,7 @@
     >
       <div
         class="
-          col-xs-12
-          col-md-3"
+          col-xs-4"
       >
         <h1
           class="
@@ -27,10 +26,31 @@
         <p
           class="
             dwmth-copy
-            dwmth-copy--large"
+            dwmth-copy--medium"
         >
           List of all sites
         </p>
+      </div>
+      <div
+        class="
+          col-xs-8
+          row
+          justify-end
+          align-center"
+      >
+        <a
+          routerLink="/publisher/classifier"
+          data-test="publisher-navigate-to-classifier"
+        >
+          <button
+            class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-copy--dark"
+          >
+            Classify banners
+          </button>
+        </a>
       </div>
     </div>
 

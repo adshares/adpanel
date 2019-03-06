@@ -3,22 +3,20 @@
     col
     dwmth-posters-list"
 >
-  <div class="dwmth-posters-list__items">
-    <div class="dwmth-box">
-      <app-table-navigation
-        [navigationName]="'adListNavigation'"
-        class="
+  <table class="dwmth-posters-list__items">
+    <app-table-navigation
+      [navigationName]="'adListNavigation'"
+      class="
           row
-          dwmth-copy
-          dwmth-copy--small"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
-    </div>
-
+          dwmth-copy"
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
+    <tbody>
     <app-poster-list-item
       *ngFor="let ad of adList"
       [ad]="ad"
       [campaign]="campaign"
     ></app-poster-list-item>
-  </div>
+    </tbody>
+  </table>
 </section>

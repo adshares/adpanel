@@ -1,18 +1,19 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {HandleSubscription} from 'common/handle-subscription';
-import {AppState} from 'models/app-state.model';
-import {ChartFilterSettings, FilterPreset, TimespanFilter} from 'models/chart/chart-filter-settings.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AppState } from 'models/app-state.model';
+import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 import * as moment from 'moment';
-import {filterPresetsEnum} from "models/enum/chart.enum";
-import {enumToObjectArray} from "common/utilities/helpers";
+import { filterPresetsEnum } from "models/enum/chart.enum";
+import { enumToObjectArray } from "common/utilities/helpers";
 
 @Component({
   selector: 'app-chart-filter',
   templateUrl: './chart-filter.component.html',
   styleUrls: ['./chart-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartFilterComponent extends HandleSubscription implements OnInit, OnChanges {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
@@ -69,7 +70,6 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
   filterChartByDatepicker(from, to, fromDatepicker = true) {
     this.dateFrom.setValue(from.value);
     this.dateTo.setValue(moment(to).endOf('day'));
-
     const datesSet = from.value && to.value;
     const fromUnix = datesSet ? +from.value.startOf('day') <= +to.value.startOf('day') : false;
 
@@ -84,8 +84,8 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit, 
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
     this.currentFilterPreset = this.filterPresets.find(p => p.id === this.currentDaysSpan);
-    this.currentFromFilter = moment(this.currentChartFilterSettings.currentTo).format('L');
-    this.currentToFilter = moment(this.currentChartFilterSettings.currentFrom).format('L');
+    this.currentFromFilter = moment(this.currentChartFilterSettings.currentFrom).format('L');
+    this.currentToFilter = moment(this.currentChartFilterSettings.currentTo).format('L');
   }
 
   showDatepicker() {
