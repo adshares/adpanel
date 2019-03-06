@@ -65,14 +65,11 @@ export function publisherReducers(state = initialState, action: PublisherActions
 
       if (action.payload.data.length > 0 && selectedSite.adUnits !== undefined && selectedSite.adUnits.length > 0) {
         const reducedUnits = [selectedSite.adUnits, action.payload.data].reduce((units, data) => units.map((unit) => {
-            if (data.find(el => el.zoneId === unit.id)) {
-              return {
-                ...unit,
-                ...data.find(el => el.zoneId === unit.id)
-              }
-            } else {
-              return unit;
-            }
+            const elementWithStats = data.find(el => el.zoneId === unit.id);
+            return elementWithStats ? {
+              ...unit,
+              ...elementWithStats
+            } : unit;
           })
         );
         return {
