@@ -187,7 +187,7 @@ input[type=radio]:checked + label {
   border: 1px solid pal(red);
   border-radius: 2px;
   margin-top: 5px;
-  padding: 8px 5px;
+  padding: 8px 32px 8px 8px;
   min-width: 150px;
 
   &__full-width {
@@ -198,7 +198,7 @@ input[type=radio]:checked + label {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
-    top: 6px;
+    top: 9px;
     right: 5px;
   }
 

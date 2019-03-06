@@ -122,7 +122,8 @@ export class PublisherService {
       params['offset'] = `${offset}`;
     }
 
-    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`, {params: params});
+    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
+      {params});
   }
 
   setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
