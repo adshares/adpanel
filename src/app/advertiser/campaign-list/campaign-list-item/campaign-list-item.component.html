@@ -25,7 +25,6 @@
           {{ currentCampaignStatus }}
           <div class="status-wrapper__list-item">
             <mat-select [value]=" "
-                        (change)="onCampaignStatusChange($event)"
                         data-test="advertiser-campaign-status-select"
             >
 
@@ -34,6 +33,7 @@
                                     option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
                                     option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
                           [value]="option"
+                          (click)="onCampaignStatusChange(option)"
                           data-test="advertiser-campaign-status-select-option"
               >
                 {{ option }}
