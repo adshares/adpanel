@@ -48,6 +48,11 @@
     border-style: solid;
     border-width: 6px 6px 6px 0;
     border-color: transparent pal(navy, light) transparent transparent;
+
+  }
+
+  & > table {
+    table-layout: auto;
   }
 
   .chartjs-tooltip__title {
