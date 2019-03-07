@@ -2,7 +2,7 @@
   "module": "adserver-user-panel",
   "name": "${APP_NAME}",
   "version": "${APP_VERSION}",
+  "serverUrl":"${ADSERVER_URL}",
   "api-server-base-url":"${ADSERVER_URL}",
-  "api-base-url":"${ADSERVER_URL}",
-  "serverUrl":"${ADSERVER_URL}"
+  "api-base-url":"${ADSERVER_URL}"
 }
