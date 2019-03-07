@@ -14,14 +14,17 @@
           'Global Classification' :
           'Classification for ' + siteName}}
         </h1>
-        <span class="dwmth-copy">
+        <p class="dwmth-copy">
           {{isGlobal ?
           'Here you can perform general classification for all your sites' :
           'Here you can perform classification for this site only'}}
-        </span>
+        </p>
+        <a *ngIf="!isGlobal"
+           class="dwmth-copy dwmth-blue header__link"
+           routerLink="/publisher/classifier">
+          Click here if you want to classify banners globally,
+        </a>
       </div>
-
-
       <div class="
              header__buttons-wrapper
              dwmth-box--no-padding
@@ -47,13 +50,11 @@
         >
           <fa-icon class="dwmth-icon
                           dwmth-icon--prepend"
-                   [icon]="refreshIcon"> </fa-icon>
+                   [icon]="refreshIcon"></fa-icon>
           Refresh
         </button>
       </div>
-
     </div>
-
     <table
       class="
         col
@@ -83,7 +84,6 @@
         </div>
       </ng-template>
     </table>
-
     <mat-paginator
       #paginator
       [hidePageSize]="true"
@@ -92,6 +92,5 @@
       (page)="handlePaginationEvent($event)"
     >
     </mat-paginator>
-
   </div>
 </div>

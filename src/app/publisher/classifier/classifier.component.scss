@@ -8,4 +8,10 @@
   &__buttons-wrapper {
     margin-top: 10px;
   }
+
+  &__link {
+    &:hover {
+      color: darken(pal(blue), 10%);
+    }
+  }
 }
