@@ -2,7 +2,12 @@
 
 .app-targeting-display {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 4px;
+
+  &__chip-list:not(:last-of-type) {
+    margin-bottom: 8px;
+  }
 }
 
 .hide-remove {

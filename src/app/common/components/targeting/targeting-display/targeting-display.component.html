@@ -1,5 +1,6 @@
 <section class="app-targeting-display">
-  <mat-chip-list *ngFor="let groupedTargeting of viewModel">
+  <mat-chip-list *ngFor="let groupedTargeting of viewModel"
+                 class="app-targeting-display__chip-list">
     <div
       class="dwmth-copy"
       [ngClass]="{'targeting-display__exclude-text': isExclude}"
