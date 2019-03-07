@@ -1,1 +1,11 @@
 @import '../../../styles';
+
+.header {
+  &__wrapper {
+    margin-bottom: 16px;
+  }
+
+  &__buttons-wrapper {
+    margin-top: 10px;
+  }
+}

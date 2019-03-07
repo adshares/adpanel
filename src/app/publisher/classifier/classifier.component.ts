@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from "@angular/common";
 import { MatDialog, MatPaginator } from '@angular/material';
 
 import { PublisherService } from 'publisher/publisher.service';
@@ -9,6 +10,7 @@ import { BannerClassification, BannerClassificationResponse } from 'models/class
 import { TableColumnMetaData } from 'models/table.model';
 import * as codes from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import {faSyncAlt} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -21,22 +23,26 @@ export class ClassifierComponent implements OnInit {
 
   readonly PAGE_SIZE: number = 20;
   siteId?: number;
+  siteName?: string;
   isGlobal: boolean = true;
   isLoading: boolean = true;
   bannerClassifications: BannerClassification[] = [];
   totalCount: number = 0;
+  refreshIcon = faSyncAlt;
 
   constructor(
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private router: Router,
     private dialog: MatDialog,
+    private location: Location
   ) {
   }
 
   ngOnInit(): void {
     const site: Site = this.route.snapshot.data.site;
     this.siteId = site ? site.id : null;
+    this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
 
     this.getBannerClassification();
@@ -72,8 +78,7 @@ export class ClassifierComponent implements OnInit {
   }
 
   onStepBack() {
-    this.isGlobal ? this.router.navigate(['/publisher', 'dashboard']) :
-      this.router.navigate(['/publisher', 'site', this.siteId]);
+    this.location.back();
   }
 
   handlePaginationEvent(event: any): void {
