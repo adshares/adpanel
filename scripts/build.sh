@@ -25,6 +25,7 @@ ADSERVER_URL_FROM_CMD=${1:-http://localhost:8101}
 GIT_TAG=$(git tag -l --points-at HEAD | head -n 1)
 GIT_HASH="#"$(git rev-parse --short HEAD)
 
+export APP_NAME=${APP_NAME:-AdPanel}
 export APP_VERSION=${APP_VERSION:-${GIT_TAG:-${GIT_HASH}}}
 export APP_PROD=${APP_PROD:-true}
 export ADSERVER_URL=${ADSERVER_URL:-${ADSERVER_URL_FROM_CMD}}
