@@ -19,12 +19,11 @@
           'Here you can perform general classification for all your sites' :
           'Here you can perform classification for this site only'}}
         </p>
-        <p *ngIf="!isGlobal"
-           class="dwmth-copy">
-          If you want to classify banners globally,
-          <a class="dwmth-copy dwmth-blue"
-             routerLink="/publisher/classifier"> click here </a>
-        </p>
+        <a *ngIf="!isGlobal"
+           class="dwmth-copy dwmth-blue header__link"
+           routerLink="/publisher/classifier">
+          Click here if you want to classify banners globally,
+        </a>
       </div>
       <div class="
              header__buttons-wrapper
