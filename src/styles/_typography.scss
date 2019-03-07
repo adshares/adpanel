@@ -11,6 +11,13 @@
     line-height: 1.11;
   }
 
+  &--ellipsis {
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   &--primary {
     @include font(32, bold);
     letter-spacing: -0.1px;
