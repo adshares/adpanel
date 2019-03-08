@@ -1,5 +1,11 @@
 @import '../../../../styles.scss';
 
-.dwmth-campaign-list__item-campaign-details {
-  height: 33px;
+.dwmth-campaign-list{
+ &__item-campaign-details {
+   height: 33px;
+ }
+
+  &__status-cell{
+    width: 150px;
+  }
 }

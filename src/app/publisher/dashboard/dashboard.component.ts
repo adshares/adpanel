@@ -7,12 +7,10 @@ import {ChartComponent} from 'common/components/chart/chart.component';
 import {SiteListComponent} from 'publisher/site-list/site-list.component';
 import {HandleSubscription} from 'common/handle-subscription';
 import {Site, SitesTotals} from 'models/site.model';
-import {chartSeriesEnum} from 'models/enum/chart.enum';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import {ChartData} from 'models/chart/chart-data.model';
-import {ChartLabels} from 'models/chart/chart-labels.model';
 import {AppState} from 'models/app-state.model';
-import {createInitialArray, enumToArray} from 'common/utilities/helpers';
+import {createInitialArray} from 'common/utilities/helpers';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 
@@ -50,7 +48,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.currentChartFilterSettings = chartFilterSettings;
       });
     this.subscriptions.push(chartFilterSubscription);
-
     this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
@@ -85,6 +82,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => this.sites = sites);
+
     const sitesTotalsSubscription = this.store.select('state', 'publisher', 'sitesTotals')
       .subscribe((sitesTotals: SitesTotals) => this.sitesTotals = sitesTotals);
 

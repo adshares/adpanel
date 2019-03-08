@@ -283,7 +283,6 @@
       justify-between"
   >
     <a
-      *ngIf="this.createSiteMode"
       routerLink="../create-ad-units"
       [queryParams]="{step: 3}"
       data-test="publisher-edit-site-navigate-back"
@@ -298,20 +297,9 @@
       </button>
     </a>
 
-    <button
-      *ngIf="!this.createSiteMode"
-      class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
-      (click)="navigateToSiteDetails()"
-    >
-      Back
-    </button>
 
     <div class="row">
       <button
-        *ngIf="createSiteMode"
         class="
             dwmth-btn
             dwmth-btn--white
@@ -324,7 +312,6 @@
         Save as Draft
       </button>
       <button
-        *ngIf="createSiteMode"
         [disabled]="canSubmit"
         class="
             dwmth-btn
@@ -334,18 +321,6 @@
         data-test="publisher-edit-site-start-campaign"
       >
         Publish site
-      </button>
-      <button
-        *ngIf="!createSiteMode"
-        [disabled]="canSubmit"
-        class="
-            dwmth-btn
-            dwmth-btn--blue"
-        (click)="updateSite()"
-        type="button"
-        data-test="publisher-edit-site-start-campaign"
-      >
-        Update site
       </button>
     </div>
   </div>

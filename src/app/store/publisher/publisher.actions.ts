@@ -33,8 +33,10 @@ export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
 export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
-export const ADD_SITE_TO_SITES = 'Site added to user sites';
-export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
+
+export const ADD_SITE_TO_SITES = 'Save site';
+export const ADD_SITE_TO_SITES_SUCCESS = 'Save site success';
+export const ADD_SITE_TO_SITES_FAILURE = 'Save site failure';
 
 export const UPDATE_SITE = 'Site update';
 export const UPDATE_SITE_SUCCESS = 'Site update success';
@@ -178,6 +180,13 @@ export class AddSiteToSitesSuccess implements Action {
   readonly type = ADD_SITE_TO_SITES_SUCCESS;
 
   constructor(public payload: Site) {
+  }
+}
+
+export class AddSiteToSitesFailure implements Action {
+  readonly type = ADD_SITE_TO_SITES_FAILURE;
+
+  constructor(public payload?: string) {
   }
 }
 
