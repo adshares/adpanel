@@ -25,7 +25,6 @@
           {{ currentCampaignStatus }}
           <div class="status-wrapper__list-item">
             <mat-select [value]=" "
-                        (change)="onCampaignStatusChange($event)"
                         data-test="advertiser-campaign-status-select"
             >
 
@@ -34,13 +33,13 @@
                                     option === campaignStatusesEnum[campaignStatusesEnum.DRAFT].toLowerCase() ||
                                     option === campaignStatusesEnum[campaignStatusesEnum.SUSPENDED].toLowerCase())}"
                           [value]="option"
+                          (click)="onCampaignStatusChange(option)"
                           data-test="advertiser-campaign-status-select-option"
               >
                 {{ option }}
               </mat-option>
             </mat-select>
           </div>
-
         </div>
       </div>
       <div
@@ -50,15 +49,12 @@
           clickable-row
           align-center"
       >
-        <h4
-          class="
-            dwmth-heading
-            dwmth-heading--secondary"
+        <span class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold"
           (click)="navigateToCampaignDetails(campaign.id)"
           data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
-        </h4>
+        </span>
       </div>
       <div
         class="

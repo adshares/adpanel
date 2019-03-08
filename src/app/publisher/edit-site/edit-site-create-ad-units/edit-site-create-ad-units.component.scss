@@ -18,7 +18,7 @@
   }
 
   .dwmth-box {
-    margin: 4px 0;
+    margin: 8px 0;
   }
 
   &--narrow {
@@ -52,7 +52,7 @@
     &__visualization {
       background-color: pal(blue, light);
       color: pal(blue);
-      @include font(10, bold);
+      @include font(14, bold);
 
       &.leaderboard {
         padding: 10px 30px;

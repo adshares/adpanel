@@ -1,18 +1,19 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Store} from '@ngrx/store';
-import {Router} from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
-import {environment} from 'environments/environment';
-import {AdUnitSize, Site, SiteLanguage, SitesTotals} from 'models/site.model';
-import {TargetingOption} from 'models/targeting-option.model';
-import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
-import * as publisherActions from "store/publisher/publisher.actions";
-import {AppState} from "models/app-state.model";
-import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {siteStatusEnum} from "models/enum/site.enum";
+import { environment } from 'environments/environment';
+import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import * as publisherActions from 'store/publisher/publisher.actions';
+import { AppState } from 'models/app-state.model';
+import { MatDialog } from '@angular/material';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { BannerClassificationResponse } from 'models/classifier.model';
 import * as codes from 'common/utilities/codes';
 
 @Injectable()
@@ -50,7 +51,9 @@ export class PublisherService {
       const targetingObject = parseTargetingForBackend(site.filteringArray);
       Object.assign(site, {filtering: targetingObject});
     }
-    return this.http.post<Site>(`${environment.apiUrl}/sites`, {site});
+    const {filteringArray, ...reducedSite} = site;
+
+    return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
   }
 
   deleteSite(id: number): Observable<boolean> {
@@ -58,11 +61,13 @@ export class PublisherService {
   }
 
   updateSiteData(id: number, site: Site): Observable<Site> {
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
+    const {filteringArray, ...reducedSite} = site;
+
+    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
   }
 
   updateSiteStatus(id: number, status: number): Observable<number> {
-    return this.http.put<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
+    return this.http.patch<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
   }
 
   updateSiteFiltering(id: number, site: Site): Observable<Site> {
@@ -71,6 +76,7 @@ export class PublisherService {
 
       Object.assign(site, {filtering: targetingObject});
     }
+
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
   }
 
@@ -104,5 +110,29 @@ export class PublisherService {
         });
       }
     );
+  }
+
+  getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassificationResponse> {
+    const params = {};
+    if (limit) {
+      params['limit'] = `${limit}`;
+    }
+    if (offset) {
+      params['offset'] = `${offset}`;
+    }
+
+    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
+      {params});
+  }
+
+  setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
+    const body = {
+      classification: {
+        banner_id: bannerId,
+        status: status,
+      }
+    };
+
+    return this.http.patch<number>(`${environment.apiUrl}/classifications/${siteId || ''}`, body);
   }
 }

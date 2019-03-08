@@ -1,15 +1,15 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Store} from "@ngrx/store";
-import {environment} from 'environments/environment';
-import {Campaign, CampaignTotals} from 'models/campaign.model';
-import {TargetingOption} from 'models/targeting-option.model';
-import {parseTargetingForBackend} from 'common/components/targeting/targeting.helpers';
-import {NavigationStart, Router} from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from "@ngrx/store";
+import { environment } from 'environments/environment';
+import { Campaign, CampaignTotals } from 'models/campaign.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { NavigationStart, Router } from "@angular/router";
 import * as advertiserActions from "store/advertiser/advertiser.actions";
-import {Subscription} from "rxjs";
-import {AppState} from "models/app-state.model";
+import { Subscription } from "rxjs";
+import { AppState } from "models/app-state.model";
 
 @Injectable()
 export class AdvertiserService {
@@ -28,8 +28,8 @@ export class AdvertiserService {
     return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
-  getCampaign(id: number): Observable<{ campaign: Campaign }> {
-    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`);
+  getCampaign(id: number): Observable<{campaign: Campaign}> {
+    return this.http.get<{campaign: Campaign}>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
   deleteAdImage(id: number, bId: number) {
@@ -69,7 +69,6 @@ export class AdvertiserService {
         status
       }
     };
-
     return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
   }
 

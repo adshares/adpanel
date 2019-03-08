@@ -1,0 +1,50 @@
+<tr class="dwmth-box row justify-between no-gutters align-center classifier-list-item__row">
+  <td class="col-xs-7 row">
+  <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
+  </td>
+  <td class="col-xs-1 col">
+    <span class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ adTypesEnum[bannerClassification.type] }} </span>
+    <span class="text-left dwmth-copy dwmth-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
+  </td>
+  <td class="col-xs-2 col dwmth-copy dwmth-copy--semi">
+    <ul>
+      <li>
+        Budget:
+        <span class="dwmth-copy"> {{ bannerClassification.budget | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPC:
+        <span class="dwmth-copy"> {{ bannerClassification.cpc | adsharesTokenValue:4 }} </span>
+      </li>
+      <li>
+        CPM:
+        <span class="dwmth-copy"> {{ bannerClassification.cpm | adsharesTokenValue:4 }} </span>
+      </li>
+    </ul>
+  </td>
+  <td class="col-xs-2">
+    <div>
+      <button
+        *ngIf="classified !== APPROVED"
+        class="
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-copy--green"
+        (click)="classifyBanner(APPROVED)"
+      >
+        Approve
+      </button>
+      <button
+        *ngIf="classified !== REJECTED"
+        class="
+          dwmth-btn
+          dwmth-btn--white
+          dwmth-copy--red"
+        (click)="classifyBanner(REJECTED)"
+      >
+        Reject
+      </button>
+    </div>
+  </td>
+</tr>
+

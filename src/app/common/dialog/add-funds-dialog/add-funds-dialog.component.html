@@ -49,76 +49,78 @@
         data-test="common-add-funds-dialog-adshares-address"
       >
       <span class="input-valid"></span>
-    </div>
-    <p
-      class="
+      </div>
+      <p
+        class="
         dwmth-copy
-        dwmth-copy--large"
-    >
-      You need to send transfer to this address
-    </p>
-    <div
-      class="
+        dwmth-copy--blue
+        add-funds-dialog__hint"
+      >
+        You need to send transfer to this address
+      </p>
+      <div
+        class="
         row
         justify-end"
-    >
-      <button
-        class="
+      >
+        <button
+          class="
           dwmth-btn
           dwmth-btn--blue"
-        (click)="copyInput(address)"
-        data-test="common-add-funds-dialog-adshares-address-copy"
-      >
-        Copy to clipboard
-      </button>
-    </div>
+          (click)="copyInput(address)"
+          data-test="common-add-funds-dialog-adshares-address-copy"
+        >
+          Copy to clipboard
+        </button>
+      </div>
 
-    <div class="dwmth-form-input__box">
-      <label
-        for="memo"
-        class="dwmth-form-label"
-      >
-        Message
-      </label>
-      <input
-        id="memo"
-        class="
+      <div class="dwmth-form-input__box">
+        <label
+          for="memo"
+          class="dwmth-form-label"
+        >
+          Message
+        </label>
+        <input
+          id="memo"
+          class="
           dwmth-form-input
           dwmth-form-input--full"
-        type="url"
-        name="memo"
-        [value]="paymentMemo"
-        readonly
-        #memo
-        data-test="common-add-funds-dialog-user-memo"
-      >
-      <span class="input-valid"></span>
-    </div>
-    <p
-      class="
+          type="url"
+          name="memo"
+          [value]="paymentMemo"
+          readonly
+          #memo
+          data-test="common-add-funds-dialog-user-memo"
+        >
+        <span class="input-valid"></span>
+      </div>
+      <p
+        class="
         dwmth-copy
-        dwmth-copy--large"
-    >
-      The message allows us to add transferred funds to your account.
-      We will send you a notification when we receive a transfer.
-    </p>
-    <div
-      class="
+        dwmth-copy--blue
+        add-funds-dialog__hint"
+      >
+        The message allows us to add transferred funds to your account.
+        We will send you a notification when we receive a transfer.
+      </p>
+      <div
+        class="
         row
         justify-end"
-    >
-      <button
-        class="
+      >
+        <button
+          class="
           dwmth-btn
           dwmth-btn--blue"
-        (click)="copyInput(memo)"
-        data-test="common-add-funds-dialog-user-memo-copy"
-      >
-        Copy to clipboard
-      </button>
-    </div>
+          (click)="copyInput(memo)"
+          data-test="common-add-funds-dialog-user-memo-copy"
+        >
+          Copy to clipboard
+        </button>
+      </div>
 
-    <div class="row">
+      <div class="row">
       <span
         class="
           confirm-email-error-block
@@ -128,13 +130,13 @@
       >
         Confirm email before deposit
       </span>
+      </div>
     </div>
-  </div>
 
-  <ng-template #loading>
-    <div class="loading-wrapper">
-      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-    </div>
-  </ng-template>
+    <ng-template #loading>
+      <div class="loading-wrapper">
+        <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+      </div>
+    </ng-template>
 
 </mat-dialog-content>

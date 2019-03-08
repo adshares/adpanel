@@ -37,8 +37,7 @@ export class CampaignListItemComponent implements OnChanges {
   }
 
   onCampaignStatusChange(status) {
-    this.campaign.basicInformation.status = this.campaignStatusesEnumArray.findIndex(el => el === status.value);
     this.store.dispatch(new UpdateCampaignStatus(
-      {id: this.campaign.id, status: this.campaign.basicInformation.status}));
+      {id: this.campaign.id, status: this.campaignStatusesEnumArray.findIndex(el => el === status)}));
   }
 }

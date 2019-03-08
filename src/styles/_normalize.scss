@@ -14,8 +14,8 @@ caption, tbody, tfoot, thead, tr, th, td {
   line-height: normal;
 }
 
-$xxlFontSize: 20px;
-$xxxlFontSize: 24px;
+$xxlFontSize: 18px;
+$xxxlFontSize: 20px;
 
 html, body {
   max-width: 100vw;
@@ -81,7 +81,7 @@ input[type='number'] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-}
+}s
 
 *:focus {
   outline: none;
@@ -93,4 +93,9 @@ a:-webkit-any-link {
 
 a {
   cursor: pointer;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
 }

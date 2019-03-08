@@ -5,6 +5,7 @@ import {BillingHistory} from 'models/settings.model';
 import {SettingsService} from "settings/settings.service";
 import * as codes from "common/utilities/codes";
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-billing-history',
@@ -22,6 +23,7 @@ export class BillingHistoryComponent implements OnInit {
   };
   billingHistory: BillingHistory = this.emptyBillingHistory;
   showLoader: boolean = true;
+  refreshIcon = faSyncAlt;
 
   constructor(private settingsService: SettingsService, private dialog: MatDialog) {
   }

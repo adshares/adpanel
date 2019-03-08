@@ -172,6 +172,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
+  navigateToClassification(): void {
+    this.router.navigate(
+      ['/publisher', 'site', this.site.id, 'classifier'],
+    );
+  }
+
   onSiteStatusChange() {
     if (this.canActivateSite) {
       this.currentSiteStatus = 'active';
@@ -179,7 +185,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       this.currentSiteStatus = 'inactive';
     }
     this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
-    this.store.dispatch(new PublisherActions.UpdateSite(this.site));
+    this.store.dispatch(new PublisherActions.UpdateSiteStatus(this.site));
   }
 
   get canActivateSite(): boolean {

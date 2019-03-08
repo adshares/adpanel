@@ -12,13 +12,17 @@
     max-width: 2000px;
   }
 
+  .dwmth-heading {
+    margin-bottom: 22px;
+  }
+
   &--narrow {
     max-width: 500px;
     margin: 0 auto;
   }
 
   .dwmth-box {
-    margin: 30px 0;
+    margin: 8px 0;
 
     .site-info {
       &--primary {
@@ -34,39 +38,52 @@
     padding-left: 0;
   }
 
-  &__targeting--margin-fix {
-    margin-left: -25px;
-  }
-
   &__basic-info{
-    padding: 30px 30px 46px;
+    padding: 20px;
 
     .dwmth-heading {
-      margin-bottom: 32px;
+      margin-bottom: 16px;
     }
   }
 
-  &__targeting-info {
-    padding: 41px 30px 38px;
+  &__basic-info-element:first-of-type {
+    margin-right: 32px;
+  }
 
-    .dwmth-heading {
-      margin-bottom: 22px;
+  .dwmth-chip-box {
+    margin: 2px;
+  }
+
+  &__poster-unit {
+    text-align: center;
+    background: white;
+    padding: 7px;
+    flex-basis: 16%;
+    max-width: 16%;
+    margin: 2px;
+    border-radius: 2px;
+    border: 2px solid pal(gray, ultra-light);
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__visualization {
+      color: pal(blue);
+      @include font(14, bold);
+
+      &-box {
+        background-color: pal(gray, ultra-light);
+        padding: 30px 60px;
+        min-height: 150px;
+        margin-bottom: 15px;
+      }
     }
   }
 
-  &__poster-info {
-    padding: 40px 30px 42px;
-
-    .dwmth-heading {
-      margin-bottom: 25px;
-    }
-  }
-
-  &-language {
-
-  }
 }
 
 .targeting-title {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }

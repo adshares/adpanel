@@ -31,6 +31,9 @@
           (click)="refresh()"
           data-test="settings-billing-history-refresh-button"
         >
+          <fa-icon class="dwmth-icon
+                          dwmth-icon--prepend"
+                   [icon]="refreshIcon"> </fa-icon>
           Refresh
         </button>
       </div>
@@ -65,6 +68,7 @@
 
 
         <tbody *ngIf="!showLoader; else loading">
+        <!--TODO display proper info when list is empty-->
         <app-billing-history-withdrawal
           *ngFor="let billingHistoryItem of billingHistory.items"
           [billingHistoryItem]="billingHistoryItem"

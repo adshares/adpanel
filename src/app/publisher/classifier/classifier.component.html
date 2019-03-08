@@ -1,0 +1,96 @@
+<div class="dashboard-view">
+  <div class="container">
+    <div class="
+                header__wrapper
+                row
+                justify-between">
+      <div class="
+             dwmth-box--no-padding
+             col-md-10">
+        <h1 class="
+           dwmth-heading
+           dwmth-heading--primary">
+          {{isGlobal ?
+          'Global Classification' :
+          'Classification for ' + siteName}}
+        </h1>
+        <p class="dwmth-copy">
+          {{isGlobal ?
+          'Here you can perform general classification for all your sites' :
+          'Here you can perform classification for this site only'}}
+        </p>
+        <a *ngIf="!isGlobal"
+           class="dwmth-copy dwmth-blue header__link"
+           routerLink="/publisher/classifier">
+          Click here if you want to classify banners globally,
+        </a>
+      </div>
+      <div class="
+             header__buttons-wrapper
+             dwmth-box--no-padding
+             col-md-2
+             justify-end">
+        <button
+          type="button"
+          class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
+          (click)="onStepBack()"
+        >
+          Go Back
+        </button>
+        <button
+          type="button"
+          class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
+          (click)="refresh()"
+        >
+          <fa-icon class="dwmth-icon
+                          dwmth-icon--prepend"
+                   [icon]="refreshIcon"></fa-icon>
+          Refresh
+        </button>
+      </div>
+    </div>
+    <table
+      class="
+        col
+        dwmth-ad-list"
+    >
+      <app-table-navigation
+        [navigationName]="'classifierListNavigation'"
+        (sortTable)="sortTable($event)"
+        class="
+          row
+          dwmth-copy
+          dwmth-copy--small"
+      ></app-table-navigation>
+      <ng-container *ngIf="!isLoading; else loading">
+        <app-classifier-list-item
+          *ngFor="let bannerClassification of bannerClassifications"
+          [bannerClassification]="bannerClassification"
+          [siteId]="siteId"
+        ></app-classifier-list-item>
+      </ng-container>
+
+      <ng-template #loading>
+        <div class="dwmth-box">
+          <div class="loading-wrapper">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </div>
+      </ng-template>
+    </table>
+    <mat-paginator
+      #paginator
+      [hidePageSize]="true"
+      [length]="totalCount"
+      [pageSize]="PAGE_SIZE"
+      (page)="handlePaginationEvent($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

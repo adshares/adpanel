@@ -1,3 +1,7 @@
+:root {
+  color: pal(gray, dark);
+}
+
 .dwmth-heading {
   color: pal(navy);
   word-break: break-all;
@@ -7,22 +11,29 @@
     line-height: 1.11;
   }
 
+  &--ellipsis {
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   &--primary {
-    @include font(18, bold);
+    @include font(32, bold);
     letter-spacing: -0.1px;
     margin: 10px 0;
 
     @include media(md-up) {
-      @include font(20, bold);
+      @include font(36, bold);
     }
 
     @include media(lg-up) {
-      @include font(22, bold);
+      @include font(32, bold);
     }
   }
 
   &--secondary {
-    @include font(16, semi);
+    @include font(24, semi);
     margin: 7px 0;
   }
 
@@ -41,21 +52,26 @@
 
 .dwmth-copy {
   color: pal(gray, mid-dark);
-  @include font(13, normal);
+  @include font(16, normal);
   overflow: hidden;
   text-overflow: ellipsis;
 
   &--large {
-    @include font(14, normal);
+    @include font(22, normal);
+    margin: 5px 0;
+  }
+
+  &--medium {
+    @include font(20, normal);
     margin: 5px 0;
   }
 
   &--small {
-    @include font(12, normal);
+    @include font(14, normal);
   }
 
   &--x-small {
-    @include font(11, normal);
+    @include font(14, normal);
   }
 
   &--white {
@@ -83,10 +99,17 @@
     color: pal(red);
   }
 
+  &--green {
+    color: pal(green, dark);
+  }
+
   &--orange {
     color: palette(orange, dark);
   }
 
+  &--thin {
+    @include font-weight(light);
+  }
   &--normal {
     @include font-weight(normal);
   }
@@ -105,6 +128,11 @@
 
   &--lineheight-reset {
     line-height: 1;
+  }
+
+  &--no-wrap {
+    word-break: keep-all;
+    white-space: nowrap;
   }
 }
 

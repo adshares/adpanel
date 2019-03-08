@@ -368,7 +368,7 @@
     <div
       class="
         dwmth-box
-        dwmth-box--no-padding
+        dwmth-box--no-margin
         hidden-md">
       <div
         class="
@@ -380,6 +380,7 @@
             align-center
             dwmth-btn
             dwmth-btn--white
+            dwmth-blue
             dwmth-btn--no-border"
           (click)="navigateToCampaignEdition('create-ad', 3)">
           <img
@@ -388,12 +389,7 @@
             class="
               dwmth-icon
               dwmth-icon--prepend"/>
-          <span
-            class="
-              dwmth-heading
-              dwmth-heading--secondary">
               {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
-          </span>
         </button>
       </div>
     </div>

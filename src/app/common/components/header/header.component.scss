@@ -11,20 +11,12 @@
     justify-content: center;
   }
 
-  @include media(xxl-up) {
-    height: 100px;
-  }
-
   &--userselect {
     background: pal(white);
     padding: 0 20px;
 
-    @include media(xxl-up) {
-      width: 250px;
-    }
-
     img {
-      top: calc((42px - 18px)/2);
+      top: calc((42px - 18px) / 2);
       left: 15px;
     }
   }
@@ -39,6 +31,7 @@
   &__logo-subtitle {
     text-transform: uppercase;
     color: pal(red, dark);
+    font-size: 14px;
   }
 }
 
@@ -47,10 +40,6 @@
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
-
-    @include media(xxl-up) {
-      height: 60px;
-    }
 
     .dwmth-logo {
       margin-right: 15px;
@@ -72,7 +61,7 @@
 
     .notifications-total {
       @include center(both);
-      @include font(11, semi)
+      @include font(14, semi)
     }
   }
 }
@@ -94,6 +83,7 @@
   background: pal(white);
   z-index: 999;
   width: 100%;
+  min-width: 170px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
@@ -110,6 +100,10 @@
   &__item {
     text-align: left;
     padding: 8px 20px;
+
+    &:first-of-type {
+      padding-bottom: 0;
+    }
 
     button {
       width: 100%;

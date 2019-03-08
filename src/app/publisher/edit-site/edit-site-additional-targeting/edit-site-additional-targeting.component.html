@@ -3,6 +3,75 @@
     homepage-view
     site-edit-additional-targeting"
 >
+
+  <section
+    class="
+      dwmth-box
+      site-edit-additional-targeting__checkbox-container
+      col"
+  >
+    <h1 class="mat-expansion-panel-header-title
+               dwmth-heading--secondary
+               classification-section__title">Classification</h1>
+    <p class="
+      dwmth-copy
+      col-xs-6
+      no-gutters
+      dwmth-box--no-padding
+      classification-section__info">
+      In this window you can define how the classification should work for this page.
+    </p>
+    <mat-checkbox
+      id="require-classified-checkbox"
+      [(ngModel)]="isCheckedRequireClassified"
+      data-test="publisher-edit-site-require-classified-checkbox"
+    >
+      Allow only approved banners
+    </mat-checkbox>
+    <mat-checkbox
+      id="exclude-unclassified-checkbox"
+      [(ngModel)]="isCheckedExcludeUnclassified"
+      data-test="publisher-edit-site-exclude-unclassified-checkbox"
+    >
+      Skip rejected banners
+    </mat-checkbox>
+
+    <div
+      class="
+          col
+          dwmth-copy"
+    >
+      <!--̣TODO add icon to info boxes-->
+      <span *ngIf="createSiteMode"
+            class="dwmth-copy
+             col-xs-6
+             no-gutters
+             dwmth-box--no-padding
+             classification-section__info-create-site">
+        After saving this site you will be able to classify banners for this particular site. <br>
+        If you want to perform global classification now, please click the link below
+      </span>
+      <a
+        class="classification-section__link"
+        routerLink="/publisher/classifier"
+        data-test="publisher-navigate-to-classifier"
+      >
+        Classify banners globally
+      </a>
+
+      <a
+        *ngIf="!createSiteMode"
+        class="classification-section__link"
+        [routerLink]="'/publisher/site/'+ site.id + '/classifier'"
+        data-test="publisher-navigate-to-classifier"
+      >
+        Classify banners for this site
+      </a>
+    </div>
+
+  </section>
+
+
   <mat-accordion
     multi="true"
     class="targeting-accordion"
@@ -27,10 +96,7 @@
 
         <div class="row">
           <div class="col-xs-6 no-gutters">
-            <p
-              class="
-                dwmth-copy
-                dwmth-copy--large"
+            <p class="dwmth-copy"
             >
               In this window you can select the keywords that will help you
               choose the ads that are related to your site and meet your requirements.
@@ -57,14 +123,16 @@
         </div>
       </mat-expansion-panel>
 
-      <app-targeting-display
-        [items]="addedItems"
-        [canRemove]="true"
-        [isExclude]="false"
-        [targetingOptions]="targetingOptionsToAdd"
-        (itemsChange)="updateAddedItems($event)"
-        *ngIf="!requirePanelOpenState"
-      ></app-targeting-display>
+      <div class="dwmth-targeting-display__preview">
+        <app-targeting-display
+          [items]="addedItems"
+          [canRemove]="true"
+          [isExclude]="false"
+          [targetingOptions]="targetingOptionsToAdd"
+          (itemsChange)="updateAddedItems($event)"
+          *ngIf="!requirePanelOpenState"
+        ></app-targeting-display>
+      </div>
     </div>
 
 
@@ -86,10 +154,7 @@
 
         <div class="row">
           <div class="col-xs-6">
-            <p
-              class="
-                dwmth-copy
-                dwmth-copy--large"
+            <p class="dwmth-copy"
             >
               In this window you can select the keywords prohibited on your site.
             </p>
@@ -115,38 +180,18 @@
         </div>
       </mat-expansion-panel>
 
-      <app-targeting-display
-        [items]="excludedItems"
-        [canRemove]="true"
-        [isExclude]="true"
-        (itemsChange)="updateExcludedItems($event)"
-        [targetingOptions]="targetingOptionsToExclude"
-        *ngIf="!excludePanelOpenState"
-      ></app-targeting-display>
+      <div class="dwmth-targeting-display__preview">
+        <app-targeting-display
+          [items]="excludedItems"
+          [canRemove]="true"
+          [isExclude]="true"
+          (itemsChange)="updateExcludedItems($event)"
+          [targetingOptions]="targetingOptionsToExclude"
+          *ngIf="!excludePanelOpenState"
+        ></app-targeting-display>
+      </div>
     </div>
   </mat-accordion>
-
-  <div
-    class="
-      dwmth-box
-      site-edit-additional-targeting__checkbox-container
-      col"
-  >
-    <mat-checkbox
-      id="require-classified-checkbox"
-      [(ngModel)]="isCheckedRequireClassified"
-      data-test="publisher-edit-site-require-classified-checkbox"
-    >
-      Allow only approved banners
-    </mat-checkbox>
-    <mat-checkbox
-      id="exclude-unclassified-checkbox"
-      [(ngModel)]="isCheckedExcludeUnclassified"
-      data-test="publisher-edit-site-exclude-unclassified-checkbox"
-    >
-      Skip rejected banners
-    </mat-checkbox>
-  </div>
 
   <div
     class="

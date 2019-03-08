@@ -1,10 +1,16 @@
 @import '../../../styles.scss';
 
-.campaign-list {
+.dwmth-posters-list {
   &__sort {
     margin-left: 5px;
   }
-  &__items > .dwmth-box:first-of-type {
-    padding: 10px;
+  &__items {
+    tr {
+      height: 53px;
+    }
+
+    & > .dwmth-box:first-of-type {
+      padding: 10px;
+    }
   }
 }
