@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, toPayload} from '@ngrx/effects';
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { Router } from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import * as advertiserActions from './advertiser.actions';
 
 import "rxjs/add/operator/take";
 import * as moment from "moment";
-import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {HTTP_INTERNAL_SERVER_ERROR, HTTP_BAD_REQUEST} from 'common/utilities/codes';
+import { MatDialog } from "@angular/material";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_BAD_REQUEST } from 'common/utilities/codes';
+import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 
 @Injectable()
 export class AdvertiserEffects {
@@ -82,7 +83,22 @@ export class AdvertiserEffects {
     .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.saveCampaign(payload)
-      .map((campaign) => new advertiserActions.AddCampaignToCampaignsSuccess(campaign))
+      .switchMap((campaign) => {
+        if (payload.basicInformation.status !== campaign.basicInformation.status) {
+          this.dialog.open(WarningDialogComponent, {
+            data: {
+              title: `Warning`,
+              message: `Campaign '${campaign.basicInformation.name}' couldn't be automatically activated. \n
+                 Please check if you have enough money on your account and activate campaign manually. `,
+            }
+          });
+        }
+        this.router.navigate(['/advertiser', 'dashboard']);
+        return [
+          new advertiserActions.AddCampaignToCampaignsSuccess(campaign),
+          new advertiserActions.ClearLastEditedCampaign(),
+        ]
+      })
       .catch(() => Observable.of(new advertiserActions.AddCampaignToCampaignsFailure()))
     );
 
@@ -139,17 +155,4 @@ export class AdvertiserEffects {
         )
       })
     );
-
-  @Effect({dispatch: false})
-  handleErrors = this.actions$
-    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS_FAILURE, advertiserActions.DELETE_CAMPAIGN_FAILURE)
-    .map(toPayload)
-    .do(payload => {
-      this.dialog.open(ErrorResponseDialogComponent, {
-        data: {
-          title: `Error occurred`,
-          message: `${payload}`,
-        }
-      });
-    });
 }

@@ -11,20 +11,23 @@
       class="
         row
         align-center
+        justify-between
         dwmth-copy"
     >
       <div
         class="
-          col-xs-1
           row
+          dwmth-campaign-list__status-cell
           align-center"
       >
         <div class="dwmth-status"
              [attr.data-status]="currentCampaignStatus"
+             (click)="statusSelect.open()"
         >
           {{ currentCampaignStatus }}
           <div class="status-wrapper__list-item">
-            <mat-select [value]=" "
+            <mat-select #statusSelect
+                        [value]=" "
                         data-test="advertiser-campaign-status-select"
             >
 
@@ -44,7 +47,7 @@
       </div>
       <div
         class="
-          col-xs-4
+          col-xs-3
           row
           clickable-row
           align-center"

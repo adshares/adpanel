@@ -21,19 +21,20 @@
         class="dwmth-box
                dwmth-posters-list__item
               row
+              justify-between
               align-center
               dwmth-copy
               dwmth-copy--semi">
 
       <td
         class="
-                col-xs-1
+                dwmth-posters-list__status-totals-column
                 row
                 align-center"
       ></td>
       <td
         class="
-                col-xs-5
+                col-xs-3
                 row
                 align-center"
       >
@@ -45,6 +46,12 @@
                 Total - All Campaigns
               </span>
       </td>
+      <td
+        class="
+                col-xs-1
+                row
+                align-center"
+      ></td>
       <td
         class="
                 col-xs-1
@@ -85,6 +92,12 @@
       >
         <span>{{ campaignsTotals.cost | adsharesTokenValue:2 }}</span>
       </td>
+      <td
+        class="
+                col-xs-1
+                row
+                align-center"
+      ></td>
     </tr>
     </tbody>
   </table>

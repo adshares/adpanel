@@ -103,7 +103,7 @@ const chartOptions: ChartOptions = {
         left: position.left + 15 + tooltipModel.caretX + 'px',
         top: position.top + window.pageYOffset + tooltipModel.caretY + 'px',
         textAlign: 'left',
-        fontFamily: 'AvenirNext-Regular',
+        fontFamily: 'Lato-Regular',
         fontSize: 13 + 'px',
         color: '#FFFFFF',
         padding: '7px 10px',

@@ -9,6 +9,7 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
 import { AssetTargeting } from 'models/targeting-option.model';
+import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
   selector: 'app-edit-site',
@@ -16,7 +17,7 @@ import { AssetTargeting } from 'models/targeting-option.model';
   styleUrls: ['./edit-site.component.scss'],
   animations: [fadeAnimation]
 })
-export class EditSiteComponent implements OnInit, OnDestroy {
+export class EditSiteComponent extends HandleSubscription implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
   isEditMode: boolean;
 
@@ -25,11 +26,12 @@ export class EditSiteComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
   ) {
+    super();
   }
 
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-site/');
-    this.store.select('state', 'publisher', 'lastEditedSite')
+    const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite: Site) => {
         const requires = lastEditedSite.filtering.requires || [];
@@ -52,6 +54,7 @@ export class EditSiteComponent implements OnInit, OnDestroy {
           )
         }
       });
+    this.subscriptions.push(lastEditedSiteSubscription);
   }
 
   ngOnDestroy() {

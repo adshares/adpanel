@@ -1,25 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/first';
-import {MatDialog} from '@angular/material';
-
-import {FileUploader} from 'ng2-file-upload';
-
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes} from 'models/enum/ad.enum';
-import {WarningDialogComponent} from "common/dialog/warning-dialog/warning-dialog.component";
-import {HandleSubscription} from "common/handle-subscription";
-import {cloneDeep, enumToArray, simpleValidateHtmlStr} from 'common/utilities/helpers';
-import {adInitialState} from 'models/initial-state/ad';
-import {Ad, Campaign} from 'models/campaign.model';
-import {environment} from 'environments/environment';
-import {appSettings} from 'app-settings';
-import {AppState} from 'models/app-state.model';
-import {SessionService} from "../../../session.service";
+import { MatDialog } from '@angular/material';
+import { FileUploader } from 'ng2-file-upload';
+import {
+  AddCampaignToCampaigns,
+  SaveCampaignAds,
+  UpdateCampaign,
+  ClearLastEditedCampaign
+} from 'store/advertiser/advertiser.actions';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes } from 'models/enum/ad.enum';
+import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
+import { HandleSubscription } from "common/handle-subscription";
+import { cloneDeep, enumToArray, simpleValidateHtmlStr } from 'common/utilities/helpers';
+import { adInitialState } from 'models/initial-state/ad';
+import { Ad, Campaign } from 'models/campaign.model';
+import { environment } from 'environments/environment';
+import { appSettings } from 'app-settings';
+import { AppState } from 'models/app-state.model';
+import { SessionService } from "../../../session.service";
 
 interface ImagesStatus {
   overDrop: boolean[];
@@ -316,40 +319,27 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.adForms.every((adForm, index) => !!this.ads[index].imageUrl || !!adForm.get('html')) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
     if (adsValid) {
-      this.isEditMode ? this.updateCampaign() : this.saveCampaignAds(isDraft)
+      this.campaign = {
+        ...this.campaign,
+        ads: this.ads
+      };
+      this.isEditMode ?
+        this.store.dispatch(new UpdateCampaign(this.campaign)) : this.saveCampaignAds(this.campaign, isDraft)
     } else {
       this.changesSaved = false;
     }
   }
 
-  updateCampaign() {
-    this.campaign = {
-      ...this.campaign,
-      ads: this.ads
-    };
-    this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
-  };
+  saveCampaignAds(campaign: Campaign, isDraft?: boolean): void {
 
-  saveCampaignAds(isDraft): void {
-    this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
-    this.redirectAfterSave(isDraft);
-  }
-
-  redirectAfterSave(isDraft): void {
-    if (!isDraft) {
+    if (isDraft) {
+      this.store.dispatch(new AddCampaignToCampaigns(campaign));
+    } else {
+      this.store.dispatch(new SaveCampaignAds(this.ads));
       this.router.navigate(
         ['/advertiser', 'create-campaign', 'summary'],
         {queryParams: {step: 4}}
       );
-    } else {
-      const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-        .first()
-        .subscribe((campaign: Campaign) => {
-          this.store.dispatch(new advertiserActions.SaveCampaignAds(this.ads));
-          this.store.dispatch(new advertiserActions.AddCampaignToCampaigns(campaign));
-          this.router.navigate(['/advertiser', 'dashboard']);
-        });
-      this.subscriptions.push(lastCampaignSubscription);
     }
   }
 
@@ -360,7 +350,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.isEditMode) {
-      this.store.dispatch(new advertiserActions.ClearLastEditedCampaign());
+      this.store.dispatch(new ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
       this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'],

@@ -61,6 +61,13 @@ export class PublisherService {
   }
 
   updateSiteData(id: number, site: Site): Observable<Site> {
+    if (site.filteringArray) {
+      const filteringObject = parseTargetingForBackend(site.filteringArray);
+      site = {
+        ...site,
+        filtering: filteringObject
+      };
+    }
     const {filteringArray, ...reducedSite} = site;
 
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
@@ -70,46 +77,12 @@ export class PublisherService {
     return this.http.patch<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
   }
 
-  updateSiteFiltering(id: number, site: Site): Observable<Site> {
-    if (site.filteringArray) {
-      const targetingObject = parseTargetingForBackend(site.filteringArray);
-
-      Object.assign(site, {filtering: targetingObject});
-    }
-
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
-  }
-
   getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);
   }
 
   getAdUnitSizes(): Observable<AdUnitSize[]> {
     return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
-  }
-
-  saveAsDraft(site: Site): void {
-    site = {
-      ...site,
-      status: siteStatusEnum.DRAFT
-    };
-
-    this.saveSite(site).subscribe(
-      () => {
-        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
-        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-        this.router.navigate(['/publisher', 'dashboard']);
-      },
-      (err) => {
-        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
-        this.dialog.open(ErrorResponseDialogComponent, {
-          data: {
-            title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
-          }
-        });
-      }
-    );
   }
 
   getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassificationResponse> {

@@ -9,19 +9,23 @@ import {AppState} from 'models/app-state.model';
 import {CampaignBasicInformation, Campaign} from "models/campaign.model";
 import {campaignInitialState} from 'models/initial-state/campaign';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import {
+  SaveCampaignBasicInformation,
+  UpdateCampaign
+} from 'store/advertiser/advertiser.actions';
 
 import * as moment from 'moment';
 import {appSettings} from 'app-settings';
 import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
 import {AdvertiserService} from "advertiser/advertiser.service";
+import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
-export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy {
+export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
@@ -29,7 +33,6 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
   calcBudgetToHour: boolean = false;
-  subscriptionArray: Subscription[] = [];
   today = new Date();
   goesToSummary: boolean;
   createCampaignMode: boolean;
@@ -42,18 +45,15 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
   ) {
+    super();
   }
 
   ngOnInit() {
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
-    subscription && this.subscriptionArray.push(subscription);
+    subscription && this.subscriptions.push(subscription);
     this.createForm();
-  }
-
-  ngOnDestroy() {
-    this.subscriptionArray.forEach(subscription => subscription.unsubscribe());
   }
 
   private setBudgetValue(value?: number): void {
@@ -85,7 +85,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
   }
 
   saveCampaignBasicInformation() {
-    this.store.dispatch(new advertiserActions.SaveCampaignBasicInformation(this.campaignBasicInfo));
+    this.store.dispatch(new SaveCampaignBasicInformation(this.campaignBasicInfo));
     this.changesSaved = true;
     this.router.navigate(
       ['/advertiser', 'create-campaign', 'additional-targeting'],
@@ -100,7 +100,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
       basicInformation: {...this.campaignBasicInfo, status: this.campaign.basicInformation.status},
     };
 
-    this.store.dispatch(new advertiserActions.UpdateCampaign(this.campaign));
+    this.store.dispatch(new UpdateCampaign(this.campaign));
   }
 
   createForm() {
@@ -150,7 +150,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
         }
       }, () => {
       });
-    this.subscriptionArray.push(subscription);
+    this.subscriptions.push(subscription);
 
     // calculate budget: day -> hour
     subscription = this.budgetPerDay.valueChanges
@@ -161,7 +161,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
         }
       }, () => {
       });
-    this.subscriptionArray.push(subscription);
+    this.subscriptions.push(subscription);
   }
 
   private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
@@ -200,7 +200,7 @@ export class EditCampaignBasicInformationComponent implements OnInit, OnDestroy 
         }
       }, () => {
       });
-    this.subscriptionArray.push(subscription);
+    this.subscriptions.push(subscription);
   }
 
   onFocus(elemId: string) {

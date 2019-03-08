@@ -81,7 +81,7 @@ const advertiserRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(advertiserRoutes)
+    RouterModule.forChild(advertiserRoutes)
   ],
   exports: [
     RouterModule
