@@ -8,7 +8,7 @@ import { Site } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import {AddSiteToSites} from 'store/publisher/publisher.actions';
+import { AddSiteToSites } from 'store/publisher/publisher.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
@@ -38,7 +38,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
       .first()
       .subscribe((lastEditedSite: Site) => {
         this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
-        this.site =  lastEditedSite;
+        this.site = lastEditedSite;
       });
 
     this.subscriptions.push(lastSiteSubscription);

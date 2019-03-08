@@ -61,13 +61,6 @@ export class PublisherService {
   }
 
   updateSiteData(id: number, site: Site): Observable<Site> {
-    if (site.filteringArray) {
-      const filteringObject = parseTargetingForBackend(site.filteringArray);
-      site = {
-        ...site,
-        filtering: filteringObject
-      };
-    }
     const {filteringArray, ...reducedSite} = site;
 
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});

@@ -9,7 +9,7 @@ import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adStatusesEnum } from 'models/enum/ad.enum';
-import {AddCampaignToCampaigns} from 'store/advertiser/advertiser.actions';
+import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
