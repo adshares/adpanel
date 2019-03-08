@@ -329,6 +329,7 @@ router-outlet ~ * {
   @include font(14, semi);
   text-transform: uppercase;
   width: 100%;
+  max-width: 150px;
   border: none;
   padding: 4px 8px;
   margin: 0;
