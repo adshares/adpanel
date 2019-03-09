@@ -1,4 +1,4 @@
-import {TableColumnMetaData} from 'models/table.model';
+import { TableColumnMetaData } from 'models/table.model';
 
 function adsToClicks(amount: any): number {
   if (typeof amount === 'number') {
@@ -165,9 +165,13 @@ function findValueByPathArray(object, pathArray) {
 }
 
 const simpleValidateHtmlStr = (html: string): boolean => {
-  const doc = document.createElement('div');
-  doc.innerHTML = html;
-  return (doc.innerHTML === html);
+  let openingTags, closingTags;
+  html = html.replace(/<[^>]*\/\s?>/g, '');      // Remove all self closing tags
+  html = html.replace(/<(br|hr|img|meta).*?>/g, '');  // Remove all <br>, <hr>, and <img> tags
+  html = html.replace('<!DOCTYPE html>', '');  // Remove DOCTYPE declaration
+  openingTags = html.match(/<[^\/].*?>/g) || [];
+  closingTags = html.match(/<\/.+?>/g) || [];
+  return openingTags.length === closingTags.length;
 };
 
 export {

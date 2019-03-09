@@ -254,7 +254,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.matDialog.open(WarningDialogComponent, {
         data: {
           title: 'Possibly invalid HTML',
-          message: 'You may want to check your HTML input',
+          message: 'You may want to check if all of your tags are properly closed.',
         }
       });
     }
