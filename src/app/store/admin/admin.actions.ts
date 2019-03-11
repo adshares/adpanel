@@ -5,7 +5,10 @@ export const LOAD_USERS = 'Users loaded';
 export const LOAD_USERS_SUCCESS = 'Users loaded success';
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loaded';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loaded success';
-export const SET_ADMIN_SETTINGS = 'Save new admin settings';
+
+export const SET_ADMIN_SETTINGS = 'Save admin settings';
+export const SET_ADMIN_SETTINGS_SUCCESS = 'Save admin settings success';
+export const SET_ADMIN_SETTINGS_FAILURE = 'Save admin settings failure';
 
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
@@ -42,9 +45,26 @@ export class SetAdminSettings implements Action {
   }
 }
 
+export class SetAdminSettingsSuccess implements Action {
+  readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
+
+  constructor(public payload: AdminSettings) {
+  }
+}
+
+export class SetAdminSettingsFailure implements Action {
+  readonly type: string = SET_ADMIN_SETTINGS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   LoadUsers |
   LoadUsersSuccess |
   LoadAdminSettings |
   LoadAdminSettingsSuccess |
-  SetAdminSettings;
+
+  SetAdminSettings |
+  SetAdminSettingsSuccess |
+  SetAdminSettingsFailure;
