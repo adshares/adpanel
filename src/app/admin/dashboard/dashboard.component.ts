@@ -9,11 +9,13 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { createInitialArray } from 'common/utilities/helpers';
+import { fadeAnimation } from "common/animations/fade.animation";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [fadeAnimation]
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
@@ -26,12 +28,45 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   currentChartFilterSettings: ChartFilterSettings;
 
+  settings = [
+    {
+      title: 'Account Settings',
+      description: '',
+      link: '/admin/dashboard/general',
+      values: [
+        {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
+      ],
+      admin: true,
+    },
+    {
+      title: 'Earnings Settings',
+      description: '',
+      link: '/admin/dashboard/earnings',
+      values: [
+        {name: 'Set your earnings', icon: 'assets/images/wallet--gray.svg'},
+      ],
+      admin: true,
+    }, {
+      title: 'Params Settings',
+      description: '',
+      link: '/admin/dashboard/params',
+      values: [
+        {name: 'Set your params', icon: 'assets/images/preferences.svg'},
+      ],
+      admin: true,
+    }
+  ];
+
   constructor(
     private chartService: ChartService,
     private store: Store<AppState>,
   ) {
     super();
   }
+
+  getRouterOutletState = (outlet) => {
+    console.log(outlet)
+    return outlet.isActivated ? outlet.activatedRoute : ''};
 
   ngOnInit() {
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')

@@ -1,0 +1,41 @@
+<li class="settings-menu-item"
+    routerLinkActive="active">
+  <!-- TODO full router link should be given by parent-->
+  <a
+    [routerLink]="menuItem.link"
+    data-test="settings-category-link"
+  >
+    <h3
+      class="
+          dwmth-copy--large
+          dwmth-copy--x-dark"
+    >
+      {{ menuItem.title }}
+    </h3>
+  </a>
+  <p class="dwmth-copy">
+    {{ menuItem.description }}
+  </p>
+  <ul
+    class="settings-menu-item__submenu"
+  >
+    <li *ngFor="let subMenuItems of menuItem.values"
+        class="settings-menu-item__submenu-item"
+    >
+      <a
+        [routerLink]="menuItem.link"
+        data-test="settings-category-link-direct"
+      >
+        <div class="row align-center" routerLinkActive="active">
+          <img
+            class="
+                dwmth-icon
+                dwmth-icon--prepend"
+            [src]="subMenuItems.icon"
+          >
+          <span class="dwmth-copy">{{ subMenuItems.name }}</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+</li>

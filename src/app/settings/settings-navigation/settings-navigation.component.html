@@ -16,64 +16,17 @@
     >
         {{ totalFunds | adsharesTokenValue:2 }}
       </span>
-<!--
-      <span
-              class="
-          dwmth-copy
-          dwmth-copy&#45;&#45;x-small
-          dwmth-white
-          dwmth-copy&#45;&#45;bold"
-              data-test="user-total-funds-change"
-      >
-        {{ adserverWallet.totalFundsChange }} ( {{ adserverWallet.totalFundsChange / adserverWallet.totalFunds | percent }})
-      </span>
--->
-    </div>
-
-  <div
-    class="settings-category"
-    *ngFor="let settingsItem of settings"
-    routerLinkActive="active"
-  >
-    <div *ngIf="(!(settingsItem.admin === false && user.isAdmin))">
-      <a
-        [routerLink]="['/settings', settingsItem.link]"
-        data-test="settings-category-link"
-      >
-        <h3
-          class="
-          dwmth-copy--large
-          dwmth-copy--x-dark"
-        >
-          {{ settingsItem.title }}
-        </h3>
-      </a>
-      <p class="dwmth-copy">
-        {{ settingsItem.description }}
-      </p>
-      <ul
-        class="
-        dwmth-copy
-        dwmth-copy--x-dark"
-      >
-
-        <li *ngFor="let settingsValues of settingsItem.values">
-          <a
-            [routerLink]="['/settings', settingsItem.link]"
-            data-test="settings-category-link-direct"
-          >
-            <div class="row align-center" routerLinkActive="active">
-              <img
-                class="
-                dwmth-icon
-                dwmth-icon--prepend"
-                [src]="settingsValues.icon"
-              >
-              <span class="dwmth-copy">{{ settingsValues.name }}</span>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
+
+  <ul>
+    <li *ngFor="let settingsItem of settings"
+        class="settings-navigation__category"
+        routerLinkActive="active">
+      <app-settings-menu-item
+        *ngIf="(!(settingsItem.admin === false && user.isAdmin))"
+        [menuItem]="settingsItem">
+      </app-settings-menu-item>
+    </li>
+
+  </ul>
 </section>

@@ -1,0 +1,70 @@
+<div class="dwmth-box dwmth-box--large admin-earnigns">
+  <h1
+    class="
+      dwmth-heading
+      dwmth-heading--primary"
+  >
+    Set your % Earnings
+  </h1>
+  <p
+    class="
+      dwmth-copy
+      dwmth-copy--large
+      dwmth-customize-subheading"
+  >
+    You can set a commission which will be subtracted from event payments and will be your income.
+  </p>
+
+  <mat-slider
+    color="primary"
+    max="100"
+    min="0"
+    [step]="0.01"
+    thumb-label="true"
+    [ngModel]="value | number:'1.2-2'"
+    (ngModelChange)="updateValue($event)"
+    data-test="admin-earnings-slider"
+  ></mat-slider>
+
+  <div
+    class="
+      row
+      align-center
+      justify-center"
+  >
+    <input
+      type="number"
+      max="100"
+      min="0"
+      [step]="0.01"
+      class="
+        dwmth-heading
+        dwmth-heading--primary
+        dwmth-form-input
+        earnings-input"
+      [ngModel]="value | number:'1.2-2'"
+      (ngModelChange)="updateValue($event)"
+      data-test="admin-earnings-direct-input"
+    >
+    <span class="dwmth-heading
+          col dwmth-heading--primary"> % </span>
+  </div>
+
+  <div
+    class="
+      row
+      justify-center"
+  >
+    <button
+      class="
+        dwmth-btn
+        dwmth-btn--wide
+        dwmth-btn--blue
+        dwmth-form-submit-btn"
+      data-test="admin-earnings-save-button"
+      (click)="saveSettings()"
+    >
+      Save
+    </button>
+  </div>
+</div>

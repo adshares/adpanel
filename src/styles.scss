@@ -11,6 +11,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent);
 @include angular-material-theme($app-theme);
 
 @import 'styles/mixins';
+@import 'styles/variables';
 @import 'styles/colors';
 
 @import 'styles/buttons';

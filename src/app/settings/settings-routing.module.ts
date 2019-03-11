@@ -18,7 +18,7 @@ const settingsRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(settingsRoutes)
+    RouterModule.forChild(settingsRoutes)
   ],
   exports: [
     RouterModule

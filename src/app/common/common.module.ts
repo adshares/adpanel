@@ -47,6 +47,7 @@ import { AssetHelpersService } from './asset-helpers.service';
 import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component';
+import { SettingsMenuItemComponent } from "common/components/settings-menu-item/settings-menu-item.component";
 
 const matModules = [
   MatDialogModule,
@@ -90,6 +91,7 @@ const appComponents = [
   TableNavigationComponent,
   EditAssetNavigationComponent,
   BannerPreviewComponent,
+  SettingsMenuItemComponent
 ];
 
 @NgModule({
