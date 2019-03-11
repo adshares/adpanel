@@ -167,7 +167,7 @@ function findValueByPathArray(object, pathArray) {
 const simpleValidateHtmlStr = (html: string): boolean => {
   let openingTags, closingTags;
   html = html.replace(/<[^>]*\/\s?>/g, '');      // Remove all self closing tags
-  html = html.replace(/<(br|hr|img|meta).*?>/g, '');  // Remove all <br>, <hr>, and <img> tags
+  html = html.replace(/<(br|hr|img|meta).*?>/g, '');  // Remove all <br>, <hr>,  <img> and <meta> tags
   html = html.replace('<!DOCTYPE html>', '');  // Remove DOCTYPE declaration
   openingTags = html.match(/<[^\/].*?>/g) || [];
   closingTags = html.match(/<\/.+?>/g) || [];
