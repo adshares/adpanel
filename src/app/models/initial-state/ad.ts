@@ -12,5 +12,6 @@ export const adInitialState: Ad = {
   ctr: 0,
   averageCpc: 0,
   cost: 0,
-  budget: 0
+  budget: 0,
+  bannerUrl: null
 };

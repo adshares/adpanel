@@ -28,8 +28,7 @@ export class BannerPreviewComponent implements OnInit {
       this.bannerUrl = (<BannerClassification>this.banner).url;
     } else {
       this.isBannerInputTypeAd = true;
-      this.bannerUrl = (<Ad>this.banner).imageUrl;
-      this.bannerHtml = (<Ad>this.banner).html;
+      this.bannerUrl = (<Ad>this.banner).bannerUrl;
     }
 
     if (this.isBannerInputTypeAd && !this.isImage) {
