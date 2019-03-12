@@ -1,0 +1,47 @@
+<mat-accordion class="classifier-filtering">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filter banners by status
+      </mat-panel-title>
+      <mat-panel-description>
+        {{status.value ? status.value : ''}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-radio-group [formControl]="status" (change)="changeFiltering()">
+      <mat-radio-button value="Approved">
+        Approved
+      </mat-radio-button>
+      <mat-radio-button value="Rejected">
+        Rejected
+      </mat-radio-button>
+      <mat-radio-button value="Unclassified">
+        Unclassified
+      </mat-radio-button>
+    </mat-radio-group>
+
+  </mat-expansion-panel>
+  <!--̣TODO uncomment when backend will be ready -->
+  <mat-expansion-panel *ngIf="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filter banners by size
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngFor="let chosenSize of size"
+              class="classifier-filtering__chosen-value" >
+          {{ chosenSize }}
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-checkbox *ngFor="let sizeOption of adSizesOptions"
+                  (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
+    </mat-checkbox>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+

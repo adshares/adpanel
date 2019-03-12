@@ -1,8 +1,9 @@
 .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-    opacity: 0.9;
+  opacity: 0.9;
 }
+
 .cdk-overlay-dark-backdrop {
-    background: pal(navy);
+  background: pal(navy);
 }
 
 .mat-dialog-container {
@@ -18,7 +19,7 @@
   max-height: 85vh !important;
 }
 
-.mat-dialog-content.mat-dialog-content--narrow{
+.mat-dialog-content.mat-dialog-content--narrow {
   max-width: 470px;
 }
 
@@ -31,9 +32,8 @@
   box-shadow: none !important;
 }
 
-
 mat-chip:not(.mat-basic-chip) {
-  transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+  transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
   display: inline-flex;
   padding: 7px 12px;
   border-radius: 0 !important;
@@ -56,7 +56,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-chip-remove {
-  margin: 0  0 5px 8px;
+  margin: 0 0 5px 8px;
   background-color: white;
   border: 2px solid pal(red, dark);
   color: pal(red, dark);
@@ -93,7 +93,6 @@ mat-chip:not(.mat-basic-chip) {
   flex-grow: 1;
   display: inline;
 }
-
 
 .mat-form-field-infix {
   padding: 5px 0 4px 0 !important;
@@ -135,3 +134,55 @@ mat-chip:not(.mat-basic-chip) {
 .mat-checkbox-frame {
   border: 2px solid pal(navy, light);
 }
+
+.mat-expansion-panel-spacing {
+  margin: 4px 0;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 24px 0 8px;
+  font-family: "Lato-Regular", sans-serif;
+  font-size: 18px;
+}
+
+
+
+.classifier-filtering {
+  .mat-checkbox {
+    min-width: 100px;
+  }
+
+  .mat-expansion-panel-body {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mat-checkbox-label,
+  .mat-checkbox-frame {
+    color: rgba(0, 0, 0, 0.54) !important;
+    border-color: rgba(0, 0, 0, 0.54) !important;
+  }
+
+  .mat-expansion-panel-header-title {
+    flex-grow: 0;
+    min-width: 200px;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0 10px 8px !important;
+  }
+
+  .classifier-filtering .mat-expansion-panel {
+    margin: 4px 0;
+  }
+
+  .classifier-filtering .mat-tab-body-wrapper {
+    min-height: 100px;
+  }
+
+  .mat-radio-label-content {
+    padding-right: 16px;
+    margin-right: 8px;
+  }
+}
+

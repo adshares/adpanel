@@ -6,11 +6,17 @@ import { MatDialog, MatPaginator } from '@angular/material';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { Site } from 'models/site.model';
-import { BannerClassification, BannerClassificationResponse } from 'models/classifier.model';
+import {
+  BannerClassification,
+  BannerClassificationFilters,
+  BannerClassificationResponse
+} from 'models/classifier.model';
 import { TableColumnMetaData } from 'models/table.model';
 import * as codes from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import {faSyncAlt} from '@fortawesome/free-solid-svg-icons';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from "rxjs";
+import { HandleSubscription } from "common/handle-subscription";
 
 
 @Component({
@@ -18,7 +24,7 @@ import {faSyncAlt} from '@fortawesome/free-solid-svg-icons';
   templateUrl: './classifier.component.html',
   styleUrls: ['./classifier.component.scss']
 })
-export class ClassifierComponent implements OnInit {
+export class ClassifierComponent extends HandleSubscription implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;
@@ -29,6 +35,7 @@ export class ClassifierComponent implements OnInit {
   bannerClassifications: BannerClassification[] = [];
   totalCount: number = 0;
   refreshIcon = faSyncAlt;
+  filtering: BannerClassificationFilters;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +44,7 @@ export class ClassifierComponent implements OnInit {
     private dialog: MatDialog,
     private location: Location
   ) {
+    super()
   }
 
   ngOnInit(): void {
@@ -44,14 +52,14 @@ export class ClassifierComponent implements OnInit {
     this.siteId = site ? site.id : null;
     this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
-
     this.getBannerClassification();
   }
 
   getBannerClassification(offset?: number) {
     this.isLoading = true;
 
-    this.publisherService.getBannerClassification(this.siteId, this.PAGE_SIZE, offset)
+    const bannersForClassificationSubscription = this.publisherService
+      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, offset)
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;
@@ -72,6 +80,7 @@ export class ClassifierComponent implements OnInit {
           this.isLoading = false;
         }
       );
+    this.subscriptions.push(bannersForClassificationSubscription);
   }
 
   sortTable(columnMetaData: TableColumnMetaData) {
@@ -89,5 +98,10 @@ export class ClassifierComponent implements OnInit {
   refresh(): void {
     this.paginator.firstPage();
     this.getBannerClassification();
+  }
+
+  updateBannersList(filtering: BannerClassificationFilters): void {
+    this.filtering = filtering;
+    this.getBannerClassification()
   }
 }
