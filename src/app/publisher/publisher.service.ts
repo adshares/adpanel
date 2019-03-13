@@ -6,7 +6,6 @@ import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
-import { p } from "@angular/core/src/render3";
 
 @Injectable()
 export class PublisherService {
@@ -67,8 +66,12 @@ export class PublisherService {
     return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 
+  getPossibleSizeOptionForBannerClassification(siteId?: number): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/sites/sizes/${siteId || ''}`);
+  }
+
   getBannerClassification(
-    siteId?: number, limit?: number, filtering?: BannerClassificationFilters, offset?: number)
+    siteId?: number, limit?: number, filtering?: BannerClassificationFilters, possibleSizes: string[] = [], offset?: number)
     : Observable<BannerClassificationResponse> {
     let params = {};
     if (limit) {
@@ -81,9 +84,10 @@ export class PublisherService {
       params = {
         ...params,
         ...filtering.status,
-        sizes: filtering.sizes ? JSON.stringify(filtering.sizes) : []
+        sizes: filtering.sizes.length ? JSON.stringify(filtering.sizes) : JSON.stringify(possibleSizes)
       };
     }
+
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
       {params});
   }

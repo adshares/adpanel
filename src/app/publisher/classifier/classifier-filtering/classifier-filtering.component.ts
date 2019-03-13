@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { adSizesEnum } from 'models/enum/ad.enum';
 import { enumToArray } from "common/utilities/helpers";
 import { FormControl } from "@angular/forms";
@@ -9,14 +9,18 @@ import { BannerClassificationFilters } from "models/classifier.model";
   templateUrl: './classifier-filtering.component.html',
   styleUrls: ['./classifier-filtering.component.scss'],
 })
-export class ClassifierFilteringComponent {
+export class ClassifierFilteringComponent implements OnInit {
+  @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   status = new FormControl('');
   sizes: Array<string> = [];
-  adSizesOptions = enumToArray(adSizesEnum);
+  adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
+    this.adSizesOptions = this.sizeOptions || enumToArray(adSizesEnum);
   }
 
   sizeSelect(e, size: string) {

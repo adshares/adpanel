@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from "@angular/common";
 import { MatDialog, MatPaginator } from '@angular/material';
-
 import { PublisherService } from 'publisher/publisher.service';
 import { Site } from 'models/site.model';
 import {
@@ -12,12 +11,10 @@ import {
   BannerClassificationResponse
 } from 'models/classifier.model';
 import { TableColumnMetaData } from 'models/table.model';
-import * as codes from 'common/utilities/codes';
+import {HTTP_INTERNAL_SERVER_ERROR} from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from "rxjs";
 import { HandleSubscription } from "common/handle-subscription";
-
 
 @Component({
   selector: 'app-classifier',
@@ -35,6 +32,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   bannerClassifications: BannerClassification[] = [];
   totalCount: number = 0;
   refreshIcon = faSyncAlt;
+  adSizesOptions: string[];
   filtering: BannerClassificationFilters = {
     sizes: [],
   };
@@ -51,6 +49,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     const site: Site = this.route.snapshot.data.site;
+    this.adSizesOptions = this.route.snapshot.data.sizes.sizes;
     this.siteId = site ? site.id : null;
     this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
@@ -61,7 +60,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.isLoading = true;
 
     const bannersForClassificationSubscription = this.publisherService
-      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, offset)
+      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;
@@ -69,7 +68,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
           this.isLoading = false;
         },
         (error: HttpErrorResponse) => {
-          if (error.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+          if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
             this.dialog.open(ErrorResponseDialogComponent, {
               data: {
                 title: `Error ${error.status}`,
