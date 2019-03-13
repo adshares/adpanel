@@ -155,6 +155,7 @@ mat-chip:not(.mat-basic-chip) {
   .mat-expansion-panel-body {
     display: flex;
     flex-wrap: wrap;
+    padding: 0 10px 8px !important;
   }
 
   .mat-checkbox-label,
@@ -166,10 +167,6 @@ mat-chip:not(.mat-basic-chip) {
   .mat-expansion-panel-header-title {
     flex-grow: 0;
     min-width: 200px;
-  }
-
-  .mat-expansion-panel-body {
-    padding: 0 10px 8px !important;
   }
 
   .classifier-filtering .mat-expansion-panel {
