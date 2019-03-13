@@ -1,29 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-
 import { environment } from 'environments/environment';
 import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import * as publisherActions from 'store/publisher/publisher.actions';
-import { AppState } from 'models/app-state.model';
-import { MatDialog } from '@angular/material';
-import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { siteStatusEnum } from 'models/enum/site.enum';
-import { BannerClassificationResponse } from 'models/classifier.model';
-import * as codes from 'common/utilities/codes';
+import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 
 @Injectable()
 export class PublisherService {
 
   constructor(
-    private http: HttpClient,
-    private store: Store<AppState>,
-    private router: Router,
-    private dialog: MatDialog
+    private http: HttpClient
   ) {
   }
 
@@ -78,13 +66,26 @@ export class PublisherService {
     return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 
-  getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassificationResponse> {
-    const params = {};
+  getPossibleSizeOptionForBannerClassification(siteId?: number): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/sites/sizes/${siteId || ''}`);
+  }
+
+  getBannerClassification(
+    siteId?: number, limit?: number, filtering?: BannerClassificationFilters, possibleSizes: string[] = [], offset?: number)
+    : Observable<BannerClassificationResponse> {
+    let params = {};
     if (limit) {
       params['limit'] = `${limit}`;
     }
     if (offset) {
       params['offset'] = `${offset}`;
+    }
+    if (filtering) {
+      params = {
+        ...params,
+        ...filtering.status,
+        sizes: filtering.sizes.length ? JSON.stringify(filtering.sizes) : JSON.stringify(possibleSizes)
+      };
     }
 
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,

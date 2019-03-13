@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+.classifier-filtering {
+  width: 100%;
+
+  &__chosen-value:not(:last-of-type) {
+    margin-right: 8px;
+  }
+}
