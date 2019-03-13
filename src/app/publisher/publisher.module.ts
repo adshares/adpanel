@@ -10,7 +10,8 @@ import {
   MatInputModule,
   MatOptionModule,
   MatPaginatorModule,
-  MatSelectModule
+  MatSelectModule,
+  MatRadioModule, MatTabsModule,
 } from '@angular/material';
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
@@ -36,6 +37,8 @@ import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { ClassifierFilteringComponent } from "publisher/classifier/classifier-filtering/classifier-filtering.component";
+import { MatchingBannerSizesResolver } from "publisher/resolvers/matching-banner-sizes.resolver";
 
 library.add(fas);
 
@@ -59,6 +62,7 @@ const publisherComponents = [
   SiteCodeDialogComponent,
   ClassifierComponent,
   ClassifierListItemComponent,
+  ClassifierFilteringComponent
 ];
 
 @NgModule({
@@ -76,14 +80,17 @@ const publisherComponents = [
     MatPaginatorModule,
     MatSelectModule,
     MatExpansionModule,
+    MatRadioModule,
     ChartsModule,
     FontAwesomeModule,
+    MatTabsModule
   ],
   providers: [
     PublisherGuard,
     SiteResolver,
     FilteringCriteriaResolver,
-    AdUnitSizesResolver
+    AdUnitSizesResolver,
+    MatchingBannerSizesResolver
   ],
   declarations: [
     ...publisherComponents,
