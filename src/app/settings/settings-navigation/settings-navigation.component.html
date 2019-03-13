@@ -23,7 +23,6 @@
         class="settings-navigation__category"
         routerLinkActive="active">
       <app-settings-menu-item
-        *ngIf="(!(settingsItem.admin === false && user.isAdmin))"
         [menuItem]="settingsItem">
       </app-settings-menu-item>
     </li>

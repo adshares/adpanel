@@ -29,7 +29,6 @@ export class SettingsNavigationComponent extends HandleSubscription {
                         { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
         */
       ],
-      admin: false,
     },
     {
       title: 'Billing & Payments',
@@ -39,7 +38,6 @@ export class SettingsNavigationComponent extends HandleSubscription {
         {name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Billing History', icon: 'assets/images/history.svg'}
       ],
-      admin: false,
     }
   ];
 
