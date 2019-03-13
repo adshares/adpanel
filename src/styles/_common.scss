@@ -1,4 +1,5 @@
 @import './dialog.scss';
+@import './variables.scss';
 
 /*
   Dots / Icons / Navigation icon styling / Validation icon styling
@@ -319,6 +320,12 @@ router-outlet ~ * {
   position: absolute;
   width: 100%;
   min-height: 100%
+}
+
+.settings-outlet router-outlet ~ * {
+  position: initial;
+  min-height: calc(100vh - #{$app-header-height});
+  height: calc(100vh - #{$app-header-height});
 }
 
 /*

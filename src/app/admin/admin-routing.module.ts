@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
-import { GeneralSettingsComponent } from "settings/general-settings/general-settings.component";
-import { UserListComponent } from "admin/user-list/user-list.component";
-import { EarningsComponent } from "admin/earnings/earnings.component";
+import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
+import { GeneralSettingsComponent } from "admin/params/general-settings.component";
 
 const adminRoutes: Routes = [
   {
@@ -25,16 +23,21 @@ const adminRoutes: Routes = [
             component: GeneralSettingsComponent,
           },
           {
-            path: 'params',
-            component: UserListComponent,
+            path: 'general',
+            component: GeneralSettingsComponent,
           },
           {
-            path: 'earnings',
-            component: EarningsComponent,
+            path: 'finances',
+            component: FinancesSettingsComponent,
 
           },
           {
-            path: 'general',
+            path: 'account',
+            component: GeneralSettingsComponent,
+
+          },
+          {
+            path: 'reports',
             component: GeneralSettingsComponent,
 
           },

@@ -3,19 +3,18 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { fadeAnimation } from "common/animations/fade.animation";
-import { Subject } from "rxjs";
 import { AdminSettings } from "models/settings.model";
 import { SetAdminSettings } from "store/admin/admin.actions";
 
 @Component({
-  selector: 'app-earnings',
-  templateUrl: './earnings.component.html',
-  styleUrls: ['./earnings.component.scss'],
+  selector: 'app-general-settings',
+  templateUrl: './general-settings.component.html',
+  styleUrls: ['./general-settings.component.scss'],
+  host: {'class': 'app-finances'},
   animations: [fadeAnimation]
 })
-export class EarningsComponent extends HandleSubscription implements OnInit {
-  value: number;
-  valueChanged = new Subject<number>();
+export class GeneralSettingsComponent extends HandleSubscription implements OnInit {
+  settings: AdminSettings;
 
   constructor(
     private store: Store<AppState>,
@@ -25,19 +24,22 @@ export class EarningsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'settings')
-      .first()
       .subscribe((settings: AdminSettings) => {
-        this.value = settings.earnings * 100;
+        this.settings = settings
+        console.log('this.settings', this.settings)
       });
+
     this.subscriptions.push(adminStoreSettingsSubscription);
   }
 
-  updateValue(newValue: number): void {
-    this.value = newValue;
-    this.valueChanged.next(newValue);
+  updateSettings(value: number, key: string): void {
+    this.settings = {
+      ...this.settings,
+      [key]: value
+    };
   }
 
   saveSettings(): void {
-    this.store.dispatch(new SetAdminSettings({earnings: this.value}))
+    this.store.dispatch(new SetAdminSettings(this.settings))
   }
 }

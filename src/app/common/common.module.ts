@@ -48,6 +48,8 @@ import { PushNotificationsService } from './components/push-notifications/push-n
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component';
 import { SettingsMenuItemComponent } from "common/components/settings-menu-item/settings-menu-item.component";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 
 const matModules = [
   MatDialogModule,
@@ -57,7 +59,8 @@ const matModules = [
   MatDatepickerModule,
   MatInputModule,
   MatMomentDateModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 ];
 
 const dialogs = [
@@ -70,6 +73,7 @@ const dialogs = [
   AddCustomTargetingDialogComponent,
   UserConfirmResponseDialogComponent,
   WarningDialogComponent,
+  SuccessSnackbarComponent,
 ];
 
 const appComponents = [

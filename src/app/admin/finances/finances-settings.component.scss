@@ -1,7 +1,14 @@
 @import '../../../styles';
 
+.finances .app-finances-settings {
+  width: 50%;
+}
+
+.admin-general-settings__submit {
+  margin: 30px 0 0 30px;
+}
 .admin-earnigns {
-  margin: 30px;
+  margin: 30px 0 0 30px;
   text-align: center;
 
   @include media(md-up) {

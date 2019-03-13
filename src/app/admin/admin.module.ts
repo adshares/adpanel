@@ -11,9 +11,11 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
-import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import { SettingsModule } from "settings/settings.module";
-import { EarningsComponent } from "admin/earnings/earnings.component";
+import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
+import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earnings-settings.component";
+import { GeneralSettingsComponent } from "admin/params/general-settings.component";
+import { ParamSettingComponent } from "admin/params/param-setting.component.ts/param-setting.component";
 
 @NgModule({
   imports: [
@@ -36,12 +38,11 @@ import { EarningsComponent } from "admin/earnings/earnings.component";
     DashboardComponent,
     UserListComponent,
     UserListItemComponent,
-    SetYourEarningsDialogComponent,
-    EarningsComponent,
+    FinancesSettingsComponent,
+    EarningsSettingsComponent,
+    GeneralSettingsComponent,
+    ParamSettingComponent
   ],
-  entryComponents: [
-    SetYourEarningsDialogComponent
-  ]
 })
 export class AdminModule {
 }
