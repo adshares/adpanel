@@ -80,8 +80,9 @@ export class PublisherService {
     if (filtering) {
       params = {
         ...params,
-        ...filtering.status
-      }
+        ...filtering.status,
+        sizes: filtering.sizes ? JSON.stringify(filtering.sizes) : []
+      };
     }
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
       {params});

@@ -22,14 +22,13 @@
     </mat-radio-group>
 
   </mat-expansion-panel>
-  <!--̣TODO uncomment when backend will be ready -->
-  <mat-expansion-panel *ngIf="false">
+  <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
         Filter banners by size
       </mat-panel-title>
       <mat-panel-description>
-        <span *ngFor="let chosenSize of size"
+        <span *ngFor="let chosenSize of sizes"
               class="classifier-filtering__chosen-value" >
           {{ chosenSize }}
         </span>

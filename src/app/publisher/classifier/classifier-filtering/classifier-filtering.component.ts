@@ -12,7 +12,7 @@ import { BannerClassificationFilters } from "models/classifier.model";
 export class ClassifierFilteringComponent {
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   status = new FormControl('');
-  size: Array<string> = [];
+  sizes: Array<string> = [];
   adSizesOptions = enumToArray(adSizesEnum);
   filtering: BannerClassificationFilters = {};
 
@@ -21,13 +21,18 @@ export class ClassifierFilteringComponent {
 
   sizeSelect(e, size: string) {
     if (e.checked) {
-      this.size = [
-        ...this.size,
+      this.sizes = [
+        ...this.sizes,
         size
       ]
     } else {
-      this.size = this.size.filter(s => s !== size);
+      this.sizes = this.sizes.filter(s => s !== size);
     }
+    this.filtering = {
+      ...this.filtering,
+      sizes: this.sizes
+    };
+    this.filteringChange.emit(this.filtering);
   }
 
 

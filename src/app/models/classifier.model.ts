@@ -28,7 +28,7 @@ interface BannerClassificationStatus {
 
 interface BannerClassificationFilters {
   status?: BannerClassificationStatus;
-  size?: number;
+  sizes?: Array<string>;
 }
 
 export { BannerClassification, BannerClassificationResponse, BannerClassificationFilters };

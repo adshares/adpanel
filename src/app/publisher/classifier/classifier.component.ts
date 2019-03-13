@@ -35,7 +35,9 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   bannerClassifications: BannerClassification[] = [];
   totalCount: number = 0;
   refreshIcon = faSyncAlt;
-  filtering: BannerClassificationFilters;
+  filtering: BannerClassificationFilters = {
+    sizes: [],
+  };
 
   constructor(
     private route: ActivatedRoute,
