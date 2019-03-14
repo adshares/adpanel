@@ -8,7 +8,7 @@
       dwmth-heading
       dwmth-heading--primary"
   >
-    Set your % Earnings
+    Set your % earnings
   </h1>
   <p
     class="
@@ -40,7 +40,7 @@
       type="number"
       max="100"
       min="0"
-      step="0.01"
+      [step]="0.01"
       class="
         dwmth-heading
         dwmth-heading--primary
@@ -50,16 +50,9 @@
       (ngModelChange)="updateValue($event)"
       data-test="admin-earnings-direct-input"
     >
-    <div
-      class="
-        col
-        dwmth-copy
-        calculated-earnings"
-    >
-      <span data-test="admin-earnings-per-day">12$ per day</span>
-      <span data-test="admin-earnings-per-week">213$ per week</span>
-      <span data-test="admin-earnings-per-month">1234313$ per month</span>
-    </div>
+    <span class="
+            dwmth-heading
+            dwmth-heading--primary"> % </span>
   </div>
 
   <div
@@ -74,6 +67,7 @@
         dwmth-btn--blue
         dwmth-form-submit-btn"
       data-test="admin-earnings-save-button"
+      (click)="saveSettings()"
     >
       Save
     </button>
