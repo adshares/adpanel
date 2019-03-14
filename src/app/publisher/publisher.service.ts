@@ -84,7 +84,8 @@ export class PublisherService {
       params = {
         ...params,
         ...filtering.status,
-        sizes: !!filtering.sizes ? JSON.stringify(filtering.sizes) : JSON.stringify(possibleSizes)
+        sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
+          : JSON.stringify(possibleSizes)
       };
     }
 
