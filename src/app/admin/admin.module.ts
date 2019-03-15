@@ -11,7 +11,11 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
-import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
+import { SettingsModule } from "settings/settings.module";
+import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
+import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earnings-settings.component";
+import { GeneralSettingsComponent } from "admin/params/general-settings.component";
+import { ParamSettingComponent } from "admin/params/param-setting.component.ts/param-setting.component";
 
 @NgModule({
   imports: [
@@ -23,7 +27,8 @@ import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dial
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    SettingsModule
   ],
   providers: [
     AdminGuard
@@ -33,11 +38,11 @@ import { SetYourEarningsDialogComponent } from './dialogs/set-your-earnings-dial
     DashboardComponent,
     UserListComponent,
     UserListItemComponent,
-    SetYourEarningsDialogComponent
+    FinancesSettingsComponent,
+    EarningsSettingsComponent,
+    GeneralSettingsComponent,
+    ParamSettingComponent
   ],
-  entryComponents: [
-    SetYourEarningsDialogComponent
-  ]
 })
 export class AdminModule {
 }

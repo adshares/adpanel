@@ -4,7 +4,6 @@ import {MatDialog} from '@angular/material';
 
 import {HandleSubscription} from 'common/handle-subscription';
 import {User, UserAdserverWallet} from 'models/user.model';
-import {SetYourEarningsDialogComponent} from 'admin/dialogs/set-your-earnings-dialog/set-your-earnings-dialog.component';
 import {AddFundsDialogComponent} from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import {userRolesEnum} from 'models/enum/user.enum';
 import {AuthService} from 'app/auth.service';
@@ -62,10 +61,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       [moduleDir, assetDir, 'basic-information'],
       {queryParams: {step: 1}}
     );
-  }
-
-  openSetEarningsDialog() {
-    this.dialog.open(SetYourEarningsDialogComponent);
   }
 
   setActiveUserType(userType) {

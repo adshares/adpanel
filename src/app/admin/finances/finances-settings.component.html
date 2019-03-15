@@ -1,0 +1,62 @@
+<div class="row justify-end align-center admin-general-settings__submit">
+  <button class="dwmth-btn dwmth-btn--blue"
+          (click)="saveSettings()">
+    Save settings
+  </button>
+</div>
+
+<article class="row finances">
+  <app-earnings-settings
+    [title]="'Advertiser commission'"
+    [desc]=" 'Set a commission which will be subtracted from event payments and will be your income.'"
+    [max]="'100'"
+    [min]="'0'"
+    [step]="0.01"
+    [format]="'%'"
+    [value]="settings.advertiserCommission"
+    [transformDecimal]="true"
+    [showSlider]="true"
+    (valueChanged)="updateSettings($event, 'advertiserCommission')"
+  >
+  </app-earnings-settings>
+
+  <app-earnings-settings
+    [title]="'Publisher commission'"
+    [desc]=" 'Set a commission which will be subtracted from event payments and will be your income.'"
+    [max]="'100'"
+    [min]="'0'"
+    [step]="0.01"
+    [format]="'%'"
+    [value]="settings.publisherCommission"
+    [transformDecimal]="true"
+    [showSlider]="true"
+    (valueChanged)="updateSettings($event, 'publisherCommission')"
+  >
+  </app-earnings-settings>
+</article>
+
+<article class="row finances">
+  <app-earnings-settings
+    [title]="'Minimal transfer thresholds'"
+    [desc]=" 'Set minimal thresholds for money transfers between cold and hot wallet'"
+    [max]="1000000"
+    [min]="0"
+    [step]="1"
+    [format]="'ADS'"
+    [value]="settings.hotwalletMinValue"
+    (valueChanged)="updateSettings($event, 'hotwalletMinValue')"
+  >
+  </app-earnings-settings>
+
+  <app-earnings-settings
+    [title]="'Maximal transfer thresholds'"
+    [desc]=" 'Set maximal thresholds for money transfers between cold and hot wallet'"
+    [max]="1000000"
+    [min]="0"
+    [step]="1"
+    [format]="'ADS'"
+    [value]="settings.hotwalletMaxValue"
+    (valueChanged)="updateSettings($event, 'hotwalletMaxValue')"
+  ></app-earnings-settings>
+</article>
+

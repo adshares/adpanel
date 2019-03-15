@@ -1,53 +1,9 @@
 @import '../../../styles.scss';
-
-.settings {
-  &-navigation {
-    height: 100%;
-    width: 300px;
-    padding: 20px 40px;
-    background-color: pal(white);
-  }
-
-  &-category {
-    margin: 50px 0;
-    padding: 5px 0 5px 20px;
-    border-left: 2px solid pal(gray, light);
-    position: relative;
-
-    ul {
-      padding-left: 20px;
-      margin: 25px 0;
-
-      li {
-        margin: 25px 0;
-
-        img {
-          width: 20px;
-        }
-
-        span {
-          color: pal(navy);
-        }
-      }
-    }
-
-    &.active {
-      &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 2px;
-        height: 40px;
-        top: 0;
-        left: -2px;
-        background-color: pal(blue);
-      }
-
-      span {
-        @include font-weight(semi)
-      }
-    }
-  }
+.settings-navigation {
+  height: 100%;
+  width: 300px;
+  padding: 20px 40px;
+  background-color: pal(white);
 }
 
 .total-funds {
