@@ -5,7 +5,6 @@ import 'rxjs/add/operator/switchMap';
 import * as adminActions from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
-import { empty } from "rxjs/observable/empty";
 
 @Injectable()
 export class AdminEffects {

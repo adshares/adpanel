@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { AdminSettings, ThresholdsSettings, UserInfoStats } from 'models/settings.model';
+import { AdminSettings, UserInfoStats } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loaded';
 export const LOAD_USERS_SUCCESS = 'Users loaded success';
