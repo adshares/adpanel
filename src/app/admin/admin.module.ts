@@ -2,8 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule, MatInputModule, MatSliderModule, MatCheckboxModule } from '@angular/material';
-
+import {
+  MatIconModule,
+  MatInputModule,
+  MatSliderModule,
+  MatCheckboxModule
+} from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
