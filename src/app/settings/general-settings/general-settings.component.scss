@@ -3,10 +3,6 @@
   width: calc(100% - 380px);
 
   .settings-outlet & {
-    width: auto;
+    width: 100% !important;
   }
-}
-
-.settings-outlet .general-settings {
-  width: 100% !important;
 }

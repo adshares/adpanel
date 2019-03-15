@@ -4,9 +4,8 @@
     row"
 >
   <ul class="admin-dashboard__side-menu">
-    <li *ngFor="let menuItem of settings">
-      <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
-    </li>
+      <app-settings-menu-item *ngFor="let menuItem of settings"
+                              [menuItem]="menuItem"></app-settings-menu-item>
   </ul>
   <div class="col settings-outlet">
     <router-outlet></router-outlet>

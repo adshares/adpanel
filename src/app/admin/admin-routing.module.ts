@@ -13,15 +13,15 @@ const adminRoutes: Routes = [
     component: AdminComponent,
     canActivate: [AdminGuard],
     children: [
-      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard'},
+      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general'},
       {
         path: 'dashboard',
         component: DashboardComponent,
-
         children: [
           {
             path: '',
-            component: GeneralSettingsComponent,
+            pathMatch: 'full',
+            redirectTo: '/admin/dashboard/general'
           },
           {
             path: 'general',
