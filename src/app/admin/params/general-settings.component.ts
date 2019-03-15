@@ -15,6 +15,7 @@ import { SetAdminSettings } from "store/admin/admin.actions";
 })
 export class GeneralSettingsComponent extends HandleSubscription implements OnInit {
   settings: AdminSettings;
+  canSubmit: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -32,6 +33,7 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
   }
 
   updateSettings(value: number, key: string): void {
+    this.canSubmit = true;
     this.settings = {
       ...this.settings,
       [key]: value
@@ -39,6 +41,7 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
   }
 
   saveSettings(): void {
-    this.store.dispatch(new SetAdminSettings(this.settings))
+    this.store.dispatch(new SetAdminSettings(this.settings));
+    this.canSubmit = false;
   }
 }

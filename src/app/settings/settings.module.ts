@@ -10,7 +10,7 @@ import { AppCommonModule } from 'common/common.module';
 import { WalletDialogComponent } from './dialogs/wallet-dialog/wallet-dialog.component';
 import { SettingsComponent } from './settings.component';
 import { BillingComponent } from './billing/billing.component';
-import { GeneralSettingsComponent } from './general-settings/general-settings.component';
+import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component';
 import { PreferencesComponent } from './general-settings/preferences/preferences.component';
 import { NotificationSettingsComponent } from './general-settings/notification-settings/notification-settings.component';
 import { UserWalletComponent } from './billing/user-wallet/user-wallet.component';
@@ -35,7 +35,7 @@ library.add(fas);
     WalletDialogComponent,
     SettingsComponent,
     BillingComponent,
-    GeneralSettingsComponent,
+    AccountSettingsComponent,
     PreferencesComponent,
     NotificationSettingsComponent,
     UserWalletComponent,
