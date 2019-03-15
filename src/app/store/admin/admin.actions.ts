@@ -1,12 +1,13 @@
 import { Action } from '@ngrx/store';
 import { AdminSettings, UserInfoStats } from 'models/settings.model';
 
-export const LOAD_USERS = 'Users loaded';
-export const LOAD_USERS_SUCCESS = 'Users loaded success';
+export const LOAD_USERS = 'Users loading';
+export const LOAD_USERS_SUCCESS = 'Users loading success';
+export const LOAD_USERS_FAILURE = 'Users loading failure';
 
-export const LOAD_ADMIN_SETTINGS = 'Admin settings loaded';
-export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loaded success';
-export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loaded failure';
+export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
+export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
+export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
@@ -25,6 +26,13 @@ export class LoadUsersSuccess implements Action {
   readonly type: string = LOAD_USERS_SUCCESS;
 
   constructor(public payload: UserInfoStats[]) {
+  }
+}
+
+export class LoadUsersFailure implements Action {
+  readonly type: string = LOAD_USERS_FAILURE;
+
+  constructor(public payload?: string) {
   }
 }
 
