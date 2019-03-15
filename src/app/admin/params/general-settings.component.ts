@@ -26,7 +26,6 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'settings')
       .subscribe((settings: AdminSettings) => {
         this.settings = settings
-        console.log('this.settings', this.settings)
       });
 
     this.subscriptions.push(adminStoreSettingsSubscription);
