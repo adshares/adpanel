@@ -13,8 +13,11 @@ import { AdminSettings } from "models/settings.model";
   host: {'class': 'app-finances'},
   animations: [fadeAnimation]
 })
+
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
-  settings:AdminSettings;
+  settings: AdminSettings;
+  canSubmit: boolean = false;
+
   constructor(
     private store: Store<AppState>,
   ) {
@@ -30,20 +33,31 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
     this.subscriptions.push(adminStoreSettingsSubscription);
   }
 
-  updateSettings(value: number, key: string): void {
+  updateSettings(value: number | boolean | string, key: string): void {
+    this.canSubmit = true;
+
+    if (key === 'hotwalletAddress') {
+      this.settings = {
+        ...this.settings,
+        [key]: value
+      };
+      return
+    }
+
     this.settings = {
       ...this.settings,
-      [key]: value
+      [key]: Number(value)
     };
   }
 
-  saveSettings():void {
+  saveSettings(): void {
     if (this.settings.hotwalletMinValue > this.settings.hotwalletMaxValue) {
       this.store.dispatch(new SetAdminSettingsFailure(
         'Maximal threshold value cannot be smaller than a minimal.'
       ));
       return;
     }
-    this.store.dispatch(new SetAdminSettings(this.settings))
+    this.store.dispatch(new SetAdminSettings(this.settings));
+    this.canSubmit = false;
   }
 }

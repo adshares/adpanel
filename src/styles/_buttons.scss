@@ -66,8 +66,12 @@
     background-color: pal(blue);
     max-height: 46px;
 
-    &:hover {
+    &:hover:not([disabled]) {
       background-color: darken(pal(blue), 5);
+    }
+
+    &[disabled] {
+      background-color: lighten(pal(blue), 5%);
     }
   }
 
@@ -102,7 +106,8 @@
     margin-right: 15px;
   }
 
-  &.disabled {
+  &.disabled,
+  &[disabled] {
     cursor: not-allowed;
   }
 

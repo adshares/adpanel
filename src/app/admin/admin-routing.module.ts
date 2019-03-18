@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
-import { GeneralSettingsComponent as AccountSettings } from "settings/general-settings/general-settings.component";
+import { AccountSettingsComponent } from "settings/general-settings/account-settings/account-settings.component";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 import { GeneralSettingsComponent } from "admin/params/general-settings.component";
 
@@ -34,7 +34,7 @@ const adminRoutes: Routes = [
           },
           {
             path: 'account',
-            component: AccountSettings,
+            component: AccountSettingsComponent,
           },
           {
             path: 'reports',

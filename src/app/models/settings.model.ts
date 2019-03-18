@@ -39,20 +39,7 @@ interface AdminSettings {
   technicalEmail: string;
   publisherCommission?: number;
   advertiserCommission?: number;
-  earnings?: number;
-  thresholds?: ThresholdsSettings;
-  params?: ParamsSettings;
-}
-
-interface ThresholdsSettings {
-  minValue: number;
-  maxValue: number;
-}
-
-interface ParamsSettings {
-  technicalEmail: string;
-  supportEmail: string;
-  adserverName: string;
+  hotwalletIsActive?: number;
 }
 
 interface AdsharesAddress {
@@ -79,5 +66,4 @@ export {
   AdsharesAddress,
   DepositInfo,
   CalculateWithdrawalItem,
-  ThresholdsSettings
 };
