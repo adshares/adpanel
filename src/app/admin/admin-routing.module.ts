@@ -6,7 +6,7 @@ import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { GeneralSettingsComponent } from "settings/general-settings/general-settings.component";
 import { UserListComponent } from "admin/user-list/user-list.component";
-import { EarningsComponent } from "admin/earnings/earnings.component";
+import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 
 const adminRoutes: Routes = [
   {
@@ -25,18 +25,16 @@ const adminRoutes: Routes = [
             component: GeneralSettingsComponent,
           },
           {
-            path: 'params',
+            path: 'general',
             component: UserListComponent,
           },
           {
             path: 'earnings',
-            component: EarningsComponent,
-
+            component: FinancesSettingsComponent,
           },
           {
-            path: 'general',
+            path: 'account',
             component: GeneralSettingsComponent,
-
           },
         ]
       },

@@ -321,6 +321,12 @@ router-outlet ~ * {
   min-height: 100%
 }
 
+.settings-outlet router-outlet ~ * {
+  position: initial;
+  min-height: calc(100vh - 80px);
+  height: calc(100vh - 80px);
+}
+
 /*
   status
 */

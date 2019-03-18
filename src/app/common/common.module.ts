@@ -6,7 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogContent, MatDialogModule, MatInputModule, MatSlideToggle, MatSpinner } from '@angular/material';
+import {
+  MatDialogContent,
+  MatDialogModule,
+  MatInputModule,
+  MatSlideToggle,
+  MatSnackBarModule,
+  MatSpinner
+} from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
@@ -48,6 +55,7 @@ import { PushNotificationsService } from './components/push-notifications/push-n
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component';
 import { SettingsMenuItemComponent } from "common/components/settings-menu-item/settings-menu-item.component";
+import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 
 const matModules = [
   MatDialogModule,
@@ -57,7 +65,8 @@ const matModules = [
   MatDatepickerModule,
   MatInputModule,
   MatMomentDateModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 ];
 
 const dialogs = [
@@ -91,7 +100,8 @@ const appComponents = [
   TableNavigationComponent,
   EditAssetNavigationComponent,
   BannerPreviewComponent,
-  SettingsMenuItemComponent
+  SettingsMenuItemComponent,
+  SuccessSnackbarComponent,
 ];
 
 @NgModule({

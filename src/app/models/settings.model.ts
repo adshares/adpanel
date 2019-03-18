@@ -31,7 +31,15 @@ interface UserInfoStats {
 }
 
 interface AdminSettings {
-  earnings: number;
+  adserverName: string;
+  hotwalletAddress:string;
+  hotwalletMaxValue: number;
+  hotwalletMinValue: number;
+  supportEmail: string;
+  technicalEmail: string;
+  publisherCommission?: number;
+  advertiserCommission?: number;
+  ishotwalletactive?: number;
 }
 
 interface AdsharesAddress {

@@ -4,16 +4,24 @@ import { AdminState } from 'models/app-state.model';
 const initialState: AdminState = {
   users: [],
   settings: {
-    earnings: 0
+    adserverName: '',
+    hotwalletAddress: '',
+    hotwalletMaxValue: 0,
+    hotwalletMinValue: 0,
+    supportEmail: '',
+    technicalEmail: '',
+    publisherCommission : 0,
+    advertiserCommission : 0,
+    ishotwalletactive: 0,
   }
 };
 
-export function adminReducers(state = initialState, action: adminActions.actions) {
+export function adminReducers(state=initialState, action: adminActions.actions) {
   switch (action.type) {
     case adminActions.LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload
+        ...action.payload
       };
     case adminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
