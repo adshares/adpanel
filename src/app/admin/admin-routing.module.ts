@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
-import { GeneralSettingsComponent } from "settings/general-settings/general-settings.component";
-import { UserListComponent } from "admin/user-list/user-list.component";
+import { GeneralSettingsComponent as AccountSettingsComponent } from "settings/general-settings/general-settings.component";
+import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 
 const adminRoutes: Routes = [
@@ -14,7 +14,7 @@ const adminRoutes: Routes = [
     component: AdminComponent,
     canActivate: [AdminGuard],
     children: [
-      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard'},
+      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general'},
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -26,7 +26,7 @@ const adminRoutes: Routes = [
           },
           {
             path: 'general',
-            component: UserListComponent,
+            component: GeneralSettingsComponent,
           },
           {
             path: 'earnings',
@@ -34,12 +34,10 @@ const adminRoutes: Routes = [
           },
           {
             path: 'account',
-            component: GeneralSettingsComponent,
+            component: AccountSettingsComponent,
           },
         ]
       },
-
-
     ]
   }
 ];

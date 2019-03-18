@@ -47,6 +47,7 @@ import { ParamSettingComponent } from "admin/general-settings/param-setting/para
     ParamSettingComponent,
     GeneralSettingsComponent
   ],
+
 })
 export class AdminModule {
 }

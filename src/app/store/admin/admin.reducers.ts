@@ -26,12 +26,12 @@ export function adminReducers(state=initialState, action: adminActions.actions) 
     case adminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        settings: action.payload
+        settings: action.payload.settings
       };
     case adminActions.SET_ADMIN_SETTINGS:
       return {
         ...state,
-        settings: action.payload
+        settings: action.payload.settings
       };
     default:
       return state;

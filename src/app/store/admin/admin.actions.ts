@@ -80,6 +80,7 @@ export class SetAdminSettingsFailure implements Action {
 export type actions =
   LoadUsers |
   LoadUsersSuccess |
+  LoadUsersFailure |
 
   LoadAdminSettings |
   LoadAdminSettingsSuccess |

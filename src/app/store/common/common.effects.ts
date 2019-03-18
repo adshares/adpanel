@@ -34,7 +34,7 @@ export class CommonEffects {
       advertiserActions.DELETE_CAMPAIGN_FAILURE,
       advertiserActions.DELETE_CAMPAIGN_FAILURE,
       publisherActions.ADD_SITE_TO_SITES_FAILURE,
-      adminActions.SET_ADMIN_SETTINGS_FAILURE
+      adminActions.SET_ADMIN_SETTINGS_FAILURE,
     )
     .map(toPayload)
     .do(payload => {

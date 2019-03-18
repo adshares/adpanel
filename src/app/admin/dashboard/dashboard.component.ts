@@ -12,6 +12,14 @@ import { Store } from "@ngrx/store";
 export class DashboardComponent implements OnInit {
   settings = [
     {
+      title: 'General Settings',
+      description: '',
+      link: '/admin/dashboard/general',
+      values: [
+        {name: 'Set your params', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
       title: 'Account Settings',
       description: '',
       link: '/admin/dashboard/account',
@@ -26,14 +34,7 @@ export class DashboardComponent implements OnInit {
       values: [
         {name: 'Set your earnings', icon: 'assets/images/wallet--gray.svg'},
       ],
-    }, {
-      title: 'Params Settings',
-      description: '',
-      link: '/admin/dashboard/general',
-      values: [
-        {name: 'Set your params', icon: 'assets/images/preferences.svg'},
-      ],
-    }
+    },
   ];
 
   constructor(private store: Store<AppState>) { }
