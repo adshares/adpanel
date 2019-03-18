@@ -106,27 +106,6 @@
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
-    <button
-      *ngIf="userDataState.isAdmin"
-      (click)="openSetEarningsDialog()"
-      class="
-        dwmth-btn
-        dwmth-btn--with-icon
-        dwmth-btn--wide
-        dwmth-bg-blue
-        dwmth-navigation__item
-        row
-        align-center"
-      data-test="header-admin-set-earning-dialog-open-button"
-    >
-      <img
-        class="
-            dwmth-icon
-            dwmth-icon--prepend"
-        src="assets/images/plus-circle.svg"
-      >
-      <span>Set your earnings</span>
-    </button>
     <div
       *ngIf="!userDataState.isAdmin"
       class="

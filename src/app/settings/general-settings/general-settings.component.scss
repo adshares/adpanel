@@ -1,4 +1,8 @@
 .general-settings {
   padding: 30px;
   width: calc(100% - 380px);
+
+  .settings-outlet & {
+    width: 100% !important;
+  }
 }

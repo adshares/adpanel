@@ -4,7 +4,12 @@ import { AdminState } from 'models/app-state.model';
 const initialState: AdminState = {
   users: [],
   settings: {
-    earnings: 0
+    adserverName: '',
+    hotwalletAddress: '',
+    hotwalletMaxValue: 0,
+    hotwalletMinValue: 0,
+    supportEmail: '',
+    technicalEmail: '',
   }
 };
 
@@ -18,12 +23,12 @@ export function adminReducers(state = initialState, action: adminActions.actions
     case adminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        settings: action.payload
+        ...action.payload
       };
     case adminActions.SET_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        settings: action.payload
+        ...action.payload
       };
     default:
       return state;
