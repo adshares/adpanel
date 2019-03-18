@@ -10,7 +10,7 @@ const initialState: AdminState = {
     hotwalletMinValue: 0,
     supportEmail: '',
     technicalEmail: '',
-    ishotwalletactive: 0,
+    hotwalletIsActive: 0,
   }
 };
 

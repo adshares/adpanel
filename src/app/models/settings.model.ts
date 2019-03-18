@@ -39,7 +39,7 @@ interface AdminSettings {
   technicalEmail: string;
   publisherCommission?: number;
   advertiserCommission?: number;
-  ishotwalletactive?: number;
+  hotwalletIsActive?: number;
 }
 
 interface AdsharesAddress {
