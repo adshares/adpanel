@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source ${1}/_functions.sh || { echo "Missing source path (first param)."; exit 1 }
+source ${1}/_functions.sh
 [[ -z ${2:-""} ]] || cd $2
 [[ -z ${3:-".env"} ]] || set -a && source .env && set +a
 
