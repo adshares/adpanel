@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
-
-import {HandleSubscription} from 'common/handle-subscription';
-import {User, UserAdserverWallet} from 'models/user.model';
-import {AddFundsDialogComponent} from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
-import {userRolesEnum} from 'models/enum/user.enum';
-import {AuthService} from 'app/auth.service';
-import {SessionService} from "app/session.service";
-import {Store} from "@ngrx/store";
-import {AppState, SettingsState} from "models/app-state.model";
-import * as settingsActions from 'store/settings/settings.actions';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { HandleSubscription } from 'common/handle-subscription';
+import { User } from 'models/user.model';
+import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
+import { userRolesEnum } from 'models/enum/user.enum';
+import { AuthService } from 'app/auth.service';
+import { SessionService } from "app/session.service";
+import { Store } from "@ngrx/store";
+import { AppState, SettingsState } from "models/app-state.model";
+import { GetCurrentBalance } from 'store/settings/settings.actions';
 
 @Component({
   selector: 'app-header',
@@ -18,15 +17,12 @@ import * as settingsActions from 'store/settings/settings.actions';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
-  totalFunds:number;
+  totalFunds: number;
   activeUserType: number;
-
   userRolesEnum = userRolesEnum;
   userDataState: User;
-
   settingsMenuOpen = false;
   notificationsBarOpen = false;
-
   notificationsTotal: number;
 
   constructor(
@@ -40,9 +36,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new settingsActions.GetCurrentBalance());
+    this.store.dispatch(new GetCurrentBalance());
     let accountType = this.session.getAccountTypeChoice();
-    this.activeUserType = accountType == 'admin' ? userRolesEnum.ADMIN : (accountType == 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
+    this.activeUserType = accountType === 'advertiser' ? userRolesEnum.ADVERTISER :
+      (accountType === 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADMIN);
     this.userDataState = this.session.getUser();
     this.notificationsTotal = this.session.getNotificationsCount();
     const userDataStateSubscription = this.store.select('state', 'user', 'settings')
