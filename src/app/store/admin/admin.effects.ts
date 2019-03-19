@@ -35,7 +35,8 @@ export class AdminEffects {
     .ofType(adminActions.SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
-      .map((settings) => new adminActions.SetAdminSettingsSuccess(settings))
+      .map(() => {
+        return new adminActions.SetAdminSettingsSuccess(payload)})
       .catch(() => Observable.of(new adminActions.SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))

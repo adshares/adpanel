@@ -41,6 +41,9 @@ interface AdminSettings {
   advertiserCommission?: number;
   hotwalletIsActive?: number;
 }
+interface AdminSettingsResponse {
+  settings: AdminSettings;
+}
 
 interface AdsharesAddress {
   adsharesAddress: string;
@@ -66,4 +69,5 @@ export {
   AdsharesAddress,
   DepositInfo,
   CalculateWithdrawalItem,
+  AdminSettingsResponse
 };

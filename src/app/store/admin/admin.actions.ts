@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { AdminSettings, UserInfoStats } from 'models/settings.model';
+import { AdminSettings, AdminSettingsResponse, UserInfoStats } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
@@ -46,7 +46,7 @@ export class LoadAdminSettings implements Action {
 export class LoadAdminSettingsSuccess implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_SUCCESS;
 
-  constructor(public payload: AdminSettings) {
+  constructor(public payload: AdminSettingsResponse) {
   }
 }
 export class LoadAdminSettingsFailure implements Action {
@@ -65,6 +65,7 @@ export class SetAdminSettings implements Action {
 
 export class SetAdminSettingsSuccess implements Action {
   readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
+
 
   constructor(public payload: AdminSettings) {
   }

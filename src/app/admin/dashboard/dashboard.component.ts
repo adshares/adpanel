@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from "models/app-state.model";
-import * as adminActions from "store/admin/admin.actions";
+import { LoadAdminSettings } from "store/admin/admin.actions";
 import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+
 })
 
 export class DashboardComponent implements OnInit {
@@ -16,7 +17,18 @@ export class DashboardComponent implements OnInit {
       description: '',
       link: '/admin/dashboard/general',
       values: [
-        {name: 'Set your params', icon: 'assets/images/preferences.svg'},
+        {name: 'Set business name', icon: 'assets/images/preferences.svg'},
+        {name: 'Set technical email', icon: 'assets/images/preferences.svg'},
+        {name: 'Set support email', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
+      title: 'Earnings Settings',
+      description: '',
+      link: '/admin/dashboard/earnings',
+      values: [
+        {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
+        {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
       ],
     },
     {
@@ -27,20 +39,13 @@ export class DashboardComponent implements OnInit {
         {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
       ],
     },
-    {
-      title: 'Earnings Settings',
-      description: '',
-      link: '/admin/dashboard/earnings',
-      values: [
-        {name: 'Set your earnings', icon: 'assets/images/wallet--gray.svg'},
-      ],
-    },
   ];
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit() {
-    this.store.dispatch(new adminActions.LoadAdminSettings());
+    this.store.dispatch(new LoadAdminSettings());
   }
 }
 

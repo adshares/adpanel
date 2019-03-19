@@ -8,7 +8,6 @@ import {
   MatSliderModule,
   MatCheckboxModule
 } from '@angular/material';
-
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
@@ -21,6 +20,7 @@ import { FinancesSettingsComponent } from "admin/finances/finances-settings.comp
 import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earnings-settings.component";
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { ParamSettingComponent } from "admin/general-settings/param-setting/param-setting.component";
+import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 
 @NgModule({
   imports: [
@@ -47,8 +47,11 @@ import { ParamSettingComponent } from "admin/general-settings/param-setting/para
     FinancesSettingsComponent,
     EarningsSettingsComponent,
     ParamSettingComponent,
-    GeneralSettingsComponent
+    GeneralSettingsComponent,
   ],
+  entryComponents: [
+    SuccessSnackbarComponent
+  ]
 })
 export class AdminModule {
 }

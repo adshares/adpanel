@@ -1,5 +1,6 @@
 <div class="row justify-end align-center admin-param__submit">
   <button class="dwmth-btn dwmth-btn--blue"
+          [disabled]="!canSubmit"
           (click)="saveSettings()">
     Save settings
   </button>
