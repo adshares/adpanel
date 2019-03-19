@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { fadeAnimation } from "common/animations/fade.animation";
 import { SetAdminSettings, SetAdminSettingsFailure } from "store/admin/admin.actions";
 import { AdminSettings } from "models/settings.model";
 
@@ -11,9 +10,7 @@ import { AdminSettings } from "models/settings.model";
   templateUrl: './finances-settings.component.html',
   styleUrls: ['./finances-settings.component.scss'],
   host: {'class': 'app-finances'},
-  animations: [fadeAnimation]
 })
-
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
   settings: AdminSettings;
   canSubmit: boolean = false;

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { AccountSettingsComponent } from "settings/general-settings/account-settings/account-settings.component";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
-import { GeneralSettingsComponent } from "admin/params/general-settings.component";
+import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 
 const adminRoutes: Routes = [
   {
@@ -17,34 +18,26 @@ const adminRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+
         children: [
           {
             path: '',
-            pathMatch: 'full',
-            redirectTo: '/admin/dashboard/general'
+            component: GeneralSettingsComponent,
           },
           {
             path: 'general',
             component: GeneralSettingsComponent,
           },
           {
-            path: 'finances',
+            path: 'finance',
             component: FinancesSettingsComponent,
-
           },
           {
             path: 'account',
             component: AccountSettingsComponent,
           },
-          {
-            path: 'reports',
-            component: GeneralSettingsComponent,
-
-          },
         ]
       },
-
-
     ]
   }
 ];

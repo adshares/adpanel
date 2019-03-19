@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 import { CommonService } from 'common/common.service';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 import {
   LOAD_NOTIFICATIONS,
   LoadNotificationsSuccess
@@ -18,7 +15,9 @@ import {
   SET_ADMIN_SETTINGS_FAILURE,
   SET_ADMIN_SETTINGS_SUCCESS
 } from "store/admin/admin.actions";
-
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { MatDialog, MatSnackBar } from "@angular/material";
+import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 
 @Injectable()
 export class CommonEffects {

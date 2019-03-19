@@ -2,8 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule, MatInputModule, MatSliderModule, MatCheckboxModule } from '@angular/material';
-
+import {
+  MatIconModule,
+  MatInputModule,
+  MatSliderModule,
+  MatCheckboxModule
+} from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
@@ -14,8 +18,9 @@ import { UserListItemComponent } from './user-list/user-list-item/user-list-item
 import { SettingsModule } from "settings/settings.module";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earnings-settings.component";
-import { GeneralSettingsComponent } from "admin/params/general-settings.component";
-import { ParamSettingComponent } from "admin/params/param-setting.component.ts/param-setting.component";
+import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
+import { ParamSettingComponent } from "admin/general-settings/param-setting/param-setting.component";
+import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 
 @NgModule({
   imports: [
@@ -30,7 +35,6 @@ import { ParamSettingComponent } from "admin/params/param-setting.component.ts/p
     MatSliderModule,
     SettingsModule,
     MatCheckboxModule
-
   ],
   providers: [
     AdminGuard
@@ -42,9 +46,12 @@ import { ParamSettingComponent } from "admin/params/param-setting.component.ts/p
     UserListItemComponent,
     FinancesSettingsComponent,
     EarningsSettingsComponent,
+    ParamSettingComponent,
     GeneralSettingsComponent,
-    ParamSettingComponent
   ],
+  entryComponents: [
+    SuccessSnackbarComponent
+  ]
 })
 export class AdminModule {
 }

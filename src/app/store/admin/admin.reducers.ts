@@ -1,4 +1,9 @@
-import * as adminActions from './admin.actions';
+import {
+  LOAD_USERS_SUCCESS,
+  LOAD_ADMIN_SETTINGS_SUCCESS,
+  SET_ADMIN_SETTINGS_SUCCESS,
+  actions
+} from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
@@ -10,26 +15,28 @@ const initialState: AdminState = {
     hotwalletMinValue: 0,
     supportEmail: '',
     technicalEmail: '',
+    publisherCommission : 0,
+    advertiserCommission : 0,
     hotwalletIsActive: 0,
   }
 };
 
-export function adminReducers(state = initialState, action: adminActions.actions) {
+export function adminReducers(state=initialState, action: actions) {
   switch (action.type) {
-    case adminActions.LOAD_USERS_SUCCESS:
-      return {
-        ...state,
-        users: action.payload
-      };
-    case adminActions.LOAD_ADMIN_SETTINGS_SUCCESS:
+    case LOAD_USERS_SUCCESS:
       return {
         ...state,
         ...action.payload
       };
-    case adminActions.SET_ADMIN_SETTINGS_SUCCESS:
+    case LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        ...action.payload
+        settings: action.payload.settings
+      };
+    case SET_ADMIN_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        settings: action.payload
       };
     default:
       return state;

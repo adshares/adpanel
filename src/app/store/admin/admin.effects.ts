@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
-import { AdminService } from 'admin/admin.service';
-import { Observable } from "rxjs";
 import {
+  LOAD_USERS,
+  LOAD_ADMIN_SETTINGS,
+  SET_ADMIN_SETTINGS,
   LoadUsersSuccess,
   LoadUsersFailure,
   LoadAdminSettingsSuccess,
   LoadAdminSettingsFailure,
   SetAdminSettingsSuccess,
   SetAdminSettingsFailure,
-  LOAD_USERS,
-  LOAD_ADMIN_SETTINGS,
-  SET_ADMIN_SETTINGS,
 } from './admin.actions';
+import { AdminService } from 'admin/admin.service';
+import { Observable } from "rxjs";
 
 @Injectable()
 export class AdminEffects {
@@ -26,9 +26,10 @@ export class AdminEffects {
   @Effect()
   loadUsers$ = this.actions$
     .ofType(LOAD_USERS)
-    .switchMap(() => this.service.getUsers())
+    .switchMap(() => this.service.getUsers()
       .map((users) => new LoadUsersSuccess(users))
-      .catch(() => Observable.of(new LoadUsersFailure()))
+      .catch((err) => Observable.of(new LoadUsersFailure(err)))
+    );
 
   @Effect()
   loadAdminSettings$ = this.actions$
@@ -43,7 +44,8 @@ export class AdminEffects {
     .ofType(SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
-      .map((settings) => new SetAdminSettingsSuccess(settings))
+      .map(() => {
+        return new SetAdminSettingsSuccess(payload)})
       .catch(() => Observable.of(new SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))

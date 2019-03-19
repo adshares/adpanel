@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { fadeAnimation } from 'common/animations/fade.animation';
 
 @Component({
