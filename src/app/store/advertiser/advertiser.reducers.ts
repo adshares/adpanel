@@ -55,10 +55,12 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         campaigns: action.payload
       };
     case advertiserActions.LOAD_CAMPAIGN_SUCCESS:
+      const campaign = state.campaigns.filter(campaign => campaign.id !== action.payload.id);
+
       return {
         ...state,
         campaigns: [
-          ...state.campaigns,
+          ...campaign,
           {
             ...action.payload
           }
