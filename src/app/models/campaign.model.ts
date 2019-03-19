@@ -52,7 +52,7 @@ interface Ad {
   averageCpc: number;
   cost: number;
   budget: number;
-  bannerUrl: string;
+  url: string;
 
   imageSize?: string;
 }

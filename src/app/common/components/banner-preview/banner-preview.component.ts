@@ -14,7 +14,7 @@ export class BannerPreviewComponent implements OnInit {
   readonly IFRAME_TITLE: string = 'Banner Preview';
 
   isBannerInputTypeAd: boolean;
-  bannerUrl: string;
+  url: string;
   bannerHtml: string;
   showIframe: boolean = false;
   isLoading: boolean = true;
@@ -25,14 +25,14 @@ export class BannerPreviewComponent implements OnInit {
   ngOnInit(): void {
     if ((<BannerClassification>this.banner).url) {
       this.isBannerInputTypeAd = false;
-      this.bannerUrl = (<BannerClassification>this.banner).url;
+      this.url = (<BannerClassification>this.banner).url;
     } else {
       this.isBannerInputTypeAd = true;
-      this.bannerUrl = (<Ad>this.banner).bannerUrl;
+      this.url = (<Ad>this.banner).url;
     }
 
     if (this.isBannerInputTypeAd && !this.isImage) {
-      this.canLoadIframeContent(this.bannerUrl)
+      this.canLoadIframeContent(this.url)
     } else {
       this.isLoading = false;
       this.showIframe = true;
