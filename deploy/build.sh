@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-source ${1}/_functions.sh
+source ${1}/_functions.sh --vendor
 [[ -z ${2:-""} ]] || cd $2
-[[ -z ${3:-".env"} ]] || set -a && source .env && set +a
 
-GIT_TAG=$(git tag -l --points-at HEAD | head -n 1)
-GIT_HASH="#"$(git rev-parse --short HEAD)
+set -a
+source .env
+set +a
 
-export APP_VERSION=${APP_VERSION:-${GIT_TAG:-${GIT_HASH}}}
+export APP_VERSION=$(versionFromGit)
 export APP_PORT=${APP_PORT:-8002}
 
 export APP_PROD=${APP_PROD:-true}
