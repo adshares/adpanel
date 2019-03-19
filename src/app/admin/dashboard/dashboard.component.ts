@@ -23,9 +23,9 @@ export class DashboardComponent implements OnInit {
       ],
     },
     {
-      title: 'Earnings Settings',
+      title: 'Finance Settings',
       description: '',
-      link: '/admin/dashboard/earnings',
+      link: '/admin/dashboard/finance',
       values: [
         {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},

@@ -10,7 +10,7 @@ import {
   UPDATE_CAMPAIGN_STATUS_FAILURE,
   DELETE_CAMPAIGN_FAILURE,
 } from "store/advertiser/advertiser.actions";
-import {ADD_SITE_TO_SITES_FAILURE} from "store/publisher/publisher.actions";
+import { ADD_SITE_TO_SITES_FAILURE } from "store/publisher/publisher.actions";
 import {
   SET_ADMIN_SETTINGS_FAILURE,
   SET_ADMIN_SETTINGS_SUCCESS
@@ -56,8 +56,8 @@ export class CommonEffects {
   @Effect({dispatch: false})
   handleSaveSuccess = this.actions$
     .ofType(SET_ADMIN_SETTINGS_SUCCESS)
-    .do(()=> {
-      this.snackBar.openFromComponent(SuccessSnackbarComponent ,{
+    .do(() => {
+      this.snackBar.openFromComponent(SuccessSnackbarComponent, {
         duration: 500,
       });
     });

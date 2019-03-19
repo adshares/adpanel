@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
-
-import * as adminActions from './admin.actions';
+import {
+  LOAD_USERS,
+  LOAD_ADMIN_SETTINGS,
+  SET_ADMIN_SETTINGS,
+  LoadUsersSuccess,
+  LoadUsersFailure,
+  LoadAdminSettingsSuccess,
+  LoadAdminSettingsFailure,
+  SetAdminSettingsSuccess,
+  SetAdminSettingsFailure,
+} from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
 
@@ -16,28 +25,28 @@ export class AdminEffects {
 
   @Effect()
   loadUsers$ = this.actions$
-    .ofType(adminActions.LOAD_USERS)
+    .ofType(LOAD_USERS)
     .switchMap(() => this.service.getUsers()
-      .map((users) => new adminActions.LoadUsersSuccess(users))
-      .catch((err) => Observable.of(new adminActions.LoadUsersFailure(err)))
+      .map((users) => new LoadUsersSuccess(users))
+      .catch((err) => Observable.of(new LoadUsersFailure(err)))
     );
 
   @Effect()
   loadAdminSettings$ = this.actions$
-    .ofType(adminActions.LOAD_ADMIN_SETTINGS)
+    .ofType(LOAD_ADMIN_SETTINGS)
     .switchMap(() => this.service.getAdminSettings()
-      .map((settings) => new adminActions.LoadAdminSettingsSuccess(settings))
-      .catch((err) => Observable.of(new adminActions.LoadAdminSettingsFailure(err)))
+      .map((settings) => new LoadAdminSettingsSuccess(settings))
+      .catch((err) => Observable.of(new LoadAdminSettingsFailure(err)))
     );
 
   @Effect()
   saveAdminSettings$ = this.actions$
-    .ofType(adminActions.SET_ADMIN_SETTINGS)
+    .ofType(SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
       .map(() => {
-        return new adminActions.SetAdminSettingsSuccess(payload)})
-      .catch(() => Observable.of(new adminActions.SetAdminSettingsFailure(
+        return new SetAdminSettingsSuccess(payload)})
+      .catch(() => Observable.of(new SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))
     )

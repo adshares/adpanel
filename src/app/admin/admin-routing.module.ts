@@ -29,7 +29,7 @@ const adminRoutes: Routes = [
             component: GeneralSettingsComponent,
           },
           {
-            path: 'earnings',
+            path: 'finance',
             component: FinancesSettingsComponent,
           },
           {
