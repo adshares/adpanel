@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatIconModule,
   MatInputModule,
-  MatSliderModule
+  MatSliderModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { AppCommonModule } from 'common/common.module';
@@ -32,7 +33,8 @@ import { ParamSettingComponent } from "admin/general-settings/param-setting/para
     MatInputModule,
     MatIconModule,
     MatSliderModule,
-    SettingsModule
+    SettingsModule,
+    MatCheckboxModule
   ],
   providers: [
     AdminGuard
@@ -47,7 +49,6 @@ import { ParamSettingComponent } from "admin/general-settings/param-setting/para
     ParamSettingComponent,
     GeneralSettingsComponent
   ],
-
 })
 export class AdminModule {
 }

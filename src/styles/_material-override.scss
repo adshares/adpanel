@@ -136,6 +136,54 @@ mat-chip:not(.mat-basic-chip) {
   border: 2px solid pal(navy, light);
 }
 
+.mat-expansion-panel-spacing {
+  margin: 4px 0;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 24px 0 8px;
+  font-family: "Lato-Regular", sans-serif;
+  font-size: 18px;
+}
+
+
+
+.classifier-filtering {
+  .mat-checkbox {
+    min-width: 100px;
+  }
+
+  .mat-expansion-panel-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px 8px !important;
+  }
+
+  .mat-checkbox-label,
+  .mat-checkbox-frame {
+    color: rgba(0, 0, 0, 0.54) !important;
+    border-color: rgba(0, 0, 0, 0.54) !important;
+  }
+
+  .mat-expansion-panel-header-title {
+    flex-grow: 0;
+    min-width: 200px;
+  }
+
+  .classifier-filtering .mat-expansion-panel {
+    margin: 4px 0;
+  }
+
+  .classifier-filtering .mat-tab-body-wrapper {
+    min-height: 100px;
+  }
+
+  .mat-radio-label-content {
+    padding-right: 16px;
+    margin-right: 8px;
+  }
+}
+
 .mat-snack-bar-container {
   background-color: pal(navy, light);
 }

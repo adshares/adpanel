@@ -507,3 +507,7 @@ router-outlet ~ * {
 .hidden {
   display: none !important;
 }
+
+.admin-param__submit {
+  margin-top: 30px;
+}

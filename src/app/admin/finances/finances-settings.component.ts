@@ -13,6 +13,7 @@ import { AdminSettings } from "models/settings.model";
 })
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
   settings: AdminSettings;
+  canSubmit: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -29,10 +30,20 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
     this.subscriptions.push(adminStoreSettingsSubscription);
   }
 
-  updateSettings(value: number, key: string): void {
+  updateSettings(value: number | boolean | string, key: string): void {
+    this.canSubmit = true;
+
+    if (key === 'hotwalletAddress') {
+      this.settings = {
+        ...this.settings,
+        [key]: value
+      };
+      return
+    }
+
     this.settings = {
       ...this.settings,
-      [key]: value
+      [key]: Number(value)
     };
   }
 
@@ -43,6 +54,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
       ));
       return;
     }
-    this.store.dispatch(new SetAdminSettings(this.settings))
+    this.store.dispatch(new SetAdminSettings(this.settings));
+    this.canSubmit = false;
   }
 }

@@ -12,7 +12,7 @@ const initialState: AdminState = {
     technicalEmail: '',
     publisherCommission : 0,
     advertiserCommission : 0,
-    ishotwalletactive: 0,
+    hotwalletIsActive: 0,
   }
 };
 

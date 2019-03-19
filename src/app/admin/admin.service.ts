@@ -19,7 +19,7 @@ export class AdminService {
     return this.http.get<AdminSettings>(`${environment.serverUrl}/admin/settings`);
   }
 
-  setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
-    return this.http.put<AdminSettings>(`${environment.serverUrl}/admin/settings`, {newSettings});
+  setAdminSettings(settings: AdminSettings): Observable<AdminSettings> {
+    return this.http.put<AdminSettings>(`${environment.serverUrl}/admin/settings`, {settings});
   }
 }

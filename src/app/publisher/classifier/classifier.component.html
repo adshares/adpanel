@@ -55,6 +55,8 @@
         </button>
       </div>
     </div>
+    <app-classifier-filtering [sizeOptions]="adSizesOptions"
+                              (filteringChange)="updateBannersList($event)"></app-classifier-filtering>
     <table
       class="
         col

@@ -17,15 +17,11 @@
         {{ totalFunds | adsharesTokenValue:2 }}
       </span>
   </div>
-
-  <ul>
-    <li *ngFor="let settingsItem of settings"
-        class="settings-navigation__category"
-        routerLinkActive="active">
+  <ul class="settings-navigation__category"
+      routerLinkActive="active">
       <app-settings-menu-item
+        *ngFor="let settingsItem of settings"
         [menuItem]="settingsItem">
       </app-settings-menu-item>
-    </li>
-
   </ul>
 </section>
