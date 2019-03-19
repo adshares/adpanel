@@ -5,6 +5,7 @@ interface BannerClassification {
   width: number,
   height: number,
   sourceHost: string;
+  landingUrl:string;
   budget?: number;
   cpm?: number;
   cpc?: number;
@@ -31,4 +32,7 @@ interface BannerClassificationFilters {
   sizes?: Array<string>;
 }
 
-export { BannerClassification, BannerClassificationResponse, BannerClassificationFilters };
+export {
+  BannerClassification,
+  BannerClassificationResponse,
+  BannerClassificationFilters };
