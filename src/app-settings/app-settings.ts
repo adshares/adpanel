@@ -2,7 +2,7 @@ import { environment } from 'environments/environment';
 
 export const appSettings = {
   // ADS Operator URL
-  ADS_OPERATOR_URL: 'https://operator1.e11.click',
+  ADS_OPERATOR_URL: environment.production ? 'https://operator.adshares.net' : 'https://operator1.e11.click',
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
   // max byte size of ad image
@@ -22,11 +22,9 @@ export const appSettings = {
   // terms of service link
   TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/terms.html',
   // faq link
-  FAQ_LINK: 'https://adshares.net/faq.html',
+  FAQ_LINK: 'https://github.com/adshares/ads/wiki/How-to-get-ADS',
   // support email
   SUPPORT_EMAIL: 'office@adshares.net',
-  // application fee
-  TX_FEE: 0.002,
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
   // url validation regexp

@@ -145,8 +145,6 @@ mat-chip:not(.mat-basic-chip) {
   font-size: 18px;
 }
 
-
-
 .classifier-filtering {
   .mat-checkbox {
     min-width: 100px;
@@ -183,3 +181,6 @@ mat-chip:not(.mat-basic-chip) {
   }
 }
 
+.mat-snack-bar-container {
+  background-color: pal(navy, light);
+}

@@ -31,7 +31,18 @@ interface UserInfoStats {
 }
 
 interface AdminSettings {
-  earnings: number;
+  adserverName: string;
+  hotwalletAddress:string;
+  hotwalletMaxValue: number;
+  hotwalletMinValue: number;
+  supportEmail: string;
+  technicalEmail: string;
+  publisherCommission?: number;
+  advertiserCommission?: number;
+  hotwalletIsActive?: number;
+}
+interface AdminSettingsResponse {
+  settings: AdminSettings;
 }
 
 interface AdsharesAddress {
@@ -57,5 +68,6 @@ export {
   AdminSettings,
   AdsharesAddress,
   DepositInfo,
-  CalculateWithdrawalItem
+  CalculateWithdrawalItem,
+  AdminSettingsResponse
 };

@@ -6,9 +6,11 @@ import {
   LOAD_ADMIN_SETTINGS,
   SET_ADMIN_SETTINGS,
   LoadUsersSuccess,
+  LoadUsersFailure,
   LoadAdminSettingsSuccess,
+  LoadAdminSettingsFailure,
   SetAdminSettingsSuccess,
-  SetAdminSettingsFailure
+  SetAdminSettingsFailure,
 } from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
@@ -24,23 +26,28 @@ export class AdminEffects {
   @Effect()
   loadUsers$ = this.actions$
     .ofType(LOAD_USERS)
-    .switchMap(() => this.service.getUsers())
-    .map((users) => new LoadUsersSuccess(users));
+    .switchMap(() => this.service.getUsers()
+      .map((users) => new LoadUsersSuccess(users))
+      .catch((err) => Observable.of(new LoadUsersFailure(err)))
+    );
 
   @Effect()
   loadAdminSettings$ = this.actions$
     .ofType(LOAD_ADMIN_SETTINGS)
-    .switchMap(() => this.service.getAdminSettings())
-    .map((settings) => new LoadAdminSettingsSuccess(settings));
+    .switchMap(() => this.service.getAdminSettings()
+      .map((settings) => new LoadAdminSettingsSuccess(settings))
+      .catch((err) => Observable.of(new LoadAdminSettingsFailure(err)))
+    );
 
   @Effect()
-  setAdminSettings$ = this.actions$
+  saveAdminSettings$ = this.actions$
     .ofType(SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
-      .map((newSettings)=> new SetAdminSettingsSuccess(newSettings))
+      .map(() => {
+        return new SetAdminSettingsSuccess(payload)})
       .catch(() => Observable.of(new SetAdminSettingsFailure(
-        `We weren't able to save your settings. Please, try again later`
+        'We weren\'t able to save your settings this time. Please, try again later'
       )))
     )
 }

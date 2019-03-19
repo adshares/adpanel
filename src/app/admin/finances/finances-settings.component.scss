@@ -1,0 +1,58 @@
+@import '../../../styles';
+
+.finances .app-finances-settings {
+  width: 50%;
+}
+
+.finances-settings {
+  &__header {
+    margin: 0;
+  }
+  &__submit,
+  &__cold-wallet {
+    margin: 30px 0 0 30px;
+  }
+
+  &__cold-wallet {
+    padding: 20px;
+  }
+
+  &__format {
+    height: calc(100% - 16px);
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    margin-left: 8px;
+  }
+
+  &__thresholds-wrapper {
+    margin-top: 32px;
+  }
+
+  &__input-wrapper {
+    margin-right: 24px;
+  }
+}
+
+.admin-earnigns {
+  margin: 30px 0 0 30px;
+  text-align: center;
+
+  @include media(md-up) {
+    width: calc(100% - 440px);
+  }
+
+  .mat-slider-horizontal {
+    width: 100%;
+    margin: 50px 0 24px;
+  }
+
+  .earnings-input {
+    border: none;
+    width: 120px;
+  }
+
+  .calculated-earnings {
+    margin-left: 15px;
+  }
+}

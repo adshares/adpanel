@@ -1,0 +1,28 @@
+<div class="row justify-end align-center admin-param__submit">
+  <button class="dwmth-btn dwmth-btn--blue"
+          [disabled]="!canSubmit"
+          (click)="saveSettings()">
+    Save settings
+  </button>
+</div>
+<app-param-setting
+  [title]="'Business name'"
+  [desc]=" 'Set a new business name.'"
+  [value]="settings.adserverName"
+  (valueChanged)="updateSettings($event, 'adserverName')"
+>
+</app-param-setting>
+<app-param-setting
+  [title]="'Technical email'"
+  [desc]=" 'Set a new technical email.'"
+  [value]="settings.technicalEmail"
+  (valueChanged)="updateSettings($event, 'technicalEmail')"
+>
+</app-param-setting>
+<app-param-setting
+  [title]="'Support email'"
+  [desc]=" 'Set a new support email.'"
+  [value]="settings.supportEmail"
+  (valueChanged)="updateSettings($event, 'supportEmail')"
+>
+</app-param-setting>

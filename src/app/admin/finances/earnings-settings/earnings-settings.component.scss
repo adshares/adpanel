@@ -1,0 +1,26 @@
+@import '../../../../styles';
+
+.admin-earnings {
+  margin: 30px 0 0 30px;
+  text-align: center;
+
+  &__format {
+    width: 4ch;
+  }
+
+  .mat-slider-horizontal {
+    width: 100%;
+    margin: 40px 0 10px;
+  }
+
+  .earnings-input {
+    border: none;
+    width: 7ch;
+    margin: 0;
+    text-align: center;
+  }
+
+  .calculated-earnings {
+    margin-left: 15px;
+  }
+}
