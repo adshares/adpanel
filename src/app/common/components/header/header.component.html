@@ -230,7 +230,7 @@
         hidden-sm
         visible-sm
         hidden-lg-up"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="activeUserType === userRolesEnum.ADMIN"
       (click)="logout()"
       data-test="header-log-out-button"
     >
