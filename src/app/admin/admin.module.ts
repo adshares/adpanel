@@ -21,6 +21,7 @@ import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earn
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { ParamSettingComponent } from "admin/general-settings/param-setting/param-setting.component";
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
+import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success
     MatCheckboxModule
   ],
   providers: [
-    AdminGuard
+    AdminGuard,
+    ClickToADSPipe
   ],
   declarations: [
     AdminComponent,

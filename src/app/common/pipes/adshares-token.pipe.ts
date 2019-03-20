@@ -14,3 +14,17 @@ export class AdsharesTokenPipe implements PipeTransform {
     return `${formatMoney(removeDecimalPart(value), precision)} ADS`;
   }
 }
+
+@Pipe({
+  name: 'ClickToADS'
+})
+
+export class ClickToADSPipe implements PipeTransform {
+  transform(value: number, precision: number = 11): number {
+    const formattedMoney = formatMoney(removeDecimalPart(value), precision)
+      .split('.')[0]
+      .split(',')
+      .join('');
+    return parseInt(formattedMoney);
+  }
+}

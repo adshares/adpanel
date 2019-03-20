@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AdminSettings, AdminSettingsResponse, UserInfoStats } from 'models/settings.model';
 import { environment } from 'environments/environment';
+import { adsToClicks } from "common/utilities/helpers";
 
 @Injectable()
 export class AdminService {
@@ -16,10 +17,16 @@ export class AdminService {
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
-    return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
+    return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`)
+      ;
   }
 
   setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
-    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings});
+    const formatValues = {
+      ...settings,
+      hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
+      hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
+    };
+    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings:formatValues});
   }
 }

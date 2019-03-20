@@ -15,9 +15,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
   settings: AdminSettings;
   canSubmit: boolean = false;
 
-  constructor(
-    private store: Store<AppState>,
-  ) {
+  constructor(private store: Store<AppState>) {
     super();
   }
 
@@ -32,7 +30,6 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
 
   updateSettings(value: number | boolean | string, key: string): void {
     this.canSubmit = true;
-
     if (key === 'hotwalletAddress') {
       this.settings = {
         ...this.settings,
@@ -40,7 +37,6 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
       };
       return
     }
-
     this.settings = {
       ...this.settings,
       [key]: Number(value)

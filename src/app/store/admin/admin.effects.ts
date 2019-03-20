@@ -14,12 +14,14 @@ import {
 } from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
+import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
 
 @Injectable()
 export class AdminEffects {
   constructor(
     private actions$: Actions,
     private service: AdminService,
+    private clickToADSPipe: ClickToADSPipe
   ) {
   }
 
@@ -35,6 +37,15 @@ export class AdminEffects {
   loadAdminSettings$ = this.actions$
     .ofType(LOAD_ADMIN_SETTINGS)
     .switchMap(() => this.service.getAdminSettings()
+      .map((response) => {
+        return {
+          settings: {
+            ...response.settings,
+            hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
+            hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
+          }
+        }
+      })
       .map((settings) => new LoadAdminSettingsSuccess(settings))
       .catch((err) => Observable.of(new LoadAdminSettingsFailure(err)))
     );
@@ -44,8 +55,7 @@ export class AdminEffects {
     .ofType(SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
-      .map(() => {
-        return new SetAdminSettingsSuccess(payload)})
+      .map(() => new SetAdminSettingsSuccess(payload))
       .catch(() => Observable.of(new SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))

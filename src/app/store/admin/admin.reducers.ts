@@ -15,13 +15,13 @@ const initialState: AdminState = {
     hotwalletMinValue: 0,
     supportEmail: '',
     technicalEmail: '',
-    publisherCommission : 0,
-    advertiserCommission : 0,
+    publisherCommission: 0,
+    advertiserCommission: 0,
     hotwalletIsActive: 0,
   }
 };
 
-export function adminReducers(state=initialState, action: actions) {
+export function adminReducers(state = initialState, action: actions) {
   switch (action.type) {
     case LOAD_USERS_SUCCESS:
       return {
