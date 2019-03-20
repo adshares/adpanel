@@ -1,5 +1,8 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {formatMoney} from 'common/utilities/helpers';
+import {
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import { formatMoney } from 'common/utilities/helpers';
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];

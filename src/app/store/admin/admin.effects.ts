@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import {
+  Actions,
+  Effect,
+  toPayload
+} from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 import {
   LOAD_USERS,
