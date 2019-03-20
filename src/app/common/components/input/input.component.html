@@ -1,0 +1,26 @@
+<div
+  class="
+      row
+      align-center
+      justify-center
+      general-input__input-wrapper"
+>
+  <label class="dwmth-copy col">
+    {{label}}
+    <input
+      [type]="type"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      class="dwmth-form-input
+             general-input"
+      [ngModel]="value"
+      (ngModelChange)="updateValue($event)"
+    />
+  </label>
+
+  <span class="general-input__format
+               dwmth-copy
+               dwmth-copy--blue">
+        {{format}}</span>
+</div>

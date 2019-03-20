@@ -12,7 +12,11 @@
 
   .settings-outlet {
     @include media(md-up) {
-      width: calc(100% - 440px);
+      width: calc(100% - 100px);
+    }
+
+    @include media(lg-up) {
+      width: calc(100vw - 740px);
     }
   }
 }

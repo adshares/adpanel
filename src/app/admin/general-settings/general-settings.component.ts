@@ -15,6 +15,7 @@ import { SetAdminSettings } from "store/admin/admin.actions";
 })
 export class GeneralSettingsComponent extends HandleSubscription implements OnInit {
   settings: AdminSettings;
+  canSubmit: boolean = false;
 
   constructor(
     private store: Store<AppState>,
@@ -25,7 +26,7 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
   ngOnInit() {
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'settings')
       .subscribe((settings: AdminSettings) => {
-        this.settings = settings
+        this.settings = settings;
       });
 
     this.subscriptions.push(adminStoreSettingsSubscription);
@@ -36,9 +37,11 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
       ...this.settings,
       [key]: value
     };
+    this.canSubmit = true;
   }
 
   saveSettings(): void {
     this.store.dispatch(new SetAdminSettings(this.settings))
+    this.canSubmit = false;
   }
 }
