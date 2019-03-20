@@ -15,7 +15,8 @@ import {
   MatSlideToggle,
   MatSpinner,
   MatCheckboxModule,
-  MatSnackBarModule, MatTooltipModule
+  MatSnackBarModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';

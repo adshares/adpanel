@@ -13,10 +13,10 @@ import {
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adSizesEnum, adStatusesEnum, adTypesEnum, validImageTypes } from 'models/enum/ad.enum';
+import { adSizesEnum, adStatusesEnum, adTypesEnum, validHtmlTypes, validImageTypes } from 'models/enum/ad.enum';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { HandleSubscription } from "common/handle-subscription";
-import { cloneDeep, enumToArray, simpleValidateHtmlStr } from 'common/utilities/helpers';
+import { cloneDeep, enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
 import { Ad, Campaign } from 'models/campaign.model';
 import { environment } from 'environments/environment';
@@ -50,7 +50,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
-  editHtmlMode: boolean[] = [];
   uploader: FileUploader = new FileUploader({
     url: `${environment.apiUrl}/upload_ad`,
     authToken: `Bearer ${this.session.getUser().apiToken}`
@@ -130,9 +129,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
     let state = {};
     if (ad.type === adTypesEnum.IMAGE) {
-      state = {name: ad.name, src: ad.imageUrl || '', size: ad.size};
+      state = {name: ad.name, src: ad.url || '', size: ad.size};
     } else {
-      state = ad.html;
+      state = {name: ad.name, src: ad.url || '',};
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
@@ -145,25 +144,25 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
 
     if (!isOverDrop && this.uploader.queue[0]) {
-      this.uploadImage(this.uploader.queue[0], adIndex);
+      // this.uploadBanner(this.uploader.queue[0], adIndex);
     }
   }
 
-  uploadImage(image, adIndex): void {
-    const isImageTypeValid = enumToArray(validImageTypes).indexOf(image.file.type) > -1;
+  uploadBanner(form, image, adIndex): void {
+    const isUploadedTypeValid = this.isImageTypeChosen(form) ?
+      enumToArray(validImageTypes).indexOf(image.file.type) > -1 : enumToArray(validHtmlTypes).indexOf(image.file.type) > -1;
     const isImageSizeValid = image.file.size <= appSettings.MAX_AD_IMAGE_SIZE;
 
-    // reset image validation
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
 
-    if (isImageTypeValid && isImageSizeValid) {
-      this.sendImage(image, adIndex);
+    if (isUploadedTypeValid && isImageSizeValid) {
+      this.sendImage(image, adIndex, form);
     } else {
       this.uploader.queue.pop();
       this.imagesStatus.validation[adIndex] = {
-        type: isImageTypeValid,
+        type: isUploadedTypeValid,
         size: isImageSizeValid,
         upload: true
       };
@@ -202,9 +201,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     });
   }
 
-  sendImage(image, adIndex): void {
+  sendImage(image, adIndex, form): void {
     image.method = 'POST';
-    // image.withCredentials = false; // needed by mock server
     image.url = `${environment.apiUrl}/campaigns/banner`;
     image.upload();
     image.onProgress = (progress) => {
@@ -212,57 +210,49 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.imagesStatus.upload.progress = progress;
     };
     image.onSuccess = (res) => {
+
       const parsedResponse = JSON.parse(res);
+      if (this.isImageTypeChosen(form)) {
+        this.selectProperBannerSize(parsedResponse.size, adIndex);
+        this.ads[adIndex] = {
+          ...this.ads[adIndex],
+          url: parsedResponse.url,
+          imageSize: parsedResponse.size
+        };
 
+        this.adForms[adIndex].get('image').setValue({
+          name: parsedResponse.name,
+          src: parsedResponse.url,
+          size: parsedResponse.size
+        });
+      } else {
+        this.ads[adIndex] = {
+          ...this.ads[adIndex],
+          url: parsedResponse.url,
+        };
+        this.adForms[adIndex].get('html').setValue({
+          src: parsedResponse.url,
+          name: parsedResponse.name
+        });
+      }
 
-      this.selectProperBannerSize(parsedResponse.size, adIndex);
-      // this.showImageSizeWarning(this.adSizes[this.adForms[adIndex].get('size').value], parsedResponse.size);
-
-      Object.assign(this.ads[adIndex], {
-        imageUrl: parsedResponse.imageUrl,
-        imageSize: parsedResponse.size
-      });
-
-      this.adForms[adIndex].get('image').setValue({
-        name: parsedResponse.name,
-        src: parsedResponse.imageUrl,
-        size: parsedResponse.size
-      });
-    };
-    image.onError = () => {
-      this.imagesStatus.upload.processing = false;
-      this.imagesStatus.validation[adIndex].upload = false;
-    };
-    image.onComplete = (res) => {
-      this.imagesStatus.upload.processing = false;
-      this.uploader.queue.pop();
-    };
+      image.onError = () => {
+        this.imagesStatus.upload.processing = false;
+        this.imagesStatus.validation[adIndex].upload = false;
+      };
+      image.onComplete = (res) => {
+        this.imagesStatus.upload.processing = false;
+        this.uploader.queue.pop();
+      };
+    }
   }
 
   removeImage(adIndex): void {
-    Object.assign(this.ads[adIndex], {imageUrl: '', imageSize: ''});
+    Object.assign(this.ads[adIndex], {url: '', imageSize: ''});
     this.adForms[adIndex].get('image').setValue({name: '', src: '', size: ''});
     this.imagesStatus.validation.splice(adIndex, 1);
 
     this.adsSubmitted = false;
-  }
-
-  saveHtml(adIndex) {
-    const html = this.adForms[adIndex].get('html').value;
-
-    if (!simpleValidateHtmlStr(html)) {
-      this.matDialog.open(WarningDialogComponent, {
-        data: {
-          title: 'Possibly invalid HTML',
-          message: 'You may want to check your HTML input',
-        }
-      });
-    }
-    this.editHtmlMode[adIndex] = false;
-    this.ads[adIndex] = {
-      ...this.ads[adIndex],
-      html,
-    };
   }
 
   updateAdInfo(adIndex): void {
@@ -272,15 +262,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       size: this.adForms[adIndex].get('size').value,
       status: this.adForms[adIndex].get('status').value
     });
-  }
-
-  clearCode(adIndex): void {
-    this.adForms[adIndex].get('html').setValue('');
-    this.ads[adIndex].html = this.adForms[adIndex].get('html').value;
-  }
-
-  editCode(adIndex): void {
-    this.editHtmlMode[adIndex] = true;
   }
 
   setAdType(adIndex): void {
@@ -296,8 +277,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
 
     this.adTypes.forEach((type) => delete adForm.controls[type]);
-    adForm.controls[adTypeName] = adType === adTypesEnum.IMAGE ?
-      new FormControl({src: ''}) : new FormControl('');
+    adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
   }
 
@@ -316,7 +296,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
     const adsValid =
       this.adForms.every((adForm) => adForm.valid) &&
-      this.adForms.every((adForm, index) => !!this.ads[index].imageUrl || !!adForm.get('html')) &&
+      this.adForms.every((adForm, index) => !!this.ads[index].url || !!adForm.get('html')) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
     if (adsValid) {
       this.campaign = {
@@ -357,4 +337,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         {queryParams: {step: 2}})
     }
   }
+
+  isImageTypeChosen(form): boolean {
+    return form.get('type').value === 0
+  }
+
 }
