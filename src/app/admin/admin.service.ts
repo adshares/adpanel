@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-import { AdminSettings, AdminSettingsResponse, UserInfoStats } from 'models/settings.model';
+import {
+  AdminSettings,
+  AdminSettingsResponse,
+  UserInfoStats
+} from 'models/settings.model';
 import { environment } from 'environments/environment';
+import { adsToClicks } from "common/utilities/helpers";
 
 @Injectable()
 export class AdminService {
@@ -20,6 +24,11 @@ export class AdminService {
   }
 
   setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
-    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings});
+    const formatValues = {
+      ...settings,
+      hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
+      hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
+    };
+    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
   }
 }
