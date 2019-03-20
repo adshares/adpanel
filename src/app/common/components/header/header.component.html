@@ -35,7 +35,7 @@
     </a>
       <button
         type="button"
-        *ngIf="!userDataState.isAdmin"
+        *ngIf="activeUserType !== userRolesEnum.ADMIN"
         class="dwmth-btn--no-border
                row
                align-center
@@ -56,7 +56,7 @@
       </button>
       <button
         type="button"
-        *ngIf="!userDataState.isAdmin"
+        *ngIf="activeUserType !== userRolesEnum.ADMIN"
         class="dwmth-btn--no-border
                row
                align-center
@@ -84,7 +84,7 @@
       align-center"
   >
     <button
-      *ngIf="!userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       class="
         dwmth-btn
         dwmth-btn--with-icon
@@ -107,7 +107,7 @@
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
     <div
-      *ngIf="!userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       class="
         row
         align-center
@@ -142,9 +142,6 @@
           class="dwmth-usd"
           data-test="user-total-funds-in-currency"
         >
-<!--
-          ~ {{ userDataState.adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
--->
         </span>
       </div>
       <img
@@ -215,7 +212,7 @@
         row
         align-center
         hidden-sm"
-      *ngIf="userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       (click)="logout()"
       data-test="header-log-out-button"
     >
@@ -233,7 +230,7 @@
         hidden-sm
         visible-sm
         hidden-lg-up"
-      *ngIf="!userDataState.isAdmin"
+      *ngIf="activeUserType === userRolesEnum.ADMIN"
       (click)="logout()"
       data-test="header-log-out-button"
     >

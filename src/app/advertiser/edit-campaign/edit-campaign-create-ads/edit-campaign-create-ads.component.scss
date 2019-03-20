@@ -23,15 +23,9 @@
     &__preview {
       iframe {
         background-color: pal(gray, x-light);
-        margin: 124px auto 157px;
+        margin: 16px auto 16px;
         max-width: 100%;
       }
-    }
-
-    .dwmth-textarea-input {
-      @extend .dwmth-form-input;
-      width: 100%;
-      max-width: 100%;
     }
 
     .file-select-input {
@@ -66,7 +60,7 @@
 
       .file-box__file-sub-info {
         @extend .dwmth-copy;
-        line-height: 18px;
+        line-height: 24px;
         color: pal(blue, base);
         font-weight: inherit;
 
@@ -127,10 +121,3 @@
   margin-right: 15px;
 }
 
-.html-textarea-wrapper {
-  margin: 30px 0;
-
-  textarea {
-    margin: 5px 0 15px;
-  }
-}

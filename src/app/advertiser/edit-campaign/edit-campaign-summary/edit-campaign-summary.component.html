@@ -349,8 +349,8 @@
       >
         <iframe
           class="campaign-edit-summary__iframe"
-          *ngIf="ad.imageUrl"
-          [src]="ad.imageUrl | trustUrl"
+          *ngIf="ad.url"
+          [src]="ad.url | trustUrl"
           (mouseover)="toggleTooltip(true, adIndex)"
           (mouseleave)="toggleTooltip(false, adIndex)"
         ></iframe>

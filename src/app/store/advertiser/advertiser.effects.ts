@@ -10,7 +10,6 @@ import * as advertiserActions from './advertiser.actions';
 import "rxjs/add/operator/take";
 import * as moment from "moment";
 import { MatDialog } from "@angular/material";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_BAD_REQUEST } from 'common/utilities/codes';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 
@@ -60,6 +59,7 @@ export class AdvertiserEffects {
         const from = moment().subtract(30, 'd').format();
         const to = moment().format();
         const campaign = payload.campaign;
+
         return [
           new advertiserActions.LoadCampaignSuccess(campaign),
           new advertiserActions.LoadCampaignTotals({from, to, id: campaign.id})

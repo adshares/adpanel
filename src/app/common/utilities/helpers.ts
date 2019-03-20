@@ -164,12 +164,6 @@ function findValueByPathArray(object, pathArray) {
     pathArray.reduce((obj, partialPath) => obj[partialPath], object)
 }
 
-const simpleValidateHtmlStr = (html: string): boolean => {
-  const doc = document.createElement('div');
-  doc.innerHTML = html;
-  return (doc.innerHTML === html);
-};
-
 export {
   adsToClicks,
   calcCampaignBudgetPerDay,
@@ -177,7 +171,6 @@ export {
   cloneDeep,
   enumToArray,
   enumToObject,
-  simpleValidateHtmlStr,
   enumToObjectArray,
   formatMoney,
   isUnixTimePastNow,
