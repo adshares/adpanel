@@ -50,6 +50,10 @@ export enum validImageTypes {
   "image/png"
 };
 
+export enum validHtmlTypes {
+  "application/zip",
+};
+
 export enum adUnitStatusesEnum {
   DRAFT,
   ACTIVE

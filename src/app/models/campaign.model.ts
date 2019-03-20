@@ -52,10 +52,9 @@ interface Ad {
   averageCpc: number;
   cost: number;
   budget: number;
+  url: string;
 
-  imageUrl?: string;
   imageSize?: string;
-  html?: string;
 }
 
 export { Campaign, CampaignBasicInformation, Ad, CampaignTotals };
