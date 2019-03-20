@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import {
   MatIconModule,
   MatInputModule,
@@ -35,7 +38,7 @@ import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
     MatIconModule,
     MatSliderModule,
     SettingsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   providers: [
     AdminGuard,
