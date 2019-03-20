@@ -29,6 +29,10 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
   }
 
   updateSettings(value: number | boolean | string, key: string): void {
+    if (`${value}`.length === 0) {
+      this.canSubmit = false;
+      return;
+    }
     this.canSubmit = true;
     if (key === 'hotwalletAddress') {
       this.settings = {

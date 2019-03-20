@@ -121,6 +121,16 @@
   &--large {
     height: 24px;
   }
+
+  &--help {
+    cursor: pointer;
+    font-size: 22px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    color: pal(blue, base);
+  }
 }
 
 .dwmth-chevron {
@@ -502,6 +512,11 @@ router-outlet ~ * {
 
 .dwmth-targeting-display__preview {
   margin-left: 26px;
+}
+
+.dwmth-mat-tooltip {
+  font-size: 1rem;
+  background-color: pal(navy, faded);
 }
 
 .hidden {

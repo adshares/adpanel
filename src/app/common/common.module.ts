@@ -15,7 +15,8 @@ import {
   MatSlideToggle,
   MatSpinner,
   MatCheckboxModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -59,9 +60,11 @@ import { BannerPreviewComponent } from 'common/components/banner-preview/banner-
 import { SettingsMenuItemComponent } from "common/components/settings-menu-item/settings-menu-item.component";
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 import { InputComponent } from "common/components/input/input.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const matModules = [
   MatDialogModule,
+  MatTooltipModule,
   MatSelectModule,
   MatChipsModule,
   MatProgressSpinnerModule,
@@ -70,7 +73,8 @@ const matModules = [
   MatMomentDateModule,
   MatSlideToggleModule,
   MatSnackBarModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  FontAwesomeModule
 ];
 
 const dialogs = [
