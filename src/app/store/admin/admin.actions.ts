@@ -1,5 +1,10 @@
 import { Action } from '@ngrx/store';
-import { AdminSettings, AdminSettingsResponse, UserInfoStats } from 'models/settings.model';
+import {
+  AdminPrivacyAndTermsSettingsResponse,
+  AdminSettings,
+  AdminSettingsResponse,
+  UserInfoStats
+} from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
@@ -13,7 +18,21 @@ export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
 export const SET_ADMIN_SETTINGS_FAILURE = 'Save new admin settings failure';
 
+export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
+export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
+export const GET_PRIVACY_SETTINGS_FAILURE = 'Get admin privacy settings failure';
 
+export const SET_PRIVACY_SETTINGS = 'Set admin privacy settings';
+export const SET_PRIVACY_SETTINGS_SUCCESS = 'Set admin privacy settings success';
+export const SET_PRIVACY_SETTINGS_FAILURE = 'Set admin privacy settings failure';
+
+export const GET_TERMS_SETTINGS = 'Get admin terms settings';
+export const GET_TERMS_SETTINGS_SUCCESS = 'Get admin terms settings success';
+export const GET_TERMS_SETTINGS_FAILURE = 'Get admin terms settings failure';
+
+export const SET_TERMS_SETTINGS = 'Set admin terms settings';
+export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
+export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
 
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
@@ -49,6 +68,7 @@ export class LoadAdminSettingsSuccess implements Action {
   constructor(public payload: AdminSettingsResponse) {
   }
 }
+
 export class LoadAdminSettingsFailure implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_FAILURE;
 
@@ -78,6 +98,90 @@ export class SetAdminSettingsFailure implements Action {
   }
 }
 
+export class GetPrivacySettings implements Action {
+  readonly type: string = GET_PRIVACY_SETTINGS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetPrivacySettingsSuccess implements Action {
+  readonly type: string = GET_PRIVACY_SETTINGS_SUCCESS;
+
+  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
+  }
+}
+
+export class GetPrivacySettingsFailure implements Action {
+  readonly type: string = GET_PRIVACY_SETTINGS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class SetPrivacySettings implements Action {
+  readonly type: string = SET_PRIVACY_SETTINGS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class SetPrivacySettingsSuccess implements Action {
+  readonly type: string = SET_PRIVACY_SETTINGS_SUCCESS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class SetPrivacySettingsFailure implements Action {
+  readonly type: string = SET_PRIVACY_SETTINGS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class GetTermsSettings implements Action {
+  readonly type: string = GET_TERMS_SETTINGS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetTermsSettingsSuccess implements Action {
+  readonly type: string = GET_TERMS_SETTINGS_SUCCESS;
+
+  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
+  }
+}
+
+export class GetTermsSettingsFailure implements Action {
+  readonly type: string = GET_TERMS_SETTINGS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class SetTermsSettings implements Action {
+  readonly type: string = SET_TERMS_SETTINGS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class SetTermsSettingsSuccess implements Action {
+  readonly type: string = SET_TERMS_SETTINGS_SUCCESS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class SetTermsSettingsFailure implements Action {
+  readonly type: string = SET_TERMS_SETTINGS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
 export type actions =
   LoadUsers |
   LoadUsersSuccess |
@@ -89,4 +193,20 @@ export type actions =
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
-  SetAdminSettingsFailure;
+  SetAdminSettingsFailure |
+
+  GetPrivacySettings |
+  GetPrivacySettingsSuccess |
+  GetPrivacySettingsFailure |
+
+  SetPrivacySettings |
+  SetPrivacySettingsSuccess |
+  SetPrivacySettingsFailure |
+
+  GetTermsSettings |
+  GetTermsSettingsSuccess |
+  GetTermsSettingsFailure |
+
+  SetTermsSettings |
+  SetTermsSettingsSuccess |
+  SetTermsSettingsFailure;

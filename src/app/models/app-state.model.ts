@@ -1,6 +1,6 @@
 import { Campaign, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
-import { AdminSettings, NotificationItem, UserInfoStats } from './settings.model';
+import { AdminSettings, NotificationItem, TermsAndPrivacy, UserInfoStats } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
@@ -44,6 +44,7 @@ interface UserState {
 interface AdminState {
   users: UserInfoStats[];
   settings: AdminSettings;
+  termsAndPrivacy: TermsAndPrivacy
 }
 
 interface CommonState {

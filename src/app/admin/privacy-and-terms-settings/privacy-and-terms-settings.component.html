@@ -1,0 +1,60 @@
+<form class="dwmth-box--large dwmth-box privacy-and-terms__forms-box">
+  <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Privacy Settings</h1>
+  <p
+    class="
+      dwmth-copy
+      dwmth-copy--large
+      privacy-and-terms__desc"
+  >
+    {{privacy.value.length === 0 ? 'Add your privacy settings' : 'Here you can read and edit your privacy settings'}}
+  </p>
+  <div>
+    <label class="dwmth-copy col">
+      Privacy
+      <textarea class="dwmth-copy dwmth-copy--x-dark dwmth-textarea"
+                [formControl]="privacy"
+                [(ngModel)]="privacy.value">
+          {{privacy.value}}
+       </textarea>
+    </label>
+
+  </div>
+  <div class="row justify-end align-center privacy-and-terms__submit-btn-box">
+    <button class="dwmth-btn dwmth-btn--blue"
+            [disabled]="privacy.untouched"
+            (click)="savePrivacy()">
+      Save
+    </button>
+  </div>
+</form>
+
+<form class="dwmth-box--large dwmth-box privacy-and-terms__forms-box">
+  <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Terms Settings</h1>
+  <p
+    class="
+      dwmth-copy
+      dwmth-copy--large
+      privacy-and-terms__desc"
+  >
+    {{terms.value.length === 0 ? 'Add your terms and conditions settings' :
+    'Here you can read and edit your terms and conditions'}}
+  </p>
+  <div>
+    <label class="dwmth-copy col">
+      Terms and conditions
+      <textarea class="dwmth-copy dwmth-copy--x-dark dwmth-textarea"
+                [formControl]="terms"
+                [(ngModel)]="terms.value">
+          {{terms.value}}
+      </textarea>
+    </label>
+  </div>
+  <div class="row justify-end align-center privacy-and-terms__submit-btn-box">
+    <button class="dwmth-btn dwmth-btn--blue"
+            [disabled]="terms.untouched"
+            (click)="saveTerms()">
+      Save
+    </button>
+  </div>
+</form>
+

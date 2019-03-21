@@ -15,10 +15,20 @@ import {
   LoadAdminSettingsFailure,
   SetAdminSettingsSuccess,
   SetAdminSettingsFailure,
+  GET_PRIVACY_SETTINGS,
+  GET_TERMS_SETTINGS,
+  SetPrivacySettingsSuccess,
+  SetPrivacySettingsFailure,
+  GetPrivacySettingsFailure,
+  GetPrivacySettingsSuccess,
+  GetTermsSettingsSuccess,
+  GetTermsSettingsFailure, SetTermsSettingsSuccess, SET_TERMS_SETTINGS, SET_PRIVACY_SETTINGS,
 } from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
+import { GetCurrentBalanceSuccess } from "store/settings/settings.actions";
+import { HTTP_NOT_FOUND } from "common/utilities/codes";
 
 @Injectable()
 export class AdminEffects {
@@ -63,5 +73,64 @@ export class AdminEffects {
       .catch(() => Observable.of(new SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))
+    );
+
+  @Effect()
+  getPrivacySettings$ = this.actions$
+    .ofType(GET_PRIVACY_SETTINGS)
+    .map(toPayload)
+    .switchMap(() => this.service.getPrivacySettings()
+      .map((privacyData) => new GetPrivacySettingsSuccess(privacyData))
+      .catch((err) => {
+        if (err.status === HTTP_NOT_FOUND) {
+          return Observable.of();
+        }
+        return Observable.of(new GetPrivacySettingsFailure(
+          'We weren\'t able to save your settings this time. Please, try again later'
+        ))
+      })
+    );
+
+  @Effect()
+  getTermsSettings$ = this.actions$
+    .ofType(GET_TERMS_SETTINGS)
+    .map(toPayload)
+    .switchMap(() => this.service.getTermsAndConditions()
+      .map((termsData) => new GetTermsSettingsSuccess(termsData))
+      .catch((err) => {
+        if (err.status === HTTP_NOT_FOUND) {
+          return Observable.of();
+        }
+        return Observable.of(new GetTermsSettingsFailure(
+          'We weren\'t able to save your settings this time. Please, try again later'
+        ))
+      })
+    );
+
+  @Effect()
+  setTermsSettings$ = this.actions$
+    .ofType(SET_TERMS_SETTINGS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.setTermsAndConditions(payload)
+      .map((termsData) => new SetTermsSettingsSuccess(termsData))
+      .catch(() => {
+        return Observable.of(new SetPrivacySettingsFailure(
+          'We weren\'t able to save your settings this time. Please, try again later'
+        ))
+      })
+    );
+
+  @Effect()
+  setPrivacySettings$ = this.actions$
+    .ofType(SET_PRIVACY_SETTINGS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.setPrivacySettings(payload)
+      .map((termsData) => new SetPrivacySettingsSuccess(termsData))
+      .catch(() => {
+        return Observable.of(new SetPrivacySettingsFailure(
+          'We weren\'t able to save your settings this time. Please, try again later'
+        ))
+      })
     )
+
 }

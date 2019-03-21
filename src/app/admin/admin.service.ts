@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {
+  AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse,
   UserInfoStats
@@ -21,6 +22,22 @@ export class AdminService {
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
+  }
+
+  getTermsAndConditions(): Observable<AdminPrivacyAndTermsSettingsResponse> {
+    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/terms`);
+  }
+
+  setTermsAndConditions(content): Observable<string> {
+    return this.http.put<string>(`${environment.serverUrl}/admin/terms`, {content});
+  }
+
+  getPrivacySettings(): Observable<AdminPrivacyAndTermsSettingsResponse> {
+    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/privacy`);
+  }
+
+  setPrivacySettings(content): Observable<string> {
+    return this.http.put<string>(`${environment.serverUrl}/admin/privacy`, {content});
   }
 
   setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {

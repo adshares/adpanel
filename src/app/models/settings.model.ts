@@ -41,8 +41,18 @@ interface AdminSettings {
   advertiserCommission?: number;
   hotwalletIsActive?: number;
 }
+
 interface AdminSettingsResponse {
   settings: AdminSettings;
+}
+
+interface TermsAndPrivacy {
+  privacy:string
+  terms:string
+}
+
+interface AdminPrivacyAndTermsSettingsResponse {
+  content: string;
 }
 
 interface AdsharesAddress {
@@ -69,5 +79,7 @@ export {
   AdsharesAddress,
   DepositInfo,
   CalculateWithdrawalItem,
-  AdminSettingsResponse
+  AdminSettingsResponse,
+  AdminPrivacyAndTermsSettingsResponse,
+  TermsAndPrivacy
 };
