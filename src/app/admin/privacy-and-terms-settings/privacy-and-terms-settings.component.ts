@@ -2,8 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { GetPrivacySettings, GetTermsSettings, SetPrivacySettings, SetTermsSettings } from "store/admin/admin.actions";
-import { FormControl, Validators } from "@angular/forms";
+import {
+  GetPrivacySettings,
+  GetTermsSettings,
+  SetPrivacySettings,
+  SetTermsSettings
+} from "store/admin/admin.actions";
+import {
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { TermsAndPrivacy } from "models/settings.model";
 
 @Component({
@@ -13,8 +22,8 @@ import { TermsAndPrivacy } from "models/settings.model";
   host: {'class': 'app-finances'},
 })
 export class PrivacyAndTermsSettingsComponent extends HandleSubscription implements OnInit {
-  terms: FormControl;
-  privacy: FormControl;
+  terms: FormGroup;
+  privacy: FormGroup;
 
   constructor(
     private store: Store<AppState>,
@@ -28,18 +37,24 @@ export class PrivacyAndTermsSettingsComponent extends HandleSubscription impleme
 
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'termsAndPrivacy')
       .subscribe((privacyAndTerms: TermsAndPrivacy) => {
-        this.privacy = new FormControl(privacyAndTerms.privacy, [Validators.required]);
-        this.terms = new FormControl(privacyAndTerms.terms, [Validators.required]);
+        this.privacy = new FormGroup({
+            privacySettings: new FormControl(privacyAndTerms.privacy, [Validators.required])
+          }
+        );
+        this.terms = new FormGroup({
+          termsSettings: new FormControl(privacyAndTerms.terms, [Validators.required])
+        });
       });
     this.subscriptions.push(adminStoreSettingsSubscription);
   }
 
-
   saveTerms(): void {
-    this.store.dispatch(new SetTermsSettings(this.terms.value));
+    this.store.dispatch(new SetTermsSettings(this.terms.value.termsSettings));
+    this.terms.markAsPristine();
   }
 
   savePrivacy(): void {
-    this.store.dispatch(new SetPrivacySettings(this.privacy.value));
+    this.store.dispatch(new SetPrivacySettings(this.privacy.value.privacySettings));
+    this.privacy.markAsPristine();
   }
 }
