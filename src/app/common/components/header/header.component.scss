@@ -3,7 +3,6 @@
 .dwmth-header {
   width: 100vw;
   height: $app-header-height;
-  background: pal(navy);
 
   @include media(sm-down-without-sm) {
     height: 110px;
