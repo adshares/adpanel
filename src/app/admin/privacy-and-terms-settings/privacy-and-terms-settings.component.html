@@ -21,7 +21,7 @@
   </div>
   <div class="row justify-end align-center privacy-and-terms__submit-btn-box">
     <button class="dwmth-btn dwmth-btn--blue"
-            [disabled]="privacy.untouched"
+            [disabled]="!privacy.dirty"
             (click)="savePrivacy()">
       Save
     </button>
@@ -51,7 +51,7 @@
   </div>
   <div class="row justify-end align-center privacy-and-terms__submit-btn-box">
     <button class="dwmth-btn dwmth-btn--blue"
-            [disabled]="terms.untouched"
+            [disabled]="!terms.dirty"
             (click)="saveTerms()">
       Save
     </button>
