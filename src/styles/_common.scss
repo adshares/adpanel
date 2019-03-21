@@ -530,3 +530,12 @@ router-outlet ~ * {
 .admin-param__submit {
   margin-top: 30px;
 }
+
+.dwmth-textarea {
+  padding: 8px;
+  border-radius: 3px;
+  min-height: 150px;
+  max-width: 1000px;
+  overflow-y: auto;
+  resize: vertical;
+}
