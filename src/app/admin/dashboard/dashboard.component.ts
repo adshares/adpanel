@@ -39,6 +39,14 @@ export class DashboardComponent implements OnInit {
         {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
       ],
     },
+    {
+      title: 'Rebranding',
+      description: '',
+      link: '/admin/dashboard/rebranding',
+      values: [
+        {name: 'Image assets', icon: 'assets/images/preferences.svg'},
+      ],
+    },
   ];
 
   constructor(private store: Store<AppState>) {

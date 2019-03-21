@@ -25,6 +25,7 @@ import { GeneralSettingsComponent } from "admin/general-settings/general-setting
 import { ParamSettingComponent } from "admin/general-settings/param-setting/param-setting.component";
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
+import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
     EarningsSettingsComponent,
     ParamSettingComponent,
     GeneralSettingsComponent,
+    RebrandingComponent,
   ],
   entryComponents: [
     SuccessSnackbarComponent
