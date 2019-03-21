@@ -121,6 +121,16 @@
   &--large {
     height: 24px;
   }
+
+  &--help {
+    cursor: pointer;
+    font-size: 22px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    color: pal(blue, base);
+  }
 }
 
 .dwmth-chevron {
@@ -297,6 +307,10 @@
 
 .dwmth-bg-gray--light {
   background-color: pal(gray, light);
+}
+
+.dwmth-header-bg {
+  background: pal(navy);
 }
 
 /*
@@ -504,10 +518,24 @@ router-outlet ~ * {
   margin-left: 26px;
 }
 
+.dwmth-mat-tooltip {
+  font-size: 1rem;
+  background-color: pal(navy, faded);
+}
+
 .hidden {
   display: none !important;
 }
 
 .admin-param__submit {
   margin-top: 30px;
+}
+
+.dwmth-textarea {
+  padding: 8px;
+  border-radius: 3px;
+  min-height: 150px;
+  max-width: 1000px;
+  overflow-y: auto;
+  resize: vertical;
 }

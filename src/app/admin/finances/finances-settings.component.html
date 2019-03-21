@@ -8,7 +8,7 @@
 <article class="row finances">
   <app-earnings-settings
     [title]="'Advertiser commission'"
-    [desc]=" 'Set a commission which will be subtracted from event payments and will be your income.'"
+    [desc]=" 'Set a commission that will be subtracted from event payments. It will be a part of your income.'"
     [max]="'100'"
     [min]="'0'"
     [step]="0.01"
@@ -21,7 +21,7 @@
   </app-earnings-settings>
   <app-earnings-settings
     [title]="'Publisher commission'"
-    [desc]=" 'Set a commission which will be subtracted from event payments and will be your income.'"
+    [desc]="'Set a commission that will be subtracted from publishers’ revenue from ads that were displayed. It will be a part of your income'"
     [max]="'100'"
     [min]="'0'"
     [step]="0.01"
@@ -39,15 +39,13 @@
     <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Hot wallet settings</h1>
     <mat-checkbox [checked]="settings.hotwalletIsActive"
                   (change)="updateSettings($event.checked, 'hotwalletIsActive')">
-      Enable Cold Wallet
+      Enable Hot Wallet
     </mat-checkbox>
   </section>
-
   <p *ngIf="settings.hotwalletIsActive"
      class="dwmth-copy dwmth-copy--large finances-settings__desc">
-    Here you can set your thresholds for using hot and cold wallet
+    <!--placeholder for settings general description-->
   </p>
-
   <div *ngIf="settings.hotwalletIsActive"
        class="row finances-settings__thresholds-wrapper">
     <app-input
@@ -58,6 +56,8 @@
       [step]="10"
       [value]="settings.hotwalletMinValue"
       [format]="'ADS'"
+      helper="Set a minimum amount required to run operations. In case the amount drops below the
+      specified threshold, you will be notified via e-mail"
       (valueChanged)="updateSettings($event, 'hotwalletMinValue')"
     ></app-input>
     <app-input
@@ -68,12 +68,15 @@
       [step]="10"
       [value]="settings.hotwalletMaxValue"
       [format]="'ADS'"
+      helper="Set a maximum amount that can be stored on a hot wallet. All funds exceeding this amount
+      will be automatically transferred to your cold wallet."
       (valueChanged)="updateSettings($event, 'hotwalletMaxValue')"
     ></app-input>
     <app-input
       [label]="'Hot wallet address'"
       [type]="'text'"
       [value]="settings.hotwalletAddress"
+      helper="Enter your ADS account address"
       (valueChanged)="updateSettings($event, 'hotwalletAddress')"
     ></app-input>
   </div>

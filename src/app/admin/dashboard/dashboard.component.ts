@@ -7,7 +7,6 @@ import { Store } from "@ngrx/store";
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-
 })
 
 export class DashboardComponent implements OnInit {
@@ -29,6 +28,23 @@ export class DashboardComponent implements OnInit {
       values: [
         {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
+      ],
+    },
+    {
+      title: 'Privacy Settings',
+      description: '',
+      link: '/admin/dashboard/privacy',
+      values: [
+        {name: 'Privacy', icon: 'assets/images/preferences.svg'},
+        {name: 'Terms and condition', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
+      title: 'Rebranding',
+      description: '',
+      link: '/admin/dashboard/rebranding',
+      values: [
+        {name: 'Image assets', icon: 'assets/images/preferences.svg'},
       ],
     },
     {

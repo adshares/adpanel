@@ -2,7 +2,9 @@ import {
   LOAD_USERS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
-  actions
+  GET_PRIVACY_SETTINGS_SUCCESS,
+  GET_TERMS_SETTINGS_SUCCESS,
+  actions,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
@@ -18,6 +20,10 @@ const initialState: AdminState = {
     publisherCommission: 0,
     advertiserCommission: 0,
     hotwalletIsActive: 0,
+  },
+  termsAndPrivacy: {
+    privacy: '',
+    terms: '',
   }
 };
 
@@ -37,6 +43,22 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload
+      };
+    case GET_PRIVACY_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        termsAndPrivacy: {
+          ...state.termsAndPrivacy,
+          privacy: action.payload.content
+        }
+      };
+    case GET_TERMS_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        termsAndPrivacy: {
+          ...state.termsAndPrivacy,
+          terms: action.payload.content
+        }
       };
     default:
       return state;

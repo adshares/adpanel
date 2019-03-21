@@ -5,6 +5,14 @@
       justify-center
       general-input__input-wrapper"
 >
+  <span *ngIf="!!helper"
+        class="dwmth-icon dwmth-icon--prepend dwmth-icon--help">
+  <fa-icon matTooltipClass="dwmth-mat-tooltip"
+           [matTooltip]="helper"
+           matTooltipPosition="above"
+           [icon]="questionMarkIcon"></fa-icon>
+  </span>
+
   <label class="dwmth-copy col">
     {{label}}
     <input

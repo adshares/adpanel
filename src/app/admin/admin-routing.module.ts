@@ -7,6 +7,8 @@ import { AdminComponent } from './admin.component';
 import { AccountSettingsComponent } from "settings/general-settings/account-settings/account-settings.component";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
+import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
+import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
 
 const adminRoutes: Routes = [
   {
@@ -35,6 +37,14 @@ const adminRoutes: Routes = [
           {
             path: 'account',
             component: AccountSettingsComponent,
+          },
+          {
+            path: 'rebranding',
+            component: RebrandingComponent,
+          },
+          {
+            path: 'privacy',
+            component: PrivacyAndTermsSettingsComponent,
           },
         ]
       },

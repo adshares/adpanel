@@ -66,6 +66,7 @@
     background-color: pal(blue);
     max-height: 46px;
 
+    &:focus,
     &:hover:not([disabled]) {
       background-color: darken(pal(blue), 5);
     }

@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import {
   MatIconModule,
   MatInputModule,
@@ -22,6 +25,8 @@ import { GeneralSettingsComponent } from "admin/general-settings/general-setting
 import { ParamSettingComponent } from "admin/general-settings/param-setting/param-setting.component";
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
+import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
+import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
 
 @NgModule({
   imports: [
@@ -35,7 +40,7 @@ import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
     MatIconModule,
     MatSliderModule,
     SettingsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   providers: [
     AdminGuard,
@@ -50,6 +55,8 @@ import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
     EarningsSettingsComponent,
     ParamSettingComponent,
     GeneralSettingsComponent,
+    RebrandingComponent,
+    PrivacyAndTermsSettingsComponent
   ],
   entryComponents: [
     SuccessSnackbarComponent
