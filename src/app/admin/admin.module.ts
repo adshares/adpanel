@@ -9,7 +9,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatSliderModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDividerModule
 } from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -41,6 +42,7 @@ import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settin
     MatSliderModule,
     SettingsModule,
     MatCheckboxModule,
+    MatDividerModule
   ],
   providers: [
     AdminGuard,
