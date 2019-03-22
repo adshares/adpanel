@@ -6,5 +6,6 @@ export const environment = {
   authUrl: serverUrl + '/auth',
   apiUrl: serverUrl + '/api',
   xdebug: ${DEV_XDEBUG},
-  version: '${APP_VERSION}'
+  version: '${APP_VERSION}',
+  context: '${CONTEXT_INFO}'
 };
