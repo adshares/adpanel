@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
-import { User } from 'models/user.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
@@ -10,6 +9,7 @@ import { SessionService } from "app/session.service";
 import { Store } from "@ngrx/store";
 import { AppState, SettingsState } from "models/app-state.model";
 import { GetCurrentBalance } from 'store/settings/settings.actions';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +23,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   settingsMenuOpen = false;
   notificationsBarOpen = false;
   notificationsTotal: number;
+  envContext: string | null = environment.context;
 
   constructor(
     private router: Router,

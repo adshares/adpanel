@@ -6,5 +6,6 @@ export const environment = {
   authUrl: serverUrl + '/auth',
   apiUrl: serverUrl + '/api',
   xdebug: false,
-  version: "0"
+  version: "0",
+  context: 'local'
 };
