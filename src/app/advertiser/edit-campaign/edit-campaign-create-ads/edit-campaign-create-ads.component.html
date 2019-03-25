@@ -62,8 +62,8 @@
                   *ngIf="(adsSubmitted && !adPanelsStatus[i]) &&
                 (
                 (adForm.get('name').hasError('required')) ||
-                 (adForm.get('html') && adForms[i].get('html').value.src === '')  ||
-                 (adForm.get('image') && adForms[i].get('image').value.src === '')
+                 (adForm.get('html') && adForm.get('html').value.src === '')  ||
+                 (adForm.get('image') && adForm.get('image').value.src === '')
                 )"
                 > !
                 </div>
@@ -179,8 +179,8 @@
           <div
             class="error-msg"
             *ngIf="adsSubmitted && (
-            (adForms[i].get('image') && adForms[i].get('image').value.src === '' ) ||
-            (adForms[i].get('html') && adForms[i].get('html').value.src === '' ))"
+            (adForm.get('image') && adForm.get('image').value.src === '' ) ||
+            (adForm.get('html') && adForm.get('html').value.src === '' ))"
           >
             File required
           </div>
