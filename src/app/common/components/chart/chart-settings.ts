@@ -104,7 +104,7 @@ const chartOptions: ChartOptions = {
         top: position.top + window.pageYOffset + tooltipModel.caretY + 'px',
         textAlign: 'left',
         fontFamily: 'Lato-Regular',
-        fontSize: 13 + 'px',
+        fontSize: 14 + 'px',
         color: '#FFFFFF',
         padding: '7px 10px',
         borderRadius: '2px',
@@ -125,9 +125,10 @@ const chartOptions: ChartOptions = {
         color: '#eff2f4'
       },
       ticks: {
-        autoSkip: true,
-        fontColor: '#aebac7',
-        fontSize: 13,
+        autoSkip: false,
+        maxRotation: 70,
+        fontColor: '#9c9c9c',
+        fontSize: 15,
         beginAtZero: true,
         callback: (value, index, values) => adjustLabelFormat(value, index, values),
       }
@@ -139,8 +140,8 @@ const chartOptions: ChartOptions = {
       },
       ticks: {
         maxTicksLimit: 3,
-        fontColor: '#aebac7',
-        fontSize: 14,
+        fontColor: '#9c9c9c',
+        fontSize: 16,
         beginAtZero: true,
         padding: 10
       }

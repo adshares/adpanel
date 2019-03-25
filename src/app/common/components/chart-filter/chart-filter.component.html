@@ -133,6 +133,7 @@
           [matDatepicker]="dateToPicker"
           [formControl]="dateTo"
           required
+
           [min]="dateFrom.value"
           [max]="today"
           data-test="chart-filter-custom-date-to"
@@ -153,7 +154,7 @@
           dwmth-bg-gray--light
           dwmth-navy"
         [class.disabled]="!dateTo.value || !dateFrom.value"
-        (click)="filterChartByDatepicker(dateFrom, dateTo)"
+        (click)="filterChartByDatepicker()"
         data-test="chart-filter-apply-datespan-button"
       >
         Apply
