@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
-
 import * as moment from 'moment';
 import { filterPresetsEnum } from "models/enum/chart.enum";
 import { enumToObjectArray } from "common/utilities/helpers";

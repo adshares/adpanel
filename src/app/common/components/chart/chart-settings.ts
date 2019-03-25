@@ -1,6 +1,6 @@
-import {ChartOptions} from 'models/chart/chart-options.model';
-import {ChartColors} from 'models/chart/chart-colors.model';
-import {ChartJsComputedData, TooltipItem} from 'models/chart/chart-other.model';
+import { ChartOptions } from 'models/chart/chart-options.model';
+import { ChartColors } from 'models/chart/chart-colors.model';
+import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
 import * as moment from 'moment';
 
 const adjustLabelFormat = (value, index, values) => {
@@ -160,4 +160,4 @@ const chartColors: ChartColors[] = [
   }
 ];
 
-export {chartOptions, chartColors};
+export { chartOptions, chartColors };
