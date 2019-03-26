@@ -1,0 +1,46 @@
+<article class="dwmth-box license__wrapper">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary"> License </h1>
+    <p *ngIf="license !== null"
+       class="dwmth-copy dwmth-copy--large">
+      Preview your license data. License details can be found
+      <a [href]="license.detailsUrl"
+         class="dwmth-copy--blue"> here</a>
+    </p>
+  </section>
+
+  <div *ngIf="license !== null; else info">
+    <div class="license__inputs-wrapper">
+      <app-input type="text"
+                 [label]="'Type'"
+                 [readonly]="true"
+                 [value]="license.type"
+      ></app-input>
+      <app-input type="text"
+                 [label]="'Owner'"
+                 [readonly]="true"
+                 [value]="license.owner"
+      ></app-input>
+    </div>
+
+    <div class="license__inputs-wrapper">
+      <app-input type="text"
+                 [label]="'Date Start'"
+                 [readonly]="true"
+                 [value]="license.dateStart"
+      ></app-input>
+      <app-input type="text"
+                 [label]="'Date End'"
+                 [readonly]="true"
+                 [value]="license.dateEnd"
+      ></app-input>
+    </div>
+  </div>
+  <ng-template #info>
+    <p class="dwmth-box dwmth-copy dwmth-copy--large dwmth-copy--red">
+      No license. Configure an open-source license
+    </p>
+    <div></div>
+  </ng-template>
+</article>
+

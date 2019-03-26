@@ -1,8 +1,5 @@
-<section
-  class="
-    admin-dashboard
-    row"
->
+<section class="admin-dashboard row">
+  <app-panel-blockade *ngIf="isPanelBlocked"></app-panel-blockade>
   <ul class="admin-dashboard__side-menu">
     <li *ngFor="let menuItem of settings">
       <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>

@@ -34,6 +34,10 @@ export const SET_TERMS_SETTINGS = 'Set admin terms settings';
 export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
 export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
 
+export const GET_LICENSE = 'Get license';
+export const GET_LICENSE_SUCCESS = 'Get license success';
+export const GET_LICENSE_FAILURE = 'Get license failure';
+
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
 
@@ -182,6 +186,27 @@ export class SetTermsSettingsFailure implements Action {
   }
 }
 
+export class GetLicense implements Action {
+  readonly type: string = GET_LICENSE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetLicenseSuccess implements Action {
+  readonly type: string = GET_LICENSE_SUCCESS;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class GetLicenseFailure implements Action {
+  readonly type: string = GET_LICENSE_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
 export type actions =
   LoadUsers |
   LoadUsersSuccess |
@@ -209,4 +234,8 @@ export type actions =
 
   SetTermsSettings |
   SetTermsSettingsSuccess |
-  SetTermsSettingsFailure;
+  SetTermsSettingsFailure |
+
+  GetLicense |
+  GetLicenseSuccess |
+  GetLicenseFailure;

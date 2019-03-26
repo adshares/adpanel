@@ -48,4 +48,8 @@ export class AdminService {
     };
     return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
   }
+
+  getLicense(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}/admin/license`);
+  }
 }

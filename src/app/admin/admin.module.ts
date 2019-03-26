@@ -28,6 +28,8 @@ import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
+import { LicenseComponent } from "admin/general-settings/license/license.component";
+import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blockade.component";
 
 @NgModule({
   imports: [
@@ -58,7 +60,9 @@ import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settin
     ParamSettingComponent,
     GeneralSettingsComponent,
     RebrandingComponent,
-    PrivacyAndTermsSettingsComponent
+    PrivacyAndTermsSettingsComponent,
+    LicenseComponent,
+    PanelBlockadeComponent
   ],
   entryComponents: [
     SuccessSnackbarComponent

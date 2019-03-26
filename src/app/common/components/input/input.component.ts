@@ -10,7 +10,6 @@ import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 })
 export class InputComponent {
   @Input() label: string;
-  @Input() desc: string;
   @Input() type: string;
   @Input() min?: string;
   @Input() max?: string;
@@ -19,6 +18,7 @@ export class InputComponent {
   @Input() helper: string;
   @Input() value: number;
   @Input() showSlider?: boolean;
+  @Input() readonly?: boolean;
   @Input() transformDecimal: boolean;
   @Output() valueChanged = new Subject<any>();
   questionMarkIcon = faQuestionCircle;

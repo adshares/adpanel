@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from "models/app-state.model";
-import { LoadAdminSettings } from "store/admin/admin.actions";
+import { GetLicense, LoadAdminSettings } from "store/admin/admin.actions";
 import { Store } from "@ngrx/store";
+import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +10,15 @@ import { Store } from "@ngrx/store";
   styleUrls: ['./dashboard.component.scss'],
 })
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends HandleSubscription implements OnInit {
+  isPanelBlocked: boolean = false;
   settings = [
     {
       title: 'General Settings',
       description: '',
       link: '/admin/dashboard/general',
       values: [
+        {name: 'License', icon: 'assets/images/preferences.svg'},
         {name: 'Set business name', icon: 'assets/images/preferences.svg'},
         {name: 'Set technical email', icon: 'assets/images/preferences.svg'},
         {name: 'Set support email', icon: 'assets/images/preferences.svg'},
@@ -58,10 +61,18 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor(private store: Store<AppState>) {
+    super();
   }
 
   ngOnInit() {
     this.store.dispatch(new LoadAdminSettings());
+    this.store.dispatch(new GetLicense());
+    const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
+      .subscribe((isBlocked: boolean) => {
+        this.isPanelBlocked = isBlocked;
+      });
+
+    this.subscriptions.push(adminStoreSettingsSubscription);
   }
 }
 

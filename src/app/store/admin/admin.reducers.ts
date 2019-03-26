@@ -1,10 +1,12 @@
 import {
+  actions,
   LOAD_USERS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
   GET_PRIVACY_SETTINGS_SUCCESS,
   GET_TERMS_SETTINGS_SUCCESS,
-  actions,
+  GET_LICENSE_SUCCESS,
+  GET_LICENSE_FAILURE,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
@@ -24,7 +26,9 @@ const initialState: AdminState = {
   termsAndPrivacy: {
     privacy: '',
     terms: '',
-  }
+  },
+  license: null,
+  panelBlockade: false,
 };
 
 export function adminReducers(state = initialState, action: actions) {
@@ -33,6 +37,24 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         ...action.payload
+      };
+    case GET_LICENSE_SUCCESS:
+      if (action.payload.status !== 1) {
+        return {
+          ...state,
+          license: action.payload,
+          panelBlockade: true
+        };
+      }
+      return {
+        ...state,
+        license: action.payload
+      };
+
+    case GET_LICENSE_FAILURE:
+      return {
+        ...state,
+        license: null
       };
     case LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
