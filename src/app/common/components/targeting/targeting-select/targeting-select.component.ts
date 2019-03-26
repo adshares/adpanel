@@ -152,7 +152,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
     allOptions.forEach((option) => {
       this.targetingOptionsForSearch.push(option);
-      if (option.children) {
+      if (option && option.children) {
         this.prepareTargetingOptionsForSearch(option.children);
       }
     });

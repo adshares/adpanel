@@ -112,7 +112,7 @@ function generateLabelPath(
     return partialPath;
   }
 
-  return generateLabelPath(newArrayPath, searchedOption.children, partialPath);
+  return generateLabelPath(newArrayPath, searchedOption.children ? searchedOption.children : [], partialPath);
 }
 
 export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
@@ -224,7 +224,8 @@ function addTargetingOptionToResult(resultKey, result, targetingOptions) {
 function addCustomOptionToResult(optionKeys, results, targetingOptions) {
   optionKeys.forEach(optionKey => {
     const addedResultIndex = !!results.length && results.findIndex(result => {
-      return result.id === optionKey});
+      return result.id === optionKey
+    });
 
     if (addedResultIndex === -1) {
       const parentKeyPathArray = optionKey.split('-');
