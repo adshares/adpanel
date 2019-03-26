@@ -17,7 +17,8 @@ export class ClassifierFilteringComponent implements OnInit {
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.adSizesOptions = this.sizeOptions || enumToArray(adSizesEnum);
@@ -41,13 +42,16 @@ export class ClassifierFilteringComponent implements OnInit {
 
 
   changeFiltering() {
-    this.filtering = {
-      ...this.filtering,
-      status: {
-        [this.status.value.toLowerCase()]: 1,
-      }
-    };
-
+    if (!!this.status.value) {
+      this.filtering = {
+        ...this.filtering,
+        status: {
+          [this.status.value.toLowerCase()]: 1,
+        }
+      };
+    } else {
+      delete this.filtering.status
+    }
     this.filteringChange.emit(this.filtering);
   }
 }

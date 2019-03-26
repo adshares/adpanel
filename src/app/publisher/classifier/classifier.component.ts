@@ -11,7 +11,7 @@ import {
   BannerClassificationResponse
 } from 'models/classifier.model';
 import { TableColumnMetaData } from 'models/table.model';
-import {HTTP_INTERNAL_SERVER_ERROR} from 'common/utilities/codes';
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { HandleSubscription } from "common/handle-subscription";
@@ -58,7 +58,6 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
 
   getBannerClassification(offset?: number) {
     this.isLoading = true;
-
     const bannersForClassificationSubscription = this.publisherService
       .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
       .subscribe(
