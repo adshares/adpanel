@@ -27,7 +27,6 @@ import {
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
-import { GetCurrentBalanceSuccess } from "store/settings/settings.actions";
 import { HTTP_NOT_FOUND } from "common/utilities/codes";
 
 @Injectable()
@@ -55,6 +54,8 @@ export class AdminEffects {
         return {
           settings: {
             ...response.settings,
+            advertiserCommission: response.settings.advertiserCommission * 100,
+            publisherCommission: response.settings.publisherCommission * 100,
             hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
             hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
           }

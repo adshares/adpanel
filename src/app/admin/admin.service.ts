@@ -43,6 +43,8 @@ export class AdminService {
   setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
     const formatValues = {
       ...settings,
+      advertiserCommission: settings.advertiserCommission / 100,
+      publisherCommission: settings.publisherCommission / 100,
       hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
       hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
     };
