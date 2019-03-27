@@ -142,13 +142,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   fileOverDropArea(isOverDrop, adIndex): void {
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
-
     if (!isOverDrop && this.uploader.queue[0]) {
-      // this.uploadBanner(this.uploader.queue[0], adIndex);
+      this.uploadBanner(this.uploader.queue[0], adIndex);
     }
   }
 
-  uploadBanner(form, image, adIndex): void {
+  uploadBanner(image, adIndex): void {
+    const form =  this.adForms[adIndex];
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
       enumToArray(validImageTypes).indexOf(image.file.type) > -1 : enumToArray(validHtmlTypes).indexOf(image.file.type) > -1;
     const isImageSizeValid = image.file.size <= appSettings.MAX_AD_IMAGE_SIZE;
