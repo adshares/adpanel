@@ -1,41 +1,24 @@
 <div class="banner-preview">
-
-  <ng-container *ngIf="showIframe">
-    <ng-container *ngIf="isImage">
-      <img
-        [src]="url"
-        alt="banner miniature"
-        class="banner-preview__banner"
-      />
-      <div class="banner-preview__lightbox">
-        <img
-          [src]="url"
-          alt="banner in natural size"
-        />
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="!isImage && !isBannerInputTypeAd">
-      <iframe
-        [src]="url | trustUrl"
-        [sandbox]="'allow-same-origin allow-scripts'"
-        [title]="IFRAME_TITLE"
-        scrolling="no"
-        class="banner-preview__banner"
-      ></iframe>
-      <iframe
-        [src]="url | trustUrl"
-        [sandbox]="'allow-same-origin allow-scripts'"
-        [title]="IFRAME_TITLE"
-        scrolling="no"
-        class="banner-preview__lightbox"
-        [ngStyle]="{
-                'width': banner.width + 'px',
-                'height': banner.height + 'px',
+  <ng-container *ngIf="isImage">
+    <img
+      [src]="url"
+      alt="banner miniature"
+      class="banner-preview__banner"
+    />
+  </ng-container>
+  <ng-container *ngIf="showIframe && !isImage">
+    <iframe
+      [src]="url | trustUrl"
+      [sandbox]="'allow-same-origin allow-scripts'"
+      [title]="IFRAME_TITLE"
+      scrolling="no"
+      class="banner-preview__banner"
+      [ngStyle]="{
+                'width': bannerChosenSize.width + 'px',
+                'height': bannerChosenSize.height + 'px',
                 'overflow': 'hidden'
               }"
-      ></iframe>
-    </ng-container>
+    ></iframe>
   </ng-container>
   <ng-container *ngIf="isLoading">
     <div class="row
