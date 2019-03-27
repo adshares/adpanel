@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import {
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse,
+  AdminSettingsResponse, License,
   UserInfoStats
 } from 'models/settings.model';
 
@@ -196,7 +196,7 @@ export class GetLicense implements Action {
 export class GetLicenseSuccess implements Action {
   readonly type: string = GET_LICENSE_SUCCESS;
 
-  constructor(public payload: string) {
+  constructor(public payload: License | null) {
   }
 }
 

@@ -52,17 +52,10 @@ interface TermsAndPrivacy {
 }
 
 interface License {
-  id: string,
   type: string,
-  status: number,
   dateStart: string,
   dateEnd: string,
   owner: string,
-  paymentAddress: string,
-  paymentMessage: string,
-  fixedFee: number,
-  demandFee: number,
-  supplyFee: number,
   detailsUrl: string
 }
 

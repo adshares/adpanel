@@ -48,13 +48,15 @@ export function adminReducers(state = initialState, action: actions) {
       }
       return {
         ...state,
-        license: action.payload
+        license: action.payload,
+        panelBlockade: false
       };
 
     case GET_LICENSE_FAILURE:
       return {
         ...state,
-        license: null
+        license: null,
+        panelBlockade: false
       };
     case LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
