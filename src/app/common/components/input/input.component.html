@@ -1,0 +1,34 @@
+<div
+  class="
+      row
+      align-center
+      justify-center
+      general-input__input-wrapper"
+>
+  <span *ngIf="!!helper"
+        class="dwmth-icon dwmth-icon--prepend dwmth-icon--help">
+  <fa-icon matTooltipClass="dwmth-mat-tooltip"
+           [matTooltip]="helper"
+           matTooltipPosition="above"
+           [icon]="questionMarkIcon"></fa-icon>
+  </span>
+
+  <label class="dwmth-copy col">
+    {{label}}
+    <input
+      [type]="type"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      class="dwmth-form-input
+             general-input"
+      [ngModel]="value"
+      (ngModelChange)="updateValue($event)"
+    />
+  </label>
+
+  <span class="general-input__format
+               dwmth-copy
+               dwmth-copy--blue">
+        {{format}}</span>
+</div>

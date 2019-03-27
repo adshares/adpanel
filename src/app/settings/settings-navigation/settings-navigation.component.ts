@@ -22,24 +22,22 @@ export class SettingsNavigationComponent extends HandleSubscription {
       title: 'Account Settings',
       description: 'Your changes to general settings from the Advertiser point ' +
         'will affect the changes in your Publisher account',
-      link: 'general',
+      link: '/settings/general',
       values: [
         {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
         /*
                         { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
         */
       ],
-      admin: true,
     },
     {
       title: 'Billing & Payments',
       description: '',
-      link: 'billing',
+      link: '/settings/billing',
       values: [
         {name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Billing History', icon: 'assets/images/history.svg'}
       ],
-      admin: false,
     }
   ];
 

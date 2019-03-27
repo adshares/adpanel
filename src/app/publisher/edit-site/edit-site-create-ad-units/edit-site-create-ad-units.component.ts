@@ -15,6 +15,7 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import {MatDialog} from "@angular/material";
 import {HandleSubscription} from "common/handle-subscription";
+import { siteStatusEnum } from "models/enum/site.enum";
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -210,12 +211,15 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   redirectAfterSave(isDraft: boolean): void {
     this.changesSaved = false;
     if (isDraft) {
-      this.publisherService.saveAsDraft(this.site);
+      this.site = {
+        ...this.site,
+        status: siteStatusEnum.DRAFT
+      };
+      this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
       return;
     }
-
     this.router.navigate(
-      ['/publisher', this.createSiteMode ? 'create-site' : 'edit-site', 'summary'],
+      ['/publisher', 'create-site', 'summary'],
       {queryParams: {step: 4}}
     );
   }

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
-import {TargetingOption, TargetingOptionValue} from 'models/targeting-option.model';
-import {AddCustomTargetingDialogComponent} from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
-import {HandleSubscription} from 'common/handle-subscription';
-import {findOption, findOptionList, getParentId} from 'common/components/targeting/targeting.helpers';
-import {cloneDeep} from 'common/utilities/helpers';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
+import { findOption, findOptionList, getParentId } from 'common/components/targeting/targeting.helpers';
+import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-targeting-select',
@@ -148,14 +148,21 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
-    const allOptions = options || this.targetingOptions.reduce((prev, next) => prev.concat(next.values), []);
+    const allOptions = options
+      || this.targetingOptions
+        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), [])
+    ;
 
-    allOptions.forEach((option) => {
-      this.targetingOptionsForSearch.push(option);
-      if (option.children) {
-        this.prepareTargetingOptionsForSearch(option.children);
-      }
-    });
+    allOptions
+      .forEach((option) => {
+        this.targetingOptionsForSearch.push(option);
+        if (option.children) {
+          this.prepareTargetingOptionsForSearch(option.children);
+        }
+        if (option.values) {
+          this.prepareTargetingOptionsForSearch(option.values);
+        }
+      });
   }
 
   onSearchTermChange() {

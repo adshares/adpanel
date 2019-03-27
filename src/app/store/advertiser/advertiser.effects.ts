@@ -1,20 +1,51 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, toPayload} from '@ngrx/effects';
-import {AdvertiserService} from 'advertiser/advertiser.service';
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { Router } from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
-import {Observable} from 'rxjs/Observable';
-import * as advertiserActions from './advertiser.actions';
+import { Observable } from 'rxjs/Observable';
+import {
+  LOAD_CAMPAIGNS,
+  LOAD_CAMPAIGNS_TOTALS,
+  LOAD_CAMPAIGN,
+  LOAD_CAMPAIGN_TOTALS,
+  ADD_CAMPAIGN_TO_CAMPAIGNS,
+  UPDATE_CAMPAIGN,
+  UPDATE_CAMPAIGN_STATUS,
+  DELETE_CAMPAIGN,
+  LoadCampaignsSuccess,
+  LoadCampaignsTotals,
+  LoadCampaignsFailure,
+  LoadCampaignsTotalsSuccess,
+  LoadCampaignsTotalsFailure,
+  LoadCampaignSuccess,
+  LoadCampaignTotals,
+  LoadCampaignTotalsSuccess,
+  LoadCampaignTotalsFailure,
+  AddCampaignToCampaignsSuccess,
+  AddCampaignToCampaignsFailure,
+  UpdateCampaignSuccess,
+  ClearLastEditedCampaign,
+  UpdateCampaignFailure,
+  UpdateCampaignStatusSuccess,
+  UpdateCampaignStatusFailure,
+  DeleteCampaignSuccess,
+  DeleteCampaignFailure,
+  LoadCampaignFailure,
+}from './advertiser.actions';
 
 import "rxjs/add/operator/take";
 import * as moment from "moment";
-import {MatDialog} from "@angular/material";
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {HTTP_INTERNAL_SERVER_ERROR, HTTP_BAD_REQUEST} from 'common/utilities/codes';
+import { MatDialog } from "@angular/material";
+import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
+import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
+import { adjustCampaignStatus } from "common/utilities/helpers";
 
 @Injectable()
 export class AdvertiserEffects {
+  currentDate = moment(new Date());
+
   constructor(
     private actions$: Actions,
     private service: AdvertiserService,
@@ -25,20 +56,29 @@ export class AdvertiserEffects {
 
   @Effect()
   loadCampaigns$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGNS)
+    .ofType(LOAD_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.getCampaigns()
-      .switchMap((campaigns) => {
+      .switchMap((response) => {
+        const campaigns = response.map((campaign) => {
+          return {
+            ...campaign,
+            basicInformation: {
+              ...campaign.basicInformation,
+              status: adjustCampaignStatus(campaign.basicInformation, this.currentDate)
+            }
+          }
+        });
         return Observable.from([
-          new advertiserActions.LoadCampaignsSuccess(campaigns),
-          new advertiserActions.LoadCampaignsTotals({from: payload.from, to: payload.to})])
+          new LoadCampaignsSuccess(campaigns),
+          new LoadCampaignsTotals({from: payload.from, to: payload.to})])
       })
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignsFailure()))
+      .catch(() => Observable.of(new LoadCampaignsFailure()))
     );
 
   @Effect()
   loadCampaignsTotals$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGNS_TOTALS)
+    .ofType(LOAD_CAMPAIGNS_TOTALS)
     .map(toPayload)
     .switchMap((payload) => {
       const from = moment(payload.from).format();
@@ -46,70 +86,92 @@ export class AdvertiserEffects {
 
       return this.service.getCampaignsTotals(
         `${from}`, `${to}`)
-        .map((campaignsTotals) => new advertiserActions.LoadCampaignsTotalsSuccess(campaignsTotals))
-        .catch(() => Observable.of(new advertiserActions.LoadCampaignsTotalsFailure()))
+        .map((campaignsTotals) => new LoadCampaignsTotalsSuccess(campaignsTotals))
+        .catch(() => Observable.of(new LoadCampaignsTotalsFailure()))
     });
 
   @Effect()
   loadCampaign$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGN)
+    .ofType(LOAD_CAMPAIGN)
     .map(toPayload)
     .switchMap((id) => this.service.getCampaign(id)
       .switchMap((payload) => {
         const from = moment().subtract(30, 'd').format();
-        const to = moment().format();
-        const campaign = payload.campaign;
+        const to = this.currentDate.format();
+        const campaign = {
+          ...payload.campaign,
+          basicInformation: {
+            ...payload.campaign.basicInformation,
+            status: adjustCampaignStatus(payload.campaign.basicInformation, this.currentDate)
+          }
+        };
+
         return [
-          new advertiserActions.LoadCampaignSuccess(campaign),
-          new advertiserActions.LoadCampaignTotals({from, to, id: campaign.id})
+          new LoadCampaignSuccess(campaign),
+          new LoadCampaignTotals({from, to, id: campaign.id})
         ]
       })
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignFailure()))
+      .catch(() => Observable.of(new LoadCampaignFailure()))
     );
 
   @Effect()
   loadCampaignTotals$ = this.actions$
-    .ofType(advertiserActions.LOAD_CAMPAIGN_TOTALS)
+    .ofType(LOAD_CAMPAIGN_TOTALS)
     .map(toPayload)
     .switchMap((payload) => this.service
       .getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
-      .map((data) => new advertiserActions.LoadCampaignTotalsSuccess(data))
-      .catch(() => Observable.of(new advertiserActions.LoadCampaignTotalsFailure()))
+      .map((data) => new LoadCampaignTotalsSuccess(data))
+      .catch(() => Observable.of(new LoadCampaignTotalsFailure()))
     );
 
   @Effect()
   addCampaignToCampaigns = this.actions$
-    .ofType(advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS)
+    .ofType(ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.saveCampaign(payload)
-      .map((campaign) => new advertiserActions.AddCampaignToCampaignsSuccess(campaign))
-      .catch(() => Observable.of(new advertiserActions.AddCampaignToCampaignsFailure()))
+      .switchMap((campaign) => {
+        if (payload.basicInformation.status !== campaign.basicInformation.status) {
+          this.dialog.open(WarningDialogComponent, {
+            data: {
+              title: `Warning`,
+              message: `Campaign '${campaign.basicInformation.name}' couldn't be automatically activated. \n
+                 Please check if you have enough money on your account and activate campaign manually. `,
+            }
+          });
+        }
+        this.router.navigate(['/advertiser', 'dashboard']);
+        return [
+          new AddCampaignToCampaignsSuccess(campaign),
+          new ClearLastEditedCampaign(),
+        ]
+      })
+      .catch(() => Observable.of(new AddCampaignToCampaignsFailure()))
     );
 
   @Effect()
   updateCampaign = this.actions$
-    .ofType(advertiserActions.UPDATE_CAMPAIGN)
+    .ofType(UPDATE_CAMPAIGN)
     .map(toPayload)
     .switchMap((payload) => this.service.updateCampaign(payload)
       .switchMap(() => {
         this.router.navigate(['/advertiser', 'campaign', payload.id]);
         return [
-          new advertiserActions.UpdateCampaignSuccess(payload),
-          new advertiserActions.ClearLastEditedCampaign(),
+          new UpdateCampaignSuccess(payload),
+          new ClearLastEditedCampaign(),
         ];
       })
       .catch((err) => {
-        return Observable.of(new advertiserActions.UpdateCampaignFailure(err)
+        return Observable.of(new UpdateCampaignFailure(err)
         )
       })
     );
 
   @Effect()
   updateCampaignStatus = this.actions$
-    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS)
+    .ofType(UPDATE_CAMPAIGN_STATUS)
     .map(toPayload)
     .switchMap((payload) => this.service.updateStatus(payload.id, payload.status)
-      .map(() => new advertiserActions.UpdateCampaignStatusSuccess(payload))
+      .map(() => new UpdateCampaignStatusSuccess(payload))
       .catch((err) => {
         if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
         let errorMsg;
@@ -119,37 +181,24 @@ export class AdvertiserEffects {
         } else {
           errorMsg = err.error.errors[0] || err.message;
         }
-        return Observable.of(new advertiserActions.UpdateCampaignStatusFailure(errorMsg)
+        return Observable.of(new UpdateCampaignStatusFailure(errorMsg)
         )
       })
     );
 
   @Effect()
   deleteCampaign = this.actions$
-    .ofType(advertiserActions.DELETE_CAMPAIGN)
+    .ofType(DELETE_CAMPAIGN)
     .map(toPayload)
     .switchMap((payload) => this.service.deleteCampaign(payload)
       .map(() => {
         this.router.navigate(['/advertiser', 'dashboard']);
-        return new advertiserActions.DeleteCampaignSuccess(payload)
+        return new DeleteCampaignSuccess(payload)
       })
       .catch(() => {
-        return Observable.of(new advertiserActions.DeleteCampaignFailure(
+        return Observable.of(new DeleteCampaignFailure(
           `Given campaign cannot be deleted at this moment. Please try again later.`)
         )
       })
     );
-
-  @Effect({dispatch: false})
-  handleErrors = this.actions$
-    .ofType(advertiserActions.UPDATE_CAMPAIGN_STATUS_FAILURE, advertiserActions.DELETE_CAMPAIGN_FAILURE)
-    .map(toPayload)
-    .do(payload => {
-      this.dialog.open(ErrorResponseDialogComponent, {
-        data: {
-          title: `Error occurred`,
-          message: `${payload}`,
-        }
-      });
-    });
 }

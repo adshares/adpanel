@@ -55,6 +55,8 @@
         </button>
       </div>
     </div>
+    <app-classifier-filtering [sizeOptions]="adSizesOptions"
+                              (filteringChange)="updateBannersList($event)"></app-classifier-filtering>
     <table
       class="
         col
@@ -74,13 +76,15 @@
           [bannerClassification]="bannerClassification"
           [siteId]="siteId"
         ></app-classifier-list-item>
-      </ng-container>
-
-      <ng-template #loading>
-        <div class="dwmth-box">
-          <div class="loading-wrapper">
-            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+        <div *ngIf="!bannerClassification">
+          <div class="dwmth-box text-center dwmth-copy dwmth-copy--blue dwmth-copy--large">
+              There are no banners to classify
           </div>
+        </div>
+      </ng-container>
+      <ng-template #loading>
+        <div class="dwmth-box row justify-center">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
         </div>
       </ng-template>
     </table>

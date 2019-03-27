@@ -62,10 +62,11 @@
                   *ngIf="(adsSubmitted && !adPanelsStatus[i]) &&
                 (
                 (adForm.get('name').hasError('required')) ||
-                 (adForm.get('html') && adForm.get('html').hasError('required'))  ||
-                 (adForm.get('image') && adForms[i].get('image').value.src === '')
+                 (adForm.get('html') && adForm.get('html').value.src === '')  ||
+                 (adForm.get('image') && adForm.get('image').value.src === '')
                 )"
-                > ! </div>
+                > !
+                </div>
               </div>
 
             </mat-panel-title>
@@ -172,16 +173,16 @@
             class="error-msg"
             *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
           >
-            Invalid image size
+            Invalid size! Make sure that your files is no more than 500 kb.
           </div>
 
           <div
             class="error-msg"
-            *ngIf="
-              adForms[i].get('image') && adForms[i].get('image').value.src === '' &&
-              adsSubmitted"
+            *ngIf="adsSubmitted && (
+            (adForm.get('image') && adForm.get('image').value.src === '' ) ||
+            (adForm.get('html') && adForm.get('html').value.src === '' ))"
           >
-            Image required
+            File required
           </div>
 
           <div
@@ -193,7 +194,7 @@
 
           <div
             class="
-              row
+              col
               align-center
               justify-center
               dwmth-box
@@ -202,10 +203,11 @@
               dwmth-box--dashed
               dwmth-box--blue-border
               drag-and-drop-box"
-            *ngIf="
-              adForm.get('type').value === 0 &&
-              adForm.get('image').value.src === '' &&
-              !imagesStatus.upload.processing"
+            *ngIf="!imagesStatus.upload.processing
+                   && ((isImageTypeChosen(adForm)
+                   && adForm.get('image').value.src === '')
+                   || (!isImageTypeChosen(adForm)
+                   && adForm.get('html').value.src === ''))"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
             (fileOver)="fileOverDropArea($event, i)"
@@ -237,11 +239,13 @@
                   id="fileSelect"
                   ng2FileSelect
                   [uploader]="uploader"
-                  (change)="uploadImage(uploader.queue[0], i)"
+                  (change)="uploadBanner(adForm, uploader.queue[0], i)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p class="dwmth-copy">
-                We support JPG and PNG files. Make sure that your files is no more than 500 kb.
+                We support
+                {{adForm.get('type').value === 0 ? 'JPG, PNG AND GIF' : 'ZIP' }}
+                Make sure that your files is no more than 500 kb.
               </p>
             </div>
           </div>
@@ -254,133 +258,113 @@
               file-box
               file-box--grey-background"
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
-            *ngIf="
-            adForm.get('type').value === 0 &&
-            (adForm.get('image').value.src || imagesStatus.upload.processing)"
+            *ngIf="imagesStatus.upload.processing ||
+                   ((isImageTypeChosen(adForm)
+                   && adForm.get('image').value.src !== '')
+                   || (!isImageTypeChosen(adForm)
+                   && adForm.get('html').value.src !== ''))"
             data-test="advertiser-edit-campaign-create-ads-form-upload-status"
           >
             <div class="col-xs-1">
-              <img
-                src="/assets/images/document-png--blue.svg"
-                alt="Ad image"
+              <img *ngIf="isImageTypeChosen(adForm)"
+                   src="/assets/images/document-png--blue.svg"
+                   alt="Uploaded image"
+              >
+              <img *ngIf="!isImageTypeChosen(adForm)"
+                   src="/assets/images/document-zip--blue.svg"
+                   alt="Uploaded zip file"
               >
             </div>
 
             <div class="col-xs-10">
-            <span
-              class="file-box__file-info"
-              *ngIf="imagesStatus.upload.processing"
-              data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
-            >
-              {{ uploader.queue[0].file.name }}
-              <br>
+              <div
+                class="file-box__file-info"
+                *ngIf="imagesStatus.upload.processing"
+                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
+              >
+                {{ uploader.queue[0].file.name }}
+                <br>
 
-              <div class="progress-bar">
-                <div
-                  class="progress-bar--active"
-                  [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
-              </div>
+                <div class="progress-bar">
+                  <div
+                    class="progress-bar--active"
+                    [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
+                </div>
 
-              <span
-                class="
+                <span
+                  class="
                   file-box__file-sub-info
                   file-box__file-sub-info--secondary">
                 {{ (uploader.queue[0].file.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
                 of
                 {{ uploader.queue[0].file.size / 1000 }} KB
                 ({{ imagesStatus.upload.progress }}% Done)
-              </span>
+                </span>
 
-              <img
-                class="
+                <img
+                  class="
                   file-box__action-button
                   file-box__action-button--cancel"
-                src="/assets/images/x-circle--gray.svg"
-                alt="Cancel upload"
-                (click)="uploader.queue[0].cancel()"
-                data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel"
-              >
-            </span>
+                  src="/assets/images/x-circle--gray.svg"
+                  alt="Cancel upload"
+                  (click)="uploader.queue[0].cancel()"
+                  data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel"
+                >
+              </div>
 
-              <span
+              <div
                 class="file-box__file-info"
-                *ngIf="adForm.get('image').value.src"
+                *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value"
+                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
+              >
+                {{ adForm.get('html').value.name }}
+                <br>
+
+
+                <span class="file-box__file-sub-info"
+                      data-test="advertiser-edit-campaign-create-ads-form-image-size">
+                  {{ adSizes[adForm.get('size').value] }}
+                </span>
+
+                <img
+                  class="file-box__action-button"
+                  src="/assets/images/trash-gray.svg"
+                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
+                  alt="Remove image"
+                  (click)="removeImage(i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-remove-image"
+                >
+              </div>
+              <div
+                class="file-box__file-info"
+                *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src"
                 data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
               >
                 {{ adForm.get('image').value.name }}
-              <br>
+                <br>
 
-              <span class="file-box__file-sub-info">
-                Leaderboard
+                <span class="file-box__file-sub-info">
                 <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
                   {{ adSizes[adForm.get('size').value] }}
                 </span>
-                <span
-                  class="file-box__file-sub-info--secondary"
-                  data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
+                <span *ngIf="isImageTypeChosen(adForm) && (adSizes[adForm.get('size').value] !== ads[i].imageSize)"
+                      class="file-box__file-sub-info--secondary"
+                      data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
                 >
                   {{ ads[i].imageSize }}
                 </span>
-              </span>
+                </span>
 
-              <img
-                class="file-box__action-button"
-                src="/assets/images/trash-gray.svg"
-                *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
-                alt="Remove image"
-                (click)="removeImage(i)"
-                data-test="advertiser-edit-campaign-create-ads-form-remove-image"
-              >
-            </span>
+                <img
+                  class="file-box__action-button"
+                  src="/assets/images/trash-gray.svg"
+                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
+                  alt="Remove image"
+                  (click)="removeImage(i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-remove-image"
+                >
+              </div>
             </div>
-          </div>
-
-          <div
-            class="
-              row
-              no-gutters
-              html-textarea-wrapper"
-            *ngIf="
-              (adForm.get('type').value === 1 && !ads[i]) ||
-              (adForm.get('type').value === 1 && (ads[i] && !ads[i].html)) ||
-              (adForm.get('type').value === 1 && editHtmlMode[i])"
-          >
-          <span
-            class="
-              error-msg
-              error-msg__full-width"
-            *ngIf="
-              adForm.get('html').hasError('required') && adsSubmitted"
-          >
-            Html required!
-          </span>
-
-            <p
-              class="
-                col-xs-12
-                dwmth-form-label"
-            >
-              Paste your HTML code here:
-            </p>
-
-            <textarea
-              formControlName="html"
-              class="dwmth-textarea-input"
-              rows="10"
-              required
-              data-test="advertiser-edit-campaign-create-ads-form-ad-html-textarea"
-            ></textarea>
-
-            <button
-              class="
-                dwmth-btn
-                dwmth-btn--white
-                dwmth-blue"
-              (click)="saveHtml(i)"
-              data-test="advertiser-edit-campaign-create-ads-form-ad-html-save"
-            >
-              Save Html
-            </button>
           </div>
 
           <div
@@ -391,9 +375,8 @@
               dwmth-box--dashed
               dwmth-box--blue-border
               dwmth-box__preview"
-            *ngIf="
-              (adForm.get('type').value === 0 && adForm.get('image').value.src) ||
-              (adForm.get('type').value === 1) && ads[i].html && !editHtmlMode[i]"
+            *ngIf="(isImageTypeChosen(adForm) && adForm.get('image').value.src) ||
+                   (!isImageTypeChosen(adForm) && adForm.get('html').value.src)"
           >
             <div
               class="
@@ -403,51 +386,26 @@
                 dwmth-box--no-padding">
               Preview
             </div>
-            <div class="banner image-poster"
+            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src"
+                 class="banner image-poster"
                  [ngStyle]="{
                 'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
-              }"
-                 *ngIf="adForm.get('image') && adForm.get('image').value.src">
+              }">
               <img [src]="adForm.get('image').value.src | trustUrl"
                    [style.transform]="'scale('+ scaleImageToMatchBanner(i)+ ')'"
               />
             </div>
 
-
-            <div *ngIf="ads[i].html"
+            <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"
                  class="banner">
               <iframe
                 [ngStyle]="{
-                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
-              }"
-
-                [srcdoc]="ads[i].html | trustHtml"
+                            'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                            'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+                            }"
+                [src]="adForm.get('html').value.src | trustUrl"
               ></iframe>
-
-              <button
-                class="
-                  dwmth-btn
-                  dwmth-btn--white
-                  dwmth-blue"
-                (click)="editCode(i)"
-                data-test="advertiser-edit-campaign-create-ads-form-ad-html-clear"
-              >
-                Edit Code
-              </button>
-
-              <button
-                *ngIf="!isEditMode"
-                class="
-                  dwmth-btn
-                  dwmth-btn--white
-                  dwmth-blue"
-                (click)="clearCode(i)"
-                data-test="advertiser-edit-campaign-create-ads-form-ad-html-clear"
-              >
-                Clear Code
-              </button>
             </div>
           </div>
 

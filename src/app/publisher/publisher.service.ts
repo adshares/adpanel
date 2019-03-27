@@ -1,29 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-
 import { environment } from 'environments/environment';
 import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import * as publisherActions from 'store/publisher/publisher.actions';
-import { AppState } from 'models/app-state.model';
-import { MatDialog } from '@angular/material';
-import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { siteStatusEnum } from 'models/enum/site.enum';
-import { BannerClassificationResponse } from 'models/classifier.model';
-import * as codes from 'common/utilities/codes';
+import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 
 @Injectable()
 export class PublisherService {
 
   constructor(
-    private http: HttpClient,
-    private store: Store<AppState>,
-    private router: Router,
-    private dialog: MatDialog
+    private http: HttpClient
   ) {
   }
 
@@ -70,16 +58,6 @@ export class PublisherService {
     return this.http.patch<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
   }
 
-  updateSiteFiltering(id: number, site: Site): Observable<Site> {
-    if (site.filteringArray) {
-      const targetingObject = parseTargetingForBackend(site.filteringArray);
-
-      Object.assign(site, {filtering: targetingObject});
-    }
-
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
-  }
-
   getFilteringCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);
   }
@@ -88,37 +66,27 @@ export class PublisherService {
     return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 
-  saveAsDraft(site: Site): void {
-    site = {
-      ...site,
-      status: siteStatusEnum.DRAFT
-    };
-
-    this.saveSite(site).subscribe(
-      () => {
-        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(site));
-        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-        this.router.navigate(['/publisher', 'dashboard']);
-      },
-      (err) => {
-        if (err.status === codes.HTTP_INTERNAL_SERVER_ERROR) return;
-        this.dialog.open(ErrorResponseDialogComponent, {
-          data: {
-            title: 'Ups! Something went wrong...',
-            message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
-          }
-        });
-      }
-    );
+  getPossibleSizeOptionForBannerClassification(siteId?: number): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/sites/sizes/${siteId || ''}`);
   }
 
-  getBannerClassification(siteId?: number, limit?: number, offset?: number): Observable<BannerClassificationResponse> {
-    const params = {};
+  getBannerClassification(
+    siteId?: number, limit?: number, filtering?: BannerClassificationFilters, possibleSizes: string[] = [], offset?: number)
+    : Observable<BannerClassificationResponse> {
+    let params = {};
     if (limit) {
       params['limit'] = `${limit}`;
     }
     if (offset) {
       params['offset'] = `${offset}`;
+    }
+    if (filtering) {
+      params = {
+        ...params,
+        ...filtering.status,
+        sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
+          : JSON.stringify(possibleSizes)
+      };
     }
 
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,

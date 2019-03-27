@@ -47,7 +47,17 @@ export enum adStatusesEnum {
 export enum validImageTypes {
   "image/jpeg",
   "image/jpg",
-  "image/png"
+  "image/pjpeg",
+  "image/png",
+  "image/gif"
+};
+
+export enum validHtmlTypes {
+  "application/zip",
+  "application/x-compressed",
+  "multipart/x-zip",
+  "application/octet-stream",
+  "application/x-zip-compressed",
 };
 
 export enum adUnitStatusesEnum {

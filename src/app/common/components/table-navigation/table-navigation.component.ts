@@ -25,8 +25,8 @@ export class TableNavigationComponent implements OnInit {
   ];
 
   campaignListNavigationItems = [
-    {title: 'Status', columnWidth: 'col-xs-1', keys: ['basicInformation', 'status'], sortAsc: true},
-    {title: 'Campaign Title', columnWidth: 'col-xs-4', keys: ['basicInformation', 'name'], sortAsc: true},
+    {title: 'Status', columnWidth: 'status-cell-width', keys: ['basicInformation', 'status'], sortAsc: true},
+    {title: 'Campaign Title', columnWidth: 'col-xs-3', keys: ['basicInformation', 'name'], sortAsc: true},
     {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
@@ -71,7 +71,7 @@ export class TableNavigationComponent implements OnInit {
   classifierListNavigationItems = [
     {title: 'Ad', columnWidth: 'col-xs-7', hideArrows: true},
     {title: 'Ad data', columnWidth: 'col-xs-1', hideArrows: true},
-    {title: 'Campaign', columnWidth: 'col-xs-2', hideArrows: true},
+    {title: 'Ad landing url', columnWidth: 'col-xs-2', hideArrows: true},
     {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
   ];
 

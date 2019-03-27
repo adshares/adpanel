@@ -91,6 +91,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         (user: User) => {
           this.processLogin(user);
           if (user.isAdmin) {
+            this.session.setAccountTypeChoice('admin');
             this.router.navigate(['/admin/dashboard']);
             return;
           }

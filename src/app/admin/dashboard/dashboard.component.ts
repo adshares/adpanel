@@ -1,71 +1,67 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as moment from 'moment';
-
-import { AppState } from 'models/app-state.model';
-import { ChartService } from 'common/chart.service';
-import { ChartComponent } from 'common/components/chart/chart.component';
-import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { HandleSubscription } from 'common/handle-subscription';
-import { createInitialArray } from 'common/utilities/helpers';
+import { Component, OnInit } from '@angular/core';
+import { AppState } from "models/app-state.model";
+import { LoadAdminSettings } from "store/admin/admin.actions";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent extends HandleSubscription implements OnInit {
-  @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
-  barChartValue: number;
-  barChartDifference: number;
-  barChartDifferenceInPercentage: number;
-  barChartLabels: any = createInitialArray({labels: []}, 3);
-  barChartData: ChartData[][] = createInitialArray([{data: []}], 3);
+export class DashboardComponent implements OnInit {
+  settings = [
+    {
+      title: 'General Settings',
+      description: '',
+      link: '/admin/dashboard/general',
+      values: [
+        {name: 'Set business name', icon: 'assets/images/preferences.svg'},
+        {name: 'Set technical email', icon: 'assets/images/preferences.svg'},
+        {name: 'Set support email', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
+      title: 'Finance Settings',
+      description: '',
+      link: '/admin/dashboard/finance',
+      values: [
+        {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
+        {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
+      ],
+    },
+    {
+      title: 'Privacy Settings',
+      description: '',
+      link: '/admin/dashboard/privacy',
+      values: [
+        {name: 'Privacy', icon: 'assets/images/preferences.svg'},
+        {name: 'Terms and condition', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
+      title: 'Rebranding',
+      description: '',
+      link: '/admin/dashboard/rebranding',
+      values: [
+        {name: 'Image assets', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
+      title: 'Account Settings',
+      description: '',
+      link: '/admin/dashboard/account',
+      values: [
+        {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+  ];
 
-  currentChartFilterSettings: ChartFilterSettings;
-
-  constructor(
-    private chartService: ChartService,
-    private store: Store<AppState>,
-  ) {
-    super();
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.currentChartFilterSettings = chartFilterSettings;
-      });
-    this.subscriptions.push(chartFilterSubscription);
-
-    this.getChartData(this.currentChartFilterSettings);
-  }
-
-  getChartData(chartFilterSettings) {
-    this.barChartData.forEach(values => values[0].data = []);
-
-    const chartDataSubscription = this.chartService
-      .getAssetChartData(
-        chartFilterSettings.from,
-        chartFilterSettings.to,
-        chartFilterSettings.frequency,
-        chartFilterSettings.series,
-        'campaigns'
-      )
-      .subscribe(data => {
-        this.barChartData.forEach(values => values[0].data = data.values);
-        this.barChartData.forEach(chartData => chartData[0].currentSeries = this.currentChartFilterSettings.currentSeries);
-        this.barChartLabels.forEach(chartLabels => {
-          chartLabels.labels = data.timestamps.map(timestamp => moment(timestamp).format('D'));
-          chartLabels.labels.fullLabels = data.timestamps.map(timestamp => moment(timestamp).format('DD MMM YYYY'));
-        });
-        this.barChartValue = data.total;
-        this.barChartDifference = data.difference;
-        this.barChartDifferenceInPercentage = data.differenceInPercentage;
-      });
-
-    this.subscriptions.push(chartDataSubscription);
+    this.store.dispatch(new LoadAdminSettings());
   }
 }
+

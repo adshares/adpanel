@@ -11,8 +11,8 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartOptions } from 'models/chart/chart-options.model';
 import * as commonActions from 'store/common/common.actions';
-import {chartSeriesEnum} from "models/enum/chart.enum";
-import {enumToArray} from "common/utilities/helpers";
+import { chartSeriesEnum } from "models/enum/chart.enum";
+import { enumToArray } from "common/utilities/helpers";
 
 
 @Component({
@@ -57,7 +57,7 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
       this.currentChartFilterSettings.currentFrequency = 'day';
     } else if (daysSpan <= 182) {
       this.currentChartFilterSettings.currentFrequency = 'week';
-    } else if (daysSpan <= 730){
+    } else if (daysSpan <= 730) {
       this.currentChartFilterSettings.currentFrequency = 'month';
     } else {
       this.currentChartFilterSettings.currentFrequency = 'year';

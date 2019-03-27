@@ -1,0 +1,22 @@
+@import '../../../../../src/styles';
+
+.settings-menu-item {
+  height: 100%;
+  margin: 50px 0;
+  padding: 16px 0 16px 24px;
+  border-left: 2px solid pal(gray, light);
+  position: relative;
+
+  &.active {
+    border-color: pal(blue);
+  }
+
+  &__submenu {
+    margin-top: 16px;
+    margin-left: 16px;
+  }
+
+  &__submenu-item {
+    padding: 8px 0;
+  }
+}

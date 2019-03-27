@@ -12,6 +12,7 @@ export interface ChartOptions {
         color?: string
       },
       ticks?: {
+        maxRotation: number,
         autoSkip?: boolean,
         fontColor?: string,
         fontSize?: number,
