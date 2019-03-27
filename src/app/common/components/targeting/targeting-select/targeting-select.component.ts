@@ -149,7 +149,8 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
     const allOptions = options
-      || this.targetingOptions.reduce((prev, next) => prev.concat(next.values ? next.values : []), [])
+      || this.targetingOptions
+        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), [])
     ;
 
     allOptions
