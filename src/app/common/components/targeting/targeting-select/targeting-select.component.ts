@@ -159,6 +159,9 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
         if (option.children) {
           this.prepareTargetingOptionsForSearch(option.children);
         }
+        if (option.values) {
+          this.prepareTargetingOptionsForSearch(option.values);
+        }
       });
   }
 
