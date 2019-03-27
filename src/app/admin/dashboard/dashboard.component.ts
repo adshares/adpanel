@@ -3,6 +3,7 @@ import { AppState } from "models/app-state.model";
 import { GetLicense, LoadAdminSettings } from "store/admin/admin.actions";
 import { Store } from "@ngrx/store";
 import { HandleSubscription } from "common/handle-subscription";
+import { License } from "models/settings.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { HandleSubscription } from "common/handle-subscription";
 
 export class DashboardComponent extends HandleSubscription implements OnInit {
   isPanelBlocked: boolean = false;
+  licenseDetailUrl: string = null;
   settings = [
     {
       title: 'General Settings',
@@ -71,6 +73,14 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
       });
+
+    if (this.isPanelBlocked) {
+      const licenseSubscription = this.store.select('state', 'admin', 'license')
+        .subscribe((license: License) => {
+          this.licenseDetailUrl = license.detailsUrl;
+        });
+      this.subscriptions.push(licenseSubscription);
+    }
 
     this.subscriptions.push(adminStoreSettingsSubscription);
   }
