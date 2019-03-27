@@ -107,6 +107,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   createEmptyAd(): void {
+    this.adsSubmitted = false;
     this.ads.push(cloneDeep(adInitialState));
     this.adForms.push(this.generateFormField(adInitialState, false));
     this.adPanelsStatus.fill(false);
