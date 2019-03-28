@@ -94,7 +94,7 @@
           align-center"
       >
         <span data-test="publisher-site-rpm">
-          {{ (site.rpm || 0) | percent:'1.2-2' }}
+          {{ (site.rpm || 0) | adsharesTokenValue:2 }}
         </span>
       </div>
       <div

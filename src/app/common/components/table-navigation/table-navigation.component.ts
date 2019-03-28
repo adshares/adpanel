@@ -15,10 +15,11 @@ export class TableNavigationComponent implements OnInit {
   adListNavigationItems = [
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
-    {title: 'Type', columnWidth: 'col-xs-4', keys: ['type'], sortAsc: true},
+    {title: 'Type', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
+    {title: 'Avg. CPM', columnWidth: 'col-xs-1', keys: ['averageCpm'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
@@ -26,13 +27,14 @@ export class TableNavigationComponent implements OnInit {
 
   campaignListNavigationItems = [
     {title: 'Status', columnWidth: 'status-cell-width', keys: ['basicInformation', 'status'], sortAsc: true},
-    {title: 'Campaign Title', columnWidth: 'col-xs-3', keys: ['basicInformation', 'name'], sortAsc: true},
+    {title: 'Campaign Title', columnWidth: 'col-xs-2', keys: ['basicInformation', 'name'], sortAsc: true},
     {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
+    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
+    {title: 'Avg. CPM', columnWidth: 'col-xs-1', keys: ['averageCpm'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
-    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
@@ -43,7 +45,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'Page RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
-    {title: 'Avg. Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
+    {title: 'Avg. RPC', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
     {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
     ];
 
@@ -55,7 +57,6 @@ export class TableNavigationComponent implements OnInit {
   ];
 
   adUnitsNavigation = [
-    {title: 'Miniature', columnWidth: 'col-xs-1', hideArrows: true},
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
     {title: 'Size', columnWidth: 'col-xs-1', hideArrows: true},
     {title: 'Tags', columnWidth: 'col-xs-2', hideArrows: true},
@@ -63,8 +64,8 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Est. Revenue', columnWidth: 'col-xs-1', keys: ['revenue'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
-    {title: 'Avg. Rpm', columnWidth: 'col-xs-1', keys: ['averageRpm'], sortAsc: true},
-    {title: 'Avg. Rpc', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
+    {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['averageRpm'], sortAsc: true},
+    {title: 'Avg. RPC', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
     {title: 'Code', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 

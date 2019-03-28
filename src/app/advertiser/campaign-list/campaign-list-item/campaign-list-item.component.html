@@ -48,7 +48,7 @@
       </div>
       <div
         class="
-          col-xs-3
+          col-xs-2
           row
           clickable-row
           align-center"
@@ -97,6 +97,16 @@
         data-test="advertiser-campaign-ctr"
       >
         <span>{{  (campaign.ctr || 0) | percent:'1.2-2' }}</span>
+      </div>
+      <div
+        class="
+          col-xs-1
+          row
+          align-center"
+        data-test="advertiser-campaign-average-cpm"
+      >
+        <span [title]="(campaign.averageCpm || 0) | adsharesTokenValue">
+          {{ (campaign.averageCpm || 0) | adsharesTokenValue:2}} </span>
       </div>
       <div
         class="
