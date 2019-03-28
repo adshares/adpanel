@@ -211,6 +211,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       this.adUnitsSubmitted = false;
       this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
       this.redirectAfterSave(isDraft);
+    } else {
+      this.changesSaved = false;
     }
   }
 
