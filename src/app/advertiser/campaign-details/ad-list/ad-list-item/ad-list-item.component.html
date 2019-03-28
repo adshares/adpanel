@@ -48,6 +48,17 @@
          row
          dwmth-copy
          align-center"
+    data-test="advertiser-ad-cost"
+    [title]=" (ad.cost || 0) | adsharesTokenValue"
+  >
+    {{ (ad.cost || 0) | adsharesTokenValue:2}}
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         dwmth-copy
+         align-center"
     data-test="advertiser-ad-clicks">
     {{ ad.clicks || 0}}
   </td>
@@ -92,17 +103,6 @@
     [title]="(ad.averageCpc || 0) | adsharesTokenValue"
   >
     {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
-  </td>
-  <td
-    class="
-         col-xs-1
-         row
-         dwmth-copy
-         align-center"
-    data-test="advertiser-ad-cost"
-    [title]=" (ad.cost || 0) | adsharesTokenValue"
-  >
-    {{ (ad.cost || 0) | adsharesTokenValue:2}}
   </td>
   <td
     class="

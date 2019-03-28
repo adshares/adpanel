@@ -16,12 +16,12 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
     {title: 'Type', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true},
+    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. CPM', columnWidth: 'col-xs-1', keys: ['averageCpm'], sortAsc: true},
     {title: 'Avg. CPC', columnWidth: 'col-xs-1', keys: ['averageCpc'], sortAsc: true},
-    {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Edit', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
   ];
 
