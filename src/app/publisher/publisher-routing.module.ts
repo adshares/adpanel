@@ -69,9 +69,12 @@ const publisherRoutes: Routes = [
         ]
       },
       {
-        path: 'edit-site',
+        path: 'edit-site/:id',
         component: EditSiteComponent,
-        resolve: {filteringOptions: FilteringCriteriaResolver},
+        resolve: {
+          filteringOptions: FilteringCriteriaResolver,
+          site: SiteResolver
+        },
         children: [
           {
             path: 'basic-information',

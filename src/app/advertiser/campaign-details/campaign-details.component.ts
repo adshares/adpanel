@@ -21,7 +21,6 @@ import { UserConfirmResponseDialogComponent } from
 import {
   DeleteCampaign,
   UpdateCampaignStatus,
-  SetLastEditedCampaign
 } from 'store/advertiser/advertiser.actions';
 
 @Component({
@@ -139,9 +138,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   navigateToCampaignEdition(path: string, step: number): void {
-    this.store.dispatch(new SetLastEditedCampaign(this.campaign));
     this.router.navigate(
-      ['/advertiser', 'edit-campaign', path],
+      ['/advertiser', 'edit-campaign', this.campaign.id, path],
       {queryParams: {step}}
     );
   }

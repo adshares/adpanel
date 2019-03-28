@@ -31,7 +31,6 @@ import { TableColumnMetaData } from 'models/table.model';
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   site: Site;
-  adUnit: Site;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
@@ -165,9 +164,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToEditSite(path: string, step: number): void {
-    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'edit-site', path],
+      ['/publisher', 'edit-site', this.site.id, path],
       {queryParams: {step, summary: true}}
     );
   }
