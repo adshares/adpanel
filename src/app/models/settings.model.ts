@@ -51,6 +51,14 @@ interface TermsAndPrivacy {
   terms:string
 }
 
+interface License {
+  type: string,
+  dateStart: string,
+  dateEnd: string,
+  owner: string,
+  detailsUrl: string
+}
+
 interface AdminPrivacyAndTermsSettingsResponse {
   content: string;
 }
@@ -81,5 +89,6 @@ export {
   CalculateWithdrawalItem,
   AdminSettingsResponse,
   AdminPrivacyAndTermsSettingsResponse,
-  TermsAndPrivacy
+  TermsAndPrivacy,
+  License
 };
