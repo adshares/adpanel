@@ -13,7 +13,6 @@ export class SessionService {
   drop() {
     localStorage.removeItem('adsharesAddress');
     localStorage.removeItem('notifications');
-    localStorage.removeItem('accountTypeChoice');
     localStorage.removeItem('user');
   }
 
