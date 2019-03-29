@@ -8,8 +8,6 @@ env:
     - DEV_XDEBUG="false"
     - APP_VERSION="travis"
     - CONTEXT_INFO="travis"
-cache:
-  yarn: true
 
 jobs:
   include:
@@ -19,9 +17,7 @@ jobs:
 
     - if: type = pull_request AND branch != master
       before_script:
-        - env
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
-        - ls -la src/environments/
       script:
         - yarn build --dev
       env:
