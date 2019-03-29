@@ -101,8 +101,10 @@ export class PublisherEffects {
   getLanguageList = this.actions$
     .ofType(publisherActions.GET_LANGUAGES_LIST)
     .map(toPayload)
-    .switchMap(() => this.service.getLanguagesList())
-    .map((list) => new publisherActions.GetLanguagesListSuccess(list));
+    .switchMap(() => this.service.getLanguagesList()
+      .map((list) => new publisherActions.GetLanguagesListSuccess(list))
+      .catch(() => Observable.of(new publisherActions.GetLanguagesListFailure()))
+    );
 
   @Effect()
   getFilteringCriteria = this.actions$

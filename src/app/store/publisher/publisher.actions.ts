@@ -5,7 +5,7 @@ import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
-export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading';
+export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading success';
 export const GET_LANGUAGES_LIST_FAILURE = 'Languages loading failure';
 
 export const GET_FILTERING_CRITERIA = 'Getting filtering criteria';
@@ -207,7 +207,7 @@ export class GetLanguagesListSuccess implements Action {
 export class GetLanguagesListFailure implements Action {
   readonly type = GET_LANGUAGES_LIST_FAILURE;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 
