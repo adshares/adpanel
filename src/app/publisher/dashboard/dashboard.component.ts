@@ -55,11 +55,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
-
-    this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe( (filterSettings) => {
-        this.link = `http://localhost:8101/api/sites/stats/report/${filterSettings.currentFrom}/${filterSettings.currentTo}`;
-      })
   }
 
   getChartData(chartFilterSettings) {
