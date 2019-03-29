@@ -196,4 +196,20 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   get statusButtonLabel(): string {
     return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
+
+  downloadReport() {
+    const settings = this.currentChartFilterSettings;
+    this.publisherService.report(settings.currentFrom, settings.currentTo, this.site.id)
+      .subscribe((data) => {
+        const fileName = `report_${settings.currentFrom}_${settings.currentTo}_${this.site.id}.csv`;
+        const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
+        const link = document.createElement('a');
+        link.setAttribute('download', fileName);
+        link.setAttribute('href', URL.createObjectURL(blob));
+
+        link.click();
+
+
+      });
+  }
 }

@@ -11,6 +11,7 @@ import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import {ChartData} from 'models/chart/chart-data.model';
 import {AppState} from 'models/app-state.model';
 import {createInitialArray} from 'common/utilities/helpers';
+import { PublisherService } from 'publisher/publisher.service';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 
@@ -35,9 +36,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   currentChartFilterSettings: ChartFilterSettings;
 
+  link: string;
+
   constructor(
     private chartService: ChartService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private publisherService: PublisherService
   ) {
     super();
   }
@@ -51,6 +55,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
+
+    this.store.select('state', 'common', 'chartFilterSettings')
+      .subscribe( (filterSettings) => {
+        this.link = `http://localhost:8101/api/sites/stats/report/${filterSettings.currentFrom}/${filterSettings.currentTo}`;
+      })
   }
 
   getChartData(chartFilterSettings) {
@@ -87,5 +96,18 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((sitesTotals: SitesTotals) => this.sitesTotals = sitesTotals);
 
     this.subscriptions.push(sitesSubscription, sitesTotalsSubscription);
+  }
+
+  downloadReport() {
+    const settings = this.currentChartFilterSettings;
+    this.publisherService.report(settings.currentFrom, settings.currentTo)
+      .subscribe((data) => {
+        const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
+        const link = document.createElement('a');
+        link.setAttribute("download", `report_${settings.currentFrom}_${settings.currentTo}.csv`);
+        link.setAttribute("href", URL.createObjectURL(blob));
+
+        link.click();
+      });
   }
 }
