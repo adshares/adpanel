@@ -5,7 +5,7 @@
     Save settings
   </button>
 </div>
-<article class="row finances">
+<article class="row finances finances-settings__commisions-wrapper">
   <app-earnings-settings
     [title]="'Advertiser commission'"
     [desc]=" 'Set a commission that will be subtracted from event payments. It will be a part of your income.'"
@@ -14,8 +14,6 @@
     [step]="0.01"
     [format]="'%'"
     [value]="settings.advertiserCommission"
-    [transformDecimal]="true"
-    [showSlider]="true"
     (valueChanged)="updateSettings($event, 'advertiserCommission')"
   >
   </app-earnings-settings>
@@ -27,8 +25,6 @@
     [step]="0.01"
     [format]="'%'"
     [value]="settings.publisherCommission"
-    [transformDecimal]="true"
-    [showSlider]="true"
     (valueChanged)="updateSettings($event, 'publisherCommission')"
   >
   </app-earnings-settings>
