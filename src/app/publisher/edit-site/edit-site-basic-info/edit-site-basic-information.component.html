@@ -131,11 +131,12 @@
       <button
         class="
           dwmth-btn
+          dwmth-btn--wide
           dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         [disabled]="changesSaved || siteBasicInfoSubmitted"
       >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update Site" }}</span>
+        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

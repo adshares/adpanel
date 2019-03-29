@@ -193,7 +193,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const heightRatio = bannerHeight / imageHeight;
     const widthRatio = bannerWidth / imageWidth;
 
-    return heightRatio <= widthRatio ? heightRatio : widthRatio;
+    return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
   selectProperBannerSize(imageSize: string, index: number) {

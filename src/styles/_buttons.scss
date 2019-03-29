@@ -16,6 +16,7 @@
 
   &--wide {
     padding: 10px 16px;
+    min-width: calc(10ch + 16px);
     max-width: none;
   }
 
