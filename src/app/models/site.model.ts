@@ -25,12 +25,11 @@ interface Site {
 }
 
 interface SitesTotals {
-  averageRpc: number;
-  averageRpm: number;
-  clicks: number;
-  ctr: number;
-  impressions: number;
-  revenue: number;
+  totalEarnings: number;
+  totalClicks: number;
+  totalImpressions: number;
+  averagePageRPM: number;
+  averageCPC: number;
 }
 
 interface AdUnit {
