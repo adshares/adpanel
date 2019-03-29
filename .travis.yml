@@ -18,13 +18,20 @@ cache:
 
 jobs:
   include:
-    - install:
+    - if: type = pull_request
+      script: sonar-scanner
+    - if: type = pull_request AND branch != master
+      install:
         - yarn install
       script:
         - yarn build
 
-    - script: sonar-scanner
-      if: type = pull_request
+    - stage: Build (prod)
+      if: type = pull_request AND branch = master
+      install:
+        - yarn install
+      script:
+        - yarn build --prod
 
 notifications:
   email: false
