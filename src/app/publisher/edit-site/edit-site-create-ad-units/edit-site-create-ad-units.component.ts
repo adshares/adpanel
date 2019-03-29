@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/first';
 
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import {adSizesEnum, adTypesOptions} from 'models/enum/ad.enum';
-import {cloneDeep} from 'common/utilities/helpers';
-import {AdUnit, AdUnitSize, Site} from 'models/site.model';
-import {AppState} from 'models/app-state.model';
-import {adUnitInitialState} from 'models/initial-state/ad-unit';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { adSizesEnum, adTypesOptions } from 'models/enum/ad.enum';
+import { cloneDeep } from 'common/utilities/helpers';
+import { AdUnit, AdUnitSize, Site } from 'models/site.model';
+import { AppState } from 'models/app-state.model';
+import { adUnitInitialState } from 'models/initial-state/ad-unit';
 import * as publisherActions from 'store/publisher/publisher.actions';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import {MatDialog} from "@angular/material";
-import {HandleSubscription} from "common/handle-subscription";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { MatDialog } from "@angular/material";
+import { HandleSubscription } from "common/handle-subscription";
 import { siteStatusEnum } from "models/enum/site.enum";
 
 @Component({
@@ -147,6 +147,12 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
     this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
+    this.adjustAdUnitName(adUnitIndex, adUnit.name);
+  }
+
+  adjustAdUnitName(index: number, name: string): void {
+    if (this.adUnitForms[index].get('shortHeadline').dirty === true) return;
+    this.adUnitForms[index].get('shortHeadline').setValue(name);
   }
 
   onSubmit(): void {
