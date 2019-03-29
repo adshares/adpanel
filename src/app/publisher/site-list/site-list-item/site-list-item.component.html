@@ -1,53 +1,45 @@
-<div
-  class="dwmth-box"
-  data-test="publisher-navigate-to-site-details"
->
-  <div class="site-list__item">
-    <ng-template #loading>
-      <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-    </ng-template>
-    <div
-      *ngIf="site; else loading"
-      class="
+<tr
+  *ngIf="site; else loading"
+  class="dwmth-box site-list__item
         row
         align-center
-        dwmth-copy
-        "
-    >
-      <div
-        class="
+        dwmth-copy"
+  data-test="publisher-navigate-to-site-details"
+>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
-        <div class="dwmth-status"
-          [attr.data-status]="currentSiteStatus"
+  >
+    <div class="dwmth-status"
+         [attr.data-status]="currentSiteStatus"
+    >
+      {{ currentSiteStatus }}
+      <div class="status-wrapper__list-item">
+        <mat-select [value]=" "
+                    (change)="onSiteStatusChange($event)"
+                    data-test="advertiser-campaign-status-select"
         >
-          {{ currentSiteStatus }}
-          <div class="status-wrapper__list-item">
-            <mat-select [value]=" "
-                        (change)="onSiteStatusChange($event)"
-                        data-test="advertiser-campaign-status-select"
-            >
 
-              <mat-option *ngFor="let option of siteStatusEnumArray"
-                          [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
-                          [value]="option"
-                          data-test="advertiser-campaign-status-select-option"
-              >
-                {{ option }}
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
+          <mat-option *ngFor="let option of siteStatusEnumArray"
+                      [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
+                      [value]="option"
+                      data-test="advertiser-campaign-status-select-option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-select>
       </div>
-      <div
-        class="
-          col-xs-5
+    </div>
+  </td>
+  <td
+    class="
+          col-xs-4
           row
           clickable-row
           align-center"
-      >
+  >
         <span
           class="dwmth-copy dwmth-copy--bold"
           (click)="navigateToSiteDetails(site.id)"
@@ -55,74 +47,87 @@
         >
           {{ site.name }}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
+  >
         <span data-test="publisher-site-estimated-earnings"
               [title]="(site.cost || 0) | adsharesTokenValue">
           {{ (site.cost || 0) | adsharesTokenValue:2 }}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
+  >
         <span data-test="publisher-site-clicks">
           {{ site.clicks || 0}}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
+  >
         <span data-test="publisher-site-impressions">
           {{ (site.impressions || 0) }}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
+  >
+        <span data-test="publisher-site-ctr">
+          {{ (site.ctr || 0) | percent:'1.2-2' }}
+        </span>
+  </td>
+  <td
+    class="
+          col-xs-1
+          row
+          align-center"
+  >
         <span data-test="publisher-site-rpm">
           {{ (site.rpm || 0) | adsharesTokenValue:2 }}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      >
+  >
         <span data-test="publisher-site-average=rpc"
               [title]="(site.averageRpc || 0) | adsharesTokenValue">
           {{ (site.averageRpc || 0) | adsharesTokenValue:2 }}
         </span>
-      </div>
-      <div
-        class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           clickable-row
           align-center
           justify-center
           dwmth-site-list__item-site-details"
-        (click)="navigateToSiteDetails(site.id)"
-      >
-        <img
-          src="/assets/images/chevron--right.svg"
-          [alt]="'Go to  ' + site.name + ' details'"
-        >
-      </div>
-    </div>
+    (click)="navigateToSiteDetails(site.id)"
+  >
+    <img
+      src="/assets/images/chevron--right.svg"
+      [alt]="'Go to  ' + site.name + ' details'"
+    >
+  </td>
+</tr>
+<ng-template #loading>
+  <div class="dwmth-box dwmth-box--large justify-center align-center">
+    <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
   </div>
-</div>
+</ng-template>
