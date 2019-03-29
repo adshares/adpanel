@@ -17,19 +17,20 @@ interface Site {
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
-  rpm?: number;
+  averageRpm?: number;
+  averageRpc?: number;
   ctr?: number;
   cost?: number;
-  averageRpc?: number;
   code?: string;
 }
 
 interface SitesTotals {
-  totalEarnings: number;
-  totalClicks: number;
-  totalImpressions: number;
-  averagePageRPM: number;
-  averageCPC: number;
+  averageRpc: number;
+  averageRpm: number;
+  clicks: number;
+  ctr: number;
+  impressions: number;
+  revenue: number;
 }
 
 interface AdUnit {

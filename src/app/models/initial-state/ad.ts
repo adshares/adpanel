@@ -11,6 +11,7 @@ export const adInitialState: Ad = {
   impressions: 0,
   ctr: 0,
   averageCpc: 0,
+  averageCpm: 0,
   cost: 0,
   budget: 0,
   url: null

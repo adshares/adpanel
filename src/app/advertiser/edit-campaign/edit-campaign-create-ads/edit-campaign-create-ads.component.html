@@ -202,7 +202,8 @@
               dwmth-box--bordered
               dwmth-box--dashed
               dwmth-box--blue-border
-              drag-and-drop-box"
+              drag-and-drop-box
+              banner"
             *ngIf="!imagesStatus.upload.processing
                    && ((isImageTypeChosen(adForm)
                    && adForm.get('image').value.src === '')
@@ -216,7 +217,7 @@
           >
             <img
               src="/assets/images/campaign-ad-illustration.svg"
-              alt="Ad illustration"
+              alt=""
             >
             <div>
               <p
@@ -485,6 +486,7 @@
         Save as Draft
       </button>
       <button class="dwmth-btn
+                     dwmth-btn--wide
                      dwmth-btn--blue"
               (click)="onSubmit()"
               data-test="advertiser-edit-campaign-save-and-continue"

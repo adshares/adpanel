@@ -36,11 +36,22 @@
   </td>
   <td
     class="
-         col-xs-4
+         col-xs-3
          row
          align-center"
   >
     <app-banner-preview [banner]="ad"></app-banner-preview>
+  </td>
+  <td
+    class="
+         col-xs-1
+         row
+         dwmth-copy
+         align-center"
+    data-test="advertiser-ad-cost"
+    [title]=" (ad.cost || 0) | adsharesTokenValue"
+  >
+    {{ (ad.cost || 0) | adsharesTokenValue:2}}
   </td>
   <td
     class="
@@ -77,10 +88,10 @@
          row
          dwmth-copy
          align-center"
-    data-test="advertiser-ad-average-cpc"
-    [title]="(ad.averageCpc || 0) | adsharesTokenValue"
+    data-test="advertiser-ad-average-cpm"
+    [title]="(ad.averageCpm || 0) | adsharesTokenValue"
   >
-    {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
+    {{ (ad.averageCpm || 0) | adsharesTokenValue:2}}
   </td>
   <td
     class="
@@ -88,10 +99,10 @@
          row
          dwmth-copy
          align-center"
-    data-test="advertiser-ad-cost"
-    [title]=" (ad.cost || 0) | adsharesTokenValue"
+    data-test="advertiser-ad-average-cpc"
+    [title]="(ad.averageCpc || 0) | adsharesTokenValue"
   >
-    {{ (ad.cost || 0) | adsharesTokenValue:2}}
+    {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
   </td>
   <td
     class="

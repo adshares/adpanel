@@ -158,6 +158,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
 
+    this.adjustBannerName(form);
+
     if (isUploadedTypeValid && isImageSizeValid) {
       this.sendImage(image, adIndex, form);
     } else {
@@ -167,6 +169,17 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         size: isImageSizeValid,
         upload: true
       };
+    }
+  }
+
+  adjustBannerName(form: FormGroup): void {
+    if (form.get('name').dirty === false) {
+      let name = `${adTypesEnum[form.get('type').value]} ${adSizesEnum[form.get('size').value]}`;
+      const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
+      if (matchingNames.length > 0) {
+        name = `${name} ${matchingNames.length}`
+      }
+      form.get('name').setValue(name)
     }
   }
 
@@ -180,7 +193,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const heightRatio = bannerHeight / imageHeight;
     const widthRatio = bannerWidth / imageWidth;
 
-    return heightRatio <= widthRatio ? heightRatio : widthRatio;
+    return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
   selectProperBannerSize(imageSize: string, index: number) {
@@ -280,11 +293,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adTypes.forEach((type) => delete adForm.controls[type]);
     adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
+    this.adjustBannerName(adForm);
   }
 
   setAdSize(adIndex): void {
     const adForm = this.adForms[adIndex];
     const adSize = adForm.get('size').value;
+    this.adjustBannerName(adForm);
     const adSizeName = this.adSizes[adSize];
   }
 
@@ -297,7 +312,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
       this.adForms.every((adForm, index) => !!this.ads[index].url) &&
-        this.imagesStatus.validation.every((validation) => validation.size && validation.type);
+      this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
       this.campaign = {

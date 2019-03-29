@@ -3,6 +3,10 @@
   width: auto;
   min-width: 120px;
 
+  &[readonly] {
+    cursor: not-allowed;
+  }
+
   &__format {
     height: calc(100% - 16px);
     display: flex;
