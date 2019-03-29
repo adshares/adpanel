@@ -45,7 +45,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
-    {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['rpm'], sortAsc: true},
+    {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['averageRpm'], sortAsc: true},
     {title: 'Avg. RPC', columnWidth: 'col-xs-1', keys: ['averageRpc'], sortAsc: true},
     {title: 'Details', columnWidth: 'col-xs-1 justify-center', hideArrows: true}
     ];

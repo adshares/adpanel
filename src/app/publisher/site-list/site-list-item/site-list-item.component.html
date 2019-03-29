@@ -95,8 +95,9 @@
           row
           align-center"
   >
-        <span data-test="publisher-site-rpm">
-          {{ (site.rpm || 0) | adsharesTokenValue:2 }}
+        <span data-test="publisher-site-rpm"
+              [title]="(site.averageRpm || 0) | adsharesTokenValue">
+          {{ (site.averageRpm || 0) | adsharesTokenValue:2 }}
         </span>
   </td>
   <td
