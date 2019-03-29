@@ -4,10 +4,10 @@ node_js:
 
 env:
   global:
-    - adserver_url="https://example.com"
-    - dev_xdebug="false"
-    - app_version="travis"
-    - context_info="travis"
+    - ADSERVER_URL="https://example.com"
+    - DEV_XDEBUG="false"
+    - APP_VERSION="travis"
+    - CONTEXT_INFO="travis"
 
 jobs:
   include:
