@@ -53,9 +53,12 @@ const advertiserRoutes: Routes = [
         ]
       },
       {
-        path: 'edit-campaign',
+        path: 'edit-campaign/:id',
         component: EditCampaignComponent,
-        resolve: {targetingOptions: TargetingCriteriaResolver},
+        resolve: {
+          targetingOptions: TargetingCriteriaResolver,
+          campaign: CampaignResolver,
+        },
         children: [
           {
             path: 'basic-information',

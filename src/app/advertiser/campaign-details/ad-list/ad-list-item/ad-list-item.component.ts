@@ -6,7 +6,6 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
-import { SetLastEditedCampaign } from "store/advertiser/advertiser.actions";
 import { Store } from "@ngrx/store";
 import { Ad, Campaign } from 'models/campaign.model';
 import { AppState } from "models/app-state.model";
@@ -57,9 +56,8 @@ export class AdListItemComponent {
   }
 
   navigateToAdEdition(): void {
-    this.store.dispatch(new SetLastEditedCampaign(this.campaign));
     this.router.navigate(
-      ['/advertiser', 'edit-campaign', 'create-ad'],
+      ['/advertiser', 'edit-campaign', this.campaign.id, 'create-ad'],
       {queryParams: {step: 3}}
     );
   }
