@@ -16,6 +16,7 @@ export DEV_XDEBUG=${DEV_XDEBUG:-false}
 export APP_ENV=${APP_ENV:-prod}
 
 envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
+envsubst < src/index.html.template > src/index.html
 
 if [[ ! -z ${BRAND_ASSETS_DIR:-""} ]]
 then
