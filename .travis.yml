@@ -1,14 +1,4 @@
-sudo: required
-
-language: jvm
-
-jdk: openjdk9
-
-services:
-  - docker
-
-stages:
-  - Test build, install and code quality
+language: node_js
 
 env:
   global:
@@ -21,46 +11,19 @@ env:
     - ADSERVER_URL="http://example.com"
     - REQUEST_XDEBUG="false"
 
-before_script:
-  ## Setup test environment
-  # Run docker container
-
-  - docker pull $DOCKER_IMAGE
-  - >
-    docker run -d
-    --mount type=bind,src=$HOST_PATH,dst=$BUILD_PATH
-    -e TRAVIS=true
-    -e APP_ENV=${APP_ENV}
-    -e APP_PROD=${APP_PROD}
-    -e ADSERVER_URL=${ADSERVER_URL}
-    -e REQUEST_XDEBUG=${REQUEST_XDEBUG}
-    -e INSTALLATION_PATH=/var/www/adpanel
-    --name $BUILD_NAME
-    $DOCKER_IMAGE
-    sleep infinity
+cache:
+  yarn: true
 
 jobs:
   include:
-    - stage: Code Quality
+    - install:
+        - yarn install
       script:
-        - sonar-scanner
+        - yarn build
 
-#    - stage: Test build, install
-#      if: type = pull_request AND branch = master
-#      script:
-#        # Run pre-build script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-build.sh"
-#
-#        # Run build script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/build.sh"
-#
-#        # Run pre-install script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-install.sh"
-#
-#        # Run install script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/install.sh"
+    - script: sonar-scanner
+      if: type = pull_request
 
-# After a build, send email push-notification with the build results
 notifications:
   email: false
   slack:
@@ -70,8 +33,6 @@ notifications:
     on_failure: always
 
 addons:
-  hosts:
-    - panel.ads
   sonarcloud:
     organization: "adshares-github"
     token:
