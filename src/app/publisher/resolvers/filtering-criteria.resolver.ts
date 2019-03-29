@@ -7,7 +7,7 @@ import { TargetingOption } from 'models/targeting-option.model';
 import { prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
 
 @Injectable()
-export class FilteringCriteriaResolver implements Resolve<any> {
+export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
   constructor(private publisherService: PublisherService) {
   }
 

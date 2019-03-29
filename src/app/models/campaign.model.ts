@@ -14,6 +14,7 @@ interface Campaign {
   impressions?: number;
   ctr?: number;
   averageCpc?: number;
+  averageCpm?: number;
   cost?: number;
   conversions?: number;
   classificationStatus: number;
@@ -49,6 +50,7 @@ interface Ad {
   clicks: number;
   impressions: number;
   ctr: number;
+  averageCpm: number;
   averageCpc: number;
   cost: number;
   budget: number;

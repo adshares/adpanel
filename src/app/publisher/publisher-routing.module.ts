@@ -16,6 +16,7 @@ import { SiteResolver } from './resolvers/site.resolver';
 import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 import { MatchingBannerSizesResolver } from "publisher/resolvers/matching-banner-sizes.resolver";
+import { LanguagesListResolver } from "publisher/resolvers/languages-list.resolver";
 
 const publisherRoutes: Routes = [
   {
@@ -29,6 +30,7 @@ const publisherRoutes: Routes = [
         path: 'site/:id',
         resolve: {
           site: SiteResolver,
+          languagesList: LanguagesListResolver,
           filteringOptions: FilteringCriteriaResolver
         },
         children: [
@@ -50,6 +52,7 @@ const publisherRoutes: Routes = [
         resolve: {filteringOptions: FilteringCriteriaResolver},
         children: [
           {
+            resolve: {languagesList: LanguagesListResolver},
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
           },
@@ -69,11 +72,15 @@ const publisherRoutes: Routes = [
         ]
       },
       {
-        path: 'edit-site',
+        path: 'edit-site/:id',
         component: EditSiteComponent,
-        resolve: {filteringOptions: FilteringCriteriaResolver},
+        resolve: {
+          filteringOptions: FilteringCriteriaResolver,
+          site: SiteResolver
+        },
         children: [
           {
+            resolve: {languagesList: LanguagesListResolver},
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
           },

@@ -1,5 +1,4 @@
 import { Component, Input,  Output } from '@angular/core';
-import { fadeAnimation } from "common/animations/fade.animation";
 import { Subject } from "rxjs";
 
 @Component({
@@ -7,7 +6,6 @@ import { Subject } from "rxjs";
   templateUrl: './earnings-settings.component.html',
   styleUrls: ['./earnings-settings.component.scss'],
   host: {'class': 'app-finances-settings'},
-  animations: [fadeAnimation]
 })
 export class EarningsSettingsComponent  {
   @Input() title: string;
@@ -17,13 +15,11 @@ export class EarningsSettingsComponent  {
   @Input() step: number;
   @Input() format: string;
   @Input() value: number;
-  @Input() showSlider: boolean;
-  @Input() transformDecimal: boolean;
   @Output() valueChanged = new Subject<number>();
-
   constructor() {}
 
   updateValue(newValue: number): void {
-    this.valueChanged.next(newValue);
+    const formattedValue = parseFloat(newValue.toFixed(2));
+    this.valueChanged.next(formattedValue);
   }
 }

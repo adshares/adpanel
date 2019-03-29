@@ -17,10 +17,10 @@ interface Site {
   estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
-  rpm?: number;
+  averageRpm?: number;
+  averageRpc?: number;
   ctr?: number;
   cost?: number;
-  averageRpc?: number;
   code?: string;
 }
 
