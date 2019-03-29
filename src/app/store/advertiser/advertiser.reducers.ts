@@ -111,7 +111,6 @@ export function advertiserReducers(state = initialState, action: advertiserActio
           campaignsWithTotal.push({...campaign})
         }
       });
-
       return {
         ...state,
         campaigns: campaignsWithTotal,

@@ -1,10 +1,4 @@
 <tr class="dwmth-box row justify-between">
-  <td class="col-xs-1 poster-unit__thumbnail-wrapper poster-unit__cell">
-    <img class="poster-unit__thumbnail"
-         src="/assets/images/board_ads_q_b_800.png"
-         alt="ad-thumbnail"/>
-  </td>
-
   <td class="col-xs-1 dwmth-copy  poster-unit__cell"> {{ adUnit.shortHeadline }}</td>
   <td class="col-xs-1 col justify-around poster-unit__cell poster-unit__cell--start">
     <span class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ adUnit.size.label }} </span>
@@ -22,6 +16,7 @@
   <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
   <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
   <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.ctr || 0) | percent:'1.2-2'  }} </td>
   <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
   </td>
   <td class="col-xs-1 dwmth-copy  poster-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
