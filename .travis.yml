@@ -4,27 +4,26 @@ node_js:
 
 env:
   global:
-    - DOCKER_IMAGE=awlodarkiewicz/devops:adpanel
-    - HOST_PATH=/home/travis/build/adshares/adpanel
-    - BUILD_PATH=/build/adpanel
-    - BUILD_NAME=adpanel_build
-    - APP_ENV=dev
-    - APP_PROD="false"
-    - ADSERVER_URL="http://example.com"
-    - REQUEST_XDEBUG="false"
-
+    - ADSERVER_URL="https://example.com"
+    - DEV_XDEBUG="false"
+    - APP_VERSION="travis"
+    - CONTEXT_INFO="travis"
 cache:
   yarn: true
 
 jobs:
   include:
     - if: type = pull_request
+      install: true
       script: sonar-scanner
+
     - if: type = pull_request AND branch != master
-      install:
-        - yarn install
+      before_script: envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
-        - yarn build
+        - yarn build --dev
+      env:
+        - APP_ENV="dev"
+        - APP_PROD="false"
 
     - stage: Build (prod)
       if: type = pull_request AND branch = master
@@ -32,6 +31,9 @@ jobs:
         - yarn install
       script:
         - yarn build --prod
+      env:
+        - APP_ENV="prod"
+        - APP_PROD="true"
 
 notifications:
   email: false
