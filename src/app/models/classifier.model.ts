@@ -5,6 +5,7 @@ interface BannerClassification {
   width: number,
   height: number,
   sourceHost: string;
+  landingUrl:string;
   budget?: number;
   cpm?: number;
   cpc?: number;
@@ -20,4 +21,18 @@ interface BannerClassificationResponse {
   items: BannerClassification[];
 }
 
-export { BannerClassification, BannerClassificationResponse };
+interface BannerClassificationStatus {
+  approved?: number,
+  rejected?: number,
+  unclassified?: number,
+}
+
+interface BannerClassificationFilters {
+  status?: BannerClassificationStatus;
+  sizes?: Array<string>;
+}
+
+export {
+  BannerClassification,
+  BannerClassificationResponse,
+  BannerClassificationFilters };

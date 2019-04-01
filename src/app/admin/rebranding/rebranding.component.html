@@ -1,0 +1,60 @@
+<article class="dwmth-box rebranding__box">
+  <div class="col justify-center align-start">
+    <h1 class="dwmth-heading dwmth-heading--primary">Rebranding</h1>
+    <p class="dwmth-copy dwmth-copy--large rebranding__subtitle">
+      All instructions can be found
+      <a href="https://github.com/adshares/adserver/wiki/Panel-rebranding">
+        here
+      </a>
+    </p>
+  </div>
+  <ul class="rebranding__list dwmth-copy dwmth-copy--medium">
+    <li class="rebranding__list-item">
+      To change images project needs to be rebuild.
+      Collect all images which you want to change in one directory.
+    </li>
+    <mat-divider></mat-divider>
+    <li class="rebranding__list-item">
+      If you use interactive installer, you will be asked if you want to copy brand assets inside project directory.
+      In case of automatic installer two environment variables should be set.
+      <ul class="rebranding__list">
+        <li class="rebranding__list-item">
+          `COPY_BRAND_ASSETS` should be `Y`.
+        </li>
+        <li class="rebranding__list-item">
+          `BRAND_ASSETS_DIR` should be full path to assets directory.
+        </li>
+      </ul>
+    </li>
+    <mat-divider></mat-divider>
+    <li class="rebranding__list-item">
+      Files from assets directory will overwrite the standard files.
+    </li>
+    <mat-divider></mat-divider>
+    <li class="rebranding__list-item">
+      File favicon.ico should also be changed for legacy browsers.
+    </li>
+  </ul>
+  <section class="dwmth-box">
+    <h2 class="dwmth-heading dwmth-heading--primary">Assets</h2>
+    <div class="row dwmth-copy dwmth-copy--medium rebranding__assets-wrapper">
+      Favicons
+      <div class="rebranding__icons-row no-wrap">
+        <img src="/favicon-96x96.png" alt=""/>
+        <img src="/favicon-48x48.png" alt=""/>
+        <img src="/favicon-32x32.png" alt=""/>
+        <img src="/favicon-16x16.png" alt=""/>
+      </div>
+    </div>
+    <div class="dwmth-copy dwmth-copy--medium">
+      Logos
+      <div class="row dwmth-header-bg rebranding__icons-row no-wrap">
+        <div>
+          <img src="assets/images/logo--white.png" alt=""/>
+          <img src="assets/images/logo--white@2x.png" alt=""/>
+          <img src="assets/images/logo--white@3x.png" alt=""/>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>

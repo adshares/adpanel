@@ -53,9 +53,12 @@ const advertiserRoutes: Routes = [
         ]
       },
       {
-        path: 'edit-campaign',
+        path: 'edit-campaign/:id',
         component: EditCampaignComponent,
-        resolve: {targetingOptions: TargetingCriteriaResolver},
+        resolve: {
+          targetingOptions: TargetingCriteriaResolver,
+          campaign: CampaignResolver,
+        },
         children: [
           {
             path: 'basic-information',
@@ -81,7 +84,7 @@ const advertiserRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(advertiserRoutes)
+    RouterModule.forChild(advertiserRoutes)
   ],
   exports: [
     RouterModule

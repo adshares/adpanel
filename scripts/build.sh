@@ -35,6 +35,18 @@ export APP_ENV=${APP_ENV:-prod}
 
 envsubst --version &>/dev/null || (echo "[ERROR] Missing 'envsubst' command" && exit 127)
 envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
+envsubst < src/index.html.template > src/index.html
+
+if [[ ! -z ${BRAND_ASSETS_DIR:-""} ]]
+then
+  if [[ ! -d ${BRAND_ASSETS_DIR} ]]
+  then
+      echo "Brand assets directory ${BRAND_ASSETS_DIR} doesn't exist."
+  else
+      cp -f ${BRAND_ASSETS_DIR}/favicon* src/
+      cp -f ${BRAND_ASSETS_DIR}/logo* src/assets/images/
+  fi
+fi
 
 yarn --version &>/dev/null || (echo "[ERROR] Missing 'yarn' command" && exit 127)
 yarn install

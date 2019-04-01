@@ -1,9 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
-import { AdminSettings, UserInfoStats } from 'models/settings.model';
+import {
+  AdminPrivacyAndTermsSettingsResponse,
+  AdminSettings,
+  AdminSettingsResponse,
+  UserInfoStats
+} from 'models/settings.model';
 import { environment } from 'environments/environment';
+import { adsToClicks } from "common/utilities/helpers";
 
 @Injectable()
 export class AdminService {
@@ -15,11 +20,38 @@ export class AdminService {
     return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`);
   }
 
-  getAdminSettings(): Observable<AdminSettings> {
-    return this.http.get<AdminSettings>(`${environment.apiUrl}/admin/settings`);
+  getAdminSettings(): Observable<AdminSettingsResponse> {
+    return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }
 
-  setAdminSettings(newSettings: AdminSettings): Observable<AdminSettings> {
-    return this.http.patch<AdminSettings>(`${environment.apiUrl}/admin/settings`, {newSettings});
+  getTermsAndConditions(): Observable<AdminPrivacyAndTermsSettingsResponse> {
+    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/terms`);
+  }
+
+  setTermsAndConditions(content): Observable<string> {
+    return this.http.put<string>(`${environment.serverUrl}/admin/terms`, {content});
+  }
+
+  getPrivacySettings(): Observable<AdminPrivacyAndTermsSettingsResponse> {
+    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/privacy`);
+  }
+
+  setPrivacySettings(content): Observable<string> {
+    return this.http.put<string>(`${environment.serverUrl}/admin/privacy`, {content});
+  }
+
+  setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
+    const formatValues = {
+      ...settings,
+      advertiserCommission: settings.advertiserCommission / 100,
+      publisherCommission: settings.publisherCommission / 100,
+      hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
+      hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
+    };
+    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
+  }
+
+  getLicense(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}/admin/license`);
   }
 }

@@ -2,8 +2,7 @@
 
 .dwmth-header {
   width: 100vw;
-  height: 60px;
-  background: pal(navy);
+  height: $app-header-height;
 
   @include media(sm-down-without-sm) {
     height: 110px;
@@ -32,6 +31,7 @@
     text-transform: uppercase;
     color: pal(red, dark);
     font-size: 14px;
+    line-height: 1;
   }
 }
 

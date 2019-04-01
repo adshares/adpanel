@@ -1,0 +1,29 @@
+<div class="dwmth-box dwmth-box--large admin-param row">
+  <div>
+    <h1
+      class="
+      dwmth-heading
+      dwmth-heading--primary"
+    >
+      {{title}}
+    </h1>
+    <p
+      class="
+      dwmth-copy
+      dwmth-copy--large
+      admin-param__desc"
+    >
+      {{desc}}
+    </p>
+  </div>
+
+
+  <input
+    type="text"
+    [ngModel]="value"
+    class="dwmth-form-input
+           admin-param__input"
+    data-test="admin-params-input"
+    (ngModelChange)="updateValue($event)"
+  >
+</div>

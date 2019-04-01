@@ -13,7 +13,7 @@ $palette-colors: (
     mid-light: #d3d7dc,
     base: #aebac7,
     light-dark: #abb4bd,
-    mid-dark: #747474, // previously: #99a3ae,
+    mid-dark: #747474,
     dark: #4e576e
   ),
   white: (
@@ -27,7 +27,7 @@ $palette-colors: (
   green: (
     light: #e9faf2,
     base: #81c784,
-    dark: #008000c4
+    dark: #009406
   ),
   orange: (
     dark: #ff9931,
@@ -46,7 +46,6 @@ $palette-colors: (
 );
 
 $main_colors: white, navy, blue, green, red, orange;
-
 
 @function palette($palette, $tone: 'base') {
   @return map-get(map-get($palette-colors, $palette), $tone);

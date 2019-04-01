@@ -13,8 +13,8 @@ import { HandleSubscription } from 'common/handle-subscription';
 
 import { appSettings } from 'app-settings';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
-import {Store} from "@ngrx/store";
-import {AppState} from "models/app-state.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
 import * as authActions from 'store/auth/auth.actions';
 
 @Component({
@@ -91,10 +91,19 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         (user: User) => {
           this.processLogin(user);
           if (user.isAdmin) {
+            this.session.setAccountTypeChoice('admin');
             this.router.navigate(['/admin/dashboard']);
             return;
+          } else {
+            const accountType = this.session.getAccountTypeChoice();
+            if (user.isPublisher && accountType === 'publisher') {
+              this.router.navigate(['/publisher/dashboard']);
+            } else if (user.isAdvertiser && accountType === 'advertiser') {
+              this.router.navigate(['/advertiser/dashboard']);
+            } else {
+              this.showStartupPopups(user);
+            }
           }
-          this.showStartupPopups(user);
         },
         (err) => {
           this.criteriaError = true;

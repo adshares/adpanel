@@ -1,4 +1,4 @@
-let serverUrl = 'http://localhost:8101';
+let serverUrl ='https://test-server.e11.click'; // 'http://localhost:8101'; //
 
 export const environment = {
   production: false,
@@ -6,5 +6,6 @@ export const environment = {
   authUrl: serverUrl + '/auth',
   apiUrl: serverUrl + '/api',
   xdebug: false,
-  version: "0"
+  version: "0",
+  context: 'local'
 };

@@ -1,0 +1,16 @@
+.general-settings {
+  padding: 30px;
+  width: calc(100% - 380px);
+
+  .settings-outlet & {
+    width: auto;
+  }
+}
+
+.app-license {
+  margin: 30px;
+}
+
+.settings-outlet .general-settings {
+  width: 100% !important;
+}

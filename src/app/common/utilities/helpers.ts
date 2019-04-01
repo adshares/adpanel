@@ -1,4 +1,7 @@
-import {TableColumnMetaData} from 'models/table.model';
+import { TableColumnMetaData } from 'models/table.model';
+import * as moment from "moment";
+import { campaignStatusesEnum } from "models/enum/campaign.enum";
+
 
 function adsToClicks(amount: any): number {
   if (typeof amount === 'number') {
@@ -164,11 +167,17 @@ function findValueByPathArray(object, pathArray) {
     pathArray.reduce((obj, partialPath) => obj[partialPath], object)
 }
 
-const simpleValidateHtmlStr = (html: string): boolean => {
-  const doc = document.createElement('div');
-  doc.innerHTML = html;
-  return (doc.innerHTML === html);
-};
+const adjustCampaignStatus = (campaignInfo, currentDate): number => {
+  if (campaignInfo.dateEnd === null || campaignInfo.status !== campaignStatusesEnum.ACTIVE) {
+    return campaignInfo.status
+  } else if (currentDate > moment(campaignInfo.dateEnd)) {
+    return campaignStatusesEnum.OUTDATED
+  } else if (currentDate < moment(campaignInfo.dateStart)) {
+    return campaignStatusesEnum.AWAITING
+  } else {
+    return campaignInfo.status
+  }
+}
 
 export {
   adsToClicks,
@@ -177,11 +186,11 @@ export {
   cloneDeep,
   enumToArray,
   enumToObject,
-  simpleValidateHtmlStr,
   enumToObjectArray,
   formatMoney,
   isUnixTimePastNow,
   selectCompare,
   createInitialArray,
   sortArrayByColumnMetaData,
+  adjustCampaignStatus
 };

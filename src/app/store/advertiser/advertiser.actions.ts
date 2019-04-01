@@ -9,6 +9,7 @@ export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved
 export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
 
+
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';

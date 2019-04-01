@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, toPayload} from '@ngrx/effects';
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Router } from "@angular/router";
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import {PublisherService} from 'publisher/publisher.service';
+import { PublisherService } from 'publisher/publisher.service';
 import * as publisherActions from './publisher.actions';
-import {prepareTargetingChoices} from "common/components/targeting/targeting.helpers";
-import {Observable} from "rxjs";
+import { prepareTargetingChoices } from "common/components/targeting/targeting.helpers";
+import { Observable } from "rxjs";
 import "rxjs/add/operator/takeLast";
 import * as moment from "moment";
+import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
 
 @Injectable()
 export class PublisherEffects {
@@ -77,15 +78,33 @@ export class PublisherEffects {
   addSiteToSites = this.actions$
     .ofType(publisherActions.ADD_SITE_TO_SITES)
     .map(toPayload)
-    .switchMap((payload) => this.service.saveSite(payload))
-    .map((site) => new publisherActions.AddSiteToSitesSuccess(site));
+    .switchMap((payload) => this.service.saveSite(payload)
+      .switchMap((site) => {
+        this.router.navigate(['/publisher', 'dashboard']);
+
+        return [
+          new publisherActions.AddSiteToSitesSuccess(site),
+          new publisherActions.ClearLastEditedSite()
+        ]
+      })
+      .catch(err => {
+        if (err !== HTTP_INTERNAL_SERVER_ERROR) {
+          return Observable.of(new publisherActions.AddSiteToSitesFailure(
+            `We weren\'t able to save your site due to this error: ${err.error.message} \n
+            Please try again later.`
+          ))
+        }
+      })
+    );
 
   @Effect()
   getLanguageList = this.actions$
     .ofType(publisherActions.GET_LANGUAGES_LIST)
     .map(toPayload)
-    .switchMap(() => this.service.getLanguagesList())
-    .map((list) => new publisherActions.GetLanguagesListSuccess(list));
+    .switchMap(() => this.service.getLanguagesList()
+      .map((list) => new publisherActions.GetLanguagesListSuccess(list))
+      .catch(() => Observable.of(new publisherActions.GetLanguagesListFailure()))
+    );
 
   @Effect()
   getFilteringCriteria = this.actions$
@@ -97,7 +116,10 @@ export class PublisherEffects {
 
   @Effect()
   updateSite = this.actions$
-    .ofType(publisherActions.UPDATE_SITE)
+    .ofType(
+      publisherActions.UPDATE_SITE,
+      publisherActions.UPDATE_SITE_FILTERING
+    )
     .map(toPayload)
     .switchMap(payload => this.service.updateSiteData(payload.id, payload)
       .switchMap(() => {
@@ -118,20 +140,4 @@ export class PublisherEffects {
       .map(() => new publisherActions.UpdateSiteStatusSuccess(payload))
       .catch(() => Observable.of(new publisherActions.UpdateSiteStatusFailure()))
     );
-
-  @Effect()
-  updateSiteFiltering = this.actions$
-    .ofType(publisherActions.UPDATE_SITE_FILTERING)
-    .map(toPayload)
-    .switchMap(payload => this.service.updateSiteFiltering(payload.id, payload)
-      .switchMap(() => {
-        this.router.navigate(['/publisher', 'site', payload.id]);
-        return [
-          new publisherActions.UpdateSiteFilteringSuccess(payload),
-          new publisherActions.ClearLastEditedSite(),
-        ]
-      })
-      .catch(() => Observable.of(new publisherActions.UpdateSiteFilteringFailure()))
-    )
-
 }

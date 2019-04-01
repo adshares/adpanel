@@ -16,11 +16,9 @@ export class AssetHelpersService {
         (asset['site'] && this.isSite(asset['site'])) ? asset['site']['name'] : asset['basicInformation']['name']
       );
     const fieldFilled = obligatoryField !== '';
-
     if (!fieldFilled) {
       const moduleDir = this.isSite(asset) ? 'publisher' : 'advertiser';
       const assetDir = this.isSite(asset) ? 'create-site' : 'create-campaign';
-
       this.router.navigate(
         [moduleDir, assetDir, 'basic-information'],
         {queryParams: {step: 1}}

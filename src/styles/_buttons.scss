@@ -16,6 +16,7 @@
 
   &--wide {
     padding: 10px 16px;
+    min-width: calc(10ch + 16px);
     max-width: none;
   }
 
@@ -66,8 +67,13 @@
     background-color: pal(blue);
     max-height: 46px;
 
-    &:hover {
+    &:focus,
+    &:hover:not([disabled]) {
       background-color: darken(pal(blue), 5);
+    }
+
+    &[disabled] {
+      background-color: lighten(pal(blue), 5%);
     }
   }
 
@@ -102,7 +108,8 @@
     margin-right: 15px;
   }
 
-  &.disabled {
+  &.disabled,
+  &[disabled] {
     cursor: not-allowed;
   }
 

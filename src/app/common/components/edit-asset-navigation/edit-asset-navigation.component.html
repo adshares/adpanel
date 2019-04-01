@@ -21,7 +21,7 @@
         <div
           class="dwmth-circle"
           [class.inactive]="currentStep < step.id"
-          [class.active]="currentStep == step.id"
+          [class.active]="currentStep === step.id"
           [class.done]="currentStep > step.id">
         </div>
         <p class="dwmth-copy">

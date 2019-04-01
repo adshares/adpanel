@@ -1,20 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
-import {MatDialog} from "@angular/material";
 
-import {AppState} from 'models/app-state.model';
-import {Site} from 'models/site.model';
-import {siteStatusEnum} from 'models/enum/site.enum';
-import {PublisherService} from 'publisher/publisher.service';
-import {AssetHelpersService} from 'common/asset-helpers.service';
-import * as publisherActions from 'store/publisher/publisher.actions';
-import {HandleSubscription} from 'common/handle-subscription';
-import {TargetingOption} from 'models/targeting-option.model';
-import {cloneDeep} from 'common/utilities/helpers';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { adSizesEnum } from "models/enum/ad.enum";
+import { AppState } from 'models/app-state.model';
+import { Site } from 'models/site.model';
+import { siteStatusEnum } from 'models/enum/site.enum';
+import { PublisherService } from 'publisher/publisher.service';
+import { AssetHelpersService } from 'common/asset-helpers.service';
+import { AddSiteToSites } from 'store/publisher/publisher.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import { TargetingOption } from 'models/targeting-option.model';
+import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -24,7 +21,6 @@ import { adSizesEnum } from "models/enum/ad.enum";
 export class EditSiteSummaryComponent extends HandleSubscription implements OnInit {
   site: Site;
   filteringOptions: TargetingOption[];
-  createSiteMode: boolean;
   canSubmit: boolean;
 
   constructor(
@@ -33,19 +29,16 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
     private assetHelpers: AssetHelpersService,
     private router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
   ) {
     super();
   }
 
   ngOnInit() {
-
-    this.createSiteMode = !!this.router.url.match('/create-site/');
-
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .first()
       .subscribe((lastEditedSite: Site) => {
         this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
-        this.site = Object.assign({}, lastEditedSite);
+        this.site = lastEditedSite;
       });
 
     this.subscriptions.push(lastSiteSubscription);
@@ -54,42 +47,9 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
   saveSite(isDraft): void {
     this.canSubmit = false;
-
     if (!isDraft) {
       this.site.status = siteStatusEnum.ACTIVE;
     }
-
-    this.publisherService.saveSite(this.site).subscribe(
-      () => {
-        this.store.dispatch(new publisherActions.AddSiteToSitesSuccess(this.site));
-        this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
-        this.router.navigate(['/publisher', 'dashboard']);
-      },
-      (err) => {
-        this.canSubmit = true;
-        this.showErrorInformation(err);
-      }
-    );
-  }
-
-  updateSite(): void {
-    this.canSubmit = false;
-    const siteId = this.site.id;
-    this.store.dispatch(new publisherActions.UpdateSiteFiltering(this.site));
-    this.navigateToSiteDetails(siteId);
-  }
-
-  showErrorInformation(err: { status: number, error: { message: string } }): void {
-    if (err.status === 500) return;
-    this.dialog.open(ErrorResponseDialogComponent, {
-      data: {
-        title: 'Ups! Something went wrong...',
-        message: `We weren\'t able to save your site due to this error: ${err.error.message} \n Please try again later.`,
-      }
-    });
-  }
-
-  navigateToSiteDetails(id: number): void {
-    this.router.navigate(['/publisher', 'site', id]);
+    this.store.dispatch(new AddSiteToSites(this.site));
   }
 }

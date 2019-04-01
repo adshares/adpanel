@@ -1,8 +1,10 @@
 @import '../../../../styles.scss';
 
-.dwmth-ad-list__item {
-  &--type {
-    padding: 0 50px;
+.dwmth-ad-list {
+  &__item {
+    &--type {
+      padding: 0 50px;
+    }
   }
 }
 
@@ -15,5 +17,8 @@
     width: auto;
     max-width: 95%;
     max-height: 100px;
+  }
+  &__link {
+    padding-right: 8px!important;
   }
 }

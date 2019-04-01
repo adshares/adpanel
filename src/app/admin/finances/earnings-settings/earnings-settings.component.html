@@ -1,0 +1,55 @@
+<div class="dwmth-box dwmth-box--large admin-earnings">
+  <h1
+    class="
+      dwmth-heading
+      dwmth-heading--primary"
+  >
+    {{title}}
+  </h1>
+  <p
+    class="
+      admin-earnings__desc
+      dwmth-copy
+      dwmth-copy--medium"
+  >
+    {{desc}}
+  </p>
+
+  <mat-slider
+    color="primary"
+    [max]="max"
+    [min]="min"
+    [step]="step"
+    [thumb-label]="true"
+    [ngModel]="value"
+    (ngModelChange)="updateValue($event)"
+    data-test="admin-earnings-slider"
+  ></mat-slider>
+
+  <div
+    class="
+      row
+      align-center
+      justify-center"
+  >
+    <input
+      type="number"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      class="
+        dwmth-heading
+        dwmth-heading--primary
+        dwmth-form-input
+        earnings-input"
+      [ngModel]="value"
+      (ngModelChange)="updateValue($event)"
+      data-test="admin-earnings-direct-input"
+    >
+    <span class="dwmth-heading
+                 col
+                 admin-earnings__format
+                 dwmth-heading--primary
+           "> {{format}}</span>
+  </div>
+</div>

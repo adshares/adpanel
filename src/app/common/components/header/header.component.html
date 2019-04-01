@@ -1,6 +1,7 @@
 <section
   class="
     dwmth-header
+    dwmth-header-bg
     container-fluid
     row
     align-center
@@ -29,14 +30,15 @@
             assets/images/logo--white@3x.png 3x"
           alt="Adshares Logo"
         >
-        <span class="dwmth-copy
-                     dwmth-header__logo-subtitle">Testnet</span>
+        <span *ngIf="!!envContext"
+              class="dwmth-copy
+                     dwmth-header__logo-subtitle">{{envContext}}</span>
       </div>
     </a>
-      <button
-        type="button"
-        *ngIf="!userDataState.isAdmin"
-        class="dwmth-btn--no-border
+    <button
+      type="button"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      class="dwmth-btn--no-border
                row
                align-center
                dwmth-navigation__item
@@ -44,20 +46,20 @@
                dwmth-copy--uppercase
                dwmth-copy--semi
                dwmth-copy--lineheight-reset"
-        (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
-      >
-        <img
-          class="
+      (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
+    >
+      <img
+        class="
             dwmth-icon
             dwmth-icon--prepend"
-          [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
-        />
-        Advertiser
-      </button>
-      <button
-        type="button"
-        *ngIf="!userDataState.isAdmin"
-        class="dwmth-btn--no-border
+        [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+      />
+      Advertiser
+    </button>
+    <button
+      type="button"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      class="dwmth-btn--no-border
                row
                align-center
                dwmth-navigation__item
@@ -65,16 +67,16 @@
                dwmth-copy--uppercase
                dwmth-copy--semi
                dwmth-copy--lineheight-reset"
-        (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
-      >
-        <img
-          class="
+      (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
+    >
+      <img
+        class="
             dwmth-icon
             dwmth-icon--prepend"
-          [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
-        />
-       Publisher
-      </button>
+        [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+      />
+      Publisher
+    </button>
   </div>
 
 
@@ -84,7 +86,7 @@
       align-center"
   >
     <button
-      *ngIf="!userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       class="
         dwmth-btn
         dwmth-btn--with-icon
@@ -98,37 +100,16 @@
       data-test="header-create-new-asset-button"
     >
       <img
-          class="
-            dwmth-icon
-            dwmth-icon--prepend"
-          src="assets/images/plus-circle.svg"
-      >
-        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
-        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
-    </button>
-    <button
-      *ngIf="userDataState.isAdmin"
-      (click)="openSetEarningsDialog()"
-      class="
-        dwmth-btn
-        dwmth-btn--with-icon
-        dwmth-btn--wide
-        dwmth-bg-blue
-        dwmth-navigation__item
-        row
-        align-center"
-      data-test="header-admin-set-earning-dialog-open-button"
-    >
-      <img
         class="
             dwmth-icon
             dwmth-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
-      <span>Set your earnings</span>
+      <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
+      <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
     </button>
     <div
-      *ngIf="!userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       class="
         row
         align-center
@@ -163,9 +144,6 @@
           class="dwmth-usd"
           data-test="user-total-funds-in-currency"
         >
-<!--
-          ~ {{ userDataState.adserverWallet.totalFundsInCurrency | currency:'USD':'symbol':'1.2-2' }}
--->
         </span>
       </div>
       <img
@@ -201,7 +179,7 @@
                 close"
               src="assets/images/plus-circle.svg"
             >
-              Add Funds
+            Add Funds
           </button>
         </li>
         <li
@@ -236,7 +214,7 @@
         row
         align-center
         hidden-sm"
-      *ngIf="userDataState.isAdmin"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
       (click)="logout()"
       data-test="header-log-out-button"
     >
@@ -251,10 +229,8 @@
         dwmth-btn--transparent
         row
         align-center
-        hidden-sm
-        visible-sm
-        hidden-lg-up"
-      *ngIf="!userDataState.isAdmin"
+        visible-sm"
+      *ngIf="activeUserType === userRolesEnum.ADMIN"
       (click)="logout()"
       data-test="header-log-out-button"
     >
@@ -277,41 +253,41 @@
     </span>
     <!-- TODO PAN-183 remove notification -->
     <!--<div-->
-      <!--class="-->
-        <!--dwmth-bg-navy--light-->
-        <!--dwmth-navigation__item-->
-        <!--dwmth-btn-->
-        <!--dwmth-btn--small-->
-        <!--row-->
-        <!--align-center-->
-        <!--relative-->
-        <!--hidden-sm"-->
-      <!--(click)="toggleNotificationsBar()"-->
-      <!--data-test="notifications-toggle-notifications-bar"-->
+    <!--class="-->
+    <!--dwmth-bg-navy--light-->
+    <!--dwmth-navigation__item-->
+    <!--dwmth-btn-->
+    <!--dwmth-btn--small-->
+    <!--row-->
+    <!--align-center-->
+    <!--relative-->
+    <!--hidden-sm"-->
+    <!--(click)="toggleNotificationsBar()"-->
+    <!--data-test="notifications-toggle-notifications-bar"-->
     <!--&gt;-->
-      <!--<img-->
-        <!--class="dwmth-icon"-->
-        <!--src="assets/images/bell.svg"-->
-      <!--&gt;-->
-      <!--<div-->
-        <!--class="-->
-          <!--dwmth-circle-->
-          <!--dwmth-bg-green-->
-          <!--absolute"-->
-      <!--&gt;-->
-        <!--<span-->
-          <!--class="-->
-            <!--absolute-->
-            <!--notifications-total"-->
-        <!--&gt;-->
-          <!--{{ notificationsTotal }}-->
-        <!--</span>-->
-      <!--</div>-->
+    <!--<img-->
+    <!--class="dwmth-icon"-->
+    <!--src="assets/images/bell.svg"-->
+    <!--&gt;-->
+    <!--<div-->
+    <!--class="-->
+    <!--dwmth-circle-->
+    <!--dwmth-bg-green-->
+    <!--absolute"-->
+    <!--&gt;-->
+    <!--<span-->
+    <!--class="-->
+    <!--absolute-->
+    <!--notifications-total"-->
+    <!--&gt;-->
+    <!--{{ notificationsTotal }}-->
+    <!--</span>-->
+    <!--</div>-->
     <!--</div>-->
   </div>
 </section>
 
 <!-- TODO PAN-183 remove notification -->
 <!--<app-notifications-->
-  <!--[notificationsBarOpen]="notificationsBarOpen"-->
-  <!--(onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>-->
+<!--[notificationsBarOpen]="notificationsBarOpen"-->
+<!--(onDisableNotificationsBar)="toggleNotificationsBar()"></app-notifications>-->

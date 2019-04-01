@@ -1,66 +1,27 @@
-sudo: required
-
-language: jvm
-
-jdk: openjdk9
-
-services:
-  - docker
-
-stages:
-  - Test build, install and code quality
+language: node_js
+node_js:
+  - "8"
 
 env:
   global:
-    - DOCKER_IMAGE=awlodarkiewicz/devops:adpanel
-    - HOST_PATH=/home/travis/build/adshares/adpanel
-    - BUILD_PATH=/build/adpanel
-    - BUILD_NAME=adpanel_build
-    - APP_ENV=dev
-    - APP_PROD="false"
-    - ADSERVER_URL="http://example.com"
-    - REQUEST_XDEBUG="false"
-
-before_script:
-  ## Setup test environment
-  # Run docker container
-
-  - docker pull $DOCKER_IMAGE
-  - >
-    docker run -d
-    --mount type=bind,src=$HOST_PATH,dst=$BUILD_PATH
-    -e TRAVIS=true
-    -e APP_ENV=${APP_ENV}
-    -e APP_PROD=${APP_PROD}
-    -e ADSERVER_URL=${ADSERVER_URL}
-    -e REQUEST_XDEBUG=${REQUEST_XDEBUG}
-    -e INSTALLATION_PATH=/var/www/adpanel
-    --name $BUILD_NAME
-    $DOCKER_IMAGE
-    sleep infinity
+    - ADSERVER_URL="https://example.com"
+    - DEV_XDEBUG="false"
+    - APP_VERSION="travis"
+    - CONTEXT_INFO="travis"
 
 jobs:
   include:
-    - stage: Code Quality
+    - if: type = push
+      install: true
+      script: sonar-scanner
+
+    - if: type = pull_request
+      env: APP_ENV=prod APP_PROD=true
+      before_script:
+        - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
-        - sonar-scanner
+        - yarn build --environment ${APP_ENV}
 
-#    - stage: Test build, install
-#      if: type = pull_request AND branch = master
-#      script:
-#        # Run pre-build script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-build.sh"
-#
-#        # Run build script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/build.sh"
-#
-#        # Run pre-install script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/pre-install.sh"
-#
-#        # Run install script
-#        - docker exec $BUILD_NAME /bin/bash -c "cd $BUILD_PATH && ./scripts/install.sh"
-
-# After a build, send email push-notification with the build results
 notifications:
   email: false
   slack:
@@ -70,8 +31,6 @@ notifications:
     on_failure: always
 
 addons:
-  hosts:
-    - panel.ads
   sonarcloud:
     organization: "adshares-github"
     token:

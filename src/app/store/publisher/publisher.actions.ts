@@ -5,7 +5,7 @@ import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
-export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading';
+export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading success';
 export const GET_LANGUAGES_LIST_FAILURE = 'Languages loading failure';
 
 export const GET_FILTERING_CRITERIA = 'Getting filtering criteria';
@@ -33,8 +33,10 @@ export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
 export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
-export const ADD_SITE_TO_SITES = 'Site added to user sites';
-export const ADD_SITE_TO_SITES_SUCCESS = 'Site added to user sites success';
+
+export const ADD_SITE_TO_SITES = 'Save site';
+export const ADD_SITE_TO_SITES_SUCCESS = 'Save site success';
+export const ADD_SITE_TO_SITES_FAILURE = 'Save site failure';
 
 export const UPDATE_SITE = 'Site update';
 export const UPDATE_SITE_SUCCESS = 'Site update success';
@@ -181,6 +183,13 @@ export class AddSiteToSitesSuccess implements Action {
   }
 }
 
+export class AddSiteToSitesFailure implements Action {
+  readonly type = ADD_SITE_TO_SITES_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
 export class GetLanguagesList implements Action {
   readonly type = GET_LANGUAGES_LIST;
 
@@ -198,7 +207,7 @@ export class GetLanguagesListSuccess implements Action {
 export class GetLanguagesListFailure implements Action {
   readonly type = GET_LANGUAGES_LIST_FAILURE;
 
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
   }
 }
 
