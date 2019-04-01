@@ -15,15 +15,7 @@ jobs:
       install: true
       script: sonar-scanner
 
-    - if: type = pull_request AND branch != master
-      env: APP_ENV=dev APP_PROD=false
-      before_script:
-        - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
-      script:
-        - yarn build --environment ${APP_ENV}
-
-    - stage: Build (prod)
-      if: type = pull_request AND branch = master
+    - if: type = pull_request
       env: APP_ENV=prod APP_PROD=true
       before_script:
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
