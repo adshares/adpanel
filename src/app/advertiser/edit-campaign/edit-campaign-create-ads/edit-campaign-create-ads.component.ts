@@ -144,11 +144,18 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   fileOverDropArea(isOverDrop, adIndex): void {
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
     if (!isOverDrop && this.uploader.queue[0]) {
-      this.uploadBanner(this.uploader.queue[0], adIndex);
+      this.uploadBanner(this.uploader.queue[0]);
     }
   }
 
-  uploadBanner(image, adIndex): void {
+  getExpandedPanelIndex(): number {
+    return this.adPanelsStatus.findIndex(function(element: boolean) {
+      return element;
+    });
+  }
+
+  uploadBanner(image): void {
+    const adIndex = this.getExpandedPanelIndex();
     const form =  this.adForms[adIndex];
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
       enumToArray(validImageTypes).indexOf(image.file.type) > -1 : enumToArray(validHtmlTypes).indexOf(image.file.type) > -1;
@@ -254,7 +261,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         this.imagesStatus.upload.processing = false;
         this.imagesStatus.validation[adIndex].upload = false;
       };
-      image.onComplete = (res) => {
+      image.onComplete = () => {
         this.imagesStatus.upload.processing = false;
         this.uploader.queue.pop();
       };
@@ -298,9 +305,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   setAdSize(adIndex): void {
     const adForm = this.adForms[adIndex];
-    const adSize = adForm.get('size').value;
     this.adjustBannerName(adForm);
-    const adSizeName = this.adSizes[adSize];
   }
 
   onSubmit(isDraft: boolean = false): void {
