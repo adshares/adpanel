@@ -15,26 +15,18 @@ jobs:
       install: true
       script: sonar-scanner
 
-    - if: type = pull_request and branch != master
-      env: app_env=dev app_prod=false
+    - if: type = pull_request
+      env: APP_ENV=prod APP_PROD=true
       before_script:
-        - envsubst < src/environments/environment.ts.template > src/environments/environment.${app_env}.ts
+        - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
-        - yarn build --environment ${app_env}
-
-    - stage: build (prod)
-      if: type = pull_request and branch = master
-      env: app_env=prod app_prod=true
-      before_script:
-        - envsubst < src/environments/environment.ts.template > src/environments/environment.${app_env}.ts
-      script:
-        - yarn build --environment ${app_env}
+        - yarn build --environment ${APP_ENV}
 
 notifications:
   email: false
   slack:
     rooms:
-      secure: "etej5c8xmeanriyve/sylffz0ft42bh1vldeliz0g7rn3lninrzh4t7i4mzhm9flbsynedrsr9rni/vk1yjlwk0g/zjfzbdslvnk3awt4zozveob33geg2b4cccel+tkqduqe5fi7pcz972lfxrop/qzg66b5gwoyvnx2siquqyb8h0xlqdbjg2tmbl7afl34nxe+ebmcex1qeq8zb/nvxkg9df/as6yhj+o+fca3savq1hnfyrvfgnhkmu8lki1xwo//y3gozryamsvcrbixpbjsm0pqptg6watayvxje9kgpwqdgqqr9fx8dyekqlaul2opm5yie/8ehxohcswftsvnrqmzrwgju3xzxqmngaxbq47nwwgy4taqdb3odzdpjfifpmsbtexamfhm7nnahe5e+q57bccwxegwmu78ucaoz/3akvqqrjfmhd91lkpatxiiz4i+s/0fdvfcmzodarueoqbzt4lizo8olosuyym3llj/ojtc9ciyyt6dpenuztmlrhce3qut5ny80j/mieqgklblnmrsuglqanz27sb1pbxs8gwn82kxms/8zqvbbdtbqgwe8qamarbeay++k+u7tp4c5cpnqzyi+qq7lv7idp0oizysmpt2xtyn//uafbrzpty1auglop/xg2ld/amgsgqibe42favalogozg="
+      secure: "eTeJ5C8XmeanrIyve/sYlFFZ0fT42bH1VLDELiz0G7rn3LNinrzh4t7i4mZHm9FLBSynEdRsR9rNi/Vk1YJLWk0G/ZJFzbDSlVNk3aWT4ZOZveob33geG2b4cCCeL+TKqdUQE5Fi7PCZ972lFXRoP/qzg66b5GwoYVnx2sIquqyB8h0XlqDbjg2tMbL7AfL34nXE+EbmCex1qeq8zb/nVXKG9dF/As6yhJ+O+FcA3sAvQ1hNfyRvfGnhkmu8LkI1XWO//y3gOzRyamSvcRBIxPBJsm0PQPtG6wATAYVxjE9kGPWQDGqQR9Fx8DYeKqLAUL2OpM5yiE/8eHXohCswfTsvNrQmZrwgJU3xzXqMngaxbQ47NwwGY4TAqdB3odzDpJFIFpMSbtEXamFHM7nnAhe5E+q57bCCWxEGwmU78UcAoZ/3AKvqQRjfmHD91lKpATxiiz4i+S/0fDvfcmzOdARUeoQbzT4lIZo8oLOSuYym3lLj/Ojtc9CIYyt6DPeNuzTmLrHCE3qUT5ny80J/miEQgkLBlnMrsuglQaNz27sb1PBXS8gwn82KxmS/8zqVBbdtBQgwe8qAmArbeAY++K+u7TP4c5CpNQZyi+QQ7LV7idP0oIZYSMpt2xtyN//UAFBRZPty1augLOP/xG2lD/amgSgqibE42FaValogozg="
     on_success: change
     on_failure: always
 
@@ -42,4 +34,4 @@ addons:
   sonarcloud:
     organization: "adshares-github"
     token:
-      secure: "iiwrvlqxomtdnsqzlguknbdgiaard0mvbjj6d8ra1jsyj9t8bgjw3egjbcawxmg5xgbqayui8upgwuadim73nlcubnz3r7ylrpu7s2j4trj2jg0pt5ymmtgaxy0ubt7a0/yxfcjlma1oq8qq3plbynqgf/oyoezzqqa2csps8vhwr7bv76crtzeq8vk/k15kulfzkuitqfpensvq7ktkpm4vkpusmzadrtz8rl+oehq8cyyfafzlwfhjg1lrlztfafcogppnu6bxsaatoqxfny+qbhrtfesyohuvj89lfhck3+8jib7loqqimp/at57j9sec3lw9bksoc1dscwhcqwlrmgb7zzn8p92km3qylaqhqf4z6q94s/u9gzwscufxg7yuvqpqkhsyewx0dx545aznmada28l+0abcbzxo35aps++jw1qltirh68vigk96x3vrpwrvcg8792bgxxipis/czjhol86tofk/cvzbgipzqt/aez5rof1sxjz8z+uzfuxirydnboqydwoaf55ajykbtjco4eb/6f/mpnybfxmhigei1k2jlq6oxtt0p9znt3cof/c6mllvc1difvposyl6td5opb4fscvdyzjnoj10bbhkkpico5sl1kcsydob9toq3qeafxh56xbbo1dxrl2czanz0pqnhhienh6zbzk="
+      secure: "IiwRVLQxOMtdNsqzLGUknbdgIaaRd0mVBjj6D8ra1jsYJ9T8BgjW3eGJBCAwXmG5XGBQayUi8uPgWUadIm73nlcUbnZ3R7ylRpu7s2j4tRJ2jg0PT5yMMTgAxY0UBT7A0/YxfCjLMa1oq8qq3PLbynqgF/OyOeZZqQA2Csps8VHWR7bV76CRTZEQ8VK/K15kUlfzKUitQfPenSvq7ktkpm4VKpUSmzADrTZ8RL+oEHq8cyYfAFZLwfhjg1LrLztFAFcoGPpnU6bxSaatOQxFny+QBhRTFESYoHUVJ89lFHcK3+8JiB7LoqqIMP/aT57J9SEC3lw9BKsoc1dSCwhcqwLrMgb7zZn8P92KM3qylaqhqF4z6q94s/u9gzWSCufxg7yUvQPQKHSyeWX0dX545aZnMadA28L+0aBcBZXO35aPs++jw1QLTIRh68VigK96X3VrpWrvCg8792bGXXipis/cZjHol86tOfk/cvZbgipZqt/AeZ5roF1sxJZ8z+uzFuxIRYdnBoqyDWOaf55ajYkbTJCo4eB/6F/mpNyBfXMhIgEi1k2JLQ6OxtT0p9zNT3COf/C6mllvC1DiFvPOsYL6td5Opb4FScVdYZjnOj10bBhkkpICO5sL1KCSydOb9tOq3qEAfXH56xBbo1DXrl2cZAnZ0PqNHHienH6ZBzk="
