@@ -11,8 +11,7 @@ env:
 
 jobs:
   include:
-    - if: type = push
-      install: true
+    - install: true
       script: sonar-scanner
 
     - if: type = pull_request
