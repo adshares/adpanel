@@ -23,14 +23,21 @@
             row
             dwmth-box
             align-center
+            justify-between
             dwmth-copy
             dwmth-copy--semi"
         >
           <td
             class="
-              col-xs-5
+                status-totals-column
+                row
+                align-center"
+          ></td>
+          <td
+            class="
+              col-xs-3
               row
-              justify-center
+              justify-start
               align-center"
           >
               <span
@@ -85,7 +92,7 @@
           </td>
           <td
             class="
-              col-xs-1
+              col-xs-2
               row
               align-center"
             [title]="sitesTotals.averageRpc | adsharesTokenValue"

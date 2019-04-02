@@ -1,15 +1,17 @@
 <tr
   *ngIf="site; else loading"
-  class="dwmth-box site-list__item
+  class="dwmth-box
+        dwmth-site-list__item
         row
+        justify-between
         align-center
         dwmth-copy"
   data-test="publisher-navigate-to-site-details"
 >
   <td
     class="
-          col-xs-1
           row
+          dwmth-site-list__status-cell
           align-center"
   >
     <div class="dwmth-status"
@@ -35,7 +37,7 @@
   </td>
   <td
     class="
-          col-xs-4
+          col-xs-3
           row
           clickable-row
           align-center"
