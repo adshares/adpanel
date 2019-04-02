@@ -29,8 +29,8 @@ export class PublisherEffects {
     .map(toPayload)
     .switchMap((payload) => this.service.getSites()
       .switchMap((sites) => {
-        const to = payload.from || moment().format();
-        const from = payload.to || moment().subtract(7, 'd').format();
+        const to = payload.to || moment().format();
+        const from = payload.from || moment().subtract(7, 'd').format();
         return [
           new publisherActions.LoadSitesSuccess(sites),
           new publisherActions.LoadSitesTotals({from, to})
