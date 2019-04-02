@@ -14,13 +14,12 @@ interface Site {
   filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
 
-  estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
   averageRpm?: number;
   averageRpc?: number;
   ctr?: number;
-  cost?: number;
+  revenue?: number;
   code?: string;
 }
 
