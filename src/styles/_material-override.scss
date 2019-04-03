@@ -165,6 +165,7 @@ mat-chip:not(.mat-basic-chip) {
   .mat-expansion-panel-header-title {
     flex-grow: 0;
     min-width: 200px;
+    display: inline-flex;
   }
 
   .classifier-filtering .mat-expansion-panel {
@@ -184,3 +185,21 @@ mat-chip:not(.mat-basic-chip) {
 .mat-snack-bar-container {
   background-color: pal(navy, light);
 }
+
+.material-icons {
+  margin-right: 8px;
+}
+
+.mat-paginator-container {
+  margin-top: 2px;
+  border: 1px solid pal(gray, nearly-white);
+}
+
+.classifier-filtering .mat-expansion-panel:first-of-type {
+    border: 1px solid pal(gray, nearly-white);
+    border-bottom: none;
+  }
+.classifier-filtering .mat-expansion-panel:last-of-type {
+    border: 1px solid pal(gray, nearly-white);
+    border-top: none;
+  }

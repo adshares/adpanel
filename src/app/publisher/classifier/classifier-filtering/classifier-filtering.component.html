@@ -2,6 +2,9 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
+        <i class="material-icons">
+          filter_list
+        </i>
         Filter banners by status
       </mat-panel-title>
       <mat-panel-description>
@@ -28,22 +31,22 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
+        <i class="material-icons">
+          filter_list
+        </i>
         Filter banners by size
       </mat-panel-title>
       <mat-panel-description>
         <span *ngFor="let chosenSize of sizes"
-              class="classifier-filtering__chosen-value" >
+              class="classifier-filtering__chosen-value">
           {{ chosenSize }}
         </span>
       </mat-panel-description>
     </mat-expansion-panel-header>
-
     <mat-checkbox *ngFor="let sizeOption of adSizesOptions"
                   (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
     </mat-checkbox>
-
   </mat-expansion-panel>
-
 </mat-accordion>
 
 

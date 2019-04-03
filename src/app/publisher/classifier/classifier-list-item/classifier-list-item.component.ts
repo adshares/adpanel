@@ -27,6 +27,7 @@ export class ClassifierListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.isGlobal = this.siteId === null;
+    console.log(this.bannerClassification)
     this.bannerClassification = {
       ...this.bannerClassification,
       type: this.adTypesEnum[this.bannerClassification.type.toUpperCase()],

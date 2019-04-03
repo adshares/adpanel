@@ -1,9 +1,10 @@
 <tr class="dwmth-box row justify-between no-gutters align-center classifier-list-item__row">
   <td class="col-xs-7 row">
-  <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
+    <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
   </td>
   <td class="col-xs-1 col">
-    <span class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ adTypesEnum[bannerClassification.type] }} </span>
+    <span
+      class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ adTypesEnum[bannerClassification.type] }} </span>
     <span class="text-left dwmth-copy dwmth-copy--bold"> {{ bannerClassification.width }} x {{ bannerClassification.height }} </span>
   </td>
   <td class="col-xs-2 col classifier-list-item__link">
@@ -14,26 +15,33 @@
     </a>
   </td>
   <td class="col-xs-2">
+    <div *ngIf="!isGlobal && bannerClassification.classifiedGlobal"
+         class="classifier-list-item__classification-info dwmth-copy">
+        <i class="material-icons"> info_outline </i> Banner accepted globally
+    </div>
     <div>
       <button
-        *ngIf="classified !== APPROVED"
         class="
           dwmth-btn
           dwmth-btn--white
-          dwmth-copy--green"
+          dwmth-copy--green
+          classifier-list-item__btn"
         (click)="classifyBanner(APPROVED)"
+        [disabled]="classified === APPROVED"
       >
-        Approve
+        {{classified === APPROVED ? 'Approved' : 'Approve'}}
       </button>
       <button
-        *ngIf="classified !== REJECTED"
         class="
           dwmth-btn
           dwmth-btn--white
-          dwmth-copy--red"
+          dwmth-copy--red
+          classifier-list-item__btn"
         (click)="classifyBanner(REJECTED)"
+        [disabled]="classified === REJECTED"
       >
-        Reject
+        {{classified === REJECTED ? 'Rejected' : 'Reject'}}
+
       </button>
     </div>
   </td>

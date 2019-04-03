@@ -19,6 +19,19 @@
     max-height: 100px;
   }
   &__link {
-    padding-right: 8px!important;
+    padding-right: 8px !important;
+  }
+
+  &__btn {
+    &:disabled {
+      border: none;
+      pointer-events: none;
+    }
+  }
+
+  &__classification-info {
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
   }
 }
