@@ -97,9 +97,12 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const settings = this.currentChartFilterSettings;
     this.publisherService.report(settings.currentFrom, settings.currentTo)
       .subscribe((data) => {
+        const from = moment(settings.currentFrom).format('YYYY-MM-DD');
+        const to = moment(settings.currentTo).format('YYYY-MM-DD');
+        const fileName = `report_${settings.currentFrom}_${from}_${to}.csv`;
         const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
         const link = document.createElement('a');
-        link.setAttribute("download", `report_${settings.currentFrom}_${settings.currentTo}.csv`);
+        link.setAttribute("download", fileName);
         link.setAttribute("href", URL.createObjectURL(blob));
 
         link.click();
