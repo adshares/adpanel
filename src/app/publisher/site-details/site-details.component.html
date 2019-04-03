@@ -80,7 +80,7 @@
           (click)="navigateToClassification()"
           data-test="publisher-site-navigate-to-classifier"
         >
-         Classify banners
+          Classify banners
         </button>
         <div class="row status-button-wrapper">
           <span class="dwmth-copy"> Site is </span>
@@ -111,7 +111,7 @@
             src="/assets/images/x-circle--dark.svg"
             alt=""
           >
-         Delete Site
+          Delete Site
 
         </button>
       </div>
@@ -222,6 +222,7 @@
           {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add Filtering' : 'Edit Filtering'}}
         </button>
       </div>
+
       <div
         *ngIf="!!filtering.requires.length || !!filtering.excludes.length"
         class="
@@ -270,6 +271,29 @@
         </div>
       </div>
 
+      <section class="col-xs-12">
+        <div class=" dwmth-box dwmth-copy">
+          <h1 class="dwmth-copy
+                     dwmth-copy--semi
+                     site-details__classification
+                ">Classification</h1>
+
+          <div class="col">
+            <mat-checkbox
+              class="site-details__checkbox"
+              [checked]="site.requireClassified"
+            >
+              Allow only approved banners
+            </mat-checkbox>
+            <mat-checkbox
+              class="site-details__checkbox"
+              [checked]="site.excludeUnclassified"
+            >
+              Skip rejected banners
+            </mat-checkbox>
+          </div>
+        </div>
+      </section>
     </section>
 
     <div class="col">
@@ -311,7 +335,7 @@
         class="
               col
               dwmth-posters-list"
-       >
+      >
         <app-table-navigation
           [navigationName]="'adUnitsNavigation'"
           (sortTable)="sortTable($event)"
