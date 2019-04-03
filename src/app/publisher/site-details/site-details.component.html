@@ -123,17 +123,34 @@
           dwmth-box
           hidden-md"
     >
-      <div class="justify-between row">
-
-        <app-chart-filter-by-type
-          class="details-filters"
-          [detailsPage]="true"
-          (updateSeries)="appChartRef.updateChartDataSeries($event)"
-        ></app-chart-filter-by-type>
-        <app-chart-filter
-          class="details-filters"
-          (filter)="appChartRef.updateChartData($event)"
-        ></app-chart-filter>
+      <div class="row">
+        <div class="col-xs-4">
+          <a
+              (click)="downloadReport()"
+            >
+              <button
+                class="
+                dwmth-btn
+                dwmth-btn--white
+                dwmth-copy--dark"
+              >
+                Download Report
+              </button>
+            </a>
+        </div>
+        <div class="col-xs-4">
+          <app-chart-filter-by-type
+            class="details-filters"
+            [detailsPage]="true"
+            (updateSeries)="appChartRef.updateChartDataSeries($event)"
+          ></app-chart-filter-by-type>
+        </div>
+        <div class="col-xs-4">
+          <app-chart-filter
+            class="details-filters"
+            (filter)="appChartRef.updateChartData($event)"
+          ></app-chart-filter>
+        </div>
       </div>
       <div
         class="
@@ -144,7 +161,6 @@
           class="
             row
             align-center
-            justify-center
             chart-wrapper"
         >
           <app-chart
