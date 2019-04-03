@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-
 import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
 import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
@@ -19,7 +16,6 @@ export class SiteListComponent extends HandleSubscription {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>
   ) {
     super();
   }

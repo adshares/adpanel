@@ -31,7 +31,6 @@ import { TableColumnMetaData } from 'models/table.model';
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   site: Site;
-  adUnit: Site;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
@@ -65,7 +64,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.site = this.route.snapshot.data.site;
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
-    this.getLanguages();
+    this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -116,17 +115,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  getLanguages() {
-    this.store.select('state', 'publisher', 'languagesList')
-      .subscribe((languagesList) => {
-        this.language = languagesList.find(lang => lang.code === this.site.primaryLanguage);
-
-        if (!languagesList.length) {
-          this.store.dispatch(new PublisherActions.GetLanguagesList());
-        }
-      });
-  }
-
   getFiltering() {
     this.site.filtering = {
       requires: this.site.filtering.requires || [],
@@ -165,9 +153,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToEditSite(path: string, step: number): void {
-    this.store.dispatch(new PublisherActions.SetLastEditedSite(this.site));
     this.router.navigate(
-      ['/publisher', 'edit-site', path],
+      ['/publisher', 'edit-site', this.site.id, path],
       {queryParams: {step, summary: true}}
     );
   }

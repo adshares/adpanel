@@ -144,11 +144,18 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   fileOverDropArea(isOverDrop, adIndex): void {
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
     if (!isOverDrop && this.uploader.queue[0]) {
-      this.uploadBanner(this.uploader.queue[0], adIndex);
+      this.uploadBanner(this.uploader.queue[0]);
     }
   }
 
-  uploadBanner(image, adIndex): void {
+  getExpandedPanelIndex(): number {
+    return this.adPanelsStatus.findIndex(function(element: boolean) {
+      return element;
+    });
+  }
+
+  uploadBanner(image): void {
+    const adIndex = this.getExpandedPanelIndex();
     const form =  this.adForms[adIndex];
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
       enumToArray(validImageTypes).indexOf(image.file.type) > -1 : enumToArray(validHtmlTypes).indexOf(image.file.type) > -1;
@@ -157,6 +164,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
+
+    this.adjustBannerName(form);
 
     if (isUploadedTypeValid && isImageSizeValid) {
       this.sendImage(image, adIndex, form);
@@ -170,6 +179,17 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
   }
 
+  adjustBannerName(form: FormGroup): void {
+    if (form.get('name').dirty === false) {
+      let name = `${adTypesEnum[form.get('type').value]} ${adSizesEnum[form.get('size').value]}`;
+      const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
+      if (matchingNames.length > 0) {
+        name = `${name} ${matchingNames.length}`
+      }
+      form.get('name').setValue(name)
+    }
+  }
+
   scaleImageToMatchBanner(index) {
     const banners = Array.from(document.querySelectorAll('.banner')) as Array<HTMLElement>;
     const image = banners[index].querySelector('img');
@@ -180,7 +200,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const heightRatio = bannerHeight / imageHeight;
     const widthRatio = bannerWidth / imageWidth;
 
-    return heightRatio <= widthRatio ? heightRatio : widthRatio;
+    return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
   selectProperBannerSize(imageSize: string, index: number) {
@@ -241,7 +261,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         this.imagesStatus.upload.processing = false;
         this.imagesStatus.validation[adIndex].upload = false;
       };
-      image.onComplete = (res) => {
+      image.onComplete = () => {
         this.imagesStatus.upload.processing = false;
         this.uploader.queue.pop();
       };
@@ -280,12 +300,12 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adTypes.forEach((type) => delete adForm.controls[type]);
     adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
+    this.adjustBannerName(adForm);
   }
 
   setAdSize(adIndex): void {
     const adForm = this.adForms[adIndex];
-    const adSize = adForm.get('size').value;
-    const adSizeName = this.adSizes[adSize];
+    this.adjustBannerName(adForm);
   }
 
   onSubmit(isDraft: boolean = false): void {
@@ -297,7 +317,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
       this.adForms.every((adForm, index) => !!this.ads[index].url) &&
-        this.imagesStatus.validation.every((validation) => validation.size && validation.type);
+      this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
       this.campaign = {

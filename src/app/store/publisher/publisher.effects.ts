@@ -27,11 +27,10 @@ export class PublisherEffects {
   loadSites$ = this.actions$
     .ofType(publisherActions.LOAD_SITES)
     .map(toPayload)
-    .switchMap(() => this.service.getSites()
+    .switchMap((payload) => this.service.getSites()
       .switchMap((sites) => {
-        const to = moment().format();
-        const from = moment().subtract(7, 'd').format();
-
+        const to = payload.to || moment().format();
+        const from = payload.from || moment().subtract(7, 'd').format();
         return [
           new publisherActions.LoadSitesSuccess(sites),
           new publisherActions.LoadSitesTotals({from, to})
@@ -101,8 +100,10 @@ export class PublisherEffects {
   getLanguageList = this.actions$
     .ofType(publisherActions.GET_LANGUAGES_LIST)
     .map(toPayload)
-    .switchMap(() => this.service.getLanguagesList())
-    .map((list) => new publisherActions.GetLanguagesListSuccess(list));
+    .switchMap(() => this.service.getLanguagesList()
+      .map((list) => new publisherActions.GetLanguagesListSuccess(list))
+      .catch(() => Observable.of(new publisherActions.GetLanguagesListFailure()))
+    );
 
   @Effect()
   getFilteringCriteria = this.actions$

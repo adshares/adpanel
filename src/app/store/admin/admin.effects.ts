@@ -22,7 +22,12 @@ import {
   GetPrivacySettingsFailure,
   GetPrivacySettingsSuccess,
   GetTermsSettingsSuccess,
-  GetTermsSettingsFailure, SetTermsSettingsSuccess, SET_TERMS_SETTINGS, SET_PRIVACY_SETTINGS,
+  GetTermsSettingsFailure,
+  SetTermsSettingsSuccess,
+  SET_TERMS_SETTINGS,
+  SET_PRIVACY_SETTINGS,
+  GET_LICENSE,
+  GetLicenseSuccess, GetLicenseFailure,
 } from './admin.actions';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
@@ -44,6 +49,23 @@ export class AdminEffects {
     .switchMap(() => this.service.getUsers()
       .map((users) => new LoadUsersSuccess(users))
       .catch((err) => Observable.of(new LoadUsersFailure(err)))
+    );
+
+  @Effect()
+  getLicense$ = this.actions$
+    .ofType(GET_LICENSE)
+    .switchMap(() => this.service.getLicense()
+      .map((license) => {
+        return new GetLicenseSuccess(license)
+      })
+      .catch((err) => {
+        if (err.status === HTTP_NOT_FOUND) {
+          return Observable.of(new GetLicenseFailure());
+        }
+        return Observable.of(new GetLicenseFailure(
+          'We weren\'t able to get your license. Please, try again later'
+        ))
+      })
     );
 
   @Effect()

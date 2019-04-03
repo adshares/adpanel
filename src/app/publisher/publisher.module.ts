@@ -39,6 +39,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ClassifierFilteringComponent } from "publisher/classifier/classifier-filtering/classifier-filtering.component";
 import { MatchingBannerSizesResolver } from "publisher/resolvers/matching-banner-sizes.resolver";
+import { LanguagesListResolver } from "publisher/resolvers/languages-list.resolver";
 
 library.add(fas);
 
@@ -90,7 +91,8 @@ const publisherComponents = [
     SiteResolver,
     FilteringCriteriaResolver,
     AdUnitSizesResolver,
-    MatchingBannerSizesResolver
+    MatchingBannerSizesResolver,
+    LanguagesListResolver,
   ],
   declarations: [
     ...publisherComponents,

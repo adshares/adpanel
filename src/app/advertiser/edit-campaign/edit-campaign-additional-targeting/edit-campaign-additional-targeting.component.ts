@@ -27,7 +27,6 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
-  goesToSummary: boolean;
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
@@ -49,7 +48,6 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   ngOnInit() {
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
-    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.getTargetingFromStore();
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
@@ -98,12 +96,10 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     this.changesSaved = true;
 
     if (!isDraft) {
-      const editCampaignStep = this.goesToSummary ? 'summary' : 'create-ad';
-      const param = this.goesToSummary ? 4 : 3;
       this.store.dispatch(new SaveCampaignTargeting(chosenTargeting));
       this.router.navigate(
-        ['/advertiser', 'create-campaign', editCampaignStep],
-        {queryParams: {step: param}}
+        ['/advertiser', 'create-campaign', 'create-ad'],
+        {queryParams: {step: 3}}
       );
       return;
     } else {

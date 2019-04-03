@@ -2,11 +2,12 @@ import { Site, SitesTotals } from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 
 export const sitesTotalsInitialState: SitesTotals = {
-  totalEarnings: 0,
-  totalClicks: 0,
-  totalImpressions: 0,
-  averagePageRPM: 0,
-  averageCPC: 0
+  averageRpc: 0,
+  averageRpm: 0,
+  clicks: 0,
+  ctr: 0,
+  impressions: 0,
+  revenue: 0,
 };
 
 export const siteInitialState: Site = {
