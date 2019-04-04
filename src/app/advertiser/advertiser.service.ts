@@ -10,6 +10,7 @@ import { NavigationStart, Router } from "@angular/router";
 import * as advertiserActions from "store/advertiser/advertiser.actions";
 import { Subscription } from "rxjs";
 import { AppState } from "models/app-state.model";
+import {SitesTotals} from "models/site.model";
 
 @Injectable()
 export class AdvertiserService {
@@ -59,10 +60,6 @@ export class AdvertiserService {
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
   }
 
-  classifyCampaign(id: number) {
-    return this.http.post(`${environment.apiUrl}/campaigns/${id}/classify`, null);
-  }
-
   updateStatus(id: number, status: number) {
     const body = {
       campaign: {
@@ -70,10 +67,6 @@ export class AdvertiserService {
       }
     };
     return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
-  }
-
-  removeClassifyCampaign(id: number) {
-    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/classify`);
   }
 
   getTargetingCriteria(): Observable<TargetingOption[]> {
@@ -94,5 +87,19 @@ export class AdvertiserService {
     return shouldSubscribe && this.router.events
       .filter(event => event instanceof NavigationStart)
       .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
+  }
+
+  report(dateStart: string, dateEnd: string, campaignId?: number): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    if (campaignId > 0) {
+      options['params'] = {
+        campaign_id: campaignId
+      };
+    }
+
+    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
   }
 }
