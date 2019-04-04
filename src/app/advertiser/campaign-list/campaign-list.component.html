@@ -34,7 +34,7 @@
       ></td>
       <td
         class="
-                col-xs-3
+                col-xs-2
                 row
                 align-center"
       >
@@ -52,6 +52,14 @@
                 row
                 align-center"
       ></td>
+      <td
+        class="
+                col-xs-1
+                row
+                align-center"
+      >
+        <span>{{ campaignsTotals.cost | adsharesTokenValue:2}}</span>
+      </td>
       <td
         class="
                 col-xs-1
@@ -82,7 +90,7 @@
                 row
                 align-center"
       >
-        <span>{{ campaignsTotals.averageCpc | adsharesTokenValue:2 }}</span>
+        <span>{{ campaignsTotals.averageCpm | adsharesTokenValue:2 }}</span>
       </td>
       <td
         class="
@@ -90,7 +98,7 @@
                 row
                 align-center"
       >
-        <span>{{ campaignsTotals.cost | adsharesTokenValue:2 }}</span>
+        <span>{{ campaignsTotals.averageCpc | adsharesTokenValue:2 }}</span>
       </td>
       <td
         class="
