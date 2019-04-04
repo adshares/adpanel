@@ -270,6 +270,10 @@
   &--no-margin {
     margin: 0;
   }
+
+  &--no-border {
+    border: none;
+  }
 }
 
 .dwmth-chip-box {
@@ -470,7 +474,7 @@ router-outlet ~ * {
     transform: translateY(-32px);
     z-index: 999999999999999;
     position: absolute;
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
@@ -544,4 +548,10 @@ router-outlet ~ * {
   max-width: 1000px;
   overflow-y: auto;
   resize: vertical;
+}
+
+.dwmth-info-box {
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
 }

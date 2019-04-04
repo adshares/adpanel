@@ -42,6 +42,19 @@
       </p>
     </div>
 
+    <div class="row justify-end">
+      <button
+        class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-copy--dark"
+        (click)="navigateToClassification()"
+        data-test="publisher-site-navigate-to-classifier"
+      >
+        Select banners for approval
+      </button>
+    </div>
+
     <div
       class="
         row
@@ -72,16 +85,6 @@
           justify-end
           align-center"
       >
-        <button
-          class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-copy--dark"
-          (click)="navigateToClassification()"
-          data-test="publisher-site-navigate-to-classifier"
-        >
-         Classify banners
-        </button>
         <div class="row status-button-wrapper">
           <span class="dwmth-copy"> Site is </span>
           <span class="dwmth-copy lowercase-to-capitalize"
@@ -286,6 +289,30 @@
         </div>
       </div>
 
+      <section *ngIf="site.requireClassified || site.excludeUnclassified"
+            class="col-xs-12">
+        <div class=" dwmth-box dwmth-copy ">
+          <h1 class="dwmth-copy dwmth-copy--semi
+                     site-details__classification">Classification</h1>
+
+          <div class="col">
+            <mat-checkbox
+              *ngIf="site.requireClassified"
+              class="site-details__checkbox"
+              [checked]="site.requireClassified"
+            >
+              Allow only approved banners
+            </mat-checkbox>
+            <mat-checkbox
+              *ngIf="site.excludeUnclassified"
+              class="site-details__checkbox"
+              [checked]="site.excludeUnclassified"
+            >
+              Skip rejected banners
+            </mat-checkbox>
+          </div>
+        </div>
+      </section>
     </section>
 
     <div class="col">

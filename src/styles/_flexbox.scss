@@ -14,16 +14,12 @@
   }
 
   @include media(xl-up) {
-    padding: 0 10%;
     max-width: 1700px;
   }
 
   @include media(xxl-up) {
     max-width: 2200px;
-  }
-
-  @include media(xxl-up) {
-    max-width: 3500px;
+    padding: 0 10%;
   }
 }
 

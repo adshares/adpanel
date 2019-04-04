@@ -1,5 +1,13 @@
 <div class="dashboard-view">
-  <div class="container">
+  <div class="container classifier">
+    <p class="dwmth-copy dwmth-copy--semi classifier__type-info
+              dwmth-info-box dwmth-copy"
+       [ngClass]="{'dwmth-copy--orange': !isGlobal}">
+      <i class="material-icons"> info </i>
+      {{isGlobal ?
+      'Here you can perform general classification for all your sites' :
+      'Here you can perform classification only for site ' + siteName}}
+    </p>
     <div class="
                 header__wrapper
                 row
@@ -14,11 +22,6 @@
           'Global Classification' :
           'Classification for ' + siteName}}
         </h1>
-        <p class="dwmth-copy">
-          {{isGlobal ?
-          'Here you can perform general classification for all your sites' :
-          'Here you can perform classification for this site only'}}
-        </p>
         <a *ngIf="!isGlobal"
            class="dwmth-copy dwmth-blue header__link"
            routerLink="/publisher/classifier">
@@ -76,15 +79,18 @@
           [bannerClassification]="bannerClassification"
           [siteId]="siteId"
         ></app-classifier-list-item>
-        <div *ngIf="!bannerClassifications">
-          <div class="dwmth-box text-center dwmth-copy dwmth-copy--blue dwmth-copy--large">
-              There are no banners to classify
-          </div>
-        </div>
       </ng-container>
+      <tr *ngIf="bannerClassifications.length === 0 && !isLoading"
+          class="dwmth-box row justify-center">
+        <td class="dwmth-copy dwmth-copy--blue dwmth-copy--large">
+          {{filtering.status || !!filtering.sizes ?
+          'No banners matching filters' : 'There are no banners to classify'
+          }}
+        </td>
+      </tr>
       <ng-template #loading>
         <div class="dwmth-box row justify-center">
-            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
         </div>
       </ng-template>
     </table>
