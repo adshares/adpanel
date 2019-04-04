@@ -1,5 +1,13 @@
 <div class="dashboard-view">
   <div class="container classifier">
+    <p class="dwmth-copy dwmth-copy--semi classifier__type-info
+              dwmth-info-box dwmth-copy"
+       [ngClass]="{'dwmth-copy--orange': !isGlobal}">
+      <i class="material-icons"> info </i>
+      {{isGlobal ?
+      'Here you can perform general classification for all your sites' :
+      'Here you can perform classification only for site ' + siteName}}
+    </p>
     <div class="
                 header__wrapper
                 row
@@ -14,14 +22,6 @@
           'Global Classification' :
           'Classification for ' + siteName}}
         </h1>
-        <p class="dwmth-copy dwmth-copy--semi">
-          <span class="dwmth-info-box dwmth-copy--orange">
-          <i class="material-icons"> info </i>
-          {{isGlobal ?
-          'Here you can perform general classification for all your sites' :
-          'Here you can perform classification for this site only'}}
-          </span>
-        </p>
         <a *ngIf="!isGlobal"
            class="dwmth-copy dwmth-blue header__link"
            routerLink="/publisher/classifier">

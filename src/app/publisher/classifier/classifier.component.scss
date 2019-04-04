@@ -1,5 +1,14 @@
 @import '../../../styles';
 
+.classifier {
+  &__type-info {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    font-size: 18px;
+  }
+}
+
 .dwmth-ad-list {
   margin-top: 2px;
   min-height: 100%;

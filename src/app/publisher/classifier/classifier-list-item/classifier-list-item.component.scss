@@ -23,9 +23,17 @@
   }
 
   &__btn {
+    width: calc(6ch + 16px);
+    border: 1px solid pal(navy, light);
+
     &:disabled {
       border: none;
       pointer-events: none;
+    }
+
+    .classifier-list-item__btns--classified &:not(:disabled) {
+      color: pal(navy, light);
+      border: 1px solid pal(navy, light);
     }
   }
 
@@ -33,5 +41,19 @@
     margin-bottom: 10px;
     display: inline-flex;
     align-items: center;
+  }
+
+
+  &__btns {
+    display: flex;
+    max-width: 200px;
+
+    &--classified {
+      display: flex;
+      justify-content: space-between;
+    }
+    &--reversed {
+      flex-direction: row-reverse;
+    }
   }
 }

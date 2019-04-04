@@ -42,6 +42,19 @@
       </p>
     </div>
 
+    <div class="row justify-end">
+      <button
+        class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-copy--dark"
+        (click)="navigateToClassification()"
+        data-test="publisher-site-navigate-to-classifier"
+      >
+        Select banners for approval
+      </button>
+    </div>
+
     <div
       class="
         row
@@ -72,16 +85,6 @@
           justify-end
           align-center"
       >
-        <button
-          class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-copy--dark"
-          (click)="navigateToClassification()"
-          data-test="publisher-site-navigate-to-classifier"
-        >
-         Classify banners
-        </button>
         <div class="row status-button-wrapper">
           <span class="dwmth-copy"> Site is </span>
           <span class="dwmth-copy lowercase-to-capitalize"

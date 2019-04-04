@@ -19,7 +19,9 @@
          class="classifier-list-item__classification-info dwmth-copy">
         <i class="material-icons"> info_outline </i> Banner accepted globally
     </div>
-    <div>
+    <div class="classifier-list-item__btns"
+      [ngClass]="{'classifier-list-item__btns--classified': classified === APPROVED || classified === REJECTED,
+                  'classifier-list-item__btns--reversed': classified === REJECTED}">
       <button
         class="
           dwmth-btn
@@ -29,7 +31,7 @@
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
       >
-        {{classified === APPROVED ? 'Approved' : 'Approve'}}
+        {{classified === APPROVED ? 'Accepted' : 'Accept'}}
       </button>
       <button
         class="
