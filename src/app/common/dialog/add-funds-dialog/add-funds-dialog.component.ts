@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-
 import { HandleSubscription } from 'common/handle-subscription';
 import { DepositInfo } from 'models/settings.model';
 import { ApiService } from "app/api/api.service";

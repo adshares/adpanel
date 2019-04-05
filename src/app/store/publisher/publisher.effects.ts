@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import { PublisherService } from 'publisher/publisher.service';
 import * as publisherActions from './publisher.actions';
+import { ShowSuccessSnackbar } from '../common/common.actions';
+import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import { prepareTargetingChoices } from "common/components/targeting/targeting.helpers";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/takeLast";
@@ -74,7 +76,7 @@ export class PublisherEffects {
     );
 
   @Effect()
-  addSiteToSites = this.actions$
+  addSiteToSites$ = this.actions$
     .ofType(publisherActions.ADD_SITE_TO_SITES)
     .map(toPayload)
     .switchMap((payload) => this.service.saveSite(payload)
@@ -97,7 +99,7 @@ export class PublisherEffects {
     );
 
   @Effect()
-  getLanguageList = this.actions$
+  getLanguageList$ = this.actions$
     .ofType(publisherActions.GET_LANGUAGES_LIST)
     .map(toPayload)
     .switchMap(() => this.service.getLanguagesList()
@@ -106,7 +108,7 @@ export class PublisherEffects {
     );
 
   @Effect()
-  getFilteringCriteria = this.actions$
+  getFilteringCriteria$ = this.actions$
     .ofType(publisherActions.GET_FILTERING_CRITERIA)
     .map(toPayload)
     .switchMap(() => this.service.getFilteringCriteria())
@@ -114,7 +116,7 @@ export class PublisherEffects {
     .map((criteria) => new publisherActions.GetFilteringCriteriaSuccess(criteria));
 
   @Effect()
-  updateSite = this.actions$
+  updateSite$ = this.actions$
     .ofType(
       publisherActions.UPDATE_SITE,
       publisherActions.UPDATE_SITE_FILTERING
@@ -132,11 +134,15 @@ export class PublisherEffects {
     );
 
   @Effect()
-  updateSiteStatus = this.actions$
+  updateSiteStatus$ = this.actions$
     .ofType(publisherActions.UPDATE_SITE_STATUS)
     .map(toPayload)
     .switchMap(payload => this.service.updateSiteData(payload.id, payload)
-      .map(() => new publisherActions.UpdateSiteStatusSuccess(payload))
+      .switchMap(() => [
+          new publisherActions.UpdateSiteStatusSuccess(payload),
+          new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
+        ]
+      )
       .catch(() => Observable.of(new publisherActions.UpdateSiteStatusFailure()))
     );
 }

@@ -14,6 +14,7 @@ import {appSettings} from 'app-settings';
 import {CalculateWithdrawalItem} from "models/settings.model";
 import * as codes from 'common/utilities/codes';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { GetBillingHistory } from "store/settings/settings.actions";
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -136,7 +137,10 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       this.withdrawFundsForm.value.memo
     )
       .subscribe(
-        () => this.dialogRef.close(),
+        () => {
+          this.store.dispatch(new GetBillingHistory({}));
+          this.dialogRef.close()
+        },
         (err: HttpErrorResponse) => {
           this.withdrawFormSubmitted = false;
           this.isFormBeingSubmitted = false;
