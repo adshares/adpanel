@@ -33,7 +33,7 @@ import {
   DeleteCampaignSuccess,
   DeleteCampaignFailure,
   LoadCampaignFailure,
-}from './advertiser.actions';
+} from './advertiser.actions';
 
 import "rxjs/add/operator/take";
 import * as moment from "moment";
@@ -41,6 +41,16 @@ import { MatDialog } from "@angular/material";
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { adjustCampaignStatus } from "common/utilities/helpers";
+
+// averageCpc: 1685956922.7895
+// averageCpm: 1042000
+// bannerId: 6762
+// bannerName: "aa"
+// campaignId: 3458
+// clicks: 210
+// cost: 352364998947
+// ctr: 0.5
+// impressions: 2
 
 @Injectable()
 export class AdvertiserEffects {
@@ -118,10 +128,28 @@ export class AdvertiserEffects {
   loadCampaignTotals$ = this.actions$
     .ofType(LOAD_CAMPAIGN_TOTALS)
     .map(toPayload)
-    .switchMap((payload) => this.service
-      .getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
-      .map((data) => new LoadCampaignTotalsSuccess(data))
-      .catch(() => Observable.of(new LoadCampaignTotalsFailure()))
+    .switchMap((payload) => this.service.getCampaignsTotals(`${payload.from}`, `${payload.to}`, payload.id)
+      .map((dataArray) => {
+        const formattedBannerTotals = dataArray.data.map(data => {
+          return {
+            clicks: data.clicks,
+            impressions: data.impressions,
+            ctr: data.ctr,
+            averageCpc: data.averageCpc,
+            averageCpm: data.averageCpm,
+            cost: data.cost,
+            id: data.bannerId,
+            name: data.bannerName,
+          }
+        });
+        const totals = {
+          ...dataArray,
+          data: formattedBannerTotals
+        };
+        return new LoadCampaignTotalsSuccess(totals)
+      })
+      .catch((err) =>{console.log(err)
+        return Observable.of(new LoadCampaignTotalsFailure())})
     );
 
   @Effect()

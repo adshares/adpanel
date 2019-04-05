@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Ad, Campaign, CampaignBasicInformation} from 'models/campaign.model';
+import { Ad, Campaign, CampaignBasicInformation, CampaignTotals, CampaignTotalsResponse } from 'models/campaign.model';
 import {AssetTargeting} from 'models/targeting-option.model';
 import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
 
@@ -238,7 +238,7 @@ export class LoadCampaignTotals implements Action {
 export class LoadCampaignTotalsSuccess implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS_SUCCESS;
 
-  constructor(public payload: any) {
+  constructor(public payload: CampaignTotalsResponse) {
   }
 }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { environment } from 'environments/environment';
-import { Campaign, CampaignTotals } from 'models/campaign.model';
+import { Campaign, CampaignTotals, CampaignTotalsResponse } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from "@angular/router";
@@ -21,11 +21,11 @@ export class AdvertiserService {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
-  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
+  getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotalsResponse> {
     const options = campaignId && {
       params: {campaign_id: `${campaignId}`}
     };
-    return this.http.get<CampaignTotals[]>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
+    return this.http.get<CampaignTotalsResponse>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
   getCampaign(id: number): Observable<{campaign: Campaign}> {
