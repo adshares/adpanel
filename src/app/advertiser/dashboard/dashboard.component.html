@@ -41,13 +41,27 @@
           hidden-md"
       >
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-4">
+            <a
+              (click)="downloadReport()"
+            >
+              <button
+                class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-copy--dark"
+              >
+                Download Report
+              </button>
+            </a>
+          </div>
+          <div class="col-xs-4">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
               (updateSeries)="appChartRef.updateChartDataSeries($event)"
             ></app-chart-filter-by-type>
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-4">
             <app-chart-filter
               *ngIf="!!campaigns.length"
               (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
