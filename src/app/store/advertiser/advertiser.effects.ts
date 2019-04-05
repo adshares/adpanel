@@ -42,16 +42,6 @@ import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/c
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { adjustCampaignStatus } from "common/utilities/helpers";
 
-// averageCpc: 1685956922.7895
-// averageCpm: 1042000
-// bannerId: 6762
-// bannerName: "aa"
-// campaignId: 3458
-// clicks: 210
-// cost: 352364998947
-// ctr: 0.5
-// impressions: 2
-
 @Injectable()
 export class AdvertiserEffects {
   currentDate = moment(new Date());
