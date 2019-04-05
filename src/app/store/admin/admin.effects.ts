@@ -29,6 +29,8 @@ import {
   GET_LICENSE,
   GetLicenseSuccess, GetLicenseFailure,
 } from './admin.actions';
+import { ShowSuccessSnackbar } from '../common/common.actions';
+import { SAVE_SUCCESS } from 'common/utilities/messages';
 import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
@@ -92,7 +94,10 @@ export class AdminEffects {
     .ofType(SET_ADMIN_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setAdminSettings(payload)
-      .map(() => new SetAdminSettingsSuccess(payload))
+      .switchMap(() => [
+        new SetAdminSettingsSuccess(payload),
+        new ShowSuccessSnackbar(SAVE_SUCCESS)
+      ])
       .catch(() => Observable.of(new SetAdminSettingsFailure(
         'We weren\'t able to save your settings this time. Please, try again later'
       )))
@@ -103,7 +108,10 @@ export class AdminEffects {
     .ofType(GET_PRIVACY_SETTINGS)
     .map(toPayload)
     .switchMap(() => this.service.getPrivacySettings()
-      .map((privacyData) => new GetPrivacySettingsSuccess(privacyData))
+      .switchMap((privacyData) => [
+        new GetPrivacySettingsSuccess(privacyData),
+        new ShowSuccessSnackbar(SAVE_SUCCESS)
+      ])
       .catch((err) => {
         if (err.status === HTTP_NOT_FOUND) {
           return Observable.of();
@@ -119,7 +127,10 @@ export class AdminEffects {
     .ofType(GET_TERMS_SETTINGS)
     .map(toPayload)
     .switchMap(() => this.service.getTermsAndConditions()
-      .map((termsData) => new GetTermsSettingsSuccess(termsData))
+      .switchMap((termsData) => [
+        new GetTermsSettingsSuccess(termsData),
+        new ShowSuccessSnackbar(SAVE_SUCCESS)
+      ])
       .catch((err) => {
         if (err.status === HTTP_NOT_FOUND) {
           return Observable.of();

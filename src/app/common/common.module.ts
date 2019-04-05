@@ -140,6 +140,7 @@ const appComponents = [
   ],
   exports: [
     ...appComponents,
+    MatTooltipModule,
     MatSpinner,
     MatDialogContent,
     MatSlideToggle

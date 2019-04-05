@@ -33,12 +33,13 @@ import {
   DeleteCampaignSuccess,
   DeleteCampaignFailure,
   LoadCampaignFailure,
-}from './advertiser.actions';
-
+} from './advertiser.actions';
+import { ShowSuccessSnackbar } from '../common/common.actions';
 import "rxjs/add/operator/take";
 import * as moment from "moment";
 import { MatDialog } from "@angular/material";
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
+import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { adjustCampaignStatus } from "common/utilities/helpers";
 
@@ -171,7 +172,11 @@ export class AdvertiserEffects {
     .ofType(UPDATE_CAMPAIGN_STATUS)
     .map(toPayload)
     .switchMap((payload) => this.service.updateStatus(payload.id, payload.status)
-      .map(() => new UpdateCampaignStatusSuccess(payload))
+      .switchMap(() => [
+          new UpdateCampaignStatusSuccess(payload),
+          new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
+        ]
+      )
       .catch((err) => {
         if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
         let errorMsg;
