@@ -133,8 +133,9 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         return {
           ...state,
           campaigns: [...filteredCampaigns, {
-            ...{...selectedCampaign,ads: reducedUnits},
+            ...selectedCampaign,
             ...action.payload.total,
+            ads: reducedUnits,
           }],
         };
       }
