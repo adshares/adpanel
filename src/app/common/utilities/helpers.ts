@@ -47,14 +47,15 @@ function enumToArray(enumInput) {
 }
 
 function enumToObject(enumInput) {
-  const enumNameObject = {};
+  let enumNameObject: {
+    [key: string]: string
+  } = {};
 
   for (let enumMember in enumInput) {
     if (typeof enumInput[enumMember] === 'number') {
       enumNameObject[enumMember] = enumMember.toLowerCase();
     }
   }
-
   return enumNameObject;
 }
 
@@ -69,6 +70,7 @@ function enumToObjectArray(enumInput) {
 
   return enumNameArrayObject;
 }
+
 
 function formatMoney(
   value,
@@ -183,7 +185,7 @@ function downloadCSVFile(data, from, to) {
   const formattedFrom = moment(from).format('YYYY-MM-DD');
   const formattedTo = moment(to).format('YYYY-MM-DD');
   const fileName = `report_${formattedFrom}_${formattedTo}.csv`;
-  const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
+  const blob = new Blob([data], {type: 'text/csv;charset=utf-8'});
   const link = document.createElement('a');
   link.setAttribute("download", fileName);
   link.setAttribute("href", URL.createObjectURL(blob));
