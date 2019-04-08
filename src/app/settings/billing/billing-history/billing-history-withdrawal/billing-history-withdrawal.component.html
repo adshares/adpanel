@@ -1,5 +1,5 @@
 <tr class="billing-table-row row">
-  <td class="col-xs-1">
+  <td class="billing-table-row__status-cell">
     <div
       class="
       dwmth-box
@@ -7,8 +7,20 @@
       billing-table-row__status
       text-center"
       attr.data-status="{{ status }}"
+
     >
-    <span data-test="settings-billing-history-item-status">
+      <i *ngIf="billingHistoryItem.status === statusEnum.AWAITING"
+         matTooltipClass="dwmth-mat-tooltip"
+         matTooltip="Confirm this transaction"
+         matTooltipPosition="above"
+         class="material-icons
+                billing-table-row__tooltip-icon"
+        >
+          warning
+        </i>
+
+
+      <span data-test="settings-billing-history-item-status">
       {{ status }}
     </span>
     </div>
@@ -62,9 +74,12 @@
     >
       {{billingHistoryItem.txid}}
     </a>
-    <span *ngIf="!link"
-          data-test="settings-billing-history-item-link">
-    </span>
+    <button *ngIf="billingHistoryItem.status === statusEnum.AWAITING"
+            class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
+            (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
+            data-test="settings-billing-history-item-cancel-btn">
+      CANCEL
+    </button>
   </td>
 </tr>
 

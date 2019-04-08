@@ -5,6 +5,8 @@ import { Notification } from 'models/notification.model';
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
 export const SET_ADSHARES_ADDRESS = 'Adshares Address set';
+export const SHOW_SUCCESS_SNACKBAR = 'Show success snackbar';
+
 export const LOAD_NOTIFICATIONS = 'Notifications loaded';
 export const LOAD_NOTIFICATIONS_SUCCESS = 'Notifications loaded success';
 export const UPDATE_NOTIFICATIONS = 'Notifications updated';
@@ -51,11 +53,19 @@ export class UpdateNotifications implements Action {
   }
 }
 
+export class ShowSuccessSnackbar implements Action {
+  readonly type = SHOW_SUCCESS_SNACKBAR;
+
+  constructor(public payload: string) {
+  }
+}
+
 
 export type actions =
-  SetActiveUserType |
-  SetChartFilterSettings |
-  SetAdsharesAddress |
-  LoadNotifications |
-  LoadNotificationsSuccess |
-  UpdateNotifications;
+  | SetActiveUserType
+  | SetChartFilterSettings
+  | SetAdsharesAddress
+  | LoadNotifications
+  | LoadNotificationsSuccess
+  | UpdateNotifications
+  | ShowSuccessSnackbar;

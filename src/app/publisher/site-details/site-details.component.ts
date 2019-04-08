@@ -11,7 +11,7 @@ import { Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import {createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -188,15 +188,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     const settings = this.currentChartFilterSettings;
     this.publisherService.report(settings.currentFrom, settings.currentTo, this.site.id)
       .subscribe((data) => {
-        const from = moment(settings.currentFrom).format('YYYY-MM-DD');
-        const to = moment(settings.currentTo).format('YYYY-MM-DD');
-        const fileName = `report_${settings.currentFrom}_${from}_${to}.csv`;
-        const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
-        const link = document.createElement('a');
-        link.setAttribute('download', fileName);
-        link.setAttribute('href', URL.createObjectURL(blob));
-
-        link.click();
+        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
       });
   }
 }

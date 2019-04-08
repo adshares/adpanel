@@ -1,28 +1,56 @@
-import * as settingsActions from './settings.actions';
-import {SettingsState} from 'models/app-state.model';
+import {
+  LOAD_NOTIFICATIONS_SETTINGS_SUCCESS,
+  UPDATE_NOTIFICATIONS_SETTINGS,
+  GET_CURRENT_BALANCE_SUCCESS,
+  GET_BILLING_HISTORY_SUCCESS,
+  CANCEL_AWAITING_TRANSACTION_SUCCESS,
+} from './settings.actions';
+import { SettingsState } from 'models/app-state.model';
+import { actions } from "store/admin/admin.actions";
 
 const initialState: SettingsState = {
   notificationsSettings: [],
-  totalFunds: 0
+  totalFunds: 0,
+  billingHistory: {
+    limit: 10,
+    offset: 0,
+    itemsCount: 0,
+    itemsCountAll: 0,
+    items: []
+  },
 };
 
-export function settingsReducers(state = initialState, action: settingsActions.actions) {
+export function settingsReducers(state = initialState, action: actions) {
   switch (action.type) {
-    case settingsActions.LOAD_NOTIFICATIONS_SETTINGS_SUCCESS:
+    case LOAD_NOTIFICATIONS_SETTINGS_SUCCESS:
       return {
         ...state,
         notificationsSettings: action.payload
       };
-    case settingsActions.UPDATE_NOTIFICATIONS_SETTINGS:
+    case UPDATE_NOTIFICATIONS_SETTINGS:
       return {
         ...state,
         notificationsSettings: action.payload
       };
 
-    case settingsActions.GET_CURRENT_BALANCE_SUCCESS:
+    case GET_CURRENT_BALANCE_SUCCESS:
       return {
         ...state,
         totalFunds: action.payload
+      };
+    case GET_BILLING_HISTORY_SUCCESS:
+      return {
+        ...state,
+        billingHistory: action.payload
+      };
+    case CANCEL_AWAITING_TRANSACTION_SUCCESS:
+      const items = state.billingHistory.items.filter(el => el.id !== action.payload);
+      return {
+        ...state,
+        billingHistory: {
+          ...state.billingHistory,
+          items,
+        }
       };
     default:
       return state;

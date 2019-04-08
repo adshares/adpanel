@@ -4,15 +4,13 @@ import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { Campaign } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
-import { AdvertiserService } from 'advertiser/advertiser.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from "models/targeting-option.model";
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { classificationStatusesEnum } from 'models/enum/classification.enum';
-import { createInitialArray, enumToArray } from 'common/utilities/helpers';
+import {createInitialArray, downloadCSVFile} from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from "@angular/material";
@@ -22,6 +20,7 @@ import {
   DeleteCampaign,
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
+import { AdvertiserService } from 'advertiser/advertiser.service';
 
 @Component({
   selector: 'app-campaign-details',
@@ -33,8 +32,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
-  campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
-  classificationStatusesEnum = classificationStatusesEnum;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
@@ -166,35 +163,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     return this.canActivateCampaign ? 'Activate' : 'Deactivate'
   }
 
-  get classificationLabel() {
-    if (!this.campaign) return;
-    if (this.campaign.classificationStatus === this.classificationStatusesEnum.PROCESSING) {
-      return 'Processing';
-    }
-
-    if (this.campaign.classificationTags === null) {
-      return '';
-    }
-    return `
-  [${this.campaign.classificationTags}]
-`;
-  }
-
-  onCampaignClassificationStatusChange(status) {
-    if (status === 0) {
-      this.advertiserService
-        .classifyCampaign(this.campaign.id)
-        .subscribe(() => {
-        });
-    } else {
-      this.advertiserService
-        .removeClassifyCampaign(this.campaign.id)
-        .subscribe(() => {
-        });
-    }
-  }
-
-  get isClassificationChecked() {
-    return this.campaign && this.campaign.classificationStatus !== this.classificationStatusesEnum.DISABLED;
+  downloadReport() {
+    const settings = this.currentChartFilterSettings;
+    this.advertiserService.report(settings.currentFrom, settings.currentTo, this.campaign.id)
+      .subscribe((data) => {
+        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
+      });
   }
 }

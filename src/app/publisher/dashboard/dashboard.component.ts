@@ -10,7 +10,7 @@ import {Site, SitesTotals} from 'models/site.model';
 import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
 import {ChartData} from 'models/chart/chart-data.model';
 import {AppState} from 'models/app-state.model';
-import {createInitialArray} from 'common/utilities/helpers';
+import {createInitialArray, downloadCSVFile} from 'common/utilities/helpers';
 import { PublisherService } from 'publisher/publisher.service';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
@@ -70,6 +70,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
+        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
 
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
@@ -97,15 +98,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const settings = this.currentChartFilterSettings;
     this.publisherService.report(settings.currentFrom, settings.currentTo)
       .subscribe((data) => {
-        const from = moment(settings.currentFrom).format('YYYY-MM-DD');
-        const to = moment(settings.currentTo).format('YYYY-MM-DD');
-        const fileName = `report_${settings.currentFrom}_${from}_${to}.csv`;
-        const blob = new Blob([data], { type: 'text/csv;charset=utf-8' });
-        const link = document.createElement('a');
-        link.setAttribute("download", fileName);
-        link.setAttribute("href", URL.createObjectURL(blob));
-
-        link.click();
+        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
       });
   }
 }
