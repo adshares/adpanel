@@ -24,7 +24,7 @@
 
   &__btn {
     width: calc(6ch + 16px);
-    border: 1px solid pal(navy, light);
+    border: 1px solid pal(gray, mid-dark);
 
     &:disabled {
       border: none;
@@ -32,8 +32,8 @@
     }
 
     .classifier-list-item__btns--classified &:not(:disabled) {
-      color: pal(navy, light);
-      border: 1px solid pal(navy, light);
+      color: pal(gray, mid-dark);
+      border: 1px solid pal(gray, mid-dark);
     }
   }
 
@@ -47,10 +47,10 @@
   &__btns {
     display: flex;
     max-width: 200px;
+    justify-content: space-between;
 
     &--classified {
       display: flex;
-      justify-content: space-between;
     }
     &--reversed {
       flex-direction: row-reverse;
