@@ -75,9 +75,9 @@ export function publisherReducers(state = initialState, action: PublisherActions
         return {
           ...state,
           sites: [...filteredSites, {
-            ...{...selectedSite, adUnits: reducedUnits},
+            ...selectedSite,
             ...action.payload.total,
-
+            adUnits: reducedUnits,
           }],
         };
       }
