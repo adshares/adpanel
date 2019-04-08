@@ -1,6 +1,8 @@
-<section class="preferences">
+<section class="preferences user-wallet">
   <div
     class="
+      user-wallet__wallet-box
+      col-xs-6
       dwmth-box
       dwmth-box--large"
   >
@@ -25,79 +27,57 @@
           row
           align-start"
       >
-        <div class="col-xs-7">
-          <div
-            class="
+        <div
+          class="
               col
               dwmth-box
               dwmth-box--light-border
               dwmth-box--large"
-          >
-            <h1
-              class="
+        >
+          <h1
+            class="
                 dwmth-heading
                 dwmth-heading--primary"
-              data-test="user-total-funds"
-            >
-              {{ totalFunds | adsharesTokenValue }}
-<!--
-              <span
-                class="
-                  dwmth-copy&#45;&#45;normal
-                  dwmth-copy&#45;&#45;light"
-                data-test="user-total-funds-in-currency"
-              >
-                ({{ adserverWallet.totalFundsInCurrency | currency:'USD' }})
-              </span>
--->
-            </h1>
-<!--
-            <p
-              class="
-                dwmth-copy
-                dwmth-copy&#45;&#45;large"
-              data-test="settings-last-payment"
-            >
-              Last successful payment: {{ adserverWallet.lastPayment }}
-            </p>
--->
-            <div
-              class="
+            data-test="user-total-funds"
+          >
+            {{ wallet.walletBalance | adsharesTokenValue }}
+          </h1>
+          <div
+            class="
                 row
                 funds-actions"
-            >
-              <button
-                class="
+          >
+            <button
+              class="
                   dwmth-btn
                   dwmth-btn--white
                   dwmth-blue"
-                (click)="openAddFundsDialog()"
-                data-test="add-funds-dialog-open-button"
-              >
-                <img
-                  class="
+              (click)="openAddFundsDialog()"
+              data-test="add-funds-dialog-open-button"
+            >
+              <img
+                class="
                     dwmth-icon
                     dwmth-icon--prepend"
-                  src="assets/images/credit-card--blue.svg"
-                >
-                  Deposit Funds
-              </button>
-              <button
-                class="
+                src="assets/images/credit-card--blue.svg"
+              >
+              Deposit Funds
+            </button>
+            <button
+              class="
                   dwmth-btn
                   dwmth-btn--blue"
-                (click)="openWithdrawFundsDialog()"
-                data-test="withdraw-funds-dialog-open-button"
-              >
-                <img
-                  class="
+              (click)="openWithdrawFundsDialog()"
+              data-test="withdraw-funds-dialog-open-button"
+            >
+              <img
+                class="
                     dwmth-icon
                     dwmth-icon--prepend"
-                  src="assets/images/credit-card--white.svg"
-                >
-                  Withdraw Funds
-              </button>
-            </div>
+                src="assets/images/credit-card--white.svg"
+              >
+              Withdraw Funds
+            </button>
           </div>
         </div>
       </div>
@@ -122,6 +102,41 @@
           </button>
         </a>
       </div>
+    </div>
+  </div>
+
+
+  <div
+    class="preferences col-xs-6 dwmth-box--no-padding">
+    <div
+      class="
+      dwmth-box
+      user-wallet__wallet-box
+      col
+      dwmth-box--large"
+    >
+      <h2
+        class="
+          dwmth-heading
+          dwmth-heading--primary"
+      >
+        BONUS
+      </h2>
+      <p
+        class="
+          dwmth-copy
+          dwmth-copy--large"
+      >
+        You can spend your bonus funds on advertising but you can't withdraw them.
+      </p>
+      <strong
+        class="dwmth-heading
+               dwmth-heading--primary"
+        data-test="user-total-funds"
+      >
+        {{ wallet.bonusBalance > 0 ?
+        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:2) }}
+      </strong>
     </div>
   </div>
 </section>
