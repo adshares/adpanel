@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
 import { User } from 'models/user.model';
+import { UserWalletResponse } from "models/settings.model";
 
 @Injectable()
 export class ApiAuthService {
@@ -13,8 +14,8 @@ export class ApiAuthService {
 
   // user access
 
-  check(): Observable<User> {
-    return this.http.get<User>(`${environment.authUrl}/check`);
+  check(): Observable<UserWalletResponse> {
+    return this.http.get<UserWalletResponse>(`${environment.authUrl}/check`);
   }
 
   logout() {

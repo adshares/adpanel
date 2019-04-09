@@ -11,7 +11,7 @@ import {User, UserAdserverWallet} from 'models/user.model';
 
 import {adsToClicks, formatMoney} from 'common/utilities/helpers';
 import {appSettings} from 'app-settings';
-import {CalculateWithdrawalItem} from "models/settings.model";
+import { CalculateWithdrawalItem, UserWallet } from "models/settings.model";
 import * as codes from 'common/utilities/codes';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { GetBillingHistory } from "store/settings/settings.actions";
@@ -31,7 +31,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   withdrawFormSubmitted = false;
   showAddressError = false;
   isEmailConfirmed = false;
-  totalFunds: number;
+  walletBalance: number;
 
   calculatedFee: number;
   calculatedTotal: number;
@@ -52,9 +52,9 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         this.isEmailConfirmed = user.isEmailConfirmed;
         this.adserverWallet = user.adserverWallet;
       });
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
-      .subscribe((state: SettingsState) => {
-        this.totalFunds = state.totalFunds
+    const userDataStateSubscription = this.store.select('state', 'user', 'settings', 'wallet')
+      .subscribe((wallet: UserWallet) => {
+        this.walletBalance = wallet.walletBalance
       });
     this.settingsService.checkUserStatus()
       .subscribe((user: User) => {

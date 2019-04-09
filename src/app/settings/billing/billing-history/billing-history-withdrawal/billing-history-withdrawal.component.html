@@ -15,9 +15,9 @@
          matTooltipPosition="above"
          class="material-icons
                 billing-table-row__tooltip-icon"
-        >
-          warning
-        </i>
+      >
+        warning
+      </i>
 
 
       <span data-test="settings-billing-history-item-status">
@@ -26,9 +26,11 @@
     </div>
   </td>
   <td class="col-xs-1" title="{{type}}">
-
-    <span data-test="settings-billing-history-item-type">
-      <fa-icon class="billing-table-row__type billing-table-row__type--{{type}}"
+    <span class="billing-table-row__type--icon "
+          data-test="settings-billing-history-item-type">
+      <i *ngIf="showBonusIcon"
+         class="material-icons billing-table-row__bonus"> star_rate </i>
+      <fa-icon class="billing-table-row__type billing-table-row__type--{{typeClass || type}}"
                [icon]="icon"> </fa-icon>
     </span>
   </td>
@@ -47,7 +49,6 @@
     <span
       class="
       dwmth-copy
-      dwmth-copy--semi
       dwmth-copy--x-dark"
       data-test="settings-billing-history-item-date"
     >
@@ -59,7 +60,6 @@
       class="
       break-word
       dwmth-copy
-      dwmth-copy--semi
       dwmth-copy--x-dark"
       data-test="settings-billing-history-item-address"
     >
