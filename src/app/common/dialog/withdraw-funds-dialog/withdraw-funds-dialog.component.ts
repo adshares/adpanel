@@ -6,12 +6,12 @@ import {HttpErrorResponse} from "@angular/common/http";
 
 import {HandleSubscription} from 'common/handle-subscription';
 import {SettingsService} from 'settings/settings.service';
-import {AppState, SettingsState} from 'models/app-state.model';
+import {AppState } from 'models/app-state.model';
 import {User, UserAdserverWallet} from 'models/user.model';
 
 import {adsToClicks, formatMoney} from 'common/utilities/helpers';
 import {appSettings} from 'app-settings';
-import { CalculateWithdrawalItem, UserWallet } from "models/settings.model";
+import { CalculateWithdrawalItem } from "models/settings.model";
 import * as codes from 'common/utilities/codes';
 import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { GetBillingHistory } from "store/settings/settings.actions";
@@ -52,16 +52,10 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         this.isEmailConfirmed = user.isEmailConfirmed;
         this.adserverWallet = user.adserverWallet;
       });
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings', 'wallet')
-      .subscribe((wallet: UserWallet) => {
+    const userDataStateSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((wallet: UserAdserverWallet) => {
         this.walletBalance = wallet.walletBalance
       });
-    this.settingsService.checkUserStatus()
-      .subscribe((user: User) => {
-        this.isEmailConfirmed = user.isEmailConfirmed;
-        this.adserverWallet = user.adserverWallet;
-      });
-
     this.subscriptions.push(userDataSubscription, userDataStateSubscription);
     this.createForm();
   }
@@ -108,7 +102,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
   createForm(): void {
     this.withdrawFundsForm = new FormGroup({
-      address: new FormControl(this.adserverWallet.adsharesAddress, [
+      address: new FormControl('', [
         Validators.required,
         Validators.pattern(appSettings.ADDRESS_REGEXP)
       ]),

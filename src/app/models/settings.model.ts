@@ -22,19 +22,6 @@ interface NotificationItem {
   email: string;
 }
 
-interface UserWallet {
-  totalFunds: number;
-  bonusBalance: number;
-  lastPaymentAt: number;
-  totalFundsChange: number;
-  totalFundsInCurrency: number;
-  walletBalance: number;
-}
-
-interface UserWalletResponse {
-  adserverWallet: UserWallet;
-}
-
 interface UserInfoStats {
   id: number;
   email: string;
@@ -105,6 +92,4 @@ export {
   AdminPrivacyAndTermsSettingsResponse,
   TermsAndPrivacy,
   License,
-  UserWallet,
-  UserWalletResponse
 };

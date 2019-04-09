@@ -7,7 +7,7 @@ import { appSettings } from 'app-settings';
 import { SessionService } from "app/session.service";
 import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
-import { UserWallet } from "models/settings.model";
+import { UserAdserverWallet } from "models/user.model";
 
 @Component({
   selector: 'app-user-wallet',
@@ -16,7 +16,7 @@ import { UserWallet } from "models/settings.model";
 })
 export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
-  wallet: UserWallet;
+  wallet: UserAdserverWallet;
 
   constructor(
     private dialog: MatDialog,
@@ -35,8 +35,8 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('state', 'user', 'settings', 'wallet')
-      .subscribe((wallet: UserWallet) => {
+    this.store.select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet;
       });
   }

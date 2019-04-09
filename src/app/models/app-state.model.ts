@@ -7,7 +7,6 @@ import {
   NotificationItem,
   TermsAndPrivacy,
   UserInfoStats,
-  UserWallet
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
@@ -41,7 +40,6 @@ interface PublisherState {
 interface SettingsState {
   notificationsSettings: NotificationItem[];
   billingHistory: BillingHistory;
-  wallet: UserWallet;
 }
 
 interface UserState {

@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
-import { User } from 'models/user.model';
 import { SettingsService } from "settings/settings.service";
 import { HandleSubscription } from 'common/handle-subscription';
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -11,24 +11,20 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./site-code-dialog.component.scss']
 })
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
-  isEmailConfirmed = false;
+  isEmailConfirmed:boolean;
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     private settingsService: SettingsService,
+    private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     super();
   }
 
   ngOnInit() {
-    this.settingsService.checkUserStatus()
-      .subscribe(
-        (user: User) => {
-        this.isEmailConfirmed = user.isEmailConfirmed;
-      },
-        (err) => {
-        }
-      );
+    const confirmationSubscription = this.store.select('state', 'user', 'data', 'isEmailConfirmed')
+      .subscribe(isConfirmed => this.isEmailConfirmed = isConfirmed);
+    this.subscriptions.push(confirmationSubscription)
   }
 }
