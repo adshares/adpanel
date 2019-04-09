@@ -121,4 +121,9 @@
   &.selected {
     border: 2px solid pal(blue);
   }
+
+  &--bordered {
+    color: pal(navy, light);
+    border: 1px solid pal(navy, light);
+  }
 }

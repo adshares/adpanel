@@ -30,6 +30,20 @@ export class PublisherService {
     return this.http.get<SitesTotals[]>(`${environment.apiUrl}/sites/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
+  report(dateStart: string, dateEnd: string, siteId?: number): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    if (siteId > 0) {
+      options['params'] = {
+        site_id: siteId
+      };
+    }
+
+    return this.http.get<any>(`${environment.apiUrl}/sites/stats/report/${dateStart}/${dateEnd}`, options);
+  }
+
   getSite(id: number): Observable<Site> {
     return this.http.get<Site>(`${environment.apiUrl}/sites/${id}`);
   }
@@ -52,10 +66,6 @@ export class PublisherService {
     const {filteringArray, ...reducedSite} = site;
 
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
-  }
-
-  updateSiteStatus(id: number, status: number): Observable<number> {
-    return this.http.patch<number>(`${environment.apiUrl}/sites/${id}/status`, {status});
   }
 
   getFilteringCriteria(): Observable<TargetingOption[]> {

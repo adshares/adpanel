@@ -5,6 +5,9 @@ export enum billingHistoryItemStatusEnum {
   BLOCKED,
   PROCESSING,
   AWAITING,
+  CANCELED,
+  'SYS_ERROR' = 126,
+  'NET_ERROR' = 127,
 }
 
 export enum billingHistoryItemTypeEnum {

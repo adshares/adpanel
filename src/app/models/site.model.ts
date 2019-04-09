@@ -14,22 +14,22 @@ interface Site {
   filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
 
-  estimatedEarnings?: number;
   clicks?: number;
   impressions?: number;
   averageRpm?: number;
   averageRpc?: number;
   ctr?: number;
-  cost?: number;
+  revenue?: number;
   code?: string;
 }
 
 interface SitesTotals {
-  totalEarnings: number;
-  totalClicks: number;
-  totalImpressions: number;
-  averagePageRPM: number;
-  averageCPC: number;
+  averageRpc: number;
+  averageRpm: number;
+  clicks: number;
+  ctr: number;
+  impressions: number;
+  revenue: number;
 }
 
 interface AdUnit {

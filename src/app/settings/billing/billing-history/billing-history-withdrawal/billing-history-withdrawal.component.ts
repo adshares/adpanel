@@ -1,9 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {billingHistoryItemStatusEnum, billingHistoryItemTypeEnum} from "models/enum/billing-history.enum";
-import {faArchive, faHandHoldingUsd, faFileInvoiceDollar, faQuestion,} from '@fortawesome/free-solid-svg-icons';
-
+import {
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
+import {
+  billingHistoryItemStatusEnum,
+  billingHistoryItemTypeEnum
+} from "models/enum/billing-history.enum";
+import {
+  faArchive,
+  faHandHoldingUsd,
+  faFileInvoiceDollar,
+  faQuestion,
+} from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
-import {appSettings} from 'app-settings';
+import { appSettings } from 'app-settings';
+import { SettingsService } from "settings/settings.service";
+import { AppState } from "models/app-state.model";
+import { Store } from "@ngrx/store";
+import { CancelAwaitingTransaction } from "store/settings/settings.actions";
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -16,6 +31,11 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   status: string;
   type: string;
   icon;
+  statusEnum = billingHistoryItemStatusEnum;
+
+  constructor(private settingsService: SettingsService, private store: Store<AppState>) {
+
+  }
 
   ngOnInit() {
     this.getIcon();
@@ -28,7 +48,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     this.formatType();
   }
 
-  formatType():void {
+  formatType(): void {
     const typeFromEnum = billingHistoryItemTypeEnum[this.billingHistoryItem.type].split("_");
 
     if (typeFromEnum.length === 1) {
@@ -58,5 +78,9 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
       default:
         this.icon = faQuestion;
     }
+  }
+
+  cancelAwaitingTransaction(id: number): void {
+    this.store.dispatch(new CancelAwaitingTransaction(id));
   }
 }

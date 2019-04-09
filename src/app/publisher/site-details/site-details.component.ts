@@ -11,7 +11,7 @@ import { Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import {createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -143,6 +143,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
+        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
@@ -182,5 +183,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   get statusButtonLabel(): string {
     return this.canActivateSite ? 'Activate' : 'Deactivate'
+  }
+
+  downloadReport() {
+    const settings = this.currentChartFilterSettings;
+    this.publisherService.report(settings.currentFrom, settings.currentTo, this.site.id)
+      .subscribe((data) => {
+        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
+      });
   }
 }

@@ -3,89 +3,102 @@
     col
     site-list"
 >
-  <div class="site-list__items">
-    <div class="dwmth-box">
-      <app-table-navigation
-        [navigationName]="'siteListNavigation'"
-        class="
+  <table class="site-list__items">
+    <app-table-navigation
+      [navigationName]="'siteListNavigation'"
+      class="
           row
+          dwmth-box
           dwmth-copy"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
-    </div>
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
 
-    <div *ngIf="(sites && sitesTotals); else loading">
-      <app-site-list-item
-        *ngFor="let site of sites"
-        [site]="site"
-      ></app-site-list-item>
-
-      <!--<div class="dwmth-box">-->
-        <!--<div-->
-          <!--class="-->
-            <!--row-->
-            <!--align-center-->
-            <!--dwmth-copy-->
-            <!--dwmth-copy&#45;&#45;semi"-->
-        <!--&gt;-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-3-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<h4-->
-              <!--class="-->
-                <!--dwmth-heading-->
-                <!--dwmth-heading&#45;&#45;secondary"-->
-            <!--&gt;-->
-              <!--Total - All Sites-->
-            <!--</h4>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-2-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span>{{ sitesTotals.totalEarnings | currency:'USD':'symbol':'1.2-2' }}</span>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-1-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span>{{ sitesTotals.totalClicks }}</span>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-1-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span>{{ sitesTotals.totalImpressions }}</span>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-1-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span>{{ sitesTotals.averagePageRPM | percent:'1.2-2' }}</span>-->
-          <!--</div>-->
-          <!--<div-->
-            <!--class="-->
-              <!--col-xs-1-->
-              <!--row-->
-              <!--align-center"-->
-          <!--&gt;-->
-            <!--<span>{{ sitesTotals.averageCPC | currency:'USD':'symbol':'1.2-2' }}</span>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    </div>
-  </div>
+    <tbody *ngIf="(sites && sitesTotals); else loading">
+    <app-site-list-item
+      *ngFor="let site of sites"
+      [site]="site"
+    ></app-site-list-item>
+    <tr
+      class="
+            row
+            dwmth-box
+            align-center
+            justify-between
+            dwmth-copy
+            dwmth-copy--semi"
+    >
+      <td
+        class="
+                status-totals-column
+                row
+                align-center"
+      ></td>
+      <td
+        class="
+              col-xs-3
+              row
+              justify-start
+              align-center
+              dwmth-copy
+              dwmth-copy--bold"
+      >
+        Total - All Sites
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+        [title]="sitesTotals.revenue | adsharesTokenValue"
+      >
+        {{ sitesTotals.revenue | adsharesTokenValue:2 }}
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+      >
+        {{ sitesTotals.clicks }}
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+      >
+        {{ sitesTotals.impressions }}
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+      >
+        {{ sitesTotals.ctr | percent:'1.2-2' }}
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+        [title]="sitesTotals.averageRpm | adsharesTokenValue"
+      >
+        {{ sitesTotals.averageRpm | adsharesTokenValue:2 }}
+      </td>
+      <td
+        class="
+              col-xs-1
+              row
+              align-center"
+        [title]="sitesTotals.averageRpc | adsharesTokenValue"
+      >
+        {{ sitesTotals.averageRpc | adsharesTokenValue:2 }}
+      </td>
+      <td class="col-xs-1 row"></td>
+    </tr>
+    </tbody>
+  </table>
 
   <ng-template #loading>
     <div class="loading-wrapper">
@@ -96,6 +109,7 @@
   <div
     class="
       dwmth-box
+      dwmth-box--no-margin
       hidden-md"
   >
     <div

@@ -5,6 +5,7 @@ interface BillingHistoryItem {
   date: Date;
   address: string;
   txid: string;
+  id: number;
 }
 
 interface BillingHistory {
@@ -32,7 +33,7 @@ interface UserInfoStats {
 
 interface AdminSettings {
   adserverName: string;
-  hotwalletAddress:string;
+  hotwalletAddress: string;
   hotwalletMaxValue: number;
   hotwalletMinValue: number;
   supportEmail: string;
@@ -47,8 +48,8 @@ interface AdminSettingsResponse {
 }
 
 interface TermsAndPrivacy {
-  privacy:string
-  terms:string
+  privacy: string
+  terms: string
 }
 
 interface License {
