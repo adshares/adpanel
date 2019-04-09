@@ -11,6 +11,15 @@ export const LOAD_NOTIFICATIONS = 'Notifications loaded';
 export const LOAD_NOTIFICATIONS_SUCCESS = 'Notifications loaded success';
 export const UPDATE_NOTIFICATIONS = 'Notifications updated';
 
+export const SHOW_DIALOG_ON_ERROR = 'Show dialog on error';
+
+export class ShowDialogOnError implements Action {
+  readonly type = SHOW_DIALOG_ON_ERROR;
+
+  constructor(public payload: string) {
+  }
+}
+
 export class SetActiveUserType implements Action {
   readonly type = SET_ACTIVE_USER_TYPE;
 

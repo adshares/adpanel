@@ -238,9 +238,7 @@
                   class="file-select-input"
                   type="file"
                   id="fileSelect"
-                  ng2FileSelect
-                  [uploader]="uploader"
-                  (change)="uploadBanner(uploader.queue[0])"
+                  (change)="uploadBanner($event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p class="dwmth-copy">
@@ -283,7 +281,7 @@
                 *ngIf="imagesStatus.upload.processing"
                 data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
               >
-                {{ uploader.queue[0].file.name }}
+                <!--{{ uploader.queue[0].file.name }}-->
                 <br>
 
                 <div class="progress-bar">
