@@ -27,8 +27,8 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   automaticWithdrawFormSubmitted = false;
   isEmailConfirmed = false;
 
-  currentAmount: number;
-  currentPeriod: number;
+  currentAmount: number = 300;
+  currentPeriod: number = 3;
 
   constructor(
     public dialogRef: MatDialogRef<ChangeAutomaticWithdrawDialogComponent>,
@@ -41,11 +41,9 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((user: User) => {
-        this.currentPeriod = user.adserverWallet.autoWithdrawPeriod;
-        this.currentAmount = user.adserverWallet.autoWithdrawAmount;
-        this.isEmailConfirmed = user.isEmailConfirmed;
+    const userSubscription = this.store.select('state', 'user', 'data', 'isEmailConfirmed')
+      .subscribe((isEmailConfirmed: boolean) => {
+        this.isEmailConfirmed = isEmailConfirmed;
       });
 
     this.subscriptions.push(userSubscription);
