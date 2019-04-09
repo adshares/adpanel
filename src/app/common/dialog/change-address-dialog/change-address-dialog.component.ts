@@ -7,8 +7,7 @@ import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
 import { LocalStorageUser, User } from 'models/user.model';
-
-import * as authActions from 'store/auth/auth.actions';
+import { UpdateUserAddress } from 'store/auth/auth.actions';
 import { appSettings } from 'app-settings';
 
 @Component({
@@ -35,7 +34,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userSubcrtiption = this.store.select('state', 'user', 'data')
+    const userSubcrtiption = this.store.select('state', 'user', 'data',)
       .subscribe((user: User) => {
         this.adsharesAddress = user.adserverWallet.adsharesAddress;
         this.isEmailConfirmed = user.isEmailConfirmed;
@@ -73,6 +72,6 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {adsharesAddress: address});
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
-    this.store.dispatch(new authActions.UpdateUserAddress(address));
+    this.store.dispatch(new UpdateUserAddress(address));
   }
 }

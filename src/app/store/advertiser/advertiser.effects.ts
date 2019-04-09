@@ -139,7 +139,7 @@ export class AdvertiserEffects {
         };
         return new LoadCampaignTotalsSuccess(totals)
       })
-      .catch((err) =>{console.log(err)
+      .catch((err) =>{
         return Observable.of(new LoadCampaignTotalsFailure())})
     );
 

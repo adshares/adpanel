@@ -3,9 +3,9 @@
 .billing-table-row {
   padding: 15px 0;
   display: flex;
- border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 
-  &  td {
+  & td {
     text-align: center;
     align-self: center;
   }
@@ -35,8 +35,20 @@
     min-width: 150px;
   }
 
+  &__bonus {
+    position: absolute;
+    color: pal(yellow, base);
+    z-index: 1;
+    left: -11px;
+    top: -20px;
+  }
+
   &__type {
     font-size: 1.7em;
+
+    &--icon {
+      position: relative;
+    }
 
     &--income {
       color: pal(green);
@@ -54,8 +66,8 @@
 
   &__tooltip-icon {
     position: absolute;
-    top: 1px;
-    left: -6px;
+    top: 2px;
+    left: -2px;
     font-size: 26px;
     color: pal(orange, dark);
   }

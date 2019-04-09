@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import {
   BillingHistory,
-  NotificationItem
+  NotificationItem, UserWallet
 } from 'models/settings.model';
 
 export const LOAD_NOTIFICATIONS_SETTINGS = 'Notifications Settings loaded';
@@ -51,7 +51,7 @@ export class GetCurrentBalance implements Action {
 export class GetCurrentBalanceSuccess implements Action {
   readonly type: string = GET_CURRENT_BALANCE_SUCCESS;
 
-  constructor(public payload: number) {
+  constructor(public payload: UserWallet) {
   }
 }
 

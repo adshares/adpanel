@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 
 import { SessionService } from "app/session.service";
-import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
-import {Store} from "@ngrx/store";
-import {AppState, SettingsState} from "models/app-state.model";
-import {HandleSubscription} from "common/handle-subscription";
+import { LocalStorageUser } from 'models/user.model';
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
+import { HandleSubscription } from "common/handle-subscription";
+import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-settings-navigation',
@@ -12,7 +13,7 @@ import {HandleSubscription} from "common/handle-subscription";
   styleUrls: ['./settings-navigation.component.scss'],
 })
 export class SettingsNavigationComponent extends HandleSubscription {
-  adserverWallet: UserAdserverWallet;
+  wallet: UserWallet;
   totalFunds: number;
   user: LocalStorageUser;
   // userRoles: Store<UserRoles>
@@ -50,11 +51,10 @@ export class SettingsNavigationComponent extends HandleSubscription {
 
   ngOnInit() {
     this.user = this.session.getUser();
-    this.adserverWallet = this.user.adserverWallet;
-
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
-      .subscribe((state: SettingsState) => {
-        this.totalFunds = state.totalFunds
+    const userDataStateSubscription = this.store
+      .select('state', 'user', 'settings', 'wallet', 'totalFunds')
+      .subscribe((totalFunds: number) => {
+        this.totalFunds = totalFunds;
       });
     this.subscriptions.push(userDataStateSubscription);
   }

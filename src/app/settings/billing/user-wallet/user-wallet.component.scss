@@ -18,3 +18,17 @@
 .period {
   text-transform: lowercase;
 }
+
+.user-wallet {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+
+  &__wallet-box {
+    height: 100%;
+
+    &:first-of-type {
+      margin-right: 8px;
+    }
+  }
+}
