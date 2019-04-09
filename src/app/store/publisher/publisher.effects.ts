@@ -48,7 +48,7 @@ export class PublisherEffects {
     .switchMap((id) => this.service.getSite(id)
       .switchMap((site) => {
         const to = moment().format();
-        const from = moment().subtract(7, 'd').format();
+        const from = moment().subtract(30, 'd').format();
         return [
           new publisherActions.LoadSiteSuccess(site),
           new publisherActions.LoadSiteTotals({from, to, id})
@@ -131,6 +131,24 @@ export class PublisherEffects {
         ]
       })
       .catch(() => Observable.of(new publisherActions.UpdateSiteFailure()))
+    );
+
+  @Effect()
+  updateSiteAdUnits$ = this.actions$
+    .ofType(
+      publisherActions.UPDATE_SITE_UNITS,
+    )
+    .map(toPayload)
+    .switchMap(payload => this.service.updateSiteData(payload.id, payload)
+      .switchMap(() => {
+        this.router.navigate(['/publisher', 'site', payload.id]);
+        return [
+          new publisherActions.ClearLastEditedSite(),
+          new publisherActions.UpdateSiteUnitsSuccess(),
+          new publisherActions.LoadSite(payload.id),
+        ]
+      })
+      .catch(() => Observable.of(new publisherActions.UpdateSiteUnitsFailure()))
     );
 
   @Effect()

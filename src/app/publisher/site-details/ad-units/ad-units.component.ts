@@ -23,6 +23,7 @@ export class AdUnitsComponent implements OnInit {
   }
 
   openGetCodeDialog() {
+    console.log('code', this.adUnit.code)
     this.dialog.open(SiteCodeDialogComponent, {
       data: {
         code: this.adUnit.code,

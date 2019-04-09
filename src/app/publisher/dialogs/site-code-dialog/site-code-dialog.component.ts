@@ -23,8 +23,12 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
 
   ngOnInit() {
     this.settingsService.checkUserStatus()
-      .subscribe((user: User) => {
+      .subscribe(
+        (user: User) => {
         this.isEmailConfirmed = user.isEmailConfirmed;
-      });
+      },
+        (err) => {
+        }
+      );
   }
 }

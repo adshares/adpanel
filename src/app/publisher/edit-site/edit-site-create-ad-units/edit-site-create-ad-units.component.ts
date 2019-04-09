@@ -11,7 +11,12 @@ import { cloneDeep } from 'common/utilities/helpers';
 import { AdUnit, AdUnitSize, Site } from 'models/site.model';
 import { AppState } from 'models/app-state.model';
 import { adUnitInitialState } from 'models/initial-state/ad-unit';
-import * as publisherActions from 'store/publisher/publisher.actions';
+import {
+  ClearLastEditedSite,
+  SaveLastEditedSiteAdUnits,
+  UpdateSite,
+  AddSiteToSites, UpdateSiteUnits
+} from 'store/publisher/publisher.actions';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { MatDialog } from "@angular/material";
 import { HandleSubscription } from "common/handle-subscription";
@@ -165,7 +170,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
         {queryParams: {step: 2}})
     } else {
       const siteId = this.site.id;
-      this.store.dispatch(new publisherActions.ClearLastEditedSite({}));
+      this.store.dispatch(new ClearLastEditedSite({}));
       this.router.navigate(['/publisher', 'site', siteId]);
     }
   }
@@ -175,8 +180,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.adUnitsSubmitted = true;
     if (!adUnitsValid) return;
     this.adUnitsSubmitted = false;
-    this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
-    this.store.dispatch(new publisherActions.UpdateSite(this.site));
+    const site = {
+      ...this.site,
+      adUnits: this.adUnitsToSave,
+    };
+    this.store.dispatch(new UpdateSiteUnits(site));
   }
 
   get adUnitsToSave(): AdUnit[] {
@@ -209,7 +217,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
     if (adUnitsValid) {
       this.adUnitsSubmitted = false;
-      this.store.dispatch(new publisherActions.SaveLastEditedSiteAdUnits(this.adUnitsToSave));
+      this.store.dispatch(new SaveLastEditedSiteAdUnits(this.adUnitsToSave));
       this.redirectAfterSave(isDraft);
     } else {
       this.changesSaved = false;
@@ -223,7 +231,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
         ...this.site,
         status: siteStatusEnum.DRAFT
       };
-      this.store.dispatch(new publisherActions.AddSiteToSites(this.site));
+      this.store.dispatch(new AddSiteToSites(this.site));
       return;
     }
     this.router.navigate(
