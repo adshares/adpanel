@@ -94,6 +94,7 @@
             </span>
           <button class="dwmth-btn dwmth-btn--white dwmth-status--btn"
                   (click)="onSiteStatusChange()"
+                  data-test="publisher-site-status-change-button"
                   [attr.data-status]="currentSiteStatus">
             {{ statusButtonLabel }}
           </button>
@@ -129,17 +130,18 @@
       <div class="row">
         <div class="col-xs-4">
           <a
-              (click)="downloadReport()"
-            >
-              <button
-                class="
+            (click)="downloadReport()"
+          >
+            <button
+              class="
                 dwmth-btn
                 dwmth-btn--white
                 dwmth-copy--dark"
-              >
-                Download Report
-              </button>
-            </a>
+              data-test="publisher-site-download-report-button"
+            >
+              Download Report
+            </button>
+          </a>
         </div>
         <div class="col-xs-4">
           <app-chart-filter-by-type
@@ -207,7 +209,7 @@
            dwmth-btn--no-border
            hidden-md"
         (click)="navigateToEditSite('basic-information', 1)"
-        data-test="publisher-site-edit"
+        data-test="publisher-site-edit-basic-info-button"
       >
         <img
           class="
@@ -229,7 +231,7 @@
            dwmth-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('additional-filtering', 2)"
-          data-test="publisher-site-edit"
+          data-test="publisher-site-edit-filtering-button"
         >
           <img
             class="
@@ -337,7 +339,7 @@
            dwmth-btn--no-border
            hidden-md"
           (click)="navigateToEditSite('create-ad-units', 3)"
-          data-test="publisher-site-edit"
+          data-test="publisher-site-edit-ad-units-button"
         >
           <img
             class="
