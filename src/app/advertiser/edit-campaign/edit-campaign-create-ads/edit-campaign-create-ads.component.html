@@ -238,9 +238,7 @@
                   class="file-select-input"
                   type="file"
                   id="fileSelect"
-                  ng2FileSelect
-                  [uploader]="uploader"
-                  (change)="uploadBanner(uploader.queue[0])"
+                  (change)="uploadBanner($event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p class="dwmth-copy">
@@ -283,7 +281,7 @@
                 *ngIf="imagesStatus.upload.processing"
                 data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
               >
-                {{ uploader.queue[0].file.name }}
+                {{ imagesStatus.name }}
                 <br>
 
                 <div class="progress-bar">
@@ -291,14 +289,13 @@
                     class="progress-bar--active"
                     [ngStyle]="{'width': imagesStatus.upload.progress + '%'}"></div>
                 </div>
-
                 <span
                   class="
                   file-box__file-sub-info
                   file-box__file-sub-info--secondary">
-                {{ (uploader.queue[0].file.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
+                {{ (imagesStatus.size / 1000) * (imagesStatus.upload.progress / 100) }} KB
                 of
-                {{ uploader.queue[0].file.size / 1000 }} KB
+                {{ imagesStatus.size / 1000 }} KB
                 ({{ imagesStatus.upload.progress }}% Done)
                 </span>
 
@@ -308,7 +305,8 @@
                   file-box__action-button--cancel"
                   src="/assets/images/x-circle--gray.svg"
                   alt="Cancel upload"
-                  (click)="uploader.queue[0].cancel()"
+                  role="button"
+                  (click)="cancelUploading()"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload-cancel"
                 >
               </div>
@@ -320,8 +318,6 @@
               >
                 {{ adForm.get('html').value.name }}
                 <br>
-
-
                 <span class="file-box__file-sub-info"
                       data-test="advertiser-edit-campaign-create-ads-form-image-size">
                   {{ adSizes[adForm.get('size').value] }}
@@ -394,8 +390,7 @@
                 'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
               }">
               <img [src]="adForm.get('image').value.src | trustUrl"
-                   [style.transform]="'scale('+ scaleImageToMatchBanner(i)+ ')'"
-              />
+                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
             </div>
 
             <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"

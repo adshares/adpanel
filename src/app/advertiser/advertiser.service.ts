@@ -18,6 +18,13 @@ export class AdvertiserService {
   constructor(private http: HttpClient, private router: Router, private store: Store<AppState>) {
   }
 
+  uploadBanner(data): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/campaigns/banner`, data, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
   getCampaigns(): Observable<Campaign[]> {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }

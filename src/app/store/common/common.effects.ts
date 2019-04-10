@@ -4,7 +4,9 @@ import 'rxjs/add/operator/switchMap';
 import { CommonService } from 'common/common.service';
 import {
   LOAD_NOTIFICATIONS,
-  LoadNotificationsSuccess, SHOW_SUCCESS_SNACKBAR
+  LoadNotificationsSuccess,
+  SHOW_DIALOG_ON_ERROR,
+  SHOW_SUCCESS_SNACKBAR,
 } from './common.actions';
 import {
   UPDATE_CAMPAIGN_STATUS_FAILURE,
@@ -42,6 +44,7 @@ export class CommonEffects {
   @Effect({dispatch: false})
   handleErrors = this.actions$
     .ofType(
+      SHOW_DIALOG_ON_ERROR,
       UPDATE_CAMPAIGN_STATUS_FAILURE,
       DELETE_CAMPAIGN_FAILURE,
       ADD_SITE_TO_SITES_FAILURE,
