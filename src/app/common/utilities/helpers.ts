@@ -189,8 +189,9 @@ function downloadCSVFile(data, from, to) {
   const link = document.createElement('a');
   link.setAttribute("download", fileName);
   link.setAttribute("href", URL.createObjectURL(blob));
-
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
 }
 
 export {
