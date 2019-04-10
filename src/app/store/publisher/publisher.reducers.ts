@@ -23,7 +23,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         sites: [
-          ...state.sites,
+          ...state.sites.filter(el => el.id !== action.payload.id),
           {
             ...siteInitialState,
             ...action.payload
@@ -148,7 +148,9 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ...state,
         sites: [
           ...oldSites,
-          ...action.payload
+          {
+            ...action.payload
+          }
         ]
       };
 

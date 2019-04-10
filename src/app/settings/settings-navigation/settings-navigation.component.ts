@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-
 import { SessionService } from "app/session.service";
-import { LocalStorageUser } from 'models/user.model';
+import {
+  LocalStorageUser,
+  UserAdserverWallet
+} from 'models/user.model';
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
 import { HandleSubscription } from "common/handle-subscription";
-import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-settings-navigation',
@@ -13,7 +14,7 @@ import { UserWallet } from "models/settings.model";
   styleUrls: ['./settings-navigation.component.scss'],
 })
 export class SettingsNavigationComponent extends HandleSubscription {
-  wallet: UserWallet;
+  wallet: UserAdserverWallet;
   totalFunds: number;
   user: LocalStorageUser;
   // userRoles: Store<UserRoles>
@@ -52,7 +53,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
   ngOnInit() {
     this.user = this.session.getUser();
     const userDataStateSubscription = this.store
-      .select('state', 'user', 'settings', 'wallet', 'totalFunds')
+      .select('state', 'user', 'data', 'adserverWallet', 'totalFunds')
       .subscribe((totalFunds: number) => {
         this.totalFunds = totalFunds;
       });

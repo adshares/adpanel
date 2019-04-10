@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
@@ -49,6 +48,10 @@ export const UPDATE_SITE_STATUS_FAILURE = 'Update site status failure';
 export const UPDATE_SITE_FILTERING = 'Site filtering update';
 export const UPDATE_SITE_FILTERING_SUCCESS = 'Site filtering update success';
 export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
+
+export const UPDATE_SITE_UNITS = 'Site units update';
+export const UPDATE_SITE_UNITS_SUCCESS = 'Site units update success';
+export const UPDATE_SITE_UNITS_FAILURE = 'Site units update failure';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -295,6 +298,27 @@ export class UpdateSiteFilteringFailure implements Action {
   }
 }
 
+export class UpdateSiteUnits implements Action {
+  readonly type = UPDATE_SITE_UNITS;
+
+  constructor(public payload: Site) {
+  }
+}
+
+export class UpdateSiteUnitsSuccess implements Action {
+  readonly type = UPDATE_SITE_UNITS_SUCCESS;
+
+  constructor(public payload?: Site) {
+  }
+}
+
+export class UpdateSiteUnitsFailure implements Action {
+  readonly type = UPDATE_SITE_UNITS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export type actions =
   GetLanguagesList |
   GetLanguagesListSuccess |
@@ -340,4 +364,8 @@ export type actions =
 
   UpdateSiteFiltering |
   UpdateSiteFilteringSuccess |
-  UpdateSiteFilteringFailure;
+  UpdateSiteFilteringFailure |
+
+  UpdateSiteUnits |
+  UpdateSiteUnitsSuccess |
+  UpdateSiteUnitsFailure;

@@ -1,11 +1,10 @@
 interface UserAdserverWallet {
-  adsharesAddress: string;
-  paymentMemo: string;
-  autoWithdrawPeriod: number;
-  autoWithdrawAmount: number;
   totalFunds: number;
-  totalFundsInCurrency: number;
+  bonusBalance: number;
+  lastPaymentAt: number;
   totalFundsChange: number;
+  totalFundsInCurrency: number;
+  walletBalance: number;
   lastPayment: string;
 }
 

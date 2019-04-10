@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
-import { User } from 'models/user.model';
+import {
+  User,
+  UserAdserverWallet
+} from 'models/user.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -9,7 +12,6 @@ import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialo
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
-import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-funds-summary',
@@ -22,7 +24,7 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
   userDataState: Store<User>;
   periodsEnum = withdrawPeriodsEnum;
   totalFunds: number;
-  adserverWallet: UserWallet;
+  adserverWallet: UserAdserverWallet;
 
   constructor(
     private store: Store<AppState>,
@@ -37,8 +39,8 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
       .subscribe((userData: User) => this.checkUserRole(userData));
 
     const userAdserverWalletSubscription = this.store
-      .select('state', 'user', 'settings', 'wallet')
-      .subscribe((wallet: UserWallet) => {
+      .select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((wallet: UserAdserverWallet) => {
         this.adserverWallet = wallet;
         this.totalFunds = wallet.totalFunds;
       });

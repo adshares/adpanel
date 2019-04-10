@@ -32,6 +32,7 @@ import { AdvertiserEffects } from 'store/advertiser/advertiser.effects';
 import { PublisherEffects } from 'store/publisher/publisher.effects';
 import { SettingsEffects } from 'store/settings/settings.effects';
 import { AdminEffects } from 'store/admin/admin.effects';
+import { AuthEffects } from 'store/auth/auth.effects';
 import { CommonEffects } from 'store/common/common.effects';
 
 import { reducer } from 'store/index';
@@ -63,7 +64,8 @@ const appModules = [
       PublisherEffects,
       SettingsEffects,
       AdminEffects,
-      CommonEffects
+      CommonEffects,
+      AuthEffects
     ]),
     ...appModules
   ],

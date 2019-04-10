@@ -10,14 +10,6 @@ import { actions } from "store/admin/admin.actions";
 
 const initialState: SettingsState = {
   notificationsSettings: [],
-  wallet: {
-    totalFunds: 0,
-    bonusBalance: 0,
-    lastPaymentAt: 0,
-    totalFundsChange: 0,
-    totalFundsInCurrency: 0,
-    walletBalance: 0,
-  },
   billingHistory: {
     limit: 10,
     offset: 0,
@@ -40,11 +32,6 @@ export function settingsReducers(state = initialState, action: actions) {
         notificationsSettings: action.payload
       };
 
-    case GET_CURRENT_BALANCE_SUCCESS:
-      return {
-        ...state,
-        wallet: action.payload
-      };
     case GET_BILLING_HISTORY_SUCCESS:
       return {
         ...state,

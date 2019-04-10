@@ -10,13 +10,12 @@ export const userInitialState: User = {
   password: '',
   uuid: null,
   adserverWallet: {
-    adsharesAddress: '',
-    paymentMemo: '',
-    autoWithdrawPeriod: 3,
-    autoWithdrawAmount: 300,
-    totalFunds: 0.0,
-    totalFundsInCurrency: 0.0,
-    totalFundsChange: 0.0,
+    totalFunds: 0,
+    bonusBalance: 0,
+    lastPaymentAt: 0,
+    totalFundsChange: 0,
+    totalFundsInCurrency: 0,
+    walletBalance: 0,
     lastPayment: null
   }
 };

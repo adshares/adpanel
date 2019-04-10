@@ -7,10 +7,10 @@ import { userRolesEnum } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
 import { Store } from "@ngrx/store";
-import { AppState, SettingsState } from "models/app-state.model";
-import { GetCurrentBalance } from 'store/settings/settings.actions';
+import { AppState } from "models/app-state.model";
 import { environment } from 'environments/environment';
-import { UserWallet } from "models/settings.model";
+import { SetUser } from "store/auth/auth.actions";
+import { UserAdserverWallet } from "models/user.model";
 
 @Component({
   selector: 'app-header',
@@ -37,12 +37,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetCurrentBalance());
+    this.store.dispatch(new SetUser());
     let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType === 'admin' ? userRolesEnum.ADMIN : (accountType === 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings', 'wallet')
-      .subscribe((wallet: UserWallet) => {
+    const userDataStateSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
+      .subscribe((wallet: UserAdserverWallet) => {
         this.totalFunds = wallet.totalFunds
       });
     this.subscriptions.push(userDataStateSubscription);
