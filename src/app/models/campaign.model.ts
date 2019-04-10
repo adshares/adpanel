@@ -28,6 +28,8 @@ interface CampaignTotals {
   averageCpc: number;
   averageCpm: number;
   cost: number;
+  bannerId?: number;
+  bannerName?: number;
 }
 
 interface CampaignBasicInformation {
@@ -59,4 +61,10 @@ interface Ad {
   imageSize?: string;
 }
 
-export { Campaign, CampaignBasicInformation, Ad, CampaignTotals };
+interface CampaignTotalsResponse {
+  total: CampaignTotals,
+  data: CampaignTotals[]
+}
+
+
+export { Campaign, CampaignBasicInformation, Ad, CampaignTotals, CampaignTotalsResponse };

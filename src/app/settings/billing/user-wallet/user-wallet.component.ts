@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
-
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { UserAdserverWallet } from 'models/user.model';
 import { appSettings } from 'app-settings';
 import { SessionService } from "app/session.service";
-import {AppState, SettingsState} from "models/app-state.model";
+import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
+import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-user-wallet',
@@ -17,9 +16,7 @@ import {Store} from "@ngrx/store";
 })
 export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
-
-  adserverWallet: UserAdserverWallet;
-  totalFunds: number;
+  wallet: UserWallet;
 
   constructor(
     private dialog: MatDialog,
@@ -38,11 +35,9 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
-    this.adserverWallet = this.session.getUser().adserverWallet;
-
-    this.store.select('state', 'user', 'settings')
-      .subscribe((state: SettingsState) => {
-        this.totalFunds = state.totalFunds
+    this.store.select('state', 'user', 'settings', 'wallet')
+      .subscribe((wallet: UserWallet) => {
+        this.wallet = wallet;
       });
   }
 }

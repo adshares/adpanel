@@ -10,6 +10,7 @@ import { Store } from "@ngrx/store";
 import { AppState, SettingsState } from "models/app-state.model";
 import { GetCurrentBalance } from 'store/settings/settings.actions';
 import { environment } from 'environments/environment';
+import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-header',
@@ -40,9 +41,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType === 'admin' ? userRolesEnum.ADMIN : (accountType === 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
-      .subscribe((state: SettingsState) => {
-        this.totalFunds = state.totalFunds
+    const userDataStateSubscription = this.store.select('state', 'user', 'settings', 'wallet')
+      .subscribe((wallet: UserWallet) => {
+        this.totalFunds = wallet.totalFunds
       });
     this.subscriptions.push(userDataStateSubscription);
   }

@@ -1,11 +1,18 @@
 import { Campaign, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
-import { AdminSettings, License, NotificationItem, TermsAndPrivacy, UserInfoStats } from './settings.model';
+import {
+  AdminSettings,
+  BillingHistory,
+  License,
+  NotificationItem,
+  TermsAndPrivacy,
+  UserInfoStats,
+  UserWallet
+} from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
 import { TargetingOption } from "models/targeting-option.model";
-
 
 interface AppState {
   state: {
@@ -33,7 +40,8 @@ interface PublisherState {
 
 interface SettingsState {
   notificationsSettings: NotificationItem[];
-  totalFunds: number;
+  billingHistory: BillingHistory;
+  wallet: UserWallet;
 }
 
 interface UserState {

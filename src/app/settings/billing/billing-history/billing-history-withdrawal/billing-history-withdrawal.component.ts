@@ -1,9 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {billingHistoryItemStatusEnum, billingHistoryItemTypeEnum} from "models/enum/billing-history.enum";
-import {faArchive, faHandHoldingUsd, faFileInvoiceDollar, faQuestion,} from '@fortawesome/free-solid-svg-icons';
-
+import {
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
+import {
+  billingHistoryItemStatusEnum,
+  billingHistoryItemTypeEnum
+} from "models/enum/billing-history.enum";
+import {
+  faArchive,
+  faHandHoldingUsd,
+  faFileInvoiceDollar,
+  faQuestion,
+} from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
-import {appSettings} from 'app-settings';
+import { appSettings } from 'app-settings';
+import { SettingsService } from "settings/settings.service";
+import { AppState } from "models/app-state.model";
+import { Store } from "@ngrx/store";
+import { CancelAwaitingTransaction } from "store/settings/settings.actions";
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -15,7 +30,13 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   link: string;
   status: string;
   type: string;
+  typeClass: string;
   icon;
+  statusEnum = billingHistoryItemStatusEnum;
+
+  constructor(private settingsService: SettingsService, private store: Store<AppState>) {
+
+  }
 
   ngOnInit() {
     this.getIcon();
@@ -28,35 +49,46 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     this.formatType();
   }
 
-  formatType():void {
+  formatType(): void {
     const typeFromEnum = billingHistoryItemTypeEnum[this.billingHistoryItem.type].split("_");
-
     if (typeFromEnum.length === 1) {
-      this.type = typeFromEnum[0].toLowerCase()
+      this.type = typeFromEnum[0].toLowerCase();
+    } else if (this.showBonusIcon) {
+      this.type = typeFromEnum.join(' ');
+      this.typeClass = typeFromEnum[1].toLowerCase();
     } else {
-      this.type = typeFromEnum[1].toLowerCase()
+      this.type = typeFromEnum[1].toLowerCase();
     }
+  }
+
+  get showBonusIcon(): boolean {
+    return this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_INCOME ||
+      this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_EXPENDITURE;
   }
 
   getIcon(): void {
     switch (this.billingHistoryItem.type) {
-      case 0:
+      case billingHistoryItemTypeEnum.UNKNOWN:
         this.icon = faQuestion;
         break;
-      case 1:
+      case billingHistoryItemTypeEnum.DEPOSIT:
         this.icon = faArchive;
         break;
-      case 2:
+      case billingHistoryItemTypeEnum.WITHDRAWAL:
         this.icon = faHandHoldingUsd;
         break;
-      case 3:
-        this.icon = faFileInvoiceDollar;
-        break;
-      case 4:
+      case billingHistoryItemTypeEnum.AD_INCOME:
+      case billingHistoryItemTypeEnum.AD_EXPENDITURE:
+      case billingHistoryItemTypeEnum.BONUS_INCOME:
+      case billingHistoryItemTypeEnum.BONUS_EXPENDITURE:
         this.icon = faFileInvoiceDollar;
         break;
       default:
         this.icon = faQuestion;
     }
+  }
+
+  cancelAwaitingTransaction(id: number): void {
+    this.store.dispatch(new CancelAwaitingTransaction(id));
   }
 }

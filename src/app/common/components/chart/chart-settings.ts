@@ -2,6 +2,14 @@ import { ChartOptions } from 'models/chart/chart-options.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
 import * as moment from 'moment';
+import {
+  pubChartSeriesEnum,
+  advChartSeriesEnum
+} from "models/enum/chart.enum";
+import {
+  enumToObject,
+  formatMoney
+} from "common/utilities/helpers";
 
 const adjustLabelFormat = (value, index, values) => {
   const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
@@ -17,6 +25,25 @@ const adjustLabelFormat = (value, index, values) => {
     return moment(value).format('MMM YYYY');
   } else {
     return moment(value).format('YYYY');
+  }
+};
+
+const adjustTooltipValueFormat = (type: string, value: string): string => {
+  const options = {
+    ...enumToObject(pubChartSeriesEnum),
+    ...enumToObject(advChartSeriesEnum)
+  };
+
+  switch (type) {
+    case  options.SUM:
+    case  options.CPC:
+    case  options.CPM:
+    case  options.RPM:
+    case  options.RPC:
+      const val = parseInt(value);
+      return `${type}: ${val > 0 ? formatMoney(val) : 0} ADS`;
+    default:
+      return `${type}: ${value}`;
   }
 };
 
@@ -48,7 +75,6 @@ const chartOptions: ChartOptions = {
       const getBody = (bodyItem) => {
         return bodyItem.lines;
       };
-
       // Tooltip Element
       let tooltipEl = document.getElementById('chartjs-tooltip');
 
@@ -76,18 +102,19 @@ const chartOptions: ChartOptions = {
         const bodyLines = tooltipModel.body.map(getBody);
 
         let innerHtml = '<thead>';
-
         titleLines.forEach((title) => {
           innerHtml += '<tr><th class="chartjs-tooltip__title">' + title + '</th></tr>';
         });
         innerHtml += '</thead><tbody>';
 
         bodyLines.forEach((body, i) => {
+          const bodyData = body[0].split(':');
+          const type = bodyData[0];
+          const value = bodyData[1];
           const span = '<span></span>';
-          innerHtml += '<tr><td>' + span + body + '</td></tr>';
+          innerHtml += '<tr><td>' + span + adjustTooltipValueFormat(type, value) + '</td></tr>';
         });
         innerHtml += '</tbody>';
-
         const tableRoot = tooltipEl.querySelector('table');
         tableRoot.innerHTML = innerHtml;
       }

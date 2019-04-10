@@ -1,35 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
-
-import { User, UserAdserverWallet } from 'models/user.model';
+import { User } from 'models/user.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import {AppState, SettingsState} from 'models/app-state.model';
+import { AppState } from 'models/app-state.model';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAddressDialogComponent } from 'common/dialog/change-address-dialog/change-address-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from 'common/dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
 import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
+import { UserWallet } from "models/settings.model";
 
 @Component({
   selector: 'app-funds-summary',
   templateUrl: './funds-summary.component.html',
   styleUrls: ['./funds-summary.component.scss'],
 })
+
 export class FundsSummaryComponent extends HandleSubscription implements OnInit {
   selectedRole: string;
   userDataState: Store<User>;
-
   periodsEnum = withdrawPeriodsEnum;
   totalFunds: number;
-  adserverWallet: UserAdserverWallet;
+  adserverWallet: UserWallet;
 
   constructor(
     private store: Store<AppState>,
     private dialog: MatDialog
   ) {
     super();
-
     this.userDataState = this.store.select('state', 'user', 'data');
   }
 
@@ -37,25 +36,19 @@ export class FundsSummaryComponent extends HandleSubscription implements OnInit 
     const getUserSubscription = this.userDataState
       .subscribe((userData: User) => this.checkUserRole(userData));
 
-    const userDataStateSubscription = this.store.select('state', 'user', 'settings')
-      .subscribe((state: SettingsState) => {
-        this.totalFunds = state.totalFunds
+    const userAdserverWalletSubscription = this.store
+      .select('state', 'user', 'settings', 'wallet')
+      .subscribe((wallet: UserWallet) => {
+        this.adserverWallet = wallet;
+        this.totalFunds = wallet.totalFunds;
       });
-    this.subscriptions.push(userDataStateSubscription);
-
-    const userAdserverWalletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
-      .subscribe((adserverWallet: UserAdserverWallet) => {
-        this.adserverWallet = adserverWallet;
-      });
-
-    this.subscriptions.push(getUserSubscription, userAdserverWalletSubscription, userDataStateSubscription);
+    this.subscriptions.push(getUserSubscription, userAdserverWalletSubscription);
   }
 
   checkUserRole(user: User) {
     if (user.isAdmin) {
       return;
     }
-
     this.selectedRole = user.isAdvertiser ? 'Advertiser' : 'Publisher';
   }
 

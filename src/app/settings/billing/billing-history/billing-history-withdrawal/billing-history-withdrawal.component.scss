@@ -3,9 +3,9 @@
 .billing-table-row {
   padding: 15px 0;
   display: flex;
- border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 
-  &  td {
+  & td {
     text-align: center;
     align-self: center;
   }
@@ -13,6 +13,7 @@
   &__status {
     @include font-weight(bold);
     max-width: 150px;
+    position: relative;
 
     &[data-status="ACCEPTED"] {
       color: pal(green);
@@ -30,8 +31,24 @@
     }
   }
 
+  &__status-cell {
+    min-width: 150px;
+  }
+
+  &__bonus {
+    position: absolute;
+    color: pal(yellow, base);
+    z-index: 1;
+    left: -11px;
+    top: -20px;
+  }
+
   &__type {
     font-size: 1.7em;
+
+    &--icon {
+      position: relative;
+    }
 
     &--income {
       color: pal(green);
@@ -45,5 +62,13 @@
   & &__amount {
     text-align: right;
     font-size: 1.1em;
+  }
+
+  &__tooltip-icon {
+    position: absolute;
+    top: 2px;
+    left: -2px;
+    font-size: 26px;
+    color: pal(orange, dark);
   }
 }

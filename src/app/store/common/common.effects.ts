@@ -4,27 +4,24 @@ import 'rxjs/add/operator/switchMap';
 import { CommonService } from 'common/common.service';
 import {
   LOAD_NOTIFICATIONS,
-  LoadNotificationsSuccess
+  LoadNotificationsSuccess, SHOW_SUCCESS_SNACKBAR
 } from './common.actions';
 import {
   UPDATE_CAMPAIGN_STATUS_FAILURE,
   DELETE_CAMPAIGN_FAILURE,
-  UPDATE_CAMPAIGN_STATUS_SUCCESS,
 } from "store/advertiser/advertiser.actions";
 import {
   ADD_SITE_TO_SITES_FAILURE,
-  UPDATE_SITE_STATUS_SUCCESS
 } from "store/publisher/publisher.actions";
 import {
   GET_PRIVACY_SETTINGS_FAILURE,
   GET_TERMS_SETTINGS_FAILURE,
   SET_ADMIN_SETTINGS_FAILURE,
-  SET_ADMIN_SETTINGS_SUCCESS,
-  SET_PRIVACY_SETTINGS, SET_TERMS_SETTINGS
 } from "store/admin/admin.actions";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { MatDialog, MatSnackBar } from "@angular/material";
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
+import { CANCEL_AWAITING_TRANSACTION_FAILURE } from "store/settings/settings.actions";
 
 @Injectable()
 export class CommonEffects {
@@ -50,7 +47,8 @@ export class CommonEffects {
       ADD_SITE_TO_SITES_FAILURE,
       SET_ADMIN_SETTINGS_FAILURE,
       GET_PRIVACY_SETTINGS_FAILURE,
-      GET_TERMS_SETTINGS_FAILURE
+      GET_TERMS_SETTINGS_FAILURE,
+      CANCEL_AWAITING_TRANSACTION_FAILURE
     )
     .map(toPayload)
     .do(payload => {
@@ -63,30 +61,14 @@ export class CommonEffects {
     });
 
   @Effect({dispatch: false})
-  handleSaveSuccess = this.actions$
+  handleSuccessActions = this.actions$
     .ofType(
-      SET_ADMIN_SETTINGS_SUCCESS,
-      SET_PRIVACY_SETTINGS,
-      SET_TERMS_SETTINGS,
-      UPDATE_CAMPAIGN_STATUS_SUCCESS,
-      UPDATE_SITE_STATUS_SUCCESS,
+      SHOW_SUCCESS_SNACKBAR,
     )
-    .do(() => {
+    .map(toPayload)
+    .do((payload) => {
       this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-        data: 'Successfully saved!',
-        duration: 500,
-      });
-    });
-
-  @Effect({dispatch: false})
-  handleStatusChange = this.actions$
-    .ofType(
-      UPDATE_CAMPAIGN_STATUS_SUCCESS,
-      UPDATE_SITE_STATUS_SUCCESS,
-    )
-    .do(() => {
-      this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-        data: 'Status changed!',
+        data: `${payload}`,
         duration: 500,
       });
     });

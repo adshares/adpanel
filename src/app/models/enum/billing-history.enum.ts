@@ -16,4 +16,6 @@ export enum billingHistoryItemTypeEnum {
   WITHDRAWAL,
   AD_INCOME,
   AD_EXPENDITURE,
+  BONUS_INCOME,
+  BONUS_EXPENDITURE,
 }
