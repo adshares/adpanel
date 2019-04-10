@@ -369,4 +369,17 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return form.get('type').value === 0
   }
 
+  cancelUploading() {
+    this.uploader.queue[0].cancel();
+    this.imagesStatus = {
+      ...this.imagesStatus,
+      name: '',
+      size: 0,
+      upload: {
+        processing: false,
+        progress: 0,
+      }
+    }
+  }
+
 }
