@@ -370,7 +370,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   cancelUploading() {
-    this.uploader.queue[0].cancel();
+    this.uploader.queue.pop();
     this.imagesStatus = {
       ...this.imagesStatus,
       name: '',
