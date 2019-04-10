@@ -32,16 +32,11 @@ import { CampaignBudgetPerDayPipe } from "common/pipes/campaign-budget-per-day.p
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import {
+  DATE_AND_TIME_PICKER_FORMATS
+} from "common/utilities/consts";
 
-export const DATE_MOMENT_FORMATS = {
-  parseInput: 'l LT',
-  fullPickerInput: 'l LT',
-  datePickerInput: 'l',
-  timePickerInput: 'LT',
-  monthYearLabel: 'MMM YYYY',
-  dateA11yLabel: 'LL',
-  monthYearA11yLabel: 'MMMM YYYY',
-};
+
 
 const matModules = [
   MatExpansionModule,
@@ -89,7 +84,7 @@ const advertiserComponents = [
     AdvertiserGuard,
     CampaignResolver,
     TargetingCriteriaResolver,
-    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_MOMENT_FORMATS}
+    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS}
   ],
 
   declarations: [

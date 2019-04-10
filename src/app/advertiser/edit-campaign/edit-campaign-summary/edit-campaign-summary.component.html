@@ -180,7 +180,7 @@
               dwmth-copy--semi"
               data-test="advertiser-campaign-start-date"
             >
-              {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+              {{ campaign.basicInformation.dateStart | formatDate }}
             </p>
           </div>
 
@@ -212,7 +212,7 @@
                 dwmth-copy--semi"
               data-test="advertiser-campaign-end-date"
             >
-              {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+              {{ campaign.basicInformation.dateEnd | formatDate }}
             </p>
             <ng-template #dateEndEmpty>
               -

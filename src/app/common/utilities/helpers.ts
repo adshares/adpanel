@@ -1,6 +1,7 @@
 import { TableColumnMetaData } from 'models/table.model';
 import * as moment from "moment";
 import { campaignStatusesEnum } from "models/enum/campaign.enum";
+import { DATE_FORMAT } from "common/utilities/consts";
 
 
 function adsToClicks(amount: any): number {
@@ -182,8 +183,8 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
 }
 
 function downloadCSVFile(data, from, to) {
-  const formattedFrom = moment(from).format('YYYY-MM-DD');
-  const formattedTo = moment(to).format('YYYY-MM-DD');
+  const formattedFrom = moment(from).format(DATE_FORMAT);
+  const formattedTo = moment(to).format(DATE_FORMAT);
   const fileName = `report_${formattedFrom}_${formattedTo}.csv`;
   const blob = new Blob([data], {type: 'text/csv;charset=utf-8'});
   const link = document.createElement('a');

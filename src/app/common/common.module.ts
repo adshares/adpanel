@@ -47,6 +47,7 @@ import {
   ClickToADSPipe
 } from './pipes/adshares-token.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
+import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component';
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
@@ -99,6 +100,7 @@ const appComponents = [
   ClickToADSPipe,
   TrustUrlPipe,
   TrustHtmlPipe,
+  MomentDatePipe,
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,
