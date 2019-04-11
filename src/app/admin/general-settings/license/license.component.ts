@@ -5,6 +5,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { fadeAnimation } from "common/animations/fade.animation";
 import { License } from "models/settings.model";
 import * as moment from "moment";
+import { DATE_AND_TIME_FORMAT } from "common/utilities/consts";
 
 @Component({
   selector: 'app-license',
@@ -28,8 +29,8 @@ export class LicenseComponent extends HandleSubscription implements OnInit {
         if (license !== null) {
           this.license = {
             ...license,
-            dateStart: moment(license.dateStart).format('L LT'),
-            dateEnd: moment(license.dateEnd).format('L LT'),
+            dateStart: moment(license.dateStart).format(DATE_AND_TIME_FORMAT),
+            dateEnd: moment(license.dateEnd).format(DATE_AND_TIME_FORMAT),
           };
         }
       });
