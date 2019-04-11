@@ -2,6 +2,12 @@
 
 button {
   width: 100%;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    background-color: darken(pal(gray, extreme-light), 1%);
+  }
 }
 
 .inactive {
@@ -37,8 +43,18 @@ button {
   }
 }
 
-.option:hover {
-  background-color: pal(gray, extreme-light);
-  transition: background-color 0.2s ease;
-  cursor: pointer;
+//.targeting-custom-option {
+//  border: solid 1px pal(gray, light);
+//}
+
+.option {
+  &:hover {
+    background-color: darken(pal(gray, extreme-light), 1%);
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+}
+
+.targeting-custom-option {
+  display: flex;
 }

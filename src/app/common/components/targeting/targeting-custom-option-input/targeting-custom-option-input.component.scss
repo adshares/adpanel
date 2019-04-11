@@ -1,0 +1,53 @@
+@import '../../../../../styles.scss';
+
+.targeting-custom-option {
+  &__form {
+    width: 100%;
+    padding: 8px;
+
+    &--input-hidden {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+  }
+
+  &__label {
+    align-items: center;
+    display: block;
+  }
+
+  &__input {
+    margin-left: 8px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  &__btn {
+    margin-top: 8px;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    font-size: 26px;
+    color: pal(blue, base);
+    padding: 0;
+
+    & .material-icons {
+      margin: 0;
+      font-size: inherit;
+    }
+
+    &:focus,
+    &:hover {
+      color: darken(pal(blue, base), 10%);
+      box-shadow: 0 10px 20px rgba(196, 194, 194, 0.19), -1px 5px 6px rgba(114, 112, 112, 0.23)
+    }
+  }
+}

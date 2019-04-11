@@ -17,6 +17,7 @@ import {
   MatCheckboxModule,
   MatSnackBarModule,
   MatTooltipModule,
+  MatIconModule
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -31,7 +32,6 @@ import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dia
 import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/change-address-dialog.component';
 import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
 import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component';
-import { AddCustomTargetingDialogComponent } from './dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
 import { UserConfirmResponseDialogComponent } from './dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
@@ -61,6 +61,7 @@ import { SettingsMenuItemComponent } from "common/components/settings-menu-item/
 import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
 import { InputComponent } from "common/components/input/input.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TargetingCustomOptionInputComponent } from "common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component";
 
 const matModules = [
   MatDialogModule,
@@ -74,7 +75,8 @@ const matModules = [
   MatSlideToggleModule,
   MatSnackBarModule,
   MatCheckboxModule,
-  FontAwesomeModule
+  FontAwesomeModule,
+  MatIconModule
 ];
 
 const dialogs = [
@@ -84,7 +86,6 @@ const dialogs = [
   WithdrawFundsDialogComponent,
   ChangeAddressDialogComponent,
   ChangeAutomaticWithdrawDialogComponent,
-  AddCustomTargetingDialogComponent,
   UserConfirmResponseDialogComponent,
   WarningDialogComponent,
 ];
@@ -106,6 +107,7 @@ const appComponents = [
   EmailNotActivatedBarComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
+  TargetingCustomOptionInputComponent,
   TableNavigationComponent,
   EditAssetNavigationComponent,
   BannerPreviewComponent,
@@ -143,7 +145,8 @@ const appComponents = [
     MatTooltipModule,
     MatSpinner,
     MatDialogContent,
-    MatSlideToggle
+    MatSlideToggle,
+    MatIconModule
   ]
 })
 

@@ -17,7 +17,7 @@
   <td class="col-xs-2">
     <div *ngIf="!isGlobal && bannerClassification.classifiedGlobal"
          class="classifier-list-item__classification-info dwmth-copy">
-        <i class="material-icons"> info_outline </i> Banner accepted globally
+        <mat-icon> info_outline </mat-icon> Banner accepted globally
     </div>
     <div class="classifier-list-item__btns"
       [ngClass]="{'classifier-list-item__btns--classified': classified === APPROVED || classified === REJECTED,
