@@ -126,7 +126,6 @@ export function advertiserReducers(state = initialState, action: advertiserActio
             return elementWithStats ? {
               ...banner,
               ...elementWithStats,
-              name: elementWithStats.bannerName
             } : banner;
           })
         );
