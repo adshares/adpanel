@@ -10,21 +10,29 @@ import {
   enumToObject,
   formatMoney
 } from "common/utilities/helpers";
+import {
+  TIME_FORMAT,
+  DAY_AND_TIME_FORMAT,
+  DAY_AND_MONTH_FORMAT,
+  WEEK_AND_MONTH_FORMAT,
+  MONTH_AND_YEAR_FORMAT,
+  YEAR_FORMAT
+} from "common/utilities/consts";
 
 const adjustLabelFormat = (value, index, values) => {
   const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
   if (daysSpan === 0) {
-    return moment(value).format('LT');
+    return moment(value).format(TIME_FORMAT);
   } else if (daysSpan <= 2) {
-    return moment(value).format('ddd LT');
+    return moment(value).format(DAY_AND_TIME_FORMAT);
   } else if (daysSpan <= 31) {
-    return moment(value).format('D MMM');
+    return moment(value).format(DAY_AND_MONTH_FORMAT);
   } else if (daysSpan <= 182) {
-    return moment(value).format('W [week,] MMM YYYY');
+    return moment(value).format(WEEK_AND_MONTH_FORMAT);
   } else if (daysSpan <= 730) {
-    return moment(value).format('MMM YYYY');
+    return moment(value).format(MONTH_AND_YEAR_FORMAT);
   } else {
-    return moment(value).format('YYYY');
+    return moment(value).format(YEAR_FORMAT);
   }
 };
 

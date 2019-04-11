@@ -10,7 +10,7 @@
     (click)="showDatepicker()"
   >
     <span *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
-    <span *ngIf="!currentFilterPreset">From {{ currentFromFilter }} to {{currentToFilter }}</span>
+    <span *ngIf="!currentFilterPreset">From {{' ' + currentFromFilter + ' ' }} to {{' ' + currentToFilter }}</span>
   </button>
   <div
     class="

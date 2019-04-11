@@ -7,6 +7,7 @@ import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/
 import * as moment from 'moment';
 import { filterPresetsEnum } from "models/enum/chart.enum";
 import { enumToObjectArray } from "common/utilities/helpers";
+import { DATE_FORMAT } from "common/utilities/consts";
 
 @Component({
   selector: 'app-chart-filter',
@@ -70,16 +71,15 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
   }
 
   updateCurrentDaysSpan() {
-    const isCurrent = moment(new Date()).format('DD MM YY').toString() ===
-      moment(this.currentChartFilterSettings.currentTo).format('DD MM YY').toString();
+    const isCurrent = moment(new Date()).format(DATE_FORMAT) ===
+      moment(this.currentChartFilterSettings.currentTo).format(DATE_FORMAT);
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
     this.currentFilterPreset = this.filterPresets.find(p => {
       return (p.id === this.currentDaysSpan) && isCurrent
     });
-
-    this.currentFromFilter = moment(this.currentChartFilterSettings.currentFrom).format('L');
-    this.currentToFilter = moment(this.currentChartFilterSettings.currentTo).format('L');
+    this.currentFromFilter = moment(this.currentChartFilterSettings.currentFrom).format(DATE_FORMAT);
+    this.currentToFilter = moment(this.currentChartFilterSettings.currentTo).format(DATE_FORMAT);
   }
 
   showDatepicker() {

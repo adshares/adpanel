@@ -19,6 +19,7 @@ import { SettingsService } from "settings/settings.service";
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { CancelAwaitingTransaction } from "store/settings/settings.actions";
+import { DATE_AND_TIME_FORMAT } from "common/utilities/consts";
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -41,7 +42,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   ngOnInit() {
     this.getIcon();
 
-    this.billingHistoryItem.date = moment(this.billingHistoryItem.date).format('L hh:mm');
+    this.billingHistoryItem.date = moment(this.billingHistoryItem.date).format(DATE_AND_TIME_FORMAT);
     if (this.billingHistoryItem.txid) {
       this.link = appSettings.ADS_OPERATOR_URL + '/blockexplorer/transactions/' + this.billingHistoryItem.txid;
     }

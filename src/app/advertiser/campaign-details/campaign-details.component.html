@@ -239,7 +239,7 @@
                 dwmth-copy--dark
                 dwmth-copy--semi"
                 data-test="advertiser-campaign-start-date">
-                {{ campaign.basicInformation.dateStart | date:'dd MMM yyyy' }}
+                {{ campaign.basicInformation.dateStart | formatDate }}
               </p>
             </div>
 
@@ -271,7 +271,7 @@
                 dwmth-copy--semi"
                 data-test="advertiser-campaign-end-date"
               >
-                {{ campaign.basicInformation.dateEnd | date:'dd MMM yyyy'}}
+                {{ campaign.basicInformation.dateEnd | formatDate }}
               </p>
               <ng-template #dateEndEmpty>
                 -
@@ -381,8 +381,8 @@
         </p>
       </div>
       <app-poster-list *ngIf="campaign.ads.length"
-                   [adList]="campaign.ads"
-                   [campaign]="campaign"></app-poster-list>
+                       [adList]="campaign.ads"
+                       [campaign]="campaign"></app-poster-list>
     </section>
 
     <div
@@ -409,7 +409,7 @@
             class="
               dwmth-icon
               dwmth-icon--prepend"/>
-              {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
+          {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
         </button>
       </div>
     </div>
