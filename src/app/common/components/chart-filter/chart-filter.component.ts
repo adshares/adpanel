@@ -72,7 +72,7 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
 
   updateCurrentDaysSpan() {
     const isCurrent = moment(new Date()).format(DATE_FORMAT) ===
-      moment(this.currentChartFilterSettings.currentTo).format(DATE_FORMAT).toString();
+      moment(this.currentChartFilterSettings.currentTo).format(DATE_FORMAT);
     this.currentDaysSpan = moment(this.currentChartFilterSettings.currentTo)
       .diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
     this.currentFilterPreset = this.filterPresets.find(p => {
