@@ -54,7 +54,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     if (typeFromEnum.length === 1) {
       this.type = typeFromEnum[0].toLowerCase();
     } else if (this.showBonusIcon) {
-      this.type = typeFromEnum.join(' ');
+      this.type = typeFromEnum.join(' ').toLowerCase();
       this.typeClass = typeFromEnum[1].toLowerCase();
     } else {
       this.type = typeFromEnum[1].toLowerCase();
