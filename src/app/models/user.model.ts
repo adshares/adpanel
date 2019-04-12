@@ -1,11 +1,9 @@
 interface UserAdserverWallet {
   totalFunds: number;
   bonusBalance: number;
-  lastPaymentAt: number;
   totalFundsChange: number;
   totalFundsInCurrency: number;
   walletBalance: number;
-  lastPayment: string;
 }
 
 interface User {
