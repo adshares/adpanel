@@ -108,10 +108,7 @@ export class AdminEffects {
     .ofType(GET_PRIVACY_SETTINGS)
     .map(toPayload)
     .switchMap(() => this.service.getPrivacySettings()
-      .switchMap((privacyData) => [
-        new GetPrivacySettingsSuccess(privacyData),
-        new ShowSuccessSnackbar(SAVE_SUCCESS)
-      ])
+      .map((privacyData) => new GetPrivacySettingsSuccess(privacyData))
       .catch((err) => {
         if (err.status === HTTP_NOT_FOUND) {
           return Observable.of();
@@ -127,17 +124,14 @@ export class AdminEffects {
     .ofType(GET_TERMS_SETTINGS)
     .map(toPayload)
     .switchMap(() => this.service.getTermsAndConditions()
-      .switchMap((termsData) => [
-        new GetTermsSettingsSuccess(termsData),
-        new ShowSuccessSnackbar(SAVE_SUCCESS)
-      ])
+      .map((termsData) => new GetTermsSettingsSuccess(termsData))
       .catch((err) => {
         if (err.status === HTTP_NOT_FOUND) {
           return Observable.of();
         }
         return Observable.of(new GetTermsSettingsFailure(
           'We weren\'t able to save your settings this time. Please, try again later'
-        ))
+        ));
       })
     );
 
@@ -146,7 +140,10 @@ export class AdminEffects {
     .ofType(SET_TERMS_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setTermsAndConditions(payload)
-      .map((termsData) => new SetTermsSettingsSuccess(termsData))
+      .switchMap((termsData) => [
+        new SetTermsSettingsSuccess(termsData),
+        new ShowSuccessSnackbar(SAVE_SUCCESS)
+      ])
       .catch(() => {
         return Observable.of(new SetPrivacySettingsFailure(
           'We weren\'t able to save your settings this time. Please, try again later'
@@ -159,7 +156,10 @@ export class AdminEffects {
     .ofType(SET_PRIVACY_SETTINGS)
     .map(toPayload)
     .switchMap((payload) => this.service.setPrivacySettings(payload)
-      .map((termsData) => new SetPrivacySettingsSuccess(termsData))
+      .switchMap((termsData) => [
+        new SetPrivacySettingsSuccess(termsData),
+        new ShowSuccessSnackbar(SAVE_SUCCESS)
+      ])
       .catch(() => {
         return Observable.of(new SetPrivacySettingsFailure(
           'We weren\'t able to save your settings this time. Please, try again later'
