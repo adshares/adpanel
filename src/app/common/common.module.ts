@@ -41,7 +41,6 @@ import { PushNotificationComponent } from './components/push-notifications/push-
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
-import { FundsSummaryComponent } from './components/funds-summary/funds-summary.component';
 import {
   AdsharesTokenPipe,
   ClickToADSPipe
@@ -104,7 +103,6 @@ const appComponents = [
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,
-  FundsSummaryComponent,
   EmailNotActivatedBarComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
