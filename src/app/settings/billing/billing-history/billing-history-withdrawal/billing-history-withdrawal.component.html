@@ -1,4 +1,4 @@
-<tr class="billing-table-row row">
+<tr class="billing-table-row row justify-between">
   <td class="billing-table-row__status-cell">
     <div
       class="
@@ -18,8 +18,6 @@
       >
         warning
       </i>
-
-
       <span data-test="settings-billing-history-item-status">
       {{ status }}
     </span>
@@ -38,7 +36,7 @@
       data-test="settings-billing-history-item-amount">
     {{ billingHistoryItem.amount | adsharesTokenValue }}
   </td>
-  <td class="col-xs-3">
+  <td class="col-xs-2">
     <img
       class="
       dwmth-icon
@@ -66,8 +64,10 @@
       {{ billingHistoryItem.address }}
     </span>
   </td>
-  <td class="col-xs-2">
+  <td class="col-xs-1"
+      [ngClass]="{'billing-table-row__link': !!link}">
     <a *ngIf="link"
+       [title]="link"
        target="_blank"
        href="{{ link }}"
        data-test="settings-billing-history-item-link"
