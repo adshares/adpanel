@@ -16,6 +16,11 @@ export const userInitialState: User = {
     totalFundsChange: 0,
     totalFundsInCurrency: 0,
     walletBalance: 0,
-    lastPayment: null
+    lastPayment: null,
+//TODO: check usages
+    adsharesAddress: '',
+    paymentMemo: '',
+    autoWithdrawPeriod: 3,
+    autoWithdrawAmount: 300,
   }
 };
