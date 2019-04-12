@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3] - 2019-04-12
+### Added
+- Bonus credits for advertising expenses
+### Improved
+- Campaign Reports
+
 ## [0.5.2] - 2019-04-11
 ### Fixed
 - Campaign name edit
@@ -39,7 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v0.5.2...master
+[Unreleased]: https://github.com/adshares/adpanel/compare/v0.5.3...master
+[0.5.3]: https://github.com/adshares/adpanel/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/adshares/adpanel/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/adshares/adpanel/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/adshares/adpanel/compare/v0.4.0...v0.5.0
