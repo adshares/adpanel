@@ -67,7 +67,7 @@ export class SettingsEffects {
         new CancelAwaitingTransactionSuccess(payload),
         new ShowSuccessSnackbar(TRANSACTION_DELETE_SUCCESS),
       ])
-      .catch(err => Observable.of(new CancelAwaitingTransactionFailure(err.error.message))
+      .catch(err => Observable.of(new CancelAwaitingTransactionFailure(err.error.message || ''))
       )
     )
 }
