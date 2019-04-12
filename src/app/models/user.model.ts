@@ -6,11 +6,6 @@ interface UserAdserverWallet {
   totalFundsInCurrency: number;
   walletBalance: number;
   lastPayment: string;
-  //TODO: check usages of the below fields
-  adsharesAddress: string;
-  paymentMemo: string;
-  autoWithdrawPeriod: number;
-  autoWithdrawAmount: number;
 }
 
 interface User {
