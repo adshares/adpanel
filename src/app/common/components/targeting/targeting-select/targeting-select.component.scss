@@ -43,10 +43,6 @@ button {
   }
 }
 
-//.targeting-custom-option {
-//  border: solid 1px pal(gray, light);
-//}
-
 .option {
   &:hover {
     background-color: darken(pal(gray, extreme-light), 1%);

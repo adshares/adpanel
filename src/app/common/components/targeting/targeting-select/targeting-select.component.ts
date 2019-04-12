@@ -1,7 +1,23 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {
+  TargetingOption,
+  TargetingOptionValue
+} from 'models/targeting-option.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { findOption, findOptionList, getParentId } from 'common/components/targeting/targeting.helpers';
+import {
+  findOption,
+  findOptionList,
+  getParentId
+} from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({

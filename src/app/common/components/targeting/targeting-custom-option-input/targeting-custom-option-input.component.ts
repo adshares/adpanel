@@ -18,8 +18,6 @@ import { MatChipInputEvent } from "@angular/material";
   selector: 'app-targeting-custom-option-input',
   templateUrl: './targeting-custom-option-input.component.html',
   styleUrls: ['./targeting-custom-option-input.component.scss'],
-  host: {'class': 'targeting-custom-option'},
-
 })
 export class TargetingCustomOptionInputComponent {
   @ViewChild('input') input: ElementRef;
