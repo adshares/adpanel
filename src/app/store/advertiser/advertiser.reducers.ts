@@ -9,6 +9,15 @@ const initialState: AdvertiserState = {
   campaignsTotals: campaignsTotalsInitialState
 };
 
+const bannerStatsInitialState = {
+  clicks: 0,
+  impressions: 0,
+  ctr: 0,
+  averageCpm: 0,
+  averageCpc: 0,
+  cost: 0,
+};
+
 export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
   switch (action.type) {
     case advertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
@@ -138,12 +147,20 @@ export function advertiserReducers(state = initialState, action: advertiserActio
           }],
         };
       }
+
+      const resetBannerStats =  selectedCampaign.ads.map(el => {
+        return {
+          ...el,
+          ...bannerStatsInitialState
+        }
+      });
       return {
         ...state,
         campaigns: [
           ...filteredCampaigns,
           {
             ...selectedCampaign,
+            ads: resetBannerStats,
             ...action.payload.total
           }
         ]

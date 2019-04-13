@@ -96,9 +96,7 @@ export class AdvertiserEffects {
     .ofType(LOAD_CAMPAIGN)
     .map(toPayload)
     .switchMap((id) => this.service.getCampaign(id)
-      .switchMap((payload) => {
-        const from = moment().subtract(30, 'd').format();
-        const to = this.currentDate.format();
+      .map((payload) => {
         const campaign = {
           ...payload.campaign,
           basicInformation: {
@@ -107,10 +105,7 @@ export class AdvertiserEffects {
           }
         };
 
-        return [
-          new LoadCampaignSuccess(campaign),
-          new LoadCampaignTotals({from, to, id: campaign.id})
-        ]
+        return new LoadCampaignSuccess(campaign);
       })
       .catch(() => Observable.of(new LoadCampaignFailure()))
     );
@@ -139,8 +134,9 @@ export class AdvertiserEffects {
         };
         return new LoadCampaignTotalsSuccess(totals)
       })
-      .catch((err) =>{
-        return Observable.of(new LoadCampaignTotalsFailure())})
+      .catch((err) => {
+        return Observable.of(new LoadCampaignTotalsFailure())
+      })
     );
 
   @Effect()
