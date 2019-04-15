@@ -165,6 +165,7 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
     generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
     generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
   }
+
   requiresResultKeys.forEach(
     requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
   );
