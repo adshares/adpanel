@@ -17,7 +17,8 @@ import { MatDialog } from "@angular/material";
 import { UserConfirmResponseDialogComponent } from
     "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import {
-  DeleteCampaign, LoadCampaignsTotals, LoadCampaignTotals,
+  DeleteCampaign,
+  LoadCampaignTotals,
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';

@@ -20,7 +20,6 @@ import {
   LoadCampaignsTotalsSuccess,
   LoadCampaignsTotalsFailure,
   LoadCampaignSuccess,
-  LoadCampaignTotals,
   LoadCampaignTotalsSuccess,
   LoadCampaignTotalsFailure,
   AddCampaignToCampaignsSuccess,
