@@ -1,10 +1,23 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { AddCustomTargetingDialogComponent } from 'common/dialog/add-custom-targeting-dialog/add-custom-targeting-dialog.component';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {
+  TargetingOption,
+  TargetingOptionValue
+} from 'models/targeting-option.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { findOption, findOptionList, getParentId } from 'common/components/targeting/targeting.helpers';
+import {
+  findOption,
+  findOptionList,
+  getParentId
+} from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
 
 @Component({
@@ -13,6 +26,7 @@ import { cloneDeep } from 'common/utilities/helpers';
   styleUrls: ['./targeting-select.component.scss']
 })
 export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
+  @ViewChild('searchInput') searchInput: ElementRef;
   @Input() targetingOptions;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
@@ -28,7 +42,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   optionsHasValue = false;
   searchTerm = '';
 
-  constructor(private dialog: MatDialog) {
+  constructor() {
     super();
   }
 
@@ -48,8 +62,8 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   changeViewModel(options: (TargetingOption | TargetingOptionValue)[]) {
     const firstOption = options[0];
+    this.searchInput.nativeElement.focus();
     this.viewModel = options;
-
     this.itemsToRemove = [];
 
     this.backAvailable = !this.targetingOptions.some(
@@ -68,7 +82,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   handleOptionClick(option: TargetingOption | TargetingOptionValue) {
     this.searchTerm = '';
     const optionSublist = option['children'] || option['values'];
-
     if (optionSublist) {
       this.changeViewModel(optionSublist);
     }
@@ -96,8 +109,26 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     }
 
     if (option.parent.valueType === 'boolean') {
+
       this.deselectOppositeBoolean(option);
     }
+  }
+
+  handleAddCustomItem(items, option) {
+    this.viewModel = this.viewModel.map(el => {
+      return el.id === option.id ? {
+        ...el,
+        children: items,
+      } : el
+    });
+
+
+    this.selectedItems = [
+      ...this.selectedItems,
+      ...items
+    ];
+
+    this.itemsChange.emit(this.selectedItems);
   }
 
   handleRemoveItem(
@@ -133,13 +164,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     });
   }
 
-  setInitialState() {
-    this.changeViewModel(this.targetingOptions);
-    this.itemsToRemove = [];
-    this.parentOption = null;
-    this.backAvailable = false;
-  }
-
   setBackViewModel(option: TargetingOption | TargetingOptionValue) {
     const parentOptionId = getParentId(option.id);
 
@@ -150,8 +174,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
     const allOptions = options
       || this.targetingOptions
-        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), [])
-    ;
+        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), []);
 
     allOptions
       .forEach((option) => {
@@ -167,7 +190,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
 
   onSearchTermChange() {
     const searchTerm = this.searchTerm.toLowerCase().trim();
-
     if (searchTerm) {
       this.backAvailable = false;
       this.parentOption = null;
@@ -197,37 +219,10 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       if (savedItem.isCustom) {
         return;
       }
-
       const item = findOption(savedItem.id, this.targetingOptions);
-
       if (item) {
         Object.assign(item, {selected: true});
       }
     });
-  }
-
-  addCustomOption() {
-    const availableOptions = this.targetingOptionsForSearch.filter(option => option.allow_input)
-
-    const addCustomOptionDialog = this.dialog.open(
-      AddCustomTargetingDialogComponent,
-      {
-        data: {
-          parentOption: this.parentOption,
-          targetingOptions: this.targetingOptions,
-          availableOptions
-        }
-      }
-    );
-
-    const customDialogCloseSubscription = addCustomOptionDialog.afterClosed()
-      .subscribe((customOption) => {
-        if (customOption) {
-          this.selectedItems.push(customOption);
-          this.itemsChange.emit(this.selectedItems);
-          this.setInitialState();
-        }
-      });
-    this.subscriptions.push(customDialogCloseSubscription);
   }
 }

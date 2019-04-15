@@ -1,7 +1,10 @@
 import * as advertiserActions from './advertiser.actions';
 import * as authActions from '../auth/auth.actions';
 import { AdvertiserState } from 'models/app-state.model';
-import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
+import {
+  campaignInitialState,
+  campaignsTotalsInitialState
+} from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,

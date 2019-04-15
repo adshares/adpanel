@@ -43,7 +43,7 @@ function createTargetingChoice(
     Object.assign(targetingChoice, {
       parent: {
         valueType: parentOption.valueType,
-        allow_input: parentOption.allow_input
+        allowInput: parentOption.allowInput
       }
     });
   }
@@ -169,9 +169,11 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
   requiresResultKeys.forEach(
     requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
   );
+
   excludesResultKeys.forEach(
     excludesResultKey => addTargetingOptionToResult(excludesResultKey, excludesResult, targetingOptions)
   );
+
   addCustomOptionToResult(requiresResultKeys, requiresResult, targetingOptions);
   addCustomOptionToResult(excludesResultKeys, excludesResult, targetingOptions);
 
@@ -210,9 +212,9 @@ function addTargetingOptionToResult(resultKey, result, targetingOptions) {
     if (targetingOption.children) {
       addTargetingOptionToResult(resultKey, result, targetingOption.children);
     } else if (targetingOption.values) {
-      const foundResult = targetingOption.values.find(
-        targetingOptionValue => targetingOptionValue.id === resultKey
-      );
+      const foundResult = targetingOption.values.find(targetingOptionValue => {
+        return targetingOptionValue.id === resultKey
+      });
 
       if (foundResult) {
         result.push(foundResult);
@@ -227,7 +229,7 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       return result.id === optionKey
     });
 
-    if (addedResultIndex === -1) {
+    if (addedResultIndex === -1 || addedResultIndex === false) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
@@ -235,13 +237,13 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
       const action = customOptionParent['valueType'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;
+
       const customOption = prepareCustomOption(
         rawValue,
         customOptionParent,
         targetingOptions,
         action
       );
-
       results.push(customOption);
     }
   });
@@ -274,14 +276,14 @@ export function prepareCustomOption(
     `${customTargetingActionsEnum[action]} ${value}` : value;
   const optionValue = parentOption['valueType'] === 'number' ?
     getnerateNumberOptionValue(value, action) : value;
-  const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
 
   return {
-    id: generateIdForCustomOption(parentOption, optionValue, targetingOptions, targetingOptionTopKeys),
+    id: `${parentOption.id}-${value}`,
+    key: `${value}`,
     label: optionLabel,
     parent: {
       valueType: parentOption['valueType'],
-      allow_input: parentOption['allow_input']
+      allowInput: parentOption['allowInput']
     },
     value: optionValue,
     isCustom: true
@@ -297,42 +299,4 @@ function getnerateNumberOptionValue(value: string | number, action: number) {
     default:
       return `<${value},>`;
   }
-}
-
-function generateIdForCustomOption(
-  parentOption: TargetingOption | TargetingOptionValue,
-  value: string | number,
-  options: TargetingOption[] | Partial<TargetingOptionValue[]>,
-  targetingOptionTopKeys: string[],
-  partialKey: string = ''
-) {
-  let result = null;
-
-  for (let i = 0; i < options.length; i++) {
-    const isTopOption = targetingOptionTopKeys.indexOf(options[i].id) > -1;
-
-    if (isTopOption) {
-      partialKey = '';
-    }
-
-    if (options[i].children) {
-      partialKey += (isTopOption ? '' : '-') + options[i].key;
-      result = generateIdForCustomOption(
-        parentOption,
-        value,
-        options[i].children,
-        targetingOptionTopKeys,
-        partialKey
-      );
-
-      if (result) {
-        break;
-      }
-    } else if (options[i].values && options[i].id === parentOption.id) {
-      result = partialKey + (isTopOption ? '' : '-') + parentOption['key'] + '-' + value;
-      break;
-    }
-  }
-
-  return result;
 }
