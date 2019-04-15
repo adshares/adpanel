@@ -1,18 +1,28 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-
-import { chartColors, chartOptions } from './chart-settings';
+import {
+  chartColors,
+  chartOptions
+} from './chart-settings/chart-settings';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartOptions } from 'models/chart/chart-options.model';
 import * as commonActions from 'store/common/common.actions';
 import { chartSeriesEnum } from "models/enum/chart.enum";
 import { enumToArray } from "common/utilities/helpers";
+import { ChartLabels } from "models/chart/chart-labels.model";
 
 
 @Component({
@@ -20,9 +30,8 @@ import { enumToArray } from "common/utilities/helpers";
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
-  @Input() seriesType?: string;
   @Input() barChartData: ChartData[];
   @Input() barChartLabels: ChartLabels[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
@@ -31,6 +40,7 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   barChartOptions: ChartOptions = chartOptions;
   barChartColors: ChartColors[] = chartColors;
   initialSeries = enumToArray(chartSeriesEnum)[0];
+  static seriesType;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -43,7 +53,10 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
       });
 
     this.subscriptions.push(chartFilterSubscription);
+  }
 
+  ngOnChanges() {
+    ChartComponent.seriesType = this.barChartData[0].currentSeries;
   }
 
   updateChartData(timespan) {
