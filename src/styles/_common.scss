@@ -433,8 +433,13 @@ router-outlet ~ * {
   padding: 30px 0;
 }
 
-.clickable-row:hover {
-  cursor: pointer;
+.clickable-row {
+  padding: 16px 0.5em;
+  margin: -16px 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .dwmth-tooltip {

@@ -18,6 +18,7 @@ import { UserConfirmResponseDialogComponent } from
     "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import {
   DeleteCampaign,
+  LoadCampaignTotals,
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
@@ -103,6 +104,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
+
     if (this.targeting.requires.length || this.targeting.excludes.length || !this.campaign) return;
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
@@ -132,6 +134,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
+    this.store.dispatch(new LoadCampaignTotals({
+      from: chartFilterSettings.currentFrom,
+      to: chartFilterSettings.currentTo,
+      id
+    }));
     this.subscriptions.push(chartDataSubscription);
   }
 

@@ -1,7 +1,9 @@
 <div class="dwmth-form-input__box">
   <input
+    #searchInput
     [(ngModel)]="searchTerm"
     (input)="onSearchTermChange()"
+    title="Search for targeting option"
     class="
       dwmth-form-input
       dwmth-form-input--full"
@@ -9,25 +11,30 @@
   >
   <img
     src="/assets/images/search.svg"
-    alt="Search Icon"
+    alt=""
     class="
+      dwmth-icon--prepend
       search-icon
       absolute"
   >
 </div>
 
-<div
+<button
+  tabindex="0"
   *ngIf="backAvailable"
   (click)="changeViewModel(parentViewModel)"
+  role="button"
   class="
     dwmth-box
+    dwmth-box--no-margin
     dwmth-box--light-border
     parent-option-box"
   data-test="common-targeting-select-navigate-to-parent-button"
 >
   <img
+    class="dwmth-icon--prepend"
     src="/assets/images/chevron--left.svg"
-    alt=""
+    alt="Go back"
   >
   <span
     class="
@@ -37,40 +44,23 @@
   >
     {{ parentOption.label }}
   </span>
-</div>
+</button>
 
-<div
-  class="
-    dwmth-box
-    dwmth-box--light-border
-    dwmth-box--no-top-border
-    option
-    relative"
-  *ngIf="parentOption && parentOption.allow_input"
-  (click)="addCustomOption()"
-  data-test="common-targeting-select-add-dwmth-option-button"
->
-  <span
-    class="
-      dwmth-copy
-      dwmth-copy--x-dark
-      dwmth-copy--semi">
-    Add custom
-  </span>
-</div>
-
-<div *ngFor="let option of viewModel">
-  <div
-    class="
+<ul *ngFor="let option of viewModel">
+  <li class="dwmth-box--light-border
+             dwmth-box--no-top-border">
+    <button
+      *ngIf="!optionsHasValue && !option.allowInput"
+      [tabindex]="0"
+      class="
       dwmth-box
-      dwmth-box--light-border
-      dwmth-box--no-top-border
+      dwmth-box--no-margin
+      dwmth-box--no-border
       option
       relative"
-    *ngIf="!optionsHasValue"
-    (click)="handleOptionClick(option)"
-    data-test="common-targeting-select-option"
-  >
+      (click)="handleOptionClick(option)"
+      data-test="common-targeting-select-option"
+    >
     <span
       class="
         dwmth-copy
@@ -81,23 +71,29 @@
       {{ option.label }}
     </span>
 
-    <img
-      class="go-to-category"
-      src="/assets/images/chevron--right.svg"
-      alt="Go to category icon"
-    >
-  </div>
-
-  <div
-    class="
+      <img
+        class="go-to-category"
+        src="/assets/images/chevron--right.svg"
+        alt="Go to category"
+      >
+    </button>
+    <app-targeting-custom-option-input
+      *ngIf="option.allowInput"
+      [option]="option"
+      (itemsChange)="handleAddCustomItem($event, option)">
+    </app-targeting-custom-option-input>
+    <button
+      *ngIf="optionsHasValue"
+      [tabindex]="0"
+      class="
       dwmth-box
-      dwmth-box--light-border
+      dwmth-box--no-margin
+      dwmth-box--no-border
       dwmth-box--no-top-border
       option
       relative"
-    *ngIf="optionsHasValue"
-    (click)="toggleItem(option)"
-  >
+      (click)="toggleItem(option)"
+    >
     <span
       class="
         dwmth-copy
@@ -106,9 +102,9 @@
     >
       {{ option.label }}
     </span>
-    <span [ngClass]="{'input-valid': option.selected}"
-      class="checkmark-unselected"
-    ></span>
-  </div>
-</div>
-
+      <span [ngClass]="{'input-valid': option.selected}"
+            class="checkmark-unselected"
+      ></span>
+    </button>
+  </li>
+</ul>

@@ -1,0 +1,52 @@
+<div class="targeting-custom-option__form"
+     role="form"
+     [ngClass]="{'targeting-custom-option__form--input-hidden': !inputShown}"
+     (click)="showInput()"
+>
+  <label class="
+        targeting-custom-option__label
+        align-center
+        dwmth-copy
+        dwmth-copy--x-dark
+        dwmth-copy--semi"
+         [ngClass]="{'targeting-custom-option__label--input-shown': inputShown}"
+  >
+    {{option.label}}
+  </label>
+
+  <button *ngIf="!inputShown"
+          class="targeting-custom-option__btn
+                 targeting-custom-option__btn--show"
+          title="Click to show option input">
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
+
+  <div *ngIf="inputShown"
+       class="row justify-around align-center targeting-custom-option__chip-list-wrapper">
+
+    <mat-form-field>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let option of customOptionsArray"
+                  [selectable]="true"
+                  [removable]="true"
+                  (removed)="remove(option)">
+          {{option.label}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input #input
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="true"
+               (matChipInputTokenEnd)="add($event)"
+               (keydown)="saveCustomTargetingOptions($event)">
+      </mat-chip-list>
+    </mat-form-field>
+
+    <button class="targeting-custom-option__btn
+                   targeting-custom-option__btn--add"
+            title="Add custom option"
+            (click)="saveCustomTargetingOptions()">
+      <mat-icon class="material-icons">add_circle_outline</mat-icon>
+    </button>
+  </div>
+</div>

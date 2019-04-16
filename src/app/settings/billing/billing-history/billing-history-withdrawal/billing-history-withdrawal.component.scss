@@ -59,6 +59,11 @@
     }
   }
 
+  &__link {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   & &__amount {
     text-align: right;
     font-size: 1.1em;

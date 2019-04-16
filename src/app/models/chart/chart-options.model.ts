@@ -30,7 +30,8 @@ export interface ChartOptions {
         fontColor?: string,
         fontSize?: number,
         beginAtZero?: boolean,
-        padding?: number
+        padding?: number,
+        callback?: any,
       }
     }]
   };

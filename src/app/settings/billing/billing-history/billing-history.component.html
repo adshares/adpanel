@@ -33,7 +33,7 @@
         >
           <fa-icon class="dwmth-icon
                           dwmth-icon--prepend"
-                   [icon]="refreshIcon"> </fa-icon>
+                   [icon]="refreshIcon"></fa-icon>
           Refresh
         </button>
       </div>
@@ -44,29 +44,28 @@
           dwmth-copy"
       >
         <thead class="billing-table__head">
-        <tr class="row">
-          <th class="billing-table__head-status" scope="col">
-            Status
-          </th>
-          <th class="col-xs-1" scope="col">
-            Type
-          </th>
-          <th class="col-xs-2" scope="col">
-            Amount
-          </th>
-          <th class="col-xs-3" scope="col">
-            Date
-          </th>
-          <th class="col-xs-2" scope="col">
-            Address
-          </th>
-          <th class="col-xs-2" scope="col">
-            Transaction
-          </th>
-        </tr>
+          <tr class="row justify-between">
+            <th class="billing-table__head-status" scope="col">
+              Status
+            </th>
+            <th class="col-xs-1" scope="col">
+              Type
+            </th>
+            <th class="col-xs-2" scope="col">
+              Amount
+            </th>
+            <th class="col-xs-2" scope="col">
+              Date
+            </th>
+            <th class="col-xs-2" scope="col">
+              Address
+            </th>
+            <th class="col-xs-1" scope="col">
+              Transaction
+            </th>
+          </tr>
         </thead>
-
-
+        
         <tbody *ngIf="!showLoader; else loading">
         <!--TODO display proper info when list is empty-->
         <app-billing-history-withdrawal
