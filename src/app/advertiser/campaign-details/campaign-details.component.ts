@@ -63,8 +63,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.currentChartFilterSettings = chartFilterSettings;
         this.getChartData(this.currentChartFilterSettings, id)
       });
-
-
+    
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
@@ -78,7 +77,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.getTargeting();
         }
       });
-
 
     this.subscriptions.push(chartFilterSubscription, campaignSubscription);
   }

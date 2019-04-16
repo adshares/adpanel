@@ -93,6 +93,10 @@
     background: pal(gray, x-light);
     border: 1px solid pal(gray, light);
   }
+
+  &__size-label {
+    margin-bottom: 14px;
+  }
 }
 
 .drag-and-drop-box {
