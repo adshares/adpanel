@@ -5,135 +5,137 @@
         justify-between
         dwmth-copy"
     data-test="advertiser-navigate-to-campaign-details">
-    <td
-      class="
+  <td
+    class="
           row
           dwmth-campaign-list__status-cell
           align-center"
+    (click)="statusSelect.open()"
+    role="button"
+  >
+    <div class="dwmth-status"
+         [attr.data-status]="currentCampaignStatus"
     >
-      <div class="dwmth-status"
-           [attr.data-status]="currentCampaignStatus"
-           (click)="statusSelect.open()"
-      >
-        {{ currentCampaignStatus }}
-        <div class="status-wrapper__list-item">
-          <mat-select #statusSelect
-                      [value]=" "
-                      data-test="advertiser-campaign-status-select"
-          >
+      {{ currentCampaignStatus }}
+      <div class="status-wrapper__list-item">
+        <mat-select #statusSelect
+                    [value]=" "
+                    data-test="advertiser-campaign-status-select"
+        >
 
-            <mat-option *ngFor="let option of campaignStatusesEnumArray"
-                        class="hidden"
-                        [ngClass]="{'visible': (
+          <mat-option *ngFor="let option of campaignStatusesEnumArray"
+                      class="hidden"
+                      [ngClass]="{'visible': (
                                     option === campaignStatusesEnum[campaignStatusesEnum.ACTIVE].toLowerCase() ||
                                     option === campaignStatusesEnum[campaignStatusesEnum.INACTIVE].toLowerCase())}"
-                        [value]="option"
-                        (click)="onCampaignStatusChange(option)"
-                        data-test="advertiser-campaign-status-select-option"
-            >
-              {{ option }}
-            </mat-option>
-          </mat-select>
-        </div>
+                      [value]="option"
+                      (click)="onCampaignStatusChange(option)"
+                      data-test="advertiser-campaign-status-select-option"
+          >
+            {{ option }}
+          </mat-option>
+        </mat-select>
       </div>
-    </td>
-    <td
-      class="
+    </div>
+  </td>
+  <td
+    class="
           col-xs-2
           row
           clickable-row
           align-center"
-    >
+  >
         <span class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold"
               (click)="navigateToCampaignDetails(campaign.id)"
               data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
         </span>
-    </td>
-    <td
-      class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-bduget"
-    >
+    data-test="advertiser-campaign-bduget"
+  >
         <span>
           {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:2 }}/day
         </span>
-    </td>
-    <td
-      class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-cost"
-    >
+    data-test="advertiser-campaign-cost"
+  >
         <span [title]="(campaign.cost || 0) | adsharesTokenValue">
           {{ (campaign.cost || 0) | adsharesTokenValue:2 }}</span>
-    </td>
-    <td
-      class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-clicks"
-    >
-      <span>{{ campaign.clicks || 0 }}</span>
-    </td>
-    <td
-      class="
+    data-test="advertiser-campaign-clicks"
+  >
+    <span>{{ campaign.clicks || 0 }}</span>
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-impressions"
-    >
-      <span>{{ campaign.impressions || 0}}</span>
-    </td>
-    <td
-      class="
+    data-test="advertiser-campaign-impressions"
+  >
+    <span>{{ campaign.impressions || 0}}</span>
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-ctr"
-    >
-      <span>{{  (campaign.ctr || 0) | percent:'1.2-2' }}</span>
-    </td>
-    <td
-      class="
+    data-test="advertiser-campaign-ctr"
+  >
+    <span>{{  (campaign.ctr || 0) | percent:'1.2-2' }}</span>
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-average-cpm"
-    >
+    data-test="advertiser-campaign-average-cpm"
+  >
         <span [title]="(campaign.averageCpm || 0) | adsharesTokenValue">
           {{ (campaign.averageCpm || 0) | adsharesTokenValue:2}} </span>
-    </td>
-    <td
-      class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           align-center"
-      data-test="advertiser-campaign-average-cpc"
-    >
+    data-test="advertiser-campaign-average-cpc"
+  >
         <span [title]="(campaign.averageCpc || 0) | adsharesTokenValue">
           {{ (campaign.averageCpc || 0) | adsharesTokenValue:2}} </span>
-    </td>
-    <td
-      class="
+  </td>
+  <td
+    class="
           col-xs-1
           row
           clickable-row
           align-center
           justify-center
           dwmth-campaign-list__item-campaign-details"
-      (click)="navigateToCampaignDetails(campaign.id)"
+    (click)="navigateToCampaignDetails(campaign.id)"
+    role="link"
+  >
+    <img
+      src="/assets/images/chevron--right.svg"
+      [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
     >
-      <img
-        src="/assets/images/chevron--right.svg"
-        [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
-      >
-    </td>
+  </td>
 </tr>
 <ng-template #loading>
   <div class="dwmth-box dwmth-box--large justify-center align-center">

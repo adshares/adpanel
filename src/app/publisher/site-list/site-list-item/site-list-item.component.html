@@ -13,13 +13,16 @@
           row
           dwmth-site-list__status-cell
           align-center"
+    (click)="statusSelect.open()"
+    role="button"
   >
     <div class="dwmth-status"
          [attr.data-status]="currentSiteStatus"
     >
       {{ currentSiteStatus }}
       <div class="status-wrapper__list-item">
-        <mat-select [value]=" "
+        <mat-select #statusSelect
+                    [value]=" "
                     (change)="onSiteStatusChange($event)"
                     data-test="advertiser-campaign-status-select"
         >
@@ -41,14 +44,13 @@
           row
           clickable-row
           align-center"
+    role="link"
+    (click)="navigateToSiteDetails(site.id)"
   >
-        <span
-          class="dwmth-copy dwmth-copy--bold"
-          (click)="navigateToSiteDetails(site.id)"
-          data-test="publisher-site-url"
-        >
-          {{ site.name }}
-        </span>
+    <span class="dwmth-copy dwmth-copy--bold"
+          data-test="publisher-site-url">
+      {{ site.name }}
+    </span>
   </td>
   <td
     class="
@@ -121,6 +123,7 @@
           align-center
           justify-center
           dwmth-site-list__item-site-details"
+    role="link"
     (click)="navigateToSiteDetails(site.id)"
   >
     <img

@@ -8,7 +8,16 @@
     padding: 10px;
   }
 
-  &__status-cell{
+  &__status-cell {
     width: 150px;
+    cursor: pointer;
+  }
+
+  &__item-site-details {
+    &:focus,
+    &:hover {
+      animation: slide-right 0.5s ease-in;
+      animation-fill-mode: forwards;
+    }
   }
 }
