@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.6.0] - 2019-04-16
 ### Added
 - Bonus credits for new users (on email confirmation)
+- Custom targeting options
+### Fixed
+- Formatting for chart y-axes labels
+### Improved
+- UX for list of sites and campaign and ads:
 
 ## [0.5.4] - 2019-04-12
 ### Fixed
