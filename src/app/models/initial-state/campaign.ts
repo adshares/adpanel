@@ -1,9 +1,6 @@
-import * as moment from 'moment';
-
 import {Campaign, CampaignTotals} from 'models/campaign.model';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
-import { DATE_AND_TIME_FORMAT } from "common/utilities/consts";
 
 export const campaignsTotalsInitialState: CampaignTotals = {
   clicks: 0,
@@ -22,7 +19,7 @@ export const campaignInitialState: Campaign = {
     maxCpc: null,
     maxCpm: null,
     budget: null,
-    dateStart: moment(new Date()).format(DATE_AND_TIME_FORMAT),
+    dateStart: `${new Date()}`,
   },
 
   targeting: {
@@ -36,8 +33,6 @@ export const campaignInitialState: Campaign = {
   },
 
   ads: [],
-
   id: 0,
-
   classificationStatus: classificationStatusesEnum.DISABLED,
 };
