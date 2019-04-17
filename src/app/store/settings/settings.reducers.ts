@@ -37,15 +37,6 @@ export function settingsReducers(state = initialState, action: actions) {
         ...state,
         billingHistory: action.payload
       };
-    case CANCEL_AWAITING_TRANSACTION_SUCCESS:
-      const items = state.billingHistory.items.filter(el => el.id !== action.payload);
-      return {
-        ...state,
-        billingHistory: {
-          ...state.billingHistory,
-          items,
-        }
-      };
     default:
       return state;
   }
