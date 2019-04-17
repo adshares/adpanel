@@ -45,10 +45,8 @@ export class PublisherEffects {
   loadSite$ = this.actions$
     .ofType(publisherActions.LOAD_SITE)
     .map(toPayload)
-    .switchMap((id) => this.service.getSite(id)
+    .switchMap(({id, from, to}) => this.service.getSite(id)
       .switchMap((site) => {
-        const to = moment().format();
-        const from = moment().subtract(30, 'd').format();
         return [
           new publisherActions.LoadSiteSuccess(site),
           new publisherActions.LoadSiteTotals({from, to, id})
