@@ -18,7 +18,7 @@ import {
   GetBillingHistoryFailure,
   CANCEL_AWAITING_TRANSACTION,
   CancelAwaitingTransactionSuccess,
-  CancelAwaitingTransactionFailure,
+  CancelAwaitingTransactionFailure, GetBillingHistory,
 } from './settings.actions';
 import { SettingsService } from 'settings/settings.service';
 import { ApiAuthService } from "../../api/auth.service";
@@ -64,7 +64,8 @@ export class SettingsEffects {
     .map(toPayload)
     .switchMap((payload) => this.service.cancelAwaitingTransaction(payload)
       .switchMap(() => [
-        new CancelAwaitingTransactionSuccess(payload),
+        new CancelAwaitingTransactionSuccess(),
+        new GetBillingHistory({}),
         new ShowSuccessSnackbar(TRANSACTION_DELETE_SUCCESS),
       ])
       .catch(err => Observable.of(new CancelAwaitingTransactionFailure(err.error.message || ''))

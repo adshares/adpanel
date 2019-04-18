@@ -73,7 +73,7 @@ export class CancelAwaitingTransaction implements Action {
 export class CancelAwaitingTransactionSuccess implements Action {
   readonly type: string = CANCEL_AWAITING_TRANSACTION_SUCCESS;
 
-  constructor(public payload: number) {
+  constructor(public payload?: number) {
   }
 }
 

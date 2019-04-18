@@ -1,59 +1,15 @@
 import { ChartOptions } from 'models/chart/chart-options.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
-import { ChartJsComputedData, TooltipItem } from 'models/chart/chart-other.model';
-import * as moment from 'moment';
 import {
-  pubChartSeriesEnum,
-  advChartSeriesEnum
-} from "models/enum/chart.enum";
+  ChartJsComputedData,
+  TooltipItem
+} from 'models/chart/chart-other.model';
 import {
-  enumToObject,
-  formatMoney
-} from "common/utilities/helpers";
-import {
-  TIME_FORMAT,
-  DAY_AND_TIME_FORMAT,
-  DAY_AND_MONTH_FORMAT,
-  WEEK_AND_MONTH_FORMAT,
-  MONTH_AND_YEAR_FORMAT,
-  YEAR_FORMAT
-} from "common/utilities/consts";
+  adjustLabelFormat,
+  adjustTooltipValueFormat,
+  adjustYAxesTics
+} from "common/components/chart/chart-settings/chart-settings.helpers";
 
-const adjustLabelFormat = (value, index, values) => {
-  const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
-  if (daysSpan === 0) {
-    return moment(value).format(TIME_FORMAT);
-  } else if (daysSpan <= 2) {
-    return moment(value).format(DAY_AND_TIME_FORMAT);
-  } else if (daysSpan <= 31) {
-    return moment(value).format(DAY_AND_MONTH_FORMAT);
-  } else if (daysSpan <= 182) {
-    return moment(value).format(WEEK_AND_MONTH_FORMAT);
-  } else if (daysSpan <= 730) {
-    return moment(value).format(MONTH_AND_YEAR_FORMAT);
-  } else {
-    return moment(value).format(YEAR_FORMAT);
-  }
-};
-
-const adjustTooltipValueFormat = (type: string, value: string): string => {
-  const options = {
-    ...enumToObject(pubChartSeriesEnum),
-    ...enumToObject(advChartSeriesEnum)
-  };
-
-  switch (type) {
-    case  options.SUM:
-    case  options.CPC:
-    case  options.CPM:
-    case  options.RPM:
-    case  options.RPC:
-      const val = parseInt(value);
-      return `${type}: ${val > 0 ? formatMoney(val) : 0} ADS`;
-    default:
-      return `${type}: ${value}`;
-  }
-};
 
 const chartOptions: ChartOptions = {
   scaleShowVerticalLines: false,
@@ -65,8 +21,7 @@ const chartOptions: ChartOptions = {
     enabled: false,
     callbacks: {
       title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
-        const value = adjustLabelFormat(data.labels[tooltipItems[0].index], tooltipItems[0].index, data.labels);
-        return value;
+        return adjustLabelFormat(data.labels[tooltipItems[0].index], data.labels);
       },
       label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
         let label = data.datasets[0].currentSeries || '';
@@ -116,11 +71,9 @@ const chartOptions: ChartOptions = {
         innerHtml += '</thead><tbody>';
 
         bodyLines.forEach((body, i) => {
-          const bodyData = body[0].split(':');
-          const type = bodyData[0];
-          const value = bodyData[1];
+          const value = body[0].split(':')[1];
           const span = '<span></span>';
-          innerHtml += '<tr><td>' + span + adjustTooltipValueFormat(type, value) + '</td></tr>';
+          innerHtml += '<tr><td>' + span + adjustTooltipValueFormat(value) + '</td></tr>';
         });
         innerHtml += '</tbody>';
         const tableRoot = tooltipEl.querySelector('table');
@@ -165,7 +118,7 @@ const chartOptions: ChartOptions = {
         fontColor: '#9c9c9c',
         fontSize: 15,
         beginAtZero: true,
-        callback: (value, index, values) => adjustLabelFormat(value, index, values),
+        callback: (value, index, data) => adjustLabelFormat(value, data),
       }
     }],
     yAxes: [{
@@ -178,7 +131,8 @@ const chartOptions: ChartOptions = {
         fontColor: '#9c9c9c',
         fontSize: 16,
         beginAtZero: true,
-        padding: 10
+        padding: 10,
+        callback: (value) => adjustYAxesTics(value),
       }
     }]
   }

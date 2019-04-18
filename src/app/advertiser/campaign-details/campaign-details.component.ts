@@ -18,6 +18,7 @@ import { UserConfirmResponseDialogComponent } from
     "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import {
   DeleteCampaign,
+  LoadCampaignTotals,
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
@@ -63,7 +64,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.currentChartFilterSettings = chartFilterSettings;
         this.getChartData(this.currentChartFilterSettings, id)
       });
-    
+
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
@@ -131,6 +132,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
+    this.store.dispatch(new LoadCampaignTotals({
+      from: chartFilterSettings.currentFrom,
+      to: chartFilterSettings.currentTo,
+      id
+    }));
     this.subscriptions.push(chartDataSubscription);
   }
 

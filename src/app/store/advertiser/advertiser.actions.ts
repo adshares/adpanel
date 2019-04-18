@@ -189,7 +189,7 @@ export class LoadCampaignsFailure implements Action {
 export class LoadCampaign implements Action {
   readonly type: string = LOAD_CAMPAIGN;
 
-  constructor(public payload: any) {
+  constructor(public payload?: number) {
   }
 }
 

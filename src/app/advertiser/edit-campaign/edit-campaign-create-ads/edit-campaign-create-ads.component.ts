@@ -149,7 +149,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   fileOverDropArea(isOverDrop, adIndex): void {
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
     if (!isOverDrop && this.uploader.queue[0]) {
-      this.uploadBanner(this.uploader.queue[0]);
+      this.uploadBanner(this.uploader.queue[0], true);
     }
   }
 
@@ -159,8 +159,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     });
   }
 
-  uploadBanner(event): void {
-    const file = event.target.files[0];
+  uploadBanner(event, dropped: boolean = false): void {
+    const file = dropped ? event.file.rawFile : event.target.files[0];
     const adIndex = this.getExpandedPanelIndex();
     const form = this.adForms[adIndex];
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
