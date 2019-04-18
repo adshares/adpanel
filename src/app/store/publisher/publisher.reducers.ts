@@ -10,6 +10,18 @@ const initialState: PublisherState = {
   languagesList: [],
   filteringCriteria: [],
 };
+const unitStatsInitialState = {
+  clicks: 0,
+  impressions: 0,
+  ctr: 0,
+  averageRpm: 0,
+  averageRpc: 0,
+  revenue: 0,
+};
+
+/** FIXME -> PAN-364 -> refactor reducer by creating class containing needed helper function and data
+ * set to help modify data in less repetitive more readable way
+ */
 
 export function publisherReducers(state = initialState, action: PublisherActions.actions | authActions.actions) {
   switch (action.type) {
@@ -81,12 +93,20 @@ export function publisherReducers(state = initialState, action: PublisherActions
           }],
         };
       }
+
+      const resetUnitStats = selectedSite.adUnits.map(el => {
+        return {
+          ...el,
+          ...unitStatsInitialState
+        }
+      });
       return {
         ...state,
         sites: [
           ...filteredSites,
           {
             ...selectedSite,
+            adUnits: resetUnitStats,
             ...action.payload.total
           }
         ]

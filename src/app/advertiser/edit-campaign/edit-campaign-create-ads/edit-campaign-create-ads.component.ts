@@ -149,7 +149,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   fileOverDropArea(isOverDrop, adIndex): void {
     this.imagesStatus.overDrop[adIndex] = isOverDrop;
     if (!isOverDrop && this.uploader.queue[0]) {
-      this.uploadBanner(this.uploader.queue[0]);
+      this.uploadBanner(this.uploader.queue[0], true);
     }
   }
 
@@ -159,8 +159,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     });
   }
 
-  uploadBanner(event): void {
-    const file = event.target.files[0];
+  uploadBanner(event, dropped: boolean = false): void {
+    const file = dropped ? event.file.rawFile : event.target.files[0];
     const adIndex = this.getExpandedPanelIndex();
     const form = this.adForms[adIndex];
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
@@ -192,7 +192,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   adjustBannerName(form: FormGroup): void {
     if (form.get('name').dirty === false) {
-      let name = `${adTypesEnum[form.get('type').value]} ${adSizesEnum[form.get('size').value]}`;
+      let name = adSizesEnum[form.get('size').value] ?
+        `${adTypesEnum[form.get('type').value]} ${adSizesEnum[form.get('size').value]}` :
+        `${adTypesEnum[form.get('type').value]}`;
       const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
       if (matchingNames.length > 0) {
         name = `${name} ${matchingNames.length}`
@@ -299,13 +301,18 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     if (adForm.get('image') && adForm.get('image').value.src) {
       const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id).subscribe();
       this.subscriptions.push(deleteAdSubscription);
-
       this.imagesStatus.validation.splice(adIndex, 1);
     }
 
     this.adTypes.forEach((type) => delete adForm.controls[type]);
     adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
+
+    if (adForm.get('html') && adForm.get('size').value === null) {
+      adForm.get('size').setValue(0);
+    } else {
+      adForm.get('size').setValue(null);
+    }
     this.adjustBannerName(adForm);
   }
 
