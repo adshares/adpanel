@@ -2,12 +2,55 @@
 @import './fonts';
 
 // for :before, :after
-@mixin pseudo($display: block, $pos: absolute, $content: ''){
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
   content: $content;
   display: $display;
   position: $pos;
 }
 
+@mixin container(
+  $padding-horizontal: 8px,
+  $padding-vertical: 8px,
+  $background-color: pal(white),
+  $border-color: pal(gray, nearly-white),
+  $margin-top: 2px,
+  $border-width: 1px
+) {
+  border-radius: 2px;
+  background-color: $background-color;
+  border: $border-width solid $background-color;
+  padding: $padding-vertical $padding-horizontal;
+  margin-top: $margin-top;
+
+  & + & {
+    border: none;
+  }
+}
+
+@mixin copy(
+  $color: pal(gray, mid-dark),
+  $font-size: 16,
+  $margin-horizontal: 0,
+  $margin-vertical: 0,
+  $font-weight: normal
+) {
+  @include font-weight($font-weight);
+  color: $color;
+  font-size: calculateRem($font-size);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: $margin-vertical $margin-horizontal;
+}
+
+@mixin status-cell() {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include media(lg-up) {
+    width: 150px;
+  }
+}
 
 @mixin center($position) {
   position: absolute;
@@ -15,20 +58,15 @@
   @if $position == 'vertical' {
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  @else if $position == 'horizontal' {
+  } @else if $position == 'horizontal' {
     left: 50%;
     transform: translate(-50%);
-  }
-
-  @else if $position == 'both' {
+  } @else if $position == 'both' {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 }
-
 
 @mixin padding($top, $right, $bottom, $left) {
   padding-top: $top;
@@ -37,14 +75,12 @@
   padding-left: $left;
 }
 
-
 @mixin margin($top, $right, $bottom, $left) {
   margin-top: $top;
   margin-right: $right;
   margin-bottom: $bottom;
   margin-left: $left;
 }
-
 
 @mixin transition($args...) {
   transition: $args;

@@ -7,14 +7,14 @@ $md-breakpoint: 1024px;
 $lg-breakpoint: 1200px;
 $xl-breakpoint: 1800px;
 $xxl-breakpoint: 2560px;
-$xxxl-breakpoint: 4000px;
+$xxxl-breakpoint: 2560px;
 
 $sm-breakpoint-down: 599px;
 $md-breakpoint-down: 1023px;
 $lg-breakpoint-down: 1199px;
 $xl-breakpoint-down: 1799px;
 $xxl-breakpoint-down: 2499px;
-$xxxl-breakpoint-down: 3999px;
+$xxxl-breakpoint-down: 2499px;
 
 $screen: "only screen";
 $landscape: "#{$screen} and (orientation: landscape)";
