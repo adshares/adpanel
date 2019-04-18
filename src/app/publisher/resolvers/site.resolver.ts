@@ -1,16 +1,19 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import {Site} from 'models/site.model';
-import {Store} from "@ngrx/store";
-import {AppState} from "models/app-state.model";
+import { Site } from 'models/site.model';
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
 import { LoadSite, LoadSiteTotals, SetLastEditedSite } from "store/publisher/publisher.actions";
+import { ChartFilterSettings } from "models/chart/chart-filter-settings.model";
+import { HandleSubscription } from "common/handle-subscription";
 
 
 @Injectable()
-export class SiteResolver implements Resolve<Site> {
+export class SiteResolver extends HandleSubscription implements Resolve<Site> {
   constructor(private store: Store<AppState>) {
+    super();
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<Site> {
@@ -22,25 +25,22 @@ export class SiteResolver implements Resolve<Site> {
   }
 
   initSiteData(id: number): void {
-    this.store.take(1).subscribe(store => {
-      const currentSite = store.state.publisher.sites
-        .find(site => site.id === id);
-
-      if (!currentSite) {
-        this.store.dispatch(new LoadSite(id));
-      } else {
-        const dateTo = moment().format();
-        const dateFrom = moment().subtract(7, 'd').format();
-        this.store.dispatch(new LoadSiteTotals({from: dateFrom, to: dateTo, id}));
-      }
-    });
+    const subscription = this.store.select('state', 'common', 'chartFilterSettings')
+      .subscribe((filterSetting: ChartFilterSettings) => {
+        this.store.dispatch(new LoadSite({
+          from: filterSetting.currentFrom,
+          to: filterSetting.currentTo,
+          id
+        }));
+      });
+    this.subscriptions.push(subscription)
   }
 
   waitForSiteDataToLoad(id: number, isInEditMode: boolean): Observable<Site> {
     return this.store.select('state', 'publisher', 'sites')
       .map(sites => sites.find(site => site.id === id))
       .filter(site => !!site)
-      .do((site)=> {
+      .do((site) => {
         if (isInEditMode) {
           this.store.dispatch(new SetLastEditedSite(site))
         } else {

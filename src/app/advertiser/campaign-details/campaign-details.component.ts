@@ -65,7 +65,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.getChartData(this.currentChartFilterSettings, id)
       });
 
-
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
