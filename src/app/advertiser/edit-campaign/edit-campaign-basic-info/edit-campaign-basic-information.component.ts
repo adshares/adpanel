@@ -62,7 +62,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
 
   onSubmit() {
     this.campaignBasicInformationSubmitted = true;
-    if (!this.campaignBasicInfoForm.valid || !this.dateStart) {
+    if (!this.campaignBasicInfoForm.valid || !this.dateStart.value) {
       return;
     }
     this.campaignBasicInformationSubmitted =false
