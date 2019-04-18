@@ -79,7 +79,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
 
-
     this.subscriptions.push(chartFilterSubscription, campaignSubscription);
   }
 
