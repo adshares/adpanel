@@ -1,17 +1,14 @@
-<thead class=" dwmth-box table-nav__header">
+<thead class="table-nav">
 <tr
   *ngFor="let menuItem of navigationItems"
-  class="
-    row
-    align-center
-    dwmth-copy--semi"
+  class="table-nav__row"
   [ngClass]="menuItem.columnWidth"
   (click)="sortTableByKey(menuItem)"
   data-test="common-sort-assets-toggle"
 >
   {{ menuItem.title }}
-   <th
-     scope="col"
+  <th
+    scope="col"
     *ngIf="!menuItem.hideArrows"
     class="
       col

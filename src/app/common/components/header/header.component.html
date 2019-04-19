@@ -51,6 +51,7 @@
       <img
         class="
             dwmth-icon
+            dwmth-navigation__item--hidden
             dwmth-icon--prepend"
         [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
       />
@@ -71,6 +72,7 @@
     >
       <img
         class="
+            dwmth-navigation__item--hidden
             dwmth-icon
             dwmth-icon--prepend"
         [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
@@ -78,7 +80,6 @@
       Publisher
     </button>
   </div>
-
 
   <div
     class="
@@ -93,9 +94,10 @@
         dwmth-btn--wide
         dwmth-bg-blue
         dwmth-navigation__item
+        dwmth-navigation__item--hidden
         row
         align-center
-        hidden-md"
+        hidden-md-down"
       (click)="navigateToCreateNewAsset()"
       data-test="header-create-new-asset-button"
     >
@@ -117,14 +119,14 @@
         dwmth-bg-navy--light
         dwmth-navigation__item
         dwmth-btn
-        dwmth-btn--no-vertical-padding
-        hidden-lg"
+        dwmth-btn--no-vertical-padding"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
       data-test="header-toggle-settings-menu"
     >
       <img
         class="
+          dwmth-navigation__item--hidden
           dwmth-icon
           dwmth-icon--prepend"
         src="assets/images/credit-card--white.svg"

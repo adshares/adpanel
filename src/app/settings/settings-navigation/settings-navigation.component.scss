@@ -1,11 +1,32 @@
 @import '../../../styles.scss';
+
 .settings-navigation {
   height: 100%;
-  width: 300px;
+  width: 200px;
   padding: 20px 40px;
   background-color: pal(white);
-}
+  transition: width 0.5s ease-in;
 
-.total-funds {
-  color: pal(white);
+  @include media(md-up) {
+    width: 300px;
+  }
+
+  &__totals-funds {
+    @include container(20px, 20px, pal(blue, base));
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    @include copy(pal(white));
+  }
+
+  &__account-status {
+    @include copy(
+      pal(white),
+      $font-size: 32,
+      $font-weight: bold,
+      $margin-vertical: 10px
+    )
+  }
 }

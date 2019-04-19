@@ -1,27 +1,21 @@
 <section class="settings-navigation">
-  <div *ngIf="(!user.isAdmin)" class="col total-funds dwmth-box dwmth-box--large dwmth-bg-blue">
-    <h6
-      class="
-          dwmth-copy
-          dwmth-white"
+  <div *ngIf="(!user.isAdmin)"
+       class="settings-navigation__totals-funds">
+    <h6 class="settings-navigation__title"
     >
       Total Funds:
     </h6>
-    <span
-      class="
-          dwmth-heading
-          dwmth-heading--primary
-          dwmth-white"
-      data-test="user-total-funds"
+    <span class="settings-navigation__account-status"
+          data-test="user-total-funds"
     >
         {{ totalFunds | adsharesTokenValue:2 }}
       </span>
   </div>
   <ul class="settings-navigation__category"
       routerLinkActive="active">
-      <app-settings-menu-item
-        *ngFor="let settingsItem of settings"
-        [menuItem]="settingsItem">
-      </app-settings-menu-item>
+    <app-settings-menu-item
+      *ngFor="let settingsItem of settings"
+      [menuItem]="settingsItem">
+    </app-settings-menu-item>
   </ul>
 </section>

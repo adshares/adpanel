@@ -32,7 +32,7 @@
   }
 
   &__status-cell {
-    min-width: 150px;
+    @include status-cell;
   }
 
   &__bonus {
