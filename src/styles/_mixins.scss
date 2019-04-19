@@ -52,6 +52,38 @@
   }
 }
 
+@mixin btn(
+  $color: pal(white),
+  $background-color: pal(blue, base),
+  $padding-horizontal: 16px,
+  $padding-vertical: 12px,
+  $border-color: pal(blue, base)
+) {
+  @include font(16, normal);
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  padding: $padding-vertical $padding-horizontal;
+  color: $color;
+  background: $background-color;
+  transition: background-color 0.2s ease;
+  max-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  line-height: 1;
+
+  &:focus,
+  &:hover:not([disabled]) {
+    background-color: darken($background-color, 5%);
+  }
+
+  &[disabled] {
+    background-color: lighten($background-color, 5%);
+  }
+}
+
 @mixin center($position) {
   position: absolute;
 
