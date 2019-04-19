@@ -37,13 +37,13 @@
           Refresh
         </button>
       </div>
-
-      <table
-        class="
+      <div class="billing-table--scrollable">
+        <table
+          class="
           billing-table
           dwmth-copy"
-      >
-        <thead class="billing-table__head">
+        >
+          <thead class="billing-table__head">
           <tr class="row justify-between">
             <th class="billing-table__head-status" scope="col">
               Status
@@ -64,30 +64,32 @@
               Transaction
             </th>
           </tr>
-        </thead>
-        
-        <tbody *ngIf="!showLoader; else loading">
-        <!--TODO display proper info when list is empty-->
-        <app-billing-history-withdrawal
-          *ngFor="let billingHistoryItem of billingHistory.items"
-          [billingHistoryItem]="billingHistoryItem"
-          data-test="settings-billing-history-item">
-        </app-billing-history-withdrawal>
-        </tbody>
-        <mat-paginator
-          #paginator
-          [showFirstLastButtons]="true"
-          [length]="billingHistory.itemsCountAll"
-          [pageSize]="billingHistory.limit"
-          (page)="handlePaginationEvent($event)"
-        >
-        </mat-paginator>
-        <ng-template #loading>
-          <div class="loading-wrapper">
-            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-          </div>
-        </ng-template>
-      </table>
+          </thead>
+
+          <tbody *ngIf="!showLoader; else loading">
+          <!--TODO display proper info when list is empty-->
+          <app-billing-history-withdrawal
+            *ngFor="let billingHistoryItem of billingHistory.items"
+            [billingHistoryItem]="billingHistoryItem"
+            data-test="settings-billing-history-item">
+          </app-billing-history-withdrawal>
+          </tbody>
+          <mat-paginator
+            #paginator
+            [showFirstLastButtons]="true"
+            [length]="billingHistory.itemsCountAll"
+            [pageSize]="billingHistory.limit"
+            (page)="handlePaginationEvent($event)"
+          >
+          </mat-paginator>
+          <ng-template #loading>
+            <div class="loading-wrapper">
+              <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+            </div>
+          </ng-template>
+        </table>
+      </div>
+
     </div>
 
     <!--
