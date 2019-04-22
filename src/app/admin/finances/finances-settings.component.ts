@@ -34,7 +34,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
       return;
     }
     this.canSubmit = true;
-    if (key === 'hotwalletAddress') {
+    if (key === 'coldWalletAddress') {
       this.settings = {
         ...this.settings,
         [key]: value

@@ -33,14 +33,14 @@ interface UserInfoStats {
 
 interface AdminSettings {
   adserverName: string;
-  hotwalletAddress: string;
+  coldWalletAddress: string;
   hotwalletMaxValue: number;
   hotwalletMinValue: number;
   supportEmail: string;
   technicalEmail: string;
   publisherCommission?: number;
   advertiserCommission?: number;
-  hotwalletIsActive?: number;
+  coldWalletIsActive?: number;
 }
 
 interface AdminSettingsResponse {

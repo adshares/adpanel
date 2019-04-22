@@ -14,14 +14,14 @@ const initialState: AdminState = {
   users: [],
   settings: {
     adserverName: '',
-    hotwalletAddress: '',
+    coldWalletAddress: '',
     hotwalletMaxValue: 0,
     hotwalletMinValue: 0,
     supportEmail: '',
     technicalEmail: '',
     publisherCommission: 0,
     advertiserCommission: 0,
-    hotwalletIsActive: 0,
+    coldWalletIsActive: 0,
   },
   termsAndPrivacy: {
     privacy: '',
