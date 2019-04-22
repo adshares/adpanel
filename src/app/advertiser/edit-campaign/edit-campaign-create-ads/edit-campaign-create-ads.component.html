@@ -408,12 +408,12 @@
 
             <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"
                  class="banner">
-              <iframe
-                [ngStyle]="{
-                            'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-                            'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
-                            }"
-                [src]="adForm.get('html').value.src | trustUrl"
+              <iframe *ngIf="adSizes[adForm.get('size').value]"
+                      [ngStyle]="{
+                                  'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
+                                  'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+                                  }"
+                      [src]="adForm.get('html').value.src | trustUrl"
               ></iframe>
             </div>
           </div>

@@ -298,9 +298,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const adType = adForm.get('type').value;
     const adTypeName = this.adTypes[adType];
 
-    if (adForm.get('image') && adForm.get('image').value.src) {
-      const deleteAdSubscription = this.advertiserService.deleteAdImage(this.ads[adIndex].id, this.ads[adIndex].id).subscribe();
-      this.subscriptions.push(deleteAdSubscription);
+    if (this.imagesStatus.validation[adIndex]) {
       this.imagesStatus.validation.splice(adIndex, 1);
     }
 
@@ -388,5 +386,4 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       }
     }
   }
-
 }

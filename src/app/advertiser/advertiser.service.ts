@@ -40,10 +40,6 @@ export class AdvertiserService {
     return this.http.get<{campaign: Campaign}>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
-  deleteAdImage(id: number, bId: number) {
-    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/banner/${bId}`);
-  }
-
   deleteCampaign(id: number): Observable<Campaign> {
     return this.http.delete<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
