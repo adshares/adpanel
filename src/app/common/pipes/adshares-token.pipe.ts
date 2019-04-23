@@ -13,8 +13,11 @@ function removeDecimalPart(value: number | string) {
 })
 
 export class AdsharesTokenPipe implements PipeTransform {
-  transform(value: number | string, precision: number = 11): string {
-    return `${formatMoney(removeDecimalPart(value), precision)} ADS`;
+  transform(value: number | string, prependCurrencySymbol: string, precision: number = 11): string {
+    const showNarrowCurrencySign = prependCurrencySymbol ? prependCurrencySymbol : '';
+    const formatInADS = !prependCurrencySymbol ? 'ADS' : '';
+
+    return `${showNarrowCurrencySign} ${formatMoney(removeDecimalPart(value), precision)} ${formatInADS}`;
   }
 }
 
