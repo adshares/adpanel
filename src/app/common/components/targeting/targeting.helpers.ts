@@ -233,6 +233,11 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
+
+      if (!customOptionParent) {
+        return;
+      }
+
       const rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
       const action = customOptionParent['valueType'] === 'number' ?

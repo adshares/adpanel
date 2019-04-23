@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
@@ -8,6 +8,7 @@ import { AppState } from 'models/app-state.model';
 import * as advertiserAction from 'store/advertiser/advertiser.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Campaign } from 'models/campaign.model';
+import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
   selector: 'app-edit-campaign',
@@ -15,7 +16,7 @@ import { Campaign } from 'models/campaign.model';
   styleUrls: ['./edit-campaign.component.scss'],
   animations: [fadeAnimation]
 })
-export class EditCampaignComponent implements OnInit, OnDestroy {
+export class EditCampaignComponent extends HandleSubscription implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
   isEditMode: boolean;
 
@@ -24,12 +25,13 @@ export class EditCampaignComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
   ) {
+    super();
   }
 
   ngOnInit() {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
 
-    this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const lastEditedCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .take(1)
       .subscribe((lastEditedCampaign: Campaign) => {
         if (!lastEditedCampaign.targetingArray) {
@@ -41,6 +43,7 @@ export class EditCampaignComponent implements OnInit, OnDestroy {
           );
         }
       });
+    this.subscriptions.push(lastEditedCampaignSubscription)
   }
 
   ngOnDestroy() {
