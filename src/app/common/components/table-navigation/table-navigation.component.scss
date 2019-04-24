@@ -1,12 +1,19 @@
-.table-nav {
-  &__header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin: 0;
-  }
-}
+@import "../../../../styles";
 
-.status-cell-width {
-  width: 150px;
+.table-nav {
+  @include container();
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  width: 100%;
+
+  &__row {
+    @include copy($font-weight: semi);
+    display: flex;
+    align-items: center;
+  }
+
+  .status-cell-width {
+    @include status-cell;
+  }
 }

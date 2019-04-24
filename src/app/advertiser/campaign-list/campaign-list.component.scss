@@ -14,6 +14,6 @@
     }
   }
   &__status-totals-column {
-    width: 150px;
+    @include status-cell;
   }
 }

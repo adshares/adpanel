@@ -59,8 +59,8 @@
           align-center"
   >
         <span data-test="publisher-site-estimated-earnings"
-              [title]="(site.revenue || 0) | adsharesTokenValue">
-          {{ (site.revenue || 0) | adsharesTokenValue:2 }}
+              [title]="(site.revenue || 0) | adsharesTokenValue:currencySymbol">
+          {{ (site.revenue || 0) | adsharesTokenValue:currencySymbol:2 }}
         </span>
   </td>
   <td
@@ -100,8 +100,8 @@
           align-center"
   >
         <span data-test="publisher-site-rpm"
-              [title]="(site.averageRpm || 0) | adsharesTokenValue">
-          {{ (site.averageRpm || 0) | adsharesTokenValue:2 }}
+              [title]="(site.averageRpm || 0) | adsharesTokenValue:currencySymbol">
+          {{ (site.averageRpm || 0) | adsharesTokenValue:currencySymbol:2 }}
         </span>
   </td>
   <td
@@ -111,8 +111,8 @@
           align-center"
   >
         <span data-test="publisher-site-average=rpc"
-              [title]="(site.averageRpc || 0) | adsharesTokenValue">
-          {{ (site.averageRpc || 0) | adsharesTokenValue:2 }}
+              [title]="(site.averageRpc || 0) | adsharesTokenValue:currencySymbol">
+          {{ (site.averageRpc || 0) | adsharesTokenValue:currencySymbol:2}}
         </span>
   </td>
   <td

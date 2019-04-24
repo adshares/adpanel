@@ -9,7 +9,7 @@
   }
 
   &__status-cell {
-    width: 150px;
+    @include status-cell;
     cursor: pointer;
   }
 

@@ -12,7 +12,7 @@ import { BannerClassificationFilters } from "models/classifier.model";
 export class ClassifierFilteringComponent implements OnInit {
   @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
-  status = new FormControl('');
+  status = new FormControl('Unclassified');
   sizes: Array<string> = [];
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};

@@ -143,7 +143,7 @@ export class AdvertiserEffects {
     .ofType(ADD_CAMPAIGN_TO_CAMPAIGNS)
     .map(toPayload)
     .switchMap((payload) => this.service.saveCampaign(payload)
-      .switchMap((campaign) => {
+      .map((campaign) => {
         if (payload.basicInformation.status !== campaign.basicInformation.status) {
           this.dialog.open(WarningDialogComponent, {
             data: {
@@ -154,10 +154,7 @@ export class AdvertiserEffects {
           });
         }
         this.router.navigate(['/advertiser', 'dashboard']);
-        return [
-          new AddCampaignToCampaignsSuccess(campaign),
-          new ClearLastEditedCampaign(),
-        ]
+        return new AddCampaignToCampaignsSuccess(campaign)
       })
       .catch(() => Observable.of(new AddCampaignToCampaignsFailure()))
     );

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { environment } from 'environments/environment';
-import { Campaign, CampaignTotals, CampaignTotalsResponse } from 'models/campaign.model';
+import { Campaign, CampaignTotalsResponse } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from "@angular/router";
@@ -38,10 +38,6 @@ export class AdvertiserService {
 
   getCampaign(id: number): Observable<{campaign: Campaign}> {
     return this.http.get<{campaign: Campaign}>(`${environment.apiUrl}/campaigns/${id}`);
-  }
-
-  deleteAdImage(id: number, bId: number) {
-    return this.http.delete(`${environment.apiUrl}/campaigns/${id}/banner/${bId}`);
   }
 
   deleteCampaign(id: number): Observable<Campaign> {

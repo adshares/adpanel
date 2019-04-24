@@ -41,7 +41,7 @@ export const adjustTooltipValueFormat = (value: string): string => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `${type}: ${val > 0 ? formatMoney(val) : 0} ADS`;
+      return `${type}: ${val > 0 ? formatMoney(val, 4) : 0} USD`;
     default:
       return `${type}: ${value}`;
   }
@@ -60,7 +60,7 @@ export const adjustYAxesTics = (value) => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `${val > 0 ? formatMoney(val) : 0}`;
+      return `$${val > 0 ? formatMoney(val,4) : 0}`;
     default:
       return `${value}`;
   }

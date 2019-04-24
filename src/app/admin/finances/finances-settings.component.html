@@ -33,16 +33,16 @@
 <article class="dwmth-box finances-settings__cold-wallet">
   <section class="row justify-between align-center">
     <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Cold wallet settings</h1>
-    <mat-checkbox [checked]="settings.hotwalletIsActive"
-                  (change)="updateSettings($event.checked, 'hotwalletIsActive')">
+    <mat-checkbox [checked]="settings.coldWalletIsActive"
+                  (change)="updateSettings($event.checked, 'coldWalletIsActive')">
       Enable Cold Wallet
     </mat-checkbox>
   </section>
-  <p *ngIf="settings.hotwalletIsActive"
+  <p *ngIf="settings.coldWalletIsActive"
      class="dwmth-copy dwmth-copy--large finances-settings__desc">
     <!--placeholder for settings general description-->
   </p>
-  <div *ngIf="settings.hotwalletIsActive"
+  <div *ngIf="settings.coldWalletIsActive"
        class="row finances-settings__thresholds-wrapper">
     <app-input
       [label]="'Min threshold value'"
@@ -71,9 +71,9 @@
     <app-input
       [label]="'Cold wallet address'"
       [type]="'text'"
-      [value]="settings.hotwalletAddress"
+      [value]="settings.coldWalletAddress"
       helper="Enter your ADS account address"
-      (valueChanged)="updateSettings($event, 'hotwalletAddress')"
+      (valueChanged)="updateSettings($event, 'coldWalletAddress')"
     ></app-input>
   </div>
 </article>

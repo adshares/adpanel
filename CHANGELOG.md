@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.4] - 2019-04-24
+### Added
+- Custom currency support
+- Custom domain targeting
+### Improved
+- Responsiveness
+
+## [0.6.1] - 2019-04-18
+### Fixed
+- Banner preview and format
+- Date formatting for campaigns
+
 ## [0.6.0] - 2019-04-16
 ### Added
 - Bonus credits for new users (on email confirmation)
@@ -58,7 +70,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adserver/compare/v0.6.0...develop
+[Unreleased]: https://github.com/adshares/adserver/compare/v0.6.4...develop
+[0.6.4]: https://github.com/adshares/adserver/compare/v0.6.1...v0.6.4
+[0.6.1]: https://github.com/adshares/adserver/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/adshares/adserver/compare/v0.5.4...v0.6.0
 [0.5.4]: https://github.com/adshares/adserver/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/adshares/adpanel/compare/v0.5.2...v0.5.3

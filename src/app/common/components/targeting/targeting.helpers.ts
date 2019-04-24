@@ -104,6 +104,9 @@ function generateLabelPath(
 ): string {
   const keyForSearch = arrayPath[0];
   const searchedOption = targeting.find((option) => option.key === keyForSearch);
+  if (searchedOption.allowInput) {
+    return partialPath
+  }
   const newArrayPath = arrayPath.splice(1, arrayPath.length - 1);
 
   partialPath += (partialPath === '' ? '' : ' / ') + searchedOption.label
@@ -233,6 +236,11 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
       const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
+
+      if (!customOptionParent) {
+        return;
+      }
+
       const rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
         parseKeyToNumber(lastKeyelement) : lastKeyelement;
       const action = customOptionParent['valueType'] === 'number' ?

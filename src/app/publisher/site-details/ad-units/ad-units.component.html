@@ -13,13 +13,20 @@
     </div>
   </td>
 
-  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.revenue || 0) | adsharesTokenValue:2 }}</td>
-  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.clicks || 0) }} </td>
-  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.impressions || 0) }} </td>
-  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.ctr || 0) | percent:'1.2-2'  }} </td>
-  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.averageRpm || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"
+      [title]="(adUnit.revenue || 0) | adsharesTokenValue:currencySymbol">
+    {{ (adUnit.revenue || 0) | adsharesTokenValue:currencySymbol:2 }}
   </td>
-  <td class="col-xs-1 dwmth-copy  poster-unit__cell"> {{ (adUnit.averageRpc || 0) | adsharesTokenValue:2 }}
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.clicks || 0) }}</td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.impressions || 0) }}</td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"> {{ (adUnit.ctr || 0) | percent:'1.2-2' }}</td>
+  <td class="col-xs-1 dwmth-copy dwmth-copy--semi poster-unit__cell"
+      [title]="(adUnit.averageRpm || 0) | adsharesTokenValue:currencySymbol">
+    {{ (adUnit.averageRpm || 0) | adsharesTokenValue:currencySymbol:2 }}
+  </td>
+  <td class="col-xs-1 dwmth-copy  poster-unit__cell"
+      [title]="(adUnit.averageRpc || 0) | adsharesTokenValue:currencySymbol">
+    {{ (adUnit.averageRpc || 0) | adsharesTokenValue:currencySymbol:2 }}
   </td>
   <td class="col-xs-1 poster-unit__cell">
     <button

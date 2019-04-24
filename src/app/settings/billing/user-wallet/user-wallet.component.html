@@ -1,141 +1,85 @@
 <section class="preferences user-wallet">
   <div
     class="
-      user-wallet__wallet-box--with-margin
-      col-xs-6
-      dwmth-box
-      dwmth-box--large"
+      user-wallet__wallet-box
+      user-wallet__wallet-box--with-margin"
   >
-    <div class="col">
-      <h2
-        class="
-          dwmth-heading
-          dwmth-heading--primary"
-      >
-        Your Wallet
-      </h2>
-      <p
-        class="
-          dwmth-copy
-          dwmth-copy--large"
-      >
-        Deposit or withdraw funds
-      </p>
+    <h2 class="user-wallet__title"
+    >
+      Your Wallet
+    </h2>
+    <p class="user-wallet__sub-title"
+    >
+      Deposit or withdraw funds
+    </p>
 
-      <div
-        class="
-          row
-          align-start"
+    <div class="user-wallet__content-container"
+    >
+      <p class="user-wallet__funds-in-currency"
+         data-test="user-total-funds-in-currency"
       >
-        <div
-          class="
-              col
-              dwmth-box
-              dwmth-box--light-border
-              dwmth-box--large"
-        >
-          <h1
-            class="
-                dwmth-heading
-                dwmth-heading--primary"
-            data-test="user-total-funds"
-          >
-            {{ wallet.walletBalance | adsharesTokenValue }}
-          </h1>
-          <div
-            class="
-                row
-                funds-actions"
-          >
-            <button
-              class="
-                  dwmth-btn
-                  dwmth-btn--white
-                  dwmth-blue"
-              (click)="openAddFundsDialog()"
-              data-test="add-funds-dialog-open-button"
-            >
-              <img
-                class="
-                    dwmth-icon
-                    dwmth-icon--prepend"
-                src="assets/images/credit-card--blue.svg"
-              >
-              Deposit Funds
-            </button>
-            <button
-              class="
-                  dwmth-btn
-                  dwmth-btn--blue"
-              (click)="openWithdrawFundsDialog()"
-              data-test="withdraw-funds-dialog-open-button"
-            >
-              <img
-                class="
-                    dwmth-icon
-                    dwmth-icon--prepend"
-                src="assets/images/credit-card--white.svg"
-              >
-              Withdraw Funds
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        class="
-          row
-          align-center"
+        {{ wallet.walletBalance | calculateInCurrency:2 }}
+      </p>
+      <h1 class="user-wallet__funds"
+          data-test="user-total-funds"
       >
-        <a
-          [href]="faqLink"
-          target="_blank"
-          data-test="settings-faq-link"
+        {{ wallet.walletBalance | adsharesTokenValue }}
+      </h1>
+
+      <div class="user-wallet__funds-actions">
+        <button
+          class="user-wallet__btn--white"
+          (click)="openAddFundsDialog()"
+          data-test="add-funds-dialog-open-button"
         >
-          <button
-            class="
-              dwmth-btn
-              dwmth-btn--white
-              dwmth-btn--no-border
-              dwmth-blue"
+          <img
+            class="user-wallet__icon"
+            src="assets/images/credit-card--blue.svg"
           >
-            Check our FAQ
-          </button>
-        </a>
+          Deposit Funds
+        </button>
+        <button
+          class="user-wallet__btn"
+          (click)="openWithdrawFundsDialog()"
+          data-test="withdraw-funds-dialog-open-button"
+        >
+          <img
+            class="user-wallet__icon"
+            src="assets/images/credit-card--white.svg"
+          >
+          Withdraw Funds
+        </button>
       </div>
     </div>
+    <a
+      [href]="faqLink"
+      target="_blank"
+      class="user-wallet__link"
+      data-test="settings-faq-link"
+    >
+      Check our FAQ
+    </a>
   </div>
 
-
   <div
-    class="preferences col-xs-6 dwmth-box--no-padding">
-    <div
-      class="
-      dwmth-box
-      user-wallet__wallet-box
-      col
-      dwmth-box--large"
-    >
-      <h2
-        class="
-          dwmth-heading
-          dwmth-heading--primary"
-      >
+    class="user-wallet__wallet-box">
+    <div class="user-wallet__content-container">
+      <h2 class="user-wallet__title">
         BONUS
       </h2>
-      <p
-        class="
-          dwmth-copy
-          dwmth-copy--large"
-      >
+      <p class="user-wallet__sub-title">
         You can spend your bonus funds on advertising but you can't withdraw them.
       </p>
-      <strong
-        class="dwmth-heading
-               dwmth-heading--primary"
-        data-test="user-total-funds"
+      <p
+         class="user-wallet__funds-in-currency"
+         data-test="bonus-funds-in-currency">
+        {{ wallet.bonusBalance | calculateInCurrency:2 }}
+      </p>
+      <strong class="user-wallet__funds"
+              data-test="bonus-funds"
       >
         {{ wallet.bonusBalance > 0 ?
-        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:2) }}
+        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:'':2) }}
       </strong>
     </div>
   </div>

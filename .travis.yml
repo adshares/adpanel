@@ -14,7 +14,7 @@ jobs:
     - install: true
       script: sonar-scanner
 
-    - env: APP_ENV=prod APP_PROD=true
+    - env: APP_ENV=prod APP_PROD=true APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$
       before_script:
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
