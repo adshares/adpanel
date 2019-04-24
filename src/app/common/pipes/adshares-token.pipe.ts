@@ -9,6 +9,7 @@ import { ExchangeRate } from "models/user.model";
 import { HandleSubscription } from "common/handle-subscription";
 import { NOT_AVAILABLE } from "common/utilities/messages";
 import { ADS_CODE } from "common/utilities/consts";
+import { environment } from "environments/environment";
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];
@@ -21,7 +22,7 @@ function removeDecimalPart(value: number | string) {
 export class AdsharesTokenPipe implements PipeTransform {
   transform(value: number | string, prependCurrencySymbol: string, precision: number = 11): string {
     const formatInCustomCurrency = prependCurrencySymbol ? prependCurrencySymbol : '';
-    const formatInCryptoCurrency = !prependCurrencySymbol ? ADS_CODE : '';
+    const formatInCryptoCurrency = !prependCurrencySymbol ? environment.cryptoSymbol : '';
 
     return `${formatInCustomCurrency} ${formatMoney(removeDecimalPart(value), precision)} ${formatInCryptoCurrency}`;
   }
