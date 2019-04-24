@@ -9,6 +9,7 @@ import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
 import { Store } from "@ngrx/store";
 import { Ad, Campaign } from 'models/campaign.model';
 import { AppState } from "models/app-state.model";
+import { DOLLAR_SYMBOL } from "common/utilities/consts";
 
 @Component({
   selector: 'app-poster-list-item',
@@ -18,7 +19,7 @@ import { AppState } from "models/app-state.model";
 export class AdListItemComponent {
   @Input() ad: Ad;
   @Input() campaign: Campaign;
-
+  DOLLAR_SYMBOL = DOLLAR_SYMBOL;
   adStatusesEnum = adStatusesEnum;
 
   constructor(private route: ActivatedRoute,

@@ -29,7 +29,8 @@ export function authReducers(state = initialState, action: authActions.actions |
     case GET_CURRENT_BALANCE_SUCCESS:
       return {
         ...state,
-        adserverWallet: action.payload
+        exchangeRate: action.payload.exchangeRate,
+        adserverWallet: action.payload.adserverWallet
       };
     case authActions.USER_LOG_OUT_SUCCESS:
     case authActions.USER_LOG_IN_SUCCESS:

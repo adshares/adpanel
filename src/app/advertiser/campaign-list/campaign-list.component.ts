@@ -5,6 +5,7 @@ import {Campaign, CampaignTotals} from 'models/campaign.model';
 import {sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import {TableColumnMetaData} from 'models/table.model';
 import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
+import { DOLLAR_SYMBOL } from "common/utilities/consts";
 
 @Component({
   selector: 'app-campaign-list',
@@ -16,6 +17,7 @@ export class CampaignListComponent {
   @Input() campaigns: Campaign[];
   @Input() campaignsTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings[];
+  DOLLAR_SYMBOL = DOLLAR_SYMBOL;
 
   constructor(
     private router: Router,

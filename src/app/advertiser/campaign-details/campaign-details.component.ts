@@ -10,7 +10,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from "models/targeting-option.model";
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import {createInitialArray, downloadCSVFile} from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from "@angular/material";
@@ -22,6 +22,7 @@ import {
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { DOLLAR_SYMBOL } from "common/utilities/consts";
 
 @Component({
   selector: 'app-campaign-details',
@@ -30,7 +31,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-
+  DOLLAR_SYMBOL = DOLLAR_SYMBOL;
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   barChartValue: number;
