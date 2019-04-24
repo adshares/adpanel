@@ -6,6 +6,11 @@ interface UserAdserverWallet {
   walletBalance: number;
 }
 
+interface ExchangeRate {
+  currency: string;
+  value: number;
+}
+
 interface User {
   id: number
   email: string;
@@ -16,6 +21,7 @@ interface User {
   password: string;
   apiToken?: string;
   adserverWallet: UserAdserverWallet;
+  exchangeRate: ExchangeRate | null;
   uuid: string;
 }
 
@@ -31,4 +37,4 @@ interface UserRoles extends User {
   advertiser: string;
 }
 
-export { UserAdserverWallet, User, LocalStorageUser, UserRoles };
+export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate };

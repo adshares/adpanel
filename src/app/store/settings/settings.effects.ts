@@ -43,7 +43,7 @@ export class SettingsEffects {
       .timer(0, 5000)
       .takeUntil(this.actions$.ofType(USER_LOG_OUT_SUCCESS))
       .switchMap(() => this.authService.check()
-        .map((res) => new GetCurrentBalanceSuccess(res.adserverWallet))
+        .map((res) => new GetCurrentBalanceSuccess(res))
         .catch(err => Observable.of(new GetCurrentBalanceFailure(err)))
       )
     );

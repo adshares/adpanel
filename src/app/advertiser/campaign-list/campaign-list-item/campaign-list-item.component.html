@@ -60,7 +60,7 @@
     data-test="advertiser-campaign-bduget"
   >
         <span>
-          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:'$':2 }} /day
+          {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:currencySymbol:2 }} /day
         </span>
   </td>
   <td
@@ -70,8 +70,8 @@
           align-center"
     data-test="advertiser-campaign-cost"
   >
-        <span [title]="(campaign.cost || 0) | adsharesTokenValue:'$'">
-          {{ (campaign.cost || 0) | adsharesTokenValue:'$':2 }}</span>
+        <span [title]="(campaign.cost || 0) | adsharesTokenValue:currencySymbol">
+          {{ (campaign.cost || 0) | adsharesTokenValue:currencySymbol:2 }}</span>
   </td>
   <td
     class="
@@ -107,8 +107,8 @@
           align-center"
     data-test="advertiser-campaign-average-cpm"
   >
-        <span [title]="(campaign.averageCpm || 0) | adsharesTokenValue:'$'">
-          {{ (campaign.averageCpm || 0) | adsharesTokenValue:'$':2}} </span>
+        <span [title]="(campaign.averageCpm || 0) | adsharesTokenValue:currencySymbol">
+          {{ (campaign.averageCpm || 0) | adsharesTokenValue:currencySymbol:2}} </span>
   </td>
   <td
     class="
@@ -117,8 +117,8 @@
           align-center"
     data-test="advertiser-campaign-average-cpc"
   >
-        <span [title]="(campaign.averageCpc || 0) | adsharesTokenValue:'$'">
-          {{ (campaign.averageCpc || 0) | adsharesTokenValue:'$':2}} </span>
+        <span [title]="(campaign.averageCpc || 0) | adsharesTokenValue:currencySymbol">
+          {{ (campaign.averageCpc || 0) | adsharesTokenValue:currencySymbol:2}} </span>
   </td>
   <td
     class="

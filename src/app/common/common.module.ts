@@ -42,8 +42,9 @@ import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import {
-  AdsharesTokenPipe,
-  ClickToADSPipe
+  AdsharesTokenPipe, CalculateInCurrency,
+  ClickToADSPipe,
+
 } from './pipes/adshares-token.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
@@ -97,6 +98,7 @@ const appComponents = [
   PushNotificationsComponent,
   PushNotificationComponent,
   AdsharesTokenPipe,
+  CalculateInCurrency,
   ClickToADSPipe,
   TrustUrlPipe,
   TrustHtmlPipe,

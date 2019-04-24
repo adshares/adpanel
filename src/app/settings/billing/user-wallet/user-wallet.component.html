@@ -15,11 +15,17 @@
 
     <div class="user-wallet__content-container"
     >
+      <p class="user-wallet__funds-in-currency"
+         data-test="user-total-funds-in-currency"
+      >
+        {{ wallet.walletBalance | calculateInCurrency:2 }}
+      </p>
       <h1 class="user-wallet__funds"
           data-test="user-total-funds"
       >
         {{ wallet.walletBalance | adsharesTokenValue }}
       </h1>
+
       <div class="user-wallet__funds-actions">
         <button
           class="user-wallet__btn--white"
@@ -64,8 +70,13 @@
       <p class="user-wallet__sub-title">
         You can spend your bonus funds on advertising but you can't withdraw them.
       </p>
+      <p
+         class="user-wallet__funds-in-currency"
+         data-test="bonus-funds-in-currency">
+        {{ wallet.bonusBalance | calculateInCurrency:2 }}
+      </p>
       <strong class="user-wallet__funds"
-              data-test="user-total-funds"
+              data-test="bonus-funds"
       >
         {{ wallet.bonusBalance > 0 ?
         (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:'':2) }}

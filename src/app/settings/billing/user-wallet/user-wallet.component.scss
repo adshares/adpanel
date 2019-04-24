@@ -27,6 +27,11 @@
     @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
   }
 
+  &__funds-in-currency {
+    @include copy($color: pal(gray, mid-dark), $font-size: 22);
+    margin-top: 16px;
+  }
+
   &__sub-title {
     @include copy($font-size: 22, $margin-vertical: 5px);
     overflow: initial;

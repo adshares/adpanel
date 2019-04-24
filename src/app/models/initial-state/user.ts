@@ -15,5 +15,6 @@ export const userInitialState: User = {
     totalFundsChange: 0,
     totalFundsInCurrency: 0,
     walletBalance: 0,
-  }
+  },
+  exchangeRate: null,
 };

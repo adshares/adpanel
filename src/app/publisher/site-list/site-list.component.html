@@ -49,9 +49,9 @@
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.revenue | adsharesTokenValue:'$'"
+        [title]="sitesTotals.revenue | adsharesTokenValue:currencySymbol"
       >
-        {{ sitesTotals.revenue | adsharesTokenValue:'$':2 }}
+        {{ sitesTotals.revenue | adsharesTokenValue:currencySymbol:2 }}
       </td>
       <td
         class="
@@ -82,18 +82,18 @@
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.averageRpm | adsharesTokenValue:'$'"
+        [title]="sitesTotals.averageRpm | adsharesTokenValue:currencySymbol"
       >
-        {{ sitesTotals.averageRpm | adsharesTokenValue:'$':2 }}
+        {{ sitesTotals.averageRpm | adsharesTokenValue:currencySymbol:2 }}
       </td>
       <td
         class="
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.averageRpc | adsharesTokenValue:'$'"
+        [title]="sitesTotals.averageRpc | adsharesTokenValue:currencySymbol"
       >
-        {{ sitesTotals.averageRpc | adsharesTokenValue:'$':2 }}
+        {{ sitesTotals.averageRpc | adsharesTokenValue:currencySymbol:2 }}
       </td>
       <td class="col-xs-1 row"></td>
     </tr>

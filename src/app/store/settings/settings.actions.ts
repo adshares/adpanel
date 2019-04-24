@@ -3,7 +3,7 @@ import {
   BillingHistory,
   NotificationItem,
 } from 'models/settings.model';
-import { UserAdserverWallet } from "models/user.model";
+import { User } from "models/user.model";
 
 export const LOAD_NOTIFICATIONS_SETTINGS = 'Notifications Settings loaded';
 export const LOAD_NOTIFICATIONS_SETTINGS_SUCCESS = 'Notifications Settings loaded success';
@@ -52,7 +52,7 @@ export class GetCurrentBalance implements Action {
 export class GetCurrentBalanceSuccess implements Action {
   readonly type: string = GET_CURRENT_BALANCE_SUCCESS;
 
-  constructor(public payload: UserAdserverWallet) {
+  constructor(public payload: User) {
   }
 }
 
