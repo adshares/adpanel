@@ -7,7 +7,7 @@ import { MatDialog } from "@angular/material";
 import { UpdateSiteStatus } from "store/publisher/publisher.actions";
 import { AppState } from "models/app-state.model";
 import { Site } from "models/site.model";
-import { currencies } from "environments/currencies-global";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-site-list-item',
@@ -16,7 +16,7 @@ import { currencies } from "environments/currencies-global";
 })
 export class SiteListItemComponent implements OnInit {
   @Input() site: Site;
-  currencySymbol= currencies.currencySymbol;
+  currencySymbol= environment.currencySymbol;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
   currentSiteStatus: string;

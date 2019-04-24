@@ -22,7 +22,7 @@ import {
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { currencies } from "environments/currencies-global";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-campaign-details',
@@ -31,7 +31,7 @@ import { currencies } from "environments/currencies-global";
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  currencySymbol = currencies.currencySymbol;
+  currencySymbol = environment.currencySymbol;
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   barChartValue: number;

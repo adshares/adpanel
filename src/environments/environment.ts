@@ -1,4 +1,4 @@
-import { currencies } from "environments/currencies-global";
+import { ADS_CODE, ADS_SYMBOL, DOLLAR_CODE, DOLLAR_SYMBOL } from "common/utilities/consts";
 
 let serverUrl = 'https://test-server.e11.click'; // 'http://localhost:8101'; //
 
@@ -10,5 +10,8 @@ export const environment = {
   xdebug: false,
   version: "0",
   context: 'local',
-  ...currencies
+  currencySymbol: DOLLAR_SYMBOL,
+  currencyCode: DOLLAR_CODE,
+  cryptoSymbol: ADS_SYMBOL,
+  cryptoCode: ADS_CODE
 };
