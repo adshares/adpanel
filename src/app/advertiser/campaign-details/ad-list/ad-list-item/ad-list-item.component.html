@@ -49,9 +49,9 @@
          dwmth-copy
          align-center"
     data-test="advertiser-ad-cost"
-    [title]=" (ad.cost || 0) | adsharesTokenValue"
+    [title]=" (ad.cost || 0) | adsharesTokenValue:'$'"
   >
-    {{ (ad.cost || 0) | adsharesTokenValue:2}}
+    {{ (ad.cost || 0) | adsharesTokenValue:'$':2}}
   </td>
   <td
     class="
@@ -89,9 +89,9 @@
          dwmth-copy
          align-center"
     data-test="advertiser-ad-average-cpm"
-    [title]="(ad.averageCpm || 0) | adsharesTokenValue"
+    [title]="(ad.averageCpm || 0) | adsharesTokenValue:'$'"
   >
-    {{ (ad.averageCpm || 0) | adsharesTokenValue:2}}
+    {{ (ad.averageCpm || 0) | adsharesTokenValue:'$':2}}
   </td>
   <td
     class="
@@ -100,9 +100,9 @@
          dwmth-copy
          align-center"
     data-test="advertiser-ad-average-cpc"
-    [title]="(ad.averageCpc || 0) | adsharesTokenValue"
+    [title]="(ad.averageCpc || 0) | adsharesTokenValue:'$'"
   >
-    {{ (ad.averageCpc || 0) | adsharesTokenValue:2}}
+    {{ (ad.averageCpc || 0) | adsharesTokenValue:'$':2}}
   </td>
   <td
     class="

@@ -68,7 +68,7 @@
               data-test="user-total-funds"
       >
         {{ wallet.bonusBalance > 0 ?
-        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:2) }}
+        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:'':2) }}
       </strong>
     </div>
   </div>
