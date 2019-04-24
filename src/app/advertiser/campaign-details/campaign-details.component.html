@@ -184,7 +184,7 @@
               dwmth-copy--dark
               dwmth-copy--semi"
               data-test="advertiser-campaign-max-cpc">
-              {{ campaign.basicInformation.maxCpc | adsharesTokenValue:DOLLAR_SYMBOL:4 }}
+              {{ campaign.basicInformation.maxCpc | adsharesTokenValue:currencySymbol:4 }}
             </p>
           </div>
           <div>
@@ -199,7 +199,7 @@
               dwmth-copy--dark
               dwmth-copy--semi"
               data-test="advertiser-campaign-max-cpm">
-              {{ campaign.basicInformation.maxCpm | adsharesTokenValue:DOLLAR_SYMBOL:4 }}
+              {{ campaign.basicInformation.maxCpm | adsharesTokenValue:currencySymbol:4 }}
             </p>
           </div>
           <div>
@@ -214,7 +214,7 @@
               dwmth-copy--dark
               dwmth-copy--semi"
               data-test="advertiser-campaign-budget">
-              {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:DOLLAR_SYMBOL:4 }}
+              {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue:currencySymbol:4 }}
             </p>
           </div>
           <div>

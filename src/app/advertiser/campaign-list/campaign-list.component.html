@@ -57,9 +57,9 @@
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.cost | adsharesTokenValue:DOLLAR_SYMBOL"
+        [title]="campaignsTotals.cost | adsharesTokenValue:currencySymbol"
       >
-        {{ campaignsTotals.cost | adsharesTokenValue:DOLLAR_SYMBOL:2}}
+        {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
       </td>
       <td
         class="
@@ -90,18 +90,18 @@
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.averageCpm | adsharesTokenValue:DOLLAR_SYMBOL"
+        [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol"
       >
-        {{ campaignsTotals.averageCpm | adsharesTokenValue:DOLLAR_SYMBOL:2 }}
+        {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
       </td>
       <td
         class="
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.averageCpc | adsharesTokenValue:DOLLAR_SYMBOL"
+        [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol"
       >
-        {{ campaignsTotals.averageCpc | adsharesTokenValue:DOLLAR_SYMBOL:2 }}
+        {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
       </td>
       <td
         class="

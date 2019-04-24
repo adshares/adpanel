@@ -4,7 +4,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
-import { DOLLAR_SYMBOL } from "common/utilities/consts";
+import { currencies } from "environments/currencies-global";
 
 @Component({
   selector: 'app-site-list',
@@ -14,7 +14,7 @@ import { DOLLAR_SYMBOL } from "common/utilities/consts";
 export class SiteListComponent extends HandleSubscription {
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
-  DOLLAR_SYMBOL = DOLLAR_SYMBOL;
+  currencySymbol = currencies.currencySymbol;
 
   constructor(
     private router: Router,

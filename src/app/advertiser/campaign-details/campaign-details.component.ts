@@ -22,7 +22,7 @@ import {
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { DOLLAR_SYMBOL } from "common/utilities/consts";
+import { currencies } from "environments/currencies-global";
 
 @Component({
   selector: 'app-campaign-details',
@@ -31,7 +31,7 @@ import { DOLLAR_SYMBOL } from "common/utilities/consts";
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  DOLLAR_SYMBOL = DOLLAR_SYMBOL;
+  currencySymbol = currencies.currencySymbol;
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   barChartValue: number;
