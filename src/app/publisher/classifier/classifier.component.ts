@@ -34,6 +34,9 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   refreshIcon = faSyncAlt;
   adSizesOptions: string[];
   filtering: BannerClassificationFilters = {
+    status: {
+      unclassified: 1
+    },
     sizes: [],
   };
 
