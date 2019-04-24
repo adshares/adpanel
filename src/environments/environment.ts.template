@@ -7,5 +7,9 @@ export const environment = {
   apiUrl: serverUrl + '/api',
   xdebug: ${DEV_XDEBUG},
   version: '${APP_VERSION}',
-  context: '${CONTEXT_INFO}'
+  context: '${CONTEXT_INFO}',
+  currencySymbol: '$',
+  currencyCode: 'USD',
+  cryptoSymbol: 'ADS',
+  cryptoCode: 'ADS'
 };
