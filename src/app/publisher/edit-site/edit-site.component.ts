@@ -34,25 +34,13 @@ export class EditSiteComponent extends HandleSubscription implements OnInit, OnD
     const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .take(1)
       .subscribe((lastEditedSite: Site) => {
-        const requires = lastEditedSite.filtering.requires || [];
-        const excludes = lastEditedSite.filtering.excludes || [];
-        if (!lastEditedSite.filteringArray && !Array.isArray(excludes) ||
-          !Array.isArray(requires)) {
-          const filteringOptions = this.route.snapshot.data.filteringOptions;
-          this.store.dispatch(
-            new publisherActions.SaveSiteFiltering(
-              parseTargetingOptionsToArray({requires, excludes}, filteringOptions)
-            )
-          );
-        } else {
-          const filtering = {
-            requires,
-            excludes,
-          } as AssetTargeting;
-          this.store.dispatch(
-            new publisherActions.SaveSiteFiltering(filtering)
+        const filteringOptions = this.route.snapshot.data.filteringOptions;
+        this.store.dispatch(
+          new publisherActions.SaveSiteFiltering(
+            parseTargetingOptionsToArray(lastEditedSite.filtering, filteringOptions)
           )
-        }
+        );
+
       });
     this.subscriptions.push(lastEditedSiteSubscription);
   }
