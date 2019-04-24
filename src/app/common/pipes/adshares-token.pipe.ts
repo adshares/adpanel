@@ -22,7 +22,7 @@ function removeDecimalPart(value: number | string) {
 export class AdsharesTokenPipe implements PipeTransform {
   transform(value: number | string, prependCurrencySymbol: string, precision: number = 11): string {
     const formatInCustomCurrency = prependCurrencySymbol ? prependCurrencySymbol : '';
-    const formatInCryptoCurrency = !prependCurrencySymbol ? environment.currencySymbol : '';
+    const formatInCryptoCurrency = !prependCurrencySymbol ? environment.cryptoSymbol : '';
 
     return `${formatInCustomCurrency} ${formatMoney(removeDecimalPart(value), precision)} ${formatInCryptoCurrency}`;
   }
