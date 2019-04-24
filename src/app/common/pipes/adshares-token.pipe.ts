@@ -1,14 +1,10 @@
-import {
-  Pipe,
-  PipeTransform
-} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { formatMoney } from 'common/utilities/helpers';
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { ExchangeRate } from "models/user.model";
 import { HandleSubscription } from "common/handle-subscription";
 import { NOT_AVAILABLE } from "common/utilities/messages";
-import { ADS_CODE } from "common/utilities/consts";
 import { environment } from "environments/environment";
 
 function removeDecimalPart(value: number | string) {
