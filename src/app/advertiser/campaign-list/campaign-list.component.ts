@@ -5,7 +5,7 @@ import {Campaign, CampaignTotals} from 'models/campaign.model';
 import {sortArrayByColumnMetaData} from 'common/utilities/helpers';
 import {TableColumnMetaData} from 'models/table.model';
 import {ChartFilterSettings} from "models/chart/chart-filter-settings.model";
-import { currencies } from "environments/currencies-global";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-campaign-list',
@@ -17,7 +17,7 @@ export class CampaignListComponent {
   @Input() campaigns: Campaign[];
   @Input() campaignsTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings[];
-  currencySymbol = currencies.currencySymbol;
+  currencySymbol = environment.currencySymbol;
 
   constructor(
     private router: Router,

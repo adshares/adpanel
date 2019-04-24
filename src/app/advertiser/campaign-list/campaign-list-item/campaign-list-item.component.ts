@@ -8,7 +8,7 @@ import { MatDialog } from "@angular/material";
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
-import { currencies } from "environments/currencies-global";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-campaign-list-item',
@@ -19,7 +19,7 @@ import { currencies } from "environments/currencies-global";
 
 export class CampaignListItemComponent implements OnChanges {
   @Input() campaign: Campaign;
-  currencySymbol = currencies.currencySymbol;
+  currencySymbol = environment.currencySymbol;
   campaignStatusesEnum = campaignStatusesEnum;
   campaignStatusesEnumArray = enumToArray(campaignStatusesEnum);
   currentCampaignStatus: string;
