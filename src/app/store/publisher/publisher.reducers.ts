@@ -43,27 +43,21 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ]
       };
     case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
-      const sitesWithTotal = [];
       if (action.payload.data.length <= 0) {
         return {
           ...state,
           sitesTotals: action.payload.total
         }
       }
-      state.sites.forEach(site => {
-        action.payload.data.forEach(data => {
-          if (data.siteId === site.id && !sitesWithTotal.find(el => el.id === site.id)) {
-            sitesWithTotal.push({
-              ...site,
-              ...data
-            })
-          } else if (!sitesWithTotal.find(el => el.id === site.id)) {
-            sitesWithTotal.push({
-              ...site,
-            })
-          }
+
+      const sitesWithTotal = [state.sites, action.payload.data].reduce((sites, data) => sites.map(site => {
+          const elWithStats = data.find(el => el.siteId === site.id);
+          return elWithStats ? {
+            ...site,
+            ...elWithStats
+          } : site;
         })
-      });
+      );
 
       return {
         ...state,
