@@ -30,8 +30,3 @@ export const DATE_AND_TIME_PICKER_FORMATS = {
   dateA11yLabel: DATE_A11_LABEL_FORMAT,
   monthYearA11yLabel: MONTH_A11_LABEL_FORMAT,
 };
-
-export const DOLLAR_SYMBOL = '$';
-export const DOLLAR_CODE = 'USD';
-export const ADS_SYMBOL = 'ADS';
-export const ADS_CODE = 'ADS';
