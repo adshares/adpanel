@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.6] - 2019-04-25
+### Added
+- Values in custom currencies
+
 ## [0.6.4] - 2019-04-24
 ### Added
 - Custom currency support
@@ -70,7 +74,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adserver/compare/v0.6.4...develop
+[Unreleased]: https://github.com/adshares/adserver/compare/v0.6.6...develop
+[0.6.6]: https://github.com/adshares/adserver/compare/v0.6.4...v0.6.6
 [0.6.4]: https://github.com/adshares/adserver/compare/v0.6.1...v0.6.4
 [0.6.1]: https://github.com/adshares/adserver/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/adshares/adserver/compare/v0.5.4...v0.6.0
