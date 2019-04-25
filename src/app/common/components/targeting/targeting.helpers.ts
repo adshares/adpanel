@@ -2,8 +2,6 @@ import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/ta
 import { customTargetingActionsEnum } from 'models/enum/custom-targeting-actions.enum';
 import { cloneDeep } from 'common/utilities/helpers';
 
-// TODO: PAN-384 analyze and refactor targeting functionality and refactor this file based (consider ObjectValue pattern)
-
 export function prepareTargetingChoices(
   options: (TargetingOption | TargetingOptionValue)[]
 ): TargetingOption[] {
