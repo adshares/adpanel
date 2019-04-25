@@ -19,6 +19,7 @@ import {appSettings} from 'app-settings';
 import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
 import {AdvertiserService} from "advertiser/advertiser.service";
 import { HandleSubscription } from "common/handle-subscription";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -26,6 +27,7 @@ import { HandleSubscription } from "common/handle-subscription";
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
 export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
+  currencyCode: string = environment.currencyCode;
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
