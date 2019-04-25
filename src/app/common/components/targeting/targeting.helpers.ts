@@ -105,13 +105,16 @@ function generateLabelPath(
   const keyForSearch = arrayPath[0];
   const searchedOption = targeting.find((option) => option.key === keyForSearch);
   if (searchedOption.allowInput) {
+    partialPath = searchedOption.id
+      .split('-')
+      .map(el => `${el.charAt(0).toUpperCase()}${el.slice(1)}`)
+      .join(' / ');
     return partialPath
   }
   const newArrayPath = arrayPath.splice(1, arrayPath.length - 1);
+  partialPath += (partialPath === '' ? '' : ' / ') + searchedOption.label;
 
-  partialPath += (partialPath === '' ? '' : ' / ') + searchedOption.label
-
-  if (newArrayPath.length === 1) {
+  if (newArrayPath.length === 1 || !searchedOption.children) {
     return partialPath;
   }
 
@@ -126,11 +129,9 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
 
   [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
     targetingList.forEach(targeting => {
-      const keyPartials = targeting.id.split('-');
-      const lastPartial = keyPartials.pop();
+      const keyPartials = targeting.id.replace(`-${targeting.value}`,'').split('-');
       const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
-
-      createPathObject(parsedTargetingList, keyPartials, lastPartial);
+      createPathObject(parsedTargetingList, keyPartials, targeting.value);
     });
   });
 
@@ -235,15 +236,27 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
     if (addedResultIndex === -1 || addedResultIndex === false) {
       const parentKeyPathArray = optionKey.split('-');
       const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
-      const customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
-
+      let customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
+      let rawValue;
       if (!customOptionParent) {
-        return;
+        // if find element that contains custom value based on allow input parameter
+        targetingOptions.forEach(res => {
+          if (res.children && res.children.find(el => el.id.includes(parentKeyPathArray[0]) && el.allowInput)) {
+            customOptionParent = res.children.find(el => {
+              return el.id.includes(parentKeyPathArray[0]) && el.allowInput
+            });
+            // recreate 'pure value' from option key that contain categories and value connected with '-'
+            rawValue = optionKey
+              .split('-')
+              .splice(customOptionParent.id.split('-').length, parentKeyPathArray.length)
+              .join('-')
+          }
+        });
+      } else {
+        rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
+          parseKeyToNumber(lastKeyelement) : lastKeyelement;
       }
-
-      const rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
-        parseKeyToNumber(lastKeyelement) : lastKeyelement;
-      const action = customOptionParent['valueType'] === 'number' ?
+      let action = customOptionParent['valueType'] === 'number' ?
         getActionFromKey(lastKeyelement) : -1;
 
       const customOption = prepareCustomOption(
