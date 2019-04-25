@@ -1,20 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpErrorResponse} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from "@angular/common/http";
 
-import {HandleSubscription} from 'common/handle-subscription';
-import {SettingsService} from 'settings/settings.service';
-import {AppState } from 'models/app-state.model';
-import {User, UserAdserverWallet} from 'models/user.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { SettingsService } from 'settings/settings.service';
+import { AppState } from 'models/app-state.model';
+import { User, UserAdserverWallet } from 'models/user.model';
 
-import {adsToClicks, formatMoney} from 'common/utilities/helpers';
-import {appSettings} from 'app-settings';
+import { adsToClicks, formatMoney } from 'common/utilities/helpers';
+import { appSettings } from 'app-settings';
 import { CalculateWithdrawalItem } from "models/settings.model";
 import * as codes from 'common/utilities/codes';
-import {ErrorResponseDialogComponent} from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { GetBillingHistory } from "store/settings/settings.actions";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -22,10 +23,9 @@ import { GetBillingHistory } from "store/settings/settings.actions";
   styleUrls: ['./withdraw-funds-dialog.component.scss']
 })
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
+  cryptoCode: string = environment.cryptoCode;
   withdrawFundsForm: FormGroup;
-
   adserverWallet: UserAdserverWallet;
-
   memoInputActive = false;
   isFormBeingSubmitted = false;
   withdrawFormSubmitted = false;
