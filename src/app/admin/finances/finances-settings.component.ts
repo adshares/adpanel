@@ -4,6 +4,7 @@ import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SetAdminSettings, SetAdminSettingsFailure } from "store/admin/admin.actions";
 import { AdminSettings } from "models/settings.model";
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-finances-settings',
@@ -12,6 +13,7 @@ import { AdminSettings } from "models/settings.model";
   host: {'class': 'app-finances'},
 })
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
+  cryptoCode:string = environment.cryptoCode;
   settings: AdminSettings;
   canSubmit: boolean = false;
 
