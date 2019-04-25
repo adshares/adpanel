@@ -9,6 +9,7 @@ import {
 import { enumToObject, formatMoney } from "common/utilities/helpers";
 import { advChartSeriesEnum, pubChartSeriesEnum } from "models/enum/chart.enum";
 import { ChartComponent } from "common/components/chart/chart.component";
+import { environment } from "environments/environment";
 
 export const adjustLabelFormat = (value, values) => {
   const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
@@ -41,7 +42,7 @@ export const adjustTooltipValueFormat = (value: string): string => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `${type}: ${val > 0 ? formatMoney(val, 4) : 0} USD`;
+      return `${type}: ${val > 0 ? formatMoney(val, 4) : 0} ${environment.currencyCode}`;
     default:
       return `${type}: ${value}`;
   }
@@ -60,7 +61,7 @@ export const adjustYAxesTics = (value) => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `$${val > 0 ? formatMoney(val,4) : 0}`;
+      return `${environment.currencySymbol}${val > 0 ? formatMoney(val,4) : 0}`;
     default:
       return `${value}`;
   }
