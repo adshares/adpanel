@@ -14,6 +14,7 @@
   $background-color: pal(white),
   $border-color: pal(gray, nearly-white),
   $margin-top: 2px,
+  $margin-bottom: 0,
   $border-width: 1px
 ) {
   border-radius: 2px;
@@ -21,6 +22,7 @@
   border: $border-width solid $background-color;
   padding: $padding-vertical $padding-horizontal;
   margin-top: $margin-top;
+  margin-bottom: $margin-bottom;
 
   & + & {
     border: none;
@@ -84,6 +86,26 @@
   }
 }
 
+@mixin input() {
+  @include font(16, medium);
+  border-radius: 2px;
+  background-color: #f8f9fc;
+  border: solid 1px pal(gray, light);
+  padding: 12px 13px 12px 18px;
+  max-width: 320px;
+}
+
+@mixin label(
+  $margin-top: 10px,
+  $margin-bottom: 4px,
+  $margin-horizontal: 0
+) {
+  @include font(16, medium);
+  color: pal(gray, mid-dark);
+  margin: $margin-top $margin-horizontal $margin-bottom;
+  display: inline-block;
+}
+
 @mixin center($position) {
   position: absolute;
 
@@ -101,17 +123,11 @@
 }
 
 @mixin padding($top, $right, $bottom, $left) {
-  padding-top: $top;
-  padding-right: $right;
-  padding-bottom: $bottom;
-  padding-left: $left;
+  padding: $top $right $bottom $left;
 }
 
 @mixin margin($top, $right, $bottom, $left) {
-  margin-top: $top;
-  margin-right: $right;
-  margin-bottom: $bottom;
-  margin-left: $left;
+  margin: $top $right $bottom $left;
 }
 
 @mixin transition($args...) {

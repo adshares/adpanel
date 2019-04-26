@@ -13,6 +13,7 @@ export class ClassifierFilteringComponent implements OnInit {
   @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   status = new FormControl('Unclassified');
+  landingUrl = new FormControl('');
   sizes: Array<string> = [];
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
@@ -52,6 +53,14 @@ export class ClassifierFilteringComponent implements OnInit {
     } else {
       delete this.filtering.status
     }
+    this.filteringChange.emit(this.filtering);
+  }
+
+  changeFilteringByLandingUrl() {
+    this.filtering = {
+      ...this.filtering,
+      landingUrl: this.landingUrl.value.trim()
+    };
     this.filteringChange.emit(this.filtering);
   }
 }

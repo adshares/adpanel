@@ -6,4 +6,18 @@
   &__chosen-value:not(:last-of-type) {
     margin-right: 8px;
   }
+
+  &__label {
+    @include label($margin-top: 0);
+    display: block;
+  }
+
+  &__input {
+    @include input;
+    margin-right: 8px;
+  }
+
+  &__btn {
+    @include btn();
+  }
 }

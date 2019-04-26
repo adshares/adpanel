@@ -3,102 +3,105 @@
     col
     site-list"
 >
-  <table class="site-list__items">
-    <app-table-navigation
-      [navigationName]="'siteListNavigation'"
-      class="
+  <article class="site-list__scrollable-table">
+    <table class="site-list__table">
+      <app-table-navigation
+        [navigationName]="'siteListNavigation'"
+        class="
           row
           dwmth-box
           dwmth-copy"
-      (sortTable)="sortTable($event)"
-    ></app-table-navigation>
+        (sortTable)="sortTable($event)"
+      ></app-table-navigation>
 
-    <tbody *ngIf="(sites && sitesTotals); else loading">
-    <app-site-list-item
-      *ngFor="let site of sites"
-      [site]="site"
-    ></app-site-list-item>
-    <tr
-      class="
+      <tbody *ngIf="(sites && sitesTotals); else loading">
+      <app-site-list-item
+        *ngFor="let site of sites"
+        [site]="site"
+      ></app-site-list-item>
+      <tr
+        class="
             row
             dwmth-box
             align-center
             justify-between
             dwmth-copy
             dwmth-copy--semi"
-    >
-      <td
-        class="
-                status-totals-column
+      >
+        <td
+          class="
+                site-list__totals-status
                 row
                 align-center"
-      ></td>
-      <td
-        class="
+        ></td>
+        <td
+          class="
               col-xs-3
               row
               justify-start
               align-center
               dwmth-copy
               dwmth-copy--bold"
-      >
-        Total - All Sites
-      </td>
-      <td
-        class="
+        >
+          Total - All Sites
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.revenue | adsharesTokenValue:currencySymbol"
-      >
-        {{ sitesTotals.revenue | adsharesTokenValue:currencySymbol:2 }}
-      </td>
-      <td
-        class="
+          [title]="sitesTotals.revenue | adsharesTokenValue:currencySymbol"
+        >
+          {{ sitesTotals.revenue | adsharesTokenValue:currencySymbol:2 }}
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-      >
-        {{ sitesTotals.clicks }}
-      </td>
-      <td
-        class="
+        >
+          {{ sitesTotals.clicks }}
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-      >
-        {{ sitesTotals.impressions }}
-      </td>
-      <td
-        class="
+        >
+          {{ sitesTotals.impressions }}
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-      >
-        {{ sitesTotals.ctr | percent:'1.2-2' }}
-      </td>
-      <td
-        class="
+        >
+          {{ sitesTotals.ctr | percent:'1.2-2' }}
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.averageRpm | adsharesTokenValue:currencySymbol"
-      >
-        {{ sitesTotals.averageRpm | adsharesTokenValue:currencySymbol:2 }}
-      </td>
-      <td
-        class="
+          [title]="sitesTotals.averageRpm | adsharesTokenValue:currencySymbol"
+        >
+          {{ sitesTotals.averageRpm | adsharesTokenValue:currencySymbol:2 }}
+        </td>
+        <td
+          class="
               col-xs-1
               row
               align-center"
-        [title]="sitesTotals.averageRpc | adsharesTokenValue:currencySymbol"
-      >
-        {{ sitesTotals.averageRpc | adsharesTokenValue:currencySymbol:2 }}
-      </td>
-      <td class="col-xs-1 row"></td>
-    </tr>
-    </tbody>
-  </table>
+          [title]="sitesTotals.averageRpc | adsharesTokenValue:currencySymbol"
+        >
+          {{ sitesTotals.averageRpc | adsharesTokenValue:currencySymbol:2 }}
+        </td>
+        <td class="col-xs-1 row"></td>
+      </tr>
+      </tbody>
+    </table>
+  </article>
+
 
   <ng-template #loading>
     <div class="loading-wrapper">
