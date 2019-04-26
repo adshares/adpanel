@@ -96,7 +96,7 @@ export class PublisherService {
         ...filtering.status,
         sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
           : JSON.stringify(possibleSizes),
-        landingUrl: filtering.landingUrl,
+        landingUrl: filtering.landingUrl || '',
       };
     }
 
