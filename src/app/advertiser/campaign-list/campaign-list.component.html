@@ -1,155 +1,63 @@
-<section
-  class="col"
->
+<section class="posters-list__scrollable-table">
+  <table class="posters-list__table">
+    <app-table-navigation
+      [navigationName]="'campaignListNavigation'"
+      class="posters-list__table-header"
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
 
-  <div class="dwmth-posters-list__scrollable-table">
-    <table class="dwmth-posters-list__table">
-      <app-table-navigation
-        [navigationName]="'campaignListNavigation'"
-        class="dwmth-box
-               row
-               dwmth-copy"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
+    <tbody *ngIf="campaigns; else loading">
+    <app-campaign-list-item *ngFor="let campaign of campaigns; let i = index"
+                            [campaign]="campaign"></app-campaign-list-item>
 
-
-      <tbody *ngIf="campaigns; else loading">
-      <app-campaign-list-item
-        *ngFor="let campaign of campaigns; let i = index"
-        [campaign]="campaign"
-      ></app-campaign-list-item>
-
-      <tr *ngIf="campaigns.length > 0"
-          class="dwmth-box
-               dwmth-posters-list__item
-              row
-              justify-between
-              align-center
-              dwmth-copy
-              dwmth-copy--semi">
-
-        <td
-          class="
-                dwmth-posters-list__status-totals-column
-                row
-                align-center"
-        ></td>
-        <td
-          class="
-                col-xs-2
-                row
-                align-center"
-        >
-              <span
-                class="
-                  dwmth-copy
-                  dwmth-copy--bold"
-              >
-                Total - All Campaigns
-              </span>
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-        ></td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
+    <tr *ngIf="campaigns.length > 0"
+        class="posters-list__totals-row">
+      <td class="posters-list__status-totals-column"></td>
+      <td class="col-xs-2 posters-list__totals-title">
+        Total - All Campaigns
+      </td>
+      <td class="col-xs-1 posters-list__empty-box"></td>
+      <td class="col-xs-1"
           [title]="campaignsTotals.cost | adsharesTokenValue:currencySymbol"
-        >
-          {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-        >
-          {{ campaignsTotals.clicks }}
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-        >
-          {{ campaignsTotals.impressions }}
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-        >
-          <span>{{ campaignsTotals.ctr | percent:'1.2-2' }}</span>
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-          [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol"
-        >
-          {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-          [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol"
-        >
-          {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
-        </td>
-        <td
-          class="
-                col-xs-1
-                row
-                align-center"
-        ></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <ng-template #loading>
-    <div class="loading-wrapper">
-      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-    </div>
-  </ng-template>
-
-  <div
-    class="
-      dwmth-box
-      dwmth-box--no-margin
-      hidden-md"
-  >
-    <div
-      class="
-        row
-        justify-center"
-    >
-      <button
-        class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-btn--no-border
-          dwmth-blue"
-        (click)="navigateToCreateCampaign()"
-        data-test="advertiser-create-new-campaign"
       >
-        <img
-          class="
-            dwmth-icon
-            dwmth-icon--prepend"
-          src="assets/images/plus-circle--blue.svg"
-        >
-        Add new campaign
-      </button>
-    </div>
-  </div>
+        {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
+      </td>
+      <td class="col-xs-1">
+        {{ campaignsTotals.clicks }}
+      </td>
+      <td class="col-xs-1">
+        {{ campaignsTotals.impressions }}
+      </td>
+      <td class="col-xs-1">
+        {{ campaignsTotals.ctr | percent:'1.2-2' }}
+      </td>
+      <td class="col-xs-1"
+          [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol">
+        {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
+      </td>
+      <td class="col-xs-1"
+          [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol">
+        {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
+      </td>
+      <td class="col-xs-1"></td>
+    </tr>
+    </tbody>
+  </table>
 </section>
+
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
+</ng-template>
+
+<div class="posters-list__add-new-poster-row">
+  <button class="posters-list__add-btn"
+          (click)="navigateToCreateCampaign()"
+          data-test="advertiser-create-new-campaign">
+    <img class="posters-list__add-btn-icon"
+         src="assets/images/plus-circle--blue.svg">
+    Add new campaign
+  </button>
+</div>
+
