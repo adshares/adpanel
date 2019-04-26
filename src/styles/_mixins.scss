@@ -14,6 +14,7 @@
   $background-color: pal(white),
   $border-color: pal(gray, nearly-white),
   $margin-top: 2px,
+  $margin-bottom: 0,
   $border-width: 1px
 ) {
   border-radius: 2px;
@@ -21,6 +22,7 @@
   border: $border-width solid $background-color;
   padding: $padding-vertical $padding-horizontal;
   margin-top: $margin-top;
+  margin-bottom: $margin-bottom;
 
   & + & {
     border: none;
@@ -101,17 +103,11 @@
 }
 
 @mixin padding($top, $right, $bottom, $left) {
-  padding-top: $top;
-  padding-right: $right;
-  padding-bottom: $bottom;
-  padding-left: $left;
+  padding: $top $right $bottom $left;
 }
 
 @mixin margin($top, $right, $bottom, $left) {
-  margin-top: $top;
-  margin-right: $right;
-  margin-bottom: $bottom;
-  margin-left: $left;
+  margin: $top $right $bottom $left;
 }
 
 @mixin transition($args...) {

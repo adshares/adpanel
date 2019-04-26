@@ -57,11 +57,10 @@
     <div *ngIf="!!sites.length">
       <div
         class="
-          dwmth-box
-          hidden-md"
+          dwmth-box"
       >
         <div class="row">
-          <div class="col-xs-4">
+          <div class="col-xs-3">
             <a
               (click)="downloadReport()"
             >
@@ -76,36 +75,32 @@
               </button>
             </a>
           </div>
-          <div class="col-xs-4">
+          <div class="col-xs-6">
             <app-chart-filter-by-type
               (updateId)="appChartRef.updateChartDataAssetId($event)"
               (updateSeries)="appChartRef.updateChartDataSeries($event)"
             ></app-chart-filter-by-type>
           </div>
-          <div class="col-xs-4">
+          <div class="col-xs-3">
             <app-chart-filter
               *ngIf="!!sites.length"
               (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
             ></app-chart-filter>
           </div>
         </div>
-        <div
-          class="
-            row
-            align-center
-            justify-center
-            chart-wrapper"
-        >
-          <app-chart
-            class="
+        <div class="dashboard__chart-wrapper">
+          <div class="dashboard__chart">
+            <app-chart
+              class="
               chart
               row
               align-center
               justify-center"
-            (update)="getChartData($event)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
-          ></app-chart>
+              (update)="getChartData($event)"
+              [barChartData]="barChartData"
+              [barChartLabels]="barChartLabels"
+            ></app-chart>
+          </div>
         </div>
       </div>
       <app-site-list

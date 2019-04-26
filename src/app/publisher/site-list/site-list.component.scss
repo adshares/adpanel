@@ -4,11 +4,20 @@
   &__sort {
     margin-left: 5px;
   }
-  &__items > .dwmth-box:first-of-type {
-    padding: 10px;
+
+  &__table {
+    min-width: 1100px;
+    & > .dwmth-box:first-of-type {
+      padding: 10px;
+    }
   }
 
-  .status-totals-column {
-    width: 150px;
+  &__totals-status {
+    @include status-cell;
+  }
+
+  &__scrollable-table {
+    overflow: hidden;
+    overflow-x: auto;
   }
 }

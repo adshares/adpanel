@@ -1,19 +1,66 @@
 @import '../../../styles.scss';
 
-.dwmth-posters-list {
+.posters-list {
   &__sort {
     margin-left: 5px;
   }
-  &__items {
-    tr {
-      height: 53px;
-    }
-
-    & > .dwmth-box:first-of-type {
-      padding: 10px;
-    }
+  &__table {
+    min-width: 1100px;
   }
+
   &__status-totals-column {
     @include status-cell;
+  }
+
+  &__scrollable-table {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  &__table-header {
+    @include container($padding-vertical: 0);
+    display: flex;
+  }
+
+  &__totals-row {
+    @include copy($font-weight: semi);
+    @include container(
+      $padding-vertical: 10px,
+      $margin-top: 4px,
+      $margin-bottom: 2px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & td {
+      box-sizing: border-box;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  }
+
+  &__totals-title {
+    @include copy($font-weight: bold);
+  }
+
+  &__add-new-poster-row {
+    @include container($padding-vertical: 10px);
+    display: flex;
+    justify-content: center;
+  }
+
+  &__add-btn {
+    @include btn(
+      $color: pal(blue),
+      $background-color: pal(white),
+      $border-color: transparent,
+      $padding-vertical: 0
+    )
+  }
+
+  &__add-btn-icon {
+    margin-right: 8px;
   }
 }
