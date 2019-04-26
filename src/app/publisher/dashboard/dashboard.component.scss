@@ -16,3 +16,15 @@
     width: 100%;
   }
 }
+
+.dashboard {
+  &__chart-wrapper {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  &__chart {
+    min-width: 650px;
+    width: 100%;
+  }
+}

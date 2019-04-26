@@ -1,24 +1,26 @@
 <section
   class="col"
 >
-  <table class="">
-    <app-table-navigation
-      [navigationName]="'campaignListNavigation'"
-      class="dwmth-box
+
+  <div class="dwmth-posters-list__scrollable-table">
+    <table class="dwmth-posters-list__table">
+      <app-table-navigation
+        [navigationName]="'campaignListNavigation'"
+        class="dwmth-box
                row
                dwmth-copy"
-      (sortTable)="sortTable($event)"
-    ></app-table-navigation>
+        (sortTable)="sortTable($event)"
+      ></app-table-navigation>
 
 
-    <tbody *ngIf="campaigns; else loading">
-    <app-campaign-list-item
-      *ngFor="let campaign of campaigns; let i = index"
-      [campaign]="campaign"
-    ></app-campaign-list-item>
+      <tbody *ngIf="campaigns; else loading">
+      <app-campaign-list-item
+        *ngFor="let campaign of campaigns; let i = index"
+        [campaign]="campaign"
+      ></app-campaign-list-item>
 
-    <tr *ngIf="campaigns.length > 0"
-        class="dwmth-box
+      <tr *ngIf="campaigns.length > 0"
+          class="dwmth-box
                dwmth-posters-list__item
               row
               justify-between
@@ -26,18 +28,18 @@
               dwmth-copy
               dwmth-copy--semi">
 
-      <td
-        class="
+        <td
+          class="
                 dwmth-posters-list__status-totals-column
                 row
                 align-center"
-      ></td>
-      <td
-        class="
+        ></td>
+        <td
+          class="
                 col-xs-2
                 row
                 align-center"
-      >
+        >
               <span
                 class="
                   dwmth-copy
@@ -45,73 +47,74 @@
               >
                 Total - All Campaigns
               </span>
-      </td>
-      <td
-        class="
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-      ></td>
-      <td
-        class="
+        ></td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.cost | adsharesTokenValue:currencySymbol"
-      >
-        {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
-      </td>
-      <td
-        class="
+          [title]="campaignsTotals.cost | adsharesTokenValue:currencySymbol"
+        >
+          {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-      >
-        {{ campaignsTotals.clicks }}
-      </td>
-      <td
-        class="
+        >
+          {{ campaignsTotals.clicks }}
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-      >
-        {{ campaignsTotals.impressions }}
-      </td>
-      <td
-        class="
+        >
+          {{ campaignsTotals.impressions }}
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-      >
-        <span>{{ campaignsTotals.ctr | percent:'1.2-2' }}</span>
-      </td>
-      <td
-        class="
+        >
+          <span>{{ campaignsTotals.ctr | percent:'1.2-2' }}</span>
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol"
-      >
-        {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
-      </td>
-      <td
-        class="
+          [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol"
+        >
+          {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-        [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol"
-      >
-        {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
-      </td>
-      <td
-        class="
+          [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol"
+        >
+          {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
+        </td>
+        <td
+          class="
                 col-xs-1
                 row
                 align-center"
-      ></td>
-    </tr>
-    </tbody>
-  </table>
+        ></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <ng-template #loading>
     <div class="loading-wrapper">
