@@ -30,6 +30,7 @@ interface BannerClassificationStatus {
 interface BannerClassificationFilters {
   status?: BannerClassificationStatus;
   sizes?: Array<string>;
+  landingUrl?: string;
 }
 
 export {
