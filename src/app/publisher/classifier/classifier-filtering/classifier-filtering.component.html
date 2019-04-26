@@ -26,7 +26,6 @@
         All
       </mat-radio-button>
     </mat-radio-group>
-
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -47,6 +46,33 @@
                   (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
     </mat-checkbox>
   </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>
+          filter_list
+        </mat-icon>
+        Filter banners by landing url
+      </mat-panel-title>
+      <mat-panel-description>
+        <span class="classifier-filtering__chosen-value">
+          {{ landingUrl.value }}
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form (submit)="changeFilteringByLandingUrl()">
+      <label class="classifier-filtering__label"
+             for="landingUrl">
+        Landing url
+      </label>
+      <input id="landingUrl"
+             [formControl]="landingUrl"
+             type="text"
+             class="classifier-filtering__input"/>
+      <button type="submit"
+              class="classifier-filtering__btn">
+        Search
+      </button>
+    </form>
+  </mat-expansion-panel>
 </mat-accordion>
-
-
