@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.7] - 2019-04-26
+### Added
+- Classification banner filtering by landingUrl
+
 ## [0.6.6] - 2019-04-25
 ### Added
 - Values in custom currencies
@@ -74,12 +78,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adserver/compare/v0.6.6...develop
-[0.6.6]: https://github.com/adshares/adserver/compare/v0.6.4...v0.6.6
-[0.6.4]: https://github.com/adshares/adserver/compare/v0.6.1...v0.6.4
-[0.6.1]: https://github.com/adshares/adserver/compare/v0.6.0...v0.6.1
-[0.6.0]: https://github.com/adshares/adserver/compare/v0.5.4...v0.6.0
-[0.5.4]: https://github.com/adshares/adserver/compare/v0.5.3...v0.5.4
+[Unreleased]: https://github.com/adshares/adpanel/compare/v0.6.7...develop
+[0.6.7]: https://github.com/adshares/adpanel/compare/v0.6.6...v0.6.7
+[0.6.6]: https://github.com/adshares/adpanel/compare/v0.6.4...v0.6.6
+[0.6.4]: https://github.com/adshares/adpanel/compare/v0.6.1...v0.6.4
+[0.6.1]: https://github.com/adshares/adpanel/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/adshares/adpanel/compare/v0.5.4...v0.6.0
+[0.5.4]: https://github.com/adshares/adpanel/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/adshares/adpanel/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/adshares/adpanel/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/adshares/adpanel/compare/v0.5.0...v0.5.1
