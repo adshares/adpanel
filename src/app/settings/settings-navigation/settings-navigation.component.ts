@@ -7,6 +7,10 @@ import {
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
 import { HandleSubscription } from "common/handle-subscription";
+import {
+  CODE,
+  CRYPTO
+} from "common/utilities/consts";
 
 @Component({
   selector: 'app-settings-navigation',
@@ -14,6 +18,8 @@ import { HandleSubscription } from "common/handle-subscription";
   styleUrls: ['./settings-navigation.component.scss'],
 })
 export class SettingsNavigationComponent extends HandleSubscription {
+  crypto: string = CRYPTO;
+  code: string = CODE;
   wallet: UserAdserverWallet;
   totalFunds: number;
   user: LocalStorageUser;

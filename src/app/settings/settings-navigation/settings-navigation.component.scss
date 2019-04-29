@@ -23,10 +23,20 @@
 
   &__account-status {
     @include copy(
-      pal(white),
-      $font-size: 32,
+        pal(white),
+      $font-size: 26,
       $font-weight: bold,
-      $margin-vertical: 10px
-    )
+      $margin-vertical: 0px
+    );
+
+    &--in-currency {
+      @include copy(
+          pal(white),
+        $font-size: 20,
+        $font-weight: normal,
+        $margin-vertical: 10px
+      );
+      margin-bottom: 0;
+    }
   }
 }

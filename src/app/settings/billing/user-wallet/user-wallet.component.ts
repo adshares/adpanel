@@ -8,6 +8,7 @@ import { SessionService } from "app/session.service";
 import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
 import { UserAdserverWallet } from "models/user.model";
+import { CODE, CRYPTO } from "common/utilities/consts";
 
 @Component({
   selector: 'app-user-wallet',
@@ -17,6 +18,8 @@ import { UserAdserverWallet } from "models/user.model";
 export class UserWalletComponent extends HandleSubscription implements OnInit {
   faqLink = appSettings.FAQ_LINK;
   wallet: UserAdserverWallet;
+  crypto: string = CRYPTO;
+  code: string = CODE;
 
   constructor(
     private dialog: MatDialog,

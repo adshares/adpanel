@@ -16,6 +16,7 @@ import * as codes from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { GetBillingHistory } from "store/settings/settings.actions";
 import { environment } from "environments/environment";
+import { CODE, CRYPTO } from "common/utilities/consts";
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -23,6 +24,8 @@ import { environment } from "environments/environment";
   styleUrls: ['./withdraw-funds-dialog.component.scss']
 })
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
+  crypto: string = CRYPTO;
+  code: string = CODE;
   cryptoCode: string = environment.cryptoCode;
   withdrawFundsForm: FormGroup;
   adserverWallet: UserAdserverWallet;

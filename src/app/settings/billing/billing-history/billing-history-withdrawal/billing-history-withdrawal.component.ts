@@ -19,7 +19,7 @@ import { SettingsService } from "settings/settings.service";
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { CancelAwaitingTransaction } from "store/settings/settings.actions";
-import { DATE_AND_TIME_FORMAT } from "common/utilities/consts";
+import { CODE, CRYPTO, DATE_AND_TIME_FORMAT } from "common/utilities/consts";
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -28,6 +28,8 @@ import { DATE_AND_TIME_FORMAT } from "common/utilities/consts";
 })
 export class BillingHistoryWithdrawalComponent implements OnInit {
   @Input() billingHistoryItem;
+  crypto: string = CRYPTO;
+  code: string = CODE;
   link: string;
   status: string;
   type: string;

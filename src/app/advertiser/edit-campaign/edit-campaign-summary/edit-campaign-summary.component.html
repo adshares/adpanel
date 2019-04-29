@@ -117,7 +117,7 @@
             dwmth-copy--semi"
             data-test="advertiser-campaign-max-cpc"
           >
-            {{ campaign.basicInformation.maxCpc | adsharesTokenValue:'':4 }}
+            {{ campaign.basicInformation.maxCpc | formatMoney:2 }}
           </p>
         </div>
         <div>
@@ -134,7 +134,7 @@
             dwmth-copy--semi"
             data-test="advertiser-campaign-max-cpm"
           >
-            {{ campaign.basicInformation.maxCpm | adsharesTokenValue:'':4 }}
+            {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
           </p>
         </div>
         <div>
@@ -151,7 +151,7 @@
             dwmth-copy--semi"
             data-test="advertiser-campaign-budget"
           >
-            {{ campaign.basicInformation.budget | campaignBudgetPerDay | adsharesTokenValue}}
+            {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4}}
           </p>
         </div>
         <div>

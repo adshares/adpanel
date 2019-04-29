@@ -11,6 +11,7 @@ import { AppState } from "models/app-state.model";
 import { environment } from 'environments/environment';
 import { SetUser } from "store/auth/auth.actions";
 import { UserAdserverWallet } from "models/user.model";
+import { CODE, CRYPTO } from "common/utilities/consts";
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,8 @@ import { UserAdserverWallet } from "models/user.model";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
+  crypto: string = CRYPTO;
+  code: string = CODE;
   totalFunds: number;
   activeUserType: number;
   userRolesEnum = userRolesEnum;

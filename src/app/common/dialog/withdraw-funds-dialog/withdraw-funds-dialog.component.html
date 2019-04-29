@@ -81,7 +81,7 @@
             dwmth-heading--primary"
           data-test="user-total-funds"
         >
-          {{ adserverWallet.totalFunds | adsharesTokenValue}}
+          {{ adserverWallet.totalFunds | formatMoney:11:crypto:code}}
         </h1>
       </div>
 
@@ -170,7 +170,7 @@
             class="fee"
             data-test="common-withdraw-funds-form-fee"
           >
-            {{ calculatedFee | adsharesTokenValue }}
+            {{ calculatedFee | formatMoney }}
           </span>
         </p>
         <p>
@@ -179,7 +179,7 @@
             class="total-amount"
             data-test="common-withdraw-funds-form-total-withdraw-amount"
           >
-            {{ calculatedTotal | adsharesTokenValue }}
+            {{ calculatedTotal | formatMoney }}
           </span>
         </p>
         <p
@@ -189,7 +189,7 @@
           <span
             data-test="common-withdraw-funds-form-funds-left"
           >
-            {{ calculatedLeft | adsharesTokenValue }}
+            {{ calculatedLeft | formatMoney }}
           </span>
         </p>
       </div>
