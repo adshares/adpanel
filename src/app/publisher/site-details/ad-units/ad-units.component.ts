@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import {faCode} from '@fortawesome/free-solid-svg-icons';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
-import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-poster-units',
@@ -12,7 +11,6 @@ import { environment } from "environments/environment";
 export class AdUnitsComponent implements OnInit {
   @Input() adUnit;
   @Input() siteCode;
-  currencySymbol= environment.currencySymbol;
   tags: string[];
   codeIcon = faCode;
 
