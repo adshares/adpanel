@@ -1,143 +1,58 @@
-<section
-  class="
-    col
-    site-list"
->
-  <article class="site-list__scrollable-table">
-    <table class="site-list__table">
-      <app-table-navigation
-        [navigationName]="'siteListNavigation'"
-        class="
-          row
-          dwmth-box
-          dwmth-copy"
-        (sortTable)="sortTable($event)"
-      ></app-table-navigation>
-
-      <tbody *ngIf="(sites && sitesTotals); else loading">
-      <app-site-list-item
-        *ngFor="let site of sites"
-        [site]="site"
-      ></app-site-list-item>
-      <tr
-        class="
-            row
-            dwmth-box
-            align-center
-            justify-between
-            dwmth-copy
-            dwmth-copy--semi"
-      >
-        <td
-          class="
-                site-list__totals-status
-                row
-                align-center"
-        ></td>
-        <td
-          class="
-              col-xs-3
-              row
-              justify-start
-              align-center
-              dwmth-copy
-              dwmth-copy--bold"
-        >
-          Total - All Sites
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-          [title]="sitesTotals.revenue | formatMoney:4"
-        >
-          {{ sitesTotals.revenue | formatMoney:2 }}
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-        >
-          {{ sitesTotals.clicks }}
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-        >
-          {{ sitesTotals.impressions }}
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-        >
-          {{ sitesTotals.ctr | percent:'1.2-2' }}
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-          [title]="sitesTotals.averageRpm | formatMoney:4"
-        >
-          {{ sitesTotals.averageRpm | formatMoney:2 }}
-        </td>
-        <td
-          class="
-              col-xs-1
-              row
-              align-center"
-          [title]="sitesTotals.averageRpc | formatMoney:4"
-        >
-          {{ sitesTotals.averageRpc | formatMoney:2 }}
-        </td>
-        <td class="col-xs-1 row"></td>
-      </tr>
-      </tbody>
-    </table>
-  </article>
-
-
-  <ng-template #loading>
-    <div class="loading-wrapper">
-      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-    </div>
-  </ng-template>
-
-  <div
-    class="
-      dwmth-box
-      dwmth-box--no-margin
-      hidden-md"
-  >
-    <div
-      class="
-        row
-        justify-center"
-    >
-      <button
-        class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-btn--no-border
-          dwmth-blue"
-        (click)="navigateToCreateSite()"
-        data-test="publisher-create-new-site"
-      >
-        <img
-          class="
-            dwmth-icon
-            dwmth-icon--prepend"
-          src="assets/images/plus-circle--blue.svg"
-        >
-        Add new site
-      </button>
-    </div>
+<article class="site-list__scrollable-table">
+  <table class="site-list__table">
+    <app-table-navigation
+      [navigationName]="'siteListNavigation'"
+      class="site-list__table-header"
+      (sortTable)="sortTable($event)"
+    ></app-table-navigation>
+    <tbody *ngIf="(sites && sitesTotals); else loading">
+    <app-site-list-item
+      *ngFor="let site of sites"
+      [site]="site"
+    ></app-site-list-item>
+    <tr class="site-list__totals-row">
+      <td class="site-list__totals-status"></td>
+      <td class="col-xs-3 site-list__totals-title">
+        Total - All Sites
+      </td>
+      <td class="col-xs-1"
+          [title]="sitesTotals.revenue | formatMoney:4">
+        {{ sitesTotals.revenue | formatMoney:2 }}
+      </td>
+      <td class="col-xs-1">
+        {{ sitesTotals.clicks }}
+      </td>
+      <td class="col-xs-1">
+        {{ sitesTotals.impressions }}
+      </td>
+      <td class="col-xs-1">
+        {{ sitesTotals.ctr | percent:'1.2-2' }}
+      </td>
+      <td class="col-xs-1"
+          [title]="sitesTotals.averageRpm | formatMoney:4">
+        {{ sitesTotals.averageRpm | formatMoney:2 }}
+      </td>
+      <td class="col-xs-1"
+          [title]="sitesTotals.averageRpc | formatMoney:4">
+        {{ sitesTotals.averageRpc | formatMoney:2 }}
+      </td>
+      <td class="col-xs-1"></td>
+    </tr>
+    </tbody>
+  </table>
+</article>
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
   </div>
-</section>
-
+</ng-template>
+<div class="site-list__add-new-site-row">
+  <button class="site-list__add-btn"
+          (click)="navigateToCreateSite()"
+          data-test="publisher-create-new-site">
+    <img class="site-list__add-btn-icon"
+         alt=""
+         src="assets/images/plus-circle--blue.svg">
+    Add new site
+  </button>
+</div>
