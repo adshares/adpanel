@@ -18,9 +18,9 @@
       </td>
       <td class="col-xs-1 posters-list__empty-box"></td>
       <td class="col-xs-1"
-          [title]="campaignsTotals.cost | adsharesTokenValue:currencySymbol"
+          [title]="campaignsTotals.cost | formatMoney:4"
       >
-        {{ campaignsTotals.cost | adsharesTokenValue:currencySymbol:2}}
+        {{ campaignsTotals.cost | formatMoney:2}}
       </td>
       <td class="col-xs-1">
         {{ campaignsTotals.clicks }}
@@ -32,12 +32,12 @@
         {{ campaignsTotals.ctr | percent:'1.2-2' }}
       </td>
       <td class="col-xs-1"
-          [title]="campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol">
-        {{ campaignsTotals.averageCpm | adsharesTokenValue:currencySymbol:2 }}
+          [title]="campaignsTotals.averageCpm | formatMoney:4">
+        {{ campaignsTotals.averageCpm | formatMoney:2 }}
       </td>
       <td class="col-xs-1"
-          [title]="campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol">
-        {{ campaignsTotals.averageCpc | adsharesTokenValue:currencySymbol:2 }}
+          [title]="campaignsTotals.averageCpc | formatMoney:4">
+        {{ campaignsTotals.averageCpc | formatMoney:2 }}
       </td>
       <td class="col-xs-1"></td>
     </tr>

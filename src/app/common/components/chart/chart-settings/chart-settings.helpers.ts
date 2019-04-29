@@ -42,7 +42,7 @@ export const adjustTooltipValueFormat = (value: string): string => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `${type}: ${val > 0 ? formatMoney(val, 4) : 0} ${environment.currencyCode}`;
+      return `${type}: ${val > 0 ? formatMoney(val, 2) : 0} ${environment.currencyCode}`;
     default:
       return `${type}: ${value}`;
   }
@@ -61,7 +61,7 @@ export const adjustYAxesTics = (value) => {
     case  options.RPM:
     case  options.RPC:
       const val = parseInt(value);
-      return `${environment.currencySymbol}${val > 0 ? formatMoney(val,4) : 0}`;
+      return `${environment.currencySymbol}${val > 0 ? formatMoney(val,2) : 0}`;
     default:
       return `${value}`;
   }

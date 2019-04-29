@@ -23,7 +23,7 @@
       <h1 class="user-wallet__funds"
           data-test="user-total-funds"
       >
-        {{ wallet.walletBalance | adsharesTokenValue }}
+        {{ wallet.walletBalance | formatMoney:11:crypto:code }}
       </h1>
 
       <div class="user-wallet__funds-actions">
@@ -79,7 +79,8 @@
               data-test="bonus-funds"
       >
         {{ wallet.bonusBalance > 0 ?
-        (wallet.bonusBalance | adsharesTokenValue) : (wallet.bonusBalance | adsharesTokenValue:'':2) }}
+        (wallet.bonusBalance | formatMoney:11:crypto:code) :
+        (wallet.bonusBalance | formatMoney:2:crypto:code) }}
       </strong>
     </div>
   </div>

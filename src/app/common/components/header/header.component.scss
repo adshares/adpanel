@@ -34,6 +34,10 @@
     font-size: 14px;
     line-height: 1;
   }
+
+  &__money-in-currency {
+    @include font(12);
+  }
 }
 
 .dwmth-navigation {
@@ -75,8 +79,9 @@
 
 .dwmth-tokens {
   @include font(14, semi);
-  margin-bottom: 2px;
 }
+
+
 
 .dwmth-usd {
   @include font(9, semi);
