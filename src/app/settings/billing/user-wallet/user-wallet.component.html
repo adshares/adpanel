@@ -23,7 +23,8 @@
       <h1 class="user-wallet__funds"
           data-test="user-total-funds"
       >
-        {{ wallet.walletBalance | formatMoney:11:crypto:code }}
+        {{ wallet.walletBalance > 0 ? (wallet.walletBalance | formatMoney:11:crypto:code) :
+        (wallet.walletBalance | formatMoney:2:crypto:code) }}
       </h1>
 
       <div class="user-wallet__funds-actions">
@@ -71,8 +72,8 @@
         You can spend your bonus funds on advertising but you can't withdraw them.
       </p>
       <p
-         class="user-wallet__funds-in-currency"
-         data-test="bonus-funds-in-currency">
+        class="user-wallet__funds-in-currency"
+        data-test="bonus-funds-in-currency">
         {{ wallet.bonusBalance | calculateInCurrency:2 }}
       </p>
       <strong class="user-wallet__funds"
