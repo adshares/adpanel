@@ -28,7 +28,7 @@ export class AdsharesTokenPipe implements PipeTransform {
       code = format !== 'symbol' ? environment.currencySymbol : '';
     }
 
-    return `${symbol} ${formatMoney(removeDecimalPart(value), precision)} ${code}`;
+    return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;
   }
 }
 
