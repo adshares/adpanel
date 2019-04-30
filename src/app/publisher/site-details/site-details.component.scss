@@ -9,6 +9,19 @@
   &__classification {
     padding: 8px 0;
   }
+
+  &__table {
+    min-width: 1100px;
+  }
+
+  &__scrollable-table {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  .status-button-wrapper {
+    margin-right: 4px;
+  }
 }
 
 .back {

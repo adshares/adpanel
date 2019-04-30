@@ -18,7 +18,6 @@
   }
 
   &__table-header {
-    @include container($padding-vertical: 0);
     display: flex;
   }
 

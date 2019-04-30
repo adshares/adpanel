@@ -19,12 +19,12 @@
 ) {
   border-radius: 2px;
   background-color: $background-color;
-  border: $border-width solid $background-color;
+  border: $border-width solid $border-color;
   padding: $padding-vertical $padding-horizontal;
   margin-top: $margin-top;
   margin-bottom: $margin-bottom;
 
-  & + & {
+  & > & {
     border: none;
   }
 }

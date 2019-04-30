@@ -17,7 +17,10 @@ import {
   MatCheckboxModule,
   MatSnackBarModule,
   MatTooltipModule,
-  MatIconModule
+  MatIconModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatMenuModule
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -42,9 +45,9 @@ import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
 import {
-  AdsharesTokenPipe, CalculateInCurrency,
+  AdsharesTokenPipe,
+  CalculateInCurrency,
   ClickToADSPipe,
-
 } from './pipes/adshares-token.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
@@ -77,7 +80,10 @@ const matModules = [
   MatSnackBarModule,
   MatCheckboxModule,
   FontAwesomeModule,
-  MatIconModule
+  MatIconModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatMenuModule
 ];
 
 const dialogs = [

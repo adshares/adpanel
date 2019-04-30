@@ -126,4 +126,10 @@
     color: pal(navy, light);
     border: 1px solid pal(navy, light);
   }
+
+  &--bordered-light {
+    background-color: white;
+    color: pal(blue);
+    border-color: pal(blue);
+  }
 }
