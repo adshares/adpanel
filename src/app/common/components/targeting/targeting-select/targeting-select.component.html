@@ -4,19 +4,13 @@
     [(ngModel)]="searchTerm"
     (input)="onSearchTermChange()"
     title="Search for targeting option"
-    class="
-      dwmth-form-input
-      dwmth-form-input--full"
+    class="targeting-select__input"
     data-test="common-targeting-select-search-input"
   >
   <img
     src="/assets/images/search.svg"
     alt=""
-    class="
-      dwmth-icon--prepend
-      search-icon
-      absolute"
-  >
+    class="targeting-select__search-icon">
 </div>
 
 <button
@@ -24,59 +18,33 @@
   *ngIf="backAvailable"
   (click)="changeViewModel(parentViewModel)"
   role="button"
-  class="
-    dwmth-box
-    dwmth-box--no-margin
-    dwmth-box--light-border
-    parent-option-box"
-  data-test="common-targeting-select-navigate-to-parent-button"
->
+  class="targeting-select__option targeting-select__option--back"
+  data-test="common-targeting-select-navigate-to-parent-button">
   <img
-    class="dwmth-icon--prepend"
+    class="targeting-select__input-icon"
     src="/assets/images/chevron--left.svg"
-    alt="Go back"
-  >
-  <span
-    class="
-      dwmth-copy
-      parent-option"
-    data-test="common-targeting-select-parent-option"
-  >
+    alt="Go back">
+  <span class="targeting-select__parent-option"
+        data-test="common-targeting-select-parent-option">
     {{ parentOption.label }}
   </span>
 </button>
 
 <ul *ngFor="let option of viewModel">
-  <li class="dwmth-box--light-border
-             dwmth-box--no-top-border">
+  <li class="">
     <button
       *ngIf="!optionsHasValue && !option.allowInput"
       [tabindex]="0"
-      class="
-      dwmth-box
-      dwmth-box--no-margin
-      dwmth-box--no-border
-      option
-      relative"
+      class="targeting-select__option"
       (click)="handleOptionClick(option)"
-      data-test="common-targeting-select-option"
-    >
-    <span
-      class="
-        dwmth-copy
-        dwmth-copy--x-dark
-        dwmth-copy--semi"
-      data-test="common-targeting-select-option-label"
-    >
+      data-test="common-targeting-select-option">
       {{ option.label }}
-    </span>
-
       <img
-        class="go-to-category"
+        class="targeting-select__option-arrow"
         src="/assets/images/chevron--right.svg"
-        alt="Go to category"
-      >
+        alt="">
     </button>
+
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"
       [option]="option"
@@ -85,23 +53,9 @@
     <button
       *ngIf="optionsHasValue"
       [tabindex]="0"
-      class="
-      dwmth-box
-      dwmth-box--no-margin
-      dwmth-box--no-border
-      dwmth-box--no-top-border
-      option
-      relative"
-      (click)="toggleItem(option)"
-    >
-    <span
-      class="
-        dwmth-copy
-        dwmth-copy--x-dark
-        dwmth-copy--semi"
-    >
+      class="targeting-select__option"
+      (click)="toggleItem(option)">
       {{ option.label }}
-    </span>
       <span [ngClass]="{'input-valid': option.selected}"
             class="checkmark-unselected"
       ></span>

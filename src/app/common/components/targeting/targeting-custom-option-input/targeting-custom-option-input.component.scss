@@ -2,8 +2,15 @@
 
 .targeting-custom-option {
   &__form {
+    @include container(
+      $border-color: pal(gray, light),
+      $padding-vertical: 8px,
+      $padding-horizontal: 8px,
+      $margin-top: 0
+    );
+    border-top-color: transparent;
+    cursor: pointer;
     width: 100%;
-    padding: 8px;
 
     &--input-hidden {
       display: flex;
@@ -25,7 +32,6 @@
   }
 
   &__btn {
-    margin-top: 8px;
     border: none;
     background: transparent;
     display: flex;
