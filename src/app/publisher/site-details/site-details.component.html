@@ -46,8 +46,7 @@
       <button
         class="
             dwmth-btn
-            dwmth-btn--white
-            dwmth-copy--dark"
+            dwmth-btn--bordered-light"
         (click)="navigateToClassification()"
         data-test="publisher-site-navigate-to-classifier"
       >
@@ -115,18 +114,14 @@
             src="/assets/images/x-circle--dark.svg"
             alt=""
           >
-         Delete Site
+          Delete Site
 
         </button>
       </div>
     </div>
 
     <!-- chart-->
-    <div
-      class="
-          dwmth-box
-          hidden-md"
-    >
+    <div class="dwmth-box">
       <div class="row">
         <div class="col-xs-4">
           <a
@@ -159,8 +154,7 @@
       </div>
       <div
         class="
-          dwmth-box
-          hidden-md"
+          dwmth-box"
       >
         <div
           class="
@@ -206,8 +200,7 @@
         class="
            dwmth-btn
            dwmth-btn--edit
-           dwmth-btn--no-border
-           hidden-md"
+           dwmth-btn--no-border"
         (click)="navigateToEditSite('basic-information', 1)"
         data-test="publisher-site-edit-basic-info-button"
       >
@@ -228,8 +221,7 @@
           class="
            dwmth-btn
            dwmth-btn--edit
-           dwmth-btn--no-border
-           hidden-md"
+           dwmth-btn--no-border"
           (click)="navigateToEditSite('additional-filtering', 2)"
           data-test="publisher-site-edit-filtering-button"
         >
@@ -292,7 +284,7 @@
       </div>
 
       <section *ngIf="site.requireClassified || site.excludeUnclassified"
-            class="col-xs-12">
+               class="col-xs-12">
         <div class=" dwmth-box dwmth-copy ">
           <h1 class="dwmth-copy dwmth-copy--semi
                      site-details__classification">Classification</h1>
@@ -336,8 +328,7 @@
           class="
            dwmth-btn
            dwmth-btn--edit
-           dwmth-btn--no-border
-           hidden-md"
+           dwmth-btn--no-border"
           (click)="navigateToEditSite('create-ad-units', 3)"
           data-test="publisher-site-edit-ad-units-button"
         >
@@ -351,33 +342,28 @@
           Edit Ad Units
         </button>
       </div>
-
-      <table
-        class="
-              col
-              dwmth-posters-list"
-       >
-        <app-table-navigation
-          [navigationName]="'adUnitsNavigation'"
-          (sortTable)="sortTable($event)"
-
-          class="row
-                 dwmth-copy"
-        ></app-table-navigation>
-        <app-poster-units
-          *ngFor="let adUnit of site.adUnits"
-          [siteCode]="site.code"
-          [adUnit]="adUnit"
-        ></app-poster-units>
-      </table>
+      <div class="site-details__scrollable-table">
+        <table class="site-details__table">
+          <app-table-navigation
+            [navigationName]="'adUnitsNavigation'"
+            (sortTable)="sortTable($event)"
+            class="row
+                   dwmth-copy"
+          ></app-table-navigation>
+          <app-poster-units
+            *ngFor="let adUnit of site.adUnits"
+            [siteCode]="site.code"
+            [adUnit]="adUnit"
+          ></app-poster-units>
+        </table>
+      </div>
     </div>
 
     <div
       class="
         dwmth-box
         row
-        justify-center
-        hidden-md"
+        justify-center"
     >
       <button
         class="

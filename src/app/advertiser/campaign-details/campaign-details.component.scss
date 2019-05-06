@@ -19,6 +19,13 @@
   }
 }
 
+.campaign-details {
+  &__scrollable-table {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+}
+
 .campaign-details-statistics {
   margin-bottom: 15px;
 
@@ -72,4 +79,5 @@
 
 .btn-delete {
   margin-left: 10px;
+  margin-top: 2px;
 }
