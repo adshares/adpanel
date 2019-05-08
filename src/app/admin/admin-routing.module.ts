@@ -9,6 +9,7 @@ import { FinancesSettingsComponent } from "admin/finances/finances-settings.comp
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
+import { UserListComponent } from "admin/user-list/user-list.component";
 
 const adminRoutes: Routes = [
   {
@@ -17,6 +18,7 @@ const adminRoutes: Routes = [
     canActivate: [AdminGuard],
     children: [
       {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general'},
+      {path: 'users', pathMatch: 'full', component: UserListComponent},
       {
         path: 'dashboard',
         component: DashboardComponent,
