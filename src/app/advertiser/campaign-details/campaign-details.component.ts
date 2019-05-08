@@ -22,7 +22,6 @@ import {
   UpdateCampaignStatus,
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-campaign-details',
@@ -31,7 +30,6 @@ import { environment } from "environments/environment";
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  currencySymbol = environment.currencySymbol;
   campaign: Campaign;
   campaignStatusesEnum = campaignStatusesEnum;
   barChartValue: number;

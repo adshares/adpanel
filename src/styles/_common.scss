@@ -505,11 +505,11 @@ router-outlet ~ * {
 }
 
 .status-button-wrapper {
-  margin-right: 8px;
+  margin-top: 2px;
 
-  > * {
-    align-items: center;
+  > span {
     margin: 0 4px;
+    align-items: center;
     display: flex;
   }
 

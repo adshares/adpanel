@@ -1,7 +1,12 @@
 @import '../../../../styles';
 
 .poster-unit {
+  @include container;
+  display: flex;
+  justify-content: space-between;
+
   &__cell {
+    @include copy;
     margin: 0 0 0 0.5rem;
     padding: 0;
     display: flex;
@@ -22,11 +27,6 @@
     margin-left: 0.5rem;
   }
 
-  &__btn-icon {
-    font-size: 12px;
-    margin-right: 8px;
-  }
-
   &__thumbnail {
     width: 60px;
     height: auto;
@@ -44,5 +44,24 @@
 
   &__chip-box {
     margin: 5px 4px 5px 0 !important;
+  }
+
+  &__btn {
+    @include btn(
+      $color: pal(blue),
+      $background-color: pal(white),
+      $border-color: pal(white)
+    );
+    max-height: 46px;
+    text-align: left;
+
+    @include media(md-down) {
+      padding: 4px 12px;
+    }
+  }
+
+  &__btn-icon {
+    font-size: 12px;
+    margin-right: 10px;
   }
 }

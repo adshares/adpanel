@@ -8,7 +8,9 @@
   flex-wrap: wrap;
 
   &__wallet-box {
-    @include container(20px, 20px);
+    @include container(20px, 20px,
+    $border-color: pal(gray, nearly-white)
+    );
     min-width: 450px;
     flex: 1;
     &--with-margin {
@@ -38,7 +40,7 @@
   }
 
   &__content-container {
-    @include container(0, 0);
+    @include container(0, 0, $border-color: pal(white));
     display: flex;
     flex-direction: column;
   }

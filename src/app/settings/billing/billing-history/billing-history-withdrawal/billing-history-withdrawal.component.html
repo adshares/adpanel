@@ -34,7 +34,7 @@
   </td>
   <td class="col-xs-2 billing-table-row__amount"
       data-test="settings-billing-history-item-amount">
-    {{ billingHistoryItem.amount | adsharesTokenValue }}
+    {{ billingHistoryItem.amount | formatMoney:11:crypto:code }}
   </td>
   <td class="col-xs-2">
     <img

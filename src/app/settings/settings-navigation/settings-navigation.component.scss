@@ -2,7 +2,7 @@
 
 .settings-navigation {
   height: 100%;
-  width: 200px;
+  width: 260px;
   padding: 20px 40px;
   background-color: pal(white);
   transition: width 0.5s ease-in;
@@ -23,10 +23,20 @@
 
   &__account-status {
     @include copy(
-      pal(white),
-      $font-size: 32,
+        pal(white),
+      $font-size: 26,
       $font-weight: bold,
-      $margin-vertical: 10px
-    )
+      $margin-vertical: 0px
+    );
+
+    &--in-currency {
+      @include copy(
+          pal(white),
+        $font-size: 20,
+        $font-weight: normal,
+        $margin-vertical: 10px
+      );
+      margin-bottom: 0;
+    }
   }
 }

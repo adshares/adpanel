@@ -1,9 +1,13 @@
 .dwmth-posters-list {
+  overflow: hidden;
+  overflow-x: auto;
+
   &__sort {
     margin-left: 5px;
   }
 
-  &__items {
+  &__table {
     width: 100%;
+    min-width: 1100px;
   }
 }

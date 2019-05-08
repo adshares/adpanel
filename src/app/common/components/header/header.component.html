@@ -140,7 +140,13 @@
           class="dwmth-tokens"
           data-test="user-total-funds"
         >
-          {{ totalFunds | adsharesTokenValue:'':2 }}
+          {{ totalFunds | formatMoney:2:crypto:code }}
+        </span>
+        <span
+          class="dwmth-header__money-in-currency"
+          data-test="user-total-funds"
+        >
+          {{ totalFunds | calculateInCurrency:2 }}
         </span>
         <span
           class="dwmth-usd"

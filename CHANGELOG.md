@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - User impersonation by server admin
 
+## [0.7.0] - 2019-04-29
+### Added
+- Presentation and formatting of currency values
+### Improved
+- Responsive design of the panel
+
 ## [0.6.7] - 2019-04-26
 ### Added
 - Classification banner filtering by landingUrl
@@ -79,7 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v0.6.7...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v0.7.0...develop
+[0.7.0]: https://github.com/adshares/adpanel/compare/v0.6.7...v0.7.0
 [0.6.7]: https://github.com/adshares/adpanel/compare/v0.6.6...v0.6.7
 [0.6.6]: https://github.com/adshares/adpanel/compare/v0.6.4...v0.6.6
 [0.6.4]: https://github.com/adshares/adpanel/compare/v0.6.1...v0.6.4

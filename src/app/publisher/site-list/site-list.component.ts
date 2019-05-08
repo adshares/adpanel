@@ -4,7 +4,6 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
 import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
-import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-site-list',
@@ -14,7 +13,6 @@ import { environment } from "environments/environment";
 export class SiteListComponent extends HandleSubscription {
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
-  currencySymbol = environment.currencySymbol;
 
   constructor(
     private router: Router,
