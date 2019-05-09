@@ -23,12 +23,10 @@ interface NotificationItem {
 }
 
 interface UserInfoStats {
-  id: number;
+  uuid: string;
   email: string;
   isAdvertiser: boolean;
   isPublisher: boolean;
-  profit: number;
-  topKeywords: string[];
 }
 
 interface AdminSettings {

@@ -17,7 +17,7 @@ export class AdminService {
   }
 
   getUsers(): Observable<UserInfoStats[]> {
-    return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`);
+    return this.http.get<UserInfoStats[]>(`${environment.serverUrl}/admin/users`);
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {

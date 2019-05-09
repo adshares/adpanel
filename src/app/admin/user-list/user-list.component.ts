@@ -36,7 +36,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       });
     this.subscriptions.push(usersSubscription);
 
-    this.store.dispatch(new adminActions.LoadUsers(''));
+    this.store.dispatch(new adminActions.LoadUsers(this.users));
   }
 
   filterUsersByType(type, resetSearch = false) {
