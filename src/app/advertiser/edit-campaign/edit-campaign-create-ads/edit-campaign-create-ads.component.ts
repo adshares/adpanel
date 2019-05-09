@@ -171,6 +171,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
 
+    event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
     this.adjustBannerName(form);
 
     if (isUploadedTypeValid && isImageSizeValid) {
