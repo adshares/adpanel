@@ -1,9 +1,5 @@
 .container {
-  padding: 0 15px;
-
-  @include media(sm-up) {
-    padding: 0 30px;
-  }
+  padding: 0 16px;
 
   @include media(md-up) {
     padding: 0 60px;
@@ -22,7 +18,6 @@
     padding: 0 10%;
   }
 }
-
 
 .container-fluid,
 .container {

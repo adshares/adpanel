@@ -16,8 +16,14 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(): Observable<UserInfoStats[]> {
-    return this.http.get<UserInfoStats[]>(`${environment.apiUrl}/users`);
+  getUsers(nextPage?: string): Observable<UserInfoStats[]> {
+    const url = (nextPage && nextPage.replace('http', 'https')) ||
+      `${environment.serverUrl}/admin/users`;
+    return this.http.get<UserInfoStats[]>(url);
+  }
+
+  impersonateUser(id: number): Observable<string> {
+    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {

@@ -5,7 +5,8 @@ const initialState = {
   activeUserType: 1,
   adsharesAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState,
-  notifications: []
+  notifications: [],
+  impersonationToken: null
 };
 
 export function commonReducers(state = initialState, action: commonActions.actions) {

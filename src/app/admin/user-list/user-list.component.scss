@@ -12,6 +12,21 @@
       margin: 10px 0;
     }
   }
+  &__items {
+    position: relative;
+    height: calc((54px * 15) + 40px);
+  }
+
+  &__loader-container {
+    height: calc(54px * 15);
+    display: flex;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 40px;
+  }
 }
 
 .choose-user-type {

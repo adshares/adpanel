@@ -61,7 +61,6 @@
     //full input width accounts for input's padding
     &--full {
       max-width: none;
-      width: calc(100% - 33px);
     }
 
     &--datepicker {
