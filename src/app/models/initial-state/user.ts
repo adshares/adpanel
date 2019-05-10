@@ -17,4 +17,5 @@ export const userInitialState: User = {
     walletBalance: 0,
   },
   exchangeRate: null,
+  impersonationToken: null,
 };

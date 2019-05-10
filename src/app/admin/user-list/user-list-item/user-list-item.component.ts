@@ -1,6 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { UserInfoStats } from 'models/settings.model';
+import { AdminService } from "admin/admin.service";
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
+import { ImpersonateUser } from "store/auth/auth.actions";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-user-list-item',
@@ -10,7 +15,20 @@ import { UserInfoStats } from 'models/settings.model';
 export class UserListItemComponent {
   @Input() userInfoStats: UserInfoStats;
 
+  constructor(
+    private adminService: AdminService,
+    private store: Store<AppState>,
+    private router: Router,
+  ) {
+  }
+
   handleImpersonating() {
-   // impersonating happens
+    this.adminService.impersonateUser(this.userInfoStats.id).subscribe(
+      (token) => {
+        this.store.dispatch(new ImpersonateUser(token))
+        this.router.navigate([`/${'publisher'.toLowerCase()}`, 'dashboard'])
+
+      }
+    )
   }
 }

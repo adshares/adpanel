@@ -6,7 +6,7 @@
   justify-content: space-between;
 
   &__cell {
-    @include copy($font-size: 24);
+    @include copy($font-size: 16);
     display: flex;
     align-items: center;
 
@@ -14,7 +14,7 @@
       @include copy(
         $color: pal(navy, base),
         $font-weight: semi,
-        $font-size: 24
+        $font-size: 16
       );
     }
   }
@@ -23,7 +23,9 @@
     @include btn(
       $border-color: pal(navy, light),
       $color: pal(navy, light),
-      $background-color: pal(white)
+      $background-color: pal(white),
+      $padding-horizontal: 12px,
+      $padding-vertical: 8px
     );
   }
 }

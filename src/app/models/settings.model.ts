@@ -23,6 +23,7 @@ interface NotificationItem {
 }
 
 interface UserInfoStats {
+  id: number;
   uuid: string;
   email: string;
   isAdvertiser: boolean;

@@ -1,6 +1,6 @@
 import * as authActions from './auth.actions';
-import {userInitialState} from 'models/initial-state/user.js';
-import { GET_CURRENT_BALANCE_SUCCESS, actions  } from "store/settings/settings.actions";
+import { userInitialState } from 'models/initial-state/user.js';
+import { GET_CURRENT_BALANCE_SUCCESS, actions } from "store/settings/settings.actions";
 
 const initialState = userInitialState;
 
@@ -32,9 +32,20 @@ export function authReducers(state = initialState, action: authActions.actions |
         exchangeRate: action.payload.exchangeRate,
         adserverWallet: action.payload.adserverWallet
       };
+
     case authActions.USER_LOG_OUT_SUCCESS:
     case authActions.USER_LOG_IN_SUCCESS:
       return initialState;
+    case authActions.IMPERSONATE_USER:
+      return {
+        ...state,
+        impersonationToken: action.payload
+      };
+    case authActions.DROP_IMPERSONATION_TOKEN:
+      return {
+        ...state,
+        impersonationToken: ''
+      };
     default:
       return state;
   }
