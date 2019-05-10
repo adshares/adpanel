@@ -40,7 +40,7 @@
   }
 
   &__content-container {
-    @include container(0, 0);
+    @include container(0, 0, $border-color: pal(white));
     display: flex;
     flex-direction: column;
   }

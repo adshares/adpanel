@@ -10,7 +10,8 @@ import {
   MatInputModule,
   MatSliderModule,
   MatCheckboxModule,
-  MatDividerModule
+  MatDividerModule,
+  MatPaginatorModule
 } from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -44,7 +45,8 @@ import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blo
     MatSliderModule,
     SettingsModule,
     MatCheckboxModule,
-    MatDividerModule
+    MatDividerModule,
+    MatPaginatorModule
   ],
   providers: [
     AdminGuard,

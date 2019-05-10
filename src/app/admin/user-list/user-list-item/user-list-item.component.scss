@@ -1,9 +1,31 @@
 @import '../../../../styles.scss';
 
-.positive {
-  color: pal(green);
-}
+.user-list-item {
+  @include container($border-color: pal(gray, nearly-white));
+  display: flex;
+  justify-content: space-between;
 
-.negative {
-  color: pal(red);
+  &__cell {
+    @include copy($font-size: 16);
+    display: flex;
+    align-items: center;
+
+    &--bold {
+      @include copy(
+        $color: pal(navy, base),
+        $font-weight: semi,
+        $font-size: 16
+      );
+    }
+  }
+
+  &__btn {
+    @include btn(
+      $border-color: pal(navy, light),
+      $color: pal(navy, light),
+      $background-color: pal(white),
+      $padding-horizontal: 12px,
+      $padding-vertical: 8px
+    );
+  }
 }

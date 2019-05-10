@@ -20,6 +20,7 @@ interface User {
   isEmailConfirmed: boolean;
   password: string;
   apiToken?: string;
+  impersonationToken?: string | null;
   adserverWallet: UserAdserverWallet;
   exchangeRate: ExchangeRate | null;
   uuid: string;

@@ -1,10 +1,9 @@
 @import "../../../../styles";
 
 .table-nav {
-  @include container();
+  @include container($border-color: pal(gray, nearly-white));
   display: flex;
   justify-content: space-between;
-  margin: 0;
   width: 100%;
 
   &__row {

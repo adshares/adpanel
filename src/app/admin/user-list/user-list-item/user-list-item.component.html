@@ -1,65 +1,21 @@
-<div class="dwmth-box">
-  <div class="user-item">
-    <div
-      class="
-        row
-        align-center
-        dwmth-copy
-        dwmth-copy--semi"
+<tr class="user-list-item">
+  <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
+    {{ userInfoStats.email }}
+  </td>
+  <td class="col-xs-2 user-list-item__cell"
+      [title]="userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Advertiser and Publisher' : ''">
+    {{
+    userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Adv / Pub' :
+    userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' : 'Publisher'
+    }}
+  </td>
+
+  <td class="col-xs-2 user-list-item__cell">
+    <button
+      class="user-list-item__btn"
+      (click)="handleImpersonating()"
     >
-      <div
-        class="
-          col-xs-4
-          row
-          align-center"
-      >
-        <div
-          class="
-            dwmth-heading
-            dwmth-heading--secondary"
-        >
-          {{ userInfoStats.email }}
-        </div>
-      </div>
-      <div
-        class="
-          col-xs-2
-          row
-          align-center
-          dwmth-copy
-          dwmth-copy--large"
-      >
-        {{
-          userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Both' :
-          userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' : 'Publisher'
-        }}
-      </div>
-      <div
-        class="
-          col-xs-2
-          row
-          align-center
-          dwmth-heading
-          dwmth-heading--secondary"
-        [ngClass]="{'positive': userInfoStats.profit > 0, 'negative': userInfoStats.profit < 0 }"
-      >
-        {{ userInfoStats.profit | currency:'USD':true  }}
-      </div>
-      <div
-        class="
-          col-xs-4
-          row
-          align-center"
-      >
-        <div
-          class="
-            dwmth-chip-box
-            dwmth-chip-box--dark"
-          *ngFor="let keyword of userInfoStats.topKeywords"
-        >
-          {{ keyword }}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      Impersonate
+    </button>
+  </td>
+</tr>
