@@ -1,3 +1,20 @@
+<div *ngIf="!!user.impersonationToken"
+     class="dwmth-box row align-center justify-between dwmth-copy">
+  <div class="row dwmth-copy--large dwmth-copy--red">
+    <mat-icon> info</mat-icon>
+    <div class="col">
+      <strong>This is impersonation mode </strong>
+      <p class="dwmth-copy--small dwmth-copy--x-dark text-center">You are impersonating user
+        <span class="dwmth-copy--semi"> {{user.email}} </span>
+      </p>
+    </div>
+  </div>
+  <button class="dwmth-copy--dark dwmth-btn dwmth-btn--bordered"
+          (click)="dropImpersonation()">
+    Drop impersonation mode
+  </button>
+</div>
+
 <section
   class="
     dwmth-header
@@ -37,7 +54,7 @@
     </a>
     <button
       type="button"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN || user.impersonationToken !== null"
       class="dwmth-btn--no-border
                row
                align-center
@@ -59,7 +76,7 @@
     </button>
     <button
       type="button"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="activeUserType !== userRolesEnum.ADMIN || user.impersonationToken !== null"
       class="dwmth-btn--no-border
                row
                align-center

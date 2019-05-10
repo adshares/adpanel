@@ -60,6 +60,7 @@ interface CommonState {
   adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
   notifications: Notification[];
+  impersonationToken: string;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState };

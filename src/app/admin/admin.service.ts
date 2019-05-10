@@ -22,6 +22,10 @@ export class AdminService {
     return this.http.get<UserInfoStats[]>(url);
   }
 
+  impersonateUser(id: number): Observable<string> {
+    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
+  }
+
   getAdminSettings(): Observable<AdminSettingsResponse> {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }

@@ -102,23 +102,26 @@
         [navigationName]="'userListNavigation'"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
-    <tbody *ngIf="!!users && users.data.length; else loading"
-           class="col">
+    <tbody *ngIf="!isLoading; else loading"
+           [@fadeIn]
+           class="col user-list__table-body">
       <app-user-list-item
         *ngFor="let user of filteredUsers"
         [userInfoStats]="user"
       ></app-user-list-item>
     </tbody>
+    <ng-template #loading>
+      <div class="loading-wrapper user-list__loader-container"
+           [@fadeIn]>
+        <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+      </div>
+    </ng-template>
   </table>
+
   <mat-paginator
     [length]="users ? users.total : 0"
-    [pageSize]=""
+    [pageSize]="15"
     (page)="handlePaginationEvent($event)"
   >
   </mat-paginator>
-  <ng-template #loading>
-    <div class="loading-wrapper dwmth-box">
-      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-    </div>
-  </ng-template>
 </section>

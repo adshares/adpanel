@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -9,8 +9,8 @@ import { SessionService } from "app/session.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
 import { environment } from 'environments/environment';
-import { SetUser } from "store/auth/auth.actions";
-import { UserAdserverWallet } from "models/user.model";
+import { DropImpersonationToken, ImpersonateUser, SetUser } from "store/auth/auth.actions";
+import { User, UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
 
 @Component({
@@ -28,8 +28,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   notificationsBarOpen = false;
   notificationsTotal: number;
   envContext: string | null = environment.context;
+  user: User;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
     public auth: AuthService,
@@ -44,11 +46,16 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     let accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType === 'admin' ? userRolesEnum.ADMIN : (accountType === 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();
-    const userDataStateSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
-      .subscribe((wallet: UserAdserverWallet) => {
-        this.totalFunds = wallet.totalFunds
+    const userDataStateSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((data) => {
+        this.totalFunds = data.adserverWallet.totalFunds;
+        this.user = data;
       });
     this.subscriptions.push(userDataStateSubscription);
+    const impersonationToken = this.session.getImpersonationToken();
+    if (impersonationToken) {
+      this.store.dispatch(new ImpersonateUser(impersonationToken))
+    }
   }
 
   navigateToCreateNewAsset() {
@@ -79,7 +86,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.auth.logout();
   }
 
-  toggleNotificationsBar() {
-    this.notificationsBarOpen = !this.notificationsBarOpen;
+  dropImpersonation() {
+    this.router.navigate(['/', 'admin', 'dashboard', 'users']);
+    this.session.dropImpersonationToken();
+    this.store.dispatch(new DropImpersonationToken())
   }
 }
