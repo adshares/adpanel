@@ -29,6 +29,21 @@ interface UserInfoStats {
   isPublisher: boolean;
 }
 
+interface Users {
+  data: UserInfoStats[],
+  currentPage: number,
+  firstPageUrl: string,
+  from: number,
+  lastPage: number,
+  lastPageUrl: string,
+  nextPageUrl: string,
+  path: string,
+  perPage: number,
+  prevPageUrl: string | null,
+  to: number,
+  total: number,
+}
+
 interface AdminSettings {
   adserverName: string;
   coldWalletAddress: string;
@@ -81,6 +96,7 @@ export {
   BillingHistoryItem,
   BillingHistory,
   NotificationItem,
+  Users,
   UserInfoStats,
   AdminSettings,
   AdsharesAddress,

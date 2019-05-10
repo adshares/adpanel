@@ -41,7 +41,7 @@ export const GET_LICENSE_FAILURE = 'Get license failure';
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
 
-  constructor(public payload: any) {
+  constructor(public payload?: string) {
   }
 }
 

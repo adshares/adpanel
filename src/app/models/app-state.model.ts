@@ -6,7 +6,7 @@ import {
   License,
   NotificationItem,
   TermsAndPrivacy,
-  UserInfoStats,
+  Users,
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
@@ -48,7 +48,7 @@ interface UserState {
 }
 
 interface AdminState {
-  users: UserInfoStats[];
+  users: Users;
   settings: AdminSettings;
   termsAndPrivacy: TermsAndPrivacy;
   license: License | null;

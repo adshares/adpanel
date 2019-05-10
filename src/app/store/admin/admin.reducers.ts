@@ -11,7 +11,7 @@ import {
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
-  users: [],
+  users: null,
   settings: {
     adserverName: '',
     coldWalletAddress: '',
@@ -36,7 +36,7 @@ export function adminReducers(state = initialState, action: actions) {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        ...action.payload
+       users: action.payload
       };
     case GET_LICENSE_SUCCESS:
       if (action.payload.status !== 1) {

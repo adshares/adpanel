@@ -18,7 +18,6 @@ const adminRoutes: Routes = [
     canActivate: [AdminGuard],
     children: [
       {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general'},
-      {path: 'users', pathMatch: 'full', component: UserListComponent},
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -48,6 +47,7 @@ const adminRoutes: Routes = [
             path: 'privacy',
             component: PrivacyAndTermsSettingsComponent,
           },
+          {path: 'users', component: UserListComponent},
         ]
       },
     ]

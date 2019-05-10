@@ -1,5 +1,6 @@
 <section
   class="
+  container
     col
     user-list"
 >
@@ -21,7 +22,6 @@
           dwmth-heading--primary"
       >
         Users
-        <span data-test="admin-user-list-user-count">({{ userCount }})</span>
       </h1>
     </div>
     <div
@@ -29,32 +29,32 @@
         col-xs-12
         col-md-5"
     >
-      <div
-        class="
-          row
-          align-center"
-      >
-        <label
-          for="search"
-          class="
-            dwmth-copy
-            dwmth-copy--large
-            search-label"
-        >
-          Search users
-        </label>
-        <input
-          id="search"
-          class="
-            search
-            dwmth-form-input"
-          placeholder="Search by email"
-          matInput
-          [(ngModel)]="userSearch"
-          (ngModelChange)="onSearchChange()"
-          data-test="admin-user-search-input"
-        >
-      </div>
+      <!--<div-->
+        <!--class="-->
+          <!--row-->
+          <!--align-center"-->
+      <!--&gt;-->
+        <!--<label-->
+          <!--for="search"-->
+          <!--class="-->
+            <!--dwmth-copy-->
+            <!--dwmth-copy&#45;&#45;large-->
+            <!--search-label"-->
+        <!--&gt;-->
+          <!--Search users-->
+        <!--</label>-->
+        <!--<input-->
+          <!--id="search"-->
+          <!--class="-->
+            <!--search-->
+            <!--dwmth-form-input"-->
+          <!--placeholder="Search by email"-->
+          <!--matInput-->
+          <!--[(ngModel)]="userSearch"-->
+          <!--(ngModelChange)="onSearchChange()"-->
+          <!--data-test="admin-user-search-input"-->
+        <!--&gt;-->
+      <!--</div>-->
     </div>
     <div
       class="
@@ -97,25 +97,27 @@
     </div>
   </div>
 
-  <div class="user-list__items">
-    <div class="dwmth-box">
+  <table class="user-list__items">
       <app-table-navigation
         [navigationName]="'userListNavigation'"
-        class="
-          row
-          dwmth-copy"
         (sortTable)="sortTable($event)"
       ></app-table-navigation>
-    </div>
-
-    <app-user-list-item
-      *ngFor="let user of filteredUsers"
-      [userInfoStats]="user"
-    ></app-user-list-item>
-  </div>
-
+    <tbody *ngIf="!!users && users.data.length; else loading"
+           class="col">
+      <app-user-list-item
+        *ngFor="let user of filteredUsers"
+        [userInfoStats]="user"
+      ></app-user-list-item>
+    </tbody>
+  </table>
+  <mat-paginator
+    [length]="users ? users.total : 0"
+    [pageSize]=""
+    (page)="handlePaginationEvent($event)"
+  >
+  </mat-paginator>
   <ng-template #loading>
-    <div class="loading-wrapper">
+    <div class="loading-wrapper dwmth-box">
       <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
     </div>
   </ng-template>

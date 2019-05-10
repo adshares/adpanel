@@ -51,10 +51,9 @@ export class TableNavigationComponent implements OnInit {
     ];
 
   userListNavigationItems = [
-    {title: '', columnWidth: 'col-xs-4'},
-    {title: '', columnWidth: 'col-xs-2'},
-    {title: 'Profit', columnWidth: 'col-xs-2', keys: ['profit'], sortAsc: true},
-    {title: 'Top used keywords', columnWidth: 'col-xs-4'}
+    {title: 'email', columnWidth: 'col-xs-4'},
+    {title: 'role', columnWidth: 'col-xs-2'},
+    {title: 'Impersonate', columnWidth: 'col-xs-2'}
   ];
 
   adUnitsNavigation = [
