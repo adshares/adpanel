@@ -185,8 +185,8 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
 function downloadCSVFile(data, from, to) {
   const formattedFrom = moment(from).format(DATE_FORMAT);
   const formattedTo = moment(to).format(DATE_FORMAT);
-  const fileName = `report_${formattedFrom}_${formattedTo}.csv`;
-  const blob = new Blob([data], {type: 'text/csv;charset=utf-8'});
+  const fileName = `report_${formattedFrom}_${formattedTo}.xlsx`;
+  const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
   const link = document.createElement('a');
   link.setAttribute("download", fileName);
   link.setAttribute("href", URL.createObjectURL(blob));
