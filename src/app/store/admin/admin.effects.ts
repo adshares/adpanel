@@ -35,6 +35,7 @@ import { AdminService } from 'admin/admin.service';
 import { Observable } from "rxjs";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
 import { HTTP_NOT_FOUND } from "common/utilities/codes";
+import "rxjs/add/operator/debounceTime";
 
 @Injectable()
 export class AdminEffects {
@@ -48,7 +49,9 @@ export class AdminEffects {
   @Effect()
   loadUsers$ = this.actions$
     .ofType(LOAD_USERS)
-    .switchMap(() => this.service.getUsers()
+    .debounceTime(100)
+    .map(toPayload)
+    .switchMap((nextPage) => this.service.getUsers(nextPage)
       .map((users) => new LoadUsersSuccess(users))
       .catch((err) => Observable.of(new LoadUsersFailure(err)))
     );

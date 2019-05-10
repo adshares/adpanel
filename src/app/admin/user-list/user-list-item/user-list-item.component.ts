@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { UserInfoStats } from 'models/settings.model';
 
@@ -9,4 +9,8 @@ import { UserInfoStats } from 'models/settings.model';
 })
 export class UserListItemComponent {
   @Input() userInfoStats: UserInfoStats;
+
+  handleImpersonating() {
+   // impersonating happens
+  }
 }

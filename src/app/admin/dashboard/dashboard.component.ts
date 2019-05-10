@@ -60,6 +60,14 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
       ],
     },
+    {
+      title: 'Users',
+      description: '',
+      link: '/admin/dashboard/users',
+      values: [
+        {name: 'Users List', icon: 'assets/images/user-gray.svg'},
+      ],
+    },
   ];
 
   constructor(private store: Store<AppState>) {
