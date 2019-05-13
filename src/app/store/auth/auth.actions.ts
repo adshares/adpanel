@@ -12,22 +12,6 @@ export const UPDATE_USER_AUTOMATIC_WITHDRAW_AMOUNT = 'User Automatic Withdraw am
 
 export const USER_LOG_OUT_SUCCESS = 'User logged out success';
 export const USER_LOG_IN_SUCCESS = 'User logged in success';
-export const IMPERSONATE_USER = 'User impersonation success';
-export const DROP_IMPERSONATION_TOKEN = 'Drop user impersonation token success';
-
-export class ImpersonateUser implements Action {
-  readonly type = IMPERSONATE_USER;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class DropImpersonationToken implements Action {
-  readonly type = DROP_IMPERSONATION_TOKEN;
-
-  constructor(public payload?: any) {
-  }
-}
 
 export class SetUser implements Action {
   readonly type = SET_USER;
@@ -87,8 +71,6 @@ export class UserLogInSuccess implements Action {
 
 
 export type actions = SetUser
-  | DropImpersonationToken
-  | ImpersonateUser
   | SetUserSuccess
   | SetUserFailure
   | UpdateUserAddress

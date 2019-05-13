@@ -1,24 +1,19 @@
 import {Injectable} from '@angular/core';
 
 import {Notification} from 'models/notification.model';
-import { LocalStorageUser, User } from 'models/user.model';
-import {AppState} from "models/app-state.model";
-import {Store} from "@ngrx/store";
-import { tokenName } from "@angular/compiler";
+import { LocalStorageUser } from 'models/user.model';
+import { ImpersonationService } from "./impersonation/impersonation.service";
 
 @Injectable()
 export class SessionService {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private impersonationService: ImpersonationService) {}
 
   drop() {
     localStorage.removeItem('adsharesAddress');
     localStorage.removeItem('notifications');
     localStorage.removeItem('user');
-  }
-
-  dropImpersonationToken() {
-    localStorage.removeItem('impersonationItem')
+    this.impersonationService.dropImpersonationToken();
   }
 
   getAccountTypeChoice(): string {
@@ -74,13 +69,5 @@ export class SessionService {
 
   setUser(user: LocalStorageUser) {
     localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  setImpersonationToken(token: string) {
-    localStorage.setItem('impersonationToken', token);
-  }
-
-  getImpersonationToken(): string {
-    return localStorage.getItem('impersonationToken');
   }
 }

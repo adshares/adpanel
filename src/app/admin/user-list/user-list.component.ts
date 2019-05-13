@@ -57,6 +57,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   }
 
   filterUsersByType(type, resetSearch = false) {
+
     this.selectedType = type;
 
     if (resetSearch) {

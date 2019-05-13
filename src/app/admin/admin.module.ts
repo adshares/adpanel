@@ -11,7 +11,8 @@ import {
   MatSliderModule,
   MatCheckboxModule,
   MatDividerModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatExpansionModule
 } from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -31,6 +32,7 @@ import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
 import { LicenseComponent } from "admin/general-settings/license/license.component";
 import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blockade.component";
+import { ImpersonationService } from "../impersonation/impersonation.service";
 
 @NgModule({
   imports: [
@@ -46,11 +48,14 @@ import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blo
     SettingsModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatExpansionModule,
+    MatCheckboxModule,
   ],
   providers: [
     AdminGuard,
-    ClickToADSPipe
+    ClickToADSPipe,
+    ImpersonationService
   ],
   declarations: [
     AdminComponent,

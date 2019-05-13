@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
@@ -9,8 +9,8 @@ import { SessionService } from "app/session.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
 import { environment } from 'environments/environment';
-import { DropImpersonationToken, ImpersonateUser, SetUser } from "store/auth/auth.actions";
-import { User, UserAdserverWallet } from "models/user.model";
+import { SetUser } from "store/auth/auth.actions";
+import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
 
 @Component({
@@ -25,13 +25,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   activeUserType: number;
   userRolesEnum = userRolesEnum;
   settingsMenuOpen = false;
-  notificationsBarOpen = false;
   notificationsTotal: number;
   envContext: string | null = environment.context;
-  user: User;
+  user;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
     public auth: AuthService,
@@ -52,10 +50,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         this.user = data;
       });
     this.subscriptions.push(userDataStateSubscription);
-    const impersonationToken = this.session.getImpersonationToken();
-    if (impersonationToken) {
-      this.store.dispatch(new ImpersonateUser(impersonationToken))
-    }
   }
 
   navigateToCreateNewAsset() {
@@ -84,11 +78,5 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   logout() {
     this.auth.logout();
-  }
-
-  dropImpersonation() {
-    this.router.navigate(['/', 'admin', 'dashboard', 'users']);
-    this.session.dropImpersonationToken();
-    this.store.dispatch(new DropImpersonationToken())
   }
 }

@@ -7,11 +7,6 @@
     margin-left: 5px;
   }
 
-  &__filters {
-    > * {
-      margin: 10px 0;
-    }
-  }
   &__items {
     position: relative;
     height: calc((54px * 15) + 40px);
@@ -26,6 +21,16 @@
     justify-content: center;
     position: absolute;
     top: 40px;
+  }
+
+  &__filters {
+    margin-bottom: 0;
+    border: 1px solid pal(gray, nearly-white);
+    padding: 0;
+  }
+
+  &__checkbox {
+    margin-right: 24px;
   }
 }
 

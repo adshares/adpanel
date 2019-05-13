@@ -1,0 +1,27 @@
+@import '../../../styles';
+
+.impersonation-bar {
+  &__container {
+    @include container();
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__info {
+    @include copy(
+      $color: pal(red),
+      $font-size: 18,
+      $font-weight: semi
+    );
+    display: flex;
+    align-self: center;
+  }
+
+  &__action-btn {
+    @include btn(
+      $color: pal(gray, dark),
+      $background-color: pal(white),
+      $border-color: pal(gray, dark)
+    );
+  }
+}

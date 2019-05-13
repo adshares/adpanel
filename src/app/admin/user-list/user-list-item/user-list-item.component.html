@@ -4,14 +4,12 @@
   </td>
   <td class="col-xs-2 user-list-item__cell"
       [title]="userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Advertiser and Publisher' : ''">
-    {{
-    userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Adv / Pub' :
-    userInfoStats.isAdvertiser && !userInfoStats.isPublisher ? 'Advertiser' : 'Publisher'
-    }}
+    {{ userRole }}
   </td>
 
   <td class="col-xs-2 user-list-item__cell">
     <button
+      *ngIf="!userInfoStats.isAdmin"
       class="user-list-item__btn"
       (click)="handleImpersonating()"
     >
