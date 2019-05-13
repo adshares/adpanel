@@ -35,8 +35,17 @@ export class UserListItemComponent {
           this.router.navigate([`/${'advertiser'}`, 'dashboard']);
           this.sessionService.setAccountTypeChoice('advertiser');
         }
-
       }
     )
+  }
+
+  get userRole(): string {
+    if (this.userInfoStats.isAdmin) {
+      return 'Admin'
+    } else if (this.userInfoStats.isAdvertiser && this.userInfoStats.isPublisher) {
+      return 'Adv / Pub'
+    } else {
+      return this.userInfoStats.isAdvertiser ? 'Advertiser' : 'Publisher'
+    }
   }
 }

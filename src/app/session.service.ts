@@ -70,12 +70,4 @@ export class SessionService {
   setUser(user: LocalStorageUser) {
     localStorage.setItem('user', JSON.stringify(user));
   }
-
-  setImpersonationToken(token: string) {
-    localStorage.setItem('impersonationToken', token);
-  }
-
-  getImpersonationToken(): string {
-    return localStorage.getItem('impersonationToken');
-  }
 }
