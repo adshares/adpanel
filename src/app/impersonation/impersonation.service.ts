@@ -14,9 +14,14 @@ export class ImpersonationService {
     this.impersonationMode.emit(token)
   }
 
-  getTokenFromStorage() {
+  getTokenFromStorage(): string {
     const token = localStorage.getItem(IMPERSONATION_TOKEN);
     this.impersonationMode.emit(token);
+    return token
+  }
+
+  getTokenRawValue() {
+    return localStorage.getItem(IMPERSONATION_TOKEN)
   }
 
   getImpersonationToken(): EventEmitter<null | string> {

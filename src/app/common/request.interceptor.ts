@@ -53,12 +53,20 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.interceptImpersonation(request);
-
     if (this.session.getUser() && this.session.getUser().apiToken) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.session.getUser().apiToken}`
+        }
+      });
+    }
+
+    const token = this.impersonationService.getTokenRawValue()
+
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          [`x-adshares-impersonation`]: token
         }
       });
     }
@@ -118,21 +126,6 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         return err;
       }
     );
-  }
-
-  interceptImpersonation(request) {
-    const tokenSubscription = this.impersonationService.getImpersonationToken().subscribe(
-      token =>  {
-        if (token !== null) {
-          request = request.clone({
-            setHeaders: {
-              [`x-adshares-impersonation`]: token
-            }
-          });
-        }
-      }
-    );
-    this.subscriptions.push(tokenSubscription)
   }
 
   // TODO: fix + location? // looks like bs, not what we are looking for
