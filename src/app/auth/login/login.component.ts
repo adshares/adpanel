@@ -16,7 +16,6 @@ import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
 import * as authActions from 'store/auth/auth.actions';
-import { ImpersonateUser } from "store/auth/auth.actions";
 
 @Component({
   selector: 'app-login',

@@ -20,7 +20,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
-  MatMenuModule
+  MatMenuModule,
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -83,7 +83,7 @@ const matModules = [
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
-  MatMenuModule
+  MatMenuModule,
 ];
 
 const dialogs = [

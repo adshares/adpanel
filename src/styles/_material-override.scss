@@ -169,6 +169,12 @@ mat-chip:not(.mat-basic-chip) {
   font-size: 18px;
 }
 
+.user-list .mat-expansion-panel-header-title {
+  flex-grow: 0;
+  min-width: 200px;
+  display: inline-flex;
+}
+
 .classifier-filtering {
   .mat-checkbox {
     min-width: 100px;

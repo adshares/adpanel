@@ -28,6 +28,7 @@ interface UserInfoStats {
   email: string;
   isAdvertiser: boolean;
   isPublisher: boolean;
+  isAdmin: boolean;
 }
 
 interface Users {

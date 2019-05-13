@@ -44,6 +44,8 @@ import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-d
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DATE_PICKER_FORMATS } from "common/utilities/consts";
+import { ImpersonationService } from "./impersonation/impersonation.service";
+import { ImpersonationModule } from "./impersonation/impersonation.module";
 
 const appModules = [
   AppCommonModule,
@@ -65,6 +67,7 @@ const appModules = [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ImpersonationModule,
     StoreModule.forRoot({state: reducer}),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([
@@ -92,6 +95,7 @@ const appModules = [
     AdminService,
     AuthService,
     SessionService,
+    ImpersonationService,
     AppComponent,
   ],
   bootstrap: [AppComponent],

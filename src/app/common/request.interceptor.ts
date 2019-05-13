@@ -17,34 +17,21 @@ import { environment } from "environments/environment.ts";
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { HandleSubscription } from "common/handle-subscription";
+import { ImpersonationService } from "../impersonation/impersonation.service";
 
 @Injectable()
 export class RequestInterceptor extends HandleSubscription implements HttpInterceptor {
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 1;
-  impersonationToken: string | null = null;
 
   constructor(
     private router: Router,
     private pushNotificationsService: PushNotificationsService,
     private dialog: MatDialog,
     private session: SessionService,
-    private store: Store<AppState>
+    private impersonationService: ImpersonationService
   ) {
     super()
-  }
-
-  checkForImpersonationToken() {
-    const subscription = this.store.select('state', 'user', 'data', 'impersonationToken')
-      .subscribe(
-      (token) => {
-        if (token !== this.impersonationToken) {
-          this.session.setImpersonationToken(token);
-        }
-        this.impersonationToken = token;
-      }
-    );
-    this.subscriptions.push(subscription);
   }
 
   dialogError(title, message) {
@@ -66,19 +53,12 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.checkForImpersonationToken();
+    this.interceptImpersonation(request);
+
     if (this.session.getUser() && this.session.getUser().apiToken) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.session.getUser().apiToken}`
-        }
-      });
-    }
-
-    if (!!this.impersonationToken) {
-      request = request.clone({
-        setHeaders: {
-          [`x-adshares-impersonation`]: this.impersonationToken
         }
       });
     }
@@ -138,6 +118,21 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         return err;
       }
     );
+  }
+
+  interceptImpersonation(request) {
+    const tokenSubscription = this.impersonationService.getImpersonationToken().subscribe(
+      token =>  {
+        if (token !== null) {
+          request = request.clone({
+            setHeaders: {
+              [`x-adshares-impersonation`]: token
+            }
+          });
+        }
+      }
+    );
+    this.subscriptions.push(tokenSubscription)
   }
 
   // TODO: fix + location? // looks like bs, not what we are looking for

@@ -4,6 +4,7 @@
   @include container($border-color: pal(gray, nearly-white));
   display: flex;
   justify-content: space-between;
+  min-height: 52px;
 
   &__cell {
     @include copy($font-size: 16);
