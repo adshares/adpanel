@@ -71,8 +71,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries.label;
-        console.log()
-
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
