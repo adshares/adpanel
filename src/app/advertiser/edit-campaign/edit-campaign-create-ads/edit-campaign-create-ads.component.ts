@@ -186,7 +186,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         upload: true
       };
     }
-    event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
+
+    if (!!event.target) {
+      event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
+    }
   }
 
   adjustBannerName(form: FormGroup): void {
