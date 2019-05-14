@@ -170,10 +170,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
-
-    event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
     this.adjustBannerName(form);
-
     if (isUploadedTypeValid && isImageSizeValid) {
       this.sendImage(file, adIndex, form);
     } else {
@@ -189,6 +186,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         upload: true
       };
     }
+    event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
   }
 
   adjustBannerName(form: FormGroup): void {
