@@ -14,27 +14,27 @@ export enum chartSeriesEnum {
 }
 
 export enum pubChartSeriesEnum {
-  view = 'View',
-  click = 'Click',
-  rpc = 'Revenue / Click',
-  ctr = 'Ctr',
-  rpM = 'Revenue / Mile',
-  sum = 'Sum',
-  viewUnique = 'View unique',
-  viewInvalidRate = 'View invalid rate',
-  clickInvalidRate = 'Click invalid rate',
+  view = 'Views',
+  click = 'Clicks',
+  rpc = 'AVG Revenue / Click',
+  ctr = 'Click-through Rate',
+  rpm = 'AVG Revenue / Mile',
+  sum = 'Revenue',
+  viewUnique = 'Unique Views',
+  viewInvalidRate = 'Invalid Views Rate',
+  clickInvalidRate = 'Invalid Clicks Rate',
 }
 
 export enum advChartSeriesEnum {
-  view = 'View',
-  click = 'Click',
-  cpc = 'Cost / Click',
-  ctr = 'Ctr',
-  cpm = 'Cost / Mile',
-  sum = 'Sum',
-  viewUnique = 'View unique',
-  viewInvalidRate = 'View invalid rate',
-  clickInvalidRate = 'Click invalid rate',
+  view = 'Views',
+  click = 'Clicks',
+  cpc = 'AVG Cost / Click',
+  ctr = 'Click-through Rate',
+  cpm = 'AVG Cost / Mile',
+  sum = 'Cost',
+  viewUnique = 'Unique Views',
+  viewInvalidRate = 'Invalid Views Rate',
+  clickInvalidRate = 'Invalid Clicks Rate',
 }
 
 export enum filterPresetsEnum {
