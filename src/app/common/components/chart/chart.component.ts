@@ -23,6 +23,7 @@ import * as commonActions from 'store/common/common.actions';
 import { chartSeriesEnum } from "models/enum/chart.enum";
 import { enumToArray } from "common/utilities/helpers";
 import { ChartLabels } from "models/chart/chart-labels.model";
+import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
 
 
 @Component({
@@ -39,7 +40,6 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   currentChartFilterSettings: ChartFilterSettings;
   barChartOptions: ChartOptions = chartOptions;
   barChartColors: ChartColors[] = chartColors;
-  initialSeries = enumToArray(chartSeriesEnum)[0];
   static seriesType;
 
   constructor(private store: Store<AppState>) {
@@ -105,7 +105,7 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   resetSettings() {
     const reset = {
       ...this.currentChartFilterSettings,
-      currentSeries: this.initialSeries
+      currentSeries: chartSeriesInitialState
     };
     this.store.dispatch(new commonActions.SetChartFilterSettings(reset));
   }

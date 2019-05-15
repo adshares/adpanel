@@ -118,13 +118,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
-        chartFilterSettings.currentSeries,
+        chartFilterSettings.currentSeries.value,
         'campaigns',
         id,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries;
+        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

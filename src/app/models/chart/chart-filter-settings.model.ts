@@ -6,8 +6,13 @@ export interface ChartFilterSettings {
   currentFrequency: string;
   currentAssetId: number;
   currentBannerId: number;
-  currentSeries?: string;
+  currentSeries?: seriesType;
   type?: string;
+}
+
+export interface seriesType {
+  label: string;
+  value: string;
 }
 
 export interface TimespanFilter {
