@@ -14,8 +14,6 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { environment } from "environments/environment.ts";
-import { AppState } from "models/app-state.model";
-import { Store } from "@ngrx/store";
 import { HandleSubscription } from "common/handle-subscription";
 import { ImpersonationService } from "../impersonation/impersonation.service";
 
