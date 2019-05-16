@@ -1,15 +1,16 @@
-import * as moment from "moment";
+import * as moment from 'moment';
 import {
   DAY_AND_MONTH_FORMAT,
   DAY_AND_TIME_FORMAT,
   MONTH_AND_YEAR_FORMAT,
   TIME_FORMAT,
-  WEEK_AND_MONTH_FORMAT, YEAR_FORMAT
-} from "common/utilities/consts";
-import { enumToObject, formatMoney } from "common/utilities/helpers";
-import { advChartSeriesEnum, pubChartSeriesEnum } from "models/enum/chart.enum";
-import { ChartComponent } from "common/components/chart/chart.component";
-import { environment } from "environments/environment";
+  WEEK_AND_MONTH_FORMAT,
+  YEAR_FORMAT,
+} from 'common/utilities/consts';
+import { formatMoney } from 'common/utilities/helpers';
+import { advChartSeriesEnum, pubChartSeriesEnum } from 'models/enum/chart.enum';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { environment } from 'environments/environment';
 
 export const adjustLabelFormat = (value, values) => {
   const daysSpan = moment(values[values.length - 1]).diff(moment(values[0]), 'days');
@@ -29,18 +30,15 @@ export const adjustLabelFormat = (value, values) => {
 };
 
 export const adjustTooltipValueFormat = (value: string): string => {
-  const options = {
-    ...enumToObject(pubChartSeriesEnum),
-    ...enumToObject(advChartSeriesEnum)
-  };
   const type = ChartComponent.seriesType;
 
   switch (type) {
-    case  options.SUM:
-    case  options.CPC:
-    case  options.CPM:
-    case  options.RPM:
-    case  options.RPC:
+    case advChartSeriesEnum.sum:
+    case advChartSeriesEnum.cpc:
+    case advChartSeriesEnum.cpm:
+    case pubChartSeriesEnum.sum:
+    case pubChartSeriesEnum.rpc:
+    case pubChartSeriesEnum.rpm:
       const val = parseInt(value);
       return `${type}: ${val > 0 ? formatMoney(val, 2) : 0} ${environment.currencyCode}`;
     default:
@@ -49,19 +47,17 @@ export const adjustTooltipValueFormat = (value: string): string => {
 };
 
 export const adjustYAxesTics = (value) => {
-  const options = {
-    ...enumToObject(pubChartSeriesEnum),
-    ...enumToObject(advChartSeriesEnum)
-  };
+  const type = ChartComponent.seriesType;
 
-  switch (ChartComponent.seriesType) {
-    case  options.SUM:
-    case  options.CPC:
-    case  options.CPM:
-    case  options.RPM:
-    case  options.RPC:
+  switch (type) {
+    case advChartSeriesEnum.sum:
+    case advChartSeriesEnum.cpc:
+    case advChartSeriesEnum.cpm:
+    case pubChartSeriesEnum.sum:
+    case pubChartSeriesEnum.rpc:
+    case pubChartSeriesEnum.rpm:
       const val = parseInt(value);
-      return `${environment.currencySymbol}${val > 0 ? formatMoney(val,2) : 0}`;
+      return `${environment.currencySymbol}${val > 0 ? formatMoney(val, 2) : 0}`;
     default:
       return `${value}`;
   }
