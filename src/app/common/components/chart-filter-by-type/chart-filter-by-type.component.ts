@@ -1,14 +1,13 @@
-import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import {User} from 'models/user.model';
-import {AppState} from 'models/app-state.model';
-import {adminChartSeriesEnum, advChartSeriesEnum, pubChartSeriesEnum} from 'models/enum/chart.enum';
-import {enumToArray} from 'common/utilities/helpers';
-import {HandleSubscription} from 'common/handle-subscription';
-import {Site} from "models/site.model";
-import {Router} from "@angular/router";
-import {Ad} from "models/campaign.model";
+import { User } from 'models/user.model';
+import { AppState } from 'models/app-state.model';
+import { advChartSeriesEnum, pubChartSeriesEnum } from 'models/enum/chart.enum';
+import { HandleSubscription } from 'common/handle-subscription';
+import { Site } from "models/site.model";
+import { Router } from "@angular/router";
+import { seriesType } from "models/chart/chart-filter-settings.model";
 
 interface AssetInfo {
   id: number;
@@ -22,15 +21,12 @@ interface AssetInfo {
 })
 export class ChartFilterByTypeComponent extends HandleSubscription implements OnInit {
   @Output() updateId: EventEmitter<number> = new EventEmitter();
-  @Output() updateSeries: EventEmitter<string> = new EventEmitter();
+  @Output() updateSeries: EventEmitter<seriesType> = new EventEmitter();
   @Input() detailsPage: boolean;
-
   userData: User;
-
   currentAssetId = 0;
-  currentAssetSeries: string = enumToArray(advChartSeriesEnum)[0];
-  currentAdminAssetSeries: string = enumToArray(adminChartSeriesEnum)[0];
-  chartSeries: string[];
+  currentAssetSeries: seriesType;
+  chartSeries;
   assetsInfo: AssetInfo[];
 
   constructor(private store: Store<AppState>, private router: Router) {
@@ -39,19 +35,19 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
 
   ngOnInit() {
     const userDataSubscription = this.store.select('state', 'user', 'data')
+      .first()
       .subscribe(userData => {
         this.userData = userData;
         this.userData.isPublisher = !!this.router.url.match('/publisher/');
         this.userData.isAdvertiser = !!this.router.url.match('/advertiser/');
         this.setInitialDataByUserType();
       });
-
     this.subscriptions.push(userDataSubscription);
   }
 
   setInitialDataByUserType() {
     if (this.userData.isAdvertiser) {
-      this.chartSeries = enumToArray(advChartSeriesEnum);
+      this.setChartSeriesArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
           this.assetsInfo = campaigns.map(
@@ -63,7 +59,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         });
       this.subscriptions.push(userCampaignsSubscription);
     } else if (this.userData.isPublisher) {
-      this.chartSeries = enumToArray(pubChartSeriesEnum);
+      this.setChartSeriesArray(pubChartSeriesEnum);
       const userSiteSubscription = this.store.select('state', 'publisher', 'sites')
         .subscribe((sites: Site[]) => {
           this.assetsInfo = sites.map(
@@ -75,8 +71,18 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
         });
       this.subscriptions.push(userSiteSubscription);
     } else {
-      this.chartSeries = enumToArray(advChartSeriesEnum);
+      this.setChartSeriesArray(advChartSeriesEnum);
     }
+    this.currentAssetSeries = this.chartSeries[0];
+  }
+
+  setChartSeriesArray(seriesEnum) {
+    this.chartSeries = Object.entries(seriesEnum).map(dataArr => {
+      return {
+        label: dataArr[1],
+        value: dataArr[0],
+      }
+    });
   }
 
   updateAssetId(event) {

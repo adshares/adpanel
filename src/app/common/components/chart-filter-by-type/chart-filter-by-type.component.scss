@@ -15,4 +15,10 @@
 }
 .user-filters {
   max-width: 400px;
+  display: flex;
+  flex-wrap: nowrap;
+
+  &__select-wrapper {
+    max-width: 200px;
+  }
 }

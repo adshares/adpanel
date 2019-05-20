@@ -176,7 +176,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       event.target.value = '';
     }
     this.adjustBannerName(form);
-
     if (isUploadedTypeValid && isImageSizeValid) {
       this.sendImage(file, adIndex, form);
     } else {
@@ -191,6 +190,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         size: isImageSizeValid,
         upload: true
       };
+    }
+
+    if (!!event.target) {
+      event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
     }
   }
 

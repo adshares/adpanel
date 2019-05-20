@@ -3,9 +3,8 @@
     <div
       *ngIf="!userData.isAdmin && !detailsPage"
       class="
+        user-filters__select-wrapper
         col-xs-12
-        col-sm-6
-        col-md-5
         no-gutters"
     >
       <mat-select
@@ -23,18 +22,16 @@
         </mat-option>
       </mat-select>
     </div>
-
     <div
       class="
+        user-filters__select-wrapper
         col-xs-12
-        col-sm-6
-        col-md-3
         no-gutters"
     >
       <mat-select
-        class="dwmth-select chart-filter__select--wider "
+        class="dwmth-select chart-filter__select--wider"
         [(value)]="currentAssetSeries"
-        (change)="updateAssetSeries($event)"
+        (selectionChange)="updateAssetSeries($event)"
         data-test="chart-filter-by-type-asset-series-select"
       >
         <mat-option
@@ -42,7 +39,7 @@
           [value]="assetSeries"
           data-test="chart-filter-by-type-asset-series-option"
         >
-          {{ assetSeries }}
+          {{ assetSeries.label }}
         </mat-option>
       </mat-select>
     </div>
