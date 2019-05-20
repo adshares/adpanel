@@ -17,8 +17,10 @@ export class AdminService {
   }
 
   getUsers(nextPage?: string): Observable<UserInfoStats[]> {
-    const url = (nextPage && nextPage.replace('http', 'https')) ||
-      `${environment.serverUrl}/admin/users`;
+    const url = (
+      nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
+      || nextPage
+    ) || `${environment.serverUrl}/admin/users`;
     return this.http.get<UserInfoStats[]>(url);
   }
 

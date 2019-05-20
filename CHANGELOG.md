@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 ### Added
 - Chart series
 ### Fixed
@@ -16,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.7.3] - 2019-05-13
 ### Improved
 - User impersonation by server admin
+### Fixed
+- Drag and drop banners 
+- Banner resize on missing banner
 
 ## [0.7.2] - 2019-05-10
 ### Added

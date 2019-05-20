@@ -7,9 +7,9 @@ import { MatDialog } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import {
   AddCampaignToCampaigns,
+  ClearLastEditedCampaign,
   SaveCampaignAds,
-  UpdateCampaign,
-  ClearLastEditedCampaign
+  UpdateCampaign
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
@@ -170,6 +170,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
+
+    if (event.target) {
+      // this is necessary when user changes type of the banner and then uploads the same file
+      event.target.value = '';
+    }
     this.adjustBannerName(form);
     if (isUploadedTypeValid && isImageSizeValid) {
       this.sendImage(file, adIndex, form);
@@ -207,6 +212,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   scaleImageToMatchBanner(index) {
     const banners = Array.from(document.querySelectorAll('.banner')) as Array<HTMLElement>;
+    if (!banners[index]) {
+      return 1;
+    }
     const image = banners[index].querySelector('img');
     const bannerWidth = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[0]);
     const bannerHeight = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[1]);
