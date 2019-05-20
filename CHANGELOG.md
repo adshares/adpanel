@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2019-05-20
 ### Added
 - Chart series
 ### Fixed
@@ -102,7 +103,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v0.7.3...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v0.8.0...develop
+[0.8.0]: https://github.com/adshares/adpanel/compare/v0.7.3...v0.8.0
 [0.7.3]: https://github.com/adshares/adpanel/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/adshares/adpanel/compare/v0.7.0...v0.7.2
 [0.7.0]: https://github.com/adshares/adpanel/compare/v0.6.7...v0.7.0
