@@ -129,9 +129,13 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
 
   [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
     targetingList.forEach(targeting => {
-      const keyPartials = targeting.id.replace(`-${targeting.value}`,'').split('-');
-      const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
-      createPathObject(parsedTargetingList, keyPartials, targeting.value);
+      const suffix = `-${targeting.value}`;
+
+      if (targeting.id.endsWith(suffix)) {
+        const keyPartials = targeting.id.slice(0, -(suffix.length)).split('-');
+        const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
+        createPathObject(parsedTargetingList, keyPartials, targeting.value);
+      }
     });
   });
 
