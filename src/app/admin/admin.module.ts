@@ -21,6 +21,7 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
+import { UserReportsComponent } from './user-reports/user-reports.component';
 import { SettingsModule } from "settings/settings.module";
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 import { EarningsSettingsComponent } from "admin/finances/earnings-settings/earnings-settings.component";
@@ -62,6 +63,7 @@ import { ImpersonationService } from "../impersonation/impersonation.service";
     DashboardComponent,
     UserListComponent,
     UserListItemComponent,
+    UserReportsComponent,
     FinancesSettingsComponent,
     EarningsSettingsComponent,
     ParamSettingComponent,

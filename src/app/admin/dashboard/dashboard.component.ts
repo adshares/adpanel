@@ -65,6 +65,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       description: '',
       link: '/admin/dashboard/users',
       values: [
+        {name: 'Reports', icon: 'assets/images/user-gray.svg'},
         {name: 'Users List', icon: 'assets/images/user-gray.svg'},
       ],
     },

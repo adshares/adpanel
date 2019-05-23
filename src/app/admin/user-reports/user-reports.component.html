@@ -1,0 +1,54 @@
+<section
+  class="
+  container
+    col
+    user-reports"
+>
+  <div
+    class="
+      row
+      justify-between
+      align-center"
+  >
+    <h1
+      class="
+          dwmth-heading
+          dwmth-heading--primary"
+    >
+      Reports
+    </h1>
+  </div>
+
+  <a
+    (click)="getReportAdvertisers()"
+  >
+    <button
+      class="
+        dwmth-btn
+        dwmth-btn--white
+        dwmth-copy--dark"
+      data-test="download-report-advertisers-button"
+    >
+      Download Advertisers Report
+    </button>
+  </a>
+
+  <a
+    (click)="getReportPublishers()"
+  >
+    <button
+      class="
+        dwmth-btn
+        dwmth-btn--white
+        dwmth-copy--dark"
+      data-test="download-report-publishers-button"
+    >
+      Download Publishers Report
+    </button>
+  </a>
+
+  <app-chart-filter
+    (filter)="load($event)"
+  ></app-chart-filter>
+
+</section>

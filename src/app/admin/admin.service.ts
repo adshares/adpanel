@@ -9,6 +9,7 @@ import {
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from "common/utilities/helpers";
+import { SitesTotals } from 'models/site.model';
 
 @Injectable()
 export class AdminService {
@@ -59,5 +60,21 @@ export class AdminService {
 
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
+  }
+
+  getReportAdvertisers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
+  }
+
+  getReportPublishers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    return this.http.get<any>(`${environment.apiUrl}/sites/stats/report/${dateStart}/${dateEnd}`, options);
   }
 }
