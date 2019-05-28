@@ -53,15 +53,14 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       });
     this.subscriptions.push(usersSubscription);
 
-    this.store.dispatch(new adminActions.LoadUsers());
+    this.store.dispatch(new adminActions.LoadUsers({}));
   }
 
   filterUsersByType(type, resetSearch = false) {
-
     this.selectedType = type;
-
     if (resetSearch) {
       this.userSearch = '';
+      this.store.dispatch(new adminActions.LoadUsers({searchPhrase: ''}));
     }
 
     this.filteredUsers = this.users.data.filter(user => {
@@ -78,16 +77,8 @@ export class UserListComponent extends HandleSubscription implements OnInit {
 
   onSearchChange() {
     const searchTerm = this.userSearch.toLowerCase().trim();
-
-    this.filterUsersByType(this.selectedType);
-
-    if (searchTerm) {
-      const pattern = new RegExp(searchTerm, 'i');
-
-      this.filteredUsers = this.filteredUsers.filter((user) =>
-        pattern.test(user.email.toLowerCase())
-      );
-    }
+    this.filterUsersByType('All');
+    this.store.dispatch(new adminActions.LoadUsers({searchPhrase: searchTerm}));
   }
 
   sortTable(columnMetaData: TableColumnMetaData) {
@@ -97,11 +88,12 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   handlePaginationEvent(e): void {
     const payload = this.users.prevPageUrl && this.users.currentPage >= e.pageIndex + 1 ? this.users.prevPageUrl
       : this.users.nextPageUrl;
+
     setTimeout(() => {
       this.isLoading = true
     }, 100);
     this.isLoading = false;
 
-    this.store.dispatch(new adminActions.LoadUsers(payload));
+    this.store.dispatch(new adminActions.LoadUsers({nextPage: payload}));
   }
 }

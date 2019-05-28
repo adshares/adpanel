@@ -13,6 +13,7 @@
   }
 
   &__loader-container {
+    @include copy($font-size: 32);
     height: calc(54px * 15);
     display: flex;
     width: 100%;
@@ -32,6 +33,27 @@
   &__checkbox {
     margin-right: 24px;
   }
+
+  &__search-container {
+    @include container(
+      $border-color: pal(gray, light)
+    );
+    @include copy(
+      $font-size: 18,
+      $color: pal(gray, x-dark)
+    );
+    margin-top: 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    @include input;
+    padding: 8px 12px;
+    margin-left: 16px;
+  }
+
 }
 
 .choose-user-type {

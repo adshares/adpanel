@@ -17,12 +17,13 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(nextPage?: string): Observable<UserInfoStats[]> {
+  getUsers(nextPage?: string, searchPhrase: string = ''): Observable<UserInfoStats[]> {
     const url = (
       nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
       || nextPage
     ) || `${environment.serverUrl}/admin/users`;
-    return this.http.get<UserInfoStats[]>(url);
+    const params = searchPhrase.length ? `?q=${searchPhrase}` : '';
+    return this.http.get<UserInfoStats[]>(`${url}${params}`);
   }
 
   impersonateUser(id: number): Observable<string> {
