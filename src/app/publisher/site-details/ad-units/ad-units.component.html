@@ -24,10 +24,6 @@
       [title]="(adUnit.averageRpm || 0) | formatMoney:4">
     {{ (adUnit.averageRpm || 0) | formatMoney:2 }}
   </td>
-  <td class="col-xs-1 poster-unit__cell"
-      [title]="(adUnit.averageRpc || 0) | formatMoney:4">
-    {{ (adUnit.averageRpc || 0) | formatMoney:2 }}
-  </td>
   <td class="col-xs-1 poster-unit__cell">
     <button *ngIf="adUnit.code"
             class="poster-unit__btn"

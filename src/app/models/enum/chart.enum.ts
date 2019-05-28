@@ -16,7 +16,6 @@ export enum chartSeriesEnum {
 export enum pubChartSeriesEnum {
   view = 'Views',
   click = 'Clicks',
-  rpc = 'AVG Revenue / Click',
   ctr = 'Click-through Rate',
   rpm = 'AVG Revenue / Mile',
   sum = 'Revenue',
