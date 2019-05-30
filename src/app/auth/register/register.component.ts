@@ -1,7 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiService } from 'app/api/api.service';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -16,20 +16,32 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends HandleSubscription {
+export class RegisterComponent extends HandleSubscription implements OnInit {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK;
+  referralId?: string;
   user: User;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private api: ApiService,
     private dialog: MatDialog,
     private router: Router
   ) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const referralId = params['r'];
+
+      if (referralId) {
+        this.storeReferralId(referralId);
+      }
+    });
   }
 
   register() {
@@ -42,12 +54,18 @@ export class RegisterComponent extends HandleSubscription {
     }
 
     this.isRegistering = true;
-    const user = <User>{
+    let user = <User>{
       email: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
       isAdvertiser: false,
       isPublisher: false
     };
+
+    const referralId = this.fetchReferralId();
+    if (referralId) {
+      user.referralId = referralId;
+    }
+
     const registerSubscription = this.api.users.register(
       user, uri
     )
@@ -68,5 +86,15 @@ export class RegisterComponent extends HandleSubscription {
       );
 
     this.subscriptions.push(registerSubscription);
+  }
+
+  storeReferralId(referralId: string): void {
+    // TODO store persistent 
+    this.referralId = referralId;
+  }
+
+  fetchReferralId(): string|null {
+    // TODO fetch from persistent storage
+    return this.referralId;
   }
 }

@@ -19,6 +19,7 @@ import { SettingsNavigationComponent } from './settings-navigation/settings-navi
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { ReferrerComponent } from 'settings/general-settings/referrer/referrer.component';
 library.add(fas);
 
 @NgModule({
@@ -37,6 +38,7 @@ library.add(fas);
     BillingComponent,
     AccountSettingsComponent,
     PreferencesComponent,
+    ReferrerComponent,
     NotificationSettingsComponent,
     UserWalletComponent,
     BillingHistoryComponent,
