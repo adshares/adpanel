@@ -1,3 +1,4 @@
+<app-user-reports></app-user-reports>
 <section
   class="
   container
@@ -28,7 +29,7 @@
             Filter banners by type:
           </mat-panel-title>
           <mat-panel-description>
-          {{ selectedType }}
+            {{ selectedType }}
           </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -40,6 +41,20 @@
         </mat-checkbox>
       </mat-expansion-panel>
     </mat-accordion>
+
+    <div class="user-list__search-container">
+      <mat-icon> search</mat-icon>
+      <label>Search for users:
+        <input
+          id="search"
+          class="user-list__input"
+          placeholder="Search by email"
+          [(ngModel)]="userSearch"
+          (ngModelChange)="onSearchChange()"
+          data-test="admin-user-search-input"
+        >
+      </label>
+    </div>
   </div>
 
   <table class="user-list__items">
@@ -50,10 +65,15 @@
     <tbody *ngIf="!isLoading; else loading"
            [@fadeIn]
            class="col user-list__table-body">
+
     <app-user-list-item
       *ngFor="let user of filteredUsers"
       [userInfoStats]="user"
     ></app-user-list-item>
+    <tr *ngIf="!filteredUsers.length"
+        class="user-list__loader-container">
+      NO RESULTS
+    </tr>
     </tbody>
     <ng-template #loading>
       <div class="loading-wrapper user-list__loader-container"
@@ -64,6 +84,8 @@
   </table>
 
   <mat-paginator
+    *ngIf="!userSearch.length"
+    [@fadeIn]
     [length]="users ? users.total : 0"
     [pageSize]="15"
     (page)="handlePaginationEvent($event)"

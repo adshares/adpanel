@@ -9,6 +9,7 @@ import {
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from "common/utilities/helpers";
+import { SitesTotals } from 'models/site.model';
 
 @Injectable()
 export class AdminService {
@@ -16,12 +17,13 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(nextPage?: string): Observable<UserInfoStats[]> {
+  getUsers(nextPage?: string, searchPhrase: string = ''): Observable<UserInfoStats[]> {
     const url = (
       nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
       || nextPage
     ) || `${environment.serverUrl}/admin/users`;
-    return this.http.get<UserInfoStats[]>(url);
+    const params = searchPhrase.length ? `?q=${searchPhrase}` : '';
+    return this.http.get<UserInfoStats[]>(`${url}${params}`);
   }
 
   impersonateUser(id: number): Observable<string> {
@@ -61,5 +63,21 @@ export class AdminService {
 
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
+  }
+
+  getReportAdvertisers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
+  }
+
+  getReportPublishers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
+    let options = {
+      responseType: 'blob' as 'json'
+    };
+
+    return this.http.get<any>(`${environment.apiUrl}/sites/stats/report/${dateStart}/${dateEnd}`, options);
   }
 }

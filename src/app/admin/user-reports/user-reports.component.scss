@@ -1,0 +1,36 @@
+@import '../../../styles.scss';
+
+.user-reports {
+  margin-top: 25px;
+
+  &__title {
+    @include copy(
+      $font-size: 32,
+      $color: pal(navy, base),
+      $font-weight: bold
+    );
+    margin-bottom: 10px;
+  }
+
+  &__container {
+    @include container(
+        $padding-horizontal: 20px,
+        $padding-vertical: 20px
+    );
+  }
+  &__btn {
+    @include btn(
+      $padding-vertical: 8px,
+      $padding-horizontal: 12px,
+      $color: pal(gray, dark),
+      $border-color: pal(gray, dark),
+      $background-color: pal(white)
+    );
+    min-width: 240px;
+    margin-right: 12px;
+  }
+
+  &__btns-wrapper {
+    margin-top: -20px;
+  }
+}

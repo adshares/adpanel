@@ -1,0 +1,41 @@
+<section
+  class="
+    container
+    col
+    user-reports"
+>
+
+  <h1 class="user-reports__title">
+    Reports
+  </h1>
+
+  <div class="user-reports__container">
+    <app-chart-filter
+      (filter)="load($event)"
+    ></app-chart-filter>
+
+    <div class="user-reports__btns-wrapper">
+      <a class="user-reports__btn"
+         data-test="download-report-advertisers-button"
+         role="button"
+         (click)="getReportAdvertisers()"
+      >
+        <mat-icon>
+          save_alt
+        </mat-icon>
+        Download Advertisers Report
+      </a>
+      <a
+        class="user-reports__btn"
+        data-test="download-report-publishers-button"
+        role="button"
+        (click)="getReportPublishers()"
+      >
+        <mat-icon>
+          save_alt
+        </mat-icon>
+        Download Publishers Report
+      </a>
+    </div>
+  </div>
+</section>
