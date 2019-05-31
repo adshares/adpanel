@@ -89,12 +89,11 @@ export class RegisterComponent extends HandleSubscription implements OnInit {
   }
 
   storeReferralId(referralId: string): void {
-    // TODO store persistent 
     this.referralId = referralId;
+    this.api.users.setReferralId(referralId);
   }
 
-  fetchReferralId(): string|null {
-    // TODO fetch from persistent storage
-    return this.referralId;
+  fetchReferralId(): string | null {
+    return this.referralId || this.api.users.getReferralId();
   }
 }
