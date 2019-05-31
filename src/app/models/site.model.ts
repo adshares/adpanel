@@ -24,6 +24,7 @@ interface Site {
 }
 
 interface SitesTotals {
+  averageRpc?: number;
   averageRpm: number;
   clicks: number;
   ctr: number;
