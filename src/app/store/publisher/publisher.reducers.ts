@@ -169,9 +169,9 @@ export function publisherReducers(state = initialState, action: PublisherActions
       };
 
     case authActions.USER_LOG_IN_SUCCESS:
-    case authActions.USER_LOG_OUT_SUCCESS:
       return initialState;
 
+    case authActions.USER_LOG_OUT_SUCCESS:
     default:
       return state;
   }

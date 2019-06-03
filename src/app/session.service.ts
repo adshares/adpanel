@@ -1,15 +1,17 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Notification} from 'models/notification.model';
+import { Notification } from 'models/notification.model';
 import { LocalStorageUser } from 'models/user.model';
-import { ImpersonationService } from "./impersonation/impersonation.service";
+import { ImpersonationService } from './impersonation/impersonation.service';
 
 @Injectable()
 export class SessionService {
+  isActive: boolean;
 
   constructor(private impersonationService: ImpersonationService) {}
 
   drop() {
+    this.isActive = false;
     localStorage.removeItem('adsharesAddress');
     localStorage.removeItem('notifications');
     localStorage.removeItem('user');
@@ -36,7 +38,7 @@ export class SessionService {
     return notifications.length;
   }
 
-  getUser(): LocalStorageUser {
+  getUser(): LocalStorageUser|null {
     return JSON.parse(localStorage.getItem('user'));
   }
 
@@ -68,6 +70,7 @@ export class SessionService {
   }
 
   setUser(user: LocalStorageUser) {
+    this.isActive = true;
     localStorage.setItem('user', JSON.stringify(user));
   }
 }

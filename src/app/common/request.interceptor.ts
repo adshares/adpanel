@@ -8,14 +8,14 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
-import { SessionService } from "app/session.service";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-// TODO : ??
+import { SessionService } from 'app/session.service';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+
 import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
-import { environment } from "environments/environment.ts";
-import { HandleSubscription } from "common/handle-subscription";
-import { ImpersonationService } from "../impersonation/impersonation.service";
+import { environment } from 'environments/environment.ts';
+import { HandleSubscription } from 'common/handle-subscription';
+import { ImpersonationService } from '../impersonation/impersonation.service';
 
 @Injectable()
 export class RequestInterceptor extends HandleSubscription implements HttpInterceptor {
@@ -84,24 +84,27 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
       },
       (err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 401) {
-          let crazy = !this.session.getUser();
+          const noUser = !this.session.getUser();
+          const isSessionActive = this.session.isActive;
           this.session.drop();
           this.router.navigate(['/auth', 'login']);
-          if (crazy) {
-            this.dialogError('Login required', 'Last request required logged-in user.');
+
+          if (!isSessionActive) {
             return err;
           }
-          this.dialogError('Session timed-out (server)', 'Last request required logged-in user but your session has been lost (outdated). Please log in again.');
+
+          if (noUser) {
+            this.dialogError('Login required', 'Last request required logged-in user.');
+          } else {
+            this.dialogError('Session timed-out (server)', 'Last request required logged-in user but your session has been lost (outdated). Please log in again.');
+          }
+
           return err;
         }
 
-        // TODO: not really sure babe
-        // if (err instanceof HttpErrorResponse && err.status === 403) {
-        // }
-
-        if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == "Unknown Error") {
+        if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
           this.dialogError('Connection failed', 'Could not connect to our server API. Please check your Internet connection and try again.');
-          // TODO: WTF WTF WTF
+          // TODO: review during notification preparation
           this.pushNotificationsService.addPushNotification({
             type: pushNotificationTypesEnum.ERROR,
             title: 'Error',
@@ -112,7 +115,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
 
         if (err instanceof HttpErrorResponse && err.status === 500) {
           this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
-          // TODO: wtf
+          // TODO: review during notification preparation
           this.pushNotificationsService.addPushNotification({
             type: pushNotificationTypesEnum.ERROR,
             title: 'Error',

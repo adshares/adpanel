@@ -23,7 +23,7 @@ const bannerStatsInitialState = {
 
 /** FIXME -> PAN-364 -> refactor reducer by creating class containing needed helper function and data
  * set to help modify data in less repetitive more readable way
-*/
+ */
 
 export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
   switch (action.type) {
@@ -155,7 +155,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         };
       }
 
-      const resetBannerStats =  selectedCampaign.ads.map(el => {
+      const resetBannerStats = selectedCampaign.ads.map(el => {
         return {
           ...el,
           ...bannerStatsInitialState
@@ -172,9 +172,11 @@ export function advertiserReducers(state = initialState, action: advertiserActio
           }
         ]
       };
+
     case authActions.USER_LOG_IN_SUCCESS:
-    case authActions.USER_LOG_OUT_SUCCESS:
       return initialState;
+
+    case authActions.USER_LOG_OUT_SUCCESS:
     default:
       return state;
   }
