@@ -1,6 +1,7 @@
 import {Campaign, CampaignTotals} from 'models/campaign.model';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
+import * as moment from 'moment';
 
 export const campaignsTotalsInitialState: CampaignTotals = {
   clicks: 0,
@@ -19,7 +20,7 @@ export const campaignInitialState: Campaign = {
     maxCpc: null,
     maxCpm: null,
     budget: null,
-    dateStart: `${new Date()}`,
+    dateStart: moment().format(),
   },
 
   targeting: {
