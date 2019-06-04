@@ -115,13 +115,16 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   }
 
   handleAddCustomItem(items, option) {
+    items = items
+      .filter((item, index) => index === items.findIndex(el => el.id === item.id))
+      .filter(item => !this.selectedItems.some(el => el.id === item.id));
+
     this.viewModel = this.viewModel.map(el => {
       return el.id === option.id ? {
         ...el,
         children: items,
       } : el
     });
-
 
     this.selectedItems = [
       ...this.selectedItems,
