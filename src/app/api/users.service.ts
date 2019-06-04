@@ -46,4 +46,12 @@ export class ApiUsersService {
   register(user, uri): Observable<User> {
     return this.http.post<User>(`${environment.authUrl}/register`, {user, uri});
   }
+
+  setReferralId(referralId: string) {
+    localStorage.setItem('referralId', referralId);
+  }
+
+  getReferralId(): string|null {
+    return localStorage.getItem('referralId');
+  }
 }

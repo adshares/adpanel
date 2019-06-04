@@ -33,9 +33,10 @@ export function authReducers(state = initialState, action: authActions.actions |
         adserverWallet: action.payload.adserverWallet
       };
 
-    case authActions.USER_LOG_OUT_SUCCESS:
     case authActions.USER_LOG_IN_SUCCESS:
       return initialState;
+
+    case authActions.USER_LOG_OUT_SUCCESS:
     default:
       return state;
   }

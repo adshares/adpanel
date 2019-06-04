@@ -1,7 +1,7 @@
 @import '../../../../styles';
 
 .poster-unit {
-  @include container;
+  @include container($border-color: pal(gray, light));
   display: flex;
   justify-content: space-between;
 

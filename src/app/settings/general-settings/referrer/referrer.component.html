@@ -1,0 +1,60 @@
+<section class="referrer">
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large"
+  >
+    <div class="col">
+      <h2
+        class="
+          dwmth-heading
+          dwmth-heading--primary"
+      >
+        Referrer
+      </h2>
+
+      <p
+        class="
+          dwmth-copy
+          dwmth-copy--large"
+      >
+        Here you can read referrer link.
+      </p>
+
+      <label
+        for="referrer-link"
+        class="dwmth-form-label"
+      >
+        Referrer link
+      </label>
+      <input
+        id="referrer-link"
+        class="
+          dwmth-form-input
+          dwmth-form-input--full"
+        name="referrer-link"
+        [value]="referrerLink"
+        readonly
+          #referrerlink
+        data-test="common-referrer-link-input"
+      >
+
+      <div
+        class="
+        row
+        justify-end"
+      >
+        <button
+          class="
+            dwmth-btn
+            dwmth-btn--blue"
+          (click)="copyInput(referrerlink)"
+          data-test="common-referrer-link-copy"
+        >
+          Copy to clipboard
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>

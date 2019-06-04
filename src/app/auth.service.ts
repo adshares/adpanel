@@ -21,15 +21,13 @@ export class AuthService {
   }
 
   logout() {
+    this.store.dispatch(new authActions.UserLogOutSuccess());
+    this.session.drop();
     this.api.auth.logout().subscribe(
       () => {
-        this.store.dispatch(new authActions.UserLogOutSuccess());
-        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       },
       () => {
-        this.store.dispatch(new authActions.UserLogOutSuccess());
-        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       }
     );

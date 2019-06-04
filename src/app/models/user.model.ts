@@ -23,6 +23,7 @@ interface User {
   adserverWallet: UserAdserverWallet;
   exchangeRate: ExchangeRate | null;
   uuid: string;
+  referralId?: string;
 }
 
 interface LocalStorageUser extends User {
