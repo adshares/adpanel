@@ -18,7 +18,7 @@ export class ReferrerComponent implements OnInit {
     const referralId = user.referralId;
     const domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
 
-    this.referrerLink = referralId ? `${domain}/auth/register?r=${referralId}` : 'N/A';
+    this.referrerLink = referralId ? `${domain}/auth/login?r=${referralId}` : 'N/A';
   }
 
   copyInput(input: HTMLInputElement): void {
