@@ -1,4 +1,4 @@
-import {Campaign, CampaignTotals} from 'models/campaign.model';
+import { Campaign, CampaignConversion, CampaignConversionItem, CampaignTotals } from 'models/campaign.model';
 import {campaignStatusesEnum} from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 import * as moment from 'moment';
@@ -37,3 +37,19 @@ export const campaignInitialState: Campaign = {
   id: 0,
   classificationStatus: classificationStatusesEnum.DISABLED,
 };
+
+export const campaignConversionInitialState: CampaignConversion = {
+  isActive: false,
+  isClickConversion: false,
+  list: [],
+};
+
+export const campaignConversionItemInitialState: CampaignConversionItem = {
+  name: '',
+  type: '',
+  isAdvanced: false,
+  isInBudget: true,
+  value: null,
+  budgetMax: null,
+};
+

@@ -43,6 +43,21 @@ interface CampaignBasicInformation {
   dateEnd?: string;
 }
 
+interface CampaignConversion {
+  isActive: boolean;
+  isClickConversion: boolean;
+  list: CampaignConversionItem[];
+}
+
+interface CampaignConversionItem {
+  name: string;
+  type: string;
+  isAdvanced: boolean;
+  isInBudget: boolean;
+  value?: string;
+  budgetMax?: string;
+}
+
 interface Ad {
   id: number;
   status: number;
@@ -67,4 +82,12 @@ interface CampaignTotalsResponse {
 }
 
 
-export { Campaign, CampaignBasicInformation, Ad, CampaignTotals, CampaignTotalsResponse };
+export {
+  Campaign,
+  CampaignBasicInformation,
+  CampaignConversion,
+  CampaignConversionItem,
+  Ad,
+  CampaignTotals,
+  CampaignTotalsResponse
+};

@@ -1,0 +1,48 @@
+@import '../../../../styles.scss';
+
+.campaign-edit-conversion {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @include media(xxl-up) {
+    max-width: 1300px;
+  }
+
+  @include media(xxxl-up) {
+    max-width: 2000px;
+  }
+
+  .dwmth-box {
+    margin: 10px 0;
+  }
+
+  .dwmth-form-input {
+    overflow: hidden;
+  }
+
+  &__btn {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    font-size: 26px;
+    color: pal(blue, base);
+    padding: 0;
+
+    & .material-icons {
+      margin: 0;
+      font-size: inherit;
+    }
+
+    &:focus,
+    &:hover {
+      color: darken(pal(blue, base), 10%);
+      box-shadow: 0 10px 20px rgba(196, 194, 194, 0.19), -1px 5px 6px rgba(114, 112, 112, 0.23)
+    }
+  }
+}
