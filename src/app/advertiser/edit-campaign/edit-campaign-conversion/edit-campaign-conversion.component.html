@@ -21,14 +21,14 @@
     <mat-checkbox
       id="conversion-is-active-checkbox"
       name="isActive"
-      [(ngModel)]="campaignConversion.isActive"
+      [(ngModel)]="isConversionActive"
       data-test="advertiser-conversion-is-active-checkbox"
     >
       Conversion is active
     </mat-checkbox>
 
     <div
-      *ngIf="campaignConversion.isActive"
+      *ngIf="isConversionActive"
     >
       <button
         type="button"
@@ -65,7 +65,7 @@
       <mat-checkbox
         id="conversion-is-click-conversion-checkbox"
         name="isActive"
-        [(ngModel)]="campaignConversion.isClickConversion"
+        [(ngModel)]="isClickConversion"
         data-test="advertiser-conversion-is-active-checkbox"
       >
         Enable click conversion
@@ -153,8 +153,8 @@
             >
               <input
                 class="dwmth-form-input"
-                formControlName="budgetMax"
-                data-test="advertiser-conversion-item-budget-max"
+                formControlName="limit"
+                data-test="advertiser-conversion-item-limit"
               >
             </td>
             <td

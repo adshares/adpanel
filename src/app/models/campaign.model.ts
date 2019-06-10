@@ -16,7 +16,7 @@ interface Campaign {
   averageCpc?: number;
   averageCpm?: number;
   cost?: number;
-  conversions?: number;
+  conversions?: CampaignConversion[];
   classificationStatus: number;
   classificationTags?: string;
 }
@@ -44,18 +44,23 @@ interface CampaignBasicInformation {
 }
 
 interface CampaignConversion {
-  isActive: boolean;
-  isClickConversion: boolean;
-  list: CampaignConversionItem[];
+  id?: number;
+  name: string;
+  budgetType: string;
+  eventType: string;
+  type: string;
+  value?: string;
+  limit?: string;
 }
 
 interface CampaignConversionItem {
+  id?: number;
   name: string;
-  type: string;
+  eventType: string;
   isAdvanced: boolean;
   isInBudget: boolean;
   value?: string;
-  budgetMax?: string;
+  limit?: string;
 }
 
 interface Ad {

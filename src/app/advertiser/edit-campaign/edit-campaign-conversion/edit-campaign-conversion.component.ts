@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem } from 'models/campaign.model';
-import { campaignConversionInitialState, campaignConversionItemInitialState } from 'models/initial-state/campaign';
+import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
 import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaign } from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
@@ -30,7 +30,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
-  campaignConversion: CampaignConversion = campaignConversionInitialState;
+
+  campaignConversions: CampaignConversionItem[] = [];
+  isConversionActive: boolean = false;
+  isClickConversion: boolean = false;
 
   validateForm: boolean = false;
   submitted: boolean = false;
@@ -79,12 +82,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.validateForm = false;
     this.submitted = true;
 
-    // TODO convert to campaign.conversion type
-    console.log('campaignConversion', this.conversionItemsToSave);
-    // this.campaign = {
-    //   ...this.campaign,
-    //   basicInformation: {...this.campaignConversion, status: this.campaign.basicInformation.status},
-    // };
+    this.campaign = {
+      ...this.campaign,
+      conversions: this.conversionItemsToSave,
+    };
+
     this.store.dispatch(new UpdateCampaign(this.campaign));
   }
 
@@ -94,24 +96,26 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
     return new FormGroup({
+      id: new FormControl(item.id),
       name: new FormControl(item.name, Validators.required),
-      type: new FormControl(item.type),
+      type: new FormControl(item.eventType),
       isAdvanced: new FormControl(item.isAdvanced),
       isInBudget: new FormControl({value: item.isInBudget, disabled: !item.isAdvanced}),
       value: new FormControl(item.value, Validators.min(0)),
-      budgetMax: new FormControl(item.budgetMax, Validators.min(0)),
+      limit: new FormControl(item.limit, Validators.min(0)),
     });
   }
 
-  get conversionItemsToSave(): CampaignConversionItem[] {
+  get conversionItemsToSave(): CampaignConversion[] {
     return this.conversionItemForms.map((form) => {
       return {
+        id: form.get('id').value,
         name: form.get('name').value,
-        type: form.get('type').value,
-        isAdvanced: form.get('isAdvanced').value,
-        isInBudget: form.get('isInBudget').value,
+        budgetType: form.get('isInBudget').value ? 'in_budget' : 'out_of_budget',
+        eventType: form.get('type').value,
+        type: form.get('isAdvanced').value ? 'advanced' : 'basic',
         value: form.get('value').value,
-        budgetMax: form.get('budgetMax').value,
+        limit: form.get('limit').value,
       };
     });
   }
@@ -121,12 +125,12 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
 
-        // TODO fill this.campaignConversion with data from campaign object
-        this.campaignConversion.isActive = true;
-        this.campaignConversion.isClickConversion = false;
-        this.campaignConversion.list = [];
+        // TODO fill this.campaignConversions with data from campaign object
+        this.isClickConversion = false;
+        this.campaignConversions = [];
 
-        this.campaignConversion.list.forEach(item => this.addConversion(item));
+        this.isConversionActive = this.campaignConversions.length > 0;
+        this.campaignConversions.forEach(item => this.addConversion(item));
       }, () => {
       });
     this.subscriptions.push(subscription);
@@ -134,10 +138,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   addConversionEmpty(mode: string): void {
     const item = <CampaignConversionItem>{
-        ...campaignConversionItemInitialState,
-        isAdvanced: this.MODE_ADVANCED === mode,
-      };
-    
+      ...campaignConversionItemInitialState,
+      isAdvanced: this.MODE_ADVANCED === mode,
+    };
+
     this.addConversion(item);
   }
 
