@@ -31,6 +31,30 @@
   }
 
   &__btns-wrapper {
-    margin-top: -20px;
+    margin-top: 8px;
+  }
+
+  &__input {
+    @include input(130px);
+    margin-left: 8px;
+    padding: 8px;
+    height: 50px;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 30%;
+    right: 17%;
+
+    &--last{
+      right: 29%;
+    }
+  }
+
+  &__label {
+    @include copy($font-size: 16);
+    position: relative;
+    width: 205px;
+    height: 52px;
   }
 }
