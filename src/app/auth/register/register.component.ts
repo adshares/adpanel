@@ -16,13 +16,12 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends HandleSubscription implements OnInit {
+export class RegisterComponent extends HandleSubscription {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   isRegistering = false;
   privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
   termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK;
-  referralId?: string;
   user: User;
 
   constructor(
@@ -32,16 +31,6 @@ export class RegisterComponent extends HandleSubscription implements OnInit {
     private router: Router
   ) {
     super();
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      const referralId = params['r'];
-
-      if (referralId) {
-        this.storeReferralId(referralId);
-      }
-    });
   }
 
   register() {
@@ -61,7 +50,7 @@ export class RegisterComponent extends HandleSubscription implements OnInit {
       isPublisher: false
     };
 
-    const referralId = this.fetchReferralId();
+    const referralId = this.api.users.getReferralId();
     if (referralId) {
       user.referralId = referralId;
     }
@@ -86,14 +75,5 @@ export class RegisterComponent extends HandleSubscription implements OnInit {
       );
 
     this.subscriptions.push(registerSubscription);
-  }
-
-  storeReferralId(referralId: string): void {
-    this.referralId = referralId;
-    this.api.users.setReferralId(referralId);
-  }
-
-  fetchReferralId(): string | null {
-    return this.referralId || this.api.users.getReferralId();
   }
 }
