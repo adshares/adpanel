@@ -10,6 +10,7 @@ import { MatCheckboxModule, MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
@@ -47,7 +48,8 @@ const matModules = [
   MatDatepickerModule,
   MatInputModule,
   MatMenuModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTabsModule,
 ];
 
 const editCampaignComponents = [

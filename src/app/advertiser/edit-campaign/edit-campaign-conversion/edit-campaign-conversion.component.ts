@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, toPayload } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 
@@ -14,6 +14,7 @@ import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaign } from 'store/advertiser/advert
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -23,17 +24,21 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit, OnDestroy {
   destroyed$ = new Subject<boolean>();
 
-  readonly MODE_BASIC: string = 'basic';
-  readonly MODE_ADVANCED: string = 'advanced';
+  readonly TYPE_ADVANCED: string = 'advanced';
+  readonly TYPE_BASIC: string = 'basic';
 
   private readonly CONVERSION_COUNT_MAXIMAL: number = 5;
+  private readonly CLICK_CONVERSION_NAME: string = 'click';
+  private readonly CLICK_CONVERSION_EVENT_TYPE: string = 'click';
+  private readonly BUDGET_TYPE_IN: string = 'in_budget';
+  private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
 
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
 
-  campaignConversions: CampaignConversionItem[] = [];
   isConversionActive: boolean = false;
-  isClickConversion: boolean = false;
+  isClickConversionBasic: boolean = false;
+  isClickConversionAdvanced: boolean = false;
 
   validateForm: boolean = false;
   submitted: boolean = false;
@@ -51,14 +56,20 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     updates$
       .ofType(UPDATE_CAMPAIGN_FAILURE)
       .takeUntil(this.destroyed$)
-      .do(() => {
+      .map(toPayload)
+      .subscribe((payload) => {
+        this.dialog.open(ErrorResponseDialogComponent, {
+          data: {
+            message: `An error occurred. Error code: ${payload.status || 0}`,
+          }
+        });
+
         this.submitted = false;
-      })
-      .subscribe();
+      });
   }
 
   ngOnInit() {
-    // TODO check if really needed - it affects with adding additional empty row - subscription from getFormDataFromStore is executed
+    // TODO check if really needed - it affects with adding additional rows - subscription from getFormDataFromStore is executed
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(true);
     subscription && this.subscriptions.push(subscription);
 
@@ -72,7 +83,15 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     super.ngOnDestroy();
   }
 
-  updateCampaignConversion() {
+  get conversionItemFormsAdvanced(): FormGroup[] {
+    return this.conversionItemForms.filter(form => form.get('isAdvanced').value);
+  }
+
+  get conversionItemFormsBasic(): FormGroup[] {
+    return this.conversionItemForms.filter(form => !form.get('isAdvanced').value);
+  }
+
+  updateCampaignConversion(): void {
     this.validateForm = true;
 
     if (!this.isFormValid) {
@@ -84,69 +103,139 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
     this.campaign = {
       ...this.campaign,
-      conversions: this.conversionItemsToSave,
+      conversions: this.conversionsToSave,
     };
 
     this.store.dispatch(new UpdateCampaign(this.campaign));
   }
 
-  get isFormValid() {
+  get isFormValid(): boolean {
     return this.conversionItemForms.every(item => item.valid);
   }
 
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
+    const itemId = item.id;
+    const itemIsAdvanced = item.isAdvanced;
+    const isItemFromBackend = item.id != null;
+
     return new FormGroup({
-      id: new FormControl(item.id),
-      name: new FormControl(item.name, Validators.required),
-      type: new FormControl(item.eventType),
-      isAdvanced: new FormControl(item.isAdvanced),
-      isInBudget: new FormControl({value: item.isInBudget, disabled: !item.isAdvanced}),
-      value: new FormControl(item.value, Validators.min(0)),
-      limit: new FormControl(item.limit, Validators.min(0)),
+      id: new FormControl(itemId),
+      name: new FormControl({value: item.name, disabled: isItemFromBackend}, Validators.required),
+      type: new FormControl({value: item.eventType, disabled: isItemFromBackend}),
+      isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
+      isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
+      value: new FormControl({value: item.value, disabled: isItemFromBackend}, Validators.min(0)),
+      limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
     });
   }
 
-  get conversionItemsToSave(): CampaignConversion[] {
-    return this.conversionItemForms.map((form) => {
-      return {
+  get conversionsToSave(): CampaignConversion[] {
+    let items = this.conversionItemForms.map((form) => {
+      return <CampaignConversion>{
         id: form.get('id').value,
         name: form.get('name').value,
-        budgetType: form.get('isInBudget').value ? 'in_budget' : 'out_of_budget',
+        budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
-        type: form.get('isAdvanced').value ? 'advanced' : 'basic',
+        type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
         value: form.get('value').value,
         limit: form.get('limit').value,
       };
     });
+
+    if (this.isClickConversionBasic || this.isClickConversionAdvanced) {
+      items.push(this.getConversionClick());
+    }
+
+    return items;
   }
 
-  getFormDataFromStore() {
-    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
+  private getConversionClick(): CampaignConversion {
+    const conversion = this.campaign.conversions.find(conversion => conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE);
+
+    if (conversion === undefined) {
+      return this.createConversionClick();
+    }
+
+    const isAdvanced = conversion.type === this.TYPE_ADVANCED;
+
+    if (this.isClickConversionBasic && !isAdvanced || this.isClickConversionAdvanced && isAdvanced) {
+      return conversion;
+    }
+
+    return this.createConversionClick();
+  }
+
+  private createConversionClick(): CampaignConversion {
+    return <CampaignConversion>{
+      id: null,
+      name: this.CLICK_CONVERSION_NAME,
+      budgetType: this.isClickConversionAdvanced ? this.BUDGET_TYPE_OUT : this.BUDGET_TYPE_IN,
+      eventType: this.CLICK_CONVERSION_EVENT_TYPE,
+      type: this.isClickConversionAdvanced ? this.TYPE_ADVANCED : this.TYPE_BASIC,
+      value: null,
+      limit: null,
+    };
+  }
+
+  getFormDataFromStore(): void {
+    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
 
-        // TODO fill this.campaignConversions with data from campaign object
-        this.isClickConversion = false;
-        this.campaignConversions = [];
+        this.isClickConversionBasic = false;
+        this.isClickConversionAdvanced = false;
+        this.campaign.conversions.forEach(conversion => {
+          if (conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE) {
+            if (conversion.type === this.TYPE_ADVANCED) {
+              this.isClickConversionAdvanced = true;
+            } else {
+              this.isClickConversionBasic = true;
+            }
 
-        this.isConversionActive = this.campaignConversions.length > 0;
-        this.campaignConversions.forEach(item => this.addConversion(item));
+            return;
+          }
+
+          const item = {
+            id: conversion.id,
+            name: conversion.name,
+            eventType: conversion.eventType,
+            isAdvanced: conversion.type === this.TYPE_ADVANCED,
+            isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
+            value: conversion.value,
+            limit: conversion.limit,
+          };
+
+          this.addConversion(item);
+        });
+
+        this.isConversionActive = this.conversionCount > 0;
       }, () => {
       });
+
     this.subscriptions.push(subscription);
   }
 
-  addConversionEmpty(mode: string): void {
+  private get conversionCount(): number {
+    let count = this.conversionItemForms.length;
+
+    if (this.isClickConversionBasic || this.isClickConversionAdvanced) {
+      count++;
+    }
+
+    return count;
+  }
+
+  addConversionEmpty(type: string): void {
     const item = <CampaignConversionItem>{
       ...campaignConversionItemInitialState,
-      isAdvanced: this.MODE_ADVANCED === mode,
+      isAdvanced: this.TYPE_ADVANCED === type,
     };
 
     this.addConversion(item);
   }
 
   addConversion(item: CampaignConversionItem): void {
-    if (this.conversionItemForms.length >= this.CONVERSION_COUNT_MAXIMAL) {
+    if (this.conversionCount >= this.CONVERSION_COUNT_MAXIMAL) {
       this.dialog.open(ConfirmResponseDialogComponent, {
         data: {
           title: 'Maximum conversion count reached',
