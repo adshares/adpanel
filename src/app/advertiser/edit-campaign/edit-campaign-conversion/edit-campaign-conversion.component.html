@@ -49,17 +49,19 @@
           Enable click conversion
         </mat-checkbox>
 
-        <div class="
-          row
-          dwmth-box
-          align-center
-          justify-between
-          dwmth-copy"
+        <div
+          *ngIf="conversionItemFormsBasic.length > 0"
+          class="
+            row
+            dwmth-box
+            align-center
+            justify-between
+            dwmth-copy"
         >
           <div class="col-xs-2 row justify-center">Name</div>
-          <div class="col-xs-2 row justify-center">Type</div>
+          <div class="col-xs-3 row justify-center">Type</div>
           <div class="col-xs-2 row justify-center">Value</div>
-          <div class="col-xs-5 row justify-center"></div>
+          <div class="col-xs-4 row justify-center"></div>
           <div class="col-xs-1 row justify-center"></div>
         </div>
 
@@ -98,7 +100,7 @@
               </div>
               <div
                 class="
-                col-xs-2
+                col-xs-3
                 row
                 align-center"
               >
@@ -142,7 +144,7 @@
               </div>
               <div
                 class="
-                col-xs-5
+                col-xs-4
                 row
                 align-center"
               >
@@ -195,18 +197,20 @@
           Enable click conversion
         </mat-checkbox>
 
-        <div class="
-          row
-          dwmth-box
-          align-center
-          justify-between
-          dwmth-copy"
+        <div
+          *ngIf="conversionItemFormsAdvanced.length > 0"
+          class="
+            row
+            dwmth-box
+            align-center
+            justify-between
+            dwmth-copy"
         >
           <div class="col-xs-2 row justify-center">Name</div>
-          <div class="col-xs-2 row justify-center">Type</div>
+          <div class="col-xs-3 row justify-center">Type</div>
           <div class="col-xs-2 row justify-center">Value</div>
           <div class="col-xs-2 row justify-center">Maximal budget</div>
-          <div class="col-xs-3 row justify-center"></div>
+          <div class="col-xs-2 row justify-center"></div>
           <div class="col-xs-1 row justify-center"></div>
         </div>
 
@@ -245,7 +249,7 @@
               </div>
               <div
                 class="
-                col-xs-2
+                col-xs-3
                 row
                 align-center"
               >
@@ -301,7 +305,7 @@
               </div>
               <div
                 class="
-                col-xs-3
+                col-xs-2
                 row
                 align-center"
               >
