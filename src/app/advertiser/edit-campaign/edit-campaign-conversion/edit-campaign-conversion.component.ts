@@ -33,6 +33,26 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   private readonly BUDGET_TYPE_IN: string = 'in_budget';
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
 
+  readonly availableEventTypes = [
+    'Add payment info',
+    'Add to cart',
+    'Add to wishlist',
+    'Complete registration',
+    'Contact',
+    'Customize Product',
+    'Donate',
+    'Find Location',
+    'Initiate checkout',
+    'Lead',
+    'Purchase',
+    'Schedule',
+    'Search',
+    'Start trial',
+    'Submit application',
+    'Subscribe',
+    'View content',
+  ];
+  
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
 
@@ -117,7 +137,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     return new FormGroup({
       id: new FormControl(itemId),
       name: new FormControl({value: item.name, disabled: isItemFromBackend}, Validators.required),
-      type: new FormControl({value: item.eventType, disabled: isItemFromBackend}),
+      type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
       isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, Validators.min(0)),

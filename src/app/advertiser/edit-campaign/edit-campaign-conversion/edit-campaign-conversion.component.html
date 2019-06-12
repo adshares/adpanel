@@ -95,8 +95,8 @@
                     class="error-msg"
                     *ngIf="!conversionItemForm.get('name').valid && validateForm"
                   >
-                Cannot be empty.
-              </span>
+                    Cannot be empty.
+                  </span>
                 </td>
                 <td
                   class="
@@ -104,11 +104,25 @@
                 row
                 align-center"
                 >
-                  <input
-                    class="dwmth-form-input"
+                  <mat-select
+                    class="dwmth-select"
                     formControlName="type"
-                    data-test="advertiser-conversion-item-type"
+                    data-test="advertiser-conversion-item-type-select"
                   >
+                    <mat-option
+                      *ngFor="let type of availableEventTypes"
+                      [value]="type"
+                      data-test="advertiser-conversion-item-type-option"
+                    >
+                      {{ type }}
+                    </mat-option>
+                  </mat-select>
+                  <span
+                    class="error-msg"
+                    *ngIf="!conversionItemForm.get('type').valid && validateForm"
+                  >
+                    Cannot be empty.
+                  </span>
                 </td>
                 <td
                   class="
@@ -125,8 +139,8 @@
                     class="error-msg"
                     *ngIf="!conversionItemForm.get('isAdvanced').value && !conversionItemForm.get('name').valid && validateForm"
                   >
-                Must be greater than zero.
-              </span>
+                    Must be greater than zero.
+                  </span>
                 </td>
                 <td
                   class="
@@ -171,7 +185,7 @@
             </form>
           </div>
         </mat-tab>
-        
+
         <mat-tab label="Advanced">
           <p>Advanced mode</p>
 
@@ -234,8 +248,8 @@
                     class="error-msg"
                     *ngIf="!conversionItemForm.get('name').valid && validateForm"
                   >
-                Cannot be empty.
-              </span>
+                    Cannot be empty.
+                  </span>
                 </td>
                 <td
                   class="
@@ -243,11 +257,25 @@
                 row
                 align-center"
                 >
-                  <input
-                    class="dwmth-form-input"
+                  <mat-select
+                    class="dwmth-select"
                     formControlName="type"
-                    data-test="advertiser-conversion-item-type"
+                    data-test="advertiser-conversion-item-type-select"
                   >
+                    <mat-option
+                      *ngFor="let type of availableEventTypes"
+                      [value]="type"
+                      data-test="advertiser-conversion-item-type-option"
+                    >
+                      {{ type }}
+                    </mat-option>
+                  </mat-select>
+                  <span
+                    class="error-msg"
+                    *ngIf="!conversionItemForm.get('type').valid && validateForm"
+                  >
+                    Cannot be empty.
+                  </span>
                 </td>
                 <td
                   class="
@@ -264,8 +292,8 @@
                     class="error-msg"
                     *ngIf="!conversionItemForm.get('isAdvanced').value && !conversionItemForm.get('name').valid && validateForm"
                   >
-                Must be greater than zero.
-              </span>
+                    Must be greater than zero.
+                  </span>
                 </td>
                 <td
                   class="
@@ -313,15 +341,14 @@
       </mat-tab-group>
 
       <!--<button-->
-        <!--type="button"-->
-        <!--class="campaign-edit-conversion__btn"-->
-        <!--title="Click to add conversion"-->
-        <!--(click)="addConversionEmpty(MODE_BASIC)"-->
+      <!--type="button"-->
+      <!--class="campaign-edit-conversion__btn"-->
+      <!--title="Click to add conversion"-->
+      <!--(click)="addConversionEmpty(MODE_BASIC)"-->
       <!--&gt;-->
-        <!--<mat-icon>add_circle_outline</mat-icon>-->
+      <!--<mat-icon>add_circle_outline</mat-icon>-->
       <!--</button>-->
 
-      
 
     </div>
   </div>
