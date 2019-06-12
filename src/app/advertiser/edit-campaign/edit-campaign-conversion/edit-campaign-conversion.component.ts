@@ -132,7 +132,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
     const itemId = item.id;
     const itemIsAdvanced = item.isAdvanced;
-    const isItemFromBackend = item.id != null;
+    const isItemFromBackend = itemId != null;
 
     return new FormGroup({
       id: new FormControl(itemId),

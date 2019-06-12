@@ -93,7 +93,7 @@
                   >
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('name').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
                   >
                     Cannot be empty.
                   </span>
@@ -119,7 +119,7 @@
                   </mat-select>
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('type').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
                   >
                     Cannot be empty.
                   </span>
@@ -137,7 +137,7 @@
                   >
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('isAdvanced').value && !conversionItemForm.get('name').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
                   >
                     Must be greater than zero.
                   </span>
@@ -246,7 +246,7 @@
                   >
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('name').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
                   >
                     Cannot be empty.
                   </span>
@@ -272,7 +272,7 @@
                   </mat-select>
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('type').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
                   >
                     Cannot be empty.
                   </span>
@@ -290,7 +290,7 @@
                   >
                   <span
                     class="error-msg"
-                    *ngIf="!conversionItemForm.get('isAdvanced').value && !conversionItemForm.get('name').valid && validateForm"
+                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
                   >
                     Must be greater than zero.
                   </span>
@@ -348,7 +348,6 @@
       <!--&gt;-->
       <!--<mat-icon>add_circle_outline</mat-icon>-->
       <!--</button>-->
-
 
     </div>
   </div>
