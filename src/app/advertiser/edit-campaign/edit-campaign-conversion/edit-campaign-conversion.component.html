@@ -22,7 +22,7 @@
       [@.disabled]="true"
     >
       <mat-tab label="Basic">
-        <p>Basic mode</p>
+        <p>In this mode each conversion has constant value. All conversions' expenses are limited by campaign budget.</p>
 
         <button
           class="dwmth-btn
@@ -42,16 +42,20 @@
           Enable click conversion
         </mat-checkbox>
 
-        <table>
-          <tr>
-            <th class="col-xs-2">Name</th>
-            <th class="col-xs-2">Type</th>
-            <th class="col-xs-2">Value</th>
-            <th class="col-xs-2">Maximal budget</th>
-            <th class="col-xs-3"></th>
-            <th class="col-xs-1"></th>
-          </tr>
-        </table>
+        <div class="
+          row
+          dwmth-box
+          align-center
+          justify-between
+          dwmth-copy"
+        >
+          <div class="col-xs-2 row justify-center">Name</div>
+          <div class="col-xs-2 row justify-center">Type</div>
+          <div class="col-xs-2 row justify-center">Value</div>
+          <div class="col-xs-2 row justify-center">Maximal budget</div>
+          <div class="col-xs-3 row justify-center"></div>
+          <div class="col-xs-1 row justify-center"></div>
+        </div>
 
         <div
           class="dwmth-box dwmth-box--no-padding"
@@ -61,14 +65,14 @@
             [formGroup]="conversionItemForm"
             data-test="advertiser-conversion-item"
           >
-            <tr
+            <div
               class="row
                    dwmth-box
                    align-center
                    justify-between
                    dwmth-copy"
             >
-              <td
+              <div
                 class="
                 col-xs-2
                 row
@@ -85,8 +89,8 @@
                 >
                     Cannot be empty.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -111,8 +115,8 @@
                 >
                     Cannot be empty.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -129,8 +133,8 @@
                 >
                     Must be greater than zero.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -141,8 +145,8 @@
                   formControlName="limit"
                   data-test="advertiser-conversion-item-limit"
                 >
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-3
                 row
@@ -154,8 +158,8 @@
                 >
                   In campaign budget
                 </mat-checkbox>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-1
                 row
@@ -168,14 +172,14 @@
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           </form>
         </div>
       </mat-tab>
 
       <mat-tab label="Advanced">
-        <p>Advanced mode</p>
+        <p>In this mode each conversion has unique HTTP request which must be created dynamically.</p>
 
         <button
           class="dwmth-btn
@@ -195,16 +199,20 @@
           Enable click conversion
         </mat-checkbox>
 
-        <table>
-          <tr>
-            <th class="col-xs-2">Name</th>
-            <th class="col-xs-2">Type</th>
-            <th class="col-xs-2">Value</th>
-            <th class="col-xs-2">Maximal budget</th>
-            <th class="col-xs-3"></th>
-            <th class="col-xs-1"></th>
-          </tr>
-        </table>
+        <div class="
+          row
+          dwmth-box
+          align-center
+          justify-between
+          dwmth-copy"
+        >
+          <div class="col-xs-2 row justify-center">Name</div>
+          <div class="col-xs-2 row justify-center">Type</div>
+          <div class="col-xs-2 row justify-center">Value</div>
+          <div class="col-xs-2 row justify-center">Maximal budget</div>
+          <div class="col-xs-3 row justify-center"></div>
+          <div class="col-xs-1 row justify-center"></div>
+        </div>
 
         <div
           class="dwmth-box dwmth-box--no-padding"
@@ -214,14 +222,14 @@
             [formGroup]="conversionItemForm"
             data-test="advertiser-conversion-item"
           >
-            <tr
+            <div
               class="row
                    dwmth-box
                    align-center
                    justify-between
                    dwmth-copy"
             >
-              <td
+              <div
                 class="
                 col-xs-2
                 row
@@ -238,8 +246,8 @@
                 >
                     Cannot be empty.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -264,8 +272,8 @@
                 >
                     Cannot be empty.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -282,8 +290,8 @@
                 >
                     Must be greater than zero.
                   </span>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-2
                 row
@@ -294,8 +302,8 @@
                   formControlName="limit"
                   data-test="advertiser-conversion-item-limit"
                 >
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-3
                 row
@@ -307,8 +315,8 @@
                 >
                   In campaign budget
                 </mat-checkbox>
-              </td>
-              <td
+              </div>
+              <div
                 class="
                 col-xs-1
                 row
@@ -321,8 +329,8 @@
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           </form>
         </div>
       </mat-tab>
