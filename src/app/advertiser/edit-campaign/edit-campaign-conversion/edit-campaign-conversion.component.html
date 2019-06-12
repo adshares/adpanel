@@ -22,7 +22,14 @@
       [@.disabled]="true"
     >
       <mat-tab label="Basic">
-        <p>In this mode each conversion has constant value. All conversions' expenses are limited by campaign budget.</p>
+        <p
+          class="
+            dwmth-copy
+            justify-center
+            description-type"
+        >
+          In this mode each conversion has constant value. All conversions' expenses are limited by campaign budget.
+        </p>
 
         <button
           class="dwmth-btn
@@ -52,8 +59,7 @@
           <div class="col-xs-2 row justify-center">Name</div>
           <div class="col-xs-2 row justify-center">Type</div>
           <div class="col-xs-2 row justify-center">Value</div>
-          <div class="col-xs-2 row justify-center">Maximal budget</div>
-          <div class="col-xs-3 row justify-center"></div>
+          <div class="col-xs-5 row justify-center"></div>
           <div class="col-xs-1 row justify-center"></div>
         </div>
 
@@ -136,28 +142,11 @@
               </div>
               <div
                 class="
-                col-xs-2
+                col-xs-5
                 row
                 align-center"
               >
-                <input
-                  class="dwmth-form-input"
-                  formControlName="limit"
-                  data-test="advertiser-conversion-item-limit"
-                >
-              </div>
-              <div
-                class="
-                col-xs-3
-                row
-                align-center"
-              >
-                <mat-checkbox
-                  formControlName="isInBudget"
-                  data-test="advertiser-conversion-item-is-in-budget"
-                >
-                  In campaign budget
-                </mat-checkbox>
+
               </div>
               <div
                 class="
@@ -179,7 +168,14 @@
       </mat-tab>
 
       <mat-tab label="Advanced">
-        <p>In this mode each conversion has unique HTTP request which must be created dynamically.</p>
+        <p
+          class="
+            dwmth-copy
+            justify-center
+            description-type"
+        >
+          In this mode each conversion has unique HTTP request which must be created dynamically.
+        </p>
 
         <button
           class="dwmth-btn
