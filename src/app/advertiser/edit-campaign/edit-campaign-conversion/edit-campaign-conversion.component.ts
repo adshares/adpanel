@@ -69,10 +69,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   ngOnInit() {
-    // TODO check if really needed - it affects with adding additional rows - subscription from getFormDataFromStore is executed
-    const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(true);
-    subscription && this.subscriptions.push(subscription);
-
     this.getFormDataFromStore();
   }
 
