@@ -157,7 +157,7 @@
                 <button
                   class="campaign-edit-conversion__btn"
                   title="Click to remove conversion"
-                  (click)="deleteConversion(conversionItemFormIndex)"
+                  (click)="deleteConversion(false, conversionItemFormIndex)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -321,7 +321,7 @@
                 <button
                   class="campaign-edit-conversion__btn"
                   title="Click to remove conversion"
-                  (click)="deleteConversion(conversionItemFormIndex)"
+                  (click)="deleteConversion(true, conversionItemFormIndex)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>

@@ -52,7 +52,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     'Subscribe',
     'View content',
   ];
-  
+
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
 
@@ -262,8 +262,27 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.conversionItemForms.push(this.generateFormConversionItem(item));
   }
 
-  deleteConversion(index: number): void {
+  deleteConversion(isAdvancedList: boolean, subListIndex: number): void {
+    let index = this.getIndexOnMainList(isAdvancedList, subListIndex);
+
     this.conversionItemForms.splice(index, 1);
+  }
+
+  private getIndexOnMainList(isAdvancedList: boolean, listIndex: number) {
+    let mainListIndex = 0;
+    let listIndexTemporary = -1;
+
+    for (; mainListIndex < this.conversionItemForms.length; mainListIndex++) {
+      if (this.conversionItemForms[mainListIndex].get('isAdvanced').value === isAdvancedList) {
+        listIndexTemporary++;
+      }
+
+      if (listIndex === listIndexTemporary) {
+        break;
+      }
+    }
+
+    return mainListIndex;
   }
 
   onStepBack(): void {
