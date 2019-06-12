@@ -18,338 +18,325 @@
         dwmth-box
         dwmth-box--large"
   >
-    <mat-checkbox
-      id="conversion-is-active-checkbox"
-      name="isActive"
-      [(ngModel)]="isConversionActive"
-      data-test="advertiser-conversion-is-active-checkbox"
+    <mat-tab-group
+      [@.disabled]="true"
     >
-      Conversion is active
-    </mat-checkbox>
+      <mat-tab label="Basic">
+        <p>Basic mode</p>
 
-    <div
-      *ngIf="isConversionActive"
-    >
-      <mat-tab-group
-        [@.disabled]="true"
-      >
-        <mat-tab label="Basic">
-          <p>Basic mode</p>
-
-          <button
-            class="dwmth-btn
+        <button
+          class="dwmth-btn
                dwmth-btn--white
                dwmth-blue"
-            (click)="addConversionEmpty(TYPE_BASIC)"
-            data-test="advertiser-conversion-add-basic-button"
-          >
-            Add conversion
-          </button>
+          (click)="addConversionEmpty(TYPE_BASIC)"
+          data-test="advertiser-conversion-add-basic-button"
+        >
+          Add conversion
+        </button>
 
-          <mat-checkbox
-            *ngIf="!isClickConversionAdvanced"
-            [(ngModel)]="isClickConversionBasic"
-            data-test="advertiser-conversion-is-click-basic-checkbox"
-          >
-            Enable click conversion
-          </mat-checkbox>
+        <mat-checkbox
+          *ngIf="!isClickConversionAdvanced"
+          [(ngModel)]="isClickConversionBasic"
+          data-test="advertiser-conversion-is-click-basic-checkbox"
+        >
+          Enable click conversion
+        </mat-checkbox>
 
-          <table>
-            <tr>
-              <th class="col-xs-2">Name</th>
-              <th class="col-xs-2">Type</th>
-              <th class="col-xs-2">Value</th>
-              <th class="col-xs-2">Maximal budget</th>
-              <th class="col-xs-3"></th>
-              <th class="col-xs-1"></th>
-            </tr>
-          </table>
+        <table>
+          <tr>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Type</th>
+            <th class="col-xs-2">Value</th>
+            <th class="col-xs-2">Maximal budget</th>
+            <th class="col-xs-3"></th>
+            <th class="col-xs-1"></th>
+          </tr>
+        </table>
 
-          <div
-            class="dwmth-box dwmth-box--no-padding"
+        <div
+          class="dwmth-box dwmth-box--no-padding"
+        >
+          <form
+            *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
+            [formGroup]="conversionItemForm"
+            data-test="advertiser-conversion-item"
           >
-            <form
-              *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
-              [formGroup]="conversionItemForm"
-              data-test="advertiser-conversion-item"
-            >
-              <tr
-                class="row
+            <tr
+              class="row
                    dwmth-box
                    align-center
                    justify-between
                    dwmth-copy"
+            >
+              <td
+                class="
+                col-xs-2
+                row
+                align-center"
               >
-                <td
-                  class="
-                col-xs-2
-                row
-                align-center"
+                <input
+                  class="dwmth-form-input"
+                  formControlName="name"
+                  data-test="advertiser-conversion-item-name"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="name"
-                    data-test="advertiser-conversion-item-name"
-                  >
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
-                  >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
+                >
                     Cannot be empty.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <mat-select
+                  class="dwmth-select"
+                  formControlName="type"
+                  data-test="advertiser-conversion-item-type-select"
                 >
-                  <mat-select
-                    class="dwmth-select"
-                    formControlName="type"
-                    data-test="advertiser-conversion-item-type-select"
+                  <mat-option
+                    *ngFor="let type of availableEventTypes"
+                    [value]="type"
+                    data-test="advertiser-conversion-item-type-option"
                   >
-                    <mat-option
-                      *ngFor="let type of availableEventTypes"
-                      [value]="type"
-                      data-test="advertiser-conversion-item-type-option"
-                    >
-                      {{ type }}
-                    </mat-option>
-                  </mat-select>
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
-                  >
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
+                >
                     Cannot be empty.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <input
+                  class="dwmth-form-input"
+                  formControlName="value"
+                  data-test="advertiser-conversion-item-value"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="value"
-                    data-test="advertiser-conversion-item-value"
-                  >
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
-                  >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
+                >
                     Must be greater than zero.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <input
+                  class="dwmth-form-input"
+                  formControlName="limit"
+                  data-test="advertiser-conversion-item-limit"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="limit"
-                    data-test="advertiser-conversion-item-limit"
-                  >
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-3
                 row
                 align-center"
+              >
+                <mat-checkbox
+                  formControlName="isInBudget"
+                  data-test="advertiser-conversion-item-is-in-budget"
                 >
-                  <mat-checkbox
-                    formControlName="isInBudget"
-                    data-test="advertiser-conversion-item-is-in-budget"
-                  >
-                    In campaign budget
-                  </mat-checkbox>
-                </td>
-                <td
-                  class="
+                  In campaign budget
+                </mat-checkbox>
+              </td>
+              <td
+                class="
                 col-xs-1
                 row
                 align-center"
+              >
+                <button
+                  class="campaign-edit-conversion__btn"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(conversionItemFormIndex)"
                 >
-                  <button
-                    class="campaign-edit-conversion__btn"
-                    title="Click to remove conversion"
-                    (click)="deleteConversion(conversionItemFormIndex)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </form>
-          </div>
-        </mat-tab>
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </form>
+        </div>
+      </mat-tab>
 
-        <mat-tab label="Advanced">
-          <p>Advanced mode</p>
+      <mat-tab label="Advanced">
+        <p>Advanced mode</p>
 
-          <button
-            class="dwmth-btn
+        <button
+          class="dwmth-btn
                dwmth-btn--white
                dwmth-blue"
-            (click)="addConversionEmpty(TYPE_ADVANCED)"
-            data-test="advertiser-conversion-add-advanced-button"
-          >
-            Add conversion
-          </button>
+          (click)="addConversionEmpty(TYPE_ADVANCED)"
+          data-test="advertiser-conversion-add-advanced-button"
+        >
+          Add conversion
+        </button>
 
-          <mat-checkbox
-            *ngIf="!isClickConversionBasic"
-            [(ngModel)]="isClickConversionAdvanced"
-            data-test="advertiser-conversion-is-click-advanced-checkbox"
-          >
-            Enable click conversion
-          </mat-checkbox>
+        <mat-checkbox
+          *ngIf="!isClickConversionBasic"
+          [(ngModel)]="isClickConversionAdvanced"
+          data-test="advertiser-conversion-is-click-advanced-checkbox"
+        >
+          Enable click conversion
+        </mat-checkbox>
 
-          <table>
-            <tr>
-              <th class="col-xs-2">Name</th>
-              <th class="col-xs-2">Type</th>
-              <th class="col-xs-2">Value</th>
-              <th class="col-xs-2">Maximal budget</th>
-              <th class="col-xs-3"></th>
-              <th class="col-xs-1"></th>
-            </tr>
-          </table>
+        <table>
+          <tr>
+            <th class="col-xs-2">Name</th>
+            <th class="col-xs-2">Type</th>
+            <th class="col-xs-2">Value</th>
+            <th class="col-xs-2">Maximal budget</th>
+            <th class="col-xs-3"></th>
+            <th class="col-xs-1"></th>
+          </tr>
+        </table>
 
-          <div
-            class="dwmth-box dwmth-box--no-padding"
+        <div
+          class="dwmth-box dwmth-box--no-padding"
+        >
+          <form
+            *ngFor="let conversionItemForm of conversionItemFormsAdvanced; let conversionItemFormIndex = index"
+            [formGroup]="conversionItemForm"
+            data-test="advertiser-conversion-item"
           >
-            <form
-              *ngFor="let conversionItemForm of conversionItemFormsAdvanced; let conversionItemFormIndex = index"
-              [formGroup]="conversionItemForm"
-              data-test="advertiser-conversion-item"
-            >
-              <tr
-                class="row
+            <tr
+              class="row
                    dwmth-box
                    align-center
                    justify-between
                    dwmth-copy"
+            >
+              <td
+                class="
+                col-xs-2
+                row
+                align-center"
               >
-                <td
-                  class="
-                col-xs-2
-                row
-                align-center"
+                <input
+                  class="dwmth-form-input"
+                  formControlName="name"
+                  data-test="advertiser-conversion-item-name"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="name"
-                    data-test="advertiser-conversion-item-name"
-                  >
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
-                  >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
+                >
                     Cannot be empty.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <mat-select
+                  class="dwmth-select"
+                  formControlName="type"
+                  data-test="advertiser-conversion-item-type-select"
                 >
-                  <mat-select
-                    class="dwmth-select"
-                    formControlName="type"
-                    data-test="advertiser-conversion-item-type-select"
+                  <mat-option
+                    *ngFor="let type of availableEventTypes"
+                    [value]="type"
+                    data-test="advertiser-conversion-item-type-option"
                   >
-                    <mat-option
-                      *ngFor="let type of availableEventTypes"
-                      [value]="type"
-                      data-test="advertiser-conversion-item-type-option"
-                    >
-                      {{ type }}
-                    </mat-option>
-                  </mat-select>
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
-                  >
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
+                >
                     Cannot be empty.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <input
+                  class="dwmth-form-input"
+                  formControlName="value"
+                  data-test="advertiser-conversion-item-value"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="value"
-                    data-test="advertiser-conversion-item-value"
-                  >
-                  <span
-                    class="error-msg"
-                    *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
-                  >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
+                >
                     Must be greater than zero.
                   </span>
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-2
                 row
                 align-center"
+              >
+                <input
+                  class="dwmth-form-input"
+                  formControlName="limit"
+                  data-test="advertiser-conversion-item-limit"
                 >
-                  <input
-                    class="dwmth-form-input"
-                    formControlName="limit"
-                    data-test="advertiser-conversion-item-limit"
-                  >
-                </td>
-                <td
-                  class="
+              </td>
+              <td
+                class="
                 col-xs-3
                 row
                 align-center"
+              >
+                <mat-checkbox
+                  formControlName="isInBudget"
+                  data-test="advertiser-conversion-item-is-in-budget"
                 >
-                  <mat-checkbox
-                    formControlName="isInBudget"
-                    data-test="advertiser-conversion-item-is-in-budget"
-                  >
-                    In campaign budget
-                  </mat-checkbox>
-                </td>
-                <td
-                  class="
+                  In campaign budget
+                </mat-checkbox>
+              </td>
+              <td
+                class="
                 col-xs-1
                 row
                 align-center"
+              >
+                <button
+                  class="campaign-edit-conversion__btn"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(conversionItemFormIndex)"
                 >
-                  <button
-                    class="campaign-edit-conversion__btn"
-                    title="Click to remove conversion"
-                    (click)="deleteConversion(conversionItemFormIndex)"
-                  >
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </tr>
-            </form>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
 
-      <!--<button-->
-      <!--type="button"-->
-      <!--class="campaign-edit-conversion__btn"-->
-      <!--title="Click to add conversion"-->
-      <!--(click)="addConversionEmpty(MODE_BASIC)"-->
-      <!--&gt;-->
-      <!--<mat-icon>add_circle_outline</mat-icon>-->
-      <!--</button>-->
+    <!--<button-->
+    <!--type="button"-->
+    <!--class="campaign-edit-conversion__btn"-->
+    <!--title="Click to add conversion"-->
+    <!--(click)="addConversionEmpty(MODE_BASIC)"-->
+    <!--&gt;-->
+    <!--<mat-icon>add_circle_outline</mat-icon>-->
+    <!--</button>-->
 
-    </div>
   </div>
 
 

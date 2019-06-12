@@ -56,7 +56,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
 
-  isConversionActive: boolean = false;
   isClickConversionBasic: boolean = false;
   isClickConversionAdvanced: boolean = false;
 
@@ -223,8 +222,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
           this.addConversion(item);
         });
-
-        this.isConversionActive = this.conversionCount > 0;
       }, () => {
       });
 
