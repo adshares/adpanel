@@ -133,13 +133,18 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     const itemIsAdvanced = item.isAdvanced;
     const isItemFromBackend = itemUuid != null;
 
+    const valueValidators = [Validators.min(0)];
+    if (!itemIsAdvanced) {
+      valueValidators.push(Validators.required);
+    }
+
     return new FormGroup({
       uuid: new FormControl(itemUuid),
       name: new FormControl({value: item.name, disabled: isItemFromBackend}, Validators.required),
       type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
       isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
-      value: new FormControl({value: item.value, disabled: isItemFromBackend}, Validators.min(0)),
+      value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
     });
   }
