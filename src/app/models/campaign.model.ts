@@ -44,7 +44,7 @@ interface CampaignBasicInformation {
 }
 
 interface CampaignConversion {
-  id?: number;
+  uuid?: string;
   name: string;
   budgetType: string;
   eventType: string;
@@ -54,7 +54,7 @@ interface CampaignConversion {
 }
 
 interface CampaignConversionItem {
-  id?: number;
+  uuid?: string;
   name: string;
   eventType: string;
   isAdvanced: boolean;

@@ -129,12 +129,12 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
-    const itemId = item.id;
+    const itemUuid = item.uuid;
     const itemIsAdvanced = item.isAdvanced;
-    const isItemFromBackend = itemId != null;
+    const isItemFromBackend = itemUuid != null;
 
     return new FormGroup({
-      id: new FormControl(itemId),
+      uuid: new FormControl(itemUuid),
       name: new FormControl({value: item.name, disabled: isItemFromBackend}, Validators.required),
       type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
       isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
@@ -147,7 +147,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   get conversionsToSave(): CampaignConversion[] {
     let items = this.conversionItemForms.map((form) => {
       return <CampaignConversion>{
-        id: form.get('id').value,
+        uuid: form.get('uuid').value,
         name: form.get('name').value,
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
@@ -182,7 +182,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   private createConversionClick(): CampaignConversion {
     return <CampaignConversion>{
-      id: null,
+      uuid: null,
       name: this.CLICK_CONVERSION_NAME,
       budgetType: this.isClickConversionAdvanced ? this.BUDGET_TYPE_OUT : this.BUDGET_TYPE_IN,
       eventType: this.CLICK_CONVERSION_EVENT_TYPE,
@@ -211,7 +211,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
           }
 
           const item = {
-            id: conversion.id,
+            uuid: conversion.uuid,
             name: conversion.name,
             eventType: conversion.eventType,
             isAdvanced: conversion.type === this.TYPE_ADVANCED,
