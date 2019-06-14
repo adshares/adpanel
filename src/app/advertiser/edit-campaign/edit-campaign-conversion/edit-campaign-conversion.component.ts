@@ -146,6 +146,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
+      secret: new FormControl(item.secret),
     });
   }
 
@@ -223,6 +224,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
             isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
             value: conversion.value,
             limit: conversion.limit,
+            secret: conversion.secret,
           };
 
           this.addConversion(item);

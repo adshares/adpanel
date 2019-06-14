@@ -51,6 +51,7 @@ interface CampaignConversion {
   type: string;
   value?: string;
   limit?: string;
+  secret?: string;
 }
 
 interface CampaignConversionItem {
@@ -61,6 +62,7 @@ interface CampaignConversionItem {
   isInBudget: boolean;
   value?: string;
   limit?: string;
+  secret?: string;
 }
 
 interface Ad {
