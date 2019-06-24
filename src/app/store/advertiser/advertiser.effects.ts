@@ -31,14 +31,14 @@ import {
   UpdateCampaignStatusFailure,
   DeleteCampaignSuccess,
   DeleteCampaignFailure,
-  LoadCampaignFailure,
+  LoadCampaignFailure, SAVE_CONVERSION, UPDATE_CAMPAIGN_FAILURE,
 } from './advertiser.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import "rxjs/add/operator/take";
 import * as moment from "moment";
 import { MatDialog } from "@angular/material";
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
-import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
+import { STATUS_SAVE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { adjustCampaignStatus } from "common/utilities/helpers";
 
@@ -171,6 +171,24 @@ export class AdvertiserEffects {
         this.router.navigate(['/advertiser', 'campaign', payload.id]);
         return [
           new UpdateCampaignSuccess(payload),
+          new ClearLastEditedCampaign(),
+        ];
+      })
+      .catch((err) => {
+        return Observable.of(new UpdateCampaignFailure(`An error occurred. Error code: ${err.status}`)
+        )
+      })
+    );
+
+  @Effect()
+  saveConversion = this.actions$
+    .ofType(SAVE_CONVERSION)
+    .map(toPayload)
+    .switchMap((payload) => this.service.updateCampaign(payload)
+      .switchMap(() => {
+        return [
+          new UpdateCampaignSuccess(payload),
+          new ShowSuccessSnackbar(SAVE_SUCCESS),
           new ClearLastEditedCampaign(),
         ];
       })

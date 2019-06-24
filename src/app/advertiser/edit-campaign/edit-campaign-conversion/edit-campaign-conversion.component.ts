@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, toPayload } from '@ngrx/effects';
@@ -9,12 +9,14 @@ import { Subject } from 'rxjs';
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
-import { UPDATE_CAMPAIGN_FAILURE, UpdateCampaign } from 'store/advertiser/advertiser.actions';
+import { SaveConversion, UPDATE_CAMPAIGN_FAILURE, UpdateCampaign } from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
+import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -68,23 +70,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
-    updates$: Actions,
   ) {
     super();
-
-    updates$
-      .ofType(UPDATE_CAMPAIGN_FAILURE)
-      .takeUntil(this.destroyed$)
-      .map(toPayload)
-      .subscribe((payload) => {
-        this.dialog.open(ErrorResponseDialogComponent, {
-          data: {
-            message: `An error occurred. Error code: ${payload.status || 0}`,
-          }
-        });
-
-        this.submitted = false;
-      });
   }
 
   ngOnInit() {
@@ -107,6 +94,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   updateCampaignConversion(): void {
+    this.submitted = true;
     this.validateForm = true;
 
     if (!this.isFormValid) {
@@ -114,14 +102,14 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     }
 
     this.validateForm = false;
-    this.submitted = true;
+
 
     this.campaign = {
       ...this.campaign,
       conversions: this.conversionsToSave,
     };
 
-    this.store.dispatch(new UpdateCampaign(this.campaign));
+    this.store.dispatch(new SaveConversion(this.campaign));
   }
 
   get isFormValid(): boolean {
@@ -291,6 +279,21 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
     return mainListIndex;
   }
+
+  openDialog(form: FormGroup) {
+     this.dialog.open(InformationDialogComponent, {
+      data: {
+        title: 'Title',
+        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ' +
+          'et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ' +
+          'aliquip ex ea commodo consequat.',
+        link: 'https://github.com/adshares/adserver/wiki',
+        href: 'https://github.com/adshares/adserver/wiki',
+        secret: form.get('secret').value,
+      }
+    });
+  }
+
 
   onStepBack(): void {
     this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);

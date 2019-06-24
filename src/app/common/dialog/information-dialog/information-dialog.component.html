@@ -1,0 +1,30 @@
+<mat-dialog-content class="text-center information-dialog ">
+  <div
+    (click)="dialogRef.close()"
+    class="dwmth-dialog-close"
+  ></div>
+  <h1
+    class="
+      dwmth-heading
+      dwmth-heading--primary"
+  >
+    {{ title }}
+  </h1>
+  <div *ngIf="secret"
+       class="information-dialog__box information-dialog__box--small">
+    Secret:
+    <span class="dwmth-copy--bold">{{secret}}</span>
+  </div>
+
+  <div *ngIf="link"
+       class="information-dialog__box information-dialog__box--large">
+    Link:
+    <span class="dwmth-copy--bold information-dialog__info">{{link}}</span>
+  </div>
+  <p class="dwmth-copy">
+    {{ message }}
+
+  <br>
+    <a *ngIf="href" href="{{ href }}" class="information-dialog__link"> For more information click here</a>
+  </p>
+</mat-dialog-content>

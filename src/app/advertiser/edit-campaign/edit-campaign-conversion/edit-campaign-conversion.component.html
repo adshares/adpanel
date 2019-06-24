@@ -30,24 +30,25 @@
         >
           In this mode each conversion has constant value. All conversions' expenses are limited by campaign budget.
         </p>
-
-        <button
-          class="dwmth-btn
+        <div class="row justify-end align-center">
+          <mat-checkbox
+            *ngIf="!isClickConversionAdvanced"
+            [(ngModel)]="isClickConversionBasic"
+            data-test="advertiser-conversion-is-click-basic-checkbox"
+          >
+            Enable click conversion
+          </mat-checkbox>
+          <button
+            class="dwmth-btn
                dwmth-btn--white
-               dwmth-blue"
-          (click)="addConversionEmpty(TYPE_BASIC)"
-          data-test="advertiser-conversion-add-basic-button"
-        >
-          Add conversion
-        </button>
-
-        <mat-checkbox
-          *ngIf="!isClickConversionAdvanced"
-          [(ngModel)]="isClickConversionBasic"
-          data-test="advertiser-conversion-is-click-basic-checkbox"
-        >
-          Enable click conversion
-        </mat-checkbox>
+               dwmth-blue
+               campaign-edit-conversion__btn-add"
+            (click)="addConversionEmpty(TYPE_BASIC)"
+            data-test="advertiser-conversion-add-basic-button"
+          >
+            Add conversion
+          </button>
+        </div>
 
         <div
           *ngIf="conversionItemFormsBasic.length > 0"
@@ -58,16 +59,15 @@
             justify-between
             dwmth-copy"
         >
-          <div class="col-xs-2 row justify-center">Name</div>
-          <div class="col-xs-3 row justify-center">Type</div>
-          <div class="col-xs-2 row justify-center">Value</div>
-          <div class="col-xs-4 row justify-center"></div>
-          <div class="col-xs-1 row justify-center"></div>
+          <label for="name" class="col-xs-3 row justify-start">Name</label>
+          <label for="type" class="col-xs-4 row justify-start">Type</label>
+          <label for="value" class="col-xs-2 row justify-start">Value</label>
+          <div class="col-xs-1 row justify-start"></div>
+          <label for="delete" class="col-xs-1 row justify-start">Delete</label>
+          <div class="col-xs-1 row justify-start">Link</div>
         </div>
 
-        <div
-          class="dwmth-box dwmth-box--no-padding"
-        >
+        <div class="dwmth-box  dwmth-box--no-padding">
           <form
             *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
             [formGroup]="conversionItemForm"
@@ -82,11 +82,12 @@
             >
               <div
                 class="
-                col-xs-2
+                col-xs-3
                 row
                 align-center"
               >
                 <input
+                  id="name"
                   class="dwmth-form-input"
                   formControlName="name"
                   data-test="advertiser-conversion-item-name"
@@ -100,11 +101,12 @@
               </div>
               <div
                 class="
-                col-xs-3
+                col-xs-4
                 row
                 align-center"
               >
                 <mat-select
+                  id="type"
                   class="dwmth-select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
@@ -131,6 +133,7 @@
                 align-center"
               >
                 <input
+                  id="value"
                   class="dwmth-form-input"
                   formControlName="value"
                   data-test="advertiser-conversion-item-value"
@@ -142,13 +145,21 @@
                     Must be greater than zero.
                   </span>
               </div>
+              <div class="col-xs-1 row justify-start"></div>
               <div
                 class="
-                col-xs-4
+                col-xs-1
                 row
                 align-center"
               >
-
+                <button
+                  id="delete"
+                  class="campaign-edit-conversion__btn shake"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(false, conversionItemFormIndex)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
               </div>
               <div
                 class="
@@ -158,10 +169,10 @@
               >
                 <button
                   class="campaign-edit-conversion__btn"
-                  title="Click to remove conversion"
-                  (click)="deleteConversion(false, conversionItemFormIndex)"
+                  title="Get Link"
+                  (click)="openDialog(conversionItemForm)"
                 >
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon> link</mat-icon>
                 </button>
               </div>
             </div>
@@ -178,24 +189,25 @@
         >
           In this mode each conversion has unique HTTP request which must be created dynamically.
         </p>
-
-        <button
-          class="dwmth-btn
+        <div class="row justify-end align-center">
+          <mat-checkbox
+            *ngIf="!isClickConversionBasic"
+            [(ngModel)]="isClickConversionAdvanced"
+            data-test="advertiser-conversion-is-click-advanced-checkbox"
+          >
+            Enable click conversion
+          </mat-checkbox>
+          <button
+            class="dwmth-btn
                dwmth-btn--white
-               dwmth-blue"
-          (click)="addConversionEmpty(TYPE_ADVANCED)"
-          data-test="advertiser-conversion-add-advanced-button"
-        >
-          Add conversion
-        </button>
-
-        <mat-checkbox
-          *ngIf="!isClickConversionBasic"
-          [(ngModel)]="isClickConversionAdvanced"
-          data-test="advertiser-conversion-is-click-advanced-checkbox"
-        >
-          Enable click conversion
-        </mat-checkbox>
+               dwmth-blue
+               campaign-edit-conversion__btn-add"
+            (click)="addConversionEmpty(TYPE_ADVANCED)"
+            data-test="advertiser-conversion-add-advanced-button"
+          >
+            Add conversion
+          </button>
+        </div>
 
         <div
           *ngIf="conversionItemFormsAdvanced.length > 0"
@@ -206,12 +218,13 @@
             justify-between
             dwmth-copy"
         >
-          <div class="col-xs-2 row justify-center">Name</div>
-          <div class="col-xs-3 row justify-center">Type</div>
-          <div class="col-xs-2 row justify-center">Value</div>
-          <div class="col-xs-2 row justify-center">Maximal budget</div>
-          <div class="col-xs-2 row justify-center"></div>
-          <div class="col-xs-1 row justify-center"></div>
+          <label for="nameAdv" class="col-xs-2 row justify-start">Name</label>
+          <label for="typeAdv" class="col-xs-2 row justify-start">Type</label>
+          <label for="valueAdv" class="col-xs-1 row justify-start">Value</label>
+          <label for="limit" class="col-xs-2 row justify-start">Maximal budget</label>
+          <label for="inBudget" class="col-xs-2 row justify-start">In campaign budget</label>
+          <div class="col-xs-1 row justify-start">Delete</div>
+          <div class="col-xs-1 row justify-start">Link</div>
         </div>
 
         <div
@@ -236,6 +249,7 @@
                 align-center"
               >
                 <input
+                  id="nameAdv"
                   class="dwmth-form-input"
                   formControlName="name"
                   data-test="advertiser-conversion-item-name"
@@ -249,11 +263,12 @@
               </div>
               <div
                 class="
-                col-xs-3
+                col-xs-2
                 row
                 align-center"
               >
                 <mat-select
+                  id="typeAdv"
                   class="dwmth-select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
@@ -275,11 +290,12 @@
               </div>
               <div
                 class="
-                col-xs-2
+                col-xs-1
                 row
                 align-center"
               >
                 <input
+                  id="valueAdv"
                   class="dwmth-form-input"
                   formControlName="value"
                   data-test="advertiser-conversion-item-value"
@@ -298,6 +314,7 @@
                 align-center"
               >
                 <input
+                  id="limit"
                   class="dwmth-form-input"
                   formControlName="limit"
                   data-test="advertiser-conversion-item-limit"
@@ -307,14 +324,28 @@
                 class="
                 col-xs-2
                 row
+                align-center
+                justify-center"
+              >
+                <mat-slide-toggle
+                  id="inBudget"
+                  formControlName="isInBudget"
+                  data-test="advertiser-conversion-item-is-in-budget">
+                </mat-slide-toggle>
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
                 align-center"
               >
-                <mat-checkbox
-                  formControlName="isInBudget"
-                  data-test="advertiser-conversion-item-is-in-budget"
+                <button
+                  class="campaign-edit-conversion__btn shake"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(true, conversionItemFormIndex)"
                 >
-                  In campaign budget
-                </mat-checkbox>
+                  <mat-icon>delete</mat-icon>
+                </button>
               </div>
               <div
                 class="
@@ -324,33 +355,11 @@
               >
                 <button
                   class="campaign-edit-conversion__btn"
-                  title="Click to remove conversion"
-                  (click)="deleteConversion(true, conversionItemFormIndex)"
+                  title="Get Link"
+                  (click)="openDialog(conversionItemForm)"
                 >
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon> link</mat-icon>
                 </button>
-              </div>
-            </div>
-
-            <div
-              class="row
-                   dwmth-box
-                   align-center
-                   justify-between
-                   dwmth-copy"
-            >
-              <div
-                class="
-                  col-xs-12
-                  row
-                  align-center"
-              >
-                <input
-                  class="dwmth-form-input"
-                  formControlName="secret"
-                  [readonly]="true"
-                  data-test="advertiser-conversion-item-secret"
-                >
               </div>
             </div>
           </form>
@@ -368,8 +377,6 @@
     <!--</button>-->
 
   </div>
-
-
   <div
     class="dwmth-box
            dwmth-box--large
@@ -394,7 +401,7 @@
       data-test="advertiser-edit-campaign-save-and-continue"
     >
       <span *ngIf="!submitted; else loading">
-        Update
+        Save
       </span>
       <ng-template #loading>
         <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>

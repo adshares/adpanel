@@ -1,0 +1,29 @@
+@import "./../../../../styles";
+.information-dialog {
+  max-width: 800px;
+
+  &__box {
+    @include copy;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto 8px;
+
+    &--small {
+      max-width: 290px;
+    }
+
+    &--large {
+      justify-content: center;
+    }
+  }
+
+  &__info {
+    margin-left: 16px;
+  }
+
+  &__link {
+    @include copy($color: pal(blue, base));
+    display: block;
+    margin-top: 8px;
+  }
+}

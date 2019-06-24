@@ -11,6 +11,7 @@ import {
 import {
   UPDATE_CAMPAIGN_STATUS_FAILURE,
   DELETE_CAMPAIGN_FAILURE,
+  UPDATE_CAMPAIGN_FAILURE,
 } from "store/advertiser/advertiser.actions";
 import {
   ADD_SITE_TO_SITES_FAILURE,
@@ -46,6 +47,7 @@ export class CommonEffects {
     .ofType(
       SHOW_DIALOG_ON_ERROR,
       UPDATE_CAMPAIGN_STATUS_FAILURE,
+      UPDATE_CAMPAIGN_FAILURE,
       DELETE_CAMPAIGN_FAILURE,
       ADD_SITE_TO_SITES_FAILURE,
       SET_ADMIN_SETTINGS_FAILURE,
