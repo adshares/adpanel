@@ -60,11 +60,10 @@
             dwmth-copy"
         >
           <label for="name" class="col-xs-3 row justify-start">Name</label>
-          <label for="type" class="col-xs-4 row justify-start">Type</label>
+          <label for="type" class="col-xs-5 row justify-start">Type</label>
           <label for="value" class="col-xs-2 row justify-start">Value</label>
           <div class="col-xs-1 row justify-start"></div>
           <label for="delete" class="col-xs-1 row justify-start">Delete</label>
-          <div class="col-xs-1 row justify-start">Link</div>
         </div>
 
         <div class="dwmth-box  dwmth-box--no-padding">
@@ -101,7 +100,7 @@
               </div>
               <div
                 class="
-                col-xs-4
+                col-xs-5
                 row
                 align-center"
               >
@@ -159,20 +158,6 @@
                   (click)="deleteConversion(false, conversionItemFormIndex)"
                 >
                   <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-              <div
-                class="
-                col-xs-1
-                row
-                align-center"
-              >
-                <button
-                  class="campaign-edit-conversion__btn"
-                  title="Get Link"
-                  (click)="openDialog(conversionItemForm)"
-                >
-                  <mat-icon> link</mat-icon>
                 </button>
               </div>
             </div>
@@ -354,6 +339,7 @@
                 align-center"
               >
                 <button
+                  *ngIf="conversionItemForm.get('link').value"
                   class="campaign-edit-conversion__btn"
                   title="Get Link"
                   (click)="openDialog(conversionItemForm)"
@@ -398,6 +384,7 @@
     <button
       class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
       (click)="updateCampaignConversion()"
+      [disabled]="isSubmitDisabled()"
       data-test="advertiser-edit-campaign-save-and-continue"
     >
       <span *ngIf="!submitted; else loading">

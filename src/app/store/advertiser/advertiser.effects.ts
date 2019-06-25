@@ -189,11 +189,10 @@ export class AdvertiserEffects {
         return [
           new UpdateCampaignSuccess(payload),
           new ShowSuccessSnackbar(SAVE_SUCCESS),
-          new ClearLastEditedCampaign(),
         ];
       })
       .catch((err) => {
-        return Observable.of(new UpdateCampaignFailure(err)
+        return Observable.of(new UpdateCampaignFailure(`An error occurred. Error code: ${err.status}`)
         )
       })
     );

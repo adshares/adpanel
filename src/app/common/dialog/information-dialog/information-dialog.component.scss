@@ -1,4 +1,5 @@
 @import "./../../../../styles";
+
 .information-dialog {
   max-width: 800px;
 
@@ -18,12 +19,21 @@
   }
 
   &__info {
-    margin-left: 16px;
+    margin-left: 8px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__link {
     @include copy($color: pal(blue, base));
     display: block;
     margin-top: 8px;
+
+    &:hover,
+    &:focus {
+     color: darken(pal(blue, base), 15%);
+    }
   }
 }

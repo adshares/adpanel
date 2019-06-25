@@ -59,7 +59,6 @@ export class AdvertiserService {
       const targetingObject = parseTargetingForBackend(campaign.targetingArray);
       Object.assign(campaign, {targeting: targetingObject});
     }
-
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
   }
 

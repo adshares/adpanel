@@ -9,13 +9,16 @@ import { Subject } from 'rxjs';
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
-import { SaveConversion, UPDATE_CAMPAIGN_FAILURE, UpdateCampaign } from 'store/advertiser/advertiser.actions';
+import {
+  ClearLastEditedCampaign,
+  SaveConversion,
+  UPDATE_CAMPAIGN_FAILURE,
+  UPDATE_CAMPAIGN_SUCCESS
+} from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
-import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { UserConfirmResponseDialogComponent } from "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
 
 @Component({
@@ -23,9 +26,7 @@ import { InformationDialogComponent } from "common/dialog/information-dialog/inf
   templateUrl: './edit-campaign-conversion.component.html',
   styleUrls: ['./edit-campaign-conversion.component.scss']
 })
-export class EditCampaignConversionComponent extends HandleSubscription implements OnInit, OnDestroy {
-  destroyed$ = new Subject<boolean>();
-
+export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
 
@@ -63,6 +64,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   validateForm: boolean = false;
   submitted: boolean = false;
+  action$: Actions;
 
   constructor(
     private router: Router,
@@ -70,19 +72,14 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
+    action$: Actions,
   ) {
     super();
+    this.action$ = action$;
   }
 
   ngOnInit() {
     this.getFormDataFromStore();
-  }
-
-  ngOnDestroy() {
-    this.destroyed$.next(true);
-    this.destroyed$.complete();
-
-    super.ngOnDestroy();
   }
 
   get conversionItemFormsAdvanced(): FormGroup[] {
@@ -98,18 +95,43 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.validateForm = true;
 
     if (!this.isFormValid) {
+      this.submitted = false;
       return;
     }
 
     this.validateForm = false;
-
-
     this.campaign = {
       ...this.campaign,
       conversions: this.conversionsToSave,
     };
-
     this.store.dispatch(new SaveConversion(this.campaign));
+
+    this.action$
+      .ofType(
+        UPDATE_CAMPAIGN_SUCCESS,
+      )
+      .first()
+      .subscribe(() => {
+        this.submitted = false;
+        this.conversionItemForms.forEach(item => item.markAsPristine());
+        this.conversionItemForms.forEach(item => item.markAsUntouched());
+      });
+
+    this.action$
+      .ofType(
+        UPDATE_CAMPAIGN_FAILURE
+      )
+      .first()
+      .subscribe(() => {
+        this.submitted = false;
+      });
+
+  }
+
+  isSubmitDisabled() {
+    return this.submitted ||
+      (this.conversionItemForms.findIndex(item => (item.touched && item.dirty)) === -1 &&
+        this.campaign.conversions.length === this.conversionItemForms.length);
   }
 
   get isFormValid(): boolean {
@@ -134,6 +156,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
+      link: new FormControl(item.link),
       secret: new FormControl(item.secret),
     });
   }
@@ -213,6 +236,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
             value: conversion.value,
             limit: conversion.limit,
             secret: conversion.secret,
+            link: conversion.link,
           };
 
           this.addConversion(item);
@@ -281,13 +305,13 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   openDialog(form: FormGroup) {
-     this.dialog.open(InformationDialogComponent, {
+    this.dialog.open(InformationDialogComponent, {
       data: {
-        title: 'Title',
+        title: 'Conversion link',
         message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ' +
           'et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ' +
           'aliquip ex ea commodo consequat.',
-        link: 'https://github.com/adshares/adserver/wiki',
+        link: form.get('link').value,
         href: 'https://github.com/adshares/adserver/wiki',
         secret: form.get('secret').value,
       }
@@ -296,6 +320,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
 
   onStepBack(): void {
+    this.store.dispatch(new ClearLastEditedCampaign());
     this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
   }
 }

@@ -52,6 +52,7 @@ interface CampaignConversion {
   value?: string;
   limit?: string;
   secret?: string;
+  link?: string;
 }
 
 interface CampaignConversionItem {
@@ -63,6 +64,7 @@ interface CampaignConversionItem {
   value?: string;
   limit?: string;
   secret?: string;
+  link?: string;
 }
 
 interface Ad {
