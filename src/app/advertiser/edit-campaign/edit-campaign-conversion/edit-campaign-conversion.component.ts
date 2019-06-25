@@ -211,6 +211,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   getFormDataFromStore(): void {
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
 
