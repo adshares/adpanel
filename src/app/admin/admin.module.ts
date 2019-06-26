@@ -12,7 +12,7 @@ import {
   MatCheckboxModule,
   MatDividerModule,
   MatPaginatorModule,
-  MatExpansionModule
+  MatExpansionModule, MatDatepickerModule
 } from '@angular/material';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -52,6 +52,7 @@ import { ImpersonationService } from "../impersonation/impersonation.service";
     MatPaginatorModule,
     MatExpansionModule,
     MatCheckboxModule,
+    MatDatepickerModule
   ],
   providers: [
     AdminGuard,

@@ -85,62 +85,63 @@
 
       <div class="dwmth-form-input__box">
         <div class="row no-gutters">
-          <div
-            class="
-              col
-              col-xs-5"
-          >
-            <div
-              class="
-                col
-                relative"
-            >
-              <label
-                for="campaign-max-cpc"
-                class="dwmth-form-label"
-              >
-                Max CPC ({{currencyCode}})
-              </label>
-              <input
-                id="campaign-max-cpc"
-                class="
-                  dwmth-form-input
-                  input-budget"
-                type="number"
-                min="0.01"
-                name="campaignMaxCpc"
-                formControlName="maxCpc"
-                data-test="advertiser-edit-campaign-basic-information-form-max-cpc"
-              >
-              <span
-                *ngIf="campaignBasicInfoForm.get('maxCpc').valid"
-                class="input-valid"
-              ></span>
-            </div>
-            <span
-              class="error-msg"
-              *ngIf="
-                campaignBasicInfoForm.hasError('required', ['maxCpc']) &&
-                campaignBasicInformationSubmitted"
-            >
-              Max CPC required
-            </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                campaignBasicInfoForm.hasError('min', ['maxCpc']) &&
-                campaignBasicInformationSubmitted"
-            >
-              Allowed minimum is 0
-            </span>
-          </div>
+          <!--  MAX CPC INPUT CODE BELOW -->
+          <!--<div-->
+            <!--class="-->
+              <!--col-->
+              <!--col-xs-5"-->
+          <!--&gt;-->
+            <!--<div-->
+              <!--class="-->
+                <!--col-->
+                <!--relative"-->
+            <!--&gt;-->
+              <!--<label-->
+                <!--for="campaign-max-cpc"-->
+                <!--class="dwmth-form-label"-->
+              <!--&gt;-->
+                <!--Max CPC ({{currencyCode}})-->
+              <!--</label>-->
+              <!--<input-->
+                <!--id="campaign-max-cpc"-->
+                <!--class="-->
+                  <!--dwmth-form-input-->
+                  <!--input-budget"-->
+                <!--type="number"-->
+                <!--min="0.01"-->
+                <!--name="campaignMaxCpc"-->
+                <!--formControlName="maxCpc"-->
+                <!--data-test="advertiser-edit-campaign-basic-information-form-max-cpc"-->
+              <!--&gt;-->
+              <!--<span-->
+                <!--*ngIf="campaignBasicInfoForm.get('maxCpc').valid"-->
+                <!--class="input-valid"-->
+              <!--&gt;</span>-->
+            <!--</div>-->
+            <!--<span-->
+              <!--class="error-msg"-->
+              <!--*ngIf="-->
+                <!--campaignBasicInfoForm.hasError('required', ['maxCpc']) &&-->
+                <!--campaignBasicInformationSubmitted"-->
+            <!--&gt;-->
+              <!--Max CPC required-->
+            <!--</span>-->
+            <!--<span-->
+              <!--class="error-msg"-->
+              <!--*ngIf="-->
+                <!--campaignBasicInfoForm.hasError('min', ['maxCpc']) &&-->
+                <!--campaignBasicInformationSubmitted"-->
+            <!--&gt;-->
+              <!--Allowed minimum is 0-->
+            <!--</span>-->
+          <!--</div>-->
           <!-- divider -->
-          <div
-            class="
-              col
-              col-xs-2"
-          >
-          </div>
+          <!--<div-->
+            <!--class="-->
+              <!--col-->
+              <!--col-xs-2"-->
+          <!--&gt;-->
+          <!--</div>-->
           <div
             class="
               col
