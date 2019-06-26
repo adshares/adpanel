@@ -6,20 +6,13 @@
   &__box {
     @include copy;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin: 0 auto 8px;
-
-    &--small {
-      max-width: 290px;
-    }
-
-    &--large {
-      justify-content: center;
-    }
   }
 
   &__info {
     margin-left: 8px;
+    margin-right: 8px;
     white-space: nowrap;
     max-width: 100%;
     overflow: hidden;
@@ -33,7 +26,18 @@
 
     &:hover,
     &:focus {
-     color: darken(pal(blue, base), 15%);
+      color: darken(pal(blue, base), 15%);
+    }
+  }
+
+  &__copy-icon {
+    cursor: pointer;
+    color: pal(gray, mid-dark);
+    outline: none;
+
+    &:hover,
+    &:focus {
+      color: darken(pal(gray, mid-dark), 10%);
     }
   }
 }

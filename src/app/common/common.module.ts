@@ -67,6 +67,7 @@ import { InputComponent } from "common/components/input/input.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TargetingCustomOptionInputComponent } from "common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component";
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
+import { LabelWithTooltipComponent } from "common/components/labelWithTooltip/labelWithTooltip.component";
 
 const matModules = [
   MatDialogModule,
@@ -123,7 +124,8 @@ const appComponents = [
   BannerPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
-  InputComponent
+  InputComponent,
+  LabelWithTooltipComponent,
 ];
 
 @NgModule({
@@ -152,6 +154,7 @@ const appComponents = [
   ],
   exports: [
     ...appComponents,
+    BrowserAnimationsModule,
     MatTooltipModule,
     MatSpinner,
     MatDialogContent,

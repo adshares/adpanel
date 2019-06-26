@@ -11,7 +11,7 @@
 }
 
 .campaign-edit-conversion {
-  max-width: 1000px;
+  max-width: 1300px;
   margin: 0 auto;
 
   @include media(xxl-up) {
@@ -59,6 +59,20 @@
 
   .description-type {
     margin: 18px 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__select {
+    height: 46px;
+  }
+
+  .cell {
+    max-height: 46px;
+    height: 46px;
   }
 }
 

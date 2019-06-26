@@ -46,6 +46,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DATE_PICKER_FORMATS } from "common/utilities/consts";
 import { ImpersonationService } from "./impersonation/impersonation.service";
 import { ImpersonationModule } from "./impersonation/impersonation.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 const appModules = [
   AppCommonModule,
@@ -65,6 +66,7 @@ const appModules = [
   imports: [
     ApiModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ImpersonationModule,

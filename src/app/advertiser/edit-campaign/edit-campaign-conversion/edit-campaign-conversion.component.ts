@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, toPayload } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem } from 'models/campaign.model';
@@ -20,11 +19,32 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
+import { ShowDialogOnError } from "store/common/common.actions";
+import { fadeAnimation } from "common/animations/fade.animation";
+import { animate, animateChild, query, sequence, stagger, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
   templateUrl: './edit-campaign-conversion.component.html',
-  styleUrls: ['./edit-campaign-conversion.component.scss']
+  styleUrls: ['./edit-campaign-conversion.component.scss'],
+  animations: [
+    trigger(
+      'fadeIn',
+      [
+        transition(
+          ':enter', [
+            style({opacity: 0, transform: 'translateX(-550px)'}),
+            animate('400ms', style({'opacity': 1}))
+          ]
+        ),
+        transition(
+          ':leave', [
+            style({opacity: 1, transform: 'translateX(0)'}),
+            animate('400ms', style({'opacity': 0,}))
+          ]
+        )]
+    )
+  ],
 })
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
   readonly TYPE_ADVANCED: string = 'advanced';
@@ -109,29 +129,27 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.action$
       .ofType(
         UPDATE_CAMPAIGN_SUCCESS,
-      )
-      .first()
-      .subscribe(() => {
-        this.submitted = false;
-        this.conversionItemForms.forEach(item => item.markAsPristine());
-        this.conversionItemForms.forEach(item => item.markAsUntouched());
-      });
-
-    this.action$
-      .ofType(
         UPDATE_CAMPAIGN_FAILURE
       )
       .first()
-      .subscribe(() => {
+      .subscribe((action) => {
         this.submitted = false;
+        if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
+          this.conversionItemForms.forEach(item => item.markAsPristine());
+          this.conversionItemForms.forEach(item => item.markAsUntouched());
+          this.advertiserService.getConversions(this.campaign.id)
+            .first()
+            .subscribe(
+              (data) => {
+                this.conversionItemForms = [];
+                this.adjustConversionData(data)
+              },
+              (err) => {
+                this.store.dispatch(new ShowDialogOnError(err.code))
+              }
+            )
+        }
       });
-
-  }
-
-  isSubmitDisabled() {
-    return this.submitted ||
-      (this.conversionItemForms.findIndex(item => (item.touched && item.dirty)) === -1 &&
-        this.campaign.conversions.length === this.conversionItemForms.length);
   }
 
   get isFormValid(): boolean {
@@ -209,39 +227,43 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     };
   }
 
+  adjustConversionData(conversions) {
+    this.isClickConversionBasic = false;
+    this.isClickConversionAdvanced = false;
+    conversions.forEach(conversion => {
+      if (conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE) {
+        if (conversion.type === this.TYPE_ADVANCED) {
+          this.isClickConversionAdvanced = true;
+        } else {
+          this.isClickConversionBasic = true;
+        }
+
+        return;
+      }
+
+      const item = {
+        uuid: conversion.uuid,
+        name: conversion.name,
+        eventType: conversion.eventType,
+        isAdvanced: conversion.type === this.TYPE_ADVANCED,
+        isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
+        value: conversion.value,
+        limit: conversion.limit,
+        secret: conversion.secret,
+        link: conversion.link,
+      };
+
+      this.addConversion(item);
+    });
+  }
+
+
   getFormDataFromStore(): void {
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
-
-        this.isClickConversionBasic = false;
-        this.isClickConversionAdvanced = false;
-        this.campaign.conversions.forEach(conversion => {
-          if (conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE) {
-            if (conversion.type === this.TYPE_ADVANCED) {
-              this.isClickConversionAdvanced = true;
-            } else {
-              this.isClickConversionBasic = true;
-            }
-
-            return;
-          }
-
-          const item = {
-            uuid: conversion.uuid,
-            name: conversion.name,
-            eventType: conversion.eventType,
-            isAdvanced: conversion.type === this.TYPE_ADVANCED,
-            isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
-            value: conversion.value,
-            limit: conversion.limit,
-            secret: conversion.secret,
-            link: conversion.link,
-          };
-
-          this.addConversion(item);
-        });
+        this.adjustConversionData(this.campaign.conversions);
       }, () => {
       });
 
@@ -313,7 +335,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
           'et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ' +
           'aliquip ex ea commodo consequat.',
         link: form.get('link').value,
-        href: 'https://github.com/adshares/adserver/wiki',
+        href: 'https://github.com/adshares/adserver/wiki/Conversions',
         secret: form.get('secret').value,
       }
     });

@@ -11,15 +11,35 @@
     {{ title }}
   </h1>
   <div *ngIf="secret"
-       class="information-dialog__box information-dialog__box--small">
+       class="information-dialog__box">
     Secret:
-    <span class="dwmth-copy--bold">{{secret}}</span>
+    <span class="dwmth-copy--bold information-dialog__info">{{secret}}</span>
+    <i matTooltipClass="dwmth-mat-tooltip"
+       matTooltip="Copy secret"
+       matTooltipPosition="above"
+       role="button"
+       tabindex="0"
+       (click)="copyToClipboard(secret)"
+       class="material-icons information-dialog__copy-icon"
+    >
+      file_copy
+    </i>
   </div>
 
   <div *ngIf="link"
-       class="information-dialog__box information-dialog__box--large">
+       class="information-dialog__box">
     Link:
     <span class="dwmth-copy--bold information-dialog__info">{{link}}</span>
+    <i matTooltipClass="dwmth-mat-tooltip"
+       matTooltip="Copy link"
+       matTooltipPosition="above"
+       role="button"
+       tabindex="0"
+       (click)="copyToClipboard(link)"
+       class="material-icons information-dialog__copy-icon information-dialog__copy-icon"
+    >
+      file_copy
+    </i>
   </div>
   <p class="dwmth-copy">
     {{ message }}

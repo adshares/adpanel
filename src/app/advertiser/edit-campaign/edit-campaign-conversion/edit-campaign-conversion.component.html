@@ -59,23 +59,33 @@
             justify-between
             dwmth-copy"
         >
-          <label for="name" class="col-xs-3 row justify-start">Name</label>
-          <label for="type" class="col-xs-5 row justify-start">Type</label>
-          <label for="value" class="col-xs-2 row justify-start">Value</label>
+          <label for="name" class="col-xs-3 row justify-start align-center">
+            Name
+          </label>
+          <app-label class="col-xs-4 row justify-start align-center"
+                     label="Type"
+                     tooltip="Some text"
+                     forId="type"></app-label>
+          <app-label class="col-xs-2 row justify-start align-center"
+                     label="Value"
+                     tooltip="Some text"
+                     forId="value"></app-label>
           <div class="col-xs-1 row justify-start"></div>
-          <label for="delete" class="col-xs-1 row justify-start">Delete</label>
+          <div class="col-xs-1 row justify-start">Delete</div>
+          <div class="col-xs-1 row justify-start">Link</div>
         </div>
 
-        <div class="dwmth-box  dwmth-box--no-padding">
+        <div class="dwmth-box dwmth-box--no-padding campaign-edit-conversion__list animated-list" [@fadeIn]>
           <form
             *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
             [formGroup]="conversionItemForm"
+            [@fadeIn]=""
             data-test="advertiser-conversion-item"
           >
             <div
               class="row
                    dwmth-box
-                   align-center
+                   align-start
                    justify-between
                    dwmth-copy"
             >
@@ -100,13 +110,13 @@
               </div>
               <div
                 class="
-                col-xs-5
+                col-xs-4
                 row
                 align-center"
               >
                 <mat-select
                   id="type"
-                  class="dwmth-select"
+                  class="dwmth-select campaign-edit-conversion__select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
                 >
@@ -149,6 +159,7 @@
                 class="
                 col-xs-1
                 row
+                cell
                 align-center"
               >
                 <button
@@ -158,6 +169,22 @@
                   (click)="deleteConversion(false, conversionItemFormIndex)"
                 >
                   <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
+                cell
+                align-center"
+              >
+                <button
+                  *ngIf="conversionItemForm.get('link').value"
+                  class="campaign-edit-conversion__btn"
+                  title="Get Link"
+                  (click)="openDialog(conversionItemForm)"
+                >
+                  <mat-icon> link</mat-icon>
                 </button>
               </div>
             </div>
@@ -204,10 +231,22 @@
             dwmth-copy"
         >
           <label for="nameAdv" class="col-xs-2 row justify-start">Name</label>
-          <label for="typeAdv" class="col-xs-2 row justify-start">Type</label>
-          <label for="valueAdv" class="col-xs-1 row justify-start">Value</label>
-          <label for="limit" class="col-xs-2 row justify-start">Maximal budget</label>
-          <label for="inBudget" class="col-xs-2 row justify-start">In campaign budget</label>
+          <app-label class="col-xs-2 row justify-start align-center"
+                     label="Type"
+                     tooltip="Some text"
+                     forId="typeAdv"></app-label>
+          <app-label class="col-xs-1 row justify-start align-center"
+                     label="Value"
+                     tooltip="Some text"
+                     forId="valueAdv"></app-label>
+          <app-label class="col-xs-2 row justify-start align-center"
+                     label="Budget"
+                     tooltip="Some text"
+                     forId="limit"></app-label>
+          <app-label class="col-xs-2 row justify-center cell align-center"
+                     label="In budget"
+                     tooltip="Some text"
+                     forId="budget"></app-label>
           <div class="col-xs-1 row justify-start">Delete</div>
           <div class="col-xs-1 row justify-start">Link</div>
         </div>
@@ -223,7 +262,7 @@
             <div
               class="row
                    dwmth-box
-                   align-center
+                   align-start
                    justify-between
                    dwmth-copy"
             >
@@ -254,7 +293,7 @@
               >
                 <mat-select
                   id="typeAdv"
-                  class="dwmth-select"
+                  class="dwmth-select campaign-edit-conversion__select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
                 >
@@ -310,10 +349,11 @@
                 col-xs-2
                 row
                 align-center
+                cell
                 justify-center"
               >
                 <mat-slide-toggle
-                  id="inBudget"
+                  id="budget"
                   formControlName="isInBudget"
                   data-test="advertiser-conversion-item-is-in-budget">
                 </mat-slide-toggle>
@@ -322,6 +362,7 @@
                 class="
                 col-xs-1
                 row
+                cell
                 align-center"
               >
                 <button
@@ -336,6 +377,7 @@
                 class="
                 col-xs-1
                 row
+                cell
                 align-center"
               >
                 <button
@@ -352,16 +394,6 @@
         </div>
       </mat-tab>
     </mat-tab-group>
-
-    <!--<button-->
-    <!--type="button"-->
-    <!--class="campaign-edit-conversion__btn"-->
-    <!--title="Click to add conversion"-->
-    <!--(click)="addConversionEmpty(MODE_BASIC)"-->
-    <!--&gt;-->
-    <!--<mat-icon>add_circle_outline</mat-icon>-->
-    <!--</button>-->
-
   </div>
   <div
     class="dwmth-box
@@ -384,7 +416,7 @@
     <button
       class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
       (click)="updateCampaignConversion()"
-      [disabled]="isSubmitDisabled()"
+      [disabled]="submitted"
       data-test="advertiser-edit-campaign-save-and-continue"
     >
       <span *ngIf="!submitted; else loading">
