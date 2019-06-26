@@ -78,7 +78,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
-      maxCpc: adsToClicks(campaignBasicInfoValue.maxCpc),
+      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc),
       maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm),
       budget: adsToClicks(this.budgetValue),
       dateStart: moment(this.dateStart.value._d).format(),
@@ -121,10 +121,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP)
       ]),
-      maxCpc: new FormControl(initialBasicinfo.maxCpc, [
-        Validators.required,
-        Validators.min(0),
-      ]),
+      maxCpc: new FormControl(initialBasicinfo.maxCpc),
       maxCpm: new FormControl(initialBasicinfo.maxCpm, [
         Validators.required,
         Validators.min(0),
@@ -171,12 +168,12 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
-      maxCpc: null,
+      maxCpc: 0,
       maxCpm: null,
       budget: null,
     };
     if (lastEditedCampaign.maxCpc !== null) {
-      basicInformation.maxCpc = formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
+      basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
     }
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', '');
