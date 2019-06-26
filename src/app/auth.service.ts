@@ -22,7 +22,6 @@ export class AuthService {
 
   logout() {
     this.store.dispatch(new authActions.UserLogOutSuccess());
-    this.session.drop();
     this.api.auth.logout().subscribe(
       () => {
         this.router.navigate(['/auth', 'login']);
@@ -31,6 +30,7 @@ export class AuthService {
         this.router.navigate(['/auth', 'login']);
       }
     );
+    this.session.drop();
   }
 
   timeout() {
