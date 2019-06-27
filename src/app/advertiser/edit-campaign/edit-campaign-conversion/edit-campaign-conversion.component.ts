@@ -84,6 +84,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   validateForm: boolean = false;
   submitted: boolean = false;
+
   action$: Actions;
 
   constructor(
@@ -153,6 +154,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   get isFormValid(): boolean {
+    if (this.conversionItemForms
+      .findIndex(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === false)) {
+      return false
+    }
     return this.conversionItemForms.every(item => item.valid);
   }
 
@@ -172,6 +177,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
       isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
+      isValueMutable: new FormControl({
+        value: item.isValueMutable || 0,
+        disabled: isItemFromBackend || !itemIsAdvanced
+      }),
+      isRepeatable: new FormControl({value: item.isRepeatable || 0, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
       link: new FormControl(item.link),
@@ -189,6 +199,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
         value: form.get('value').value,
         limit: form.get('limit').value,
+        isValueMutable: form.get('isValueMutable').value,
+        isRepeatable: form.get('isRepeatable').value,
       };
     });
 
@@ -247,6 +259,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         eventType: conversion.eventType,
         isAdvanced: conversion.type === this.TYPE_ADVANCED,
         isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
+        isValueMutable: conversion.isValueMutable,
+        isRepeatable: conversion.isRepeatable,
         value: conversion.value,
         limit: conversion.limit,
         secret: conversion.secret,

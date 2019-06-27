@@ -53,6 +53,8 @@ interface CampaignConversion {
   limit?: string;
   secret?: string;
   link?: string;
+  isValueMutable?: boolean;
+  isRepeatable?: boolean;
 }
 
 interface CampaignConversionItem {
@@ -65,6 +67,8 @@ interface CampaignConversionItem {
   limit?: string;
   secret?: string;
   link?: string;
+  isValueMutable?: boolean;
+  isRepeatable?: boolean;
 }
 
 interface Ad {

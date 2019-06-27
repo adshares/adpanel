@@ -74,6 +74,15 @@
     max-height: 46px;
     height: 46px;
   }
+
+  &__value-input {
+    max-width: 115px;
+    margin-left: 10px;
+  }
+
+  .input-disabled {
+    pointer-events: none;
+  }
 }
 
 .shake {

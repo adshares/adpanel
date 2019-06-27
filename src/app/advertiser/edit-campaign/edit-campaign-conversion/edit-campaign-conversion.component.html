@@ -230,12 +230,12 @@
             justify-between
             dwmth-copy"
         >
-          <label for="nameAdv" class="col-xs-2 row justify-start">Name</label>
+          <label for="nameAdv" class="col-xs-1 row justify-start">Name</label>
           <app-label class="col-xs-2 row justify-start align-center"
                      label="Type"
                      tooltip="Some text"
                      forId="typeAdv"></app-label>
-          <app-label class="col-xs-1 row justify-start align-center"
+          <app-label class="col-xs-2 row justify-start align-center"
                      label="Value"
                      tooltip="Some text"
                      forId="valueAdv"></app-label>
@@ -243,10 +243,14 @@
                      label="Budget"
                      tooltip="Some text"
                      forId="limit"></app-label>
-          <app-label class="col-xs-2 row justify-center cell align-center"
+          <app-label class="col-xs-1 row justify-center cell align-center"
                      label="In budget"
                      tooltip="Some text"
                      forId="budget"></app-label>
+          <app-label class="col-xs-2 row justify-center cell align-center"
+                     label="Is repeatable"
+                     tooltip="Some text"
+                     forId="isRepeatable"></app-label>
           <div class="col-xs-1 row justify-start">Delete</div>
           <div class="col-xs-1 row justify-start">Link</div>
         </div>
@@ -268,7 +272,7 @@
             >
               <div
                 class="
-                col-xs-2
+                col-xs-1
                 row
                 align-center"
               >
@@ -314,21 +318,36 @@
               </div>
               <div
                 class="
-                col-xs-1
+                col-xs-2
                 row
                 align-center"
               >
-                <input
-                  id="valueAdv"
-                  class="dwmth-form-input"
-                  formControlName="value"
-                  data-test="advertiser-conversion-item-value"
-                >
+                <div class="row no-wrap cell">
+                  <mat-slide-toggle
+                    class="row align-self-center"
+                    id="isMutable"
+                    formControlName="isValueMutable"
+                    data-test="advertiser-conversion-item-is-value-mutable">
+                  </mat-slide-toggle>
+                  <input
+                    id="valueAdv"
+                    class="dwmth-form-input campaign-edit-conversion__value-input"
+                    formControlName="value"
+                    data-test="advertiser-conversion-item-value"
+                  >
+                </div>
+
                 <span
                   class="error-msg"
                   *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
                 >
                     Must be greater than zero.
+                  </span>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && conversionItemForm.get('isAdvanced').value && !!conversionItemForm.get('isValueMutable').value ===false"
+                >
+                    Value is required.
                   </span>
               </div>
               <div
@@ -346,7 +365,7 @@
               </div>
               <div
                 class="
-                col-xs-2
+                col-xs-1
                 row
                 align-center
                 cell
@@ -356,6 +375,21 @@
                   id="budget"
                   formControlName="isInBudget"
                   data-test="advertiser-conversion-item-is-in-budget">
+                </mat-slide-toggle>
+              </div>
+
+              <div
+                class="
+                col-xs-2
+                row
+                align-center
+                cell
+                justify-center"
+              >
+                <mat-slide-toggle
+                  id="isRepeatable"
+                  formControlName="isRepeatable"
+                  data-test="advertiser-conversion-item-is-repeatable">
                 </mat-slide-toggle>
               </div>
               <div
