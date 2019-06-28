@@ -28,7 +28,9 @@
             justify-center
             description-type"
         >
-          In this mode each conversion has constant value. All conversions' expenses are limited by campaign budget.
+          In this mode each conversion has a constant cost.
+          All conversion expenses are limited by the banner ad campaign budget.
+          It is possible to execute one conversion type per impression.
         </p>
         <div class="row justify-end align-center">
           <mat-checkbox
@@ -64,11 +66,11 @@
           </label>
           <app-label class="col-xs-4 row justify-start align-center"
                      label="Type"
-                     tooltip="Some text"
+                     tooltip="Select the type of conversion"
                      forId="type"></app-label>
           <app-label class="col-xs-2 row justify-start align-center"
-                     label="Value"
-                     tooltip="Some text"
+                     label="Cost"
+                     tooltip="Enter the amount you are willing to spend on a single conversion"
                      forId="value"></app-label>
           <div class="col-xs-1 row justify-start"></div>
           <div class="col-xs-1 row justify-start">Delete</div>
@@ -199,7 +201,10 @@
             justify-center
             description-type"
         >
-          In this mode each conversion has unique HTTP request which must be created dynamically.
+          In this mode each conversion has a unique HTTP request which must be created dynamically.
+          The Advertiser also has more control over the conversion settings.
+          Each conversion may have a different cost.
+          The single conversion cost is optional and can be defined while the campaign is created.
         </p>
         <div class="row justify-end align-center">
           <mat-checkbox
@@ -233,23 +238,25 @@
           <label for="nameAdv" class="col-xs-1 row justify-start">Name</label>
           <app-label class="col-xs-2 row justify-start align-center"
                      label="Type"
-                     tooltip="Some text"
+                     tooltip="Select the type of conversion"
                      forId="typeAdv"></app-label>
           <app-label class="col-xs-2 row justify-start align-center"
-                     label="Value"
-                     tooltip="Some text"
+                     label="Cost"
+                     tooltip="Enter the amount you are willing to spend on a single conversion"
                      forId="valueAdv"></app-label>
           <app-label class="col-xs-2 row justify-start align-center"
                      label="Budget"
-                     tooltip="Some text"
+                     tooltip="Enter the total amount you are willing to spend on a selected type of conversion.
+                              The conversion budget is taken from your main ADS account and is separate from the banner ad campaign budget."
                      forId="limit"></app-label>
           <app-label class="col-xs-1 row justify-center cell align-center"
                      label="In budget"
-                     tooltip="Some text"
+                     tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
+                     If the box remains unchecked the total budget for a certain conversion type will be limited only by your account balance."
                      forId="budget"></app-label>
           <app-label class="col-xs-2 row justify-center cell align-center"
                      label="Is repeatable"
-                     tooltip="Some text"
+                     tooltip="Turn on if you want to allow multiple conversion of the same type for the single impression."
                      forId="isRepeatable"></app-label>
           <div class="col-xs-1 row justify-start">Delete</div>
           <div class="col-xs-1 row justify-start">Link</div>

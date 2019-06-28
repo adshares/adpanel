@@ -338,12 +338,20 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   openDialog(form: FormGroup) {
+    const message = form.get('isAdvanced').value ?
+      'Secret is a string of characters used to sign the transferred data.' +
+      'The link above is a conversion address, that must be used in order to execute a conversion. ' +
+      'Please, place it on your site (e.g. as a src attribute of an img element). ' +
+      'Before you proceed further, please read the instruction and modify the link according to the guidelines:'
+      :
+      'The link above is a conversion address, that must be used in order to execute a conversion. ' +
+      'Please, place it on your site (e.g. as a src attribute of an img element). ' +
+      'Before you proceed further, please read the instruction:';
+
     this.dialog.open(InformationDialogComponent, {
       data: {
         title: 'Conversion link',
-        message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ' +
-          'et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ' +
-          'aliquip ex ea commodo consequat.',
+        message: message,
         link: form.get('link').value,
         href: 'https://github.com/adshares/adserver/wiki/Conversions',
         secret: form.get('secret').value,
