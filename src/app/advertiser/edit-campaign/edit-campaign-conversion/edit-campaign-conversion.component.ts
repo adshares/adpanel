@@ -190,15 +190,17 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   get conversionsToSave(): CampaignConversion[] {
     let items = this.conversionItemForms.map((form) => {
+      const isMutable = form.get('isValueMutable').value;
+      const costValue = form.get('value').value;
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
         name: form.get('name').value,
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: `${adsToClicks(parseInt(form.get('value').value))}`,
+        value: !isMutable ? `${adsToClicks(parseInt(costValue))}`: costValue,
         limit: form.get('limit').value,
-        isValueMutable: form.get('isValueMutable').value,
+        isValueMutable: isMutable,
         isRepeatable: form.get('isRepeatable').value,
       };
     });
@@ -259,7 +261,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: `${this.clickToADSPipe.transform(parseInt(conversion.value))}`,
+        value: !conversion.isValueMutable ? `${this.clickToADSPipe.transform(parseInt(conversion.value))}` : conversion.value,
         limit: conversion.limit,
         secret: conversion.secret,
         link: conversion.link,
