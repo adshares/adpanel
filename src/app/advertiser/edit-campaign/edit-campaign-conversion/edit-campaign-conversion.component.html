@@ -338,17 +338,17 @@
                   </mat-slide-toggle>
                   <input
                     id="valueAdv"
+                    type="number"
                     class="dwmth-form-input campaign-edit-conversion__value-input"
                     formControlName="value"
                     data-test="advertiser-conversion-item-value"
                   >
                 </div>
-
                 <span
                   class="error-msg"
-                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status"
                 >
-                    Must be greater than zero.
+                  Value is required.
                   </span>
               </div>
               <div

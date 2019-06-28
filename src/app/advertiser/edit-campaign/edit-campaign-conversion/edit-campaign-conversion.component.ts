@@ -134,7 +134,27 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   get isFormValid(): boolean {
+    this.validateAdvancedValueControl();
     return this.conversionItemForms.every(item => item.valid);
+  }
+
+  validateAdvancedValueControl() {
+    const elementsWithError = this.conversionItemForms
+      .filter(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === false && !el.controls.value.value);
+    const validElements = this.conversionItemForms
+      .filter(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === true && el.controls.value.status === 'INVALID');
+
+    if (elementsWithError) {
+      elementsWithError.forEach(el => {
+        el.controls.value.setErrors({'required': true})
+      })
+    }
+
+    if (validElements) {
+      validElements.forEach(el => {
+        el.controls.value.setErrors(null)
+      })
+    }
   }
 
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
