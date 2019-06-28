@@ -73,10 +73,11 @@
   .cell {
     max-height: 46px;
     height: 46px;
+    flex-wrap: nowrap;
   }
 
   &__value-input {
-    max-width: 115px;
+    max-width: 150px;
     margin-left: 10px;
   }
 

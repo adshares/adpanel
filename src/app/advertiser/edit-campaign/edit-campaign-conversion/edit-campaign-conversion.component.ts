@@ -21,7 +21,7 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
 import { ShowDialogOnError } from "store/common/common.actions";
 import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
-import { adsToClicks } from "common/utilities/helpers";
+import { adsToClicks, formatMoney } from "common/utilities/helpers";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -192,14 +192,15 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     let items = this.conversionItemForms.map((form) => {
       const isMutable = form.get('isValueMutable').value;
       const costValue = form.get('value').value;
+
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
         name: form.get('name').value,
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: !isMutable ? `${adsToClicks(parseInt(costValue))}`: costValue,
-        limit: form.get('limit').value,
+        value: !isMutable ? `${adsToClicks(parseFloat(costValue))}`: costValue,
+        limit: form.get('limit').value !== null ? `${adsToClicks(form.get('limit').value)}` : form.get('limit').value,
         isValueMutable: isMutable,
         isRepeatable: form.get('isRepeatable').value,
       };
@@ -261,12 +262,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: !conversion.isValueMutable ? `${this.clickToADSPipe.transform(parseInt(conversion.value))}` : conversion.value,
-        limit: conversion.limit,
+        value: !conversion.isValueMutable ? `${formatMoney(conversion.value)}` : conversion.value,
+        limit: conversion.limit !== null ? `${formatMoney(conversion.limit)}` : conversion.limit,
         secret: conversion.secret,
         link: conversion.link,
       };
-
       this.addConversion(item);
     });
   }
