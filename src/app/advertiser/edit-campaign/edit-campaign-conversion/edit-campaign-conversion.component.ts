@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions, toPayload } from '@ngrx/effects';
+import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'models/app-state.model';
@@ -20,31 +20,11 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
 import { ShowDialogOnError } from "store/common/common.actions";
-import { fadeAnimation } from "common/animations/fade.animation";
-import { animate, animateChild, query, sequence, stagger, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
   templateUrl: './edit-campaign-conversion.component.html',
-  styleUrls: ['./edit-campaign-conversion.component.scss'],
-  animations: [
-    trigger(
-      'fadeIn',
-      [
-        transition(
-          ':enter', [
-            style({opacity: 0, transform: 'translateX(-550px)'}),
-            animate('400ms', style({'opacity': 1}))
-          ]
-        ),
-        transition(
-          ':leave', [
-            style({opacity: 1, transform: 'translateX(0)'}),
-            animate('400ms', style({'opacity': 0,}))
-          ]
-        )]
-    )
-  ],
+  styleUrls: ['./edit-campaign-conversion.component.scss']
 })
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
   readonly TYPE_ADVANCED: string = 'advanced';
@@ -248,7 +228,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
         return;
       }
-
       const item = {
         uuid: conversion.uuid,
         name: conversion.name,
@@ -310,7 +289,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
       return;
     }
-
     this.conversionItemForms.push(this.generateFormConversionItem(item));
   }
 
@@ -358,7 +336,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       }
     });
   }
-
 
   onStepBack(): void {
     this.store.dispatch(new ClearLastEditedCampaign());

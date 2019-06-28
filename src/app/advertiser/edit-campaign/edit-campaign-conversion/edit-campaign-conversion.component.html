@@ -77,11 +77,10 @@
           <div class="col-xs-1 row justify-start">Link</div>
         </div>
 
-        <div class="dwmth-box dwmth-box--no-padding campaign-edit-conversion__list animated-list" [@fadeIn]>
+        <div class="dwmth-box dwmth-box--no-padding campaign-edit-conversion__list animated-list">
           <form
             *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
             [formGroup]="conversionItemForm"
-            [@fadeIn]=""
             data-test="advertiser-conversion-item"
           >
             <div
@@ -251,6 +250,7 @@
                      forId="limit"></app-label>
           <app-label class="col-xs-1 row justify-center cell align-center"
                      label="In budget"
+                     tooltipPosition="left"
                      tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
                      If the box remains unchecked the total budget for a certain conversion type will be limited only by your account balance."
                      forId="budget"></app-label>

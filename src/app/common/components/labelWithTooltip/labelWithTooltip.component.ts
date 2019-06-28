@@ -12,4 +12,5 @@ export class LabelWithTooltipComponent {
   @Input() label: string;
   @Input() forId: string;
   @Input() tooltip: string;
+  @Input() tooltipPosition: string ;
 }
