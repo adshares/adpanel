@@ -154,10 +154,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   get isFormValid(): boolean {
-    if (this.conversionItemForms
-      .findIndex(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === false)) {
-      return false
-    }
     return this.conversionItemForms.every(item => item.valid);
   }
 
