@@ -20,6 +20,8 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
 import { ShowDialogOnError } from "store/common/common.actions";
+import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
+import { adsToClicks } from "common/utilities/helpers";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -74,6 +76,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
     action$: Actions,
+    private clickToADSPipe: ClickToADSPipe
   ) {
     super();
     this.action$ = action$;
@@ -193,7 +196,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: form.get('value').value,
+        value: `${adsToClicks(parseInt(form.get('value').value))}`,
         limit: form.get('limit').value,
         isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
@@ -256,7 +259,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: conversion.value,
+        value: `${this.clickToADSPipe.transform(parseInt(conversion.value))}`,
         limit: conversion.limit,
         secret: conversion.secret,
         link: conversion.link,
