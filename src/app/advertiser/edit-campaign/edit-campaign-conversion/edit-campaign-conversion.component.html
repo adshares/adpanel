@@ -61,9 +61,13 @@
             justify-between
             dwmth-copy"
         >
-          <label for="name" class="col-xs-3 row justify-start align-center">
-            Name
-          </label>
+          <app-label class="col-xs-3 row justify-start align-center"
+                     forId="name"
+                     label="Name"
+                     tooltipPosition="after"
+                     tooltip="Enter the conversion name here"
+          >
+          </app-label>
           <app-label class="col-xs-4 row justify-start align-center"
                      label="Type"
                      tooltip="Select the type of conversion"
@@ -234,7 +238,12 @@
             justify-between
             dwmth-copy"
         >
-          <label for="nameAdv" class="col-xs-1 row justify-start">Name</label>
+          <app-label class="col-xs-1 row justify-start"
+                     forId="name"
+                     label="Name"
+                     tooltipPosition="after"
+                     tooltip="Enter the conversion name here"
+          ></app-label>
           <app-label class="col-xs-2 row justify-start align-center"
                      label="Type"
                      tooltip="Select the type of conversion"
@@ -250,7 +259,6 @@
                      forId="limit"></app-label>
           <app-label class="col-xs-1 row justify-center cell align-center"
                      label="In budget"
-                     tooltipPosition="left"
                      tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
                      If the box remains unchecked the total budget for a certain conversion type will be limited only by your account balance."
                      forId="budget"></app-label>
