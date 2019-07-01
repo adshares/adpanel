@@ -312,8 +312,60 @@
               src="assets/images/edit-blue.svg"
               alt=""
             >
-            Conversion
+            Edit Conversions
           </button>
+      </div>
+      <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
+        <div
+          class="
+            row
+            dwmth-box
+            justify-between
+            dwmth-copy
+            dwmth-copy--semi"
+        >
+          <div class="col-xs-3"
+          >
+            Name
+          </div>
+          <div class="col-xs-3"
+          >
+            Type
+          </div>
+          <div class="col-xs-3"
+          >
+            Cost
+          </div>
+          <div class="col-xs-3"
+          >
+            Occurrences
+          </div>
+        </div>
+
+        <div *ngFor="let conversion of campaign.conversions"
+          class="
+            row
+            dwmth-box
+            justify-between
+            dwmth-copy"
+        >
+          <div class="col-xs-3"
+          >
+            {{ conversion.name }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.eventType }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.cost | formatMoney:2 }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.occurrences }}
+          </div>
+        </div>
       </div>
     </section>
 

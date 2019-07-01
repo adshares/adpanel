@@ -55,6 +55,8 @@ interface CampaignConversion {
   link?: string;
   isValueMutable?: boolean;
   isRepeatable?: boolean;
+  cost: number;
+  occurrences: number;
 }
 
 interface CampaignConversionItem {
