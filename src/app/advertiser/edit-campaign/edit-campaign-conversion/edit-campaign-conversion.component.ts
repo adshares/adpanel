@@ -189,8 +189,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   get conversionsToSave(): CampaignConversion[] {
     let items = this.conversionItemForms.map((form) => {
-      const isMutable = form.get('isValueMutable').value;
-      const costValue = form.get('value').value;
+      const value = form.get('value').value;
+      const limit = form.get('limit').value;
 
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
@@ -198,9 +198,9 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: !isMutable ? `${adsToClicks(parseFloat(costValue))}` : costValue,
-        limit: form.get('limit').value !== null ? `${adsToClicks(form.get('limit').value)}` : form.get('limit').value,
-        isValueMutable: isMutable,
+        value: value !== null ? adsToClicks(value) : null,
+        limit: limit !== null ? adsToClicks(limit) : null,
+        isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
       };
     });
@@ -263,8 +263,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.budgetType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: !conversion.isValueMutable ? `${formatMoney(conversion.value)}` : conversion.value,
-        limit: conversion.limit !== null ? `${formatMoney(conversion.limit)}` : conversion.limit,
+        value: conversion.value !== null ? formatMoney(conversion.value) : null,
+        limit: conversion.limit !== null ? formatMoney(conversion.limit) : null,
         link: conversion.link,
       };
       this.addConversion(item);

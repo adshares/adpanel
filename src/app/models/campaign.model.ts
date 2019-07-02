@@ -51,8 +51,8 @@ interface CampaignConversion {
   budgetType: string;
   eventType: string;
   type: string;
-  value?: string;
-  limit?: string;
+  value?: number;
+  limit?: number;
   link?: string;
   isValueMutable?: number;
   isRepeatable?: number;
