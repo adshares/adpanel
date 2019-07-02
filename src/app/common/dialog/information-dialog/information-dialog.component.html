@@ -10,22 +10,6 @@
   >
     {{ title }}
   </h1>
-  <div *ngIf="secret"
-       class="information-dialog__box">
-    Secret:
-    <span class="dwmth-copy--bold information-dialog__info">{{secret}}</span>
-    <i matTooltipClass="dwmth-mat-tooltip"
-       matTooltip="Copy secret"
-       matTooltipPosition="above"
-       role="button"
-       tabindex="0"
-       (click)="copyToClipboard(secret)"
-       class="material-icons information-dialog__copy-icon"
-    >
-      file_copy
-    </i>
-  </div>
-
   <div *ngIf="link"
        class="information-dialog__box">
     Link:

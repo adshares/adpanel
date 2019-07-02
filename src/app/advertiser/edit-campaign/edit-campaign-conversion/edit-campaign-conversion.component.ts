@@ -18,10 +18,10 @@ import {
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
-import { InformationDialogComponent } from "common/dialog/information-dialog/information-dialog.component";
-import { ShowDialogOnError } from "store/common/common.actions";
-import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
-import { adsToClicks, formatMoney } from "common/utilities/helpers";
+import { InformationDialogComponent } from 'common/dialog/information-dialog/information-dialog.component';
+import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
+import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
+import { adsToClicks, formatMoney } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -184,7 +184,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
       link: new FormControl(item.link),
-      secret: new FormControl(item.secret),
     });
   }
 
@@ -199,7 +198,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: !isMutable ? `${adsToClicks(parseFloat(costValue))}`: costValue,
+        value: !isMutable ? `${adsToClicks(parseFloat(costValue))}` : costValue,
         limit: form.get('limit').value !== null ? `${adsToClicks(form.get('limit').value)}` : form.get('limit').value,
         isValueMutable: isMutable,
         isRepeatable: form.get('isRepeatable').value,
@@ -238,6 +237,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       type: this.isClickConversionAdvanced ? this.TYPE_ADVANCED : this.TYPE_BASIC,
       value: null,
       limit: null,
+      isValueMutable: 0,
+      isRepeatable: 0,
     };
   }
 
@@ -264,7 +265,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isRepeatable: conversion.isRepeatable,
         value: !conversion.isValueMutable ? `${formatMoney(conversion.value)}` : conversion.value,
         limit: conversion.limit !== null ? `${formatMoney(conversion.limit)}` : conversion.limit,
-        secret: conversion.secret,
         link: conversion.link,
       };
       this.addConversion(item);
@@ -341,15 +341,12 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   openDialog(form: FormGroup) {
-    const message = form.get('isAdvanced').value ?
-      'Secret is a string of characters used to sign the transferred data.' +
-      'The link above is a conversion address, that must be used in order to execute a conversion. ' +
+    let message = 'The link above is a conversion address, that must be used in order to execute a conversion. ' +
       'Please, place it on your site (e.g. as a src attribute of an img element). ' +
-      'Before you proceed further, please read the instruction and modify the link according to the guidelines:'
-      :
-      'The link above is a conversion address, that must be used in order to execute a conversion. ' +
-      'Please, place it on your site (e.g. as a src attribute of an img element). ' +
-      'Before you proceed further, please read the instruction:';
+      'Before you proceed further, please read the instruction';
+
+    message += form.get('isAdvanced').value ? ' and modify the link according to the guidelines:'
+      : ':';
 
     this.dialog.open(InformationDialogComponent, {
       data: {
@@ -357,7 +354,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         message: message,
         link: form.get('link').value,
         href: 'https://github.com/adshares/adserver/wiki/Conversions',
-        secret: form.get('secret').value,
+        secret: this.campaign.secret,
       }
     });
   }
@@ -365,5 +362,15 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   onStepBack(): void {
     this.store.dispatch(new ClearLastEditedCampaign());
     this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+  }
+
+  copyToClipboard(content: string) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (content));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+    this.store.dispatch(new ShowSuccessSnackbar('Copied!'))
   }
 }

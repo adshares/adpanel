@@ -9,7 +9,7 @@
         dwmth-heading
         dwmth-heading--primary"
     >
-      Conversion
+      Conversions
     </h1>
   </div>
 
@@ -22,16 +22,15 @@
       [@.disabled]="true"
     >
       <mat-tab label="Basic">
-        <p
+        <div
           class="
             dwmth-copy
-            justify-center
             description-type"
         >
           In this mode each conversion has a constant cost.
           All conversion expenses are limited by the banner ad campaign budget.
           It is possible to execute one conversion type per impression.
-        </p>
+        </div>
         <div class="row justify-end align-center">
           <mat-checkbox
             *ngIf="!isClickConversionAdvanced"
@@ -198,17 +197,40 @@
       </mat-tab>
 
       <mat-tab label="Advanced">
-        <p
+        <div
           class="
             dwmth-copy
-            justify-center
             description-type"
         >
           In this mode each conversion has a unique HTTP request which must be created dynamically.
           The Advertiser also has more control over the conversion settings.
           Each conversion may have a different cost.
           The single conversion cost is optional and can be defined while the campaign is created.
-        </p>
+        </div>
+        
+        <div *ngIf="campaign.secret"
+          class="
+            dwmth-copy
+            description-type"
+        >
+          Secret is a string of characters used to sign the transferred data.
+          <div>
+            Secret:
+            <span class="dwmth-copy--bold">{{campaign.secret}}</span>
+            <i matTooltipClass="dwmth-mat-tooltip"
+               matTooltip="Copy secret"
+               matTooltipPosition="above"
+               role="button"
+               tabindex="0"
+               (click)="copyToClipboard(campaign.secret)"
+               class="material-icons campaign-edit-conversion__copy-icon"
+            >
+              file_copy
+            </i>
+          </div>
+        </div>
+        
+        
         <div class="row justify-end align-center">
           <mat-checkbox
             *ngIf="!isClickConversionBasic"

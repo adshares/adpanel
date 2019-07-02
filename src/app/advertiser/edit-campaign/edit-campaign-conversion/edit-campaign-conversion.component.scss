@@ -84,6 +84,17 @@
   .input-disabled {
     pointer-events: none;
   }
+
+  &__copy-icon {
+    cursor: pointer;
+    color: pal(gray, mid-dark);
+    outline: none;
+
+    &:hover,
+    &:focus {
+      color: darken(pal(gray, mid-dark), 10%);
+    }
+  }
 }
 
 .shake {

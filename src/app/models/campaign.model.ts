@@ -17,6 +17,8 @@ interface Campaign {
   averageCpm?: number;
   cost?: number;
   conversions?: CampaignConversion[];
+  secret: string;
+  conversionClick: number;
   classificationStatus: number;
   classificationTags?: string;
 }
@@ -51,10 +53,9 @@ interface CampaignConversion {
   type: string;
   value?: string;
   limit?: string;
-  secret?: string;
   link?: string;
-  isValueMutable?: boolean;
-  isRepeatable?: boolean;
+  isValueMutable?: number;
+  isRepeatable?: number;
   cost: number;
   occurrences: number;
 }
@@ -67,7 +68,6 @@ interface CampaignConversionItem {
   isInBudget: boolean;
   value?: string;
   limit?: string;
-  secret?: string;
   link?: string;
   isValueMutable?: boolean;
   isRepeatable?: boolean;
