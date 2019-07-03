@@ -11,13 +11,29 @@
     >
       Conversions
     </h1>
+    <p
+      class="
+        dwmth-copy
+        dwmth-copy--medium"
+    >
+      Conversions are users' actions which meet business expectations, e. g. making a purchase or registering on the website.
+      If advertisers are satisfied they can pay back. On this website you can define your conversions and the amount you are willing to spend on them.
+    </p>
   </div>
 
   <div
     class="
-        dwmth-box
-        dwmth-box--large"
+      dwmth-box
+      dwmth-box--large"
   >
+    <h3
+      class="
+        dwmth-heading
+        dwmth-heading--secondary"
+    >
+      Conversions
+    </h3>
+
     <mat-tab-group
       [@.disabled]="true"
     >
@@ -32,13 +48,6 @@
           It is possible to execute one conversion type per impression.
         </div>
         <div class="row justify-end align-center">
-          <mat-checkbox
-            *ngIf="!isClickConversionAdvanced"
-            [(ngModel)]="isClickConversionBasic"
-            data-test="advertiser-conversion-is-click-basic-checkbox"
-          >
-            Enable click conversion
-          </mat-checkbox>
           <button
             class="dwmth-btn
                dwmth-btn--white
@@ -60,21 +69,26 @@
             justify-between
             dwmth-copy"
         >
-          <app-label class="col-xs-3 row justify-start align-center"
-                     forId="name"
-                     label="Name"
-                     tooltipPosition="after"
-                     tooltip="Enter the conversion name here"
+          <app-label
+            class="col-xs-3 row justify-start align-center"
+            forId="name"
+            label="Name"
+            tooltipPosition="after"
+            tooltip="Enter the conversion name here"
           >
           </app-label>
-          <app-label class="col-xs-4 row justify-start align-center"
-                     label="Type"
-                     tooltip="Select the type of conversion"
-                     forId="type"></app-label>
-          <app-label class="col-xs-2 row justify-start align-center"
-                     label="Cost"
-                     tooltip="Enter the amount you are willing to spend on a single conversion"
-                     forId="value"></app-label>
+          <app-label
+            class="col-xs-4 row justify-start align-center"
+            label="Type"
+            tooltip="Select the type of conversion"
+            forId="type"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Cost"
+            tooltip="Enter the amount you are willing to spend on a single conversion"
+            forId="value"
+          ></app-label>
           <div class="col-xs-1 row justify-start"></div>
           <div class="col-xs-1 row justify-start">Delete</div>
           <div class="col-xs-1 row justify-start">Link</div>
@@ -109,8 +123,8 @@
                   class="error-msg"
                   *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
                 >
-                    Cannot be empty.
-                  </span>
+                  Cannot be empty.
+                </span>
               </div>
               <div
                 class="
@@ -136,8 +150,8 @@
                   class="error-msg"
                   *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
                 >
-                    Cannot be empty.
-                  </span>
+                  Cannot be empty.
+                </span>
               </div>
               <div
                 class="
@@ -186,7 +200,7 @@
                   *ngIf="conversionItemForm.get('link').value"
                   class="campaign-edit-conversion__btn"
                   title="Get Link"
-                  (click)="openDialog(conversionItemForm)"
+                  (click)="openDialogForForm(conversionItemForm)"
                 >
                   <mat-icon> link</mat-icon>
                 </button>
@@ -207,8 +221,9 @@
           Each conversion may have a different cost.
           The single conversion cost is optional and can be defined while the campaign is created.
         </div>
-        
-        <div *ngIf="campaign.secret"
+
+        <div
+          *ngIf="campaign.secret"
           class="
             dwmth-copy
             description-type"
@@ -217,28 +232,22 @@
           <div>
             Secret:
             <span class="dwmth-copy--bold">{{campaign.secret}}</span>
-            <i matTooltipClass="dwmth-mat-tooltip"
-               matTooltip="Copy secret"
-               matTooltipPosition="above"
-               role="button"
-               tabindex="0"
-               (click)="copyToClipboard(campaign.secret)"
-               class="material-icons campaign-edit-conversion__copy-icon"
+            <i
+              matTooltipClass="dwmth-mat-tooltip"
+              matTooltip="Copy secret"
+              matTooltipPosition="above"
+              role="button"
+              tabindex="0"
+              (click)="copyToClipboard(campaign.secret)"
+              class="material-icons campaign-edit-conversion__copy-icon"
             >
               file_copy
             </i>
           </div>
         </div>
-        
-        
+
+
         <div class="row justify-end align-center">
-          <mat-checkbox
-            *ngIf="!isClickConversionBasic"
-            [(ngModel)]="isClickConversionAdvanced"
-            data-test="advertiser-conversion-is-click-advanced-checkbox"
-          >
-            Enable click conversion
-          </mat-checkbox>
           <button
             class="dwmth-btn
                dwmth-btn--white
@@ -260,35 +269,46 @@
             justify-between
             dwmth-copy"
         >
-          <app-label class="col-xs-1 row justify-start"
-                     forId="name"
-                     label="Name"
-                     tooltipPosition="after"
-                     tooltip="Enter the conversion name here"
+          <app-label
+            class="col-xs-1 row justify-start"
+            forId="name"
+            label="Name"
+            tooltipPosition="after"
+            tooltip="Enter the conversion name here"
           ></app-label>
-          <app-label class="col-xs-2 row justify-start align-center"
-                     label="Type"
-                     tooltip="Select the type of conversion"
-                     forId="typeAdv"></app-label>
-          <app-label class="col-xs-2 row justify-start align-center"
-                     label="Cost"
-                     tooltip="Enter the amount you are willing to spend on a single conversion.
-                              Turn on the switch if you wish to use different values."
-                     forId="valueAdv"></app-label>
-          <app-label class="col-xs-2 row justify-start align-center"
-                     label="Budget"
-                     tooltip="Enter the total amount you are willing to spend on a selected type of conversion.
-                              The conversion budget is taken from your main ADS account and is separate from the banner ad campaign budget."
-                     forId="limit"></app-label>
-          <app-label class="col-xs-1 row justify-center cell align-center"
-                     label="In budget"
-                     tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Type"
+            tooltip="Select the type of conversion"
+            forId="typeAdv"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Cost"
+            tooltip="Enter the amount you are willing to spend on a single conversion.
+                     Turn on the switch if you wish to use different values."
+            forId="valueAdv"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Budget"
+            tooltip="Enter the total amount you are willing to spend on a selected type of conversion.
+                     The conversion budget is taken from your main ADS account and is separate from the banner ad campaign budget."
+            forId="limit"
+          ></app-label>
+          <app-label
+            class="col-xs-1 row justify-center cell align-center"
+            label="In budget"
+            tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
                      If the box remains unchecked the total budget for a certain conversion type will be limited only by your account balance."
-                     forId="budget"></app-label>
-          <app-label class="col-xs-2 row justify-center cell align-center"
-                     label="Is repeatable"
-                     tooltip="Turn on if you want to allow multiple conversion of the same type for the single impression."
-                     forId="isRepeatable"></app-label>
+            forId="budget"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-center cell align-center"
+            label="Is repeatable"
+            tooltip="Turn on if you want to allow multiple conversion of the same type for the single impression."
+            forId="isRepeatable"
+          ></app-label>
           <div class="col-xs-1 row justify-start">Delete</div>
           <div class="col-xs-1 row justify-start">Link</div>
         </div>
@@ -365,7 +385,8 @@
                     class="row align-self-center"
                     id="isMutable"
                     formControlName="isValueMutable"
-                    data-test="advertiser-conversion-item-is-value-mutable">
+                    data-test="advertiser-conversion-item-is-value-mutable"
+                  >
                   </mat-slide-toggle>
                   <input
                     id="valueAdv"
@@ -409,7 +430,8 @@
                 <mat-slide-toggle
                   id="budget"
                   formControlName="isInBudget"
-                  data-test="advertiser-conversion-item-is-in-budget">
+                  data-test="advertiser-conversion-item-is-in-budget"
+                >
                 </mat-slide-toggle>
               </div>
 
@@ -424,7 +446,8 @@
                 <mat-slide-toggle
                   id="isRepeatable"
                   formControlName="isRepeatable"
-                  data-test="advertiser-conversion-item-is-repeatable">
+                  data-test="advertiser-conversion-item-is-repeatable"
+                >
                 </mat-slide-toggle>
               </div>
               <div
@@ -453,7 +476,7 @@
                   *ngIf="conversionItemForm.get('link').value"
                   class="campaign-edit-conversion__btn"
                   title="Get Link"
-                  (click)="openDialog(conversionItemForm)"
+                  (click)="openDialogForForm(conversionItemForm)"
                 >
                   <mat-icon> link</mat-icon>
                 </button>
@@ -464,6 +487,58 @@
       </mat-tab>
     </mat-tab-group>
   </div>
+
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large"
+  >
+    <h3
+      class="
+        dwmth-heading
+        dwmth-heading--secondary"
+    >
+      Click conversion
+    </h3>
+    <div
+      class="
+        dwmth-copy
+        description-type"
+    >
+      Click conversion type defines how clicks are registered.
+      By default all click events are registered when user clicks the ad banner.
+      If you change to basic or advanced link click events won’t be registered, unless a conversion takes place.
+      Click link icon to obtain more information.
+    </div>
+
+    <mat-form-field>
+      <mat-label>Select click conversion type:</mat-label>
+      <mat-select
+        class="dwmth-select"
+        [(value)]="campaign.conversionClick"
+        data-test="advertiser-conversion-click-select"
+      >
+        <mat-option
+          *ngFor="let clickConversionType of clickConversionTypes"
+          [value]="clickConversionType.value"
+          data-test="advertiser-conversion-click-option"
+        >
+          {{ clickConversionType.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="dwmth-form-label">
+      <button
+        *ngIf="campaign.conversionClickLink"
+        class="campaign-edit-conversion__btn"
+        title="Get Link"
+        (click)="openDialog(campaign.conversionClickLink)"
+      >
+        <mat-icon> link</mat-icon>
+      </button>
+    </div>
+  </div>
+
   <div
     class="dwmth-box
            dwmth-box--large

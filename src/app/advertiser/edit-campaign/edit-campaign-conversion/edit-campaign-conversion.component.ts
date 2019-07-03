@@ -33,8 +33,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   readonly TYPE_BASIC: string = 'basic';
 
   private readonly CONVERSION_COUNT_MAXIMAL: number = 5;
-  private readonly CLICK_CONVERSION_NAME: string = 'click';
-  private readonly CLICK_CONVERSION_EVENT_TYPE: string = 'click';
   private readonly BUDGET_TYPE_IN: string = 'in_budget';
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
 
@@ -58,11 +56,14 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     'View content',
   ];
 
+  readonly clickConversionTypes = [
+    {value: 0, label: 'Default'},
+    {value: 1, label: 'Basic link'},
+    {value: 2, label: 'Advanced link'},
+  ];
+
   conversionItemForms: FormGroup[] = [];
   campaign: Campaign;
-
-  isClickConversionBasic: boolean = false;
-  isClickConversionAdvanced: boolean = false;
 
   validateForm: boolean = false;
   submitted: boolean = false;
@@ -121,12 +122,13 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
           this.conversionItemForms.forEach(item => item.markAsPristine());
           this.conversionItemForms.forEach(item => item.markAsUntouched());
-          this.advertiserService.getConversions(this.campaign.id)
+          this.advertiserService.getCampaign(this.campaign.id)
             .first()
             .subscribe(
               (data) => {
+                this.campaign = data.campaign;
                 this.conversionItemForms = [];
-                this.adjustConversionData(data)
+                this.adjustConversionData(this.campaign.conversions)
               },
               (err) => {
                 this.store.dispatch(new ShowDialogOnError(err.code))
@@ -205,56 +207,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       };
     });
 
-    if (this.isClickConversionBasic || this.isClickConversionAdvanced) {
-      items.push(this.getConversionClick());
-    }
-
     return items;
   }
 
-  private getConversionClick(): CampaignConversion {
-    const conversion = this.campaign.conversions.find(conversion => conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE);
-
-    if (conversion === undefined) {
-      return this.createConversionClick();
-    }
-
-    const isAdvanced = conversion.type === this.TYPE_ADVANCED;
-
-    if (this.isClickConversionBasic && !isAdvanced || this.isClickConversionAdvanced && isAdvanced) {
-      return conversion;
-    }
-
-    return this.createConversionClick();
-  }
-
-  private createConversionClick(): CampaignConversion {
-    return <CampaignConversion>{
-      uuid: null,
-      name: this.CLICK_CONVERSION_NAME,
-      budgetType: this.isClickConversionAdvanced ? this.BUDGET_TYPE_OUT : this.BUDGET_TYPE_IN,
-      eventType: this.CLICK_CONVERSION_EVENT_TYPE,
-      type: this.isClickConversionAdvanced ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-      value: null,
-      limit: null,
-      isValueMutable: 0,
-      isRepeatable: 0,
-    };
-  }
-
   adjustConversionData(conversions) {
-    this.isClickConversionBasic = false;
-    this.isClickConversionAdvanced = false;
     conversions.forEach(conversion => {
-      if (conversion.eventType === this.CLICK_CONVERSION_EVENT_TYPE) {
-        if (conversion.type === this.TYPE_ADVANCED) {
-          this.isClickConversionAdvanced = true;
-        } else {
-          this.isClickConversionBasic = true;
-        }
-
-        return;
-      }
       const item = {
         uuid: conversion.uuid,
         name: conversion.name,
@@ -284,16 +241,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.subscriptions.push(subscription);
   }
 
-  private get conversionCount(): number {
-    let count = this.conversionItemForms.length;
-
-    if (this.isClickConversionBasic || this.isClickConversionAdvanced) {
-      count++;
-    }
-
-    return count;
-  }
-
   addConversionEmpty(type: string): void {
     const item = <CampaignConversionItem>{
       ...campaignConversionItemInitialState,
@@ -304,7 +251,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   addConversion(item: CampaignConversionItem): void {
-    if (this.conversionCount >= this.CONVERSION_COUNT_MAXIMAL) {
+    if (this.conversionItemForms.length >= this.CONVERSION_COUNT_MAXIMAL) {
       this.dialog.open(ConfirmResponseDialogComponent, {
         data: {
           title: 'Maximum conversion count reached',
@@ -340,19 +287,23 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     return mainListIndex;
   }
 
-  openDialog(form: FormGroup) {
+  openDialogForForm(form: FormGroup) {
+    const isAdvanced = form.get('isAdvanced').value;
+    const link = form.get('link').value;
+    this.openDialog(link, isAdvanced);
+  }
+
+  openDialog(link: string, isAdvanced: boolean = true) {
     let message = 'The link above is a conversion address, that must be used in order to execute a conversion. ' +
       'Please, place it on your site (e.g. as a src attribute of an img element). ' +
       'Before you proceed further, please read the instruction';
-
-    message += form.get('isAdvanced').value ? ' and modify the link according to the guidelines:'
-      : ':';
+    message += isAdvanced ? ' and modify the link according to the guidelines:' : ':';
 
     this.dialog.open(InformationDialogComponent, {
       data: {
         title: 'Conversion link',
         message: message,
-        link: form.get('link').value,
+        link: link,
         href: 'https://github.com/adshares/adserver/wiki/Conversions',
         secret: this.campaign.secret,
       }

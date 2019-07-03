@@ -19,6 +19,7 @@ interface Campaign {
   conversions?: CampaignConversion[];
   secret: string;
   conversionClick: number;
+  conversionClickLink?: string;
   classificationStatus: number;
   classificationTags?: string;
 }
