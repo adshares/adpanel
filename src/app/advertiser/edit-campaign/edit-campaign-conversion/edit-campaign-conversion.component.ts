@@ -200,8 +200,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         budgetType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
-        value: value !== null ? adsToClicks(value) : null,
-        limit: limit !== null ? adsToClicks(limit) : null,
+        value: value !== null ? adsToClicks(parseFloat(value)) : null,
+        limit: limit !== null ? adsToClicks(parseFloat(limit)) : null,
         isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
       };
