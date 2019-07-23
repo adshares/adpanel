@@ -5,9 +5,9 @@ import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 
 import { isUnixTimePastNow } from 'common/utilities/helpers';
-import {AppState} from "models/app-state.model";
+import { AppState } from 'models/app-state.model';
 import * as authActions from 'store/auth/auth.actions';
-import {Store} from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthService {
@@ -24,13 +24,14 @@ export class AuthService {
     this.store.dispatch(new authActions.UserLogOutSuccess());
     this.api.auth.logout().subscribe(
       () => {
+        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       },
       () => {
+        this.session.drop();
         this.router.navigate(['/auth', 'login']);
       }
     );
-    this.session.drop();
   }
 
   timeout() {
