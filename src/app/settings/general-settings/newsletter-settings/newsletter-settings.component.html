@@ -1,0 +1,38 @@
+<section class="newsletter-settings">
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large"
+  >
+    <div class="col">
+      <h2
+        class="
+          dwmth-heading
+          dwmth-heading--primary"
+      >
+        Newsletter
+      </h2>
+      <p
+        class="
+          dwmth-copy
+          dwmth-copy--large"
+      >
+        Subscribe to our newsletter to receive latest news.
+      </p>
+      <div
+        class="
+          newsletter-table
+          dwmth-copy"
+      >
+        <mat-slide-toggle
+          color="primary"
+          [disabled]="isSettingDisabled"
+          [(ngModel)]="isSubscribed"
+          (change)="onChangeSubscription(isSubscribed)"
+        >
+          Subscription
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</section>
