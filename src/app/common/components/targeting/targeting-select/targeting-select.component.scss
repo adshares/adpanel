@@ -21,6 +21,15 @@
     top: 15px;
   }
 
+  &__help-icon {
+    margin-left: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    color: pal(blue, base);
+  }
+
   &__option {
     @include container(
       $border-color: pal(gray, light),
