@@ -34,6 +34,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
       values: [
         {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
         {name: 'Referrer', icon: 'assets/images/preferences.svg'},
+        {name: 'Newsletter', icon: 'assets/images/preferences.svg'},
         /*
                         { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
         */

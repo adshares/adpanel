@@ -21,6 +21,11 @@
     top: 15px;
   }
 
+  &__help-icon {
+    margin-left: 4px;
+    color: pal(blue, base);
+  }
+
   &__option {
     @include container(
       $border-color: pal(gray, light),

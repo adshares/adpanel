@@ -2,8 +2,8 @@ export const adTypesOptions = ['image', 'html'];
 
 export enum adTypesEnum {
   IMAGE,
-  HTML
-};
+  HTML,
+}
 
 export enum adSizesEnum {
   '300x250',
@@ -36,31 +36,32 @@ export enum adSizesEnum {
   '120x90',
   '120x60',
   '88x31',
-};
+}
 
 export enum adStatusesEnum {
   DRAFT,
   INACTIVE,
   ACTIVE,
-};
+  REJECTED,
+}
 
 export enum validImageTypes {
-  "image/jpeg",
-  "image/jpg",
-  "image/pjpeg",
-  "image/png",
-  "image/gif"
-};
+  'image/jpeg',
+  'image/jpg',
+  'image/pjpeg',
+  'image/png',
+  'image/gif',
+}
 
 export enum validHtmlTypes {
-  "application/zip",
-  "application/x-compressed",
-  "multipart/x-zip",
-  "application/octet-stream",
-  "application/x-zip-compressed",
-};
+  'application/zip',
+  'application/x-compressed',
+  'multipart/x-zip',
+  'application/octet-stream',
+  'application/x-zip-compressed',
+}
 
 export enum adUnitStatusesEnum {
   DRAFT,
-  ACTIVE
+  ACTIVE,
 }

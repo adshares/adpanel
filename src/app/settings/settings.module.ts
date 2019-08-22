@@ -12,6 +12,7 @@ import { SettingsComponent } from './settings.component';
 import { BillingComponent } from './billing/billing.component';
 import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component';
 import { PreferencesComponent } from './general-settings/preferences/preferences.component';
+import { NewsletterSettingsComponent } from './general-settings/newsletter-settings/newsletter-settings.component';
 import { NotificationSettingsComponent } from './general-settings/notification-settings/notification-settings.component';
 import { UserWalletComponent } from './billing/user-wallet/user-wallet.component';
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component';
@@ -39,6 +40,7 @@ library.add(fas);
     AccountSettingsComponent,
     PreferencesComponent,
     ReferrerComponent,
+    NewsletterSettingsComponent,
     NotificationSettingsComponent,
     UserWalletComponent,
     BillingHistoryComponent,

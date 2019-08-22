@@ -19,6 +19,7 @@ import {
   getParentId
 } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-targeting-select',
@@ -37,6 +38,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   parentOption: TargetingOption | TargetingOptionValue;
   targetingOptionsForSearch: TargetingOption[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
+  faQuestionCircle = faQuestionCircle;
 
   backAvailable = false;
   optionsHasValue = false;

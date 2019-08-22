@@ -1,14 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
-import { MatDialog } from "@angular/material";
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
-import { Store } from "@ngrx/store";
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { Ad, Campaign } from 'models/campaign.model';
-import { AppState } from "models/app-state.model";
 
 @Component({
   selector: 'app-poster-list-item',
@@ -23,8 +21,7 @@ export class AdListItemComponent {
   constructor(private route: ActivatedRoute,
               private advertiserService: AdvertiserService,
               private dialog: MatDialog,
-              private router: Router,
-              private store: Store<AppState>) {
+              private router: Router) {
   }
 
   get adType() {
@@ -60,5 +57,4 @@ export class AdListItemComponent {
       {queryParams: {step: 3}}
     );
   }
-
 }

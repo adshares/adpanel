@@ -60,8 +60,8 @@ export class SettingsService {
     return this.http.patch(`${environment.authUrl}/self`, {user, uri});
   }
 
-  checkUserStatus(): Observable<User> {
-    return this.http.get<User>(`${environment.authUrl}/check`);
+  newsletter(isSubscribed: boolean): Observable<any> {
+    return this.http.post(`${environment.authUrl}/newsletter/subscription`, {isSubscribed});
   }
 
   cancelAwaitingTransaction(id: number): Observable<any> {

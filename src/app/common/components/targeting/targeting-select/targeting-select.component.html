@@ -56,6 +56,17 @@
       class="targeting-select__option"
       (click)="toggleItem(option)">
       {{ option.label }}
+      <span
+       *ngIf="option.description"
+        class="targeting-select__help-icon"
+      >
+        <fa-icon
+          matTooltipClass="dwmth-mat-tooltip"
+          [matTooltip]="option.description"
+          matTooltipPosition="above"
+          [icon]="faQuestionCircle"
+        ></fa-icon>
+      </span>
       <span [ngClass]="{'input-valid': option.selected}"
             class="checkmark-unselected"
       ></span>
