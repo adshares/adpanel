@@ -18,8 +18,12 @@
       <mat-slide-toggle
         color="primary"
         [checked]="ad.status === adStatusesEnum.ACTIVE"
+        [disabled]="ad.status === adStatusesEnum.REJECTED"
         ([ngModel])="ad.status"
         (change)="changeAdStatus(ad.status)"
+        matTooltipClass="dwmth-mat-tooltip"
+        [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by classifier.' : null"
+        matTooltipPosition="right"
         data-test="advertiser-ad-change-ad-status-toggle"
       ></mat-slide-toggle>
     </div>
