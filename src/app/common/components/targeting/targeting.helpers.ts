@@ -256,6 +256,10 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
               .join('-')
           }
         });
+
+        if (!customOptionParent) {
+          return;
+        }
       } else {
         rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
           parseKeyToNumber(lastKeyelement) : lastKeyelement;
