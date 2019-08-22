@@ -22,7 +22,7 @@
         ([ngModel])="ad.status"
         (change)="changeAdStatus(ad.status)"
         matTooltipClass="dwmth-mat-tooltip"
-        [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by classifier.' : null"
+        [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by the classifier.' : null"
         matTooltipPosition="right"
         data-test="advertiser-ad-change-ad-status-toggle"
       ></mat-slide-toggle>
