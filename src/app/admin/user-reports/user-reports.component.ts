@@ -24,11 +24,6 @@ export class UserReportsComponent extends HandleSubscription implements OnInit {
     this.to.setValue(moment().endOf('day').format());
   }
 
-  load(timespan) {
-  }
-
-
-
   getReportAdvertisers() {
     const from =  moment(this.from.value).format();
     const to =  moment(this.to.value).format();

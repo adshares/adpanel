@@ -2,25 +2,22 @@
   <td class="billing-table-row__status-cell">
     <div
       class="
-      dwmth-box
-      dwmth-box--x-small
-      billing-table-row__status
-      text-center"
+        dwmth-box
+        dwmth-box--x-small
+        billing-table-row__status
+        text-center"
       attr.data-status="{{ status }}"
-
     >
-      <i *ngIf="billingHistoryItem.status === statusEnum.AWAITING"
+      <span *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
          matTooltipClass="dwmth-mat-tooltip"
-         matTooltip="Confirm this transaction"
+         matTooltip="Confirm withdrawal by visiting link from an e-mail"
          matTooltipPosition="above"
-         class="material-icons
-                billing-table-row__tooltip-icon"
+         class="billing-table-row__tooltip-placeholder"
       >
-        warning
-      </i>
+      </span>
       <span data-test="settings-billing-history-item-status">
-      {{ status }}
-    </span>
+        {{ status }}
+      </span>
     </div>
   </td>
   <td class="col-xs-1" title="{{type}}">
@@ -74,7 +71,7 @@
     >
       {{billingHistoryItem.txid}}
     </a>
-    <button *ngIf="billingHistoryItem.status === statusEnum.AWAITING"
+    <button *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
             class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
             (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
             data-test="settings-billing-history-item-cancel-btn">

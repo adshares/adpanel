@@ -3,7 +3,7 @@ import {
   BillingHistory,
   NotificationItem,
 } from 'models/settings.model';
-import { User } from "models/user.model";
+import { User } from 'models/user.model';
 
 export const LOAD_NOTIFICATIONS_SETTINGS = 'Notifications Settings loaded';
 export const LOAD_NOTIFICATIONS_SETTINGS_SUCCESS = 'Notifications Settings loaded success';
@@ -20,6 +20,8 @@ export const CANCEL_AWAITING_TRANSACTION_FAILURE = 'Cancel awaiting transaction 
 export const GET_BILLING_HISTORY = 'Get billing history';
 export const GET_BILLING_HISTORY_SUCCESS = 'Get billing history success';
 export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure';
+
+export const WITHDRAW_FUNDS_SUCCESS = 'Withdraw funds success';
 
 export class LoadNotificationsSettings implements Action {
   readonly type: string = LOAD_NOTIFICATIONS_SETTINGS;
@@ -87,7 +89,7 @@ export class CancelAwaitingTransactionFailure implements Action {
 export class GetBillingHistory implements Action {
   readonly type: string = GET_BILLING_HISTORY;
 
-  constructor(public payload?: {limit?: number, offset?: number}) {
+  constructor(public payload?: { dateFrom: string, dateTo: string, types: number[], limit?: number, offset?: number }) {
   }
 }
 
@@ -105,6 +107,13 @@ export class GetBillingHistoryFailure implements Action {
   }
 }
 
+export class WithdrawFundsSuccess implements Action {
+  readonly type: string = WITHDRAW_FUNDS_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
 
 export type actions = LoadNotificationsSettings
   | UpdateNotificationSettings
@@ -116,4 +125,5 @@ export type actions = LoadNotificationsSettings
   | CancelAwaitingTransactionFailure
   | GetBillingHistory
   | GetBillingHistorySuccess
-  | GetBillingHistoryFailure;
+  | GetBillingHistoryFailure
+  | WithdrawFundsSuccess;

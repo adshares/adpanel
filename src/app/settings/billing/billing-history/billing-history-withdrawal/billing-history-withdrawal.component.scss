@@ -64,16 +64,14 @@
     overflow: hidden;
   }
 
-  & &__amount {
+  &__amount {
     text-align: right;
     font-size: 1.1em;
   }
 
-  &__tooltip-icon {
+  &__tooltip-placeholder {
     position: absolute;
-    top: 2px;
-    left: -2px;
-    font-size: 26px;
-    color: pal(orange, dark);
+    width: 100%;
+    height: 100%;
   }
 }
