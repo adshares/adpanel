@@ -16,7 +16,7 @@ export const siteInitialState: Site = {
   name: '',
   primaryLanguage: '',
   requireClassified: false,
-  excludeUnclassified: false,
+  excludeUnclassified: true,
   filtering: {
     requires: {},
     excludes: {}

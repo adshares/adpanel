@@ -39,8 +39,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   createSiteMode: boolean;
   changesSaved: boolean = false;
   filtering;
-  isCheckedRequireClassified: boolean;
-  isCheckedExcludeUnclassified: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,8 +90,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     return {
       ...this.site,
       filtering: parseTargetingForBackend(filtering),
-      requireClassified: this.isCheckedRequireClassified,
-      excludeUnclassified: this.isCheckedExcludeUnclassified,
     }
   }
 
@@ -103,8 +99,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   }
 
   saveSite(isDraft) {
-    this.site.requireClassified = this.isCheckedRequireClassified;
-    this.site.excludeUnclassified = this.isCheckedExcludeUnclassified;
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,
@@ -143,8 +137,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
         this.excludedItems = [...filtering.excludes];
-        this.isCheckedRequireClassified = lastEditedSite.requireClassified;
-        this.isCheckedExcludeUnclassified = lastEditedSite.excludeUnclassified;
       });
     this.subscriptions.push(lastSiteSubscription);
   }
