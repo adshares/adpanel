@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Location } from "@angular/common";
 import { MatDialog, MatPaginator } from '@angular/material';
 import { PublisherService } from 'publisher/publisher.service';
-import { Site } from 'models/site.model';
 import {
   BannerClassification,
   BannerClassificationFilters,
@@ -25,9 +23,6 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;
-  siteId?: number;
-  siteName?: string;
-  isGlobal: boolean = true;
   isSingleBanner: boolean;
   isLoading: boolean = true;
   bannerClassifications: BannerClassification[] = [];
@@ -47,17 +42,12 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     private publisherService: PublisherService,
     private router: Router,
     private dialog: MatDialog,
-    private location: Location
   ) {
     super()
   }
 
   ngOnInit(): void {
-    const site: Site = this.route.snapshot.data.site;
     this.adSizesOptions = this.route.snapshot.data.sizes.sizes;
-    this.siteId = site ? site.id : null;
-    this.siteName = site ? site.name : null;
-    this.isGlobal = site === undefined;
 
     this.bannerId = this.route.snapshot.params['bannerId'];
     this.isSingleBanner = this.bannerId !== undefined;
@@ -73,7 +63,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   getBannerClassification(offset?: number) {
     this.isLoading = true;
     const bannersForClassificationSubscription = this.publisherService
-      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
+      .getBannerClassification(this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;
@@ -101,7 +91,11 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   }
 
   onStepBack() {
-    this.location.back();
+    this.router.navigate(['/publisher', 'dashboard']);
+  }
+
+  goToGeneralClassifier() {
+    this.router.navigate(['/publisher', 'classifier']);
   }
 
   handlePaginationEvent(event: any): void {

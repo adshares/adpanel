@@ -81,7 +81,7 @@ export class PublisherService {
   }
 
   getBannerClassification(
-    siteId?: number, limit?: number, filtering?: BannerClassificationFilters, possibleSizes: string[] = [], offset?: number)
+    limit?: number, filtering?: BannerClassificationFilters, possibleSizes: string[] = [], offset?: number)
     : Observable<BannerClassificationResponse> {
     let params = {};
     if (limit) {
@@ -103,11 +103,11 @@ export class PublisherService {
       };
     }
 
-    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
+    return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/`,
       {params});
   }
 
-  setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
+  setBannerClassification(bannerId: number, status: boolean): Observable<number> {
     const body = {
       classification: {
         banner_id: bannerId,
@@ -115,6 +115,6 @@ export class PublisherService {
       }
     };
 
-    return this.http.patch<number>(`${environment.apiUrl}/classifications/${siteId || ''}`, body);
+    return this.http.patch<number>(`${environment.apiUrl}/classifications/`, body);
   }
 }

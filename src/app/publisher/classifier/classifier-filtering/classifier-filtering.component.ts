@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { adSizesEnum } from 'models/enum/ad.enum';
-import { enumToArray } from "common/utilities/helpers";
-import { FormControl } from "@angular/forms";
-import { BannerClassificationFilters } from "models/classifier.model";
+import { enumToArray } from 'common/utilities/helpers';
+import { BannerClassificationFilters } from 'models/classifier.model';
 
 @Component({
   selector: 'app-classifier-filtering',
@@ -25,7 +25,7 @@ export class ClassifierFilteringComponent implements OnInit {
     this.adSizesOptions = this.sizeOptions || enumToArray(adSizesEnum);
   }
 
-  sizeSelect(e, size: string) {
+  sizeSelect(e, size: string): void {
     if (e.checked) {
       this.sizes = [
         ...this.sizes,
@@ -41,8 +41,7 @@ export class ClassifierFilteringComponent implements OnInit {
     this.filteringChange.emit(this.filtering);
   }
 
-
-  changeFiltering() {
+  changeFiltering(): void {
     if (!!this.status.value) {
       this.filtering = {
         ...this.filtering,
@@ -56,11 +55,19 @@ export class ClassifierFilteringComponent implements OnInit {
     this.filteringChange.emit(this.filtering);
   }
 
-  changeFilteringByLandingUrl() {
+  changeFilteringByLandingUrl(): void {
     this.filtering = {
       ...this.filtering,
       landingUrl: this.landingUrl.value.trim()
     };
     this.filteringChange.emit(this.filtering);
+  }
+
+  get statusDescription(): string {
+    if ('Approved' === this.status.value) {
+      return 'Omitted';
+    }
+
+    return this.status.value ? this.status.value : '';
   }
 }

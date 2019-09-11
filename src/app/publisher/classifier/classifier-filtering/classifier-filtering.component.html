@@ -8,13 +8,13 @@
         Filter banners by status
       </mat-panel-title>
       <mat-panel-description>
-        {{status.value ? status.value : ''}}
+        {{ statusDescription }}
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <mat-radio-group [formControl]="status" (change)="changeFiltering()">
       <mat-radio-button value="Approved">
-        Approved
+        Omitted
       </mat-radio-button>
       <mat-radio-button value="Rejected">
         Rejected
