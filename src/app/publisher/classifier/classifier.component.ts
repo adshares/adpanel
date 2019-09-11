@@ -28,6 +28,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   siteId?: number;
   siteName?: string;
   isGlobal: boolean = true;
+  isSingleBanner: boolean;
   isLoading: boolean = true;
   bannerClassifications: BannerClassification[] = [];
   totalCount: number = 0;
@@ -39,6 +40,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     },
     sizes: [],
   };
+  bannerId: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +58,15 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.siteId = site ? site.id : null;
     this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
+
+    this.bannerId = this.route.snapshot.params['bannerId'];
+    this.isSingleBanner = this.bannerId !== undefined;
+    if (this.isSingleBanner) {
+      this.filtering = {
+        bannerId: this.bannerId,
+      }
+    }
+
     this.getBannerClassification();
   }
 

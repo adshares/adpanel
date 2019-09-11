@@ -90,6 +90,9 @@ export class PublisherService {
     if (offset) {
       params['offset'] = `${offset}`;
     }
+    if (filtering.bannerId) {
+      params['bannerId'] = filtering.bannerId;
+    }
     if (filtering) {
       params = {
         ...params,
