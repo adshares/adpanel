@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import 'rxjs/add/operator/map';
 
 import { ApiService } from 'app/api/api.service';
-import { SessionService } from "app/session.service";
+import { SessionService } from 'app/session.service';
 
 import { LocalStorageUser, User } from 'models/user.model';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
@@ -13,8 +13,8 @@ import { HandleSubscription } from 'common/handle-subscription';
 
 import { appSettings } from 'app-settings';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
 import * as authActions from 'store/auth/auth.actions';
 
 @Component({
@@ -102,18 +102,44 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         (user: User) => {
           this.processLogin(user);
           if (user.isAdmin) {
-            this.session.setAccountTypeChoice('admin');
-            this.router.navigate(['/admin/dashboard']);
+            this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN);
+            this.router.navigateByUrl(this.route.snapshot.queryParams['redirectUrl'] || '/admin/dashboard');
             return;
-          } else {
-            const accountType = this.session.getAccountTypeChoice();
-            if (user.isPublisher && accountType === 'publisher') {
-              this.router.navigate(['/publisher/dashboard']);
-            } else if (user.isAdvertiser && accountType === 'advertiser') {
-              this.router.navigate(['/advertiser/dashboard']);
-            } else {
-              this.showStartupPopups(user);
+          }
+
+          const redirectUrl = this.route.snapshot.queryParams['redirectUrl'];
+          if (redirectUrl) {
+            if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) && user.isAdvertiser) {
+              this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
+              this.router.navigateByUrl(redirectUrl);
+              return;
             }
+
+            if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) && user.isPublisher) {
+              this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
+              this.router.navigateByUrl(redirectUrl);
+              return;
+            }
+          }
+
+          let accountType = this.session.getAccountTypeChoice();
+          if (!accountType || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+            if (user.isAdvertiser && user.isPublisher) {
+              this.dialog.open(AccountChooseDialogComponent, {disableClose: true});
+              return;
+            }
+            if (user.isAdvertiser) {
+              accountType = SessionService.ACCOUNT_TYPE_ADVERTISER;
+            }
+            if (user.isPublisher) {
+              accountType = SessionService.ACCOUNT_TYPE_PUBLISHER;
+            }
+          }
+
+          if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType && user.isAdvertiser
+            || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType && user.isPublisher) {
+            this.session.setAccountTypeChoice(accountType);
+            this.router.navigateByUrl(`/${accountType}/dashboard`);
           }
         },
         (err) => {
@@ -135,33 +161,5 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new authActions.UserLogInSuccess(dataToSave));
 
     this.session.setUser(dataToSave);
-  }
-
-  showStartupPopups(user: User) {
-    if (user.isAdvertiser && user.isPublisher) {
-      const chooseAccount = this.session.getAccountTypeChoice();
-      if (!chooseAccount) {
-        this.dialog.open(AccountChooseDialogComponent, {disableClose: true});
-        return;
-      }
-      if (chooseAccount == "advertiser") {
-        this.router.navigate(['/advertiser/dashboard']);
-        return;
-      }
-      if (chooseAccount == "publisher") {
-        this.router.navigate(['/publisher/dashboard']);
-        return;
-      }
-    }
-    if (user.isAdvertiser) {
-      this.session.setAccountTypeChoice('advertiser');
-      this.router.navigate(['/advertiser/dashboard']);
-      return;
-    }
-    if (user.isPublisher) {
-      this.session.setAccountTypeChoice('publisher');
-      this.router.navigate(['/publisher/dashboard']);
-      return;
-    }
   }
 }

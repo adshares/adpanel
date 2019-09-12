@@ -1,9 +1,8 @@
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 
-import { SessionService } from "app/session.service";
+import { SessionService } from 'app/session.service';
 
 @Injectable()
 export class PublisherGuard implements CanActivate {
@@ -15,8 +14,15 @@ export class PublisherGuard implements CanActivate {
   }
 
   canActivate(
-    route: ActivatedRouteSnapshot
-  ): boolean {
-    return this.session.isPublisher();
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.session.isPublisher()) {
+      return true;
+    }
+
+    this.router.navigate(['/auth', 'login'], {queryParams: {redirectUrl: state.url}});
+
+    return false;
   }
 }

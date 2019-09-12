@@ -6,6 +6,10 @@ import { ImpersonationService } from './impersonation/impersonation.service';
 
 @Injectable()
 export class SessionService {
+  public static readonly ACCOUNT_TYPE_ADMIN: string = 'admin';
+  public static readonly ACCOUNT_TYPE_ADVERTISER: string = 'advertiser';
+  public static readonly ACCOUNT_TYPE_PUBLISHER: string = 'publisher';
+
   isActive: boolean;
 
   constructor(private impersonationService: ImpersonationService) {}
