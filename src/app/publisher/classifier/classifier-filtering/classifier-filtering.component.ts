@@ -14,6 +14,7 @@ export class ClassifierFilteringComponent implements OnInit {
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
+  bannerId = new FormControl('');
   sizes: Array<string> = [];
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
@@ -60,6 +61,21 @@ export class ClassifierFilteringComponent implements OnInit {
       ...this.filtering,
       landingUrl: this.landingUrl.value.trim()
     };
+    this.filteringChange.emit(this.filtering);
+  }
+
+  changeFilteringByBannerId(): void {
+    this.filtering = {
+      ...this.filtering,
+      bannerId: this.bannerId.value.trim(),
+    };
+    this.filteringChange.emit(this.filtering);
+  }
+
+  changeFilteringByBannerIdReset(): void {
+    this.bannerId.setValue('');
+
+    delete this.filtering.bannerId;
     this.filteringChange.emit(this.filtering);
   }
 
