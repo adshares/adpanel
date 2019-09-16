@@ -5,13 +5,12 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
-import { SessionService } from "app/session.service";
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
+import { SessionService } from 'app/session.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
 import { environment } from 'environments/environment';
-import { SetUser } from "store/auth/auth.actions";
-import { UserAdserverWallet } from "models/user.model";
-import { CODE, CRYPTO } from "common/utilities/consts";
+import { SetUser } from 'store/auth/auth.actions';
+import { CODE, CRYPTO } from 'common/utilities/consts';
 
 @Component({
   selector: 'app-header',
@@ -41,8 +40,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new SetUser());
-    let accountType = this.session.getAccountTypeChoice();
-    this.activeUserType = accountType === 'admin' ? userRolesEnum.ADMIN : (accountType === 'publisher' ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
+    const accountType = this.session.getAccountTypeChoice();
+    this.activeUserType = accountType === SessionService.ACCOUNT_TYPE_ADMIN
+      ? userRolesEnum.ADMIN
+      : (accountType === SessionService.ACCOUNT_TYPE_PUBLISHER ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();
     const userDataStateSubscription = this.store.select('state', 'user', 'data')
       .subscribe((data) => {
