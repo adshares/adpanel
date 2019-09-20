@@ -15,10 +15,6 @@
     </a>
   </td>
   <td class="col-xs-2">
-    <div *ngIf="!isGlobal && bannerClassification.classifiedGlobal"
-         class="classifier-list-item__classification-info dwmth-copy">
-        <mat-icon> info_outline </mat-icon> Banner accepted globally
-    </div>
     <div class="classifier-list-item__btns"
       [ngClass]="{'classifier-list-item__btns--classified': classified === APPROVED || classified === REJECTED,
                   'classifier-list-item__btns--reversed': classified === REJECTED}">
@@ -26,12 +22,12 @@
         class="
           dwmth-btn
           dwmth-btn--white
-          dwmth-copy--green
+          dwmth-copy
           classifier-list-item__btn"
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
       >
-        {{classified === APPROVED ? 'Accepted' : 'Accept'}}
+        {{classified === APPROVED ? 'Omitted' : 'Omit'}}
       </button>
       <button
         class="
@@ -43,7 +39,6 @@
         [disabled]="classified === REJECTED"
       >
         {{classified === REJECTED ? 'Rejected' : 'Reject'}}
-
       </button>
     </div>
   </td>

@@ -5,12 +5,11 @@ interface BannerClassification {
   width: number,
   height: number,
   sourceHost: string;
-  landingUrl:string;
+  landingUrl: string;
   budget?: number;
   cpm?: number;
   cpc?: number;
   classifiedGlobal?: boolean;
-  classifiedSite?: boolean;
 }
 
 interface BannerClassificationResponse {
@@ -30,10 +29,12 @@ interface BannerClassificationStatus {
 interface BannerClassificationFilters {
   status?: BannerClassificationStatus;
   sizes?: Array<string>;
+  bannerId?: string;
   landingUrl?: string;
 }
 
 export {
   BannerClassification,
   BannerClassificationResponse,
-  BannerClassificationFilters };
+  BannerClassificationFilters,
+};
