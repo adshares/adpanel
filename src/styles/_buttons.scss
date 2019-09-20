@@ -104,6 +104,10 @@
     border: none;
   }
 
+  &--prepend {
+    margin-right: 8px;
+  }
+
   &.save-as-draft {
     margin-right: 15px;
   }
