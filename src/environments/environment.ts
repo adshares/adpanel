@@ -1,4 +1,4 @@
-let serverUrl = 'https://dev-server.e11.click';
+let serverUrl = 'https://demo-server.adshares.net'; // 'http://localhost:8101'; //
 
 export const environment = {
   production: false,
