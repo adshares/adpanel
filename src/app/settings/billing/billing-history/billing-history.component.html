@@ -5,20 +5,42 @@
       dwmth-box--large"
   >
     <div class="col">
-      <h2
+      <div
         class="
-          dwmth-heading
-          dwmth-heading--primary"
+          row
+          align-center
+          justify-between"
       >
-        Billing History
-      </h2>
+        <h2
+          class="
+            dwmth-heading
+            dwmth-heading--primary"
+        >
+          Billing History
+        </h2>
+        <div
+          class="
+            row
+            align-center"
+        >
+          <label class="billing-history__date-range">
+            From {{ dateFrom.format(DATE_FORMAT) }} to {{ dateTo.format(DATE_FORMAT) }}
+          </label>
+          <app-billing-history-filter
+            (filter)="updateFilterData($event)"
+          ></app-billing-history-filter>
+        </div>
+      </div>
+
       <p
         class="
           dwmth-copy
           dwmth-copy--large"
       >
         List of all account's events.
+        You can filter data by date and type.
       </p>
+
       <div
         class="
           row
@@ -31,9 +53,11 @@
           (click)="refresh()"
           data-test="settings-billing-history-refresh-button"
         >
-          <fa-icon class="dwmth-icon
-                          dwmth-icon--prepend"
-                   [icon]="refreshIcon"></fa-icon>
+          <fa-icon
+            class="dwmth-icon
+                   dwmth-icon--prepend"
+            [icon]="refreshIcon"
+          ></fa-icon>
           Refresh
         </button>
       </div>
@@ -71,7 +95,8 @@
           <app-billing-history-withdrawal
             *ngFor="let billingHistoryItem of billingHistory.items"
             [billingHistoryItem]="billingHistoryItem"
-            data-test="settings-billing-history-item">
+            data-test="settings-billing-history-item"
+          >
           </app-billing-history-withdrawal>
           </tbody>
           <mat-paginator
@@ -89,26 +114,6 @@
           </ng-template>
         </table>
       </div>
-
     </div>
-
-    <!--
-        <button
-          *ngIf="billingHistory.length > 0"
-          class="
-            dwmth-btn
-            dwmth-btn&#45;&#45;white
-            dwmth-blue"
-          data-test="settings-billing-history-save-as-pdf"
-        >
-          <img
-            class="
-              dwmth-icon
-              dwmth-icon&#45;&#45;prepend"
-            src="assets/images/download.svg"
-          >
-          Save as PDF
-        </button>
-    -->
   </div>
 </section>

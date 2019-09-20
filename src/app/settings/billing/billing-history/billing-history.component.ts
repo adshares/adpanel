@@ -1,15 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpErrorResponse } from "@angular/common/http";
-import { MatDialog, MatPaginator } from "@angular/material";
+import { MatDialog, MatPaginator } from '@angular/material';
 import { BillingHistory } from 'models/settings.model';
-import { SettingsService } from "settings/settings.service";
-import * as codes from "common/utilities/codes";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
-import { GetBillingHistory, GetBillingHistoryFailure } from "store/settings/settings.actions";
-import { HandleSubscription } from "common/handle-subscription";
+import { SettingsService } from 'settings/settings.service';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { DATE_FORMAT } from 'common/utilities/consts';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
+import {
+  CANCEL_AWAITING_TRANSACTION,
+  GetBillingHistory,
+  WITHDRAW_FUNDS_SUCCESS,
+} from 'store/settings/settings.actions';
+import { HandleSubscription } from 'common/handle-subscription';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
 @Component({
   selector: 'app-billing-history',
@@ -29,14 +34,32 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   showLoader: boolean = true;
   refreshIcon = faSyncAlt;
 
-  constructor(private settingsService: SettingsService, private dialog: MatDialog,
-              private store: Store<AppState>) {
+  readonly DATE_FORMAT: string = DATE_FORMAT;
+  dateFrom: Moment;
+  dateTo: Moment;
+  types: number[];
+
+  constructor(
+    private settingsService: SettingsService,
+    private dialog: MatDialog,
+    private action$: Actions,
+    private store: Store<AppState>
+  ) {
     super();
   }
 
   ngOnInit() {
+    const handleHistoryUpdate = this.action$
+      .ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS)
+      .subscribe(() => this.getBillingHistory());
+    this.subscriptions.push(handleHistoryUpdate);
+
+    this.dateFrom = moment().subtract(30, 'days').startOf('day');
+    this.dateTo = moment().endOf('day');
+    this.types = [];
+
     const dataSubscription = this.store.select('state', 'user', 'settings', 'billingHistory')
-      .subscribe( (billingHistory) => {
+      .subscribe((billingHistory) => {
         this.billingHistory = billingHistory;
         this.showLoader = false;
       });
@@ -46,7 +69,13 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
 
   getBillingHistory(limit?: number, offset?: number): void {
     this.showLoader = true;
-    this.store.dispatch(new GetBillingHistory({limit, offset}));
+    this.store.dispatch(new GetBillingHistory({
+      dateFrom: this.dateFrom.format(),
+      dateTo: this.dateTo.format(),
+      types: this.types,
+      limit,
+      offset
+    }));
   }
 
   handlePaginationEvent(event: any): void {
@@ -58,5 +87,13 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   refresh(): void {
     this.paginator.firstPage();
     this.getBillingHistory();
+  }
+
+  updateFilterData($event): void {
+    this.dateFrom = $event.from;
+    this.dateTo = $event.to;
+    this.types = $event.types;
+
+    this.refresh();
   }
 }

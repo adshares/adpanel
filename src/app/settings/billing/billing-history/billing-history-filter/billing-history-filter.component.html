@@ -4,69 +4,35 @@
 >
   <button
     class="
-      dwmth-select
-      lowercase-to-capitalize
-    "
+      dwmth-btn
+      dwmth-btn--blue"
     (click)="showDatepicker()"
+    data-test="settings-billing-history-filter-button"
   >
-    <span *ngIf="currentFilterPreset">{{ currentFilterPreset.name }}</span>
-    <span *ngIf="!currentFilterPreset">From {{' ' + currentFromFilter + ' ' }} to {{' ' + currentToFilter }}</span>
+    <fa-icon
+      class="
+        dwmth-icon
+        dwmth-icon--prepend"
+      [icon]="filterIcon"
+    ></fa-icon>
+    Filter
   </button>
   <div
     class="
-      chart-filters
+      billing-filters
       dwmth-box"
-    [class.visible]="datepickerVisible"
+    [class.visible]="filterSelectorVisible"
   >
     <div
       class="
         row
         filter-row
-        align-center
-        justify-end"
+        align-center"
     >
-      <span
-        class="
-          dwmth-copy
-          hidden-md"
-      >
-        Sort by Date Range
-      </span>
-      <button
-        type="button"
-        *ngFor="let preset of filterPresets"
-        class="
-            dwmth-btn
-            dwmth-button--small
-            dwmth-bg-white
-            dwmth-navy
-            lowercase-to-capitalize"
-        [class.selected]="preset.id === currentDaysSpan"
-        (click)="filterChart(preset.id, 0)"
-        data-test="chart-filter-preset"
-      >
-        {{ preset.name }}
-      </button>
-    </div>
-
-    <div
-      class="
-        row
-        filter-row
-        align-center
-        justify-end"
-    >
-      <span
-        class="
-          dwmth-copy
-          hidden-md"
-      >
-        or Select Manually
-      </span>
       <label
         class="
           dwmth-copy
-          dwmth-copy--small"
+          billing-filters__label"
       >
         From
       </label>
@@ -83,7 +49,8 @@
           alt="Select date from"
           class="
             dwmth-icon
-            dwmth-icon--prepend"
+            dwmth-icon--prepend
+            billing-filters__icon"
           (click)="dateFromPicker.open()"
         >
         <input
@@ -93,21 +60,23 @@
           [formControl]="dateFrom"
           required
           [max]="dateTo.value || today"
-          data-test="chart-filter-custom-date-from"
+          data-test="settings-billing-history-date-from"
         >
         <mat-datepicker-toggle
           matSuffix
           [for]="dateFromPicker"
         ></mat-datepicker-toggle>
-        <mat-datepicker #dateFromPicker
-                        (opened)="setCalendarStatus(true)"
-                        (closed)="setCalendarStatus(false)"></mat-datepicker>
+        <mat-datepicker
+            #dateFromPicker
+            (opened)="setCalendarStatus(true)"
+            (closed)="setCalendarStatus(false)"
+        ></mat-datepicker>
       </mat-form-field>
 
       <label
         class="
           dwmth-copy
-          dwmth-copy--small"
+          billing-filters__label"
       >
         To
       </label>
@@ -124,7 +93,8 @@
           alt="Select date to"
           class="
             dwmth-icon
-            dwmth-icon--prepend"
+            dwmth-icon--prepend
+            billing-filters__icon"
           (click)="dateToPicker.open()"
         >
         <input
@@ -135,16 +105,58 @@
           required
           [min]="dateFrom.value"
           [max]="today"
-          data-test="chart-filter-custom-date-to"
+          data-test="settings-billing-history-date-to"
         >
         <mat-datepicker-toggle
           matSuffix
           [for]="dateToPicker"
         ></mat-datepicker-toggle>
-        <mat-datepicker #dateToPicker
-                        (opened)="setCalendarStatus(true)"
-                        (closed)="setCalendarStatus(false)"></mat-datepicker>
+        <mat-datepicker
+            #dateToPicker
+            (opened)="setCalendarStatus(true)"
+            (closed)="setCalendarStatus(false)"
+        ></mat-datepicker>
       </mat-form-field>
+    </div>
+
+    <div
+      class="
+        row
+        filter-row
+        align-center"
+    >
+      <label
+        class="
+          dwmth-copy
+          billing-filters__label"
+      >
+        Types
+      </label>
+      <mat-checkbox
+        *ngFor="let type of transactionTypes"
+        class="billing-filters__checkbox"
+        [checked]="type.checked"
+        (change)="onCheckboxChange($event, type.id)"
+      >
+        {{ type.name }}
+      </mat-checkbox>
+
+      <mat-checkbox
+        class="billing-history__checkbox"
+        [checked]="isCheckedAll"
+        (change)="onCheckboxAllChange($event)"
+      >
+        All
+      </mat-checkbox>
+    </div>
+
+    <div
+      class="
+        row
+        filter-row
+        align-center
+        justify-end"
+    >
       <button
         type="button"
         class="
@@ -153,13 +165,14 @@
           dwmth-bg-gray--light
           dwmth-navy"
         [class.disabled]="!dateTo.value || !dateFrom.value"
-        (click)="filterChartByDatepicker()"
-        data-test="chart-filter-apply-datespan-button"
+        (click)="filterBillingHistory()"
+        data-test="settings-billing-history-apply-button"
       >
         Apply
         <img
           class="dwmth-icon--append"
           src="assets/images/chevron--right.svg"
+          alt="Apply filters"
         >
       </button>
     </div>

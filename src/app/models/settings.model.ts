@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 interface BillingHistoryItem {
   amount: number,
   status: number;
@@ -14,6 +16,12 @@ interface BillingHistory {
   itemsCount: number;
   itemsCountAll: number;
   items: BillingHistoryItem[];
+}
+
+interface BillingHistoryFilter {
+  from: Moment;
+  to: Moment;
+  types: number[];
 }
 
 interface NotificationItem {
@@ -97,6 +105,7 @@ interface CalculateWithdrawalItem {
 export {
   BillingHistoryItem,
   BillingHistory,
+  BillingHistoryFilter,
   NotificationItem,
   Users,
   UserInfoStats,
