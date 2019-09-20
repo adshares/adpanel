@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.1] - 2019-09-20
 ### Added
 - Billing history filtering
-- Nwsletter subscribe option
+- Newsletter subscribe option
 ### Changed
 - Internal classifier rejects banners only
 

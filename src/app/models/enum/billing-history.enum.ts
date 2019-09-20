@@ -2,7 +2,7 @@ export enum billingHistoryItemStatusEnum {
   ACCEPTED,
   PENDING,
   REJECTED,
-  BLOCKED,
+  RESERVED,
   PROCESSING,
   UNCONFIRMED,
   CANCELED,
