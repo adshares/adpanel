@@ -8,9 +8,16 @@
         text-center"
       attr.data-status="{{ status }}"
     >
+      <span *ngIf="billingHistoryItem.status === statusEnum.RESERVED"
+         matTooltipClass="dwmth-mat-tooltip"
+         matTooltip="The amount reserved for the ongoing campaign. After every hour the status is changed to “processing”."
+         matTooltipPosition="above"
+         class="billing-table-row__tooltip-placeholder"
+      >
+      </span>
       <span *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
          matTooltipClass="dwmth-mat-tooltip"
-         matTooltip="Confirm withdrawal by visiting link from an e-mail"
+         matTooltip="Confirm withdrawal by visiting link from an e-mail."
          matTooltipPosition="above"
          class="billing-table-row__tooltip-placeholder"
       >
