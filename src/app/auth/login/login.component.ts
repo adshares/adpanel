@@ -103,7 +103,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.processLogin(user);
           if (user.isAdmin) {
             this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN);
-            this.router.navigateByUrl(this.route.snapshot.queryParams['redirectUrl'] || '/admin/dashboard');
+            this.navigateByUrl(this.route.snapshot.queryParams['redirectUrl'] || '/admin/dashboard');
             return;
           }
 
@@ -111,13 +111,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           if (redirectUrl) {
             if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) && user.isAdvertiser) {
               this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
-              this.router.navigateByUrl(redirectUrl);
+              this.navigateByUrl(redirectUrl);
               return;
             }
 
             if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) && user.isPublisher) {
               this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
-              this.router.navigateByUrl(redirectUrl);
+              this.navigateByUrl(redirectUrl);
               return;
             }
           }
@@ -139,13 +139,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType && user.isAdvertiser
             || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType && user.isPublisher) {
             this.session.setAccountTypeChoice(accountType);
-            this.router.navigateByUrl(`/${accountType}/dashboard`);
+            this.navigateByUrl(`/${accountType}/dashboard`);
           }
         },
         (err) => {
           this.criteriaError = true;
           this.isLoggingIn = false;
         });
+  }
+
+  private navigateByUrl(url: string) {
+    this.router.navigateByUrl(url).catch(e =>  window.location.reload());
   }
 
   processLogin(user: User) {
