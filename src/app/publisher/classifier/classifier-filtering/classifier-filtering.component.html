@@ -8,13 +8,13 @@
         Filter banners by status
       </mat-panel-title>
       <mat-panel-description>
-        {{status.value ? status.value : ''}}
+        {{ statusDescription }}
       </mat-panel-description>
     </mat-expansion-panel-header>
 
     <mat-radio-group [formControl]="status" (change)="changeFiltering()">
       <mat-radio-button value="Approved">
-        Approved
+        Omitted
       </mat-radio-button>
       <mat-radio-button value="Rejected">
         Rejected
@@ -72,6 +72,43 @@
       <button type="submit"
               class="classifier-filtering__btn">
         Search
+      </button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>
+          filter_list
+        </mat-icon>
+        Filter banners by id
+      </mat-panel-title>
+      <mat-panel-description>
+        <span class="classifier-filtering__chosen-value">
+          {{ bannerId.value }}
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form
+      (submit)="changeFilteringByBannerId()"
+    >
+      <label class="classifier-filtering__label"
+             for="bannerId">
+        Banner id
+      </label>
+      <input id="bannerId"
+             [formControl]="bannerId"
+             type="text"
+             class="classifier-filtering__input"/>
+      <button type="submit"
+              class="classifier-filtering__btn">
+        Search
+      </button>
+      <button
+        class="classifier-filtering__btn"
+        (click)="changeFilteringByBannerIdReset()"
+      >
+        Clear
       </button>
     </form>
   </mat-expansion-panel>

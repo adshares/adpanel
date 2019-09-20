@@ -2,6 +2,7 @@ interface TargetingOption {
   id?: string;
   key: string;
   label: string;
+  description?: string;
   valueType: string;
   allowInput: boolean;
 
@@ -12,6 +13,7 @@ interface TargetingOption {
 interface TargetingOptionValue {
   id: string;
   label: string;
+  description?: string;
   value: string;
   parent: Partial<TargetingOption>;
 

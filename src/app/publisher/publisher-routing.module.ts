@@ -100,6 +100,11 @@ const publisherRoutes: Routes = [
         ]
       },
       {
+        path: 'classifier/:bannerId',
+        component: ClassifierComponent,
+        resolve: {sizes: MatchingBannerSizesResolver}
+      },
+      {
         path: 'classifier',
         component: ClassifierComponent,
         resolve: {sizes: MatchingBannerSizesResolver}

@@ -6,7 +6,7 @@ import {
 import {
   billingHistoryItemStatusEnum,
   billingHistoryItemTypeEnum
-} from "models/enum/billing-history.enum";
+} from 'models/enum/billing-history.enum';
 import {
   faArchive,
   faHandHoldingUsd,
@@ -15,11 +15,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
-import { SettingsService } from "settings/settings.service";
-import { AppState } from "models/app-state.model";
-import { Store } from "@ngrx/store";
-import { CancelAwaitingTransaction } from "store/settings/settings.actions";
-import { CODE, CRYPTO, DATE_AND_TIME_FORMAT } from "common/utilities/consts";
+import { SettingsService } from 'settings/settings.service';
+import { AppState } from 'models/app-state.model';
+import { BillingHistoryItem } from 'models/settings.model';
+import { Store } from '@ngrx/store';
+import { CancelAwaitingTransaction } from 'store/settings/settings.actions';
+import { CODE, CRYPTO, DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 
 @Component({
   selector: 'app-billing-history-withdrawal',
@@ -27,7 +28,8 @@ import { CODE, CRYPTO, DATE_AND_TIME_FORMAT } from "common/utilities/consts";
   styleUrls: ['./billing-history-withdrawal.component.scss'],
 })
 export class BillingHistoryWithdrawalComponent implements OnInit {
-  @Input() billingHistoryItem;
+  @Input() billingHistoryItem: BillingHistoryItem;
+  billingHistoryItemDate: string = '';
   crypto: string = CRYPTO;
   code: string = CODE;
   link: string;
@@ -44,7 +46,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   ngOnInit() {
     this.getIcon();
 
-    this.billingHistoryItem.date = moment(this.billingHistoryItem.date).format(DATE_AND_TIME_FORMAT);
+    this.billingHistoryItemDate = moment(this.billingHistoryItem.date).format(DATE_AND_TIME_FORMAT);
     if (this.billingHistoryItem.txid) {
       this.link = appSettings.ADS_OPERATOR_URL + '/blockexplorer/transactions/' + this.billingHistoryItem.txid;
     }
@@ -53,7 +55,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
   }
 
   formatType(): void {
-    const typeFromEnum = billingHistoryItemTypeEnum[this.billingHistoryItem.type].split("_");
+    const typeFromEnum = billingHistoryItemTypeEnum[this.billingHistoryItem.type].split('_');
     if (typeFromEnum.length === 1) {
       this.type = typeFromEnum[0].toLowerCase();
     } else if (this.showBonusIcon) {
