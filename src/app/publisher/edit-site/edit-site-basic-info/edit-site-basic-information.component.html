@@ -52,6 +52,12 @@
         >
           Please provide a valid URL.
         </span>
+        <span
+          class="error-msg"
+          *ngIf="siteBasicInfoForm.get('name').hasError('maxlength')"
+        >
+          Limit the length to at most 64 characters
+        </span>
       </div>
 
       <span
