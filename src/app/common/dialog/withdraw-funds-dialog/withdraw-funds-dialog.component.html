@@ -21,7 +21,7 @@
       dwmth-copy--large
       dwmth-customize-subheading"
   >
-    Fill the form below to withdraw funds.
+    Fill in the form below to withdraw your funds.
   </p>
 
   <div
@@ -40,7 +40,13 @@
           for="address"
           class="dwmth-form-label"
         >
-          Your Wallet Address
+          Account address
+          <fa-icon
+            matTooltipClass="dwmth-mat-tooltip"
+            matTooltip="e.g. address of your ADS Wallet or an exchange"
+            matTooltipPosition="above"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
         </label>
         <input
           id="address"
@@ -68,12 +74,12 @@
           dwmth-copy--blue
           dwmth-customize-subheading"
       >
-        You will send your funds on this address.
+        Your funds will be transferred to the address above
       </p>
 
       <div class="total-funds">
         <p class="dwmth-form-label">
-          Total Funds
+          Total Balance:
         </p>
         <h1
           class="
@@ -81,7 +87,7 @@
             dwmth-heading--primary"
           data-test="user-total-funds"
         >
-          {{ adserverWallet.totalFunds | formatMoney:11:crypto:code}}
+          {{ adserverWallet.walletBalance | formatMoney:11:crypto:code}}
         </h1>
       </div>
 
@@ -90,7 +96,7 @@
           for="amount"
           class="dwmth-form-label"
         >
-          Withdraw Amount ({{cryptoCode}})
+          Withdrawal Amount ({{cryptoCode}})
         </label>
         <input
           id="amount"
@@ -111,13 +117,13 @@
           class="error-msg"
           *ngIf="!withdrawFundsForm.get('amount').valid && withdrawFormSubmitted"
         >
-          Please specify withdraw amount
+          Provide withdrawal amount
         </span>
         <span
           class="error-msg"
-          *ngIf="withdrawFundsForm.get('amount').value > adserverWallet.totalFunds"
+          *ngIf="withdrawFundsForm.get('amount').value > adserverWallet.walletBalance/100000000000"
         >
-          The amount exceeds your total funds.
+          The amount exceeds your balance
         </span>
       </div>
 
@@ -141,7 +147,7 @@
         class="
           row
           justify-center
-          dwmth-btn--submit"
+          withdraw-funds__btns-wrapper"
       >
         <button
           class="
@@ -158,7 +164,7 @@
       <div
         *ngIf="calculatedFee !== undefined"
         class="
-          calculations
+          withdraw-funds__btns-wrapper
           dwmth-copy
           dwmth-copy--large
           dwmth-copy--x-dark
@@ -174,7 +180,7 @@
           </span>
         </p>
         <p>
-          Total Withdraw Amount:
+          Total Withdrawal Amount:
           <span
             class="total-amount"
             data-test="common-withdraw-funds-form-total-withdraw-amount"
@@ -196,6 +202,7 @@
 
       <button
         class="
+          withdraw-funds__btns-wrapper
           dwmth-btn
           dwmth-btn--large
           dwmth-btn--white
@@ -206,7 +213,7 @@
         data-test="common-withdraw-funds-form-toggle-memo-input"
       >
         <img
-          alt="Credit Card Icon"
+          alt="Add message"
           class="
             dwmth-icon
             dwmth-icon--prepend"
@@ -248,6 +255,22 @@
           Invalid message format
         </span>
       </div>
+      <p
+        class="
+          dwmth-copy
+          dwmth-copy--blue
+          dwmth-customize-subheading"
+      >
+        It’s necessary to add message when transferring your funds directly to an exchange
+        <fa-icon
+          matTooltipClass="dwmth-mat-tooltip"
+          matTooltip="
+              The message is provided by your exchange.
+              Please check the deposit section of your exchange and copy-paste the message."
+          matTooltipPosition="above"
+          [icon]="faQuestionCircle"
+        ></fa-icon>
+      </p>
 
       <div
         class="
