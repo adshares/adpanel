@@ -32,6 +32,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       link: '/admin/dashboard/finance',
       values: [
         {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
+        {name: 'Wallet status', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
       ],
     },

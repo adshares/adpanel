@@ -66,8 +66,17 @@ interface AdminSettings {
   coldWalletIsActive?: number;
 }
 
+interface AdminWallet {
+  balance: number;
+  unusedBonuses: number;
+}
+
 interface AdminSettingsResponse {
   settings: AdminSettings;
+}
+
+interface AdminWalletResponse {
+  wallet: AdminWallet;
 }
 
 interface TermsAndPrivacy {
@@ -110,10 +119,12 @@ export {
   Users,
   UserInfoStats,
   AdminSettings,
+  AdminWallet,
   AdsharesAddress,
   DepositInfo,
   CalculateWithdrawalItem,
   AdminSettingsResponse,
+  AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
   TermsAndPrivacy,
   License,

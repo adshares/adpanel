@@ -7,6 +7,7 @@ import {
   GET_TERMS_SETTINGS_SUCCESS,
   GET_LICENSE_SUCCESS,
   GET_LICENSE_FAILURE,
+  LOAD_ADMIN_WALLET_SUCCESS,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
@@ -22,6 +23,10 @@ const initialState: AdminState = {
     publisherCommission: 0,
     advertiserCommission: 0,
     coldWalletIsActive: 0,
+  },
+  wallet: {
+    balance: 0,
+    unusedBonuses: 0,
   },
   termsAndPrivacy: {
     privacy: '',
@@ -62,6 +67,11 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload.settings
+      };
+    case LOAD_ADMIN_WALLET_SUCCESS:
+      return {
+        ...state,
+        wallet: action.payload.wallet,
       };
     case SET_ADMIN_SETTINGS_SUCCESS:
       return {
