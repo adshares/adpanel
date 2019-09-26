@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
@@ -11,12 +11,13 @@ import { User, UserAdserverWallet } from 'models/user.model';
 
 import { adsToClicks, formatMoney } from 'common/utilities/helpers';
 import { appSettings } from 'app-settings';
-import { CalculateWithdrawalItem } from "models/settings.model";
+import { CalculateWithdrawalItem } from 'models/settings.model';
 import * as codes from 'common/utilities/codes';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { WithdrawFundsSuccess } from 'store/settings/settings.actions';
-import { environment } from "environments/environment";
-import { CODE, CRYPTO } from "common/utilities/consts";
+import { environment } from 'environments/environment';
+import { CODE, CRYPTO } from 'common/utilities/consts';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -26,6 +27,7 @@ import { CODE, CRYPTO } from "common/utilities/consts";
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
+  faQuestionCircle = faQuestionCircle;
   cryptoCode: string = environment.cryptoCode;
   withdrawFundsForm: FormGroup;
   adserverWallet: UserAdserverWallet;
@@ -83,7 +85,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     this.calculatedFee = response.fee;
     this.calculatedTotal = response.total;
-    this.calculatedLeft = this.adserverWallet ? (this.adserverWallet.totalFunds - response.total) : undefined;
+    this.calculatedLeft = this.adserverWallet ? (this.adserverWallet.walletBalance - response.total) : undefined;
   }
 
   calculateFee(): void {

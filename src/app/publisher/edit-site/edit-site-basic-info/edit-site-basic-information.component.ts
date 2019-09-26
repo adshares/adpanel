@@ -1,32 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { MatDialog } from "@angular/material";
+import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/take';
-import { Observable } from "rxjs";
-import {
-  map,
-  startWith
-} from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
-import {
-  SaveLastEditedSite,
-  UpdateSite
-} from 'store/publisher/publisher.actions';
+import { SaveLastEditedSite, UpdateSite } from 'store/publisher/publisher.actions';
 import { cloneDeep } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
-import { PublisherService } from "publisher/publisher.service";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { HandleSubscription } from "common/handle-subscription";
+import { PublisherService } from 'publisher/publisher.service';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -34,6 +21,7 @@ import { HandleSubscription } from "common/handle-subscription";
   styleUrls: ['./edit-site-basic-information.component.scss']
 })
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
+  private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;
@@ -118,7 +106,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
-      primaryLanguage: typeof  chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
+      primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
   }
 
@@ -133,7 +121,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   createForm(): void {
     this.siteBasicInfoForm = new FormGroup({
-      name: new FormControl(siteInitialState.name, Validators.required),
+      name: new FormControl(siteInitialState.name, [
+        Validators.required,
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX)
+      ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
     this.getFormDataFromStore();

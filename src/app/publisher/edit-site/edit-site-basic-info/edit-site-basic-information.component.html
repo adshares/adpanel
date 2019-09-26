@@ -30,7 +30,7 @@
           for="siteUrl"
           class="dwmth-form-label"
         >
-          Website name
+          Website address
         </label>
 
         <input
@@ -52,13 +52,20 @@
         >
           Please provide a valid URL.
         </span>
+        <span
+          class="error-msg"
+          *ngIf="siteBasicInfoForm.get('name').hasError('maxlength')"
+        >
+          Limit the length to at most 64 characters
+        </span>
       </div>
 
       <span
         class="
           dwmth-copy
-          dwmth-copy--light">
-        Enter your primary website or URL
+          dwmth-copy--light"
+      >
+        Enter the URL of your website. Please note that we support only HTTPS websites. 
       </span>
 
       <div
@@ -96,7 +103,7 @@
             dwmth-copy
             dwmth-copy--light
             dwmth-copy__hint">
-          Please specify your primary language of your website.
+          Please specify the primary language of your website.
         </span>
 
         <span
