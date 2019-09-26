@@ -2,7 +2,9 @@ import { Action } from '@ngrx/store';
 import {
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse, License,
+  AdminSettingsResponse,
+  AdminWalletResponse,
+  License,
   UserInfoStats
 } from 'models/settings.model';
 
@@ -13,6 +15,10 @@ export const LOAD_USERS_FAILURE = 'Users loading failure';
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
+
+export const LOAD_ADMIN_WALLET = 'Admin wallet loading';
+export const LOAD_ADMIN_WALLET_SUCCESS = 'Admin wallet loading success';
+export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
@@ -41,7 +47,7 @@ export const GET_LICENSE_FAILURE = 'Get license failure';
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
 
-  constructor(public payload: {nextPage?: string, searchPhrase?: string}) {
+  constructor(public payload: { nextPage?: string, searchPhrase?: string }) {
   }
 }
 
@@ -75,6 +81,27 @@ export class LoadAdminSettingsSuccess implements Action {
 
 export class LoadAdminSettingsFailure implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class LoadAdminWallet implements Action {
+  readonly type: string = LOAD_ADMIN_WALLET;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadAdminWalletSuccess implements Action {
+  readonly type: string = LOAD_ADMIN_WALLET_SUCCESS;
+
+  constructor(public payload: AdminWalletResponse) {
+  }
+}
+
+export class LoadAdminWalletFailure implements Action {
+  readonly type: string = LOAD_ADMIN_WALLET_FAILURE;
 
   constructor(public payload?: string) {
   }
@@ -215,6 +242,10 @@ export type actions =
   LoadAdminSettings |
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
+
+  LoadAdminWallet |
+  LoadAdminWalletSuccess |
+  LoadAdminWalletFailure |
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
