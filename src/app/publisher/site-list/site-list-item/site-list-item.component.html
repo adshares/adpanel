@@ -26,13 +26,13 @@
                     (change)="onSiteStatusChange($event)"
                     data-test="advertiser-campaign-status-select"
         >
-
-          <mat-option *ngFor="let option of siteStatusEnumArray"
-                      [ngClass]="{'hidden': option === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
-                      [value]="option"
-                      data-test="advertiser-campaign-status-select-option"
+          <mat-option
+            *ngFor="let option of siteStatuses"
+            [ngClass]="{'hidden': option.value === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
+            [value]="option.value"
+            data-test="advertiser-campaign-status-select-option"
           >
-            {{ option }}
+            {{ option.label }}
           </mat-option>
         </mat-select>
       </div>
