@@ -27,7 +27,7 @@ export class TableNavigationComponent implements OnInit {
 
   campaignListNavigationItems = [
     {title: 'Status', columnWidth: 'status-cell-width', keys: ['basicInformation', 'status'], sortAsc: true},
-    {title: 'Campaign Title', columnWidth: 'col-xs-2', keys: ['basicInformation', 'name'], sortAsc: true},
+    {title: 'Campaign title', columnWidth: 'col-xs-2', keys: ['basicInformation', 'name'], sortAsc: true},
     {title: 'Budget', columnWidth: 'col-xs-1', keys: ['basicInformation', 'budget'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
@@ -40,8 +40,8 @@ export class TableNavigationComponent implements OnInit {
 
   siteListNavigationItems = [
     {title: 'Status', columnWidth: 'status-cell-width', keys: ['status'], sortAsc: true},
-    {title: 'Website Name', columnWidth: 'col-xs-3', keys: ['name'], sortAsc: true},
-    {title: 'Est. Revenue', columnWidth: 'col-xs-1', keys: ['revenue'], sortAsc: true},
+    {title: 'Website name', columnWidth: 'col-xs-3', keys: ['name'], sortAsc: true},
+    {title: 'Est. revenue', columnWidth: 'col-xs-1', keys: ['revenue'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
@@ -59,7 +59,7 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
     {title: 'Size', columnWidth: 'col-xs-1', hideArrows: true},
     {title: 'Tags', columnWidth: 'col-xs-2', hideArrows: true},
-    {title: 'Est. Revenue', columnWidth: 'col-xs-1', keys: ['revenue'], sortAsc: true},
+    {title: 'Est. revenue', columnWidth: 'col-xs-1', keys: ['revenue'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},

@@ -20,22 +20,22 @@ export class SettingsNavigationComponent extends HandleSubscription {
 
   settings = [
     {
-      title: 'Account Settings',
+      title: 'Account settings',
       description: 'Changing general settings within the advertiser dashboard will affect your publisher’s account.',
       link: '/settings/general',
       values: [
-        {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
+        {name: 'Email & password', icon: 'assets/images/preferences.svg'},
         {name: 'Referral link', icon: 'assets/images/preferences.svg'},
         {name: 'Newsletter', icon: 'assets/images/preferences.svg'},
       ],
     },
     {
-      title: 'Billing & Payments',
+      title: 'Billing & payments',
       description: '',
       link: '/settings/billing',
       values: [
         {name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Billing History', icon: 'assets/images/history.svg'}
+        {name: 'Billing history', icon: 'assets/images/history.svg'}
       ],
     }
   ];

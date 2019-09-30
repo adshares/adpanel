@@ -107,8 +107,8 @@
             dwmth-icon--prepend"
         src="assets/images/plus-circle.svg"
       >
-      <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new Campaign</span>
-      <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new Site</span>
+      <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
+      <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
     </button>
     <div
       *ngIf="activeUserType !== userRolesEnum.ADMIN"
@@ -187,7 +187,7 @@
                 close"
               src="assets/images/plus-circle.svg"
             >
-            Add Funds
+            Deposit funds
           </button>
         </li>
         <li
@@ -195,14 +195,14 @@
           routerLink="/settings/general"
           data-test="header-account-settings-button"
         >
-          Account Settings
+          Account settings
         </li>
         <li
           class="settings-menu__item"
           routerLink="/settings/billing"
           data-test="header-billing-payments-button"
         >
-          Billing & Payments
+          Billing & payments
         </li>
         <li class="settings-menu__item">
           <span

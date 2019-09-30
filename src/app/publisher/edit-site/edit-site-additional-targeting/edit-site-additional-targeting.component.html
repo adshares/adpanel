@@ -79,7 +79,7 @@
             dwmth-heading--secondary"
         >
           <mat-panel-title>
-            2. Excludes
+            Exclusions
           </mat-panel-title>
         </mat-expansion-panel-header>
 
@@ -87,7 +87,9 @@
           <div class="col-xs-6">
             <p class="dwmth-copy"
             >
-              In this window you can select the keywords prohibited on your site.
+              Please select banner ad categories that you don’t want to display on your site.
+              If you don’t exclude any categories, all available ads will be displayed on your site - e.g. adult, gambling, investment etc.
+              You can also exclude specific banner ad types.
             </p>
 
             <div class="targeting-select-wrapper">
@@ -154,7 +156,7 @@
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
-        Save as Draft
+        Save as draft
       </button>
       <button
         (click)="onSubmit()"
@@ -164,7 +166,7 @@
           dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update" }}</span>
+        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
