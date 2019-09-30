@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.4] - 2019-09-30
+### Added
+- Admin wallet info
+
 ## [1.2.1] - 2019-09-20
 ### Added
 - Billing history filtering
@@ -122,7 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.2.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.2.4...develop
+[1.2.4]: https://github.com/adshares/adpanel/compare/v1.2.1...v1.2.4
 [1.2.1]: https://github.com/adshares/adpanel/compare/v0.11.0...v1.2.1
 [0.11.0]: https://github.com/adshares/adpanel/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/adshares/adpanel/compare/v0.9.0...v0.10.0
