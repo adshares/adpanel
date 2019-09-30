@@ -58,7 +58,7 @@
           class="error-msg"
           *ngIf="!siteBasicInfoForm.get('name').valid && siteBasicInfoSubmitted"
         >
-          Please provide a valid URL.
+          Please provide a valid name.
         </span>
         <span
           class="error-msg"
@@ -83,7 +83,7 @@
           for="languageInput"
           class="dwmth-form-label dwmth-form-label--shorter"
         >
-          Content Language
+          Content language
         </label>
         <mat-form-field appearance="standard" class="col">
           <input matInput
@@ -118,7 +118,7 @@
           class="error-msg"
           *ngIf="siteBasicInfoForm.hasError('required', ['primaryLanguage']) && siteBasicInfoSubmitted"
         >
-          Content Language required
+          Content language required
         </span>
       </div>
     </div>
