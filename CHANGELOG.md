@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.4] - 2019-09-30
 ### Added
 - Admin wallet info
+### Changed
+- Publisher panel texts
 
 ## [1.2.1] - 2019-09-20
 ### Added
