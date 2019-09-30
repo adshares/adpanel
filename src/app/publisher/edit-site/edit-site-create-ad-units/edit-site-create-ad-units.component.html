@@ -6,21 +6,22 @@
   <div
     class="
       text-center
-      site-edit-create-posters-units--narrow"
+      site-edit-create-posters-units"
   >
     <h1
       class="
         dwmth-heading
         dwmth-heading--primary"
     >
-      Create Ad Units
+      Select ad units
     </h1>
     <p
       class="
         dwmth-copy
         dwmth-copy--large"
     >
-      This is the place where you define boxes that will be placed on your pages for us to serve ads in.
+      Please select the size of an ad unit you want to place on your website.
+      If you want to generate more than one ad unit, please click the "Create new ad unit" button on the bottom part of the site and pick the desired sizes.
     </p>
   </div>
   <div
@@ -81,7 +82,7 @@
                   for="shortHeadline"
                   class="dwmth-form-label"
                 >
-                  Name of Unit
+                  Ad unit name
                 </label>
                 <input
                   id="shortHeadline"
@@ -97,7 +98,7 @@
                   class="error-msg"
                   *ngIf="adUnitsSubmitted && adUnitForm.get('shortHeadline').hasError('required')"
                 >
-                Name of Unit required!
+                Ad unit name required!
               </span>
               </div>
             </div>
@@ -105,7 +106,7 @@
 
             <div class="col-xs-3">
               <div class="dwmth-form-input__box">
-                <label class="dwmth-form-label">Showing:</label>
+                <label class="dwmth-form-label">Display:</label>
                 <mat-select
                   class="dwmth-select"
                   formControlName="adUnitSizeFilter"
@@ -122,32 +123,6 @@
                 </mat-select>
               </div>
             </div>
-
-            <!--   AD type -->
-            <!--<div-->
-            <!--class="-->
-            <!--col-md-offset-1-->
-            <!--col-md-5-->
-            <!--col-lg-2-->
-            <!--col-xxl-2"-->
-            <!--&gt;-->
-            <!--<div class="dwmth-form-input__box">-->
-            <!--<label class="dwmth-form-label">Ad Type</label>-->
-            <!--<mat-select-->
-            <!--class="dwmth-select"-->
-            <!--formControlName="type"-->
-            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-select"-->
-            <!--&gt;-->
-            <!--<mat-option-->
-            <!--*ngFor="let adType of adTypes;"-->
-            <!--[value]="adType"-->
-            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-option"-->
-            <!--&gt;-->
-            <!--{{ adType }}-->
-            <!--</mat-option>-->
-            <!--</mat-select>-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
 
           <div
@@ -155,7 +130,7 @@
                 dwmth-form-label
                 site-edit-create-posters-units__unit-label"
           >
-            Size of Unit
+            Ad unit size
           </div>
           <div
             [ngClass]="filteredAdUnitSizes[adUnitIndex].length > 4 ? 'justify-between' : 'justify-start'"
@@ -221,7 +196,7 @@
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
-              Delete Ad Unit
+              Delete ad unit
             </button>
             <span
               class="error-msg"
@@ -261,7 +236,7 @@
           dwmth-icon
           dwmth-icon--prepend"
       >
-        Create new Ad Unit
+        Create new ad unit
     </button>
   </div>
 
@@ -296,7 +271,7 @@
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
-        Save as Draft
+        Save as draft
       </button>
       <button
         type="submit"
@@ -307,7 +282,7 @@
         (click)="onSubmit()"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved ; else loading">{{createSiteMode ? "Save & Continue" : "Update" }}</span>
+        <span *ngIf="!changesSaved ; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

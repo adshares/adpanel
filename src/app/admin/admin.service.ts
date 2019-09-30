@@ -5,10 +5,11 @@ import {
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse,
+  AdminWalletResponse,
   UserInfoStats
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
-import { adsToClicks } from "common/utilities/helpers";
+import { adsToClicks } from 'common/utilities/helpers';
 import { SitesTotals } from 'models/site.model';
 
 @Injectable()
@@ -32,6 +33,10 @@ export class AdminService {
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
+  }
+
+  getAdminWallet(): Observable<AdminWalletResponse> {
+    return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
   }
 
   getTermsAndConditions(): Observable<AdminPrivacyAndTermsSettingsResponse> {

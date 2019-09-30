@@ -2,6 +2,7 @@ import { Campaign, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
+  AdminWallet,
   BillingHistory,
   License,
   NotificationItem,
@@ -11,7 +12,7 @@ import {
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
-import { TargetingOption } from "models/targeting-option.model";
+import { TargetingOption } from 'models/targeting-option.model';
 
 interface AppState {
   state: {
@@ -50,6 +51,7 @@ interface UserState {
 interface AdminState {
   users: Users;
   settings: AdminSettings;
+  wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;
   license: License | null;
   panelBlockade: boolean;

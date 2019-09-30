@@ -70,7 +70,6 @@
 
   &__link {
     @include copy($color: pal(blue));
-    margin-left: 24px;
 
     &:hover {
       color: darken(pal(blue), 15%);

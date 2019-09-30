@@ -16,7 +16,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   licenseDetailUrl: string = null;
   settings = [
     {
-      title: 'General Settings',
+      title: 'General settings',
       description: '',
       link: '/admin/dashboard/general',
       values: [
@@ -27,16 +27,17 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
-      title: 'Finance Settings',
+      title: 'Finance settings',
       description: '',
       link: '/admin/dashboard/finance',
       values: [
         {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
+        {name: 'Wallet status', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
       ],
     },
     {
-      title: 'Privacy Settings',
+      title: 'Privacy settings',
       description: '',
       link: '/admin/dashboard/privacy',
       values: [
@@ -53,11 +54,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
-      title: 'Account Settings',
+      title: 'Account settings',
       description: '',
       link: '/admin/dashboard/account',
       values: [
-        {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
+        {name: 'Email & password', icon: 'assets/images/preferences.svg'},
         {name: 'Referrer', icon: 'assets/images/preferences.svg'},
       ],
     },

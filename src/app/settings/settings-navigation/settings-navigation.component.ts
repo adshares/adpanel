@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import { SessionService } from "app/session.service";
-import {
-  LocalStorageUser,
-  UserAdserverWallet
-} from 'models/user.model';
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
-import { HandleSubscription } from "common/handle-subscription";
-import {
-  CODE,
-  CRYPTO
-} from "common/utilities/consts";
+import { SessionService } from 'app/session.service';
+import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { CODE, CRYPTO } from 'common/utilities/consts';
 
 @Component({
   selector: 'app-settings-navigation',
@@ -23,30 +17,25 @@ export class SettingsNavigationComponent extends HandleSubscription {
   wallet: UserAdserverWallet;
   totalFunds: number;
   user: LocalStorageUser;
-  // userRoles: Store<UserRoles>
 
   settings = [
     {
-      title: 'Account Settings',
-      description: 'Your changes to general settings from the Advertiser point ' +
-        'will affect the changes in your Publisher account',
+      title: 'Account settings',
+      description: 'Changing general settings within the advertiser dashboard will affect your publisher’s account.',
       link: '/settings/general',
       values: [
-        {name: 'Email & Password', icon: 'assets/images/preferences.svg'},
-        {name: 'Referrer', icon: 'assets/images/preferences.svg'},
+        {name: 'Email & password', icon: 'assets/images/preferences.svg'},
+        {name: 'Referral link', icon: 'assets/images/preferences.svg'},
         {name: 'Newsletter', icon: 'assets/images/preferences.svg'},
-        /*
-                        { name: 'Notification settings', icon: 'assets/images/notifications.svg'},
-        */
       ],
     },
     {
-      title: 'Billing & Payments',
+      title: 'Billing & payments',
       description: '',
       link: '/settings/billing',
       values: [
         {name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Billing History', icon: 'assets/images/history.svg'}
+        {name: 'Billing history', icon: 'assets/images/history.svg'}
       ],
     }
   ];

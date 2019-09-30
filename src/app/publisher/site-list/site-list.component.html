@@ -9,6 +9,7 @@
     <app-site-list-item
       *ngFor="let site of sites"
       [site]="site"
+      [siteStatuses]="siteStatuses"
     ></app-site-list-item>
     <tr class="site-list__totals-row">
       <td class="site-list__totals-status"></td>
