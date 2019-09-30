@@ -14,6 +14,7 @@ import { Site, SiteLanguage } from 'models/site.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -22,6 +23,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 })
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
+  faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;

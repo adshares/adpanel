@@ -30,7 +30,15 @@
           for="siteUrl"
           class="dwmth-form-label"
         >
-          Website address
+          Website name
+          <fa-icon
+            matTooltipClass="dwmth-mat-tooltip"
+            matTooltip="
+              Enter your primary website name or an URL.
+              If you are placing ad units on multiple sites it is good to use URLs as website names to make the navigation easier."
+            matTooltipPosition="right"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
         </label>
 
         <input
@@ -65,7 +73,7 @@
           dwmth-copy
           dwmth-copy--light"
       >
-        Enter the URL of your website. Please note that we support only HTTPS websites. 
+        Please note that we support HTTPS websites only.
       </span>
 
       <div
@@ -132,7 +140,7 @@
         (click)="onStepBack()"
         [disabled]="changesSaved"
       >
-        {{createSiteMode ? 'Back to Dashboard' : 'Back'}}
+        {{createSiteMode ? 'Back to dashboard' : 'Back'}}
       </button>
 
       <button
@@ -143,7 +151,7 @@
         data-test="publisher-edit-site-save-and-continue"
         [disabled]="changesSaved || siteBasicInfoSubmitted"
       >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & Continue" : "Update" }}</span>
+        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
