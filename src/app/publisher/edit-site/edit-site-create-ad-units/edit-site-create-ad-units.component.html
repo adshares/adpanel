@@ -6,7 +6,7 @@
   <div
     class="
       text-center
-      site-edit-create-posters-units--narrow"
+      site-edit-create-posters-units"
   >
     <h1
       class="
@@ -20,7 +20,8 @@
         dwmth-copy
         dwmth-copy--large"
     >
-      Please select the size of the ad unit you want to place on your website.
+      Please select the size of an ad unit you want to place on your website.
+      If you want to generate more than one ad unit, please click the "Create new ad unit" button on the bottom part of the site and pick the desired sizes.
     </p>
   </div>
   <div
@@ -122,32 +123,6 @@
                 </mat-select>
               </div>
             </div>
-
-            <!--   AD type -->
-            <!--<div-->
-            <!--class="-->
-            <!--col-md-offset-1-->
-            <!--col-md-5-->
-            <!--col-lg-2-->
-            <!--col-xxl-2"-->
-            <!--&gt;-->
-            <!--<div class="dwmth-form-input__box">-->
-            <!--<label class="dwmth-form-label">Ad Type</label>-->
-            <!--<mat-select-->
-            <!--class="dwmth-select"-->
-            <!--formControlName="type"-->
-            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-select"-->
-            <!--&gt;-->
-            <!--<mat-option-->
-            <!--*ngFor="let adType of adTypes;"-->
-            <!--[value]="adType"-->
-            <!--data-test="publisher-edit-site-create-ad-units-form-ad-type-option"-->
-            <!--&gt;-->
-            <!--{{ adType }}-->
-            <!--</mat-option>-->
-            <!--</mat-select>-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
 
           <div
@@ -221,7 +196,7 @@
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
-              Delete Ad Unit
+              Delete ad unit
             </button>
             <span
               class="error-msg"
@@ -261,7 +236,7 @@
           dwmth-icon
           dwmth-icon--prepend"
       >
-        Create new Ad Unit
+        Create new ad unit
     </button>
   </div>
 
