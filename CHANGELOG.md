@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.5] - 2019-10-01
+### Changed
+- Upgrade @angular/cli to version 1.7.0
+- Publisher and advertiser panel texts
+
 ## [1.2.4] - 2019-09-30
 ### Added
 - Admin wallet info
@@ -128,7 +133,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.2.4...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.2.5...develop
+[1.2.5]: https://github.com/adshares/adpanel/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/adshares/adpanel/compare/v1.2.1...v1.2.4
 [1.2.1]: https://github.com/adshares/adpanel/compare/v0.11.0...v1.2.1
 [0.11.0]: https://github.com/adshares/adpanel/compare/v0.10.0...v0.11.0
