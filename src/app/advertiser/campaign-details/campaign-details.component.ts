@@ -8,19 +8,14 @@ import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
-import { AssetTargeting } from "models/targeting-option.model";
+import { AssetTargeting } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
-import { parseTargetingOptionsToArray } from "common/components/targeting/targeting.helpers";
+import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
-import { MatDialog } from "@angular/material";
-import { UserConfirmResponseDialogComponent } from
-    "common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component";
-import {
-  DeleteCampaign,
-  LoadCampaignTotals,
-  UpdateCampaignStatus,
-} from 'store/advertiser/advertiser.actions';
+import { MatDialog } from '@angular/material';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 
 @Component({
@@ -84,7 +79,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   deleteCampaign() {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
-        message: 'Do you confirm deletion?',
+        message: 'Are you sure you want to delete this campaign?',
       }
     });
 
