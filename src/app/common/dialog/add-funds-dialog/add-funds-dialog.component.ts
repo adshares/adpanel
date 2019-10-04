@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
 import { DepositInfo } from 'models/settings.model';
-import { ApiService } from "app/api/api.service";
-import { SessionService } from "app/session.service";
+import { ApiService } from 'app/api/api.service';
+import { SessionService } from 'app/session.service';
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -25,7 +25,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit() {
-
     const user = this.session.getUser();
     this.isEmailConfirmed = user.isEmailConfirmed;
 
@@ -36,7 +35,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       });
   }
 
-  copyInput(input: HTMLInputElement):void {
+  copyInput(input: HTMLInputElement): void {
     input.select();
     document.execCommand('copy');
     input.setSelectionRange(0, 0);

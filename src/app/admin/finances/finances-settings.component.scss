@@ -13,6 +13,10 @@
     padding: 20px;
   }
 
+  &__wallet-entry {
+    padding-top: 16px;
+  }
+
   &__format {
     height: calc(100% - 16px);
     display: flex;

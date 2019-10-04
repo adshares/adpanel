@@ -2,8 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
-import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { TableColumnMetaData } from 'models/table.model';
+import { siteStatusEnum } from 'models/enum/site.enum';
 
 @Component({
   selector: 'app-site-list',
@@ -13,13 +14,37 @@ import { TableColumnMetaData } from 'models/table.model';
 export class SiteListComponent extends HandleSubscription {
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
+  siteStatuses: any[];
 
   constructor(
     private router: Router,
   ) {
     super();
+
+    this.siteStatuses = SiteListComponent.addLabelsToStatuses();
   }
 
+  private static addLabelsToStatuses() {
+    return enumToArray(siteStatusEnum).map(item => {
+      let label;
+      switch (item) {
+        case 'active':
+          label = 'Activate';
+          break;
+        case 'inactive':
+          label = 'Deactivate';
+          break;
+        default:
+          label = item;
+          break;
+      }
+
+      return {
+        value: item,
+        label: label,
+      };
+    });
+  }
 
   sortTable(columnMetaData: TableColumnMetaData) {
     this.sites = sortArrayByColumnMetaData(this.sites, columnMetaData);

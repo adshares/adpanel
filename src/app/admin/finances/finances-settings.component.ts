@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { SetAdminSettings, SetAdminSettingsFailure } from "store/admin/admin.actions";
-import { AdminSettings } from "models/settings.model";
-import { environment } from "environments/environment";
+import { LoadAdminWallet, SetAdminSettings, SetAdminSettingsFailure } from 'store/admin/admin.actions';
+import { AdminSettings, AdminWallet } from 'models/settings.model';
+import { environment } from 'environments/environment';
+import { CODE, CRYPTO } from 'common/utilities/consts';
 
 @Component({
   selector: 'app-finances-settings',
@@ -13,8 +14,11 @@ import { environment } from "environments/environment";
   host: {'class': 'app-finances'},
 })
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
-  cryptoCode:string = environment.cryptoCode;
+  cryptoCode: string = environment.cryptoCode;
+  crypto: string = CRYPTO;
+  code: string = CODE;
   settings: AdminSettings;
+  wallet: AdminWallet;
   canSubmit: boolean = false;
 
   constructor(private store: Store<AppState>) {
@@ -22,12 +26,21 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadAdminWallet());
+
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'settings')
       .subscribe((settings: AdminSettings) => {
         this.settings = settings;
       });
 
     this.subscriptions.push(adminStoreSettingsSubscription);
+
+    const adminStoreWalletSubscription = this.store.select('state', 'admin', 'wallet')
+      .subscribe((wallet: AdminWallet) => {
+        this.wallet = wallet;
+      });
+
+    this.subscriptions.push(adminStoreWalletSubscription);
   }
 
   updateSettings(value: number | boolean | string, key: string): void {

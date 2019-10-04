@@ -11,7 +11,7 @@ import { Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import {createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData} from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -87,7 +87,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   deleteSite() {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
-        message: 'Do you confirm deletion?',
+        message: 'Are you sure you want to delete this site?',
       }
     });
     dialogRef.afterClosed().subscribe(result => {

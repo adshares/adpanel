@@ -8,11 +8,14 @@ import 'rxjs/add/operator/switchMap';
 import {
   LOAD_USERS,
   LOAD_ADMIN_SETTINGS,
+  LOAD_ADMIN_WALLET,
   SET_ADMIN_SETTINGS,
   LoadUsersSuccess,
   LoadUsersFailure,
   LoadAdminSettingsSuccess,
   LoadAdminSettingsFailure,
+  LoadAdminWalletSuccess,
+  LoadAdminWalletFailure,
   SetAdminSettingsSuccess,
   SetAdminSettingsFailure,
   GET_PRIVACY_SETTINGS,
@@ -27,7 +30,8 @@ import {
   SET_TERMS_SETTINGS,
   SET_PRIVACY_SETTINGS,
   GET_LICENSE,
-  GetLicenseSuccess, GetLicenseFailure,
+  GetLicenseSuccess,
+  GetLicenseFailure,
 } from './admin.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
@@ -90,6 +94,14 @@ export class AdminEffects {
       })
       .map((settings) => new LoadAdminSettingsSuccess(settings))
       .catch((err) => Observable.of(new LoadAdminSettingsFailure(err)))
+    );
+
+  @Effect()
+  loadAdminWallet$ = this.actions$
+    .ofType(LOAD_ADMIN_WALLET)
+    .switchMap(() => this.service.getAdminWallet()
+      .map((wallet) => new LoadAdminWalletSuccess(wallet))
+      .catch((err) => Observable.of(new LoadAdminWalletFailure(err)))
     );
 
   @Effect()
