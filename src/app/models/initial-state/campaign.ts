@@ -35,7 +35,7 @@ export const campaignInitialState: Campaign = {
 
   ads: [],
   id: 0,
-  conversions: [],
+  conversionDefinitions: [],
   secret: '',
   conversionClick: 0,
   classificationStatus: classificationStatusesEnum.DISABLED,

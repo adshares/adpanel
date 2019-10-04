@@ -315,7 +315,7 @@
             Edit Conversions
           </button>
       </div>
-      <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
+      <div *ngIf="undefined !== campaign.conversionDefinitions && campaign.conversionDefinitions.length > 0">
         <div
           class="
             row
@@ -342,7 +342,7 @@
           </div>
         </div>
 
-        <div *ngFor="let conversion of campaign.conversions"
+        <div *ngFor="let conversion of campaign.conversionDefinitions"
           class="
             row
             dwmth-box
