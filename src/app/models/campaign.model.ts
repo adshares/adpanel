@@ -49,7 +49,7 @@ interface CampaignBasicInformation {
 interface CampaignConversion {
   uuid?: string;
   name: string;
-  budgetType: string;
+  limitType: string;
   eventType: string;
   type: string;
   value?: number;
