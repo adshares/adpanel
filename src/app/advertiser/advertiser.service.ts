@@ -29,10 +29,6 @@ export class AdvertiserService {
     return this.http.get<Campaign[]>(`${environment.apiUrl}/campaigns`);
   }
 
-  getConversions(id: number): Observable<CampaignConversion[]> {
-    return this.http.get<CampaignConversion[]>(`${environment.apiUrl}/campaigns/${id}/conversions`);
-  }
-
   getCampaignsTotals(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotalsResponse> {
     const options = campaignId && {
       params: {campaign_id: `${campaignId}`}
