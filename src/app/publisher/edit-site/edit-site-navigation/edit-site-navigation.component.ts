@@ -9,9 +9,9 @@ import { HandleSubscription } from "common/handle-subscription";
 })
 export class EditSiteNavigationComponent extends HandleSubscription implements OnInit {
   steps = [
-    {id: 1, name: 'Basic Information'},
+    {id: 1, name: 'Basic information'},
     {id: 2, name: 'Filtering'},
-    {id: 3, name: 'Create Ads'},
+    {id: 3, name: 'Upload ads'},
     {id: 4, name: 'Summary'}
   ];
 

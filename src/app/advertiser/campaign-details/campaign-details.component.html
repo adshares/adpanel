@@ -12,7 +12,7 @@
           class="
             dwmth-copy
             dwmth-copy--small">
-          My Campaigns
+          My campaigns
         </p>
       </a>
       <div
@@ -86,7 +86,7 @@
               dwmth-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
             alt="">
-          Delete Campaign
+          Delete campaign
         </button>
       </div>
     </div>
@@ -188,7 +188,7 @@
               class="
               dwmth-copy--small
               label">
-              Max Cpm
+              Max CPM
             </p>
             <p
               class="
@@ -216,9 +216,10 @@
           <div>
             <p
               class="
-              dwmth-copy--small
-              label">
-              Date of Start
+                dwmth-copy--small
+                label"
+            >
+              Start date
             </p>
             <div
               class="
@@ -243,10 +244,10 @@
           <div>
             <p
               class="
-              dwmth-copy--small
-              label"
+                dwmth-copy--small
+                label"
             >
-              Date of End
+              End date
             </p>
             <div
               class="
@@ -288,7 +289,7 @@
             dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-          Edit Basic Info
+          Edit basic info
         </button>
       </div>
     </div>
@@ -371,7 +372,7 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          List of Ads
+          List of ads
         </p>
       </div>
       <app-poster-list *ngIf="campaign.ads.length"
@@ -398,11 +399,11 @@
           (click)="navigateToCampaignEdition('create-ad', 3)">
           <img
             src="/assets/images/plus-circle--blue.svg"
-            alt="Add new icon"
+            alt="Add new"
             class="
               dwmth-icon
               dwmth-icon--prepend"/>
-          {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
+          {{campaign.ads.length ? 'Create new ad' : 'Upload your first ad'}}
         </button>
       </div>
     </div>

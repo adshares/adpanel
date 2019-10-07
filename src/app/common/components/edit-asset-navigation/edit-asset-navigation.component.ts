@@ -9,9 +9,9 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class EditAssetNavigationComponent implements OnInit {
   steps = [
-    {id: 1, name: 'Basic Information'},
-    {id: 2, name: 'Additional Targeting'},
-    {id: 3, name: 'Create Ads'},
+    {id: 1, name: 'Basic information'},
+    {id: 2, name: 'Filtering'},
+    {id: 3, name: 'Upload ads'},
     {id: 4, name: 'Summary'}
   ];
 
