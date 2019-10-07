@@ -8,11 +8,13 @@
     class="targeting-accordion"
     data-test="publisher-edit-site-additional-targeting-accordion"
   >
-    <div class="dwmth-box">
+    <div
+      *ngIf="showRequiresSection"
+      class="dwmth-box"
+    >
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
         (closed)="requirePanelOpenState = false"
-        [expanded]="true"
         data-test="publisher-edit-site-additional-targeting-accordion-panel-required"
       >
         <mat-expansion-panel-header
@@ -71,6 +73,7 @@
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
         (closed)="excludePanelOpenState = false"
+        [expanded]="true"
         data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded"
       >
         <mat-expansion-panel-header
