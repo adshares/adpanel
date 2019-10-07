@@ -12,8 +12,12 @@
   }
 
   &--userselect {
-    background: pal(white);
+    background: pal(grey);
     padding: 0 20px;
+
+    &.active-type {
+      background: pal(white);
+    }
 
     img {
       top: calc((42px - 18px) / 2);
@@ -80,7 +84,6 @@
 .dwmth-tokens {
   @include font(14, semi);
 }
-
 
 
 .dwmth-usd {
