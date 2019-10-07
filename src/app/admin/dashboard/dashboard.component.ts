@@ -42,7 +42,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       link: '/admin/dashboard/privacy',
       values: [
         {name: 'Privacy', icon: 'assets/images/preferences.svg'},
-        {name: 'Terms and condition', icon: 'assets/images/preferences.svg'},
+        {name: 'Terms and conditions', icon: 'assets/images/preferences.svg'},
       ],
     },
     {
