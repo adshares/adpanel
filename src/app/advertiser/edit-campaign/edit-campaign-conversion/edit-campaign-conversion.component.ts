@@ -107,7 +107,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.validateForm = false;
     this.campaign = {
       ...this.campaign,
-      conversionDefinitions: this.conversionsToSave,
+      conversions: this.conversionsToSave,
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
@@ -128,7 +128,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
               (data) => {
                 this.campaign = data.campaign;
                 this.conversionItemForms = [];
-                this.adjustConversionData(this.campaign.conversionDefinitions)
+                this.adjustConversionData(this.campaign.conversions)
               },
               (err) => {
                 this.store.dispatch(new ShowDialogOnError(err.code))
@@ -232,7 +232,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
-        this.adjustConversionData(this.campaign.conversionDefinitions);
+        this.adjustConversionData(this.campaign.conversions);
       }, () => {
       });
 

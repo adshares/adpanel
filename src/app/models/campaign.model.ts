@@ -16,7 +16,7 @@ interface Campaign {
   averageCpc?: number;
   averageCpm?: number;
   cost?: number;
-  conversionDefinitions?: CampaignConversion[];
+  conversions?: CampaignConversion[];
   secret: string;
   conversionClick: number;
   conversionClickLink?: string;
