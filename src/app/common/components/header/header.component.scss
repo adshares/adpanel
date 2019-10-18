@@ -12,8 +12,12 @@
   }
 
   &--userselect {
-    background: pal(white);
+    background: pal(grey);
     padding: 0 20px;
+
+    &.active-type {
+      background: pal(white);
+    }
 
     img {
       top: calc((42px - 18px) / 2);
@@ -82,7 +86,6 @@
 }
 
 
-
 .dwmth-usd {
   @include font(9, semi);
   color: pal(gray);
@@ -95,7 +98,7 @@
   background: pal(white);
   z-index: 999;
   width: 100%;
-  min-width: 170px;
+  min-width: 180px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;

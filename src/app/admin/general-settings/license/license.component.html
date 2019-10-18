@@ -12,12 +12,12 @@
   <div *ngIf="license !== null; else info">
     <div class="license__inputs-wrapper">
       <app-input type="text"
-                 [label]="'Type'"
+                 label="Type"
                  [readonly]="true"
                  [value]="license.type"
       ></app-input>
       <app-input type="text"
-                 [label]="'Owner'"
+                 label="Owner"
                  [readonly]="true"
                  [value]="license.owner"
       ></app-input>
@@ -25,12 +25,12 @@
 
     <div class="license__inputs-wrapper">
       <app-input type="text"
-                 [label]="'Date Start'"
+                 label="Start date"
                  [readonly]="true"
                  [value]="license.dateStart"
       ></app-input>
       <app-input type="text"
-                 [label]="'Date End'"
+                 label="End date"
                  [readonly]="true"
                  [value]="license.dateEnd"
       ></app-input>

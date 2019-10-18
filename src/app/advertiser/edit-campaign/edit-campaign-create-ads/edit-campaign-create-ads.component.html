@@ -13,14 +13,14 @@
         dwmth-heading
         dwmth-heading--primary"
     >
-      Create Ads
+      Upload ads
     </h1>
     <p
       class="
         dwmth-copy
         dwmth-copy--medium"
     >
-      Below you can create list of advertisements displayed during this campaign.
+      Please select the ad type and upload your banner ads.
     </p>
   </div>
 
@@ -88,7 +88,7 @@
                   for="name"
                   class="dwmth-form-label"
                 >
-                  Short Headline
+                  Short headline
                 </label>
                 <input
                   id="name"
@@ -116,7 +116,7 @@
                 col-xxxl-1"
             >
               <div class="dwmth-form-input__box">
-                <label class="dwmth-form-label">Ad Type</label>
+                <label class="dwmth-form-label">Ad type</label>
                 <mat-select
                   class="dwmth-select"
                   formControlName="type"
@@ -254,10 +254,19 @@
                   (change)="uploadBanner($event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
-              <p class="dwmth-copy">
-                We support
-                {{adForm.get('type').value === 0 ? 'JPG, PNG AND GIF' : 'ZIP' }}
-                Make sure that your files is no more than 500 kb.
+              <p
+                *ngIf="adForm.get('type').value === 0"
+                class="dwmth-copy"
+              >
+                We support JPG, PNG and GIF files.
+                Please make sure that the file you are uploading is not larger than 500 KB.
+              </p>
+              <p
+                *ngIf="adForm.get('type').value !== 0"
+                class="dwmth-copy"
+              >
+                Please upload your HTML banner ad as a zip archive.
+                Please make sure that the file is not larger than 500 KB.
               </p>
             </div>
           </div>
@@ -427,7 +436,7 @@
             (click)="removeNewAd(i)"
             data-test="advertiser-edit-campaign-create-ads-form-remove-ad"
           >
-            Delete Ad Unit
+            Delete ad unit
           </button>
         </mat-expansion-panel>
       </mat-accordion>
@@ -453,12 +462,12 @@
     >
       <img
         src="assets/images/plus-circle--blue.svg"
-        alt="Add new icon"
+        alt="Add new"
         class="
           dwmth-icon
           dwmth-icon--prepend"
       >
-      Create new Ad
+      Add new banner ad
     </button>
   </div>
 
@@ -491,7 +500,7 @@
           save-as-draft"
         data-test="advertiser-edit-campaign-save-as-draft"
       >
-        Save as Draft
+        Save as draft
       </button>
       <button class="dwmth-btn
                      dwmth-btn--wide
@@ -500,7 +509,7 @@
               data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved ; else loading">
-          {{isEditMode ? 'Update' : 'Save & Continue'}}
+          {{isEditMode ? 'Update' : 'Save & continue'}}
         </span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
