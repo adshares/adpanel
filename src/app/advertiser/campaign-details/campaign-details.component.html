@@ -313,7 +313,7 @@
               src="assets/images/edit-blue.svg"
               alt=""
             >
-            Edit Conversions
+            Edit conversions
           </button>
       </div>
       <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
@@ -384,7 +384,7 @@
                      dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
+          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
         </button>
       </div>
       <div
@@ -400,7 +400,7 @@
         >
           <h2 class="dwmth-targeting-details__title
                      dwmth-copy--large
-                     dwmth-copy--semi">Requires: </h2>
+                     dwmth-copy--semi">Targeting: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -420,7 +420,7 @@
           dwmth-box--no-padding">
           <h2 class="dwmth-targeting-details__title
                      dwmth-copy--large
-                     dwmth-copy--semi">Excludes: </h2>
+                     dwmth-copy--semi">Exclusions: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -434,7 +434,7 @@
       </div>
     </section>
 
-    <!--̣Campaign list section-->
+    <!--Campaign list section-->
 
     <section *ngIf="campaign.ads.length" class="col">
       <div
