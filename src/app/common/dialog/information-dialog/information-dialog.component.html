@@ -1,0 +1,34 @@
+<mat-dialog-content class="text-center information-dialog ">
+  <div
+    (click)="dialogRef.close()"
+    class="dwmth-dialog-close"
+  ></div>
+  <h1
+    class="
+      dwmth-heading
+      dwmth-heading--primary"
+  >
+    {{ title }}
+  </h1>
+  <div *ngIf="link"
+       class="information-dialog__box">
+    Link:
+    <span class="dwmth-copy--bold information-dialog__info">{{link}}</span>
+    <i matTooltipClass="dwmth-mat-tooltip"
+       matTooltip="Copy link"
+       matTooltipPosition="above"
+       role="button"
+       tabindex="0"
+       (click)="copyToClipboard(link)"
+       class="material-icons information-dialog__copy-icon information-dialog__copy-icon"
+    >
+      file_copy
+    </i>
+  </div>
+  <p class="dwmth-copy">
+    {{ message }}
+
+  <br>
+    <a *ngIf="href" href="{{ href }}" class="information-dialog__link">{{ href }}</a>
+  </p>
+</mat-dialog-content>

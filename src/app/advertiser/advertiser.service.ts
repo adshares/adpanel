@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { environment } from 'environments/environment';
-import { Campaign, CampaignTotalsResponse } from 'models/campaign.model';
+import { Campaign, CampaignConversion, CampaignTotalsResponse } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from "@angular/router";
@@ -59,7 +59,6 @@ export class AdvertiserService {
       const targetingObject = parseTargetingForBackend(campaign.targetingArray);
       Object.assign(campaign, {targeting: targetingObject});
     }
-
     return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
   }
 

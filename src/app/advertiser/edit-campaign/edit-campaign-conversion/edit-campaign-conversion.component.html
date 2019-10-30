@@ -1,0 +1,573 @@
+<section
+  class="
+    homepage-view
+    campaign-edit-conversion"
+>
+  <div class="text-center">
+    <h1
+      class="
+        dwmth-heading
+        dwmth-heading--primary"
+    >
+      Conversions
+    </h1>
+    <p
+      class="
+        dwmth-copy
+        dwmth-copy--medium"
+    >
+      Conversions are users' actions which meet business expectations, e. g. making a purchase or registering on the website.
+      If advertisers are satisfied they can pay back. On this website you can define your conversions and the amount you are willing to spend on them.
+    </p>
+  </div>
+
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large"
+  >
+    <h3
+      class="
+        dwmth-heading
+        dwmth-heading--secondary"
+    >
+      Conversions
+    </h3>
+
+    <mat-tab-group
+      [@.disabled]="true"
+    >
+      <mat-tab label="Basic">
+        <div
+          class="
+            dwmth-copy
+            description-type"
+        >
+          In this mode each conversion has a constant cost.
+          All conversion expenses are limited by the banner ad campaign budget.
+          It is possible to execute one conversion type per impression.
+        </div>
+        <div class="row justify-end align-center">
+          <button
+            class="dwmth-btn
+               dwmth-btn--white
+               dwmth-blue
+               campaign-edit-conversion__btn-add"
+            (click)="addConversionEmpty(TYPE_BASIC)"
+            data-test="advertiser-conversion-add-basic-button"
+          >
+            Add conversion
+          </button>
+        </div>
+
+        <div
+          *ngIf="conversionItemFormsBasic.length > 0"
+          class="
+            row
+            dwmth-box
+            align-center
+            justify-between
+            dwmth-copy"
+        >
+          <app-label
+            class="col-xs-3 row justify-start align-center"
+            forId="name"
+            label="Name"
+            tooltipPosition="after"
+            tooltip="Enter the conversion name here"
+          >
+          </app-label>
+          <app-label
+            class="col-xs-4 row justify-start align-center"
+            label="Type"
+            tooltip="Select the type of conversion"
+            forId="type"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Cost"
+            tooltip="Enter the amount you are willing to spend on a single conversion"
+            forId="value"
+          ></app-label>
+          <div class="col-xs-1 row justify-start"></div>
+          <div class="col-xs-1 row justify-start">Delete</div>
+          <div class="col-xs-1 row justify-start">Link</div>
+        </div>
+
+        <div class="dwmth-box dwmth-box--no-padding campaign-edit-conversion__list animated-list">
+          <form
+            *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
+            [formGroup]="conversionItemForm"
+            data-test="advertiser-conversion-item"
+          >
+            <div
+              class="row
+                   dwmth-box
+                   align-start
+                   justify-between
+                   dwmth-copy"
+            >
+              <div
+                class="
+                col-xs-3
+                row
+                align-center"
+              >
+                <input
+                  id="name"
+                  class="dwmth-form-input"
+                  formControlName="name"
+                  data-test="advertiser-conversion-item-name"
+                >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
+                >
+                  Cannot be empty.
+                </span>
+              </div>
+              <div
+                class="
+                col-xs-4
+                row
+                align-center"
+              >
+                <mat-select
+                  id="type"
+                  class="dwmth-select campaign-edit-conversion__select"
+                  formControlName="type"
+                  data-test="advertiser-conversion-item-type-select"
+                >
+                  <mat-option
+                    *ngFor="let type of availableEventTypes"
+                    [value]="type"
+                    data-test="advertiser-conversion-item-type-option"
+                  >
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
+                >
+                  Cannot be empty.
+                </span>
+              </div>
+              <div
+                class="
+                col-xs-2
+                row
+                align-center"
+              >
+                <input
+                  id="value"
+                  class="dwmth-form-input"
+                  formControlName="value"
+                  data-test="advertiser-conversion-item-value"
+                >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
+                >
+                    Must be greater than zero.
+                  </span>
+              </div>
+              <div class="col-xs-1 row justify-start"></div>
+              <div
+                class="
+                col-xs-1
+                row
+                cell
+                align-center"
+              >
+                <button
+                  id="delete"
+                  class="campaign-edit-conversion__btn shake"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(false, conversionItemFormIndex)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
+                cell
+                align-center"
+              >
+                <button
+                  *ngIf="conversionItemForm.get('link').value"
+                  class="campaign-edit-conversion__btn"
+                  title="Get Link"
+                  (click)="openDialogForForm(conversionItemForm)"
+                >
+                  <mat-icon> link</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Advanced">
+        <div
+          class="
+            dwmth-copy
+            description-type"
+        >
+          In this mode each conversion has a unique HTTP request which must be created dynamically.
+          The Advertiser also has more control over the conversion settings.
+          Each conversion may have a different cost.
+          The single conversion cost is optional and can be defined while the campaign is created.
+        </div>
+
+        <div
+          *ngIf="campaign.secret"
+          class="
+            dwmth-copy
+            description-type"
+        >
+          Secret is a string of characters used to sign the transferred data.
+          <div>
+            Secret:
+            <span class="dwmth-copy--bold">{{campaign.secret}}</span>
+            <i
+              matTooltipClass="dwmth-mat-tooltip"
+              matTooltip="Copy secret"
+              matTooltipPosition="above"
+              role="button"
+              tabindex="0"
+              (click)="copyToClipboard(campaign.secret)"
+              class="material-icons campaign-edit-conversion__copy-icon"
+            >
+              file_copy
+            </i>
+          </div>
+        </div>
+
+
+        <div class="row justify-end align-center">
+          <button
+            class="dwmth-btn
+               dwmth-btn--white
+               dwmth-blue
+               campaign-edit-conversion__btn-add"
+            (click)="addConversionEmpty(TYPE_ADVANCED)"
+            data-test="advertiser-conversion-add-advanced-button"
+          >
+            Add conversion
+          </button>
+        </div>
+
+        <div
+          *ngIf="conversionItemFormsAdvanced.length > 0"
+          class="
+            row
+            dwmth-box
+            align-center
+            justify-between
+            dwmth-copy"
+        >
+          <app-label
+            class="col-xs-1 row justify-start"
+            forId="name"
+            label="Name"
+            tooltipPosition="after"
+            tooltip="Enter the conversion name here"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Type"
+            tooltip="Select the type of conversion"
+            forId="typeAdv"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Cost"
+            tooltip="Enter the amount you are willing to spend on a single conversion.
+                     Turn on the switch if you wish to use different values."
+            forId="valueAdv"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-start align-center"
+            label="Budget"
+            tooltip="Enter the total amount you are willing to spend on a selected type of conversion."
+            forId="limit"
+          ></app-label>
+          <app-label
+            class="col-xs-1 row justify-center cell align-center"
+            label="In budget"
+            tooltip="Turn on if you don’t want to spend on conversions more than the budget for a ad banner campaign.
+                     If the box remains unchecked the total budget for a certain conversion type will be limited only by your account balance."
+            forId="budget"
+          ></app-label>
+          <app-label
+            class="col-xs-2 row justify-center cell align-center"
+            label="Is repeatable"
+            tooltip="Turn on if you want to allow multiple conversion of the same type for the single impression."
+            forId="isRepeatable"
+          ></app-label>
+          <div class="col-xs-1 row justify-start">Delete</div>
+          <div class="col-xs-1 row justify-start">Link</div>
+        </div>
+
+        <div
+          class="dwmth-box dwmth-box--no-padding"
+        >
+          <form
+            *ngFor="let conversionItemForm of conversionItemFormsAdvanced; let conversionItemFormIndex = index"
+            [formGroup]="conversionItemForm"
+            data-test="advertiser-conversion-item"
+          >
+            <div
+              class="row
+                   dwmth-box
+                   align-start
+                   justify-between
+                   dwmth-copy"
+            >
+              <div
+                class="
+                col-xs-1
+                row
+                align-center"
+              >
+                <input
+                  id="nameAdv"
+                  class="dwmth-form-input"
+                  formControlName="name"
+                  data-test="advertiser-conversion-item-name"
+                >
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('name').status"
+                >
+                    Cannot be empty.
+                  </span>
+              </div>
+              <div
+                class="
+                col-xs-2
+                row
+                align-center"
+              >
+                <mat-select
+                  id="typeAdv"
+                  class="dwmth-select campaign-edit-conversion__select"
+                  formControlName="type"
+                  data-test="advertiser-conversion-item-type-select"
+                >
+                  <mat-option
+                    *ngFor="let type of availableEventTypes"
+                    [value]="type"
+                    data-test="advertiser-conversion-item-type-option"
+                  >
+                    {{ type }}
+                  </mat-option>
+                </mat-select>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('type').status"
+                >
+                    Cannot be empty.
+                  </span>
+              </div>
+              <div
+                class="
+                col-xs-2
+                row
+                align-center"
+              >
+                <div class="row no-wrap cell">
+                  <mat-slide-toggle
+                    class="row align-self-center"
+                    id="isMutable"
+                    formControlName="isValueMutable"
+                    data-test="advertiser-conversion-item-is-value-mutable"
+                  >
+                  </mat-slide-toggle>
+                  <input
+                    id="valueAdv"
+                    type="number"
+                    step="0.01"
+                    class="dwmth-form-input campaign-edit-conversion__value-input"
+                    formControlName="value"
+                    data-test="advertiser-conversion-item-value"
+                  >
+                </div>
+                <span
+                  class="error-msg"
+                  *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status"
+                >
+                  Value is required.
+                  </span>
+              </div>
+              <div
+                class="
+                col-xs-2
+                row
+                align-center"
+              >
+                <input
+                  id="limit"
+                  class="dwmth-form-input"
+                  type="number"
+                  step="0.01"
+                  formControlName="limit"
+                  data-test="advertiser-conversion-item-limit"
+                >
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
+                align-center
+                cell
+                justify-center"
+              >
+                <mat-slide-toggle
+                  id="budget"
+                  formControlName="isInBudget"
+                  data-test="advertiser-conversion-item-is-in-budget"
+                >
+                </mat-slide-toggle>
+              </div>
+
+              <div
+                class="
+                col-xs-2
+                row
+                align-center
+                cell
+                justify-center"
+              >
+                <mat-slide-toggle
+                  id="isRepeatable"
+                  formControlName="isRepeatable"
+                  data-test="advertiser-conversion-item-is-repeatable"
+                >
+                </mat-slide-toggle>
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
+                cell
+                align-center"
+              >
+                <button
+                  class="campaign-edit-conversion__btn shake"
+                  title="Click to remove conversion"
+                  (click)="deleteConversion(true, conversionItemFormIndex)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              <div
+                class="
+                col-xs-1
+                row
+                cell
+                align-center"
+              >
+                <button
+                  *ngIf="conversionItemForm.get('link').value"
+                  class="campaign-edit-conversion__btn"
+                  title="Get Link"
+                  (click)="openDialogForForm(conversionItemForm)"
+                >
+                  <mat-icon> link</mat-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large"
+  >
+    <h3
+      class="
+        dwmth-heading
+        dwmth-heading--secondary"
+    >
+      Click conversion
+    </h3>
+    <div
+      class="
+        dwmth-copy
+        description-type"
+    >
+      Click conversion type defines how clicks are registered.
+      By default all click events are registered when user clicks the ad banner.
+      If you change to basic or advanced link click events won’t be registered, unless a conversion takes place.
+      Click link icon to obtain more information.
+    </div>
+
+    <mat-form-field>
+      <mat-label>Select click conversion type:</mat-label>
+      <mat-select
+        class="dwmth-select"
+        [(value)]="campaign.conversionClick"
+        data-test="advertiser-conversion-click-select"
+      >
+        <mat-option
+          *ngFor="let clickConversionType of clickConversionTypes"
+          [value]="clickConversionType.value"
+          data-test="advertiser-conversion-click-option"
+        >
+          {{ clickConversionType.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="dwmth-form-label">
+      <button
+        *ngIf="campaign.conversionClickLink"
+        class="campaign-edit-conversion__btn"
+        title="Get Link"
+        (click)="openDialog(campaign.conversionClickLink)"
+      >
+        <mat-icon> link</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="dwmth-box
+           dwmth-box--large
+           row
+           justify-between"
+  >
+    <button
+      type="button"
+      class="dwmth-btn
+             dwmth-btn--white
+             dwmth-blue"
+      (click)="onStepBack()"
+      [disabled]="submitted"
+      data-test="advertiser-navigate-to-dashboard"
+    >
+      Back
+    </button>
+
+    <button
+      class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+      (click)="updateCampaignConversion()"
+      [disabled]="submitted"
+      data-test="advertiser-edit-campaign-save-and-continue"
+    >
+      <span *ngIf="!submitted; else loading">
+        Save
+      </span>
+      <ng-template #loading>
+        <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+      </ng-template>
+    </button>
+  </div>
+</section>
