@@ -22,6 +22,7 @@ import { InformationDialogComponent } from 'common/dialog/information-dialog/inf
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { adsToClicks, formatMoney } from 'common/utilities/helpers';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -29,6 +30,7 @@ import { adsToClicks, formatMoney } from 'common/utilities/helpers';
   styleUrls: ['./edit-campaign-conversion.component.scss']
 })
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
+  currencyCode: string = environment.currencyCode;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
 
@@ -292,17 +294,20 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   openDialog(link: string, isAdvanced: boolean = true) {
-    let message = 'The link above is a conversion address, that must be used in order to execute a conversion. ' +
-      'Please, place it on your site (e.g. as a src attribute of an img element). ' +
-      'Before you proceed further, please read the instruction';
-    message += isAdvanced ? ' and modify the link according to the guidelines:' : ':';
+    let message = 'The link above is a conversion address, that must be used to execute a conversion. ' +
+      'Please, place it on your site (e.g. as a src attribute of an img element).';
+    
+    if (isAdvanced) {
+      message += 
+        ' Before you proceed further, please read the instruction:';
+    }
 
     this.dialog.open(InformationDialogComponent, {
       data: {
         title: 'Conversion link',
         message: message,
         link: link,
-        href: 'https://github.com/adshares/adserver/wiki/Conversions',
+        href: isAdvanced ? 'https://github.com/adshares/adserver/wiki/Conversions' : '',
         secret: this.campaign.secret,
       }
     });
