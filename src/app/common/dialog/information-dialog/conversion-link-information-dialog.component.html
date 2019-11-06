@@ -8,7 +8,7 @@
       dwmth-heading
       dwmth-heading--primary"
   >
-    {{ title }}
+    Conversion link
   </h1>
   <div *ngIf="link"
        class="information-dialog__box">
@@ -24,10 +24,19 @@
       file_copy
     </i>
   </div>
-  <p class="dwmth-copy">
-    {{ message }}
-
-    <br>
-    <a *ngIf="href" href="{{ href }}" class="information-dialog__link">{{ href }}</a>
+  <p
+    *ngIf="isAdvanced"
+     class="dwmth-copy"
+  >
+    The link above is a conversion address, that must be used to execute a conversion.
+    Please, place it on your site (e.g. as a src attribute of an img element).
+    Before you proceed further, please <a href="https://github.com/adshares/adserver/wiki/Conversions" target="_blank">read the instruction</a>.
+  </p>
+  <p
+    *ngIf="!isAdvanced"
+     class="dwmth-copy"
+  >
+    The link above is a conversion address, that must be used to execute a conversion.
+    Please, place it on your site (e.g. as a src attribute of an img element).
   </p>
 </mat-dialog-content>

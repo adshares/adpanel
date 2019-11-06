@@ -535,7 +535,7 @@
         *ngIf="campaign.conversionClickLink"
         class="campaign-edit-conversion__btn"
         title="Get Link"
-        (click)="openDialog(campaign.conversionClickLink)"
+        (click)="openDialog(campaign.conversionClickLink, isConversionClickAdvanced)"
       >
         <mat-icon> link</mat-icon>
       </button>

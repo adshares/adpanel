@@ -18,11 +18,12 @@ import {
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
-import { InformationDialogComponent } from 'common/dialog/information-dialog/information-dialog.component';
+import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { adsToClicks, formatMoney } from 'common/utilities/helpers';
 import { environment } from 'environments/environment';
+import { campaignConversionClick } from 'models/enum/campaign.enum';
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -59,9 +60,9 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   ];
 
   readonly clickConversionTypes = [
-    {value: 0, label: 'Default'},
-    {value: 1, label: 'Basic link'},
-    {value: 2, label: 'Advanced link'},
+    {value: campaignConversionClick.NONE, label: 'Default'},
+    {value: campaignConversionClick.BASIC, label: 'Basic link'},
+    {value: campaignConversionClick.ADVANCED, label: 'Advanced link'},
   ];
 
   conversionItemForms: FormGroup[] = [];
@@ -138,6 +139,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
             )
         }
       });
+  }
+
+  get isConversionClickAdvanced(): boolean {
+    return this.campaign.conversionClick === campaignConversionClick.ADVANCED;
   }
 
   get isFormValid(): boolean {
@@ -294,21 +299,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   openDialog(link: string, isAdvanced: boolean = true) {
-    let message = 'The link above is a conversion address, that must be used to execute a conversion. ' +
-      'Please, place it on your site (e.g. as a src attribute of an img element).';
-    
-    if (isAdvanced) {
-      message += 
-        ' Before you proceed further, please read the instruction:';
-    }
-
-    this.dialog.open(InformationDialogComponent, {
+    this.dialog.open(ConversionLinkInformationDialogComponent, {
       data: {
-        title: 'Conversion link',
-        message: message,
+        isAdvanced: isAdvanced,
         link: link,
-        href: isAdvanced ? 'https://github.com/adshares/adserver/wiki/Conversions' : '',
-        secret: this.campaign.secret,
       }
     });
   }

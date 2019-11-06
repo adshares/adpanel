@@ -5,28 +5,24 @@ import { ShowSuccessSnackbar } from 'store/common/common.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-information-dialog',
-  templateUrl: './information-dialog.component.html',
-  styleUrls: ['./information-dialog.component.scss'],
+  selector: 'app-conversion-link-information-dialog',
+  templateUrl: './conversion-link-information-dialog.component.html',
+  styleUrls: ['./conversion-link-information-dialog.component.scss'],
 })
-export class InformationDialogComponent {
-  title: string = '';
-  message: string = '';
-  link: string = '';
-  href: string = '';
+export class ConversionLinkInformationDialogComponent {
+  isAdvanced: boolean;
+  link: string;
 
   constructor(
-    public dialogRef: MatDialogRef<InformationDialogComponent>,
+    public dialogRef: MatDialogRef<ConversionLinkInformationDialogComponent>,
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
 
   ngOnInit() {
-    this.message = (this.data && this.data.message) ? this.data.message : '';
-    this.title = (this.data && this.data.title) ? this.data.title : '';
+    this.isAdvanced = (this.data && this.data.hasOwnProperty('isAdvanced')) ? this.data.isAdvanced : true;
     this.link = (this.data && this.data.link) ? this.data.link : '';
-    this.href = (this.data && this.data.href) ? this.data.href : '';
   }
 
   copyToClipboard(content: string) {
