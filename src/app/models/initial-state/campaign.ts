@@ -1,5 +1,5 @@
 import { Campaign, CampaignConversionItem, CampaignTotals } from 'models/campaign.model';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import { campaignConversionClick, campaignStatusesEnum } from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 import * as moment from 'moment';
 
@@ -37,7 +37,7 @@ export const campaignInitialState: Campaign = {
   id: 0,
   conversions: [],
   secret: '',
-  conversionClick: 0,
+  conversionClick: campaignConversionClick.NONE,
   classificationStatus: classificationStatusesEnum.DISABLED,
 };
 

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { faExclamation } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { Campaign } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
@@ -39,6 +40,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   targetingOptions: AssetTargeting;
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
+  faExclamation = faExclamation;
 
   constructor(
     private route: ActivatedRoute,

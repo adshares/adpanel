@@ -72,6 +72,7 @@
       [ngClass]="{'billing-table-row__link': !!link}">
     <a *ngIf="link"
        [title]="link"
+       rel="noopener noreferrer"
        target="_blank"
        href="{{ link }}"
        data-test="settings-billing-history-item-link"
