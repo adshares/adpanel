@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -12,8 +12,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
-import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppCommonModule } from 'common/common.module';
 import { AdvertiserComponent } from './advertiser.component';
 import { AdvertiserRoutingModule } from './advertiser-routing.module';
@@ -30,14 +31,11 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdListComponent } from './campaign-details/ad-list/ad-list.component';
 import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-list-item.component';
 
-import { CampaignBudgetPerDayPipe } from "common/pipes/campaign-budget-per-day.pipe";
+import { CampaignBudgetPerDayPipe } from 'common/pipes/campaign-budget-per-day.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
-import {
-DATE_AND_TIME_PICKER_FORMATS
-} from "common/utilities/consts";
-
+import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 
 
 const matModules = [
@@ -58,7 +56,7 @@ const editCampaignComponents = [
   EditCampaignConversionComponent,
   EditCampaignAdditionalTargetingComponent,
   EditCampaignCreateAdsComponent,
-  EditCampaignSummaryComponent
+  EditCampaignSummaryComponent,
 ];
 
 const advertiserComponents = [
@@ -68,7 +66,7 @@ const advertiserComponents = [
   DashboardComponent,
   CampaignDetailsComponent,
   AdListComponent,
-  AdListItemComponent
+  AdListItemComponent,
 ];
 
 @NgModule({
@@ -77,25 +75,26 @@ const advertiserComponents = [
     HttpModule,
     AppCommonModule,
     AdvertiserRoutingModule,
+    FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     OwlMomentDateTimeModule,
-    ...matModules
+    ...matModules,
   ],
   providers: [
     AdvertiserGuard,
     CampaignResolver,
     TargetingCriteriaResolver,
-    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS}
+    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],
 
   declarations: [
     CampaignBudgetPerDayPipe,
     ...advertiserComponents,
-    ...editCampaignComponents
+    ...editCampaignComponents,
   ]
 })
 export class AdvertiserModule {

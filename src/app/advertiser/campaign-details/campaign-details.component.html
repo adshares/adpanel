@@ -300,21 +300,49 @@
              dwmth-box--high"
     >
       <div class="row justify-end">
-          <button
-            class="self-end
-                   dwmth-btn
-                   dwmth-btn--edit"
-            (click)="navigateToCampaignEdition('conversion', 0)"
-            data-test="advertiser-campaign-edit-conversion-button"
+        <div
+          *ngIf="undefined == campaign.conversions || campaign.conversions.length == 0" 
+          class="
+            row
+            align-center
+            dwmth-box
+            dwmth-copy
+            dwmth-copy--semi
+            dwmth-copy--green
+            new-feature"
+        >
+          New feature
+          <fa-icon
+            class="dwmth-icon"
+            [icon]="faExclamation"
+          ></fa-icon>
+          <fa-icon
+            class="dwmth-icon"
+            [icon]="faExclamation"
+          ></fa-icon>
+          <fa-icon
+            class="dwmth-icon"
+            [icon]="faExclamation"
+          ></fa-icon>
+        </div>
+
+        <button
+          class="
+            self-end
+            dwmth-btn
+            dwmth-btn--edit"
+          (click)="navigateToCampaignEdition('conversion', 0)"
+          data-test="advertiser-campaign-edit-conversion-button"
+        >
+          <img
+            class="
+              dwmth-icon
+              dwmth-icon--prepend"
+            src="assets/images/edit-blue.svg"
+            alt=""
           >
-            <img
-              class="dwmth-icon
-                     dwmth-icon--prepend"
-              src="assets/images/edit-blue.svg"
-              alt=""
-            >
-            Edit conversions
-          </button>
+          Edit conversions
+        </button>
       </div>
       <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
         <div
