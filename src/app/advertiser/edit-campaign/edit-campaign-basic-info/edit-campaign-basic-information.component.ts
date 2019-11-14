@@ -1,25 +1,27 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 
-import {AppState} from 'models/app-state.model';
-import {CampaignBasicInformation, Campaign} from "models/campaign.model";
-import {campaignInitialState} from 'models/initial-state/campaign';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
-import {
-  SaveCampaignBasicInformation,
-  UpdateCampaign
-} from 'store/advertiser/advertiser.actions';
+import { AppState } from 'models/app-state.model';
+import { Campaign, CampaignBasicInformation } from 'models/campaign.model';
+import { campaignInitialState } from 'models/initial-state/campaign';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { SaveCampaignBasicInformation, UpdateCampaign } from 'store/advertiser/advertiser.actions';
 
 import * as moment from 'moment';
-import {appSettings} from 'app-settings';
-import {adsToClicks, calcCampaignBudgetPerDay, calcCampaignBudgetPerHour, formatMoney} from 'common/utilities/helpers';
-import {AdvertiserService} from "advertiser/advertiser.service";
-import { HandleSubscription } from "common/handle-subscription";
-import { environment } from "environments/environment";
+import { appSettings } from 'app-settings';
+import {
+  adsToClicks,
+  calcCampaignBudgetPerDay,
+  calcCampaignBudgetPerHour,
+  formatMoney
+} from 'common/utilities/helpers';
+import { AdvertiserService } from 'advertiser/advertiser.service';
+import { HandleSubscription } from 'common/handle-subscription';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -40,6 +42,15 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   createCampaignMode: boolean;
   campaign: Campaign;
   changesSaved: boolean;
+
+  readonly PLACEHOLDERS = [
+    { id: '{aid}', description: 'server id'},
+    { id: '{pid}', description: 'publisher id'},
+    { id: '{sid}', description: 'site id'},
+    { id: '{zid}', description: 'zone id'},
+    { id: '{cid}', description: 'case id'},
+    { id: '{bid}', description: 'banner id'},
+  ];
 
   constructor(
     private router: Router,
@@ -67,7 +78,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     if (!this.campaignBasicInfoForm.valid || !this.dateStart.value) {
       return;
     }
-    this.campaignBasicInformationSubmitted =false
+    this.campaignBasicInformationSubmitted = false;
     this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
   }
 
