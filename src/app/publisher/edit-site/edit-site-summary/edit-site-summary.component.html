@@ -259,7 +259,8 @@
           <div
             class="dwmth-copy site-edit-summary__poster-unit__visualization"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-          > {{ adUnit.size.name }}
+          >
+            {{ adUnit.shortHeadline }}
           </div>
         </div>
 
@@ -270,13 +271,12 @@
                  dwmth-copy--medium"
           data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
-          {{ adUnit.size.width }} x {{ adUnit.size.height }}
-
+          {{ adUnit.size }}
         </strong>
         <div>
           <div
             class="dwmth-chip-box"
-            *ngFor="let tag of adUnit.size.tags"
+            *ngFor="let tag of adUnit.tags"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
           >
             {{ tag }}

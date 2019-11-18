@@ -6,15 +6,13 @@ import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adSizesEnum, adTypesOptions } from 'models/enum/ad.enum';
 import { cloneDeep } from 'common/utilities/helpers';
-import { AdUnit, AdUnitSize, Site } from 'models/site.model';
+import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
 import { AppState } from 'models/app-state.model';
 import { adUnitInitialState } from 'models/initial-state/ad-unit';
 import {
   ClearLastEditedSite,
   SaveLastEditedSiteAdUnits,
-  UpdateSite,
   AddSiteToSites, UpdateSiteUnits
 } from 'store/publisher/publisher.actions';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
@@ -29,12 +27,10 @@ import { siteStatusEnum } from "models/enum/site.enum";
 })
 export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
   adUnitForms: FormGroup[] = [];
-  adTypes: string[] = adTypesOptions;
   adSizesOptions: string[] = [];
-  adSizesEnum = adSizesEnum;
-  adUnitSizesArray: AdUnitSize[];
-  filteredAdUnitSizes: AdUnitSize[][] = [];
-  allAdUnitSizes: AdUnitSize[][] = [];
+  adUnitSizesArray: AdUnitMetaData[];
+  filteredAdUnitSizes: AdUnitMetaData[][] = [];
+  allAdUnitSizes: AdUnitMetaData[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
   createSiteMode: boolean;
@@ -117,7 +113,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   selectChosenSize(savedAdUnit: AdUnit, adIndex: number): void {
     const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
-      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.size.label
+      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.label
     );
     Object.assign(chosenAdSize, {selected: true});
   }
@@ -132,6 +128,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status),
       size: new FormControl(adUnit.size, Validators.required),
+      label: new FormControl(adUnit.label, Validators.required),
+      tags: new FormControl(adUnit.tags, Validators.required),
       id: new FormControl(adUnit.id),
     });
   }
@@ -150,8 +148,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     });
   }
 
-  selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
-    this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
+  selectAdUnit(adUnit: AdUnitMetaData, adUnitIndex: number): void {
+    this.adUnitForms[adUnitIndex].get('label').setValue(adUnit.label);
+    this.adUnitForms[adUnitIndex].get('size').setValue(adUnit.size);
+    this.adUnitForms[adUnitIndex].get('tags').setValue(adUnit.tags);
+    this.adUnitForms[adUnitIndex].get('type').setValue(adUnit.type);
     this.adjustAdUnitName(adUnitIndex, adUnit.name);
   }
 
@@ -193,6 +194,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
         shortHeadline: form.get('shortHeadline').value,
         type: form.get('type').value,
         size: form.get('size').value,
+        label: form.get('label').value,
+        tags: form.get('tags').value,
         status: form.get('status').value,
         id: form.get('id').value,
       };

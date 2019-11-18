@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
-import { AdUnitSize, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { AdUnitMetaData, Site, SiteLanguage, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
@@ -72,8 +72,8 @@ export class PublisherService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);
   }
 
-  getAdUnitSizes(): Observable<AdUnitSize[]> {
-    return this.http.get<AdUnitSize[]>(`${environment.apiUrl}/options/sites/zones`);
+  getAdUnitSizes(): Observable<AdUnitMetaData[]> {
+    return this.http.get<AdUnitMetaData[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 
   getPossibleSizeOptionForBannerClassification(siteId?: number): Observable<string[]> {

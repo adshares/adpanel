@@ -139,7 +139,7 @@
             <div
               class="site-edit-create-posters-units__poster-unit"
               [ngClass]="{'site-edit-create-posters-units__poster-unit--selected':
-              adUnitForm.get('size').value && adUnitForm.get('size').value.label === adUnit.label}"
+              adUnitForm.get('label').value === adUnit.label}"
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
@@ -153,10 +153,10 @@
                   site-edit-create-poster-unit__poster-unit__visualization-box"
               >
                 <div
-                  [ngClass]="adUnit.type"
                   class="dwmth-copy site-edit-create-posters-units_poster-unit__visualization"
                   data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-                > {{ adUnit.name }}
+                >
+                  {{ adUnit.name }}
                 </div>
               </div>
 
@@ -169,8 +169,7 @@
                   dwmth-copy--medium"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
-                {{ adSizesEnum[adUnit.size] }}
-
+                {{ adUnit.size }}
               </strong>
               <div>
                 <div

@@ -1,24 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import {faCode} from '@fortawesome/free-solid-svg-icons';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
+import { AdUnit } from 'models/site.model';
 
 @Component({
   selector: 'app-poster-units',
   templateUrl: './ad-units.component.html',
   styleUrls: ['./ad-units.component.scss'],
 })
-export class AdUnitsComponent implements OnInit {
-  @Input() adUnit;
-  @Input() siteCode;
-  tags: string[];
+export class AdUnitsComponent {
+  @Input() adUnit: AdUnit;
+  @Input() siteCode: string;
   codeIcon = faCode;
 
   constructor(private dialog: MatDialog) {
-  }
-
-  ngOnInit(){
-    this.tags = Array.isArray(this.adUnit.size.tags) ? this.adUnit.size.tags : this.adUnit.size.tags.tags;
   }
 
   openGetCodeDialog() {
