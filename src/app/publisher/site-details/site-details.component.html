@@ -284,7 +284,8 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          Allow: pop-ups, pop-unders
+          <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
+          <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
         </p>
         <button
           class="
@@ -304,6 +305,23 @@
           Edit pops
         </button>
       </div>
+      <div
+        class="site-details__scrollable-table"
+        *ngIf="!!popAdUnits.length">
+        <table class="site-details__table">
+          <app-table-navigation
+            [navigationName]="'adUnitsNavigation'"
+            (sortTable)="sortTable($event)"
+            class="row dwmth-copy"
+          ></app-table-navigation>
+          <app-poster-units
+            *ngFor="let adUnit of popAdUnits"
+            [siteCode]="site.code"
+            [adUnit]="adUnit"
+          ></app-poster-units>
+        </table>
+      </div>
+    </div>
 
     <div class="col">
       <div
@@ -318,7 +336,8 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          List of ad units
+          <span *ngIf="!!popAdUnits.length">List of ad units</span>
+          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
         </p>
         <button
           class="
@@ -338,16 +357,18 @@
           Edit ad units
         </button>
       </div>
-      <div class="site-details__scrollable-table">
+      <div
+        class="site-details__scrollable-table"
+        *ngIf="!!displayAdUnits.length"
+      >
         <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
             (sortTable)="sortTable($event)"
-            class="row
-                   dwmth-copy"
+            class="row dwmth-copy"
           ></app-table-navigation>
           <app-poster-units
-            *ngFor="let adUnit of site.adUnits"
+            *ngFor="let adUnit of displayAdUnits"
             [siteCode]="site.code"
             [adUnit]="adUnit"
           ></app-poster-units>

@@ -19,6 +19,7 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 import { MatDialog } from "@angular/material";
 import { HandleSubscription } from "common/handle-subscription";
 import { siteStatusEnum } from "models/enum/site.enum";
+import {adUnitTypesEnum} from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -28,7 +29,7 @@ import { siteStatusEnum } from "models/enum/site.enum";
 export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
   adUnitForms: FormGroup[] = [];
   adSizesOptions: string[] = [];
-  adUnitSizesArray: AdUnitMetaData[];
+  adUnitSizes: AdUnitMetaData[];
   filteredAdUnitSizes: AdUnitMetaData[][] = [];
   allAdUnitSizes: AdUnitMetaData[][] = [];
   adUnitsSubmitted = false;
@@ -50,8 +51,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes)
-      .filter(item => item.type !== 'display');
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.DISPLAY);
 
     this.getOptions();
     this.fillFormWithData();
@@ -63,7 +63,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   getOptions(): void {
-    const tags = this.adUnitSizesArray
+    const tags = this.adUnitSizes
       .map(unit => unit.tags)
       .reduce((arr1, arr2) => arr1.concat(arr2))
       .filter((item, pos, self) => self.indexOf(item) === pos)
@@ -85,7 +85,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
           return;
         }
 
-        const savedAdUnits = lastEditedSite.adUnits;
+        const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY});
 
         if (!!savedAdUnits.length) {
           savedAdUnits.forEach((savedAdUnit, index) => {
@@ -120,8 +120,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   generateFormField(adUnit: Partial<AdUnit>): FormGroup {
-    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizesArray));
-    this.allAdUnitSizes.push(cloneDeep(this.adUnitSizesArray));
+    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
+    this.allAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
     return new FormGroup({
       name: new FormControl(adUnit.name, Validators.required),
@@ -138,7 +138,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) => {
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) => {
       if (filterValue === 'Recommended') {
         return adUnitSize.tags.includes('best')
       } else if (filterValue === 'All') {
@@ -192,8 +192,12 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   get adUnitsToSave(): AdUnit[] {
-    return this.adUnitForms.map((form) => {
-      return {
+    const units = [...this.site.adUnits.filter(adUnit => {
+      return adUnit.type !== adUnitTypesEnum.DISPLAY
+    })];
+
+    this.adUnitForms.forEach(form => {
+      units.push({
         name: form.get('name').value,
         type: form.get('type').value,
         size: form.get('size').value,
@@ -201,23 +205,14 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
         tags: form.get('tags').value,
         status: form.get('status').value,
         id: form.get('id').value,
-      };
+      });
     });
+
+    return units;
   }
 
   saveAdUnits(isDraft: boolean): void {
     this.changesSaved = true;
-
-    if (!this.adUnitForms.length) {
-      this.dialog.open(ErrorResponseDialogComponent, {
-        data: {
-          title: 'Section required!',
-          message: `Create at least one ad unit to submit.`,
-        }
-      });
-      return;
-    }
-
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 

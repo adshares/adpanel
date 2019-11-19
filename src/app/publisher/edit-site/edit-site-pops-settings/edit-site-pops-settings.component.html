@@ -15,27 +15,27 @@
 
     <div class="dwmth-box dwmth-box--large site-edit-pops-settings__info-box">
       <div
-        [ngClass]="adUnitSizesArray.length > 4 ? 'justify-between' : 'justify-start'"
+        [ngClass]="adUnitSizes.length > 4 ? 'justify-between' : 'justify-center'"
         class="row"
       >
         <div
           class="site-edit-create-posters-units__poster-unit"
-          [ngClass]="{'site-edit-create-posters-units__poster-unit--selected': popsSettingsForm.get(adUnit.label).get('selected').value }"
-          *ngFor="let adUnit of adUnitSizesArray"
+          [ngClass]="{'site-edit-create-posters-units__poster-unit--selected': popsSettingsForm.get(adUnit.size).get('selected').value }"
+          *ngFor="let adUnit of adUnitSizes"
           role="button"
-          (click)="selectAdUnit(adUnit)"
+          (click)="selectAdUnit(adUnit.size)"
           data-test="publisher-edit-site-pops-settings-form-ad-unit-select"
         >
           <div class="row align-center justify-center site-edit-create-poster-unit__poster-unit__visualization-box">
             <div
               class="dwmth-copy site-edit-create-posters-units_poster-unit__visualization"
               data-test="publisher-edit-site-pops-settings-form-ad-unit-size"
-            >{{ adUnit.name }}</div>
+            >{{ adUnit.label }}</div>
           </div>
           <strong
             class="site-edit-create-posters-units__poster-unit-title dwmth-copy dwmth-copy--semi dwmth-copy--x-dark dwmth-copy--medium"
             data-test="publisher-edit-site-pops-settings-form-ad-unit-name"
-          >{{ adSizesEnum[adUnit.size] }}</strong>
+          >{{ adUnit.size }}</strong>
           <div>
             <div
               class="dwmth-chip-box"
@@ -43,32 +43,42 @@
               data-test="publisher-edit-site-pops-settings-form-ad-unit-tag"
             >{{ tag }}</div>
           </div>
-          <fa-icon class="selected-icon" [icon]="popsSettingsForm.get(adUnit.label).get('selected').value ? faCheck : faTimes"></fa-icon>
+          <fa-icon class="selected-icon"
+                   [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
         </div>
       </div>
     </div>
 
     <div class="dwmth-box dwmth-box--large row justify-between">
-      <button
-        type="button"
-        class="dwmth-btn dwmth-btn--white dwmth-blue"
-        role="link"
-        (click)="onStepBack()"
-        [disabled]="changesSaved"
+      <button class="dwmth-btn dwmth-btn--white dwmth-blue"
+              role="link"
+              (click)="onStepBack()"
       >
-        {{createSiteMode ? 'Back to dashboard' : 'Back'}}
+        Back
       </button>
-      <button
-        type="submit"
-        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
-        data-test="publisher-edit-site-save-and-continue"
-        [disabled]="changesSaved"
-      >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
-      </button>
+      <div class="row">
+        <button
+          *ngIf="createSiteMode"
+          (click)="saveAdUnits(true)"
+          type="button"
+          class="dwmth-btn dwmth-btn--white dwmth-blue save-as-draft"
+          data-test="publisher-edit-site-save-as-draft"
+        >
+          Save as draft
+        </button>
+        <button
+          type="submit"
+          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          data-test="publisher-edit-site-save-and-continue"
+          [disabled]="changesSaved"
+        >
+          <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
+          <ng-template #loading>
+            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          </ng-template>
+        </button>
+      </div>
     </div>
+
   </form>
 </section>
