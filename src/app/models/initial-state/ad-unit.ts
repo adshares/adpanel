@@ -3,7 +3,7 @@ import { adTypesOptions, adUnitStatusesEnum } from 'models/enum/ad.enum';
 
 
 export const adUnitInitialState: Partial<AdUnit> = {
-  shortHeadline: '',
+  name: '',
   type: adTypesOptions[0],
   status: adUnitStatusesEnum.ACTIVE,
 };

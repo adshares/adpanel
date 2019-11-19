@@ -50,14 +50,14 @@
                   <span>{{ adUnitIndex + 1 }}.</span>
                   <span *ngIf="!adUnitPanelsStatus[adUnitIndex]"
                         data-test="publisher-edit-site-create-ad-units-form-short-headline">
-                    Title: {{ adUnitForm.get('shortHeadline').value }}
+                    Title: {{ adUnitForm.get('name').value }}
                   </span>
                 </div>
 
                 <div
                   class="error-msg error-msg--small"
                   *ngIf="(adUnitsSubmitted && !adUnitPanelsStatus[adUnitIndex]) && (
-                  adUnitForm.get('shortHeadline').hasError('required') ||
+                  adUnitForm.get('name').hasError('required') ||
                  !adUnitForm.get('size').value)"
                 > !
                 </div>
@@ -79,24 +79,24 @@
             >
               <div class="dwmth-form-input__box">
                 <label
-                  for="shortHeadline"
+                  for="name"
                   class="dwmth-form-label"
                 >
                   Ad unit name
                 </label>
                 <input
-                  id="shortHeadline"
+                  id="name"
                   class="dwmth-form-input"
-                  formControlName="shortHeadline"
+                  formControlName="name"
                   data-test="publisher-edit-site-create-ad-units-form-short-headline"
                 >
                 <span
-                  *ngIf="adUnitForm.get('shortHeadline').valid"
+                  *ngIf="adUnitForm.get('name').valid"
                   class="input-valid"
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adUnitsSubmitted && adUnitForm.get('shortHeadline').hasError('required')"
+                  *ngIf="adUnitsSubmitted && adUnitForm.get('name').hasError('required')"
                 >
                 Ad unit name required!
               </span>
@@ -139,7 +139,7 @@
             <div
               class="site-edit-create-posters-units__poster-unit"
               [ngClass]="{'site-edit-create-posters-units__poster-unit--selected':
-              adUnitForm.get('size').value && adUnitForm.get('size').value.label === adUnit.label}"
+              adUnitForm.get('label').value === adUnit.label}"
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
@@ -153,10 +153,10 @@
                   site-edit-create-poster-unit__poster-unit__visualization-box"
               >
                 <div
-                  [ngClass]="adUnit.type"
                   class="dwmth-copy site-edit-create-posters-units_poster-unit__visualization"
                   data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-                > {{ adUnit.name }}
+                >
+                  {{ adUnit.name }}
                 </div>
               </div>
 
@@ -169,8 +169,7 @@
                   dwmth-copy--medium"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
-                {{ adSizesEnum[adUnit.size] }}
-
+                {{ adUnit.size }}
               </strong>
               <div>
                 <div

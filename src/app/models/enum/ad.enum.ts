@@ -1,4 +1,6 @@
-export const adTypesOptions = ['image', 'html'];
+export const adTypesOptions = [
+  'display',
+];
 
 export enum adTypesEnum {
   IMAGE,
