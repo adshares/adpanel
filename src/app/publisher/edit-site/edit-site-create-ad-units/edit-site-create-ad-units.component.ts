@@ -153,7 +153,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.adUnitForms[adUnitIndex].get('size').setValue(adUnit.size);
     this.adUnitForms[adUnitIndex].get('tags').setValue(adUnit.tags);
     this.adUnitForms[adUnitIndex].get('type').setValue(adUnit.type);
-    this.adjustAdUnitName(adUnitIndex, adUnit.name);
+    this.adjustAdUnitName(adUnitIndex, adUnit.label);
   }
 
   adjustAdUnitName(index: number, name: string): void {
