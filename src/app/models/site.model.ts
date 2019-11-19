@@ -51,7 +51,6 @@ interface AdUnit {
 }
 
 interface AdUnitMetaData {
-  name: string;
   label: string;
   size: string;
   tags: string[];

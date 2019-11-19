@@ -79,7 +79,7 @@ interface Ad {
   status: number;
   name: string;
   type: number;
-  size: number;
+  creativeSize: string;
   clicks: number;
   impressions: number;
   ctr: number;
