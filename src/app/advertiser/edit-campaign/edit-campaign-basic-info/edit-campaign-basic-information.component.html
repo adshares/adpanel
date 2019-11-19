@@ -83,6 +83,43 @@
         </span>
       </div>
 
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              class="dwmth-form-label"
+            >
+              Placeholders
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div
+            class="dwmth-box"
+          >
+            List of available placeholders to use in target URL:
+          </div>
+
+          <div
+            *ngFor="let placeholder of PLACEHOLDERS"
+          >
+            <div
+              class="dwmth-box"
+            >
+              <span class="col-xs-2">{{placeholder.id}}</span>
+              <span class="col-xs-10">{{placeholder.description}}</span>
+            </div>
+          </div>
+          
+          <div
+            class="dwmth-box"
+          >
+            Place selected placeholders in the target URL.
+            Any of these placeholders will be replaced with the proper value.
+            For example {{ PLACEHOLDERS[0].id }} will be replaced with the {{ PLACEHOLDERS[0].description }}.
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
       <div class="dwmth-form-input__box">
         <div class="row no-gutters">
           <!--  MAX CPC INPUT CODE BELOW -->
