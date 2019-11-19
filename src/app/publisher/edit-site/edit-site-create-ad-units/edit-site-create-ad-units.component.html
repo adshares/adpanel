@@ -50,14 +50,14 @@
                   <span>{{ adUnitIndex + 1 }}.</span>
                   <span *ngIf="!adUnitPanelsStatus[adUnitIndex]"
                         data-test="publisher-edit-site-create-ad-units-form-short-headline">
-                    Title: {{ adUnitForm.get('shortHeadline').value }}
+                    Title: {{ adUnitForm.get('name').value }}
                   </span>
                 </div>
 
                 <div
                   class="error-msg error-msg--small"
                   *ngIf="(adUnitsSubmitted && !adUnitPanelsStatus[adUnitIndex]) && (
-                  adUnitForm.get('shortHeadline').hasError('required') ||
+                  adUnitForm.get('name').hasError('required') ||
                  !adUnitForm.get('size').value)"
                 > !
                 </div>
@@ -79,24 +79,24 @@
             >
               <div class="dwmth-form-input__box">
                 <label
-                  for="shortHeadline"
+                  for="name"
                   class="dwmth-form-label"
                 >
                   Ad unit name
                 </label>
                 <input
-                  id="shortHeadline"
+                  id="name"
                   class="dwmth-form-input"
-                  formControlName="shortHeadline"
+                  formControlName="name"
                   data-test="publisher-edit-site-create-ad-units-form-short-headline"
                 >
                 <span
-                  *ngIf="adUnitForm.get('shortHeadline').valid"
+                  *ngIf="adUnitForm.get('name').valid"
                   class="input-valid"
                 ></span>
                 <span
                   class="error-msg"
-                  *ngIf="adUnitsSubmitted && adUnitForm.get('shortHeadline').hasError('required')"
+                  *ngIf="adUnitsSubmitted && adUnitForm.get('name').hasError('required')"
                 >
                 Ad unit name required!
               </span>

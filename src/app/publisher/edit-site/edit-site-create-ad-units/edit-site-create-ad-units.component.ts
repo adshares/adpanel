@@ -123,7 +123,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.allAdUnitSizes.push(cloneDeep(this.adUnitSizesArray));
 
     return new FormGroup({
-      shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
+      name: new FormControl(adUnit.name, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
       adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status),
@@ -157,8 +157,10 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   adjustAdUnitName(index: number, name: string): void {
-    if (this.adUnitForms[index].get('shortHeadline').dirty === true) return;
-    this.adUnitForms[index].get('shortHeadline').setValue(name);
+    if (this.adUnitForms[index].get('name').dirty === true) {
+      return;
+    }
+    this.adUnitForms[index].get('name').setValue(name);
   }
 
   onSubmit(): void {
@@ -191,7 +193,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   get adUnitsToSave(): AdUnit[] {
     return this.adUnitForms.map((form) => {
       return {
-        shortHeadline: form.get('shortHeadline').value,
+        name: form.get('name').value,
         type: form.get('type').value,
         size: form.get('size').value,
         label: form.get('label').value,

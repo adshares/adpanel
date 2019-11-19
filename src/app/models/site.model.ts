@@ -33,8 +33,8 @@ interface SitesTotals {
 }
 
 interface AdUnit {
-  id?: number
-  shortHeadline: string;
+  id?: number;
+  name: string;
   type: string;
   size: string;
   label: string;
