@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BannerClassification } from 'models/classifier.model';
 import { Ad } from 'models/campaign.model';
-import { adTypesEnum, adSizesEnum } from 'models/enum/ad.enum';
+import { adTypesEnum } from 'models/enum/ad.enum';
 import { HTTP_OK } from "common/utilities/codes";
 
 @Component({
@@ -37,7 +37,7 @@ export class BannerPreviewComponent implements OnInit {
     } else {
       this.isBannerInputTypeAd = true;
       this.url = (<Ad>this.banner).url;
-      const bannerSizeArray = adSizesEnum[(<Ad>this.banner).size].split('x');
+      const bannerSizeArray = (<Ad>this.banner).creativeSize.split('x');
       this.bannerChosenSize = {
         width: bannerSizeArray[0],
         height: bannerSizeArray[1]

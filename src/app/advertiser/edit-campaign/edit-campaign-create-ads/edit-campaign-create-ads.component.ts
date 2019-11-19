@@ -199,8 +199,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   adjustBannerName(form: FormGroup): void {
     if (form.get('name').dirty === false) {
-      let name = adSizesEnum[form.get('size').value] ?
-        `${adTypesEnum[form.get('type').value]} ${adSizesEnum[form.get('size').value]}` :
+      let name = form.get('size').value ?
+        `${adTypesEnum[form.get('type').value]} ${form.get('size').value}` :
         `${adTypesEnum[form.get('type').value]}`;
       const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
       if (matchingNames.length > 0) {
@@ -216,8 +216,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       return 1;
     }
     const image = banners[index].querySelector('img');
-    const bannerWidth = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[0]);
-    const bannerHeight = parseInt(this.adSizes[this.adForms[index].get('size').value].split('x')[1]);
+    const bannerWidth = parseInt(this.adForms[index].get('size').value.split('x')[0]);
+    const bannerHeight = parseInt(this.adForms[index].get('size').value.split('x')[1]);
     const imageWidth = image.offsetWidth;
     const imageHeight = image.offsetHeight;
     const heightRatio = bannerHeight / imageHeight;
@@ -226,10 +226,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
-  selectProperBannerSize(imageSize: string, index: number) {
-    const sizeIndex = this.adSizes.findIndex(size => size === imageSize);
-    if (sizeIndex !== -1) {
-      this.adForms[index].get('size').setValue(sizeIndex);
+  selectProperBannerSize(size: string, index: number) {
+    if (this.adSizes.includes(size)) {
+      this.adForms[index].get('size').setValue(size);
     } else {
       this.showImageSizeWarning();
     }
@@ -298,7 +297,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     Object.assign(this.ads[adIndex], {
       type: this.adForms[adIndex].get('type').value,
       name: this.adForms[adIndex].get('name').value,
-      size: this.adForms[adIndex].get('size').value,
+      creativeSize: this.adForms[adIndex].get('size').value,
       status: this.adForms[adIndex].get('status').value
     });
   }
@@ -317,7 +316,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     adForm.updateValueAndValidity();
 
     if (adForm.get('html') && adForm.get('size').value === null) {
-      adForm.get('size').setValue(0);
+      adForm.get('size').setValue(this.adSizes[0]);
     } else {
       adForm.get('size').setValue(null);
     }
