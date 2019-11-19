@@ -284,6 +284,40 @@
             dwmth-copy
             dwmth-copy--semi"
         >
+          Allow: pop-ups, pop-unders
+        </p>
+        <button
+          class="
+           dwmth-btn
+           dwmth-btn--edit
+           dwmth-btn--no-border"
+          (click)="navigateToEditSite('pops-settings', 3)"
+          data-test="publisher-site-edit-pops-button"
+        >
+          <img
+            class="
+            dwmth-icon
+            dwmth-icon--prepend"
+            src="assets/images/edit-blue.svg"
+            alt=""
+          >
+          Edit pops
+        </button>
+      </div>
+
+    <div class="col">
+      <div
+        class="
+          dwmth-box
+          ad-units
+          row
+          justify-between
+          align-center">
+        <p
+          class="
+            dwmth-copy
+            dwmth-copy--semi"
+        >
           List of ad units
         </p>
         <button
@@ -291,7 +325,7 @@
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-          (click)="navigateToEditSite('create-ad-units', 3)"
+          (click)="navigateToEditSite('create-ad-units', 4)"
           data-test="publisher-site-edit-ad-units-button"
         >
           <img
@@ -333,7 +367,7 @@
           dwmth-btn--white
           dwmth-blue
           dwmth-btn--no-border"
-        (click)="navigateToEditSite('create-ad-units', 3)"
+        (click)="navigateToEditSite('create-ad-units', 4)"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img

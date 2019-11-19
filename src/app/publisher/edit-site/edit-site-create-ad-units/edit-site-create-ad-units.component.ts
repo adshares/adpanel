@@ -50,7 +50,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
+    this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes)
+      .filter(item => item.type !== 'display');
 
     this.getOptions();
     this.fillFormWithData();
@@ -169,8 +170,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
-        {queryParams: {step: 2}})
+      this.router.navigate(['/publisher', 'create-site', 'pops-settings'],
+        {queryParams: {step: 3}})
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -241,7 +242,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     }
     this.router.navigate(
       ['/publisher', 'create-site', 'summary'],
-      {queryParams: {step: 4}}
+      {queryParams: {step: 5}}
     );
   }
 
