@@ -149,7 +149,7 @@
                   Size
                 </span>
                 <span class="dwmth-copy">
-                  {{adSizes[adForm.get('size').value]}}
+                  {{ adForm.get('size').value }}
                 </span>
               </div>
 
@@ -342,7 +342,7 @@
                 <br>
                 <span class="file-box__file-sub-info"
                       data-test="advertiser-edit-campaign-create-ads-form-image-size">
-                  {{ adSizes[adForm.get('size').value] }}
+                  {{ adForm.get('size').value }}
                 </span>
 
                 <img
@@ -364,9 +364,9 @@
 
                 <span class="file-box__file-sub-info">
                 <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
-                  {{ adSizes[adForm.get('size').value] }}
+                  {{ adForm.get('size').value }}
                 </span>
-                <span *ngIf="isImageTypeChosen(adForm) && (adSizes[adForm.get('size').value] !== ads[i].imageSize)"
+                <span *ngIf="isImageTypeChosen(adForm) && (adForm.get('size').value !== ads[i].imageSize)"
                       class="file-box__file-sub-info--secondary"
                       data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
                 >
@@ -408,8 +408,8 @@
             <div *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src && adForm.get('size').value"
                  class="banner image-poster"
                  [ngStyle]="{
-                'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-                'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+                'width': adForm.get('size').value.split('x')[0] + 'px',
+                'height': adForm.get('size').value.split('x')[1] + 'px'
               }">
               <img [src]="adForm.get('image').value.src | trustUrl"
                    [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
@@ -417,10 +417,10 @@
 
             <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"
                  class="banner">
-              <iframe *ngIf="adSizes[adForm.get('size').value]"
+              <iframe *ngIf="adForm.get('size').value"
                       [ngStyle]="{
-                                  'width': adSizes[adForm.get('size').value].split('x')[0] + 'px',
-                                  'height': adSizes[adForm.get('size').value].split('x')[1] + 'px'
+                                  'width': adForm.get('size').value.split('x')[0] + 'px',
+                                  'height': adForm.get('size').value.split('x')[1] + 'px'
                                   }"
                       [src]="adForm.get('html').value.src | trustUrl"
               ></iframe>

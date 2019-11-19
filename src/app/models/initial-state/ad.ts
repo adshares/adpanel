@@ -9,7 +9,7 @@ export const adInitialState: Ad = {
   status: adStatusesEnum.ACTIVE,
   name: '',
   type: adTypesEnum.IMAGE,
-  size: null,
+  creativeSize: null,
   clicks: 0,
   impressions: 0,
   ctr: 0,
