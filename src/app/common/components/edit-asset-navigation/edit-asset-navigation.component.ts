@@ -12,7 +12,7 @@ export class EditAssetNavigationComponent implements OnInit {
     {id: 1, name: 'Basic information'},
     {id: 2, name: 'Filtering'},
     {id: 3, name: 'Upload ads'},
-    {id: 4, name: 'Summary'}
+    {id: 4, name: 'Summary'},
   ];
 
   currentStep: number;
