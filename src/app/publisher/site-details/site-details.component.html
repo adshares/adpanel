@@ -287,23 +287,32 @@
           <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
           <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
         </p>
-        <button
-          class="
+
+        <div class="row justify-end">
+          <div
+            *ngIf="!popAdUnits.length"
+            class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
+          >
+            New feature!
+          </div>
+          <button
+            class="
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-          (click)="navigateToEditSite('pops-settings', 3)"
-          data-test="publisher-site-edit-pops-button"
-        >
-          <img
-            class="
+            (click)="navigateToEditSite('pops-settings', 3)"
+            data-test="publisher-site-edit-pops-button"
+          >
+            <img
+              class="
             dwmth-icon
             dwmth-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt=""
-          >
-          Edit pops
-        </button>
+              src="assets/images/edit-blue.svg"
+              alt=""
+            >
+            Edit pops
+          </button>
+        </div>
       </div>
       <div
         class="site-details__scrollable-table"
