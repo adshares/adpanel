@@ -58,7 +58,13 @@
   }
 
   .description-type {
-    margin: 18px 0;
+    margin: 18px auto;
+    max-width: 850px;
+    text-align: center;
+
+    i {
+      vertical-align: middle;
+    }
   }
 
   &__list {

@@ -35,14 +35,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: relative;
 
     .selected-icon {
-      position: absolute;
-      left: 7%;
-      top: 30%;
       font-size: 175%;
       color: pal(gray, 'semi-light');
+      margin-right: 7px;
+      vertical-align: middle;
+      display: inline-block;
+      width: 35px;
     }
 
     &:hover {

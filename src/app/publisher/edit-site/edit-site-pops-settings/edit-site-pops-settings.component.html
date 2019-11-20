@@ -35,7 +35,11 @@
           <strong
             class="site-edit-create-posters-units__poster-unit-title dwmth-copy dwmth-copy--semi dwmth-copy--x-dark dwmth-copy--medium"
             data-test="publisher-edit-site-pops-settings-form-ad-unit-name"
-          >{{ adUnit.size }}</strong>
+          >
+            <fa-icon class="selected-icon"
+                     [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
+            {{ adUnit.size }}
+          </strong>
           <div>
             <div
               class="dwmth-chip-box"
@@ -43,8 +47,6 @@
               data-test="publisher-edit-site-pops-settings-form-ad-unit-tag"
             >{{ tag }}</div>
           </div>
-          <fa-icon class="selected-icon"
-                   [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
         </div>
       </div>
     </div>
