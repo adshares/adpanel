@@ -65,7 +65,7 @@
           class="error-msg"
           *ngIf="siteBasicInfoForm.get('domain').hasError('maxlength')"
         >
-          Limit the length to at most 256 characters
+          Limit the length to at most {{ websiteDomainLengthMax }} characters
         </span>
       </div>
 
@@ -115,7 +115,7 @@
           class="error-msg"
           *ngIf="siteBasicInfoForm.get('name').hasError('maxlength')"
         >
-          Limit the length to at most 64 characters
+          Limit the length to at most {{ websiteNameLengthMax }} characters
         </span>
       </div>
 

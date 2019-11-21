@@ -23,7 +23,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
-  private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 256;
+  private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
@@ -32,6 +32,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   createSiteMode: boolean;
   filteredOptions: Observable<object>;
   changesSaved: boolean = false;
+  websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
+  websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
 
   constructor(
     private router: Router,
