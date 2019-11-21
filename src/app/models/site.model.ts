@@ -4,6 +4,7 @@ interface Site {
   id?: number;
   status: number;
   name: string;
+  domain: string;
   primaryLanguage: string | SiteLanguage;
   requireClassified: boolean;
   excludeUnclassified: boolean;

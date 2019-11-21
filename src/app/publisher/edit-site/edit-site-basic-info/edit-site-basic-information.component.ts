@@ -23,6 +23,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
+  private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 256;
   faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
@@ -108,8 +109,20 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
+      domain: this.siteBasicInfoForm.controls['domain'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
+  }
+
+  extractDomain(): void {
+    const url = this.siteBasicInfoForm.get('domain').value;
+
+    var domain = url.indexOf("//") > -1 ? url.split('/')[2] : url.split('/')[0];
+    domain = domain.replace(/^(?:www\.)/i, "");
+    domain = domain.split(':')[0];
+    domain = domain.split('?')[0];
+
+    this.siteBasicInfoForm.get('domain').setValue(domain);
   }
 
   updateSite(): void {
@@ -126,6 +139,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       name: new FormControl(siteInitialState.name, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX)
+      ]),
+      domain: new FormControl(siteInitialState.domain, [
+        Validators.required,
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX),
+        Validators.pattern('^.+\..+$')
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
