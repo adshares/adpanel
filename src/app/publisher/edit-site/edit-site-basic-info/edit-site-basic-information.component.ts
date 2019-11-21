@@ -119,8 +119,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   extractDomain(): void {
     const url = this.siteBasicInfoForm.get('domain').value;
 
+    let domain = url.toLowerCase();
     //remove protocol, user info and www subdomain
-    let domain = url.replace(/^(?:[a-z]*:?\/\/)?(?:.*@)?(?:www\.)?/i, "");
+    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, "");
     // remove port number, path, query string and fragment
     domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
 
