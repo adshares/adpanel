@@ -23,6 +23,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
+  private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
@@ -31,6 +32,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   createSiteMode: boolean;
   filteredOptions: Observable<object>;
   changesSaved: boolean = false;
+  websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
+  websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
 
   constructor(
     private router: Router,
@@ -108,8 +111,20 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.site = {
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
+      domain: this.siteBasicInfoForm.controls['domain'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
+  }
+
+  extractDomain(): void {
+    const url = this.siteBasicInfoForm.get('domain').value;
+
+    //remove protocol, user info and www subdomain
+    let domain = url.replace(/^(?:[a-z]*:?\/\/)?(?:.*@)?(?:www\.)?/i, "");
+    // remove port number, path, query string and fragment
+    domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
+
+    this.siteBasicInfoForm.get('domain').setValue(domain);
   }
 
   updateSite(): void {
@@ -126,6 +141,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       name: new FormControl(siteInitialState.name, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX)
+      ]),
+      domain: new FormControl(siteInitialState.domain, [
+        Validators.required,
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX),
+        Validators.pattern('^.+\..+$')
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
