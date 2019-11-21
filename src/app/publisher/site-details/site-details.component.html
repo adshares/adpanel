@@ -284,14 +284,76 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          List of ad units
+          <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
+          <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
+        </p>
+
+        <div class="row justify-end">
+          <div
+            *ngIf="!popAdUnits.length"
+            class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
+          >
+            New feature!
+          </div>
+          <button
+            class="
+           dwmth-btn
+           dwmth-btn--edit
+           dwmth-btn--no-border"
+            (click)="navigateToEditSite('pops-settings', 3)"
+            data-test="publisher-site-edit-pops-button"
+          >
+            <img
+              class="
+            dwmth-icon
+            dwmth-icon--prepend"
+              src="assets/images/edit-blue.svg"
+              alt=""
+            >
+            Edit pops
+          </button>
+        </div>
+      </div>
+      <div
+        class="site-details__scrollable-table"
+        *ngIf="!!popAdUnits.length">
+        <table class="site-details__table">
+          <app-table-navigation
+            [navigationName]="'adUnitsNavigation'"
+            (sortTable)="sortTable($event)"
+            class="row dwmth-copy"
+          ></app-table-navigation>
+          <app-poster-units
+            *ngFor="let adUnit of popAdUnits"
+            [siteCode]="site.code"
+            [adUnit]="adUnit"
+          ></app-poster-units>
+        </table>
+      </div>
+    </div>
+
+    <div class="col">
+      <div
+        class="
+          dwmth-box
+          ad-units
+          row
+          justify-between
+          align-center">
+        <p
+          class="
+            dwmth-copy
+            dwmth-copy--semi"
+        >
+          <span *ngIf="!!popAdUnits.length">List of ad units</span>
+          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
         </p>
         <button
           class="
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-          (click)="navigateToEditSite('create-ad-units', 3)"
+          (click)="navigateToEditSite('create-ad-units', 4)"
           data-test="publisher-site-edit-ad-units-button"
         >
           <img
@@ -304,16 +366,18 @@
           Edit ad units
         </button>
       </div>
-      <div class="site-details__scrollable-table">
+      <div
+        class="site-details__scrollable-table"
+        *ngIf="!!displayAdUnits.length"
+      >
         <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
             (sortTable)="sortTable($event)"
-            class="row
-                   dwmth-copy"
+            class="row dwmth-copy"
           ></app-table-navigation>
           <app-poster-units
-            *ngFor="let adUnit of site.adUnits"
+            *ngFor="let adUnit of displayAdUnits"
             [siteCode]="site.code"
             [adUnit]="adUnit"
           ></app-poster-units>
@@ -333,7 +397,7 @@
           dwmth-btn--white
           dwmth-blue
           dwmth-btn--no-border"
-        (click)="navigateToEditSite('create-ad-units', 3)"
+        (click)="navigateToEditSite('create-ad-units', 4)"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 import { AdUnit } from 'models/site.model';
+import { adUnitTypesEnum } from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-poster-units',
@@ -13,6 +14,7 @@ export class AdUnitsComponent {
   @Input() adUnit: AdUnit;
   @Input() siteCode: string;
   codeIcon = faCode;
+  adUnitTypesEnum = adUnitTypesEnum;
 
   constructor(private dialog: MatDialog) {
   }

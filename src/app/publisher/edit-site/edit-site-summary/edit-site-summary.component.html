@@ -136,7 +136,7 @@
           dwmth-heading
           dwmth-heading--secondary"
       >
-        2. Filtering
+        2. Exclusions
       </h3>
       <a
         routerLink="../additional-filtering"
@@ -153,53 +153,99 @@
         </button>
       </a>
     </div>
-
-    <div class="row">
+    <div class="row" *ngIf="!site.filteringArray.excludes.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div class="row" *ngIf="!!site.filteringArray.excludes.length">
       <div
         class="
           col-xs-5
           site-edit-summary__info-cell"
       >
-        <p
-          class="
-            dwmth-copy
-            dwmth-copy--x-dark
-            targeting-title"
-        >
-          Targeting:
-        </p>
-        <div>
-          <app-targeting-display
-            *ngIf="site.filteringArray.requires"
-            [items]="site.filteringArray.requires"
-            [isExclude]="false"
-            [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
-        </div>
+        <app-targeting-display
+          [items]="site.filteringArray.excludes"
+          [isExclude]="true"
+          [canRemove]="false"
+          [targetingOptions]="filteringOptions"
+        ></app-targeting-display>
       </div>
+    </div>
+  </div>
+
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large
+      site-edit-summary__poster-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <h3
+        class="
+          dwmth-heading
+          dwmth-heading--secondary"
+      >
+        3. Pops
+      </h3>
+      <a
+        routerLink="../pops-settings"
+        [queryParams]="{step: 3, summary: true}"
+        data-test="publisher-edit-site-summary-navigate-to-pops-settings"
+      >
+        <button
+          class="
+            dwmth-btn
+            dwmth-btn--white
+            dwmth-blue"
+        >
+          Edit
+        </button>
+      </a>
+    </div>
+    <div class="row" *ngIf="!popAdUnits.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div *ngIf="!!popAdUnits.length"
+         class="row"
+         [ngClass]="popAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
 
       <div
-        class="
-          col-xs-5
-          site-edit-summary__info-cell"
+        class="row site-edit-summary__poster-unit"
+        *ngFor="let adUnit of popAdUnits"
+        data-test="publisher-edit-site-summary-ad-units"
       >
-        <p
+        <div
           class="
-            dwmth-copy
-            dwmth-copy--x-dark
-            targeting-title"
+                  row
+                  align-center
+                  justify-center
+                  site-edit-create-posters-units__poster-unit__visualization-box"
         >
-          Exclusions:
-        </p>
+          <div
+            class="dwmth-copy site-edit-summary__poster-unit__visualization"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+          >
+            {{ adUnit.name }}
+          </div>
+        </div>
+
+        <strong
+          class="dwmth-copy
+                 dwmth-copy--semi
+                 dwmth-copy--x-dark
+                 dwmth-copy--medium"
+          data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
+        >
+          {{ adUnit.size }}
+        </strong>
         <div>
-          <app-targeting-display
-            *ngIf="site.filtering.excludes"
-            [items]="site.filtering.excludes"
-            [isExclude]="true"
-            [canRemove]="false"
-            [targetingOptions]="filteringOptions"
-          ></app-targeting-display>
+          <div
+            class="dwmth-chip-box"
+            *ngFor="let tag of adUnit.tags"
+            data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+          >
+            {{ tag }}
+          </div>
         </div>
       </div>
     </div>
@@ -222,11 +268,11 @@
           dwmth-heading
           dwmth-heading--secondary"
       >
-        3. Ad units
+        4. Ad units
       </h3>
       <a
         routerLink="../create-ad-units"
-        [queryParams]="{step: 3, summary: true}"
+        [queryParams]="{step: 4, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
       >
         <button
@@ -239,14 +285,14 @@
         </button>
       </a>
     </div>
-
-    <div *ngIf="!!site.adUnits.length"
+    <div class="row" *ngIf="!displayAdUnits.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div *ngIf="!!displayAdUnits.length"
          class="row"
-         [ngClass]="site.adUnits.length > 4 ? 'justify-between' : 'justify-start'">
+         [ngClass]="displayAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
 
       <div
         class="row site-edit-summary__poster-unit"
-        *ngFor="let adUnit of site.adUnits"
+        *ngFor="let adUnit of displayAdUnits"
         data-test="publisher-edit-site-summary-ad-units"
       >
         <div
@@ -295,7 +341,7 @@
   >
     <a
       routerLink="../create-ad-units"
-      [queryParams]="{step: 3}"
+      [queryParams]="{step: 4}"
       data-test="publisher-edit-site-navigate-back"
     >
       <button

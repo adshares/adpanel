@@ -36,6 +36,15 @@
     flex-direction: column;
     justify-content: center;
 
+    .selected-icon {
+      font-size: 175%;
+      color: pal(gray, 'semi-light');
+      margin-right: 7px;
+      vertical-align: middle;
+      display: inline-block;
+      width: 35px;
+    }
+
     &:hover {
       box-shadow: 0 4px 12px pal(gray, base);
     }
@@ -43,6 +52,10 @@
     &--selected {
       background: pal(gray, ultra-light);
       border-color: pal(green);
+
+      .selected-icon {
+        color: pal(green);
+      }
     }
 
     &__visualization {

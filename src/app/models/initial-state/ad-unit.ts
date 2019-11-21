@@ -1,9 +1,9 @@
 import { AdUnit } from 'models/site.model';
-import { adTypesOptions, adUnitStatusesEnum } from 'models/enum/ad.enum';
+import { adUnitTypesEnum, adUnitStatusesEnum } from 'models/enum/ad.enum';
 
 
 export const adUnitInitialState: Partial<AdUnit> = {
   name: '',
-  type: adTypesOptions[0],
+  type: adUnitTypesEnum.DISPLAY,
   status: adUnitStatusesEnum.ACTIVE,
 };

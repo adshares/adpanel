@@ -112,7 +112,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.router.navigate(
-        ['/publisher', 'create-site', 'create-ad-units'],
+        ['/publisher', 'create-site', 'pops-settings'],
         {queryParams: {step: 3}}
       );
     }
