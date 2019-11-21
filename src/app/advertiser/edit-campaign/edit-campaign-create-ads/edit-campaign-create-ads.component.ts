@@ -96,7 +96,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
           return;
         }
 
-        const savedAds = lastEditedCampaign.ads;
+        const savedAds = lastEditedCampaign.ads.filter(ad => ad.type !== adTypesEnum.DIRECT_LINK);
 
         if (!!savedAds.length) {
           savedAds.forEach((savedAd, index) => {
@@ -342,7 +342,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     if (adsValid) {
       this.campaign = {
         ...this.campaign,
-        ads: this.ads
+        ads: this.campaign.ads.filter(ad => ad.type === adTypesEnum.DIRECT_LINK).concat(this.ads),
       };
       this.isEditMode ?
         this.store.dispatch(new UpdateCampaign(this.campaign)) : this.saveCampaignAds(this.campaign, isDraft)
