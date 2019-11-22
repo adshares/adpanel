@@ -1,5 +1,5 @@
-import {Campaign, CampaignTotals} from 'models/campaign.model';
-import {campaignStatusesEnum} from 'models/enum/campaign.enum';
+import { Campaign, CampaignConversionItem, CampaignTotals } from 'models/campaign.model';
+import { campaignConversionClick, campaignStatusesEnum } from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 import * as moment from 'moment';
 
@@ -35,5 +35,18 @@ export const campaignInitialState: Campaign = {
 
   ads: [],
   id: 0,
+  conversions: [],
+  secret: '',
+  conversionClick: campaignConversionClick.NONE,
   classificationStatus: classificationStatusesEnum.DISABLED,
 };
+
+export const campaignConversionItemInitialState: CampaignConversionItem = {
+  name: '',
+  eventType: '',
+  isAdvanced: false,
+  isInBudget: true,
+  value: null,
+  limit: null,
+};
+

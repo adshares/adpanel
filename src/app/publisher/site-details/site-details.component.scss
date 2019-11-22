@@ -22,6 +22,20 @@
   .status-button-wrapper {
     margin-right: 4px;
   }
+
+  .dwmth-heading--primary small {
+    font-size: 75%;
+    font-weight: normal;
+    font-family: "Lato-Regular", sans-serif;
+
+    &:before {
+      content: " - ";
+    }
+  }
+}
+
+.ad-units-warning {
+  color: pal(red);
 }
 
 .back {

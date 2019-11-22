@@ -8,6 +8,7 @@ export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
 export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
 export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
+export const SAVE_CONVERSION = 'Save conversion';
 
 
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
@@ -78,6 +79,13 @@ export class SaveCampaignAds implements Action {
   readonly type = SAVE_CAMPAIGN_ADS;
 
   constructor(public payload: Ad[]) {
+  }
+}
+
+export class SaveConversion implements Action {
+  readonly type = SAVE_CONVERSION;
+
+  constructor(public payload: Campaign) {
   }
 }
 
@@ -276,6 +284,7 @@ export type actions =
   SaveCampaignBasicInformation |
   SaveCampaignTargeting |
   SaveCampaignAds |
+  SaveConversion |
 
   AddCampaignToCampaigns |
   AddCampaignToCampaignsFailure |

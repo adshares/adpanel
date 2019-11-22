@@ -6,21 +6,20 @@ import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adSizesEnum, adTypesOptions } from 'models/enum/ad.enum';
 import { cloneDeep } from 'common/utilities/helpers';
-import { AdUnit, AdUnitSize, Site } from 'models/site.model';
+import { AdUnit, AdUnitMetaData, Site } from 'models/site.model';
 import { AppState } from 'models/app-state.model';
 import { adUnitInitialState } from 'models/initial-state/ad-unit';
 import {
   ClearLastEditedSite,
   SaveLastEditedSiteAdUnits,
-  UpdateSite,
   AddSiteToSites, UpdateSiteUnits
 } from 'store/publisher/publisher.actions';
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
 import { MatDialog } from "@angular/material";
 import { HandleSubscription } from "common/handle-subscription";
 import { siteStatusEnum } from "models/enum/site.enum";
+import {adUnitTypesEnum} from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -29,12 +28,10 @@ import { siteStatusEnum } from "models/enum/site.enum";
 })
 export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
   adUnitForms: FormGroup[] = [];
-  adTypes: string[] = adTypesOptions;
   adSizesOptions: string[] = [];
-  adSizesEnum = adSizesEnum;
-  adUnitSizesArray: AdUnitSize[];
-  filteredAdUnitSizes: AdUnitSize[][] = [];
-  allAdUnitSizes: AdUnitSize[][] = [];
+  adUnitSizes: AdUnitMetaData[];
+  filteredAdUnitSizes: AdUnitMetaData[][] = [];
+  allAdUnitSizes: AdUnitMetaData[][] = [];
   adUnitsSubmitted = false;
   adUnitPanelsStatus: boolean[] = [];
   createSiteMode: boolean;
@@ -54,7 +51,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   ngOnInit() {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.adUnitSizesArray = cloneDeep(this.route.snapshot.data.adUnitSizes);
+    this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.DISPLAY);
 
     this.getOptions();
     this.fillFormWithData();
@@ -66,7 +63,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   getOptions(): void {
-    const tags = this.adUnitSizesArray
+    const tags = this.adUnitSizes
       .map(unit => unit.tags)
       .reduce((arr1, arr2) => arr1.concat(arr2))
       .filter((item, pos, self) => self.indexOf(item) === pos)
@@ -88,7 +85,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
           return;
         }
 
-        const savedAdUnits = lastEditedSite.adUnits;
+        const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY});
 
         if (!!savedAdUnits.length) {
           savedAdUnits.forEach((savedAdUnit, index) => {
@@ -117,21 +114,23 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   selectChosenSize(savedAdUnit: AdUnit, adIndex: number): void {
     const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
-      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.size.label
+      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.label
     );
     Object.assign(chosenAdSize, {selected: true});
   }
 
   generateFormField(adUnit: Partial<AdUnit>): FormGroup {
-    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizesArray));
-    this.allAdUnitSizes.push(cloneDeep(this.adUnitSizesArray));
+    this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
+    this.allAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
     return new FormGroup({
-      shortHeadline: new FormControl(adUnit.shortHeadline, Validators.required),
+      name: new FormControl(adUnit.name, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
       adUnitSizeFilter: new FormControl('All'),
       status: new FormControl(adUnit.status),
       size: new FormControl(adUnit.size, Validators.required),
+      label: new FormControl(adUnit.label, Validators.required),
+      tags: new FormControl(adUnit.tags, Validators.required),
       id: new FormControl(adUnit.id),
     });
   }
@@ -139,7 +138,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   onAdUnitSizeFilterChange(adUnitIndex: number): void {
     const filterValue = this.adUnitForms[adUnitIndex].get('adUnitSizeFilter').value;
 
-    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizesArray.filter((adUnitSize) => {
+    this.filteredAdUnitSizes[adUnitIndex] = this.adUnitSizes.filter((adUnitSize) => {
       if (filterValue === 'Recommended') {
         return adUnitSize.tags.includes('best')
       } else if (filterValue === 'All') {
@@ -150,14 +149,19 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     });
   }
 
-  selectAdUnit(adUnit: AdUnitSize, adUnitIndex: number): void {
-    this.adUnitForms[adUnitIndex].get('size').setValue(adUnit);
-    this.adjustAdUnitName(adUnitIndex, adUnit.name);
+  selectAdUnit(adUnit: AdUnitMetaData, adUnitIndex: number): void {
+    this.adUnitForms[adUnitIndex].get('label').setValue(adUnit.label);
+    this.adUnitForms[adUnitIndex].get('size').setValue(adUnit.size);
+    this.adUnitForms[adUnitIndex].get('tags').setValue(adUnit.tags);
+    this.adUnitForms[adUnitIndex].get('type').setValue(adUnit.type);
+    this.adjustAdUnitName(adUnitIndex, adUnit.label);
   }
 
   adjustAdUnitName(index: number, name: string): void {
-    if (this.adUnitForms[index].get('shortHeadline').dirty === true) return;
-    this.adUnitForms[index].get('shortHeadline').setValue(name);
+    if (this.adUnitForms[index].get('name').dirty === true) {
+      return;
+    }
+    this.adUnitForms[index].get('name').setValue(name);
   }
 
   onSubmit(): void {
@@ -166,8 +170,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(['/publisher', 'create-site', 'additional-filtering'],
-        {queryParams: {step: 2}})
+      this.router.navigate(['/publisher', 'create-site', 'pops-settings'],
+        {queryParams: {step: 3}})
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -188,30 +192,27 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
   }
 
   get adUnitsToSave(): AdUnit[] {
-    return this.adUnitForms.map((form) => {
-      return {
-        shortHeadline: form.get('shortHeadline').value,
+    const units = [...this.site.adUnits.filter(adUnit => {
+      return adUnit.type !== adUnitTypesEnum.DISPLAY
+    })];
+
+    this.adUnitForms.forEach(form => {
+      units.push({
+        name: form.get('name').value,
         type: form.get('type').value,
         size: form.get('size').value,
+        label: form.get('label').value,
+        tags: form.get('tags').value,
         status: form.get('status').value,
         id: form.get('id').value,
-      };
+      });
     });
+
+    return units;
   }
 
   saveAdUnits(isDraft: boolean): void {
     this.changesSaved = true;
-
-    if (!this.adUnitForms.length) {
-      this.dialog.open(ErrorResponseDialogComponent, {
-        data: {
-          title: 'Section required!',
-          message: `Create at least one ad unit to submit.`,
-        }
-      });
-      return;
-    }
-
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
 
@@ -236,7 +237,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     }
     this.router.navigate(
       ['/publisher', 'create-site', 'summary'],
-      {queryParams: {step: 4}}
+      {queryParams: {step: 5}}
     );
   }
 

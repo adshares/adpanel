@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdvertiserComponent } from './advertiser.component';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
 import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-campaign-basic-info/edit-campaign-basic-information.component';
+import { EditCampaignConversionComponent } from './edit-campaign/edit-campaign-conversion/edit-campaign-conversion.component';
 import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
 import { EditCampaignSummaryComponent } from './edit-campaign/edit-campaign-summary/edit-campaign-summary.component';
@@ -63,6 +64,10 @@ const advertiserRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+          },
+          {
+            path: 'conversion',
+            component: EditCampaignConversionComponent,
           },
           {
             path: 'additional-targeting',

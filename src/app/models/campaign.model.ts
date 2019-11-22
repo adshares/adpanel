@@ -16,7 +16,10 @@ interface Campaign {
   averageCpc?: number;
   averageCpm?: number;
   cost?: number;
-  conversions?: number;
+  conversions?: CampaignConversion[];
+  secret: string;
+  conversionClick: number;
+  conversionClickLink?: string;
   classificationStatus: number;
   classificationTags?: string;
 }
@@ -43,12 +46,40 @@ interface CampaignBasicInformation {
   dateEnd?: string;
 }
 
+interface CampaignConversion {
+  uuid?: string;
+  name: string;
+  limitType: string;
+  eventType: string;
+  type: string;
+  value?: number;
+  limit?: number;
+  link?: string;
+  isValueMutable?: number;
+  isRepeatable?: number;
+  cost: number;
+  occurrences: number;
+}
+
+interface CampaignConversionItem {
+  uuid?: string;
+  name: string;
+  eventType: string;
+  isAdvanced: boolean;
+  isInBudget: boolean;
+  value?: string;
+  limit?: string;
+  link?: string;
+  isValueMutable?: boolean;
+  isRepeatable?: boolean;
+}
+
 interface Ad {
   id: number;
   status: number;
   name: string;
   type: number;
-  size: number;
+  creativeSize: string;
   clicks: number;
   impressions: number;
   ctr: number;
@@ -67,4 +98,12 @@ interface CampaignTotalsResponse {
 }
 
 
-export { Campaign, CampaignBasicInformation, Ad, CampaignTotals, CampaignTotalsResponse };
+export {
+  Campaign,
+  CampaignBasicInformation,
+  CampaignConversion,
+  CampaignConversionItem,
+  Ad,
+  CampaignTotals,
+  CampaignTotalsResponse
+};

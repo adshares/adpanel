@@ -12,7 +12,7 @@
           class="
             dwmth-copy
             dwmth-copy--small">
-          My Campaigns
+          My campaigns
         </p>
       </a>
       <div
@@ -86,7 +86,7 @@
               dwmth-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
             alt="">
-          Delete Campaign
+          Delete campaign
         </button>
       </div>
     </div>
@@ -188,7 +188,7 @@
               class="
               dwmth-copy--small
               label">
-              Max Cpm
+              Max CPM
             </p>
             <p
               class="
@@ -216,9 +216,10 @@
           <div>
             <p
               class="
-              dwmth-copy--small
-              label">
-              Date of Start
+                dwmth-copy--small
+                label"
+            >
+              Start date
             </p>
             <div
               class="
@@ -243,10 +244,10 @@
           <div>
             <p
               class="
-              dwmth-copy--small
-              label"
+                dwmth-copy--small
+                label"
             >
-              Date of End
+              End date
             </p>
             <div
               class="
@@ -288,10 +289,102 @@
             dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-          Edit Basic Info
+          Edit basic info
         </button>
       </div>
     </div>
+
+
+    <section
+      class="dwmth-box
+             dwmth-box--high"
+    >
+      <div class="row justify-end">
+        <div
+          *ngIf="undefined == campaign.conversions || campaign.conversions.length == 0"
+          class="
+            row
+            align-center
+            dwmth-box
+            dwmth-copy
+            dwmth-copy--semi
+            dwmth-copy--green
+            new-feature"
+        >
+          New feature!
+        </div>
+
+        <button
+          class="
+            self-end
+            dwmth-btn
+            dwmth-btn--edit"
+          (click)="navigateToCampaignEdition('conversion', 0)"
+          data-test="advertiser-campaign-edit-conversion-button"
+        >
+          <img
+            class="
+              dwmth-icon
+              dwmth-icon--prepend"
+            src="assets/images/edit-blue.svg"
+            alt=""
+          >
+          Edit conversions
+        </button>
+      </div>
+      <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
+        <div
+          class="
+            row
+            dwmth-box
+            justify-between
+            dwmth-copy
+            dwmth-copy--semi"
+        >
+          <div class="col-xs-3"
+          >
+            Name
+          </div>
+          <div class="col-xs-3"
+          >
+            Type
+          </div>
+          <div class="col-xs-3"
+          >
+            Cost
+          </div>
+          <div class="col-xs-3"
+          >
+            Occurrences
+          </div>
+        </div>
+
+        <div *ngFor="let conversion of campaign.conversions"
+          class="
+            row
+            dwmth-box
+            justify-between
+            dwmth-copy"
+        >
+          <div class="col-xs-3"
+          >
+            {{ conversion.name }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.eventType }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.cost | formatMoney:2 }}
+          </div>
+          <div class="col-xs-3"
+          >
+            {{ conversion.occurrences }}
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!--Targeting details section-->
 
@@ -307,7 +400,7 @@
                      dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
-          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add Targeting' : 'Edit Targeting'}}
+          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
         </button>
       </div>
       <div
@@ -323,7 +416,7 @@
         >
           <h2 class="dwmth-targeting-details__title
                      dwmth-copy--large
-                     dwmth-copy--semi">Requires: </h2>
+                     dwmth-copy--semi">Targeting: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -343,7 +436,7 @@
           dwmth-box--no-padding">
           <h2 class="dwmth-targeting-details__title
                      dwmth-copy--large
-                     dwmth-copy--semi">Excludes: </h2>
+                     dwmth-copy--semi">Exclusions: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -357,7 +450,7 @@
       </div>
     </section>
 
-    <!--̣Campaign list section-->
+    <!--Campaign list section-->
 
     <section *ngIf="campaign.ads.length" class="col">
       <div
@@ -371,7 +464,7 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          List of Ads
+          List of ads
         </p>
       </div>
       <app-poster-list *ngIf="campaign.ads.length"
@@ -398,11 +491,11 @@
           (click)="navigateToCampaignEdition('create-ad', 3)">
           <img
             src="/assets/images/plus-circle--blue.svg"
-            alt="Add new icon"
+            alt="Add new"
             class="
               dwmth-icon
               dwmth-icon--prepend"/>
-          {{campaign.ads.length ? 'Create new Ad' : 'Add first Ad' }}
+          {{campaign.ads.length ? 'Add new banner ad' : 'Upload your first ad'}}
         </button>
       </div>
     </div>

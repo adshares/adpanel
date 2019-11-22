@@ -1,8 +1,12 @@
-export const adTypesOptions = ['image', 'html'];
+export enum adUnitTypesEnum {
+  DISPLAY = 'display',
+  POP = 'pop',
+}
 
 export enum adTypesEnum {
   IMAGE,
   HTML,
+  DIRECT_LINK,
 }
 
 export enum adSizesEnum {

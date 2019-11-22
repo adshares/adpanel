@@ -42,6 +42,7 @@
 
     &--selected {
       background: pal(gray, ultra-light);
+      border-color: pal(green);
     }
 
     &__visualization {

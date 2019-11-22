@@ -1,26 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import {
+  MatButtonModule,
+  MatCheckboxModule,
   MatDialogContent,
   MatDialogModule,
-  MatInputModule,
-  MatSlideToggle,
-  MatSpinner,
-  MatCheckboxModule,
-  MatSnackBarModule,
-  MatTooltipModule,
   MatIconModule,
-  MatButtonModule,
-  MatToolbarModule,
+  MatInputModule,
   MatMenuModule,
+  MatSlideToggle,
+  MatSnackBarModule,
+  MatSpinner,
+  MatToolbarModule,
+  MatTooltipModule,
 } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -44,11 +41,7 @@ import { PushNotificationComponent } from './components/push-notifications/push-
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
-import {
-  AdsharesTokenPipe,
-  CalculateInCurrency,
-  ClickToADSPipe,
-} from './pipes/adshares-token.pipe';
+import { AdsharesTokenPipe, CalculateInCurrency, ClickToADSPipe } from './pipes/adshares-token.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
@@ -61,11 +54,13 @@ import { AssetHelpersService } from './asset-helpers.service';
 import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component';
-import { SettingsMenuItemComponent } from "common/components/settings-menu-item/settings-menu-item.component";
-import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
-import { InputComponent } from "common/components/input/input.component";
+import { SettingsMenuItemComponent } from 'common/components/settings-menu-item/settings-menu-item.component';
+import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
+import { InputComponent } from 'common/components/input/input.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TargetingCustomOptionInputComponent } from "common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component";
+import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component';
+import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
+import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/labelWithTooltip.component';
 
 const matModules = [
   MatDialogModule,
@@ -95,6 +90,7 @@ const dialogs = [
   ChangeAutomaticWithdrawDialogComponent,
   UserConfirmResponseDialogComponent,
   WarningDialogComponent,
+  ConversionLinkInformationDialogComponent,
 ];
 
 const appComponents = [
@@ -121,7 +117,8 @@ const appComponents = [
   BannerPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
-  InputComponent
+  InputComponent,
+  LabelWithTooltipComponent,
 ];
 
 @NgModule({
@@ -140,21 +137,22 @@ const appComponents = [
     ...appComponents,
   ],
   entryComponents: [
-    ...dialogs
+    ...dialogs,
   ],
   providers: [
     ChartService,
     CommonService,
     AssetHelpersService,
-    PushNotificationsService
+    PushNotificationsService,
   ],
   exports: [
     ...appComponents,
+    BrowserAnimationsModule,
     MatTooltipModule,
     MatSpinner,
     MatDialogContent,
     MatSlideToggle,
-    MatIconModule
+    MatIconModule,
   ]
 })
 

@@ -1,13 +1,8 @@
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/first';
-import {
-  UpdateSite,
-  AddSiteToSites,
-  SaveSiteFiltering,
-  ClearLastEditedSite
-} from 'store/publisher/publisher.actions';
+import { AddSiteToSites, ClearLastEditedSite, SaveSiteFiltering, UpdateSite } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
@@ -16,8 +11,8 @@ import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from "common/handle-subscription";
-import { siteStatusEnum } from "models/enum/site.enum";
+import { HandleSubscription } from 'common/handle-subscription';
+import { siteStatusEnum } from 'models/enum/site.enum';
 
 //TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 @Component({
@@ -38,7 +33,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;
   changesSaved: boolean = false;
-  filtering;
+  showRequiresSection: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -117,7 +112,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.router.navigate(
-        ['/publisher', 'create-site', 'create-ad-units'],
+        ['/publisher', 'create-site', 'pops-settings'],
         {queryParams: {step: 3}}
       );
     }
@@ -136,6 +131,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         }
         const filtering = lastEditedSite.filteringArray;
         this.addedItems = [...filtering.requires];
+        this.showRequiresSection = this.addedItems.length > 0;
         this.excludedItems = [...filtering.excludes];
       });
     this.subscriptions.push(lastSiteSubscription);

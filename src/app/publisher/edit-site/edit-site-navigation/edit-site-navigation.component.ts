@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HandleSubscription } from "common/handle-subscription";
+import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
   selector: 'app-edit-site-navigation',
@@ -9,10 +9,11 @@ import { HandleSubscription } from "common/handle-subscription";
 })
 export class EditSiteNavigationComponent extends HandleSubscription implements OnInit {
   steps = [
-    {id: 1, name: 'Basic Information'},
-    {id: 2, name: 'Filtering'},
-    {id: 3, name: 'Create Ads'},
-    {id: 4, name: 'Summary'}
+    {id: 1, name: 'Basic information'},
+    {id: 2, name: 'Exclusions'},
+    {id: 3, name: 'Pops'},
+    {id: 4, name: 'Ad units'},
+    {id: 5, name: 'Summary'}
   ];
 
   currentStep: number;

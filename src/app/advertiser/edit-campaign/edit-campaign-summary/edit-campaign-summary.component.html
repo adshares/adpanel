@@ -41,7 +41,7 @@
           dwmth-heading
           dwmth-heading--secondary"
       >
-        1. Basic Information
+        1. Basic information
       </h3>
       <a
         routerLink="../basic-information"
@@ -74,7 +74,7 @@
             dwmth-copy--small
             label"
           >
-            Campaign Name:
+            Campaign name:
           </p>
           <p
             class="
@@ -160,7 +160,7 @@
             dwmth-copy--small
             label"
           >
-            Date of Start
+            Start date
           </p>
           <div
             class="
@@ -191,7 +191,7 @@
             dwmth-copy--small
             label"
           >
-            Date of End
+            End date
           </p>
           <div
             class="
@@ -240,7 +240,7 @@
           dwmth-heading
           dwmth-heading--secondary"
       >
-        2. Additional Targeting
+        2. Filtering
       </h3>
       <a
         routerLink="../additional-targeting"
@@ -270,7 +270,7 @@
             dwmth-copy--x-dark
             targeting-title"
         >
-          Requires:
+          Targeting:
         </p>
         <app-targeting-display
           *ngIf="campaign.targetingArray"
@@ -292,7 +292,7 @@
             dwmth-copy--x-dark
             targeting-title"
         >
-          Excludes:
+          Exclusions:
         </p>
         <div class="campaign-edit-summary__targeting--margin-fix">
           <app-targeting-display
@@ -395,6 +395,38 @@
     class="
       dwmth-box
       dwmth-box--large
+      campaign-edit-summary__poster-info"
+  >
+    <div
+      class="
+        row
+        align-center
+        justify-between"
+    >
+      <p
+        class="
+          dwmth-copy
+          dwmth-copy--medium"
+      >
+        Please note that it is possible to base your campaign on conversions - i.e. set specific actions you want to pay for – e.g. registrations or sales.
+        In case you want to use this feature, please go to your campaign settings and select “Edit conversions”.
+        Click
+        <a
+          href="https://github.com/adshares/adserver/wiki/Conversions"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          here
+        </a>
+        to read more about conversion handling.
+      </p> 
+    </div>
+  </div>
+
+  <div
+    class="
+      dwmth-box
+      dwmth-box--large
       row
       justify-between"
   >
@@ -423,7 +455,7 @@
         (click)="saveCampaign(true)"
         data-test="advertiser-edit-campaign-save-as-draft"
       >
-        Save as Draft
+        Save as draft
       </button>
       <button
         class="
@@ -432,7 +464,7 @@
         (click)="saveCampaign(false)"
         data-test="advertiser-edit-campaign-start-campaign"
       >
-        Start Campaign
+        Start campaign
       </button>
     </div>
   </div>

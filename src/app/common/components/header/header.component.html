@@ -46,6 +46,7 @@
                dwmth-copy--uppercase
                dwmth-copy--semi
                dwmth-copy--lineheight-reset"
+      [ngClass]="{'active-type': activeUserType === userRolesEnum.ADVERTISER}"
       (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
     >
       <img
@@ -68,6 +69,7 @@
                dwmth-copy--uppercase
                dwmth-copy--semi
                dwmth-copy--lineheight-reset"
+      [ngClass]="{'active-type': activeUserType === userRolesEnum.PUBLISHER}"
       (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
     >
       <img

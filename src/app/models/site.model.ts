@@ -4,6 +4,7 @@ interface Site {
   id?: number;
   status: number;
   name: string;
+  domain: string;
   primaryLanguage: string | SiteLanguage;
   requireClassified: boolean;
   excludeUnclassified: boolean;
@@ -33,10 +34,12 @@ interface SitesTotals {
 }
 
 interface AdUnit {
-  id?: number
-  shortHeadline: string;
+  id?: number;
+  name: string;
   type: string;
-  size: AdUnitSize;
+  size: string;
+  label: string;
+  tags: string[];
   status: number;
   code?: string;
 
@@ -48,13 +51,11 @@ interface AdUnit {
   revenue?: number;
 }
 
-interface AdUnitSize {
-  size: number;
-  tags: string[];
+interface AdUnitMetaData {
   label: string;
-  selected?: boolean;
-  id?: number;
-  name?: string;
+  size: string;
+  tags: string[];
+  type: string;
 }
 
 interface SiteLanguage {
@@ -63,4 +64,4 @@ interface SiteLanguage {
 }
 
 
-export { Site, AdUnit, AdUnitSize, SitesTotals, SiteLanguage };
+export { Site, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage };

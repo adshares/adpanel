@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
 
 import { AppState } from 'models/app-state.model';
-import { Site } from 'models/site.model';
+import {AdUnit, Site} from 'models/site.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
@@ -12,6 +12,7 @@ import { AddSiteToSites } from 'store/publisher/publisher.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import {adUnitTypesEnum} from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -43,6 +44,14 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
     this.subscriptions.push(lastSiteSubscription);
     this.assetHelpers.redirectIfNameNotFilled(this.site);
+  }
+
+  get popAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.POP; });
+  }
+
+  get displayAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY; });
   }
 
   saveSite(isDraft): void {

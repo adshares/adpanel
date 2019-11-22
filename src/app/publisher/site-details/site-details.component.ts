@@ -7,7 +7,7 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { Site, SiteLanguage } from 'models/site.model';
+import {AdUnit, Site, SiteLanguage} from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
@@ -22,6 +22,7 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { TableColumnMetaData } from 'models/table.model';
+import { adUnitTypesEnum} from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-site-details',
@@ -80,7 +81,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription, sitesSubscription);
   }
 
+  get popAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.POP; });
+  }
+
+  get displayAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY; });
+  }
+
   sortTable(columnMetaData: TableColumnMetaData) {
+    console.debug(columnMetaData);
     this.site.adUnits = sortArrayByColumnMetaData(this.site.adUnits, columnMetaData);
   }
 
