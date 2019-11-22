@@ -47,7 +47,7 @@ interface UploadingFile {
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
   adForms: FormGroup[] = [];
-  adTypes: string[] = enumToArray(adTypesEnum);
+  adTypes: string[] = ['image', 'html'];
   adSizes: string[] = enumToArray(adSizesEnum);
   adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
