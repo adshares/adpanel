@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2019-11-22
+### Improved
+- Fill site name with domain
+### Fixed
+- Hide direct-link ad type
+
 ## [1.4.0] - 2019-11-22
 ### Added
 - Conversions definition
@@ -142,7 +148,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.1...develop
+[1.4.1]: https://github.com/adshares/adpanel/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/adshares/adpanel/compare/v1.2.5...v1.4.0
 [1.2.5]: https://github.com/adshares/adpanel/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/adshares/adpanel/compare/v1.2.1...v1.2.4
