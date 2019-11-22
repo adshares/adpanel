@@ -34,6 +34,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   changesSaved: boolean = false;
   websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
   websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
+  private overwriteNameByDomain = false;
 
   constructor(
     private router: Router,
@@ -116,16 +117,19 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     };
   }
 
-  extractDomain(): void {
-    const url = this.siteBasicInfoForm.get('domain').value;
+  onDomainFocus(): void {
+    const domain = this.siteBasicInfoForm.get('domain').value;
+    const name = this.siteBasicInfoForm.get('name').value;
+    this.overwriteNameByDomain = name.length == 0 || name == domain;
+  }
 
-    let domain = url.toLowerCase();
-    //remove protocol, user info and www subdomain
-    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, "");
-    // remove port number, path, query string and fragment
-    domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
-
+  onDomainBlur(): void {
+    const domain = this.extractDomain(this.siteBasicInfoForm.get('domain').value);
     this.siteBasicInfoForm.get('domain').setValue(domain);
+    if (this.overwriteNameByDomain) {
+      this.siteBasicInfoForm.get('name').setValue(domain);
+    }
+    this.overwriteNameByDomain = false;
   }
 
   updateSite(): void {
@@ -186,5 +190,15 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   filterOptions(val: string): object[] {
     const filterValue = val.toLowerCase();
     return this.languages.filter(option => option.name.toLowerCase().includes(filterValue) || option.code.toLowerCase().includes(filterValue))
+  }
+
+  extractDomain(url: string): string {
+    let domain = url.toLowerCase();
+    //remove protocol, user info and www subdomain
+    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, "");
+    // remove port number, path, query string and fragment
+    domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
+
+    return domain;
   }
 }

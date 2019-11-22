@@ -48,7 +48,8 @@
             dwmth-form-input
             dwmth-form-input--full"
           type="text"
-          (blur)="extractDomain()"
+          (focus)="onDomainFocus()"
+          (blur)="onDomainBlur()"
           data-test="publisher-edit-site-basic-information-form-domain"
         >
         <span
