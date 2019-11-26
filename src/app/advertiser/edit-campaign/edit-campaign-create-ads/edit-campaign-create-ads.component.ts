@@ -129,7 +129,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const formGroup = new FormGroup({
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
-      size: new FormControl({value: ad.size, disabled: disabledMode}),
+      creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
       status: new FormControl(ad.status)
     });
 
@@ -199,8 +199,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   adjustBannerName(form: FormGroup): void {
     if (form.get('name').dirty === false) {
-      let name = form.get('size').value ?
-        `${adTypesEnum[form.get('type').value]} ${form.get('size').value}` :
+      let name = form.get('creativeSize').value ?
+        `${adTypesEnum[form.get('type').value]} ${form.get('creativeSize').value}` :
         `${adTypesEnum[form.get('type').value]}`;
       const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
       if (matchingNames.length > 0) {
@@ -216,8 +216,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       return 1;
     }
     const image = banners[index].querySelector('img');
-    const bannerWidth = parseInt(this.adForms[index].get('size').value.split('x')[0]);
-    const bannerHeight = parseInt(this.adForms[index].get('size').value.split('x')[1]);
+    const sizes = this.adForms[index].get('creativeSize').value.split('x');
+    const bannerWidth = parseInt(sizes[0]);
+    const bannerHeight = parseInt(sizes[1]);
     const imageWidth = image.offsetWidth;
     const imageHeight = image.offsetHeight;
     const heightRatio = bannerHeight / imageHeight;
@@ -228,7 +229,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   selectProperBannerSize(size: string, index: number) {
     if (this.adSizes.includes(size)) {
-      this.adForms[index].get('size').setValue(size);
+      this.adForms[index].get('creativeSize').setValue(size);
     } else {
       this.showImageSizeWarning();
     }
@@ -297,7 +298,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     Object.assign(this.ads[adIndex], {
       type: this.adForms[adIndex].get('type').value,
       name: this.adForms[adIndex].get('name').value,
-      creativeSize: this.adForms[adIndex].get('size').value,
+      creativeSize: this.adForms[adIndex].get('creativeSize').value,
       status: this.adForms[adIndex].get('status').value
     });
   }
@@ -315,10 +316,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
 
-    if (adForm.get('html') && adForm.get('size').value === null) {
-      adForm.get('size').setValue(this.adSizes[0]);
+    if (adForm.get('html') && adForm.get('creativeSize').value === null) {
+      adForm.get('creativeSize').setValue(this.adSizes[0]);
     } else {
-      adForm.get('size').setValue(null);
+      adForm.get('creativeSize').setValue(null);
     }
     this.adjustBannerName(adForm);
   }
