@@ -30,9 +30,10 @@ export class BannerPreviewComponent implements OnInit {
     if ((<BannerClassification>this.banner).url) {
       this.isBannerInputTypeAd = false;
       this.url = (<BannerClassification>this.banner).url;
+      const bannerSizeArray = (<BannerClassification>this.banner).size.split('x');
       this.bannerChosenSize = {
-        width: `${(<BannerClassification>this.banner).width}`,
-        height: `${(<BannerClassification>this.banner).height}`
+        width: bannerSizeArray[0],
+        height: bannerSizeArray[1],
       };
     } else {
       this.isBannerInputTypeAd = true;
@@ -40,7 +41,7 @@ export class BannerPreviewComponent implements OnInit {
       const bannerSizeArray = (<Ad>this.banner).creativeSize.split('x');
       this.bannerChosenSize = {
         width: bannerSizeArray[0],
-        height: bannerSizeArray[1]
+        height: bannerSizeArray[1],
       };
     }
 
