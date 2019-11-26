@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BannerClassification } from 'models/classifier.model';
 import { Ad } from 'models/campaign.model';
 import { adTypesEnum } from 'models/enum/ad.enum';
-import { HTTP_OK } from "common/utilities/codes";
+import { HTTP_OK } from 'common/utilities/codes';
 
 @Component({
   selector: 'app-banner-preview',
@@ -27,21 +27,30 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ((<BannerClassification>this.banner).url) {
+    if ((<BannerClassification>this.banner).size) {
       this.isBannerInputTypeAd = false;
       this.url = (<BannerClassification>this.banner).url;
-      const bannerSizeArray = (<BannerClassification>this.banner).size.split('x');
-      this.bannerChosenSize = {
-        width: bannerSizeArray[0],
-        height: bannerSizeArray[1],
-      };
+
+      const size = (<BannerClassification>this.banner).size;
+      if (size.includes('x', 1)) {
+        const bannerSizeArray = size.split('x');
+        this.bannerChosenSize = {
+          width: bannerSizeArray[0] + 'px',
+          height: bannerSizeArray[1] + 'px',
+        };
+      } else {
+        this.bannerChosenSize = {
+          width: '100%',
+          height: '100%',
+        };
+      }
     } else {
       this.isBannerInputTypeAd = true;
       this.url = (<Ad>this.banner).url;
       const bannerSizeArray = (<Ad>this.banner).creativeSize.split('x');
       this.bannerChosenSize = {
-        width: bannerSizeArray[0],
-        height: bannerSizeArray[1],
+        width: bannerSizeArray[0] + 'px',
+        height: bannerSizeArray[1] + 'px',
       };
     }
 
@@ -61,11 +70,7 @@ export class BannerPreviewComponent implements OnInit {
     fetch(url)
       .then(res => {
         this.isLoading = false;
-        if (res.status === HTTP_OK) {
-          this.showIframe = true;
-        } else {
-          this.showIframe = false;
-        }
+        this.showIframe = res.status === HTTP_OK;
       })
       .catch(() => {
         this.showIframe = false;
