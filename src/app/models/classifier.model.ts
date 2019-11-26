@@ -1,9 +1,8 @@
 interface BannerClassification {
   bannerId: number;
   url: string,
+  size: string,
   type: string,
-  width: number,
-  height: number,
   sourceHost: string;
   landingUrl: string;
   budget?: number;

@@ -124,8 +124,8 @@
                   data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
                 >
                   <mat-option
-                    *ngFor="let adType of adTypes; let i = index"
-                    [value]="i"
+                    *ngFor="let adType of adTypes; let adTypeIndex = index"
+                    [value]="adTypeIndex"
                     data-test="advertiser-edit-campaign-create-ads-form-ad-type-option"
                   >
                     {{ adType }}
@@ -141,7 +141,7 @@
                 col-xxxl-1
                 col"
             >
-              <div *ngIf="adForm.get('image') && adForm.get('size').value"
+              <div *ngIf="adForm.get('image') && adForm.get('creativeSize').value"
                    class="dwmth-form-input__box">
                 <span class="dwmth-form-input__box
                              dwmth-form-label
@@ -149,24 +149,24 @@
                   Size
                 </span>
                 <span class="dwmth-copy">
-                  {{ adForm.get('size').value }}
+                  {{ adForm.get('creativeSize').value }}
                 </span>
               </div>
 
-              <div *ngIf="adForm.get('html') && adForm.get('size').value !== null"
+              <div *ngIf="adForm.get('html') && adForm.get('creativeSize').value !== null"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Size
                 </label>
                 <mat-select
                   class="dwmth-select"
-                  formControlName="size"
+                  formControlName="creativeSize"
                   (change)="setAdSize(i)"
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of adSizes; let i = index"
-                    [value]="i"
+                    *ngFor="let adSize of adSizes"
+                    [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
                   </mat-option>
@@ -342,7 +342,7 @@
                 <br>
                 <span class="file-box__file-sub-info"
                       data-test="advertiser-edit-campaign-create-ads-form-image-size">
-                  {{ adForm.get('size').value }}
+                  {{ adForm.get('creativeSize').value }}
                 </span>
 
                 <img
@@ -364,9 +364,9 @@
 
                 <span class="file-box__file-sub-info">
                 <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
-                  {{ adForm.get('size').value }}
+                  {{ adForm.get('creativeSize').value }}
                 </span>
-                <span *ngIf="isImageTypeChosen(adForm) && (adForm.get('size').value !== ads[i].imageSize)"
+                <span *ngIf="isImageTypeChosen(adForm) && (adForm.get('creativeSize').value !== ads[i].imageSize)"
                       class="file-box__file-sub-info--secondary"
                       data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
                 >
@@ -405,11 +405,11 @@
                 dwmth-box--no-padding">
               Preview
             </div>
-            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src && adForm.get('size').value"
+            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src && adForm.get('creativeSize').value"
                  class="banner image-poster"
                  [ngStyle]="{
-                'width': adForm.get('size').value.split('x')[0] + 'px',
-                'height': adForm.get('size').value.split('x')[1] + 'px'
+                'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
+                'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
               }">
               <img [src]="adForm.get('image').value.src | trustUrl"
                    [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
@@ -417,10 +417,10 @@
 
             <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"
                  class="banner">
-              <iframe *ngIf="adForm.get('size').value"
+              <iframe *ngIf="adForm.get('creativeSize').value"
                       [ngStyle]="{
-                                  'width': adForm.get('size').value.split('x')[0] + 'px',
-                                  'height': adForm.get('size').value.split('x')[1] + 'px'
+                                  'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
+                                  'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
                                   }"
                       [src]="adForm.get('html').value.src | trustUrl"
               ></iframe>
