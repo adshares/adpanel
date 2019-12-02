@@ -35,7 +35,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
 
-  private readonly CONVERSION_COUNT_MAXIMAL: number = 5;
+  private readonly CONVERSION_COUNT_MAXIMAL: number = 100;
   private readonly BUDGET_TYPE_IN: string = 'in_budget';
   private readonly BUDGET_TYPE_OUT: string = 'out_of_budget';
 
