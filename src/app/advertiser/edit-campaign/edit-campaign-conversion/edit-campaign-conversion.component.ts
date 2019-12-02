@@ -185,10 +185,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
       isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
       isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
-      isValueMutable: new FormControl({
-        value: item.isValueMutable || 0,
-        disabled: isItemFromBackend || !itemIsAdvanced
-      }),
+      isValueMutable: new FormControl({value: item.isValueMutable || 0, disabled: isItemFromBackend}),
       isRepeatable: new FormControl({value: item.isRepeatable || 0, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
       link: new FormControl(item.link),

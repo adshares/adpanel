@@ -86,7 +86,8 @@
           <app-label
             class="col-xs-2 row justify-start align-center"
             label="Value ({{ currencyCode }})"
-            tooltip="Enter the amount you are willing to spend on a single conversion"
+            tooltip="Enter the amount you are willing to spend on a single conversion.
+                     Activate this option if you want to use various values provided dynamically - e.g. a percentage of the amount spent in an online store"
             forId="value"
           ></app-label>
           <div class="col-xs-1 row justify-start"></div>
@@ -159,12 +160,23 @@
                 row
                 align-center"
               >
-                <input
-                  id="value"
-                  class="dwmth-form-input"
-                  formControlName="value"
-                  data-test="advertiser-conversion-item-value"
-                >
+                <div class="row no-wrap cell">
+                  <mat-slide-toggle
+                    class="row align-self-center"
+                    id="isMutable"
+                    formControlName="isValueMutable"
+                    data-test="advertiser-conversion-item-is-value-mutable"
+                  >
+                  </mat-slide-toggle>
+                  <input
+                    id="value"
+                    type="number"
+                    step="0.01"
+                    class="dwmth-form-input campaign-edit-conversion__value-input"
+                    formControlName="value"
+                    data-test="advertiser-conversion-item-value"
+                  >
+                </div>
                 <span
                   class="error-msg"
                   *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status && !conversionItemForm.get('isAdvanced').value"
@@ -389,7 +401,7 @@
                 <div class="row no-wrap cell">
                   <mat-slide-toggle
                     class="row align-self-center"
-                    id="isMutable"
+                    id="isMutableAdv"
                     formControlName="isValueMutable"
                     data-test="advertiser-conversion-item-is-value-mutable"
                   >
