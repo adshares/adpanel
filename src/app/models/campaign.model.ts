@@ -53,7 +53,6 @@ interface CampaignConversion {
   eventType: string;
   type: string;
   value?: number;
-  limit?: number;
   link?: string;
   isValueMutable?: number;
   isRepeatable?: number;
@@ -68,7 +67,6 @@ interface CampaignConversionItem {
   isAdvanced: boolean;
   isInBudget: boolean;
   value?: string;
-  limit?: string;
   link?: string;
   isValueMutable?: boolean;
   isRepeatable?: boolean;

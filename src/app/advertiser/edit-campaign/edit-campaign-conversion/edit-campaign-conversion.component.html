@@ -283,7 +283,7 @@
             dwmth-copy"
         >
           <app-label
-            class="col-xs-1 row justify-start"
+            class="col-xs-2 row justify-start"
             forId="name"
             label="Name"
             tooltipPosition="after"
@@ -301,12 +301,6 @@
             tooltip="Enter the amount you are willing to spend on a single conversion.
                      Activate this option if you want to use various values provided dynamically - e.g. a percentage of the amount spent in an online store"
             forId="valueAdv"
-          ></app-label>
-          <app-label
-            class="col-xs-1 row justify-start align-center"
-            label="Budget"
-            tooltip="Enter the total amount you are willing to spend on all conversions of this type."
-            forId="limit"
           ></app-label>
           <app-label
             class="col-xs-2 row justify-center cell align-center"
@@ -342,7 +336,7 @@
             >
               <div
                 class="
-                col-xs-1
+                col-xs-2
                 row
                 align-center"
               >
@@ -415,21 +409,6 @@
                 >
                   Value is required.
                   </span>
-              </div>
-              <div
-                class="
-                col-xs-1
-                row
-                align-center"
-              >
-                <input
-                  id="limit"
-                  class="dwmth-form-input"
-                  type="number"
-                  step="0.01"
-                  formControlName="limit"
-                  data-test="advertiser-conversion-item-limit"
-                >
               </div>
               <div
                 class="

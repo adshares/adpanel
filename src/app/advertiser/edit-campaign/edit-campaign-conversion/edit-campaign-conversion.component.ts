@@ -191,7 +191,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       }),
       isRepeatable: new FormControl({value: item.isRepeatable || 0, disabled: isItemFromBackend || !itemIsAdvanced}),
       value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
-      limit: new FormControl({value: item.limit, disabled: isItemFromBackend}, Validators.min(0)),
       link: new FormControl(item.link),
     });
   }
@@ -199,7 +198,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   get conversionsToSave(): CampaignConversion[] {
     return this.conversionItemForms.map((form) => {
       const value = form.get('value').value;
-      const limit = form.get('limit').value;
 
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
@@ -208,7 +206,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         eventType: form.get('type').value,
         type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
         value: value !== null ? adsToClicks(parseFloat(value)) : null,
-        limit: limit !== null ? adsToClicks(parseFloat(limit)) : null,
         isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
       };
@@ -226,7 +223,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
         value: conversion.value !== null ? formatMoney(conversion.value) : null,
-        limit: conversion.limit !== null ? formatMoney(conversion.limit) : null,
         link: conversion.link,
       };
       this.addConversion(item);
