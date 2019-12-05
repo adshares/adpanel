@@ -47,6 +47,5 @@ export const campaignConversionItemInitialState: CampaignConversionItem = {
   isAdvanced: false,
   isInBudget: true,
   value: null,
-  limit: null,
 };
 
