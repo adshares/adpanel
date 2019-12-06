@@ -1,0 +1,16 @@
+<div
+  class="domain-checker row"
+>
+  <div
+    class="align-self-center justify-center"
+  >
+    {{message}}
+    <fa-icon
+      *ngIf="null !== tooltip"
+      matTooltipClass="dwmth-mat-tooltip"
+      [matTooltip]="tooltip"
+      matTooltipPosition="right"
+      [icon]="faQuestionCircle"
+    ></fa-icon>
+  </div>
+</div>

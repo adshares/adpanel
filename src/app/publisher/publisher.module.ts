@@ -10,8 +10,9 @@ import {
   MatInputModule,
   MatOptionModule,
   MatPaginatorModule,
+  MatRadioModule,
   MatSelectModule,
-  MatRadioModule, MatTabsModule,
+  MatTabsModule,
 } from '@angular/material';
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
@@ -25,7 +26,7 @@ import { EditSiteComponent } from './edit-site/edit-site.component';
 import { EditSiteNavigationComponent } from './edit-site/edit-site-navigation/edit-site-navigation.component';
 import { EditSiteBasicInformationComponent } from './edit-site/edit-site-basic-info/edit-site-basic-information.component';
 import { EditSiteAdditionalTargetingComponent } from './edit-site/edit-site-additional-targeting/edit-site-additional-targeting.component';
-import {EditSitePopsSettingsComponent} from "publisher/edit-site/edit-site-pops-settings/edit-site-pops-settings.component";
+import { EditSitePopsSettingsComponent } from 'publisher/edit-site/edit-site-pops-settings/edit-site-pops-settings.component';
 import { EditSiteCreateAdUnitsComponent } from './edit-site/edit-site-create-ad-units/edit-site-create-ad-units.component';
 import { EditSiteSummaryComponent } from './edit-site/edit-site-summary/edit-site-summary.component';
 import { AdUnitsComponent } from './site-details/ad-units/ad-units.component';
@@ -38,9 +39,10 @@ import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { ClassifierFilteringComponent } from "publisher/classifier/classifier-filtering/classifier-filtering.component";
-import { MatchingBannerSizesResolver } from "publisher/resolvers/matching-banner-sizes.resolver";
-import { LanguagesListResolver } from "publisher/resolvers/languages-list.resolver";
+import { ClassifierFilteringComponent } from 'publisher/classifier/classifier-filtering/classifier-filtering.component';
+import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';
+import { LanguagesListResolver } from 'publisher/resolvers/languages-list.resolver';
+import { DomainCheckerComponent } from 'publisher/site-details/domain-checker/domain-checker.component';
 
 library.add(fas);
 
@@ -52,7 +54,7 @@ const editSiteComponents = [
   EditSiteAdditionalTargetingComponent,
   EditSitePopsSettingsComponent,
   EditSiteCreateAdUnitsComponent,
-  EditSiteSummaryComponent
+  EditSiteSummaryComponent,
 ];
 
 const publisherComponents = [
@@ -65,7 +67,8 @@ const publisherComponents = [
   SiteCodeDialogComponent,
   ClassifierComponent,
   ClassifierListItemComponent,
-  ClassifierFilteringComponent
+  ClassifierFilteringComponent,
+  DomainCheckerComponent,
 ];
 
 @NgModule({
@@ -86,7 +89,7 @@ const publisherComponents = [
     MatRadioModule,
     ChartsModule,
     FontAwesomeModule,
-    MatTabsModule
+    MatTabsModule,
   ],
   providers: [
     PublisherGuard,
@@ -98,10 +101,10 @@ const publisherComponents = [
   ],
   declarations: [
     ...publisherComponents,
-    ...editSiteComponents
+    ...editSiteComponents,
   ],
   entryComponents: [
-    SiteCodeDialogComponent
+    SiteCodeDialogComponent,
   ]
 })
 
