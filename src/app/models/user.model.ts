@@ -22,6 +22,7 @@ interface User {
   password: string;
   apiToken?: string;
   adserverWallet: UserAdserverWallet;
+  isAdserverWalletValid: boolean;
   exchangeRate: ExchangeRate | null;
   uuid: string;
   referralId?: string;
