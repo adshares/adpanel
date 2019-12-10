@@ -34,9 +34,11 @@ export const adjustTooltipValueFormat = (value: string): string => {
 
   switch (type) {
     case advChartSeriesEnum.sum:
+    case advChartSeriesEnum.sumPayment:
     case advChartSeriesEnum.cpc:
     case advChartSeriesEnum.cpm:
     case pubChartSeriesEnum.sum:
+    case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value);
       return `${type}: ${val > 0 ? formatMoney(val, 2) : 0} ${environment.currencyCode}`;
@@ -50,9 +52,11 @@ export const adjustYAxesTics = (value) => {
 
   switch (type) {
     case advChartSeriesEnum.sum:
+    case advChartSeriesEnum.sumPayment:
     case advChartSeriesEnum.cpc:
     case advChartSeriesEnum.cpm:
     case pubChartSeriesEnum.sum:
+    case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value);
       return `${environment.currencySymbol}${val > 0 ? formatMoney(val, 2) : 0}`;
