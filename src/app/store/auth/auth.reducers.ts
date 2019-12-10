@@ -1,6 +1,6 @@
 import * as authActions from './auth.actions';
 import { userInitialState } from 'models/initial-state/user.js';
-import { GET_CURRENT_BALANCE_SUCCESS, actions } from "store/settings/settings.actions";
+import { GET_CURRENT_BALANCE_SUCCESS, GET_CURRENT_BALANCE_FAILURE, actions } from "store/settings/settings.actions";
 
 const initialState = userInitialState;
 
@@ -9,7 +9,8 @@ export function authReducers(state = initialState, action: authActions.actions |
     case authActions.SET_USER_SUCCESS:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
+        isAdserverWalletValid: true,
       };
     case authActions.UPDATE_USER_ADDRESS:
       return {
@@ -30,7 +31,13 @@ export function authReducers(state = initialState, action: authActions.actions |
       return {
         ...state,
         exchangeRate: action.payload.exchangeRate,
-        adserverWallet: action.payload.adserverWallet
+        adserverWallet: action.payload.adserverWallet,
+        isAdserverWalletValid: true,
+      };
+    case GET_CURRENT_BALANCE_FAILURE:
+      return {
+        ...state,
+        isAdserverWalletValid: false,
       };
 
     case authActions.USER_LOG_IN_SUCCESS:

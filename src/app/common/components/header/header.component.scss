@@ -44,6 +44,10 @@
   }
 }
 
+.dwmth-btn.dwmth-btn--invalid {
+  color: pal(gray, mid-dark);
+}
+
 .dwmth-navigation {
   &__item {
     margin: 0 5px;

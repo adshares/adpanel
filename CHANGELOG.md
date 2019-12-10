@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.4] - 2019-12-10
+### Fixed
+- Account's balance check error
+
 ## [1.4.3] - 2019-12-05
 ### Removed
 - Conversion definition budget
@@ -158,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.3...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.4...develop
+[1.4.4]: https://github.com/adshares/adpanel/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/adshares/adpanel/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/adshares/adpanel/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/adshares/adpanel/compare/v1.4.0...v1.4.1

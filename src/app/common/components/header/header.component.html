@@ -122,6 +122,10 @@
         dwmth-navigation__item
         dwmth-btn
         dwmth-btn--no-vertical-padding"
+      [class.dwmth-btn--invalid]="!isTotalFundsValid"
+      matTooltipClass="dwmth-mat-tooltip"
+      [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
+      matTooltipPosition="left"
       (mouseover)="toggleSettingsMenu(true)"
       (mouseleave)="toggleSettingsMenu(false)"
       data-test="header-toggle-settings-menu"

@@ -16,6 +16,7 @@ import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { environment } from 'environments/environment.ts';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ImpersonationService } from '../impersonation/impersonation.service';
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
 
 @Injectable()
 export class RequestInterceptor extends HandleSubscription implements HttpInterceptor {
@@ -59,7 +60,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
       });
     }
 
-    const token = this.impersonationService.getTokenRawValue()
+    const token = this.impersonationService.getTokenRawValue();
 
     if (token) {
       request = request.clone({
@@ -83,7 +84,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         return event;
       },
       (err: any) => {
-        if (err instanceof HttpErrorResponse && err.status === 401) {
+        if (err instanceof HttpErrorResponse && err.status === HTTP_UNAUTHORIZED) {
           const noUser = !this.session.getUser();
           const isSessionActive = this.session.isActive;
           this.session.drop();
@@ -113,7 +114,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
           return err;
         }
 
-        if (err instanceof HttpErrorResponse && err.status === 500) {
+        if (err instanceof HttpErrorResponse && err.status === HTTP_INTERNAL_SERVER_ERROR && (!err.url || -1 === err.url.indexOf('/check'))) {
           this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
           // TODO: review during notification preparation
           this.pushNotificationsService.addPushNotification({
