@@ -8,6 +8,7 @@ import { AuthService } from 'app/auth.service';
 import { SessionService } from 'app/session.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
+import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
@@ -21,12 +22,12 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
   totalFunds: number;
+  isTotalFundsValid: boolean = false;
   activeUserType: number;
   userRolesEnum = userRolesEnum;
   settingsMenuOpen = false;
   notificationsTotal: number;
   envContext: string | null = environment.context;
-  user;
 
   constructor(
     private router: Router,
@@ -46,9 +47,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       : (accountType === SessionService.ACCOUNT_TYPE_PUBLISHER ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();
     const userDataStateSubscription = this.store.select('state', 'user', 'data')
-      .subscribe((data) => {
+      .subscribe((data: User) => {
         this.totalFunds = data.adserverWallet.totalFunds;
-        this.user = data;
+        this.isTotalFundsValid = data.isAdserverWalletValid;
       });
     this.subscriptions.push(userDataStateSubscription);
   }
