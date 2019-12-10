@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [1.4.4] - 2019-12-10
+### Added
+- Chart types for cash accounting 
 ### Fixed
 - Account's balance check error
 
