@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.4.5] - 2019-12-11
 ### Added
-- Site domain check
+- Page rank info
 
 ## [1.4.4] - 2019-12-10
 ### Added
@@ -166,7 +168,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.4...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.5...develop
+[1.4.5]: https://github.com/adshares/adpanel/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/adshares/adpanel/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/adshares/adpanel/compare/v1.4.2...v1.4.3
 [1.4.2]: https://github.com/adshares/adpanel/compare/v1.4.1...v1.4.2
