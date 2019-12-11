@@ -64,6 +64,9 @@
           {{ site.name }}
           <small>{{ site.domain }}</small>
         </h1>
+        <app-domain-checker
+          [domain]="site.domain"
+        ></app-domain-checker>
       </div>
       <div
         class="
