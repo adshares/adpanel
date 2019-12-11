@@ -10,6 +10,7 @@ enum PageRankInfo {
   UNKNOWN = 'unknown',
   HIGH_IVR = 'high-ivr',
   HIGH_CTR = 'high-ctr',
+  LOW_CTR = 'low-ctr',
   POOR_TRAFFIC = 'poor-traffic',
   POOR_CONTENT = 'poor-content',
   SUSPICIOUS_DOMAIN = 'suspicious-domain',
@@ -26,6 +27,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   faQuestionCircle = faQuestionCircle;
   message: string = '';
   tooltip?: string = null;
+  quality: string = ''
 
   constructor(private publisherService: PublisherService, private http: HttpClient) {
     super();
@@ -36,8 +38,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
       .switchMap(() => this.http.get<any>(`https://gitoku.com/api/v1/data/s1/u1?url=${this.domain}`))
       .subscribe(
         (response: any) => {
-          const pageRank = Math.round((response.page_rank || 0) * 10);
-          this.updateMessage(pageRank, response.page_rank_info || PageRankInfo.UNKNOWN);
+          this.updateMessage(response.page_rank || 0, response.page_rank_info || PageRankInfo.UNKNOWN);
         },
         () => this.updateMessage(0, PageRankInfo.UNKNOWN)
       );
@@ -47,33 +48,44 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   updateMessage(pageRank: number, pageRankInfo: string): void {
     // TODO update descriptions
+
     if (0 === pageRank && PageRankInfo.UNKNOWN === pageRankInfo) {
-      this.message = 'Verification';
-      this.tooltip = 'Domain waits for check';
+      this.message = 'In verification';
+      this.tooltip = 'The domain is waiting for verification.';
+      this.quality = 'medium';
 
       return;
     }
 
-    this.message = 0 === pageRank ? 'Banned' : `${pageRank}/10`;
+    if (pageRank >= 0.7) {
+      this.quality = 'good';
+    } else if (pageRank >= 0.3) {
+      this.quality = 'medium';
+    } else {
+      this.quality = 'bad';
+    }
+    const label = Math.round(pageRank * 10);
+    this.message = 0 === pageRank ? 'Banned' : `Rank: ${label}/10`;
     this.tooltip = this.tooltipByPageRankInfo(pageRankInfo);
   }
 
   tooltipByPageRankInfo(pageRankInfo: string): string|null {
-    // TODO update descriptions
     switch (pageRankInfo) {
       case PageRankInfo.OK:
       case PageRankInfo.UNKNOWN:
         return null;
       case PageRankInfo.HIGH_IVR:
-        return 'high invalid view rate';
+        return 'The invalid view rate is too high. Please check your anti-bot protection.';
       case PageRankInfo.HIGH_CTR:
-        return 'high click through rate';
+        return 'The click-through rate is too high. Please check your anti-bot protection.';
+      case PageRankInfo.LOW_CTR:
+        return 'The click-through rate is too low. Please try placing ad units in a more visible places. You can also check if you are using the most popular ad unit sizes.';
       case PageRankInfo.POOR_TRAFFIC:
-        return 'bad traffic';
+        return 'Poor traffic. Please check your anti-bot protection.';
       case PageRankInfo.POOR_CONTENT:
-        return 'low quality content';
+        return 'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';
       case PageRankInfo.SUSPICIOUS_DOMAIN:
-        return 'untrusted domain';
+        return 'We don’t allow newly created domains and domains that are not present in public indexes.';
       default :
         return null;
     }

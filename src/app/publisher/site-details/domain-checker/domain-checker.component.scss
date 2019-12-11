@@ -1,3 +1,23 @@
+@import '../../../../styles.scss';
+
 .domain-checker {
-  min-height: 100%;
+  @include font(16, normal);
+  border: 1px solid pal(gray, light);
+  border-radius: 2px;
+  padding: 8px 16px;
+  color: pal(gray, dark);
+  background: pal(white);
+
+  &.q-good {
+    border-color: pal(green);
+    color: pal(green);
+  }
+  &.q-medium {
+    border-color: pal(orange, dark);
+    color: pal(orange, dark);
+ }
+  &.q-bad {
+    border-color: pal(red);
+    color: pal(red);
+  }
 }
