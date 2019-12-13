@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.6] - 2019-12-13
+### Changed
+- Page rank info source
+
 ## [1.4.5] - 2019-12-11
 ### Added
 - Page rank info
@@ -168,7 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.5...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.6...develop
+[1.4.6]: https://github.com/adshares/adpanel/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/adshares/adpanel/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/adshares/adpanel/compare/v1.4.3...v1.4.4
 [1.4.3]: https://github.com/adshares/adpanel/compare/v1.4.2...v1.4.3

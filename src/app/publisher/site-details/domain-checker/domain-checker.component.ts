@@ -35,10 +35,10 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   ngOnInit(): void {
     const domainCheckSubscription = timer(0, DomainCheckerComponent.UPDATE_INTERVAL)
-      .switchMap(() => this.http.get<any>(`https://gitoku.com/api/v1/data/s1/u1?url=${this.domain}`))
+      .switchMap(() => this.http.get<any>('https://gitoku.com/api/v1/domain/'+encodeURIComponent(this.domain)))
       .subscribe(
         (response: any) => {
-          this.updateMessage(response.page_rank || 0, response.page_rank_info || PageRankInfo.UNKNOWN);
+          this.updateMessage(response.rank || 0, response.info || PageRankInfo.UNKNOWN);
         },
         () => this.updateMessage(0, PageRankInfo.UNKNOWN)
       );
