@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BannerClassification } from 'models/classifier.model';
-import { Ad } from 'models/campaign.model';
-import { adTypesEnum } from 'models/enum/ad.enum';
-import { HTTP_OK } from 'common/utilities/codes';
+import {Component, Input, OnInit} from '@angular/core';
+import {BannerClassification} from 'models/classifier.model';
+import {Ad} from 'models/campaign.model';
+import {adTypesEnum} from 'models/enum/ad.enum';
+import {HTTP_OK} from 'common/utilities/codes';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-banner-preview',
@@ -23,7 +24,7 @@ export class BannerPreviewComponent implements OnInit {
   showIframe: boolean = false;
   isLoading: boolean = true;
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -44,6 +45,9 @@ export class BannerPreviewComponent implements OnInit {
           height: '100%',
         };
       }
+    } else if (this.isDirectLink) {
+      this.isBannerInputTypeAd = true;
+      this.url = (<Ad>this.banner).creativeContents;
     } else {
       this.isBannerInputTypeAd = true;
       this.url = (<Ad>this.banner).url;
@@ -54,7 +58,7 @@ export class BannerPreviewComponent implements OnInit {
       };
     }
 
-    if (this.isBannerInputTypeAd && !this.isImage) {
+    if (this.isBannerInputTypeAd && this.isHtml) {
       this.canLoadIframeContent(this.url)
     } else {
       this.isLoading = false;
@@ -64,6 +68,14 @@ export class BannerPreviewComponent implements OnInit {
 
   get isImage() {
     return this.banner.type === adTypesEnum.IMAGE;
+  }
+
+  get isHtml() {
+    return this.banner.type === adTypesEnum.HTML;
+  }
+
+  get isDirectLink() {
+    return this.banner.type === adTypesEnum.DIRECT;
   }
 
   canLoadIframeContent(url: string) {

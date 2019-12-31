@@ -165,7 +165,27 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of adSizes"
+                    *ngFor="let adSize of displayAdSizes"
+                    [value]="adSize"
+                    data-test="advertiser-edit-campaign-create-ads-form-size-option">
+                    {{ adSize }}
+                  </mat-option>
+                </mat-select>
+              </div>
+
+              <div *ngIf="adForm.get('direct') && adForm.get('creativeSize').value !== null"
+                   class="dwmth-form-input__box">
+                <label class="dwmth-form-label">
+                  Display
+                </label>
+                <mat-select
+                  class="dwmth-select"
+                  formControlName="creativeSize"
+                  (change)="setAdSize(i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-size-select"
+                >
+                  <mat-option
+                    *ngFor="let adSize of popAdSizes"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
@@ -192,8 +212,9 @@
           <div
             class="error-msg"
             *ngIf="adsSubmitted && (
-            (adForm.get('image') && adForm.get('image').value.src === '' ) ||
-            (adForm.get('html') && adForm.get('html').value.src === '' ))"
+              (adForm.get('image') && adForm.get('image').value.src === '' ) ||
+              (adForm.get('html') && adForm.get('html').value.src === '' )
+            )"
           >
             File required
           </div>
@@ -203,6 +224,72 @@
             *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].upload"
           >
             Something went wrong, please try again later
+          </div>
+
+          <div class="no-gutters"
+            *ngIf="isDirectTypeChosen(adForm)"
+          >
+            <div class="dwmth-form-input__box">
+              <label
+                for="creative-contents"
+                class="dwmth-form-label"
+              >
+                URL
+              </label>
+              <input
+                id="creative-contents"
+                class="dwmth-form-input"
+                formControlName="creativeContents"
+                type="url"
+                data-test="advertiser-edit-campaign-create-ads-form-url"
+              >
+              <span
+                *ngIf="adForm.get('creativeContents').valid"
+                class="input-valid"
+              ></span>
+              <span
+                class="error-msg"
+                *ngIf="adForm.get('creativeContents').hasError('required') && adsSubmitted"
+              >
+                URL required!
+              </span>
+            </div>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title
+                      class="dwmth-form-label"
+                    >
+                      Placeholders
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div
+                    class="dwmth-box"
+                  >
+                    List of available placeholders to use in target URL:
+                  </div>
+
+                  <div
+                    *ngFor="let placeholder of PLACEHOLDERS"
+                  >
+                    <div
+                      class="dwmth-box"
+                    >
+                      <span class="col-xs-2">{{placeholder.id}}</span>
+                      <span class="col-xs-10">{{placeholder.description}}</span>
+                    </div>
+                  </div>
+
+                  <div
+                    class="dwmth-box"
+                  >
+                    Place selected placeholders in the target URL.
+                    Any of these placeholders will be replaced with the proper value.
+                    For example {{ PLACEHOLDERS[0].id }} will be replaced with the {{ PLACEHOLDERS[0].description }}.
+                  </div>
+                </mat-expansion-panel>
+          </mat-accordion>
           </div>
 
           <div
@@ -217,11 +304,10 @@
               dwmth-box--blue-border
               drag-and-drop-box
               banner"
-            *ngIf="!imagesStatus.upload.processing
-                   && ((isImageTypeChosen(adForm)
-                   && adForm.get('image').value.src === '')
-                   || (!isImageTypeChosen(adForm)
-                   && adForm.get('html').value.src === ''))"
+            *ngIf="!imagesStatus.upload.processing && (
+                (isImageTypeChosen(adForm) && adForm.get('image').value.src === '') ||
+                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src === '')
+             )"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
             (fileOver)="fileOverDropArea($event, i)"
@@ -255,14 +341,14 @@
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p
-                *ngIf="adForm.get('type').value === 0"
+                *ngIf="isHtmlTypeChosen(adForm)"
                 class="dwmth-copy"
               >
                 We support JPG, PNG and GIF files.
                 Please make sure that the file you are uploading is not larger than 500 KB.
               </p>
               <p
-                *ngIf="adForm.get('type').value !== 0"
+                *ngIf="isImageTypeChosen(adForm)"
                 class="dwmth-copy"
               >
                 Please upload your HTML banner ad as a zip archive.
@@ -279,11 +365,10 @@
               file-box
               file-box--grey-background"
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
-            *ngIf="imagesStatus.upload.processing ||
-                   ((isImageTypeChosen(adForm)
-                   && adForm.get('image').value.src !== '')
-                   || (!isImageTypeChosen(adForm)
-                   && adForm.get('html').value.src !== ''))"
+            *ngIf="imagesStatus.upload.processing || (
+                (isImageTypeChosen(adForm) && adForm.get('image').value.src !== '') ||
+                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src !== '')
+              )"
             data-test="advertiser-edit-campaign-create-ads-form-upload-status"
           >
             <div class="col-xs-1">
@@ -291,7 +376,7 @@
                    src="/assets/images/document-png--blue.svg"
                    alt="Uploaded image"
               >
-              <img *ngIf="!isImageTypeChosen(adForm)"
+              <img *ngIf="isHtmlTypeChosen(adForm)"
                    src="/assets/images/document-zip--blue.svg"
                    alt="Uploaded zip file"
               >
@@ -335,7 +420,7 @@
 
               <div
                 class="file-box__file-info"
-                *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value"
+                *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value"
                 data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
               >
                 {{ adForm.get('html').value.name }}
@@ -395,7 +480,7 @@
               dwmth-box--blue-border
               dwmth-box__preview"
             *ngIf="(isImageTypeChosen(adForm) && adForm.get('image').value.src) ||
-                   (!isImageTypeChosen(adForm) && adForm.get('html').value.src)"
+                   (isHtmlTypeChosen(adForm) && adForm.get('html').value.src)"
           >
             <div
               class="
@@ -415,7 +500,7 @@
                    [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
             </div>
 
-            <div *ngIf="!isImageTypeChosen(adForm) && adForm.get('html').value.src"
+            <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value.src"
                  class="banner">
               <iframe *ngIf="adForm.get('creativeSize').value"
                       [ngStyle]="{

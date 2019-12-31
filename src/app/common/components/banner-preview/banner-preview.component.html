@@ -6,7 +6,7 @@
       class="banner-preview__banner"
     />
   </ng-container>
-  <ng-container *ngIf="showIframe && !isImage">
+  <ng-container *ngIf="showIframe && isHtml">
     <iframe
       [src]="url | trustUrl"
       [sandbox]="'allow-same-origin allow-scripts'"
@@ -19,6 +19,9 @@
                 'overflow': 'hidden'
               }"
     ></iframe>
+  </ng-container>
+  <ng-container *ngIf="isDirectLink">
+    <a [href]="url" target="_blank" rel="nofollow noopener noreferrer"><code>{{ url }}</code></a>
   </ng-container>
   <ng-container *ngIf="isLoading">
     <div class="row

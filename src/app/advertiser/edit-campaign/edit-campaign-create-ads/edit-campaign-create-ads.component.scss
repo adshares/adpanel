@@ -123,5 +123,10 @@
 
 .dwmth-form-input__box {
   margin-right: 15px;
+
+  input#creative-contents {
+    width: 100%;
+    max-width: none;
+  }
 }
 

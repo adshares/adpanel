@@ -78,6 +78,7 @@ interface Ad {
   name: string;
   type: number;
   creativeSize: string;
+  creativeContents?: string;
   clicks: number;
   impressions: number;
   ctr: number;
