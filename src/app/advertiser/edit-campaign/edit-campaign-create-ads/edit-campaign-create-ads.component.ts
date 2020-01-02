@@ -131,9 +131,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   createEmptyAd(): void {
     this.adsSubmitted = false;
     this.ads.push(cloneDeep(adInitialState));
-    this.adForms.push(this.generateFormField(adInitialState, false));
+    const adForm = this.generateFormField(adInitialState, false);
+    this.adForms.push(adForm);
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus.push(true);
+    this.adjustBannerName(adForm);
   }
 
   handlePanelExpand(adIndex): void {
@@ -147,7 +149,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
       creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
-      creativeContents: new FormControl({value: ad.creativeContents, disabled: disabledMode}),
+      creativeContents: new FormControl(ad.creativeContents),
       status: new FormControl(ad.status)
     });
 
@@ -158,6 +160,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       state = {name: ad.name, src: ad.url || ''};
     } else if (ad.type === adTypesEnum.DIRECT) {
       state = {name: ad.name, size: ad.size};
+      formGroup.get('creativeContents').setValidators([
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP),
+      ]);
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
@@ -218,11 +224,14 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   adjustBannerName(form: FormGroup): void {
+    if (!form.get('name').value) {
+      form.get('name').reset();
+    }
     if (form.get('name').dirty === false) {
       let name = form.get('creativeSize').value ?
         `${adTypesEnum[form.get('type').value]} ${form.get('creativeSize').value}` :
         `${adTypesEnum[form.get('type').value]}`;
-      const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
+      const matchingNames = this.adForms.filter(form => form.get('name').value && form.get('name').value.includes(name));
       if (matchingNames.length > 0) {
         name = `${name} ${matchingNames.length}`
       }
@@ -319,11 +328,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       type: this.adForms[adIndex].get('type').value,
       name: this.adForms[adIndex].get('name').value,
       creativeSize: this.adForms[adIndex].get('creativeSize').value,
+      creativeContents: this.adForms[adIndex].get('creativeContents').value,
       status: this.adForms[adIndex].get('status').value
     });
   }
 
   setAdType(adIndex): void {
+    this.adsSubmitted = false;
     const adForm = this.adForms[adIndex];
     const adType = adForm.get('type').value;
     const adTypeName = this.adTypes[adType];
@@ -338,10 +349,16 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
     if (adForm.get('html')) {
       adForm.get('creativeSize').setValue(this.displayAdSizes[0]);
+      adForm.get('creativeContents').setValidators([]);
     } else if (adForm.get('direct')) {
       adForm.get('creativeSize').setValue(this.popAdSizes[0]);
+      adForm.get('creativeContents').setValidators([
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP),
+      ]);
     } else {
       adForm.get('creativeSize').setValue(null);
+      adForm.get('creativeContents').setValidators([]);
     }
     this.adjustBannerName(adForm);
   }
@@ -359,13 +376,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adForms.forEach((form, index) => this.updateAdInfo(index));
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
-      this.adForms.every((adForm, index) => !!this.ads[index].url) &&
+      this.adForms.every((adForm, index) => this.isDirectTypeChosen(adForm) || !!this.ads[index].url) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
       this.campaign = {
         ...this.campaign,
-        ads: this.campaign.ads.concat(this.ads),
+        ads: this.ads,
       };
       this.isEditMode ?
         this.store.dispatch(new UpdateCampaign(this.campaign)) : this.saveCampaignAds(this.campaign, isDraft)
