@@ -90,7 +90,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   sortTable(columnMetaData: TableColumnMetaData) {
-    console.debug(columnMetaData);
     this.site.adUnits = sortArrayByColumnMetaData(this.site.adUnits, columnMetaData);
   }
 

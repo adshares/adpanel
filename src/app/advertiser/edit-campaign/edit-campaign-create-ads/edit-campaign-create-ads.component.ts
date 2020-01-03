@@ -149,7 +149,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
       creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
-      creativeContents: new FormControl(ad.creativeContents),
+      creativeContents: new FormControl(ad.creativeContents || this.campaign.basicInformation.targetUrl),
       status: new FormControl(ad.status)
     });
 
