@@ -6,10 +6,10 @@ export enum adUnitTypesEnum {
 export enum adTypesEnum {
   IMAGE,
   HTML,
-  DIRECT_LINK,
+  DIRECT,
 }
 
-export enum adSizesEnum {
+export enum displayAdSizesEnum {
   '300x250',
   '336x280',
   '728x90',
@@ -40,6 +40,11 @@ export enum adSizesEnum {
   '120x90',
   '120x60',
   '88x31',
+}
+
+export enum popAdSizesEnum {
+  'pop-up',
+  'pop-under',
 }
 
 export enum adStatusesEnum {

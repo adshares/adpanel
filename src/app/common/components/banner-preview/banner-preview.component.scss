@@ -5,6 +5,10 @@
   display: flex;
   align-items: center;
 
+  code {
+    font-family: monospace !important;
+  }
+
   &__banner {
     height: auto;
     width: auto;

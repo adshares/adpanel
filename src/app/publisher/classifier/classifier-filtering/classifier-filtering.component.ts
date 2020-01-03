@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { adSizesEnum } from 'models/enum/ad.enum';
+import { displayAdSizesEnum, popAdSizesEnum } from 'models/enum/ad.enum';
 import { enumToArray } from 'common/utilities/helpers';
 import { BannerClassificationFilters } from 'models/classifier.model';
 
@@ -23,7 +23,7 @@ export class ClassifierFilteringComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adSizesOptions = this.sizeOptions || enumToArray(adSizesEnum);
+    this.adSizesOptions = this.sizeOptions || enumToArray(displayAdSizesEnum).concat(enumToArray(popAdSizesEnum));
   }
 
   sizeSelect(e, size: string): void {
