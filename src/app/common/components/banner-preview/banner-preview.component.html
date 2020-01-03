@@ -21,7 +21,9 @@
     ></iframe>
   </ng-container>
   <ng-container *ngIf="isDirectLink">
-    <a [href]="url" target="_blank" rel="nofollow noopener noreferrer"><code>{{ url }}</code></a>
+    <div class="banner-preview__direct">
+      <a [href]="url" target="_blank" rel="nofollow noopener noreferrer"><code>{{ url }}</code></a>
+    </div>
   </ng-container>
   <ng-container *ngIf="isLoading">
     <div class="row
