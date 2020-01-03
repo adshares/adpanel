@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.8] - 2020-01-03
+### Changed
+- Default direct link value
+### Fixed
+- Long direct links
+
 ## [1.4.7] - 2020-01-03
 ### Added
 - Ads with direct links (pop-up and pop-under)
