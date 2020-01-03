@@ -1,12 +1,27 @@
+:host {
+  overflow: hidden;
+  background: #fff;
+  z-index: 1;
+
+  &:hover {
+    overflow: visible;
+  }
+}
+
 .banner-preview {
   position: relative;
   cursor: pointer;
   height: 100px;
-  display: flex;
   align-items: center;
+  display: flex;
 
-  code {
-    font-family: monospace !important;
+  &__direct {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    code {
+      font-family: monospace !important;
+    }
   }
 
   &__banner {
