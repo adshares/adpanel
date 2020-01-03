@@ -15,7 +15,7 @@ export class TableNavigationComponent implements OnInit {
   adListNavigationItems = [
     {title: 'Status', columnWidth: 'col-xs-1', keys: ['status'], sortAsc: true},
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name'], sortAsc: true},
-    {title: 'Type', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true},
+    {title: 'Preview', columnWidth: 'col-xs-3', keys: ['type'], sortAsc: true},
     {title: 'Cost', columnWidth: 'col-xs-1', keys: ['cost'], sortAsc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], sortAsc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},

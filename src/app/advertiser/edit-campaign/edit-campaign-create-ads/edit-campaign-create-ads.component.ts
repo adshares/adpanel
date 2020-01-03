@@ -13,7 +13,14 @@ import {
 } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { adSizesEnum, adStatusesEnum, adTypesEnum, validHtmlTypes, validImageTypes } from 'models/enum/ad.enum';
+import {
+  displayAdSizesEnum,
+  adStatusesEnum,
+  adTypesEnum,
+  popAdSizesEnum,
+  validHtmlTypes,
+  validImageTypes
+} from 'models/enum/ad.enum';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { HandleSubscription } from "common/handle-subscription";
 import { cloneDeep, enumToArray } from 'common/utilities/helpers';
@@ -47,8 +54,9 @@ interface UploadingFile {
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
   adForms: FormGroup[] = [];
-  adTypes: string[] = ['image', 'html'];
-  adSizes: string[] = enumToArray(adSizesEnum);
+  adTypes: string[] = enumToArray(adTypesEnum);
+  displayAdSizes: string[] = enumToArray(displayAdSizesEnum);
+  popAdSizes: string[] = enumToArray(popAdSizesEnum);
   adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
   adsSubmitted = false;
@@ -70,6 +78,15 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   };
   campaign: Campaign = null;
   isEditMode: boolean;
+
+  readonly PLACEHOLDERS = [
+    { id: '{aid}', description: 'server id'},
+    { id: '{pid}', description: 'publisher id'},
+    { id: '{sid}', description: 'site id'},
+    { id: '{zid}', description: 'zone id'},
+    { id: '{cid}', description: 'case id'},
+    { id: '{bid}', description: 'banner id'},
+  ];
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -96,7 +113,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
           return;
         }
 
-        const savedAds = lastEditedCampaign.ads.filter(ad => ad.type !== adTypesEnum.DIRECT_LINK);
+        const savedAds = lastEditedCampaign.ads;
 
         if (!!savedAds.length) {
           savedAds.forEach((savedAd, index) => {
@@ -114,9 +131,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   createEmptyAd(): void {
     this.adsSubmitted = false;
     this.ads.push(cloneDeep(adInitialState));
-    this.adForms.push(this.generateFormField(adInitialState, false));
+    const adForm = this.generateFormField(adInitialState, false);
+    this.adForms.push(adForm);
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus.push(true);
+    this.adjustBannerName(adForm);
   }
 
   handlePanelExpand(adIndex): void {
@@ -130,14 +149,21 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
       creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
+      creativeContents: new FormControl(ad.creativeContents),
       status: new FormControl(ad.status)
     });
 
     let state = {};
     if (ad.type === adTypesEnum.IMAGE) {
       state = {name: ad.name, src: ad.url || '', size: ad.size};
-    } else {
-      state = {name: ad.name, src: ad.url || '',};
+    } else if (ad.type === adTypesEnum.HTML) {
+      state = {name: ad.name, src: ad.url || ''};
+    } else if (ad.type === adTypesEnum.DIRECT) {
+      state = {name: ad.name, size: ad.size};
+      formGroup.get('creativeContents').setValidators([
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP),
+      ]);
     }
 
     formGroup.controls[adTypeName] = new FormControl(state);
@@ -198,11 +224,14 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   adjustBannerName(form: FormGroup): void {
+    if (!form.get('name').value) {
+      form.get('name').reset();
+    }
     if (form.get('name').dirty === false) {
       let name = form.get('creativeSize').value ?
         `${adTypesEnum[form.get('type').value]} ${form.get('creativeSize').value}` :
         `${adTypesEnum[form.get('type').value]}`;
-      const matchingNames = this.adForms.filter(form => form.get('name').value.includes(name));
+      const matchingNames = this.adForms.filter(form => form.get('name').value && form.get('name').value.includes(name));
       if (matchingNames.length > 0) {
         name = `${name} ${matchingNames.length}`
       }
@@ -228,7 +257,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   selectProperBannerSize(size: string, index: number) {
-    if (this.adSizes.includes(size)) {
+    if (this.displayAdSizes.includes(size)) {
       this.adForms[index].get('creativeSize').setValue(size);
     } else {
       this.showImageSizeWarning();
@@ -270,7 +299,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
               src: event.body.url,
               size: event.body.size
             });
-          } else if (event.body) {
+          } else if (this.isHtmlTypeChosen(form) && event.body) {
             this.ads[adIndex] = {
               ...this.ads[adIndex],
               url: event.body.url,
@@ -299,11 +328,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       type: this.adForms[adIndex].get('type').value,
       name: this.adForms[adIndex].get('name').value,
       creativeSize: this.adForms[adIndex].get('creativeSize').value,
+      creativeContents: this.adForms[adIndex].get('creativeContents').value,
       status: this.adForms[adIndex].get('status').value
     });
   }
 
   setAdType(adIndex): void {
+    this.adsSubmitted = false;
     const adForm = this.adForms[adIndex];
     const adType = adForm.get('type').value;
     const adTypeName = this.adTypes[adType];
@@ -316,10 +347,18 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     adForm.controls[adTypeName] = new FormControl({src: ''});
     adForm.updateValueAndValidity();
 
-    if (adForm.get('html') && adForm.get('creativeSize').value === null) {
-      adForm.get('creativeSize').setValue(this.adSizes[0]);
+    if (adForm.get('html')) {
+      adForm.get('creativeSize').setValue(this.displayAdSizes[0]);
+      adForm.get('creativeContents').setValidators([]);
+    } else if (adForm.get('direct')) {
+      adForm.get('creativeSize').setValue(this.popAdSizes[0]);
+      adForm.get('creativeContents').setValidators([
+        Validators.required,
+        Validators.pattern(appSettings.TARGET_URL_REGEXP),
+      ]);
     } else {
       adForm.get('creativeSize').setValue(null);
+      adForm.get('creativeContents').setValidators([]);
     }
     this.adjustBannerName(adForm);
   }
@@ -337,13 +376,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adForms.forEach((form, index) => this.updateAdInfo(index));
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
-      this.adForms.every((adForm, index) => !!this.ads[index].url) &&
+      this.adForms.every((adForm, index) => this.isDirectTypeChosen(adForm) || !!this.ads[index].url) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
       this.campaign = {
         ...this.campaign,
-        ads: this.campaign.ads.filter(ad => ad.type === adTypesEnum.DIRECT_LINK).concat(this.ads),
+        ads: this.ads,
       };
       this.isEditMode ?
         this.store.dispatch(new UpdateCampaign(this.campaign)) : this.saveCampaignAds(this.campaign, isDraft)
@@ -381,7 +420,15 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   isImageTypeChosen(form): boolean {
-    return form.get('type').value === 0
+    return form.get('type').value === adTypesEnum.IMAGE
+  }
+
+  isHtmlTypeChosen(form): boolean {
+    return form.get('type').value === adTypesEnum.HTML
+  }
+
+  isDirectTypeChosen(form): boolean {
+    return form.get('type').value === adTypesEnum.DIRECT
   }
 
   cancelUploading() {

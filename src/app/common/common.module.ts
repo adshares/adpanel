@@ -61,6 +61,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/labelWithTooltip.component';
+import {PlaceholdersAccordion} from "common/components/placeholders-accordion/placeholders-accordion";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 const matModules = [
   MatDialogModule,
@@ -119,6 +121,7 @@ const appComponents = [
   SuccessSnackbarComponent,
   InputComponent,
   LabelWithTooltipComponent,
+  PlaceholdersAccordion,
 ];
 
 @NgModule({
@@ -130,6 +133,7 @@ const appComponents = [
     ReactiveFormsModule,
     ChartsModule,
     ...matModules,
+    MatExpansionModule,
   ],
   declarations: [
     ClickOutsideDirective,
