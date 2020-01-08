@@ -25,6 +25,35 @@
   </div>
 
   <div
+    *ngIf="adForms.length > 5"
+    class="
+      row
+      justify-center
+      dwmth-box
+      dwmth-box--no-margin"
+  >
+    <button
+      class="
+        align-center
+        dwmth-btn
+        dwmth-btn--white
+        dwmth-blue
+        dwmth-btn--no-border"
+      (click)="createEmptyAd()"
+      data-test="advertiser-edit-campaign-create-ads-create-new-ad"
+    >
+      <img
+        src="assets/images/plus-circle--blue.svg"
+        alt="Add new"
+        class="
+          dwmth-icon
+          dwmth-icon--prepend"
+      >
+      Add new advertisement
+    </button>
+  </div>
+
+  <div
     class="dwmth-box dwmth-box--no-padding"
     *ngFor="let adForm of adForms; let i = index"
   >
@@ -520,7 +549,7 @@
           dwmth-icon
           dwmth-icon--prepend"
       >
-      Add new banner ad
+      Add new advertisement
     </button>
   </div>
 
