@@ -136,6 +136,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus.push(true);
     this.adjustBannerName(adForm);
+
+    this.scrollToLastForm();
+  }
+
+  private scrollToLastForm() {
+    const forms = document.getElementsByTagName('form');
+    forms[forms.length - 1].scrollIntoView();
   }
 
   handlePanelExpand(adIndex): void {
