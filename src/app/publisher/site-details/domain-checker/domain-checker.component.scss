@@ -8,9 +8,13 @@
   color: pal(gray, dark);
   background: pal(white);
 
-  &.q-good {
+  &.q-great {
     border-color: pal(green);
     color: pal(green);
+  }
+  &.q-good {
+    border-color: pal(blue, dark);
+    color: pal(blue, dark);
   }
   &.q-medium {
     border-color: pal(orange, dark);
