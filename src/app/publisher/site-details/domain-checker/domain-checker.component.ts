@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient } from '@angular/common/http';
-import { HandleSubscription } from 'common/handle-subscription';
-import { PublisherService } from 'publisher/publisher.service';
-import { timer } from 'rxjs/observable/timer';
+import {Component, Input, OnInit} from '@angular/core';
+import {faQuestionCircle} from '@fortawesome/free-solid-svg-icons';
+import {HttpClient} from '@angular/common/http';
+import {HandleSubscription} from 'common/handle-subscription';
+import {PublisherService} from 'publisher/publisher.service';
+import {timer} from 'rxjs/observable/timer';
 
 enum PageRankInfo {
   OK = 'ok',
@@ -14,6 +14,7 @@ enum PageRankInfo {
   POOR_TRAFFIC = 'poor-traffic',
   POOR_CONTENT = 'poor-content',
   SUSPICIOUS_DOMAIN = 'suspicious-domain',
+  NOT_WORKING = 'not-working',
 }
 
 @Component({
@@ -35,7 +36,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   ngOnInit(): void {
     const domainCheckSubscription = timer(0, DomainCheckerComponent.UPDATE_INTERVAL)
-      .switchMap(() => this.http.get<any>('https://gitoku.com/api/v1/domain/'+encodeURIComponent(this.domain)))
+      .switchMap(() => this.http.get<any>('https://gitoku.com/api/v1/domain/' + encodeURIComponent(this.domain)))
       .subscribe(
         (response: any) => {
           this.updateMessage(response.rank || 0, response.info || PageRankInfo.UNKNOWN);
@@ -47,7 +48,6 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   }
 
   updateMessage(pageRank: number, pageRankInfo: string): void {
-    // TODO update descriptions
 
     if (0 === pageRank && PageRankInfo.UNKNOWN === pageRankInfo) {
       this.message = 'In verification';
@@ -57,37 +57,75 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
       return;
     }
 
-    if (pageRank >= 0.7) {
-      this.quality = 'good';
-    } else if (pageRank >= 0.3) {
-      this.quality = 'medium';
-    } else {
-      this.quality = 'bad';
-    }
-    const label = Math.round(pageRank * 10);
-    this.message = 0 === pageRank ? 'Banned' : `Rank: ${label}/10`;
-    this.tooltip = this.tooltipByPageRankInfo(pageRankInfo);
+    this.quality = this.qualityByPageRank(pageRank);
+    this.message = this.messageByPageRank(pageRank);
+    this.tooltip = this.tooltipByPageRank(pageRank, pageRankInfo);
   }
 
-  tooltipByPageRankInfo(pageRankInfo: string): string|null {
-    switch (pageRankInfo) {
-      case PageRankInfo.OK:
-      case PageRankInfo.UNKNOWN:
-        return null;
-      case PageRankInfo.HIGH_IVR:
-        return 'The invalid view rate is too high. Please check your anti-bot protection.';
-      case PageRankInfo.HIGH_CTR:
-        return 'The click-through rate is too high. Please check your anti-bot protection.';
-      case PageRankInfo.LOW_CTR:
-        return 'The click-through rate is too low. Please try placing ad units in a more visible places. You can also check if you are using the most popular ad unit sizes.';
-      case PageRankInfo.POOR_TRAFFIC:
-        return 'Poor traffic. Please check your anti-bot protection.';
-      case PageRankInfo.POOR_CONTENT:
-        return 'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';
-      case PageRankInfo.SUSPICIOUS_DOMAIN:
-        return 'We don’t allow newly created domains and domains that are not present in public indexes.';
-      default :
-        return null;
+  qualityByPageRank(pageRank: number): string {
+    let quality = '';
+    if (pageRank >= 0.7) {
+      quality = 'great';
+    } else if (pageRank >= 0.3) {
+      quality = 'good';
+    } else if (pageRank > 0  || pageRank == -1) {
+      quality = 'medium';
+    } else {
+      quality = 'bad';
     }
+
+    return quality;
+  }
+
+  messageByPageRank(pageRank: number): string {
+    let message = '';
+    if (pageRank == -1) {
+      message = 'CPA only';
+    } else if (pageRank <= 0) {
+      message = 'Banned';
+    } else {
+      const label = Math.round(pageRank * 10);
+      message = `Rank: ${label}/10`;
+    }
+
+    return message;
+  }
+
+  tooltipByPageRank(pageRank: number, pageRankInfo: string): string | null {
+    let info = null;
+
+    if (pageRank == -1) {
+      info = 'Your site has been approved for CPA campaigns only. ';
+    } else if (pageRank <= 0) {
+      info = 'Your site has been banned. ';
+    } else if (pageRankInfo != PageRankInfo.OK) {
+      info = `Your site has been conditionally approved. `;
+    }
+
+    switch (pageRankInfo) {
+      case PageRankInfo.HIGH_IVR:
+        info += 'The invalid view rate is too high. Please check your anti-bot protection.';
+        break;
+      case PageRankInfo.HIGH_CTR:
+        info += 'The click-through rate is too high. Please check your anti-bot protection.';
+        break;
+      case PageRankInfo.LOW_CTR:
+        info += 'The click-through rate is too low. Please try placing ad units in a more visible places. You can also check if you are using the most popular ad unit sizes.';
+        break;
+      case PageRankInfo.POOR_TRAFFIC:
+        info += 'Poor traffic. Please check your anti-bot protection.';
+        break;
+      case PageRankInfo.POOR_CONTENT:
+        info += 'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';
+        break;
+      case PageRankInfo.SUSPICIOUS_DOMAIN:
+        info += 'We don’t allow newly created domains and domains that are not present in public indexes.';
+        break;
+      case PageRankInfo.NOT_WORKING:
+        info += 'The site is not responding or reports an error.';
+        break;
+    }
+
+    return info;
   }
 }
