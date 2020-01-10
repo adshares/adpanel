@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Additional button which adds advertisement
 - Page rank info (CPA only and not working)
+- Edit conversions
 
 ## [1.4.8] - 2020-01-03
 ### Changed
