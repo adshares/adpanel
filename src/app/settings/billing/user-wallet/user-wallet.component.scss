@@ -1,6 +1,7 @@
 @import "../../../../styles/mixins";
 @import "../../../../styles/colors";
 
+
 .user-wallet {
   margin-bottom: 8px;
   display: flex;
@@ -47,19 +48,43 @@
 
   &__funds-actions {
     display: flex;
-    margin: 20px 0;
+    flex-flow: row wrap;
+    margin-top: 20px;
   }
 
   &__btn {
     @include btn();
+    max-height: 75px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-right: 24px;
+    margin-bottom: 15px;
+    white-space: nowrap;
 
     &--white {
-      @include btn(
-        $color: pal(blue, base),
-        $background-color: pal(white, base),
-        $border-color: pal(gray, light)
-      );
-      margin-right: 24px;
+      color: pal(blue, base);
+      background-color: pal(white, base);
+      border-color: pal(gray, light);
+
+      &:focus,
+      &:hover:not([disabled]) {
+        background-color: darken(pal(white, base), 5%);
+      }
+
+      &[disabled] {
+        background-color: lighten(pal(white, base), 5%);
+        border-color: lighten(pal(gray, light), 5%);
+      }
+    }
+
+    &--multilines {
+      padding-top: 4px;
+      padding-bottom: 5px;
+      text-align: left;
+    }
+
+    small {
+      font-size: 80%;
     }
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
-import { AdsharesAddress, DepositInfo } from 'models/settings.model';
+import { AdsharesAddress, DepositInfo, NowPaymentsInfo, NowPaymentsInit } from 'models/settings.model';
 
 @Injectable()
 export class ApiConfigService {
@@ -17,5 +17,13 @@ export class ApiConfigService {
 
   depositInfo(): Observable<DepositInfo> {
     return this.http.get<DepositInfo>(`${environment.apiUrl}/deposit-info`);
+  }
+
+  nowPaymentsInfo(): Observable<NowPaymentsInfo> {
+    return this.http.get<NowPaymentsInfo>(`${environment.apiUrl}/now-payments/info`);
+  }
+
+  nowPaymentsInit(amount: number): Observable<NowPaymentsInit> {
+    return this.http.get<NowPaymentsInit>(`${environment.apiUrl}/now-payments/init?amount=`+amount);
   }
 }
