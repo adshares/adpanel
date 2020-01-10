@@ -218,7 +218,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.limitType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: conversion.value !== null ? formatMoney(conversion.value) : null,
+        value: conversion.value !== null ? formatMoney(conversion.value, 11, true, '.', '') : null,
         link: conversion.link,
       };
       this.addConversion(item);
