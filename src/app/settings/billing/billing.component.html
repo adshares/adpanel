@@ -1,4 +1,10 @@
 <div class="billing-payments">
+  <div
+    class="dwmth-box dwmth-box--large dwmth-box--light-green dwmth-copy dwmth-copy--medium"
+    *ngIf="nowPaymentsSuccess"
+  >
+    Thank You. The transaction is awaiting confirmation by NowPayments.
+  </div>
   <app-user-wallet></app-user-wallet>
   <app-billing-history></app-billing-history>
 </div>
