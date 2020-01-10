@@ -19,4 +19,5 @@ export const userInitialState: User = {
   },
   isAdserverWalletValid: false,
   exchangeRate: null,
+  nowPayments: null,
 };
