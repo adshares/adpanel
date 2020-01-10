@@ -43,6 +43,7 @@
           class=" user-wallet__btn user-wallet__btn--white user-wallet__btn--multilines"
           (click)="openNowPaymentsDialog()"
           data-test="now-payments-dialog-open-button"
+          *ngIf="nowPayments"
         >
           <img
             class="user-wallet__icon"

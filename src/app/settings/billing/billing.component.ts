@@ -8,11 +8,9 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class BillingComponent {
 
-  private route;
   nowPaymentsSuccess: boolean = false;
 
-  constructor(route: ActivatedRoute) {
-    this.route = route;
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {

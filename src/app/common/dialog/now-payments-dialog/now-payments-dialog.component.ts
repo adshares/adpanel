@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { HandleSubscription } from 'common/handle-subscription';
-import { NowPaymentsInfo, NowPaymentsInit } from 'models/settings.model';
+import { NowPaymentsInit } from 'models/settings.model';
 import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 import { CODE, CRYPTO } from "common/utilities/consts";
 import { isNumeric } from "rxjs/util/isNumeric";
 import { environment } from "environments/environment";
+import { NowPaymentsInfo } from "models/user.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
 
 @Component({
   selector: 'app-now-payments-dialog',
@@ -24,7 +27,6 @@ export class NowPaymentsDialogComponent extends HandleSubscription implements On
   maxAmount: number = 10000;
   exchangeRate: number;
   currency: string = '';
-  availableCurrencies: string[];
 
   amount: number;
   adsAmount: number;
@@ -36,6 +38,7 @@ export class NowPaymentsDialogComponent extends HandleSubscription implements On
     public dialogRef: MatDialogRef<NowPaymentsDialogComponent>,
     private api: ApiService,
     private session: SessionService,
+    private store: Store<AppState>
   ) {
     super();
   }
@@ -43,13 +46,13 @@ export class NowPaymentsDialogComponent extends HandleSubscription implements On
   ngOnInit() {
     const user = this.session.getUser();
     this.isEmailConfirmed = user.isEmailConfirmed;
+    this.exchangeRate = null;
 
-    this.api.config.nowPaymentsInfo()
-      .subscribe((data: NowPaymentsInfo) => {
-        this.minAmount = data.minAmount;
-        this.exchangeRate = data.exchangeRate;
-        this.currency = data.currency;
-        this.availableCurrencies = data.availableCurrencies;
+    this.store.select('state', 'user', 'data', 'nowPayments')
+      .subscribe((info: NowPaymentsInfo) => {
+        this.minAmount = info.minAmount;
+        this.exchangeRate = info.exchangeRate;
+        this.currency = info.currency;
         this.setAmount(this.defaultAmount);
       });
   }
