@@ -113,7 +113,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   getChartData(chartFilterSettings, id) {
-    console.log('getChartData');
     this.barChartData[0].data = [];
     const chartDataSubscription = this.chartService
       .getAssetChartData(
