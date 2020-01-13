@@ -53,10 +53,16 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     const id = this.route.snapshot.data.campaign.id;
+
+    this.store.select('state', 'common', 'chartFilterSettings')
+      .take(1)
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.getChartData(chartFilterSettings, id)
+      });
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
-        this.getChartData(this.currentChartFilterSettings, id)
       });
 
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
@@ -119,7 +125,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries.label;
+        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
