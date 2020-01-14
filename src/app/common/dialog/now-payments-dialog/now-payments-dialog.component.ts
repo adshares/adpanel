@@ -22,9 +22,9 @@ export class NowPaymentsDialogComponent extends HandleSubscription implements On
   code: string = CODE;
   isEmailConfirmed = false;
 
-  defaultAmount = 25;
+  defaultAmount = 50;
   minAmount: number;
-  maxAmount: number = 10000;
+  maxAmount: number = 1000;
   exchangeRate: number;
   currency: string = '';
 
