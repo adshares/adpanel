@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- NowPayments integration
 - Additional button which adds advertisement
 - Page rank info (CPA only and not working)
 - Edit conversions

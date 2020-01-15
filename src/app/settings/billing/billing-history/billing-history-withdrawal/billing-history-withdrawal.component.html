@@ -57,18 +57,7 @@
       {{ billingHistoryItemDate }}
     </span>
   </td>
-  <td class="col-xs-2">
-    <span
-      class="
-      break-word
-      dwmth-copy
-      dwmth-copy--x-dark"
-      data-test="settings-billing-history-item-address"
-    >
-      {{ billingHistoryItem.address }}
-    </span>
-  </td>
-  <td class="col-xs-1"
+  <td class="col-xs-2"
       [ngClass]="{'billing-table-row__link': !!link}">
     <a *ngIf="link"
        [title]="link"
@@ -79,6 +68,7 @@
     >
       {{billingHistoryItem.txid}}
     </a>
+    <span *ngIf="!link">{{billingHistoryItem.txid}}</span>
     <button *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
             class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
             (click)="cancelAwaitingTransaction(billingHistoryItem.id)"

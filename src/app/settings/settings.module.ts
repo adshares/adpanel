@@ -13,7 +13,6 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppCommonModule } from 'common/common.module';
-import { WalletDialogComponent } from './dialogs/wallet-dialog/wallet-dialog.component';
 import { SettingsComponent } from './settings.component';
 import { BillingComponent } from './billing/billing.component';
 import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component';
@@ -47,7 +46,6 @@ library.add(fas);
   ],
   declarations: [
     ClickOutsideDirective,
-    WalletDialogComponent,
     SettingsComponent,
     BillingComponent,
     AccountSettingsComponent,
@@ -60,9 +58,6 @@ library.add(fas);
     BillingHistoryFilterComponent,
     SettingsNavigationComponent,
     BillingHistoryWithdrawalComponent,
-  ],
-  entryComponents: [
-    WalletDialogComponent
   ]
 })
 export class SettingsModule {

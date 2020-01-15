@@ -560,3 +560,14 @@ router-outlet ~ * {
   display: inline-flex;
   align-items: center;
 }
+
+.now_payments_logo {
+  font-weight: 400;
+  font-family: "Roboto",Arial,Helvetica,sans-serif;
+  color: #2b2b37;
+
+  > span {
+    font-weight: 600;
+    color: #64acff;
+  }
+}

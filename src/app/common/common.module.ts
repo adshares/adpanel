@@ -63,6 +63,7 @@ import { ConversionLinkInformationDialogComponent } from 'common/dialog/informat
 import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/labelWithTooltip.component';
 import {PlaceholdersAccordion} from "common/components/placeholders-accordion/placeholders-accordion";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {NowPaymentsDialogComponent} from "common/dialog/now-payments-dialog/now-payments-dialog.component";
 
 const matModules = [
   MatDialogModule,
@@ -93,6 +94,7 @@ const dialogs = [
   UserConfirmResponseDialogComponent,
   WarningDialogComponent,
   ConversionLinkInformationDialogComponent,
+  NowPaymentsDialogComponent,
 ];
 
 const appComponents = [

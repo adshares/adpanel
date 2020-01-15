@@ -47,7 +47,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
     this.getIcon();
 
     this.billingHistoryItemDate = moment(this.billingHistoryItem.date).format(DATE_AND_TIME_FORMAT);
-    if (this.billingHistoryItem.txid) {
+    if (/^[0-9A-F]{4}:[0-9A-F]{8}:[0-9A-F]{4}$/.test(this.billingHistoryItem.txid)) {
       this.link = appSettings.ADS_OPERATOR_URL + '/blockexplorer/transactions/' + this.billingHistoryItem.txid;
     }
     this.status = billingHistoryItemStatusEnum[this.billingHistoryItem.status];
