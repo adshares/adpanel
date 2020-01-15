@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.1] - 2020-01-15
+### Fixed
+- Approximately ads refresh
+
 ## [1.5.0] - 2020-01-15
 ### Added
 - NowPayments integration
@@ -190,7 +194,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.5.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.5.1...develop
+[1.5.1]: https://github.com/adshares/adpanel/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/adshares/adpanel/compare/v1.4.8...v1.5.0
 [1.4.8]: https://github.com/adshares/adpanel/compare/v1.4.7...v1.4.8
 [1.4.7]: https://github.com/adshares/adpanel/compare/v1.4.6...v1.4.7
