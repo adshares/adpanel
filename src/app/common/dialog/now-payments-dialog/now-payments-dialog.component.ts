@@ -63,7 +63,7 @@ export class NowPaymentsDialogComponent extends HandleSubscription implements On
 
   setAmount(amount: number) {
     this.amount = amount;
-    this.adsAmount = 1e11 * (this.amount / this.exchangeRate);
+    this.adsAmount = Math.round(1e11 * (this.amount / this.exchangeRate));
   }
 
   keydownAmount(event) {

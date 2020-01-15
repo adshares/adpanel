@@ -29,10 +29,10 @@
         name="amount"
         type="number"
         step="0.01"
-        value="{{amount}}"
+        value="{{defaultAmount}}"
         min="{{minAmount}}"
         max="{{maxAmount}}"
-        (keydown)="keydownAmount($event)"
+        (keyup)="keydownAmount($event)"
         (change)="changeAmount($event)"
         data-test="common-now-payments-dialog-adshares-amount"
       >
