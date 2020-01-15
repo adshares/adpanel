@@ -105,6 +105,10 @@ interface DepositInfo {
   message: string;
 }
 
+interface NowPaymentsInit {
+  nowPaymentsUrl: string;
+}
+
 interface CalculateWithdrawalItem {
   amount: number;
   fee: number;
@@ -122,6 +126,7 @@ export {
   AdminWallet,
   AdsharesAddress,
   DepositInfo,
+  NowPaymentsInit,
   CalculateWithdrawalItem,
   AdminSettingsResponse,
   AdminWalletResponse,

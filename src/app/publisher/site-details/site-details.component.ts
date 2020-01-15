@@ -66,6 +66,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
+
+    this.store.select('state', 'common', 'chartFilterSettings')
+      .take(1)
+      .subscribe((chartFilterSettings: ChartFilterSettings) => {
+        this.getChartData(chartFilterSettings, this.site.id);
+      });
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
@@ -74,7 +81,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
         this.site = sites.find(el => el.id === this.site.id);
-        this.getChartData(this.currentChartFilterSettings, this.site.id);
         this.getFiltering();
       });
 
@@ -152,7 +158,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = this.currentChartFilterSettings.currentSeries.label;
+        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

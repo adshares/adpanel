@@ -466,6 +466,21 @@
         >
           List of ads
         </p>
+        <button
+          class="
+            self-end
+            dwmth-btn
+            dwmth-btn--edit"
+          (click)="navigateToCampaignEdition('create-ad', 3)"
+          data-test="advertiser-campaign-edit-targeting-button"
+        >
+          <img
+            class="dwmth-icon
+                   dwmth-icon--prepend"
+            src="assets/images/edit-blue.svg"
+            alt="">
+          Add new advertisement
+        </button>
       </div>
       <app-poster-list *ngIf="campaign.ads.length"
                        [adList]="campaign.ads"
@@ -495,7 +510,7 @@
             class="
               dwmth-icon
               dwmth-icon--prepend"/>
-          {{campaign.ads.length ? 'Add new banner ad' : 'Upload your first ad'}}
+          {{campaign.ads.length ? 'Add new advertisement' : 'Upload your first ad'}}
         </button>
       </div>
     </div>

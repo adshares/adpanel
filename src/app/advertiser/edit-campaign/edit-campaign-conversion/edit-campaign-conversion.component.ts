@@ -172,7 +172,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   generateFormConversionItem(item: CampaignConversionItem): FormGroup {
     const itemUuid = item.uuid;
     const itemIsAdvanced = item.isAdvanced;
-    const isItemFromBackend = itemUuid != null;
 
     const valueValidators = [Validators.min(0)];
     if (!itemIsAdvanced) {
@@ -181,13 +180,13 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
     return new FormGroup({
       uuid: new FormControl(itemUuid),
-      name: new FormControl({value: item.name, disabled: isItemFromBackend}, Validators.required),
-      type: new FormControl({value: item.eventType, disabled: isItemFromBackend}, Validators.required),
-      isAdvanced: new FormControl({value: itemIsAdvanced, disabled: isItemFromBackend}),
-      isInBudget: new FormControl({value: item.isInBudget, disabled: isItemFromBackend || !itemIsAdvanced}),
-      isValueMutable: new FormControl({value: item.isValueMutable || 0, disabled: isItemFromBackend}),
-      isRepeatable: new FormControl({value: item.isRepeatable || 0, disabled: isItemFromBackend || !itemIsAdvanced}),
-      value: new FormControl({value: item.value, disabled: isItemFromBackend}, valueValidators),
+      name: new FormControl(item.name, Validators.required),
+      type: new FormControl(item.eventType, Validators.required),
+      isAdvanced: new FormControl({value: itemIsAdvanced, disabled: true}),
+      isInBudget: new FormControl({value: item.isInBudget, disabled: !itemIsAdvanced}),
+      isValueMutable: new FormControl(item.isValueMutable || false),
+      isRepeatable: new FormControl({value: item.isRepeatable || false, disabled: !itemIsAdvanced}),
+      value: new FormControl(item.value, valueValidators),
       link: new FormControl(item.link),
     });
   }
@@ -219,7 +218,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.limitType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: conversion.value !== null ? formatMoney(conversion.value) : null,
+        value: conversion.value !== null ? formatMoney(conversion.value, 11, true, '.', '') : null,
         link: conversion.link,
       };
       this.addConversion(item);

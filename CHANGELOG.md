@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2020-01-15
+### Added
+- NowPayments integration
+- Additional button which adds advertisement
+- Page rank info (CPA only and not working)
+- Edit conversions
+
 ## [1.4.8] - 2020-01-03
 ### Changed
 - Default direct link value
+- Limit chart requests
 ### Fixed
 - Long direct links
 
@@ -182,7 +190,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.4.6...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.5.0...develop
+[1.5.0]: https://github.com/adshares/adpanel/compare/v1.4.8...v1.5.0
+[1.4.8]: https://github.com/adshares/adpanel/compare/v1.4.7...v1.4.8
+[1.4.7]: https://github.com/adshares/adpanel/compare/v1.4.6...v1.4.7
 [1.4.6]: https://github.com/adshares/adpanel/compare/v1.4.5...v1.4.6
 [1.4.5]: https://github.com/adshares/adpanel/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/adshares/adpanel/compare/v1.4.3...v1.4.4
