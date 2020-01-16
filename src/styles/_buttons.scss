@@ -46,6 +46,11 @@
     width: 100%;
   }
 
+  &--multiline {
+    padding-top: 4px;
+    padding-bottom: 5px;
+  }
+
   &--faded {
     opacity: 0.15;
   }
@@ -57,6 +62,7 @@
   &--white {
     background-color: pal(white);
     border: 1px solid pal(gray, light);
+    color: pal(blue, base);
 
     &:hover {
       background-color: pal(gray, ultra-light);

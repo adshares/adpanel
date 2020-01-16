@@ -21,8 +21,10 @@ export const appSettings = {
   PRIVACY_POLICY_LINK: environment.serverUrl + '/policies/privacy.html',
   // terms of service link
   TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/terms.html',
-  // faq link
-  FAQ_LINK: 'https://github.com/adshares/ads/wiki/How-to-get-ADS',
+  // get ADS faq link
+  GET_ADS_FAQ_LINK: 'https://adshar.es/getADS',
+  // withdraw ADS faq link
+  WITHDRAW_ADS_FAQ_LINK: 'https://adshar.es/withdrawADS',
   // support email
   SUPPORT_EMAIL: 'office@adshares.net',
   // blockchain address validation regexp

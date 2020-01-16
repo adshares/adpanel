@@ -7,9 +7,8 @@ import { appSettings } from 'app-settings';
 import { SessionService } from "app/session.service";
 import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
-import { NowPaymentsInfo, UserAdserverWallet } from "models/user.model";
+import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
-import { NowPaymentsDialogComponent } from "common/dialog/now-payments-dialog/now-payments-dialog.component";
 
 @Component({
   selector: 'app-user-wallet',
@@ -17,9 +16,9 @@ import { NowPaymentsDialogComponent } from "common/dialog/now-payments-dialog/no
   styleUrls: ['./user-wallet.component.scss']
 })
 export class UserWalletComponent extends HandleSubscription implements OnInit {
-  faqLink = appSettings.FAQ_LINK;
+  getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK;
+  withdrawAdsFaqLink = appSettings.WITHDRAW_ADS_FAQ_LINK;
   wallet: UserAdserverWallet;
-  nowPayments: NowPaymentsInfo;
   crypto: string = CRYPTO;
   code: string = CODE;
 
@@ -39,18 +38,10 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     this.dialog.open(WithdrawFundsDialogComponent);
   }
 
-  openNowPaymentsDialog() {
-    this.dialog.open(NowPaymentsDialogComponent);
-  }
-
   ngOnInit() {
     this.store.select('state', 'user', 'data', 'adserverWallet')
       .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet;
-      });
-    this.store.select('state', 'user', 'data', 'nowPayments')
-      .subscribe((info: NowPaymentsInfo) => {
-        this.nowPayments = info;
       });
   }
 }
