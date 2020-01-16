@@ -9,7 +9,6 @@ import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
 import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
-import { NowPaymentsDialogComponent } from "common/dialog/now-payments-dialog/now-payments-dialog.component";
 
 @Component({
   selector: 'app-user-wallet',
@@ -37,10 +36,6 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
 
   openWithdrawFundsDialog() {
     this.dialog.open(WithdrawFundsDialogComponent);
-  }
-
-  openNowPaymentsDialog() {
-    this.dialog.open(NowPaymentsDialogComponent);
   }
 
   ngOnInit() {
