@@ -1,7 +1,45 @@
+@import "./../../../../styles";
+
 .confirm-email-error-block {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .add-funds-dialog__hint {
   margin-bottom: 16px;
+}
+
+.add-funds-selector {
+  .dialog-description {
+    width: 100%
+  }
+
+  .dwmth-copy--medium {
+    @include font(17, normal);
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .dwmth-btn--blue .now_payments_logo {
+    color: #2b2b37;
+    line-height: 19px;
+    span {
+      color: pal(white);
+    }
+  }
+}
+
+.ads-amount {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.now-payments__btns-wrapper  {
+  margin: 12px 0 0 0;
+
+  .add-funds-dialog__hint {
+    @include font(14, normal);
+    margin-top: 15px;
+    text-align: justify;
+  }
 }

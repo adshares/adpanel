@@ -103,6 +103,14 @@ interface AdsharesAddress {
 interface DepositInfo {
   address: string;
   message: string;
+  nowPayments: NowPaymentsInfo | null;
+}
+
+interface NowPaymentsInfo {
+  minAmount: number;
+  maxAmount: number;
+  exchangeRate: number;
+  currency: string;
 }
 
 interface NowPaymentsInit {
@@ -126,6 +134,7 @@ export {
   AdminWallet,
   AdsharesAddress,
   DepositInfo,
+  NowPaymentsInfo,
   NowPaymentsInit,
   CalculateWithdrawalItem,
   AdminSettingsResponse,

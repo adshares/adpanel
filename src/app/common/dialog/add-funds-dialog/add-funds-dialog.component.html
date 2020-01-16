@@ -15,59 +15,83 @@
     Deposit funds
   </h1>
 
-  <p
-    class="
-      dwmth-copy
-      dwmth-copy--large
-      dialog-description"
-  >
-    Here is the information required to deposit funds to your account.
-  </p>
+  <div *ngIf="!loadingInfo; else loading">
+    <div
+      *ngIf="!useNativeDeposit && !useNowPaymentsDeposit;
+        else useNativeDeposit && nativeDeposit || useNowPaymentsDeposit && nowPaymentsDeposit"
+      class="add-funds-selector"
+    >
+      <p class="dwmth-copy dwmth-copy--large dialog-description">
+        Select your preferred deposit method. You can choose between the native ADS coin and over 30 other
+        cryptocurrencies, including BTC and ETH.
+      </p>
+      <div class="add-funds-content dialog-main-content">
+        <button
+          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          (click)="selectNativeDeposit()"
+        >
+          Deposit ADS
+        </button>
+        <p class="dwmth-copy dwmth-copy--medium">
+          No fee, super fast.
+          <a href="http://adshar.es/getADS" rel="noopener noreferrer nofollow" target="_blank">
+            How to get ADS?
+          </a>
+        </p>
 
-  <div
-    *ngIf="adsharesAddress && paymentMemo; else loading"
-    class="
-      add-funds-content
-      dialog-main-content"
-  >
-    <div class="dwmth-form-input__box">
-      <label
-        for="adshares-address"
-        class="dwmth-form-label"
-      >
-        Adshares’ account address:
-      </label>
-      <input
-        id="adshares-address"
-        class="
-          dwmth-form-input
-          dwmth-form-input--full"
-        name="adshares-address"
-        [value]="adsharesAddress"
-        readonly
-        #address
-        data-test="common-add-funds-dialog-adshares-address"
-      >
-      <span class="input-valid"></span>
+        <button
+          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          (click)="selectNowPaymentsDeposit()"
+        >
+          Deposit with&nbsp;<span class="now_payments_logo"><span>NOW</span>Payments</span>
+        </button>
+        <p class="dwmth-copy dwmth-copy--medium">
+          Deposit BTC, ETH, LTC and other cryptocurrencies.
+          <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
+            full list here.</a>
+        </p>
       </div>
-      <p
-        class="
-        dwmth-copy
-        dwmth-copy--blue
-        add-funds-dialog__hint"
-      >
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <ng-template #nativeDeposit>
+    <p class="dwmth-copy dwmth-copy--large dialog-description">
+      Here is the information required to deposit funds to your account.
+    </p>
+
+    <div class="add-funds-content dialog-main-content">
+      <div class="dwmth-form-input__box">
+        <label
+          for="adshares-address"
+          class="dwmth-form-label"
+        >
+          Adshares’ account address:
+        </label>
+        <input
+          id="adshares-address"
+          class="dwmth-form-input dwmth-form-input--full"
+          name="adshares-address"
+          [value]="adsharesAddress"
+          readonly
+          #address
+          data-test="common-add-funds-dialog-adshares-address"
+        >
+        <span class="input-valid"></span>
+      </div>
+      <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
         Please transfer your ADS coins to this address.
         Remember to add a message (aka Payment ID or Memo), otherwise your funds will not be deposited.
       </p>
       <div
-        class="
-        row
-        justify-end"
-      >
+        class="row justify-end">
         <button
-          class="
-          dwmth-btn
-          dwmth-btn--blue"
+          class="dwmth-btn dwmth-btn--blue"
           (click)="copyInput(address)"
           data-test="common-add-funds-dialog-adshares-address-copy"
         >
@@ -84,9 +108,7 @@
         </label>
         <input
           id="memo"
-          class="
-          dwmth-form-input
-          dwmth-form-input--full"
+          class="dwmth-form-input dwmth-form-input--full"
           type="url"
           name="memo"
           [value]="paymentMemo"
@@ -96,24 +118,13 @@
         >
         <span class="input-valid"></span>
       </div>
-      <p
-        class="
-        dwmth-copy
-        dwmth-copy--blue
-        add-funds-dialog__hint"
-      >
+      <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
         The message is necessary to deposit ADS coins to your account.
         Please add the message above to your transfer.
       </p>
-      <div
-        class="
-        row
-        justify-end"
-      >
+      <div class="row justify-end">
         <button
-          class="
-          dwmth-btn
-          dwmth-btn--blue"
+          class="dwmth-btn dwmth-btn--blue"
           (click)="copyInput(memo)"
           data-test="common-add-funds-dialog-user-memo-copy"
         >
@@ -122,22 +133,116 @@
       </div>
 
       <div class="row">
-      <span
-        class="
-          confirm-email-error-block
-          error-msg
-          col-xs-12"
-        *ngIf="!isEmailConfirmed"
-      >
-        Confirm email before deposit
-      </span>
+            <span
+              class="confirm-email-error-block error-msg col-xs-12"
+              *ngIf="!isEmailConfirmed"
+            >
+              Confirm email before deposit
+            </span>
       </div>
     </div>
 
-    <ng-template #loading>
-      <div class="loading-wrapper">
-        <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    <button
+      *ngIf="nowPayments"
+      class="dwmth-btn dwmth-btn--white"
+      (click)="restartDepositMethod()"
+    >
+      Back
+    </button>
+  </ng-template>
+
+  <ng-template #nowPaymentsDeposit>
+    <p class="dwmth-copy dwmth-copy--large dialog-description">
+      Allows you to make deposits in Bitcoin, Ethereum, Litecoin, and over 30 other cryptocurrencies.
+      <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
+        full list here.</a>
+    </p>
+
+    <div class="add-funds-content dialog-main-content">
+      <div class="dwmth-form-input__box">
+        <label
+          for="amount"
+          class="dwmth-form-label"
+        >
+          Deposit amount ({{nowPayments.currency}}):
+        </label>
+        <input
+          id="amount"
+          class="dwmth-form-input dwmth-form-input--full"
+          name="amount"
+          type="number"
+          step="0.01"
+          value="{{nowPaymentsDefaultAmount}}"
+          min="{{nowPayments.minAmount}}"
+          max="{{nowPayments.maxAmount}}"
+          (keyup)="keydownNowPaymentsAmount($event)"
+          (change)="changeNowPaymentsAmount($event)"
+          data-test="common-now-payments-dialog-adshares-amount"
+        >
+        <span
+          class="error-msg"
+          *ngIf="nowPaymentsAmountError"
+        >
+          Provide correct deposit amount
+        </span>
+        <span class="dwmth-form-label">
+          The min. deposit is <b>{{nowPayments.minAmount}} {{nowPayments.currency}}</b>
+          and the max. is <b>{{nowPayments.maxAmount}} {{nowPayments.currency}}</b>
+        </span>
       </div>
-    </ng-template>
+
+      <div class="ads-amount">
+      <span class="dwmth-form-label">
+        Your deposit will amount to approx.
+      </span>
+        <span
+          class="dwmth-copy dwmth-copy--large"
+          data-test="common-now-payments-dialog-ads-amount"
+        >
+        {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + environment.cryptoCode }}
+      </span>
+      </div>
+
+      <div class="row justify-center now-payments__btns-wrapper">
+        <div *ngIf="isEmailConfirmed">
+          <button
+            class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+            data-test="common-now-payments-submit-button"
+            (click)="depositNowPaymentsFunds()"
+          >
+            <span *ngIf="!isFormBeingSubmitted ; else loading">Deposit</span>
+            <ng-template #loading>
+              <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+            </ng-template>
+          </button>
+          <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
+            You will be redirected to NowPayments.io.
+            Please note that it may take up to a few hours to deposit your funds, depending on the cryptocurrency you are using.
+            A notification will be sent via e-mail once the funds have been deposited.
+          </p>
+        </div>
+
+        <span
+          class="error-msg col-xs-12"
+          *ngIf="!isEmailConfirmed"
+        >
+          Confirm email to deposit funds
+        </span>
+        <span
+          class="error-msg col-xs-12"
+          *ngIf="nowPaymentsServerError"
+        >
+          An unexpected error occurred, please try again later.
+        </span>
+      </div>
+    </div>
+
+    <button
+      class="dwmth-btn dwmth-btn--white"
+      (click)="restartDepositMethod()"
+    >
+      Back
+    </button>
+  </ng-template>
 
 </mat-dialog-content>

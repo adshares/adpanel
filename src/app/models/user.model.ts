@@ -11,12 +11,6 @@ interface ExchangeRate {
   value: number;
 }
 
-interface NowPaymentsInfo {
-  minAmount: number;
-  exchangeRate: number;
-  currency: string;
-}
-
 interface User {
   id: number
   email: string;
@@ -32,7 +26,6 @@ interface User {
   exchangeRate: ExchangeRate | null;
   uuid: string;
   referralId?: string;
-  nowPayments: NowPaymentsInfo | null;
 }
 
 interface LocalStorageUser extends User {
@@ -47,4 +40,4 @@ interface UserRoles extends User {
   advertiser: string;
 }
 
-export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate, NowPaymentsInfo };
+export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate };
