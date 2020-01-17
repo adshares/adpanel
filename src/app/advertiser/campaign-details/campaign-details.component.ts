@@ -25,6 +25,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  campaignsConfig: CampaignsConfig;
   campaign: Campaign;
   conversionTableItems: CampaignConversionStatisticsTableItem[] = [];
   conversionsStatistics: CampaignConversionStatistics[] = [];
@@ -54,6 +55,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+    this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
     this.store.select('state', 'common', 'chartFilterSettings')

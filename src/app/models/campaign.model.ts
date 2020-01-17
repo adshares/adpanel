@@ -1,5 +1,11 @@
 import { AssetTargeting } from './targeting-option.model';
 
+interface CampaignsConfig {
+  minBudget: number;
+  minCpm: number;
+  minCpa: number;
+}
+
 interface Campaign {
   id?: number;
   basicInformation: CampaignBasicInformation;
@@ -114,6 +120,7 @@ interface CampaignTotalsResponse {
 
 
 export {
+  CampaignsConfig,
   Campaign,
   CampaignBasicInformation,
   CampaignConversion,

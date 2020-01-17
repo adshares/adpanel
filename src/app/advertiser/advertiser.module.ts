@@ -36,6 +36,7 @@ import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
+import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
 
 
 const matModules = [
@@ -87,6 +88,7 @@ const advertiserComponents = [
   providers: [
     AdvertiserGuard,
     CampaignResolver,
+    CampaignsConfigResolver,
     TargetingCriteriaResolver,
     {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],

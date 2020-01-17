@@ -79,6 +79,10 @@ export class AdvertiserService {
     return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
   }
 
+  getCampaignsConfig(): Observable<CampaignsConfig> {
+    return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
+  }
+
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
