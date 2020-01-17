@@ -332,7 +332,7 @@
           Edit conversions
         </button>
       </div>
-      <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
+      <div *ngIf="conversionsStatistics.length > 0">
         <div
           class="
             row
@@ -359,7 +359,7 @@
           </div>
         </div>
 
-        <div *ngFor="let conversion of campaign.conversions"
+        <div *ngFor="let conversionStatistics of conversionsStatistics"
           class="
             row
             dwmth-box
@@ -368,19 +368,19 @@
         >
           <div class="col-xs-3"
           >
-            {{ conversion.name }}
+            {{ conversionStatistics.name }}
           </div>
           <div class="col-xs-3"
           >
-            {{ conversion.eventType }}
+            {{ conversionStatistics.eventType }}
           </div>
           <div class="col-xs-3"
           >
-            {{ conversion.cost | formatMoney:2 }}
+            {{ conversionStatistics.cost | formatMoney:2 }}
           </div>
           <div class="col-xs-3"
           >
-            {{ conversion.occurrences }}
+            {{ conversionStatistics.occurrences }}
           </div>
         </div>
       </div>

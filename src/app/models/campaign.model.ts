@@ -72,6 +72,15 @@ interface CampaignConversionItem {
   isRepeatable?: boolean;
 }
 
+interface CampaignConversionStatistics {
+  campaignId: number;
+  uuid: string;
+  name: string;
+  eventType: string;
+  cost: number;
+  occurrences: number;
+}
+
 interface Ad {
   id: number;
   status: number;
@@ -102,6 +111,7 @@ export {
   CampaignBasicInformation,
   CampaignConversion,
   CampaignConversionItem,
+  CampaignConversionStatistics,
   Ad,
   CampaignTotals,
   CampaignTotalsResponse
