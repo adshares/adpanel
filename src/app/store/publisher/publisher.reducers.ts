@@ -2,6 +2,7 @@ import * as PublisherActions from './publisher.actions';
 import * as authActions from '../auth/auth.actions';
 import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
 import { PublisherState } from 'models/app-state.model';
+import { campaignsTotalsInitialState } from "models/initial-state/campaign";
 
 const initialState: PublisherState = {
   sites: [],
@@ -9,6 +10,7 @@ const initialState: PublisherState = {
   lastEditedSite: siteInitialState,
   languagesList: [],
   filteringCriteria: [],
+  dataLoaded: false,
 };
 const unitStatsInitialState = {
   clicks: 0,

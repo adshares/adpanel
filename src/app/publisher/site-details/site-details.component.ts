@@ -7,11 +7,11 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import {AdUnit, Site, SiteLanguage} from 'models/site.model';
+import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import * as PublisherActions from 'store/publisher/publisher.actions';
@@ -21,8 +21,8 @@ import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
-import { TableColumnMetaData } from 'models/table.model';
-import { adUnitTypesEnum} from "models/enum/ad.enum";
+import { TableSortEvent } from 'models/table.model';
+import { adUnitTypesEnum } from "models/enum/ad.enum";
 
 @Component({
   selector: 'app-site-details',
@@ -88,15 +88,19 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.POP; });
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.POP;
+    });
   }
 
   get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY; });
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DISPLAY;
+    });
   }
 
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.site.adUnits = sortArrayByColumnMetaData(this.site.adUnits, columnMetaData);
+  sortTable(event: TableSortEvent) {
+    this.site.adUnits = sortArrayByKeys(this.site.adUnits, event.keys, event.sortDesc);
   }
 
   deleteSite() {

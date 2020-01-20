@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import {ChartComponent} from 'common/components/chart/chart.component';
-import {CampaignListComponent} from 'advertiser/campaign-list/campaign-list.component';
-import {ChartService} from 'common/chart.service';
-import {HandleSubscription} from 'common/handle-subscription';
-import {Campaign, CampaignTotals} from 'models/campaign.model';
-import {AppState} from 'models/app-state.model';
-import {ChartData} from 'models/chart/chart-data.model';
-import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
-import {createInitialArray, downloadCSVFile} from 'common/utilities/helpers';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { CampaignListComponent } from 'advertiser/campaign-list/campaign-list.component';
+import { ChartService } from 'common/chart.service';
+import { HandleSubscription } from 'common/handle-subscription';
+import { Campaign, CampaignTotals } from 'models/campaign.model';
+import { AppState } from 'models/app-state.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
@@ -24,6 +24,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
+  dataLoaded: boolean = false;
   campaigns: Campaign[];
   campaignsTotals: CampaignTotals;
 
@@ -83,17 +84,23 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
 
   loadCampaigns(from: string, to: string) {
     this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
+
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         this.campaigns = campaigns;
+        // if (this.campaignListRef) {
+        //   this.campaignListRef.refreshTable(this.campaigns)
+        // }
       });
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
       .subscribe((totals: CampaignTotals) => this.campaignsTotals = totals);
 
-    this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription);
-  }
+    const dataLoadedTotalsSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
+    this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription, dataLoadedTotalsSubscription);
+  }
 
   downloadReport() {
     const settings = this.currentChartFilterSettings;

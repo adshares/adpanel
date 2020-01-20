@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
-import { enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
-import { TableColumnMetaData } from 'models/table.model';
+import { enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 
 @Component({
@@ -46,8 +46,8 @@ export class SiteListComponent extends HandleSubscription {
     });
   }
 
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.sites = sortArrayByColumnMetaData(this.sites, columnMetaData);
+  sortTable(event: TableSortEvent) {
+    this.sites = sortArrayByKeys(this.sites, event.keys, event.sortDesc);
   }
 
   navigateToCreateSite() {

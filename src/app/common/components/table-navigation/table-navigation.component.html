@@ -3,7 +3,7 @@
   *ngFor="let menuItem of navigationItems"
   class="table-nav__row"
   [ngClass]="menuItem.columnWidth"
-  (click)="sortTableByKey(menuItem)"
+  (click)="sortTableByColumn(menuItem)"
   data-test="common-sort-assets-toggle"
 >
   {{ menuItem.title }}
@@ -16,13 +16,13 @@
   >
     <div
       class="dwmth-sort-triangle"
-      [class.active]="!menuItem.sortAsc && menuItem.isSortedBy"
+      [class.active]="!menuItem.sortedDesc && menuItem.isSortedBy"
     ></div>
     <div
       class="
         dwmth-sort-triangle
         dwmth-sort-triangle--down"
-      [class.active]="menuItem.sortAsc && menuItem.isSortedBy"
+      [class.active]="menuItem.sortedDesc && menuItem.isSortedBy"
     ></div>
   </th>
 </tr>

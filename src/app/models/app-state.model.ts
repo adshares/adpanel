@@ -28,6 +28,7 @@ interface AdvertiserState {
   lastEditedCampaign: Campaign;
   campaigns: Campaign[] | null;
   campaignsTotals: CampaignTotals;
+  dataLoaded: boolean;
 }
 
 interface PublisherState {
@@ -36,6 +37,7 @@ interface PublisherState {
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
   filteringCriteria: TargetingOption[];
+  dataLoaded: boolean;
 }
 
 interface SettingsState {

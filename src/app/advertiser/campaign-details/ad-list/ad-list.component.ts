@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 
-import {Ad, Campaign} from 'models/campaign.model';
-import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
-import { TableColumnMetaData } from 'models/table.model';
+import { Ad, Campaign } from 'models/campaign.model';
+import { sortArrayByKeys } from 'common/utilities/helpers';
+import { TableSortEvent } from 'models/table.model';
+import { TableNavigationComponent } from "common/components/table-navigation/table-navigation.component";
 
 @Component({
   selector: 'app-poster-list',
@@ -12,8 +13,15 @@ import { TableColumnMetaData } from 'models/table.model';
 export class AdListComponent {
   @Input() adList: Ad[];
   @Input() campaign: Campaign;
+  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
 
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.adList = sortArrayByColumnMetaData(this.campaign.ads, columnMetaData);
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.tableNavigationRef) {
+      this.tableNavigationRef.refresh();
+    }
+  }
+
+  sortTable(event: TableSortEvent) {
+    this.adList = sortArrayByKeys(this.campaign.ads, event.keys, event.sortDesc);
   }
 }

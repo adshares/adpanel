@@ -1,15 +1,13 @@
 import * as advertiserActions from './advertiser.actions';
 import * as authActions from '../auth/auth.actions';
 import { AdvertiserState } from 'models/app-state.model';
-import {
-  campaignInitialState,
-  campaignsTotalsInitialState
-} from 'models/initial-state/campaign';
+import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
-  campaignsTotals: campaignsTotalsInitialState
+  campaignsTotals: campaignsTotalsInitialState,
+  dataLoaded: false,
 };
 
 const bannerStatsInitialState = {
@@ -70,18 +68,20 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: action.payload
       };
-    case advertiserActions.LOAD_CAMPAIGN_SUCCESS:
-      const campaign = state.campaigns.filter(campaign => campaign.id !== action.payload.id);
+    case advertiserActions.LOAD_CAMPAIGN_SUCCESS: {
+      const _campaigns = state.campaigns;
+      const i = _campaigns.findIndex(campaign => campaign.id === action.payload.id);
+      if (-1 !== i) {
+        _campaigns[i] = action.payload;
+      } else {
+        _campaigns.push(action.payload);
+      }
 
       return {
         ...state,
-        campaigns: [
-          ...campaign,
-          {
-            ...action.payload
-          }
-        ]
+        campaigns: [..._campaigns],
       };
+    }
     case advertiserActions.DELETE_CAMPAIGN_SUCCESS:
       const newCampaigns = state.campaigns.filter(el => el.id !== action.payload);
       return {
@@ -129,15 +129,17 @@ export function advertiserReducers(state = initialState, action: advertiserActio
       });
       return {
         ...state,
+        dataLoaded: true,
         campaigns: campaignsWithTotal,
         campaignsTotals: action.payload.total
       };
-    case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS:
-      const selectedCampaign = state.campaigns.find(el => el.id === action.payload.total.campaignId);
-      const filteredCampaigns = state.campaigns.filter(el => el.id !== action.payload.total.campaignId);
+    case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS: {
+      const _campaigns = state.campaigns;
+      const i = _campaigns.findIndex(el => el.id === action.payload.total.campaignId);
 
-      if (action.payload.data.length > 0 && selectedCampaign.ads !== undefined && selectedCampaign.ads.length > 0) {
-        const reducedUnits = [selectedCampaign.ads, action.payload.data].reduce((banners, data) => banners.map((banner) => {
+      let bannerStats = [];
+      if (action.payload.data.length > 0 && _campaigns[i].ads !== undefined && _campaigns[i].ads.length > 0) {
+        bannerStats = [_campaigns[i].ads, action.payload.data].reduce((banners, data) => banners.map((banner) => {
             const elementWithStats = data.find(el => el.id === banner.id);
             return elementWithStats ? {
               ...banner,
@@ -145,34 +147,27 @@ export function advertiserReducers(state = initialState, action: advertiserActio
             } : banner;
           })
         );
-        return {
-          ...state,
-          campaigns: [...filteredCampaigns, {
-            ...selectedCampaign,
-            ...action.payload.total,
-            ads: reducedUnits,
-          }],
-        };
+      } else {
+        bannerStats = _campaigns[i].ads.map(el => {
+          return {
+            ...el,
+            ...bannerStatsInitialState
+          }
+        });
       }
 
-      const resetBannerStats = selectedCampaign.ads.map(el => {
-        return {
-          ...el,
-          ...bannerStatsInitialState
-        }
-      });
+      _campaigns[i] = {
+        ..._campaigns[i],
+        ...action.payload.total,
+        ads: bannerStats,
+      }
+
       return {
         ...state,
-        campaigns: [
-          ...filteredCampaigns,
-          {
-            ...selectedCampaign,
-            ads: resetBannerStats,
-            ...action.payload.total
-          }
-        ]
+        dataLoaded: true,
+        campaigns: [..._campaigns],
       };
-
+    }
     case authActions.USER_LOG_IN_SUCCESS:
       return initialState;
 
