@@ -64,7 +64,6 @@ export class TableNavigationComponent implements OnInit {
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], sortAsc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], sortAsc: true},
     {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['averageRpm'], sortAsc: true},
-    {title: 'Code', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
   classifierListNavigationItems = [

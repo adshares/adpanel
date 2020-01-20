@@ -1,4 +1,8 @@
-<mat-dialog-content class="text-center dialog">
+<mat-dialog-content
+  class="
+    text-center
+    mat-dialog-content"
+>
   <div
     (click)="dialogRef.close()"
     class="dwmth-dialog-close"
@@ -8,42 +12,146 @@
       dwmth-heading
       dwmth-heading--primary"
   >
-    Ad code
+    Ad codes
   </h1>
 
-  <p
-    class="
-      dwmth-copy
-      dwmth-copy--large"
-  >
-    This code should only be used on websites that comply with our program policies.
-    Please copy the code and place it on your site.
-  </p>
-
-  <code *ngIf="isEmailConfirmed">
-    <div
+  <div>
+    <p
       class="
-        dwmth-box
-        dwmth-box--large
-        dwmth-box--light-border
         dwmth-copy
-        code"
-      data-test="publisher-ad-code"
+        dwmth-copy--large"
     >
-      &#x3C;!-- common code for all ad units, should be inserted into head section --&#x3E;<br/>
-      {{ data.siteCode }}<br/><br/>
-      &#x3C;!-- specific code for this ad unit --&#x3E;<br/>
-      {{ data.code }}
-    </div>
-  </code>
+      This code should only be used on websites that comply with our program policies.
+      Please copy the code and place it on your site.
+    </p>
 
-  <div
-    class="
-      confirm-email-error-block
-      error-msg
-      col-xs-12"
-    *ngIf="!isEmailConfirmed"
-  >
-    Confirm email to see code
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            class="
+              dwmth-heading
+              dwmth-heading--secondary"
+          >
+            <mat-icon>
+              filter_list
+            </mat-icon>
+            Customize ad codes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form
+          [formGroup]="codeForm"
+        >
+          <div class="row">
+            <mat-checkbox
+              formControlName="isProxy"
+            >
+              Force User Cooperation Kit
+            </mat-checkbox>
+          </div>
+          <div class="row">
+            <mat-checkbox
+              formControlName="isMinCpm"
+            >
+              Enable minimal CPM
+            </mat-checkbox>
+            <div
+              *ngIf="codeForm.get('isMinCpm').value"
+              class="row"
+            >
+              <input
+                *ngIf="codeForm.get('isMinCpm').value"
+                matInput
+                formControlName="minCpm"
+                class="dwmth-form-input input-in-text"
+              />
+              <span class="dwmth-info-box">USD</span>
+            </div>
+          </div>
+          <div class="row">
+            <mat-checkbox
+              formControlName="isAdBlock"
+            >
+              Enable displaying ads for AdBlocks
+            </mat-checkbox>
+          </div>
+          <div class="row">
+            <mat-checkbox
+              formControlName="isFallback"
+            >
+              Enable custom fallback
+            </mat-checkbox>
+          </div>
+
+          <div *ngIf="hasSitePops">
+            <div
+              class="row align-center"
+            >
+              Display
+              <input
+                id="pop-count"
+                matInput
+                class="dwmth-form-input input-in-text"
+                formControlName="popCount"
+              />
+              pop(s) per
+              <input
+                id="pop-interval"
+                matInput
+                class="dwmth-form-input input-in-text"
+                formControlName="popInterval"
+              />
+              hours. Max
+              <input
+                id="pop-burst"
+                matInput
+                class="dwmth-form-input input-in-text"
+                formControlName="popBurst"
+              />
+              pop(s) per page view.
+            </div>
+          </div>
+          <div
+            class="row justify-end">
+            <button
+              class="dwmth-btn dwmth-btn--blue"
+              (click)="updateCodes()"
+              data-test="publisher-ad-code-update-btn"
+            >
+              Update code
+            </button>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <label for="code-container"></label>
+    <textarea
+        *ngIf="!loadingInfo; else loading"
+        id="code-container"
+        class="
+          dwmth-box
+          dwmth-box--large
+          dwmth-box--light-border
+          dwmth-copy"
+        data-test="publisher-ad-code"
+    >{{ code }}</textarea>
+
+    <div
+      class="row justify-end">
+      <button
+        class="dwmth-btn dwmth-btn--blue"
+        (click)="copyCode()"
+        data-test="publisher-ad-code-copy-btn"
+      >
+        Copy to clipboard
+      </button>
+    </div>
   </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
 </mat-dialog-content>

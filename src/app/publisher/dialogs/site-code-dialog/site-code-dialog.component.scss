@@ -1,30 +1,19 @@
 @import '../../../../styles.scss';
 
-.dialog {
-  width: 215px;
-
-  @include media(sm-up) {
-    width: 440px;
-  }
-
-  @include media(md-up) {
-    width: 500px;
-  }
-}
-
-.description {
+#code-container {
+  min-height: 300px;
+  overflow: auto;
+  padding: 0;
+  resize: vertical;
   width: 100%;
-  margin: 0 auto;
-
-  @include media(md-up) {
-    width: 80%
-  }
 }
 
-.confirm-email-error-block {
-    margin-top: 20px;
+.dwmth-form-input.input-in-text {
+  margin: 0 5px;
+  padding: 2px 5px;
+  width: 35px;
 }
 
-code {
-  display: block;
+/deep/ div.mat-expansion-panel-body {
+  padding: 0;
 }

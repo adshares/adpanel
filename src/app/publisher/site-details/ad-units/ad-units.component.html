@@ -24,15 +24,5 @@
       [title]="(adUnit.averageRpm || 0) | formatMoney:4">
     {{ (adUnit.averageRpm || 0) | formatMoney:2 }}
   </td>
-  <td class="col-xs-1 poster-unit__cell">
-    <button *ngIf="adUnit.code"
-            class="poster-unit__btn"
-            (click)="openGetCodeDialog()"
-            data-test="publisher-ad-unit-get-code-button"
-    >
-      <fa-icon class="poster-unit__btn-icon" [icon]="codeIcon"></fa-icon>
-      Get code
-    </button>
-  </td>
 </tr>
 
