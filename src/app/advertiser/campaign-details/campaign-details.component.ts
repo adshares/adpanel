@@ -93,11 +93,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.updateConversionTableItems();
       });
 
-    const dataLoadedTotalsSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
+    const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedTotalsSubscription);
+    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription);
   }
 
   deleteCampaign() {

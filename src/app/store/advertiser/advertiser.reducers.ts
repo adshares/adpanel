@@ -1,11 +1,12 @@
-import * as advertiserActions from './advertiser.actions';
-import * as authActions from '../auth/auth.actions';
+import * as AdvertiserActions from './advertiser.actions';
+import * as AuthActions from '../auth/auth.actions';
 import { AdvertiserState } from 'models/app-state.model';
 import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
   campaigns: [],
+  campaignsLoaded: false,
   campaignsTotals: campaignsTotalsInitialState,
   dataLoaded: false,
 };
@@ -23,24 +24,24 @@ const bannerStatsInitialState = {
  * set to help modify data in less repetitive more readable way
  */
 
-export function advertiserReducers(state = initialState, action: advertiserActions.actions | authActions.actions) {
+export function advertiserReducers(state = initialState, action: AdvertiserActions.actions | AuthActions.actions) {
   switch (action.type) {
-    case advertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
+    case AdvertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, campaignInitialState)
       };
-    case advertiserActions.SET_LAST_EDITED_CAMPAIGN:
+    case AdvertiserActions.SET_LAST_EDITED_CAMPAIGN:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, action.payload)
       };
-    case advertiserActions.SAVE_CAMPAIGN_BASIC_INFORMATION:
+    case AdvertiserActions.SAVE_CAMPAIGN_BASIC_INFORMATION:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {basicInformation: action.payload})
       };
-    case advertiserActions.UPDATE_CAMPAIGN_SUCCESS:
+    case AdvertiserActions.UPDATE_CAMPAIGN_SUCCESS:
       const campaigns = state.campaigns.filter(campaign => {
         return campaign.id !== action.payload.id
       });
@@ -48,7 +49,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: [...campaigns, action.payload]
       };
-    case advertiserActions.UPDATE_CAMPAIGN_STATUS_SUCCESS:
+    case AdvertiserActions.UPDATE_CAMPAIGN_STATUS_SUCCESS:
       const mappedCampaigns = state.campaigns.map(campaign => {
         return campaign.id !== action.payload.id ? campaign : {
           ...campaign,
@@ -63,14 +64,26 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         ...state,
         campaigns: mappedCampaigns
       };
-    case advertiserActions.LOAD_CAMPAIGNS_SUCCESS:
+    case AdvertiserActions.LOAD_CAMPAIGNS:
       return {
         ...state,
-        campaigns: action.payload
+        dataLoaded: false,
+        campaignsLoaded: false,
       };
-    case advertiserActions.LOAD_CAMPAIGN_SUCCESS: {
+    case AdvertiserActions.LOAD_CAMPAIGNS_SUCCESS:
+      return {
+        ...state,
+        campaigns: action.payload,
+        campaignsLoaded: true,
+      };
+    case AdvertiserActions.LOAD_CAMPAIGN:
+      return {
+        ...state,
+        dataLoaded: false
+      };
+    case AdvertiserActions.LOAD_CAMPAIGN_SUCCESS: {
       const _campaigns = state.campaigns;
-      const i = _campaigns.findIndex(campaign => campaign.id === action.payload.id);
+      const i = _campaigns.findIndex(el => el.id === action.payload.id);
       if (-1 !== i) {
         _campaigns[i] = action.payload;
       } else {
@@ -82,33 +95,34 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         campaigns: [..._campaigns],
       };
     }
-    case advertiserActions.DELETE_CAMPAIGN_SUCCESS:
+    case AdvertiserActions.DELETE_CAMPAIGN_SUCCESS:
       const newCampaigns = state.campaigns.filter(el => el.id !== action.payload);
       return {
         ...state,
         campaigns: newCampaigns
       };
-    case advertiserActions.SAVE_CAMPAIGN_TARGETING:
+    case AdvertiserActions.SAVE_CAMPAIGN_TARGETING:
       return {
         ...state,
         lastEditedCampaign: {...state.lastEditedCampaign, targetingArray: action.payload}
       };
-    case advertiserActions.SAVE_CAMPAIGN_ADS:
+    case AdvertiserActions.SAVE_CAMPAIGN_ADS:
       return {
         ...state,
         lastEditedCampaign: Object.assign({}, state.lastEditedCampaign, {ads: action.payload})
       };
-    case advertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS:
+    case AdvertiserActions.ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS:
       return {
         ...state,
         campaigns: [...state.campaigns, action.payload]
       };
 
-    case advertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
+    case AdvertiserActions.LOAD_CAMPAIGNS_TOTALS_SUCCESS:
       const campaignsWithTotal = [];
       if (action.payload.data.length <= 0) {
         return {
           ...state,
+          dataLoaded: true,
           campaignsTotals: action.payload.total
         }
       }
@@ -133,7 +147,7 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         campaigns: campaignsWithTotal,
         campaignsTotals: action.payload.total
       };
-    case advertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS: {
+    case AdvertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS: {
       const _campaigns = state.campaigns;
       const i = _campaigns.findIndex(el => el.id === action.payload.total.campaignId);
 
@@ -168,10 +182,10 @@ export function advertiserReducers(state = initialState, action: advertiserActio
         campaigns: [..._campaigns],
       };
     }
-    case authActions.USER_LOG_IN_SUCCESS:
+    case AuthActions.USER_LOG_IN_SUCCESS:
       return initialState;
 
-    case authActions.USER_LOG_OUT_SUCCESS:
+    case AuthActions.USER_LOG_OUT_SUCCESS:
     default:
       return state;
   }

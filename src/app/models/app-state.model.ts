@@ -27,17 +27,19 @@ interface AppState {
 interface AdvertiserState {
   lastEditedCampaign: Campaign;
   campaigns: Campaign[] | null;
+  campaignsLoaded: boolean;
   campaignsTotals: CampaignTotals;
   dataLoaded: boolean;
 }
 
 interface PublisherState {
   sites: Site[];
+  sitesLoaded: boolean;
   sitesTotals: SitesTotals;
+  dataLoaded: boolean;
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
   filteringCriteria: TargetingOption[];
-  dataLoaded: boolean;
 }
 
 interface SettingsState {

@@ -30,8 +30,4 @@ export class SiteListItemComponent implements OnInit {
     this.currentSiteStatus = status.value;
     this.store.dispatch(new UpdateSiteStatus(this.site));
   }
-
-  navigateToSiteDetails(siteId: number) {
-    this.router.navigate(['/publisher', 'site', siteId]);
-  }
 }

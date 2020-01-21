@@ -4,6 +4,7 @@
   class="
     dwmth-advertiser-wrapper
     dashboard-view"
+  *ngIf="campaignsLoaded; else loading"
 >
   <div class="container">
     <div
@@ -149,3 +150,8 @@
     </div>
   </div>
 </section>
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
+</ng-template>

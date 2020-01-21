@@ -1,16 +1,16 @@
 import * as PublisherActions from './publisher.actions';
-import * as authActions from '../auth/auth.actions';
+import * as AuthActions from '../auth/auth.actions';
 import { siteInitialState, sitesTotalsInitialState } from 'models/initial-state/site';
 import { PublisherState } from 'models/app-state.model';
-import { campaignsTotalsInitialState } from "models/initial-state/campaign";
 
 const initialState: PublisherState = {
   sites: [],
+  sitesLoaded: false,
   sitesTotals: sitesTotalsInitialState,
+  dataLoaded: false,
   lastEditedSite: siteInitialState,
   languagesList: [],
   filteringCriteria: [],
-  dataLoaded: false,
 };
 const unitStatsInitialState = {
   clicks: 0,
@@ -25,29 +25,44 @@ const unitStatsInitialState = {
  * set to help modify data in less repetitive more readable way
  */
 
-export function publisherReducers(state = initialState, action: PublisherActions.actions | authActions.actions) {
+export function publisherReducers(state = initialState, action: PublisherActions.actions | AuthActions.actions) {
   switch (action.type) {
+    case PublisherActions.LOAD_SITES:
+      return {
+        ...state,
+        dataLoaded: false,
+        sitesLoaded: false,
+      };
     case PublisherActions.LOAD_SITES_SUCCESS:
       return {
         ...state,
-        sites: action.payload
+        sites: action.payload,
+        sitesLoaded: true,
       };
-
-    case PublisherActions.LOAD_SITE_SUCCESS:
+    case PublisherActions.LOAD_SITE:
       return {
         ...state,
-        sites: [
-          ...state.sites.filter(el => el.id !== action.payload.id),
-          {
-            ...siteInitialState,
-            ...action.payload
-          }
-        ]
+        dataLoaded: false
       };
+    case PublisherActions.LOAD_SITE_SUCCESS: {
+      const _sites = state.sites;
+      const i = _sites.findIndex(el => el.id === action.payload.id);
+      if (-1 !== i) {
+        _sites[i] = action.payload;
+      } else {
+        _sites.push(action.payload);
+      }
+
+      return {
+        ...state,
+        sites: [..._sites],
+      };
+    }
     case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
       if (action.payload.data.length <= 0) {
         return {
           ...state,
+          dataLoaded: true,
           sitesTotals: action.payload.total
         }
       }
@@ -63,51 +78,46 @@ export function publisherReducers(state = initialState, action: PublisherActions
 
       return {
         ...state,
+        dataLoaded: true,
         sites: sitesWithTotal,
         sitesTotals: action.payload.total
       };
 
-    case PublisherActions.LOAD_SITE_TOTALS_SUCCESS:
-      const selectedSite = state.sites.find(el => el.id === action.payload.total.siteId);
-      const filteredSites = state.sites.filter(el => el.id !== action.payload.total.siteId);
+    case PublisherActions.LOAD_SITE_TOTALS_SUCCESS: {
+      const _sites = state.sites;
+      const i = _sites.findIndex(el => el.id === action.payload.total.siteId);
 
-      if (action.payload.data.length > 0 && selectedSite.adUnits !== undefined && selectedSite.adUnits.length > 0) {
-        const reducedUnits = [selectedSite.adUnits, action.payload.data].reduce((units, data) => units.map((unit) => {
+      let unitStats = [];
+      if (action.payload.data.length > 0 && _sites[i].adUnits !== undefined && _sites[i].adUnits.length > 0) {
+        unitStats = [_sites[i].adUnits, action.payload.data].reduce((units, data) => units.map((unit) => {
             const elementWithStats = data.find(el => el.zoneId === unit.id);
             return elementWithStats ? {
               ...unit,
-              ...elementWithStats
+              ...elementWithStats,
             } : unit;
           })
         );
-        return {
-          ...state,
-          sites: [...filteredSites, {
-            ...selectedSite,
-            ...action.payload.total,
-            adUnits: reducedUnits,
-          }],
-        };
+      } else {
+        unitStats = _sites[i].adUnits.map(el => {
+          return {
+            ...el,
+            ...unitStatsInitialState
+          }
+        });
       }
 
-      const resetUnitStats = selectedSite.adUnits.map(el => {
-        return {
-          ...el,
-          ...unitStatsInitialState
-        }
-      });
+      _sites[i] = {
+        ..._sites[i],
+        ...action.payload.total,
+        adUnits: unitStats,
+      }
+
       return {
         ...state,
-        sites: [
-          ...filteredSites,
-          {
-            ...selectedSite,
-            adUnits: resetUnitStats,
-            ...action.payload.total
-          }
-        ]
+        dataLoaded: true,
+        sites: [..._sites],
       };
-
+    }
     case PublisherActions.SAVE_LAST_EDITED_SITE:
       return {
         ...state,
@@ -170,10 +180,10 @@ export function publisherReducers(state = initialState, action: PublisherActions
         ]
       };
 
-    case authActions.USER_LOG_IN_SUCCESS:
+    case AuthActions.USER_LOG_IN_SUCCESS:
       return initialState;
 
-    case authActions.USER_LOG_OUT_SUCCESS:
+    case AuthActions.USER_LOG_OUT_SUCCESS:
     default:
       return state;
   }

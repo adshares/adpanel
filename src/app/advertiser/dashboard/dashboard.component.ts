@@ -24,9 +24,10 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
-  dataLoaded: boolean = false;
   campaigns: Campaign[];
+  campaignsLoaded: boolean = false;
   campaignsTotals: CampaignTotals;
+  dataLoaded: boolean = false;
 
   barChartValue: number;
   barChartDifference: number;
@@ -50,9 +51,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
-
     this.subscriptions.push(chartFilterSubscription);
+    this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
   }
@@ -75,7 +75,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
-
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
@@ -86,20 +85,23 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
 
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
-      .subscribe((campaigns: Campaign[]) => {
-        this.campaigns = campaigns;
-        // if (this.campaignListRef) {
-        //   this.campaignListRef.refreshTable(this.campaigns)
-        // }
-      });
+      .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);
+
+    const campaignsLoadedSubscription = this.store.select('state', 'advertiser', 'campaignsLoaded')
+      .subscribe((campaignsLoaded: boolean) => this.campaignsLoaded = campaignsLoaded);
 
     const campaignsTotalsSubscription = this.store.select('state', 'advertiser', 'campaignsTotals')
       .subscribe((totals: CampaignTotals) => this.campaignsTotals = totals);
 
-    const dataLoadedTotalsSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
+    const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
-    this.subscriptions.push(campaignsSubscription, campaignsTotalsSubscription, dataLoadedTotalsSubscription);
+    this.subscriptions.push(
+      campaignsSubscription,
+      campaignsLoadedSubscription,
+      campaignsTotalsSubscription,
+      dataLoadedSubscription
+    );
   }
 
   downloadReport() {

@@ -31,6 +31,7 @@ import { adUnitTypesEnum } from "models/enum/ad.enum";
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  dataLoaded: boolean = false;
   site: Site;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
@@ -61,6 +62,27 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     super();
   }
 
+  get popAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.POP;
+    });
+  }
+
+  get displayAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DISPLAY;
+    });
+  }
+
+  get canActivateSite(): boolean {
+    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
+      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateSite ? 'Activate' : 'Deactivate'
+  }
+
   ngOnInit() {
     this.site = this.route.snapshot.data.site;
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
@@ -74,9 +96,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.currentChartFilterSettings = chartFilterSettings;
-      });
+      .subscribe((chartFilterSettings: ChartFilterSettings) => this.currentChartFilterSettings = chartFilterSettings);
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
@@ -84,19 +104,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.getFiltering();
       });
 
-    this.subscriptions.push(chartFilterSubscription, sitesSubscription);
-  }
+    const dataLoadedSubscription = this.store.select('state', 'publisher', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
-  get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.POP;
-    });
-  }
-
-  get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => {
-      return adUnit.type === adUnitTypesEnum.DISPLAY;
-    });
+    this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription);
   }
 
   sortTable(event: TableSortEvent) {
@@ -187,15 +198,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
     this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
     this.store.dispatch(new PublisherActions.UpdateSiteStatus(this.site));
-  }
-
-  get canActivateSite(): boolean {
-    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
-      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
-  }
-
-  get statusButtonLabel(): string {
-    return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 
   downloadReport() {

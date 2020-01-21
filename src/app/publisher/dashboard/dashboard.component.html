@@ -4,6 +4,7 @@
   class="
     dwmth-publisher-wrapper
     dashboard-view"
+  *ngIf="sitesLoaded; else loading"
 >
   <div class="container">
     <div
@@ -103,6 +104,7 @@
         </div>
       </div>
       <app-site-list
+        [dataLoaded]="dataLoaded"
         [sites]="sites"
         [sitesTotals]="sitesTotals"
       ></app-site-list>
@@ -166,3 +168,8 @@
     </div>
   </div>
 </section>
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
+</ng-template>
