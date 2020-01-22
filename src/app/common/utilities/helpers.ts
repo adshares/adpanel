@@ -1,7 +1,8 @@
-import { TableColumnMetaData } from 'models/table.model';
 import * as moment from "moment";
 import { campaignStatusesEnum } from "models/enum/campaign.enum";
 import { DATE_FORMAT } from "common/utilities/consts";
+import { Campaign, CampaignsConfig } from "models/campaign.model";
+import { ExchangeRate, User } from "models/user.model";
 
 
 function adsToClicks(amount: any): number {
@@ -180,7 +181,71 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
   } else {
     return campaignInfo.status
   }
-}
+};
+
+const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
+  let isDirectDeal = false;
+  let budgetError = false;
+  let cpmError = false;
+  let cpaError = false;
+
+  if (user.adserverWallet.totalFunds < config.minBudget) {
+    budgetError = true;
+  }
+
+  const maxCpm = campaign.basicInformation.maxCpm;
+  const maxCpa = campaign.conversions ?
+    campaign.conversions.map(el => el.value).reduce((max, val) => Math.max(max, val), 0) :
+    0;
+
+  if (maxCpm == 0 && maxCpa == 0) {
+    cpmError = true;
+    cpaError = true;
+  }
+  if (maxCpm > 0 && maxCpm < config.minCpm) {
+    cpmError = true;
+  }
+  if (maxCpa > 0 && maxCpa < config.minCpm) {
+    cpaError = true;
+  }
+
+  const minBudget = `${formatMoney(config.minBudget, 2)} ${user.exchangeRate.currency}`;
+  const minCpm = `${formatMoney(config.minCpm, 2)} ${user.exchangeRate.currency}`;
+  const minCpa = `${formatMoney(config.minCpa, 2)} ${user.exchangeRate.currency}`;
+
+  let errors = [];
+  if (budgetError) {
+    let error = `You need to have at least ${minBudget} in your account`;
+    if (isDirectDeal) {
+      error += ', excluding bonuses'
+    }
+    errors.push(`${error}.`);
+  }
+
+  if (cpmError) {
+    let error = `The CPM of the campaign must be set to a minimum of ${minCpm}`;
+    if (!cpaError) {
+      error += '.';
+    }
+    errors.push(error);
+  }
+
+  if (cpaError) {
+    let error = '';
+    if (cpmError) {
+      error += ' or a';
+    } else {
+      error += 'The';
+    }
+    errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
+  }
+
+  if (!errors.length) {
+    errors.push('Please check if you have enough money on your account.');
+  }
+
+  return errors;
+};
 
 function downloadCSVFile(data, from, to) {
   const formattedFrom = moment(from).format(DATE_FORMAT);
@@ -209,5 +274,6 @@ export {
   createInitialArray,
   sortArrayByKeys,
   adjustCampaignStatus,
+  validCampaignBudget,
   downloadCSVFile
 };

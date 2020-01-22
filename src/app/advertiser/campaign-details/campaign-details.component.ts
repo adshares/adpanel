@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Campaign, CampaignsConfig, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
+import {
+  Campaign,
+  CampaignConversionStatistics,
+  CampaignConversionStatisticsTableItem,
+  CampaignsConfig
+} from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
@@ -66,7 +71,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
-    this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
     this.store.select('state', 'common', 'chartFilterSettings')
@@ -96,8 +100,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
+    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+      .subscribe((campaignsConfig: CampaignsConfig) => this.campaignsConfig = campaignsConfig);
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription);
+    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription, campaignsConfigSubscription);
   }
 
   deleteCampaign() {
@@ -207,7 +213,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignId = this.campaign.id;
     const statistics = this.conversionsStatistics;
 
-    this.conversionTableItems = this.campaign.conversions.map(function(element) {
+    this.conversionTableItems = this.campaign.conversions.map(function (element) {
       const statistic = statistics.find(item => campaignId === item.campaignId && element.uuid === item.uuid);
       const cost = statistic ? statistic.cost : 0;
       const occurrences = statistic ? statistic.occurrences : 0;
