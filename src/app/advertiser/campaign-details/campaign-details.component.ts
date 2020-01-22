@@ -198,6 +198,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   updateConversionTableItems(): void {
     if (!this.campaign || !this.campaign.conversions) {
       this.conversionTableItems = [];
+
+      return;
     }
 
     const campaignId = this.campaign.id;
