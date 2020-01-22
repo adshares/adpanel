@@ -22,7 +22,7 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  @ViewChild(SiteListComponent) campaignListRef: SiteListComponent;
+  @ViewChild(SiteListComponent) siteListRef: SiteListComponent;
 
   sites: Site[];
   sitesLoaded: boolean = false;
