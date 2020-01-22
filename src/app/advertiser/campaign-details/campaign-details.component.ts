@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Campaign } from 'models/campaign.model';
+import { Campaign, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
@@ -26,6 +26,8 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   campaign: Campaign;
+  conversionTableItems: CampaignConversionStatisticsTableItem[] = [];
+  conversionsStatistics: CampaignConversionStatistics[] = [];
   campaignStatusesEnum = campaignStatusesEnum;
   barChartValue: number;
   barChartDifference: number;
@@ -77,6 +79,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
         }
+
+        this.updateConversionTableItems();
       });
 
     this.subscriptions.push(chartFilterSubscription, campaignSubscription);
@@ -112,7 +116,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  getChartData(chartFilterSettings, id) {
+  getChartData(chartFilterSettings, campaignId) {
     this.barChartData[0].data = [];
     const chartDataSubscription = this.chartService
       .getAssetChartData(
@@ -121,7 +125,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries.value,
         'campaigns',
-        id,
+        campaignId,
       )
       .subscribe(data => {
         this.barChartData[0].data = data.values;
@@ -132,10 +136,24 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
+    this.advertiserService.getCampaignConversionsStatistics(
+      chartFilterSettings.currentFrom,
+      chartFilterSettings.currentTo,
+      campaignId
+    ).take(1).subscribe(
+      data => {
+        this.conversionsStatistics = data;
+        this.updateConversionTableItems();
+      },
+      error => {
+        this.conversionsStatistics = [];
+      }
+    );
+
     this.store.dispatch(new LoadCampaignTotals({
       from: chartFilterSettings.currentFrom,
       to: chartFilterSettings.currentTo,
-      id
+      id: campaignId
     }));
     this.subscriptions.push(chartDataSubscription);
   }
@@ -175,5 +193,27 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       .subscribe((data) => {
         downloadCSVFile(data, settings.currentFrom, settings.currentTo);
       });
+  }
+
+  updateConversionTableItems(): void {
+    if (!this.campaign || !this.campaign.conversions) {
+      this.conversionTableItems = [];
+    }
+
+    const campaignId = this.campaign.id;
+    const statistics = this.conversionsStatistics;
+
+    this.conversionTableItems = this.campaign.conversions.map(function(element) {
+      const statistic = statistics.find(item => campaignId === item.campaignId && element.uuid === item.uuid);
+      const cost = statistic ? statistic.cost : 0;
+      const occurrences = statistic ? statistic.occurrences : 0;
+
+      return <CampaignConversionStatisticsTableItem>{
+        name: element.name,
+        eventType: element.eventType,
+        cost,
+        occurrences,
+      }
+    });
   }
 }
