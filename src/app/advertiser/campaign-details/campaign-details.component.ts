@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Campaign, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
+import { Campaign, CampaignsConfig, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
