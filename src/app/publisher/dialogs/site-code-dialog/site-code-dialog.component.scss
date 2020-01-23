@@ -1,7 +1,6 @@
 @import '../../../../styles.scss';
 
 #code-container-wrapper {
-  margin-top: 10px;
   min-height: 303px;
   padding: 0;
   width: 100%;
@@ -13,10 +12,6 @@
   padding: 0;
   width: 100%;
   resize: vertical;
-}
-
-.form-code {
-  padding: 0 24px 0 8px;
 }
 
 .row.ad-codes {
@@ -41,8 +36,4 @@
 .error-msg-in-text {
   margin-left: 10px;
   margin-top: 0;
-}
-
-/deep/ div.mat-expansion-panel-body {
-  padding: 0;
 }
