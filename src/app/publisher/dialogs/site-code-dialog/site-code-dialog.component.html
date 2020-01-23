@@ -1,8 +1,4 @@
-<mat-dialog-content
-  class="
-    text-center
-    mat-dialog-content"
->
+<mat-dialog-content class="text-center mat-dialog-content">
   <div
     (click)="dialogRef.close()"
     class="dwmth-dialog-close"
@@ -50,6 +46,13 @@
             >
               Force User Cooperation Kit
             </mat-checkbox>
+            <a class="align-self-center option-link"
+              href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              circumvent ad blockers
+            </a>
           </div>
           <div class="row ad-codes">
             <mat-checkbox
@@ -57,6 +60,13 @@
             >
               Enable minimal CPM
             </mat-checkbox>
+            <a class="align-self-center option-link"
+               href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+               rel="noopener noreferrer"
+               target="_blank"
+            >
+              backfill
+            </a>
             <div
               *ngIf="codeForm.get('isMinCpm').value"
               class="row"
@@ -78,8 +88,15 @@
             <mat-checkbox
               formControlName="isAdBlock"
             >
-              Enable displaying ads for AdBlocks
+              Enable displaying ads only for AdBlocks
             </mat-checkbox>
+            <a class="align-self-center option-link"
+               href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+               rel="noopener noreferrer"
+               target="_blank"
+            >
+              backfill
+            </a>
           </div>
           <div class="row ad-codes">
             <mat-checkbox
@@ -87,6 +104,13 @@
             >
               Enable custom fallback
             </mat-checkbox>
+            <a class="align-self-center option-link"
+               href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
+               rel="noopener noreferrer"
+               target="_blank"
+            >
+              custom fallback
+            </a>
           </div>
 
           <div *ngIf="hasSitePops">
