@@ -50,65 +50,65 @@
               rel="noopener noreferrer"
               target="_blank"
             >
-              circumvent ad blockers
+              read more
             </a>
           </div>
           <div class="row ad-codes">
             <mat-checkbox
               formControlName="isMinCpm"
             >
-              Enable minimal CPM
+              Display ads with a CPM rate higher than
             </mat-checkbox>
+
+            <div
+              class="row"
+            >
+              <input
+                matInput
+                formControlName="minCpm"
+                class="dwmth-form-input input-in-text input-in-text--amount"
+              />
+              <span class="dwmth-info-box align-with-checkbox">{{ CURRENCY_CODE }} only</span>
+            </div>
+
             <a class="align-self-center option-link"
                href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
                rel="noopener noreferrer"
                target="_blank"
             >
-              backfill
+              read more
             </a>
-            <div
-              *ngIf="codeForm.get('isMinCpm').value"
-              class="row"
-            >
-              <input
-                *ngIf="codeForm.get('isMinCpm').value"
-                matInput
-                formControlName="minCpm"
-                class="dwmth-form-input input-in-text input-in-text--amount"
-              />
-              <span class="dwmth-info-box">{{ CURRENCY_CODE }}</span>
-              <span
-                *ngIf="!codeForm.get('minCpm').valid"
-                class="error-msg error-msg-in-text"
-              >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
-            </div>
+            <span
+              *ngIf="!codeForm.get('minCpm').valid"
+              class="error-msg error-msg-in-text"
+            >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
           </div>
           <div class="row ad-codes">
             <mat-checkbox
               formControlName="isAdBlock"
             >
-              Enable displaying ads only for AdBlocks
+              Display ads in browsers with active ad blockers only
             </mat-checkbox>
             <a class="align-self-center option-link"
                href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
                rel="noopener noreferrer"
                target="_blank"
             >
-              backfill
+              read more
             </a>
           </div>
           <div class="row ad-codes">
             <mat-checkbox
               formControlName="isFallback"
             >
-              Enable custom fallback
+              Display other ad networks' ads if we are not able to provide ads that meet your criteria
             </mat-checkbox>
             <a class="align-self-center option-link"
                href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
                rel="noopener noreferrer"
                target="_blank"
             >
-              custom fallback
+              read more
             </a>
           </div>
 

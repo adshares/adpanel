@@ -46,9 +46,15 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
 
     const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges
       .subscribe(
-        isMinCpm => isMinCpm
-          ? this.codeForm.get('minCpm').setValidators([Validators.required, Validators.min(0.0001)])
-          : this.codeForm.get('minCpm').setValidators(null)
+        isMinCpm => {
+          const minCpmControl = this.codeForm.get('minCpm');
+          if (isMinCpm) {
+            minCpmControl.setValidators([Validators.required, Validators.min(0.0001)])
+          } else {
+            minCpmControl.clearValidators();
+          }
+          minCpmControl.updateValueAndValidity();
+        }
       );
     this.subscriptions.push(minCpmSubscription);
 
