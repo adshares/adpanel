@@ -31,7 +31,8 @@
           <mat-panel-title
             class="
               dwmth-heading
-              dwmth-heading--secondary"
+              dwmth-heading--secondary
+              text-left"
           >
             <mat-icon>
               filter_list
@@ -41,15 +42,16 @@
         </mat-expansion-panel-header>
         <form
           [formGroup]="codeForm"
+          class="form-code"
         >
-          <div class="row">
+          <div class="row ad-codes">
             <mat-checkbox
               formControlName="isProxy"
             >
               Force User Cooperation Kit
             </mat-checkbox>
           </div>
-          <div class="row">
+          <div class="row ad-codes">
             <mat-checkbox
               formControlName="isMinCpm"
             >
@@ -63,19 +65,23 @@
                 *ngIf="codeForm.get('isMinCpm').value"
                 matInput
                 formControlName="minCpm"
-                class="dwmth-form-input input-in-text"
+                class="dwmth-form-input input-in-text input-in-text--amount"
               />
-              <span class="dwmth-info-box">USD</span>
+              <span class="dwmth-info-box">{{ CURRENCY_CODE }}</span>
+              <span
+                *ngIf="!codeForm.get('minCpm').valid"
+                class="error-msg error-msg-in-text"
+              >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
             </div>
           </div>
-          <div class="row">
+          <div class="row ad-codes">
             <mat-checkbox
               formControlName="isAdBlock"
             >
               Enable displaying ads for AdBlocks
             </mat-checkbox>
           </div>
-          <div class="row">
+          <div class="row ad-codes">
             <mat-checkbox
               formControlName="isFallback"
             >
@@ -85,7 +91,7 @@
 
           <div *ngIf="hasSitePops">
             <div
-              class="row align-center"
+              class="row ad-codes align-center"
             >
               Display
               <input
@@ -110,23 +116,23 @@
               />
               pop(s) per page view.
             </div>
-          </div>
-          <div
-            class="row justify-end">
-            <button
-              class="dwmth-btn dwmth-btn--blue"
-              (click)="updateCodes()"
-              data-test="publisher-ad-code-update-btn"
-            >
-              Update code
-            </button>
+
+            <div class="row">
+              <span
+                *ngIf="!codeForm.get('popCount').valid || !codeForm.get('popInterval').valid || !codeForm.get('popBurst').valid"
+                class="error-msg"
+              >Value must be greater than 0</span>
+            </div>
           </div>
         </form>
       </mat-expansion-panel>
     </mat-accordion>
 
-    <label for="code-container"></label>
-    <textarea
+    <div
+      id="code-container-wrapper"
+    >
+      <label for="code-container"></label>
+      <textarea
         *ngIf="!loadingInfo; else loading"
         id="code-container"
         class="
@@ -135,7 +141,8 @@
           dwmth-box--light-border
           dwmth-copy"
         data-test="publisher-ad-code"
-    >{{ code }}</textarea>
+      >{{ code }}</textarea>
+    </div>
 
     <div
       class="row justify-end">

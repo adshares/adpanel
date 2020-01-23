@@ -1,17 +1,42 @@
 @import '../../../../styles.scss';
 
+#code-container-wrapper {
+  margin-top: 10px;
+  min-height: 303px;
+  padding: 0;
+  width: 100%;
+}
+
 #code-container {
   min-height: 300px;
   overflow: auto;
   padding: 0;
-  resize: vertical;
   width: 100%;
+  resize: vertical;
+}
+
+.form-code {
+  padding: 0 24px 0 8px;
+}
+
+.row.ad-codes {
+  line-height: 40px;
 }
 
 .dwmth-form-input.input-in-text {
   margin: 0 5px;
   padding: 2px 5px;
-  width: 35px;
+  width: 40px;
+
+  &--amount {
+    width: 65px;
+    margin-bottom: 4px;
+  }
+}
+
+.error-msg-in-text {
+  margin-left: 10px;
+  margin-top: 0;
 }
 
 /deep/ div.mat-expansion-panel-body {

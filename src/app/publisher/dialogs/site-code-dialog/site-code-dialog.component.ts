@@ -3,7 +3,8 @@ import { MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -11,6 +12,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./site-code-dialog.component.scss']
 })
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
+  private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 1500;
+  readonly CURRENCY_CODE: string = environment.currencyCode;
+
   code: string = '';
   codeForm: FormGroup;
   loadingInfo: boolean = true;
@@ -35,10 +39,29 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
       minCpm: new FormControl(0.5),
       isAdBlock: new FormControl(false),
       isFallback: new FormControl(false),
-      popCount: new FormControl(1),
-      popInterval: new FormControl(1),
-      popBurst: new FormControl(1),
+      popCount: new FormControl(1, [Validators.required, Validators.min(1)]),
+      popInterval: new FormControl(1, [Validators.required, Validators.min(1)]),
+      popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
     });
+
+    const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges
+      .subscribe(
+        isMinCpm => isMinCpm
+          ? this.codeForm.get('minCpm').setValidators([Validators.required, Validators.min(0.0001)])
+          : this.codeForm.get('minCpm').setValidators(null)
+      );
+    this.subscriptions.push(minCpmSubscription);
+
+    const codeFormSubscription = this.codeForm.valueChanges
+      .debounceTime(this.MINIMAL_DELAY_BETWEEN_CODE_REQUESTS)
+      .subscribe(
+      () => {
+        if (this.codeForm.valid) {
+          this.updateCodes();
+        }
+      }
+    );
+    this.subscriptions.push(codeFormSubscription);
 
     this.updateCodes();
   }
@@ -48,10 +71,16 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
 
     this.publisherService.getSiteCode(this.siteId, this.getCodeOptions())
       .take(1)
-      .subscribe(response => {
-        this.code = response.code ? response.code : '';
-        this.loadingInfo = false;
-      });
+      .subscribe(
+        response => {
+          this.code = response.code ? response.code : '';
+          this.loadingInfo = false;
+        },
+        () => {
+          this.code = 'An error occurred. Please review options.';
+          this.loadingInfo = false;
+        }
+      );
   }
 
   getCodeOptions() {
