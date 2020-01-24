@@ -14,8 +14,7 @@ const initialState: AdvertiserState = {
   campaignsTotals: campaignsTotalsInitialState,
   dataLoaded: false,
   campaignsConfig: campaignsConfigInitialState,
-}
-;
+};
 
 const bannerStatsInitialState = {
   clicks: 0,

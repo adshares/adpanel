@@ -13,6 +13,7 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
 
 const advertiserRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ const advertiserRoutes: Routes = [
         path: 'campaign/:id',
         component: CampaignDetailsComponent,
         resolve: {
+          campaignsConfig: CampaignsConfigResolver,
           targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver
         }
@@ -59,6 +61,7 @@ const advertiserRoutes: Routes = [
         path: 'edit-campaign/:id',
         component: EditCampaignComponent,
         resolve: {
+          campaignsConfig: CampaignsConfigResolver,
           targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver,
         },

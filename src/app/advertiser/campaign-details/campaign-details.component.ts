@@ -74,6 +74,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+    this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
     this.store.select('state', 'common', 'chartFilterSettings')
@@ -239,6 +240,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   updateConversionTableItems(): void {
     if (!this.campaign || !this.campaign.conversions) {
       this.conversionTableItems = [];
+
+      return;
     }
 
     const campaignId = this.campaign.id;
