@@ -1,6 +1,11 @@
 @import '../../../../styles.scss';
 
+#code-form {
+  padding-top: 16px;
+}
+
 #code-container-wrapper {
+  margin-top: 16px;
   min-height: 253px;
   padding: 0;
   width: 100%;
@@ -9,7 +14,7 @@
 #code-container {
   min-height: 250px;
   overflow: auto;
-  padding: 0;
+  padding: 5px 10px;
   width: 100%;
   resize: vertical;
 }
