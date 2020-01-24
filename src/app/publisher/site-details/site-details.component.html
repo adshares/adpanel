@@ -275,36 +275,15 @@
       </div>
     </section>
 
-    <div class="col">
-      <div
-        class="
-          dwmth-box
-          ad-units
-          row
-          justify-between
-          align-center"
-      >
-        <p
-          class="
-            dwmth-copy
-            dwmth-copy--semi"
+    <div class="dwmth-box dwmth-box--large">
+      <div class="row justify-center">
+        <button
+          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button"
         >
-          <span>Get code</span>
-        </p>
-
-        <div class="row justify-end">
-          <button
-            class="
-              dwmth-btn
-              dwmth-btn--edit
-              dwmth-btn--no-border"
-            (click)="openGetCodeDialog()"
-            data-test="publisher-get-code-button"
-          >
-            <fa-icon class="btn-icon" [icon]="faCode"></fa-icon>
-            Get code
-          </button>
-        </div>
+          Get code
+        </button>
       </div>
     </div>
 
@@ -444,6 +423,18 @@
         >
         Create new ad unit
       </button>
+    </div>
+
+    <div class="dwmth-box dwmth-box--large">
+      <div class="row justify-center">
+        <button
+          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button"
+        >
+          Get code
+        </button>
+      </div>
     </div>
   </div>
 </div>
