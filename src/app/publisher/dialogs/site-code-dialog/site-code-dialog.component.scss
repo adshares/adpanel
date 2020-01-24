@@ -1,38 +1,35 @@
 @import '../../../../styles.scss';
 
 #code-container-wrapper {
-  min-height: 303px;
+  min-height: 253px;
   padding: 0;
   width: 100%;
 }
 
 #code-container {
-  min-height: 300px;
+  min-height: 250px;
   overflow: auto;
   padding: 0;
   width: 100%;
   resize: vertical;
 }
 
-.row.ad-codes {
-  line-height: 40px;
-
-  .option-link {
-    padding: 0 10px;
-    margin: 0 0 4px 10px;
-    border: solid 1px pal(gray, 'light');
-    background-color: pal(gray, 'ultra-light');
-  }
+.ad-codes {
+  min-height: 40px;
 }
 
-.dwmth-form-input.input-in-text {
+.read-more {
+  margin-bottom: 4px;
+}
+
+.input-in-text {
   margin: 0 5px;
   padding: 2px 5px;
   width: 40px;
 
   &--amount {
     width: 65px;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
   }
 }
 
@@ -40,7 +37,15 @@
   margin-bottom: 4px;
 }
 
+.align-with-checkbox-label-vertically {
+  margin-left: 35px;
+}
+
 .error-msg-in-text {
   margin-left: 10px;
   margin-top: 0;
+}
+
+/deep/ .mat-expansion-panel-body {
+  border: 1px pal(gray, light) solid;
 }

@@ -39,82 +39,117 @@
         <form
           [formGroup]="codeForm"
         >
-          <div class="row ad-codes">
-            <mat-checkbox
-              formControlName="isProxy"
-            >
-              Enable advanced circumvent of ad blockers
-            </mat-checkbox>
-            <a class="align-self-center option-link"
-              href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              read more
-            </a>
+          <div class="row justify-start align-center ad-codes">
+            <div class="col-xs-7">
+              <mat-checkbox
+                formControlName="isProxy"
+              >
+                Enable advanced circumvent of ad blockers
+              </mat-checkbox>
+            </div>
+            <div class="col-xs-5">
+              <a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
+                 rel="noopener noreferrer"
+                 target="_blank"
+              >
+                <button
+                  class="
+                    dwmth-btn
+                    dwmth-btn--white
+                    dwmth-btn--tiny
+                    read-more"
+                >read more</button>
+              </a>
+            </div>
           </div>
-          <div class="row ad-codes">
-            <mat-checkbox
-              formControlName="isMinCpm"
-            >
-              Display ads with a CPM rate higher than
-            </mat-checkbox>
-
-            <div
-              class="row"
-            >
+          <div class="row justify-start align-center ad-codes">
+            <div class="col-xs-7">
+              <mat-checkbox
+                formControlName="isMinCpm"
+              >
+                Display ads with a CPM rate higher than
+              </mat-checkbox>
               <input
                 matInput
                 formControlName="minCpm"
-                class="dwmth-form-input input-in-text input-in-text--amount"
+                class="dwmth-form-input input-in-text input-in-text--amount justify-center"
               />
-              <span class="dwmth-info-box align-with-checkbox">{{ CURRENCY_CODE }} only</span>
-            </div>
+              <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">{{ CURRENCY_CODE }} only</span>
 
-            <a class="align-self-center option-link"
-               href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-               rel="noopener noreferrer"
-               target="_blank"
-            >
-              read more
-            </a>
-            <span
-              *ngIf="!codeForm.get('minCpm').valid"
-              class="error-msg error-msg-in-text"
-            >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
+              <div
+                *ngIf="!codeForm.get('minCpm').valid"
+                class="row"
+              >
+                <span
+                  class="error-msg error-msg-in-text"
+                >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
+              </div>
+            </div>
+            <div class="col-xs-5">
+              <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                 rel="noopener noreferrer"
+                 target="_blank"
+              >
+                <button
+                  class="
+                    dwmth-btn
+                    dwmth-btn--white
+                    dwmth-btn--tiny
+                    read-more"
+                >read more</button>
+              </a>
+            </div>
           </div>
-          <div class="row ad-codes">
-            <mat-checkbox
-              formControlName="isAdBlock"
-            >
-              Display ads in browsers with active ad blockers only
-            </mat-checkbox>
-            <a class="align-self-center option-link"
-               href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-               rel="noopener noreferrer"
-               target="_blank"
-            >
-              read more
-            </a>
+          <div class="row justify-start align-center ad-codes">
+            <div class="col-xs-7">
+              <mat-checkbox
+                formControlName="isAdBlock"
+              >
+                Display ads in browsers with active ad blockers only
+              </mat-checkbox>
+            </div>
+            <div class="col-xs-5">
+              <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                 rel="noopener noreferrer"
+                 target="_blank"
+              >
+                <button
+                  class="
+                    dwmth-btn
+                    dwmth-btn--white
+                    dwmth-btn--tiny
+                    read-more"
+                >read more</button>
+              </a>
+            </div>
           </div>
-          <div class="row ad-codes">
-            <mat-checkbox
-              formControlName="isFallback"
-            >
-              Enable custom fallback (eg. display other ad networks' ads)
-            </mat-checkbox>
-            <a class="align-self-center option-link"
-               href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
-               rel="noopener noreferrer"
-               target="_blank"
-            >
-              read more
-            </a>
+          <div class="row justify-start align-center ad-codes">
+            <div class="col-xs-7">
+              <mat-checkbox
+                formControlName="isFallback"
+              >
+                Enable custom fallback (eg. display other ad networks' ads)
+              </mat-checkbox>
+            </div>
+            <div class="col-xs-5">
+              <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
+                 rel="noopener noreferrer"
+                 target="_blank"
+              >
+                <button
+                  class="
+                    dwmth-btn
+                    dwmth-btn--white
+                    dwmth-btn--tiny
+                    read-more"
+                >read more</button>
+              </a>
+            </div>
           </div>
 
           <div *ngIf="hasSitePops">
             <div
-              class="row ad-codes align-center"
+              class="row ad-codes align-center mat-checkbox-label align-with-checkbox-label-vertically"
             >
               Display
               <input
