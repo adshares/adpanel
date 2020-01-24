@@ -24,13 +24,13 @@
         <mat-select #statusSelect
                     [value]=" "
                     (change)="onSiteStatusChange($event)"
-                    data-test="advertiser-campaign-status-select"
+                    data-test="publisher-site-status-select"
         >
           <mat-option
             *ngFor="let option of siteStatuses"
             [ngClass]="{'hidden': option.value === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
             [value]="option.value"
-            data-test="advertiser-campaign-status-select-option"
+            data-test="publisher-site-status-select-option"
           >
             {{ option.label }}
           </mat-option>
@@ -42,15 +42,14 @@
     class="
           col-xs-3
           row
-          clickable-row
           align-center"
     role="link"
-    (click)="navigateToSiteDetails(site.id)"
   >
-    <span class="dwmth-copy dwmth-copy--bold"
+    <a class="dwmth-copy dwmth-copy--bold clickable-row-a"
+       routerLink="/publisher/site/{{site.id}}"
           data-test="publisher-site-url">
       {{ site.name }}
-    </span>
+    </a>
   </td>
   <td
     class="
@@ -108,17 +107,17 @@
     class="
           col-xs-1
           row
-          clickable-row
           align-center
           justify-center
           dwmth-site-list__item-site-details"
     role="link"
-    (click)="navigateToSiteDetails(site.id)"
   >
-    <img
-      src="/assets/images/chevron--right.svg"
-      [alt]="'Go to  ' + site.name + ' details'"
-    >
+    <a routerLink="/publisher/site/{{site.id}}" class="clickable-row-a">
+      <img
+        src="/assets/images/chevron--right.svg"
+        [alt]="'Go to  ' + site.name + ' details'"
+      >
+    </a>
   </td>
 </tr>
 <ng-template #loading>

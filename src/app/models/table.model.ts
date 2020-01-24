@@ -1,9 +1,17 @@
-export interface TableColumnMetaData {
+interface TableColumnMetaData {
   title?: string;
   columnWidth: string;
 
   keys?: string[];
-  sortAsc?: boolean;
+  defaultDesc?: boolean;
+  sortedDesc?: boolean;
   isSortedBy?: boolean;
-  hideArrows?:boolean;
+  hideArrows?: boolean;
 }
+
+interface TableSortEvent {
+  keys: string[];
+  sortDesc: boolean;
+}
+
+export { TableColumnMetaData, TableSortEvent }

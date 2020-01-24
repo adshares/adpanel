@@ -1,4 +1,4 @@
-<section *ngIf="campaign; else loading" class="dashboard-view">
+<section *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div class="container">
     <div
       class="
@@ -66,7 +66,7 @@
               {{ currentCampaignStatus }}
             </span>
           <button class="dwmth-btn dwmth-btn--white dwmth-status--btn dwmth-copy--dark"
-                  (click)="onCampaignStatusChange($event)"
+                  (click)="onCampaignStatusChange()"
                   data-test="advertiser-campaign-status-change-button"
                   [attr.data-status]="currentCampaignStatus">
             {{ statusButtonLabel }}
@@ -332,7 +332,7 @@
           Edit conversions
         </button>
       </div>
-      <div *ngIf="undefined !== campaign.conversions && campaign.conversions.length > 0">
+      <div *ngIf="conversionTableItems.length > 0">
         <div
           class="
             row
@@ -359,7 +359,7 @@
           </div>
         </div>
 
-        <div *ngFor="let conversion of campaign.conversions"
+        <div *ngFor="let conversion of conversionTableItems"
           class="
             row
             dwmth-box
@@ -517,6 +517,8 @@
   </div>
 </section>
 <ng-template #loading>
-  <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
 </ng-template>
 

@@ -442,6 +442,14 @@ router-outlet ~ * {
   }
 }
 
+.clickable-row-a {
+  color: pal(gray, mid-dark) !important;
+  display: block;
+  width: 100%;
+  padding: 16px 0.5em;
+  margin: -16px 0;
+}
+
 .dwmth-tooltip {
   padding: 20px 25px;
   min-width: 200px;

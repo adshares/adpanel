@@ -8,7 +8,7 @@ import {
   BannerClassificationFilters,
   BannerClassificationResponse
 } from 'models/classifier.model';
-import { TableColumnMetaData } from 'models/table.model';
+import { TableSortEvent } from 'models/table.model';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
@@ -87,7 +87,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(bannersForClassificationSubscription);
   }
 
-  sortTable(columnMetaData: TableColumnMetaData) {
+  sortTable(event: TableSortEvent) {
   }
 
   onStepBack() {

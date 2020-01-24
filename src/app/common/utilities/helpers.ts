@@ -137,20 +137,20 @@ function createInitialArray(element, count) {
   return resultArray;
 }
 
-function sortArrayByColumnMetaData<assetItem>(
+function sortArrayByKeys<assetItem>(
   sortArray: assetItem[],
-  columnMetaData: TableColumnMetaData
+  keys: string[] = [],
+  sortDesc: boolean = false
 ): assetItem[] {
-  if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
+  if (!keys.length) {
     return [...sortArray];
   }
 
-  const sortOrder = columnMetaData.sortAsc ? -1 : 1;
-  columnMetaData.sortAsc = !columnMetaData.sortAsc;
+  const sortOrder = sortDesc ? 1 : -1;
 
   return sortArray.slice().sort((item, nextItem) => {
-    let sortItem = findValueByPathArray(item, columnMetaData.keys);
-    let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
+    let sortItem = findValueByPathArray(item, keys);
+    let nextSortItem = findValueByPathArray(nextItem, keys);
     if (typeof sortItem === 'string') {
       sortItem = sortItem.toLowerCase();
       nextSortItem = nextSortItem.toLowerCase();
@@ -207,7 +207,7 @@ export {
   isUnixTimePastNow,
   selectCompare,
   createInitialArray,
-  sortArrayByColumnMetaData,
+  sortArrayByKeys,
   adjustCampaignStatus,
   downloadCSVFile
 };

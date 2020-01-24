@@ -3,14 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from "@ngrx/store";
 import { environment } from 'environments/environment';
-import { Campaign, CampaignConversion, CampaignTotalsResponse } from 'models/campaign.model';
+import {
+  Campaign,
+  CampaignConversionStatistics,
+  CampaignsConfig,
+  CampaignTotals,
+  CampaignTotalsResponse
+} from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from "@angular/router";
 import * as advertiserActions from "store/advertiser/advertiser.actions";
 import { Subscription } from "rxjs";
 import { AppState } from "models/app-state.model";
-import {SitesTotals} from "models/site.model";
 
 @Injectable()
 export class AdvertiserService {
@@ -36,8 +41,16 @@ export class AdvertiserService {
     return this.http.get<CampaignTotalsResponse>(`${environment.apiUrl}/campaigns/stats/table2/${dateStart}/${dateEnd}`, options);
   }
 
-  getCampaign(id: number): Observable<{campaign: Campaign}> {
-    return this.http.get<{campaign: Campaign}>(`${environment.apiUrl}/campaigns/${id}`);
+  getCampaign(id: number): Observable<{ campaign: Campaign }> {
+    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`);
+  }
+
+  getCampaignConversionsStatistics(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignConversionStatistics[]> {
+    const options = campaignId && {
+      params: {campaign_id: `${campaignId}`}
+    };
+
+    return this.http.get<CampaignConversionStatistics[]>(`${environment.apiUrl}/campaigns/stats/kw/${dateStart}/${dateEnd}`, options);
   }
 
   deleteCampaign(id: number): Observable<Campaign> {
@@ -71,6 +84,10 @@ export class AdvertiserService {
     return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
   }
 
+  getCampaignsConfig(): Observable<CampaignsConfig> {
+    return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
+  }
+
   getTargetingCriteria(): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
@@ -91,7 +108,7 @@ export class AdvertiserService {
       .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
   }
 
-  report(dateStart: string, dateEnd: string, campaignId?: number): Observable<SitesTotals[]> {
+  report(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
     let options = {
       responseType: 'blob' as 'json'
     };

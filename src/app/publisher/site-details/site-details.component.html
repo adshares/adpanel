@@ -1,4 +1,4 @@
-<div class="dashboard-view">
+<div *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div
     class="
       site-details
@@ -447,3 +447,8 @@
     </div>
   </div>
 </div>
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
+</ng-template>
