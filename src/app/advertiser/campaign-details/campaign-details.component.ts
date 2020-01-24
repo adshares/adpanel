@@ -17,6 +17,8 @@ import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-campaign-details',
@@ -96,8 +98,14 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
+          this.getChartData(this.currentChartFilterSettings, this.campaign.id);
+        }
+      });
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription);
+    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription, refreshSubscription);
   }
 
   deleteCampaign() {
@@ -132,7 +140,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
   getChartData(chartFilterSettings, campaignId) {
     this.barChartData[0].data = [];
-    const chartDataSubscription = this.chartService
+
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -141,6 +150,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         'campaigns',
         campaignId,
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -169,7 +179,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       to: chartFilterSettings.currentTo,
       id: campaignId
     }));
-    this.subscriptions.push(chartDataSubscription);
   }
 
   navigateToCampaignEdition(path: string, step: number): void {
