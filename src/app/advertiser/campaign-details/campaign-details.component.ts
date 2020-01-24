@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Campaign, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
+import { Campaign, CampaignsConfig, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
@@ -25,6 +25,8 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  campaignsConfig: CampaignsConfig;
+  dataLoaded: boolean = false;
   campaign: Campaign;
   conversionTableItems: CampaignConversionStatisticsTableItem[] = [];
   conversionsStatistics: CampaignConversionStatistics[] = [];
@@ -53,7 +55,18 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     super();
   }
 
+  get canActivateCampaign(): boolean {
+    return (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase()) ||
+      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase()) ||
+      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateCampaign ? 'Activate' : 'Deactivate'
+  }
+
   ngOnInit() {
+    this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
     this.store.select('state', 'common', 'chartFilterSettings')
@@ -63,14 +76,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       });
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.currentChartFilterSettings = chartFilterSettings;
-      });
+      .subscribe((chartFilterSettings: ChartFilterSettings) => this.currentChartFilterSettings = chartFilterSettings);
 
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-
         this.campaign = campaigns.find(el => {
           return el.id === id;
         });
@@ -83,7 +93,11 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.updateConversionTableItems();
       });
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription);
+    const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+
+
+    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription);
   }
 
   deleteCampaign() {
@@ -175,16 +189,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
     this.store.dispatch(new UpdateCampaignStatus(
       {id: this.campaign.id, status}));
-  }
-
-  get canActivateCampaign(): boolean {
-    return (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.DRAFT].toLowerCase()) ||
-      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.SUSPENDED].toLowerCase()) ||
-      (this.currentCampaignStatus === this.campaignStatusesEnum[this.campaignStatusesEnum.INACTIVE].toLowerCase());
-  }
-
-  get statusButtonLabel(): string {
-    return this.canActivateCampaign ? 'Activate' : 'Deactivate'
   }
 
   downloadReport() {

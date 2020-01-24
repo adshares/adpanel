@@ -42,15 +42,14 @@
     class="
           col-xs-2
           row
-          clickable-row
           align-center"
   >
-        <span class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold"
-              (click)="navigateToCampaignDetails(campaign.id)"
+        <a class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold clickable-row-a"
+           routerLink="/advertiser/campaign/{{campaign.id}}"
               data-test="advertiser-campaign-name"
         >
           {{ campaign.basicInformation.name }}
-        </span>
+        </a>
   </td>
   <td
     class="
@@ -124,17 +123,17 @@
     class="
           col-xs-1
           row
-          clickable-row
           align-center
           justify-center
           dwmth-campaign-list__item-campaign-details"
-    (click)="navigateToCampaignDetails(campaign.id)"
     role="link"
   >
-    <img
-      src="/assets/images/chevron--right.svg"
-      [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
-    >
+    <a routerLink="/advertiser/campaign/{{campaign.id}}" class="clickable-row-a">
+      <img
+        src="/assets/images/chevron--right.svg"
+        [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
+      >
+    </a>
   </td>
 </tr>
 <ng-template #loading>

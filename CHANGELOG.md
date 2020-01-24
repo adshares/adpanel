@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Update conversion statistics with date filter change
+### Fixed
+- Sorting lists
+- Reloading dashboard
 
 ## [1.5.2] - 2020-01-03
 ### Changed

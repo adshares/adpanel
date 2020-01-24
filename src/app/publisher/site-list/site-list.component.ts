@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
-import { enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
-import { TableColumnMetaData } from 'models/table.model';
+import { enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
+import { TableNavigationComponent } from "common/components/table-navigation/table-navigation.component";
 
 @Component({
   selector: 'app-site-list',
@@ -12,8 +13,10 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   styleUrls: ['./site-list.component.scss']
 })
 export class SiteListComponent extends HandleSubscription {
+  @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
+  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
 
   constructor(
@@ -46,8 +49,14 @@ export class SiteListComponent extends HandleSubscription {
     });
   }
 
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.sites = sortArrayByColumnMetaData(this.sites, columnMetaData);
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.tableNavigationRef) {
+      this.tableNavigationRef.refresh();
+    }
+  }
+
+  sortTable(event: TableSortEvent) {
+    this.sites = sortArrayByKeys(this.sites, event.keys, event.sortDesc);
   }
 
   navigateToCreateSite() {

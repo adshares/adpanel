@@ -7,7 +7,7 @@ import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
 import * as advertiserAction from 'store/advertiser/advertiser.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
-import { Campaign } from 'models/campaign.model';
+import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
@@ -19,6 +19,7 @@ import { HandleSubscription } from "common/handle-subscription";
 export class EditCampaignComponent extends HandleSubscription implements OnInit, OnDestroy {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
   isEditMode: boolean;
+  campaignsConfig: CampaignsConfig;
 
   constructor(
     private store: Store<AppState>,
@@ -29,6 +30,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
   }
 
   ngOnInit() {
+    this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
 
     const lastEditedCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')

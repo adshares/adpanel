@@ -32,10 +32,6 @@ export class CampaignListItemComponent implements OnChanges {
     this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
   }
 
-  navigateToCampaignDetails(campaignId: number) {
-    this.router.navigate(['/advertiser', 'campaign', campaignId]);
-  }
-
   onCampaignStatusChange(status) {
     this.store.dispatch(new UpdateCampaignStatus(
       {id: this.campaign.id, status: this.campaignStatusesEnumArray.findIndex(el => el === status)}));
