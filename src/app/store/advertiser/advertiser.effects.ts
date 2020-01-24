@@ -241,8 +241,11 @@ export class AdvertiserEffects {
           if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
           let errorMsg;
           if (err.status === HTTP_BAD_REQUEST) {
-            errorMsg = 'We weren\'t able to activate given campaign.\n' +
-              validCampaignBudget(config, campaign, user).join('\n');
+            const errors = validCampaignBudget(config, campaign, user);
+            if (errors.length == 0) {
+              errors.push('Please check if you have enough money on your account.');
+            }
+            errorMsg = 'We weren\'t able to activate given campaign.\n' + errors.join('\n');
           } else {
             errorMsg = err.error.errors[0] || err.message;
           }

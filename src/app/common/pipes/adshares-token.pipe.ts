@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatMoney } from 'common/utilities/helpers';
+import { calcCampaignBudgetPerDay, formatMoney } from 'common/utilities/helpers';
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { ExchangeRate } from "models/user.model";
@@ -70,5 +70,15 @@ export class ClickToADSPipe implements PipeTransform {
       .split(',')
       .join('');
     return parseInt(formattedMoney);
+  }
+}
+
+@Pipe({
+  name: 'budgetPerDay'
+})
+
+export class AdsharesBudgetPerDayPipe implements PipeTransform {
+  transform(value: number): number {
+    return calcCampaignBudgetPerDay(value);
   }
 }

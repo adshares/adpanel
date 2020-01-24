@@ -15,13 +15,14 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { User } from "models/user.model";
 
 @Component({
   selector: 'app-campaign-details',
@@ -33,6 +34,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
   campaign: Campaign;
+  user: User;
   conversionTableItems: CampaignConversionStatisticsTableItem[] = [];
   conversionsStatistics: CampaignConversionStatistics[] = [];
   campaignStatusesEnum = campaignStatusesEnum;
@@ -48,6 +50,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   targetingOptions: AssetTargeting;
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
+  budgetInfo: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -93,7 +96,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
         }
-
+        this.updateBudgetInfo();
         this.updateConversionTableItems();
       });
 
@@ -101,9 +104,37 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
     const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
-      .subscribe((campaignsConfig: CampaignsConfig) => this.campaignsConfig = campaignsConfig);
+      .subscribe((campaignsConfig: CampaignsConfig) => {
+        this.campaignsConfig = campaignsConfig;
+        this.updateBudgetInfo();
+      });
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription, campaignsConfigSubscription);
+    const userSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.user = user;
+        this.updateBudgetInfo();
+      });
+
+    this.subscriptions.push(
+      chartFilterSubscription,
+      campaignSubscription,
+      dataLoadedSubscription,
+      campaignsConfigSubscription,
+      userSubscription
+    );
+  }
+
+  updateBudgetInfo() {
+    this.budgetInfo = null;
+    if (!this.campaignsConfig || !this.campaign || !this.user) {
+      return;
+    }
+
+    const errors = validCampaignBudget(this.campaignsConfig, this.campaign, this.user);
+
+    if (errors.length > 0) {
+      this.budgetInfo = errors.join(' ');
+    }
   }
 
   deleteCampaign() {

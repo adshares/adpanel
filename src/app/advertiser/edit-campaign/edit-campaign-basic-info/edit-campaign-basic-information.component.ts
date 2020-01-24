@@ -4,24 +4,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 
-
 import { AppState } from 'models/app-state.model';
-import { Campaign, CampaignBasicInformation } from 'models/campaign.model';
+import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/campaign.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { SaveCampaignBasicInformation, UpdateCampaign } from 'store/advertiser/advertiser.actions';
+import {
+  SaveCampaignBasicInformation,
+  UpdateCampaign,
+  LoadCampaignsConfig,
+} from 'store/advertiser/advertiser.actions';
+
 
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
 import {
   adsToClicks,
   calcCampaignBudgetPerDay,
-  calcCampaignBudgetPerHour,
+  calcCampaignBudgetPerHour, clicksToAds,
   formatMoney
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { environment } from 'environments/environment';
+import { ValidatorFn } from "@angular/forms/src/directives/validators";
+import { CustomValidators } from "common/utilities/forms";
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -30,6 +36,7 @@ import { environment } from 'environments/environment';
 })
 export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
   currencyCode: string = environment.currencyCode;
+  campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
   budgetPerDay: FormControl;
@@ -62,11 +69,18 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   ngOnInit() {
+    this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
-    subscription && this.subscriptions.push(subscription);
-    this.createForm();
+
+    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+      .subscribe((campaignsConfig: CampaignsConfig) => {
+        this.campaignsConfig = campaignsConfig;
+        this.createForm();
+      });
+
+    subscription && this.subscriptions.push(subscription, campaignsConfigSubscription);
   }
 
   private setBudgetValue(value?: number): void {
@@ -89,9 +103,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
-      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc),
-      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm),
-      budget: adsToClicks(this.budgetValue),
+      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
+      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm || 0),
+      budget: adsToClicks(this.budgetValue || 0),
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     };
@@ -123,7 +137,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
-      Validators.min(0.01),
+      Validators.min(clicksToAds(calcCampaignBudgetPerDay(this.campaignsConfig.minBudget))),
     ]);
 
     this.campaignBasicInfoForm = new FormGroup({
@@ -134,12 +148,11 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       ]),
       maxCpc: new FormControl(initialBasicinfo.maxCpc),
       maxCpm: new FormControl(initialBasicinfo.maxCpm, [
-        Validators.required,
-        Validators.min(0),
+        CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpm)),
       ]),
       budget: new FormControl(initialBasicinfo.budget, [
         Validators.required,
-        Validators.min(0.0004),
+        Validators.min(clicksToAds(this.campaignsConfig.minBudget)),
       ]),
     });
 

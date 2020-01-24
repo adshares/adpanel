@@ -1,5 +1,12 @@
 @import '../../../styles.scss';
 
+.dwmth-alert {
+  padding: 18px 0;
+  background: pal(red, light);
+  justify-content: center;
+  border: 1px solid pal(red, dark);
+}
+
 .campaign-basic-information {
   > div:not(:last-of-type) {
     margin-right: 32px;

@@ -16,6 +16,10 @@ function adsToClicks(amount: any): number {
   return parseInt(arr[0] + arr[1]);
 }
 
+function clicksToAds(amount: number): number {
+  return amount / 1e11;
+}
+
 /**
  * Calculates campaign budget per hour in ADS.
  * @param budgetPerHour budget/hour in ADS
@@ -29,7 +33,7 @@ function calcCampaignBudgetPerDay(budgetPerHour: number): number {
  * @param budgetPerDay budget/day in ADS
  */
 function calcCampaignBudgetPerHour(budgetPerDay: number): number {
-  return Math.floor(budgetPerDay * 100000000000 / 24) / 100000000000;
+  return Math.floor(budgetPerDay * 1e11 / 24) / 1e11;
 }
 
 function cloneDeep(target) {
@@ -185,12 +189,15 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
 
 const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
   let isDirectDeal = false;
+  let accountError = false;
   let budgetError = false;
   let cpmError = false;
   let cpaError = false;
 
-  if (user.adserverWallet.totalFunds < config.minBudget) {
+  if (campaign.basicInformation.budget < config.minBudget) {
     budgetError = true;
+  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget) {
+    accountError = true;
   }
 
   const maxCpm = campaign.basicInformation.maxCpm;
@@ -205,17 +212,24 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   if (maxCpm > 0 && maxCpm < config.minCpm) {
     cpmError = true;
   }
-  if (maxCpa > 0 && maxCpa < config.minCpm) {
+  if (maxCpa > 0 && maxCpa < config.minCpa) {
     cpaError = true;
   }
 
-  const minBudget = `${formatMoney(config.minBudget, 2)} ${user.exchangeRate.currency}`;
-  const minCpm = `${formatMoney(config.minCpm, 2)} ${user.exchangeRate.currency}`;
-  const minCpa = `${formatMoney(config.minCpa, 2)} ${user.exchangeRate.currency}`;
+  const currency = user.exchangeRate ? user.exchangeRate.currency : '';
+
+  const campaignBudget = `${formatMoney(campaign.basicInformation.budget, 2)} ${currency}`;
+  const minBudget = `${formatMoney(calcCampaignBudgetPerDay(config.minBudget), 2)} ${currency}`;
+  const minCpm = `${formatMoney(config.minCpm, 2)} ${currency}`;
+  const minCpa = `${formatMoney(config.minCpa, 2)} ${currency}`;
 
   let errors = [];
   if (budgetError) {
-    let error = `You need to have at least ${minBudget} in your account`;
+    errors.push(`The daily budget of the campaign must be set to a minimum of ${minBudget}.`);
+  }
+
+  if (accountError) {
+    let error = `You need to have at least ${campaignBudget} in your account`;
     if (isDirectDeal) {
       error += ', excluding bonuses'
     }
@@ -240,10 +254,6 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
     errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
   }
 
-  if (!errors.length) {
-    errors.push('Please check if you have enough money on your account.');
-  }
-
   return errors;
 };
 
@@ -262,6 +272,7 @@ function downloadCSVFile(data, from, to) {
 
 export {
   adsToClicks,
+  clicksToAds,
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
