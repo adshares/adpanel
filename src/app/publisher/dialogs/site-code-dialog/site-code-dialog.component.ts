@@ -12,7 +12,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['./site-code-dialog.component.scss']
 })
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
-  private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 1500;
+  private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
   readonly CURRENCY_CODE: string = environment.currencyCode;
 
   code: string = '';
