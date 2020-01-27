@@ -71,7 +71,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.createForm();
       });
 
-    subscription && this.subscriptions.push(subscription, campaignsConfigSubscription);
+    subscription && this.subscriptions.push(subscription);
+    this.subscriptions.push(campaignsConfigSubscription);
   }
 
   private setBudgetValue(value?: number): void {
@@ -205,7 +206,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.campaign = lastEditedCampaign;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
-        console.debug('getFormDataFromStore', basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
 
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
