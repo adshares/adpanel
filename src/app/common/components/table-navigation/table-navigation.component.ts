@@ -67,7 +67,6 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], defaultDesc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], defaultDesc: true},
     {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['averageRpm'], defaultDesc: true},
-    {title: 'Code', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
   classifierListNavigationItems = [

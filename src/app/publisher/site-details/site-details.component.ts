@@ -23,6 +23,8 @@ import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { TableSortEvent } from 'models/table.model';
 import { adUnitTypesEnum } from "models/enum/ad.enum";
+import { faCode } from '@fortawesome/free-solid-svg-icons'
+import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 
 @Component({
   selector: 'app-site-details',
@@ -50,6 +52,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
+  faCode = faCode;
 
   constructor(
     private route: ActivatedRoute,
@@ -206,5 +209,18 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .subscribe((data) => {
         downloadCSVFile(data, settings.currentFrom, settings.currentTo);
       });
+  }
+
+  private hasSitePops(): boolean {
+    return -1 !== this.site.adUnits.findIndex(adUnit => adUnitTypesEnum.POP === adUnit.type);
+  }
+
+  openGetCodeDialog(): void {
+    this.dialog.open(SiteCodeDialogComponent, {
+      data : {
+        siteId : this.site.id,
+        hasSitePops: this.hasSitePops(),
+      },
+    });
   }
 }

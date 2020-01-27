@@ -35,6 +35,7 @@ interface SitesTotals {
 
 interface AdUnit {
   id?: number;
+  uuid?: string;
   name: string;
   type: string;
   size: string;
