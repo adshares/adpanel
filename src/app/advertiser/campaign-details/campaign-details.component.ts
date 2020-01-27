@@ -130,9 +130,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (!this.campaignsConfig || !this.campaign || !this.user) {
       return;
     }
-
     const errors = validCampaignBudget(this.campaignsConfig, this.campaign, this.user);
-
     if (errors.length > 0) {
       this.budgetInfo = errors.join(' ');
     }

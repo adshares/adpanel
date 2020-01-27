@@ -2,7 +2,7 @@ import * as moment from "moment";
 import { campaignStatusesEnum } from "models/enum/campaign.enum";
 import { DATE_FORMAT } from "common/utilities/consts";
 import { Campaign, CampaignsConfig } from "models/campaign.model";
-import { ExchangeRate, User } from "models/user.model";
+import { User } from "models/user.model";
 
 
 function adsToClicks(amount: any): number {
@@ -194,9 +194,20 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   let cpmError = false;
   let cpaError = false;
 
+  if ('undefined' !== typeof (campaign.targeting.requires['site'])) {
+    if ('undefined' !== typeof (campaign.targeting.requires['site']['domain'])) {
+      isDirectDeal = campaign.targeting.requires['site']['domain'].length > 0;
+    }
+  }
+
+  const currency = user.exchangeRate ? user.exchangeRate.currency : '';
+  const rate = user.exchangeRate ? user.exchangeRate.value : 1;
+
   if (campaign.basicInformation.budget < config.minBudget) {
     budgetError = true;
-  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget) {
+  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget / rate) {
+    accountError = true;
+  } else if (isDirectDeal && user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate) {
     accountError = true;
   }
 
@@ -215,8 +226,6 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   if (maxCpa > 0 && maxCpa < config.minCpa) {
     cpaError = true;
   }
-
-  const currency = user.exchangeRate ? user.exchangeRate.currency : '';
 
   const campaignBudget = `${formatMoney(campaign.basicInformation.budget, 2)} ${currency}`;
   const minBudget = `${formatMoney(calcCampaignBudgetPerDay(config.minBudget), 2)} ${currency}`;
