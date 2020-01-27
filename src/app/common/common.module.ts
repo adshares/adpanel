@@ -41,7 +41,12 @@ import { PushNotificationComponent } from './components/push-notifications/push-
 import { ChartComponent } from './components/chart/chart.component';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component';
-import { AdsharesTokenPipe, CalculateInCurrency, ClickToADSPipe } from './pipes/adshares-token.pipe';
+import {
+  AdsharesBudgetPerDayPipe,
+  AdsharesTokenPipe,
+  CalculateInCurrency,
+  ClickToADSPipe
+} from './pipes/adshares-token.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
@@ -107,6 +112,7 @@ const appComponents = [
   TrustUrlPipe,
   TrustHtmlPipe,
   MomentDatePipe,
+  AdsharesBudgetPerDayPipe,
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,

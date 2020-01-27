@@ -1,7 +1,13 @@
-import { Campaign, CampaignConversionItem, CampaignTotals } from 'models/campaign.model';
+import { Campaign, CampaignConversionItem, CampaignsConfig, CampaignTotals } from 'models/campaign.model';
 import { campaignConversionClick, campaignStatusesEnum } from 'models/enum/campaign.enum';
 import {classificationStatusesEnum} from 'models/enum/classification.enum';
 import * as moment from 'moment';
+
+export const campaignsConfigInitialState: CampaignsConfig = {
+  minBudget: 0,
+  minCpm: 0,
+  minCpa: 0,
+};
 
 export const campaignsTotalsInitialState: CampaignTotals = {
   clicks: 0,

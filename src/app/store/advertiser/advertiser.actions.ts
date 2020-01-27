@@ -1,7 +1,7 @@
-import {Action} from '@ngrx/store';
-import { Ad, Campaign, CampaignBasicInformation, CampaignTotals, CampaignTotalsResponse } from 'models/campaign.model';
-import {AssetTargeting} from 'models/targeting-option.model';
-import {TimespanFilter} from 'models/chart/chart-filter-settings.model';
+import { Action } from '@ngrx/store';
+import { Ad, Campaign, CampaignBasicInformation, CampaignsConfig, CampaignTotalsResponse } from 'models/campaign.model';
+import { AssetTargeting } from 'models/targeting-option.model';
+import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
@@ -22,6 +22,10 @@ export const LOAD_CAMPAIGNS_FAILURE = 'Campaigns loading failure';
 export const LOAD_CAMPAIGN = 'Campaign loading';
 export const LOAD_CAMPAIGN_SUCCESS = 'Campaign loading success';
 export const LOAD_CAMPAIGN_FAILURE = 'Campaign loading failure';
+
+export const LOAD_CAMPAIGNS_CONFIG = 'Campaigns config loading';
+export const LOAD_CAMPAIGNS_CONFIG_SUCCESS = 'Campaigns config loading success';
+export const LOAD_CAMPAIGNS_CONFIG_FAILURE = 'Campaigns config loading failure';
 
 export const LOAD_CAMPAIGN_TOTALS = 'Campaign totals loading';
 export const LOAD_CAMPAIGN_TOTALS_SUCCESS = 'Campaign totals loading success';
@@ -215,6 +219,27 @@ export class LoadCampaignFailure implements Action {
   }
 }
 
+export class LoadCampaignsConfig implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_CONFIG;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadCampaignsConfigSuccess implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_CONFIG_SUCCESS;
+
+  constructor(public payload: CampaignsConfig) {
+  }
+}
+
+export class LoadCampaignsConfigFailure implements Action {
+  readonly type: string = LOAD_CAMPAIGNS_CONFIG_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export class LoadCampaignsTotals implements Action {
   readonly type: string = LOAD_CAMPAIGNS_TOTALS;
 
@@ -297,6 +322,10 @@ export type actions =
   LoadCampaign |
   LoadCampaignSuccess |
   LoadCampaignFailure |
+
+  LoadCampaignsConfig |
+  LoadCampaignsConfigSuccess |
+  LoadCampaignsConfigFailure |
 
   LoadCampaignTotals |
   LoadCampaignTotalsSuccess |

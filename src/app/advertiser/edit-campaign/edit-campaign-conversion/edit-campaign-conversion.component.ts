@@ -6,10 +6,10 @@ import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'models/app-state.model';
-import { Campaign, CampaignConversion, CampaignConversionItem } from 'models/campaign.model';
+import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
 import {
-  ClearLastEditedCampaign,
+  ClearLastEditedCampaign, LoadCampaignsConfig,
   SaveConversion,
   UPDATE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_SUCCESS
@@ -21,9 +21,10 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
-import { adsToClicks, formatMoney } from 'common/utilities/helpers';
+import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
 import { environment } from 'environments/environment';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
+import { CustomValidators } from "common/utilities/forms";
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -66,6 +67,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   ];
 
   conversionItemForms: FormGroup[] = [];
+  campaignsConfig: CampaignsConfig;
   campaign: Campaign;
 
   validateForm: boolean = false;
@@ -130,7 +132,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
             .subscribe(
               (data) => {
                 this.campaign = data.campaign;
-                this.conversionItemForms = [];
                 this.adjustConversionData(this.campaign.conversions)
               },
               (err) => {
@@ -173,7 +174,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     const itemUuid = item.uuid;
     const itemIsAdvanced = item.isAdvanced;
 
-    const valueValidators = [Validators.min(0)];
+    const valueValidators = [CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpa))];
     if (!itemIsAdvanced) {
       valueValidators.push(Validators.required);
     }
@@ -209,6 +210,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   adjustConversionData(conversions) {
+    this.conversionItemForms = [];
     conversions.forEach(conversion => {
       const item = {
         uuid: conversion.uuid,
@@ -227,15 +229,23 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
 
   getFormDataFromStore(): void {
+    this.store.dispatch(new LoadCampaignsConfig());
+
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
+      }, () => {
+      });
+
+    let configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+      .subscribe((config: CampaignsConfig) => {
+        this.campaignsConfig = config;
         this.adjustConversionData(this.campaign.conversions);
       }, () => {
       });
 
-    this.subscriptions.push(subscription);
+    this.subscriptions.push(subscription, configSubscription);
   }
 
   addConversionEmpty(type: string): void {
