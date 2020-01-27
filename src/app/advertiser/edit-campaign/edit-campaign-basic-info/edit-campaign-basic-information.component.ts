@@ -50,15 +50,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   campaign: Campaign;
   changesSaved: boolean;
 
-  readonly PLACEHOLDERS = [
-    { id: '{aid}', description: 'server id'},
-    { id: '{pid}', description: 'publisher id'},
-    { id: '{sid}', description: 'site id'},
-    { id: '{zid}', description: 'zone id'},
-    { id: '{cid}', description: 'case id'},
-    { id: '{bid}', description: 'banner id'},
-  ];
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
