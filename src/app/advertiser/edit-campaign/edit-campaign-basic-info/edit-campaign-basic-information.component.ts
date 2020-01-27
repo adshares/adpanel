@@ -9,9 +9,9 @@ import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/camp
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import {
+  LoadCampaignsConfig,
   SaveCampaignBasicInformation,
   UpdateCampaign,
-  LoadCampaignsConfig,
 } from 'store/advertiser/advertiser.actions';
 
 
@@ -20,13 +20,13 @@ import { appSettings } from 'app-settings';
 import {
   adsToClicks,
   calcCampaignBudgetPerDay,
-  calcCampaignBudgetPerHour, clicksToAds,
+  calcCampaignBudgetPerHour,
+  clicksToAds,
   formatMoney
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { environment } from 'environments/environment';
-import { ValidatorFn } from "@angular/forms/src/directives/validators";
 import { CustomValidators } from "common/utilities/forms";
 
 @Component({
@@ -59,6 +59,42 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     super();
   }
 
+  get campaignBasicInfo(): CampaignBasicInformation {
+    const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
+
+    return {
+      status: campaignStatusesEnum.DRAFT,
+      name: campaignBasicInfoValue.name,
+      targetUrl: campaignBasicInfoValue.targetUrl,
+      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
+      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm || 0),
+      budget: adsToClicks(this.budgetValue || 0),
+      dateStart: moment(this.dateStart.value._d).format(),
+      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
+    };
+  }
+
+  private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
+    const basicInformation = {
+      status: lastEditedCampaign.status,
+      name: lastEditedCampaign.name,
+      targetUrl: lastEditedCampaign.targetUrl,
+      maxCpc: 0,
+      maxCpm: null,
+      budget: null,
+    };
+    if (lastEditedCampaign.maxCpc !== null) {
+      basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
+    }
+    if (lastEditedCampaign.maxCpm !== null) {
+      basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
+    }
+    if (lastEditedCampaign.budget !== null) {
+      basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
+    }
+    return basicInformation;
+  }
+
   ngOnInit() {
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
@@ -75,10 +111,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     this.subscriptions.push(campaignsConfigSubscription);
   }
 
-  private setBudgetValue(value?: number): void {
-    this.budgetValue = value || 0;
-  }
-
   onSubmit() {
     this.campaignBasicInformationSubmitted = true;
     if (!this.campaignBasicInfoForm.valid || !this.dateStart.value) {
@@ -86,21 +118,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     }
     this.campaignBasicInformationSubmitted = false;
     this.createCampaignMode ? this.saveCampaignBasicInformation() : this.updateCampaignBasicInfo();
-  }
-
-  get campaignBasicInfo(): CampaignBasicInformation {
-    const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
-
-    return {
-      status: campaignStatusesEnum.DRAFT,
-      name: campaignBasicInfoValue.name,
-      targetUrl: campaignBasicInfoValue.targetUrl,
-      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
-      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm || 0),
-      budget: adsToClicks(this.budgetValue || 0),
-      dateStart: moment(this.dateStart.value._d).format(),
-      dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
-    };
   }
 
   saveCampaignBasicInformation() {
@@ -152,54 +169,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     this.getFormDataFromStore();
   }
 
-  private subscribeBudgetChange() {
-    let subscription: Subscription;
-
-    // calculate budget: hour -> day
-    subscription = this.campaignBasicInfoForm.get('budget').valueChanges
-      .subscribe((val) => {
-        if (!this.calcBudgetToHour) {
-          this.setBudgetValue(val);
-          const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
-          this.budgetPerDay.setValue(budgetPerDayValue);
-        }
-      }, () => {
-      });
-    this.subscriptions.push(subscription);
-
-    // calculate budget: day -> hour
-    subscription = this.budgetPerDay.valueChanges
-      .subscribe((val) => {
-        if (this.calcBudgetToHour) {
-          this.setBudgetValue(calcCampaignBudgetPerHour(val));
-          this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
-        }
-      }, () => {
-      });
-    this.subscriptions.push(subscription);
-  }
-
-  private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
-    const basicInformation = {
-      status: lastEditedCampaign.status,
-      name: lastEditedCampaign.name,
-      targetUrl: lastEditedCampaign.targetUrl,
-      maxCpc: 0,
-      maxCpm: null,
-      budget: null,
-    };
-    if (lastEditedCampaign.maxCpc !== null) {
-      basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
-    }
-    if (lastEditedCampaign.maxCpm !== null) {
-      basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
-    }
-    if (lastEditedCampaign.budget !== null) {
-      basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
-    }
-    return basicInformation;
-  }
-
   getFormDataFromStore() {
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
       .subscribe((lastEditedCampaign: Campaign) => {
@@ -225,5 +194,36 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   onStepBack(): void {
     this.createCampaignMode ? this.router.navigate(['/advertiser', 'dashboard']) :
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
+  }
+
+  private setBudgetValue(value?: number): void {
+    this.budgetValue = value || 0;
+  }
+
+  private subscribeBudgetChange() {
+    let subscription: Subscription;
+
+    // calculate budget: hour -> day
+    subscription = this.campaignBasicInfoForm.get('budget').valueChanges
+      .subscribe((val) => {
+        if (!this.calcBudgetToHour) {
+          this.setBudgetValue(val);
+          const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
+          this.budgetPerDay.setValue(budgetPerDayValue);
+        }
+      }, () => {
+      });
+    this.subscriptions.push(subscription);
+
+    // calculate budget: day -> hour
+    subscription = this.budgetPerDay.valueChanges
+      .subscribe((val) => {
+        if (this.calcBudgetToHour) {
+          this.setBudgetValue(calcCampaignBudgetPerHour(val));
+          this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
+        }
+      }, () => {
+      });
+    this.subscriptions.push(subscription);
   }
 }
