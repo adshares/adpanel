@@ -129,6 +129,12 @@
     </div>
   </mat-accordion>
 
+  <div class="dwmth-box">
+    <app-targeting-reach
+      [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+    ></app-targeting-reach>
+  </div>
+
   <div
     class="
       dwmth-box

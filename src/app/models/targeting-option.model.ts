@@ -27,4 +27,19 @@ interface AssetTargeting {
   excludes: TargetingOptionValue[];
 }
 
-export { TargetingOption, TargetingOptionValue, AssetTargeting };
+interface TargetingReachResponse {
+  occurrences: number;
+  percentiles: TargetingReachResponsePercentiles;
+}
+
+interface TargetingReachResponsePercentiles {
+  [index: string]: number;
+}
+
+export {
+  TargetingOption,
+  TargetingOptionValue,
+  AssetTargeting,
+  TargetingReachResponse,
+  TargetingReachResponsePercentiles,
+};

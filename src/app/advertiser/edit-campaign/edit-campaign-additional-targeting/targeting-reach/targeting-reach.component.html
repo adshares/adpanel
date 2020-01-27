@@ -1,0 +1,20 @@
+<div class="targeting-reach">
+  <div class="row">
+    <span class="targeting-reach--label">Total available impressions:</span>
+    <span *ngIf="!isLoading; else loading">{{ reach }}</span>
+  </div>
+  <div
+    *ngIf="percentiles"
+  >
+    <div *ngFor="let item of percentiles | mapToIterable">
+      <div
+        class="row"
+      >
+        To reach {{ item.key }}% set CPM greater than {{ item.value | formatMoney:2 }}
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <mat-spinner [diameter]="20" [strokeWidth]="2" color="primary"></mat-spinner>
+</ng-template>

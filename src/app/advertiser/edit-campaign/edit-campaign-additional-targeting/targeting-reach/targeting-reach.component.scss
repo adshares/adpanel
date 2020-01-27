@@ -1,0 +1,9 @@
+@import '../../../../../styles.scss';
+
+.targeting-reach {
+  @include font(18, normal);
+
+  &--label {
+    margin-right: 6px;
+  }
+}
