@@ -96,7 +96,10 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
   }
 
-  loadSites(from: string, to: string) {
+  loadSites(from, to) {
+    from = moment(from).format();
+    to = moment(to).format();
+
     this.store.dispatch(new publisherActions.LoadSites({from, to}));
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
