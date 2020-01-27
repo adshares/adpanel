@@ -1,7 +1,11 @@
 import * as AdvertiserActions from './advertiser.actions';
 import * as AuthActions from '../auth/auth.actions';
 import { AdvertiserState } from 'models/app-state.model';
-import { campaignInitialState, campaignsTotalsInitialState } from 'models/initial-state/campaign';
+import {
+  campaignInitialState,
+  campaignsConfigInitialState,
+  campaignsTotalsInitialState
+} from 'models/initial-state/campaign';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
@@ -9,6 +13,7 @@ const initialState: AdvertiserState = {
   campaignsLoaded: false,
   campaignsTotals: campaignsTotalsInitialState,
   dataLoaded: false,
+  campaignsConfig: campaignsConfigInitialState,
 };
 
 const bannerStatsInitialState = {
@@ -182,6 +187,11 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
         campaigns: [..._campaigns],
       };
     }
+    case AdvertiserActions.LOAD_CAMPAIGNS_CONFIG_SUCCESS:
+      return {
+        ...state,
+        campaignsConfig: action.payload
+      };
     case AuthActions.USER_LOG_IN_SUCCESS:
       return initialState;
 

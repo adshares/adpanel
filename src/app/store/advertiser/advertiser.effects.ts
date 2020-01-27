@@ -1,46 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Actions, Effect,  toPayload } from '@ngrx/effects';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/withLatestFrom';
 import { Observable } from 'rxjs/Observable';
 import {
-  LOAD_CAMPAIGNS,
-  LOAD_CAMPAIGNS_TOTALS,
+  ADD_CAMPAIGN_TO_CAMPAIGNS,
+  AddCampaignToCampaignsFailure,
+  AddCampaignToCampaignsSuccess,
+  ClearLastEditedCampaign,
+  DELETE_CAMPAIGN,
+  DeleteCampaignFailure,
+  DeleteCampaignSuccess,
   LOAD_CAMPAIGN,
   LOAD_CAMPAIGN_TOTALS,
-  ADD_CAMPAIGN_TO_CAMPAIGNS,
-  UPDATE_CAMPAIGN,
-  UPDATE_CAMPAIGN_STATUS,
-  DELETE_CAMPAIGN,
+  LOAD_CAMPAIGNS, LOAD_CAMPAIGNS_CONFIG,
+  LOAD_CAMPAIGNS_TOTALS,
+  LoadCampaignFailure, LoadCampaignsConfig, LoadCampaignsConfigFailure, LoadCampaignsConfigSuccess,
+  LoadCampaignsFailure,
   LoadCampaignsSuccess,
   LoadCampaignsTotals,
-  LoadCampaignsFailure,
-  LoadCampaignsTotalsSuccess,
   LoadCampaignsTotalsFailure,
+  LoadCampaignsTotalsSuccess,
   LoadCampaignSuccess,
-  LoadCampaignTotalsSuccess,
   LoadCampaignTotalsFailure,
-  AddCampaignToCampaignsSuccess,
-  AddCampaignToCampaignsFailure,
-  UpdateCampaignSuccess,
-  ClearLastEditedCampaign,
-  UpdateCampaignFailure,
-  UpdateCampaignStatusSuccess,
+  LoadCampaignTotalsSuccess,
+  SAVE_CONVERSION,
+  UPDATE_CAMPAIGN,
+  UPDATE_CAMPAIGN_STATUS,
+  UpdateCampaignFailure, UpdateCampaignStatus,
   UpdateCampaignStatusFailure,
-  DeleteCampaignSuccess,
-  DeleteCampaignFailure,
-  LoadCampaignFailure, SAVE_CONVERSION, UPDATE_CAMPAIGN_FAILURE,
+  UpdateCampaignStatusSuccess,
+  UpdateCampaignSuccess,
 } from './advertiser.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import "rxjs/add/operator/take";
 import * as moment from "moment";
 import { MatDialog } from "@angular/material";
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
-import { STATUS_SAVE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
+import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
-import { adjustCampaignStatus } from "common/utilities/helpers";
+import { adjustCampaignStatus, validCampaignBudget } from "common/utilities/helpers";
+import { Store } from "@ngrx/store";
+import { AppState } from "models/app-state.model";
+import { Campaign, CampaignsConfig } from "models/campaign.model";
+import { User } from "models/user.model";
 
 @Injectable()
 export class AdvertiserEffects {
@@ -48,8 +54,10 @@ export class AdvertiserEffects {
 
   constructor(
     private actions$: Actions,
+    private store$: Store<AppState>,
     private service: AdvertiserService,
     private router: Router,
+    private route: ActivatedRoute,
     private dialog: MatDialog,
   ) {
   }
@@ -71,7 +79,9 @@ export class AdvertiserEffects {
         });
         return Observable.from([
           new LoadCampaignsSuccess(campaigns),
-          new LoadCampaignsTotals({from: payload.from, to: payload.to})])
+          new LoadCampaignsConfig(),
+          new LoadCampaignsTotals({from: payload.from, to: payload.to})
+        ])
       })
       .catch(() => Observable.of(new LoadCampaignsFailure()))
     );
@@ -95,7 +105,7 @@ export class AdvertiserEffects {
     .ofType(LOAD_CAMPAIGN)
     .map(toPayload)
     .switchMap((id) => this.service.getCampaign(id)
-      .map((payload) => {
+      .switchMap((payload) => {
         const campaign = {
           ...payload.campaign,
           basicInformation: {
@@ -103,8 +113,10 @@ export class AdvertiserEffects {
             status: adjustCampaignStatus(payload.campaign.basicInformation, this.currentDate)
           }
         };
-
-        return new LoadCampaignSuccess(campaign);
+        return Observable.from([
+          new LoadCampaignSuccess(campaign),
+          new LoadCampaignsConfig(),
+        ]);
       })
       .catch(() => Observable.of(new LoadCampaignFailure()))
     );
@@ -136,6 +148,14 @@ export class AdvertiserEffects {
       .catch((err) => {
         return Observable.of(new LoadCampaignTotalsFailure())
       })
+    );
+
+  @Effect()
+  loadCampaignsConfig$ = this.actions$
+    .ofType(LOAD_CAMPAIGNS_CONFIG)
+    .switchMap(() => this.service.getCampaignsConfig()
+      .map((payload) => new LoadCampaignsConfigSuccess(<CampaignsConfig>payload))
+      .catch(() => Observable.of(new LoadCampaignsConfigFailure()))
     );
 
   @Effect()
@@ -200,26 +220,39 @@ export class AdvertiserEffects {
   @Effect()
   updateCampaignStatus = this.actions$
     .ofType(UPDATE_CAMPAIGN_STATUS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.updateStatus(payload.id, payload.status)
-      .switchMap(() => [
-          new UpdateCampaignStatusSuccess(payload),
-          new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
-        ]
-      )
-      .catch((err) => {
-        if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
-        let errorMsg;
-        if (err.status === HTTP_BAD_REQUEST) {
-          errorMsg = 'We weren\'t able to activate given campaign. \n ' +
-            'Please check if you have enough money on your account.'
-        } else {
-          errorMsg = err.error.errors[0] || err.message;
-        }
-        return Observable.of(new UpdateCampaignStatusFailure(errorMsg)
+    .withLatestFrom(this.store$.select('state', 'user', 'data'))
+    .withLatestFrom(this.store$.select('state', 'advertiser'),([action, user], state) => {
+      const payload = (<UpdateCampaignStatus>action).payload;
+      return new Array<[any, CampaignsConfig, Campaign, User]>([
+        payload,
+        state.campaignsConfig,
+        state.campaigns.find(campaign => campaign.id === payload.id),
+        user
+      ]);
+    })
+    .switchMap(([[payload, config, campaign, user]]) => {
+      return this.service.updateStatus(payload.id, payload.status)
+        .switchMap(() => [
+            new UpdateCampaignStatusSuccess(payload),
+            new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
+          ]
         )
-      })
-    );
+        .catch((err) => {
+          if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
+          let errorMsg;
+          if (err.status === HTTP_BAD_REQUEST) {
+            const errors = validCampaignBudget(config, campaign, user);
+            if (errors.length == 0) {
+              errors.push('Please check if you have enough money on your account.');
+            }
+            errorMsg = 'We weren\'t able to activate given campaign.\n' + errors.join('\n');
+          } else {
+            errorMsg = err.error.errors[0] || err.message;
+          }
+          return Observable.of(new UpdateCampaignStatusFailure(errorMsg)
+          )
+        });
+    });
 
   @Effect()
   deleteCampaign = this.actions$

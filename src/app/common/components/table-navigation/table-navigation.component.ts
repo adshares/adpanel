@@ -154,7 +154,8 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
           sort: this.normalize(column.title),
           order: column.sortedDesc ? 'desc' : 'asc'
         },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
+        replaceUrl: true
       });
   }
 

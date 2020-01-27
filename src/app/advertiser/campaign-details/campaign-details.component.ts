@@ -2,7 +2,12 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import { Campaign, CampaignsConfig, CampaignConversionStatistics, CampaignConversionStatisticsTableItem } from 'models/campaign.model';
+import {
+  Campaign,
+  CampaignConversionStatistics,
+  CampaignConversionStatisticsTableItem,
+  CampaignsConfig
+} from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
@@ -10,13 +15,14 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
+import { User } from "models/user.model";
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
 
@@ -30,6 +36,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
   campaign: Campaign;
+  user: User;
   conversionTableItems: CampaignConversionStatisticsTableItem[] = [];
   conversionsStatistics: CampaignConversionStatistics[] = [];
   campaignStatusesEnum = campaignStatusesEnum;
@@ -45,6 +52,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   targetingOptions: AssetTargeting;
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
+  budgetInfo: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -91,12 +99,24 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
         }
-
+        this.updateBudgetInfo();
         this.updateConversionTableItems();
       });
 
     const dataLoadedSubscription = this.store.select('state', 'advertiser', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+
+    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+      .subscribe((campaignsConfig: CampaignsConfig) => {
+        this.campaignsConfig = campaignsConfig;
+        this.updateBudgetInfo();
+      });
+
+    const userSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.user = user;
+        this.updateBudgetInfo();
+      });
 
     const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
       .subscribe(() => {
@@ -105,7 +125,25 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         }
       });
 
-    this.subscriptions.push(chartFilterSubscription, campaignSubscription, dataLoadedSubscription, refreshSubscription);
+    this.subscriptions.push(
+      chartFilterSubscription,
+      campaignSubscription,
+      dataLoadedSubscription,
+      campaignsConfigSubscription,
+      userSubscription,
+      refreshSubscription
+    );
+  }
+
+  updateBudgetInfo() {
+    this.budgetInfo = null;
+    if (!this.campaignsConfig || !this.campaign || !this.user) {
+      return;
+    }
+    const errors = validCampaignBudget(this.campaignsConfig, this.campaign, this.user);
+    if (errors.length > 0) {
+      this.budgetInfo = errors.join(' ');
+    }
   }
 
   deleteCampaign() {

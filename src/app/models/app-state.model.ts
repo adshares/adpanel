@@ -1,4 +1,4 @@
-import { Campaign, CampaignTotals } from './campaign.model';
+import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
@@ -29,6 +29,7 @@ interface AdvertiserState {
   campaigns: Campaign[] | null;
   campaignsLoaded: boolean;
   campaignsTotals: CampaignTotals;
+  campaignsConfig: CampaignsConfig;
   dataLoaded: boolean;
 }
 
