@@ -14,7 +14,7 @@ import { AssetTargeting } from 'models/targeting-option.model';
 import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import * as PublisherActions from 'store/publisher/publisher.actions';
+import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from '@angular/material';
@@ -22,9 +22,11 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { TableSortEvent } from 'models/table.model';
-import { adUnitTypesEnum } from "models/enum/ad.enum";
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { faCode } from '@fortawesome/free-solid-svg-icons'
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-site-details',
@@ -110,7 +112,19 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     const dataLoadedSubscription = this.store.select('state', 'publisher', 'dataLoaded')
       .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
 
-    this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription);
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings && this.site && this.site.id) {
+          this.getChartData(this.currentChartFilterSettings, this.site.id, false);
+          this.store.dispatch(new LoadSiteTotals({
+            from: this.currentChartFilterSettings.currentFrom,
+            to: this.currentChartFilterSettings.currentTo,
+            id: this.site.id,
+          }));
+        }
+      });
+
+    this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
   }
 
   sortTable(event: TableSortEvent) {
@@ -162,10 +176,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, id) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, id, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
-    const chartDataSubscription = this.chartService
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -174,6 +190,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         'sites',
         id
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -182,8 +199,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-
-    this.subscriptions.push(chartDataSubscription);
   }
 
   navigateToEditSite(path: string, step: number): void {
@@ -200,7 +215,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       this.currentSiteStatus = 'inactive';
     }
     this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
-    this.store.dispatch(new PublisherActions.UpdateSiteStatus(this.site));
+    this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 
   downloadReport() {

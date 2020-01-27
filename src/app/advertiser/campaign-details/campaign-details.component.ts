@@ -23,6 +23,8 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { User } from "models/user.model";
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-campaign-details',
@@ -116,12 +118,20 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         this.updateBudgetInfo();
       });
 
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
+          this.getChartData(this.currentChartFilterSettings, this.campaign.id, false);
+        }
+      });
+
     this.subscriptions.push(
       chartFilterSubscription,
       campaignSubscription,
       dataLoadedSubscription,
       campaignsConfigSubscription,
-      userSubscription
+      userSubscription,
+      refreshSubscription
     );
   }
 
@@ -166,9 +176,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  getChartData(chartFilterSettings, campaignId) {
-    this.barChartData[0].data = [];
-    const chartDataSubscription = this.chartService
+  getChartData(chartFilterSettings, campaignId, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
+
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -177,6 +190,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         'campaigns',
         campaignId,
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -205,7 +219,6 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       to: chartFilterSettings.currentTo,
       id: campaignId
     }));
-    this.subscriptions.push(chartDataSubscription);
   }
 
   navigateToCampaignEdition(path: string, step: number): void {

@@ -14,6 +14,8 @@ import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 
 import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,16 +53,30 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.subscriptions.push(chartFilterSubscription);
     this.loadCampaigns(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
+
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings) {
+          this.getChartData(this.currentChartFilterSettings, false);
+          this.store.dispatch(new advertiserActions.LoadCampaignsTotals({
+            from: this.currentChartFilterSettings.currentFrom,
+            to: this.currentChartFilterSettings.currentTo
+          }));
+        }
+      });
+
+    this.subscriptions.push(chartFilterSubscription, refreshSubscription);
   }
 
-  getChartData(chartFilterSettings) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
-    const chartDataSubscription = this.chartService
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -69,6 +85,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         'campaigns',
         chartFilterSettings.currentAssetId,
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -77,8 +94,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-
-    this.subscriptions.push(chartDataSubscription);
   }
 
   loadCampaigns(from: string, to: string) {
