@@ -167,7 +167,7 @@
                   dwmth-form-input
                   input-budget"
                 type="number"
-                min="0.01"
+                step="0.01"
                 name="campaignMaxCpm"
                 formControlName="maxCpm"
                 data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
@@ -222,7 +222,7 @@
                   dwmth-form-input
                   input-budget"
                 type="number"
-                min="0.01"
+                step="0.01"
                 name="campaignBudgetPerDay"
                 [formControl]="budgetPerDay"
                 (focus)="onFocus('campaign-budget-per-day')"
@@ -275,7 +275,7 @@
                   dwmth-form-input
                   input-budget"
                 type="number"
-                min="0.01"
+                step="0.0001"
                 name="campaignBudget"
                 formControlName="budget"
                 (focus)="onFocus('campaign-budget')"

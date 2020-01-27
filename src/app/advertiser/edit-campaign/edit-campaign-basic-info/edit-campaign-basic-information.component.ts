@@ -191,10 +191,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
     }
     if (lastEditedCampaign.maxCpm !== null) {
-      basicInformation.maxCpm = formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', '');
+      basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
     if (lastEditedCampaign.budget !== null) {
-      basicInformation.budget = formatMoney(lastEditedCampaign.budget, 4, true, '.', '');
+      basicInformation.budget = parseFloat(formatMoney(lastEditedCampaign.budget, 4, true, '.', ''));
     }
     return basicInformation;
   }
@@ -205,6 +205,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.campaign = lastEditedCampaign;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
+        console.debug('getFormDataFromStore', basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
 
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
