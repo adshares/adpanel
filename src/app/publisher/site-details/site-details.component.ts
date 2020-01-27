@@ -115,7 +115,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
       .subscribe(() => {
         if (this.currentChartFilterSettings && this.site && this.site.id) {
-          this.getChartData(this.currentChartFilterSettings, this.site.id);
+          this.getChartData(this.currentChartFilterSettings, this.site.id, false);
           this.store.dispatch(new LoadSiteTotals({
             from: this.currentChartFilterSettings.currentFrom,
             to: this.currentChartFilterSettings.currentTo,
@@ -176,8 +176,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, id) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, id, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
     this.chartService
       .getAssetChartData(

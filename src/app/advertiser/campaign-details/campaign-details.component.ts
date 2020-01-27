@@ -121,7 +121,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
       .subscribe(() => {
         if (this.currentChartFilterSettings && this.campaign && this.campaign.id) {
-          this.getChartData(this.currentChartFilterSettings, this.campaign.id);
+          this.getChartData(this.currentChartFilterSettings, this.campaign.id, false);
         }
       });
 
@@ -176,8 +176,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  getChartData(chartFilterSettings, campaignId) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, campaignId, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
     this.chartService
       .getAssetChartData(

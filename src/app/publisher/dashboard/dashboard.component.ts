@@ -60,7 +60,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
       .subscribe(() => {
         if (this.currentChartFilterSettings) {
-          this.getChartData(this.currentChartFilterSettings);
+          this.getChartData(this.currentChartFilterSettings, false);
           this.store.dispatch(new publisherActions.LoadSitesTotals({
             from: this.currentChartFilterSettings.currentFrom,
             to: this.currentChartFilterSettings.currentTo,
@@ -71,8 +71,10 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription, refreshSubscription);
   }
 
-  getChartData(chartFilterSettings) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
     this.chartService
       .getAssetChartData(
