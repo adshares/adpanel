@@ -22,7 +22,7 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { TableSortEvent } from 'models/table.model';
-import { adUnitTypesEnum } from "models/enum/ad.enum";
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
 
@@ -176,7 +176,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   getChartData(chartFilterSettings, id) {
     this.barChartData[0].data = [];
 
-    this.chartService.getAssetChartData(
+    this.chartService
+      .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,

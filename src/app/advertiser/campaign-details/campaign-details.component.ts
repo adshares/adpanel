@@ -218,7 +218,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignId = this.campaign.id;
     const statistics = this.conversionsStatistics;
 
-    this.conversionTableItems = this.campaign.conversions.map(function(element) {
+    this.conversionTableItems = this.campaign.conversions.map(function (element) {
       const statistic = statistics.find(item => campaignId === item.campaignId && element.uuid === item.uuid);
       const cost = statistic ? statistic.cost : 0;
       const occurrences = statistic ? statistic.occurrences : 0;

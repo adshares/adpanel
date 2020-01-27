@@ -74,7 +74,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   getChartData(chartFilterSettings) {
     this.barChartData[0].data = [];
 
-    this.chartService.getAssetChartData(
+    this.chartService
+      .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
         chartFilterSettings.currentFrequency,
