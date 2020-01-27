@@ -275,6 +275,18 @@
       </div>
     </section>
 
+    <div class="dwmth-box dwmth-box--large">
+      <div class="row justify-center">
+        <button
+          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button"
+        >
+          Get code
+        </button>
+      </div>
+    </div>
+
     <div class="col">
       <div
         class="
@@ -329,7 +341,6 @@
           ></app-table-navigation>
           <app-poster-units
             *ngFor="let adUnit of popAdUnits"
-            [siteCode]="site.code"
             [adUnit]="adUnit"
           ></app-poster-units>
         </table>
@@ -382,7 +393,6 @@
           ></app-table-navigation>
           <app-poster-units
             *ngFor="let adUnit of displayAdUnits"
-            [siteCode]="site.code"
             [adUnit]="adUnit"
           ></app-poster-units>
         </table>
@@ -413,6 +423,18 @@
         >
         Create new ad unit
       </button>
+    </div>
+
+    <div class="dwmth-box dwmth-box--large">
+      <div class="row justify-center">
+        <button
+          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button"
+        >
+          Get code
+        </button>
+      </div>
     </div>
   </div>
 </div>

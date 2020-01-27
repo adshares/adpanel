@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
-import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 import { AdUnit } from 'models/site.model';
 import { adUnitTypesEnum } from "models/enum/ad.enum";
 
@@ -12,19 +9,5 @@ import { adUnitTypesEnum } from "models/enum/ad.enum";
 })
 export class AdUnitsComponent {
   @Input() adUnit: AdUnit;
-  @Input() siteCode: string;
-  codeIcon = faCode;
   adUnitTypesEnum = adUnitTypesEnum;
-
-  constructor(private dialog: MatDialog) {
-  }
-
-  openGetCodeDialog() {
-    this.dialog.open(SiteCodeDialogComponent, {
-      data: {
-        code: this.adUnit.code,
-        siteCode: this.siteCode,
-      }
-    });
-  }
 }
