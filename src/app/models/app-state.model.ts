@@ -1,4 +1,4 @@
-import { Campaign, CampaignTotals } from './campaign.model';
+import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
@@ -27,12 +27,17 @@ interface AppState {
 interface AdvertiserState {
   lastEditedCampaign: Campaign;
   campaigns: Campaign[] | null;
+  campaignsLoaded: boolean;
   campaignsTotals: CampaignTotals;
+  campaignsConfig: CampaignsConfig;
+  dataLoaded: boolean;
 }
 
 interface PublisherState {
   sites: Site[];
+  sitesLoaded: boolean;
   sitesTotals: SitesTotals;
+  dataLoaded: boolean;
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
   filteringCriteria: TargetingOption[];

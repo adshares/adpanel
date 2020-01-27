@@ -25,7 +25,7 @@ const publisherRoutes: Routes = [
     component: PublisherComponent,
     canActivate: [PublisherGuard],
     children: [
-      {path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard'},
+      {path: '', pathMatch: 'full', redirectTo: '/publisher/dashboard'},
       {path: 'dashboard', component: DashboardComponent},
       {
         path: 'site/:id',

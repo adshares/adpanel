@@ -7,22 +7,26 @@ import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import {AdUnit, Site, SiteLanguage} from 'models/site.model';
+import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByColumnMetaData } from 'common/utilities/helpers';
+import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import * as PublisherActions from 'store/publisher/publisher.actions';
+import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
-import { TableColumnMetaData } from 'models/table.model';
-import { adUnitTypesEnum} from "models/enum/ad.enum";
+import { TableSortEvent } from 'models/table.model';
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
+import { faCode } from '@fortawesome/free-solid-svg-icons'
+import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-site-details',
@@ -31,6 +35,7 @@ import { adUnitTypesEnum} from "models/enum/ad.enum";
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  dataLoaded: boolean = false;
   site: Site;
   siteStatusEnum = siteStatusEnum;
   siteStatusEnumArray = enumToArray(siteStatusEnum);
@@ -49,6 +54,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
+  faCode = faCode;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +65,27 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     private dialog: MatDialog
   ) {
     super();
+  }
+
+  get popAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.POP;
+    });
+  }
+
+  get displayAdUnits(): AdUnit[] {
+    return this.site.adUnits.filter(adUnit => {
+      return adUnit.type === adUnitTypesEnum.DISPLAY;
+    });
+  }
+
+  get canActivateSite(): boolean {
+    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
+      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
+  }
+
+  get statusButtonLabel(): string {
+    return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 
   ngOnInit() {
@@ -74,9 +101,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.currentChartFilterSettings = chartFilterSettings;
-      });
+      .subscribe((chartFilterSettings: ChartFilterSettings) => this.currentChartFilterSettings = chartFilterSettings);
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
@@ -84,19 +109,26 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.getFiltering();
       });
 
-    this.subscriptions.push(chartFilterSubscription, sitesSubscription);
+    const dataLoadedSubscription = this.store.select('state', 'publisher', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings && this.site && this.site.id) {
+          this.getChartData(this.currentChartFilterSettings, this.site.id, false);
+          this.store.dispatch(new LoadSiteTotals({
+            from: this.currentChartFilterSettings.currentFrom,
+            to: this.currentChartFilterSettings.currentTo,
+            id: this.site.id,
+          }));
+        }
+      });
+
+    this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
   }
 
-  get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.POP; });
-  }
-
-  get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY; });
-  }
-
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.site.adUnits = sortArrayByColumnMetaData(this.site.adUnits, columnMetaData);
+  sortTable(event: TableSortEvent) {
+    this.site.adUnits = sortArrayByKeys(this.site.adUnits, event.keys, event.sortDesc);
   }
 
   deleteSite() {
@@ -144,10 +176,12 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, id) {
-    this.barChartData[0].data = [];
+  getChartData(chartFilterSettings, id, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
 
-    const chartDataSubscription = this.chartService
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -156,6 +190,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         'sites',
         id
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -164,8 +199,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-
-    this.subscriptions.push(chartDataSubscription);
   }
 
   navigateToEditSite(path: string, step: number): void {
@@ -182,16 +215,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       this.currentSiteStatus = 'inactive';
     }
     this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
-    this.store.dispatch(new PublisherActions.UpdateSiteStatus(this.site));
-  }
-
-  get canActivateSite(): boolean {
-    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
-      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
-  }
-
-  get statusButtonLabel(): string {
-    return this.canActivateSite ? 'Activate' : 'Deactivate'
+    this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 
   downloadReport() {
@@ -200,5 +224,18 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .subscribe((data) => {
         downloadCSVFile(data, settings.currentFrom, settings.currentTo);
       });
+  }
+
+  private hasSitePops(): boolean {
+    return -1 !== this.site.adUnits.findIndex(adUnit => adUnitTypesEnum.POP === adUnit.type);
+  }
+
+  openGetCodeDialog(): void {
+    this.dialog.open(SiteCodeDialogComponent, {
+      data : {
+        siteId : this.site.id,
+        hasSitePops: this.hasSitePops(),
+      },
+    });
   }
 }

@@ -1,19 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
-import {ChartService} from 'common/chart.service';
-import {ChartComponent} from 'common/components/chart/chart.component';
-import {SiteListComponent} from 'publisher/site-list/site-list.component';
-import {HandleSubscription} from 'common/handle-subscription';
-import {Site, SitesTotals} from 'models/site.model';
-import {ChartFilterSettings} from 'models/chart/chart-filter-settings.model';
-import {ChartData} from 'models/chart/chart-data.model';
-import {AppState} from 'models/app-state.model';
-import {createInitialArray, downloadCSVFile} from 'common/utilities/helpers';
+import { ChartService } from 'common/chart.service';
+import { ChartComponent } from 'common/components/chart/chart.component';
+import { SiteListComponent } from 'publisher/site-list/site-list.component';
+import { HandleSubscription } from 'common/handle-subscription';
+import { Site, SitesTotals } from 'models/site.model';
+import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
+import { ChartData } from 'models/chart/chart-data.model';
+import { AppState } from 'models/app-state.model';
+import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
 import { PublisherService } from 'publisher/publisher.service';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
+import { appSettings } from 'app-settings';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,10 +24,12 @@ import * as publisherActions from 'store/publisher/publisher.actions';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  @ViewChild(SiteListComponent) campaignListRef: SiteListComponent;
+  @ViewChild(SiteListComponent) siteListRef: SiteListComponent;
 
   sites: Site[];
+  sitesLoaded: boolean = false;
   sitesTotals: SitesTotals;
+  dataLoaded: boolean = false;
 
   barChartValue: number;
   barChartDifference: number;
@@ -35,8 +39,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   userHasConfirmedEmail: Store<boolean>;
 
   currentChartFilterSettings: ChartFilterSettings;
-
-  link: string;
 
   constructor(
     private chartService: ChartService,
@@ -51,15 +53,30 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
-    this.subscriptions.push(chartFilterSubscription);
     this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
     this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
+
+    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
+      .subscribe(() => {
+        if (this.currentChartFilterSettings) {
+          this.getChartData(this.currentChartFilterSettings, false);
+          this.store.dispatch(new publisherActions.LoadSitesTotals({
+            from: this.currentChartFilterSettings.currentFrom,
+            to: this.currentChartFilterSettings.currentTo,
+          }));
+        }
+      });
+
+    this.subscriptions.push(chartFilterSubscription, refreshSubscription);
   }
 
-  getChartData(chartFilterSettings) {
-    this.barChartData[0].data = [];
-    const chartDataSubscription = this.chartService
+  getChartData(chartFilterSettings, reload: boolean = true) {
+    if (reload) {
+      this.barChartData[0].data = [];
+    }
+
+    this.chartService
       .getAssetChartData(
         chartFilterSettings.currentFrom,
         chartFilterSettings.currentTo,
@@ -68,6 +85,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         'sites',
         chartFilterSettings.currentAssetId,
       )
+      .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -76,21 +94,29 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
-    this.subscriptions.push(chartDataSubscription);
   }
 
-  loadSites(from, to) {
-    from = moment(from).format();
-    to = moment(to).format();
+  loadSites(from: string, to: string) {
     this.store.dispatch(new publisherActions.LoadSites({from, to}));
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => this.sites = sites);
 
+    const sitesLoadedSubscription = this.store.select('state', 'publisher', 'sitesLoaded')
+      .subscribe((sitesLoaded: boolean) => this.sitesLoaded = sitesLoaded);
+
     const sitesTotalsSubscription = this.store.select('state', 'publisher', 'sitesTotals')
       .subscribe((sitesTotals: SitesTotals) => this.sitesTotals = sitesTotals);
 
-    this.subscriptions.push(sitesSubscription, sitesTotalsSubscription);
+    const dataLoadedSubscription = this.store.select('state', 'publisher', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+
+    this.subscriptions.push(
+      sitesSubscription,
+      sitesLoadedSubscription,
+      sitesTotalsSubscription,
+      dataLoadedSubscription
+    );
   }
 
   downloadReport() {

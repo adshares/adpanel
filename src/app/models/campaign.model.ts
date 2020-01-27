@@ -1,5 +1,11 @@
 import { AssetTargeting } from './targeting-option.model';
 
+interface CampaignsConfig {
+  minBudget: number;
+  minCpm: number;
+  minCpa: number;
+}
+
 interface Campaign {
   id?: number;
   basicInformation: CampaignBasicInformation;
@@ -72,6 +78,22 @@ interface CampaignConversionItem {
   isRepeatable?: boolean;
 }
 
+interface CampaignConversionStatisticsTableItem {
+  name: string;
+  eventType: string;
+  cost: number;
+  occurrences: number;
+}
+
+interface CampaignConversionStatistics {
+  campaignId: number;
+  uuid: string;
+  name: string;
+  eventType: string;
+  cost: number;
+  occurrences: number;
+}
+
 interface Ad {
   id: number;
   status: number;
@@ -98,10 +120,13 @@ interface CampaignTotalsResponse {
 
 
 export {
+  CampaignsConfig,
   Campaign,
   CampaignBasicInformation,
   CampaignConversion,
   CampaignConversionItem,
+  CampaignConversionStatistics,
+  CampaignConversionStatisticsTableItem,
   Ad,
   CampaignTotals,
   CampaignTotalsResponse

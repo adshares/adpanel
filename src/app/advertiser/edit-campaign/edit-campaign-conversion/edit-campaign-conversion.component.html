@@ -419,7 +419,7 @@
                   class="error-msg"
                   *ngIf="validateForm && 'INVALID' === conversionItemForm.get('value').status"
                 >
-                  Value is required.
+                  Allowed minimum is {{this.campaignsConfig.minCpa|formatMoney:2:''}}
                   </span>
               </div>
               <div

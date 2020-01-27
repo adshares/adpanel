@@ -12,7 +12,9 @@
       dwmth-heading
       dwmth-heading--primary"
   >
-    Deposit funds
+    <span *ngIf="useNativeDeposit">Deposit ADS</span>
+    <span *ngIf="useNowPaymentsDeposit" class="now_payments_logo"><span>NOW</span>Payments</span>
+    <span *ngIf="!useNativeDeposit && !useNowPaymentsDeposit">Deposit funds</span>
   </h1>
 
   <div *ngIf="!loadingInfo; else loading">
@@ -153,7 +155,8 @@
 
   <ng-template #nowPaymentsDeposit>
     <p class="dwmth-copy dwmth-copy--large dialog-description">
-      Allows you to make deposits in Bitcoin, Ethereum, Litecoin, and over 30 other cryptocurrencies.
+      allows you to make deposits in Bitcoin, Ethereum,
+      Litecoin, and over 30 other cryptocurrencies.
       <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
         full list here.</a>
     </p>
@@ -217,7 +220,8 @@
           </button>
           <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
             You will be redirected to NowPayments.io.
-            Please note that it may take up to a few hours to deposit your funds, depending on the cryptocurrency you are using.
+            Please note that it may take up to a few hours to deposit your funds, depending on the cryptocurrency you
+            are using.
             A notification will be sent via e-mail once the funds have been deposited.
           </p>
         </div>

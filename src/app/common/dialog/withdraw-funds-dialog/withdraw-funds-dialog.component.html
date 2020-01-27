@@ -122,7 +122,7 @@
         </span>
         <span
           class="error-msg"
-          *ngIf="withdrawFundsForm.get('amount').value > adserverWallet.walletBalance/100000000000"
+          *ngIf="withdrawFundsForm.get('amount').value > adserverWallet.walletBalance/1e11"
         >
           The amount exceeds your balance
         </span>

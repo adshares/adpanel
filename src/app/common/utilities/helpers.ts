@@ -1,7 +1,8 @@
-import { TableColumnMetaData } from 'models/table.model';
 import * as moment from "moment";
 import { campaignStatusesEnum } from "models/enum/campaign.enum";
 import { DATE_FORMAT } from "common/utilities/consts";
+import { Campaign, CampaignsConfig } from "models/campaign.model";
+import { User } from "models/user.model";
 
 
 function adsToClicks(amount: any): number {
@@ -13,6 +14,10 @@ function adsToClicks(amount: any): number {
   arr[1] = arr[1].padEnd(11, '0').substring(0, 11);
 
   return parseInt(arr[0] + arr[1]);
+}
+
+function clicksToAds(amount: number): number {
+  return amount / 1e11;
 }
 
 /**
@@ -28,7 +33,7 @@ function calcCampaignBudgetPerDay(budgetPerHour: number): number {
  * @param budgetPerDay budget/day in ADS
  */
 function calcCampaignBudgetPerHour(budgetPerDay: number): number {
-  return Math.floor(budgetPerDay * 100000000000 / 24) / 100000000000;
+  return Math.floor(budgetPerDay * 1e11 / 24) / 1e11;
 }
 
 function cloneDeep(target) {
@@ -137,20 +142,20 @@ function createInitialArray(element, count) {
   return resultArray;
 }
 
-function sortArrayByColumnMetaData<assetItem>(
+function sortArrayByKeys<assetItem>(
   sortArray: assetItem[],
-  columnMetaData: TableColumnMetaData
+  keys: string[] = [],
+  sortDesc: boolean = false
 ): assetItem[] {
-  if (!columnMetaData.keys || !columnMetaData.hasOwnProperty('sortAsc')) {
+  if (!keys.length) {
     return [...sortArray];
   }
 
-  const sortOrder = columnMetaData.sortAsc ? -1 : 1;
-  columnMetaData.sortAsc = !columnMetaData.sortAsc;
+  const sortOrder = sortDesc ? 1 : -1;
 
   return sortArray.slice().sort((item, nextItem) => {
-    let sortItem = findValueByPathArray(item, columnMetaData.keys);
-    let nextSortItem = findValueByPathArray(nextItem, columnMetaData.keys);
+    let sortItem = findValueByPathArray(item, keys);
+    let nextSortItem = findValueByPathArray(nextItem, keys);
     if (typeof sortItem === 'string') {
       sortItem = sortItem.toLowerCase();
       nextSortItem = nextSortItem.toLowerCase();
@@ -180,7 +185,86 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
   } else {
     return campaignInfo.status
   }
-}
+};
+
+const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
+  let isDirectDeal = false;
+  let accountError = false;
+  let budgetError = false;
+  let cpmError = false;
+  let cpaError = false;
+
+  if ('undefined' !== typeof (campaign.targeting.requires['site'])) {
+    if ('undefined' !== typeof (campaign.targeting.requires['site']['domain'])) {
+      isDirectDeal = campaign.targeting.requires['site']['domain'].length > 0;
+    }
+  }
+
+  const currency = user.exchangeRate ? user.exchangeRate.currency : '';
+  const rate = user.exchangeRate ? user.exchangeRate.value : 1;
+
+  if (campaign.basicInformation.budget < config.minBudget) {
+    budgetError = true;
+  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget / rate) {
+    accountError = true;
+  } else if (isDirectDeal && user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate) {
+    accountError = true;
+  }
+
+  const maxCpm = campaign.basicInformation.maxCpm;
+  const maxCpa = campaign.conversions ?
+    campaign.conversions.map(el => el.value).reduce((max, val) => Math.max(max, val), 0) :
+    0;
+
+  if (maxCpm == 0 && maxCpa == 0) {
+    cpmError = true;
+    cpaError = true;
+  }
+  if (maxCpm > 0 && maxCpm < config.minCpm) {
+    cpmError = true;
+  }
+  if (maxCpa > 0 && maxCpa < config.minCpa) {
+    cpaError = true;
+  }
+
+  const campaignBudget = `${formatMoney(campaign.basicInformation.budget, 2)} ${currency}`;
+  const minBudget = `${formatMoney(calcCampaignBudgetPerDay(config.minBudget), 2)} ${currency}`;
+  const minCpm = `${formatMoney(config.minCpm, 2)} ${currency}`;
+  const minCpa = `${formatMoney(config.minCpa, 2)} ${currency}`;
+
+  let errors = [];
+  if (budgetError) {
+    errors.push(`The daily budget of the campaign must be set to a minimum of ${minBudget}.`);
+  }
+
+  if (accountError) {
+    let error = `You need to have at least ${campaignBudget} in your account`;
+    if (isDirectDeal) {
+      error += ', excluding bonuses'
+    }
+    errors.push(`${error}.`);
+  }
+
+  if (cpmError) {
+    let error = `The CPM of the campaign must be set to a minimum of ${minCpm}`;
+    if (!cpaError) {
+      error += '.';
+    }
+    errors.push(error);
+  }
+
+  if (cpaError) {
+    let error = '';
+    if (cpmError) {
+      error += ' or a';
+    } else {
+      error += 'The';
+    }
+    errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
+  }
+
+  return errors;
+};
 
 function downloadCSVFile(data, from, to) {
   const formattedFrom = moment(from).format(DATE_FORMAT);
@@ -197,6 +281,7 @@ function downloadCSVFile(data, from, to) {
 
 export {
   adsToClicks,
+  clicksToAds,
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
@@ -207,7 +292,8 @@ export {
   isUnixTimePastNow,
   selectCompare,
   createInitialArray,
-  sortArrayByColumnMetaData,
+  sortArrayByKeys,
   adjustCampaignStatus,
+  validCampaignBudget,
   downloadCSVFile
 };

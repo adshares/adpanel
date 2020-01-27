@@ -11,6 +11,8 @@ export const appSettings = {
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
   // seconds of how long not remembered user auth token will be stored
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
+  // time after which advertisers'/publishers' charts and tables will be automatically refreshed
+  AUTOMATIC_REFRESH_INTERVAL: 60000,
   // update notification time in milliseconds
   UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 60000,
   // dismiss push notification time in milliseconds

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { trigger, transition, style, animate, } from '@angular/animations';
+import { animate, style, transition, trigger, } from '@angular/animations';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { UserInfoStats, Users } from 'models/settings.model';
-import { sortArrayByColumnMetaData } from 'common/utilities/helpers';
-import { TableColumnMetaData } from 'models/table.model';
+import { sortArrayByKeys } from 'common/utilities/helpers';
+import { TableSortEvent } from 'models/table.model';
 import * as adminActions from 'store/admin/admin.actions';
 import { appSettings } from 'app-settings';
 
@@ -81,8 +81,8 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new adminActions.LoadUsers({searchPhrase: searchTerm}));
   }
 
-  sortTable(columnMetaData: TableColumnMetaData) {
-    this.filteredUsers = sortArrayByColumnMetaData(this.filteredUsers, columnMetaData);
+  sortTable(event: TableSortEvent) {
+    this.filteredUsers = sortArrayByKeys(this.filteredUsers, event.keys, event.sortDesc);
   }
 
   handlePaginationEvent(e): void {

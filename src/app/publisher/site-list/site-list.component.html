@@ -5,7 +5,7 @@
       class="site-list__table-header"
       (sortTable)="sortTable($event)"
     ></app-table-navigation>
-    <tbody *ngIf="(sites && sitesTotals); else loading">
+    <tbody *ngIf="dataLoaded; else loading">
     <app-site-list-item
       *ngFor="let site of sites"
       [site]="site"
