@@ -44,6 +44,7 @@
             <div class="col-xs-7">
               <mat-checkbox
                 formControlName="isProxy"
+                (change)="onChangeAdvancedCircumvent($event)"
               >
                 Enable advanced circumvent of ad blockers
               </mat-checkbox>
