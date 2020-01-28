@@ -61,7 +61,7 @@
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
+                    align-with-checkbox"
                 >read more</div>
               </a>
             </div>
@@ -99,7 +99,7 @@
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
+                    align-with-checkbox"
                 >read more</div>
               </a>
             </div>
@@ -122,7 +122,7 @@
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
+                    align-with-checkbox"
                 >read more</div>
               </a>
             </div>
@@ -145,7 +145,7 @@
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
+                    align-with-checkbox"
                 >read more</div>
               </a>
             </div>
@@ -191,31 +191,107 @@
     </mat-accordion>
 
     <div
+      *ngIf="!loadingInfo; else loading"
       id="code-container-wrapper"
     >
-      <label for="code-container"></label>
-      <textarea
-        *ngIf="!loadingInfo; else loading"
-        id="code-container"
+      <div
+        *ngIf="null !== codes"
+      >
+        <div class="row align-center">
+          <label
+            class="dwmth-copy col text-left"
+            for="code-container-common"
+          >Common code for all ad units, should be inserted into head section</label>
+
+          <button
+            class="code-copy-btn"
+            (click)="copyCode('code-container-common')"
+          >
+            <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+            Copy code
+          </button>
+        </div>
+
+        <textarea
+          id="code-container-common"
+          class="
+            code-container
+            dwmth-box
+            dwmth-box--large
+            dwmth-box--light-border
+            dwmth-copy"
+          [ngModel]="codes.common"
+        ></textarea>
+
+        <div
+          *ngFor="let pop of codes.pops; let indexPop = index">
+          <div class="row align-center">
+            <label
+              class="dwmth-copy col text-left"
+              for="{{ 'code-container-pop' + indexPop }}"
+            >{{ pop.label }}</label>
+
+            <button
+              class="code-copy-btn"
+              (click)="copyCode('code-container-pop' + indexPop)"
+            >
+              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+              Copy code
+            </button>
+          </div>
+
+          <textarea
+            id="{{ 'code-container-pop' + indexPop }}"
+            class="
+              code-container
+              dwmth-box
+              dwmth-box--large
+              dwmth-box--light-border
+              dwmth-copy"
+            [ngModel]="pop.code"
+          ></textarea>
+        </div>
+
+        <div
+          *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
+          <div class="row align-center">
+            <label
+              class="dwmth-copy col text-left"
+              for="{{ 'code-container-ad-unit' + indexAdUnits }}"
+            >{{ adUnit.label }}</label>
+
+            <button
+              class="code-copy-btn"
+              (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
+            >
+              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+              Copy code
+            </button>
+          </div>
+
+          <textarea
+            id="{{ 'code-container-ad-unit' + indexAdUnits }}"
+            class="
+              code-container
+              dwmth-box
+              dwmth-box--large
+              dwmth-box--light-border
+              dwmth-copy"
+            [ngModel]="adUnit.code"
+          ></textarea>
+        </div>
+      </div>
+
+      <div
+        *ngIf="null === codes"
         class="
           dwmth-box
           dwmth-box--large
           dwmth-box--light-border
           dwmth-copy"
-        data-test="publisher-ad-code"
-      >{{ code }}</textarea>
-    </div>
-
-    <div
-      class="row justify-end">
-      <button
-        id="code-copy-btn"
-        class="dwmth-btn dwmth-btn--blue"
-        (click)="copyCode()"
-        data-test="publisher-ad-code-copy-btn"
       >
-        Copy to clipboard
-      </button>
+        An error occurred. Make sure that you confirmed an e-mail and review the options.
+      </div>
     </div>
   </div>
 

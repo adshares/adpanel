@@ -11,24 +11,36 @@
   width: 100%;
 }
 
-#code-container {
-  min-height: 250px;
-  overflow: auto;
+.code-container {
+  height: 32px;
+  min-height: 32px;
+  overflow: hidden;
   padding: 5px 10px;
   width: 100%;
-  resize: vertical;
+  resize: none;
 }
 
-#code-copy-btn {
-  margin-top: 16px;
+.code-copy-btn {
+  @include btn(
+    $color: pal(blue),
+    $background-color: pal(white),
+    $border-color: pal(white)
+  );
+  max-height: 46px;
+  text-align: left;
+
+  @include media(md-down) {
+    padding: 4px 12px;
+  }
+
+  &--icon {
+    font-size: 12px;
+    margin-right: 10px;
+  }
 }
 
 .ad-codes {
   min-height: 40px;
-}
-
-.read-more {
-  margin-bottom: 4px;
 }
 
 .input-in-text {

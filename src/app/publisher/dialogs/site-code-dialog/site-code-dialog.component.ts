@@ -6,6 +6,8 @@ import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { SiteCodes } from 'models/site.model';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -15,8 +17,9 @@ import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-r
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
   readonly CURRENCY_CODE: string = environment.currencyCode;
+  faCode = faCode;
 
-  code: string = '';
+  codes?: SiteCodes = null;
   codeForm: FormGroup;
   loadingInfo: boolean = true;
   siteId: number;
@@ -77,15 +80,16 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   updateCodes(): void {
     this.loadingInfo = true;
 
-    this.publisherService.getSiteCode(this.siteId, this.getCodeOptions())
+    this.publisherService.getSiteCodes(this.siteId, this.getCodeOptions())
       .take(1)
       .subscribe(
         response => {
-          this.code = response.code ? response.code : '';
+          this.codes = response.codes;
           this.loadingInfo = false;
+          setTimeout(() => this.onChangeTextArea(), 0);
         },
         () => {
-          this.code = 'An error occurred. Please review options.';
+          this.codes = null;
           this.loadingInfo = false;
         }
       );
@@ -113,8 +117,8 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     return options;
   }
 
-  copyCode(): void {
-    const input = <HTMLInputElement>document.getElementById('code-container');
+  copyCode(elementId: string): void {
+    const input = <HTMLInputElement>document.getElementById(elementId);
     input.focus();
     input.select();
     document.execCommand('copy');
@@ -142,5 +146,22 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     })
       .afterClosed()
       .subscribe(result => result && this.codeForm.get('isProxy').setValue(true));
+  }
+
+  onChangeTextArea(): void {
+    const textAreas = document.getElementsByTagName('textarea');
+
+    let paddingBottom = 0;
+    if (textAreas.length > 0) {
+      const textArea = textAreas.item(0);
+      paddingBottom = parseInt(window.getComputedStyle(textArea).paddingBottom);
+    }
+
+    for (let i = 0; i < textAreas.length; i++) {
+      const textArea = textAreas.item(i);
+      textArea.style.height = '';
+      const height = textArea.scrollHeight + paddingBottom;
+      textArea.style.height = `${height}px`;
+    }
   }
 }
