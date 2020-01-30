@@ -1,0 +1,38 @@
+@import '../../../styles';
+
+.campaign-classification-info {
+
+  &__status, &__label {
+    margin: 7px;
+    margin-left: 0;
+  }
+
+  &__in-progress {
+    color: pal(blue);
+  }
+
+  &__error {
+    color: pal(red);
+  }
+
+  &__success {
+    color: pal(green);
+  }
+
+  .mat-chip {
+    margin: 0 !important;
+  }
+
+  [ng-reflect-message] {
+    cursor: help;
+  }
+
+  &.compact {
+    .campaign-classification-info__status {
+      margin: 0 !important;
+    }
+    /deep/ .mat-chip-list-wrapper {
+      margin: 0 !important;
+    }
+  }
+}

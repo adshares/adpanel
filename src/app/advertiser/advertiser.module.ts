@@ -37,6 +37,8 @@ import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
+import { CampaignClassificationInfoComponent } from "advertiser/campaign-classification-info/campaign-classification-info.component";
+import { MatChipsModule } from "@angular/material/chips";
 
 
 const matModules = [
@@ -64,6 +66,7 @@ const advertiserComponents = [
   AdvertiserComponent,
   CampaignListComponent,
   CampaignListItemComponent,
+  CampaignClassificationInfoComponent,
   DashboardComponent,
   CampaignDetailsComponent,
   AdListComponent,
@@ -84,6 +87,7 @@ const advertiserComponents = [
     OwlNativeDateTimeModule,
     OwlMomentDateTimeModule,
     ...matModules,
+    MatChipsModule,
   ],
   providers: [
     AdvertiserGuard,

@@ -28,6 +28,7 @@ interface Campaign {
   conversionClickLink?: string;
   classificationStatus: number;
   classificationTags?: string;
+  classifications: CampaignClassification[];
 }
 
 interface CampaignTotals {
@@ -94,6 +95,12 @@ interface CampaignConversionStatistics {
   occurrences: number;
 }
 
+interface CampaignClassification {
+  classifier: string;
+  status: number;
+  keywords: any[];
+}
+
 interface Ad {
   id: number;
   status: number;
@@ -127,6 +134,7 @@ export {
   CampaignConversionItem,
   CampaignConversionStatistics,
   CampaignConversionStatisticsTableItem,
+  CampaignClassification,
   Ad,
   CampaignTotals,
   CampaignTotalsResponse

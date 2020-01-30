@@ -14,6 +14,7 @@ import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
+import { FilteringCriteriaResolver } from "publisher/resolvers/filtering-criteria.resolver";
 
 const advertiserRoutes: Routes = [
   {
@@ -22,13 +23,20 @@ const advertiserRoutes: Routes = [
     canActivate: [AdvertiserGuard],
     children: [
       {path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard'},
-      {path: 'dashboard', component: DashboardComponent},
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        resolve: {
+          filteringOptions: FilteringCriteriaResolver
+        }
+      },
       {
         path: 'campaign/:id',
         component: CampaignDetailsComponent,
         resolve: {
           campaignsConfig: CampaignsConfigResolver,
           targetingOptions: TargetingCriteriaResolver,
+          filteringOptions: FilteringCriteriaResolver,
           campaign: CampaignResolver
         }
       },
