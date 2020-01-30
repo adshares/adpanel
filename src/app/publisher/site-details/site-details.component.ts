@@ -27,6 +27,7 @@ import { faCode } from '@fortawesome/free-solid-svg-icons'
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
+import { LoadCampaignTotals } from "store/advertiser/advertiser.actions";
 
 @Component({
   selector: 'app-site-details',
@@ -116,11 +117,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .subscribe(() => {
         if (this.currentChartFilterSettings && this.site && this.site.id) {
           this.getChartData(this.currentChartFilterSettings, this.site.id, false);
-          this.store.dispatch(new LoadSiteTotals({
-            from: this.currentChartFilterSettings.currentFrom,
-            to: this.currentChartFilterSettings.currentTo,
-            id: this.site.id,
-          }));
         }
       });
 
@@ -176,7 +172,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, id, reload: boolean = true) {
+  getChartData(chartFilterSettings, siteId, reload: boolean = true) {
     if (reload) {
       this.barChartData[0].data = [];
     }
@@ -188,17 +184,23 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         chartFilterSettings.currentFrequency,
         chartFilterSettings.currentSeries.value,
         'sites',
-        id
+        siteId
       )
       .take(1)
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
-        this.barChartLabels = data.timestamps.map((item) => moment(item).format());
+        this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
+
+    this.store.dispatch(new LoadSiteTotals({
+      from: chartFilterSettings.currentFrom,
+      to: chartFilterSettings.currentTo,
+      id: siteId
+    }));
   }
 
   navigateToEditSite(path: string, step: number): void {

@@ -1,34 +1,52 @@
 @import '../../../../styles.scss';
 
+.fill-height {
+  height: 85vh;
+  overflow: scroll;
+}
+
 #code-form {
   padding-top: 16px;
 }
 
-#code-container-wrapper {
+.code-row {
   margin-top: 16px;
-  min-height: 253px;
-  padding: 0;
-  width: 100%;
 }
 
-#code-container {
-  min-height: 250px;
-  overflow: auto;
+.code-row-section-start {
+  margin-top: 40px;
+}
+
+.code-container {
+  height: 32px;
+  min-height: 32px;
+  overflow: hidden;
   padding: 5px 10px;
   width: 100%;
-  resize: vertical;
+  resize: none;
 }
 
-#code-copy-btn {
-  margin-top: 16px;
+.code-copy-btn {
+  @include btn(
+    $color: pal(blue),
+    $background-color: pal(white),
+    $border-color: pal(white)
+  );
+  max-height: 46px;
+  text-align: left;
+
+  @include media(md-down) {
+    padding: 4px 12px;
+  }
+
+  &--icon {
+    font-size: 12px;
+    margin-right: 10px;
+  }
 }
 
 .ad-codes {
   min-height: 40px;
-}
-
-.read-more {
-  margin-bottom: 4px;
 }
 
 .input-in-text {
@@ -48,6 +66,10 @@
 
 .align-with-checkbox-label-vertically {
   margin-left: 35px;
+}
+
+.align-with-checkbox-label-vertically2 {
+  margin-left: 28px;
 }
 
 .error-msg-in-text {

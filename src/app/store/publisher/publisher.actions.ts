@@ -77,7 +77,7 @@ export class LoadSitesFailure implements Action {
 export class LoadSite implements Action {
   readonly type: string = LOAD_SITE;
 
-  constructor(public payload:  {from: string, to: string, id: number}) {
+  constructor(public payload?: number) {
   }
 }
 

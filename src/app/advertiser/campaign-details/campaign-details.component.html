@@ -1,8 +1,5 @@
 <section *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div class="container">
-
-
-
     <div
       class="
         row
@@ -41,25 +38,12 @@
         no-gutters
         justify-between
         align-center">
-      <div
-        class="
-          col-xs-5
-          col-md-7">
-        <h1
-          class="
-            dwmth-heading
-            dwmth-heading--primary">
+      <div class="justify-start">
+        <h1 class="dwmth-heading dwmth-heading--primary">
           {{ campaign.basicInformation.name }}
         </h1>
       </div>
-      <div
-        class="
-          col-xs-7
-          col-md-5
-          row
-          justify-end
-          align-center">
-
+      <div class="row justify-end align-center">
         <div class="row status-button-wrapper">
           <span class="dwmth-copy">Campaign is </span>
           <span class="dwmth-copy lowercase-to-capitalize"
@@ -304,7 +288,18 @@
       </div>
     </div>
 
-
+    <section
+      *ngIf="campaign.classifications"
+      class="dwmth-box
+             dwmth-box--high"
+    >
+    <div class="row campaign-classification-wrapper">
+      <app-campaign-classification-info
+        [classifications]="campaign.classifications"
+        [extended]="true"
+      ></app-campaign-classification-info>
+    </div>
+    </section>
     <section
       class="dwmth-box
              dwmth-box--high"

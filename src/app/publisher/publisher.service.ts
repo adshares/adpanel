@@ -118,11 +118,7 @@ export class PublisherService {
     return this.http.patch<number>(`${environment.apiUrl}/classifications/`, body);
   }
 
-  getSiteCode(siteId: number, options): Observable<any> {
-    let params = {
-      ...options,
-    };
-
-    return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/code`, {params});
+  getSiteCodes(siteId: number, options): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/codes`, {params: options});
   }
 }

@@ -5,16 +5,12 @@
         justify-between
         dwmth-copy"
     data-test="advertiser-navigate-to-campaign-details">
-  <td
-    class="
-          row
-          dwmth-campaign-list__status-cell
-          align-center"
-    (click)="statusSelect.open()"
-    role="button"
-  >
-    <div class="dwmth-status"
-         [attr.data-status]="currentCampaignStatus"
+  <td class="row dwmth-campaign-list__status-cell align-center">
+    <div
+      (click)="statusSelect.open()"
+      [attr.data-status]="currentCampaignStatus"
+      class="dwmth-status dwmth-campaign-list__status"
+      role="button"
     >
       {{ currentCampaignStatus }}
       <div class="status-wrapper__list-item">
@@ -23,19 +19,22 @@
                     data-test="advertiser-campaign-status-select"
         >
 
-          <mat-option *ngFor="let option of campaignStatusesEnumArray"
-                      class="hidden"
+          <mat-option (click)="onCampaignStatusChange(option)"
+                      *ngFor="let option of campaignStatusesEnumArray"
                       [ngClass]="{'visible': (
                                     option === campaignStatusesEnum[campaignStatusesEnum.ACTIVE].toLowerCase() ||
                                     option === campaignStatusesEnum[campaignStatusesEnum.INACTIVE].toLowerCase())}"
                       [value]="option"
-                      (click)="onCampaignStatusChange(option)"
+                      class="hidden"
                       data-test="advertiser-campaign-status-select-option"
           >
             {{ option }}
           </mat-option>
         </mat-select>
       </div>
+    </div>
+    <div class="dwmth-campaign-list__classification">
+      <app-campaign-classification-info  [classifications]="campaign.classifications"></app-campaign-classification-info>
     </div>
   </td>
   <td
@@ -44,12 +43,12 @@
           row
           align-center"
   >
-        <a class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold clickable-row-a"
-           routerLink="/advertiser/campaign/{{campaign.id}}"
-              data-test="advertiser-campaign-name"
-        >
-          {{ campaign.basicInformation.name }}
-        </a>
+    <a class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold clickable-row-a"
+       data-test="advertiser-campaign-name"
+       routerLink="/advertiser/campaign/{{campaign.id}}"
+    >
+      {{ campaign.basicInformation.name }}
+    </a>
   </td>
   <td
     class="
@@ -128,10 +127,10 @@
           dwmth-campaign-list__item-campaign-details"
     role="link"
   >
-    <a routerLink="/advertiser/campaign/{{campaign.id}}" class="clickable-row-a">
+    <a class="clickable-row-a" routerLink="/advertiser/campaign/{{campaign.id}}">
       <img
-        src="/assets/images/chevron--right.svg"
         [alt]="'Go to '+ campaign.basicInformation.name + ' details'"
+        src="/assets/images/chevron--right.svg"
       >
     </a>
   </td>

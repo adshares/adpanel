@@ -45,6 +45,7 @@ export const campaignInitialState: Campaign = {
   secret: '',
   conversionClick: campaignConversionClick.NONE,
   classificationStatus: classificationStatusesEnum.DISABLED,
+  classifications: [],
 };
 
 export const campaignConversionItemInitialState: CampaignConversionItem = {

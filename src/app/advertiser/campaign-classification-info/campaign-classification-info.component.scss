@@ -1,0 +1,43 @@
+@import '../../../styles';
+
+.campaign-classification-info {
+
+  &__status, &__label {
+    margin: 6px 5px 6px 0;
+    fa-icon {
+      margin-right: 3px;
+    }
+  }
+
+  &__in-progress {
+    color: pal(blue);
+  }
+
+  &__error {
+    color: pal(red);
+  }
+
+  &__success {
+    color: pal(green);
+  }
+
+  .mat-chip {
+    margin: 0 !important;
+  }
+
+  [ng-reflect-message] {
+    cursor: help;
+  }
+
+  &.compact {
+    .campaign-classification-info__status {
+      margin: 0 !important;
+      fa-icon {
+        margin: 0 !important;
+      }
+    }
+    /deep/ .mat-chip-list-wrapper {
+      margin: 0 !important;
+    }
+  }
+}

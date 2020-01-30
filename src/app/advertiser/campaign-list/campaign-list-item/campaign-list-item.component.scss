@@ -12,6 +12,14 @@
 
   &__status-cell {
     @include status-cell;
+    flex-flow: row;
+  }
+
+  &__status {
     cursor: pointer;
+  }
+
+  &__classification {
+    padding-left: 10px;
   }
 }
