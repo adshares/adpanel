@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Loading sites by date filter
 
+## [1.5.4] - 2020-01-27
+### Fixed
+- Loading sites by date filter
+
 ## [1.5.3] - 2020-01-27
 ### Added
 - Site codes configuration
