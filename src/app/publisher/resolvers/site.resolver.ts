@@ -8,6 +8,7 @@ import { AppState } from "models/app-state.model";
 import { LoadSite, LoadSiteTotals, SetLastEditedSite } from "store/publisher/publisher.actions";
 import { ChartFilterSettings } from "models/chart/chart-filter-settings.model";
 import { HandleSubscription } from "common/handle-subscription";
+import { LoadCampaign } from "store/advertiser/advertiser.actions";
 
 
 @Injectable()
@@ -25,15 +26,7 @@ export class SiteResolver extends HandleSubscription implements Resolve<Site> {
   }
 
   initSiteData(id: number): void {
-    const subscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((filterSetting: ChartFilterSettings) => {
-        this.store.dispatch(new LoadSite({
-          from: filterSetting.currentFrom,
-          to: filterSetting.currentTo,
-          id
-        }));
-      });
-    this.subscriptions.push(subscription)
+    this.store.dispatch(new LoadSite(id));
   }
 
   waitForSiteDataToLoad(id: number, isInEditMode: boolean): Observable<Site> {

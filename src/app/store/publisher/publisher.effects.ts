@@ -45,13 +45,8 @@ export class PublisherEffects {
   loadSite$ = this.actions$
     .ofType(publisherActions.LOAD_SITE)
     .map(toPayload)
-    .switchMap(({id, from, to}) => this.service.getSite(id)
-      .switchMap((site) => {
-        return [
-          new publisherActions.LoadSiteSuccess(site),
-          new publisherActions.LoadSiteTotals({from, to, id})
-        ]
-      })
+    .switchMap((id) => this.service.getSite(id)
+      .map(site => new publisherActions.LoadSiteSuccess(site))
       .catch(() => Observable.of(new publisherActions.LoadSiteFailure()))
     );
 
