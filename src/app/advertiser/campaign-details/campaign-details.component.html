@@ -44,12 +44,6 @@
         </h1>
       </div>
       <div class="row justify-end align-center">
-        <div class="row campaign-classification-wrapper" *ngIf="campaign.classifications">
-          <app-campaign-classification-info
-            [classifications]="campaign.classifications"
-            [extended]="true"
-          ></app-campaign-classification-info>
-        </div>
         <div class="row status-button-wrapper">
           <span class="dwmth-copy">Campaign is </span>
           <span class="dwmth-copy lowercase-to-capitalize"
@@ -294,7 +288,18 @@
       </div>
     </div>
 
-
+    <section
+      *ngIf="campaign.classifications"
+      class="dwmth-box
+             dwmth-box--high"
+    >
+    <div class="row campaign-classification-wrapper">
+      <app-campaign-classification-info
+        [classifications]="campaign.classifications"
+        [extended]="true"
+      ></app-campaign-classification-info>
+    </div>
+    </section>
     <section
       class="dwmth-box
              dwmth-box--high"

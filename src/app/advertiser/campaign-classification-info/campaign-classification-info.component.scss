@@ -3,8 +3,10 @@
 .campaign-classification-info {
 
   &__status, &__label {
-    margin: 7px;
-    margin-left: 0;
+    margin: 6px 5px 6px 0;
+    fa-icon {
+      margin-right: 3px;
+    }
   }
 
   &__in-progress {
@@ -30,6 +32,9 @@
   &.compact {
     .campaign-classification-info__status {
       margin: 0 !important;
+      fa-icon {
+        margin: 0 !important;
+      }
     }
     /deep/ .mat-chip-list-wrapper {
       margin: 0 !important;
