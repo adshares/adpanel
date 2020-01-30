@@ -132,8 +132,11 @@
               <mat-checkbox
                 formControlName="isFallback"
               >
-                Enable custom fallback (eg. display other ad networks' ads)
+                Enable custom fallback
               </mat-checkbox>
+              <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
+                 E.g. display other ad networks' ads in case Adshares has no ads to provide
+              </div>
             </div>
             <div class="col-xs-5">
               <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
@@ -153,7 +156,7 @@
 
           <div *ngIf="hasSitePops">
             <div
-              class="row ad-codes align-center mat-checkbox-label align-with-checkbox-label-vertically"
+              class="row ad-codes code-row align-center mat-checkbox-label align-with-checkbox-label-vertically"
             >
               Display
               <input
@@ -192,23 +195,22 @@
 
     <div
       *ngIf="!loadingInfo; else loading"
-      id="code-container-wrapper"
     >
       <div
         *ngIf="null !== codes"
       >
-        <div class="row align-center">
+        <div class="row code-row align-center">
           <label
-            class="dwmth-copy col text-left"
+            class="dwmth-copy dwmth-copy--bold col text-left"
             for="code-container-common"
-          >Common code for all ad units, should be inserted into head section</label>
+          >Common code for all ad units to be placed in the head section.</label>
 
           <button
             class="code-copy-btn"
             (click)="copyCode('code-container-common')"
           >
             <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-            Copy code
+            Copy the code
           </button>
         </div>
 
@@ -223,11 +225,17 @@
           [ngModel]="codes.common"
         ></textarea>
 
+        <div class="row code-row-section-start">
+          <span class="dwmth-copy dwmth-copy--bold">
+            Code for each of the selected ad units to be placed in the body section.
+          </span>
+        </div>
+
         <div
           *ngFor="let pop of codes.pops; let indexPop = index">
-          <div class="row align-center">
+          <div class="row code-row align-center">
             <label
-              class="dwmth-copy col text-left"
+              class="dwmth-copy dwmth-copy--bold col text-left"
               for="{{ 'code-container-pop' + indexPop }}"
             >{{ pop.label }}</label>
 
@@ -236,7 +244,7 @@
               (click)="copyCode('code-container-pop' + indexPop)"
             >
               <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-              Copy code
+              Copy the code
             </button>
           </div>
 
@@ -254,9 +262,9 @@
 
         <div
           *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
-          <div class="row align-center">
+          <div class="row code-row align-center">
             <label
-              class="dwmth-copy col text-left"
+              class="dwmth-copy dwmth-copy--bold col text-left"
               for="{{ 'code-container-ad-unit' + indexAdUnits }}"
             >{{ adUnit.label }}</label>
 
@@ -265,7 +273,7 @@
               (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
             >
               <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-              Copy code
+              Copy the code
             </button>
           </div>
 

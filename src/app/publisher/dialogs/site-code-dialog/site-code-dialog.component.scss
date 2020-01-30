@@ -4,11 +4,12 @@
   padding-top: 16px;
 }
 
-#code-container-wrapper {
+.code-row {
   margin-top: 16px;
-  min-height: 253px;
-  padding: 0;
-  width: 100%;
+}
+
+.code-row-section-start {
+  margin-top: 40px;
 }
 
 .code-container {
@@ -60,6 +61,10 @@
 
 .align-with-checkbox-label-vertically {
   margin-left: 35px;
+}
+
+.align-with-checkbox-label-vertically2 {
+  margin-left: 28px;
 }
 
 .error-msg-in-text {
