@@ -64,5 +64,15 @@ interface SiteLanguage {
   code: string,
 }
 
+interface SiteCodes {
+  common: string;
+  pops: SiteCodeItem[];
+  adUnits: SiteCodeItem[];
+}
 
-export { Site, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage };
+interface SiteCodeItem {
+  label: string;
+  code: string;
+}
+
+export { Site, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };

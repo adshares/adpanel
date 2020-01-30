@@ -1,21 +1,25 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'environments/environment';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { SiteCodes } from 'models/site.model';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-code-dialog',
   templateUrl: './site-code-dialog.component.html',
-  styleUrls: ['./site-code-dialog.component.scss']
+  styleUrls: ['./site-code-dialog.component.scss'],
 })
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
   readonly CURRENCY_CODE: string = environment.currencyCode;
+  faCode = faCode;
 
-  code: string = '';
+  codes?: SiteCodes = null;
   codeForm: FormGroup;
   loadingInfo: boolean = true;
   siteId: number;
@@ -24,6 +28,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     private publisherService: PublisherService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     super();
@@ -61,12 +66,12 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     const codeFormSubscription = this.codeForm.valueChanges
       .debounceTime(this.MINIMAL_DELAY_BETWEEN_CODE_REQUESTS)
       .subscribe(
-      () => {
-        if (this.codeForm.valid) {
-          this.updateCodes();
+        () => {
+          if (this.codeForm.valid) {
+            this.updateCodes();
+          }
         }
-      }
-    );
+      );
     this.subscriptions.push(codeFormSubscription);
 
     this.updateCodes();
@@ -75,15 +80,16 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   updateCodes(): void {
     this.loadingInfo = true;
 
-    this.publisherService.getSiteCode(this.siteId, this.getCodeOptions())
+    this.publisherService.getSiteCodes(this.siteId, this.getCodeOptions())
       .take(1)
       .subscribe(
         response => {
-          this.code = response.code ? response.code : '';
+          this.codes = response.codes;
           this.loadingInfo = false;
+          setTimeout(() => this.onChangeTextArea(), 0);
         },
         () => {
-          this.code = 'An error occurred. Please review options.';
+          this.codes = null;
           this.loadingInfo = false;
         }
       );
@@ -111,11 +117,51 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     return options;
   }
 
-  copyCode(): void {
-    const input = <HTMLInputElement>document.getElementById('code-container');
+  copyCode(elementId: string): void {
+    const input = <HTMLInputElement>document.getElementById(elementId);
     input.focus();
     input.select();
     document.execCommand('copy');
     input.setSelectionRange(0, 0);
+  }
+
+  onChangeAdvancedCircumvent($event): void {
+    if (!$event.checked) {
+      return;
+    }
+
+    this.codeForm.get('isProxy').setValue(false);
+
+    this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: 'Circumventing ad blockers needs special integration on website backend.' +
+          '<div class="dwmth-box dwmth-box--large dwmth-box--no-border">' +
+          '<a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks" ' +
+          'rel="noopener noreferrer" target="_blank">' +
+          '<div class="dwmth-btn dwmth-btn--white">Read instructions</div>' +
+          '</a>' +
+          '</div>' +
+          'Do you want to enable this option?',
+      }
+    })
+      .afterClosed()
+      .subscribe(result => result && this.codeForm.get('isProxy').setValue(true));
+  }
+
+  onChangeTextArea(): void {
+    const textAreas = document.getElementsByTagName('textarea');
+
+    let paddingBottom = 0;
+    if (textAreas.length > 0) {
+      const textArea = textAreas.item(0);
+      paddingBottom = parseInt(window.getComputedStyle(textArea).paddingBottom);
+    }
+
+    for (let i = 0; i < textAreas.length; i++) {
+      const textArea = textAreas.item(i);
+      textArea.style.height = '';
+      const height = textArea.scrollHeight + paddingBottom;
+      textArea.style.height = `${height}px`;
+    }
   }
 }

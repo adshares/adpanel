@@ -1,4 +1,4 @@
-<mat-dialog-content class="text-center mat-dialog-content">
+<mat-dialog-content class="text-center mat-dialog-content fill-height">
   <div
     (click)="dialogRef.close()"
     class="dwmth-dialog-close"
@@ -22,7 +22,9 @@
     </p>
 
     <mat-accordion>
-      <mat-expansion-panel>
+      <mat-expansion-panel
+        expanded="true"
+      >
         <mat-expansion-panel-header>
           <mat-panel-title
             class="
@@ -44,6 +46,7 @@
             <div class="col-xs-7">
               <mat-checkbox
                 formControlName="isProxy"
+                (change)="onChangeAdvancedCircumvent($event)"
               >
                 Enable advanced circumvent of ad blockers
               </mat-checkbox>
@@ -53,13 +56,13 @@
                  rel="noopener noreferrer"
                  target="_blank"
               >
-                <button
+                <div
                   class="
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
-                >read more</button>
+                    align-with-checkbox"
+                >read more</div>
               </a>
             </div>
           </div>
@@ -91,13 +94,13 @@
                  rel="noopener noreferrer"
                  target="_blank"
               >
-                <button
+                <div
                   class="
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
-                >read more</button>
+                    align-with-checkbox"
+                >read more</div>
               </a>
             </div>
           </div>
@@ -114,13 +117,13 @@
                  rel="noopener noreferrer"
                  target="_blank"
               >
-                <button
+                <div
                   class="
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
-                >read more</button>
+                    align-with-checkbox"
+                >read more</div>
               </a>
             </div>
           </div>
@@ -129,28 +132,31 @@
               <mat-checkbox
                 formControlName="isFallback"
               >
-                Enable custom fallback (eg. display other ad networks' ads)
+                Enable custom fallback
               </mat-checkbox>
+              <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
+                 E.g. display other ad networks' ads in case Adshares has no ads to provide
+              </div>
             </div>
             <div class="col-xs-5">
               <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
                  rel="noopener noreferrer"
                  target="_blank"
               >
-                <button
+                <div
                   class="
                     dwmth-btn
                     dwmth-btn--white
                     dwmth-btn--tiny
-                    read-more"
-                >read more</button>
+                    align-with-checkbox"
+                >read more</div>
               </a>
             </div>
           </div>
 
           <div *ngIf="hasSitePops">
             <div
-              class="row ad-codes align-center mat-checkbox-label align-with-checkbox-label-vertically"
+              class="row ad-codes code-row align-center mat-checkbox-label align-with-checkbox-label-vertically"
             >
               Display
               <input
@@ -188,31 +194,112 @@
     </mat-accordion>
 
     <div
-      id="code-container-wrapper"
+      *ngIf="!loadingInfo; else loading"
     >
-      <label for="code-container"></label>
-      <textarea
-        *ngIf="!loadingInfo; else loading"
-        id="code-container"
+      <div
+        *ngIf="null !== codes"
+      >
+        <div class="row code-row align-center">
+          <label
+            class="dwmth-copy dwmth-copy--bold col text-left"
+            for="code-container-common"
+          >Common code for all ad units to be placed in the head section.</label>
+
+          <button
+            class="code-copy-btn"
+            (click)="copyCode('code-container-common')"
+          >
+            <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+            Copy the code
+          </button>
+        </div>
+
+        <textarea
+          id="code-container-common"
+          class="
+            code-container
+            dwmth-box
+            dwmth-box--large
+            dwmth-box--light-border
+            dwmth-copy"
+          [ngModel]="codes.common"
+        ></textarea>
+
+        <div class="row code-row-section-start">
+          <span class="dwmth-copy dwmth-copy--bold">
+            Code for each of the selected ad units to be placed in the body section.
+          </span>
+        </div>
+
+        <div
+          *ngFor="let pop of codes.pops; let indexPop = index">
+          <div class="row code-row align-center">
+            <label
+              class="dwmth-copy dwmth-copy--bold col text-left"
+              for="{{ 'code-container-pop' + indexPop }}"
+            >{{ pop.label }}</label>
+
+            <button
+              class="code-copy-btn"
+              (click)="copyCode('code-container-pop' + indexPop)"
+            >
+              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+              Copy the code
+            </button>
+          </div>
+
+          <textarea
+            id="{{ 'code-container-pop' + indexPop }}"
+            class="
+              code-container
+              dwmth-box
+              dwmth-box--large
+              dwmth-box--light-border
+              dwmth-copy"
+            [ngModel]="pop.code"
+          ></textarea>
+        </div>
+
+        <div
+          *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
+          <div class="row code-row align-center">
+            <label
+              class="dwmth-copy dwmth-copy--bold col text-left"
+              for="{{ 'code-container-ad-unit' + indexAdUnits }}"
+            >{{ adUnit.label }}</label>
+
+            <button
+              class="code-copy-btn"
+              (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
+            >
+              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+              Copy the code
+            </button>
+          </div>
+
+          <textarea
+            id="{{ 'code-container-ad-unit' + indexAdUnits }}"
+            class="
+              code-container
+              dwmth-box
+              dwmth-box--large
+              dwmth-box--light-border
+              dwmth-copy"
+            [ngModel]="adUnit.code"
+          ></textarea>
+        </div>
+      </div>
+
+      <div
+        *ngIf="null === codes"
         class="
           dwmth-box
           dwmth-box--large
           dwmth-box--light-border
           dwmth-copy"
-        data-test="publisher-ad-code"
-      >{{ code }}</textarea>
-    </div>
-
-    <div
-      class="row justify-end">
-      <button
-        id="code-copy-btn"
-        class="dwmth-btn dwmth-btn--blue"
-        (click)="copyCode()"
-        data-test="publisher-ad-code-copy-btn"
       >
-        Copy to clipboard
-      </button>
+        An error occurred. Make sure that you confirmed an e-mail and review the options.
+      </div>
     </div>
   </div>
 
