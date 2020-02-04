@@ -15,16 +15,14 @@ import { ActivatedRoute } from "@angular/router";
 export class CampaignClassificationInfoComponent implements OnInit {
   @Input() classifications: CampaignClassification[];
   @Input() extended: boolean = false;
-  categories: TargetingOptionValue[];
+  options: TargetingOption[];
   private _keywords = [];
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    const option =
-      this.route.snapshot.data.filteringOptions.find((option: TargetingOption) => option.key == 'category');
-    this.categories = option ? option.values : [];
+    this.options = this.route.snapshot.data.filteringOptions;
   }
 
   isInProgress(classification: CampaignClassification) {
@@ -90,8 +88,10 @@ export class CampaignClassificationInfoComponent implements OnInit {
       const keywords = this.keywords(classification).map(category => {
         return category.label;
       });
-      const prefix = this.isInProgress(classification) ? 'Current categories' : 'Categories';
-      descriptions.push(`${prefix}: ${keywords.join(', ')}`);
+      if (keywords.length > 0) {
+        const prefix = this.isInProgress(classification) ? 'Current categories' : 'Categories';
+        descriptions.push(`${prefix}: ${keywords.join(', ')}`);
+      }
     }
 
     return descriptions.join(' ');
@@ -105,8 +105,9 @@ export class CampaignClassificationInfoComponent implements OnInit {
       let keywords = [];
       if ('undefined' !== typeof classification.keywords[group]) {
         keywords = classification.keywords[group].map((keyword: string) => {
-          const category = this.categories.find(category => category.value == keyword);
-          return category ? category : {value: keyword, label: keyword};
+          const option = this.options.find((option: TargetingOption) => option.key == `${classification.classifier}:${group}`);
+          const value = option ? option.values.find(item => item.value == keyword) : null;
+          return value ? value : {value: keyword, label: keyword};
         });
       }
       this._keywords[classification.classifier][group] = keywords;
