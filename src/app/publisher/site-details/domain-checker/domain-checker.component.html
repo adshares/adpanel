@@ -1,16 +1,24 @@
-<div
-  class="domain-checker q-{{quality}} row"
->
-  <div
-    class="align-self-center justify-center"
-  >
-    {{message}}
-    <fa-icon
-      *ngIf="null !== tooltip"
-      matTooltipClass="dwmth-mat-tooltip"
-      [matTooltip]="tooltip"
-      matTooltipPosition="right"
-      [icon]="faQuestionCircle"
-    ></fa-icon>
+<div class="row">
+  <div class="domain-checker q-{{cpaQuality()}} row">
+    <div class="align-self-center justify-center">
+      CPA: {{cpaMessage()}}
+      <fa-icon
+        matTooltipClass="dwmth-mat-tooltip"
+        [matTooltip]="cpaTooltip()"
+        matTooltipPosition="right"
+        [icon]="faQuestionCircle"
+      ></fa-icon>
+    </div>
+  </div>
+  <div class="domain-checker q-{{cpmQuality()}} row">
+    <div class="align-self-center justify-center">
+      CPM: {{cpmMessage()}}
+      <fa-icon
+        matTooltipClass="dwmth-mat-tooltip"
+        [matTooltip]="cpmTooltip()"
+        matTooltipPosition="right"
+        [icon]="faQuestionCircle"
+      ></fa-icon>
+    </div>
   </div>
 </div>

@@ -43,19 +43,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
     // SMELL: this should be elsewhere anyway (?)
     const user: LocalStorageUser = this.session.getUser();
     if (user) {
       this.router.navigate(['/' + this.session.getAccountTypeChoice(), 'dashboard']);
       return;
     }
-
-    this.storeReferralIdIfPresent();
-
-    this.store.dispatch(new authActions.UserLogOutSuccess());
-
-    this.createForm();
     this.checkIfUserRemembered();
+    this.storeReferralIdIfPresent();
+    this.store.dispatch(new authActions.UserLogOutSuccess());
   }
 
   private storeReferralIdIfPresent() {
