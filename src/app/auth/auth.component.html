@@ -25,7 +25,7 @@
             dwmth-heading--hero
             dwmth-white"
         >
-          <span class="dwmth-heading--faded">
+          <span class="dwmth-heading--light">
             Blockchain
           </span>
           Transformation<br>in Advertising
@@ -63,16 +63,35 @@
           </span>
         </div>
       </div>
+      <div class="dwmth-copy dwmth-auth__poster-benefits">
+        <h3 class="dwmth-heading--secondary">Join as an ADVERTISER</h3>
+        <ul>
+          <li>Significantly lower fees compared to mainstream ad networks</li>
+          <li>Availability for small advertisers - no minimum budget</li>
+          <li>Innovation in ad delivery to prevent ad blocking</li>
+        </ul>
+        <h3 class="dwmth-heading--secondary">Join as a PUBLISHER</h3>
+        <ul>
+          <li>Availability for small publishers - no traffic requirements</li>
+          <li>Almost instant payments - automatic hourly transfers</li>
+          <li>Quick and easy registration</li>
+        </ul>
+      </div>
+      <div class="dwmth-copy dwmth-copy--semi dwmth-copy--uppercase">
+        <a href="https://adshares.net/about?utm_source={{source}}&utm_campaign=auth#video" target="_blank">Watch video about Adshares</a>
+      </div>
 
       <div class="row align-center justify-between">
-        <img
-          class="dwmth-logo"
-          src="assets/images/logo--white.png"
-          srcset="
-            assets/images/logo--white@2x.png 2x,
-            assets/images/logo--white@3x.png 3x"
-          alt="Adshares Logo"
-        >
+        <a href="https://adshares.net?utm_source={{source}}&utm_campaign=auth" target="_blank">
+          <img
+            class="dwmth-logo"
+            src="assets/images/logo--white.png"
+            srcset="
+              assets/images/logo--white@2x.png 2x,
+              assets/images/logo--white@3x.png 3x"
+            alt="Adshares Logo"
+          >
+        </a>
         <span class="application-version">
           {{ version }}
         </span>
@@ -81,13 +100,23 @@
 
     <div
       class="
+        col
         col-xs-12
         col-lg-6
         dwmth-auth__content
-        dwmth-bg-white"
-      [@fadeAnimation]="getRouterOutletState(o)"
+        dwmth-bg-white
+        justify-between"
     >
-      <router-outlet #o="outlet"></router-outlet>
+      <div [@fadeAnimation]="getRouterOutletState(o)">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+      <div class="row align-center justify-between">
+        <p class="dwmth-copy dwmth-copy-instructions">
+          Learn how to use our platform
+          - <a [href]="advertiserInstructionLink" class="dwmth-blue" target="_blank">ADVERTISER</a>
+          / <a [href]="publisherInstructionLink" class="dwmth-blue" target="_blank">PUBLISHER</a>
+        </p>
+      </div>
     </div>
   </div>
   <img

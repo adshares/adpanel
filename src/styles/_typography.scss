@@ -45,6 +45,10 @@
     color: pal(navy, faded);
   }
 
+  &--light {
+    color: pal(navy, light);
+  }
+
   &--uppercase {
     text-transform: uppercase;
   }

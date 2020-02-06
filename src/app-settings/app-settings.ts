@@ -27,6 +27,10 @@ export const appSettings = {
   GET_ADS_FAQ_LINK: 'https://adshar.es/getADS',
   // withdraw ADS faq link
   WITHDRAW_ADS_FAQ_LINK: 'https://adshar.es/withdrawADS',
+  // advertiser instruction wiki link
+  ADVERTISER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-advertisers',
+  // publisher instruction wiki link
+  PUBLISHER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-publishers',
   // support email
   SUPPORT_EMAIL: 'office@adshares.net',
   // blockchain address validation regexp

@@ -4,182 +4,182 @@
     dwmth-login-wrapper"
 >
   <div *ngIf="loginForm">
-      <h2
-        class="
+    <h2
+      class="
           dwmth-heading
           dwmth-heading--primary"
-      >
-        Hello!
-      </h2>
-      <p
-        class="
+    >
+      Hello!
+    </h2>
+    <p
+      class="
           dwmth-copy
           dwmth-copy--large"
-      >
-        Please log in to your account.
-      </p>
+    >
+      Please log in to your account.
+    </p>
 
-      <form
-        [formGroup]="loginForm"
-        (ngSubmit)="login()"
-        class="dwmth-form"
-        data-test="auth-login-form"
+    <form
+      (ngSubmit)="login()"
+      [formGroup]="loginForm"
+      class="dwmth-form"
+      data-test="auth-login-form"
+    >
+      <div
+        *ngIf="criteriaError && loginFormSubmitted"
+        class="error-msg"
       >
-        <div
-                class="error-msg"
-                *ngIf="criteriaError && loginFormSubmitted"
+        Password or email is invalid.
+      </div>
+      <div class="dwmth-form-input__box">
+        <label
+          class="dwmth-form-label"
+          for="email"
         >
-          Password or email is invalid.
-        </div>
-        <div class="dwmth-form-input__box">
-          <label
-            for="email"
-            class="dwmth-form-label"
-          >
-            Email address
-          </label>
-          <input
-            id="email"
-            class="dwmth-form-input"
-            type="email"
-            name="email"
-            formControlName="email"
-            data-test="auth-login-form-email"
-          >
-          <span
-            *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
-            class="input-valid"
-          ></span>
-          <span
-            class="error-msg"
-            *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
-          >
+          Email address
+        </label>
+        <input
+          class="dwmth-form-input"
+          data-test="auth-login-form-email"
+          formControlName="email"
+          id="email"
+          name="email"
+          type="email"
+        >
+        <span
+          *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
+          class="input-valid"
+        ></span>
+        <span
+          *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
+          class="error-msg"
+        >
             Email required!
           </span>
-          <span
-            class="error-msg"
-            *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
-          >
+        <span
+          *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
+          class="error-msg"
+        >
             Invalid email!
           </span>
-        </div>
+      </div>
 
-        <div class="dwmth-form-input__box">
-          <label
-              for="password"
-              class="dwmth-form-label"
-          >
-            Password
-          </label>
-          <input
-              id="password"
-              class="dwmth-form-input"
-              type="password"
-              name="password"
-              formControlName="password"
-              data-test="auth-login-form-password"
-          >
-          <span
-              *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
-              class="input-valid"
-          ></span>
-          <span
-            class="error-msg"
-            *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted">
+      <div class="dwmth-form-input__box">
+        <label
+          class="dwmth-form-label"
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          class="dwmth-form-input"
+          data-test="auth-login-form-password"
+          formControlName="password"
+          id="password"
+          name="password"
+          type="password"
+        >
+        <span
+          *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
+          class="input-valid"
+        ></span>
+        <span
+          *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted"
+          class="error-msg">
               Minimum 8 signs required!
           </span>
-          <span
-            class="error-msg"
-            *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
-          >
+        <span
+          *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
+          class="error-msg"
+        >
             Password required
           </span>
-          <span
-            class="error-msg"
-            *ngIf="loginForm.hasError('maxLoginAttemps', ['password']) && loginFormSubmitted"
-          >
+        <span
+          *ngIf="loginForm.hasError('maxLoginAttemps', ['password']) && loginFormSubmitted"
+          class="error-msg"
+        >
             Max login failed attemps!
           </span>
-          <span
-                  class="error-msg"
-                  *ngIf="loginForm.hasError('passwordLifeTime', ['password']) && loginFormSubmitted"
-          >
+        <span
+          *ngIf="loginForm.hasError('passwordLifeTime', ['password']) && loginFormSubmitted"
+          class="error-msg"
+        >
             Password was expire!
           </span>
-          <span
-                  class="warning-msg"
-                  *ngIf="loginForm.hasError('notifyPasswordGraceTime', ['password']) && loginFormSubmitted"
-          >
+        <span
+          *ngIf="loginForm.hasError('notifyPasswordGraceTime', ['password']) && loginFormSubmitted"
+          class="warning-msg"
+        >
             Password will expire in next days!
           </span>
-        </div>
+      </div>
 
-        <div
-          class="
+      <div
+        class="
             row
             align-center
             justify-between
             dwmth-login__remember"
+      >
+        <!--
+                  <div
+                    class="
+                      row
+                      align-center"
+                  >
+                    <input
+                      #rememberUser
+                      id="remember-user"
+                      type="checkbox"
+                      data-test="auth-login-form-remember-user-checkbox"
+                    >
+                    <label
+                      for="remember-user"
+                      class="checkbox-label"
+                    ></label>
+                    <span
+                      class="
+                        dwmth-copy
+                        dwmth-copy&#45;&#45;large
+                        dwmth-copy&#45;&#45;x-dark"
+                    >
+                      Remember me
+                    </span>
+                  </div>
+        -->
+        <a
+          class="dwmth-copy"
+          data-test="auth-redirect-to-forgotten-password"
+          routerLink="/auth/forgotten-password"
         >
-<!--
-          <div
-            class="
-              row
-              align-center"
-          >
-            <input
-              #rememberUser
-              id="remember-user"
-              type="checkbox"
-              data-test="auth-login-form-remember-user-checkbox"
-            >
-            <label
-              for="remember-user"
-              class="checkbox-label"
-            ></label>
-            <span
-              class="
-                dwmth-copy
-                dwmth-copy&#45;&#45;large
-                dwmth-copy&#45;&#45;x-dark"
-            >
-              Remember me
-            </span>
-          </div>
--->
-          <a
-            class="dwmth-copy"
-            routerLink="/auth/forgotten-password"
-            data-test="auth-redirect-to-forgotten-password"
-          >
-            Forgot password?
-          </a>
-        </div>
+          Forgot password?
+        </a>
+      </div>
 
-        <button
-          class="
+      <button
+        class="
             dwmth-btn
             dwmth-btn--wide
             dwmth-btn--blue
             dwmth-form-submit-btn"
-          data-test="auth-login-form-submit-button"
-        >
+        data-test="auth-login-form-submit-button"
+      >
           <span *ngIf="!isLoggingIn ; else loading">
             Log In
           </span>
-          <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-          </ng-template>
-        </button>
-      </form>
+        <ng-template #loading>
+          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+      </button>
+    </form>
   </div>
 
   <p class="dwmth-copy">
     Don't have an account?
     <a
       class="dwmth-blue"
-      routerLink="/auth/register"
       data-test="auth-redirect-to-registration"
+      routerLink="/auth/register"
     >
       Register
     </a>

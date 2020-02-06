@@ -97,7 +97,7 @@ input[type="radio"] {
   display: none;
 }
 
-label.checkbox-label {
+label .checkbox-label {
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -105,14 +105,15 @@ label.checkbox-label {
   border: 1px solid pal(gray, mid-light);
   position: relative;
   margin-right: 10px;
+  vertical-align: text-bottom;
 
   &--square {
     border-radius: 1px;
   }
 }
 
-input[type=checkbox]:checked + label,
-input[type=radio]:checked + label {
+input[type=checkbox]:checked + label .checkbox-label,
+input[type=radio]:checked + label .checkbox-label {
   background: pal(green);
   border: 1px solid pal(green);
 
