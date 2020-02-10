@@ -1,7 +1,7 @@
 let serverUrl = '${ADSERVER_URL}';
 
 export const environment = {
-  name: ${APP_NAME},
+  name: '${APP_NAME}',
   production: ${APP_PROD},
   serverUrl: serverUrl,
   authUrl: serverUrl + '/auth',
