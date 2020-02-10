@@ -13,6 +13,9 @@ h2 {
 }
 
 form {
-  max-width: 320px;
   margin-top: 40px;
+
+  .error-msg {
+    max-width: 320px;
+  }
 }

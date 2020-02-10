@@ -31,6 +31,26 @@
     &-advantages {
       margin-top: 20px;
     }
+
+    &-benefits {
+      margin-top: -50px;
+      color: pal(gray, semi-light);
+
+      .dwmth-heading--secondary {
+        margin: 50px 0 10px 0;
+      }
+
+      li {
+        text-indent: 10px;
+        display: block;
+        font-size: 1.15rem;
+
+        &:before {
+          content: "-";
+          padding-right: 5px;
+        }
+      }
+    }
   }
 
   &__content {
@@ -45,6 +65,11 @@
       height: 70vh;
       min-height: 730px;
     }
+
+    .dwmth-copy-instructions {
+      line-height: 34px;
+      font-size: 1.2rem;
+    }
   }
 
   &-bubbles {
@@ -56,7 +81,7 @@
     }
 
     &:nth-of-type(2) {
-      top: 50%;
+      top: 65%;
       left: 40%;
       z-index: 0;
 
@@ -102,7 +127,8 @@
   /deep/ router-outlet ~ * {
     position: absolute;
     width: calc(100% - (40px * 2));
-    height: calc(100% - 120px);
+    height: calc(100% - 135px);
+    min-height: auto;
   }
 }
 
