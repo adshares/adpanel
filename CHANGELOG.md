@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Site rating info
 ### Fixed
-- Categories labels & descriptions
+- Categories labels & descriptions 
 
 ## [1.5.5] - 2020-01-30
 ### Added
