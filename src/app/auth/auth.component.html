@@ -1,63 +1,23 @@
-<section
-  class="
-    dwmth-auth
-    row
-    align-center"
->
-  <div
-    class="
-      container
-      row
-      dwmth-auth-wrapper"
-  >
-    <div
-      class="
-        col
-        col-xs-0
-        col-lg-6
-        dwmth-auth__poster
-        justify-between
-        hidden-lg"
-    >
+<section class="dwmth-auth row align-center">
+  <div class="container row dwmth-auth-wrapper">
+    <div class="col col-xs-0 col-lg-6 dwmth-auth__poster justify-between hidden-lg">
       <div>
-        <h1
-          class="
-            dwmth-heading--hero
-            dwmth-white"
-        >
+        <h1 class="dwmth-heading--hero dwmth-white">
           <span class="dwmth-heading--light">
             Blockchain
           </span>
           Transformation<br>in Advertising
         </h1>
         <div
-          class="
-            row
-            align-center
-            dwmth-copy
-            dwmth-copy--semi
-            dwmth-copy--uppercase
-            dwmth-blue
-            dwmth-auth__poster-advantages"
-        >
+          class="row align-center dwmth-copy dwmth-copy--semi dwmth-copy--uppercase dwmth-blue dwmth-auth__poster-advantages">
           <span>
             Low Fees
           </span>
-          <div
-            class="
-              dwmth-circle
-              dwmth-circle--x-small
-              dwmth-bg-blue"
-          ></div>
+          <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
           <span>
             Censorship Resistant
           </span>
-          <div
-            class="
-              dwmth-circle
-              dwmth-circle--x-small
-              dwmth-bg-blue"
-          ></div>
+          <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
           <span>
             AI Ready
           </span>
@@ -78,18 +38,17 @@
         </ul>
       </div>
       <div class="dwmth-copy dwmth-copy--semi dwmth-copy--uppercase">
-        <a href="https://adshares.net/about?utm_source={{source}}&utm_campaign=auth#video" target="_blank">Watch video about Adshares</a>
+        <a href="https://adshares.net/about?utm_source={{source}}&utm_campaign=auth#video" target="_blank">Watch video
+          about Adshares</a>
       </div>
 
       <div class="row align-center justify-between">
         <a href="https://adshares.net?utm_source={{source}}&utm_campaign=auth" target="_blank">
           <img
+            alt="Adshares Logo"
             class="dwmth-logo"
             src="assets/images/logo--white.png"
-            srcset="
-              assets/images/logo--white@2x.png 2x,
-              assets/images/logo--white@3x.png 3x"
-            alt="Adshares Logo"
+            srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
           >
         </a>
         <span class="application-version">
@@ -98,15 +57,7 @@
       </div>
     </div>
 
-    <div
-      class="
-        col
-        col-xs-12
-        col-lg-6
-        dwmth-auth__content
-        dwmth-bg-white
-        justify-between"
-    >
+    <div class="col col-xs-12 col-lg-6 dwmth-auth__content dwmth-bg-white justify-between">
       <div [@fadeAnimation]="getRouterOutletState(o)">
         <router-outlet #o="outlet"></router-outlet>
       </div>
@@ -120,38 +71,30 @@
     </div>
   </div>
   <img
+    alt="bubbles"
     class="dwmth-auth-bubbles"
     src="assets/images/bubbles1.svg"
-    alt="bubbles"
   >
   <img
+    alt="bubbles"
     class="dwmth-auth-bubbles"
     src="assets/images/bubbles2.svg"
-    alt="bubbles"
   >
   <img
+    alt="bubbles"
     class="dwmth-auth-bubbles"
     src="assets/images/bubbles3.svg"
-    alt="bubbles"
   >
   <img
-    class="
-      dwmth-auth-wave
-      dwmth-auth-wave-up"
-    src="assets/images/wave-up.png"
-    srcset="
-      assets/images/wave-up@2x.png 2x,
-      assets/images/wave-up@3x.png 3x"
     alt="wave"
+    class="dwmth-auth-wave dwmth-auth-wave-up"
+    src="assets/images/wave-up.png"
+    srcset="assets/images/wave-up@2x.png 2x, assets/images/wave-up@3x.png 3x"
   >
   <img
-    class="
-      dwmth-auth-wave
-      dwmth-auth-wave-down"
-    src="assets/images/wave-down.png"
-    srcset="
-      assets/images/wave-down@2x.png 2x,
-      assets/images/wave-down@3x.png 3x"
     alt="waves"
+    class="dwmth-auth-wave dwmth-auth-wave-down"
+    src="assets/images/wave-down.png"
+    srcset="assets/images/wave-down@2x.png 2x, assets/images/wave-down@3x.png 3x"
   >
 </section>
