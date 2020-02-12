@@ -34,7 +34,7 @@
 
     &-benefits {
       margin-top: -50px;
-      color: pal(gray, semi-light);
+      color: pal(gray, mid-light);
 
       .dwmth-heading--secondary {
         margin: 50px 0 10px 0;
@@ -43,7 +43,6 @@
       li {
         text-indent: 10px;
         display: block;
-        font-size: 1.15rem;
 
         &:before {
           content: "-";
@@ -68,7 +67,6 @@
 
     .dwmth-copy-instructions {
       line-height: 34px;
-      font-size: 1.2rem;
     }
   }
 

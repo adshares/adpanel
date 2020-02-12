@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.8] - 2020-02-12
+### Changed
+- Site metatags
+
 ## [1.5.7] - 2020-02-10
 ### Added
 - Benefits info on the login page info
@@ -15,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Site rating info
 ### Fixed
-- Categories labels & descriptions
+- Categories labels & descriptions 
 
 ## [1.5.5] - 2020-01-30
 ### Added
@@ -235,7 +239,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.5.7...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.5.8...develop
+[1.5.8]: https://github.com/adshares/adpanel/compare/v1.5.7...v1.5.8
 [1.5.7]: https://github.com/adshares/adpanel/compare/v1.5.6...v1.5.7
 [1.5.6]: https://github.com/adshares/adpanel/compare/v1.5.5...v1.5.6
 [1.5.5]: https://github.com/adshares/adpanel/compare/v1.5.4...v1.5.5
