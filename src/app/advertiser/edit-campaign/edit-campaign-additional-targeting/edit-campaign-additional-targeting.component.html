@@ -3,6 +3,63 @@
     homepage-view
     campaign-edit-additional-targeting"
 >
+  <div class="dwmth-box">
+    <app-targeting-reach
+      [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+    ></app-targeting-reach>
+  </div>
+
+  <div class="dwmth-box">
+    <form
+      [formGroup]="campaignBasicInfoForm"
+      (ngSubmit)="onSubmit()"
+      class="dwmth-form"
+      data-test="advertiser-edit-campaign-additional-targeting-form"
+    >
+      <div class="dwmth-form-input__box">
+        <div class="row no-gutters">
+          <div class="col">
+            <div class="col relative">
+              <label
+                for="campaign-max-cpm"
+                class="dwmth-form-label"
+              >
+                Max CPM ({{currencyCode}})
+              </label>
+              <input
+                id="campaign-max-cpm"
+                class="
+                  dwmth-form-input
+                  input-budget"
+                type="number"
+                step="0.01"
+                name="campaignMaxCpm"
+                formControlName="maxCpm"
+                data-test="advertiser-edit-campaign-additional-targeting-max-cpm"
+              >
+              <span
+                *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
+                class="input-valid"
+              ></span>
+            </div>
+            <span
+              class="error-msg"
+              *ngIf="campaignBasicInfoForm.hasError('required', ['maxCpm']) && submitted"
+            >
+              Max CPM required
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="campaignBasicInfoForm.hasError('min', ['maxCpm']) && submitted"
+            >
+              Allowed minimum is {{this.campaignsConfig.minCpm|formatMoney:2:''}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <mat-accordion
     multi="true"
     class="targeting-accordion"
@@ -129,12 +186,6 @@
     </div>
   </mat-accordion>
 
-  <div class="dwmth-box">
-    <app-targeting-reach
-      [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
-    ></app-targeting-reach>
-  </div>
-
   <div
     class="
       dwmth-box
@@ -155,7 +206,7 @@
     <div class="row">
       <button
         *ngIf="createCampaignMode"
-        (click)="saveCampaignTargeting(true)"
+        (click)="saveCampaignTargetingAndCpm(true)"
         class="
           dwmth-btn
           dwmth-btn--white

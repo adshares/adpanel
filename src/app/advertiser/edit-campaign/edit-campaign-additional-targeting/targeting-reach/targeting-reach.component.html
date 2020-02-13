@@ -3,13 +3,9 @@
     <span class="targeting-reach--label">Total available impressions:</span>
     <span *ngIf="!isLoading; else loading">{{ reach }}</span>
   </div>
-  <div
-    *ngIf="percentiles"
-  >
+  <div *ngIf="percentiles">
     <div *ngFor="let item of percentiles | mapToIterable">
-      <div
-        class="row"
-      >
+      <div class="row">
         To reach {{ item.key }}% set CPM greater than {{ item.value | formatMoney:2 }}
       </div>
     </div>
