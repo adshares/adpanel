@@ -1,13 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AssetTargeting, TargetingReachResponsePercentiles } from 'models/targeting-option.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
 import { HandleSubscription } from 'common/handle-subscription';
+import { formatMoney, mapToIterable } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-targeting-reach',
   templateUrl: './targeting-reach.component.html',
-  styleUrls: ['./targeting-reach.component.scss']
+  styleUrls: ['./targeting-reach.component.scss'],
 })
 export class TargetingReach extends HandleSubscription implements OnChanges {
   @Input() targeting: AssetTargeting;
@@ -19,7 +20,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   private targetingChanged: Subject<void> = new Subject<void>();
   isLoading: boolean = true;
   reach: string = 'no data';
-  percentiles: TargetingReachResponsePercentiles|null = null;
+  impressionsAndCpm: any[] = [];
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -44,10 +45,27 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
     this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.targeting)
       .take(1)
       .subscribe(response => {
-        this.reach = response.occurrences
-          ? (response.occurrences < this.PRESENTED_REACH_THRESHOLD ? `<${this.PRESENTED_REACH_THRESHOLD}` : `${response.occurrences}`)
-          : 'no data';
-        this.percentiles = response.percentiles ? response.percentiles : null;
+        let tmpImpressionsAndCpm = [];
+        if (response.occurrences) {
+          const occurrences = response.occurrences;
+          if (occurrences < this.PRESENTED_REACH_THRESHOLD) {
+            this.reach = `<${this.PRESENTED_REACH_THRESHOLD}`;
+          } else {
+            this.reach = `${occurrences}`;
+
+            if (response.percentiles) {
+              tmpImpressionsAndCpm = mapToIterable(response.percentiles)
+                .sort((a, b) => a.key === b.key ? 0 : a.key > b.key ? -1 : 1)
+                .filter((element, index, array) => index === 0 || formatMoney(element.value, 2) !== formatMoney(array[index - 1].value, 2))
+                .map(element => ({key: element.key / 100 * occurrences, value: element.value}))
+                .reverse();
+            }
+          }
+        } else {
+          this.reach = 'no data';
+        }
+
+        this.impressionsAndCpm = tmpImpressionsAndCpm;
         this.isLoading = false;
       }, () => this.isLoading = false);
   }

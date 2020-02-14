@@ -279,6 +279,18 @@ function downloadCSVFile(data, from, to) {
   document.body.removeChild(link);
 }
 
+function mapToIterable(dict: Object): any[] {
+  let a = [];
+
+  for (const key in dict) {
+    if (dict.hasOwnProperty(key)) {
+      a.push({key: key, value: dict[key]});
+    }
+  }
+
+  return a;
+}
+
 export {
   adsToClicks,
   clicksToAds,
@@ -295,5 +307,6 @@ export {
   sortArrayByKeys,
   adjustCampaignStatus,
   validCampaignBudget,
-  downloadCSVFile
+  downloadCSVFile,
+  mapToIterable,
 };

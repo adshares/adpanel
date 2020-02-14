@@ -1,13 +1,11 @@
 <div class="targeting-reach">
   <div class="row">
     <span class="targeting-reach--label">Total available impressions:</span>
-    <span *ngIf="!isLoading; else loading">{{ reach }}</span>
+    <span *ngIf="!isLoading; else loading">{{ reach }} daily</span>
   </div>
-  <div *ngIf="percentiles">
-    <div *ngFor="let item of percentiles | mapToIterable">
-      <div class="row">
-        To reach {{ item.key }}% set CPM greater than {{ item.value | formatMoney:2 }}
-      </div>
+  <div *ngFor="let item of impressionsAndCpm">
+    <div class="row">
+      To reach {{ item.key }} impressions a day set CPM greater than {{ item.value | formatMoney:2 }}
     </div>
   </div>
 </div>
