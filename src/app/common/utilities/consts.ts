@@ -32,4 +32,5 @@ export const DATE_AND_TIME_PICKER_FORMATS = {
 };
 
 export const CRYPTO = 'crypto';
+export const CRYPTO_BTC = 'btc';
 export const CODE = 'code';

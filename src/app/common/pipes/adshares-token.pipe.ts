@@ -6,7 +6,7 @@ import { ExchangeRate } from "models/user.model";
 import { HandleSubscription } from "common/handle-subscription";
 import { NOT_AVAILABLE } from "common/utilities/messages";
 import { environment } from "environments/environment";
-import { CRYPTO } from "common/utilities/consts";
+import { CRYPTO, CRYPTO_BTC } from "common/utilities/consts";
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];
@@ -23,6 +23,9 @@ export class AdsharesTokenPipe implements PipeTransform {
     if (currency === CRYPTO) {
       symbol = format === 'symbol' ? environment.cryptoSymbol : '';
       code = format !== 'symbol' ? environment.cryptoSymbol : '';
+    } else if (currency === CRYPTO_BTC) {
+      symbol = format === 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
+      code = format !== 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
     } else {
       symbol = format === 'symbol' ? environment.currencySymbol : '';
       code = format !== 'symbol' ? environment.currencySymbol : '';

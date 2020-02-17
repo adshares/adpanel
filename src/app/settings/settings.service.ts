@@ -57,7 +57,7 @@ export class SettingsService {
     return this.http.post<CalculateWithdrawalItem>(`${environment.apiUrl}/calculate-withdrawal`, {to, amount});
   }
 
-  withdrawFunds(to: string, amount: number, memo: string) {
+  withdrawFunds(to: string, amount: number, memo: string, currency: string = 'ADS') {
     return this.http.post(`${environment.apiUrl}/wallet/withdraw`, {to, amount, memo});
   }
 

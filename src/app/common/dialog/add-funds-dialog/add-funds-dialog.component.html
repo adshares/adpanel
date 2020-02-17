@@ -29,8 +29,8 @@
       </p>
       <div class="add-funds-content dialog-main-content">
         <button
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
           (click)="selectNativeDeposit()"
+          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
         >
           Deposit ADS
         </button>
@@ -42,8 +42,8 @@
         </p>
 
         <button
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
           (click)="selectNowPaymentsDeposit()"
+          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
         >
           Deposit with&nbsp;<span class="now_payments_logo"><span>NOW</span>Payments</span>
         </button>
@@ -56,12 +56,6 @@
     </div>
   </div>
 
-  <ng-template #loading>
-    <div class="loading-wrapper">
-      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-    </div>
-  </ng-template>
-
   <ng-template #nativeDeposit>
     <p class="dwmth-copy dwmth-copy--large dialog-description">
       Here is the information required to deposit funds to your account.
@@ -70,19 +64,19 @@
     <div class="add-funds-content dialog-main-content">
       <div class="dwmth-form-input__box">
         <label
-          for="adshares-address"
           class="dwmth-form-label"
+          for="adshares-address"
         >
           Adshares’ account address:
         </label>
         <input
-          id="adshares-address"
-          class="dwmth-form-input dwmth-form-input--full"
-          name="adshares-address"
-          [value]="adsharesAddress"
-          readonly
           #address
+          [value]="adsharesAddress"
+          class="dwmth-form-input dwmth-form-input--full"
           data-test="common-add-funds-dialog-adshares-address"
+          id="adshares-address"
+          name="adshares-address"
+          readonly
         >
         <span class="input-valid"></span>
       </div>
@@ -93,8 +87,8 @@
       <div
         class="row justify-end">
         <button
-          class="dwmth-btn dwmth-btn--blue"
           (click)="copyInput(address)"
+          class="dwmth-btn dwmth-btn--blue"
           data-test="common-add-funds-dialog-adshares-address-copy"
         >
           Copy to clipboard
@@ -103,20 +97,20 @@
 
       <div class="dwmth-form-input__box">
         <label
-          for="memo"
           class="dwmth-form-label"
+          for="memo"
         >
           Message
         </label>
         <input
-          id="memo"
-          class="dwmth-form-input dwmth-form-input--full"
-          type="url"
-          name="memo"
-          [value]="paymentMemo"
-          readonly
           #memo
+          [value]="paymentMemo"
+          class="dwmth-form-input dwmth-form-input--full"
           data-test="common-add-funds-dialog-user-memo"
+          id="memo"
+          name="memo"
+          readonly
+          type="url"
         >
         <span class="input-valid"></span>
       </div>
@@ -126,8 +120,8 @@
       </p>
       <div class="row justify-end">
         <button
-          class="dwmth-btn dwmth-btn--blue"
           (click)="copyInput(memo)"
+          class="dwmth-btn dwmth-btn--blue"
           data-test="common-add-funds-dialog-user-memo-copy"
         >
           Copy to clipboard
@@ -135,19 +129,19 @@
       </div>
 
       <div class="row">
-            <span
-              class="confirm-email-error-block error-msg col-xs-12"
-              *ngIf="!isEmailConfirmed"
-            >
-              Confirm email before deposit
-            </span>
+        <span
+          *ngIf="!isEmailConfirmed"
+          class="confirm-email-error-block error-msg col-xs-12"
+        >
+          Confirm email before deposit
+        </span>
       </div>
     </div>
 
     <button
+      (click)="restartDepositMethod()"
       *ngIf="nowPayments"
       class="dwmth-btn dwmth-btn--white"
-      (click)="restartDepositMethod()"
     >
       Back
     </button>
@@ -164,27 +158,27 @@
     <div class="add-funds-content dialog-main-content">
       <div class="dwmth-form-input__box">
         <label
-          for="amount"
           class="dwmth-form-label"
+          for="amount"
         >
           Deposit amount ({{nowPayments.currency}}):
         </label>
         <input
-          id="amount"
-          class="dwmth-form-input dwmth-form-input--full"
-          name="amount"
-          type="number"
-          step="0.01"
-          value="{{nowPaymentsDefaultAmount}}"
-          min="{{nowPayments.minAmount}}"
-          max="{{nowPayments.maxAmount}}"
-          (keyup)="keydownNowPaymentsAmount($event)"
           (change)="changeNowPaymentsAmount($event)"
+          (keyup)="keydownNowPaymentsAmount($event)"
+          class="dwmth-form-input dwmth-form-input--full"
           data-test="common-now-payments-dialog-adshares-amount"
+          id="amount"
+          max="{{nowPayments.maxAmount}}"
+          min="{{nowPayments.minAmount}}"
+          name="amount"
+          step="0.01"
+          type="number"
+          value="{{nowPaymentsDefaultAmount}}"
         >
         <span
-          class="error-msg"
           *ngIf="nowPaymentsAmountError"
+          class="error-msg"
         >
           Provide correct deposit amount
         </span>
@@ -195,28 +189,25 @@
       </div>
 
       <div class="ads-amount">
-      <span class="dwmth-form-label">
-        Your deposit will amount to approx.
-      </span>
+        <span class="dwmth-form-label">
+          Your deposit will amount to approx.
+        </span>
         <span
           class="dwmth-copy dwmth-copy--large"
           data-test="common-now-payments-dialog-ads-amount"
         >
-        {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + environment.cryptoCode }}
-      </span>
+          {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + environment.cryptoCode }}
+        </span>
       </div>
 
       <div class="row justify-center now-payments__btns-wrapper">
         <div *ngIf="isEmailConfirmed">
           <button
+            (click)="depositNowPaymentsFunds()"
             class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
             data-test="common-now-payments-submit-button"
-            (click)="depositNowPaymentsFunds()"
           >
-            <span *ngIf="!isFormBeingSubmitted ; else loading">Deposit</span>
-            <ng-template #loading>
-              <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-            </ng-template>
+            <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit</span>
           </button>
           <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
             You will be redirected to NowPayments.io.
@@ -227,14 +218,14 @@
         </div>
 
         <span
-          class="error-msg col-xs-12"
           *ngIf="!isEmailConfirmed"
+          class="error-msg col-xs-12"
         >
           Confirm email to deposit funds
         </span>
         <span
-          class="error-msg col-xs-12"
           *ngIf="nowPaymentsServerError"
+          class="error-msg col-xs-12"
         >
           An unexpected error occurred, please try again later.
         </span>
@@ -242,11 +233,21 @@
     </div>
 
     <button
-      class="dwmth-btn dwmth-btn--white"
       (click)="restartDepositMethod()"
+      class="dwmth-btn dwmth-btn--white"
     >
       Back
     </button>
+  </ng-template>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <ng-template #loadingBtn>
+    <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
   </ng-template>
 
 </mat-dialog-content>
