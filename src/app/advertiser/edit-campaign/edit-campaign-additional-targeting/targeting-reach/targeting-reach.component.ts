@@ -19,7 +19,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   private targetingReachSubscription: Subscription;
   private targetingChanged: Subject<void> = new Subject<void>();
   isLoading: boolean = true;
-  reach: string = 'no data';
+  reach: string|null = null;
   impressionsAndCpm: any[] = [];
 
   constructor(
@@ -62,7 +62,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
             }
           }
         } else {
-          this.reach = 'no data';
+          this.reach = null;
         }
 
         this.impressionsAndCpm = tmpImpressionsAndCpm;

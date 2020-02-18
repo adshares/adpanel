@@ -1,7 +1,7 @@
 <div class="targeting-reach">
   <div class="row">
     <span class="targeting-reach--label">Total available impressions:</span>
-    <span *ngIf="!isLoading; else loading">{{ reach }} daily</span>
+    <span *ngIf="!isLoading; else loading">{{ null !== reach ? (reach + ' daily') : 'no data' }}</span>
   </div>
   <div *ngFor="let item of impressionsAndCpm">
     <div class="row">
