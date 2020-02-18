@@ -29,10 +29,10 @@ interface AssetTargeting {
 
 interface TargetingReachResponse {
   occurrences: number;
-  percentiles: TargetingReachResponsePercentiles;
+  cpmPercentiles: TargetingReachResponseCpmPercentiles;
 }
 
-interface TargetingReachResponsePercentiles {
+interface TargetingReachResponseCpmPercentiles {
   [index: string]: number;
 }
 
@@ -41,5 +41,5 @@ export {
   TargetingOptionValue,
   AssetTargeting,
   TargetingReachResponse,
-  TargetingReachResponsePercentiles,
+  TargetingReachResponseCpmPercentiles,
 };

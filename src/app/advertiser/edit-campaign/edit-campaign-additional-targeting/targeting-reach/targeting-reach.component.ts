@@ -53,8 +53,8 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
           } else {
             this.reach = `${occurrences}`;
 
-            if (response.percentiles) {
-              tmpImpressionsAndCpm = mapToIterable(response.percentiles)
+            if (response.cpmPercentiles) {
+              tmpImpressionsAndCpm = mapToIterable(response.cpmPercentiles)
                 .sort((a, b) => a.key === b.key ? 0 : a.key > b.key ? -1 : 1)
                 .filter((element, index, array) => index === 0 || formatMoney(element.value, 2) !== formatMoney(array[index - 1].value, 2))
                 .map(element => ({key: element.key / 100 * occurrences, value: element.value}))
