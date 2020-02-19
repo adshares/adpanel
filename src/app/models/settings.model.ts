@@ -100,6 +100,16 @@ interface AdsharesAddress {
   adsharesAddress: string;
 }
 
+interface WithdrawalInfo {
+  btc: BtcWithdrawInfo | null;
+}
+
+interface BtcWithdrawInfo {
+  minAmount: number;
+  maxAmount: number;
+  exchangeRate: number;
+}
+
 interface DepositInfo {
   address: string;
   message: string;
@@ -133,6 +143,8 @@ export {
   AdminSettings,
   AdminWallet,
   AdsharesAddress,
+  WithdrawalInfo,
+  BtcWithdrawInfo,
   DepositInfo,
   NowPaymentsInfo,
   NowPaymentsInit,

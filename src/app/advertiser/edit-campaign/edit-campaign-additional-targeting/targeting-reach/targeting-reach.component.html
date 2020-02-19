@@ -1,0 +1,26 @@
+<div class="targeting-reach">
+  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="reach" class="targeting-reach--label">
+      <span>Up to</span>
+      <strong>{{ reach | number }}</strong>
+      <span>impressions daily</span>
+    </div>
+    <div *ngIf="!reach" class="targeting-reach--label targeting-reach--error">
+      We can't estimate impressions.
+    </div>
+    <div *ngIf="reach" class="dwmth-copy targeting-reach--info">
+      <span *ngIf="nextStepCpm && nextStepImpressions">
+        To reach {{ nextStepImpressions | number }} impressions increase CPM to {{ nextStepCpm | formatMoney:2 }}
+      </span>
+      <span *ngIf="!nextStepCpm || !nextStepImpressions">
+        Increase CPM to reach even more!
+      </span>
+    </div>
+    <div *ngIf="!reach" class="dwmth-copy targeting-reach--info targeting-reach--error">
+      Please check your targeting settings.
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <mat-spinner [diameter]="30" [strokeWidth]="2" color="primary"></mat-spinner>
+</ng-template>
