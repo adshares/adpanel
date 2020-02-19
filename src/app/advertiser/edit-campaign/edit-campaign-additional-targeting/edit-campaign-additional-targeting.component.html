@@ -4,13 +4,6 @@
     campaign-edit-additional-targeting"
 >
   <div class="dwmth-box">
-    <app-targeting-reach
-      [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
-      [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
-    ></app-targeting-reach>
-  </div>
-
-  <div class="dwmth-box">
     <form
       [formGroup]="campaignBasicInfoForm"
       (ngSubmit)="onSubmit()"
@@ -19,6 +12,12 @@
     >
       <div class="dwmth-form-input__box">
         <div class="row no-gutters">
+          <div class="col">
+            <app-targeting-reach
+              [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
+              [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+            ></app-targeting-reach>
+          </div>
           <div class="col">
             <div class="col relative">
               <label

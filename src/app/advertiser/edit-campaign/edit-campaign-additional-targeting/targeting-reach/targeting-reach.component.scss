@@ -1,9 +1,28 @@
 @import '../../../../../styles.scss';
 
 .targeting-reach {
-  @include font(18, normal);
+  min-width: 390px;
+  min-height: 60px;
+  margin: 16px 24px;
 
   &--label {
-    margin-right: 6px;
+    @include font(24, normal);
+
+    strong {
+      padding: 0 5px;
+      @include font(28, normal);
+    }
+  }
+
+  &--info {
+    margin-top: 5px;
+  }
+
+  &--error {
+    color: pal(red);
+  }
+
+  mat-spinner {
+    margin: auto;
   }
 }

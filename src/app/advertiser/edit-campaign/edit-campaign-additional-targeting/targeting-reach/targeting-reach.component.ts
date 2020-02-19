@@ -94,12 +94,13 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
       }
 
       if (impressions < this.PRESENTED_REACH_THRESHOLD) {
-        this.reach = `<${this.PRESENTED_REACH_THRESHOLD}`;
+        this.reach = `${this.PRESENTED_REACH_THRESHOLD}`;
       } else {
         this.reach = `${impressions}`;
       }
     } else {
       this.reach = null;
+      this.nextStepCpm = 0;
     }
   }
 }
