@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- BTC withdraw
 - Targeting reach
 
 ## [1.5.8] - 2020-02-12
