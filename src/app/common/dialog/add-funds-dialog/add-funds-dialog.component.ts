@@ -47,18 +47,19 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     const user = this.session.getUser();
     this.isEmailConfirmed = user.isEmailConfirmed;
 
-    this.api.config.depositInfo()
-      .subscribe((data: DepositInfo) => {
-        this.loadingInfo = false;
-        this.adsharesAddress = data.address;
-        this.paymentMemo = data.message;
-        this.nowPayments = data.nowPayments;
-        if (this.nowPayments !== null) {
-          this.setNowPaymentsAmount(this.nowPaymentsDefaultAmount);
-        } else {
-          this.useNativeDeposit = true;
-        }
-      });
+    const infoSubscription = this.api.config.depositInfo().subscribe((data: DepositInfo) => {
+      this.loadingInfo = false;
+      this.adsharesAddress = data.address;
+      this.paymentMemo = data.message;
+      this.nowPayments = data.nowPayments;
+      if (this.nowPayments !== null) {
+        this.setNowPaymentsAmount(this.nowPaymentsDefaultAmount);
+      } else {
+        this.useNativeDeposit = true;
+      }
+    });
+
+    this.subscriptions.push(infoSubscription);
   }
 
   copyInput(input: HTMLInputElement): void {
