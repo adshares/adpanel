@@ -5,6 +5,7 @@
 >
   <div class="dwmth-box">
     <app-targeting-reach
+      [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
       [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
     ></app-targeting-reach>
   </div>

@@ -3,7 +3,7 @@ import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
 import { HandleSubscription } from 'common/handle-subscription';
-import { formatMoney, mapToIterable } from 'common/utilities/helpers';
+import { mapToIterable } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-targeting-reach',
@@ -11,6 +11,7 @@ import { formatMoney, mapToIterable } from 'common/utilities/helpers';
   styleUrls: ['./targeting-reach.component.scss'],
 })
 export class TargetingReach extends HandleSubscription implements OnChanges {
+  @Input() cpm: number;
   @Input() targeting: AssetTargeting;
 
   private readonly REQUEST_DELAY = 1000;
@@ -19,8 +20,11 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   private targetingReachSubscription: Subscription;
   private targetingChanged: Subject<void> = new Subject<void>();
   isLoading: boolean = true;
-  reach: string|null = null;
+  occurrencesMaximum: number | null = null;
+  reach: string | null = null;
   impressionsAndCpm: any[] = [];
+  nextStepImpressions: number;
+  nextStepCpm: number;
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -34,39 +38,68 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.isLoading = true;
-    if (this.targetingReachSubscription) {
-      this.targetingReachSubscription.unsubscribe();
+    if (changes.targeting) {
+      this.isLoading = true;
+      if (this.targetingReachSubscription) {
+        this.targetingReachSubscription.unsubscribe();
+      }
+      this.targetingChanged.next();
+
+      return;
     }
-    this.targetingChanged.next();
+
+    this.updateState();
   }
 
   getTargetingReach(): void {
     this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.targeting)
       .take(1)
       .subscribe(response => {
-        let tmpImpressionsAndCpm = [];
-        if (response.occurrences) {
-          const occurrences = response.occurrences;
-          if (occurrences < this.PRESENTED_REACH_THRESHOLD) {
-            this.reach = `<${this.PRESENTED_REACH_THRESHOLD}`;
-          } else {
-            this.reach = `${occurrences}`;
-
-            if (response.cpmPercentiles) {
-              tmpImpressionsAndCpm = mapToIterable(response.cpmPercentiles)
-                .sort((a, b) => a.key === b.key ? 0 : a.key > b.key ? -1 : 1)
-                .filter((element, index, array) => index === 0 || formatMoney(element.value, 2) !== formatMoney(array[index - 1].value, 2))
-                .map(element => ({key: element.key / 100 * occurrences, value: element.value}))
-                .reverse();
-            }
-          }
+        if (response.occurrences && response.cpmPercentiles) {
+          this.occurrencesMaximum = response.occurrences;
+          this.impressionsAndCpm = mapToIterable(response.cpmPercentiles)
+            .sort((a, b) => a.key === b.key ? 0 : a.key > b.key ? -1 : 1)
+            .map(element => ({
+              key: Math.round(element.key / 100 * this.occurrencesMaximum),
+              value: Math.round(element.value / 1e9) * 1e9
+            }))
+            .filter((element, index, array) => index === 0 || element.value !== array[index - 1].value)
+            .reverse();
         } else {
-          this.reach = null;
+          this.occurrencesMaximum = null;
+          this.impressionsAndCpm = [];
         }
+        this.updateState();
 
-        this.impressionsAndCpm = tmpImpressionsAndCpm;
         this.isLoading = false;
       }, () => this.isLoading = false);
+  }
+
+  updateState(): void {
+    if (null !== this.occurrencesMaximum) {
+      let impressions;
+      const index = this.impressionsAndCpm.findIndex(element => element.value / 1e11 > this.cpm);
+
+      if (-1 !== index) {
+        impressions = this.impressionsAndCpm[index].key;
+        this.nextStepCpm = this.impressionsAndCpm[index].value;
+        if (this.impressionsAndCpm.length - 1 === index) {
+          this.nextStepImpressions = this.occurrencesMaximum;
+        } else {
+          this.nextStepImpressions = this.impressionsAndCpm[index + 1].key;
+        }
+      } else {
+        impressions = this.occurrencesMaximum;
+        this.nextStepCpm = 0;
+      }
+
+      if (impressions < this.PRESENTED_REACH_THRESHOLD) {
+        this.reach = `<${this.PRESENTED_REACH_THRESHOLD}`;
+      } else {
+        this.reach = `${impressions}`;
+      }
+    } else {
+      this.reach = null;
+    }
   }
 }
