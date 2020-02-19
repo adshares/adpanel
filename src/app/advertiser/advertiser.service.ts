@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import {
   Campaign,
@@ -10,12 +10,12 @@ import {
   CampaignTotals,
   CampaignTotalsResponse
 } from 'models/campaign.model';
-import { TargetingOption } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption, TargetingReachResponse } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { NavigationStart, Router } from "@angular/router";
-import * as advertiserActions from "store/advertiser/advertiser.actions";
-import { Subscription } from "rxjs";
-import { AppState } from "models/app-state.model";
+import { NavigationStart, Router } from '@angular/router';
+import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
+import { Subscription } from 'rxjs';
+import { AppState } from 'models/app-state.model';
 
 @Injectable()
 export class AdvertiserService {
@@ -92,6 +92,14 @@ export class AdvertiserService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
+  getTargetingReach(targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
+    const body = {
+      targeting: targetingArray ? parseTargetingForBackend(targetingArray) : {requires: [], excludes: []},
+    };
+
+    return this.http.post<TargetingReachResponse>(`${environment.apiUrl}/options/campaigns/targeting-reach`, body);
+  }
+
   updateAdStatus(campaignId: number, adId: number, status: number): Observable<Object> {
     const body = {
       banner: {
@@ -105,7 +113,7 @@ export class AdvertiserService {
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
     return shouldSubscribe && this.router.events
       .filter(event => event instanceof NavigationStart)
-      .subscribe(() => this.store.dispatch(new advertiserActions.ClearLastEditedCampaign()));
+      .subscribe(() => this.store.dispatch(new ClearLastEditedCampaign()));
   }
 
   report(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
