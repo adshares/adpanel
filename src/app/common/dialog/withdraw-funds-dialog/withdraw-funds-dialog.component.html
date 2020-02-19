@@ -363,11 +363,11 @@
           >
             The amount exceeds your balance
           </span>
-          <span class="dwmth-form-label">
-            The min. withdraw is <b>{{btcInfo.minAmount}} {{cryptoCode}}</b>
-            and the max. is <b>{{btcInfo.maxAmount}} {{cryptoCode}}</b>
-          </span>
         </div>
+        <p class="dwmth-form-label">
+          The min. withdraw is <strong>{{btcInfo.minAmount}} {{cryptoCode}}</strong>
+          and the max. is <strong>{{btcInfo.maxAmount}} {{cryptoCode}}</strong>
+        </p>
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxBtcWithdrawAmount()"
                   class="dwmth-btn dwmth-btn--white dwmth-copy--blue"

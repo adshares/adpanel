@@ -230,7 +230,8 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   getMaxBtcWithdrawAmount() {
-    const amount = formatMoney(this.adserverWallet.walletBalance, 11, false, '.', '');
+    const amount
+      = formatMoney(Math.min(this.adserverWallet.walletBalance, 1e11 * this.btcInfo.maxAmount), 11, false, '.', '');
     this.withdrawForm.get('amount').setValue(amount);
     this.calculateBtcWithdrawAdsAmount(amount);
   }
