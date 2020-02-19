@@ -58,7 +58,7 @@ export class SettingsService {
   }
 
   withdrawFunds(to: string, amount: number, memo: string, currency: string = 'ADS') {
-    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, {to, amount, memo});
+    return this.http.post(`${environment.apiUrl}/wallet/withdraw`, {currency, to, amount, memo});
   }
 
   changeEmail(email: string, UriStep1: string, UriStep2: string) {
