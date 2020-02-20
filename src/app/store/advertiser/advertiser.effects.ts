@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect,  toPayload } from '@ngrx/effects';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import 'rxjs/add/operator/switchMap';
@@ -221,7 +221,7 @@ export class AdvertiserEffects {
   updateCampaignStatus = this.actions$
     .ofType(UPDATE_CAMPAIGN_STATUS)
     .withLatestFrom(this.store$.select('state', 'user', 'data'))
-    .withLatestFrom(this.store$.select('state', 'advertiser'),([action, user], state) => {
+    .withLatestFrom(this.store$.select('state', 'advertiser'), ([action, user], state) => {
       const payload = (<UpdateCampaignStatus>action).payload;
       return new Array<[any, CampaignsConfig, Campaign, User]>([
         payload,

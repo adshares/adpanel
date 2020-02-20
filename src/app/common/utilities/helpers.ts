@@ -1,8 +1,7 @@
-import * as moment from "moment";
-import { campaignStatusesEnum } from "models/enum/campaign.enum";
-import { DATE_FORMAT } from "common/utilities/consts";
-import { Campaign, CampaignsConfig } from "models/campaign.model";
-import { User } from "models/user.model";
+import * as moment from 'moment';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { User } from 'models/user.model';
 
 
 function adsToClicks(amount: any): number {
@@ -266,14 +265,13 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   return errors;
 };
 
-function downloadCSVFile(data, from, to) {
-  const formattedFrom = moment(from).format(DATE_FORMAT);
-  const formattedTo = moment(to).format(DATE_FORMAT);
-  const fileName = `report_${formattedFrom}_${formattedTo}.xlsx`;
-  const blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+function downloadReport(data: Response) {
+  const fileName = data.headers.get('content-disposition').split('filename=')[1] || 'report.xlsx';
+  const type = data.headers.get('content-type');
+  const blob = new Blob([data.body], {type});
   const link = document.createElement('a');
-  link.setAttribute("download", fileName);
-  link.setAttribute("href", URL.createObjectURL(blob));
+  link.setAttribute('download', fileName);
+  link.setAttribute('href', URL.createObjectURL(blob));
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -307,6 +305,6 @@ export {
   sortArrayByKeys,
   adjustCampaignStatus,
   validCampaignBudget,
-  downloadCSVFile,
+  downloadReport,
   mapToIterable,
 };

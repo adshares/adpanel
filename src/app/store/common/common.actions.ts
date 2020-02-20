@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
+import { reportType } from 'models/enum/user.enum';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
@@ -12,6 +13,10 @@ export const LOAD_NOTIFICATIONS_SUCCESS = 'Notifications loaded success';
 export const UPDATE_NOTIFICATIONS = 'Notifications updated';
 
 export const SHOW_DIALOG_ON_ERROR = 'Show dialog on error';
+
+export const REQUEST_REPORT = 'Request report';
+export const REQUEST_REPORT_SUCCESS = 'Request report success';
+export const REQUEST_REPORT_FAILURE = 'Request report failure';
 
 export class ShowDialogOnError implements Action {
   readonly type = SHOW_DIALOG_ON_ERROR;
@@ -69,6 +74,26 @@ export class ShowSuccessSnackbar implements Action {
   }
 }
 
+export class RequestReport implements Action {
+  readonly type: string = REQUEST_REPORT;
+
+  constructor(public payload: { type: reportType, dateStart: string, dateEnd: string, id?: number }) {
+  }
+}
+
+export class RequestReportSuccess implements Action {
+  readonly type: string = REQUEST_REPORT_SUCCESS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class RequestReportFailure implements Action {
+  readonly type: string = REQUEST_REPORT_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
 
 export type actions =
   | SetActiveUserType
@@ -77,4 +102,7 @@ export type actions =
   | LoadNotifications
   | LoadNotificationsSuccess
   | UpdateNotifications
-  | ShowSuccessSnackbar;
+  | ShowSuccessSnackbar
+  | RequestReport
+  | RequestReportSuccess
+  | RequestReportFailure ;

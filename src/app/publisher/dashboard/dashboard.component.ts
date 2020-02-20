@@ -10,12 +10,13 @@ import { Site, SitesTotals } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AppState } from 'models/app-state.model';
-import { createInitialArray, downloadCSVFile } from 'common/utilities/helpers';
-import { PublisherService } from 'publisher/publisher.service';
+import { createInitialArray } from 'common/utilities/helpers';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
+import { RequestReport } from 'store/common/common.actions';
+import { reportType } from 'models/enum/user.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,7 +44,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   constructor(
     private chartService: ChartService,
     private store: Store<AppState>,
-    private publisherService: PublisherService
   ) {
     super();
   }
@@ -123,10 +123,14 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   downloadReport() {
-    const settings = this.currentChartFilterSettings;
-    this.publisherService.report(settings.currentFrom, settings.currentTo)
-      .subscribe((data) => {
-        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
-      });
+    this.store.dispatch(
+      new RequestReport(
+        {
+          type: reportType.SITES,
+          dateStart: this.currentChartFilterSettings.currentFrom,
+          dateEnd: this.currentChartFilterSettings.currentTo,
+        }
+      )
+    );
   }
 }

@@ -11,7 +11,7 @@ import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
-import { createInitialArray, downloadCSVFile, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { createInitialArray, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
@@ -23,11 +23,11 @@ import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { TableSortEvent } from 'models/table.model';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
-import { faCode } from '@fortawesome/free-solid-svg-icons'
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
-import { LoadCampaignTotals } from "store/advertiser/advertiser.actions";
+import { RequestReport } from 'store/common/common.actions';
+import { reportType } from 'models/enum/user.enum';
 
 @Component({
   selector: 'app-site-details',
@@ -55,7 +55,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
-  faCode = faCode;
 
   constructor(
     private route: ActivatedRoute,
@@ -221,11 +220,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   downloadReport() {
-    const settings = this.currentChartFilterSettings;
-    this.publisherService.report(settings.currentFrom, settings.currentTo, this.site.id)
-      .subscribe((data) => {
-        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
-      });
+    this.store.dispatch(
+      new RequestReport(
+        {
+          type: reportType.SITES,
+          dateStart: this.currentChartFilterSettings.currentFrom,
+          dateEnd: this.currentChartFilterSettings.currentTo,
+          id: this.site.id,
+        }
+      )
+    );
   }
 
   private hasSitePops(): boolean {

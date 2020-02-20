@@ -35,9 +35,17 @@ export class SettingsNavigationComponent extends HandleSubscription {
       link: '/settings/billing',
       values: [
         {name: 'Your wallet', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Billing history', icon: 'assets/images/history.svg'}
+        {name: 'Billing history', icon: 'assets/images/history.svg'},
       ],
-    }
+    },
+    {
+      title: 'Reports',
+      description: '',
+      link: '/settings/reports',
+      values: [
+        {name: 'Reports', icon: 'assets/images/chevron--gray.svg'},
+      ],
+    },
   ];
 
   constructor(

@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ChartsModule } from 'ng2-charts';
 import { ClickOutsideDirective } from './clickOutside.directive'
 import { CommonService } from './common.service';
@@ -66,8 +67,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/labelWithTooltip.component';
-import {PlaceholdersAccordion} from "common/components/placeholders-accordion/placeholders-accordion";
-import {MatExpansionModule} from "@angular/material/expansion";
+import { PlaceholdersAccordion } from 'common/components/placeholders-accordion/placeholders-accordion';
+import { ReportsListComponent } from 'common/components/reports-list/reports-list.component';
+import { ReportsListItemComponent } from 'common/components/reports-list/reports-list-item/reports-list-item.component';
 
 const matModules = [
   MatDialogModule,
@@ -128,6 +130,8 @@ const appComponents = [
   InputComponent,
   LabelWithTooltipComponent,
   PlaceholdersAccordion,
+  ReportsListComponent,
+  ReportsListItemComponent,
 ];
 
 @NgModule({
