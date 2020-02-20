@@ -92,10 +92,13 @@ export class AdvertiserService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  getTargetingReach(targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
-    const body = {
+  getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
+    let body = {
       targeting: targetingArray ? parseTargetingForBackend(targetingArray) : {requires: [], excludes: []},
     };
+    if (sizes.length > 0) {
+      body.targeting.requires['size'] = sizes;
+    }
 
     return this.http.post<TargetingReachResponse>(`${environment.apiUrl}/options/campaigns/targeting-reach`, body);
   }
