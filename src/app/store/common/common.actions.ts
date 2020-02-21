@@ -105,4 +105,4 @@ export type actions =
   | ShowSuccessSnackbar
   | RequestReport
   | RequestReportSuccess
-  | RequestReportFailure ;
+  | RequestReportFailure;
