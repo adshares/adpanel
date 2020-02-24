@@ -23,7 +23,6 @@ export class CommonService {
 
   report(type: reportType, dateStart: string, dateEnd: string, id?: number): Observable<any> {
     let options = {
-      responseType: 'blob' as 'json',
     };
 
     if (id > 0) {
