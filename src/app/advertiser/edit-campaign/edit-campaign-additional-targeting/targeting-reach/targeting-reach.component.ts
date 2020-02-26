@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Ad } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
@@ -11,6 +12,7 @@ import { mapToIterable } from 'common/utilities/helpers';
   styleUrls: ['./targeting-reach.component.scss'],
 })
 export class TargetingReach extends HandleSubscription implements OnChanges {
+  @Input() ads: Ad[];
   @Input() cpm: number;
   @Input() targeting: AssetTargeting;
 
@@ -25,6 +27,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   impressionsAndCpm: any[] = [];
   nextStepImpressions: number;
   nextStepCpm: number;
+  sizes: string[] = [];
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -38,6 +41,9 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes.ads) {
+      this.sizes = changes.ads.currentValue.map(element => element.creativeSize);
+    }
     if (changes.targeting) {
       this.isLoading = true;
       if (this.targetingReachSubscription) {
@@ -52,7 +58,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   }
 
   getTargetingReach(): void {
-    this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.targeting)
+    this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.sizes, this.targeting)
       .take(1)
       .subscribe(response => {
         if (response.occurrences && response.cpmPercentiles) {

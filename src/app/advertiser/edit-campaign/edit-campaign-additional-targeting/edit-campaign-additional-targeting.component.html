@@ -14,6 +14,7 @@
         <div class="row no-gutters">
           <div class="col">
             <app-targeting-reach
+              [ads]="campaign.ads || []"
               [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
               [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
             ></app-targeting-reach>
