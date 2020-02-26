@@ -78,7 +78,9 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   updateState(): void {
     if (null !== this.occurrencesMaximum) {
       let impressions;
-      const index = this.impressionsAndCpm.findIndex(element => element.value / 1e11 > this.cpm);
+      const index = this.impressionsAndCpm.findIndex(
+        element => (element.key >= this.PRESENTED_REACH_THRESHOLD) && (element.value / 1e11 > this.cpm)
+      );
 
       if (-1 !== index) {
         impressions = this.impressionsAndCpm[index].key;
