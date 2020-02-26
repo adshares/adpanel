@@ -6,7 +6,7 @@ import { CommonService } from 'common/common.service';
 import { downloadReport } from 'common/utilities/helpers';
 import { RequestReportFailure } from 'store/common/common.actions';
 import { reportState } from 'models/enum/user.enum';
-import { faCheck, faHourglass, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faHistory, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-reports-list-item',
@@ -31,7 +31,7 @@ export class ReportsListItemComponent implements OnInit {
         this.icon = faCheck;
         break;
       case reportState.PREPARING:
-        this.icon = faHourglass;
+        this.icon = faHistory;
         break;
       case reportState.DELETED:
       default:
