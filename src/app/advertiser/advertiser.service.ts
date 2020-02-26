@@ -118,18 +118,4 @@ export class AdvertiserService {
       .filter(event => event instanceof NavigationStart)
       .subscribe(() => this.store.dispatch(new ClearLastEditedCampaign()));
   }
-
-  report(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
-    let options = {
-      responseType: 'blob' as 'json'
-    };
-
-    if (campaignId > 0) {
-      options['params'] = {
-        campaign_id: campaignId
-      };
-    }
-
-    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
-  }
 }

@@ -1,0 +1,22 @@
+@import '../../../../../styles';
+
+.report-list-item {
+  min-height: 50px;
+
+  &__icon {
+    font-size: 1.7em;
+
+    &--ready {
+      color: pal(green);
+    }
+
+    &--preparing {
+      color: pal(gray);
+    }
+
+    &--deleted {
+      color: pal(red);
+    }
+  }
+}
+

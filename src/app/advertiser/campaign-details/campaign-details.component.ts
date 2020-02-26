@@ -15,16 +15,18 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, downloadCSVFile, validCampaignBudget } from 'common/utilities/helpers';
+import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, } from 'store/advertiser/advertiser.actions';
+import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { User } from "models/user.model";
+import { User } from 'models/user.model';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
+import { RequestReport } from 'store/common/common.actions';
+import { reportType } from 'models/enum/user.enum';
 
 @Component({
   selector: 'app-campaign-details',
@@ -241,11 +243,16 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   downloadReport() {
-    const settings = this.currentChartFilterSettings;
-    this.advertiserService.report(settings.currentFrom, settings.currentTo, this.campaign.id)
-      .subscribe((data) => {
-        downloadCSVFile(data, settings.currentFrom, settings.currentTo);
-      });
+    this.store.dispatch(
+      new RequestReport(
+        {
+          type: reportType.CAMPAIGNS,
+          dateStart: this.currentChartFilterSettings.currentFrom,
+          dateEnd: this.currentChartFilterSettings.currentTo,
+          id: this.campaign.id,
+        }
+      )
+    );
   }
 
   updateConversionTableItems(): void {

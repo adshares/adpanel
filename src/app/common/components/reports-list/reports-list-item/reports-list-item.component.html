@@ -1,0 +1,24 @@
+<div class="report-list-item row align-center">
+  <div class="col-xs-1">
+    <fa-icon
+      class="report-list-item__icon report-list-item__icon--{{item.state}}"
+      matTooltip="{{item.state}}"
+      matTooltipClass="dwmth-mat-tooltip"
+      [icon]="icon"
+    > </fa-icon>
+  </div>
+  <div class="col-xs-9 dwmth-copy">{{ item.name }}</div>
+  <div class="col-xs-2">
+    <button
+      *ngIf="REPORT_STATE_READY === item.state"
+      type="button"
+      class="dwmth-btn
+             dwmth-btn--white
+             dwmth-blue"
+      (click)="download()"
+      data-test="report-download-button"
+    >
+      Download
+    </button>
+  </div>
+</div>
