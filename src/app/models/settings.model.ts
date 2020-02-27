@@ -133,6 +133,16 @@ interface CalculateWithdrawalItem {
   total: number;
 }
 
+interface ReportsList {
+  [type: string]: ReportsListItem[],
+}
+
+interface ReportsListItem {
+  id: string,
+  name: string,
+  state: string,
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -154,4 +164,6 @@ export {
   AdminPrivacyAndTermsSettingsResponse,
   TermsAndPrivacy,
   License,
+  ReportsList,
+  ReportsListItem,
 };

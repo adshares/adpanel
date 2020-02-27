@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1] - 2020-02-19
+### Added
+- Asynchronous report generation
+- Banners' sizes to targeting reach
+### Fixed
+- Targeting message while reach is less than threshold
+
 ## [1.6.0] - 2020-02-19
 ### Added
 - BTC withdraw
@@ -244,7 +251,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.6.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.6.1...develop
+[1.6.1]: https://github.com/adshares/adpanel/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/adshares/adpanel/compare/v1.5.8...v1.6.0
 [1.5.8]: https://github.com/adshares/adpanel/compare/v1.5.7...v1.5.8
 [1.5.7]: https://github.com/adshares/adpanel/compare/v1.5.6...v1.5.7

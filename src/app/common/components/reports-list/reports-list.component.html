@@ -1,0 +1,51 @@
+<div
+  *ngIf="reportListLoaded; else loading"
+  class="reports-table dwmth-copy"
+>
+  <div
+    *ngIf="reportsListAdvertiser.length > 0"
+  >
+    <p
+      class="dwmth-copy dwmth-copy--large"
+    >
+      Advertiser reports
+    </p>
+    <div
+      *ngFor="let report of reportsListAdvertiser"
+    >
+      <app-reports-list-item
+        [item]="report"
+      ></app-reports-list-item>
+    </div>
+  </div>
+  <div
+    *ngIf="reportsListPublisher.length > 0"
+  >
+    <p
+      class="dwmth-copy dwmth-copy--large"
+    >
+      Publisher reports
+    </p>
+    <div
+      *ngFor="let report of reportsListPublisher"
+    >
+      <app-reports-list-item
+        [item]="report"
+      ></app-reports-list-item>
+    </div>
+  </div>
+  <div
+    *ngIf="0 === reportsListAdvertiser.length && 0 === reportsListPublisher.length"
+  >
+    <p
+      class="dwmth-copy dwmth-copy--large"
+    >
+      Report list is empty
+    </p>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+  </div>
+</ng-template>

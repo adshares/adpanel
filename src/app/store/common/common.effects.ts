@@ -1,36 +1,45 @@
 import { Injectable } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 import { CommonService } from 'common/common.service';
 import {
   LOAD_NOTIFICATIONS,
   LoadNotificationsSuccess,
+  REQUEST_REPORT,
+  REQUEST_REPORT_FAILURE,
+  REQUEST_REPORT_SUCCESS,
+  RequestReportFailure,
+  RequestReportSuccess,
   SHOW_DIALOG_ON_ERROR,
   SHOW_SUCCESS_SNACKBAR,
 } from './common.actions';
 import {
-  UPDATE_CAMPAIGN_STATUS_FAILURE,
   DELETE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_FAILURE,
-} from "store/advertiser/advertiser.actions";
-import {
-  ADD_SITE_TO_SITES_FAILURE,
-} from "store/publisher/publisher.actions";
+  UPDATE_CAMPAIGN_STATUS_FAILURE,
+} from 'store/advertiser/advertiser.actions';
+import { ADD_SITE_TO_SITES_FAILURE, } from 'store/publisher/publisher.actions';
 import {
   GET_PRIVACY_SETTINGS_FAILURE,
   GET_TERMS_SETTINGS_FAILURE,
   SET_ADMIN_SETTINGS_FAILURE,
-} from "store/admin/admin.actions";
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { MatDialog, MatSnackBar } from "@angular/material";
-import { SuccessSnackbarComponent } from "common/dialog/success-snackbar/success-snackbar.component";
-import { CANCEL_AWAITING_TRANSACTION_FAILURE } from "store/settings/settings.actions";
+} from 'store/admin/admin.actions';
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
+import { CANCEL_AWAITING_TRANSACTION_FAILURE } from 'store/settings/settings.actions';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { Observable } from 'rxjs/Observable';
+import { SessionService } from '../../session.service';
 
 @Injectable()
 export class CommonEffects {
   constructor(
     private actions$: Actions,
+    private router: Router,
     private service: CommonService,
+    private session: SessionService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
@@ -53,7 +62,8 @@ export class CommonEffects {
       SET_ADMIN_SETTINGS_FAILURE,
       GET_PRIVACY_SETTINGS_FAILURE,
       GET_TERMS_SETTINGS_FAILURE,
-      CANCEL_AWAITING_TRANSACTION_FAILURE
+      CANCEL_AWAITING_TRANSACTION_FAILURE,
+      REQUEST_REPORT_FAILURE,
     )
     .map(toPayload)
     .do(payload => {
@@ -76,5 +86,41 @@ export class CommonEffects {
         data: `${payload}`,
         duration: 500,
       });
+    });
+
+  @Effect()
+  requestReport = this.actions$
+    .ofType(REQUEST_REPORT)
+    .map(toPayload)
+    .switchMap(payload => this.service.report(payload.type, payload.dateStart, payload.dateEnd, payload.id)
+      .map(() => new RequestReportSuccess())
+      .catch(() => {
+          return Observable.of(
+            new RequestReportFailure('Report cannot be generated at this moment. Please try again later.')
+          );
+        }
+      )
+    );
+
+  @Effect({dispatch: false})
+  requestReportSuccess = this.actions$
+    .ofType(
+      REQUEST_REPORT_SUCCESS,
+    )
+    .map(toPayload)
+    .do(() => {
+      if (this.session.isAdmin()) {
+        return;
+      }
+
+      this.dialog.open(UserConfirmResponseDialogComponent, {
+        data: {
+          message: 'Report is being prepared. You can download it from <strong>the Report section</strong>'+
+            '<br />'+
+            'Do you want to go to <strong>the Report section</strong>?',
+        }
+      })
+        .afterClosed()
+        .subscribe(result => result && this.router.navigateByUrl('/settings/reports'));
     });
 }

@@ -92,10 +92,13 @@ export class AdvertiserService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  getTargetingReach(targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
-    const body = {
+  getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
+    let body = {
       targeting: targetingArray ? parseTargetingForBackend(targetingArray) : {requires: [], excludes: []},
     };
+    if (sizes.length > 0) {
+      body.targeting.requires['size'] = sizes;
+    }
 
     return this.http.post<TargetingReachResponse>(`${environment.apiUrl}/options/campaigns/targeting-reach`, body);
   }
@@ -114,19 +117,5 @@ export class AdvertiserService {
     return shouldSubscribe && this.router.events
       .filter(event => event instanceof NavigationStart)
       .subscribe(() => this.store.dispatch(new ClearLastEditedCampaign()));
-  }
-
-  report(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignTotals[]> {
-    let options = {
-      responseType: 'blob' as 'json'
-    };
-
-    if (campaignId > 0) {
-      options['params'] = {
-        campaign_id: campaignId
-      };
-    }
-
-    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
   }
 }

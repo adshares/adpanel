@@ -4,7 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { environment } from 'environments/environment';
-import { BillingHistory, CalculateWithdrawalItem, NotificationItem } from 'models/settings.model';
+import {
+  BillingHistory,
+  CalculateWithdrawalItem,
+  NotificationItem,
+  ReportsList,
+} from 'models/settings.model';
 
 @Injectable()
 export class SettingsService {

@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { HandleSubscription } from 'common/handle-subscription';
+import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
-import { AdminService } from 'admin/admin.service';
-import { downloadCSVFile } from 'common/utilities/helpers';
-import { FormControl } from "@angular/forms";
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
+import { RequestReport } from 'store/common/common.actions';
+import { reportType } from 'models/enum/user.enum';
 
 @Component({
   selector: 'app-user-reports',
   templateUrl: './user-reports.component.html',
   styleUrls: ['./user-reports.component.scss'],
 })
-export class UserReportsComponent extends HandleSubscription implements OnInit {
+export class UserReportsComponent implements OnInit {
   from: FormControl = new FormControl();
   to: FormControl = new FormControl();
   today = new Date();
 
-  constructor(private adminService: AdminService) {
-    super();
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -25,20 +25,26 @@ export class UserReportsComponent extends HandleSubscription implements OnInit {
   }
 
   getReportAdvertisers() {
-    const from =  moment(this.from.value).format();
-    const to =  moment(this.to.value).format();
-    this.adminService.getReportAdvertisers(from, to)
-      .subscribe((data) => {
-        downloadCSVFile(data, from, to);
-      });
+    this.store.dispatch(
+      new RequestReport(
+        {
+          type: reportType.CAMPAIGNS,
+          dateStart: moment(this.from.value).format(),
+          dateEnd: moment(this.to.value).format(),
+        }
+      )
+    );
   }
 
   getReportPublishers() {
-    const from =  moment(this.from.value).format();
-    const to =  moment(this.to.value).format();
-    this.adminService.getReportPublishers(from, to)
-      .subscribe((data) => {
-        downloadCSVFile(data, from, to);
-      });
+    this.store.dispatch(
+      new RequestReport(
+        {
+          type: reportType.SITES,
+          dateStart: moment(this.from.value).format(),
+          dateEnd: moment(this.to.value).format(),
+        }
+      )
+    );
   }
 }

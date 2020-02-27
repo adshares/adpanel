@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings.component';
 import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component';
 import { BillingComponent } from './billing/billing.component';
+import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component';
 
 const settingsRoutes: Routes = [
   {
@@ -17,7 +18,11 @@ const settingsRoutes: Routes = [
         children: [
           {path: 'now-payments/:status', component: BillingComponent}
         ]
-      }
+      },
+      {
+        path: 'reports',
+        component: ReportsListWrapperComponent,
+      },
     ]
   },
 ];

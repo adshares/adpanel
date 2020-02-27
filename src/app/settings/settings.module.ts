@@ -28,6 +28,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ReferrerComponent } from 'settings/general-settings/referrer/referrer.component';
 import { ClickOutsideDirective } from 'settings/clickOutside.directive';
+import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component';
 library.add(fas);
 
 @NgModule({
@@ -58,6 +59,7 @@ library.add(fas);
     BillingHistoryFilterComponent,
     SettingsNavigationComponent,
     BillingHistoryWithdrawalComponent,
+    ReportsListWrapperComponent,
   ]
 })
 export class SettingsModule {
