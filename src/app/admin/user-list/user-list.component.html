@@ -1,66 +1,40 @@
-<app-user-reports></app-user-reports>
-<section
-  class="
-  container
-    col
-    user-list"
->
+<section class="user-list">
   <div
     class="
       row
       justify-between
       align-center"
   >
-    <h1
-      class="
-          dwmth-heading
-          dwmth-heading--primary"
-    >
-      Users
-    </h1>
-
-    <mat-accordion class="col-xs-12 user-list__filters">
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            <mat-icon>
-              filter_list
-            </mat-icon>
-            Filter banners by type:
-          </mat-panel-title>
-          <mat-panel-description>
-            {{ selectedType }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <mat-checkbox *ngFor="let type of userTypes"
-                      class="user-list__checkbox"
+    <div class="user-list__search-container row justify-between">
+      <div>
+        <mat-icon> search</mat-icon>
+        <label>Search for users:
+          <input
+            (ngModelChange)="onSearchChange()"
+            [(ngModel)]="userSearch"
+            class="user-list__input"
+            data-test="admin-user-search-input"
+            id="search"
+            placeholder="Search by email or domain"
+          >
+        </label>
+      </div>
+      <div class="user-list__filters">
+        <label>Filter banners by type:</label>
+        <mat-checkbox (change)="filterUsersByType(type, true)"
+                      *ngFor="let type of userTypes"
                       [checked]="type === selectedType"
-                      (change)="filterUsersByType(type, true)">
+                      class="user-list__checkbox">
           {{type}}
         </mat-checkbox>
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <div class="user-list__search-container">
-      <mat-icon> search</mat-icon>
-      <label>Search for users:
-        <input
-          id="search"
-          class="user-list__input"
-          placeholder="Search by email or domain"
-          [(ngModel)]="userSearch"
-          (ngModelChange)="onSearchChange()"
-          data-test="admin-user-search-input"
-        >
-      </label>
+      </div>
     </div>
   </div>
 
   <table class="user-list__items">
     <app-table-navigation
-      [navigationName]="'userListNavigation'"
       (sortTable)="sortTable($event)"
+      [navigationName]="'userListNavigation'"
     ></app-table-navigation>
     <tbody *ngIf="!isLoading; else loading"
            [@fadeIn]
@@ -76,19 +50,23 @@
     </tr>
     </tbody>
     <ng-template #loading>
-      <div class="loading-wrapper user-list__loader-container"
-           [@fadeIn]>
-        <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
-      </div>
+      <tr>
+        <td>
+          <div [@fadeIn]
+               class="loading-wrapper user-list__loader-container">
+            <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+          </div>
+        </td>
+      </tr>
     </ng-template>
   </table>
 
   <mat-paginator
+    (page)="handlePaginationEvent($event)"
     *ngIf="!userSearch.length"
     [@fadeIn]
     [length]="users ? users.total : 0"
     [pageSize]="15"
-    (page)="handlePaginationEvent($event)"
   >
   </mat-paginator>
 </section>

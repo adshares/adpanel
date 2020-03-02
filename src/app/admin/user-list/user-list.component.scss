@@ -20,14 +20,11 @@
     background: rgba(255, 255, 255, 0.9);
     align-items: center;
     justify-content: center;
-    position: absolute;
     top: 40px;
   }
 
-  &__filters {
-    margin-bottom: 0;
-    border: 1px solid pal(gray, nearly-white);
-    padding: 0;
+  &__filters label {
+    padding-right: 8px;
   }
 
   &__checkbox {
@@ -42,6 +39,9 @@
       $font-size: 18,
       $color: pal(gray, x-dark)
     );
+    mat-icon {
+      vertical-align: middle;
+    }
     margin-top: 2px;
     width: 100%;
     display: flex;

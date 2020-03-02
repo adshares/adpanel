@@ -76,6 +76,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   }
 
   onSearchChange() {
+    this.isLoading = true;
     const searchTerm = this.userSearch.toLowerCase().trim();
     this.filterUsersByType('All');
     this.store.dispatch(new adminActions.LoadUsers({searchPhrase: searchTerm}));

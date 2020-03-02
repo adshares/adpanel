@@ -9,7 +9,7 @@ import { FinancesSettingsComponent } from "admin/finances/finances-settings.comp
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
-import { UserListComponent } from "admin/user-list/user-list.component";
+import { UsersComponent } from "admin/users/users.component";
 
 const adminRoutes: Routes = [
   {
@@ -25,7 +25,7 @@ const adminRoutes: Routes = [
         children: [
           {
             path: '',
-            component: GeneralSettingsComponent,
+            component: UsersComponent,
           },
           {
             path: 'general',
@@ -47,7 +47,10 @@ const adminRoutes: Routes = [
             path: 'privacy',
             component: PrivacyAndTermsSettingsComponent,
           },
-          {path: 'users', component: UserListComponent},
+          {
+            path: 'users',
+            component: UsersComponent
+          },
         ]
       },
     ]

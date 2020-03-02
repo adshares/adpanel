@@ -34,6 +34,8 @@ import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settin
 import { LicenseComponent } from "admin/general-settings/license/license.component";
 import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blockade.component";
 import { ImpersonationService } from "../impersonation/impersonation.service";
+import { UsersComponent } from "admin/users/users.component";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   imports: [
@@ -52,7 +54,8 @@ import { ImpersonationService } from "../impersonation/impersonation.service";
     MatPaginatorModule,
     MatExpansionModule,
     MatCheckboxModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatTabsModule
   ],
   providers: [
     AdminGuard,
@@ -62,6 +65,7 @@ import { ImpersonationService } from "../impersonation/impersonation.service";
   declarations: [
     AdminComponent,
     DashboardComponent,
+    UsersComponent,
     UserListComponent,
     UserListItemComponent,
     UserReportsComponent,

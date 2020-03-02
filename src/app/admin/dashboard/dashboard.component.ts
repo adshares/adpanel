@@ -16,6 +16,16 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   licenseDetailUrl: string = null;
   settings = [
     {
+      title: 'Users',
+      description: '',
+      link: '/admin/dashboard/users',
+      values: [
+        {name: 'Users List', icon: 'assets/images/user-gray.svg'},
+        {name: 'Publishers', icon: 'assets/images/user-gray.svg'},
+        {name: 'Reports', icon: 'assets/images/user-gray.svg'},
+      ],
+    },
+    {
       title: 'General settings',
       description: '',
       link: '/admin/dashboard/general',
@@ -60,15 +70,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       values: [
         {name: 'Email & password', icon: 'assets/images/preferences.svg'},
         {name: 'Referrer', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
-      title: 'Users',
-      description: '',
-      link: '/admin/dashboard/users',
-      values: [
-        {name: 'Reports', icon: 'assets/images/user-gray.svg'},
-        {name: 'Users List', icon: 'assets/images/user-gray.svg'},
       ],
     },
   ];
