@@ -36,6 +36,8 @@ import { PanelBlockadeComponent } from "admin/dashboard/panel-blockade/panel-blo
 import { ImpersonationService } from "../impersonation/impersonation.service";
 import { UsersComponent } from "admin/users/users.component";
 import { MatTabsModule } from "@angular/material/tabs";
+import { PublisherListComponent } from "admin/publisher-list/publisher-list.component";
+import { PublisherListItemComponent } from "admin/publisher-list/publisher-list-item/publisher-list-item.component";
 
 @NgModule({
   imports: [
@@ -68,6 +70,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     UsersComponent,
     UserListComponent,
     UserListItemComponent,
+    PublisherListComponent,
+    PublisherListItemComponent,
     UserReportsComponent,
     FinancesSettingsComponent,
     EarningsSettingsComponent,

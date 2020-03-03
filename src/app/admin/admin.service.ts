@@ -6,7 +6,8 @@ import {
   AdminSettings,
   AdminSettingsResponse,
   AdminWalletResponse,
-  UserInfoStats
+  PublisherInfo,
+  UserInfo
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from 'common/utilities/helpers';
@@ -18,13 +19,30 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(nextPage?: string, searchPhrase: string = ''): Observable<UserInfoStats[]> {
+  getUsers(nextPage?: string, searchPhrase: string = ''): Observable<UserInfo[]> {
     const url = (
       nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
       || nextPage
     ) || `${environment.serverUrl}/admin/users`;
     const params = searchPhrase.length ? `?q=${searchPhrase}` : '';
-    return this.http.get<UserInfoStats[]>(`${url}${params}`);
+    return this.http.get<UserInfo[]>(`${url}${params}`);
+  }
+
+  getPublishers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<PublisherInfo[]> {
+    const params = [];
+    if (groupBy) {
+      params.push('g=' + encodeURIComponent(groupBy));
+    }
+    if (interval) {
+      params.push('i=' + encodeURIComponent(interval));
+    }
+    if (searchPhrase) {
+      params.push('q=' + encodeURIComponent(searchPhrase));
+    }
+    if (minDailyViews) {
+      params.push('l=' + minDailyViews);
+    }
+    return this.http.get<PublisherInfo[]>(`${environment.serverUrl}/admin/publishers?${params.join("&")}`);
   }
 
   impersonateUser(id: number): Observable<string> {

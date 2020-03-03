@@ -53,10 +53,34 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
   ];
 
   userListNavigationItems = [
-    {title: 'email', columnWidth: 'col-xs-4', keys: ['email']},
-    {title: 'role', columnWidth: 'col-xs-2', hideArrows: true},
+    {title: 'Email', columnWidth: 'col-xs-4', keys: ['email']},
+    {title: 'Role', columnWidth: 'col-xs-2', hideArrows: true},
     {title: 'Impersonate', columnWidth: 'col-xs-2', hideArrows: true}
   ];
+
+  publisherListNavigationItems = [
+    {title: 'Domain', columnWidth: 'col-xs-3', keys: ['domain']},
+    {title: 'Email', columnWidth: 'col-xs-3', keys: ['email']},
+    {title: 'Views', columnWidth: 'col-xs-1-2', keys: ['views']},
+    {title: 'D1', columnWidth: 'col-xs-1-4', keys: ['viewsDiff']},
+    {title: 'C1', columnWidth: 'col-xs-1-4', keys: ['viewsChange']},
+    {title: 'IVR', columnWidth: 'col-xs-1-3', keys: ['ivr']},
+    {title: 'D2', columnWidth: 'col-xs-1-3', keys: ['ivrDiff']},
+    {title: 'C2', columnWidth: 'col-xs-1-3', keys: ['ivrChange']},
+    {title: 'Clicks', columnWidth: 'col-xs-1-3', keys: ['clicks']},
+    {title: 'D3', columnWidth: 'col-xs-1-3', keys: ['clicksDiff']},
+    {title: 'C3', columnWidth: 'col-xs-1-3', keys: ['clicksChange']},
+    {title: 'CTR', columnWidth: 'col-xs-1-3', keys: ['ctr']},
+    {title: 'D4', columnWidth: 'col-xs-1-3', keys: ['ctrDiff']},
+    {title: 'C4', columnWidth: 'col-xs-1-3', keys: ['ctrChange']},
+    {title: 'Revenue', columnWidth: 'col-xs-1-3', keys: ['revenue']},
+    {title: 'D5', columnWidth: 'col-xs-1-3', keys: ['revenueDiff']},
+    {title: 'C5', columnWidth: 'col-xs-1-3', keys: ['revenueChange']},
+    {title: 'RPM', columnWidth: 'col-xs-1-3', keys: ['rpm']},
+    {title: 'D6', columnWidth: 'col-xs-1-3', keys: ['rpmDiff']},
+    {title: 'C6', columnWidth: 'col-xs-1-3', keys: ['rpmChange']},
+  ];
+
 
   adUnitsNavigation = [
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name']},
@@ -96,6 +120,9 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
         break;
       case 'userListNavigation':
         this.navigationItems = [...this.userListNavigationItems];
+        break;
+      case 'publisherListNavigationItems':
+        this.navigationItems = [...this.publisherListNavigationItems];
         break;
       case 'adUnitsNavigation':
         this.navigationItems = [...this.adUnitsNavigation];
@@ -159,6 +186,6 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
   }
 
   normalize(name: string) {
-    return name.toLowerCase().replace(/[^a-z]+/, '-');
+    return name.toLowerCase().replace(/[^a-z0-9]+/, '-');
   }
 }

@@ -1,5 +1,11 @@
 @import '../../../styles.scss';
 
+:host /deep/ {
+  section.container {
+    padding: 10px 0 !important;
+  }
+}
+
 .users {
   &__title {
     @include copy(

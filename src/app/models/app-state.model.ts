@@ -5,7 +5,7 @@ import {
   AdminWallet,
   BillingHistory,
   License,
-  NotificationItem,
+  NotificationItem, Publishers,
   TermsAndPrivacy,
   Users,
 } from './settings.model';
@@ -55,6 +55,7 @@ interface UserState {
 
 interface AdminState {
   users: Users;
+  publishers: Publishers;
   settings: AdminSettings;
   wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;

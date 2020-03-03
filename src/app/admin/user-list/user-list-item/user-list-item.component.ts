@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserInfoStats } from 'models/settings.model';
+import { UserInfo } from 'models/settings.model';
 import { AdminService } from "admin/admin.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "models/app-state.model";
@@ -13,7 +13,7 @@ import { SessionService } from "../../../session.service";
   styleUrls: ['./user-list-item.component.scss'],
 })
 export class UserListItemComponent {
-  @Input() userInfoStats: UserInfoStats;
+  @Input() user: UserInfo;
 
   constructor(
     private adminService: AdminService,
@@ -25,10 +25,10 @@ export class UserListItemComponent {
   }
 
   handleImpersonating() {
-    this.adminService.impersonateUser(this.userInfoStats.id).subscribe(
+    this.adminService.impersonateUser(this.user.id).subscribe(
       (token) => {
         this.impersonationService.setImpersonationToken(token);
-        if (this.userInfoStats.isPublisher) {
+        if (this.user.isPublisher) {
           this.router.navigate([`/${'publisher'}`, 'dashboard']);
           this.sessionService.setAccountTypeChoice('publisher');
         } else {
@@ -40,12 +40,12 @@ export class UserListItemComponent {
   }
 
   get userRole(): string {
-    if (this.userInfoStats.isAdmin) {
+    if (this.user.isAdmin) {
       return 'Admin'
-    } else if (this.userInfoStats.isAdvertiser && this.userInfoStats.isPublisher) {
+    } else if (this.user.isAdvertiser && this.user.isPublisher) {
       return 'Adv / Pub'
     } else {
-      return this.userInfoStats.isAdvertiser ? 'Advertiser' : 'Publisher'
+      return this.user.isAdvertiser ? 'Advertiser' : 'Publisher'
     }
   }
 }

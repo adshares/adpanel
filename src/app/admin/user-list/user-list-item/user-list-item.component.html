@@ -1,15 +1,15 @@
 <tr class="user-list-item">
   <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
-    {{ userInfoStats.email }}
+    {{ user.email }}
   </td>
   <td class="col-xs-2 user-list-item__cell"
-      [title]="userInfoStats.isAdvertiser && userInfoStats.isPublisher ? 'Advertiser and Publisher' : ''">
+      [title]="user.isAdvertiser && user.isPublisher ? 'Advertiser and Publisher' : ''">
     {{ userRole }}
   </td>
 
   <td class="col-xs-2 user-list-item__cell">
     <button
-      *ngIf="!userInfoStats.isAdmin"
+      *ngIf="!user.isAdmin"
       class="user-list-item__btn"
       (click)="handleImpersonating()"
     >
