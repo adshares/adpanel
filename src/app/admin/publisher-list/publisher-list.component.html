@@ -1,0 +1,98 @@
+<section class="publisher-list">
+  <div
+    class="
+      row
+      justify-between
+      align-center"
+  >
+    <div class="publisher-list__search-container row justify-between">
+      <div>
+        <mat-icon> search</mat-icon>
+        <label>Search for publisher:
+          <input
+            (ngModelChange)="onSearchChange()"
+            [(ngModel)]="searchPhrase"
+            class="publisher-list__input"
+            data-test="admin-user-search-input"
+            id="search"
+            placeholder="Search by email or domain"
+          >
+        </label>
+      </div>
+      <div class="publisher-list__filters">
+        <label>Group by:</label>
+        <mat-checkbox (change)="groupPublishers('domain')"
+                      [checked]="'domain' === groupBy"
+                      class="publisher-list__checkbox">
+          domain
+        </mat-checkbox>
+        <mat-checkbox (change)="groupPublishers('user')"
+                      [checked]="'user' === groupBy"
+                      class="publisher-list__checkbox">
+          email
+        </mat-checkbox>
+      </div>
+      <div class="publisher-list__filters">
+        <label>Interval:</label>
+        <mat-checkbox (change)="changeInterval('week')"
+                      [checked]="'week' === interval"
+                      class="publisher-list__checkbox">
+          week
+        </mat-checkbox>
+        <mat-checkbox (change)="changeInterval('day')"
+                      [checked]="'day' === interval"
+                      class="publisher-list__checkbox">
+          day
+        </mat-checkbox>
+      </div>
+      <div class="publisher-list__filters">
+        <label>Min daily views:
+        <input
+          (ngModelChange)="onMinDailyViewsChange()"
+          [(ngModel)]="minDailyViews"
+          type="number"
+          min="0"
+          step="1"
+          class="publisher-list__input"
+          id="minViews"
+        >
+      </label>
+      </div>
+    </div>
+  </div>
+
+  <table class="publisher-list__items">
+    <app-table-navigation
+      (sortTable)="sortTable($event)"
+      [navigationName]="'publisherListNavigationItems'"
+    ></app-table-navigation>
+    <tbody *ngIf="!isLoading; else loading"
+           class="col publisher-list__table-body">
+      <app-publisher-list-item
+        *ngFor="let publisher of filteredPublishers"
+        [publisher]="publisher"
+      ></app-publisher-list-item>
+    <tr *ngIf="!filteredPublishers.length"
+        class="publisher-list__loader-container">
+      NO RESULTS
+    </tr>
+    </tbody>
+    <ng-template #loading>
+      <tr>
+        <td>
+          <div class="loading-wrapper publisher-list__loader-container">
+            <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </table>
+
+  <mat-paginator
+    (page)="handlePaginationEvent($event)"
+    [length]="publishers ? publishers.data.length : 0"
+    [pageIndex]="page - 1"
+    [pageSize]="pageSize"
+  >
+  </mat-paginator>
+</section>

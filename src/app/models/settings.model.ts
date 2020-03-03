@@ -30,7 +30,7 @@ interface NotificationItem {
   email: string;
 }
 
-interface UserInfoStats {
+interface UserInfo {
   id: number;
   uuid: string;
   email: string;
@@ -40,7 +40,7 @@ interface UserInfoStats {
 }
 
 interface Users {
-  data: UserInfoStats[],
+  data: UserInfo[],
   currentPage: number,
   firstPageUrl: string,
   from: number,
@@ -52,6 +52,33 @@ interface Users {
   prevPageUrl: string | null,
   to: number,
   total: number,
+}
+
+interface PublisherInfo {
+  email: string,
+  domain: string,
+  views: number,
+  viewsDiff: number,
+  viewsChange: number,
+  ivr: number,
+  ivrDiff: number,
+  ivrChange: number,
+  clicks: number,
+  clicksDiff: number,
+  clicksChange: number,
+  ctr: number,
+  ctrDiff: number,
+  ctrChange: number,
+  revenue: number,
+  revenueDiff: number,
+  revenueChange: number,
+  rpm: number,
+  rpmDiff: number,
+  rpmChange: number,
+}
+
+interface Publishers {
+  data: PublisherInfo[];
 }
 
 interface AdminSettings {
@@ -149,7 +176,9 @@ export {
   BillingHistoryFilter,
   NotificationItem,
   Users,
-  UserInfoStats,
+  UserInfo,
+  Publishers,
+  PublisherInfo,
   AdminSettings,
   AdminWallet,
   AdsharesAddress,

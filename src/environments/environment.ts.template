@@ -12,5 +12,8 @@ export const environment = {
   currencySymbol: '${APP_CURRENCY_SYMBOL}',
   currencyCode: '${APP_CURRENCY_CODE}',
   cryptoSymbol: 'ADS',
-  cryptoCode: 'ADS'
+  cryptoCode: 'ADS',
+  supportEmail: '${SUPPORT_EMAIL}',
+  supportTelegram: '${SUPPORT_TELEGRAM}',
+  supportChat: '${SUPPORT_CHAT}'
 };

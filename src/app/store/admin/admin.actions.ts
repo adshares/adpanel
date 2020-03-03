@@ -4,13 +4,17 @@ import {
   AdminSettings,
   AdminSettingsResponse,
   AdminWalletResponse,
-  License,
-  UserInfoStats
+  License, PublisherInfo,
+  UserInfo
 } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
 export const LOAD_USERS_FAILURE = 'Users loading failure';
+
+export const LOAD_PUBLISHERS = 'Publishers loading';
+export const LOAD_PUBLISHERS_SUCCESS = 'Publishers loading success';
+export const LOAD_PUBLISHERS_FAILURE = 'Publishers loading failure';
 
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
@@ -54,12 +58,33 @@ export class LoadUsers implements Action {
 export class LoadUsersSuccess implements Action {
   readonly type: string = LOAD_USERS_SUCCESS;
 
-  constructor(public payload: UserInfoStats[]) {
+  constructor(public payload: UserInfo[]) {
   }
 }
 
 export class LoadUsersFailure implements Action {
   readonly type: string = LOAD_USERS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class LoadPublishers implements Action {
+  readonly type: string = LOAD_PUBLISHERS;
+
+  constructor(public payload: { groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number }) {
+  }
+}
+
+export class LoadPublishersSuccess implements Action {
+  readonly type: string = LOAD_PUBLISHERS_SUCCESS;
+
+  constructor(public payload: PublisherInfo[]) {
+  }
+}
+
+export class LoadPublishersFailure implements Action {
+  readonly type: string = LOAD_PUBLISHERS_FAILURE;
 
   constructor(public payload?: string) {
   }
@@ -238,6 +263,10 @@ export type actions =
   LoadUsers |
   LoadUsersSuccess |
   LoadUsersFailure |
+
+  LoadPublishers |
+  LoadPublishersSuccess |
+  LoadPublishersFailure |
 
   LoadAdminSettings |
   LoadAdminSettingsSuccess |

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger, } from '@angular/animations';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { UserInfoStats, Users } from 'models/settings.model';
+import { UserInfo, Users } from 'models/settings.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import * as adminActions from 'store/admin/admin.actions';
@@ -35,7 +35,7 @@ import { appSettings } from 'app-settings';
 export class UserListComponent extends HandleSubscription implements OnInit {
   userSearch = '';
   users: Users;
-  filteredUsers: UserInfoStats[];
+  filteredUsers: UserInfo[];
   userTypes = appSettings.USER_TYPES;
   selectedType = 'All';
   isLoading: boolean = true;
@@ -76,6 +76,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   }
 
   onSearchChange() {
+    this.isLoading = true;
     const searchTerm = this.userSearch.toLowerCase().trim();
     this.filterUsersByType('All');
     this.store.dispatch(new adminActions.LoadUsers({searchPhrase: searchTerm}));

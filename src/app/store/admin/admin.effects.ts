@@ -31,7 +31,7 @@ import {
   SET_PRIVACY_SETTINGS,
   GET_LICENSE,
   GetLicenseSuccess,
-  GetLicenseFailure,
+  GetLicenseFailure, LOAD_PUBLISHERS, LoadPublishersSuccess, LoadPublishersFailure,
 } from './admin.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
@@ -58,6 +58,16 @@ export class AdminEffects {
     .switchMap((payload) => this.service.getUsers(payload.nextPage, payload.searchPhrase)
       .map((users) => new LoadUsersSuccess(users))
       .catch((err) => Observable.of(new LoadUsersFailure(err)))
+    );
+
+  @Effect()
+  loadPublishers$ = this.actions$
+    .ofType(LOAD_PUBLISHERS)
+    .debounceTime(100)
+    .map(toPayload)
+    .switchMap((payload) => this.service.getPublishers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
+      .map((publishers) => new LoadPublishersSuccess(publishers))
+      .catch((err) => Observable.of(new LoadPublishersFailure(err)))
     );
 
   @Effect()

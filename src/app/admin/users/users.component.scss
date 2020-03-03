@@ -1,0 +1,17 @@
+@import '../../../styles.scss';
+
+:host /deep/ {
+  section.container {
+    padding: 10px 0 !important;
+  }
+}
+
+.users {
+  &__title {
+    @include copy(
+      $font-size: 20,
+      $color: pal(navy, base),
+      $font-weight: bold
+    );
+  }
+}

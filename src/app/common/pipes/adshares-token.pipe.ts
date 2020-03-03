@@ -20,7 +20,9 @@ export class AdsharesTokenPipe implements PipeTransform {
   transform(value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol',): string {
     let symbol, code;
 
-    if (currency === CRYPTO) {
+    if (format === 'none') {
+      symbol = code = '';
+    } else if (currency === CRYPTO) {
       symbol = format === 'symbol' ? environment.cryptoSymbol : '';
       code = format !== 'symbol' ? environment.cryptoSymbol : '';
     } else if (currency === CRYPTO_BTC) {
