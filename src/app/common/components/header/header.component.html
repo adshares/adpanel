@@ -88,6 +88,58 @@
       row
       align-center"
   >
+
+    <div
+      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      class="
+        dwmth-btn
+        dwmth-btn--transparent
+        row
+        align-center
+        help-menu"
+      (mouseover)="toggleHelpMenu(true)"
+      (mouseleave)="toggleHelpMenu(false)"
+    >
+      <fa-icon
+        [icon]="faLifeRing"
+        class="
+            dwmth-icon
+            dwmth-icon--prepend"></fa-icon>
+      <span>Support</span>
+      <ul
+        class="
+          settings-menu
+          dwmth-copy"
+        [class.open]="helpMenuOpen"
+      >
+        <li class="settings-menu__item" *ngIf="supportChat">
+          <fa-icon
+            [icon]="faComments"
+            class="
+            dwmth-icon
+            dwmth-icon--prepend"></fa-icon>
+          <a href="{{supportChat}}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
+        </li>
+        <li class="settings-menu__item" *ngIf="supportTelegram">
+          <fa-icon
+            [icon]="faPaperPlane"
+            class="
+            dwmth-icon
+            dwmth-icon--prepend"></fa-icon>
+          <a href="https://t.me/{{supportTelegram}}" target="_blank" rel="noopener nofollow noreferrer">@{{supportTelegram}}</a>
+        </li>
+        <li class="settings-menu__item" *ngIf="supportEmail">
+          <fa-icon
+            [icon]="faEnvelope"
+            class="
+            dwmth-icon
+            dwmth-icon--prepend"></fa-icon>
+          <a href="mailto:{{supportEmail}}" target="_blank" rel="noopener nofollow noreferrer">{{supportEmail}}</a>
+        </li>
+      </ul>
+    </div>
+
+
     <button
       *ngIf="activeUserType !== userRolesEnum.ADMIN"
       class="

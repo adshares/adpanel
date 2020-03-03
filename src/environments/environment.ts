@@ -12,5 +12,8 @@ export const environment = {
   currencySymbol: '$',
   currencyCode: 'USD',
   cryptoSymbol: 'ADS',
-  cryptoCode: 'ADS'
+  cryptoCode: 'ADS',
+  supportEmail: 'office@adshares.net',
+  supportTelegram: 'AdsharesNet',
+  supportChat: 'https://t.me/adshares'
 };
