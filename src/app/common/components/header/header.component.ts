@@ -12,6 +12,8 @@ import { User } from 'models/user.model';
 import { environment } from 'environments/environment';
 import { SetUser } from 'store/auth/auth.actions';
 import { CODE, CRYPTO } from 'common/utilities/consts';
+import { faLifeRing, faEnvelope, faPaperPlane, faComments } from "@fortawesome/free-solid-svg-icons";
+import { appSettings } from 'app-settings';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +21,9 @@ import { CODE, CRYPTO } from 'common/utilities/consts';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent extends HandleSubscription implements OnInit {
+  supportEmail;
+  supportTelegram;
+  supportChat;
   crypto: string = CRYPTO;
   code: string = CODE;
   totalFunds: number;
@@ -26,6 +31,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   activeUserType: number;
   userRolesEnum = userRolesEnum;
   settingsMenuOpen = false;
+  helpMenuOpen = false;
+  faLifeRing = faLifeRing;
+  faEnvelope = faEnvelope;
+  faPaperPlane = faPaperPlane;
+  faComments = faComments;
   notificationsTotal: number;
   envContext: string | null = environment.context;
 
@@ -40,6 +50,9 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit() {
+    this.supportEmail = appSettings.SUPPORT_EMAIL;
+    this.supportTelegram = appSettings.SUPPORT_TELEGRAM;
+    this.supportChat = appSettings.SUPPORT_CHAT;
     this.store.dispatch(new SetUser());
     const accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType === SessionService.ACCOUNT_TYPE_ADMIN
@@ -72,6 +85,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
 
   toggleSettingsMenu(state) {
     this.settingsMenuOpen = state;
+  }
+
+  toggleHelpMenu(state) {
+    this.helpMenuOpen = state;
   }
 
   openAddFundsDialog() {

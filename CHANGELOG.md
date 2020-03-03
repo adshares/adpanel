@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.2] - 2020-03-03
+### Added
+- Publishers stats
+- Support links
+
 ## [1.6.1] - 2020-02-19
 ### Added
 - Asynchronous report generation
@@ -251,7 +256,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.6.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.6.2...develop
+[1.6.2]: https://github.com/adshares/adpanel/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/adshares/adpanel/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/adshares/adpanel/compare/v1.5.8...v1.6.0
 [1.5.8]: https://github.com/adshares/adpanel/compare/v1.5.7...v1.5.8

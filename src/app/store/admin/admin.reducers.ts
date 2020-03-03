@@ -7,12 +7,13 @@ import {
   GET_TERMS_SETTINGS_SUCCESS,
   GET_LICENSE_SUCCESS,
   GET_LICENSE_FAILURE,
-  LOAD_ADMIN_WALLET_SUCCESS,
+  LOAD_ADMIN_WALLET_SUCCESS, LOAD_PUBLISHERS_SUCCESS,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
   users: null,
+  publishers: null,
   settings: {
     adserverName: '',
     coldWalletAddress: '',
@@ -42,6 +43,11 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
        users: action.payload
+      };
+    case LOAD_PUBLISHERS_SUCCESS:
+      return {
+        ...state,
+        publishers: action.payload
       };
     case GET_LICENSE_SUCCESS:
       if (action.payload.status !== 1) {

@@ -1,0 +1,68 @@
+<tr class="publisher-list-item">
+  <td class="col-xs-3 publisher-list-item__cell group">
+    <div>{{ publisher.domain }}</div>
+  </td>
+  <td class="col-xs-3 publisher-list-item__cell group">
+    <div>{{ publisher.email }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.views | number }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.viewsChange > 0, 'change__negative': publisher.viewsChange < 0 }"
+  >
+    <div>{{ publisher.viewsDiff | number }}</div>
+    <div>{{ publisher.viewsChange | percent:'1.1-1' }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.ivr | percent:'1.2-2' }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.ivrChange > 0, 'change__negative': publisher.ivrChange < 0 }"
+  >
+    <div>{{ publisher.ivrDiff * 100 | number:'1.2-2' }}</div>
+    <div>{{ publisher.ivrChange | percent:'1.1-1' }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.clicks | number }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.clicksChange > 0, 'change__negative': publisher.clicksChange < 0 }"
+  >
+    <div>{{ publisher.clicksDiff | number }}</div>
+    <div>{{ publisher.clicksChange | percent:'1.1-1' }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.ctr | percent:'1.2-2' }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.ctrChange > 0, 'change__negative': publisher.ctrChange < 0 }"
+  >
+    <div>{{ publisher.ctrDiff * 100 | number:'1.2-2' }}</div>
+    <div>{{ publisher.ctrChange | percent:'1.1-1' }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.revenue | formatMoney:2 }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.revenueChange > 0, 'change__negative': publisher.revenueChange < 0 }"
+  >
+    <div>{{ publisher.revenueDiff | formatMoney:2:'other':'none' }}</div>
+    <div>{{ publisher.revenueChange | percent:'1.1-1' }}</div>
+  </td>
+  <td class="col-xs-1-2 publisher-list-item__cell align-right">
+    {{ publisher.rpm | formatMoney:2 }}
+  </td>
+  <td
+    class="col-xs-1-2 publisher-list-item__cell change"
+    [ngClass]="{'change__positive': publisher.rpmChange > 0, 'change__negative': publisher.rpmChange < 0 }"
+  >
+    <div>{{ publisher.rpmDiff | formatMoney:2:'other':'none' }}</div>
+    <div>{{ publisher.rpmChange | percent:'1.1-1' }}</div>
+  </td>
+</tr>

@@ -95,14 +95,21 @@
   color: pal(gray);
 }
 
+.help-menu {
+  position: relative;
+
+  .settings-menu__item:first-of-type {
+    padding-bottom: 8px;
+  }
+}
+
 .settings-menu,
 .choose-user-menu {
   position: absolute;
   top: 36px;
   background: pal(white);
   z-index: 999;
-  width: 100%;
-  min-width: 180px;
+  width: 240px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;

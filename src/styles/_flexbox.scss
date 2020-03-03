@@ -78,14 +78,27 @@ $column_sizes: 12;
   @include media($viewport_size_fullname) {
     @for $i from 0 through $column_sizes {
       .col-#{$viewport_size}-#{$i} {
-        flex-basis: $i/12 * 100%;
-        max-width: $i/12 * 100%;
+        flex-basis: $i/$column_sizes * 100%;
+        max-width: $i/$column_sizes * 100%;
         padding-left: 0.5em;
         padding-right: 0.5em;
       }
 
       .col-#{$viewport_size}-offset-#{$i} {
-        margin-left: $i/12 * 100%;
+        margin-left: $i/$column_sizes * 100%;
+      }
+    }
+
+    @for $i from 2 through 4 {
+      .col-#{$viewport_size}-1-#{$i} {
+        flex-basis: 1/$column_sizes/$i * 100%;
+        max-width: 1/$column_sizes/$i * 100%;
+        padding-left: (0.5/$i)em;
+        padding-right: (0.5/$i)em;
+      }
+
+      .col-#{$viewport_size}-offset-1-#{$i} {
+        margin-left: 1/$column_sizes/$i * 100%;
       }
     }
 
@@ -100,6 +113,7 @@ $column_sizes: 12;
     }
   }
 }
+
 
 @each $viewport_size, $viewport_size_fullname in $viewport_sizes_down_without_size {
   @include media($viewport_size_fullname) {
