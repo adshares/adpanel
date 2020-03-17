@@ -45,8 +45,7 @@
   background: pal(gray, light);
 }
 
-.stopmark,
-.input-valid {
+.stopmark-unselected.input-valid {
   position: absolute;
   bottom: 15px;
   right: 14px;
@@ -56,9 +55,7 @@
   background: pal(red);
 }
 
-.stopmark,
-.input-valid,
-.stopmark-unselected {
+.stopmark-unselected, .stopmark-unselected.input-valid {
   &:after {
     content: '';
     position: absolute;
