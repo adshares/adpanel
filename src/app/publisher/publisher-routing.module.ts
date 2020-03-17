@@ -58,10 +58,6 @@ const publisherRoutes: Routes = [
             resolve: {languagesList: LanguagesListResolver}
           },
           {
-            path: 'additional-filtering',
-            component: EditSiteAdditionalTargetingComponent
-          },
-          {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
@@ -70,6 +66,10 @@ const publisherRoutes: Routes = [
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
+          },
+          {
+              path: 'additional-filtering',
+              component: EditSiteAdditionalTargetingComponent
           },
           {
             path: 'summary',
@@ -91,10 +91,6 @@ const publisherRoutes: Routes = [
             resolve: {languagesList: LanguagesListResolver}
           },
           {
-            path: 'additional-filtering',
-            component: EditSiteAdditionalTargetingComponent
-          },
-          {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
@@ -103,6 +99,10 @@ const publisherRoutes: Routes = [
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
+          },
+          {
+              path: 'additional-filtering',
+              component: EditSiteAdditionalTargetingComponent
           },
           {
             path: 'summary',

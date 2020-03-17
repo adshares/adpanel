@@ -51,9 +51,9 @@ const editSiteComponents = [
   EditSiteComponent,
   EditSiteNavigationComponent,
   EditSiteBasicInformationComponent,
-  EditSiteAdditionalTargetingComponent,
   EditSitePopsSettingsComponent,
   EditSiteCreateAdUnitsComponent,
+  EditSiteAdditionalTargetingComponent,
   EditSiteSummaryComponent,
 ];
 

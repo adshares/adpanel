@@ -87,8 +87,8 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
   onStepBack(): void {
     if (this.createSiteMode) {
       this.router.navigate(
-        ['/publisher', 'create-site', 'additional-filtering'],
-        {queryParams: {step: 2}}
+        ['/publisher', 'create-site', 'basic-information'],
+        {queryParams: {step: 1}}
       );
     } else {
       const siteId = this.site.id;
@@ -109,7 +109,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     } else {
       this.router.navigate(
         ['/publisher', 'create-site', 'create-ad-units'],
-        {queryParams: {step: 4}}
+        {queryParams: {step: 3}}
       );
     }
     this.changesSaved = false;

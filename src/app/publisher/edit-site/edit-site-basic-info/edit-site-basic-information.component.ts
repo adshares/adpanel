@@ -87,7 +87,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.store.dispatch(new SaveLastEditedSite(this.site));
     this.changesSaved = true;
     this.router.navigate(
-        ['/publisher', 'create-site', 'additional-filtering'],
+        ['/publisher', 'create-site', 'pops-settings'],
       {queryParams: {step: 2}}
     );
   }
