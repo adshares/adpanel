@@ -30,6 +30,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   @ViewChild('searchInput') searchInput: ElementRef;
   @Input() targetingOptions;
   @Input() addedItems: TargetingOptionValue[];
+  @Input() checkClass: String = "checkmark";
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   selectedItems: TargetingOptionValue[] = [];
@@ -39,6 +40,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   targetingOptionsForSearch: TargetingOption[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
+
 
   backAvailable = false;
   optionsHasValue = false;

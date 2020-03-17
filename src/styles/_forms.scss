@@ -35,6 +35,45 @@
   }
 }
 
+.stopmark-unselected {
+  position: absolute;
+  bottom: 7px !important;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: pal(gray, light);
+}
+
+.stopmark,
+.input-valid {
+  position: absolute;
+  bottom: 15px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: pal(red);
+}
+
+.stopmark,
+.input-valid,
+.stopmark-unselected {
+  &:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    width: 3px;
+    height: 6px;
+    border: solid pal(white);
+    border-width: 0 3px 0px 0;
+    transform: rotate(90deg);
+  }
+}
+
+
+
 .dwmth-form {
   &-input__box {
     display: flex;

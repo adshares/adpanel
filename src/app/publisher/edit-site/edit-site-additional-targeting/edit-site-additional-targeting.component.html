@@ -98,12 +98,16 @@
               <app-targeting-select
                 [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
+                [checkClass]="'stopmark'"
                 (itemsChange)="updateExcludedItems($event)"
               ></app-targeting-select>
             </div>
           </div>
 
           <div class="col-xs-6">
+            <p _ngcontent-c7="" class="dwmth-copy--redder dwmth-copy--plus">
+              These ads will NOT appear on your website:
+            </p>
             <app-targeting-display
               [items]="excludedItems"
               [canRemove]="true"
