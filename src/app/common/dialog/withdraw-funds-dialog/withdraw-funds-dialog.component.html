@@ -186,30 +186,7 @@
           </p>
         </div>
 
-        <button
-          (click)="toggleMemoInput($event, !memoInputActive);"
-          class="
-              withdraw-funds__btns-wrapper
-              dwmth-btn
-              dwmth-btn--large
-              dwmth-btn--white
-              dwmth-btn--block
-              row
-              align-center"
-          data-test="common-withdraw-funds-form-toggle-memo-input"
-        >
-          <img
-            alt="Add message"
-            class="dwmth-icon dwmth-icon--prepend"
-            src="/assets/images/plus-circle--blue.svg"
-          >
-          <span class="dwmth-copy dwmth-copy--x-dark dwmth-copy--semi">
-            Add message
-          </span>
-        </button>
-
         <div
-          *ngIf="memoInputActive"
           class="dwmth-form-input__box"
         >
           <label
@@ -230,6 +207,13 @@
             class="error-msg"
           >
             Invalid message format
+          </span>
+
+          <span
+                  *ngIf="this.withdrawForm.hasError('memoError')"
+                  class="error-msg"
+          >
+            Exchange address provided. You must include a message provided by the exchange.
           </span>
         </div>
         <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">

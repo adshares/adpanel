@@ -44,7 +44,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
   withdrawForm: FormGroup;
   addressError = false;
-  memoInputActive = false;
   withdrawServerError: boolean = false;
 
   adsWithdrawFormSubmitted = false;
@@ -144,7 +143,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   createForm(): void {
     this.isFormBeingSubmitted = false;
     this.adsWithdrawFormSubmitted = false;
-    this.memoInputActive = false;
     this.addressError = false;
     this.withdrawForm = this.useBtcWithdraw ? this.createBtcForm() : this.createAdsForm();
   }
@@ -157,6 +155,15 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
       ]),
       amount: new FormControl('', [Validators.required]),
       memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{64}'))
+    }, (group: FormGroup): {[key: string]: any} => {
+        let address = group.controls['address'];
+        let memo = group.controls['memo'];
+
+        if (address.value == '0001-0000002C-7E81' && memo.value == '') {
+          return {
+              memoError: true
+          };
+        }
     });
   }
 
@@ -172,11 +179,6 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         Validators.max(this.btcInfo.maxAmount)
       ]),
     });
-  }
-
-  toggleMemoInput(event: Event, state: boolean) {
-    event.preventDefault();
-    this.memoInputActive = state;
   }
 
   calculateBtcWithdrawAdsAmount(value) {
