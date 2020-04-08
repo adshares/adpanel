@@ -7,7 +7,10 @@
   padding: 8px 16px;
   color: pal(gray, dark);
   background: pal(white);
-  margin-left: 10px;
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
 
   &.q-great {
     border-color: pal(green);

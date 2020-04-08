@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
-import { AdUnitMetaData, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
@@ -46,6 +46,10 @@ export class PublisherService {
 
   getSite(id: number): Observable<Site> {
     return this.http.get<Site>(`${environment.apiUrl}/sites/${id}`);
+  }
+
+  getSiteRank(id: number): Observable<SiteRank> {
+    return this.http.get<SiteRank>(`${environment.apiUrl}/sites/${id}/rank`);
   }
 
   saveSite(site: Site): Observable<Site> {

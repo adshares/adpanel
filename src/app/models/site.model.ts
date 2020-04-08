@@ -24,6 +24,11 @@ interface Site {
   code?: string;
 }
 
+interface SiteRank {
+  rank: number;
+  info: string;
+}
+
 interface SitesTotals {
   averageRpc?: number;
   averageRpm: number;
@@ -75,4 +80,4 @@ interface SiteCodeItem {
   code: string;
 }
 
-export { Site, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };
+export { Site, SiteRank, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };
