@@ -24,6 +24,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
+  private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;
   faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
@@ -34,6 +35,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   changesSaved: boolean = false;
   websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
   websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
+  websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
 
   constructor(
@@ -113,18 +115,19 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       ...this.site,
       name: this.siteBasicInfoForm.controls['name'].value,
       domain: this.siteBasicInfoForm.controls['domain'].value,
+      url: this.siteBasicInfoForm.controls['url'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
   }
 
-  onDomainFocus(): void {
+  onUrlFocus(): void {
     const domain = this.siteBasicInfoForm.get('domain').value;
     const name = this.siteBasicInfoForm.get('name').value;
     this.overwriteNameByDomain = name.length == 0 || name == domain;
   }
 
-  onDomainBlur(): void {
-    const domain = this.extractDomain(this.siteBasicInfoForm.get('domain').value);
+  onUrlBlur(): void {
+    const domain = this.extractDomain(this.siteBasicInfoForm.get('url').value);
     this.siteBasicInfoForm.get('domain').setValue(domain);
     if (this.overwriteNameByDomain) {
       this.siteBasicInfoForm.get('name').setValue(domain);
@@ -150,7 +153,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       domain: new FormControl(siteInitialState.domain, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX),
-        Validators.pattern('^.+\..+$')
+        Validators.pattern(/^.+\..+$/)
+      ]),
+      url: new FormControl(siteInitialState.url, [
+        Validators.required,
+        Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX),
+        Validators.pattern(/^https?:\/\/.+\..+$/i)
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });

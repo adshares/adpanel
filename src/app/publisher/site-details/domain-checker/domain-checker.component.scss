@@ -8,8 +8,8 @@
   color: pal(gray, dark);
   background: pal(white);
 
-  &:not(:first-child) {
-    margin-left: 10px;
+  &:not(:last-child) {
+    margin-right: 10px;
   }
 
   &.q-great {

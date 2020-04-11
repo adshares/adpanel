@@ -27,14 +27,14 @@
     >
       <div class="dwmth-form-input__box">
         <label
-          for="siteDomain"
+          for="siteUrl"
           class="dwmth-form-label"
         >
-          Website domain (URL)
+          Website URL
           <fa-icon
             matTooltipClass="dwmth-mat-tooltip"
             matTooltip="
-              Enter your website domain or an URL address.
+              Enter your website's URL address.
               Ad units will be displayed only under the specified domain."
             matTooltipPosition="right"
             [icon]="faQuestionCircle"
@@ -42,31 +42,37 @@
         </label>
 
         <input
-          formControlName="domain"
-          id="siteDomain"
+          formControlName="url"
+          id="siteUrl"
           class="
             dwmth-form-input
             dwmth-form-input--full"
           type="text"
-          (focus)="onDomainFocus()"
-          (blur)="onDomainBlur()"
-          data-test="publisher-edit-site-basic-information-form-domain"
+          (focus)="onUrlFocus()"
+          (blur)="onUrlBlur()"
+          data-test="publisher-edit-site-basic-information-form-url"
         >
         <span
           class="input-valid"
-          *ngIf="siteBasicInfoForm.get('domain').valid && siteBasicInfoForm.get('domain').touched"
+          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').valid && siteBasicInfoForm.get('url').touched"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!siteBasicInfoForm.get('domain').valid && siteBasicInfoSubmitted"
+          *ngIf="!(siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').valid) && siteBasicInfoSubmitted"
         >
-          Please provide a valid domain.
+          Please provide a valid URL. Protocol http(s) is required.
         </span>
         <span
           class="error-msg"
-          *ngIf="siteBasicInfoForm.get('domain').hasError('maxlength')"
+          *ngIf="siteBasicInfoForm.get('url').hasError('maxlength')"
         >
-          Limit the length to at most {{ websiteDomainLengthMax }} characters
+          Limit the length to at most {{ websiteUrlLengthMax }} characters
+        </span>
+        <span
+          class="error-msg"
+          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').hasError('maxlength')"
+        >
+          Limit the length of domain to at most {{ websiteDomainLengthMax }} characters
         </span>
       </div>
 
