@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Router } from "@angular/router";
+import { MatDialog } from '@angular/material/dialog';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -15,6 +16,7 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/takeLast";
 import * as moment from "moment";
 import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
+import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 
 @Injectable()
 export class PublisherEffects {
@@ -22,6 +24,7 @@ export class PublisherEffects {
     private actions$: Actions,
     private service: PublisherService,
     private router: Router,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -75,6 +78,12 @@ export class PublisherEffects {
     .switchMap((payload) => this.service.saveSite(payload)
       .switchMap((site) => {
         this.router.navigate(['/publisher', 'dashboard']);
+        this.dialog.open(ConfirmResponseDialogComponent, {
+          data: {
+            title: 'The site has been added successfully',
+            message: 'The site is pending verification.\nYou will be notified by an e-mail when the status changes.',
+          }
+        });
 
         return [
           new publisherActions.AddSiteToSitesSuccess(site),

@@ -15,6 +15,7 @@ export const siteInitialState: Site = {
   status: siteStatusEnum.DRAFT,
   name: '',
   domain: '',
+  url: '',
   primaryLanguage: '',
   requireClassified: false,
   excludeUnclassified: true,

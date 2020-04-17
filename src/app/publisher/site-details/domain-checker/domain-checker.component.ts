@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { HttpClient } from '@angular/common/http';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
 import { timer } from 'rxjs/observable/timer';
+import { SiteRank } from 'models/site.model';
 
 enum PageRankInfo {
   OK = 'ok',
@@ -23,8 +23,8 @@ enum PageRankInfo {
   styleUrls: ['./domain-checker.component.scss'],
 })
 export class DomainCheckerComponent extends HandleSubscription implements OnInit {
-  private static readonly UPDATE_INTERVAL = 300000;//5 * 60 * 1000 s minutes
-  @Input() domain: string;
+  private static readonly UPDATE_INTERVAL = 300000;//5 * 60 * 1000 = 5 minutes
+  @Input() siteId: number;
   faQuestionCircle = faQuestionCircle;
 
   pageRank: number = 0;
@@ -32,15 +32,15 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   inVerification: boolean = true;
   isBanned: boolean = false;
 
-  constructor(private publisherService: PublisherService, private http: HttpClient) {
+  constructor(private publisherService: PublisherService) {
     super();
   }
 
   ngOnInit(): void {
     const domainCheckSubscription = timer(0, DomainCheckerComponent.UPDATE_INTERVAL)
-      .switchMap(() => this.http.get<any>('https://gitoku.com/api/v1/domain/' + encodeURIComponent(this.domain)))
+      .switchMap(() => this.publisherService.getSiteRank(this.siteId))
       .subscribe(
-        (response: any) => {
+        (response: SiteRank) => {
           this.updateMessage(response.rank || 0, response.info || PageRankInfo.UNKNOWN);
         },
         () => this.updateMessage(0, PageRankInfo.UNKNOWN)
@@ -54,21 +54,6 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
     this.isBanned = !this.inVerification && pageRank <= 0;
     this.pageRank = Math.round(pageRank * 10);
     this.pageRankInfo = this.tooltipPageRankInfo(pageRankInfo);
-  }
-
-  rankQuality(): string {
-    let quality = '';
-    if (this.pageRank >= 7) {
-      quality = 'great';
-    } else if (this.pageRank >= 3) {
-      quality = 'good';
-    } else if (this.pageRank > 0) {
-      quality = 'medium';
-    } else {
-      quality = 'bad';
-    }
-
-    return quality;
   }
 
   cpaQuality(): string {
