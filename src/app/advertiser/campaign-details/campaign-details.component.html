@@ -157,10 +157,15 @@
                       label">
               Target URL:
             </p>
-            <p class="dwmth-copy dwmth-copy--dark dwmth-copy--semi"
-               data-test="advertiser-campaign-target-url">
+            <a
+              href="{{ campaign.basicInformation.targetUrl }}"
+              rel="nofollow noopener noreferrer"
+              target="_blank"
+              class="dwmth-copy dwmth-copy--dark dwmth-copy--semi"
+              data-test="advertiser-campaign-target-url"
+            >
               {{ campaign.basicInformation.targetUrl }}
-            </p>
+            </a>
           </div>
           <!--<div>-->
             <!--<p-->
