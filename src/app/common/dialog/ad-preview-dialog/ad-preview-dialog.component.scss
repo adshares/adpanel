@@ -1,0 +1,29 @@
+a {
+  outline: none !important;
+}
+
+.ad-preview {
+  &__wrapper {
+    display: flex;
+    justify-content: center
+  }
+
+  &__container {
+    position: relative;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+}

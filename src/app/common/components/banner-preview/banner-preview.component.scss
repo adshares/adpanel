@@ -1,16 +1,15 @@
-:host {
-  overflow: hidden;
-  background: #fff;
-  z-index: 1;
-
-  &:hover {
-    overflow: visible;
-  }
-}
+//:host {
+//  overflow: hidden;
+//  background: #fff;
+//  z-index: 1;
+//
+//  //&:hover {
+//  //  overflow: visible;
+//  //}
+//}
 
 .banner-preview {
   position: relative;
-  cursor: pointer;
   height: 100px;
   align-items: center;
   display: flex;
@@ -30,15 +29,23 @@
     max-width: 95%;
     max-height: 100px;
 
-    &:hover {
-      position: absolute;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 5px;
-      z-index: 999;
-      max-width: unset;
-      max-height: unset;
-    }
+    //&:hover {
+    //  position: absolute;
+    //  display: flex;
+    //  justify-content: center;
+    //  align-items: center;
+    //  top: 5px;
+    //  z-index: 999;
+    //  max-width: unset;
+    //  max-height: unset;
+    //}
+  }
+
+  &__overlay {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
   }
 }

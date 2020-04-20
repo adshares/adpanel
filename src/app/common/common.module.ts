@@ -28,6 +28,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ClickOutsideDirective } from './clickOutside.directive'
 import { CommonService } from './common.service';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
+import { AdPreviewDialogComponent } from 'common/dialog/ad-preview-dialog/ad-preview-dialog.component';
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dialog.component';
 import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/change-address-dialog.component';
@@ -92,6 +93,7 @@ const matModules = [
 
 const dialogs = [
   AccountChooseDialogComponent,
+  AdPreviewDialogComponent,
   LeaveEditProcessDialogComponent,
   AddFundsDialogComponent,
   WithdrawFundsDialogComponent,

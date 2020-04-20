@@ -1,6 +1,13 @@
-<tr class="dwmth-box row justify-between no-gutters align-center classifier-list-item__row">
-  <td class="col-xs-7 row">
-    <app-banner-preview [banner]="bannerClassification"></app-banner-preview>
+<tr class="dwmth-box dwmth-box--no-padding row justify-between no-gutters align-center classifier-list-item__row">
+  <td
+    #appBannerPreviewContainer
+    class="col-xs-7"
+  >
+    <app-banner-preview
+      [banner]="bannerClassification"
+      [landingUrl]="bannerClassification.landingUrl"
+      [maxWidth]="appBannerPreviewContainer.clientWidth"
+    ></app-banner-preview>
   </td>
   <td class="col-xs-1 col">
     <span

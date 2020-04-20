@@ -9,15 +9,16 @@
   <ng-container *ngIf="showIframe && isHtml">
     <iframe
       [src]="url | trustUrl"
-      [sandbox]="'allow-same-origin allow-scripts'"
-      [title]="IFRAME_TITLE"
+      sandbox="allow-same-origin allow-scripts"
+      title="Ad Preview"
       scrolling="no"
-      class="banner-preview__banner"
       [ngStyle]="{
-                'width': bannerChosenSize.width,
-                'height': bannerChosenSize.height,
-                'overflow': 'hidden'
-              }"
+        'width': bannerChosenSize.width,
+        'height': bannerChosenSize.height,
+        'overflow': 'hidden',
+        'transform': 'scale(' + scale + ')',
+        'transform-origin': 'left'
+      }"
     ></iframe>
   </ng-container>
   <ng-container *ngIf="isDirectLink">
@@ -37,7 +38,10 @@
     Content not available
   </div>
 
+  <div
+    *ngIf="isImage || (showIframe && isHtml)"
+    class="banner-preview__overlay"
+    [style.width.px]="maxWidth"
+    (click)="zoomIn()"
+  ></div>
 </div>
-
-
-
