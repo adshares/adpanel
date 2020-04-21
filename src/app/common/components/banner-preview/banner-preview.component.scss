@@ -17,6 +17,7 @@
   &__direct {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 
     code {
       font-family: monospace !important;

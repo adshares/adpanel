@@ -349,17 +349,9 @@
         class="campaign-poster"
       >
         <iframe
-          class="campaign-edit-summary__iframe"
           *ngIf="ad.url"
-          [src]="ad.url | trustUrl"
-          (mouseover)="toggleTooltip(true, adIndex)"
-          (mouseleave)="toggleTooltip(false, adIndex)"
-        ></iframe>
-
-        <iframe
           class="campaign-edit-summary__iframe"
-          *ngIf="ad.html && ad.html !== ''"
-          [srcdoc]="ad.html | trustHtml"
+          [src]="ad.url | trustUrl"
           (mouseover)="toggleTooltip(true, adIndex)"
           (mouseleave)="toggleTooltip(false, adIndex)"
         ></iframe>

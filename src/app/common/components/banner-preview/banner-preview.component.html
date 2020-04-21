@@ -22,7 +22,10 @@
     ></iframe>
   </ng-container>
   <ng-container *ngIf="isDirectLink">
-    <div class="banner-preview__direct">
+    <div
+      [style.width.px]="maxWidth"
+      class="banner-preview__direct"
+    >
       <a [href]="url" target="_blank" rel="nofollow noopener noreferrer"><code>{{ url }}</code></a>
     </div>
   </ng-container>
@@ -40,8 +43,8 @@
 
   <div
     *ngIf="isImage || (showIframe && isHtml)"
-    class="banner-preview__overlay"
     [style.width.px]="maxWidth"
     (click)="zoomIn()"
+    class="banner-preview__overlay"
   ></div>
 </div>

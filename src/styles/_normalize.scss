@@ -80,7 +80,7 @@ input::-webkit-inner-spin-button {
   outline: none;
 }
 
-a:-webkit-any-link {
+a:any-link {
   color: pal(blue);
 }
 
