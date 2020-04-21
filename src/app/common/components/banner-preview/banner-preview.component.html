@@ -2,6 +2,7 @@
   <ng-container *ngIf="isImage">
     <img
       [src]="url"
+      [style.max-width.px]="maxWidth"
       alt="banner miniature"
       class="banner-preview__banner"
     />
