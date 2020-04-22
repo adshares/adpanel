@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Advertisement preview in dialog
 - Fetch domain rank (page rank) from adserver
+- Handling connection errors (dialog after a period of errors)
 - Target URL is clickable
 
 ## [1.6.2] - 2020-03-03

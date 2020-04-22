@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpEventType,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
@@ -10,9 +17,8 @@ import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-
-import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
+// import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
+// import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { environment } from 'environments/environment.ts';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ImpersonationService } from '../impersonation/impersonation.service';
@@ -23,9 +29,13 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 1;
 
+  private readonly connectionErrorMaxPeriodWithoutNotification = 20000;// 20 seconds
+  private connectionErrorFirstTimestamp?: number = null;
+  private connectionErrorHandled: boolean = false;
+
   constructor(
     private router: Router,
-    private pushNotificationsService: PushNotificationsService,
+    // private pushNotificationsService: PushNotificationsService,
     private dialog: MatDialog,
     private session: SessionService,
     private impersonationService: ImpersonationService
@@ -49,6 +59,34 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         --this.openedErrorDialogs;
       }
     );
+  }
+
+  private onConnectionSuccess(): void {
+    this.connectionErrorFirstTimestamp = null;
+    this.connectionErrorHandled = false;
+  }
+
+  private onConnectionFailure(): void {
+    if (null === this.connectionErrorFirstTimestamp) {
+      this.connectionErrorFirstTimestamp = Date.now();
+    }
+
+    if ((Date.now() - this.connectionErrorFirstTimestamp > this.connectionErrorMaxPeriodWithoutNotification)
+      && !this.connectionErrorHandled) {
+      this.connectionErrorHandled = true;
+
+      this.dialogError(
+        'Connection failed',
+        'Could not connect to our server API. Please check your Internet connection and try again.'
+      );
+
+      // TODO: review during notification preparation
+      // this.pushNotificationsService.addPushNotification({
+      //   type: pushNotificationTypesEnum.ERROR,
+      //   title: 'Error',
+      //   message: 'Cannot connect to server'
+      // });
+    }
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -80,6 +118,9 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
 
     return next.handle(request).do(
       (event: HttpEvent<any>) => {
+        if (HttpEventType.Response === event.type) {
+          this.onConnectionSuccess();
+        }
         this.extendTokenExpiration();
         return event;
       },
@@ -104,24 +145,18 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         }
 
         if (err instanceof HttpErrorResponse && err.status === 0 && err.statusText == 'Unknown Error') {
-          this.dialogError('Connection failed', 'Could not connect to our server API. Please check your Internet connection and try again.');
-          // TODO: review during notification preparation
-          this.pushNotificationsService.addPushNotification({
-            type: pushNotificationTypesEnum.ERROR,
-            title: 'Error',
-            message: 'Cannot connect to server'
-          });
+          this.onConnectionFailure();
           return err;
         }
 
         if (err instanceof HttpErrorResponse && err.status === HTTP_INTERNAL_SERVER_ERROR && (!err.url || -1 === err.url.indexOf('/check'))) {
           this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
           // TODO: review during notification preparation
-          this.pushNotificationsService.addPushNotification({
-            type: pushNotificationTypesEnum.ERROR,
-            title: 'Error',
-            message: 'Cannot connect to server'
-          });
+          // this.pushNotificationsService.addPushNotification({
+          //   type: pushNotificationTypesEnum.ERROR,
+          //   title: 'Error',
+          //   message: 'Cannot connect to server'
+          // });
           return err;
         }
 
