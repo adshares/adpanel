@@ -158,7 +158,8 @@
               Target URL:
             </p>
             <a
-              href="{{ campaign.basicInformation.targetUrl }}"
+              [href]="campaign.basicInformation.targetUrl | testPlaceholders"
+              [title]="campaign.basicInformation.targetUrl"
               rel="nofollow noopener noreferrer"
               target="_blank"
               class="dwmth-copy dwmth-copy--dark dwmth-copy--semi"
