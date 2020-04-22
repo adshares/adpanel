@@ -41,7 +41,6 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    private dialog: MatDialog
   ) {
     super();
   }
