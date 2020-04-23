@@ -2,6 +2,7 @@
   <ng-container *ngIf="isImage">
     <img
       [src]="url"
+      [style.max-width.px]="maxWidth"
       alt="banner miniature"
       class="banner-preview__banner"
     />
@@ -9,20 +10,29 @@
   <ng-container *ngIf="showIframe && isHtml">
     <iframe
       [src]="url | trustUrl"
-      [sandbox]="'allow-same-origin allow-scripts'"
-      [title]="IFRAME_TITLE"
+      sandbox="allow-same-origin allow-scripts"
+      title="Ad Preview"
       scrolling="no"
-      class="banner-preview__banner"
       [ngStyle]="{
-                'width': bannerChosenSize.width,
-                'height': bannerChosenSize.height,
-                'overflow': 'hidden'
-              }"
+        'width': bannerChosenSize.width,
+        'height': bannerChosenSize.height,
+        'overflow': 'hidden',
+        'transform': 'scale(' + scale + ')',
+        'transform-origin': 'left'
+      }"
     ></iframe>
   </ng-container>
   <ng-container *ngIf="isDirectLink">
-    <div class="banner-preview__direct">
-      <a [href]="url" target="_blank" rel="nofollow noopener noreferrer"><code>{{ url }}</code></a>
+    <div
+      [style.width.px]="maxWidth"
+      class="banner-preview__direct"
+    >
+      <a
+        [href]="url | testPlaceholders"
+        [title]="url"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      ><code>{{ url }}</code></a>
     </div>
   </ng-container>
   <ng-container *ngIf="isLoading">
@@ -37,7 +47,10 @@
     Content not available
   </div>
 
+  <div
+    *ngIf="isImage || (showIframe && isHtml)"
+    [style.width.px]="maxWidth"
+    (click)="zoomIn()"
+    class="banner-preview__overlay"
+  ></div>
 </div>
-
-
-

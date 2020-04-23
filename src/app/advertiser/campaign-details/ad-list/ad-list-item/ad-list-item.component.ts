@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { adStatusesEnum, adTypesEnum } from 'models/enum/ad.enum';
+import { adStatusesEnum } from 'models/enum/ad.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { Ad, Campaign } from 'models/campaign.model';
@@ -18,18 +18,14 @@ export class AdListItemComponent {
   @Input() campaign: Campaign;
   adStatusesEnum = adStatusesEnum;
 
-  constructor(private route: ActivatedRoute,
-              private advertiserService: AdvertiserService,
-              private dialog: MatDialog,
-              private router: Router) {
+  constructor(
+    private advertiserService: AdvertiserService,
+    private dialog: MatDialog,
+    private router: Router) {
   }
 
-  get adType() {
-    return adTypesEnum[this.ad.type];
-  };
-
-  changeAdStatus(status) {
-    const statusActive = status !== this.adStatusesEnum.ACTIVE;
+  changeAdStatus(previousStatus) {
+    const statusActive = previousStatus !== this.adStatusesEnum.ACTIVE;
 
     this.ad.status =
       statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
@@ -38,7 +34,7 @@ export class AdListItemComponent {
       () => {
       },
       (err: HttpErrorResponse) => {
-        this.ad.status = status;
+        this.ad.status = previousStatus;
         if (err.status !== HTTP_INTERNAL_SERVER_ERROR) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {

@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 
 import { Ad, Campaign } from 'models/campaign.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
@@ -10,7 +10,7 @@ import { TableNavigationComponent } from "common/components/table-navigation/tab
   templateUrl: './ad-list.component.html',
   styleUrls: ['./ad-list.component.scss'],
 })
-export class AdListComponent {
+export class AdListComponent implements OnChanges {
   @Input() adList: Ad[];
   @Input() campaign: Campaign;
   @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;

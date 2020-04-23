@@ -120,6 +120,13 @@ interface Ad {
   imageSize?: string;
 }
 
+interface AdPreview {
+  isHtml: boolean;
+  size: string;
+  url: string;
+  landingUrl: string;
+}
+
 interface CampaignTotalsResponse {
   total: CampaignTotals,
   data: CampaignTotals[]
@@ -136,6 +143,7 @@ export {
   CampaignConversionStatisticsTableItem,
   CampaignClassification,
   Ad,
+  AdPreview,
   CampaignTotals,
   CampaignTotalsResponse
 };

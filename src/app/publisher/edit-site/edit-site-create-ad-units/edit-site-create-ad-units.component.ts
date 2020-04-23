@@ -15,8 +15,6 @@ import {
   SaveLastEditedSiteAdUnits,
   AddSiteToSites, UpdateSiteUnits
 } from 'store/publisher/publisher.actions';
-import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
-import { MatDialog } from "@angular/material";
 import { HandleSubscription } from "common/handle-subscription";
 import { siteStatusEnum } from "models/enum/site.enum";
 import {adUnitTypesEnum} from "models/enum/ad.enum";
@@ -44,7 +42,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>,
-    private dialog: MatDialog
   ) {
     super();
   }

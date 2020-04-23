@@ -74,13 +74,13 @@ input[type='number'] {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-}s
+}
 
 *:focus {
   outline: none;
 }
 
-a:-webkit-any-link {
+a:any-link {
   color: pal(blue);
 }
 

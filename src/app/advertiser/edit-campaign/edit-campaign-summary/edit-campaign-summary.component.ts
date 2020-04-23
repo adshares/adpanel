@@ -21,17 +21,13 @@ import { cloneDeep } from 'common/utilities/helpers';
 })
 export class EditCampaignSummaryComponent extends HandleSubscription implements OnInit {
   campaign: Campaign;
-  currentTooltipIndex: number;
   targetingOptionsToAdd: TargetingOption[];
   targetingOptionsToExclude: TargetingOption[];
-
-  tooltipActive = false;
 
   constructor(
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
-    private router: Router,
     private route: ActivatedRoute,
   ) {
     super();
@@ -56,10 +52,5 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
       this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
     }
     this.store.dispatch(new AddCampaignToCampaigns(this.campaign));
-  }
-
-  toggleTooltip(state, adIndex) {
-    this.tooltipActive = state;
-    this.currentTooltipIndex = adIndex;
   }
 }
