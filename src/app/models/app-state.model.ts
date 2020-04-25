@@ -4,8 +4,10 @@ import {
   AdminSettings,
   AdminWallet,
   BillingHistory,
+  Index,
   License,
-  NotificationItem, Publishers,
+  NotificationItem,
+  Publishers,
   TermsAndPrivacy,
   Users,
 } from './settings.model';
@@ -60,6 +62,7 @@ interface AdminState {
   wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;
   license: License | null;
+  index: Index | null;
   panelBlockade: boolean;
 }
 

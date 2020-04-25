@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'models/app-state.model';
-import { GetLicense, LoadAdminSettings } from 'store/admin/admin.actions';
+import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions';
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
-import { AdminIndexUpdateTimeResponse, License } from 'models/settings.model';
-import * as moment from 'moment';
+import { License } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +16,8 @@ import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 export class DashboardComponent extends HandleSubscription implements OnInit {
   private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
   showIndexUpdateMessage: boolean = false;
-  showIndexUpdateHttpError: boolean = false;
-  indexUpdateTime : string|null = null;
+  showIndexUpdateError: boolean = false;
+  indexUpdateTime: string | null = null;
 
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
@@ -91,6 +91,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
+    this.store.dispatch(new RequestGetIndex());
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
@@ -104,23 +105,24 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       this.subscriptions.push(licenseSubscription);
     }
 
-    this.adminService.getIndexUpdateTime().subscribe(
-      (response: AdminIndexUpdateTimeResponse) => {
-        if (!response || !response.indexUpdateTime) {
-          this.showIndexUpdateHttpError = true;
+    const adminStoreIndexSubscription = this.store.select('state', 'admin', 'index')
+      .subscribe((index) => {
+        if (null === index) {
+          return;
         }
 
-        const date = moment(response.indexUpdateTime);
+        if (index.error) {
+          this.showIndexUpdateError = true;
+          return;
+        }
+
+        const date = moment(index.updateTime);
         this.indexUpdateTime = date.format(DATE_AND_TIME_FORMAT);
         this.showIndexUpdateMessage = moment().diff(date, 'days', true) < this.DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE;
-        this.showIndexUpdateHttpError = false;
-      },
-      () => {
-        this.showIndexUpdateHttpError = true;
-      }
-    );
+        this.showIndexUpdateError = false;
+      });
 
-    this.subscriptions.push(adminStoreSettingsSubscription);
+    this.subscriptions.push(adminStoreSettingsSubscription, adminStoreIndexSubscription);
   }
 }
 

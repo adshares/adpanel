@@ -123,6 +123,11 @@ interface License {
   detailsUrl: string
 }
 
+interface Index {
+  updateTime: string;
+  error: boolean;
+}
+
 interface AdminPrivacyAndTermsSettingsResponse {
   content: string;
 }
@@ -198,6 +203,7 @@ export {
   AdminPrivacyAndTermsSettingsResponse,
   TermsAndPrivacy,
   License,
+  Index,
   ReportsList,
   ReportsListItem,
 };

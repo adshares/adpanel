@@ -1,13 +1,16 @@
 import {
   actions,
-  LOAD_USERS_SUCCESS,
-  LOAD_ADMIN_SETTINGS_SUCCESS,
-  SET_ADMIN_SETTINGS_SUCCESS,
+  GET_INDEX_FAILURE,
+  GET_INDEX_SUCCESS,
+  GET_LICENSE_FAILURE,
+  GET_LICENSE_SUCCESS,
   GET_PRIVACY_SETTINGS_SUCCESS,
   GET_TERMS_SETTINGS_SUCCESS,
-  GET_LICENSE_SUCCESS,
-  GET_LICENSE_FAILURE,
-  LOAD_ADMIN_WALLET_SUCCESS, LOAD_PUBLISHERS_SUCCESS,
+  LOAD_ADMIN_SETTINGS_SUCCESS,
+  LOAD_ADMIN_WALLET_SUCCESS,
+  LOAD_PUBLISHERS_SUCCESS,
+  LOAD_USERS_SUCCESS,
+  SET_ADMIN_SETTINGS_SUCCESS,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
@@ -34,6 +37,7 @@ const initialState: AdminState = {
     terms: '',
   },
   license: null,
+  index: null,
   panelBlockade: false,
 };
 
@@ -42,7 +46,7 @@ export function adminReducers(state = initialState, action: actions) {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-       users: action.payload
+        users: action.payload
       };
     case LOAD_PUBLISHERS_SUCCESS:
       return {
@@ -98,6 +102,24 @@ export function adminReducers(state = initialState, action: actions) {
         termsAndPrivacy: {
           ...state.termsAndPrivacy,
           terms: action.payload.content
+        }
+      };
+    case GET_INDEX_SUCCESS:
+      return {
+        ...state,
+        index: {
+          updateTime: action.payload.indexUpdateTime,
+          error: false,
+        }
+      };
+    case GET_INDEX_FAILURE:
+      const updateTime = (!state.index) ? '' : state.index.updateTime;
+
+      return {
+        ...state,
+        index: {
+          updateTime,
+          error: true,
         }
       };
     default:
