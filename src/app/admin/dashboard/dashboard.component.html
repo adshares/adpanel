@@ -1,11 +1,25 @@
 <section class="admin-dashboard row">
   <app-panel-blockade *ngIf="isPanelBlocked"
                       [url]="licenseDetailUrl"></app-panel-blockade>
-  <ul class="admin-dashboard__side-menu">
-    <li *ngFor="let menuItem of settings">
-      <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
-    </li>
-  </ul>
+  <div class="admin-dashboard__side-menu">
+    <div
+      *ngIf="showIndexUpdateHttpError"
+      class="dwmth-copy dwmth-copy--red justify-center message"
+    >
+      Index update time cannot be fetched.
+    </div>
+    <div
+      *ngIf="showIndexUpdateMessage"
+      class="dwmth-copy dwmth-copy--red justify-center message"
+    >
+      Index was updated on<br />{{ indexUpdateTime }}
+    </div>
+    <ul>
+      <li *ngFor="let menuItem of settings">
+        <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
+      </li>
+    </ul>
+  </div>
   <div class="settings-outlet">
     <router-outlet></router-outlet>
   </div>

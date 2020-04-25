@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from "models/app-state.model";
-import { GetLicense, LoadAdminSettings } from "store/admin/admin.actions";
-import { Store } from "@ngrx/store";
-import { HandleSubscription } from "common/handle-subscription";
-import { License } from "models/settings.model";
+import { AppState } from 'models/app-state.model';
+import { GetLicense, LoadAdminSettings } from 'store/admin/admin.actions';
+import { Store } from '@ngrx/store';
+import { HandleSubscription } from 'common/handle-subscription';
+import { AdminIndexUpdateTimeResponse, License } from 'models/settings.model';
+import * as moment from 'moment';
+import { AdminService } from 'admin/admin.service';
+import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-
 export class DashboardComponent extends HandleSubscription implements OnInit {
+  private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
+  showIndexUpdateMessage: boolean = false;
+  showIndexUpdateHttpError: boolean = false;
+  indexUpdateTime : string|null = null;
+
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
   settings = [
@@ -74,7 +81,10 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     },
   ];
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private adminService: AdminService,
+    private store: Store<AppState>,
+  ) {
     super();
   }
 
@@ -93,6 +103,22 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         });
       this.subscriptions.push(licenseSubscription);
     }
+
+    this.adminService.getIndexUpdateTime().subscribe(
+      (response: AdminIndexUpdateTimeResponse) => {
+        if (!response || !response.indexUpdateTime) {
+          this.showIndexUpdateHttpError = true;
+        }
+
+        const date = moment(response.indexUpdateTime);
+        this.indexUpdateTime = date.format(DATE_AND_TIME_FORMAT);
+        this.showIndexUpdateMessage = moment().diff(date, 'days', true) < this.DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE;
+        this.showIndexUpdateHttpError = false;
+      },
+      () => {
+        this.showIndexUpdateHttpError = true;
+      }
+    );
 
     this.subscriptions.push(adminStoreSettingsSubscription);
   }

@@ -98,6 +98,10 @@ interface AdminWallet {
   unusedBonuses: number;
 }
 
+interface AdminIndexUpdateTimeResponse {
+  indexUpdateTime: string;
+}
+
 interface AdminSettingsResponse {
   settings: AdminSettings;
 }
@@ -188,6 +192,7 @@ export {
   NowPaymentsInfo,
   NowPaymentsInit,
   CalculateWithdrawalItem,
+  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
