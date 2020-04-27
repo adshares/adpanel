@@ -91,4 +91,12 @@ export class AdminService {
   getIndexUpdateTime(): Observable<AdminIndexUpdateTimeResponse> {
     return this.http.get<AdminIndexUpdateTimeResponse>(`${environment.serverUrl}/admin/index/update-time`);
   }
+
+  getPanelPlaceholders(): Observable<any> {
+    return this.http.get<any>(`${environment.serverUrl}/admin/panel-placeholders`);
+  }
+
+  patchPanelPlaceholders(placeholders): Observable<any> {
+    return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
+  }
 }

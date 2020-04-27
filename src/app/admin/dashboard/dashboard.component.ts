@@ -63,6 +63,15 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
+      title: 'Panel placeholders',
+      description: '',
+      link: '/admin/dashboard/placeholders',
+      values: [
+        {name: 'index.html', icon: 'assets/images/preferences.svg'},
+        {name: 'robots.txt', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
       title: 'Rebranding',
       description: '',
       link: '/admin/dashboard/rebranding',

@@ -6,13 +6,13 @@
       *ngIf="showIndexUpdateError"
       class="dwmth-copy dwmth-copy--red justify-center message"
     >
-      Index update time cannot be fetched.
+      Panel placeholders' update time cannot be fetched.
     </div>
     <div
       *ngIf="showIndexUpdateMessage"
       class="dwmth-copy dwmth-copy--red justify-center message"
     >
-      Index was updated on<br />{{ indexUpdateTime }}
+      Panel placeholders were updated on {{ indexUpdateTime }}
     </div>
     <ul>
       <li *ngFor="let menuItem of settings">
