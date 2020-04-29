@@ -16,6 +16,13 @@ export class PanelPlaceholdersSettingsComponent extends HandleSubscription imple
   formGroup: FormGroup;
   isLoading: boolean = true;
   isSaving: boolean = false;
+  types: string[] = [
+    'index-title',
+    'index-description',
+    'index-keywords',
+    'index-meta-tags',
+    'robots-txt',
+  ];
 
   constructor(
     private service: AdminService,
@@ -31,22 +38,18 @@ export class PanelPlaceholdersSettingsComponent extends HandleSubscription imple
 
   private initForm() {
     this.formGroup = new FormGroup({
-      'index-title': new FormControl('', [Validators.required]),
-      'index-description': new FormControl('', [Validators.required]),
-      'index-keywords': new FormControl('', [Validators.required]),
-      'index-meta-tags': new FormControl('', [Validators.required]),
-      'robots-txt': new FormControl('', [Validators.required]),
     });
+
+    this.types.forEach((type) => this.formGroup.addControl(type, new FormControl('', [Validators.required])));
   }
 
   loadPlaceholders() {
     this.isLoading = true;
-    this.service.getPanelPlaceholders().subscribe(
+    this.service.getPanelPlaceholders(this.types).subscribe(
       (response) => {
-        response.forEach((element) => {
-          if (element && element.type && this.formGroup.get(element.type)) {
-            this.formGroup.get(element.type).setValue(element.content);
-          }
+        this.types.forEach((type) => {
+          const content = response[type] ? response[type].content : '';
+          this.formGroup.get(type).setValue(content);
         });
         this.isLoading = false;
       },
