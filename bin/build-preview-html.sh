@@ -25,14 +25,14 @@ ROBOTS_FILE=dist/robots.txt
 bin/build-index-html.sh $INDEX_TEMPLATE $INDEX_FILE_TEMPORARY $ROBOTS_FILE
 
 cd dist/
-SCRIPTS="<script type=\"text/javascript\" src=\"`find . -name 'inline.*.js'`\"></script><script type=\"text/javascript\" src=\"`find . -name 'polyfills.*.js'`\"></script><script type=\"text/javascript\" src=\"`find . -name 'main.*.js'`\"></script>"
-STYLES="<link href=\"`find . -name 'styles.*.css'`\" rel=\"stylesheet\"/>"
+SCRIPTS="<script type=\"text/javascript\" src=\"$(find . -name 'inline.*.js')\"></script><script type=\"text/javascript\" src=\"$(find . -name 'polyfills.*.js')\"></script><script type=\"text/javascript\" src=\"$(find . -name 'main.*.js')\"></script>"
+STYLES="<link href=\"$(find . -name 'styles.*.css')\" rel=\"stylesheet\"/>"
 cd ..
 
 sed -i "s~</body>~${SCRIPTS}</body>~" $INDEX_FILE_TEMPORARY
 sed -i "s~</head>~${STYLES}</head>~" $INDEX_FILE_TEMPORARY
 
-if [[ ! -f $INDEX_FILE ]] || !(cmp -s $INDEX_FILE_TEMPORARY $INDEX_FILE)
+if [[ ! -f $INDEX_FILE ]] || ! (cmp -s $INDEX_FILE_TEMPORARY $INDEX_FILE)
 then
   mv $INDEX_FILE_TEMPORARY $INDEX_FILE
   echo "Preview file was updated successfully"

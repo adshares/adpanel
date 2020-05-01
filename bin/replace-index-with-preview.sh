@@ -17,9 +17,8 @@ then
   exit 0
 fi
 
-TIMESTAMP_UPDATE=`stat -c %Y $PREVIEW_FILE`
-RESULT=$((`date +%s`-$TIMESTAMP_UPDATE))
-echo $RESULT
+TIMESTAMP_UPDATE=$(stat -c %Y $PREVIEW_FILE)
+RESULT=$(($(date +%s)-TIMESTAMP_UPDATE))
 
 if [[ $RESULT -gt $MINIMUM_DELAY_BEFORE_REPLACE ]]
 then
