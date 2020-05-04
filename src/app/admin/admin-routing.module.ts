@@ -10,6 +10,7 @@ import { GeneralSettingsComponent } from "admin/general-settings/general-setting
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
 import { UsersComponent } from "admin/users/users.component";
+import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 
 const adminRoutes: Routes = [
   {
@@ -46,6 +47,10 @@ const adminRoutes: Routes = [
           {
             path: 'privacy',
             component: PrivacyAndTermsSettingsComponent,
+          },
+          {
+            path: 'placeholders',
+            component: PanelPlaceholdersSettingsComponent,
           },
           {
             path: 'users',

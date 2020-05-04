@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Edit index.html
 - Dialog after adding the site informing about verification of the site
 - Allow to add a site on mobile
 ### Changed

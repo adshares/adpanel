@@ -38,6 +38,7 @@ import { UsersComponent } from "admin/users/users.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { PublisherListComponent } from "admin/publisher-list/publisher-list.component";
 import { PublisherListItemComponent } from "admin/publisher-list/publisher-list-item/publisher-list-item.component";
+import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { PublisherListItemComponent } from "admin/publisher-list/publisher-list-
     RebrandingComponent,
     PrivacyAndTermsSettingsComponent,
     LicenseComponent,
-    PanelBlockadeComponent
+    PanelBlockadeComponent,
+    PanelPlaceholdersSettingsComponent,
   ],
   entryComponents: [
     SuccessSnackbarComponent

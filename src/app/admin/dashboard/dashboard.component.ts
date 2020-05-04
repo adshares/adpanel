@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from "models/app-state.model";
-import { GetLicense, LoadAdminSettings } from "store/admin/admin.actions";
-import { Store } from "@ngrx/store";
-import { HandleSubscription } from "common/handle-subscription";
-import { License } from "models/settings.model";
+import { AppState } from 'models/app-state.model';
+import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions';
+import { Store } from '@ngrx/store';
+import { HandleSubscription } from 'common/handle-subscription';
+import { License } from 'models/settings.model';
+import { AdminService } from 'admin/admin.service';
+import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-
 export class DashboardComponent extends HandleSubscription implements OnInit {
+  private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
+  showIndexUpdateMessage: boolean = false;
+  showIndexUpdateError: boolean = false;
+  indexUpdateTime: string | null = null;
+
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
   settings = [
@@ -56,6 +63,15 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
+      title: 'Panel placeholders',
+      description: '',
+      link: '/admin/dashboard/placeholders',
+      values: [
+        {name: 'index.html', icon: 'assets/images/preferences.svg'},
+        {name: 'robots.txt', icon: 'assets/images/preferences.svg'},
+      ],
+    },
+    {
       title: 'Rebranding',
       description: '',
       link: '/admin/dashboard/rebranding',
@@ -74,13 +90,17 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     },
   ];
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private adminService: AdminService,
+    private store: Store<AppState>,
+  ) {
     super();
   }
 
   ngOnInit() {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
+    this.store.dispatch(new RequestGetIndex());
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
@@ -94,7 +114,24 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       this.subscriptions.push(licenseSubscription);
     }
 
-    this.subscriptions.push(adminStoreSettingsSubscription);
+    const adminStoreIndexSubscription = this.store.select('state', 'admin', 'index')
+      .subscribe((index) => {
+        if (null === index) {
+          return;
+        }
+
+        if (index.error) {
+          this.showIndexUpdateError = true;
+          return;
+        }
+
+        const date = moment(index.updateTime);
+        this.indexUpdateTime = date.format(DATE_AND_TIME_FORMAT);
+        this.showIndexUpdateMessage = moment().diff(date, 'days', true) < this.DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE;
+        this.showIndexUpdateError = false;
+      });
+
+    this.subscriptions.push(adminStoreSettingsSubscription, adminStoreIndexSubscription);
   }
 }
 

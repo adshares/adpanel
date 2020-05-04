@@ -98,6 +98,10 @@ interface AdminWallet {
   unusedBonuses: number;
 }
 
+interface AdminIndexUpdateTimeResponse {
+  indexUpdateTime: string;
+}
+
 interface AdminSettingsResponse {
   settings: AdminSettings;
 }
@@ -117,6 +121,11 @@ interface License {
   dateEnd: string,
   owner: string,
   detailsUrl: string
+}
+
+interface Index {
+  updateTime: string;
+  error: boolean;
 }
 
 interface AdminPrivacyAndTermsSettingsResponse {
@@ -188,11 +197,13 @@ export {
   NowPaymentsInfo,
   NowPaymentsInit,
   CalculateWithdrawalItem,
+  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
   TermsAndPrivacy,
   License,
+  Index,
   ReportsList,
   ReportsListItem,
 };

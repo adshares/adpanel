@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {
+  AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse,
@@ -11,7 +12,6 @@ import {
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from 'common/utilities/helpers';
-import { SitesTotals } from 'models/site.model';
 
 @Injectable()
 export class AdminService {
@@ -88,19 +88,20 @@ export class AdminService {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
   }
 
-  getReportAdvertisers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
-    let options = {
-      responseType: 'blob' as 'json'
-    };
-
-    return this.http.get<any>(`${environment.apiUrl}/campaigns/stats/report/${dateStart}/${dateEnd}`, options);
+  getIndexUpdateTime(): Observable<AdminIndexUpdateTimeResponse> {
+    return this.http.get<AdminIndexUpdateTimeResponse>(`${environment.serverUrl}/admin/index/update-time`);
   }
 
-  getReportPublishers(dateStart: string, dateEnd: string): Observable<SitesTotals[]> {
-    let options = {
-      responseType: 'blob' as 'json'
-    };
+  getPanelPlaceholders(types: string[]): Observable<any> {
+    let params = new HttpParams();
+    types.forEach(type => {
+      params = params.append('types[]', type);
+    });
 
-    return this.http.get<any>(`${environment.apiUrl}/sites/stats/report/${dateStart}/${dateEnd}`, options);
+    return this.http.get<any>(`${environment.serverUrl}/panel/placeholders`, {params});
+  }
+
+  patchPanelPlaceholders(placeholders): Observable<any> {
+    return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
   }
 }

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import {
+  AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse,
@@ -43,6 +44,11 @@ export const GET_TERMS_SETTINGS_FAILURE = 'Get admin terms settings failure';
 export const SET_TERMS_SETTINGS = 'Set admin terms settings';
 export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
 export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
+
+export const REQUEST_GET_INDEX = 'Request Get index';
+export const GET_INDEX = 'Get index';
+export const GET_INDEX_SUCCESS = 'Get index success';
+export const GET_INDEX_FAILURE = 'Get index failure';
 
 export const GET_LICENSE = 'Get license';
 export const GET_LICENSE_SUCCESS = 'Get license success';
@@ -238,6 +244,33 @@ export class SetTermsSettingsFailure implements Action {
   }
 }
 
+export class RequestGetIndex implements Action {
+  readonly type: string = REQUEST_GET_INDEX;
+
+  constructor(public payload?: any) {
+  }
+}
+export class GetIndex implements Action {
+  readonly type: string = GET_INDEX;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetIndexSuccess implements Action {
+  readonly type: string = GET_INDEX_SUCCESS;
+
+  constructor(public payload: AdminIndexUpdateTimeResponse) {
+  }
+}
+
+export class GetIndexFailure implements Action {
+  readonly type: string = GET_INDEX_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export class GetLicense implements Action {
   readonly type: string = GET_LICENSE;
 
@@ -295,6 +328,11 @@ export type actions =
   SetTermsSettings |
   SetTermsSettingsSuccess |
   SetTermsSettingsFailure |
+
+  RequestGetIndex |
+  GetIndex |
+  GetIndexSuccess |
+  GetIndexFailure |
 
   GetLicense |
   GetLicenseSuccess |
