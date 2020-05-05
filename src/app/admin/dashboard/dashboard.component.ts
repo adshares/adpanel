@@ -7,6 +7,9 @@ import { License } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import { timer } from 'rxjs/observable/timer';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,11 +17,14 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
+  readonly PREVIEW_URL: string = `${window.location.protocol}//${window.location.host}/preview`;
   private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
+  private readonly PREVIEW_GENERATING_DELAY_MINUTES = 6;
   showIndexUpdateMessage: boolean = false;
   showIndexUpdateError: boolean = false;
+  showPreviewLink: boolean = false;
   indexUpdateTime: string | null = null;
-
+  checkIfPreviewReady: Subscription | null = null;
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
   settings = [
@@ -128,10 +134,30 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         const date = moment(index.updateTime);
         this.indexUpdateTime = date.format(DATE_AND_TIME_FORMAT);
         this.showIndexUpdateMessage = moment().diff(date, 'days', true) < this.DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE;
+        if (null !== this.checkIfPreviewReady) {
+          this.checkIfPreviewReady.unsubscribe();
+        }
+        if (this.showIndexUpdateMessage) {
+          this.showPreviewLink = moment().diff(date, 'minutes', true) >= this.PREVIEW_GENERATING_DELAY_MINUTES;
+          if (!this.showPreviewLink) {
+            this.checkIfPreviewReady = timer(60000, 60000)
+              .pipe(takeWhile(() => !this.showPreviewLink))
+              .subscribe(() => {
+                this.showPreviewLink = moment().diff(date, 'minutes', true) >= this.PREVIEW_GENERATING_DELAY_MINUTES;
+              });
+          }
+        }
         this.showIndexUpdateError = false;
       });
 
     this.subscriptions.push(adminStoreSettingsSubscription, adminStoreIndexSubscription);
+  }
+
+  ngOnDestroy() {
+    if (null !== this.checkIfPreviewReady) {
+      this.checkIfPreviewReady.unsubscribe();
+    }
+    super.ngOnDestroy();
   }
 }
 
