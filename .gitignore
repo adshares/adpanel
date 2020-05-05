@@ -8,6 +8,7 @@ src/environments/*
 
 # compiled output
 /dist
+/dist_backup
 /tmp
 /out-tsc
 /build

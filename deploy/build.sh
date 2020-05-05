@@ -16,7 +16,6 @@ export DEV_XDEBUG=${DEV_XDEBUG:-false}
 export APP_ENV=${APP_ENV:-prod}
 
 envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
-bin/build-index-html.sh
 
 if [[ ! -z ${BRAND_ASSETS_DIR:-""} ]]
 then
@@ -31,16 +30,30 @@ fi
 
 yarn install
 
+#BUILD_DIRECTORY -> TARGET_DIRECTORY -> BACKUP_DIRECTORY
+BUILD_DIRECTORY=dist_tmp
+TARGET_DIRECTORY=dist
+BACKUP_DIRECTORY=dist_backup
 if [[ ${APP_ENV} == 'dev' ]]
 then
-    yarn build
+    yarn build --output-path=$BUILD_DIRECTORY
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-    yarn build --prod
+    yarn build --prod --output-path=$BUILD_DIRECTORY
 else
     echo "ERROR: Unsupported environment ($APP_ENV)."
     exit 1
 fi
 
-test -f info.json.template && envsubst < info.json.template | tee dist/info.json
-cp -f src/robots.txt dist/robots.txt
+INDEX_TEMPLATE=src/index.html.template
+INDEX_FILE=$BUILD_DIRECTORY/index.html
+ROBOTS_FILE=$BUILD_DIRECTORY/robots.txt
+bin/build-index-html.sh $INDEX_TEMPLATE $INDEX_FILE $ROBOTS_FILE
+envsubst < info.json.template | tee $BUILD_DIRECTORY/info.json
+
+if [ -d $BACKUP_DIRECTORY ]
+then
+  rm -rf $BACKUP_DIRECTORY
+fi
+mv $TARGET_DIRECTORY $BACKUP_DIRECTORY
+mv $BUILD_DIRECTORY $TARGET_DIRECTORY
