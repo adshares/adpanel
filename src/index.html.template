@@ -17,13 +17,5 @@ ${INDEX_META_TAGS}
 </head>
 <body>
   <app-root></app-root>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "https://${APP_HOST}",
-    "name": "${APP_NAME}"
-  }
-  </script>
 </body>
 </html>
