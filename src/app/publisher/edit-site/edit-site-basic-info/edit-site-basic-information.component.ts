@@ -128,7 +128,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   onUrlBlur(): void {
     const url = this.siteBasicInfoForm.get('url').value;
-    this.siteBasicInfoForm.get('url').setValue(this.normalizeUrl(url));
+    this.siteBasicInfoForm.get('url').setValue(this.sanitizeUrl(url));
     const domain = this.extractDomain(url);
     this.siteBasicInfoForm.get('domain').setValue(domain);
     if (this.overwriteNameByDomain) {
@@ -212,8 +212,15 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     return domain;
   }
 
-  normalizeUrl(url: string): string {
+  sanitizeUrl(url: string): string {
+    let sanitizedUrl = url.toLowerCase();
     // remove path, query string and fragment
-    return url.toLowerCase().replace(/^(https?:\/\/[^\/?#]*)(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '$1');
+    sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/[^\/?#]*)(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '$1');
+    // remove port
+    sanitizedUrl = sanitizedUrl.replace(/:\d+$/, '');
+    // remove authentication
+    sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/)(?:.*@)?/i, '$1');
+
+    return sanitizedUrl;
   }
 }
