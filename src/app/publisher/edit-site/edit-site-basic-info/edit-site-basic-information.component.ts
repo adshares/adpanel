@@ -127,7 +127,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   onUrlBlur(): void {
-    const domain = this.extractDomain(this.siteBasicInfoForm.get('url').value);
+    const url = this.siteBasicInfoForm.get('url').value;
+    this.siteBasicInfoForm.get('url').setValue(this.sanitizeUrl(url));
+    const domain = this.extractDomain(url);
     this.siteBasicInfoForm.get('domain').setValue(domain);
     if (this.overwriteNameByDomain) {
       this.siteBasicInfoForm.get('name').setValue(domain);
@@ -158,7 +160,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       url: new FormControl(siteInitialState.url, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX),
-        Validators.pattern(/^https?:\/\/.+\..+$/i)
+        Validators.pattern(/^https?:\/\/[^\/?#]+\.[^\/?#]+$/i)
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
@@ -208,5 +210,17 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
 
     return domain;
+  }
+
+  sanitizeUrl(url: string): string {
+    let sanitizedUrl = url.toLowerCase();
+    // remove path, query string and fragment
+    sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/[^\/?#]*)(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '$1');
+    // remove port
+    sanitizedUrl = sanitizedUrl.replace(/:\d+$/, '');
+    // remove authentication
+    sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/)(?:.*@)?/i, '$1');
+
+    return sanitizedUrl;
   }
 }

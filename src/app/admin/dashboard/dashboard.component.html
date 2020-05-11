@@ -12,7 +12,21 @@
       *ngIf="showIndexUpdateMessage"
       class="dwmth-copy dwmth-copy--red justify-center message"
     >
-      Panel placeholders were updated on {{ indexUpdateTime }}
+      Panel placeholders were updated on {{ indexUpdateTime }}<br />
+      <a
+        *ngIf="showPreviewLink"
+        [href]=PREVIEW_URL
+        rel="noopener nofollow noreferrer"
+        target="_blank"
+      >
+        preview available
+      </a>
+      <span
+        *ngIf="!showPreviewLink"
+        class="dwmth-copy"
+      >
+        generating preview
+      </span>
     </div>
     <ul>
       <li *ngFor="let menuItem of settings">
