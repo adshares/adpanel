@@ -10,8 +10,8 @@
         <mat-icon> search</mat-icon>
         <label>Search for publisher:
           <input
-            (ngModelChange)="onSearchChange()"
             [(ngModel)]="searchPhrase"
+            (ngModelChange)="onSearchChange()"
             class="publisher-list__input"
             data-test="admin-user-search-input"
             id="search"
@@ -48,8 +48,8 @@
       <div class="publisher-list__filters">
         <label>Min daily views:
         <input
-          (ngModelChange)="onMinDailyViewsChange()"
           [(ngModel)]="minDailyViews"
+          (ngModelChange)="onMinDailyViewsChange()"
           type="number"
           min="0"
           step="1"
