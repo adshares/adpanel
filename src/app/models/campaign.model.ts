@@ -132,6 +132,21 @@ interface CampaignTotalsResponse {
   data: CampaignTotals[]
 }
 
+interface BidStrategy {
+  uuid: string,
+  name: string,
+  details: BidStrategyDetail[],
+}
+
+interface BidStrategyDetail {
+  category: string,
+  rank: number,
+}
+
+interface BidStrategyRequest {
+  name: string,
+  details: BidStrategyDetail[],
+}
 
 export {
   CampaignsConfig,
@@ -145,5 +160,8 @@ export {
   Ad,
   AdPreview,
   CampaignTotals,
-  CampaignTotalsResponse
+  CampaignTotalsResponse,
+  BidStrategy,
+  BidStrategyDetail,
+  BidStrategyRequest,
 };

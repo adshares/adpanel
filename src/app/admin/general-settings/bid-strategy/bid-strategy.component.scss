@@ -1,0 +1,40 @@
+@import '../../../../styles.scss';
+
+.bid-strategy {
+  &__wrapper {
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+
+  &__row {
+    min-height: 40px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  &__input {
+    @include input();
+    padding-left: 0;
+    padding-right: 0;
+    width: 4em;
+    text-align: center;
+  }
+
+  &__rank-button {
+    @include btn();
+    margin-left: 4px;
+    width: 3em;
+  }
+}
+
+.appended {
+  margin-left: 16px;
+}
+
+.space-top {
+  margin-top: 30px;
+}
+
+/deep/ .mat-input-infix {
+  width: 400px !important;
+}

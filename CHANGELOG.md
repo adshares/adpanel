@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dialog after adding the site informing about verification of the site
 - Allow to add a site on mobile
 - Backup the previous project version during build
+- Bid strategy definition for administrator
 ### Changed
 - Advertisement preview in dialog
 - Fetch domain rank (page rank) from adserver

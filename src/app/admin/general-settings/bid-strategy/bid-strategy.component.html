@@ -1,0 +1,117 @@
+<article class="dwmth-box dwmth-box--large dwmth-copy bid-strategy__wrapper">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary">Bid Strategy</h1>
+    <p class="dwmth-copy--large">
+      Set bid strategies for campaigns.
+      First, select an existing strategy or add a new one.
+      Then set the name of strategy and ranks for categories.
+      Categories are properties of impressions.
+      By default, each category has a rank of 100%, which means that this category will be paid normally.
+      You can limit payments for a selected category by lowering its rank.
+      The rank can be set in range from 0 to 100%.
+    </p>
+    <p class="dwmth-copy--large">
+      For example, the category `Device/Browser/Internet Explorer` means that the user watching ads uses Internet Explorer.
+      If you want to pay less for impressions created with Internet Explorer, you should reduce rank of this category.
+    </p>
+  </section>
+
+  <div
+    *ngIf="bidStrategies.length > 0"
+    class="row bid-strategy__row align-center space-top"
+  >
+    <mat-form-field>
+      <mat-label>Select bid strategy</mat-label>
+      <mat-select
+        [(value)]="bidStrategyUuidSelected"
+        (selectionChange)="onBidStrategySelect()"
+      >
+        <mat-option
+          *ngFor="let bidStrategy of bidStrategies"
+          [value]="bidStrategy.uuid"
+        >
+          {{ bidStrategy.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="appended">
+      <button
+        class="dwmth-btn dwmth-btn--blue"
+        (click)="addNewBidStrategy()"
+      >
+        <img
+          class="dwmth-icon dwmth-icon--prepend"
+          src="assets/images/plus-circle.svg"
+          alt="Add new bid strategy"
+        >
+        Add new bid strategy
+      </button>
+    </div>
+    <button
+      *ngIf="isAdmin"
+      class="dwmth-btn dwmth-btn--blue appended"
+      (click)="setDefaultBidStrategy()"
+    >
+      Set as default
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading" class="space-top">
+    <mat-form-field>
+      <mat-label>Bid strategy name</mat-label>
+      <input
+        [(ngModel)]="bidStrategyNameSelected"
+        matInput
+        type="text"
+        maxlength="255"
+        minlength="1"
+        placeholder=""
+        required="required"
+        class="dwmth-form-input dwmth-form-input--full"
+      />
+    </mat-form-field>
+
+    <button
+      (click)="saveOrUpdate()"
+      class="dwmth-btn dwmth-btn--blue appended"
+    >
+      Save bid strategy
+    </button>
+  </div>
+
+  <div>
+    <div *ngFor="let entry of entries" class="row align-center bid-strategy__row">
+      <div class="col-xs-6">{{ entry.label }}</div>
+      <div class="col-xs-6" data-id="{{ entry.key }}">
+        <input
+          [(ngModel)]="entry.value"
+          type="number"
+          min="0"
+          max="100"
+          step="1"
+          class="bid-strategy__input"
+        />
+        <button
+          *ngFor="let predefinedRank of PREDEFINED_RANKS"
+          (click)="entry.value = predefinedRank"
+          class="bid-strategy__rank-button"
+        >{{ predefinedRank }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-wrapper">
+    <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading" class="row space-top justify-end">
+    <button
+      (click)="saveOrUpdate()"
+      class="dwmth-btn dwmth-btn--blue"
+    >
+      Save bid strategy
+    </button>
+  </div>
+
+</article>
