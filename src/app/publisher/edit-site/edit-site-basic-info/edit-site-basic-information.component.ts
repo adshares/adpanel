@@ -155,12 +155,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       domain: new FormControl(siteInitialState.domain, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX),
-        Validators.pattern(/^.+\..+$/)
+        Validators.pattern(/^(?![.]).+\..+$/)
       ]),
       url: new FormControl(siteInitialState.url, [
         Validators.required,
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX),
-        Validators.pattern(/^https?:\/\/[^\/?#]+\.[^\/?#]+$/i)
+        Validators.pattern(/^https?:\/\/(?![.])[^\/?#]+\.[^\/?#]+$/i)
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
     });
