@@ -4,10 +4,9 @@ import 'rxjs/add/operator/switchMap';
 import { delay } from 'rxjs/operators';
 import {
   GET_INDEX,
-  GET_INDEX_FAILURE,
-  GET_INDEX_SUCCESS,
   GET_LICENSE,
   GET_PRIVACY_SETTINGS,
+  GET_REJECTED_DOMAINS,
   GET_TERMS_SETTINGS,
   GetIndex,
   GetIndexFailure,
@@ -16,6 +15,8 @@ import {
   GetLicenseSuccess,
   GetPrivacySettingsFailure,
   GetPrivacySettingsSuccess,
+  GetRejectedDomainsFailure,
+  GetRejectedDomainsSuccess,
   GetTermsSettingsFailure,
   GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
@@ -33,11 +34,14 @@ import {
   REQUEST_GET_INDEX,
   SET_ADMIN_SETTINGS,
   SET_PRIVACY_SETTINGS,
+  SET_REJECTED_DOMAINS,
   SET_TERMS_SETTINGS,
   SetAdminSettingsFailure,
   SetAdminSettingsSuccess,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
+  SetRejectedDomainsFailure,
+  SetRejectedDomainsSuccess,
   SetTermsSettingsSuccess,
 } from './admin.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
@@ -244,4 +248,30 @@ export class AdminEffects {
       })
     )
 
+  @Effect()
+  getRejectedDomains$ = this.actions$
+    .ofType(GET_REJECTED_DOMAINS)
+    .map(toPayload)
+    .switchMap(() => this.service.getRejectedDomains()
+      .map((response) => new GetRejectedDomainsSuccess(response))
+      .catch(() => {
+        return Observable.of(new GetRejectedDomainsFailure(
+          'Rejected domains are not available. Please, try again later.'
+        ));
+      })
+    );
+
+  @Effect()
+  setRejectedDomains$ = this.actions$
+    .ofType(SET_REJECTED_DOMAINS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.putRejectedDomains(payload)
+      .switchMap(() => [
+        new SetRejectedDomainsSuccess(),
+        new ShowSuccessSnackbar(SAVE_SUCCESS),
+      ])
+      .catch(() => Observable.of(new SetRejectedDomainsFailure(
+        'Rejected domains were not saved. Please, try again later.'
+      )))
+    );
 }

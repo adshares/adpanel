@@ -1,0 +1,31 @@
+<article class="dwmth-box rejected-domains__wrapper">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary">Rejected domains</h1>
+    <p class="dwmth-copy dwmth-copy--large rejected-domains__desc">
+      Here you can define domains. All subdomains will be rejected.
+    </p>
+  </section>
+
+  <form [formGroup]="formGroup">
+    <div>
+      <label class="dwmth-copy col">
+        Domains
+        <textarea
+          class="dwmth-copy dwmth-copy--x-dark dwmth-textarea"
+          formControlName="domainsSettings"
+        >
+          {{formGroup.value}}
+        </textarea>
+      </label>
+    </div>
+    <div class="row justify-end align-center rejected-domains__submit-btn-box">
+      <button
+        class="dwmth-btn dwmth-btn--blue"
+        [disabled]="!formGroup.dirty"
+        (click)="save()"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</article>

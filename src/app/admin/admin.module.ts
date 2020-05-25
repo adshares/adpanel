@@ -13,6 +13,7 @@ import {
   MatSliderModule
 } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
@@ -32,10 +33,10 @@ import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
 import { LicenseComponent } from 'admin/general-settings/license/license.component';
+import { RejectedDomainsComponent } from 'admin/general-settings/rejected-domains/rejected-domains.component';
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { UsersComponent } from 'admin/users/users.component';
-import { MatTabsModule } from '@angular/material/tabs';
 import { PublisherListComponent } from 'admin/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/publisher-list/publisher-list-item/publisher-list-item.component';
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
@@ -64,7 +65,7 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
   providers: [
     AdminGuard,
     ClickToADSPipe,
-    ImpersonationService
+    ImpersonationService,
   ],
   declarations: [
     AdminComponent,
@@ -83,11 +84,12 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
     RebrandingComponent,
     PrivacyAndTermsSettingsComponent,
     LicenseComponent,
+    RejectedDomainsComponent,
     PanelBlockadeComponent,
     PanelPlaceholdersSettingsComponent,
   ],
   entryComponents: [
-    SuccessSnackbarComponent
+    SuccessSnackbarComponent,
   ]
 })
 export class AdminModule {

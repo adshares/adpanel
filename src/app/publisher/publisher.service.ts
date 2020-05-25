@@ -62,6 +62,10 @@ export class PublisherService {
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
   }
 
+  validateDomain(domain: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, {domain});
+  }
+
   deleteSite(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${environment.apiUrl}/sites/${id}`);
   }

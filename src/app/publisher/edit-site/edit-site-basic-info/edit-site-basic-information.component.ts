@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/take';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
-import { SaveLastEditedSite, UpdateSite } from 'store/publisher/publisher.actions';
+import { ShowDialogOnError } from 'store/common/common.actions';
+import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions';
 import { cloneDeep } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
@@ -32,23 +34,30 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   site: Site = cloneDeep(siteInitialState);
   createSiteMode: boolean;
   filteredOptions: Observable<object>;
-  changesSaved: boolean = false;
+  changesSaving: boolean = false;
   websiteNameLengthMax = EditSiteBasicInformationComponent.WEBSITE_NAME_LENGTH_MAX;
   websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
   websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
+  private domainValid = false;
 
   constructor(
+    private action$: Actions,
     private router: Router,
     private route: ActivatedRoute,
     private publisherService: PublisherService,
     private store: Store<AppState>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     super();
   }
 
   ngOnInit() {
+    const updateSiteFailureSubscription = this.action$.ofType(UPDATE_SITE_FAILURE).subscribe(() => {
+      this.changesSaving = false;
+      this.store.dispatch(new ShowDialogOnError(''));
+    });
+    this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.getLanguages();
     this.createForm();
@@ -61,7 +70,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       )
   }
 
-  getLanguages() {
+  getLanguages(): void {
     const languageListSubscription = this.store.select('state', 'publisher', 'languagesList')
       .first()
       .subscribe((languagesList) => {
@@ -70,9 +79,25 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.subscriptions.push(languageListSubscription);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.siteBasicInfoSubmitted = true;
-    return this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
+    this.changesSaving = true;
+    if (!this.siteBasicInfoForm.valid || !this.adjustSiteDataBeforeSave()) {
+      this.changesSaving = false;
+      return;
+    }
+
+    const domain = this.site.domain;
+    this.publisherService.validateDomain(domain).subscribe(
+      () => {
+        this.createSiteMode ? this.saveSiteBasicInformation() : this.updateSite();
+      },
+      (error) => {
+        const message = error.error && error.error.message ? error.error.message : '';
+        this.store.dispatch(new ShowDialogOnError(message));
+        this.changesSaving = false;
+      }
+    );
   }
 
   onStepBack(): void {
@@ -80,25 +105,23 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       this.router.navigate(['/publisher', 'site', this.site.id]);
   }
 
-  saveSiteBasicInformation() {
-    if (!this.siteBasicInfoForm.valid) {
-      return;
-    }
-
-    this.adjustSiteDataBeforeSave();
+  saveSiteBasicInformation(): void {
     this.store.dispatch(new SaveLastEditedSite(this.site));
-    this.changesSaved = true;
     this.router.navigate(
-        ['/publisher', 'create-site', 'pops-settings'],
+      ['/publisher', 'create-site', 'pops-settings'],
       {queryParams: {step: 2}}
     );
   }
 
-  adjustSiteDataBeforeSave(): void {
+  updateSite(): void {
+    this.store.dispatch(new UpdateSite(this.site));
+  }
+
+  adjustSiteDataBeforeSave(): boolean {
     let chosenLanguage = this.siteBasicInfoForm.controls['primaryLanguage'].value;
 
     if (typeof chosenLanguage === 'string') {
-      chosenLanguage = this.getSiteInitialLanguage(chosenLanguage)
+      chosenLanguage = this.getSiteInitialLanguage(chosenLanguage);
     }
 
     if (!chosenLanguage) {
@@ -108,7 +131,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           message: `Fill site language field with correct data and submit`,
         }
       });
-      return;
+      return false;
     }
 
     this.site = {
@@ -118,6 +141,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       url: this.siteBasicInfoForm.controls['url'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
     };
+
+    return true;
   }
 
   onUrlFocus(): void {
@@ -135,15 +160,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       this.siteBasicInfoForm.get('name').setValue(domain);
     }
     this.overwriteNameByDomain = false;
-  }
-
-  updateSite(): void {
-    if (!this.siteBasicInfoForm.valid) {
-      return;
-    }
-    this.changesSaved = true;
-    this.adjustSiteDataBeforeSave();
-    this.store.dispatch(new UpdateSite(this.site));
   }
 
   createForm(): void {
@@ -205,9 +221,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   extractDomain(url: string): string {
     let domain = url.toLowerCase();
     //remove protocol, user info and www subdomain
-    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, "");
+    domain = domain.replace(/^(?:[a-z0-9+.-]+:\/\/)?(?:\/\/)?(?:.*@)?(?:www\.)?/i, '');
     // remove port number, path, query string and fragment
-    domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, "");
+    domain = domain.replace(/(?::.*)?(?:\/.*)?(?:\?.*)?(?:#.*)?$/i, '');
 
     return domain;
   }
