@@ -179,7 +179,7 @@
             dwmth-blue"
         role="link"
         (click)="onStepBack()"
-        [disabled]="changesSaved"
+        [disabled]="changesSaving"
       >
         {{createSiteMode ? 'Back to dashboard' : 'Back'}}
       </button>
@@ -190,9 +190,9 @@
           dwmth-btn--wide
           dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
-        [disabled]="changesSaved"
+        [disabled]="changesSaving"
       >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
+        <span *ngIf="!changesSaving; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
         <ng-template #loading>
           <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>

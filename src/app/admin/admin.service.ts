@@ -8,10 +8,13 @@ import {
   AdminSettingsResponse,
   AdminWalletResponse,
   PublisherInfo,
+  RejectedDomainsResponse,
   UserInfo
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from 'common/utilities/helpers';
+import { BidStrategy, BidStrategyRequest } from 'models/campaign.model';
+import { TargetingOption } from 'models/targeting-option.model';
 
 @Injectable()
 export class AdminService {
@@ -103,5 +106,33 @@ export class AdminService {
 
   patchPanelPlaceholders(placeholders): Observable<any> {
     return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
+  }
+
+  getRejectedDomains(): Observable<RejectedDomainsResponse> {
+    return this.http.get<RejectedDomainsResponse>(`${environment.serverUrl}/admin/rejected-domains`);
+  }
+
+  putRejectedDomains(domains: string[]): Observable<any> {
+    return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
+  }
+
+  getTargetingCriteria(): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
+  }
+
+  getBidStrategies(): Observable<BidStrategy[]> {
+    return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`);
+  }
+
+  putBidStrategies(bidStrategy: BidStrategyRequest): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/campaigns/bid-strategy`, bidStrategy);
+  }
+
+  patchBidStrategies(uuid: string, bidStrategy: BidStrategyRequest): Observable<any> {
+    return this.http.patch<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`, bidStrategy);
+  }
+
+  putBidStrategyUuidDefault(uuid: string): Observable<any> {
+    return this.http.put<any>(`${environment.serverUrl}/admin/campaigns/bid-strategy/uuid-default`, {uuid});
   }
 }
