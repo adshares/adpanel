@@ -12,7 +12,6 @@ import {
   TargetingOption,
   TargetingOptionValue
 } from 'models/targeting-option.model';
-import { HandleSubscription } from 'common/handle-subscription';
 import {
   findOption,
   findOptionList,
@@ -26,7 +25,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
+export class TargetingSelectComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef;
   @Input() targetingOptions;
   @Input() addedItems: TargetingOptionValue[];
@@ -45,10 +44,6 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   backAvailable = false;
   optionsHasValue = false;
   searchTerm = '';
-
-  constructor() {
-    super();
-  }
 
   ngOnInit() {
     this.selectedItems = this.addedItems;
