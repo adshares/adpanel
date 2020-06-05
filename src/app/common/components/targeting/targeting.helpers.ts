@@ -20,8 +20,15 @@ function createTargetingChoice(
   parentOption: TargetingOption = null
 ): (TargetingOption | TargetingOptionValue)[] {
   const targetingChoice = cloneDeep(option);
-  const nestedId = `${keyChain}-${option['value'] ? option['value'] : option['key']}`;
-  const id = keyChain !== '' ? nestedId : option['key'];
+
+  let key = keyChain;
+  if (option['key']) {
+    if (key.length > 0) {
+      key += '-';
+    }
+    key += option['key'];
+  }
+  const id = option['value'] ? `${key}-${option['value']}` : key;
   const choiceSublistName = option['children'] ?
     'children' : (option['values'] ? 'values' : null);
 
@@ -32,7 +39,7 @@ function createTargetingChoice(
 
     for (let i = 0; i < targetingChoice[choiceSublistName].length; i++) {
       targetingChoiceSublist.push(
-        createTargetingChoice(targetingChoice[choiceSublistName][i], id, targetingChoice)
+        createTargetingChoice(targetingChoice[choiceSublistName][i], key, targetingChoice)
       );
     }
 
@@ -42,8 +49,9 @@ function createTargetingChoice(
   if (targetingChoice.value) {
     Object.assign(targetingChoice, {
       parent: {
+        id: parentOption.id,
         valueType: parentOption.valueType,
-        allowInput: parentOption.allowInput
+        allowInput: parentOption.allowInput,
       }
     });
   }
@@ -90,11 +98,11 @@ export function getParentId(optionId: string): string {
 
 export function getLabelPath(
   optionId: string,
-  tageting: TargetingOption[]
+  targeting: TargetingOption[]
 ): string {
   const arrayPath = optionId.split('-');
 
-  return generateLabelPath(arrayPath, tageting);
+  return generateLabelPath(arrayPath, targeting);
 }
 
 function generateLabelPath(
@@ -215,15 +223,29 @@ function generateTargetingKeysArray(targetingObject, result, targetingOptionTopK
   });
 }
 
+function getTargetingOptionValueById(id: string, targetingOptionValues: TargetingOptionValue[]): TargetingOptionValue|null {
+  for (let targetingOptionValue of targetingOptionValues) {
+    if (targetingOptionValue.id === id) {
+      return targetingOptionValue;
+    }
+
+    if (targetingOptionValue.values) {
+      const value = getTargetingOptionValueById(id, targetingOptionValue.values);
+      if (null !== value) {
+        return value;
+      }
+    }
+  }
+
+  return null;
+}
+
 function addTargetingOptionToResult(resultKey, result, targetingOptions) {
   targetingOptions.forEach(targetingOption => {
     if (targetingOption.children) {
       addTargetingOptionToResult(resultKey, result, targetingOption.children);
     } else if (targetingOption.values) {
-      const foundResult = targetingOption.values.find(targetingOptionValue => {
-        return targetingOptionValue.id === resultKey
-      });
-
+      const foundResult = getTargetingOptionValueById(resultKey, targetingOption.values);
       if (foundResult) {
         result.push(foundResult);
       }

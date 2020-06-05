@@ -31,33 +31,17 @@
 </button>
 
 <ul *ngFor="let option of viewModel">
-  <li class="">
-    <button
-      *ngIf="!optionsHasValue && !option.allowInput"
-      [tabindex]="0"
+  <li>
+    <div
+      *ngIf="!option.allowInput"
+      tabindex="0"
       class="targeting-select__option"
-      (click)="handleOptionClick(option)"
-      data-test="common-targeting-select-option">
-      {{ option.label }}
-      <img
-        class="targeting-select__option-arrow"
-        src="/assets/images/chevron--right.svg"
-        alt="">
-    </button>
-
-    <app-targeting-custom-option-input
-      *ngIf="option.allowInput"
-      [option]="option"
-      (itemsChange)="handleAddCustomItem($event, option)">
-    </app-targeting-custom-option-input>
-    <button
-      *ngIf="optionsHasValue"
-      [tabindex]="0"
-      class="targeting-select__option"
-      (click)="toggleItem(option)">
+      (click)="option.hasOwnProperty('children') || option.hasOwnProperty('values') ? handleOptionClick(option) : toggleItem(option)"
+      data-test="common-targeting-select-option"
+    >
       {{ option.label }}
       <span
-       *ngIf="option.description"
+        *ngIf="option.description"
         class="targeting-select__help-icon"
       >
         <fa-icon
@@ -67,9 +51,22 @@
           [icon]="faQuestionCircle"
         ></fa-icon>
       </span>
-      <span [ngClass]="{'input-valid': option.selected}"
-            class="{{checkClass}}-unselected"
+      <span
+        *ngIf="option.hasOwnProperty('value')"
+        (click)="toggleItem(option) || $event.stopPropagation()"
+        [ngClass]="{'input-valid': option.selected}"
+        class="{{checkClass}}-unselected"
       ></span>
-    </button>
+      <img
+        *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
+        class="targeting-select__option-arrow"
+        src="/assets/images/chevron--right.svg"
+        alt="">
+    </div>
+    <app-targeting-custom-option-input
+      *ngIf="option.allowInput"
+      [option]="option"
+      (itemsChange)="handleAddCustomItem($event, option)">
+    </app-targeting-custom-option-input>
   </li>
 </ul>

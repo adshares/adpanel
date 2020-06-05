@@ -29,7 +29,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef;
   @Input() targetingOptions;
   @Input() addedItems: TargetingOptionValue[];
-  @Input() checkClass: String = "checkmark";
+  @Input() checkClass: string = 'checkmark';
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   selectedItems: TargetingOptionValue[] = [];
@@ -40,26 +40,24 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
 
-
   backAvailable = false;
-  optionsHasValue = false;
   searchTerm = '';
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selectedItems = this.addedItems;
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
     this.selectSavedItemOnList();
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.deselectRemovedOptions();
     if (this.selectedItems.length === this.addedItems.length) return;
     this.selectedItems = this.addedItems;
     this.selectSavedItemOnList();
   }
 
-  changeViewModel(options: (TargetingOption | TargetingOptionValue)[]) {
+  changeViewModel(options: (TargetingOption | TargetingOptionValue)[]): void {
     const firstOption = options[0];
     this.searchInput.nativeElement.focus();
     this.viewModel = options;
@@ -72,13 +70,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     if (this.backAvailable) {
       this.setBackViewModel(firstOption);
     } else {
-      this.parentOption = null
+      this.parentOption = null;
     }
-
-    this.optionsHasValue = firstOption.hasOwnProperty('value');
   }
 
-  handleOptionClick(option: TargetingOption | TargetingOptionValue) {
+  handleOptionClick(option: TargetingOption | TargetingOptionValue): void {
     this.searchTerm = '';
     const optionSublist = option['children'] || option['values'];
     if (optionSublist) {
@@ -86,7 +82,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  toggleItem(option: TargetingOptionValue) {
+  toggleItem(option: TargetingOptionValue): void {
     const optionIndex = this.selectedItems.findIndex((item) => item.id === option.id);
 
     option.selected = !option.selected;
@@ -101,19 +97,18 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   handleAddItem(
     option: TargetingOptionValue,
     itemToAddIndex: number,
-  ) {
+  ): void {
     if (itemToAddIndex === -1) {
       this.selectedItems.push(cloneDeep(option));
       this.itemsChange.emit(this.selectedItems);
     }
 
     if (option.parent.valueType === 'boolean') {
-
       this.deselectOppositeBoolean(option);
     }
   }
 
-  handleAddCustomItem(items, option) {
+  handleAddCustomItem(items, option): void {
     items = items
       .filter((item, index) => index === items.findIndex(el => el.id === item.id))
       .filter(item => !this.selectedItems.some(el => el.id === item.id));
@@ -136,12 +131,12 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   handleRemoveItem(
     option: TargetingOptionValue,
     itemToRemoveIndex: number
-  ) {
+  ): void {
     this.selectedItems.splice(itemToRemoveIndex, 1);
     this.itemsChange.emit(this.selectedItems);
   }
 
-  deselectOppositeBoolean(option: TargetingOptionValue) {
+  deselectOppositeBoolean(option: TargetingOptionValue): void {
     const optionList = findOptionList(option.id, this.targetingOptions);
     const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
     if (oppositeOption && oppositeOption['selected']) {
@@ -151,11 +146,13 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.itemsChange.emit(this.selectedItems);
   }
 
-  deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions) {
+  deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions): void {
     options.forEach((option) => {
       const sublist = option['children'] || option['values'];
       if (sublist) {
         this.deselectRemovedOptions(sublist);
+      }
+      if (!(<TargetingOptionValue>option).value) {
         return;
       }
       const itemInOptionsIndex = this.selectedItems.findIndex((addedItem) => addedItem.id === option.id);
@@ -166,14 +163,15 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     });
   }
 
-  setBackViewModel(option: TargetingOption | TargetingOptionValue) {
-    const parentOptionId = getParentId(option.id);
+  setBackViewModel(option: TargetingOption | TargetingOptionValue): void {
+    const parentOptionId =
+      (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
 
     this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);
   }
 
-  prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
+  prepareTargetingOptionsForSearch(options?: TargetingOption[]): void {
     const allOptions = options
       || this.targetingOptions
         .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), []);
@@ -190,7 +188,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       });
   }
 
-  onSearchTermChange() {
+  onSearchTermChange(): void {
     const searchTerm = this.searchTerm.toLowerCase().trim();
     if (searchTerm) {
       this.backAvailable = false;
@@ -202,7 +200,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.changeViewModel(this.targetingOptions);
   }
 
-  prepareSearchViewModel() {
+  prepareSearchViewModel(): void {
     const pattern = new RegExp(this.searchTerm, 'i');
     const searchModel = this.targetingOptionsForSearch;
     const searchViewModel = searchModel.filter((option) =>
@@ -216,7 +214,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  selectSavedItemOnList() {
+  selectSavedItemOnList(): void {
     this.selectedItems.forEach((savedItem) => {
       if (savedItem.isCustom) {
         return;

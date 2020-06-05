@@ -10,11 +10,16 @@
     margin-right: 10px;
   }
 
-  &__search-icon,
-  &__option-arrow {
+  &__search-icon {
     position: absolute;
     top: 13px;
     right: 20px;
+  }
+
+  &__option-arrow {
+    position: absolute;
+    top: 13px;
+    right: 5px;
   }
 
   &__search-icon {
