@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fetch domain rank (page rank) from adserver
 - Handling connection errors (dialog after a period of errors)
 - Target URL is clickable
+- Taxonomy processing, allow multi level
 ### Fixed
 - Administrator user search
 
