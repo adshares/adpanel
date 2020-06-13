@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AdminService } from 'admin/admin.service';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
+import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../session.service';
@@ -34,54 +36,54 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
 
   ngOnInit() {
     this.isAdmin = this.sessionService.isAdmin();
-    this.adminService.getTargetingCriteria().subscribe(
-      (targetingOptions) => {
-        const temporaryEntries = [];
-        targetingOptions.forEach((targetingOption) => {
-          const groupLabel = targetingOption.label;
-          const groupKey = targetingOption.key;
-          targetingOption.children.forEach((child) => {
-            const childLabel = child.label;
-            const childKey = child.key;
-            if (child.values) {
-              child.values.forEach((value) => {
-                const valueLabel = value.label;
-                const valueKey = value.value;
 
-                temporaryEntries.push({
-                  label: `${groupLabel}/${childLabel}/${valueLabel}`,
-                  key: `${groupKey}:${childKey}:${valueKey}`,
-                  value: 100,
-                });
-              });
-            }
-          });
-        });
-
-        this.availableEntries = temporaryEntries;
+    Observable.forkJoin(
+      this.adminService.getTargetingCriteria(),
+      this.adminService.getBidStrategies(),
+    ).subscribe(
+      (responses: [TargetingOption[], BidStrategy[]]) => {
+        this.handleFetchedTargetingOptions(responses[0]);
+        this.handleFetchedBidStrategies(responses[1]);
       },
       (error) => {
         const status = error.status ? error.status : 0;
         this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
       });
-
-    this.getDefinedBidStrategies();
   }
 
-  private getDefinedBidStrategies(): void {
-    this.adminService.getBidStrategies().subscribe(
-      (bidStrategies) => {
-        this.bidStrategies = bidStrategies;
-        this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
-        if (this.bidStrategyUuidSelected) {
-          this.onBidStrategySelect();
+  private handleFetchedTargetingOptions(targetingOptions: TargetingOption[]): void {
+    const temporaryEntries = [];
+
+    targetingOptions.forEach((targetingOption) => {
+      const groupLabel = targetingOption.label;
+      const groupKey = targetingOption.key;
+      targetingOption.children.forEach((child) => {
+        const childLabel = child.label;
+        const childKey = child.key;
+        if (child.values) {
+          child.values.forEach((value) => {
+            const valueLabel = value.label;
+            const valueKey = value.value;
+
+            temporaryEntries.push({
+              label: `${groupLabel}/${childLabel}/${valueLabel}`,
+              key: `${groupKey}:${childKey}:${valueKey}`,
+              value: 100,
+            });
+          });
         }
-      },
-      (error) => {
-        const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`Reload the page to load bid strategies. Error code (${status})`));
-      }
-    );
+      });
+    });
+
+    this.availableEntries = temporaryEntries;
+  }
+
+  private handleFetchedBidStrategies(bidStrategies: BidStrategy[]): void {
+    this.bidStrategies = bidStrategies;
+    this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
+    if (this.bidStrategyUuidSelected) {
+      this.onBidStrategySelect();
+    }
   }
 
   onBidStrategySelect(): void {
