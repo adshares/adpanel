@@ -118,6 +118,34 @@
       </div>
 
       <div
+        *ngIf="isSetCategoryMode"
+        class="dwmth-form-input__box"
+      >
+        <label
+          class="dwmth-form-label"
+        >
+          Category
+          <fa-icon
+            matTooltipClass="dwmth-mat-tooltip"
+            matTooltip="Choose the categories that best match your site."
+            matTooltipPosition="right"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
+        </label>
+        <app-targeting-select
+          [targetingOptions]="targetingOptions"
+          [addedItems]="selectedTargetingOptionValues"
+          (itemsChange)="updateSelectedTargetingOptionValues($event)"
+        ></app-targeting-select>
+        <span
+          class="error-msg"
+          *ngIf="selectedTargetingOptionValues.length === 0 && siteBasicInfoSubmitted"
+        >
+          At least one category is required
+        </span>
+      </div>
+
+      <div
         class="dwmth-form-input__box
                site-edit-basic-information__language">
         <label

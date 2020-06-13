@@ -15,6 +15,7 @@ interface Site {
   };
   filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
+  categories?: string[];
 
   clicks?: number;
   impressions?: number;

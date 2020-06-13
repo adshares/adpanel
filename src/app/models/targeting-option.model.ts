@@ -20,6 +20,7 @@ interface TargetingOptionValue {
   selected?: boolean;
   allowInput?: boolean;
   isCustom?: boolean;
+  values?: TargetingOptionValue[];
 }
 
 interface AssetTargeting {
