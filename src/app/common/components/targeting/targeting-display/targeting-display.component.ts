@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { TargetingOptionValue } from 'models/targeting-option.model';
-import { getLabelPath } from 'common/components/targeting/targeting.helpers';
+import { getLabelCompound, getLabelPath } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-targeting-display',
@@ -17,7 +17,10 @@ export class TargetingDisplayComponent implements OnChanges {
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: {
     parentPath: string;
-    chosenTargeting: TargetingOptionValue[]
+    chosenTargeting: {
+      id: string;
+      label: string;
+    }[]
   }[];
 
   ngOnChanges() {
@@ -28,6 +31,11 @@ export class TargetingDisplayComponent implements OnChanges {
     this.viewModel = [];
     if (!this.items.length) return;
     this.items.forEach((item) => {
+      const chosenTargetingItem = {
+        id: item.id,
+        label: getLabelCompound(item, this.targetingOptions),
+      };
+
       const itemLabelPath = getLabelPath(item.id, this.targetingOptions);
       const viewModelParentPathIndex = this.viewModel.findIndex(
         (viewModelItem) => {
@@ -36,20 +44,20 @@ export class TargetingDisplayComponent implements OnChanges {
       );
 
       if (viewModelParentPathIndex >= 0) {
-        this.viewModel[viewModelParentPathIndex].chosenTargeting.push(item);
+        this.viewModel[viewModelParentPathIndex].chosenTargeting.push(chosenTargetingItem);
 
         return;
       }
 
       this.viewModel.push({
         parentPath: itemLabelPath,
-        chosenTargeting: [item]
+        chosenTargeting: [chosenTargetingItem],
       });
     });
   }
 
-  removeItem(removedItem): void {
-    const itemInItemsIndex = this.items.findIndex((itemInItems) => itemInItems.id === removedItem.id);
+  removeItem(itemId: string): void {
+    const itemInItemsIndex = this.items.findIndex((item) => item.id === itemId);
 
     this.items.splice(itemInItemsIndex, 1);
     this.itemsChange.emit(this.items);
