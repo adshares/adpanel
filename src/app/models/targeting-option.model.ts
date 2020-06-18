@@ -18,6 +18,7 @@ interface TargetingOptionValue {
   parent: Partial<TargetingOption>;
 
   selected?: boolean;
+  subSelected?: boolean;
   allowInput?: boolean;
   isCustom?: boolean;
   values?: TargetingOptionValue[];

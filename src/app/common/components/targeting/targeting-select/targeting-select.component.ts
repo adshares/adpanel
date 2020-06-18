@@ -99,13 +99,60 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     itemToAddIndex: number,
   ): void {
     if (itemToAddIndex === -1) {
+      this.handleSiteCategoryUnknown(option);
       this.selectedItems.push(cloneDeep(option));
+      this.addSubItems(option);
+      this.markParentOptions(option);
       this.itemsChange.emit(this.selectedItems);
     }
 
     if (option.parent.valueType === 'boolean') {
       this.deselectOppositeBoolean(option);
     }
+  }
+
+  private handleSiteCategoryUnknown(option: TargetingOptionValue) {
+    if (option.id.startsWith('site-category-')) {
+      if ('site-category-unknown' === option.id) {
+        this.selectedItems = this.selectedItems.filter((item) => !item.id.startsWith('site-category-'));
+      } else {
+        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
+        if (-1 !== indexOfUnknown) {
+          this.selectedItems.splice(indexOfUnknown, 1);
+        }
+      }
+    }
+  }
+
+  private addSubItems(option: TargetingOptionValue): void {
+    if (option.values) {
+      option.values.forEach(
+        (value) => {
+          const index = this.selectedItems.findIndex((item) => item.id === value.id);
+          if (-1 === index) {
+            value.selected = true;
+            this.selectedItems.push(cloneDeep(value));
+            this.addSubItems(value);
+          }
+        }
+      );
+    }
+  }
+
+  private markParentOptions(option: TargetingOptionValue): void {
+    let currentOption = option;
+
+    let hasValue: boolean;
+    let parentOption;
+    do {
+      const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+      parentOption = findOptionList(parentOptionId, this.targetingOptions).find((option) => option.id === parentOptionId);
+      hasValue = parentOption.hasOwnProperty('value');
+      if (hasValue) {
+        parentOption.subSelected = true;
+      }
+      currentOption = parentOption;
+    } while (hasValue);
   }
 
   handleAddCustomItem(items, option): void {
@@ -132,8 +179,44 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     option: TargetingOptionValue,
     itemToRemoveIndex: number
   ): void {
+    option.subSelected = false;
     this.selectedItems.splice(itemToRemoveIndex, 1);
+    this.removeSubItems(option);
+
+    let parentOption, hasValue;
+    do {
+      const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
+      parentOption = findOptionList(parentOptionId, this.targetingOptions).find((option) => option.id === parentOptionId);
+      hasValue = parentOption.hasOwnProperty('value');
+      if (hasValue) {
+        parentOption.subSelected = parentOption.values.some((item) => item.selected);
+
+        if (parentOption.selected) {
+          const index = this.selectedItems.findIndex((item) => item.id === parentOptionId);
+          if (-1 !== index) {
+            this.selectedItems.splice(index, 1);
+          }
+        }
+      }
+      option = parentOption;
+    } while (hasValue);
+
     this.itemsChange.emit(this.selectedItems);
+  }
+
+  private removeSubItems(option: TargetingOptionValue): void {
+    if (option.values) {
+      option.values.forEach(
+        (value) => {
+          const index = this.selectedItems.findIndex((item) => item.id === value.id);
+          if (-1 !== index) {
+            value.subSelected = false;
+            this.selectedItems.splice(index, 1);
+          }
+          this.removeSubItems(value);
+        }
+      );
+    }
   }
 
   deselectOppositeBoolean(option: TargetingOptionValue): void {

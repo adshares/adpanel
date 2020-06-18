@@ -54,7 +54,7 @@
       <span
         *ngIf="option.hasOwnProperty('value')"
         (click)="toggleItem(option) || $event.stopPropagation()"
-        [ngClass]="{'input-valid': option.selected}"
+        [ngClass]="{'input-valid': option.selected, 'sub-selected': !option.selected && option.subSelected}"
         class="{{checkClass}}-unselected"
       ></span>
       <img

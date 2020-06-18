@@ -8,6 +8,10 @@
   background: pal(gray, light);
 }
 
+.checkmark-unselected.sub-selected {
+  background: pal(blue);
+}
+
 .checkmark,
 .input-valid {
   position: absolute;
