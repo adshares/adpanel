@@ -27,7 +27,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class TargetingSelectComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef;
-  @Input() targetingOptions;
+  @Input() targetingOptions: TargetingOption[];
   @Input() addedItems: TargetingOptionValue[];
   @Input() checkClass: string = 'checkmark';
   @Output()
@@ -45,6 +45,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.selectedItems = this.addedItems;
+    this.selectedItems.forEach((item) => this.markParentOptions(item));
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
     this.selectSavedItemOnList();
@@ -114,7 +115,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   private handleSiteCategoryUnknown(option: TargetingOptionValue) {
     if (option.id.startsWith('site-category-')) {
       if ('site-category-unknown' === option.id) {
-        this.selectedItems = this.selectedItems.filter((item) => !item.id.startsWith('site-category-'));
+        const siteCategory = findOptionList('site-category', this.targetingOptions).find((option) => option.id === 'site-category');
+        this.removeSubItems(siteCategory);
       } else {
         const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
         if (-1 !== indexOfUnknown) {
@@ -183,13 +185,14 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.selectedItems.splice(itemToRemoveIndex, 1);
     this.removeSubItems(option);
 
-    let parentOption, hasValue;
+    let hasValue: boolean;
+    let parentOption;
     do {
       const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
       parentOption = findOptionList(parentOptionId, this.targetingOptions).find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
-        parentOption.subSelected = parentOption.values.some((item) => item.selected);
+        parentOption.subSelected = parentOption.values.some((item) => item.selected || item.subSelected);
 
         if (parentOption.selected) {
           const index = this.selectedItems.findIndex((item) => item.id === parentOptionId);
@@ -204,13 +207,13 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.itemsChange.emit(this.selectedItems);
   }
 
-  private removeSubItems(option: TargetingOptionValue): void {
+  private removeSubItems(option: TargetingOption|TargetingOptionValue): void {
     if (option.values) {
       option.values.forEach(
         (value) => {
+          value.subSelected = false;
           const index = this.selectedItems.findIndex((item) => item.id === value.id);
           if (-1 !== index) {
-            value.subSelected = false;
             this.selectedItems.splice(index, 1);
           }
           this.removeSubItems(value);
