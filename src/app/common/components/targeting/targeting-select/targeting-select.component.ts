@@ -115,8 +115,13 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   private handleSiteCategoryUnknown(option: TargetingOptionValue) {
     if (option.id.startsWith('site-category-')) {
       if ('site-category-unknown' === option.id) {
-        const siteCategory = findOptionList('site-category', this.targetingOptions).find((option) => option.id === 'site-category');
-        this.removeSubItems(siteCategory);
+        const optionList = findOptionList('site-category', this.targetingOptions);
+        if (optionList) {
+          const siteCategory = optionList.find((option) => option.id === 'site-category');
+          this.removeSubItems(siteCategory);
+        } else {
+          this.targetingOptions.forEach((option) => this.removeSubItems(option));
+        }
       } else {
         const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
         if (-1 !== indexOfUnknown) {
@@ -148,7 +153,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let parentOption;
     do {
       const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
-      parentOption = findOptionList(parentOptionId, this.targetingOptions).find((option) => option.id === parentOptionId);
+      const optionList = findOptionList(parentOptionId, this.targetingOptions);
+      if (!optionList) {
+        break;
+      }
+      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = true;
@@ -189,7 +198,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let parentOption;
     do {
       const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
-      parentOption = findOptionList(parentOptionId, this.targetingOptions).find((option) => option.id === parentOptionId);
+      const optionList = findOptionList(parentOptionId, this.targetingOptions);
+      if (!optionList) {
+        break;
+      }
+      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = parentOption.values.some((item) => item.selected || item.subSelected);
