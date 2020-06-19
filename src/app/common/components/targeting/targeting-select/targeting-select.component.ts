@@ -27,7 +27,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 })
 export class TargetingSelectComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef;
-  @Input() targetingOptions: TargetingOption[];
+  @Input() targetingOptions: (TargetingOption|TargetingOptionValue)[];
   @Input() addedItems: TargetingOptionValue[];
   @Input() checkClass: string = 'checkmark';
   @Output()
@@ -36,7 +36,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   viewModel: (TargetingOption | TargetingOptionValue)[];
   parentViewModel: (TargetingOption | TargetingOptionValue)[];
   parentOption: TargetingOption | TargetingOptionValue;
-  targetingOptionsForSearch: TargetingOption[] = [];
+  targetingOptionsForSearch: (TargetingOption|TargetingOptionValue)[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
 
@@ -257,16 +257,14 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);
   }
 
-  prepareTargetingOptionsForSearch(options?: TargetingOption[]): void {
-    const allOptions = options
-      || this.targetingOptions
-        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), []);
+  prepareTargetingOptionsForSearch(options?: (TargetingOption|TargetingOptionValue)[]): void {
+    const allOptions = options || this.targetingOptions;
 
     allOptions
       .forEach((option) => {
         this.targetingOptionsForSearch.push(option);
-        if (option.children) {
-          this.prepareTargetingOptionsForSearch(option.children);
+        if ((<TargetingOption>option).children) {
+          this.prepareTargetingOptionsForSearch((<TargetingOption>option).children);
         }
         if (option.values) {
           this.prepareTargetingOptionsForSearch(option.values);
