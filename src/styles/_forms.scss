@@ -8,10 +8,6 @@
   background: pal(gray, light);
 }
 
-.checkmark-unselected.sub-selected {
-  background: pal(gray, light-dark);
-}
-
 .checkmark,
 .input-valid {
   position: absolute;
@@ -36,6 +32,22 @@
     border: solid pal(white);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+  }
+}
+
+.checkmark-unselected.sub-selected {
+  background: pal(black);
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 0;
+    border: solid pal(gray, light);
+    border-width: 10px 0 0 0;
+    transform: rotate(0deg);
   }
 }
 
