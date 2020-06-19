@@ -1,11 +1,37 @@
 .checkmark-unselected {
   position: absolute;
-  bottom: 7px !important;
-  right: 14px;
+  bottom: 9px !important;
+  right: 15px;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  background: pal(gray, light);
+  background: pal(white);
+  border: 1px solid pal(navy, light);
+
+  &.sub-selected {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+      background: pal(navy, light);
+    }
+  }
+
+  &.selected {
+    &:after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 3px;
+      width: 6px;
+      height: 10px;
+      border: solid pal(navy, light);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
 }
 
 .checkmark,
@@ -20,8 +46,7 @@
 }
 
 .checkmark,
-.input-valid,
-.checkmark-unselected {
+.input-valid {
   &:after {
     content: '';
     position: absolute;
@@ -35,22 +60,6 @@
   }
 }
 
-.checkmark-unselected.sub-selected {
-  background: pal(black);
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 10px;
-    height: 0;
-    border: solid pal(gray, light);
-    border-width: 10px 0 0 0;
-    transform: rotate(0deg);
-  }
-}
-
 .stopmark-unselected {
   position: absolute;
   bottom: 7px !important;
@@ -61,7 +70,7 @@
   background: pal(gray, light);
 }
 
-.stopmark-unselected.input-valid {
+.stopmark-unselected.selected {
   position: absolute;
   bottom: 15px;
   right: 14px;
@@ -71,7 +80,7 @@
   background: pal(red);
 }
 
-.stopmark-unselected, .stopmark-unselected.input-valid {
+.stopmark-unselected, .stopmark-unselected.selected {
   &:after {
     content: '';
     position: absolute;
