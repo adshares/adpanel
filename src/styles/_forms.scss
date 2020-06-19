@@ -43,10 +43,7 @@
   height: 16px;
   border-radius: 50%;
   background: pal(green);
-}
 
-.checkmark,
-.input-valid {
   &:after {
     content: '';
     position: absolute;
