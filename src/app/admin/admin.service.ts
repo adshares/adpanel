@@ -135,4 +135,17 @@ export class AdminService {
   putBidStrategyUuidDefault(uuid: string): Observable<any> {
     return this.http.put<any>(`${environment.serverUrl}/admin/campaigns/bid-strategy/uuid-default`, {uuid});
   }
+
+  getBidStrategySpreadsheet(bidStrategyUuid: string): Observable<any> {
+    const options = {
+      observe: 'response' as 'body',
+      responseType: 'blob' as 'json',
+    };
+
+    return this.http.get<any>(`${environment.apiUrl}/campaigns/bid-strategy/${bidStrategyUuid}/spreadsheet`, options);
+  }
+
+  postBidStrategySpreadsheet(bidStrategyUuid: string, data): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/campaigns/bid-strategy/${bidStrategyUuid}/spreadsheet`, data);
+  }
 }
