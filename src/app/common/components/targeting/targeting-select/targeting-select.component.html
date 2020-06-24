@@ -54,14 +54,13 @@
       <span
         *ngIf="option.hasOwnProperty('value')"
         (click)="toggleItem(option) || $event.stopPropagation()"
-        [ngClass]="{'input-valid': option.selected}"
+        [ngClass]="{'selected': option.selected, 'sub-selected': !option.selected && option.subSelected}"
         class="{{checkClass}}-unselected"
       ></span>
-      <img
+      <span
         *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
-        class="targeting-select__option-arrow"
-        src="/assets/images/chevron--right.svg"
-        alt="">
+        class="targeting-select__option-cross"
+      ></span>
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"

@@ -6,10 +6,16 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { AdminService } from 'admin/admin.service';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
-import { TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep } from 'common/utilities/helpers';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { cloneDeep, downloadReport } from 'common/utilities/helpers';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../session.service';
+
+interface BidStrategyComponentEntry {
+  key: string;
+  label: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-bid-strategy',
@@ -18,13 +24,21 @@ import { SessionService } from '../../../session.service';
 })
 export class BidStrategyComponent extends HandleSubscription implements OnInit {
   readonly PREDEFINED_RANKS = [100, 80, 60, 40, 20, 0];
-  availableEntries: { key: string, label: string, value: number }[] = [];
-  entries: { key: string, label: string, value: number }[] = [];
+  readonly MAXIMAL_SPREADSHEET_SIZE_IN_BYTES = 100000;
+  readonly SPREADSHEET_MIME_TYPES: string[] = [
+    'application/octet-stream',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/zip',
+  ];
+  availableEntries: BidStrategyComponentEntry[] = [];
+  entries: BidStrategyComponentEntry[] = [];
   bidStrategies: BidStrategy[] = [];
   bidStrategyUuidSelected: string | null = null;
   bidStrategyNameSelected: string = '';
   isLoading: boolean = true;
   isAdmin: boolean = false;
+  isDownloadInProgress: boolean = false;
+  isUploadInProgress: boolean = false;
 
   constructor(
     private adminService: AdminService,
@@ -52,35 +66,53 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
   }
 
   private handleFetchedTargetingOptions(targetingOptions: TargetingOption[]): void {
-    const temporaryEntries = [];
+    this.availableEntries = this.processTargetingOptions(targetingOptions);
+  }
 
-    targetingOptions.forEach((targetingOption) => {
-      const groupLabel = targetingOption.label;
-      const groupKey = targetingOption.key;
-      targetingOption.children.forEach((child) => {
-        const childLabel = child.label;
-        const childKey = child.key;
-        if (child.values) {
-          child.values.forEach((value) => {
-            const valueLabel = value.label;
-            const valueKey = value.value;
+  private processTargetingOptions(options: TargetingOption[], parentKey: string = '', parentLabel: string = ''): BidStrategyComponentEntry[] {
+    const result = [];
 
-            temporaryEntries.push({
-              label: `${groupLabel}/${childLabel}/${valueLabel}`,
-              key: `${groupKey}:${childKey}:${valueKey}`,
-              value: 100,
-            });
-          });
-        }
-      });
+    options.forEach(option => {
+      const key = ('' === parentKey) ? option.key : `${parentKey}:${option.key}`;
+      const label = ('' === parentLabel) ? option.label : `${parentLabel}/${option.label}`;
+
+      if (option.children) {
+        result.push(...this.processTargetingOptions(option.children, key, label));
+      }
+      if (option.values) {
+        result.push(...this.processTargetingOptionValues(option.values, key, label));
+      }
     });
 
-    this.availableEntries = temporaryEntries;
+    return result;
+  }
+
+  private processTargetingOptionValues(optionValues: TargetingOptionValue[], parentKey: string, parentLabel: string): BidStrategyComponentEntry[] {
+    const result = [];
+
+    optionValues.forEach(optionValue => {
+      const key = `${parentKey}:${optionValue.value}`;
+      const label = `${parentLabel}/${optionValue.label}`;
+
+      result.push({
+        key: key,
+        label: label,
+        value: 100,
+      });
+
+      if (optionValue.values) {
+        result.push(...this.processTargetingOptionValues(optionValue.values, parentKey, label));
+      }
+    })
+
+    return result;
   }
 
   private handleFetchedBidStrategies(bidStrategies: BidStrategy[]): void {
     this.bidStrategies = bidStrategies;
-    this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
+    if (!this.bidStrategyUuidSelected) {
+      this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
+    }
     if (this.bidStrategyUuidSelected) {
       this.onBidStrategySelect();
     }
@@ -96,7 +128,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
       bidStrategy.details.forEach((detail) => {
         const index = temporaryEntries.findIndex((entry) => entry.key === detail.category);
         if (index >= 0) {
-          temporaryEntries[index].value = detail.rank * 100;
+          temporaryEntries[index].value = Math.round(detail.rank * 100);
         }
       });
 
@@ -192,5 +224,72 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
         this.store.dispatch(new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`));
       },
     );
+  }
+
+  downloadSpreadsheet(): void {
+    if (this.isDownloadInProgress || null === this.bidStrategyUuidSelected) {
+      return;
+    }
+    this.isDownloadInProgress = true;
+
+    this.adminService.getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
+      .take(1)
+      .subscribe(
+        response => {
+          downloadReport(response);
+          this.isDownloadInProgress = false;
+        },
+        () => {
+          this.store.dispatch(
+            new ShowDialogOnError('File cannot be downloaded at this moment. Please try again later.')
+          );
+          this.isDownloadInProgress = false;
+        },
+      );
+  }
+
+  uploadSpreadsheet(event): void {
+    if (this.isUploadInProgress || null === this.bidStrategyUuidSelected) {
+      return;
+    }
+    const file = event.target.files[0];
+    if (!this.SPREADSHEET_MIME_TYPES.includes(file.type)) {
+      this.store.dispatch(new ShowDialogOnError(`Unsupported mime type ('${file.type}').`));
+      return;
+    }
+    if (file.size > this.MAXIMAL_SPREADSHEET_SIZE_IN_BYTES) {
+      this.store.dispatch(
+        new ShowDialogOnError(`File size exceeds maximum of ${this.MAXIMAL_SPREADSHEET_SIZE_IN_BYTES/1000}kB.`)
+      );
+      return;
+    }
+
+    this.sendFile(file);
+  }
+
+  private sendFile(file: File): void {
+    this.isUploadInProgress = true;
+    const data = new FormData();
+    data.append('file', file, file.name);
+    const sendFileSubscription = this.adminService.postBidStrategySpreadsheet(this.bidStrategyUuidSelected, data)
+      .subscribe(
+        () => {
+          this.isUploadInProgress = false;
+          this.isLoading = true;
+          this.adminService.getBidStrategies().subscribe(
+            (response) => this.handleFetchedBidStrategies(response),
+            (error) => {
+              const status = error.status ? error.status : 0;
+              this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
+            });
+        },
+        () => {
+          this.store.dispatch(
+            new ShowDialogOnError('File cannot be uploaded at this moment. Please try again later.')
+          );
+          this.isUploadInProgress = false;
+        }
+      );
+    this.subscriptions.push(sendFileSubscription);
   }
 }

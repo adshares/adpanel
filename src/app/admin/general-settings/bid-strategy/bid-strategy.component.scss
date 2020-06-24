@@ -25,6 +25,10 @@
     margin-left: 4px;
     width: 3em;
   }
+
+  &__spreadsheet-button {
+    min-width: 150px;
+  }
 }
 
 .appended {
@@ -33,6 +37,10 @@
 
 .space-top {
   margin-top: 30px;
+}
+
+.file-select-input {
+  display: none;
 }
 
 /deep/ .mat-input-infix {

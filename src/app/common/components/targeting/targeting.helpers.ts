@@ -96,6 +96,28 @@ export function getParentId(optionId: string): string {
   return optionKeyArray.splice(0, optionKeyArray.length - 1).join('-');
 }
 
+export function getLabelCompound(
+  option: TargetingOption | TargetingOptionValue,
+  options: TargetingOption[],
+): string {
+  let label = option.label;
+  let currentOption = option;
+  let hasValue, parentOptionId;
+
+  do {
+    parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+    currentOption = findOptionList(parentOptionId, options).find((option) => option.id === parentOptionId);
+    hasValue = currentOption.hasOwnProperty('value');
+
+    if (hasValue) {
+      label = currentOption.label + ' / ' + label;
+    }
+
+  } while (hasValue);
+
+  return label;
+}
+
 export function getLabelPath(
   optionId: string,
   targeting: TargetingOption[]
