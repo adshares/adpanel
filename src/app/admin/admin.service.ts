@@ -124,12 +124,16 @@ export class AdminService {
     return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`);
   }
 
-  putBidStrategies(bidStrategy: BidStrategyRequest): Observable<any> {
+  putBidStrategy(bidStrategy: BidStrategyRequest): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/campaigns/bid-strategy`, bidStrategy);
   }
 
-  patchBidStrategies(uuid: string, bidStrategy: BidStrategyRequest): Observable<any> {
+  patchBidStrategy(uuid: string, bidStrategy: BidStrategyRequest): Observable<any> {
     return this.http.patch<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`, bidStrategy);
+  }
+
+  deleteBidStrategy(uuid: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`);
   }
 
   putBidStrategyUuidDefault(uuid: string): Observable<any> {

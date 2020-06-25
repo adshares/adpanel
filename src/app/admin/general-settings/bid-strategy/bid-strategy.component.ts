@@ -8,7 +8,7 @@ import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.acti
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { cloneDeep, downloadReport } from 'common/utilities/helpers';
-import { SAVE_SUCCESS } from 'common/utilities/messages';
+import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../session.service';
 
 interface BidStrategyComponentEntry {
@@ -159,7 +159,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
   save(): void {
     const bidStrategy = this.getBidStrategyFromForm();
 
-    this.adminService.putBidStrategies(bidStrategy).subscribe(
+    this.adminService.putBidStrategy(bidStrategy).subscribe(
       (response) => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
@@ -171,10 +171,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
         this.bidStrategyUuidSelected = response.uuid;
         this.bidStrategyNameSelected = bidStrategy.name;
       },
-      (error) => {
-        const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`));
-      },
+      (error) => this.handleError(error),
     );
   }
 
@@ -182,7 +179,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
     const uuid = this.bidStrategyUuidSelected;
     const bidStrategy = this.getBidStrategyFromForm();
 
-    this.adminService.patchBidStrategies(uuid, bidStrategy).subscribe(
+    this.adminService.patchBidStrategy(uuid, bidStrategy).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
@@ -224,6 +221,36 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
         this.store.dispatch(new ShowDialogOnError(`An error occurred. Error code (${status}). Please, try again later.`));
       },
     );
+  }
+
+  deleteBidStrategy(): void {
+    if (!this.bidStrategyUuidSelected) {
+      return;
+    }
+
+    this.adminService.deleteBidStrategy(this.bidStrategyUuidSelected).subscribe(
+      () => {
+        this.store.dispatch(new ShowSuccessSnackbar(DELETE_SUCCESS));
+        const previousBidStrategyUuidSelected = this.bidStrategyUuidSelected;
+        this.bidStrategyUuidSelected = null;
+        this.handleFetchedBidStrategies(
+          this.bidStrategies.filter((bidStrategy) => previousBidStrategyUuidSelected !== bidStrategy.uuid)
+        );
+      },
+      (error) => this.handleError(error),
+    );
+  }
+
+  private handleError(error): void {
+    let payload;
+    if (error.error && error.error.message) {
+      payload = error.error.message;
+    } else {
+      const status = error.status ? error.status : 0;
+      payload = `An error occurred. Error code (${status}). Please, try again later.`;
+    }
+
+    this.store.dispatch(new ShowDialogOnError(payload));
   }
 
   downloadSpreadsheet(): void {
