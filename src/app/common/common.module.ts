@@ -57,6 +57,7 @@ import { TargetingSelectComponent } from './components/targeting/targeting-selec
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
+import { BidStrategyService } from 'common/bid-strategy.service';
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
 import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
@@ -72,6 +73,7 @@ import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/la
 import { PlaceholdersAccordion } from 'common/components/placeholders-accordion/placeholders-accordion';
 import { ReportsListComponent } from 'common/components/reports-list/reports-list.component';
 import { ReportsListItemComponent } from 'common/components/reports-list/reports-list-item/reports-list-item.component';
+import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component';
 
 const matModules = [
   MatDialogModule,
@@ -136,6 +138,7 @@ const appComponents = [
   PlaceholdersAccordion,
   ReportsListComponent,
   ReportsListItemComponent,
+  BidStrategySettingsComponent,
 ];
 
 @NgModule({
@@ -158,6 +161,7 @@ const appComponents = [
     ...dialogs,
   ],
   providers: [
+    BidStrategyService,
     ChartService,
     CommonService,
     AssetHelpersService,

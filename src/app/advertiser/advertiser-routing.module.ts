@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdvertiserComponent } from './advertiser.component';
 import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
 import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-campaign-basic-info/edit-campaign-basic-information.component';
+import { EditCampaignBidStrategyComponent } from './edit-campaign/edit-campaign-bid-strategy/edit-campaign-bid-strategy.component';
 import { EditCampaignConversionComponent } from './edit-campaign/edit-campaign-conversion/edit-campaign-conversion.component';
 import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
@@ -13,8 +14,8 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
-import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
-import { FilteringCriteriaResolver } from "publisher/resolvers/filtering-criteria.resolver";
+import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
+import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 
 const advertiserRoutes: Routes = [
   {
@@ -77,6 +78,10 @@ const advertiserRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+          },
+          {
+            path: 'bid-strategy',
+            component: EditCampaignBidStrategyComponent,
           },
           {
             path: 'conversion',

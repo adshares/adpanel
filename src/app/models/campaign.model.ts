@@ -29,6 +29,7 @@ interface Campaign {
   classificationStatus: number;
   classificationTags?: string;
   classifications: CampaignClassification[];
+  bidStrategyUuid?: string;
 }
 
 interface CampaignTotals {

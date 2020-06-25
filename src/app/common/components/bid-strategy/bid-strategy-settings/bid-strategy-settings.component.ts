@@ -3,13 +3,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { AdminService } from 'admin/admin.service';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { cloneDeep, downloadReport } from 'common/utilities/helpers';
 import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
-import { SessionService } from '../../../session.service';
+import { SessionService } from '../../../../session.service';
+import { BidStrategyService } from 'common/bid-strategy.service';
 
 interface BidStrategyComponentEntry {
   key: string;
@@ -18,11 +18,11 @@ interface BidStrategyComponentEntry {
 }
 
 @Component({
-  selector: 'app-bid-strategy',
-  templateUrl: './bid-strategy.component.html',
-  styleUrls: ['./bid-strategy.component.scss'],
+  selector: 'app-bid-strategy-settings',
+  templateUrl: './bid-strategy-settings.component.html',
+  styleUrls: ['./bid-strategy-settings.component.scss'],
 })
-export class BidStrategyComponent extends HandleSubscription implements OnInit {
+export class BidStrategySettingsComponent extends HandleSubscription implements OnInit {
   readonly PREDEFINED_RANKS = [100, 80, 60, 40, 20, 0];
   readonly MAXIMAL_SPREADSHEET_SIZE_IN_BYTES = 100000;
   readonly SPREADSHEET_MIME_TYPES: string[] = [
@@ -41,7 +41,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
   isUploadInProgress: boolean = false;
 
   constructor(
-    private adminService: AdminService,
+    private bidStrategyService: BidStrategyService,
     private sessionService: SessionService,
     private store: Store<AppState>,
   ) {
@@ -52,8 +52,8 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
     this.isAdmin = this.sessionService.isAdmin();
 
     Observable.forkJoin(
-      this.adminService.getTargetingCriteria(),
-      this.adminService.getBidStrategies(),
+      this.bidStrategyService.getTargetingCriteria(),
+      this.bidStrategyService.getBidStrategies(),
     ).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
         this.handleFetchedTargetingOptions(responses[0]);
@@ -159,7 +159,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
   save(): void {
     const bidStrategy = this.getBidStrategyFromForm();
 
-    this.adminService.putBidStrategy(bidStrategy).subscribe(
+    this.bidStrategyService.putBidStrategy(bidStrategy).subscribe(
       (response) => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
@@ -179,7 +179,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
     const uuid = this.bidStrategyUuidSelected;
     const bidStrategy = this.getBidStrategyFromForm();
 
-    this.adminService.patchBidStrategy(uuid, bidStrategy).subscribe(
+    this.bidStrategyService.patchBidStrategy(uuid, bidStrategy).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
@@ -212,7 +212,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    this.adminService.putBidStrategyUuidDefault(this.bidStrategyUuidSelected).subscribe(
+    this.bidStrategyService.putBidStrategyUuidDefault(this.bidStrategyUuidSelected).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
       },
@@ -228,7 +228,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
       return;
     }
 
-    this.adminService.deleteBidStrategy(this.bidStrategyUuidSelected).subscribe(
+    this.bidStrategyService.deleteBidStrategy(this.bidStrategyUuidSelected).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(DELETE_SUCCESS));
         const previousBidStrategyUuidSelected = this.bidStrategyUuidSelected;
@@ -259,7 +259,7 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
     }
     this.isDownloadInProgress = true;
 
-    this.adminService.getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
+    this.bidStrategyService.getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
       .take(1)
       .subscribe(
         response => {
@@ -298,12 +298,12 @@ export class BidStrategyComponent extends HandleSubscription implements OnInit {
     this.isUploadInProgress = true;
     const data = new FormData();
     data.append('file', file, file.name);
-    const sendFileSubscription = this.adminService.postBidStrategySpreadsheet(this.bidStrategyUuidSelected, data)
+    const sendFileSubscription = this.bidStrategyService.postBidStrategySpreadsheet(this.bidStrategyUuidSelected, data)
       .subscribe(
         () => {
           this.isUploadInProgress = false;
           this.isLoading = true;
-          this.adminService.getBidStrategies().subscribe(
+          this.bidStrategyService.getBidStrategies().subscribe(
             (response) => this.handleFetchedBidStrategies(response),
             (error) => {
               const status = error.status ? error.status : 0;
