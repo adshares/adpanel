@@ -16,6 +16,7 @@ import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
+import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
 
 const advertiserRoutes: Routes = [
   {
@@ -35,6 +36,7 @@ const advertiserRoutes: Routes = [
         path: 'campaign/:id',
         component: CampaignDetailsComponent,
         resolve: {
+          bidStrategyDefaultUuid: BidStrategyDefaultResolver,
           campaignsConfig: CampaignsConfigResolver,
           targetingOptions: TargetingCriteriaResolver,
           filteringOptions: FilteringCriteriaResolver,

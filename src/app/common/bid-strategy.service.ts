@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
 import { TargetingOption } from 'models/targeting-option.model';
-import { BidStrategy, BidStrategyRequest } from 'models/campaign.model';
+import { BidStrategy, BidStrategyUuidDefaultResponse, BidStrategyRequest } from 'models/campaign.model';
 
 @Injectable()
 export class BidStrategyService {
@@ -30,6 +30,10 @@ export class BidStrategyService {
 
   deleteBidStrategy(uuid: string): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`);
+  }
+
+  getBidStrategyUuidDefault(): Observable<BidStrategyUuidDefaultResponse> {
+    return this.http.get<BidStrategyUuidDefaultResponse>(`${environment.apiUrl}/campaigns/bid-strategy/uuid-default`);
   }
 
   putBidStrategyUuidDefault(uuid: string): Observable<any> {
