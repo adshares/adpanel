@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from 'environments/environment';
 import { TargetingOption } from 'models/targeting-option.model';
-import { BidStrategy, BidStrategyUuidDefaultResponse, BidStrategyRequest } from 'models/campaign.model';
+import { BidStrategy, BidStrategyRequest, BidStrategyUuidDefaultResponse } from 'models/campaign.model';
 
 @Injectable()
 export class BidStrategyService {
@@ -16,8 +16,13 @@ export class BidStrategyService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
   }
 
-  getBidStrategies(): Observable<BidStrategy[]> {
-    return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`);
+  getBidStrategies(attachDefault: boolean = false): Observable<BidStrategy[]> {
+    const params = {};
+    if (attachDefault) {
+      params['attach-default'] = 'true';
+    }
+
+    return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`, {params});
   }
 
   putBidStrategy(bidStrategy: BidStrategyRequest): Observable<any> {
