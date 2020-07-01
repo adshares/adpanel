@@ -306,37 +306,44 @@
       ></app-campaign-classification-info>
     </div>
     </section>
-    <section
-      class="dwmth-box
-             dwmth-box--high"
-    >
+    <section class="dwmth-box dwmth-box--high">
+      <div class="row justify-end">
+        <div
+          *ngIf="isDefaultBidStrategy"
+          class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
+        >
+          New feature!
+        </div>
+        <button
+          class="self-end dwmth-btn dwmth-btn--edit"
+          (click)="navigateToCampaignEdition('bid-strategy', 0)"
+          data-test="advertiser-campaign-edit-bid-strategy-button"
+        >
+          <img
+            class="dwmth-icon dwmth-icon--prepend"
+            src="assets/images/edit-blue.svg"
+            alt=""
+          >
+          Edit bid strategy
+        </button>
+      </div>
+    </section>
+    <section class="dwmth-box dwmth-box--high">
       <div class="row justify-end">
         <div
           *ngIf="undefined == campaign.conversions || campaign.conversions.length == 0"
-          class="
-            row
-            align-center
-            dwmth-box
-            dwmth-copy
-            dwmth-copy--semi
-            dwmth-copy--green
-            new-feature"
+          class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
         >
           New feature!
         </div>
 
         <button
-          class="
-            self-end
-            dwmth-btn
-            dwmth-btn--edit"
+          class="self-end dwmth-btn dwmth-btn--edit"
           (click)="navigateToCampaignEdition('conversion', 0)"
           data-test="advertiser-campaign-edit-conversion-button"
         >
           <img
-            class="
-              dwmth-icon
-              dwmth-icon--prepend"
+            class="dwmth-icon dwmth-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
           >
@@ -344,53 +351,34 @@
         </button>
       </div>
       <div *ngIf="conversionTableItems.length > 0">
-        <div
-          class="
-            row
-            dwmth-box
-            justify-between
-            dwmth-copy
-            dwmth-copy--semi"
-        >
-          <div class="col-xs-3"
-          >
+        <div class="row dwmth-box justify-between dwmth-copy dwmth-copy--semi">
+          <div class="col-xs-3">
             Name
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             Type
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             Cost
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             Occurrences
           </div>
         </div>
 
         <div *ngFor="let conversion of conversionTableItems"
-          class="
-            row
-            dwmth-box
-            justify-between
-            dwmth-copy"
+          class="row dwmth-box justify-between dwmth-copy"
         >
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             {{ conversion.name }}
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             {{ conversion.eventType }}
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             {{ conversion.cost | formatMoney:2 }}
           </div>
-          <div class="col-xs-3"
-          >
+          <div class="col-xs-3">
             {{ conversion.occurrences }}
           </div>
         </div>

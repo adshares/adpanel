@@ -29,6 +29,7 @@ interface Campaign {
   classificationStatus: number;
   classificationTags?: string;
   classifications: CampaignClassification[];
+  bidStrategyUuid?: string;
 }
 
 interface CampaignTotals {
@@ -148,6 +149,10 @@ interface BidStrategyRequest {
   details: BidStrategyDetail[],
 }
 
+interface BidStrategyUuidDefaultResponse {
+  uuid: string;
+}
+
 export {
   CampaignsConfig,
   Campaign,
@@ -164,4 +169,5 @@ export {
   BidStrategy,
   BidStrategyDetail,
   BidStrategyRequest,
+  BidStrategyUuidDefaultResponse,
 };

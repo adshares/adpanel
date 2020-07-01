@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatCheckboxModule, MatInputModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,6 +23,7 @@ import { EditCampaignComponent } from './edit-campaign/edit-campaign.component';
 import { CampaignListComponent } from './campaign-list/campaign-list.component';
 import { CampaignListItemComponent } from './campaign-list/campaign-list-item/campaign-list-item.component';
 import { EditCampaignBasicInformationComponent } from './edit-campaign/edit-campaign-basic-info/edit-campaign-basic-information.component';
+import { EditCampaignBidStrategyComponent } from './edit-campaign/edit-campaign-bid-strategy/edit-campaign-bid-strategy.component';
 import { EditCampaignConversionComponent } from './edit-campaign/edit-campaign-conversion/edit-campaign-conversion.component';
 import { EditCampaignAdditionalTargetingComponent } from './edit-campaign/edit-campaign-additional-targeting/edit-campaign-additional-targeting.component';
 import { EditCampaignCreateAdsComponent } from './edit-campaign/edit-campaign-create-ads/edit-campaign-create-ads.component';
@@ -33,12 +35,12 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 
 import { CampaignBudgetPerDayPipe } from 'common/pipes/campaign-budget-per-day.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
+import { BidStrategyDefaultResolver } from './resolvers/bid-strategy-default.resolver';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
-import { CampaignsConfigResolver } from "advertiser/resolvers/campaigns-config.resolver";
-import { CampaignClassificationInfoComponent } from "advertiser/campaign-classification-info/campaign-classification-info.component";
-import { MatChipsModule } from "@angular/material/chips";
+import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
+import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
 
@@ -58,6 +60,7 @@ const matModules = [
 const editCampaignComponents = [
   EditCampaignComponent,
   EditCampaignBasicInformationComponent,
+  EditCampaignBidStrategyComponent,
   EditCampaignConversionComponent,
   EditCampaignAdditionalTargetingComponent,
   EditCampaignCreateAdsComponent,
@@ -94,6 +97,7 @@ const advertiserComponents = [
   ],
   providers: [
     AdvertiserGuard,
+    BidStrategyDefaultResolver,
     CampaignResolver,
     CampaignsConfigResolver,
     TargetingCriteriaResolver,

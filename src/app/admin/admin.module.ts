@@ -18,7 +18,6 @@ import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
-import { BidStrategyComponent } from 'admin/general-settings/bid-strategy/bid-strategy.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
@@ -69,7 +68,6 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
   ],
   declarations: [
     AdminComponent,
-    BidStrategyComponent,
     DashboardComponent,
     UsersComponent,
     UserListComponent,

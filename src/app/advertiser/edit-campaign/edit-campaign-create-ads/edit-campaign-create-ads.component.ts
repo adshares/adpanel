@@ -56,7 +56,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   displayAdSizes: string[] = enumToArray(displayAdSizesEnum);
-  popAdSizes: string[] = enumToArray(popAdSizesEnum);
+  directAdSizes: string[] = enumToArray(popAdSizesEnum).concat(enumToArray(displayAdSizesEnum));
   adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
   adsSubmitted = false;
@@ -352,7 +352,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       adForm.get('creativeSize').setValue(this.displayAdSizes[0]);
       adForm.get('creativeContents').setValidators([]);
     } else if (adForm.get('direct')) {
-      adForm.get('creativeSize').setValue(this.popAdSizes[0]);
+      adForm.get('creativeSize').setValue(this.directAdSizes[0]);
       adForm.get('creativeContents').setValidators([
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP),

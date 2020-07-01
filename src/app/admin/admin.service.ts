@@ -115,37 +115,4 @@ export class AdminService {
   putRejectedDomains(domains: string[]): Observable<any> {
     return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
   }
-
-  getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
-  }
-
-  getBidStrategies(): Observable<BidStrategy[]> {
-    return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`);
-  }
-
-  putBidStrategies(bidStrategy: BidStrategyRequest): Observable<any> {
-    return this.http.put<any>(`${environment.apiUrl}/campaigns/bid-strategy`, bidStrategy);
-  }
-
-  patchBidStrategies(uuid: string, bidStrategy: BidStrategyRequest): Observable<any> {
-    return this.http.patch<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`, bidStrategy);
-  }
-
-  putBidStrategyUuidDefault(uuid: string): Observable<any> {
-    return this.http.put<any>(`${environment.serverUrl}/admin/campaigns/bid-strategy/uuid-default`, {uuid});
-  }
-
-  getBidStrategySpreadsheet(bidStrategyUuid: string): Observable<any> {
-    const options = {
-      observe: 'response' as 'body',
-      responseType: 'blob' as 'json',
-    };
-
-    return this.http.get<any>(`${environment.apiUrl}/campaigns/bid-strategy/${bidStrategyUuid}/spreadsheet`, options);
-  }
-
-  postBidStrategySpreadsheet(bidStrategyUuid: string, data): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/campaigns/bid-strategy/${bidStrategyUuid}/spreadsheet`, data);
-  }
 }

@@ -1,7 +1,7 @@
-<article class="dwmth-box dwmth-box--large dwmth-copy bid-strategy__wrapper">
+<article class="dwmth-box dwmth-box--large dwmth-copy">
   <section>
-    <h1 class="dwmth-heading dwmth-heading--primary">Bid Strategy</h1>
-    <p class="dwmth-copy--large">
+    <h1 class="dwmth-heading dwmth-heading--secondary">Bid strategies settings</h1>
+    <p class="dwmth-copy">
       Set bid strategies for campaigns.
       First, select an existing strategy or add a new one.
       Then set the name of strategy and ranks for categories.
@@ -10,7 +10,7 @@
       You can limit payments for a selected category by lowering its rank.
       The rank can be set in range from 0 to 100%.
     </p>
-    <p class="dwmth-copy--large">
+    <p class="dwmth-copy">
       For example, the category `Device/Browser/Internet Explorer` means that the user watching ads uses Internet Explorer.
       If you want to pay less for impressions created with Internet Explorer, you should reduce rank of this category.
     </p>
@@ -55,6 +55,12 @@
         (click)="setDefaultBidStrategy()"
       >
         Set as default
+      </button>
+      <button
+        class="dwmth-btn dwmth-btn--blue appended"
+        (click)="deleteBidStrategy()"
+      >
+        Delete
       </button>
     </div>
 
