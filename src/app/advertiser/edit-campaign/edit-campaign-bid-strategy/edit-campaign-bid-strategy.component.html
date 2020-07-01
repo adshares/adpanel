@@ -13,8 +13,8 @@
       Select bid strategy <span *ngIf="campaign">for {{ campaign.basicInformation.name}} campaign</span>
     </h3>
     <div class="dwmth-copy">
-      Here you can edit bid strategy for the campaign.
-      You can preview all available bid strategies below.
+      Here you can select bid strategy for the campaign.
+      You can preview all your bid strategies below.
       There is also an explanation what a bid strategy is.
     </div>
 
@@ -36,6 +36,9 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+    <div class="dwmth-copy">
+      [X] - bid strategy defined by administrator
     </div>
   </div>
   <div *ngIf="isLoading" class="loading-wrapper">

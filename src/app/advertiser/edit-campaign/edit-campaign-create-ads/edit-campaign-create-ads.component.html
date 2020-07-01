@@ -172,7 +172,6 @@
                 col-xxxl-1
                 col"
             >
-
               <div *ngIf="adForm.get('image') && adForm.get('creativeSize').value"
                    class="dwmth-form-input__box">
                 <span class="dwmth-form-input__box
@@ -229,10 +228,16 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of directAdSizes"
+                    *ngFor="let adSize of popAdSizes"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let adSize of displayAdSizes"
+                    [value]="adSize"
+                    data-test="advertiser-edit-campaign-create-ads-form-size-option">
+                    iframe {{ adSize }}
                   </mat-option>
                 </mat-select>
               </div>
