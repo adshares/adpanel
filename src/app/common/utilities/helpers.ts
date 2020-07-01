@@ -56,19 +56,6 @@ function enumToArray(enumInput) {
   return enumNamesArray;
 }
 
-function enumToObject(enumInput) {
-  let enumNameObject: {
-    [key: string]: string
-  } = {};
-
-  for (let enumMember in enumInput) {
-    if (typeof enumInput[enumMember] === 'number') {
-      enumNameObject[enumMember] = enumMember.toLowerCase();
-    }
-  }
-  return enumNameObject;
-}
-
 function enumToObjectArray(enumInput) {
   const enumNameArrayObject = [];
 
@@ -298,7 +285,6 @@ export {
   cloneDeep,
   cutDirectAdSizeAnchor,
   enumToArray,
-  enumToObject,
   enumToObjectArray,
   formatMoney,
   isUnixTimePastNow,
