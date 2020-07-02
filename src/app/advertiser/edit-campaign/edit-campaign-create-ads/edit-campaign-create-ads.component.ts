@@ -23,7 +23,7 @@ import {
 } from 'models/enum/ad.enum';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { HandleSubscription } from "common/handle-subscription";
-import { cloneDeep, enumToArray } from 'common/utilities/helpers';
+import { cloneDeep, cutDirectAdSizeAnchor, enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
 import { Ad, Campaign } from 'models/campaign.model';
 import { environment } from 'environments/environment';
@@ -56,7 +56,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   displayAdSizes: string[] = enumToArray(displayAdSizesEnum);
-  directAdSizes: string[] = enumToArray(popAdSizesEnum).concat(enumToArray(displayAdSizesEnum));
+  popAdSizes: string[] = enumToArray(popAdSizesEnum);
   adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
   adsSubmitted = false;
@@ -150,7 +150,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
       creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
-      creativeContents: new FormControl(ad.creativeContents || this.campaign.basicInformation.targetUrl),
+      creativeContents: new FormControl(cutDirectAdSizeAnchor(ad.creativeContents || this.campaign.basicInformation.targetUrl)),
       status: new FormControl(ad.status)
     });
 
@@ -352,7 +352,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       adForm.get('creativeSize').setValue(this.displayAdSizes[0]);
       adForm.get('creativeContents').setValidators([]);
     } else if (adForm.get('direct')) {
-      adForm.get('creativeSize').setValue(this.directAdSizes[0]);
+      adForm.get('creativeSize').setValue(this.popAdSizes[0]);
       adForm.get('creativeContents').setValidators([
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP),

@@ -49,7 +49,7 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
   }
 
   fetchBidStrategies(): void {
-    this.bidStrategyService.getBidStrategies().subscribe(
+    this.bidStrategyService.getBidStrategies(true).subscribe(
       (bidStrategies) => {
         this.bidStrategies = bidStrategies;
         this.getCampaignFromStore();

@@ -115,6 +115,8 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     }
     if (this.bidStrategyUuidSelected) {
       this.onBidStrategySelect();
+    } else {
+      this.isLoading = false;
     }
   }
 

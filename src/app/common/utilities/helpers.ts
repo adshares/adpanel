@@ -39,6 +39,11 @@ function cloneDeep(target) {
   return JSON.parse(JSON.stringify(target));
 }
 
+function cutDirectAdSizeAnchor(url: string): string {
+  const index = url.lastIndexOf('#');
+  return -1 === index ? url: url.substring(0, index);
+}
+
 function enumToArray(enumInput) {
   const enumNamesArray: string[] = [];
 
@@ -49,19 +54,6 @@ function enumToArray(enumInput) {
   }
 
   return enumNamesArray;
-}
-
-function enumToObject(enumInput) {
-  let enumNameObject: {
-    [key: string]: string
-  } = {};
-
-  for (let enumMember in enumInput) {
-    if (typeof enumInput[enumMember] === 'number') {
-      enumNameObject[enumMember] = enumMember.toLowerCase();
-    }
-  }
-  return enumNameObject;
 }
 
 function enumToObjectArray(enumInput) {
@@ -125,10 +117,6 @@ function formatMoney(
 function isUnixTimePastNow(unixTime): boolean {
   const nowUnix = (+new Date) / 1000 | 0;
   return unixTime < nowUnix;
-}
-
-function selectCompare(value, nextValue): boolean {
-  return (value && nextValue) ? (value.id === nextValue.id) : (value === nextValue);
 }
 
 function createInitialArray(element, count) {
@@ -295,12 +283,11 @@ export {
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
+  cutDirectAdSizeAnchor,
   enumToArray,
-  enumToObject,
   enumToObjectArray,
   formatMoney,
   isUnixTimePastNow,
-  selectCompare,
   createInitialArray,
   sortArrayByKeys,
   adjustCampaignStatus,

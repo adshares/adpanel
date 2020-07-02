@@ -5,13 +5,13 @@ import { Ad, AdPreview } from 'models/campaign.model';
 import { adTypesEnum } from 'models/enum/ad.enum';
 import { AdPreviewDialogComponent } from 'common/dialog/ad-preview-dialog/ad-preview-dialog.component';
 import { HTTP_OK } from 'common/utilities/codes';
+import { cutDirectAdSizeAnchor } from 'common/utilities/helpers';
 
 @Component({
   selector: 'app-banner-preview',
   templateUrl: './banner-preview.component.html',
   styleUrls: ['./banner-preview.component.scss'],
 })
-
 export class BannerPreviewComponent implements OnInit {
   @Input() banner: BannerClassification | Ad;
   @Input() landingUrl: string;
@@ -55,7 +55,7 @@ export class BannerPreviewComponent implements OnInit {
       }
     } else if (this.isDirectLink) {
       this.isBannerInputTypeAd = true;
-      this.url = (<Ad>this.banner).creativeContents;
+      this.url = cutDirectAdSizeAnchor((<Ad>this.banner).creativeContents);
     } else {
       this.isBannerInputTypeAd = true;
       this.url = (<Ad>this.banner).url;
@@ -68,26 +68,26 @@ export class BannerPreviewComponent implements OnInit {
     }
 
     if (this.isBannerInputTypeAd && this.isHtml) {
-      this.canLoadIframeContent(this.url)
+      this.canLoadIframeContent(this.url);
     } else {
       this.isLoading = false;
       this.showIframe = true;
     }
   }
 
-  get isImage() {
+  get isImage(): boolean {
     return this.banner.type === adTypesEnum.IMAGE;
   }
 
-  get isHtml() {
+  get isHtml(): boolean {
     return this.banner.type === adTypesEnum.HTML;
   }
 
-  get isDirectLink() {
+  get isDirectLink(): boolean {
     return this.banner.type === adTypesEnum.DIRECT;
   }
 
-  canLoadIframeContent(url: string) {
+  canLoadIframeContent(url: string): void {
     fetch(url, {method: 'HEAD'})
       .then(res => {
         this.isLoading = false;
