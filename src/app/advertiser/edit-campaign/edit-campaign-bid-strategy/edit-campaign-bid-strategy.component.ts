@@ -66,8 +66,9 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
-        if (this.campaign.bidStrategyUuid && (-1 !== this.bidStrategies.findIndex((bidStrategy) => bidStrategy.uuid === this.campaign.bidStrategyUuid))) {
-          this.bidStrategyUuidSelected = this.campaign.bidStrategyUuid;
+        const bidStrategyUuid = this.campaign.bidStrategy.uuid;
+        if (bidStrategyUuid && (-1 !== this.bidStrategies.findIndex((bidStrategy) => bidStrategy.uuid === bidStrategyUuid))) {
+          this.bidStrategyUuidSelected = bidStrategyUuid;
         }
         this.isLoading = false;
       });
@@ -78,9 +79,14 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
   onBidStrategySelect(): void {
     this.submitted = true;
 
+    const bigStrategySelected = this.bidStrategies.find((bidStrategy) => bidStrategy.uuid === this.bidStrategyUuidSelected);
+
     this.campaign = {
       ...this.campaign,
-      bidStrategyUuid: this.bidStrategyUuidSelected,
+      bidStrategy: {
+        name: bigStrategySelected.name,
+        uuid: this.bidStrategyUuidSelected,
+      },
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
