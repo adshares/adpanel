@@ -1,6 +1,6 @@
-@import '../../../../styles.scss';
+@import '../../../../../styles';
 
-.publisher-list-item {
+.advertiser-list-item {
   @include container($border-color: pal(gray, nearly-white));
   display: flex;
   justify-content: space-between;

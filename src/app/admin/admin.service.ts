@@ -7,14 +7,13 @@ import {
   AdminSettings,
   AdminSettingsResponse,
   AdminWalletResponse,
+  AdvertiserInfo,
   PublisherInfo,
   RejectedDomainsResponse,
   UserInfo
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { adsToClicks } from 'common/utilities/helpers';
-import { BidStrategy, BidStrategyRequest } from 'models/campaign.model';
-import { TargetingOption } from 'models/targeting-option.model';
 
 @Injectable()
 export class AdminService {
@@ -29,6 +28,23 @@ export class AdminService {
     ) || `${environment.serverUrl}/admin/users`;
     const params = searchPhrase.length ? `?q=${searchPhrase}` : '';
     return this.http.get<UserInfo[]>(`${url}${params}`);
+  }
+
+  getAdvertisers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<AdvertiserInfo[]> {
+    const params = [];
+    if (groupBy) {
+      params.push('g=' + encodeURIComponent(groupBy));
+    }
+    if (interval) {
+      params.push('i=' + encodeURIComponent(interval));
+    }
+    if (searchPhrase) {
+      params.push('q=' + encodeURIComponent(searchPhrase));
+    }
+    if (minDailyViews) {
+      params.push('l=' + minDailyViews);
+    }
+    return this.http.get<AdvertiserInfo[]>(`${environment.serverUrl}/admin/advertisers?${params.join("&")}`);
   }
 
   getPublishers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<PublisherInfo[]> {

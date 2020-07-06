@@ -3,7 +3,16 @@
     <div>{{ publisher.domain }}</div>
   </td>
   <td class="col-xs-3 publisher-list-item__cell group">
-    <div>{{ publisher.email }}</div>
+    <div>
+      <button
+        *ngFor="let userId of publisher.userIds"
+        (click)="handleImpersonating(userId)"
+        class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"
+      >
+        <fa-icon [icon]="faIconImpersonation" class="dwmth-icon dwmth-icon--large fa-lg"></fa-icon>
+      </button>
+      {{ publisher.email }}
+    </div>
   </td>
   <td class="col-xs-1-2 publisher-list-item__cell align-right">
     {{ publisher.views | number }}

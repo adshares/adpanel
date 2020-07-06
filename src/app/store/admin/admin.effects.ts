@@ -21,12 +21,15 @@ import {
   GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
   LOAD_ADMIN_WALLET,
+  LOAD_ADVERTISERS,
   LOAD_PUBLISHERS,
   LOAD_USERS,
   LoadAdminSettingsFailure,
   LoadAdminSettingsSuccess,
   LoadAdminWalletFailure,
   LoadAdminWalletSuccess,
+  LoadAdvertisersFailure,
+  LoadAdvertisersSuccess,
   LoadPublishersFailure,
   LoadPublishersSuccess,
   LoadUsersFailure,
@@ -74,6 +77,16 @@ export class AdminEffects {
     .switchMap((payload) => this.service.getUsers(payload.nextPage, payload.searchPhrase)
       .map((users) => new LoadUsersSuccess(users))
       .catch((err) => Observable.of(new LoadUsersFailure(err)))
+    );
+
+  @Effect()
+  loadAdvertisers$ = this.actions$
+    .ofType(LOAD_ADVERTISERS)
+    .debounceTime(100)
+    .map(toPayload)
+    .switchMap((payload) => this.service.getAdvertisers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
+      .map((advertisers) => new LoadAdvertisersSuccess(advertisers))
+      .catch((err) => Observable.of(new LoadAdvertisersFailure(err)))
     );
 
   @Effect()

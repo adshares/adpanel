@@ -34,7 +34,7 @@
       width: calc(100% - 400px);
     }
 
-    @include media(xl-up) {
+    @include media(xxl-up) {
       width: calc(100vw - 740px);
     }
   }

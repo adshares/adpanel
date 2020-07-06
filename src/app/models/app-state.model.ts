@@ -3,6 +3,7 @@ import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
   AdminWallet,
+  Advertisers,
   BillingHistory,
   Index,
   License,
@@ -57,6 +58,7 @@ interface UserState {
 
 interface AdminState {
   users: Users;
+  advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
   wallet: AdminWallet;
