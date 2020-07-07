@@ -29,7 +29,12 @@ interface Campaign {
   classificationStatus: number;
   classificationTags?: string;
   classifications: CampaignClassification[];
-  bidStrategyUuid?: string;
+  bidStrategy?: CampaignBidStrategy;
+}
+
+interface CampaignBidStrategy {
+  name: string;
+  uuid: string;
 }
 
 interface CampaignTotals {

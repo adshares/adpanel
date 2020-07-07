@@ -103,7 +103,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
-          this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategyUuid;
+          this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
         }
         this.updateBudgetInfo();
         this.updateConversionTableItems();

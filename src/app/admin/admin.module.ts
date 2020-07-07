@@ -14,6 +14,7 @@ import {
 } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppCommonModule } from 'common/common.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
@@ -36,6 +37,8 @@ import { RejectedDomainsComponent } from 'admin/general-settings/rejected-domain
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { UsersComponent } from 'admin/users/users.component';
+import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
+import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/advertiser-list-item/advertiser-list-item.component';
 import { PublisherListComponent } from 'admin/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/publisher-list/publisher-list-item/publisher-list-item.component';
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
@@ -46,6 +49,7 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
     HttpModule,
     AppCommonModule,
     AdminRoutingModule,
+    FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -72,6 +76,8 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
     UsersComponent,
     UserListComponent,
     UserListItemComponent,
+    AdvertiserListComponent,
+    AdvertiserListItemComponent,
     PublisherListComponent,
     PublisherListItemComponent,
     UserReportsComponent,

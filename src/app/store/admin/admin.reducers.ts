@@ -9,6 +9,7 @@ import {
   GET_TERMS_SETTINGS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   LOAD_ADMIN_WALLET_SUCCESS,
+  LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
@@ -17,6 +18,7 @@ import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
   users: null,
+  advertisers: null,
   publishers: null,
   settings: {
     adserverName: '',
@@ -49,6 +51,11 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         users: action.payload
+      };
+    case LOAD_ADVERTISERS_SUCCESS:
+      return {
+        ...state,
+        advertisers: action.payload
       };
     case LOAD_PUBLISHERS_SUCCESS:
       return {

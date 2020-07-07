@@ -1,51 +1,51 @@
-<section class="publisher-list">
+<section class="advertiser-list">
   <div
     class="
       row
       justify-between
       align-center"
   >
-    <div class="publisher-list__search-container row justify-between">
+    <div class="advertiser-list__search-container row justify-between">
       <div>
         <mat-icon> search</mat-icon>
-        <label>Search for publisher:
+        <label>Search for advertiser:
           <input
             [(ngModel)]="searchPhrase"
             (ngModelChange)="onSearchChange()"
-            class="publisher-list__input"
+            class="advertiser-list__input"
             data-test="admin-user-search-input"
             id="search"
-            placeholder="Search by email or domain"
+            placeholder="Search by email or target url"
           >
         </label>
       </div>
-      <div class="publisher-list__filters">
+      <div class="advertiser-list__filters">
         <label>Group by:</label>
-        <mat-checkbox (change)="groupPublishers('domain')"
-                      [checked]="'domain' === groupBy"
-                      class="publisher-list__checkbox">
-          domain
+        <mat-checkbox (change)="groupAdvertisers('campaign')"
+                      [checked]="'campaign' === groupBy"
+                      class="advertiser-list__checkbox">
+          campaign
         </mat-checkbox>
-        <mat-checkbox (change)="groupPublishers('user')"
+        <mat-checkbox (change)="groupAdvertisers('user')"
                       [checked]="'user' === groupBy"
-                      class="publisher-list__checkbox">
-          email
+                      class="advertiser-list__checkbox">
+          user
         </mat-checkbox>
       </div>
-      <div class="publisher-list__filters">
+      <div class="advertiser-list__filters">
         <label>Interval:</label>
         <mat-checkbox (change)="changeInterval('week')"
                       [checked]="'week' === interval"
-                      class="publisher-list__checkbox">
+                      class="advertiser-list__checkbox">
           week
         </mat-checkbox>
         <mat-checkbox (change)="changeInterval('day')"
                       [checked]="'day' === interval"
-                      class="publisher-list__checkbox">
+                      class="advertiser-list__checkbox">
           day
         </mat-checkbox>
       </div>
-      <div class="publisher-list__filters">
+      <div class="advertiser-list__filters">
         <label>Min daily views:
         <input
           [(ngModel)]="minDailyViews"
@@ -53,7 +53,7 @@
           type="number"
           min="0"
           step="1"
-          class="publisher-list__input"
+          class="advertiser-list__input"
           id="minViews"
         >
       </label>
@@ -61,26 +61,26 @@
     </div>
   </div>
 
-  <table class="publisher-list__items">
+  <table class="advertiser-list__items">
     <app-table-navigation
       (sortTable)="sortTable($event)"
-      navigationName="publisherListNavigationItems"
+      navigationName="advertiserListNavigationItems"
     ></app-table-navigation>
     <tbody *ngIf="!isLoading; else loading"
-           class="col publisher-list__table-body">
-      <app-publisher-list-item
-        *ngFor="let publisher of filteredPublishers"
-        [publisher]="publisher"
-      ></app-publisher-list-item>
-    <tr *ngIf="!filteredPublishers.length"
-        class="publisher-list__loader-container">
+           class="col advertiser-list__table-body">
+      <app-advertiser-list-item
+        *ngFor="let advertiser of filteredAdvertisers"
+        [advertiser]="advertiser"
+      ></app-advertiser-list-item>
+    <tr *ngIf="!filteredAdvertisers.length"
+        class="advertiser-list__loader-container">
       NO RESULTS
     </tr>
     </tbody>
     <ng-template #loading>
       <tr>
         <td>
-          <div class="loading-wrapper publisher-list__loader-container">
+          <div class="loading-wrapper advertiser-list__loader-container">
             <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
           </div>
         </td>
@@ -90,7 +90,7 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event)"
-    [length]="publishers ? publishers.data.length : 0"
+    [length]="advertisers ? advertisers.data.length : 0"
     [pageIndex]="page - 1"
     [pageSize]="pageSize"
   >

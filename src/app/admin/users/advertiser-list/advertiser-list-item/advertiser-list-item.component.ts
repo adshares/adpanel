@@ -1,18 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
-import { PublisherInfo } from 'models/settings.model';
+import { AdvertiserInfo } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
-import { ImpersonationService } from '../../../impersonation/impersonation.service';
-import { SessionService } from '../../../session.service';
+import { ImpersonationService } from '../../../../impersonation/impersonation.service';
+import { SessionService } from '../../../../session.service';
 
 @Component({
-  selector: 'app-publisher-list-item',
-  templateUrl: './publisher-list-item.component.html',
-  styleUrls: ['./publisher-list-item.component.scss'],
+  selector: 'app-advertiser-list-item',
+  templateUrl: './advertiser-list-item.component.html',
+  styleUrls: ['./advertiser-list-item.component.scss'],
 })
-export class PublisherListItemComponent {
-  @Input() publisher: PublisherInfo;
+export class AdvertiserListItemComponent {
+  @Input() advertiser: AdvertiserInfo;
   faIconImpersonation = faUserSecret;
 
   constructor(
@@ -27,8 +27,8 @@ export class PublisherListItemComponent {
     this.adminService.impersonateUser(userId).subscribe(
       (token) => {
         this.impersonationService.setImpersonationToken(token);
-        this.router.navigate(['/publisher', 'dashboard']);
-        this.sessionService.setAccountTypeChoice('publisher');
+        this.router.navigate(['/advertiser', 'dashboard']);
+        this.sessionService.setAccountTypeChoice('advertiser');
       }
     )
   }

@@ -5,6 +5,7 @@ import {
   AdminSettings,
   AdminSettingsResponse,
   AdminWalletResponse,
+  AdvertiserInfo,
   License,
   PublisherInfo,
   RejectedDomainsResponse,
@@ -14,6 +15,10 @@ import {
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
 export const LOAD_USERS_FAILURE = 'Users loading failure';
+
+export const LOAD_ADVERTISERS = 'Advertisers loading';
+export const LOAD_ADVERTISERS_SUCCESS = 'Advertisers loading success';
+export const LOAD_ADVERTISERS_FAILURE = 'Advertisers loading failure';
 
 export const LOAD_PUBLISHERS = 'Publishers loading';
 export const LOAD_PUBLISHERS_SUCCESS = 'Publishers loading success';
@@ -80,6 +85,27 @@ export class LoadUsersSuccess implements Action {
 
 export class LoadUsersFailure implements Action {
   readonly type: string = LOAD_USERS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class LoadAdvertisers implements Action {
+  readonly type: string = LOAD_ADVERTISERS;
+
+  constructor(public payload: { groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number }) {
+  }
+}
+
+export class LoadAdvertisersSuccess implements Action {
+  readonly type: string = LOAD_ADVERTISERS_SUCCESS;
+
+  constructor(public payload: AdvertiserInfo[]) {
+  }
+}
+
+export class LoadAdvertisersFailure implements Action {
+  readonly type: string = LOAD_ADVERTISERS_FAILURE;
 
   constructor(public payload?: string) {
   }
@@ -349,6 +375,10 @@ export type actions =
   LoadUsers |
   LoadUsersSuccess |
   LoadUsersFailure |
+
+  LoadAdvertisers |
+  LoadAdvertisersSuccess |
+  LoadAdvertisersFailure |
 
   LoadPublishers |
   LoadPublishersSuccess |

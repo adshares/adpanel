@@ -3,15 +3,15 @@ import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger, } from '@angular/animations';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { PublisherInfo, Publishers } from 'models/settings.model';
+import { Advertisers, AdvertiserInfo } from 'models/settings.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
-import { LoadPublishers } from 'store/admin/admin.actions';
+import { LoadAdvertisers } from 'store/admin/admin.actions';
 
 @Component({
-  selector: 'app-publisher-list',
-  templateUrl: './publisher-list.component.html',
-  styleUrls: ['./publisher-list.component.scss'],
+  selector: 'app-advertiser-list',
+  templateUrl: './advertiser-list.component.html',
+  styleUrls: ['./advertiser-list.component.scss'],
   animations: [
     trigger(
       'fadeIn',
@@ -31,13 +31,13 @@ import { LoadPublishers } from 'store/admin/admin.actions';
     )
   ],
 })
-export class PublisherListComponent extends HandleSubscription implements OnInit {
-  publishers: Publishers;
-  filteredPublishers: PublisherInfo[];
+export class AdvertiserListComponent extends HandleSubscription implements OnInit {
+  advertisers: Advertisers;
+  filteredAdvertisers: AdvertiserInfo[];
   searchPhrase = '';
-  groupBy = 'domain';
+  groupBy = 'campaign';
   interval = 'week';
-  minDailyViews = 1000;
+  minDailyViews = 10000;
   isLoading: boolean = true;
 
   pageSize = 15;
@@ -50,20 +50,20 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
   }
 
   ngOnInit(): void {
-    const publishersSubscription = this.store.select('state', 'admin', 'publishers')
-      .subscribe(publishers => {
-        this.publishers = publishers;
-        this.isLoading = !this.publishers;
-        this.filterPublishers();
+    const advertisersSubscription = this.store.select('state', 'admin', 'advertisers')
+      .subscribe(advertisers => {
+        this.advertisers = advertisers;
+        this.isLoading = !this.advertisers;
+        this.filterAdvertisers();
       });
-    this.subscriptions.push(publishersSubscription);
-    this.loadPublishers();
+    this.subscriptions.push(advertisersSubscription);
+    this.loadAdvertisers();
   }
 
-  loadPublishers(): void {
+  loadAdvertisers(): void {
     this.isLoading = true;
     this.page = 1;
-    this.store.dispatch(new LoadPublishers({
+    this.store.dispatch(new LoadAdvertisers({
       groupBy: this.groupBy,
       interval: this.interval,
       searchPhrase: this.searchPhrase.toLowerCase().trim(),
@@ -71,41 +71,41 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     }));
   }
 
-  groupPublishers(groupBy): void {
+  groupAdvertisers(groupBy): void {
     this.groupBy = groupBy;
-    this.loadPublishers();
+    this.loadAdvertisers();
   }
 
   changeInterval(interval): void {
     this.interval = interval;
-    this.loadPublishers();
+    this.loadAdvertisers();
   }
 
   onSearchChange(): void {
-    this.loadPublishers();
+    this.loadAdvertisers();
   }
 
   onMinDailyViewsChange(): void {
-    this.loadPublishers();
+    this.loadAdvertisers();
   }
 
-  filterPublishers(): void {
-    if (this.publishers && this.publishers.data) {
-      this.filteredPublishers = sortArrayByKeys(this.publishers.data, this.sortKeys, this.sortDesc);
-      this.filteredPublishers = this.filteredPublishers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
+  filterAdvertisers(): void {
+    if (this.advertisers && this.advertisers.data) {
+      this.filteredAdvertisers = sortArrayByKeys(this.advertisers.data, this.sortKeys, this.sortDesc);
+      this.filteredAdvertisers = this.filteredAdvertisers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
     } else {
-      this.filteredPublishers = [];
+      this.filteredAdvertisers = [];
     }
   }
 
   sortTable(event: TableSortEvent): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
-    this.filterPublishers();
+    this.filterAdvertisers();
   }
 
   handlePaginationEvent(e): void {
     this.page = e.pageIndex + 1;
-    this.filterPublishers();
+    this.filterAdvertisers();
   }
 }
