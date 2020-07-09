@@ -13,10 +13,6 @@
     max-width: 2000px;
   }
 
-  &__poster-unit-title {
-    display: block;
-  }
-
   .dwmth-box {
     margin: 8px 0;
   }
@@ -39,32 +35,13 @@
       box-shadow: 0 4px 12px pal(gray, base);
     }
 
+    &-title {
+      display: block;
+    }
+
     &--selected {
       background: pal(gray, ultra-light);
       border-color: pal(green);
-    }
-
-    &__visualization {
-      background-color: pal(blue, light);
-      color: pal(blue);
-      @include font(14, bold);
-
-      &.leaderboard {
-        padding: 10px 30px;
-      }
-      &.large-rectangle {
-        padding: 25px;
-      }
-      &.large-mobile-banner {
-        padding: 15px;
-      }
-
-      &-box {
-        background-color: pal(gray, ultra-light);
-        padding: 30px 60px;
-        min-height: 150px;
-        margin-bottom: 15px;
-      }
     }
   }
 

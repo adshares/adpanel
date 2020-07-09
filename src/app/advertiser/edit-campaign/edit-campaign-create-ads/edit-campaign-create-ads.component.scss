@@ -97,6 +97,34 @@
   &__size-label {
     margin-bottom: 14px;
   }
+
+  &__poster-unit {
+    text-align: center;
+    background: white;
+    padding: 7px;
+    flex-basis: 16%;
+    margin: 2px;
+    border-radius: 2px;
+    border: 2px solid pal(gray, ultra-light);
+    cursor: pointer;
+    pointer-events: all;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:hover {
+      box-shadow: 0 4px 12px pal(gray, base);
+    }
+
+    &-title {
+      display: block;
+    }
+
+    &--selected {
+      background: pal(gray, ultra-light);
+      border-color: pal(green);
+    }
+  }
 }
 
 .drag-and-drop-box {

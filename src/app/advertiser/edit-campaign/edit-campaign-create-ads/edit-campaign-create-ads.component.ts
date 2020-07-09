@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/first';
@@ -14,23 +14,25 @@ import {
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import {
-  displayAdSizesEnum,
   adStatusesEnum,
   adTypesEnum,
+  adUnitTypesEnum,
+  displayAdSizesEnum,
   popAdSizesEnum,
   validHtmlTypes,
   validImageTypes
 } from 'models/enum/ad.enum';
-import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
-import { HandleSubscription } from "common/handle-subscription";
+import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
+import { HandleSubscription } from 'common/handle-subscription';
 import { cloneDeep, cutDirectAdSizeAnchor, enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
-import { Ad, Campaign } from 'models/campaign.model';
+import { Ad, Campaign, TextAdSource } from 'models/campaign.model';
+import { AdUnitMetaData } from 'models/site.model';
 import { environment } from 'environments/environment';
 import { appSettings } from 'app-settings';
 import { AppState } from 'models/app-state.model';
-import { SessionService } from "../../../session.service";
-import { ShowDialogOnError } from "store/common/common.actions"
+import { SessionService } from '../../../session.service';
+import { ShowDialogOnError } from 'store/common/common.actions'
 
 interface UploadingFile {
   name: string,
@@ -53,6 +55,9 @@ interface UploadingFile {
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
+  readonly TEXT_AD_TITLE_MAX_LENGTH = 30;
+  readonly TEXT_AD_TEXT_MAX_LENGTH = 90;
+
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   displayAdSizes: string[] = enumToArray(displayAdSizesEnum);
@@ -78,10 +83,15 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   };
   campaign: Campaign = null;
   isEditMode: boolean;
+  textAdsMetaData: AdUnitMetaData[];
+  textAdsFormGroupSubmitted: boolean = false;
+  textAdsFormGroup: FormGroup;
+  selectedTextAdsSizes: string[] = [];
 
   constructor(
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
+    private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>,
     private session: SessionService,
@@ -90,8 +100,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
+    this.textAdsMetaData = this.getTextAdsMetaData();
+    this.textAdsFormGroup = this.generateTextAdsFormGroup();
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
     subscription && this.subscriptions.push(subscription);
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
@@ -119,6 +131,14 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.subscriptions.push(lastCampaignSubscription);
   }
 
+  private getTextAdsMetaData(): AdUnitMetaData[] {
+    const adUnitSizes: AdUnitMetaData[] = cloneDeep(this.route.snapshot.data.adUnitSizes);
+
+    return adUnitSizes.filter(
+      adUnitSize => adUnitSize.type !== adUnitTypesEnum.POP && !['120x90', '120x60', '88x31'].includes(adUnitSize.size)
+    );
+  }
+
   createEmptyAd(): void {
     this.adsSubmitted = false;
     this.ads.push(cloneDeep(adInitialState));
@@ -131,7 +151,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     EditCampaignCreateAdsComponent.scrollToLastForm();
   }
 
-  private static scrollToLastForm() {
+  private static scrollToLastForm(): void {
     const forms = document.getElementsByTagName('form');
 
     if (forms.length > 0) {
@@ -171,6 +191,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     formGroup.updateValueAndValidity();
 
     return formGroup;
+  }
+
+  generateTextAdsFormGroup(): FormGroup {
+    return new FormGroup({
+      title: new FormControl('', [Validators.required, Validators.maxLength(this.TEXT_AD_TITLE_MAX_LENGTH)]),
+      text: new FormControl('', [Validators.maxLength(this.TEXT_AD_TEXT_MAX_LENGTH)]),
+    });
   }
 
   fileOverDropArea(isOverDrop, adIndex): void {
@@ -257,7 +284,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
-  selectProperBannerSize(size: string, index: number) {
+  selectProperBannerSize(size: string, index: number): void {
     if (this.displayAdSizes.includes(size)) {
       this.adForms[index].get('creativeSize').setValue(size);
     } else {
@@ -393,7 +420,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   saveCampaignAds(campaign: Campaign, isDraft?: boolean): void {
-
     if (isDraft) {
       this.store.dispatch(new AddCampaignToCampaigns(campaign));
     } else {
@@ -420,19 +446,19 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
   }
 
-  isImageTypeChosen(form): boolean {
-    return form.get('type').value === adTypesEnum.IMAGE
+  isImageTypeChosen(form: FormGroup): boolean {
+    return form.get('type').value === adTypesEnum.IMAGE;
   }
 
-  isHtmlTypeChosen(form): boolean {
-    return form.get('type').value === adTypesEnum.HTML
+  isHtmlTypeChosen(form: FormGroup): boolean {
+    return form.get('type').value === adTypesEnum.HTML;
   }
 
-  isDirectTypeChosen(form): boolean {
-    return form.get('type').value === adTypesEnum.DIRECT
+  isDirectTypeChosen(form: FormGroup): boolean {
+    return form.get('type').value === adTypesEnum.DIRECT;
   }
 
-  cancelUploading() {
+  cancelUploading(): void {
     this.uploader.queue.pop();
     this.imagesStatus = {
       ...this.imagesStatus,
@@ -442,6 +468,65 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         processing: false,
         progress: 0,
       }
+    };
+  }
+
+  isTextAdSizeSelected(size: string): boolean {
+    return this.selectedTextAdsSizes.includes(size);
+  }
+
+  toggleTextAdSize(size: string): void {
+    const index = this.selectedTextAdsSizes.findIndex((selectedSize) => selectedSize === size);
+    if (index === -1) {
+      this.selectedTextAdsSizes.push(size);
+    } else {
+      this.selectedTextAdsSizes.splice(index, 1);
     }
+  }
+
+  generateTextAds(): void {
+    this.textAdsFormGroupSubmitted = true;
+
+    if (this.isTextAdsFormInvalid) {
+      return;
+    }
+
+    const text = this.textAdsFormGroup.get('text').value;
+    const textAdSource: TextAdSource = {
+      title: this.textAdsFormGroup.get('title').value,
+      text: text ? text : null,
+    };
+    this.advertiserService.generateTextAds(textAdSource, this.selectedTextAdsSizes).subscribe(
+      response => this.handleGenerateTextAdsResponse(response, textAdSource),
+      (error) => {
+        const status = error.status ? error.status : 0;
+        this.store.dispatch(new ShowDialogOnError(`Ads cannot be generated at this moment. Error code (${status})`));
+      }
+    );
+  }
+
+  private handleGenerateTextAdsResponse(response, textAdSource: TextAdSource): void {
+    for (const size in response) {
+      if (!response.hasOwnProperty(size)) {
+        continue;
+      }
+      let ad: Ad = cloneDeep(adInitialState);
+      ad.creativeSize = size;
+      ad.type = adTypesEnum.HTML;
+      ad.name = response[size]['name'];
+      ad.url = response[size]['url'];
+      ad.textAdSource = textAdSource;
+      const adForm = this.generateFormField(ad, false);
+      this.adForms.push(adForm);
+      this.ads.push(ad);
+      this.adPanelsStatus.push(false);
+      this.adjustBannerName(adForm);
+    }
+
+    EditCampaignCreateAdsComponent.scrollToLastForm();
+  }
+
+  get isTextAdsFormInvalid() {
+    return !this.textAdsFormGroup.valid || this.selectedTextAdsSizes.length === 0;
   }
 }
