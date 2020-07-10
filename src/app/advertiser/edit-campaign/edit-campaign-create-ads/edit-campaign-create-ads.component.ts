@@ -495,6 +495,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const textAdSource: TextAdSource = {
       title: this.textAdsFormGroup.get('title').value,
       text: text ? text : null,
+      url: this.campaign.basicInformation.targetUrl,
     };
     this.advertiserService.generateTextAds(textAdSource, this.selectedTextAdsSizes).subscribe(
       response => this.handleGenerateTextAdsResponse(response, textAdSource),

@@ -130,6 +130,7 @@ interface Ad {
 interface TextAdSource {
   title: string;
   text: string|null;
+  url: string;
 }
 
 interface AdPreview {
