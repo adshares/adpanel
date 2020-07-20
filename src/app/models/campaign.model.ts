@@ -124,6 +124,13 @@ interface Ad {
   url: string;
 
   imageSize?: string;
+  textAdSource?: TextAdSource;
+}
+
+interface TextAdSource {
+  title: string;
+  text: string|null;
+  url: string;
 }
 
 interface AdPreview {
@@ -168,6 +175,7 @@ export {
   CampaignConversionStatisticsTableItem,
   CampaignClassification,
   Ad,
+  TextAdSource,
   AdPreview,
   CampaignTotals,
   CampaignTotalsResponse,

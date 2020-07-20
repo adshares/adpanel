@@ -24,6 +24,129 @@
     </p>
   </div>
 
+  <form [formGroup]="textAdsFormGroup">
+    <div class="dwmth-box dwmth-box--no-padding">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="dwmth-copy dwmth-copy--medium">
+            <div class="row justify-between align-center">
+              <div>
+                Generate text advertisements
+              </div>
+              <div
+                *ngIf="textAdsFormGroupSubmitted && isTextAdsFormInvalid"
+                class="error-msg error-msg--small"
+              >
+                !
+              </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="row no-gutters justify-between">
+          <div class="dwmth-form-input__box">
+            <label
+              for="text-ad-title"
+              class="dwmth-form-label"
+            >
+              Title
+            </label>
+            <input
+              id="text-ad-title"
+              class="dwmth-form-input"
+              formControlName="title"
+            >
+            <span
+              *ngIf="textAdsFormGroup.get('title').valid"
+              class="input-valid"
+            ></span>
+            <span
+              *ngIf="textAdsFormGroupSubmitted && textAdsFormGroup.get('title').hasError('required')"
+              class="error-msg"
+            >
+              Title is required
+            </span>
+            <span
+              *ngIf="textAdsFormGroupSubmitted && textAdsFormGroup.get('title').hasError('maxlength')"
+              class="error-msg"
+            >
+              The length is limited to {{ TEXT_AD_TITLE_MAX_LENGTH }} characters
+            </span>
+          </div>
+        </div>
+        <div class="row no-gutters justify-between">
+          <div class="dwmth-form-input__box">
+            <label
+              for="text-ad-text"
+              class="dwmth-form-label"
+            >
+              Text
+            </label>
+            <input
+              id="text-ad-text"
+              class="dwmth-form-input"
+              formControlName="text"
+            >
+            <span
+              *ngIf="textAdsFormGroup.get('text').valid"
+              class="input-valid"
+            ></span>
+            <span
+              *ngIf="textAdsFormGroupSubmitted && textAdsFormGroup.get('text').hasError('maxlength')"
+              class="error-msg"
+            >
+              The length is limited to {{ TEXT_AD_TEXT_MAX_LENGTH }} characters
+            </span>
+          </div>
+        </div>
+
+        <div class="dwmth-form-label">
+          Ad unit size
+        </div>
+        <div class="row justify-left">
+          <div
+            *ngFor="let textAdMetaData of textAdsMetaData"
+            class="campaign-edit-create-bnr__poster-unit"
+            [ngClass]="{'campaign-edit-create-bnr__poster-unit--selected': isTextAdSizeSelected(textAdMetaData.size)}"
+            (click)="toggleTextAdSize(textAdMetaData.size)"
+            role="button"
+          >
+            <div class="row align-center justify-center">
+              <div class="dwmth-copy">
+                {{ textAdMetaData.label }}
+              </div>
+            </div>
+            <strong class="campaign-edit-create-bnr__poster-unit-title dwmth-copy dwmth-copy--semi dwmth-copy--x-dark dwmth-copy--medium">
+              {{ textAdMetaData.size }}
+            </strong>
+            <div>
+              <div
+                *ngFor="let tag of textAdMetaData.tags"
+                class="dwmth-chip-box"
+              >
+                {{ tag }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-end">
+          <span
+            *ngIf="textAdsFormGroupSubmitted && selectedTextAdsSizes.length === 0"
+            class="error-msg"
+          >
+            At least one size must be selected
+          </span>
+          <button
+            (click)="generateTextAds()"
+            class="dwmth-btn dwmth-btn--white dwmth-blue"
+          >
+            Generate
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </form>
+
   <div
     *ngIf="adForms.length > 5"
     class="
@@ -512,7 +635,9 @@
                 'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
               }">
               <img [src]="adForm.get('image').value.src | trustUrl"
-                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
+                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
+                   alt=""
+              />
             </div>
 
             <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value.src"

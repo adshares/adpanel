@@ -7,8 +7,8 @@ import {
   Campaign,
   CampaignConversionStatistics,
   CampaignsConfig,
-  CampaignTotals,
-  CampaignTotalsResponse
+  CampaignTotalsResponse,
+  TextAdSource,
 } from 'models/campaign.model';
 import { AssetTargeting, TargetingOption, TargetingReachResponse } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
@@ -28,6 +28,15 @@ export class AdvertiserService {
       reportProgress: true,
       observe: 'events',
     });
+  }
+
+  generateTextAds(textAdSource: TextAdSource, sizes: string[]): Observable<any> {
+    const data = {
+      textAdSource,
+      sizes,
+    };
+
+    return this.http.post<any>(`${environment.apiUrl}/campaigns/banner/text`, data);
   }
 
   getCampaigns(): Observable<Campaign[]> {

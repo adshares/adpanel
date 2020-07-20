@@ -8,7 +8,6 @@ import {PublisherService} from 'publisher/publisher.service';
 import {cloneDeep} from 'common/utilities/helpers';
 import {AdUnit, AdUnitMetaData, Site} from 'models/site.model';
 import {AppState} from 'models/app-state.model';
-import {MatDialog} from "@angular/material";
 import {HandleSubscription} from "common/handle-subscription";
 import {
   AddSiteToSites,
