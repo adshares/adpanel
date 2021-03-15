@@ -1,8 +1,8 @@
 <article class="dwmth-box license__wrapper">
   <section>
-    <h1 class="dwmth-heading dwmth-heading--primary"> License </h1>
+    <h1 class="dwmth-heading dwmth-heading--secondary">License</h1>
     <p *ngIf="license !== null"
-       class="dwmth-copy dwmth-copy--large">
+       class="dwmth-copy">
       Preview your license data. License details can be found
       <a [href]="license.detailsUrl"
          class="dwmth-copy--blue"> here</a>
@@ -37,7 +37,7 @@
     </div>
   </div>
   <ng-template #info>
-    <p class="dwmth-box dwmth-copy dwmth-copy--large dwmth-copy--red">
+    <p class="dwmth-box dwmth-copy dwmth-copy--red">
       No license. Configure an open-source license
     </p>
     <div></div>

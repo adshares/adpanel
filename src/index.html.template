@@ -2,27 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>${APP_NAME} - Crypto Ad network. Buy Ads with Bitcoin</title>
+  <title>${INDEX_TITLE}</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Advertising with Bitcoin. Crypto Ad Network with Blockchain technology.">
-  <meta name="keywords" content="advertising,ads,bitcoin,crypto,blockchain,network">
+  <meta name="description" content="${INDEX_DESCRIPTION}">
+  <meta name="keywords" content="${INDEX_KEYWORDS}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
   <link rel="canonical" href="https://${APP_HOST}" />
+${INDEX_META_TAGS}
 </head>
 <body>
   <app-root></app-root>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "https://${APP_HOST}",
-    "name": "${APP_NAME}"
-  }
-  </script>
 </body>
 </html>

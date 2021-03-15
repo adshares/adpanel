@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
 interface BillingHistoryItem {
-  amount: number,
+  amount: number;
   status: number;
   type: number;
   date: Date;
@@ -40,41 +40,73 @@ interface UserInfo {
 }
 
 interface Users {
-  data: UserInfo[],
-  currentPage: number,
-  firstPageUrl: string,
-  from: number,
-  lastPage: number,
-  lastPageUrl: string,
-  nextPageUrl: string,
-  path: string,
-  perPage: number,
-  prevPageUrl: string | null,
-  to: number,
-  total: number,
+  data: UserInfo[];
+  currentPage: number;
+  firstPageUrl: string;
+  from: number;
+  lastPage: number;
+  lastPageUrl: string;
+  nextPageUrl: string;
+  path: string;
+  perPage: number;
+  prevPageUrl: string | null;
+  to: number;
+  total: number;
+}
+
+interface AdvertiserInfo {
+  userIds: number[];
+  email: string;
+  domain: string;
+  views: number;
+  viewsDiff: number;
+  viewsChange: number;
+  viewsUnique: number;
+  viewsUniqueDiff: number;
+  viewsUniqueChange: number;
+  clicks: number;
+  clicksDiff: number;
+  clicksChange: number;
+  ctr: number;
+  ctrDiff: number;
+  ctrChange: number;
+  cost: number;
+  costDiff: number;
+  costChange: number;
+  cpm: number;
+  cpmDiff: number;
+  cpmChange: number;
+  cpc: number;
+  cpcDiff: number;
+  cpcChange: number;
+}
+
+interface Advertisers {
+  data: AdvertiserInfo[];
 }
 
 interface PublisherInfo {
-  email: string,
-  domain: string,
-  views: number,
-  viewsDiff: number,
-  viewsChange: number,
-  ivr: number,
-  ivrDiff: number,
-  ivrChange: number,
-  clicks: number,
-  clicksDiff: number,
-  clicksChange: number,
-  ctr: number,
-  ctrDiff: number,
-  ctrChange: number,
-  revenue: number,
-  revenueDiff: number,
-  revenueChange: number,
-  rpm: number,
-  rpmDiff: number,
-  rpmChange: number,
+  userIds: number[];
+  email: string;
+  domain: string;
+  views: number;
+  viewsDiff: number;
+  viewsChange: number;
+  ivr: number;
+  ivrDiff: number;
+  ivrChange: number;
+  clicks: number;
+  clicksDiff: number;
+  clicksChange: number;
+  ctr: number;
+  ctrDiff: number;
+  ctrChange: number;
+  revenue: number;
+  revenueDiff: number;
+  revenueChange: number;
+  rpm: number;
+  rpmDiff: number;
+  rpmChange: number;
 }
 
 interface Publishers {
@@ -98,6 +130,10 @@ interface AdminWallet {
   unusedBonuses: number;
 }
 
+interface AdminIndexUpdateTimeResponse {
+  indexUpdateTime: string;
+}
+
 interface AdminSettingsResponse {
   settings: AdminSettings;
 }
@@ -107,20 +143,29 @@ interface AdminWalletResponse {
 }
 
 interface TermsAndPrivacy {
-  privacy: string
-  terms: string
+  privacy: string;
+  terms: string;
 }
 
 interface License {
-  type: string,
-  dateStart: string,
-  dateEnd: string,
-  owner: string,
-  detailsUrl: string
+  type: string;
+  dateStart: string;
+  dateEnd: string;
+  owner: string;
+  detailsUrl: string;
+}
+
+interface Index {
+  updateTime: string;
+  error: boolean;
 }
 
 interface AdminPrivacyAndTermsSettingsResponse {
   content: string;
+}
+
+interface RejectedDomainsResponse {
+  domains: string[];
 }
 
 interface AdsharesAddress {
@@ -161,13 +206,13 @@ interface CalculateWithdrawalItem {
 }
 
 interface ReportsList {
-  [type: string]: ReportsListItem[],
+  [type: string]: ReportsListItem[];
 }
 
 interface ReportsListItem {
-  id: string,
-  name: string,
-  state: string,
+  id: string;
+  name: string;
+  state: string;
 }
 
 export {
@@ -177,6 +222,8 @@ export {
   NotificationItem,
   Users,
   UserInfo,
+  Advertisers,
+  AdvertiserInfo,
   Publishers,
   PublisherInfo,
   AdminSettings,
@@ -188,11 +235,14 @@ export {
   NowPaymentsInfo,
   NowPaymentsInit,
   CalculateWithdrawalItem,
+  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
+  RejectedDomainsResponse,
   TermsAndPrivacy,
   License,
+  Index,
   ReportsList,
   ReportsListItem,
 };

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
-import { AdUnitMetaData, Site, SiteLanguage, SitesTotals } from 'models/site.model';
+import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
@@ -48,6 +48,10 @@ export class PublisherService {
     return this.http.get<Site>(`${environment.apiUrl}/sites/${id}`);
   }
 
+  getSiteRank(id: number): Observable<SiteRank> {
+    return this.http.get<SiteRank>(`${environment.apiUrl}/sites/${id}/rank`);
+  }
+
   saveSite(site: Site): Observable<Site> {
     if (site.filteringArray) {
       const targetingObject = parseTargetingForBackend(site.filteringArray);
@@ -56,6 +60,10 @@ export class PublisherService {
     const {filteringArray, ...reducedSite} = site;
 
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
+  }
+
+  validateDomain(domain: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/sites/domain/validate`, {domain});
   }
 
   deleteSite(id: number): Observable<boolean> {

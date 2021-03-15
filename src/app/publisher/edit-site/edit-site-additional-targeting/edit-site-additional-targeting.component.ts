@@ -71,8 +71,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       this.store.dispatch(new ClearLastEditedSite());
       this.router.navigate(['/publisher', 'site', siteId]);
     } else {
-      this.router.navigate(['/publisher', 'create-site', 'basic-information'],
-        {queryParams: {step: 1}})
+      this.router.navigate(['/publisher', 'create-site', 'create-ad-units'],
+        {queryParams: {step: 3}})
     }
   }
 
@@ -112,8 +112,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.router.navigate(
-        ['/publisher', 'create-site', 'pops-settings'],
-        {queryParams: {step: 3}}
+        ['/publisher', 'create-site', 'summary'],
+        {queryParams: {step: 5}}
       );
     }
   }

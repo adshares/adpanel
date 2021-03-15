@@ -6,7 +6,7 @@ import { AppState } from 'models/app-state.model';
 import { PublisherInfo, Publishers } from 'models/settings.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
-import * as adminActions from 'store/admin/admin.actions';
+import { LoadPublishers } from 'store/admin/admin.actions';
 
 @Component({
   selector: 'app-publisher-list',
@@ -49,7 +49,7 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const publishersSubscription = this.store.select('state', 'admin', 'publishers')
       .subscribe(publishers => {
         this.publishers = publishers;
@@ -60,10 +60,10 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     this.loadPublishers();
   }
 
-  loadPublishers() {
+  loadPublishers(): void {
     this.isLoading = true;
     this.page = 1;
-    this.store.dispatch(new adminActions.LoadPublishers({
+    this.store.dispatch(new LoadPublishers({
       groupBy: this.groupBy,
       interval: this.interval,
       searchPhrase: this.searchPhrase.toLowerCase().trim(),
@@ -71,25 +71,25 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     }));
   }
 
-  groupPublishers(groupBy) {
+  groupPublishers(groupBy): void {
     this.groupBy = groupBy;
     this.loadPublishers();
   }
 
-  changeInterval(interval) {
+  changeInterval(interval): void {
     this.interval = interval;
     this.loadPublishers();
   }
 
-  onSearchChange() {
+  onSearchChange(): void {
     this.loadPublishers();
   }
 
-  onMinDailyViewsChange() {
+  onMinDailyViewsChange(): void {
     this.loadPublishers();
   }
 
-  filterPublishers() {
+  filterPublishers(): void {
     if (this.publishers && this.publishers.data) {
       this.filteredPublishers = sortArrayByKeys(this.publishers.data, this.sortKeys, this.sortDesc);
       this.filteredPublishers = this.filteredPublishers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
@@ -98,7 +98,7 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     }
   }
 
-  sortTable(event: TableSortEvent) {
+  sortTable(event: TableSortEvent): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
     this.filterPublishers();

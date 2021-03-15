@@ -29,6 +29,12 @@ interface Campaign {
   classificationStatus: number;
   classificationTags?: string;
   classifications: CampaignClassification[];
+  bidStrategy?: CampaignBidStrategy;
+}
+
+interface CampaignBidStrategy {
+  name: string;
+  uuid: string;
 }
 
 interface CampaignTotals {
@@ -120,11 +126,37 @@ interface Ad {
   imageSize?: string;
 }
 
+interface AdPreview {
+  isHtml: boolean;
+  size: string;
+  url: string;
+  landingUrl: string;
+}
+
 interface CampaignTotalsResponse {
   total: CampaignTotals,
   data: CampaignTotals[]
 }
 
+interface BidStrategy {
+  uuid: string,
+  name: string,
+  details: BidStrategyDetail[],
+}
+
+interface BidStrategyDetail {
+  category: string,
+  rank: number,
+}
+
+interface BidStrategyRequest {
+  name: string,
+  details: BidStrategyDetail[],
+}
+
+interface BidStrategyUuidDefaultResponse {
+  uuid: string;
+}
 
 export {
   CampaignsConfig,
@@ -136,6 +168,11 @@ export {
   CampaignConversionStatisticsTableItem,
   CampaignClassification,
   Ad,
+  AdPreview,
   CampaignTotals,
-  CampaignTotalsResponse
+  CampaignTotalsResponse,
+  BidStrategy,
+  BidStrategyDetail,
+  BidStrategyRequest,
+  BidStrategyUuidDefaultResponse,
 };

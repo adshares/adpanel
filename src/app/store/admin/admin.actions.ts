@@ -1,16 +1,24 @@
 import { Action } from '@ngrx/store';
 import {
+  AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse,
   AdminWalletResponse,
-  License, PublisherInfo,
+  AdvertiserInfo,
+  License,
+  PublisherInfo,
+  RejectedDomainsResponse,
   UserInfo
 } from 'models/settings.model';
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
 export const LOAD_USERS_FAILURE = 'Users loading failure';
+
+export const LOAD_ADVERTISERS = 'Advertisers loading';
+export const LOAD_ADVERTISERS_SUCCESS = 'Advertisers loading success';
+export const LOAD_ADVERTISERS_FAILURE = 'Advertisers loading failure';
 
 export const LOAD_PUBLISHERS = 'Publishers loading';
 export const LOAD_PUBLISHERS_SUCCESS = 'Publishers loading success';
@@ -44,6 +52,19 @@ export const SET_TERMS_SETTINGS = 'Set admin terms settings';
 export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
 export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
 
+export const GET_REJECTED_DOMAINS = 'Get admin rejected domains';
+export const GET_REJECTED_DOMAINS_SUCCESS = 'Get admin rejected domains success';
+export const GET_REJECTED_DOMAINS_FAILURE = 'Get admin rejected domains failure';
+
+export const SET_REJECTED_DOMAINS = 'Set admin rejected domains';
+export const SET_REJECTED_DOMAINS_SUCCESS = 'Set admin rejected domains success';
+export const SET_REJECTED_DOMAINS_FAILURE = 'Set admin rejected domains failure';
+
+export const REQUEST_GET_INDEX = 'Request Get index';
+export const GET_INDEX = 'Get index';
+export const GET_INDEX_SUCCESS = 'Get index success';
+export const GET_INDEX_FAILURE = 'Get index failure';
+
 export const GET_LICENSE = 'Get license';
 export const GET_LICENSE_SUCCESS = 'Get license success';
 export const GET_LICENSE_FAILURE = 'Get license failure';
@@ -64,6 +85,27 @@ export class LoadUsersSuccess implements Action {
 
 export class LoadUsersFailure implements Action {
   readonly type: string = LOAD_USERS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
+export class LoadAdvertisers implements Action {
+  readonly type: string = LOAD_ADVERTISERS;
+
+  constructor(public payload: { groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number }) {
+  }
+}
+
+export class LoadAdvertisersSuccess implements Action {
+  readonly type: string = LOAD_ADVERTISERS_SUCCESS;
+
+  constructor(public payload: AdvertiserInfo[]) {
+  }
+}
+
+export class LoadAdvertisersFailure implements Action {
+  readonly type: string = LOAD_ADVERTISERS_FAILURE;
 
   constructor(public payload?: string) {
   }
@@ -238,6 +280,76 @@ export class SetTermsSettingsFailure implements Action {
   }
 }
 
+export class GetRejectedDomains implements Action {
+  readonly type: string = GET_REJECTED_DOMAINS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetRejectedDomainsSuccess implements Action {
+  readonly type: string = GET_REJECTED_DOMAINS_SUCCESS;
+
+  constructor(public payload: RejectedDomainsResponse) {
+  }
+}
+
+export class GetRejectedDomainsFailure implements Action {
+  readonly type: string = GET_REJECTED_DOMAINS_FAILURE;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class SetRejectedDomains implements Action {
+  readonly type: string = SET_REJECTED_DOMAINS;
+
+  constructor(public payload: string[]) {
+  }
+}
+
+export class SetRejectedDomainsSuccess implements Action {
+  readonly type: string = SET_REJECTED_DOMAINS_SUCCESS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class SetRejectedDomainsFailure implements Action {
+  readonly type: string = SET_REJECTED_DOMAINS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class RequestGetIndex implements Action {
+  readonly type: string = REQUEST_GET_INDEX;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetIndex implements Action {
+  readonly type: string = GET_INDEX;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetIndexSuccess implements Action {
+  readonly type: string = GET_INDEX_SUCCESS;
+
+  constructor(public payload: AdminIndexUpdateTimeResponse) {
+  }
+}
+
+export class GetIndexFailure implements Action {
+  readonly type: string = GET_INDEX_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
 export class GetLicense implements Action {
   readonly type: string = GET_LICENSE;
 
@@ -263,6 +375,10 @@ export type actions =
   LoadUsers |
   LoadUsersSuccess |
   LoadUsersFailure |
+
+  LoadAdvertisers |
+  LoadAdvertisersSuccess |
+  LoadAdvertisersFailure |
 
   LoadPublishers |
   LoadPublishersSuccess |
@@ -295,6 +411,19 @@ export type actions =
   SetTermsSettings |
   SetTermsSettingsSuccess |
   SetTermsSettingsFailure |
+
+  GetRejectedDomains |
+  GetRejectedDomainsSuccess |
+  GetRejectedDomainsFailure |
+
+  SetRejectedDomains |
+  SetRejectedDomainsSuccess |
+  SetRejectedDomainsFailure |
+
+  RequestGetIndex |
+  GetIndex |
+  GetIndexSuccess |
+  GetIndexFailure |
 
   GetLicense |
   GetLicenseSuccess |

@@ -43,14 +43,6 @@
     }
   }
 
-  &__iframe {
-    width: 140px;
-    height: 140px;
-    background-color: pal(gray, x-light);
-    padding: 40px 30px;
-    margin-right: 20px;
-  }
-
   &__info-cell {
     padding-left: 0;
 
@@ -106,6 +98,11 @@
 
 .campaign-poster {
   position: relative;
+  background-color: pal(white);
+  border: 1px solid pal(gray, nearly-white);
+  border-radius: 2px;
+  margin-top: 6px;
+  width: 49.6%;
 }
 
 .targeting-title {

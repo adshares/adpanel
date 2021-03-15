@@ -1,48 +1,67 @@
 import { Injectable } from '@angular/core';
-import {
-  Actions,
-  Effect,
-  toPayload
-} from '@ngrx/effects';
+import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
+import { delay } from 'rxjs/operators';
 import {
-  LOAD_USERS,
-  LOAD_ADMIN_SETTINGS,
-  LOAD_ADMIN_WALLET,
-  SET_ADMIN_SETTINGS,
-  LoadUsersSuccess,
-  LoadUsersFailure,
-  LoadAdminSettingsSuccess,
-  LoadAdminSettingsFailure,
-  LoadAdminWalletSuccess,
-  LoadAdminWalletFailure,
-  SetAdminSettingsSuccess,
-  SetAdminSettingsFailure,
+  GET_INDEX,
+  GET_LICENSE,
   GET_PRIVACY_SETTINGS,
+  GET_REJECTED_DOMAINS,
   GET_TERMS_SETTINGS,
-  SetPrivacySettingsSuccess,
-  SetPrivacySettingsFailure,
+  GetIndex,
+  GetIndexFailure,
+  GetIndexSuccess,
+  GetLicenseFailure,
+  GetLicenseSuccess,
   GetPrivacySettingsFailure,
   GetPrivacySettingsSuccess,
-  GetTermsSettingsSuccess,
+  GetRejectedDomainsFailure,
+  GetRejectedDomainsSuccess,
   GetTermsSettingsFailure,
-  SetTermsSettingsSuccess,
-  SET_TERMS_SETTINGS,
+  GetTermsSettingsSuccess,
+  LOAD_ADMIN_SETTINGS,
+  LOAD_ADMIN_WALLET,
+  LOAD_ADVERTISERS,
+  LOAD_PUBLISHERS,
+  LOAD_USERS,
+  LoadAdminSettingsFailure,
+  LoadAdminSettingsSuccess,
+  LoadAdminWalletFailure,
+  LoadAdminWalletSuccess,
+  LoadAdvertisersFailure,
+  LoadAdvertisersSuccess,
+  LoadPublishersFailure,
+  LoadPublishersSuccess,
+  LoadUsersFailure,
+  LoadUsersSuccess,
+  REQUEST_GET_INDEX,
+  SET_ADMIN_SETTINGS,
   SET_PRIVACY_SETTINGS,
-  GET_LICENSE,
-  GetLicenseSuccess,
-  GetLicenseFailure, LOAD_PUBLISHERS, LoadPublishersSuccess, LoadPublishersFailure,
+  SET_REJECTED_DOMAINS,
+  SET_TERMS_SETTINGS,
+  SetAdminSettingsFailure,
+  SetAdminSettingsSuccess,
+  SetPrivacySettingsFailure,
+  SetPrivacySettingsSuccess,
+  SetRejectedDomainsFailure,
+  SetRejectedDomainsSuccess,
+  SetTermsSettingsSuccess,
 } from './admin.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
 import { AdminService } from 'admin/admin.service';
-import { Observable } from "rxjs";
-import { ClickToADSPipe } from "common/pipes/adshares-token.pipe";
-import { HTTP_NOT_FOUND } from "common/utilities/codes";
-import "rxjs/add/operator/debounceTime";
+import { Observable } from 'rxjs';
+import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
+import { HTTP_NOT_FOUND } from 'common/utilities/codes';
+import 'rxjs/add/operator/debounceTime';
+import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions';
 
 @Injectable()
 export class AdminEffects {
+  private readonly INTERVAL_GET_INDEX = 3600000;
+  private readonly INTERVAL_GET_INDEX_AFTER_ERROR = 10000;
+  private allowGetIndex = false;
+
   constructor(
     private actions$: Actions,
     private service: AdminService,
@@ -61,6 +80,16 @@ export class AdminEffects {
     );
 
   @Effect()
+  loadAdvertisers$ = this.actions$
+    .ofType(LOAD_ADVERTISERS)
+    .debounceTime(100)
+    .map(toPayload)
+    .switchMap((payload) => this.service.getAdvertisers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
+      .map((advertisers) => new LoadAdvertisersSuccess(advertisers))
+      .catch((err) => Observable.of(new LoadAdvertisersFailure(err)))
+    );
+
+  @Effect()
   loadPublishers$ = this.actions$
     .ofType(LOAD_PUBLISHERS)
     .debounceTime(100)
@@ -68,6 +97,46 @@ export class AdminEffects {
     .switchMap((payload) => this.service.getPublishers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
       .map((publishers) => new LoadPublishersSuccess(publishers))
       .catch((err) => Observable.of(new LoadPublishersFailure(err)))
+    );
+
+  @Effect()
+  requestGetIndex$ = this.actions$
+    .ofType(REQUEST_GET_INDEX)
+    .map(() => {
+      this.allowGetIndex = true;
+      return new GetIndex();
+    });
+
+  @Effect({dispatch: false})
+  logOut$ = this.actions$
+    .ofType(USER_LOG_OUT_SUCCESS)
+    .do(() => {
+      this.allowGetIndex = false;
+    });
+
+  @Effect()
+  getIndex$ = this.actions$
+    .ofType(GET_INDEX)
+    .filter(() => this.allowGetIndex)
+    .switchMap(() => {
+        return this.service.getIndexUpdateTime()
+          .switchMap(response => {
+            if (!response || !response.indexUpdateTime) {
+              throw new Error('Invalid format');
+            }
+
+            return Observable.merge(
+              Observable.of(new GetIndexSuccess(response)),
+              Observable.of(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX)),
+            )
+          })
+          .catch((error) => {
+            return Observable.merge(
+              Observable.of(new GetIndexFailure(error)),
+              Observable.of(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX_AFTER_ERROR)),
+            );
+          })
+      }
     );
 
   @Effect()
@@ -192,4 +261,30 @@ export class AdminEffects {
       })
     )
 
+  @Effect()
+  getRejectedDomains$ = this.actions$
+    .ofType(GET_REJECTED_DOMAINS)
+    .map(toPayload)
+    .switchMap(() => this.service.getRejectedDomains()
+      .map((response) => new GetRejectedDomainsSuccess(response))
+      .catch(() => {
+        return Observable.of(new GetRejectedDomainsFailure(
+          'Rejected domains are not available. Please, try again later.'
+        ));
+      })
+    );
+
+  @Effect()
+  setRejectedDomains$ = this.actions$
+    .ofType(SET_REJECTED_DOMAINS)
+    .map(toPayload)
+    .switchMap((payload) => this.service.putRejectedDomains(payload)
+      .switchMap(() => [
+        new SetRejectedDomainsSuccess(),
+        new ShowSuccessSnackbar(SAVE_SUCCESS),
+      ])
+      .catch(() => Observable.of(new SetRejectedDomainsFailure(
+        'Rejected domains were not saved. Please, try again later.'
+      )))
+    );
 }

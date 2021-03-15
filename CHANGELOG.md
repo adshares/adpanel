@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Edit index.html, notify an administrator about change
+- Dialog after adding the site informing about verification of the site
+- Allow to add a site on mobile
+- Backup the previous project version during build
+- Bid strategy definition for administrator
+- Site's domain validation
+### Changed
+- Advertisement preview in dialog
+- Fetch domain rank (page rank) from adserver
+- Handling connection errors (dialog after a period of errors)
+- Target URL is clickable
+- Taxonomy processing, allow multi level
+### Fixed
+- Administrator user search
 
 ## [1.6.2] - 2020-03-03
 ### Added

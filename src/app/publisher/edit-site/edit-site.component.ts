@@ -8,7 +8,6 @@ import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
-import { AssetTargeting } from 'models/targeting-option.model';
 import { HandleSubscription } from "common/handle-subscription";
 
 @Component({

@@ -94,14 +94,16 @@
           >
             Target URL:
           </p>
-          <p
-            class="
-            dwmth-copy--dark
-            dwmth-copy--semi"
+          <a
+            [href]="campaign.basicInformation.targetUrl | testPlaceholders"
+            [title]="campaign.basicInformation.targetUrl"
+            rel="nofollow noopener noreferrer"
+            target="_blank"
+            class="dwmth-copy--dark dwmth-copy--semi"
             data-test="advertiser-campaign-target-url"
           >
             {{ campaign.basicInformation.targetUrl }}
-          </p>
+          </a>
         </div>
         <!--<div>-->
           <!--<p-->
@@ -244,7 +246,7 @@
       </h3>
       <a
         routerLink="../additional-targeting"
-        [queryParams]="{step: 2, summary: true}"
+        [queryParams]="{step: 4, summary: true}"
         data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting"
       >
         <button
@@ -328,7 +330,7 @@
       </h3>
       <a
         routerLink="../create-ad"
-        [queryParams]="{step: 3, summary: true}"
+        [queryParams]="{step: 2, summary: true}"
         data-test="advertiser-edit-campaign-summary-navigate-to-create-ads"
       >
         <button
@@ -342,51 +344,17 @@
       </a>
     </div>
 
-    <div class="row">
+    <div class="row justify-between">
       <div
-        *ngFor="let ad of campaign.ads; let adIndex = index"
+        #appBannerPreviewContainer
+        *ngFor="let ad of campaign.ads"
         class="campaign-poster"
       >
-        <iframe
-          class="campaign-edit-summary__iframe"
-          *ngIf="ad.url"
-          [src]="ad.url | trustUrl"
-          (mouseover)="toggleTooltip(true, adIndex)"
-          (mouseleave)="toggleTooltip(false, adIndex)"
-        ></iframe>
-
-        <iframe
-          class="campaign-edit-summary__iframe"
-          *ngIf="ad.html && ad.html !== ''"
-          [srcdoc]="ad.html | trustHtml"
-          (mouseover)="toggleTooltip(true, adIndex)"
-          (mouseleave)="toggleTooltip(false, adIndex)"
-        ></iframe>
-
-        <div
-          class="dwmth-tooltip"
-          [class.active]="tooltipActive && currentTooltipIndex === adIndex"
-          data-test="advertiser-campaign-summary-ad-tooltip"
-        >
-          <div class="triangle"></div>
-          <p
-            class="
-              dwmth-heading
-              dwmth-heading--secondary"
-            data-test="advertiser-ad-short-headline"
-          >
-            {{ ad.name }}
-          </p>
-          <p
-            class="
-              dwmth-copy
-              dwmth-copy--x-small
-              dwmth-copy--blue"
-            data-test="advertiser-ad-size"
-          >
-            {{ ad.imageSize }}
-          </p>
-        </div>
+        <app-banner-preview
+          [banner]="ad"
+          [landingUrl]="campaign.basicInformation.targetUrl"
+          [maxWidth]="appBannerPreviewContainer.clientWidth"
+        ></app-banner-preview>
       </div>
     </div>
   </div>
@@ -419,7 +387,7 @@
           here
         </a>
         to read more about conversion handling.
-      </p> 
+      </p>
     </div>
   </div>
 
@@ -432,7 +400,7 @@
   >
     <a
       routerLink="../create-ad"
-      [queryParams]="{step: 3}"
+      [queryParams]="{step: 2}"
       data-test="advertiser-edit-campaign-navigate-back"
     >
       <button

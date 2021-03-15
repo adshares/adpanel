@@ -3,9 +3,12 @@ import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
   AdminWallet,
+  Advertisers,
   BillingHistory,
+  Index,
   License,
-  NotificationItem, Publishers,
+  NotificationItem,
+  Publishers,
   TermsAndPrivacy,
   Users,
 } from './settings.model';
@@ -55,11 +58,14 @@ interface UserState {
 
 interface AdminState {
   users: Users;
+  advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
   wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;
+  rejectedDomains: string[];
   license: License | null;
+  index: Index | null;
   panelBlockade: boolean;
 }
 

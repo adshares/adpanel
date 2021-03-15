@@ -5,6 +5,7 @@ interface Site {
   status: number;
   name: string;
   domain: string;
+  url: string;
   primaryLanguage: string | SiteLanguage;
   requireClassified: boolean;
   excludeUnclassified: boolean;
@@ -14,6 +15,7 @@ interface Site {
   };
   filteringArray?: AssetTargeting;
   adUnits?: AdUnit[];
+  categories?: string[];
 
   clicks?: number;
   impressions?: number;
@@ -22,6 +24,11 @@ interface Site {
   ctr?: number;
   revenue?: number;
   code?: string;
+}
+
+interface SiteRank {
+  rank: number;
+  info: string;
 }
 
 interface SitesTotals {
@@ -75,4 +82,4 @@ interface SiteCodeItem {
   code: string;
 }
 
-export { Site, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };
+export { Site, SiteRank, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };

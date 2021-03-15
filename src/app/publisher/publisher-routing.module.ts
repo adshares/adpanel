@@ -18,6 +18,7 @@ import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
 import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
+import { TargetingCriteriaResolver } from 'advertiser/resolvers/targeting-criteria.resolver';
 
 const publisherRoutes: Routes = [
   {
@@ -55,11 +56,10 @@ const publisherRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
-            resolve: {languagesList: LanguagesListResolver}
-          },
-          {
-            path: 'additional-filtering',
-            component: EditSiteAdditionalTargetingComponent
+            resolve: {
+              languagesList: LanguagesListResolver,
+              targetingOptions: TargetingCriteriaResolver,
+            }
           },
           {
             path: 'pops-settings',
@@ -70,6 +70,10 @@ const publisherRoutes: Routes = [
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
+          },
+          {
+              path: 'additional-filtering',
+              component: EditSiteAdditionalTargetingComponent
           },
           {
             path: 'summary',
@@ -91,10 +95,6 @@ const publisherRoutes: Routes = [
             resolve: {languagesList: LanguagesListResolver}
           },
           {
-            path: 'additional-filtering',
-            component: EditSiteAdditionalTargetingComponent
-          },
-          {
             path: 'pops-settings',
             component: EditSitePopsSettingsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
@@ -103,6 +103,10 @@ const publisherRoutes: Routes = [
             path: 'create-ad-units',
             component: EditSiteCreateAdUnitsComponent,
             resolve: {adUnitSizes: AdUnitSizesResolver}
+          },
+          {
+              path: 'additional-filtering',
+              component: EditSiteAdditionalTargetingComponent
           },
           {
             path: 'summary',

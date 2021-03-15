@@ -39,12 +39,17 @@
     {{ ad.name }}
   </td>
   <td
+    #appBannerPreviewContainer
     class="
-         col-xs-3
-         row
-         align-center"
+      col-xs-3
+      row
+      align-center"
   >
-    <app-banner-preview [banner]="ad"></app-banner-preview>
+    <app-banner-preview
+      [banner]="ad"
+      [landingUrl]="campaign.basicInformation.targetUrl"
+      [maxWidth]="appBannerPreviewContainer.clientWidth * 0.95"
+    ></app-banner-preview>
   </td>
   <td
     class="

@@ -1,0 +1,61 @@
+<section class="homepage-view campaign-edit-bid-strategy">
+  <div class="text-center">
+    <h1 class=" dwmth-heading dwmth-heading--primary">
+      Bid strategy
+    </h1>
+    <p class=" dwmth-copy dwmth-copy--medium">
+      Here you can edit bid strategy for the campaign.
+    </p>
+  </div>
+
+  <div class="dwmth-box dwmth-box--large">
+    <h3 class="dwmth-heading dwmth-heading--secondary">
+      Select bid strategy <span *ngIf="campaign">for {{ campaign.basicInformation.name}} campaign</span>
+    </h3>
+    <div class="dwmth-copy">
+      Here you can select bid strategy for the campaign.
+      You can preview all your bid strategies below.
+      There is also an explanation what a bid strategy is.
+    </div>
+
+    <div
+      *ngIf="!isLoading && bidStrategies.length > 0"
+      class="row align-center space-top"
+    >
+      <mat-form-field>
+        <mat-label>Select bid strategy</mat-label>
+        <mat-select
+          [(value)]="bidStrategyUuidSelected"
+          (selectionChange)="onBidStrategySelect()"
+        >
+          <mat-option
+            *ngFor="let bidStrategy of bidStrategies"
+            [value]="bidStrategy.uuid"
+          >
+            {{ bidStrategy.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="dwmth-copy">
+      [X] - bid strategy defined by administrator
+    </div>
+    <div *ngIf="isLoading" class="loading-wrapper">
+      <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+    </div>
+  </div>
+
+  <app-bid-strategy-settings></app-bid-strategy-settings>
+
+  <div class="dwmth-box dwmth-box--large row justify-between">
+    <button
+      type="button"
+      class="dwmth-btn dwmth-btn--white dwmth-blue"
+      (click)="onStepBack()"
+      [disabled]="submitted"
+      data-test="advertiser-navigate-to-dashboard"
+    >
+      Back
+    </button>
+  </div>
+</section>

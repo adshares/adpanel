@@ -23,8 +23,10 @@ import {
 import { ADD_SITE_TO_SITES_FAILURE, } from 'store/publisher/publisher.actions';
 import {
   GET_PRIVACY_SETTINGS_FAILURE,
+  GET_REJECTED_DOMAINS_FAILURE,
   GET_TERMS_SETTINGS_FAILURE,
   SET_ADMIN_SETTINGS_FAILURE,
+  SET_REJECTED_DOMAINS_FAILURE,
 } from 'store/admin/admin.actions';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
@@ -62,6 +64,8 @@ export class CommonEffects {
       SET_ADMIN_SETTINGS_FAILURE,
       GET_PRIVACY_SETTINGS_FAILURE,
       GET_TERMS_SETTINGS_FAILURE,
+      GET_REJECTED_DOMAINS_FAILURE,
+      SET_REJECTED_DOMAINS_FAILURE,
       CANCEL_AWAITING_TRANSACTION_FAILURE,
       REQUEST_REPORT_FAILURE,
     )

@@ -10,8 +10,8 @@
         <mat-icon> search</mat-icon>
         <label>Search for users:
           <input
-            (ngModelChange)="onSearchChange()"
             [(ngModel)]="userSearch"
+            (ngModelChange)="onSearchChange()"
             class="user-list__input"
             data-test="admin-user-search-input"
             id="search"
@@ -20,7 +20,7 @@
         </label>
       </div>
       <div class="user-list__filters">
-        <label>Filter banners by type:</label>
+        <label>Filter users by type:</label>
         <mat-checkbox (change)="filterUsersByType(type, true)"
                       *ngFor="let type of userTypes"
                       [checked]="type === selectedType"

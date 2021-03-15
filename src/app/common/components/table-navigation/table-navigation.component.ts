@@ -58,6 +58,32 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'Impersonate', columnWidth: 'col-xs-2', hideArrows: true}
   ];
 
+  advertiserListNavigationItems = [
+    {title: 'Domain', columnWidth: 'col-xs-3', keys: ['domain']},
+    {title: 'Email', columnWidth: 'col-xs-2', keys: ['email']},
+    {title: 'Views', columnWidth: 'col-xs-1-2', keys: ['views']},
+    {title: 'D1', columnWidth: 'col-xs-1-4', keys: ['viewsDiff']},
+    {title: 'C1', columnWidth: 'col-xs-1-4', keys: ['viewsChange']},
+    {title: 'Views Unique', columnWidth: 'col-xs-1-3', keys: ['viewsUnique']},
+    {title: 'D2', columnWidth: 'col-xs-1-3', keys: ['viewsUniqueDiff']},
+    {title: 'C2', columnWidth: 'col-xs-1-3', keys: ['viewsUniqueChange']},
+    {title: 'Clicks', columnWidth: 'col-xs-1-3', keys: ['clicks']},
+    {title: 'D3', columnWidth: 'col-xs-1-3', keys: ['clicksDiff']},
+    {title: 'C3', columnWidth: 'col-xs-1-3', keys: ['clicksChange']},
+    {title: 'CTR', columnWidth: 'col-xs-1-3', keys: ['ctr']},
+    {title: 'D4', columnWidth: 'col-xs-1-3', keys: ['ctrDiff']},
+    {title: 'C4', columnWidth: 'col-xs-1-3', keys: ['ctrChange']},
+    {title: 'Cost', columnWidth: 'col-xs-1-3', keys: ['cost']},
+    {title: 'D5', columnWidth: 'col-xs-1-3', keys: ['costDiff']},
+    {title: 'C5', columnWidth: 'col-xs-1-3', keys: ['costChange']},
+    {title: 'CPM', columnWidth: 'col-xs-1-3', keys: ['cpm']},
+    {title: 'D6', columnWidth: 'col-xs-1-3', keys: ['cpmDiff']},
+    {title: 'C6', columnWidth: 'col-xs-1-3', keys: ['cpmChange']},
+    {title: 'CPC', columnWidth: 'col-xs-1-3', keys: ['cpc']},
+    {title: 'D7', columnWidth: 'col-xs-1-3', keys: ['cpcDiff']},
+    {title: 'C7', columnWidth: 'col-xs-1-3', keys: ['cpcChange']},
+  ];
+
   publisherListNavigationItems = [
     {title: 'Domain', columnWidth: 'col-xs-3', keys: ['domain']},
     {title: 'Email', columnWidth: 'col-xs-3', keys: ['email']},
@@ -120,6 +146,9 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
         break;
       case 'userListNavigation':
         this.navigationItems = [...this.userListNavigationItems];
+        break;
+      case 'advertiserListNavigationItems':
+        this.navigationItems = [...this.advertiserListNavigationItems];
         break;
       case 'publisherListNavigationItems':
         this.navigationItems = [...this.publisherListNavigationItems];

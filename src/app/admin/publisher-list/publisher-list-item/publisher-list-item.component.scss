@@ -47,6 +47,7 @@
 
   .group {
     position: relative;
+    min-height: 40px;
     overflow: visible !important;
     padding: 0 !important;
     @include copy(

@@ -28,6 +28,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ClickOutsideDirective } from './clickOutside.directive'
 import { CommonService } from './common.service';
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component';
+import { AdPreviewDialogComponent } from 'common/dialog/ad-preview-dialog/ad-preview-dialog.component';
 import { LeaveEditProcessDialogComponent } from './dialog/leave-edit-process-dialog/leave-edit-process-dialog.component';
 import { AddFundsDialogComponent } from './dialog/add-funds-dialog/add-funds-dialog.component';
 import { ChangeAddressDialogComponent } from './dialog/change-address-dialog/change-address-dialog.component';
@@ -48,6 +49,7 @@ import {
   CalculateInCurrency,
   ClickToADSPipe
 } from './pipes/adshares-token.pipe';
+import { TestPlaceholdersPipe } from './pipes/test-placeholders.pipe';
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe';
 import { MomentDatePipe } from './pipes/moment-date.pipe';
 import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component';
@@ -55,6 +57,7 @@ import { TargetingSelectComponent } from './components/targeting/targeting-selec
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component';
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component';
 import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component';
+import { BidStrategyService } from 'common/bid-strategy.service';
 import { ChartService } from './chart.service';
 import { AssetHelpersService } from './asset-helpers.service';
 import { PushNotificationsService } from './components/push-notifications/push-notifications.service';
@@ -70,6 +73,7 @@ import { LabelWithTooltipComponent } from 'common/components/labelWithTooltip/la
 import { PlaceholdersAccordion } from 'common/components/placeholders-accordion/placeholders-accordion';
 import { ReportsListComponent } from 'common/components/reports-list/reports-list.component';
 import { ReportsListItemComponent } from 'common/components/reports-list/reports-list-item/reports-list-item.component';
+import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component';
 
 const matModules = [
   MatDialogModule,
@@ -92,6 +96,7 @@ const matModules = [
 
 const dialogs = [
   AccountChooseDialogComponent,
+  AdPreviewDialogComponent,
   LeaveEditProcessDialogComponent,
   AddFundsDialogComponent,
   WithdrawFundsDialogComponent,
@@ -111,6 +116,7 @@ const appComponents = [
   AdsharesTokenPipe,
   CalculateInCurrency,
   ClickToADSPipe,
+  TestPlaceholdersPipe,
   TrustUrlPipe,
   TrustHtmlPipe,
   MomentDatePipe,
@@ -132,6 +138,7 @@ const appComponents = [
   PlaceholdersAccordion,
   ReportsListComponent,
   ReportsListItemComponent,
+  BidStrategySettingsComponent,
 ];
 
 @NgModule({
@@ -154,6 +161,7 @@ const appComponents = [
     ...dialogs,
   ],
   providers: [
+    BidStrategyService,
     ChartService,
     CommonService,
     AssetHelpersService,

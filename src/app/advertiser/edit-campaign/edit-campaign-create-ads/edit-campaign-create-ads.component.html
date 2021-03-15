@@ -184,6 +184,18 @@
                 </span>
               </div>
 
+              <div *ngIf="adForm.get('image') && !adForm.get('creativeSize').value"
+                   class="dwmth-form-input__box">
+                <span class="dwmth-form-input__box
+                             dwmth-form-label
+                             campaign-edit-create-bnr__size-label">
+                  Info
+                </span>
+                <span class="dwmth-copy">
+                  <a href="https://adshares.net/units" target="_blank">List of available Ad sizes</a>
+                </span>
+              </div>
+
               <div *ngIf="adForm.get('html') && adForm.get('creativeSize').value !== null"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
@@ -220,6 +232,12 @@
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let adSize of displayAdSizes"
+                    [value]="adSize"
+                    data-test="advertiser-edit-campaign-create-ads-form-size-option">
+                    iframe {{ adSize }}
                   </mat-option>
                 </mat-select>
               </div>

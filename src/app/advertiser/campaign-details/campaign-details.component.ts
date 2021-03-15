@@ -35,6 +35,7 @@ import { reportType } from 'models/enum/user.enum';
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
+  bidStrategyDefaultUuid: string;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
   campaign: Campaign;
@@ -55,6 +56,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
   budgetInfo: string;
+  isDefaultBidStrategy: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +80,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   }
 
   ngOnInit() {
+    this.bidStrategyDefaultUuid = this.route.snapshot.data.bidStrategyDefaultUuid;
     this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
@@ -100,6 +103,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.getTargeting();
+          this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
         }
         this.updateBudgetInfo();
         this.updateConversionTableItems();

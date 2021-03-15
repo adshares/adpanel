@@ -1,0 +1,98 @@
+<section class="advertiser-list">
+  <div
+    class="
+      row
+      justify-between
+      align-center"
+  >
+    <div class="advertiser-list__search-container row justify-between">
+      <div>
+        <mat-icon> search</mat-icon>
+        <label>Search for advertiser:
+          <input
+            [(ngModel)]="searchPhrase"
+            (ngModelChange)="onSearchChange()"
+            class="advertiser-list__input"
+            data-test="admin-user-search-input"
+            id="search"
+            placeholder="Search by email or target url"
+          >
+        </label>
+      </div>
+      <div class="advertiser-list__filters">
+        <label>Group by:</label>
+        <mat-checkbox (change)="groupAdvertisers('campaign')"
+                      [checked]="'campaign' === groupBy"
+                      class="advertiser-list__checkbox">
+          campaign
+        </mat-checkbox>
+        <mat-checkbox (change)="groupAdvertisers('user')"
+                      [checked]="'user' === groupBy"
+                      class="advertiser-list__checkbox">
+          user
+        </mat-checkbox>
+      </div>
+      <div class="advertiser-list__filters">
+        <label>Interval:</label>
+        <mat-checkbox (change)="changeInterval('week')"
+                      [checked]="'week' === interval"
+                      class="advertiser-list__checkbox">
+          week
+        </mat-checkbox>
+        <mat-checkbox (change)="changeInterval('day')"
+                      [checked]="'day' === interval"
+                      class="advertiser-list__checkbox">
+          day
+        </mat-checkbox>
+      </div>
+      <div class="advertiser-list__filters">
+        <label>Min daily views:
+        <input
+          [(ngModel)]="minDailyViews"
+          (ngModelChange)="onMinDailyViewsChange()"
+          type="number"
+          min="0"
+          step="1"
+          class="advertiser-list__input"
+          id="minViews"
+        >
+      </label>
+      </div>
+    </div>
+  </div>
+
+  <table class="advertiser-list__items">
+    <app-table-navigation
+      (sortTable)="sortTable($event)"
+      navigationName="advertiserListNavigationItems"
+    ></app-table-navigation>
+    <tbody *ngIf="!isLoading; else loading"
+           class="col advertiser-list__table-body">
+      <app-advertiser-list-item
+        *ngFor="let advertiser of filteredAdvertisers"
+        [advertiser]="advertiser"
+      ></app-advertiser-list-item>
+    <tr *ngIf="!filteredAdvertisers.length"
+        class="advertiser-list__loader-container">
+      NO RESULTS
+    </tr>
+    </tbody>
+    <ng-template #loading>
+      <tr>
+        <td>
+          <div class="loading-wrapper advertiser-list__loader-container">
+            <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </table>
+
+  <mat-paginator
+    (page)="handlePaginationEvent($event)"
+    [length]="advertisers ? advertisers.data.length : 0"
+    [pageIndex]="page - 1"
+    [pageSize]="pageSize"
+  >
+  </mat-paginator>
+</section>

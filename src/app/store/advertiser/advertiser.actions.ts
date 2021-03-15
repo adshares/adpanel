@@ -6,8 +6,8 @@ import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 export const CLEAR_LAST_EDITED_CAMPAIGN = 'Last edited campaign cleared';
 export const SET_LAST_EDITED_CAMPAIGN = 'Last edited campaign set';
 export const SAVE_CAMPAIGN_BASIC_INFORMATION = 'Basic Campaign Information saved';
-export const SAVE_CAMPAIGN_TARGETING = 'Campaing targeting information saved';
-export const SAVE_CAMPAIGN_ADS = 'Campaing ads saved';
+export const SAVE_CAMPAIGN_TARGETING = 'Campaign targeting information saved';
+export const SAVE_CAMPAIGN_ADS = 'Campaign ads saved';
 export const SAVE_CONVERSION = 'Save conversion';
 
 

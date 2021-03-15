@@ -23,7 +23,7 @@ import {
 } from 'models/enum/ad.enum';
 import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
 import { HandleSubscription } from "common/handle-subscription";
-import { cloneDeep, enumToArray } from 'common/utilities/helpers';
+import { cloneDeep, cutDirectAdSizeAnchor, enumToArray } from 'common/utilities/helpers';
 import { adInitialState } from 'models/initial-state/ad';
 import { Ad, Campaign } from 'models/campaign.model';
 import { environment } from 'environments/environment';
@@ -78,15 +78,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   };
   campaign: Campaign = null;
   isEditMode: boolean;
-
-  readonly PLACEHOLDERS = [
-    { id: '{aid}', description: 'server id'},
-    { id: '{pid}', description: 'publisher id'},
-    { id: '{sid}', description: 'site id'},
-    { id: '{zid}', description: 'zone id'},
-    { id: '{cid}', description: 'case id'},
-    { id: '{bid}', description: 'banner id'},
-  ];
 
   constructor(
     private advertiserService: AdvertiserService,
@@ -159,7 +150,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       name: new FormControl(ad.name, Validators.required),
       type: new FormControl({value: ad.type, disabled: disabledMode}),
       creativeSize: new FormControl({value: ad.creativeSize, disabled: disabledMode}),
-      creativeContents: new FormControl(ad.creativeContents || this.campaign.basicInformation.targetUrl),
+      creativeContents: new FormControl(cutDirectAdSizeAnchor(ad.creativeContents || this.campaign.basicInformation.targetUrl)),
       status: new FormControl(ad.status)
     });
 
@@ -409,7 +400,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.store.dispatch(new SaveCampaignAds(this.ads));
       this.router.navigate(
         ['/advertiser', 'create-campaign', 'summary'],
-        {queryParams: {step: 4}}
+        {queryParams: {step: 5}}
       );
     }
   }
@@ -425,7 +416,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
       this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'],
-        {queryParams: {step: 2}})
+        {queryParams: {step: 4}})
     }
   }
 

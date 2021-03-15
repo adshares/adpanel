@@ -12,7 +12,6 @@ import {
   TargetingOption,
   TargetingOptionValue
 } from 'models/targeting-option.model';
-import { HandleSubscription } from 'common/handle-subscription';
 import {
   findOption,
   findOptionList,
@@ -26,43 +25,40 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './targeting-select.component.html',
   styleUrls: ['./targeting-select.component.scss']
 })
-export class TargetingSelectComponent extends HandleSubscription implements OnInit, OnChanges {
+export class TargetingSelectComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef;
-  @Input() targetingOptions;
+  @Input() targetingOptions: (TargetingOption|TargetingOptionValue)[];
   @Input() addedItems: TargetingOptionValue[];
+  @Input() checkClass: string = 'checkmark';
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   selectedItems: TargetingOptionValue[] = [];
   viewModel: (TargetingOption | TargetingOptionValue)[];
   parentViewModel: (TargetingOption | TargetingOptionValue)[];
   parentOption: TargetingOption | TargetingOptionValue;
-  targetingOptionsForSearch: TargetingOption[] = [];
+  targetingOptionsForSearch: (TargetingOption|TargetingOptionValue)[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
 
   backAvailable = false;
-  optionsHasValue = false;
   searchTerm = '';
 
-  constructor() {
-    super();
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.selectedItems = this.addedItems;
+    this.selectedItems.forEach((item) => this.markParentOptions(item));
     this.prepareTargetingOptionsForSearch();
     this.viewModel = this.targetingOptions;
     this.selectSavedItemOnList();
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.deselectRemovedOptions();
     if (this.selectedItems.length === this.addedItems.length) return;
     this.selectedItems = this.addedItems;
     this.selectSavedItemOnList();
   }
 
-  changeViewModel(options: (TargetingOption | TargetingOptionValue)[]) {
+  changeViewModel(options: (TargetingOption | TargetingOptionValue)[]): void {
     const firstOption = options[0];
     this.searchInput.nativeElement.focus();
     this.viewModel = options;
@@ -75,13 +71,11 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     if (this.backAvailable) {
       this.setBackViewModel(firstOption);
     } else {
-      this.parentOption = null
+      this.parentOption = null;
     }
-
-    this.optionsHasValue = firstOption.hasOwnProperty('value');
   }
 
-  handleOptionClick(option: TargetingOption | TargetingOptionValue) {
+  handleOptionClick(option: TargetingOption | TargetingOptionValue): void {
     this.searchTerm = '';
     const optionSublist = option['children'] || option['values'];
     if (optionSublist) {
@@ -89,7 +83,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     }
   }
 
-  toggleItem(option: TargetingOptionValue) {
+  toggleItem(option: TargetingOptionValue): void {
     const optionIndex = this.selectedItems.findIndex((item) => item.id === option.id);
 
     option.selected = !option.selected;
@@ -104,19 +98,75 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   handleAddItem(
     option: TargetingOptionValue,
     itemToAddIndex: number,
-  ) {
+  ): void {
     if (itemToAddIndex === -1) {
+      this.handleSiteCategoryUnknown(option);
       this.selectedItems.push(cloneDeep(option));
+      this.addSubItems(option);
+      this.markParentOptions(option);
       this.itemsChange.emit(this.selectedItems);
     }
 
     if (option.parent.valueType === 'boolean') {
-
       this.deselectOppositeBoolean(option);
     }
   }
 
-  handleAddCustomItem(items, option) {
+  private handleSiteCategoryUnknown(option: TargetingOptionValue) {
+    if (option.id.startsWith('site-category-')) {
+      if ('site-category-unknown' === option.id) {
+        const optionList = findOptionList('site-category', this.targetingOptions);
+        if (optionList) {
+          const siteCategory = optionList.find((option) => option.id === 'site-category');
+          this.removeSubItems(siteCategory);
+        } else {
+          this.targetingOptions.forEach((option) => this.removeSubItems(option));
+        }
+      } else {
+        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
+        if (-1 !== indexOfUnknown) {
+          this.selectedItems.splice(indexOfUnknown, 1);
+        }
+      }
+    }
+  }
+
+  private addSubItems(option: TargetingOptionValue): void {
+    if (option.values) {
+      option.values.forEach(
+        (value) => {
+          const index = this.selectedItems.findIndex((item) => item.id === value.id);
+          if (-1 === index) {
+            value.selected = true;
+            this.selectedItems.push(cloneDeep(value));
+            this.addSubItems(value);
+          }
+        }
+      );
+    }
+  }
+
+  private markParentOptions(option: TargetingOptionValue): void {
+    let currentOption = option;
+
+    let hasValue: boolean;
+    let parentOption;
+    do {
+      const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+      const optionList = findOptionList(parentOptionId, this.targetingOptions);
+      if (!optionList) {
+        break;
+      }
+      parentOption = optionList.find((option) => option.id === parentOptionId);
+      hasValue = parentOption.hasOwnProperty('value');
+      if (hasValue) {
+        parentOption.subSelected = true;
+      }
+      currentOption = parentOption;
+    } while (hasValue);
+  }
+
+  handleAddCustomItem(items, option): void {
     items = items
       .filter((item, index) => index === items.findIndex(el => el.id === item.id))
       .filter(item => !this.selectedItems.some(el => el.id === item.id));
@@ -139,12 +189,53 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
   handleRemoveItem(
     option: TargetingOptionValue,
     itemToRemoveIndex: number
-  ) {
+  ): void {
+    option.subSelected = false;
     this.selectedItems.splice(itemToRemoveIndex, 1);
+    this.removeSubItems(option);
+
+    let hasValue: boolean;
+    let parentOption;
+    do {
+      const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
+      const optionList = findOptionList(parentOptionId, this.targetingOptions);
+      if (!optionList) {
+        break;
+      }
+      parentOption = optionList.find((option) => option.id === parentOptionId);
+      hasValue = parentOption.hasOwnProperty('value');
+      if (hasValue) {
+        parentOption.subSelected = parentOption.values.some((item) => item.selected || item.subSelected);
+
+        if (parentOption.selected) {
+          const index = this.selectedItems.findIndex((item) => item.id === parentOptionId);
+          if (-1 !== index) {
+            this.selectedItems.splice(index, 1);
+          }
+        }
+      }
+      option = parentOption;
+    } while (hasValue);
+
     this.itemsChange.emit(this.selectedItems);
   }
 
-  deselectOppositeBoolean(option: TargetingOptionValue) {
+  private removeSubItems(option: TargetingOption|TargetingOptionValue): void {
+    if (option.values) {
+      option.values.forEach(
+        (value) => {
+          value.subSelected = false;
+          const index = this.selectedItems.findIndex((item) => item.id === value.id);
+          if (-1 !== index) {
+            this.selectedItems.splice(index, 1);
+          }
+          this.removeSubItems(value);
+        }
+      );
+    }
+  }
+
+  deselectOppositeBoolean(option: TargetingOptionValue): void {
     const optionList = findOptionList(option.id, this.targetingOptions);
     const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
     if (oppositeOption && oppositeOption['selected']) {
@@ -154,11 +245,13 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     this.itemsChange.emit(this.selectedItems);
   }
 
-  deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions) {
+  deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions): void {
     options.forEach((option) => {
       const sublist = option['children'] || option['values'];
       if (sublist) {
         this.deselectRemovedOptions(sublist);
+      }
+      if (!(<TargetingOptionValue>option).value) {
         return;
       }
       const itemInOptionsIndex = this.selectedItems.findIndex((addedItem) => addedItem.id === option.id);
@@ -169,23 +262,22 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     });
   }
 
-  setBackViewModel(option: TargetingOption | TargetingOptionValue) {
-    const parentOptionId = getParentId(option.id);
+  setBackViewModel(option: TargetingOption | TargetingOptionValue): void {
+    const parentOptionId =
+      (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
 
     this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);
   }
 
-  prepareTargetingOptionsForSearch(options?: TargetingOption[]) {
-    const allOptions = options
-      || this.targetingOptions
-        .reduce((prev, next) => prev.concat(next.values ? next.values : (next.children ? next : [])), []);
+  prepareTargetingOptionsForSearch(options?: (TargetingOption|TargetingOptionValue)[]): void {
+    const allOptions = options || this.targetingOptions;
 
     allOptions
       .forEach((option) => {
         this.targetingOptionsForSearch.push(option);
-        if (option.children) {
-          this.prepareTargetingOptionsForSearch(option.children);
+        if ((<TargetingOption>option).children) {
+          this.prepareTargetingOptionsForSearch((<TargetingOption>option).children);
         }
         if (option.values) {
           this.prepareTargetingOptionsForSearch(option.values);
@@ -193,7 +285,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
       });
   }
 
-  onSearchTermChange() {
+  onSearchTermChange(): void {
     const searchTerm = this.searchTerm.toLowerCase().trim();
     if (searchTerm) {
       this.backAvailable = false;
@@ -205,7 +297,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     this.changeViewModel(this.targetingOptions);
   }
 
-  prepareSearchViewModel() {
+  prepareSearchViewModel(): void {
     const pattern = new RegExp(this.searchTerm, 'i');
     const searchModel = this.targetingOptionsForSearch;
     const searchViewModel = searchModel.filter((option) =>
@@ -219,7 +311,7 @@ export class TargetingSelectComponent extends HandleSubscription implements OnIn
     }
   }
 
-  selectSavedItemOnList() {
+  selectSavedItemOnList(): void {
     this.selectedItems.forEach((savedItem) => {
       if (savedItem.isCustom) {
         return;

@@ -9,23 +9,14 @@
       {{ groupedTargeting.parentPath }}:
     </div>
 
-    <div
-      class="
-      row
-      align-center"
-    >
+    <div class="row align-center">
       <mat-chip
         *ngFor="let targetingItem of groupedTargeting.chosenTargeting"
         [ngClass]="{'hide-remove': !canRemove}"
-        (remove)="removeItem(targetingItem)"
+        (remove)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item"
       >
-        <p
-          class="
-          dwmth-copy
-          dwmth-copy--x-dark
-          dwmth-copy--semi"
-        >
+        <p class="dwmth-copy dwmth-copy--x-dark dwmth-copy--semi">
           {{ targetingItem.label }}
         </p>
           <mat-icon matChipRemove>cancel</mat-icon>
