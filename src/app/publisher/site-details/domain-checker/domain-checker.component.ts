@@ -66,12 +66,8 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
     }
 
     let quality = '';
-    if (this.pageRank >= 7) {
+    if (this.pageRank > 0) {
       quality = 'great';
-    } else if (this.pageRank >= 3) {
-      quality = 'good';
-    } else if (this.pageRank > 0) {
-      quality = 'medium';
     } else {
       quality = 'bad';
     }
@@ -84,8 +80,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   }
 
   cpmMessage(): string {
-    const rank = this.pageRank < 10 ? ` (${this.pageRank}/10)` : '';
-    return this.inVerification ? 'in verification' : (this.isBanned ? 'banned' : `approved${rank}`);
+    return this.inVerification ? 'in verification' : (this.isBanned ? 'banned' : `approved`);
   }
 
   cpaTooltip(): string {
@@ -104,18 +99,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
       return 'CPM campaigns have been excluded from your site. ' + this.pageRankInfo;
     }
 
-    let info = '';
-    if (this.pageRank < 10) {
-      info = 'Your site has been conditionally approved for CPM campaigns. ';
-      if (this.pageRankInfo.length > 0) {
-        info += `Your rating is ${this.pageRank}/10; to increase the rating, follow the instructions. `;
-        info += this.pageRankInfo;
-      }
-    } else {
-      info = 'Your site has been approved for CPM campaigns.';
-    }
-
-    return info;
+    return 'Your site has been approved for CPM campaigns.';
   }
 
   tooltipPageRankInfo(pageRankInfo: string): string {
