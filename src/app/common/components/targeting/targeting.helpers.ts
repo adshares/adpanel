@@ -106,7 +106,14 @@ export function getLabelCompound(
 
   do {
     parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
-    currentOption = findOptionList(parentOptionId, options).find((option) => option.id === parentOptionId);
+    let optionList = findOptionList(parentOptionId, options);
+    if (!optionList) {
+      break;
+    }
+    currentOption = optionList.find((option) => option.id === parentOptionId);
+    if (!currentOption) {
+      break;
+    }
     hasValue = currentOption.hasOwnProperty('value');
 
     if (hasValue) {
