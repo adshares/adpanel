@@ -27,7 +27,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   paymentMemo: string = '';
 
   nowPayments: NowPaymentsInfo;
-  nowPaymentsDefaultAmount: number = 50;
+  nowPaymentsDefaultAmount: number = 100;
   nowPaymentsAmount: number;
   nowPaymentsAdsAmount: number;
   nowPaymentsAmountError: boolean = false;
@@ -53,7 +53,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       this.paymentMemo = data.message;
       this.nowPayments = data.nowPayments;
       if (this.nowPayments !== null) {
-        this.setNowPaymentsAmount(this.nowPaymentsDefaultAmount);
+        this.setNowPaymentsAmount(this.nowPayments.minAmount);
       } else {
         this.useNativeDeposit = true;
       }
