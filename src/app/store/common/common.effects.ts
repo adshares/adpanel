@@ -18,7 +18,6 @@ import {
 import {
   DELETE_CAMPAIGN_FAILURE,
   UPDATE_CAMPAIGN_FAILURE,
-  UPDATE_CAMPAIGN_STATUS_FAILURE,
 } from 'store/advertiser/advertiser.actions';
 import { ADD_SITE_TO_SITES_FAILURE, } from 'store/publisher/publisher.actions';
 import {
@@ -57,7 +56,6 @@ export class CommonEffects {
   handleErrors = this.actions$
     .ofType(
       SHOW_DIALOG_ON_ERROR,
-      UPDATE_CAMPAIGN_STATUS_FAILURE,
       UPDATE_CAMPAIGN_FAILURE,
       DELETE_CAMPAIGN_FAILURE,
       ADD_SITE_TO_SITES_FAILURE,

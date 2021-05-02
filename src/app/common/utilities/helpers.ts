@@ -252,7 +252,7 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   }
 
   if (isOutdated) {
-    errors.push(`The campaign is outdated. Remove end date or change to a future date.`);
+    errors.push('The campaign is outdated. Unset end date or change to a future date.');
   }
 
   return errors;
