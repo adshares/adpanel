@@ -186,6 +186,7 @@ interface DepositInfo {
   address: string;
   message: string;
   nowPayments: NowPaymentsInfo | null;
+  unwrappers: UnwrappersInfo[] | null;
 }
 
 interface NowPaymentsInfo {
@@ -193,6 +194,12 @@ interface NowPaymentsInfo {
   maxAmount: number;
   exchangeRate: number;
   currency: string;
+}
+
+interface UnwrappersInfo {
+    chainId: number;
+    networkName: string;
+    contractAddress: string;
 }
 
 interface NowPaymentsInit {
@@ -234,6 +241,7 @@ export {
   DepositInfo,
   NowPaymentsInfo,
   NowPaymentsInit,
+  UnwrappersInfo,
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
