@@ -7,7 +7,6 @@ import {
   Campaign,
   CampaignConversionStatistics,
   CampaignsConfig,
-  CampaignTotals,
   CampaignTotalsResponse
 } from 'models/campaign.model';
 import { AssetTargeting, TargetingOption, TargetingReachResponse } from 'models/targeting-option.model';
@@ -82,6 +81,10 @@ export class AdvertiserService {
       }
     };
     return this.http.put(`${environment.apiUrl}/campaigns/${id}/status`, body);
+  }
+
+  activateOutdatedCampaign(id: number) {
+    return this.http.patch(`${environment.apiUrl}/campaigns/${id}/activate-outdated`, null);
   }
 
   getCampaignsConfig(): Observable<CampaignsConfig> {

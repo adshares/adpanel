@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/withLatestFrom';
 import { Observable } from 'rxjs/Observable';
 import {
+  ACTIVATE_OUTDATED_CAMPAIGN,
+  ActivateOutdatedCampaignStatus,
+  ActivateOutdatedCampaignStatusSuccess,
   ADD_CAMPAIGN_TO_CAMPAIGNS,
   AddCampaignToCampaignsFailure,
   AddCampaignToCampaignsSuccess,
@@ -16,9 +22,13 @@ import {
   DeleteCampaignSuccess,
   LOAD_CAMPAIGN,
   LOAD_CAMPAIGN_TOTALS,
-  LOAD_CAMPAIGNS, LOAD_CAMPAIGNS_CONFIG,
+  LOAD_CAMPAIGNS,
+  LOAD_CAMPAIGNS_CONFIG,
   LOAD_CAMPAIGNS_TOTALS,
-  LoadCampaignFailure, LoadCampaignsConfig, LoadCampaignsConfigFailure, LoadCampaignsConfigSuccess,
+  LoadCampaignFailure,
+  LoadCampaignsConfig,
+  LoadCampaignsConfigFailure,
+  LoadCampaignsConfigSuccess,
   LoadCampaignsFailure,
   LoadCampaignsSuccess,
   LoadCampaignsTotals,
@@ -30,23 +40,21 @@ import {
   SAVE_CONVERSION,
   UPDATE_CAMPAIGN,
   UPDATE_CAMPAIGN_STATUS,
-  UpdateCampaignFailure, UpdateCampaignStatus,
-  UpdateCampaignStatusFailure,
+  UpdateCampaignFailure,
+  UpdateCampaignStatus,
   UpdateCampaignStatusSuccess,
   UpdateCampaignSuccess,
 } from './advertiser.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
-import "rxjs/add/operator/take";
-import * as moment from "moment";
-import { MatDialog } from "@angular/material";
+import * as moment from 'moment';
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
-import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
-import { adjustCampaignStatus, validCampaignBudget } from "common/utilities/helpers";
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
-import { Campaign, CampaignsConfig } from "models/campaign.model";
-import { User } from "models/user.model";
+import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
+import { adjustCampaignStatus, validCampaignBudget } from 'common/utilities/helpers';
+import { AppState } from 'models/app-state.model';
+import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { User } from 'models/user.model';
+import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 
 @Injectable()
 export class AdvertiserEffects {
@@ -238,7 +246,76 @@ export class AdvertiserEffects {
           ]
         )
         .catch((err) => {
-          if (err.status === HTTP_INTERNAL_SERVER_ERROR) return Observable.of(null);
+          if (err.status === HTTP_INTERNAL_SERVER_ERROR) {
+            return [];
+          }
+
+          function isCampaignOutdated() {
+
+            return campaign.basicInformation.dateEnd
+              && (moment(new Date()) > moment(campaign.basicInformation.dateEnd));
+          }
+
+          let errorMsg;
+          if (err.status === HTTP_BAD_REQUEST) {
+            const errors = validCampaignBudget(config, campaign, user);
+
+            if ((errors.length == 1) && isCampaignOutdated()) {
+              this.dialog.open(UserConfirmResponseDialogComponent, {
+                data: {
+                  title: 'The campaign is outdated',
+                  message: "To make it active you should unset end date or change to a future date.\nDo you want to unset the campaign's end date?",
+                }
+              })
+                .afterClosed()
+                .subscribe(result => {
+                    if (result) {
+                      this.store$.dispatch(
+                        new ActivateOutdatedCampaignStatus({campaignId: payload.id})
+                      );
+                    }
+                  }
+                );
+
+              return [];
+            }
+
+            if (errors.length == 0) {
+              errors.push('Please check if you have enough money on your account.');
+            }
+            errorMsg = 'We weren\'t able to activate given campaign.\n' + errors.join('\n');
+          } else {
+            errorMsg = err.error.errors[0] || err.message;
+          }
+
+          return Observable.of(new UpdateCampaignFailure(errorMsg));
+        });
+    });
+
+  @Effect()
+  activateOutdatedCampaign = this.actions$
+    .ofType(ACTIVATE_OUTDATED_CAMPAIGN)
+    .withLatestFrom(this.store$.select('state', 'user', 'data'))
+    .withLatestFrom(this.store$.select('state', 'advertiser'), ([action, user], state) => {
+      const payload = (<ActivateOutdatedCampaignStatus>action).payload;
+      return new Array<[any, CampaignsConfig, Campaign, User]>([
+        payload,
+        state.campaignsConfig,
+        state.campaigns.find(campaign => campaign.id === payload.campaignId),
+        user
+      ]);
+    })
+    .switchMap(([[payload, config, campaign, user]]) => {
+      return this.service.activateOutdatedCampaign(payload.campaignId)
+        .switchMap(() => [
+            new ActivateOutdatedCampaignStatusSuccess(payload),
+            new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
+          ]
+        )
+        .catch((err) => {
+          if (err.status === HTTP_INTERNAL_SERVER_ERROR) {
+            return [];
+          }
           let errorMsg;
           if (err.status === HTTP_BAD_REQUEST) {
             const errors = validCampaignBudget(config, campaign, user);
@@ -249,8 +326,8 @@ export class AdvertiserEffects {
           } else {
             errorMsg = err.error.errors[0] || err.message;
           }
-          return Observable.of(new UpdateCampaignStatusFailure(errorMsg)
-          )
+
+          return Observable.of(new UpdateCampaignFailure(errorMsg));
         });
     });
 

@@ -45,7 +45,9 @@ export const UPDATE_CAMPAIGN_FAILURE = 'Update campaign failure';
 
 export const UPDATE_CAMPAIGN_STATUS = 'Update campaign status';
 export const UPDATE_CAMPAIGN_STATUS_SUCCESS = 'Update campaign status success';
-export const UPDATE_CAMPAIGN_STATUS_FAILURE = 'Update campaign status failure';
+
+export const ACTIVATE_OUTDATED_CAMPAIGN = 'Activate outdated campaign';
+export const ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS = ACTIVATE_OUTDATED_CAMPAIGN + ' success';
 
 export const DELETE_CAMPAIGN = 'Delete campaign';
 export const DELETE_CAMPAIGN_SUCCESS = 'Delete campaign success';
@@ -128,10 +130,17 @@ export class UpdateCampaignStatusSuccess implements Action {
   }
 }
 
-export class UpdateCampaignStatusFailure implements Action {
-  readonly type = UPDATE_CAMPAIGN_STATUS_FAILURE;
+export class ActivateOutdatedCampaignStatus implements Action {
+  readonly type = ACTIVATE_OUTDATED_CAMPAIGN;
 
-  constructor(public payload?: any) {
+  constructor(public payload: { campaignId: number }) {
+  }
+}
+
+export class ActivateOutdatedCampaignStatusSuccess implements Action {
+  readonly type = ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS;
+
+  constructor(public payload: { campaignId: number }) {
   }
 }
 
@@ -347,4 +356,6 @@ export type actions =
 
   UpdateCampaignStatus |
   UpdateCampaignStatusSuccess |
-  UpdateCampaignStatusFailure;
+
+  ActivateOutdatedCampaignStatus |
+  ActivateOutdatedCampaignStatusSuccess;

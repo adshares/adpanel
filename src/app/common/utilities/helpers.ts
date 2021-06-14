@@ -180,6 +180,7 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   let budgetError = false;
   let cpmError = false;
   let cpaError = false;
+  const isOutdated = campaign.basicInformation.dateEnd && (moment(new Date()) > moment(campaign.basicInformation.dateEnd));
 
   if ('undefined' !== typeof (campaign.targeting.requires['site'])) {
     if ('undefined' !== typeof (campaign.targeting.requires['site']['domain'])) {
@@ -248,6 +249,10 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
       error += 'The';
     }
     errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
+  }
+
+  if (isOutdated) {
+    errors.push('The campaign is outdated. Unset end date or change to a future date.');
   }
 
   return errors;
