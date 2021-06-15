@@ -6,6 +6,7 @@ import {
   campaignsConfigInitialState,
   campaignsTotalsInitialState
 } from 'models/initial-state/campaign';
+import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 
 const initialState: AdvertiserState = {
   lastEditedCampaign: campaignInitialState,
@@ -68,6 +69,20 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
       return {
         ...state,
         campaigns: mappedCampaigns
+      };
+    case AdvertiserActions.ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS:
+      return {
+        ...state,
+        campaigns: state.campaigns.map(campaign => {
+          return campaign.id !== action.payload.campaignId ? campaign : {
+            ...campaign,
+            basicInformation: {
+              ...campaign.basicInformation,
+              status: campaignStatusesEnum.ACTIVE,
+              dateEnd: null
+            }
+          }
+        })
       };
     case AdvertiserActions.LOAD_CAMPAIGNS:
       return {
