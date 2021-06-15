@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.1] - 2021-06-15
+### Added
+- Outdated campaign warning & activation
+
 ## [1.7.0] - 2021-06-01
 ### Added
 - Edit index.html, notify an administrator about change
