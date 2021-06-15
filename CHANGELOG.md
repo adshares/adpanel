@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.7.0] - 2021-06-01
 ### Added
 - Edit index.html, notify an administrator about change
 - Dialog after adding the site informing about verification of the site
@@ -271,7 +273,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.6.2...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.7.0...develop
+[1.7.0]: https://github.com/adshares/adpanel/compare/v1.6.2...v1.7.0
 [1.6.2]: https://github.com/adshares/adpanel/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/adshares/adpanel/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/adshares/adpanel/compare/v1.5.8...v1.6.0
