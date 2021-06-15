@@ -277,7 +277,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.7.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.7.1...develop
+[1.7.1]: https://github.com/adshares/adpanel/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/adshares/adpanel/compare/v1.6.2...v1.7.0
 [1.6.2]: https://github.com/adshares/adpanel/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/adshares/adpanel/compare/v1.6.0...v1.6.1
