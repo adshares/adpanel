@@ -51,16 +51,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       return;
     }
     this.checkIfUserRemembered();
-    this.storeReferralIdIfPresent();
+    this.storeReferralTokenIfPresent();
     this.store.dispatch(new authActions.UserLogOutSuccess());
   }
 
-  private storeReferralIdIfPresent() {
+  private storeReferralTokenIfPresent() {
     this.route.queryParams.subscribe(params => {
-      const referralId = params['r'];
+      const referralToken = params['r'];
 
-      if (referralId) {
-        this.api.users.setReferralId(referralId);
+      if (referralToken) {
+        this.api.users.setReferralToken(referralToken);
       }
     });
   }

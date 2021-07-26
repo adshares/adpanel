@@ -123,6 +123,8 @@ interface AdminSettings {
   publisherCommission?: number;
   advertiserCommission?: number;
   coldWalletIsActive?: number;
+  referralRefundEnabled?: number;
+  referralRefundCommission?: number;
 }
 
 interface AdminWallet {

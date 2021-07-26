@@ -52,4 +52,14 @@
                  dwmth-heading--primary
            "> {{format}}</span>
   </div>
+  <div
+    *ngIf="message"
+    class="
+      dwmth-copy
+      justify-center
+      admin-earnings__error
+      {{messageClass}}"
+  >
+    {{message}}
+  </div>
 </div>

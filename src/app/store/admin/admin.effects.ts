@@ -164,8 +164,9 @@ export class AdminEffects {
         return {
           settings: {
             ...response.settings,
-            advertiserCommission: response.settings.advertiserCommission * 100,
-            publisherCommission: response.settings.publisherCommission * 100,
+            advertiserCommission: (response.settings.advertiserCommission * 100).toFixed(2),
+            publisherCommission: (response.settings.publisherCommission * 100).toFixed(2),
+            referralRefundCommission: (response.settings.referralRefundCommission * 100).toFixed(2),
             hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
             hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
           }

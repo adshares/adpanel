@@ -25,7 +25,7 @@ interface User {
   isAdserverWalletValid: boolean;
   exchangeRate: ExchangeRate | null;
   uuid: string;
-  referralId?: string;
+  referralToken?: string;
 }
 
 interface LocalStorageUser extends User {

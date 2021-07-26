@@ -20,6 +20,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
   settings: AdminSettings;
   wallet: AdminWallet;
   canSubmit: boolean = false;
+  referralRefundMessage: string = null;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -55,6 +56,13 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
         [key]: value
       };
       return
+    }
+    if (key === 'referralRefundCommission') {
+      if (parseFloat(value) > parseFloat(this.settings.publisherCommission)) {
+        this.referralRefundMessage = 'Referral refund should not be greater than a publisher commission';
+      } else {
+        this.referralRefundMessage = null;
+      }
     }
     this.settings = {
       ...this.settings,

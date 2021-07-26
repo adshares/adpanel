@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'app/session.service';
 
 @Component({
-  selector: 'app-referrer',
-  templateUrl: './referrer.component.html',
-  styleUrls: ['./referrer.component.scss']
+  selector: 'app-ref-links',
+  templateUrl: './ref-links.component.html',
+  styleUrls: ['./ref-links.component.scss']
 })
-export class ReferrerComponent implements OnInit {
+export class RefLinksComponent implements OnInit {
   referrerLink?: string;
 
   constructor(private session: SessionService) {
@@ -15,7 +15,7 @@ export class ReferrerComponent implements OnInit {
 
   ngOnInit() {
     const user = this.session.getUser();
-    const referralId = user.referralId;
+    const referralId = 'XYZ'//user.referralToken;
     const domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
 
     this.referrerLink = referralId ? `${domain}/auth/login?r=${referralId}` : 'N/A';

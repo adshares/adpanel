@@ -62,6 +62,36 @@
 
 <article class="dwmth-box finances-settings__cold-wallet">
   <section class="row justify-between align-center">
+    <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Referral settings</h1>
+    <mat-checkbox [checked]="settings.referralRefundEnabled"
+                  (change)="updateSettings($event.checked, 'referralRefundEnabled')">
+      Enable refund referral
+    </mat-checkbox>
+  </section>
+  <p *ngIf="settings.referralRefundEnabled"
+     class="dwmth-copy dwmth-copy--medium">
+    <!--placeholder for settings general description-->
+  </p>
+  <div *ngIf="settings.referralRefundEnabled"
+       class="row finances-settings__referral-wrapper">
+    <app-earnings-settings
+      [title]=""
+      [desc]=" 'Set a commission that will refund to the referral program members'"
+      [max]="'100'"
+      [min]="'0'"
+      [step]="0.01"
+      [format]="'%'"
+      [value]="settings.referralRefundCommission"
+      [message]="referralRefundMessage"
+      [messageClass]="'dwmth-copy--orange'"
+      (valueChanged)="updateSettings($event, 'referralRefundCommission')"
+    >
+    </app-earnings-settings>
+  </div>
+</article>
+
+<article class="dwmth-box finances-settings__cold-wallet">
+  <section class="row justify-between align-center">
     <h1 class="dwmth-heading dwmth-heading--primary finances-settings__header">Cold wallet settings</h1>
     <mat-checkbox [checked]="settings.coldWalletIsActive"
                   (change)="updateSettings($event.checked, 'coldWalletIsActive')">
