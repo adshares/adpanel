@@ -1,4 +1,4 @@
-.ref-link-list {
+.ref-link-settings {
   margin-top: 10px;
 
   button {
@@ -22,27 +22,27 @@
     }
   }
 
-  &__token {
+  /deep/ &__token {
     width: 250px;
   }
 
-  &__refund {
+  /deep/ &__refund {
+    width: 250px;
+  }
+
+  /deep/ &__comment {
     width: 200px;
   }
 
-  &__comment {
-    width: 200px;
-  }
-
-  &__usage {
+  /deep/ &__usage {
     width: 150px;
   }
 
-  &__refunded {
+  /deep/ &__refunded {
     width: 175px;
   }
 
-  &__actions {
+  /deep/ &__actions {
     width: 105px;
   }
 }

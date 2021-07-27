@@ -15,13 +15,15 @@ import { User } from "models/user.model";
 import {GetCurrentBalance} from "store/settings/settings.actions";
 import {Action} from "@ngrx/store";
 import {SessionService} from "../../session.service";
+import {ImpersonationService} from "../../impersonation/impersonation.service";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private service: ApiAuthService,
-    private session: SessionService
+    private session: SessionService,
+    private impersonation: ImpersonationService,
   ) {
   }
 
@@ -42,8 +44,14 @@ export class AuthEffects {
   setUserSuccess$: Observable<Action> = this.actions$
     .ofType(SET_USER_SUCCESS)
     .switchMap((action: SetUserSuccess) => {
-        const user = this.session.getUser();
-        this.session.setUser({...user, ...action.payload});
+        let user = this.session.getUser();
+        if (null === this.impersonation.getTokenFromStorage()) {
+          user = {...user, ...action.payload};
+        } else {
+          user.referralRefundEnabled = action.payload.referralRefundEnabled;
+          user.referralRefundCommission = action.payload.referralRefundCommission;
+        }
+        this.session.setUser(user);
         return Observable.of();
       }
     );

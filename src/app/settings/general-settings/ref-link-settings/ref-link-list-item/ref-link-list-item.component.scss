@@ -1,0 +1,15 @@
+.ref-link-list-item {
+  padding: 15px 0;
+  display: flex;
+  border-bottom: 1px solid #eee;
+
+  & td {
+    text-align: center;
+    align-self: center;
+
+    small {
+      display: block;
+      font-size: 80%;
+    }
+  }
+}

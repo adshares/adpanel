@@ -1,0 +1,113 @@
+<section>
+  <h1
+    class="
+      dwmth-heading
+      dwmth-heading--primary"
+  >
+    Create new referral link
+  </h1>
+
+  <div>
+    <p class="dwmth-copy">
+      Your refund commission rate: {{ defaultRefundCommission | percent:'1.0-2' }}<br />
+      Set Friends’ commission bonus rate
+    </p>
+    <form
+      id="ref-link-form"
+      class="dwmth-form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="commission">
+        <span class="dwmth-copy dwmth-copy--large">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
+        <span class="dwmth-copy dwmth-copy--large" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
+      </div>
+
+      <div>
+        <div class="commission-select justify-between dwmth-copy dwmth-copy--large">
+
+          <label
+            *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
+            [for]="'keptRefund' + option"
+            [class.checked]="form.get('keptRefund').value == option"
+          >
+            <input
+              [id]="'keptRefund' + option"
+              [value]="option"
+              type="radio"
+              name="keptRefund"
+              formControlName="keptRefund">
+            {{ getBonusCommission(option) | percent:'1.0-2' }}
+          </label>
+        </div>
+        <div class="dwmth-form-input__box">
+          <label
+            for="token"
+            class="dwmth-form-label"
+          >
+            Referral token
+          </label>
+          <input
+            id="token"
+            class="dwmth-form-input dwmth-form-input--full"
+            type="text"
+            name="token"
+            formControlName="token"
+            placeholder="Leave blank to get random token"
+          >
+          <span
+            *ngIf="form.get('token').valid"
+            class="input-valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="form.hasError('minlength', ['token']) && formSubmitted"
+          >
+              The token must be at least {{ form.getError('minlength', ['token']).requiredLength }} characters
+            </span>
+          <span
+            class="error-msg"
+            *ngIf="form.hasError('maxlength', ['token']) && formSubmitted"
+          >
+            The token may not be greater than {{ form.getError('maxlength', ['token']).requiredLength }} characters.
+          </span>
+          <span
+            class="error-msg"
+            *ngIf="form.hasError('custom', ['token']) && formSubmitted"
+          >
+            {{ form.getError('custom', ['token']) }}
+          </span>
+        </div>
+        <div class="dwmth-form-input__box">
+          <label
+            for="comment"
+            class="dwmth-form-label"
+          >
+            Note
+          </label>
+          <input
+            id="comment"
+            class="dwmth-form-input dwmth-form-input--full"
+            type="text"
+            name="comment"
+            formControlName="comment"
+          >
+        </div>
+        <button
+          *ngIf="!showLoader; else loading"
+          type="submit"
+          class="
+              dwmth-btn
+              dwmth-btn--blue"
+        >
+          Generate link
+        </button>
+      </div>
+    </form>
+  </div>
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+</section>

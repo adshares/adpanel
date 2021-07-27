@@ -14,8 +14,8 @@ export class RefLinkListItemComponent implements OnInit {
   @Input() refundEnabled: boolean;
   @Input() defaultRefundCommission: number;
   @Input() refLink: RefLink;
-  refundPercentage: string;
-  bonusPercentage: string;
+  refundCommission: number;
+  bonusCommission: number;
   readonly crypto: string = CRYPTO;
   readonly code: string = CODE;
   readonly dateFormat: string = DATE_FORMAT;
@@ -25,13 +25,8 @@ export class RefLinkListItemComponent implements OnInit {
 
   ngOnInit() {
     let refund = this.refLink.refund || this.defaultRefundCommission;
-    this.refundPercentage = this.formatPercentage(refund * this.refLink.keptRefund)
-    this.bonusPercentage = this.formatPercentage(refund * (1 - this.refLink.keptRefund))
-  }
-
-  formatPercentage(value: number): string
-  {
-    return (value * 100).toFixed(1) + '%';
+    this.refundCommission = refund * this.refLink.keptRefund;
+    this.bonusCommission = refund * (1 - this.refLink.keptRefund);
   }
 
   getRefLinkUrl(): string

@@ -1,0 +1,44 @@
+@import '../../../../../styles.scss';
+
+.commission {
+  background: pal(blue, 'light');
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+
+  span {
+    display: block;
+    width: 250px;
+    padding: 20px;
+  }
+}
+
+.commission-select {
+  display: flex;
+
+  label {
+    display: block;
+    width: 75px;
+    border: 1px solid pal(gray);
+    border-radius: 2px;
+    text-align: center;
+    padding: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background: pal(grey, 'light');
+    }
+
+    &.checked {
+      background: pal(green, 'light');
+    }
+  }
+}
+
+form {
+  button[type="submit"] {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
