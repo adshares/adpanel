@@ -6,19 +6,22 @@ import {
 import 'rxjs/add/operator/switchMap';
 import { Observable } from "rxjs";
 import {
-  SET_USER,
+  SET_USER, SET_USER_SUCCESS,
   SetUserFailure,
   SetUserSuccess,
 } from "store/auth/auth.actions";
 import { ApiAuthService } from "../../api/auth.service";
 import { User } from "models/user.model";
-import { GetCurrentBalance } from "store/settings/settings.actions";
+import {GetCurrentBalance} from "store/settings/settings.actions";
+import {Action} from "@ngrx/store";
+import {SessionService} from "../../session.service";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private service: ApiAuthService,
+    private session: SessionService
   ) {
   }
 
@@ -33,5 +36,15 @@ export class AuthEffects {
         ]
       })
       .catch(() => Observable.of(new SetUserFailure()))
+    );
+
+  @Effect()
+  setUserSuccess$: Observable<Action> = this.actions$
+    .ofType(SET_USER_SUCCESS)
+    .switchMap((action: SetUserSuccess) => {
+        const user = this.session.getUser();
+        this.session.setUser({...user, ...action.payload});
+        return Observable.of();
+      }
     );
 }

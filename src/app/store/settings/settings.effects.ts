@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import "rxjs/add/observable/timer";
 import "rxjs/add/operator/takeUntil";
-import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions';
+import {USER_LOG_OUT_SUCCESS} from 'store/auth/auth.actions';
 import {
   GET_CURRENT_BALANCE,
   GET_BILLING_HISTORY,
