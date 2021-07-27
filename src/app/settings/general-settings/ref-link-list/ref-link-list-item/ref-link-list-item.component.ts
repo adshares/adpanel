@@ -1,0 +1,52 @@
+import {Component, Input, OnInit, } from '@angular/core';
+import {RefLink} from "models/settings.model";
+import {CODE, CRYPTO, DATE_FORMAT} from "common/utilities/consts";
+import {ShowSuccessSnackbar} from "store/common/common.actions";
+import {Store} from "@ngrx/store";
+import {AppState} from "models/app-state.model";
+
+@Component({
+  selector: 'app-ref-link-list-item',
+  templateUrl: './ref-link-list-item.component.html',
+  styleUrls: ['./ref-link-list-item.component.scss']
+})
+export class RefLinkListItemComponent implements OnInit {
+  @Input() refundEnabled: boolean;
+  @Input() defaultRefundCommission: number;
+  @Input() refLink: RefLink;
+  refundPercentage: string;
+  bonusPercentage: string;
+  readonly crypto: string = CRYPTO;
+  readonly code: string = CODE;
+  readonly dateFormat: string = DATE_FORMAT;
+
+  constructor(private store: Store<AppState>) {
+  }
+
+  ngOnInit() {
+    let refund = this.refLink.refund || this.defaultRefundCommission;
+    this.refundPercentage = this.formatPercentage(refund * this.refLink.keptRefund)
+    this.bonusPercentage = this.formatPercentage(refund * (1 - this.refLink.keptRefund))
+  }
+
+  formatPercentage(value: number): string
+  {
+    return (value * 100).toFixed(1) + '%';
+  }
+
+  getRefLinkUrl(): string
+  {
+    const domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+    return`${domain}/ref/${this.refLink.token}`;
+  }
+
+  copyUrl(): void {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (this.getRefLinkUrl()));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
+    this.store.dispatch(new ShowSuccessSnackbar('Copied!'))
+  }
+}

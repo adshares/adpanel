@@ -22,6 +22,6 @@ export class EarningsSettingsComponent  {
 
   updateValue(newValue: number): void {
     const formattedValue = newValue.toFixed(2);
-    this.valueChanged.next(formattedValue);
+    this.valueChanged.next(Number(formattedValue));
   }
 }

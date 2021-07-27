@@ -224,6 +224,21 @@ interface ReportsListItem {
   state: string;
 }
 
+interface RefLink {
+  id: number;
+  token: string;
+  comment: string;
+  validUntil: string;
+  singleUse: boolean;
+  used: boolean;
+  usageCount: number;
+  bonus: number;
+  refund: number;
+  keptRefund: number;
+  refunded: number;
+  refundValidUntil: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -255,4 +270,5 @@ export {
   Index,
   ReportsList,
   ReportsListItem,
+  RefLink,
 };

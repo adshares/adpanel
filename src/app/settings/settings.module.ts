@@ -26,9 +26,10 @@ import { SettingsNavigationComponent } from './settings-navigation/settings-navi
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { RefLinksComponent } from 'settings/general-settings/ref-links/ref-links.component';
+import { RefLinkListComponent } from 'settings/general-settings/ref-link-list/ref-link-list.component';
 import { ClickOutsideDirective } from 'settings/clickOutside.directive';
 import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component';
+import { RefLinkListItemComponent } from "settings/general-settings/ref-link-list/ref-link-list-item/ref-link-list-item.component";
 library.add(fas);
 
 @NgModule({
@@ -51,7 +52,8 @@ library.add(fas);
     BillingComponent,
     AccountSettingsComponent,
     PreferencesComponent,
-    RefLinksComponent,
+    RefLinkListComponent,
+    RefLinkListItemComponent,
     NewsletterSettingsComponent,
     NotificationSettingsComponent,
     UserWalletComponent,

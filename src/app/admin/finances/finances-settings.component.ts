@@ -58,7 +58,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
       return
     }
     if (key === 'referralRefundCommission') {
-      if (parseFloat(value) > parseFloat(this.settings.publisherCommission)) {
+      if (parseFloat(value + '') > parseFloat(this.settings.publisherCommission + '')) {
         this.referralRefundMessage = 'Referral refund should not be greater than a publisher commission';
       } else {
         this.referralRefundMessage = null;

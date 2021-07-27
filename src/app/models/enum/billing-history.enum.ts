@@ -18,4 +18,5 @@ export enum billingHistoryItemTypeEnum {
   AD_EXPENDITURE,
   BONUS_INCOME,
   BONUS_EXPENDITURE,
+  REFUND,
 }

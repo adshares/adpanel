@@ -26,6 +26,8 @@ interface User {
   exchangeRate: ExchangeRate | null;
   uuid: string;
   referralToken?: string;
+  referralRefundEnabled: boolean;
+  referralRefundCommission: number;
 }
 
 interface LocalStorageUser extends User {

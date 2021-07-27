@@ -9,6 +9,7 @@ import {
   License,
   NotificationItem,
   Publishers,
+  RefLink,
   TermsAndPrivacy,
   Users,
 } from './settings.model';
@@ -49,6 +50,7 @@ interface PublisherState {
 interface SettingsState {
   notificationsSettings: NotificationItem[];
   billingHistory: BillingHistory;
+  refLinks: RefLink[];
 }
 
 interface UserState {

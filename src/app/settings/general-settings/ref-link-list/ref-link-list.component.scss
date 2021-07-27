@@ -1,0 +1,48 @@
+.ref-link-list {
+  margin-top: 10px;
+
+  button {
+    margin-top: 16px;
+  }
+
+  &-table {
+    margin: 30px 0;
+    max-width: 100%;
+    width: 100%;
+    min-width: 870px;
+
+    &__scrollable {
+      overflow-x: auto;
+    }
+
+    &__head {
+      margin-bottom: 10px;
+      margin-top: 15px;
+      display: block;
+    }
+  }
+
+  &__token {
+    width: 250px;
+  }
+
+  &__refund {
+    width: 200px;
+  }
+
+  &__comment {
+    width: 200px;
+  }
+
+  &__usage {
+    width: 150px;
+  }
+
+  &__refunded {
+    width: 175px;
+  }
+
+  &__actions {
+    width: 105px;
+  }
+}
