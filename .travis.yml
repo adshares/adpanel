@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "8"
+  - "14"
 
 env:
   global:
@@ -19,14 +19,6 @@ jobs:
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
         - yarn build --environment ${APP_ENV}
-
-notifications:
-  email: false
-  slack:
-    rooms:
-      secure: "eTeJ5C8XmeanrIyve/sYlFFZ0fT42bH1VLDELiz0G7rn3LNinrzh4t7i4mZHm9FLBSynEdRsR9rNi/Vk1YJLWk0G/ZJFzbDSlVNk3aWT4ZOZveob33geG2b4cCCeL+TKqdUQE5Fi7PCZ972lFXRoP/qzg66b5GwoYVnx2sIquqyB8h0XlqDbjg2tMbL7AfL34nXE+EbmCex1qeq8zb/nVXKG9dF/As6yhJ+O+FcA3sAvQ1hNfyRvfGnhkmu8LkI1XWO//y3gOzRyamSvcRBIxPBJsm0PQPtG6wATAYVxjE9kGPWQDGqQR9Fx8DYeKqLAUL2OpM5yiE/8eHXohCswfTsvNrQmZrwgJU3xzXqMngaxbQ47NwwGY4TAqdB3odzDpJFIFpMSbtEXamFHM7nnAhe5E+q57bCCWxEGwmU78UcAoZ/3AKvqQRjfmHD91lKpATxiiz4i+S/0fDvfcmzOdARUeoQbzT4lIZo8oLOSuYym3lLj/Ojtc9CIYyt6DPeNuzTmLrHCE3qUT5ny80J/miEQgkLBlnMrsuglQaNz27sb1PBXS8gwn82KxmS/8zqVBbdtBQgwe8qAmArbeAY++K+u7TP4c5CpNQZyi+QQ7LV7idP0oIZYSMpt2xtyN//UAFBRZPty1augLOP/xG2lD/amgSgqibE42FaValogozg="
-    on_success: change
-    on_failure: always
 
 addons:
   sonarcloud:
