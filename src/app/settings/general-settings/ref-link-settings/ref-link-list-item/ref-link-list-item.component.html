@@ -1,0 +1,31 @@
+<tr class="ref-link-list-item row justify-between">
+  <td class="ref-link-settings__token">
+    {{ refLink.token }}
+    <small *ngIf="refLink.validUntil">Valid until: {{ refLink.validUntil | formatDate:dateFormat }}</small>
+  </td>
+  <td class="ref-link-settings__refund" *ngIf="refundEnabled">
+    {{ refundCommission | percent:'1.0-2' }} / {{ bonusCommission | percent:'1.0-2' }}
+    <div *ngIf="refLink.bonus">Bonus: {{ refLink.bonus | formatMoney:2 }}</div>
+    <small *ngIf="refLink.refundValidUntil">Valid until: {{ refLink.refundValidUntil | formatDate:dateFormat }}</small>
+  </td>
+  <td class="ref-link-settings__comment">
+    <i>{{ refLink.comment || "-" }}</i>
+  </td>
+  <td class="ref-link-settings__usage">
+    {{ refLink.usageCount }}
+    <small *ngIf="refLink.singleUse">(single use)</small>
+  </td>
+  <td class="ref-link-settings__refunded" *ngIf="refundEnabled">
+    {{ refLink.refunded | formatMoney:4:crypto:code }}
+  </td>
+  <td class="ref-link-settings__actions">
+    <button
+      class="
+            dwmth-btn
+            dwmth-btn--x-small
+            dwmth-btn--blue"
+      (click)="copyUrl()"
+    >Copy URL
+    </button>
+  </td>
+</tr>

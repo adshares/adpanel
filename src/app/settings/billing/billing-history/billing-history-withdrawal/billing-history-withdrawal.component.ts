@@ -76,6 +76,7 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
       case billingHistoryItemTypeEnum.UNKNOWN:
         this.icon = faQuestion;
         break;
+      case billingHistoryItemTypeEnum.REFUND:
       case billingHistoryItemTypeEnum.DEPOSIT:
         this.icon = faArchive;
         break;

@@ -33,6 +33,15 @@ export class RegisterComponent extends HandleSubscription {
     super();
   }
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(
+      params => {
+        if (params['token']) {
+          this.api.users.setReferralToken(params['token']);
+        }
+      });
+  }
+
   register() {
     const uri = '/auth/email-activation/';
     const password = this.registrationForm.value.password;
@@ -50,9 +59,9 @@ export class RegisterComponent extends HandleSubscription {
       isPublisher: false
     };
 
-    const referralId = this.api.users.getReferralId();
-    if (referralId) {
-      user.referralId = referralId;
+    const referralToken = this.api.users.getReferralToken();
+    if (referralToken) {
+      user.referralToken = referralToken;
     }
 
     const registerSubscription = this.api.users.register(

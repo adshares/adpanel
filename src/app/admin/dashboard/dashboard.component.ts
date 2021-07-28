@@ -58,6 +58,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       values: [
         {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Wallet status', icon: 'assets/images/wallet--gray.svg'},
+        {name: 'Referral settings', icon: 'assets/images/wallet--gray.svg'},
         {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
       ],
     },
@@ -93,7 +94,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       link: '/admin/dashboard/account',
       values: [
         {name: 'Email & password', icon: 'assets/images/preferences.svg'},
-        {name: 'Referrer', icon: 'assets/images/preferences.svg'},
+        {name: 'Referral links', icon: 'assets/images/preferences.svg'},
       ],
     },
   ];

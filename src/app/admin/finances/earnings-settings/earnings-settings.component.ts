@@ -16,10 +16,12 @@ export class EarningsSettingsComponent  {
   @Input() format: string;
   @Input() value: number;
   @Output() valueChanged = new Subject<number>();
+  @Input() message: string;
+  @Input() messageClass: string;
   constructor() {}
 
   updateValue(newValue: number): void {
-    const formattedValue = parseFloat(newValue.toFixed(2));
-    this.valueChanged.next(formattedValue);
+    const formattedValue = newValue.toFixed(2);
+    this.valueChanged.next(Number(formattedValue));
   }
 }
