@@ -8,7 +8,7 @@
   </h1>
 
   <div>
-    <p class="dwmth-copy">
+    <p class="dwmth-copy" *ngIf="refundEnabled">
       Your refund commission rate: {{ defaultRefundCommission | percent:'1.0-2' }}<br />
       Set Friends’ commission bonus rate
     </p>
@@ -18,14 +18,13 @@
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
     >
-      <div class="commission">
+      <div class="commission" *ngIf="refundEnabled">
         <span class="dwmth-copy dwmth-copy--large">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
         <span class="dwmth-copy dwmth-copy--large" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
       </div>
 
       <div>
-        <div class="commission-select justify-between dwmth-copy dwmth-copy--large">
-
+        <div class="commission-select justify-between dwmth-copy dwmth-copy--large" *ngIf="refundEnabled">
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
             [for]="'keptRefund' + option"
@@ -39,6 +38,117 @@
               formControlName="keptRefund">
             {{ getBonusCommission(option) | percent:'1.0-2' }}
           </label>
+        </div>
+        <div class="row justify-between" *ngIf="refundEnabled">
+          <div class="dwmth-form-input__box dwmth-form-input__inline" *ngIf="form.get('refund')">
+            <label
+              for="refund"
+              class="dwmth-form-label"
+            >
+              Custom refund commission rate
+            </label>
+            <input
+              id="refund"
+              class="dwmth-form-input dwmth-form-input--full"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              name="refund"
+              formControlName="refund"
+            >
+            <span
+              class="error-msg"
+              *ngIf="form.hasError('custom', ['refund']) && formSubmitted"
+            >
+              {{ form.getError('custom', ['refund']) }}
+            </span>
+          </div>
+          <div class="dwmth-form-input__box" *ngIf="form.get('refundValidUntil')">
+            <label class="dwmth-form-label">Refund valid until</label>
+            <mat-form-field
+              class="
+                  dwmth-form-input
+                  dwmth-form-input--narrow"
+            >
+              <img
+                [owlDateTimeTrigger]="refundValidUntilPicker"
+                src="/assets/images/calendar.svg"
+                alt="Calendar"
+                class="dwmth-icon">
+              <input
+                [owlDateTime]="refundValidUntilPicker"
+                [formControl]="refundValidUntilControl"
+                [owlDateTimeTrigger]="refundValidUntilPicker"
+                [min]="today"
+                matInput
+                type="text"
+                autocomplete="off"
+              >
+              <owl-date-time #refundValidUntilPicker [pickerType]="'calendar'"></owl-date-time>
+            </mat-form-field>
+            <span
+              class="error-msg"
+              *ngIf="form.hasError('custom', ['refundValidUntil']) && formSubmitted"
+            >
+              {{ form.getError('custom', ['refundValidUntil']) }}
+            </span>
+          </div>
+        </div>
+        <div class="row justify-between">
+          <div class="dwmth-form-input__box dwmth-form-input__inline" *ngIf="form.get('bonus')">
+            <label
+              for="refund"
+              class="dwmth-form-label"
+            >
+              Additional bonus ({{currencyCode}})
+            </label>
+            <input
+              id="bonus"
+              class="dwmth-form-input dwmth-form-input--full"
+              type="number"
+              min="0"
+              step="0.01"
+              name="bonus"
+              formControlName="bonus"
+            >
+            <span
+              class="error-msg"
+              *ngIf="form.hasError('custom', ['bonus']) && formSubmitted"
+            >
+              {{ form.getError('custom', ['bonus']) }}
+            </span>
+          </div>
+          <div class="dwmth-form-input__box" *ngIf="form.get('validUntil')">
+            <label class="dwmth-form-label">Link valid until</label>
+            <mat-form-field
+              class="
+                  dwmth-form-input
+                  dwmth-form-input--narrow"
+            >
+              <img
+                [owlDateTimeTrigger]="validUntilPicker"
+                src="/assets/images/calendar.svg"
+                alt="Calendar"
+                class="dwmth-icon">
+              <input
+                [owlDateTime]="validUntilPicker"
+                [formControl]="validUntilControl"
+                [owlDateTimeTrigger]="validUntilPicker"
+                [min]="today"
+                matInput
+                type="text"
+                autocomplete="off"
+              >
+              <owl-date-time #validUntilPicker [pickerType]="'calendar'"></owl-date-time>
+            </mat-form-field>
+            <span
+              class="error-msg"
+              *ngIf="form.hasError('custom', ['validUntil']) && formSubmitted"
+            >
+              {{ form.getError('custom', ['validUntil']) }}
+            </span>
+          </div>
         </div>
         <div class="dwmth-form-input__box">
           <label
@@ -93,15 +203,25 @@
             formControlName="comment"
           >
         </div>
-        <button
-          *ngIf="!showLoader; else loading"
-          type="submit"
-          class="
-              dwmth-btn
-              dwmth-btn--blue"
-        >
-          Generate link
-        </button>
+
+        <div class="form-footer">
+          <mat-checkbox
+            formControlName="singleUse"
+            *ngIf="form.get('singleUse')"
+          >
+            Single use link
+          </mat-checkbox>
+
+          <button
+            *ngIf="!showLoader; else loading"
+            type="submit"
+            class="
+                dwmth-btn
+                dwmth-btn--blue"
+          >
+            Generate link
+          </button>
+        </div>
       </div>
     </form>
   </div>

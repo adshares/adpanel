@@ -12,7 +12,7 @@ import {
 } from "store/auth/auth.actions";
 import { ApiAuthService } from "../../api/auth.service";
 import { User } from "models/user.model";
-import {GetCurrentBalance} from "store/settings/settings.actions";
+import {GET_CURRENT_BALANCE_SUCCESS, GetCurrentBalance} from "store/settings/settings.actions";
 import {Action} from "@ngrx/store";
 import {SessionService} from "../../session.service";
 import {ImpersonationService} from "../../impersonation/impersonation.service";
@@ -42,7 +42,7 @@ export class AuthEffects {
 
   @Effect()
   setUserSuccess$: Observable<Action> = this.actions$
-    .ofType(SET_USER_SUCCESS)
+    .ofType(SET_USER_SUCCESS, GET_CURRENT_BALANCE_SUCCESS)
     .switchMap((action: SetUserSuccess) => {
         let user = this.session.getUser();
         if (null === this.impersonation.getTokenFromStorage()) {

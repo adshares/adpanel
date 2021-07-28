@@ -83,6 +83,10 @@ export class SettingsService {
   }
 
   getRefLinks(): Observable<RefLink[]> {
-    return this.http.get<RefLink[]>(`${environment.apiUrl}/ref-links?`);
+    return this.http.get<RefLink[]>(`${environment.apiUrl}/ref-links`);
+  }
+
+  saveRefLink(refLink: object): Observable<RefLink> {
+    return this.http.post<RefLink>(`${environment.apiUrl}/ref-links`, {refLink});
   }
 }

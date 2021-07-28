@@ -32,6 +32,7 @@ import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/repor
 import { RefLinkListItemComponent } from "settings/general-settings/ref-link-settings/ref-link-list-item/ref-link-list-item.component";
 import { RefLinkEditorComponent } from "settings/general-settings/ref-link-settings/ref-link-editor/ref-link-editor.component";
 import { RefLinkEditorDialogComponent } from "settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component";
+import {OwlDateTimeModule} from "ng-pick-datetime";
 library.add(fas);
 
 @NgModule({
@@ -46,7 +47,8 @@ library.add(fas);
     MatInputModule,
     MatPaginatorModule,
     SettingsRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    OwlDateTimeModule,
   ],
   declarations: [
     ClickOutsideDirective,

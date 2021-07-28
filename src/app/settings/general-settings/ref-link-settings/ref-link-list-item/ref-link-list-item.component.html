@@ -1,6 +1,6 @@
 <tr class="ref-link-list-item row justify-between">
   <td class="ref-link-settings__token">
-    <b>{{ refLink.token }}</b>
+    {{ refLink.token }}
     <small *ngIf="refLink.validUntil">Valid until: {{ refLink.validUntil | formatDate:dateFormat }}</small>
   </td>
   <td class="ref-link-settings__refund" *ngIf="refundEnabled">
