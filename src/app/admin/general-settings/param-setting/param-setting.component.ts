@@ -1,6 +1,6 @@
-import { Component, Input, Output } from '@angular/core';
-import { fadeAnimation } from "common/animations/fade.animation";
-import { Subject } from "rxjs";
+import {Component, Input, Output} from '@angular/core';
+import {fadeAnimation} from "common/animations/fade.animation";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-param-setting',
@@ -13,6 +13,7 @@ export class ParamSettingComponent {
   @Input() title: string;
   @Input() desc: string;
   @Input() value: string;
+  @Input() options: object = null;
   @Output() valueChanged: Subject<string> = new Subject();
 
   constructor() {
@@ -20,5 +21,9 @@ export class ParamSettingComponent {
 
   updateValue(value: string): void {
     this.valueChanged.next(value)
+  }
+
+  optionKeys(): string[] {
+    return Object.keys(this.options || {});
   }
 }

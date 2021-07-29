@@ -6,11 +6,16 @@ import { environment } from 'environments/environment';
 import { Notification } from 'models/notification.model';
 import { reportType } from 'models/enum/user.enum';
 import { ReportsList } from 'models/settings.model';
+import { Info } from "models/info.model";
 
 @Injectable()
 export class CommonService {
 
   constructor(private http: HttpClient) {
+  }
+
+  getInfo(): Observable<Info> {
+    return this.http.get<Info>(`${environment.serverUrl}/info`);
   }
 
   getNotifications(): Observable<Notification[]> {

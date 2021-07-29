@@ -125,6 +125,7 @@ interface AdminSettings {
   coldWalletIsActive?: number;
   referralRefundEnabled?: number;
   referralRefundCommission?: number;
+  registrationMode: string;
 }
 
 interface AdminWallet {

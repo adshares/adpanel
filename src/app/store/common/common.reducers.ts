@@ -6,11 +6,17 @@ const initialState = {
   adsharesAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState,
   notifications: [],
-  impersonationToken: null
+  impersonationToken: null,
+  info: null,
 };
 
 export function commonReducers(state = initialState, action: commonActions.actions) {
   switch (action.type) {
+    case commonActions.LOAD_INFO_SUCCESS:
+      return {
+        ...state,
+        info: action.payload
+      };
     case commonActions.SET_ACTIVE_USER_TYPE:
       return {
         ...state,
