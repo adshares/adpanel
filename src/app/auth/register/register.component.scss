@@ -6,6 +6,18 @@
   &-consent {
     margin: 20px 0 20px;
   }
+
+  &-form {
+    margin-bottom: -20px;
+  }
+
+  &-login-info {
+    margin-top: 20px;
+  }
+
+  .error-msg:first-child {
+    margin-top: -20px;
+  }
 }
 
 h2 {

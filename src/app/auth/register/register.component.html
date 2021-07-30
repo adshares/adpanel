@@ -1,9 +1,26 @@
 <div
+  *ngIf="!isLoading; else loading"
   class="
     col
+    dwmth__registration
     dwmth__registration-wrapper"
 >
-  <div>
+  <p
+    class="error-msg error-msg--irremovable"
+    *ngIf="refLinkInfo && refLinkInfo.status === 'outdated'"
+  >
+    Referral link is outdated
+  </p>
+  <p
+    class="error-msg error-msg--irremovable"
+    *ngIf="refLinkInfo && refLinkInfo.status === 'used'"
+  >
+    Referral link is already used
+  </p>
+  <div
+    *ngIf="registrationEnabled"
+    class="dwmth__registration-form"
+  >
     <h2
       class="
         dwmth-heading
@@ -186,13 +203,10 @@
         <span *ngIf="!isRegistering ; else loading">
           Register
         </span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
       </button>
     </form>
   </div>
-  <div>
+  <div class="dwmth__registration-login-info">
     <p
       class="dwmth-copy"
     >
@@ -207,4 +221,7 @@
     </p>
   </div>
 </div>
+<ng-template #loading>
+  <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+</ng-template>
 

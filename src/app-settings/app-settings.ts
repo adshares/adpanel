@@ -37,6 +37,10 @@ export const appSettings = {
   SUPPORT_TELEGRAM: environment.supportTelegram,
   // support chat
   SUPPORT_CHAT: environment.supportChat,
+  // advertiser apply form url
+  ADVERTISER_APPLY_FORM_URL: environment.advertiserApplyFormUrl,
+  // publisher apply form url
+  PUBLISHER_APPLY_FORM_URL: environment.publisherApplyFormUrl,
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
   // Bitcoin address validation regexp

@@ -8,6 +8,7 @@ import {environment} from "environments/environment";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
 import {DATE_AND_TIME_FORMAT} from "common/utilities/consts";
+import { CommonService } from 'common/common.service'
 
 @Component({
   selector: 'app-ref-link-editor',
@@ -31,6 +32,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
   constructor(
     private session: SessionService,
     private settings: SettingsService,
+    private common: CommonService,
   ) {
     super();
   }
@@ -111,7 +113,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
       refLink.refundValidUntil = moment(refLink.refundValidUntil).endOf('day').format()
     }
 
-    this.subscriptions.push(this.settings.saveRefLink(refLink)
+    this.subscriptions.push(this.common.saveRefLink(refLink)
       .subscribe(
         (data) => {
           this.refLinkSaved.emit(data)

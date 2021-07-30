@@ -240,6 +240,11 @@ interface RefLink {
   refundValidUntil: string;
 }
 
+interface RefLinkInfo {
+  token: string;
+  status: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -272,4 +277,5 @@ export {
   ReportsList,
   ReportsListItem,
   RefLink,
+  RefLinkInfo,
 };
