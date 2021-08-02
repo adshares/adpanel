@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Refund referral program
+- Restricted & private registration modes
+- Manual account confirmation
 
 ## [1.7.1] - 2021-06-15
 ### Added
