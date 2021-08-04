@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { appSettings } from 'app-settings'
 import { environment } from 'environments/environment'
 
 @Component({

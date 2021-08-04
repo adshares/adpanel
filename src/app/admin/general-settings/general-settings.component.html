@@ -35,6 +35,12 @@
   [options]="registrationModes"
   (valueChanged)="updateSettings($event, 'registrationMode')"
 >
+  <mat-checkbox
+    [checked]="settings.autoConfirmationEnabled"
+    (change)="updateSettings($event.checked, 'autoConfirmationEnabled')"
+  >
+    Auto account confirmation
+  </mat-checkbox>
 </app-param-setting>
 
 <app-rejected-domains></app-rejected-domains>

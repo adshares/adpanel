@@ -126,6 +126,7 @@ interface AdminSettings {
   referralRefundEnabled?: number;
   referralRefundCommission?: number;
   registrationMode: string;
+  autoConfirmationEnabled: number;
 }
 
 interface AdminWallet {
