@@ -153,6 +153,13 @@
   }
 }
 
+.dwmth-alert {
+  padding: 18px 7px;
+  background: pal(red, light);
+  justify-content: center;
+  border: 1px solid pal(red, dark);
+}
+
 .text-center {
   text-align: center;
 }

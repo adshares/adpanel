@@ -21,285 +21,301 @@
       Please copy the code and place it on your site.
     </p>
 
-    <mat-accordion>
-      <mat-expansion-panel
-        expanded="true"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title
-            class="
-              dwmth-heading
-              dwmth-heading--secondary
-              text-left"
-          >
-            <mat-icon>
-              filter_list
-            </mat-icon>
-            Customize ad codes
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <form
-          id="code-form"
-          [formGroup]="codeForm"
+    <div *ngIf="isUserConfirmed">
+      <mat-accordion>
+        <mat-expansion-panel
+          expanded="true"
         >
-          <div class="row justify-start align-center ad-codes">
-            <div class="col-xs-7">
-              <mat-checkbox
-                formControlName="isProxy"
-                (change)="onChangeAdvancedCircumvent($event)"
-              >
-                Enable advanced circumvent of ad blockers
-              </mat-checkbox>
-            </div>
-            <div class="col-xs-5">
-              <a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
-                 rel="noopener noreferrer"
-                 target="_blank"
-              >
-                <div
-                  class="
-                    dwmth-btn
-                    dwmth-btn--white
-                    dwmth-btn--tiny
-                    align-with-checkbox"
-                >read more</div>
-              </a>
-            </div>
-          </div>
-          <div class="row justify-start align-center ad-codes">
-            <div class="col-xs-7">
-              <mat-checkbox
-                formControlName="isMinCpm"
-              >
-                Display ads with a CPM rate higher than
-              </mat-checkbox>
-              <input
-                matInput
-                formControlName="minCpm"
-                class="dwmth-form-input input-in-text input-in-text--amount justify-center"
-              />
-              <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">{{ CURRENCY_CODE }} only</span>
-
-              <div
-                *ngIf="!codeForm.get('minCpm').valid"
-                class="row"
-              >
-                <span
-                  class="error-msg error-msg-in-text"
-                >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
-              </div>
-            </div>
-            <div class="col-xs-5">
-              <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-                 rel="noopener noreferrer"
-                 target="_blank"
-              >
-                <div
-                  class="
-                    dwmth-btn
-                    dwmth-btn--white
-                    dwmth-btn--tiny
-                    align-with-checkbox"
-                >read more</div>
-              </a>
-            </div>
-          </div>
-          <div class="row justify-start align-center ad-codes">
-            <div class="col-xs-7">
-              <mat-checkbox
-                formControlName="isAdBlock"
-              >
-                Display ads in browsers with active ad blockers only
-              </mat-checkbox>
-            </div>
-            <div class="col-xs-5">
-              <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-                 rel="noopener noreferrer"
-                 target="_blank"
-              >
-                <div
-                  class="
-                    dwmth-btn
-                    dwmth-btn--white
-                    dwmth-btn--tiny
-                    align-with-checkbox"
-                >read more</div>
-              </a>
-            </div>
-          </div>
-          <div class="row justify-start align-center ad-codes">
-            <div class="col-xs-7">
-              <mat-checkbox
-                formControlName="isFallback"
-              >
-                Enable custom fallback
-              </mat-checkbox>
-              <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
-                 E.g. display other ad networks' ads in case Adshares has no ads to provide
-              </div>
-            </div>
-            <div class="col-xs-5">
-              <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
-                 rel="noopener noreferrer"
-                 target="_blank"
-              >
-                <div
-                  class="
-                    dwmth-btn
-                    dwmth-btn--white
-                    dwmth-btn--tiny
-                    align-with-checkbox"
-                >read more</div>
-              </a>
-            </div>
-          </div>
-
-          <div *ngIf="hasSitePops">
-            <div
-              class="row ad-codes code-row align-center mat-checkbox-label align-with-checkbox-label-vertically"
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              class="
+                dwmth-heading
+                dwmth-heading--secondary
+                text-left"
             >
-              Display
-              <input
-                id="pop-count"
-                matInput
-                class="dwmth-form-input input-in-text"
-                formControlName="popCount"
-              />
-              pop(s) per
-              <input
-                id="pop-interval"
-                matInput
-                class="dwmth-form-input input-in-text"
-                formControlName="popInterval"
-              />
-              hour(s). Max
-              <input
-                id="pop-burst"
-                matInput
-                class="dwmth-form-input input-in-text"
-                formControlName="popBurst"
-              />
-              pop(s) per page view.
-            </div>
-
-            <div class="row">
-              <span
-                *ngIf="!codeForm.get('popCount').valid || !codeForm.get('popInterval').valid || !codeForm.get('popBurst').valid"
-                class="error-msg"
-              >Value must be greater than 0</span>
-            </div>
-          </div>
-        </form>
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <div
-      *ngIf="!loadingInfo; else loading"
-    >
-      <div
-        *ngIf="null !== codes"
-      >
-        <div class="row code-row align-center">
-          <label
-            class="dwmth-copy dwmth-copy--bold col text-left"
-            for="code-container-common"
-          >Paste this code in HEAD tag on your website (one time only)</label>
-
-          <button
-            class="code-copy-btn"
-            (click)="copyCode('code-container-common')"
+              <mat-icon>
+                filter_list
+              </mat-icon>
+              Customize ad codes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form
+            id="code-form"
+            [formGroup]="codeForm"
           >
-            <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-            Copy the code
-          </button>
-        </div>
+            <div class="row justify-start align-center ad-codes">
+              <div class="col-xs-7">
+                <mat-checkbox
+                  formControlName="isProxy"
+                  (change)="onChangeAdvancedCircumvent($event)"
+                >
+                  Enable advanced circumvent of ad blockers
+                </mat-checkbox>
+              </div>
+              <div class="col-xs-5">
+                <a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                >
+                  <div
+                    class="
+                      dwmth-btn
+                      dwmth-btn--white
+                      dwmth-btn--tiny
+                      align-with-checkbox"
+                  >read more</div>
+                </a>
+              </div>
+            </div>
+            <div class="row justify-start align-center ad-codes">
+              <div class="col-xs-7">
+                <mat-checkbox
+                  formControlName="isMinCpm"
+                >
+                  Display ads with a CPM rate higher than
+                </mat-checkbox>
+                <input
+                  matInput
+                  formControlName="minCpm"
+                  class="dwmth-form-input input-in-text input-in-text--amount justify-center"
+                />
+                <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">{{ CURRENCY_CODE }} only</span>
 
-        <textarea
-          id="code-container-common"
-          class="
-            code-container
-            dwmth-box
-            dwmth-box--large
-            dwmth-box--light-border
-            dwmth-copy"
-          [ngModel]="codes.common"
-        ></textarea>
+                <div
+                  *ngIf="!codeForm.get('minCpm').valid"
+                  class="row"
+                >
+                  <span
+                    class="error-msg error-msg-in-text"
+                  >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
+                </div>
+              </div>
+              <div class="col-xs-5">
+                <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                >
+                  <div
+                    class="
+                      dwmth-btn
+                      dwmth-btn--white
+                      dwmth-btn--tiny
+                      align-with-checkbox"
+                  >read more</div>
+                </a>
+              </div>
+            </div>
+            <div class="row justify-start align-center ad-codes">
+              <div class="col-xs-7">
+                <mat-checkbox
+                  formControlName="isAdBlock"
+                >
+                  Display ads in browsers with active ad blockers only
+                </mat-checkbox>
+              </div>
+              <div class="col-xs-5">
+                <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                >
+                  <div
+                    class="
+                      dwmth-btn
+                      dwmth-btn--white
+                      dwmth-btn--tiny
+                      align-with-checkbox"
+                  >read more</div>
+                </a>
+              </div>
+            </div>
+            <div class="row justify-start align-center ad-codes">
+              <div class="col-xs-7">
+                <mat-checkbox
+                  formControlName="isFallback"
+                >
+                  Enable custom fallback
+                </mat-checkbox>
+                <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
+                   E.g. display other ad networks' ads in case Adshares has no ads to provide
+                </div>
+              </div>
+              <div class="col-xs-5">
+                <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                >
+                  <div
+                    class="
+                      dwmth-btn
+                      dwmth-btn--white
+                      dwmth-btn--tiny
+                      align-with-checkbox"
+                  >read more</div>
+                </a>
+              </div>
+            </div>
 
-        <div class="row code-row-section-start">
-          <span class="dwmth-copy dwmth-copy">
-            Put codes in the BODY tag in a place where you want to show ads.
-          </span>
-        </div>
+            <div *ngIf="hasSitePops">
+              <div
+                class="row ad-codes code-row align-center mat-checkbox-label align-with-checkbox-label-vertically"
+              >
+                Display
+                <input
+                  id="pop-count"
+                  matInput
+                  class="dwmth-form-input input-in-text"
+                  formControlName="popCount"
+                />
+                pop(s) per
+                <input
+                  id="pop-interval"
+                  matInput
+                  class="dwmth-form-input input-in-text"
+                  formControlName="popInterval"
+                />
+                hour(s). Max
+                <input
+                  id="pop-burst"
+                  matInput
+                  class="dwmth-form-input input-in-text"
+                  formControlName="popBurst"
+                />
+                pop(s) per page view.
+              </div>
 
-        <div
-          *ngFor="let pop of codes.pops; let indexPop = index">
-          <div class="row code-row align-center">
-            <label
-              class="dwmth-copy dwmth-copy--bold col text-left"
-              for="{{ 'code-container-pop' + indexPop }}"
-            >{{ pop.label }}</label>
-
-            <button
-              class="code-copy-btn"
-              (click)="copyCode('code-container-pop' + indexPop)"
-            >
-              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-              Copy the code
-            </button>
-          </div>
-
-          <textarea
-            id="{{ 'code-container-pop' + indexPop }}"
-            class="
-              code-container
-              dwmth-box
-              dwmth-box--large
-              dwmth-box--light-border
-              dwmth-copy"
-            [ngModel]="pop.code"
-          ></textarea>
-        </div>
-
-        <div
-          *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
-          <div class="row code-row align-center">
-            <label
-              class="dwmth-copy dwmth-copy--bold col text-left"
-              for="{{ 'code-container-ad-unit' + indexAdUnits }}"
-            >{{ adUnit.label }}</label>
-
-            <button
-              class="code-copy-btn"
-              (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
-            >
-              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
-              Copy the code
-            </button>
-          </div>
-
-          <textarea
-            id="{{ 'code-container-ad-unit' + indexAdUnits }}"
-            class="
-              code-container
-              dwmth-box
-              dwmth-box--large
-              dwmth-box--light-border
-              dwmth-copy"
-            [ngModel]="adUnit.code"
-          ></textarea>
-        </div>
-      </div>
+              <div class="row">
+                <span
+                  *ngIf="!codeForm.get('popCount').valid || !codeForm.get('popInterval').valid || !codeForm.get('popBurst').valid"
+                  class="error-msg"
+                >Value must be greater than 0</span>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
 
       <div
-        *ngIf="null === codes"
-        class="
-          dwmth-box
-          dwmth-box--large
-          dwmth-box--light-border
-          dwmth-copy"
+        *ngIf="!loadingInfo; else loading"
       >
-        An error occurred. Make sure that you confirmed an e-mail and review the options.
+        <div
+          *ngIf="null !== codes"
+        >
+          <div class="row code-row align-center">
+            <label
+              class="dwmth-copy dwmth-copy--bold col text-left"
+              for="code-container-common"
+            >Paste this code in HEAD tag on your website (one time only)</label>
+
+            <button
+              class="code-copy-btn"
+              (click)="copyCode('code-container-common')"
+            >
+              <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+              Copy the code
+            </button>
+          </div>
+
+          <textarea
+            id="code-container-common"
+            class="
+              code-container
+              dwmth-box
+              dwmth-box--large
+              dwmth-box--light-border
+              dwmth-copy"
+            [ngModel]="codes.common"
+          ></textarea>
+
+          <div class="row code-row-section-start">
+            <span class="dwmth-copy dwmth-copy">
+              Put codes in the BODY tag in a place where you want to show ads.
+            </span>
+          </div>
+
+          <div
+            *ngFor="let pop of codes.pops; let indexPop = index">
+            <div class="row code-row align-center">
+              <label
+                class="dwmth-copy dwmth-copy--bold col text-left"
+                for="{{ 'code-container-pop' + indexPop }}"
+              >{{ pop.label }}</label>
+
+              <button
+                class="code-copy-btn"
+                (click)="copyCode('code-container-pop' + indexPop)"
+              >
+                <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+                Copy the code
+              </button>
+            </div>
+
+            <textarea
+              id="{{ 'code-container-pop' + indexPop }}"
+              class="
+                code-container
+                dwmth-box
+                dwmth-box--large
+                dwmth-box--light-border
+                dwmth-copy"
+              [ngModel]="pop.code"
+            ></textarea>
+          </div>
+
+          <div
+            *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
+            <div class="row code-row align-center">
+              <label
+                class="dwmth-copy dwmth-copy--bold col text-left"
+                for="{{ 'code-container-ad-unit' + indexAdUnits }}"
+              >{{ adUnit.label }}</label>
+
+              <button
+                class="code-copy-btn"
+                (click)="copyCode('code-container-ad-unit' + indexAdUnits)"
+              >
+                <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+                Copy the code
+              </button>
+            </div>
+
+            <textarea
+              id="{{ 'code-container-ad-unit' + indexAdUnits }}"
+              class="
+                code-container
+                dwmth-box
+                dwmth-box--large
+                dwmth-box--light-border
+                dwmth-copy"
+              [ngModel]="adUnit.code"
+            ></textarea>
+          </div>
+        </div>
+
+        <div
+          *ngIf="null === codes"
+          class="
+            row
+            align-center
+            dwmth-alert
+            dwmth-copy
+            dwmth-gray"
+          >
+            <img src="assets/images/error.svg" alt="Attention">
+            An error occurred. Make sure that you confirmed an e-mail and review the options.
+        </div>
       </div>
+    </div>
+    <div
+      *ngIf="!isUserConfirmed"
+      class="
+        row
+        align-center
+        dwmth-alert
+        dwmth-copy
+        dwmth-gray"
+    >
+      <img src="assets/images/error.svg" alt="Attention">
+      Confirm account to get the codes.
     </div>
   </div>
 
