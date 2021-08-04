@@ -3,30 +3,41 @@ import 'rxjs/add/operator/first';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ApiService } from 'app/api/api.service';
-import { SessionService } from "app/session.service";
 import { User } from "models/user.model";
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { Store } from '@ngrx/store'
+import { AppState } from 'models/app-state.model'
+import { HandleSubscription } from 'common/handle-subscription'
 
 @Component({
-  selector: 'app-email-not-activated-bar',
-  templateUrl: './not-activated-bar.component.html',
-  styleUrls: ['./not-activated-bar.component.scss'],
+  selector: 'app-account-not-confirmed-bar',
+  templateUrl: './not-confirmed-bar.component.html',
+  styleUrls: ['./not-confirmed-bar.component.scss'],
 })
-export class EmailNotActivatedBarComponent implements OnInit {
+export class AccountNotConfirmedBarComponent extends HandleSubscription implements OnInit {
   user: User;
+  isConfirmed;
   isEmailConfirmed;
+  isAdminConfirmed;
 
   constructor(
     private api: ApiService,
-    private session: SessionService,
     private dialog: MatDialog,
+    private store: Store<AppState>,
   ) {
+    super();
   }
 
   ngOnInit() {
-    this.isEmailConfirmed = this.session.getUser().isEmailConfirmed;
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+      this.isConfirmed = user.isConfirmed;
+      this.isEmailConfirmed = user.isEmailConfirmed;
+      this.isAdminConfirmed = user.isAdminConfirmed;
+    });
+    this.subscriptions.push(userDataSubscription);
   }
 
   resendActivationEmail() {

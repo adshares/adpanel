@@ -64,7 +64,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   environment = environment;
   crypto: string = CRYPTO;
   code: string = CODE;
-  isEmailConfirmed = false;
+  isConfirmed = false;
 
   loadingInfo: boolean = true;
   useNativeDeposit: boolean = false;
@@ -107,7 +107,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
   ngOnInit() {
     const user = this.session.getUser();
-    this.isEmailConfirmed = user.isEmailConfirmed;
+    this.isConfirmed = user.isConfirmed;
 
     const infoSubscription = this.api.config.depositInfo().subscribe((data: DepositInfo) => {
       this.loadingInfo = false;

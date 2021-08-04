@@ -31,6 +31,7 @@ const initialState: AdminState = {
     advertiserCommission: 0,
     coldWalletIsActive: 0,
     registrationMode: 'public',
+    autoConfirmationEnabled: 0,
   },
   wallet: {
     balance: 0,

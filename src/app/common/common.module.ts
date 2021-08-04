@@ -52,7 +52,7 @@ import {
 import { TestPlaceholdersPipe } from './pipes/test-placeholders.pipe'
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe'
 import { MomentDatePipe } from './pipes/moment-date.pipe'
-import { EmailNotActivatedBarComponent } from 'app/auth/email/not-activated-bar.component'
+import { AccountNotConfirmedBarComponent } from 'app/auth/account/not-confirmed-bar.component'
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component'
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component'
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component'
@@ -126,7 +126,7 @@ const appComponents = [
   ChartComponent,
   ChartFilterComponent,
   ChartFilterByTypeComponent,
-  EmailNotActivatedBarComponent,
+  AccountNotConfirmedBarComponent,
   TargetingSelectComponent,
   TargetingDisplayComponent,
   TargetingCustomOptionInputComponent,

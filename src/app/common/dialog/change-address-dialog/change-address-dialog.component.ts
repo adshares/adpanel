@@ -18,7 +18,7 @@ import { appSettings } from 'app-settings';
 export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
-  isEmailConfirmed = false;
+  isConfirmed = false;
   adsharesAddress: string;
   changeWithdrawAddressForm: FormGroup;
 
@@ -36,7 +36,7 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     const userSubcrtiption = this.store.select('state', 'user', 'data',)
       .subscribe((user: User) => {
         this.adsharesAddress = '';
-        this.isEmailConfirmed = user.isEmailConfirmed;
+        this.isConfirmed = user.isConfirmed;
       });
     this.subscriptions.push(userSubcrtiption);
   }
