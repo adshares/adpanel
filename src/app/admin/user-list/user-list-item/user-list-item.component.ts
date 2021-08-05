@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { faEnvelope, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UserInfo } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { AppState } from 'models/app-state.model';
 import { ImpersonationService } from '../../../impersonation/impersonation.service';
 import { SessionService } from '../../../session.service';
+import { CODE, CRYPTO } from 'common/utilities/consts'
 
 @Component({
   selector: 'app-user-list-item',
@@ -14,6 +16,10 @@ import { SessionService } from '../../../session.service';
 })
 export class UserListItemComponent {
   @Input() user: UserInfo;
+  faIconEmailConfirmed = faEnvelope;
+  faIconAdminConfirmed = faCheck;
+  crypto: string = CRYPTO;
+  code: string = CODE;
 
   constructor(
     private adminService: AdminService,
@@ -22,6 +28,17 @@ export class UserListItemComponent {
     private sessionService: SessionService,
     private router: Router,
   ) {
+  }
+
+  handleConfirmation(): void {
+    this.adminService.confirmUser(this.user.id).subscribe(
+      (user) => {
+        this.user = {
+          ...this.user,
+          ...user,
+        };
+      }
+    )
   }
 
   handleImpersonating(): void {

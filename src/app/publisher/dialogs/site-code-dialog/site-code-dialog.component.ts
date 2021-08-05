@@ -8,6 +8,9 @@ import { environment } from 'environments/environment';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { SiteCodes } from 'models/site.model';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { User } from 'models/user.model'
+import { Store } from '@ngrx/store'
+import { AppState } from 'models/app-state.model'
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -24,10 +27,12 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   loadingInfo: boolean = true;
   siteId: number;
   hasSitePops: boolean;
+  isUserConfirmed: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     private publisherService: PublisherService,
+    private store: Store<AppState>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
@@ -73,6 +78,12 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
         }
       );
     this.subscriptions.push(codeFormSubscription);
+
+    const userDataSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.isUserConfirmed = user.isConfirmed;
+      });
+    this.subscriptions.push(userDataSubscription);
 
     this.updateCodes();
   }

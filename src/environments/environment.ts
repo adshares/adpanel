@@ -15,5 +15,7 @@ export const environment = {
   cryptoCode: 'ADS',
   supportEmail: 'office@adshares.net',
   supportTelegram: 'AdsharesNet',
-  supportChat: 'https://t.me/adshares'
+  supportChat: 'https://t.me/adshares',
+  advertiserApplyFormUrl: '',
+  publisherApplyFormUrl: ''
 };

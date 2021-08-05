@@ -7,6 +7,8 @@ export const userInitialState: User = {
   isPublisher: false,
   isAdmin: false,
   isEmailConfirmed: false,
+  isAdminConfirmed: false,
+  isConfirmed: false,
   isSubscribed: false,
   password: '',
   uuid: null,

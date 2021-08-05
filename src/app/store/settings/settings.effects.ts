@@ -25,6 +25,7 @@ import { ApiAuthService } from "../../api/auth.service";
 import { Action } from "@ngrx/store/store";
 import { ShowSuccessSnackbar } from "store/common/common.actions";
 import { TRANSACTION_DELETE_SUCCESS } from "common/utilities/messages";
+import { CommonService } from 'common/common.service'
 
 
 @Injectable()
@@ -32,6 +33,7 @@ export class SettingsEffects {
   constructor(
     private actions$: Actions,
     private service: SettingsService,
+    private common: CommonService,
     private authService: ApiAuthService
   ) {
   }
@@ -75,7 +77,7 @@ export class SettingsEffects {
   getRefLinks$ = this.actions$
     .ofType(GET_REF_LINKS)
     .map(toPayload)
-    .switchMap((payload) => this.service.getRefLinks()
+    .switchMap((payload) => this.common.getRefLinks()
       .map((data) => new GetRefLinksSuccess(data))
       .catch(err => Observable.of(new GetRefLinksFailure(err)))
     );

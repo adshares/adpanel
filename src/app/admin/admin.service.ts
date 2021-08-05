@@ -21,13 +21,25 @@ export class AdminService {
   constructor(private http: HttpClient) {
   }
 
-  getUsers(nextPage?: string, searchPhrase: string = ''): Observable<UserInfo[]> {
+  getUsers(nextPage?: string, searchPhrase?: string, filters: string[] = [], orderBy?: string, direction?: string): Observable<UserInfo[]> {
     const url = (
       nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
       || nextPage
     ) || `${environment.serverUrl}/admin/users`;
-    const params = searchPhrase.length ? `?q=${searchPhrase}` : '';
-    return this.http.get<UserInfo[]>(`${url}${params}`);
+    const params = [];
+    if (searchPhrase) {
+      params.push('q=' + encodeURIComponent(searchPhrase));
+    }
+    filters.forEach(filter => {
+      params.push('f[]=' + encodeURIComponent(filter));
+    });
+    if (orderBy) {
+      params.push('o=' + encodeURIComponent(orderBy));
+    }
+    if (direction) {
+      params.push('d=' + encodeURIComponent(direction));
+    }
+    return this.http.get<UserInfo[]>(`${url}?${params.join("&")}`);
   }
 
   getAdvertisers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<AdvertiserInfo[]> {
@@ -62,6 +74,10 @@ export class AdminService {
       params.push('l=' + minDailyViews);
     }
     return this.http.get<PublisherInfo[]>(`${environment.serverUrl}/admin/publishers?${params.join("&")}`);
+  }
+
+  confirmUser(id: number): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/confirm`, {})
   }
 
   impersonateUser(id: number): Observable<string> {

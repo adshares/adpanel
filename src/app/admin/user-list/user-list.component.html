@@ -20,7 +20,18 @@
         </label>
       </div>
       <div class="user-list__filters">
-        <label>Filter users by type:</label>
+        <label>Filter by status:</label>
+        <mat-checkbox (change)="filterEmailUnconfirmed()"
+                      [checked]="onlyEmailUnconfirmed"
+                      class="user-list__checkbox">
+          Unconfirmed email
+        </mat-checkbox>
+        <mat-checkbox (change)="filterAdminUnconfirmed()"
+                      [checked]="onlyAdminUnconfirmed"
+                      class="user-list__checkbox">
+          Unconfirmed account
+        </mat-checkbox>
+        <label>Filter by type:</label>
         <mat-checkbox (change)="filterUsersByType(type, true)"
                       *ngFor="let type of userTypes"
                       [checked]="type === selectedType"
@@ -40,10 +51,10 @@
            class="col user-list__table-body">
 
     <app-user-list-item
-      *ngFor="let user of filteredUsers"
+      *ngFor="let user of users.data"
       [user]="user"
     ></app-user-list-item>
-    <tr *ngIf="!filteredUsers.length"
+    <tr *ngIf="!users.data.length"
         class="user-list__loader-container">
       NO RESULTS
     </tr>
@@ -61,7 +72,6 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event)"
-    *ngIf="!userSearch.length"
     [@fadeIn]
     [length]="users ? users.total : 0"
     [pageSize]="15"

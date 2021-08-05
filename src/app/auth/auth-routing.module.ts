@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
-import { EmailProcessingComponent } from "auth/email/email-processing.component";
+import { EmailProcessingComponent } from "auth/account/email-processing.component";
 import { ResetPasswordComponent } from "auth/reset-password/reset-password.component";
 
 const authRoutes: Routes = [

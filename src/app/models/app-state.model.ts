@@ -17,6 +17,7 @@ import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
 import { TargetingOption } from 'models/targeting-option.model';
+import {Info} from "models/info.model";
 
 interface AppState {
   state: {
@@ -72,6 +73,7 @@ interface AdminState {
 }
 
 interface CommonState {
+  info: Info;
   activeUserType: number;
   adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;

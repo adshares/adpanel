@@ -230,17 +230,17 @@
 
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
-            *ngIf="isEmailConfirmed"
+            *ngIf="isConfirmed"
             class="dwmth-btn dwmth-btn--blue  dwmth-btn--block "
             data-test="common-withdraw-funds-form-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
           </button>
           <span
-            *ngIf="!isEmailConfirmed"
+            *ngIf="!isConfirmed"
             class="error-msg col-xs-12"
           >
-            Confirm email to withdraw funds
+            Confirm account to withdraw funds
           </span>
           <span
             *ngIf="withdrawServerError"
@@ -374,17 +374,17 @@
         </div>
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
-            *ngIf="isEmailConfirmed"
+            *ngIf="isConfirmed"
             class="dwmth-btn dwmth-btn--blue  dwmth-btn--block "
             data-test="common-withdraw-funds-form-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
           </button>
           <span
-            *ngIf="!isEmailConfirmed"
+            *ngIf="!isConfirmed"
             class="error-msg col-xs-12"
           >
-            Confirm email to withdraw funds
+            Confirm account to withdraw funds
           </span>
           <span
             *ngIf="withdrawServerError"

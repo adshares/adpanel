@@ -37,7 +37,11 @@
         </button>
         <p class="dwmth-copy dwmth-copy--medium">
           No fee, super fast.
-          <a href="http://adshar.es/getADS" rel="noopener noreferrer nofollow" target="_blank">
+          <a
+            [href]="getAdsFaqLink"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
             How to get ADS?
           </a>
         </p>
@@ -146,10 +150,10 @@
 
       <div class="row">
         <span
-          *ngIf="!isEmailConfirmed"
-          class="confirm-email-error-block error-msg col-xs-12"
+          *ngIf="!isConfirmed"
+          class="confirm-account-error-block error-msg col-xs-12"
         >
-          Confirm email before deposit
+          Confirm account to deposit funds
         </span>
       </div>
     </div>
@@ -200,7 +204,7 @@
       </div>
 
       <div class="row justify-center now-payments__btns-wrapper">
-        <div *ngIf="isEmailConfirmed">
+        <div *ngIf="isConfirmed">
           <button
                   (click)="depositWrapped()"
                   class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
@@ -223,10 +227,10 @@
         </div>
 
         <span
-                *ngIf="!isEmailConfirmed"
+                *ngIf="!isConfirmed"
                 class="error-msg col-xs-12"
         >
-          Confirm email to deposit funds
+          Confirm account to deposit funds
         </span>
         <span
                 *ngIf="nowPaymentsServerError"
@@ -330,7 +334,7 @@
       </div>
 
       <div class="row justify-center now-payments__btns-wrapper">
-        <div *ngIf="isEmailConfirmed">
+        <div *ngIf="isConfirmed">
           <button
             (click)="depositNowPaymentsFunds()"
             class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
@@ -347,10 +351,10 @@
         </div>
 
         <span
-          *ngIf="!isEmailConfirmed"
+          *ngIf="!isConfirmed"
           class="error-msg col-xs-12"
         >
-          Confirm email to deposit funds
+          Confirm account to deposit funds
         </span>
         <span
           *ngIf="nowPaymentsServerError"

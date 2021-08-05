@@ -17,6 +17,7 @@ import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import { User } from 'models/user.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +38,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartDifferenceInPercentage: number;
   barChartLabels: string[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
-  userHasConfirmedEmail: Store<boolean>;
 
   currentChartFilterSettings: ChartFilterSettings;
 
@@ -55,7 +55,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       });
     this.loadSites(this.currentChartFilterSettings.currentFrom, this.currentChartFilterSettings.currentTo);
     this.getChartData(this.currentChartFilterSettings);
-    this.userHasConfirmedEmail = this.store.select('state', 'user', 'data', 'isEmailConfirmed');
 
     const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
       .subscribe(() => {

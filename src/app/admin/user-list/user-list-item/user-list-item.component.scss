@@ -20,6 +20,23 @@
     }
   }
 
+  &__funds {
+    @include copy($font-size: 16);
+    text-align: right;
+    small {
+      font-size: 80%;
+    }
+  }
+
+  &__status {
+    margin-left: 5px;
+    color: pal(gray, light);
+
+    &.confirmed {
+      color: pal(green, base);
+    }
+  }
+
   &__btn {
     @include btn(
       $border-color: pal(navy, light),
@@ -28,5 +45,17 @@
       $padding-horizontal: 12px,
       $padding-vertical: 8px
     );
+    margin-left: 5px;
+    margin-right: 5px;
+
+    &--sucess {
+      border-color: pal(green, dark);
+      color: pal(green, dark);
+    }
+
+    &--danger {
+      border-color: pal(red, dark);
+      color: pal(red, dark);
+    }
   }
 }

@@ -18,6 +18,8 @@ interface User {
   isPublisher: boolean;
   isAdmin: boolean;
   isEmailConfirmed: boolean;
+  isAdminConfirmed: boolean,
+  isConfirmed: boolean,
   isSubscribed: boolean;
   password: string;
   apiToken?: string;

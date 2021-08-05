@@ -2,15 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { timer } from 'rxjs/observable/timer';
+import { Store } from "@ngrx/store";
 
 import { HandleSubscription } from 'common/handle-subscription';
 import { CommonService } from 'common/common.service';
 import { fadeAnimation } from 'common/animations/fade.animation';
-import { appSettings } from 'app-settings';
-import { Notification } from 'models/notification.model';
 
 import { AuthService } from 'app/auth.service';
 import { SessionService } from "app/session.service";
+import { LoadInfo } from "store/common/common.actions";
+
+import { AppState } from "models/app-state.model";
+import { Info } from "models/info.model";
+import { Notification } from 'models/notification.model';
+
+import { appSettings } from 'app-settings';
+import { environment } from "environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -20,8 +27,11 @@ import { SessionService } from "app/session.service";
 })
 export class AppComponent extends HandleSubscription implements OnInit {
   updateNotificationTimer: Subscription;
+  name: string = null;
+  info: Info = null;
 
   constructor(
+    private store: Store<AppState>,
     private router: Router,
     private auth: AuthService,
     private session: SessionService,
@@ -33,6 +43,14 @@ export class AppComponent extends HandleSubscription implements OnInit {
   getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
 
   ngOnInit() {
+    this.name = environment.name;
+    const infoSubscription = this.store.select('state', 'common', 'info')
+      .subscribe((info: Info) => {
+        this.info = info;
+      });
+    this.subscriptions.push(infoSubscription);
+    this.loadInfo();
+
     this.auth.timeout();
 
     if (!this.session.getUser()) {
@@ -50,6 +68,10 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
       setTimeout(() => window.scrollTo(0, 0), appSettings.ROUTER_TRANSITION_DURATION);
     });
+  }
+
+  loadInfo() {
+    this.store.dispatch(new LoadInfo());
   }
 
   getNotifications() {

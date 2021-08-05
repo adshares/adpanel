@@ -5,7 +5,8 @@ import { Actions, Effect, toPayload } from '@ngrx/effects';
 import 'rxjs/add/operator/switchMap';
 import { CommonService } from 'common/common.service';
 import {
-  LOAD_NOTIFICATIONS,
+  LOAD_INFO, LOAD_INFO_FAILURE,
+  LOAD_NOTIFICATIONS, LoadInfoFailure, LoadInfoSuccess,
   LoadNotificationsSuccess,
   REQUEST_REPORT,
   REQUEST_REPORT_FAILURE,
@@ -47,6 +48,15 @@ export class CommonEffects {
   }
 
   @Effect()
+  loadInfo = this.actions$
+    .ofType(LOAD_INFO)
+    .map(toPayload)
+    .switchMap(() => this.service.getInfo()
+      .map((info) => new LoadInfoSuccess(info))
+      .catch((err) =>  Observable.of(new LoadInfoFailure(err.message)))
+    );
+
+  @Effect()
   loadNotifications = this.actions$
     .ofType(LOAD_NOTIFICATIONS)
     .switchMap(() => this.service.getNotifications())
@@ -55,6 +65,7 @@ export class CommonEffects {
   @Effect({dispatch: false})
   handleErrors = this.actions$
     .ofType(
+      LOAD_INFO_FAILURE,
       SHOW_DIALOG_ON_ERROR,
       UPDATE_CAMPAIGN_FAILURE,
       DELETE_CAMPAIGN_FAILURE,

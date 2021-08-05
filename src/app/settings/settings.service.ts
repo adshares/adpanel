@@ -81,12 +81,4 @@ export class SettingsService {
   cancelAwaitingTransaction(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/wallet/cancel-withdrawal/${id}`);
   }
-
-  getRefLinks(): Observable<RefLink[]> {
-    return this.http.get<RefLink[]>(`${environment.apiUrl}/ref-links`);
-  }
-
-  saveRefLink(refLink: object): Observable<RefLink> {
-    return this.http.post<RefLink>(`${environment.apiUrl}/ref-links`, {refLink});
-  }
 }

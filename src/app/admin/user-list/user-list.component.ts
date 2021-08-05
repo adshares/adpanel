@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { animate, style, transition, trigger, } from '@angular/animations';
-import { HandleSubscription } from 'common/handle-subscription';
-import { AppState } from 'models/app-state.model';
-import { UserInfo, Users } from 'models/settings.model';
-import { sortArrayByKeys } from 'common/utilities/helpers';
-import { TableSortEvent } from 'models/table.model';
-import * as adminActions from 'store/admin/admin.actions';
-import { appSettings } from 'app-settings';
+import { Component, OnInit } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { animate, style, transition, trigger } from '@angular/animations'
+import { HandleSubscription } from 'common/handle-subscription'
+import { AppState } from 'models/app-state.model'
+import { Users } from 'models/settings.model'
+import { TableSortEvent } from 'models/table.model'
+import * as adminActions from 'store/admin/admin.actions'
+import { appSettings } from 'app-settings'
 
 @Component({
   selector: 'app-user-list',
@@ -19,82 +18,97 @@ import { appSettings } from 'app-settings';
       [
         transition(
           ':enter', [
-            style({opacity: 0}),
-            animate('400ms', style({'opacity': 1}))
-          ]
+            style({ opacity: 0 }),
+            animate('400ms', style({ 'opacity': 1 })),
+          ],
         ),
         transition(
           ':leave', [
-            style({opacity: 1}),
-            animate('400ms', style({'opacity': 0}))
-          ]
-        )]
-    )
+            style({ opacity: 1 }),
+            animate('400ms', style({ 'opacity': 0 })),
+          ],
+        )],
+    ),
   ],
 })
 export class UserListComponent extends HandleSubscription implements OnInit {
-  userSearch = '';
-  users: Users;
-  filteredUsers: UserInfo[];
-  userTypes = appSettings.USER_TYPES;
-  selectedType = 'All';
-  isLoading: boolean = true;
+  users: Users
+  isLoading: boolean = true
+  userTypes: string[] = appSettings.USER_TYPES
+  selectedType: string = 'All'
+  onlyEmailUnconfirmed: boolean = false
+  onlyAdminUnconfirmed: boolean = false
+  userSearch: string = null
+  sortKeys: string[] = []
+  sortDesc: boolean = false
 
-  constructor(private store: Store<AppState>) {
-    super();
+  constructor (private store: Store<AppState>) {
+    super()
   }
 
-  ngOnInit() {
-    const usersSubscription = this.store.select('state', 'admin', 'users')
-      .subscribe(users => {
-        this.users = users;
-        this.isLoading = !this.users;
-        this.filteredUsers = this.users && this.users.data;
-      });
-    this.subscriptions.push(usersSubscription);
-
-    this.store.dispatch(new adminActions.LoadUsers({}));
+  ngOnInit () {
+    const usersSubscription = this.store.select('state', 'admin', 'users').
+      subscribe(users => {
+        this.users = users
+        this.isLoading = !this.users
+      })
+    this.subscriptions.push(usersSubscription)
+    this.loadUsers()
   }
 
-  filterUsersByType(type, resetSearch = false) {
-    this.selectedType = type;
-    if (resetSearch) {
-      this.userSearch = '';
-      this.store.dispatch(new adminActions.LoadUsers({searchPhrase: ''}));
+  loadUsers (nextPage ?: string): void {
+    this.isLoading = true
+    const filters = [];
+    if (this.onlyEmailUnconfirmed) {
+      filters.push('email-unconfirmed');
     }
-
-    this.filteredUsers = this.users.data.filter(user => {
-      switch (type) {
-        case 'All':
-          return true;
-        case 'Advertisers':
-          return user.isAdvertiser;
-        case 'Publishers':
-          return user.isPublisher;
-      }
-    });
+    if (this.onlyAdminUnconfirmed) {
+      filters.push('admin-unconfirmed');
+    }
+    if (this.selectedType) {
+      filters.push(this.selectedType.toLowerCase());
+    }
+    this.store.dispatch(new adminActions.LoadUsers({
+      nextPage,
+      searchPhrase: this.userSearch ? this.userSearch.toLowerCase().trim() : null,
+      filters,
+      orderBy: this.sortKeys.join(','),
+      direction: this.sortDesc ? 'desc' : 'asc',
+    }))
   }
 
-  onSearchChange() {
-    this.isLoading = true;
-    const searchTerm = this.userSearch.toLowerCase().trim();
-    this.filterUsersByType('All');
-    this.store.dispatch(new adminActions.LoadUsers({searchPhrase: searchTerm}));
+  filterUsersByType (type, resetSearch = false) {
+    this.selectedType = type
+    if (resetSearch) {
+      this.userSearch = null
+      this.loadUsers()
+    }
   }
 
-  sortTable(event: TableSortEvent) {
-    this.filteredUsers = sortArrayByKeys(this.filteredUsers, event.keys, event.sortDesc);
+  filterEmailUnconfirmed () {
+    this.onlyEmailUnconfirmed = !this.onlyEmailUnconfirmed;
+    this.loadUsers()
   }
 
-  handlePaginationEvent(e): void {
-    const payload = this.users.prevPageUrl && this.users.currentPage >= e.pageIndex + 1 ? this.users.prevPageUrl
-      : this.users.nextPageUrl;
+  filterAdminUnconfirmed () {
+    this.onlyAdminUnconfirmed = !this.onlyAdminUnconfirmed;
+    this.loadUsers()
+  }
 
-    setTimeout(() => {
-      this.isLoading = true
-    }, 100);
-    this.isLoading = false;
+  onSearchChange () {
+    this.loadUsers()
+  }
 
-    this.store.dispatch(new adminActions.LoadUsers({nextPage: payload}));
+  sortTable (event: TableSortEvent) {
+    this.sortKeys = event.keys
+    this.sortDesc = event.sortDesc
+    this.loadUsers()
+  }
+
+  handlePaginationEvent (e): void {
+    const payload = this.users.prevPageUrl && this.users.currentPage >=
+    e.pageIndex + 1 ? this.users.prevPageUrl
+      : this.users.nextPageUrl
+    this.loadUsers(payload)
   }
 }

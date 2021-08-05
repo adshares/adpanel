@@ -33,6 +33,11 @@ export function authReducers(state = initialState, action: authActions.actions |
         exchangeRate: action.payload.exchangeRate,
         adserverWallet: action.payload.adserverWallet,
         isAdserverWalletValid: true,
+        referralRefundEnabled: action.payload.referralRefundEnabled,
+        referralRefundCommission: action.payload.referralRefundCommission,
+        isEmailConfirmed: action.payload.isEmailConfirmed,
+        isAdminConfirmed: action.payload.isAdminConfirmed,
+        isConfirmed: action.payload.isConfirmed,
       };
     case GET_CURRENT_BALANCE_FAILURE:
       return {

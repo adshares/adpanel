@@ -252,7 +252,7 @@ input[type=radio]:checked + label .checkbox-label {
     width: 100%;
   }
 
-  &:not(.error-msg--small):after {
+  &:not(.error-msg--small):not(.error-msg--irremovable):after {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
