@@ -1,9 +1,30 @@
 <tr class="user-list-item">
   <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
     {{ user.email }}
+    <fa-icon
+      [icon]="faIconEmailConfirmed"
+      class="dwmth-icon user-list-item__status"
+      [class.confirmed]="user.isEmailConfirmed"
+      [title]="user.isEmailConfirmed ? 'Email confirmed' : 'Email unconfirmed'"
+    ></fa-icon>
+    <fa-icon
+      [icon]="faIconAdminConfirmed"
+      class="dwmth-icon user-list-item__status"
+      [class.confirmed]="user.isAdminConfirmed"
+      [title]="user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'"
+    ></fa-icon>
   </td>
-  <td class="col-xs-2 user-list-item__cell"
-      [title]="userRoleTitle">
+  <td class="col-xs-1 user-list-item__funds">
+    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
+    <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+  </td>
+  <td class="col-xs-1 user-list-item__funds">
+    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
+    <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+  </td>
+  <td
+    class="col-xs-2 user-list-item__cell"
+    [title]="userRoleTitle">
     {{ userRole }}
   </td>
 
@@ -14,6 +35,13 @@
       (click)="handleImpersonating()"
     >
       Impersonate
+    </button>
+    <button
+      *ngIf="!user.isAdminConfirmed"
+      class="user-list-item__btn user-list-item__btn--sucess"
+      (click)="handleConfirmation()"
+    >
+      Confirm
     </button>
   </td>
 </tr>

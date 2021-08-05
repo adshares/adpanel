@@ -75,7 +75,7 @@ export class AdminEffects {
     .ofType(LOAD_USERS)
     .debounceTime(100)
     .map(toPayload)
-    .switchMap((payload) => this.service.getUsers(payload.nextPage, payload.searchPhrase)
+    .switchMap((payload) => this.service.getUsers(payload.nextPage, payload.searchPhrase, payload.filters, payload.orderBy, payload.direction)
       .map((users) => new LoadUsersSuccess(users))
       .catch((err) => Observable.of(new LoadUsersFailure(err)))
     );
