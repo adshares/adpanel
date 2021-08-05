@@ -25,7 +25,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   amounts = appSettings.WITHDRAWAL_AMOUNTS;
   isFormBeingSubmitted = false;
   automaticWithdrawFormSubmitted = false;
-  isEmailConfirmed = false;
+  isConfirmed = false;
 
   currentAmount: number = 300;
   currentPeriod: number = 3;
@@ -41,9 +41,9 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store.select('state', 'user', 'data', 'isEmailConfirmed')
-      .subscribe((isEmailConfirmed: boolean) => {
-        this.isEmailConfirmed = isEmailConfirmed;
+    const userSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((user: User) => {
+        this.isConfirmed = user.isConfirmed;
       });
 
     this.subscriptions.push(userSubscription);

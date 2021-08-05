@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+import { Action } from '@ngrx/store'
 import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
@@ -9,8 +9,8 @@ import {
   License,
   PublisherInfo,
   RejectedDomainsResponse,
-  UserInfo
-} from 'models/settings.model';
+  UserInfo,
+} from 'models/settings.model'
 
 export const LOAD_USERS = 'Users loading';
 export const LOAD_USERS_SUCCESS = 'Users loading success';
@@ -72,7 +72,7 @@ export const GET_LICENSE_FAILURE = 'Get license failure';
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
 
-  constructor(public payload: { nextPage?: string, searchPhrase?: string }) {
+  constructor(public payload: { nextPage?: string, searchPhrase?: string, filters: string[], orderBy?: string, direction?: string }) {
   }
 }
 

@@ -1,3 +1,8 @@
 .settings {
   min-height: calc(100vh - 86px);
+
+  /deep/ .dwmth-confirmation-alert .container {
+    padding-left: 30px !important;
+    margin-left: 0 !important;
+  }
 }

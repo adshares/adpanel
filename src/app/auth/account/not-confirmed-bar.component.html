@@ -3,10 +3,9 @@
     dwmth-confirmation-alert
     dwmth-copy
     dwmth-gray"
-  *ngIf="!isEmailConfirmed"
+  *ngIf="!isConfirmed"
 >
-
-<div
+  <div
     class="
       container
       row
@@ -18,11 +17,14 @@
         dwmth-icon--prepend"
     >
       <img
-          src="assets/images/user.svg"
-          alt="Mail icon"
+        src="assets/images/user.svg"
+        alt="User"
       >
     </div>
-    <p>
+    <p *ngIf="!isAdminConfirmed" class="admin-unconfirmed">
+      The account is awaiting admin approval.
+    </p>
+    <p *ngIf="!isEmailConfirmed" class="email-unconfirmed">
       You need to confirm your email address to be able to start using Adshares without limits.
       <a
         class="

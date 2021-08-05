@@ -8,7 +8,7 @@ import {
   BillingHistory,
   CalculateWithdrawalItem,
   NotificationItem,
-  ReportsList,
+  RefLink,
 } from 'models/settings.model';
 
 @Injectable()

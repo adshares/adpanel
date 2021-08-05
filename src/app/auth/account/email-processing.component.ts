@@ -35,6 +35,7 @@ export class EmailProcessingComponent {
       this.token = params['token'];
     });
 
+
     // this should not happen
     if (!this.token) {
       this.defaultRedirect();
@@ -95,6 +96,8 @@ export class EmailProcessingComponent {
       return;
     }
     u.isEmailConfirmed = user.isEmailConfirmed;
+    u.isAdminConfirmed = user.isAdminConfirmed;
+    u.isConfirmed = user.isConfirmed;
     u.email = user.email;
     this.session.setUser(u);
   }

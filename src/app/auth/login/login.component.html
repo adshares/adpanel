@@ -174,14 +174,31 @@
     </form>
   </div>
 
-  <p class="dwmth-copy">
+  <p class="dwmth-copy" *ngIf="registrationMode !== 'private'">
     Don't have an account?
     <a
+      *ngIf="registrationMode === 'public'"
       class="dwmth-blue"
       data-test="auth-redirect-to-registration"
       routerLink="/auth/register"
     >
       Register
+    </a>
+    <a
+      *ngIf="registrationMode === 'restricted' && advertiserApplyFormUrl"
+      class="dwmth-blue block-link"
+      data-test="auth-redirect-to-registration"
+      [href]="advertiserApplyFormUrl"
+    >
+      Apply as Advertiser
+    </a>
+    <a
+      *ngIf="registrationMode === 'restricted' && publisherApplyFormUrl"
+      class="dwmth-blue block-link"
+      data-test="auth-redirect-to-registration"
+      [href]="publisherApplyFormUrl"
+    >
+      Apply as Publisher
     </a>
   </p>
 </div>

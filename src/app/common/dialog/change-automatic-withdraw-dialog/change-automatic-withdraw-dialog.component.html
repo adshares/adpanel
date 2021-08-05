@@ -104,7 +104,7 @@
             dwmth-btn
             dwmth-btn--blue"
           data-test="common-automatic-withdraw-options-form-submit-button"
-          *ngIf="isEmailConfirmed"
+          *ngIf="isConfirmed"
         >
           <span *ngIf="!isFormBeingSubmitted ; else loading">
             Save
@@ -118,9 +118,9 @@
           class="
             error-msg
             col-xs-12"
-          *ngIf="!isEmailConfirmed"
+          *ngIf="!isConfirmed"
         >
-          Confirm email to change withraw
+          Confirm account to change withdraw
         </span>
       </div>
     </form>

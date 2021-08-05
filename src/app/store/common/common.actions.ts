@@ -2,6 +2,11 @@ import { Action } from '@ngrx/store';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { Notification } from 'models/notification.model';
 import { reportType } from 'models/enum/user.enum';
+import {Info} from "models/info.model";
+
+export const LOAD_INFO = 'Info loading';
+export const LOAD_INFO_SUCCESS = 'Info loading success';
+export const LOAD_INFO_FAILURE = 'Info loading failure';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
@@ -17,6 +22,27 @@ export const SHOW_DIALOG_ON_ERROR = 'Show dialog on error';
 export const REQUEST_REPORT = 'Request report';
 export const REQUEST_REPORT_SUCCESS = 'Request report success';
 export const REQUEST_REPORT_FAILURE = 'Request report failure';
+
+export class LoadInfo implements Action {
+  readonly type: string = LOAD_INFO;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadInfoSuccess implements Action {
+  readonly type: string = LOAD_INFO_SUCCESS;
+
+  constructor(public payload: Info) {
+  }
+}
+
+export class LoadInfoFailure implements Action {
+  readonly type: string = LOAD_INFO_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
 
 export class ShowDialogOnError implements Action {
   readonly type = SHOW_DIALOG_ON_ERROR;
@@ -96,6 +122,9 @@ export class RequestReportFailure implements Action {
 }
 
 export type actions =
+  | LoadInfo
+  | LoadInfoSuccess
+  | LoadInfoFailure
   | SetActiveUserType
   | SetChartFilterSettings
   | SetAdsharesAddress

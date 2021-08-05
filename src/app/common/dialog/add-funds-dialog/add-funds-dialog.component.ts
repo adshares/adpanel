@@ -10,6 +10,7 @@ import { CODE, CRYPTO } from "common/utilities/consts";
 
 import { Contract } from 'web3-eth-contract';
 import {hexToNumber} from 'web3-utils';
+import {appSettings} from "app-settings";
 const Web3 = require('web3');
 
 @Component({
@@ -59,10 +60,11 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
         "type": "function"
     }];
 
+  getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK;
   environment = environment;
   crypto: string = CRYPTO;
   code: string = CODE;
-  isEmailConfirmed = false;
+  isConfirmed = false;
 
   loadingInfo: boolean = true;
   useNativeDeposit: boolean = false;
@@ -105,7 +107,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
   ngOnInit() {
     const user = this.session.getUser();
-    this.isEmailConfirmed = user.isEmailConfirmed;
+    this.isConfirmed = user.isConfirmed;
 
     const infoSubscription = this.api.config.depositInfo().subscribe((data: DepositInfo) => {
       this.loadingInfo = false;

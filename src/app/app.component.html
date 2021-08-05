@@ -1,7 +1,15 @@
 <!-- Feature to implement later when all push notification will be added to code -->
 <!-- <app-push-notifications></app-push-notifications> -->
 
-<div [@fadeAnimation]="getRouterOutletState(o)">
+<div [@fadeAnimation]="getRouterOutletState(o)" *ngIf="info; else loading">
   <app-impersonation></app-impersonation>
   <router-outlet #o="outlet"></router-outlet>
 </div>
+<ng-template #loading>
+  <div class="loader">
+    <div class="loading-wrapper user-list__loader-container">
+      <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+    </div>
+    <img src="assets/images/logo--white@2x.png" [alt]="name"/>
+  </div>
+</ng-template>

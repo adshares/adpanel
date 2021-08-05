@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { UserAdserverWallet } from 'models/user.model'
 
 interface BillingHistoryItem {
   amount: number;
@@ -34,9 +35,15 @@ interface UserInfo {
   id: number;
   uuid: string;
   email: string;
+  name: string;
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;
+  isEmailConfirmed: boolean;
+  isAdminConfirmed: boolean;
+  isConfirmed: boolean;
+  isSubscribed: boolean;
+  adserverWallet: UserAdserverWallet;
 }
 
 interface Users {
@@ -123,6 +130,10 @@ interface AdminSettings {
   publisherCommission?: number;
   advertiserCommission?: number;
   coldWalletIsActive?: number;
+  referralRefundEnabled?: number;
+  referralRefundCommission?: number;
+  registrationMode: string;
+  autoConfirmationEnabled: number;
 }
 
 interface AdminWallet {
@@ -222,6 +233,26 @@ interface ReportsListItem {
   state: string;
 }
 
+interface RefLink {
+  id: number;
+  token: string;
+  comment: string;
+  validUntil: string;
+  singleUse: boolean;
+  used: boolean;
+  usageCount: number;
+  bonus: number;
+  refund: number;
+  keptRefund: number;
+  refunded: number;
+  refundValidUntil: string;
+}
+
+interface RefLinkInfo {
+  token: string;
+  status: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -253,4 +284,6 @@ export {
   Index,
   ReportsList,
   ReportsListItem,
+  RefLink,
+  RefLinkInfo,
 };

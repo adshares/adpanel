@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import {
   BillingHistory,
-  NotificationItem,
+  NotificationItem, RefLink,
 } from 'models/settings.model';
 import { User } from 'models/user.model';
 
@@ -19,7 +19,11 @@ export const CANCEL_AWAITING_TRANSACTION_FAILURE = 'Cancel awaiting transaction 
 
 export const GET_BILLING_HISTORY = 'Get billing history';
 export const GET_BILLING_HISTORY_SUCCESS = 'Get billing history success';
-export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure';
+export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure'
+
+export const GET_REF_LINKS = 'Get ref links';
+export const GET_REF_LINKS_SUCCESS = 'Get ref links success';
+export const GET_REF_LINKS_FAILURE = 'Get ref links failure';
 
 export const WITHDRAW_FUNDS_SUCCESS = 'Withdraw funds success';
 
@@ -114,6 +118,27 @@ export class WithdrawFundsSuccess implements Action {
   }
 }
 
+export class GetRefLinks implements Action {
+  readonly type: string = GET_REF_LINKS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetRefLinksSuccess implements Action {
+  readonly type: string = GET_REF_LINKS_SUCCESS;
+
+  constructor(public payload: RefLink[]) {
+  }
+}
+
+export class GetRefLinksFailure implements Action {
+  readonly type: string = GET_REF_LINKS_FAILURE;
+
+  constructor(public payload: string) {
+  }
+}
+
 
 export type actions = LoadNotificationsSettings
   | UpdateNotificationSettings
@@ -126,4 +151,7 @@ export type actions = LoadNotificationsSettings
   | GetBillingHistory
   | GetBillingHistorySuccess
   | GetBillingHistoryFailure
-  | WithdrawFundsSuccess;
+  | WithdrawFundsSuccess
+  | GetRefLinks
+  | GetRefLinksSuccess
+  | GetRefLinksFailure;

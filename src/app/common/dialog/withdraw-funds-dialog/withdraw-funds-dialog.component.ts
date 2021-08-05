@@ -34,7 +34,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   faQuestionCircle = faQuestionCircle;
   cryptoCode: string = environment.cryptoCode;
 
-  isEmailConfirmed = false;
+  isConfirmed = false;
   isFormBeingSubmitted = false;
   adserverWallet: UserAdserverWallet;
 
@@ -68,7 +68,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
   ngOnInit() {
     const user = this.session.getUser();
-    this.isEmailConfirmed = user.isEmailConfirmed;
+    this.isConfirmed = user.isConfirmed;
     this.adserverWallet = user.adserverWallet;
 
     const infoSubscription = this.api.config.withdrawalInfo().subscribe((data: WithdrawalInfo) => {

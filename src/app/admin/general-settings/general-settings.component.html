@@ -28,6 +28,20 @@
   (valueChanged)="updateSettings($event, 'supportEmail')"
 >
 </app-param-setting>
+<app-param-setting
+  [title]="'Registration Mode'"
+  [desc]=" 'Set registration mode.'"
+  [value]="settings.registrationMode"
+  [options]="registrationModes"
+  (valueChanged)="updateSettings($event, 'registrationMode')"
+>
+  <mat-checkbox
+    [checked]="settings.autoConfirmationEnabled"
+    (change)="updateSettings($event.checked, 'autoConfirmationEnabled')"
+  >
+    Auto account confirmation
+  </mat-checkbox>
+</app-param-setting>
 
 <app-rejected-domains></app-rejected-domains>
 <div class="bid-strategy-wrapper">

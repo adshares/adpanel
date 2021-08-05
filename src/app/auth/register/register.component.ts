@@ -1,15 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core'
+import { NgForm } from '@angular/forms'
+import { MatDialog } from '@angular/material'
+import { ActivatedRoute, Router } from '@angular/router'
 
-import { ApiService } from 'app/api/api.service';
-import { HandleSubscription } from 'common/handle-subscription';
-import { appSettings } from 'app-settings';
-import { User } from 'models/user.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
-import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { ApiService } from 'app/api/api.service'
+import { HandleSubscription } from 'common/handle-subscription'
+import { appSettings } from 'app-settings'
+import { User } from 'models/user.model'
+import { HttpErrorResponse } from '@angular/common/http'
+import {
+  HTTP_INTERNAL_SERVER_ERROR,
+  HTTP_NOT_FOUND,
+} from 'common/utilities/codes'
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
+import { AppState } from 'models/app-state.model'
+import { Store } from '@ngrx/store'
+import { CommonService } from 'common/common.service'
+import { Observable } from 'rxjs'
+import { RefLinkInfo } from 'models/settings.model'
+import { Info } from 'models/info.model'
 
 @Component({
   selector: 'app-register',
@@ -17,63 +26,106 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends HandleSubscription {
-  @ViewChild('registrationForm') registrationForm: NgForm;
+  @ViewChild('registrationForm') registrationForm: NgForm
 
-  isRegistering = false;
-  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK;
-  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK;
-  user: User;
+  isLoading = true
+  isRegistering = false
+  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK
+  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK
+  user: User
+  registrationEnabled: boolean = false
+  registrationMode: string
+  refLinkInfo: RefLinkInfo
 
-  constructor(
+  constructor (
     private activatedRoute: ActivatedRoute,
     private api: ApiService,
+    private common: CommonService,
+    private store: Store<AppState>,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {
-    super();
+    super()
   }
 
-  register() {
-    const uri = '/auth/email-activation/';
-    const password = this.registrationForm.value.password;
-    const confirmPassword = this.registrationForm.value.confirmPassword;
+  ngOnInit () {
+    this.activatedRoute.params.switchMap((params) => {
+      return Observable.forkJoin(
+        this.store.select('state', 'common', 'info').take(1),
+        params['token']
+          ? this.common.getRefLinkInfo(params['token'])
+          : Observable.of(null)
+      )
+    }).subscribe(
+      (responses: [Info, RefLinkInfo]) => {
+        this.registrationMode = responses[0].registrationMode
+        this.refLinkInfo = responses[1]
+        if (this.refLinkInfo) {
+          this.api.users.setReferralToken(this.refLinkInfo.token)
+        }
+        if (this.registrationMode === 'private' ||
+          (this.registrationMode === 'restricted' && !this.refLinkInfo)) {
+          return this.router.navigate(['/404'])
+        }
+        this.registrationEnabled = this.registrationMode === 'public' ||
+          (this.refLinkInfo && this.refLinkInfo.status === 'active')
+        this.isLoading = false
+      },
+      (error) => {
+        if (error.status === HTTP_NOT_FOUND) {
+          return this.router.navigate(['/404'])
+        } else {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Error occurred`,
+              message: `${error.error ? error.error.message : error}`,
+            },
+          })
+        }
+      },
+    )
+  }
+
+  register () {
+    const uri = '/auth/email-activation/'
+    const password = this.registrationForm.value.password
+    const confirmPassword = this.registrationForm.value.confirmPassword
 
     if (!this.registrationForm.valid || password !== confirmPassword) {
-      return;
+      return
     }
 
-    this.isRegistering = true;
+    this.isRegistering = true
     let user = <User>{
       email: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
       isAdvertiser: false,
-      isPublisher: false
-    };
+      isPublisher: false,
+    }
 
-    const referralId = this.api.users.getReferralId();
-    if (referralId) {
-      user.referralId = referralId;
+    const referralToken = this.api.users.getReferralToken()
+    if (referralToken) {
+      user.referralToken = referralToken
     }
 
     const registerSubscription = this.api.users.register(
-      user, uri
-    )
-      .subscribe(
-        () => this.router.navigate(['/auth', 'registered']),
-        (error: HttpErrorResponse) => {
-          this.isRegistering = false;
+      user, uri,
+    ).subscribe(
+      () => this.router.navigate(['/auth', 'registered']),
+      (error: HttpErrorResponse) => {
+        this.isRegistering = false
 
-          if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
-            this.dialog.open(ErrorResponseDialogComponent, {
-              data: {
-                title: `Error ${error.status} during registration`,
-                message: `Registering ${user.email} e-mail is not possible. Please, use another one.`,
-              }
-            });
-          }
+        if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Error ${error.status} during registration`,
+              message: `Registering ${user.email} e-mail is not possible. Please, use another one.`,
+            },
+          })
         }
-      );
+      },
+    )
 
-    this.subscriptions.push(registerSubscription);
+    this.subscriptions.push(registerSubscription)
   }
 }

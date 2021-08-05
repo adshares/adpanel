@@ -1,0 +1,69 @@
+@import '../../../../../styles.scss';
+
+.commission {
+  background: pal(blue, 'light');
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+
+  span {
+    display: block;
+    width: 250px;
+    padding: 20px 10px;
+  }
+}
+
+.commission-select {
+  display: flex;
+
+  label {
+    display: block;
+    width: 90px;
+    border: 1px solid pal(gray);
+    border-radius: 2px;
+    text-align: center;
+    padding: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background: pal(grey, 'light');
+    }
+
+    &.checked {
+      background: pal(green, 'light');
+    }
+  }
+}
+
+form {
+  width: 500px;
+
+  .dwmth-form-label {
+    text-align: left;
+  }
+
+  .dwmth-form-input__inline {
+    width: 300px;
+  }
+
+  .form-footer mat-checkbox {
+    margin-right: 30px;
+  }
+
+  /deep/ .mat-input-wrapper {
+    padding-bottom: 9px !important;
+    .mat-input-infix {
+      width: 120px;
+
+      .mat-input-element {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  button[type="submit"] {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}

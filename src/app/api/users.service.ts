@@ -47,11 +47,11 @@ export class ApiUsersService {
     return this.http.post<User>(`${environment.authUrl}/register`, {user, uri});
   }
 
-  setReferralId(referralId: string) {
-    localStorage.setItem('referralId', referralId);
+  setReferralToken(referralToken: string) {
+    localStorage.setItem('referralToken', referralToken);
   }
 
-  getReferralId(): string|null {
-    return localStorage.getItem('referralId');
+  getReferralToken(): string|null {
+    return localStorage.getItem('referralToken');
   }
 }

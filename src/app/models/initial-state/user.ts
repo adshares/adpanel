@@ -1,4 +1,4 @@
-import { User } from 'models/user.model';
+import {ExchangeRate, User, UserAdserverWallet} from 'models/user.model';
 
 export const userInitialState: User = {
   id: 0,
@@ -7,9 +7,12 @@ export const userInitialState: User = {
   isPublisher: false,
   isAdmin: false,
   isEmailConfirmed: false,
+  isAdminConfirmed: false,
+  isConfirmed: false,
   isSubscribed: false,
   password: '',
   uuid: null,
+  apiToken: null,
   adserverWallet: {
     totalFunds: 0,
     bonusBalance: 0,
@@ -19,4 +22,7 @@ export const userInitialState: User = {
   },
   isAdserverWalletValid: false,
   exchangeRate: null,
+  referralToken: null,
+  referralRefundEnabled: false,
+  referralRefundCommission: 0,
 };

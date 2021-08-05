@@ -1,9 +1,8 @@
 import {
   LOAD_NOTIFICATIONS_SETTINGS_SUCCESS,
   UPDATE_NOTIFICATIONS_SETTINGS,
-  GET_CURRENT_BALANCE_SUCCESS,
   GET_BILLING_HISTORY_SUCCESS,
-  CANCEL_AWAITING_TRANSACTION_SUCCESS,
+   GET_REF_LINKS_SUCCESS,
 } from './settings.actions';
 import { SettingsState } from 'models/app-state.model';
 import { actions } from "store/admin/admin.actions";
@@ -15,8 +14,9 @@ const initialState: SettingsState = {
     offset: 0,
     itemsCount: 0,
     itemsCountAll: 0,
-    items: []
+    items: [],
   },
+  refLinks: [],
 };
 
 export function settingsReducers(state = initialState, action: actions) {
@@ -31,11 +31,15 @@ export function settingsReducers(state = initialState, action: actions) {
         ...state,
         notificationsSettings: action.payload
       };
-
     case GET_BILLING_HISTORY_SUCCESS:
       return {
         ...state,
         billingHistory: action.payload
+      };
+    case GET_REF_LINKS_SUCCESS:
+      return {
+        ...state,
+        refLinks: action.payload
       };
     default:
       return state;

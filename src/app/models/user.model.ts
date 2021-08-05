@@ -18,6 +18,8 @@ interface User {
   isPublisher: boolean;
   isAdmin: boolean;
   isEmailConfirmed: boolean;
+  isAdminConfirmed: boolean,
+  isConfirmed: boolean,
   isSubscribed: boolean;
   password: string;
   apiToken?: string;
@@ -25,7 +27,9 @@ interface User {
   isAdserverWalletValid: boolean;
   exchangeRate: ExchangeRate | null;
   uuid: string;
-  referralId?: string;
+  referralToken?: string;
+  referralRefundEnabled: boolean;
+  referralRefundCommission: number;
 }
 
 interface LocalStorageUser extends User {

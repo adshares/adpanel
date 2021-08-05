@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import "rxjs/add/observable/timer";
 import "rxjs/add/operator/takeUntil";
-import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions';
+import {USER_LOG_OUT_SUCCESS} from 'store/auth/auth.actions';
 import {
   GET_CURRENT_BALANCE,
   GET_BILLING_HISTORY,
@@ -18,13 +18,14 @@ import {
   GetBillingHistoryFailure,
   CANCEL_AWAITING_TRANSACTION,
   CancelAwaitingTransactionSuccess,
-  CancelAwaitingTransactionFailure,
+  CancelAwaitingTransactionFailure, GET_REF_LINKS, GetRefLinksSuccess, GetRefLinksFailure,
 } from './settings.actions';
 import { SettingsService } from 'settings/settings.service';
 import { ApiAuthService } from "../../api/auth.service";
 import { Action } from "@ngrx/store/store";
 import { ShowSuccessSnackbar } from "store/common/common.actions";
 import { TRANSACTION_DELETE_SUCCESS } from "common/utilities/messages";
+import { CommonService } from 'common/common.service'
 
 
 @Injectable()
@@ -32,6 +33,7 @@ export class SettingsEffects {
   constructor(
     private actions$: Actions,
     private service: SettingsService,
+    private common: CommonService,
     private authService: ApiAuthService
   ) {
   }
@@ -69,5 +71,14 @@ export class SettingsEffects {
       ])
       .catch(err => Observable.of(new CancelAwaitingTransactionFailure(err.error.message || ''))
       )
+    );
+
+  @Effect()
+  getRefLinks$ = this.actions$
+    .ofType(GET_REF_LINKS)
+    .map(toPayload)
+    .switchMap((payload) => this.common.getRefLinks()
+      .map((data) => new GetRefLinksSuccess(data))
+      .catch(err => Observable.of(new GetRefLinksFailure(err)))
     );
 }

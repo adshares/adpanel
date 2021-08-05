@@ -93,7 +93,7 @@
             dwmth-btn
             dwmth-btn--blue"
           data-test="common-change-withdraw-address-form-submit-button"
-          *ngIf="isEmailConfirmed"
+          *ngIf="isConfirmed"
         >
           <span *ngIf="!isFormBeingSubmitted ; else loading">
               Save
@@ -105,12 +105,12 @@
 
         <div
           class="
-            confirm-email-error-block
+            confirm-account-error-block
             error-msg
             col-xs-12"
-          *ngIf="!isEmailConfirmed"
+          *ngIf="!isConfirmed"
         >
-          Confirm email change address
+          Confirm account to change address
         </div>
       </div>
     </form>
