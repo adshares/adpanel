@@ -1,6 +1,23 @@
 <tr class="publisher-list-item">
   <td class="col-xs-3 publisher-list-item__cell group">
-    <div>{{ publisher.domain }}</div>
+    <div>
+      <span class="domain" *ngFor="let domain of domainsInfo(publisher)">
+        <a
+          class="domain-checker q-{{ rankQuality(domain.rank, domain.info) }}"
+          [href]="aduserInfoUrl(domain.name)"
+          target="_blank"
+          [title]="domain.info"
+        >
+          {{ pageRank(domain.rank) }}
+        </a>
+        <a
+          [href]="domain.url"
+          target="_blank"
+        >
+          {{ domain.name }}
+        </a>
+      </span>
+    </div>
   </td>
   <td class="col-xs-3 publisher-list-item__cell group">
     <div>

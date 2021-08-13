@@ -32,6 +32,7 @@ const initialState: AdminState = {
     coldWalletIsActive: 0,
     registrationMode: 'public',
     autoConfirmationEnabled: 0,
+    aduserInfoUrl: '',
   },
   wallet: {
     balance: 0,

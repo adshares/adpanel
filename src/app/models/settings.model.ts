@@ -96,6 +96,9 @@ interface PublisherInfo {
   userIds: number[];
   email: string;
   domain: string;
+  rank: string;
+  info: string;
+  url: string;
   views: number;
   viewsDiff: number;
   viewsChange: number;
@@ -134,6 +137,7 @@ interface AdminSettings {
   referralRefundCommission?: number;
   registrationMode: string;
   autoConfirmationEnabled: number;
+  aduserInfoUrl: string;
 }
 
 interface AdminWallet {
