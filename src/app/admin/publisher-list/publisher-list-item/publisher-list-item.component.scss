@@ -30,6 +30,10 @@
     );
   }
 
+  .domain:not(:first-child) {
+    margin-left: 5px;
+  }
+
   .change {
     font-size: 80%;
     display: flex;
@@ -67,6 +71,36 @@
       position: absolute;
       background: pal(gray, light);
       z-index: 100;
+    }
+  }
+
+  .domain-checker {
+    display: inline-block;
+    width: 35px;
+    border: 1px solid pal(gray);
+    color: pal(gray);
+    padding: 1px;
+    margin-right: 5px;
+    text-align: center;
+
+    &.q-great {
+      border-color: pal(green);
+      color: pal(green);
+    }
+
+    &.q-good {
+      border-color: pal(blue);
+      color: pal(blue);
+    }
+
+    &.q-medium {
+      border-color: pal(orange, dark);
+      color: pal(orange, dark);
+    }
+
+    &.q-bad {
+      border-color: pal(red);
+      color: pal(red);
     }
   }
 
