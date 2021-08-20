@@ -6,10 +6,10 @@ import 'rxjs/add/operator/map';
 import { environment } from 'environments/environment';
 import {
   BillingHistory,
-  CalculateWithdrawalItem,
+  CalculateWithdrawalItem, Invoice,
   NotificationItem,
   RefLink,
-} from 'models/settings.model';
+} from 'models/settings.model'
 
 @Injectable()
 export class SettingsService {
@@ -81,4 +81,9 @@ export class SettingsService {
   cancelAwaitingTransaction(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/wallet/cancel-withdrawal/${id}`);
   }
+
+  saveInvoice(invoice: object): Observable<Invoice> {
+    return this.http.post<Invoice>(`${environment.apiUrl}/invoices`, {invoice});
+  }
+
 }

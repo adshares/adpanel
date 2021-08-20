@@ -20,11 +20,11 @@
 
   <div *ngIf="!loadingInfo; else loading">
     <div
-      *ngIf="!useNativeDeposit && !useWrappedDeposit && !useNowPaymentsDeposit;
-        else useNativeDeposit && nativeDeposit || useNowPaymentsDeposit && nowPaymentsDeposit || useWrappedDeposit && wrappedDeposit"
+      *ngIf="!useNativeDeposit && !useWrappedDeposit && !useNowPaymentsDeposit && !useFiatDeposit;
+        else useNativeDeposit && nativeDeposit || useNowPaymentsDeposit && nowPaymentsDeposit || useWrappedDeposit && wrappedDeposit || useFiatDeposit && fiatDeposit"
       class="add-funds-selector"
     >
-      <p class="dwmth-copy dwmth-copy--large dialog-description">
+      <p class="dwmth-copy dwmth-copy--medium dialog-description">
         Select your preferred deposit method. You can choose between the native ADS coin and over 30 other
         cryptocurrencies, including BTC and ETH.
       </p>
@@ -72,12 +72,23 @@
           <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
             full list here.</a>
         </p>
+
+        <ng-container *ngIf="fiat">
+          <button
+            *ngFor="let currency of fiat.currencies"
+            (click)="selectFiatDeposit(currency)"
+            class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          >
+            Deposit {{ currency }}
+          </button>
+        </ng-container>
+
       </div>
     </div>
   </div>
 
   <ng-template #nativeDeposit>
-    <p class="dwmth-copy dwmth-copy--large dialog-description">
+    <p class="dwmth-copy dwmth-copy--medium dialog-description">
       Here is the information required to deposit funds to your account.
     </p>
 
@@ -169,7 +180,7 @@
 
 
   <ng-template #wrappedDeposit>
-    <p class="dwmth-copy dwmth-copy--large dialog-description">
+    <p class="dwmth-copy dwmth-copy--medium dialog-description">
       allows you to directly deposit wrapped ADS
     </p>
 
@@ -203,7 +214,7 @@
         </span>
       </div>
 
-      <div class="row justify-center now-payments__btns-wrapper">
+      <div class="row justify-center deposit__btns-wrapper">
         <div *ngIf="isConfirmed">
           <button
                   (click)="depositWrapped()"
@@ -281,7 +292,7 @@
   </ng-template>
 
   <ng-template #nowPaymentsDeposit>
-    <p class="dwmth-copy dwmth-copy--large dialog-description">
+    <p class="dwmth-copy dwmth-copy--medium dialog-description">
       allows you to make deposits in Bitcoin, Ethereum,
       Litecoin, and over 30 other cryptocurrencies.
       <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
@@ -333,7 +344,7 @@
         </span>
       </div>
 
-      <div class="row justify-center now-payments__btns-wrapper">
+      <div class="row justify-center deposit__btns-wrapper">
         <div *ngIf="isConfirmed">
           <button
             (click)="depositNowPaymentsFunds()"
@@ -362,6 +373,349 @@
         >
           An unexpected error occurred, please try again later.
         </span>
+      </div>
+    </div>
+
+    <button
+      (click)="restartDepositMethod()"
+      class="dwmth-btn dwmth-btn--white"
+    >
+      Back
+    </button>
+  </ng-template>
+
+  <ng-template #fiatDeposit>
+    <p class="dwmth-copy dwmth-copy--medium dialog-description">
+      You will get proforma invoice in {{ fiatCurrency }}
+    </p>
+
+    <div class="add-funds-content dialog-main-content" *ngIf="fiatInvoice">
+      <p class="dwmth-copy dwmth-copy--medium dialog-description">
+        You will receive funds in your account after the payment is credited
+      </p>
+      <a
+        target="_blank"
+        class="dwmth-btn dwmth-btn--blue dwmth-btn--block dwmth-copy--white download-link"
+        [href]="fiatInvoice.downloadUrl"
+      >Download invoice</a>
+    </div>
+
+    <div class="add-funds-content dialog-main-content" *ngIf="!fiatInvoice">
+      <div class="dwmth-form-input__box">
+        <form
+          id="fiat-form"
+          class="dwmth-form"
+          [formGroup]="fiatForm"
+          (ngSubmit)="onFiatSubmit()"
+        >
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatNetAmount"
+              class="dwmth-form-label"
+            >
+              Deposit amount ({{ fiatCurrency }}):
+            </label>
+            <input
+              id="fiatNetAmount"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="netAmount"
+              formControlName="netAmount"
+              max="{{fiat.maxAmount}}"
+              min="{{fiat.minAmount}}"
+              step="0.01"
+              type="number"
+            >
+            <span
+              *ngIf="fiatForm.get('netAmount').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="(fiatForm.hasError('min', ['netAmount']) || fiatForm.hasError('max', ['netAmount'])) && isFormBeingSubmitted"
+            >
+              Provide correct deposit amount
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['netAmount']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['netAmount']) }}
+            </span>
+          </div>
+          <span class="dwmth-form-label">
+            The min. deposit is <strong>{{fiat.minAmount}} {{fiatCurrency}}</strong>
+            and the max. is <strong>{{fiat.maxAmount}} {{fiatCurrency}}</strong>
+          </span>
+
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatBuyerName"
+              class="dwmth-form-label"
+            >
+              Company name:
+            </label>
+            <input
+              id="fiatBuyerName"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="buyerName"
+              formControlName="buyerName"
+              type="text"
+            >
+            <span
+              *ngIf="fiatForm.get('buyerName').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('required', ['buyerName']) && isFormBeingSubmitted"
+            >
+              Company name is required.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('max', ['buyerName']) && isFormBeingSubmitted"
+            >
+              Company name may not be greater than {{ fiatForm.getError('maxlength', ['buyerName']).requiredLength }} characters.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['buyerName']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['buyerName']) }}
+            </span>
+          </div>
+
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatBuyerAddress"
+              class="dwmth-form-label"
+            >
+              Company address:
+            </label>
+            <input
+              id="fiatBuyerAddress"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="buyerAddress"
+              formControlName="buyerAddress"
+              type="text"
+            >
+            <span
+              *ngIf="fiatForm.get('buyerAddress').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('required', ['buyerAddress']) && isFormBeingSubmitted"
+            >
+              Company address is required.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('max', ['buyerAddress']) && isFormBeingSubmitted"
+            >
+              Company address may not be greater than {{ fiatForm.getError('maxlength', ['buyerAddress']).requiredLength }} characters.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['buyerAddress']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['buyerAddress']) }}
+            </span>
+          </div>
+
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatBuyerPostalCode"
+              class="dwmth-form-label"
+            >
+              Postal code:
+            </label>
+            <input
+              id="fiatBuyerPostalCode"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="buyerPostalCode"
+              formControlName="buyerPostalCode"
+              type="text"
+            >
+            <span
+              *ngIf="fiatForm.get('buyerPostalCode').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('max', ['buyerPostalCode']) && isFormBeingSubmitted"
+            >
+              Postal code may not be greater than {{ fiatForm.getError('maxlength', ['buyerPostalCode']).requiredLength }} characters.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['buyerPostalCode']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['buyerPostalCode']) }}
+            </span>
+          </div>
+
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatBuyerCity"
+              class="dwmth-form-label"
+            >
+              City:
+            </label>
+            <input
+              id="fiatBuyerCity"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="buyerCity"
+              formControlName="buyerCity"
+              type="text"
+            >
+            <span
+              *ngIf="fiatForm.get('buyerCity').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('max', ['buyerCity']) && isFormBeingSubmitted"
+            >
+              City may not be greater than {{ fiatForm.getError('maxlength', ['buyerCity']).requiredLength }} characters.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['buyerCity']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['buyerCity']) }}
+            </span>
+          </div>
+
+
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatBuyerCountry"
+              class="dwmth-form-label"
+            >
+              Country:
+            </label>
+            <mat-select
+              id="fiatBuyerCountry"
+              class="dwmth-form-select dwmth-form-select--full"
+              formControlName="buyerCountry"
+            >
+              <input
+                type="search"
+                class="dwmth-form-input dwmth-form-search-option"
+                placeholder="Search"
+                (keyup)="filterCountries($event)">
+              <mat-option
+                *ngFor="let country of filteredCountries"
+                [value]="country"
+              >
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('required', ['buyerCountry']) && isFormBeingSubmitted"
+            >
+                Country is required.
+              </span>
+          </div>
+
+          <div class="row justify-between">
+            <div class="dwmth-form-input__box dwmth-form-input__inline">
+              <label
+                for="fiatBuyerVatId"
+                class="dwmth-form-label"
+              >
+                VAT id (tax id):
+              </label>
+              <input
+                id="fiatBuyerVatId"
+                class="dwmth-form-input dwmth-form-input--full"
+                name="buyerVatId"
+                formControlName="buyerVatId"
+                type="text"
+              >
+              <span
+                *ngIf="fiatForm.get('buyerVatId').valid"
+                class="input-valid"
+              ></span>
+              <span
+                class="error-msg"
+                *ngIf="fiatForm.hasError('required', ['buyerVatId']) && isFormBeingSubmitted"
+              >
+                VAT id is required.
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="fiatForm.hasError('max', ['buyerVatId']) && isFormBeingSubmitted"
+              >
+                VAT id may not be greater than {{ fiatForm.getError('maxlength', ['buyerVatId']).requiredLength }} characters.
+              </span>
+              <span
+                class="error-msg"
+                *ngIf="fiatForm.hasError('custom', ['buyerVatId']) && isFormBeingSubmitted"
+              >
+                {{ fiatForm.getError('custom', ['buyerVatId']) }}
+              </span>
+            </div>
+            <div class="dwmth-form-input__box">
+              <mat-checkbox
+                formControlName="euVat"
+                *ngIf="fiatForm.get('euVat')"
+                [disabled]="fiatEuVatDisabled"
+              >
+                EU VAT
+              </mat-checkbox>
+            </div>
+          </div>
+          <div class="dwmth-form-input__box">
+            <label
+              for="fiatComments"
+              class="dwmth-form-label"
+            >
+              Comments:
+            </label>
+            <input
+              id="fiatComments"
+              class="dwmth-form-input dwmth-form-input--full"
+              name="comments"
+              formControlName="comments"
+              type="text"
+            >
+            <span
+              *ngIf="fiatForm.get('comments').valid"
+              class="input-valid"
+            ></span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('max', ['comments']) && isFormBeingSubmitted"
+            >
+              Comments may not be greater than {{ fiatForm.getError('maxlength', ['comments']).requiredLength }} characters.
+            </span>
+            <span
+              class="error-msg"
+              *ngIf="fiatForm.hasError('custom', ['comments']) && isFormBeingSubmitted"
+            >
+              {{ fiatForm.getError('custom', ['comments']) }}
+            </span>
+          </div>
+          <div class="justify-center deposit__btns-wrapper">
+            <div *ngIf="isConfirmed">
+              <button
+                type="submit"
+                class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+                >
+                <span *ngIf="!showLoader; else loadingBtn">Get invoice</span>
+              </button>
+            </div>
+            <span
+              *ngIf="!isConfirmed"
+              class="error-msg col-xs-12"
+            >
+              Confirm account to deposit funds
+            </span>
+          </div>
+        </form>
       </div>
     </div>
 
