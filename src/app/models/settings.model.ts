@@ -202,6 +202,7 @@ interface DepositInfo {
   message: string;
   nowPayments: NowPaymentsInfo | null;
   unwrappers: UnwrappersInfo[] | null;
+  fiat: FiatInfo | null;
 }
 
 interface NowPaymentsInfo {
@@ -215,6 +216,18 @@ interface UnwrappersInfo {
     chainId: number;
     networkName: string;
     contractAddress: string;
+}
+
+interface FiatInfo {
+  minAmount: number;
+  maxAmount: number;
+  currencies: string[];
+}
+
+interface Country {
+  code: string;
+  name: string;
+  euTax: boolean | null;
 }
 
 interface NowPaymentsInit {
@@ -257,6 +270,12 @@ interface RefLinkInfo {
   status: string;
 }
 
+interface Invoice {
+  id: number;
+
+  downloadUrl: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -277,6 +296,8 @@ export {
   NowPaymentsInfo,
   NowPaymentsInit,
   UnwrappersInfo,
+  FiatInfo,
+  Country,
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
@@ -290,4 +311,5 @@ export {
   ReportsListItem,
   RefLink,
   RefLinkInfo,
+  Invoice,
 };
