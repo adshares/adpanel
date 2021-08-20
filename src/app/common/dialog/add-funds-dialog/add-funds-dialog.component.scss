@@ -1,5 +1,10 @@
 @import "./../../../../styles";
 
+.add-funds-content button {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .confirm-account-error-block {
   margin-top: 20px;
 }
@@ -34,12 +39,26 @@
   margin-bottom: 20px;
 }
 
-.now-payments__btns-wrapper  {
+.deposit__btns-wrapper  {
   margin: 12px 0 0 0;
 
   .add-funds-dialog__hint {
     @include font(14, normal);
     margin-top: 15px;
     text-align: justify;
+  }
+}
+
+.download-link {
+  margin-top: 15px;
+}
+
+form {
+  .dwmth-form-input__inline {
+    width: 300px;
+  }
+
+  .dwmth-form-input__box mat-checkbox {
+    margin-top: 45px;
   }
 }

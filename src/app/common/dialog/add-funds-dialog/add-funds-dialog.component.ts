@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material'
 import { HandleSubscription } from 'common/handle-subscription';
-import { DepositInfo, NowPaymentsInfo, NowPaymentsInit, UnwrappersInfo } from 'models/settings.model';
+import {
+  DepositInfo,
+  NowPaymentsInfo,
+  NowPaymentsInit,
+  UnwrappersInfo,
+  FiatInfo,
+  Country, Invoice,
+} from 'models/settings.model'
 import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 import { isNumeric } from "rxjs/util/isNumeric";
@@ -11,6 +18,9 @@ import { CODE, CRYPTO } from "common/utilities/consts";
 import { Contract } from 'web3-eth-contract';
 import {hexToNumber} from 'web3-utils';
 import {appSettings} from "app-settings";
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Observable } from 'rxjs'
+import { SettingsService } from 'settings/settings.service'
 const Web3 = require('web3');
 
 @Component({
@@ -67,9 +77,11 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   isConfirmed = false;
 
   loadingInfo: boolean = true;
+  showLoader: boolean = false;
   useNativeDeposit: boolean = false;
   useWrappedDeposit: boolean = false;
   useNowPaymentsDeposit: boolean = false;
+  useFiatDeposit: boolean = false;
 
   adsharesAddress: string = '';
   paymentMemo: string = '';
@@ -95,12 +107,22 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   nowPaymentsAmountError: boolean = false;
   nowPaymentsServerError: boolean = false;
 
+  countries: Country[];
+  filteredCountries: Country[];
+
+  fiat: FiatInfo;
+  fiatCurrency: string;
+  fiatForm: FormGroup;
+  fiatEuVatDisabled: boolean = true;
+  fiatInvoice: Invoice;
+
   isFormBeingSubmitted: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
     private api: ApiService,
     private session: SessionService,
+    private settings: SettingsService,
   ) {
     super();
   }
@@ -109,60 +131,72 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     const user = this.session.getUser();
     this.isConfirmed = user.isConfirmed;
 
-    const infoSubscription = this.api.config.depositInfo().subscribe((data: DepositInfo) => {
-      this.loadingInfo = false;
-      this.adsharesAddress = data.address;
-      this.paymentMemo = data.message;
-      this.nowPayments = data.nowPayments;
-      this.unwrappers = data.unwrappers;
-      if (this.nowPayments !== null) {
-        this.setNowPaymentsAmount(this.nowPayments.minAmount);
+    const infoSubscription = Observable.forkJoin(
+      this.api.config.depositInfo(),
+      this.api.config.countries()
+    ).subscribe(
+      (responses: [DepositInfo, Country[]]) => {
+        const info = responses[0];
+        this.loadingInfo = false;
+        this.adsharesAddress = info.address;
+        this.paymentMemo = info.message;
+        this.nowPayments = info.nowPayments;
+        this.unwrappers = info.unwrappers;
+        this.fiat = info.fiat;
+        this.countries = responses[1];
+        this.filteredCountries = this.countries;
+        if (this.nowPayments !== null) {
+          this.setNowPaymentsAmount(this.nowPayments.minAmount);
+        }
+        if (this.unwrappers !== null) {
+          this.initializeEthers();
+        }
+        if (this.fiat !== null) {
+          this.initializeFiats();
+        }
       }
-      if (this.unwrappers !== null) {
-        this.initializeEthers();
-      }
-    });
+    );
     this.subscriptions.push(infoSubscription);
   }
 
   initializeEthers() {
-      const ethereum = (window as any).ethereum;
-    this.metamaskAvailable = (ethereum !== 'undefined');
-    ethereum.on('accountsChanged', this.onAccountChanges.bind(this));
-    ethereum.on('chainChanged', this.onChainChange.bind(this));
+    const ethereum = (window as any).ethereum;
+    this.metamaskAvailable = (typeof ethereum !== 'undefined');
+    if (this.metamaskAvailable) {
+      ethereum.on('accountsChanged', this.onAccountChanges.bind(this));
+      ethereum.on('chainChanged', this.onChainChange.bind(this));
+    }
   }
 
-    async onChainChange(chainId) {
-      chainId = hexToNumber(chainId);
-      this.metamaskChainError = false;
-      const ethereum = (window as any).ethereum;
-      if(this.unwrappers !== null) {
-          const unwrapper = this.unwrappers.find(x => x.chainId == chainId);
-          if(unwrapper != null) {
-              this.metamaskNetwork = unwrapper.networkName;
-              this.web3 = new Web3(ethereum);
-              this.tokenContract = new this.web3.eth.Contract(this.abi, unwrapper.contractAddress);
-              this.metamaskConnected = true;
-              try {
-                  const accounts = await ethereum.request({method: 'eth_requestAccounts'});
-                  this.onAccountChanges(accounts);
-                  return;
-              } catch(error) {
-
-              }
-
-          }
-      }
-      this.metamaskConnected = false;
-      this.metamaskChainError = true;
+  async onChainChange(chainId) {
+    chainId = hexToNumber(chainId);
+    this.metamaskChainError = false;
+    const ethereum = (window as any).ethereum;
+    if(this.unwrappers !== null) {
+        const unwrapper = this.unwrappers.find(x => x.chainId == chainId);
+        if(unwrapper != null) {
+            this.metamaskNetwork = unwrapper.networkName;
+            this.web3 = new Web3(ethereum);
+            this.tokenContract = new this.web3.eth.Contract(this.abi, unwrapper.contractAddress);
+            this.metamaskConnected = true;
+            try {
+                const accounts = await ethereum.request({method: 'eth_requestAccounts'});
+                this.onAccountChanges(accounts);
+                return;
+            } catch(error) {
+            }
+        }
     }
+    this.metamaskConnected = false;
+    this.metamaskChainError = true;
+  }
 
-    async onAccountChanges(accounts) {
-      this.metamaskAccountAds = "?";
-      this.metamaskAccount = accounts[0];
-      const balance = await this.tokenContract.methods.balanceOf(this.metamaskAccount).call();
-      this.metamaskAccountAds = (balance / 1e11).toFixed(4);
-    }
+  async onAccountChanges(accounts) {
+    this.metamaskAccountAds = "?";
+    this.metamaskAccount = accounts[0];
+    const balance = await this.tokenContract.methods.balanceOf(this.metamaskAccount).call();
+    this.metamaskAccountAds = (balance / 1e11).toFixed(4);
+  }
 
   async connectMetamask() {
     this.isMetamaskConnecting = true;
@@ -175,8 +209,73 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     } catch (error) {
         this.isMetamaskConnecting = false;
     }
+  }
 
+  initializeFiats(): void {
+    this.fiatForm = new FormGroup({
+      netAmount: new FormControl(this.fiat.minAmount, [Validators.required, Validators.min(this.fiat.minAmount), Validators.max(this.fiat.maxAmount)]),
+      buyerName: new FormControl(null, [Validators.required, Validators.maxLength(256)]),
+      buyerAddress: new FormControl(null, [Validators.required, Validators.maxLength(256)]),
+      buyerPostalCode: new FormControl(null, [Validators.maxLength(16)]),
+      buyerCity: new FormControl(null, [Validators.maxLength(128)]),
+      buyerCountry: new FormControl(null, [Validators.required]),
+      buyerVatId: new FormControl(null, [Validators.required, Validators.maxLength(32)]),
+      euVat: new FormControl(false, [Validators.required]),
+      comments: new FormControl(null, Validators.maxLength(256)),
+    });
+    this.subscriptions.push(this.fiatForm.valueChanges
+    .subscribe(
+      () => {
+        const country = this.fiatForm.get('buyerCountry').value;
+        this.fiatEuVatDisabled = !country || !country.euTax;
+        if (this.fiatEuVatDisabled) {
+          this.fiatForm.get('euVat').value && this.fiatForm.get('euVat').setValue(false);
+        }
+      }
+    ));
+  }
 
+  filterCountries(event): void {
+    const filter = event.target.value.toLowerCase();
+    this.filteredCountries = this.countries.filter(country =>
+        country.name.toLowerCase().indexOf(filter) > -1 ||
+        country.code.toLowerCase().indexOf(filter) > -1
+    )
+  }
+
+  onFiatSubmit(): void {
+    this.isFormBeingSubmitted = true;
+    if (!this.fiatForm.valid) {
+      return;
+    }
+
+    this.showLoader = true;
+    const data = this.fiatForm.getRawValue();
+    Object.keys(data).forEach(key => data[key] == null && delete data[key]);
+
+    if (data.buyerCountry) {
+      data.buyerCountry = data.buyerCountry.code;
+    }
+    data.currency = this.fiatCurrency;
+
+    this.subscriptions.push(this.settings.saveInvoice(data)
+    .subscribe(
+      (invoice: Invoice) => {
+        this.fiatInvoice = invoice;
+      },
+      (err) => {
+        if (err.error.errors) {
+          Object.keys(err.error.errors).forEach(key => this.fiatForm.get(key).setErrors({
+            custom: err.error.errors[key][0]
+          }));
+        }
+        this.showLoader = false
+      },
+      () => {
+        this.showLoader = false
+        this.isFormBeingSubmitted = false;
+      }
+    ));
   }
 
   copyInput(input: HTMLInputElement): void {
@@ -185,30 +284,41 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     input.setSelectionRange(0, 0);
   }
 
-
-
   selectNativeDeposit(): void {
     this.useNativeDeposit = true;
     this.useNowPaymentsDeposit = false;
     this.useWrappedDeposit = false;
+    this.useFiatDeposit = false;
   }
 
   selectWrappedDeposit(): void {
     this.useNativeDeposit = false;
     this.useNowPaymentsDeposit = false;
     this.useWrappedDeposit = true;
+    this.useFiatDeposit = false;
   }
 
   selectNowPaymentsDeposit(): void {
     this.useNativeDeposit = false;
     this.useNowPaymentsDeposit = true;
     this.useWrappedDeposit = false;
+    this.useFiatDeposit = false;
+  }
+
+  selectFiatDeposit(currency: string): void {
+    this.useNativeDeposit = false;
+    this.useNowPaymentsDeposit = false;
+    this.useWrappedDeposit = false;
+    this.useFiatDeposit = true;
+    this.fiatCurrency = currency;
   }
 
   restartDepositMethod(): void {
     this.useNativeDeposit = false;
     this.useNowPaymentsDeposit = false;
     this.useWrappedDeposit = false;
+    this.useFiatDeposit = false;
+    this.fiatInvoice = null;
   }
 
   validNowPaymentsAmount(amount) {
