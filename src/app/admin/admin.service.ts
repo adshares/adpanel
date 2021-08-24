@@ -13,7 +13,7 @@ import {
   UserInfo
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
-import { adsToClicks } from 'common/utilities/helpers';
+import { adsToClicks, buildUrl } from 'common/utilities/helpers'
 
 @Injectable()
 export class AdminService {
@@ -39,7 +39,7 @@ export class AdminService {
     if (direction) {
       params.push('d=' + encodeURIComponent(direction));
     }
-    return this.http.get<UserInfo[]>(`${url}?${params.join("&")}`);
+    return this.http.get<UserInfo[]>(buildUrl(url, params));
   }
 
   getAdvertisers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<AdvertiserInfo[]> {
@@ -56,7 +56,7 @@ export class AdminService {
     if (minDailyViews) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<AdvertiserInfo[]>(`${environment.serverUrl}/admin/advertisers?${params.join("&")}`);
+    return this.http.get<AdvertiserInfo[]>(buildUrl(`${environment.serverUrl}/admin/advertisers`, params));
   }
 
   getPublishers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<PublisherInfo[]> {
@@ -73,7 +73,7 @@ export class AdminService {
     if (minDailyViews) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<PublisherInfo[]>(`${environment.serverUrl}/admin/publishers?${params.join("&")}`);
+    return this.http.get<PublisherInfo[]>(buildUrl(`${environment.serverUrl}/admin/publishers`, params));
   }
 
   confirmUser(id: number): Observable<UserInfo> {

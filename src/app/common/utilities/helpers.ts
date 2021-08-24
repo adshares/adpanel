@@ -282,6 +282,10 @@ function mapToIterable(dict: Object): any[] {
   return a;
 }
 
+function buildUrl(url: string, params: string[]): string {
+  return `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${params.join("&")}`
+}
+
 export {
   adsToClicks,
   clicksToAds,
@@ -299,4 +303,5 @@ export {
   validCampaignBudget,
   downloadReport,
   mapToIterable,
+  buildUrl,
 };
