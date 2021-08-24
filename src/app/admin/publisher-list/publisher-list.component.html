@@ -44,6 +44,11 @@
                       class="publisher-list__checkbox">
           day
         </mat-checkbox>
+        <mat-checkbox (change)="changeInterval('hour')"
+                      [checked]="'hour' === interval"
+                      class="publisher-list__checkbox">
+          hour
+        </mat-checkbox>
       </div>
       <div class="publisher-list__filters">
         <label>Min daily views:
