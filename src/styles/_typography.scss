@@ -84,44 +84,44 @@
   }
 
   &--white {
-    color: pal(white);
+    color: pal(white) !important;
   }
 
   &--light {
-    color: pal(gray);
+    color: pal(gray) !important;
   }
 
   &--dark {
     line-height: 1;
-    color: pal(gray, dark);
+    color: pal(gray, dark) !important;
   }
 
   &--x-dark {
-    color: pal(navy, light);
+    color: pal(navy, light) !important;
   }
 
   &--blue {
-    color: darken(pal(blue), 5);
+    color: darken(pal(blue), 5) !important;
   }
 
   &--red {
-    color: pal(red);
+    color: pal(red) !important;
   }
 
   &--redder {
-    color: red;
+    color: red !important;
   }
 
   &--green {
-    color: pal(green, dark);
+    color: pal(green, dark) !important;
   }
 
   &--green-light {
-    color: pal(green, base);
+    color: pal(green, base) !important;
   }
 
   &--orange {
-    color: palette(orange, dark);
+    color: palette(orange, dark) !important;
   }
 
   &--thin {
@@ -140,16 +140,16 @@
   }
 
   &--uppercase {
-    text-transform: uppercase;
+    text-transform: uppercase !important;
   }
 
   &--lineheight-reset {
-    line-height: 1;
+    line-height: 1 !important;
   }
 
   &--no-wrap {
-    word-break: keep-all;
-    white-space: nowrap;
+    word-break: keep-all !important;
+    white-space: nowrap !important;
   }
 }
 
