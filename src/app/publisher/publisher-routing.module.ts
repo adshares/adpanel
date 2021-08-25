@@ -18,7 +18,7 @@ import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
 import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
-import { TargetingCriteriaResolver } from 'advertiser/resolvers/targeting-criteria.resolver';
+import {TargetingCriteriaResolver} from 'publisher/resolvers/targeting-criteria.resolver'
 
 const publisherRoutes: Routes = [
   {

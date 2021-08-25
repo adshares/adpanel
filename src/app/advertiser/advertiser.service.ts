@@ -91,8 +91,8 @@ export class AdvertiserService {
     return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
+  getTargetingCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting?e=${excludeInternal ? 1 : 0}`);
   }
 
   getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
