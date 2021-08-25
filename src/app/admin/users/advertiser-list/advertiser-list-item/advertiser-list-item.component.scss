@@ -18,6 +18,10 @@
         $font-size: 16
       );
     }
+
+    small {
+      font-size: small !important;
+    }
   }
 
   &__btn {
@@ -60,6 +64,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       padding: 0.5em;
+      margin: -0.5em 0;
       white-space: nowrap;
     }
 

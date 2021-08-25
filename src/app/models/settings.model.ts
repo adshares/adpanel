@@ -65,6 +65,7 @@ interface AdvertiserInfo {
   userIds: number[];
   email: string;
   domain: string;
+  name: string;
   views: number;
   viewsDiff: number;
   viewsChange: number;
