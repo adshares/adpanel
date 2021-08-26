@@ -97,16 +97,16 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
     switch (pageRankInfo) {
       case pageRankInfoEnum.HIGH_IVR:
-        info = 'The invalid view rate is too high. Please check your anti-bot protection.';
+        info = 'The invalid view rate is too high. Your website dont meet our quality standards.';
         break;
       case pageRankInfoEnum.HIGH_CTR:
-        info = 'The click-through rate is too high. Please check your anti-bot protection.';
+        info = 'The click-through rate is too high. Your website dont meet our quality standards.';
         break;
       case pageRankInfoEnum.LOW_CTR:
         info = 'The click-through rate is too low. Please try placing ad units in a more visible places. You can also check if you are using the most popular ad unit sizes.';
         break;
       case pageRankInfoEnum.POOR_TRAFFIC:
-        info = 'Poor traffic. Please check your anti-bot protection.';
+        info = 'Poor traffic. Your website dont meet our quality standards.';
         break;
       case pageRankInfoEnum.POOR_CONTENT:
         info = 'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';

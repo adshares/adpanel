@@ -76,8 +76,8 @@ export class PublisherService {
     return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
   }
 
-  getFilteringCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering`);
+  getFilteringCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {
+    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
   }
 
   getAdUnitSizes(): Observable<AdUnitMetaData[]> {
