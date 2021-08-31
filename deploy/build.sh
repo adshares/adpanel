@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-# Usage: build.sh [<location-of-functions-file-to-include> [<work-dir>]]
-[[ -z ${1:-""} ]] && set -eu || source ${1}/_functions.sh --vendor
-cd ${2:-"."}
+# Usage: build.sh [<work-dir>]
+cd ${1:-"."}
 
 set -a
 source .env
 set +a
 
-export APP_VERSION=$(versionFromGit)
 export APP_PORT=${APP_PORT:-8002}
 
 export APP_PROD=${APP_PROD:-true}
