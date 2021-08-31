@@ -49,6 +49,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
       minCpm: new FormControl(0.5),
       isAdBlock: new FormControl(false),
       isFallback: new FormControl(false),
+      fallbackRate: new FormControl(50, [Validators.min(0), Validators.max(100)]),
       popCount: new FormControl(1, [Validators.required, Validators.min(1)]),
       popInterval: new FormControl(1, [Validators.required, Validators.min(1)]),
       popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
@@ -117,6 +118,10 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
 
     if (values.isMinCpm) {
       options['minCpm'] = values.minCpm;
+    }
+
+    if (values.isFallback) {
+      options['fallbackRate'] = values.fallbackRate / 100;
     }
 
     if (this.hasSitePops) {
