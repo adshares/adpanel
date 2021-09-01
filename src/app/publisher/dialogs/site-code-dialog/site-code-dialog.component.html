@@ -133,11 +133,29 @@
                 <mat-checkbox
                   formControlName="isFallback"
                 >
-                  Enable custom fallback
+                  Enable custom fallback for
                 </mat-checkbox>
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  matInput
+                  formControlName="fallbackRate"
+                  class="dwmth-form-input input-in-text input-in-text--amount justify-center"
+                />
+                <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">% of ad views</span>
                 <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
-                   E.g. display other ad networks' ads in case Adshares has no ads to provide
+                  E.g. display other ad networks' ads
                 </div>
+                <div
+                  *ngIf="!codeForm.get('fallbackRate').valid"
+                  class="row"
+                >
+                <span
+                  class="error-msg error-msg-in-text"
+                >Value must be between 0% and 100%</span>
+              </div>
               </div>
               <div class="col-xs-5">
                 <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
