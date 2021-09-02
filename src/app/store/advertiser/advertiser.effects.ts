@@ -13,10 +13,13 @@ import {
   ACTIVATE_OUTDATED_CAMPAIGN,
   ActivateOutdatedCampaignStatus,
   ActivateOutdatedCampaignStatusSuccess,
-  ADD_CAMPAIGN_TO_CAMPAIGNS,
+  ADD_CAMPAIGN_TO_CAMPAIGNS, ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS,
   AddCampaignToCampaignsFailure,
   AddCampaignToCampaignsSuccess,
   ClearLastEditedCampaign,
+  CLONE_CAMPAIGN, CLONE_CAMPAIGN_SUCCESS,
+  CloneCampaignFailure,
+  CloneCampaignSuccess,
   DELETE_CAMPAIGN,
   DeleteCampaignFailure,
   DeleteCampaignSuccess,
@@ -44,7 +47,7 @@ import {
   UpdateCampaignStatus,
   UpdateCampaignStatusSuccess,
   UpdateCampaignSuccess,
-} from './advertiser.actions';
+} from './advertiser.actions'
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import * as moment from 'moment';
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
@@ -55,6 +58,8 @@ import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
+import { of } from 'rxjs/observable/of'
+import { getSortHeaderNotContainedWithinSortError } from '@angular/material/sort/typings/sort-errors'
 
 @Injectable()
 export class AdvertiserEffects {
@@ -330,6 +335,26 @@ export class AdvertiserEffects {
           return Observable.of(new UpdateCampaignFailure(errorMsg));
         });
     });
+
+  @Effect()
+  cloneCampaign = this.actions$
+    .ofType(CLONE_CAMPAIGN)
+    .map(toPayload)
+    .switchMap((payload) => this.service.cloneCampaign(payload)
+      .switchMap((campaign) => {
+        this.router.navigate(['/advertiser', 'dashboard']);
+        return [
+          new CloneCampaignSuccess(campaign),
+          new AddCampaignToCampaignsSuccess(campaign),
+          new ClearLastEditedCampaign(),
+        ]
+      })
+      .catch(() => {
+        return Observable.of(new CloneCampaignFailure(
+          `Given campaign cannot be cloned at this moment. Please try again later.`)
+        )
+      })
+    );
 
   @Effect()
   deleteCampaign = this.actions$

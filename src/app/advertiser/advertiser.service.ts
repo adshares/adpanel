@@ -52,6 +52,10 @@ export class AdvertiserService {
     return this.http.get<CampaignConversionStatistics[]>(`${environment.apiUrl}/campaigns/stats/kw/${dateStart}/${dateEnd}`, options);
   }
 
+  cloneCampaign(id: number): Observable<Campaign> {
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns/${id}/clone`, {});
+  }
+
   deleteCampaign(id: number): Observable<Campaign> {
     return this.http.delete<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
