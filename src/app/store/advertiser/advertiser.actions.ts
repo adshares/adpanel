@@ -49,6 +49,10 @@ export const UPDATE_CAMPAIGN_STATUS_SUCCESS = 'Update campaign status success';
 export const ACTIVATE_OUTDATED_CAMPAIGN = 'Activate outdated campaign';
 export const ACTIVATE_OUTDATED_CAMPAIGN_SUCCESS = ACTIVATE_OUTDATED_CAMPAIGN + ' success';
 
+export const CLONE_CAMPAIGN = 'Clone campaign';
+export const CLONE_CAMPAIGN_SUCCESS = 'Clone campaign success';
+export const CLONE_CAMPAIGN_FAILURE = 'Clone campaign failure';
+
 export const DELETE_CAMPAIGN = 'Delete campaign';
 export const DELETE_CAMPAIGN_SUCCESS = 'Delete campaign success';
 export const DELETE_CAMPAIGN_FAILURE = 'Delete campaign failure';
@@ -286,6 +290,27 @@ export class LoadCampaignTotalsSuccess implements Action {
 
 export class LoadCampaignTotalsFailure implements Action {
   readonly type: string = LOAD_CAMPAIGN_TOTALS_FAILURE;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class CloneCampaign implements Action {
+  readonly type: string = CLONE_CAMPAIGN;
+
+  constructor(public payload: number) {
+  }
+}
+
+export class CloneCampaignSuccess implements Action {
+  readonly type: string = CLONE_CAMPAIGN_SUCCESS;
+
+  constructor(public payload: any) {
+  }
+}
+
+export class CloneCampaignFailure implements Action {
+  readonly type: string = CLONE_CAMPAIGN_FAILURE;
 
   constructor(public payload?: any) {
   }

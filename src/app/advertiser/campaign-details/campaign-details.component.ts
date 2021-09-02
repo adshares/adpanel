@@ -20,7 +20,7 @@ import { parseTargetingOptionsToArray } from 'common/components/targeting/target
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';
+import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, CloneCampaign } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { User } from 'models/user.model';
 import { appSettings } from 'app-settings';
@@ -150,6 +150,21 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (errors.length > 0) {
       this.budgetInfo = errors.join(' ');
     }
+  }
+
+  cloneCampaign() {
+    const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: 'Are you sure you want to clone this campaign?',
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.store.dispatch(new CloneCampaign(this.campaign.id));
+        }
+      }
+    );
   }
 
   deleteCampaign() {
