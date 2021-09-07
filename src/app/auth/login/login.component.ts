@@ -58,8 +58,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     // SMELL: this should be elsewhere anyway (?)
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
-      this.router.navigate(
-        ['/' + this.session.getAccountTypeChoice(), 'dashboard'])
+      this.navigateToDashboard(user);
       return
     }
     this.checkIfUserRemembered()
@@ -127,33 +126,37 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           }
         }
 
-        let accountType = this.session.getAccountTypeChoice()
-        if (!accountType || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
-          if (user.isAdvertiser && user.isPublisher) {
-            this.dialog.open(AccountChooseDialogComponent,
-              { disableClose: true })
-            return
-          }
-          if (user.isAdvertiser) {
-            accountType = SessionService.ACCOUNT_TYPE_ADVERTISER
-          }
-          if (user.isPublisher) {
-            accountType = SessionService.ACCOUNT_TYPE_PUBLISHER
-          }
-        }
-
-        if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
-          user.isAdvertiser
-          || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
-          user.isPublisher) {
-          this.session.setAccountTypeChoice(accountType)
-          this.navigateByUrl(`/${accountType}/dashboard`)
-        }
+        this.navigateToDashboard(user);
       },
       (err) => {
         this.criteriaError = true
         this.isLoggingIn = false
       })
+  }
+
+  navigateToDashboard (user: User) {
+    let accountType = this.session.getAccountTypeChoice()
+    if (!accountType || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+      if (user.isAdvertiser && user.isPublisher) {
+        this.dialog.open(AccountChooseDialogComponent,
+          { disableClose: true })
+        return
+      }
+      if (user.isAdvertiser) {
+        accountType = SessionService.ACCOUNT_TYPE_ADVERTISER
+      }
+      if (user.isPublisher) {
+        accountType = SessionService.ACCOUNT_TYPE_PUBLISHER
+      }
+    }
+
+    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
+      user.isAdvertiser
+      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
+      user.isPublisher) {
+      this.session.setAccountTypeChoice(accountType)
+      this.navigateByUrl(`/${accountType}/dashboard`)
+    }
   }
 
   processLogin (user: User) {
