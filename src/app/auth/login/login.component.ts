@@ -138,7 +138,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   navigateToDashboard (user: User) {
     let accountType = this.session.getAccountTypeChoice()
 
-    if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+    if (user.isAdmin || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
       this.navigateByUrl('/admin/dashboard')
       return
     }
@@ -190,6 +190,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   private navigateByUrl (url: string) {
-    this.router.navigateByUrl(url).catch(e => window.location.reload())
+    this.router.navigateByUrl(url).catch(e => console.error(e))
   }
 }
