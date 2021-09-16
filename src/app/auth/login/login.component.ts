@@ -100,14 +100,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     ).subscribe(
       (user: User) => {
         this.processLogin(user)
-        if (user.isAdmin) {
-          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
-          this.navigateByUrl(this.route.snapshot.queryParams['redirectUrl'] ||
-            '/admin/dashboard')
-          return
-        }
 
         const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
+        if (user.isAdmin) {
+          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
+          if (redirectUrl) {
+            this.navigateByUrl(redirectUrl);
+          }
+        }
+
         if (redirectUrl) {
           if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
             user.isAdvertiser) {
@@ -136,7 +137,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   navigateToDashboard (user: User) {
     let accountType = this.session.getAccountTypeChoice()
-    if (!accountType || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+
+    if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+      this.navigateByUrl('/admin/dashboard')
+      return
+    }
+
+    if (!accountType) {
       if (user.isAdvertiser && user.isPublisher) {
         this.dialog.open(AccountChooseDialogComponent,
           { disableClose: true })
@@ -150,10 +157,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       }
     }
 
-    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
-      user.isAdvertiser
-      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
-      user.isPublisher) {
+    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType && user.isAdvertiser
+      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType && user.isPublisher) {
       this.session.setAccountTypeChoice(accountType)
       this.navigateByUrl(`/${accountType}/dashboard`)
     }
