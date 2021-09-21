@@ -53,7 +53,7 @@ export class AdminService {
     if (searchPhrase) {
       params.push('q=' + encodeURIComponent(searchPhrase));
     }
-    if (minDailyViews) {
+    if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
     return this.http.get<AdvertiserInfo[]>(buildUrl(`${environment.serverUrl}/admin/advertisers`, params));
@@ -70,7 +70,7 @@ export class AdminService {
     if (searchPhrase) {
       params.push('q=' + encodeURIComponent(searchPhrase));
     }
-    if (minDailyViews) {
+    if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
     return this.http.get<PublisherInfo[]>(buildUrl(`${environment.serverUrl}/admin/publishers`, params));
