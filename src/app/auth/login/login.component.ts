@@ -138,9 +138,13 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   navigateToDashboard (user: User) {
     let accountType = this.session.getAccountTypeChoice()
 
-    if (user.isAdmin || SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
-      this.navigateByUrl('/admin/dashboard')
-      return
+    if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
+      if (user.isAdmin) {
+        this.navigateByUrl('/admin/dashboard')
+        return
+      } else {
+        accountType = null;
+      }
     }
 
     if (!accountType) {
