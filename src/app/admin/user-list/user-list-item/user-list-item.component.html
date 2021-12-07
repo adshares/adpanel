@@ -30,7 +30,7 @@
 
   <td class="col-xs-2 user-list-item__cell">
     <button
-      *ngIf="!user.isAdmin"
+      *ngIf="!user.isAdmin && !user.isModerator"
       class="user-list-item__btn"
       (click)="handleImpersonating()"
     >

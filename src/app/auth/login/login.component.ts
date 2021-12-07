@@ -102,7 +102,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.processLogin(user)
 
         const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
-        if (user.isAdmin) {
+        if (user.isAdmin || user.isModerator || user.isAgency) {
           this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
           if (redirectUrl) {
             this.navigateByUrl(redirectUrl);
@@ -139,7 +139,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     let accountType = this.session.getAccountTypeChoice()
 
     if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
-      if (user.isAdmin) {
+      if (user.isAdmin || user.isModerator || user.isAgency) {
         this.navigateByUrl('/admin/dashboard')
         return
       } else {

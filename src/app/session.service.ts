@@ -51,6 +51,16 @@ export class SessionService {
     return u ? (u.isAdmin ? true : false) : false;
   }
 
+  isModerator(): boolean {
+    let u = this.getUser();
+    return u ? (u.isModerator ? true : false) : false;
+  }
+
+  isAgency(): boolean {
+    let u = this.getUser();
+    return u ? (u.isAgency ? true : false) : false;
+  }
+
   isAdvertiser(): boolean {
     let u = this.getUser();
     return u ? (u.isAdvertiser ? true : false) : false;
@@ -76,5 +86,9 @@ export class SessionService {
   setUser(user: LocalStorageUser) {
     this.isActive = true;
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  isImpersonated(): boolean {
+    return this.impersonationService.getTokenFromStorage() !== null
   }
 }

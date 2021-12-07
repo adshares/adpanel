@@ -6,6 +6,8 @@ export const userInitialState: User = {
   isAdvertiser: false,
   isPublisher: false,
   isAdmin: false,
+  isModerator: false,
+  isAgency: false,
   isEmailConfirmed: false,
   isAdminConfirmed: false,
   isConfirmed: false,

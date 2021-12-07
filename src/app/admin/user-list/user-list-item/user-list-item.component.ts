@@ -59,6 +59,10 @@ export class UserListItemComponent {
   get userRole(): string {
     if (this.user.isAdmin) {
       return 'Admin'
+    } else if (this.user.isModerator) {
+      return 'Moderator'
+    } else if (this.user.isAgency) {
+      return 'Agency'
     } else if (this.user.isAdvertiser && this.user.isPublisher) {
       return 'Adv / Pub'
     } else {
@@ -69,6 +73,10 @@ export class UserListItemComponent {
   get userRoleTitle(): string {
     if (this.user.isAdmin) {
       return 'Administrator'
+    } else if (this.user.isModerator) {
+      return 'Moderator'
+    } else if (this.user.isAgency) {
+      return 'Agency'
     } else if (this.user.isAdvertiser && this.user.isPublisher) {
       return 'Advertiser and Publisher'
     } else {
