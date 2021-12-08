@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { DashboardComponent } from 'moderator/dashboard/dashboard.component'
-import { ModeratorGuard } from './moderator-guard.service'
+import { DashboardComponent } from 'agency/dashboard/dashboard.component'
+import { AgencyGuard } from './agency-guard.service'
 import { AdminComponent } from 'admin/admin.component'
 import { AccountSettingsComponent } from 'settings/general-settings/account-settings/account-settings.component'
 import { UsersComponent } from 'admin/users/users.component'
 
-const moderatorRoutes: Routes = [
+const agencyRoutes: Routes = [
   {
-    path: 'moderator',
+    path: 'agency',
     component: AdminComponent,
-    canActivate: [ModeratorGuard],
+    canActivate: [AgencyGuard],
     children: [
       {
         path: 'dashboard',
@@ -38,12 +38,12 @@ const moderatorRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(moderatorRoutes),
+    RouterModule.forRoot(agencyRoutes),
   ],
   exports: [
     RouterModule,
   ],
 })
 
-export class ModeratorRoutingModule {
+export class AgencyRoutingModule {
 }

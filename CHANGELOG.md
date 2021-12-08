@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Moderator role
+- Agency role
 
 ## [1.10.6] - 2021-09-22
 ### Fixed
