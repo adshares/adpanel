@@ -1,0 +1,51 @@
+@import '../../../styles';
+
+.moderator-dashboard {
+  min-height: calc(100vh - #{$app-header-height});
+
+  &__side-menu {
+    min-height: 100%;
+    width: 240px;
+    padding: 24px;
+    background-color: pal(white);
+    transition: width 0.5s ease-in;
+
+    @include media(md-up) {
+      width: 300px;
+    }
+
+    .message {
+      border: 1px solid pal(red);
+      border-radius: 2px;
+      margin-bottom: 8px;
+      padding: 4px;
+    }
+  }
+
+  .settings-outlet {
+    min-width: 540px;
+    width: calc(100% - 370px);
+
+    @include media(md-up) {
+      width: calc(100% - 400px);
+    }
+
+    @include media(lg-up) {
+      width: calc(100% - 400px);
+    }
+
+    @include media(xxl-up) {
+      width: calc(100vw - 740px);
+    }
+  }
+}
+
+.chart-wrapper {
+  height: 400px;
+  margin: 0 0 80px;
+
+  &--small {
+    margin-top: 30px;
+    height: 250px;
+  }
+}

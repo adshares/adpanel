@@ -22,6 +22,7 @@
         "models/*": [ "app/models/*" ],
         "store/*": [ "app/store/*" ],
         "admin/*": [ "app/admin/*" ],
+        "moderator/*": [ "app/moderator/*" ],
         "common/*": [ "app/common/*" ],
         "auth/*": [ "app/auth/*" ],
         "advertiser/*": [ "app/advertiser/*" ],

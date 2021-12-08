@@ -1,0 +1,12 @@
+<section class="moderator-dashboard row">
+  <div class="moderator-dashboard__side-menu">
+    <ul>
+      <li *ngFor="let menuItem of settings">
+        <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>
+      </li>
+    </ul>
+  </div>
+  <div class="settings-outlet">
+    <router-outlet></router-outlet>
+  </div>
+</section>

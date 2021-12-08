@@ -14,6 +14,7 @@ import { ApiModule } from './api/api.module'
 import { AuthModule } from 'auth/auth.module'
 import { AdvertiserModule } from 'advertiser/advertiser.module'
 import { AdminModule } from 'admin/admin.module'
+import { ModeratorModule } from 'moderator/moderator.module';
 import { PublisherModule } from 'publisher/publisher.module'
 import { SettingsModule } from 'settings/settings.module'
 import { AppComponent } from './app.component'
@@ -46,6 +47,7 @@ const appModules = [
   PublisherModule,
   SettingsModule,
   AdminModule,
+  ModeratorModule,
 ]
 
 @NgModule({

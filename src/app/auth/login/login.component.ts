@@ -102,11 +102,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.processLogin(user)
 
         const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
-        if (user.isAdmin || user.isModerator || user.isAgency) {
+        if (user.isAdmin) {
           this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
-          if (redirectUrl) {
-            this.navigateByUrl(redirectUrl);
-          }
+        }
+        else if (user.isModerator) {
+          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_MODERATOR)
+        }
+        else if (user.isAgency) {
+          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
+        }
+        if (redirectUrl && (user.isAdmin || user.isModerator || user.isAgency)) {
+          this.navigateByUrl(redirectUrl);
         }
 
         if (redirectUrl) {
@@ -139,8 +145,22 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     let accountType = this.session.getAccountTypeChoice()
 
     if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
-      if (user.isAdmin || user.isModerator || user.isAgency) {
+      if (user.isAdmin) {
         this.navigateByUrl('/admin/dashboard')
+        return
+      } else {
+        accountType = null;
+      }
+    } else if (SessionService.ACCOUNT_TYPE_MODERATOR=== accountType) {
+      if (user.isModerator) {
+        this.navigateByUrl('/moderator/dashboard')
+        return
+      } else {
+        accountType = null;
+      }
+    } else if (SessionService.ACCOUNT_TYPE_AGENCY === accountType) {
+      if (user.isAgency) {
+        this.navigateByUrl('/agency/dashboard')
         return
       } else {
         accountType = null;

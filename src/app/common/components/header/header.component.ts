@@ -56,6 +56,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new SetUser());
     const accountType = this.session.getAccountTypeChoice();
     this.activeUserType = accountType === SessionService.ACCOUNT_TYPE_ADMIN
+      || accountType === SessionService.ACCOUNT_TYPE_MODERATOR
+      || accountType === SessionService.ACCOUNT_TYPE_AGENCY
       ? userRolesEnum.ADMIN
       : (accountType === SessionService.ACCOUNT_TYPE_PUBLISHER ? userRolesEnum.PUBLISHER : userRolesEnum.ADVERTISER);
     this.notificationsTotal = this.session.getNotificationsCount();

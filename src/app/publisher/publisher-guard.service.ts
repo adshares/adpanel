@@ -17,7 +17,7 @@ export class PublisherGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if ((this.session.isAdmin() || this.session.isModerator()) && !this.session.isImpersonated()) {
+    if (this.session.isModerator() && !this.session.isImpersonated()) {
       this.router.navigate(['/404'])
       return false;
     }
