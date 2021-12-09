@@ -37,7 +37,7 @@
     </a>
     <button
       type="button"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="!session.isModerator() || session.isImpersonated()"
       class="dwmth-btn--no-border
                row
                align-center
@@ -60,7 +60,7 @@
     </button>
     <button
       type="button"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="!session.isModerator() || session.isImpersonated()"
       class="dwmth-btn--no-border
                row
                align-center
@@ -81,6 +81,30 @@
       />
       Publisher
     </button>
+    <button
+            type="button"
+            *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
+            class="dwmth-btn--no-border
+               row
+               align-center
+               dwmth-navigation__item
+               dwmth-header--userselect
+               dwmth-copy--uppercase
+               dwmth-copy--semi
+               dwmth-copy--lineheight-reset"
+            [ngClass]="{'active-type': activeUserType === userType}"
+            (click)="setActiveUserType(userType)"
+    >
+      <img
+              class="
+            dwmth-icon
+            dwmth-navigation__item--hidden
+            dwmth-icon--prepend"
+              [src]="activeUserType === userType ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+      />
+      <span *ngIf="session.isModerator()">Moderator</span>
+      <span *ngIf="session.isAgency()">Agency</span>
+    </button>
   </div>
 
   <div
@@ -90,7 +114,7 @@
   >
 
     <div
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="!session.isModerator() || session.isImpersonated()"
       class="
         dwmth-btn
         dwmth-btn--transparent
@@ -150,7 +174,7 @@
 
 
     <button
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
       class="
         dwmth-btn
         dwmth-btn--with-icon
@@ -174,7 +198,7 @@
       <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
     </button>
     <div
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="!session.isModerator() || session.isImpersonated()"
       class="
         row
         align-center
@@ -303,7 +327,7 @@
         row
         align-center
         hidden-sm"
-      *ngIf="activeUserType !== userRolesEnum.ADMIN"
+      *ngIf="!session.isModerator() || session.isImpersonated()"
       (click)="logout()"
       data-test="header-log-out-button"
     >
@@ -319,7 +343,7 @@
         row
         align-center
         visible-sm"
-      *ngIf="activeUserType === userRolesEnum.ADMIN"
+      *ngIf="session.isModerator() && !session.isImpersonated()"
       (click)="logout()"
       data-test="header-log-out-button"
     >

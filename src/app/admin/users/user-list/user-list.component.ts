@@ -7,6 +7,7 @@ import { Users } from 'models/settings.model'
 import { TableSortEvent } from 'models/table.model'
 import * as adminActions from 'store/admin/admin.actions'
 import { appSettings } from 'app-settings'
+import { SessionService } from '../../../session.service'
 
 @Component({
   selector: 'app-user-list',
@@ -42,7 +43,10 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   sortKeys: string[] = []
   sortDesc: boolean = false
 
-  constructor (private store: Store<AppState>) {
+  constructor (
+    private store: Store<AppState>,
+    private session: SessionService
+  ) {
     super()
   }
 
@@ -103,6 +107,10 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     this.sortKeys = event.keys
     this.sortDesc = event.sortDesc
     this.loadUsers()
+  }
+
+  get showActions () : boolean {
+    return this.session.isModerator()
   }
 
   handlePaginationEvent (e): void {

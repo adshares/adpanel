@@ -31,6 +31,15 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
   dropImpersonation(): void {
     this.router.navigate(['/admin', 'dashboard', 'users']);
     this.impersonationService.dropImpersonationToken();
-    this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN);
+    const user = this.sessionService.getUser();
+    let accountType;
+    if (user.isAdmin) {
+      accountType = SessionService.ACCOUNT_TYPE_ADMIN;
+    } else if (user.isModerator) {
+      accountType = SessionService.ACCOUNT_TYPE_MODERATOR;
+    } else if (user.isAgency) {
+      accountType = SessionService.ACCOUNT_TYPE_AGENCY;
+    }
+    this.sessionService.setAccountTypeChoice(accountType);
   }
 }

@@ -8,6 +8,7 @@
   <td class="col-xs-3 advertiser-list-item__cell group">
     <div>
       <button
+        [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of advertiser.userIds"
         (click)="handleImpersonating(userId)"
         class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"

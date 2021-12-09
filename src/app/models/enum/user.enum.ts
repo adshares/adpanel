@@ -1,5 +1,7 @@
 export enum userRolesEnum {
   ADMIN,
+  MODERATOR,
+  AGENCY,
   ADVERTISER,
   PUBLISHER,
 }

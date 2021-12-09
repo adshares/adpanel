@@ -7,6 +7,8 @@ import { ImpersonationService } from './impersonation/impersonation.service';
 @Injectable()
 export class SessionService {
   public static readonly ACCOUNT_TYPE_ADMIN: string = 'admin';
+  public static readonly ACCOUNT_TYPE_MODERATOR: string = 'moderator';
+  public static readonly ACCOUNT_TYPE_AGENCY: string = 'agency';
   public static readonly ACCOUNT_TYPE_ADVERTISER: string = 'advertiser';
   public static readonly ACCOUNT_TYPE_PUBLISHER: string = 'publisher';
 
@@ -48,17 +50,27 @@ export class SessionService {
 
   isAdmin(): boolean {
     let u = this.getUser();
-    return u ? (u.isAdmin ? true : false) : false;
+    return u ? !!u.isAdmin : false;
+  }
+
+  isModerator(): boolean {
+    let u = this.getUser();
+    return u ? (!!u.isModerator || !!u.isAdmin) : false;
+  }
+
+  isAgency(): boolean {
+    let u = this.getUser();
+    return u ? !!u.isAgency : false;
   }
 
   isAdvertiser(): boolean {
     let u = this.getUser();
-    return u ? (u.isAdvertiser ? true : false) : false;
+    return u ? !!u.isAdvertiser : false;
   }
 
   isPublisher(): boolean {
     let u = this.getUser();
-    return u ? (u.isPublisher ? true : false) : false;
+    return u ? !!u.isPublisher : false;
   }
 
   setAccountTypeChoice(type: string) {
@@ -76,5 +88,9 @@ export class SessionService {
   setUser(user: LocalStorageUser) {
     this.isActive = true;
     localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  isImpersonated(): boolean {
+    return this.impersonationService.getTokenFromStorage() !== null
   }
 }

@@ -76,6 +76,7 @@ import { ReportsListItemComponent } from 'common/components/reports-list/reports
 import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component'
 import { InfoPageComponent } from 'common/info/info-page/info-page.component'
 import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found.component'
+import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 
 const matModules = [
   MatDialogModule,
@@ -143,6 +144,7 @@ const appComponents = [
   BidStrategySettingsComponent,
   InfoPageComponent,
   PageNotFoundComponent,
+  SettingsNavigationComponent,
 ]
 
 @NgModule({

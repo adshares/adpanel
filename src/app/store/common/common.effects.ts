@@ -122,7 +122,7 @@ export class CommonEffects {
     )
     .map(toPayload)
     .do(() => {
-      if (this.session.isAdmin()) {
+      if (this.session.isAdmin() && !this.session.isImpersonated()) {
         return;
       }
 

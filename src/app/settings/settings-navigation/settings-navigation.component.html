@@ -1,5 +1,5 @@
 <section class="settings-navigation">
-  <div *ngIf="(!user.isAdmin)"
+  <div *ngIf="(!user.isAdmin && !user.isModerator)"
        class="settings-navigation__totals-funds">
     <h6 class="settings-navigation__title"
     >

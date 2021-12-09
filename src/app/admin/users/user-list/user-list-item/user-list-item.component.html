@@ -1,0 +1,71 @@
+<tr class="user-list-item">
+  <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
+    <button
+      [disabled]="!canImpersonate"
+      class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"
+      (click)="handleImpersonating()"
+    >
+      <fa-icon [icon]="faIconImpersonation" class="dwmth-icon dwmth-icon--large fa-lg"></fa-icon>
+    </button>
+    {{ user.email }}
+    <fa-icon
+      [icon]="faIconEmailConfirmed"
+      class="dwmth-icon user-list-item__status"
+      [class.confirmed]="user.isEmailConfirmed"
+      [title]="user.isEmailConfirmed ? 'Email confirmed' : 'Email unconfirmed'"
+    ></fa-icon>
+    <fa-icon
+      [icon]="faIconAdminConfirmed"
+      class="dwmth-icon user-list-item__status"
+      [class.confirmed]="user.isAdminConfirmed"
+      [title]="user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'"
+    ></fa-icon>
+  </td>
+  <td class="col-xs-1 user-list-item__funds">
+    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
+    <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+  </td>
+  <td class="col-xs-1 user-list-item__funds">
+    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
+    <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+  </td>
+  <td
+    class="col-xs-1 user-list-item__cell"
+    [title]="userRoleTitle">
+    {{ userRole }}
+  </td>
+  <td class="col-xs-3 user-list-item__cell">
+    <button
+      *ngIf="!user.isAdminConfirmed"
+      class="user-list-item__btn user-list-item__btn--sucess"
+      (click)="handleConfirmation()"
+      [disabled]="isSaving"
+    >
+      Confirm
+    </button>
+    <button
+      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency"
+      class="user-list-item__btn user-list-item__btn--warning"
+      (click)="handleSwitchingToModerator()"
+      [disabled]="isSaving"
+    >
+      Switch to moderator
+    </button>
+    <button
+      *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdmin && !user.isModerator && !user.isAgency"
+      class="user-list-item__btn"
+      (click)="handleSwitchingToAgency()"
+      [disabled]="isSaving"
+    >
+      Switch to agency
+    </button>
+    <button
+      *ngIf="(loggedUser.isAdmin && user.isModerator) || ((loggedUser.isAdmin || loggedUser.isModerator) && user.isAgency)"
+      class="user-list-item__btn user-list-item__btn--warning"
+      (click)="handleSwitchingToRegular()"
+      [disabled]="isSaving"
+    >
+      Switch to regular
+    </button>
+  </td>
+</tr>
