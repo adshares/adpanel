@@ -80,6 +80,18 @@ export class AdminService {
     return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/confirm`, {})
   }
 
+  switchToModerator(id: number): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToModerator`, {})
+  }
+
+  switchToAgency(id: number): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToAgency`, {})
+  }
+
+  switchToRegular(id: number): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToRegular`, {})
+  }
+
   impersonateUser(id: number): Observable<string> {
     return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
   }

@@ -13,6 +13,7 @@ import { ImpersonationService } from '../../../../impersonation/impersonation.se
 import { SessionService } from '../../../../session.service'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 import { User } from 'models/user.model'
+import { ShowDialogOnError } from 'store/common/common.actions'
 
 @Component({
   selector: 'app-user-list-item',
@@ -27,6 +28,7 @@ export class UserListItemComponent {
   crypto: string = CRYPTO
   code: string = CODE
   faIconImpersonation = faUserSecret
+  isSaving: boolean = false;
 
   constructor (
     private adminService: AdminService,
@@ -39,13 +41,70 @@ export class UserListItemComponent {
   }
 
   handleConfirmation (): void {
+    this.isSaving = true;
     this.adminService.confirmUser(this.user.id).subscribe(
       (user) => {
         this.user = {
           ...this.user,
           ...user,
         }
+        this.isSaving = false;
       },
+      () => {
+        this.isSaving = false;
+        this.store.dispatch(new ShowDialogOnError(''));
+      }
+    )
+  }
+
+  handleSwitchingToModerator (): void {
+    this.isSaving = true;
+    this.adminService.switchToModerator(this.user.id).subscribe(
+      (user) => {
+        this.user = {
+          ...this.user,
+          ...user,
+        }
+        this.isSaving = false;
+      },
+      () => {
+        this.isSaving = false;
+        this.store.dispatch(new ShowDialogOnError(''));
+      }
+    )
+  }
+
+  handleSwitchingToAgency (): void {
+    this.isSaving = true;
+    this.adminService.switchToAgency(this.user.id).subscribe(
+      (user) => {
+        this.user = {
+          ...this.user,
+          ...user,
+        }
+        this.isSaving = false;
+      },
+      () => {
+        this.isSaving = false;
+        this.store.dispatch(new ShowDialogOnError(''));
+      }
+    )
+  }
+
+  handleSwitchingToRegular (): void {
+    this.isSaving = true;
+    this.adminService.switchToRegular(this.user.id).subscribe(
+      (user) => {
+        this.user = {
+          ...this.user,
+          ...user,
+        }
+        this.isSaving = false;
+      },
+      () => {
+        this.isSaving = false;
+        this.store.dispatch(new ShowDialogOnError(''));
+      }
     )
   }
 

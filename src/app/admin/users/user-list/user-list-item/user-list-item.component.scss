@@ -48,9 +48,19 @@
     margin-left: 5px;
     margin-right: 5px;
 
+    &[disabled] {
+      border-color: lighten(pal(navy, light), 30%);
+      color: lighten(pal(navy, light), 30%);
+    }
+
     &--sucess {
       border-color: pal(green, dark);
       color: pal(green, dark);
+    }
+
+    &--warning {
+      border-color: pal(orange, dark);
+      color: pal(orange, dark);
     }
 
     &--danger {
