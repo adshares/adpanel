@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { DashboardComponent } from 'agency/dashboard/dashboard.component'
 import { AgencyGuard } from './agency-guard.service'
 import { AdminComponent } from 'admin/admin.component'
-import { AccountSettingsComponent } from 'settings/general-settings/account-settings/account-settings.component'
 import { UsersComponent } from 'admin/users/users.component'
 
 const agencyRoutes: Routes = [
@@ -21,10 +20,6 @@ const agencyRoutes: Routes = [
           {
             path: '',
             component: UsersComponent,
-          },
-          {
-            path: 'account',
-            component: AccountSettingsComponent,
           },
           {
             path: 'users',

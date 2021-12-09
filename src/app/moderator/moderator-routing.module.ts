@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { DashboardComponent } from 'moderator/dashboard/dashboard.component'
 import { ModeratorGuard } from './moderator-guard.service'
 import { AdminComponent } from 'admin/admin.component'
-import { AccountSettingsComponent } from 'settings/general-settings/account-settings/account-settings.component'
 import { UsersComponent } from 'admin/users/users.component'
 
 const moderatorRoutes: Routes = [
@@ -21,10 +20,6 @@ const moderatorRoutes: Routes = [
           {
             path: '',
             component: UsersComponent,
-          },
-          {
-            path: 'account',
-            component: AccountSettingsComponent,
           },
           {
             path: 'users',

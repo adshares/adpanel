@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <table class="user-list__items">
+  <table class="user-list__items" [ngClass]="{'user-list__no-actions' : !showActions}">
     <app-table-navigation
       (sortTable)="sortTable($event)"
       [navigationName]="'userListNavigation'"
