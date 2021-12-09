@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { AdminSettings, PublisherInfo } from 'models/settings.model'
 import { AdminService } from 'admin/admin.service';
-import { ImpersonationService } from '../../../impersonation/impersonation.service';
-import { SessionService } from '../../../session.service';
+import { ImpersonationService } from '../../../../impersonation/impersonation.service';
+import { SessionService } from '../../../../session.service';
 import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
+import { User } from 'models/user.model'
 
 @Component({
   selector: 'app-publisher-list-item',
@@ -16,6 +17,7 @@ import { AppState } from 'models/app-state.model'
 })
 export class PublisherListItemComponent implements OnInit {
   @Input() publisher: PublisherInfo;
+  loggedUser: User
   settings: AdminSettings;
   faIconImpersonation = faUserSecret;
 
@@ -26,6 +28,7 @@ export class PublisherListItemComponent implements OnInit {
     private sessionService: SessionService,
     private router: Router,
   ) {
+    this.loggedUser = sessionService.getUser()
   }
 
   ngOnInit () {
@@ -33,6 +36,10 @@ export class PublisherListItemComponent implements OnInit {
       'settings').take(1).subscribe((settings: AdminSettings) => {
       this.settings = settings
     })
+  }
+
+  canImpersonate (userId: number): boolean {
+    return userId !== this.loggedUser.id
   }
 
   handleImpersonating(userId: number): void {

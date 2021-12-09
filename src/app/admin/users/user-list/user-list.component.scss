@@ -1,6 +1,6 @@
-@import '../../../styles.scss';
+@import '../../../../styles';
 
-.publisher-list {
+.user-list {
   margin-top: 25px;
 
   &__sort {
@@ -25,10 +25,6 @@
 
   &__filters label {
     padding-right: 8px;
-  }
-
-  &__filters .publisher-list__input {
-    width: 100px;
   }
 
   &__checkbox {

@@ -1,5 +1,12 @@
 <tr class="user-list-item">
   <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
+    <button
+      [disabled]="!canImpersonate"
+      class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"
+      (click)="handleImpersonating()"
+    >
+      <fa-icon [icon]="faIconImpersonation" class="dwmth-icon dwmth-icon--large fa-lg"></fa-icon>
+    </button>
     {{ user.email }}
     <fa-icon
       [icon]="faIconEmailConfirmed"
@@ -27,15 +34,7 @@
     [title]="userRoleTitle">
     {{ userRole }}
   </td>
-
   <td class="col-xs-2 user-list-item__cell">
-    <button
-      *ngIf="!user.isAdmin && !user.isModerator"
-      class="user-list-item__btn"
-      (click)="handleImpersonating()"
-    >
-      Impersonate
-    </button>
     <button
       *ngIf="!user.isAdminConfirmed"
       class="user-list-item__btn user-list-item__btn--sucess"

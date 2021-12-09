@@ -1,4 +1,4 @@
-@import '../../../../styles.scss';
+@import '../../../../../styles';
 
 .user-list-item {
   @include container($border-color: pal(gray, nearly-white));
