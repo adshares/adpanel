@@ -14,6 +14,7 @@ import { ApiModule } from './api/api.module'
 import { AuthModule } from 'auth/auth.module'
 import { AdvertiserModule } from 'advertiser/advertiser.module'
 import { AdminModule } from 'admin/admin.module'
+import { ModeratorModule } from 'moderator/moderator.module'
 import { PublisherModule } from 'publisher/publisher.module'
 import { SettingsModule } from 'settings/settings.module'
 import { AppComponent } from './app.component'
@@ -38,6 +39,7 @@ import { ImpersonationService } from './impersonation/impersonation.service'
 import { ImpersonationModule } from './impersonation/impersonation.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { App404RoutingModule } from './app-404-routing.module'
+import { AgencyModule } from 'agency/agency.module'
 
 const appModules = [
   AppCommonModule,
@@ -46,6 +48,8 @@ const appModules = [
   PublisherModule,
   SettingsModule,
   AdminModule,
+  ModeratorModule,
+  AgencyModule,
 ]
 
 @NgModule({

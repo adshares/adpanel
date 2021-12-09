@@ -67,6 +67,10 @@
     &:hover {
       background-color: pal(gray, ultra-light);
     }
+
+    &[disabled] {
+      color: pal(gray, light);
+    }
   }
 
   &--blue {

@@ -52,7 +52,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     this.validUntilControl = new FormControl(null);
     this.refundValidUntilControl = new FormControl(null);
 
-    if (this.session.isAdmin()) {
+    if (this.session.isModerator()) {
       this.form.addControl('validUntil', this.validUntilControl);
       this.form.addControl('singleUse', new FormControl(false));
       this.form.addControl('bonus', new FormControl(null, [Validators.min(0)]));

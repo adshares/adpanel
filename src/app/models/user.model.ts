@@ -17,6 +17,8 @@ interface User {
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;
+  isModerator: boolean;
+  isAgency: boolean;
   isEmailConfirmed: boolean;
   isAdminConfirmed: boolean,
   isConfirmed: boolean,

@@ -154,7 +154,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
         Validators.pattern(appSettings.ADDRESS_REGEXP)
       ]),
       amount: new FormControl('', [Validators.required]),
-      memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{64}'))
+      memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{1,64}'))
     }, (group: FormGroup): {[key: string]: any} => {
         let address = group.controls['address'];
         let memo = group.controls['memo'];
@@ -197,11 +197,11 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     }
 
     this.isFormBeingSubmitted = true;
-
+    
     const changeWithdrawAddressSubscription = this.settingsService.withdrawFunds(
       this.withdrawForm.value.address,
       adsToClicks(this.withdrawForm.value.amount),
-      this.withdrawForm.value.memo || '',
+      this.withdrawForm.value.memo ? this.withdrawForm.value.memo.padStart(64, '0') : '',
       this.useBtcWithdraw ? 'BTC' : 'ADS',
     )
       .subscribe(

@@ -22,7 +22,6 @@ import { NotificationSettingsComponent } from './general-settings/notification-s
 import { UserWalletComponent } from './billing/user-wallet/user-wallet.component';
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component';
 import { BillingHistoryFilterComponent } from 'settings/billing/billing-history/billing-history-filter/billing-history-filter.component';
-import { SettingsNavigationComponent } from './settings-navigation/settings-navigation.component';
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -65,7 +64,6 @@ library.add(fas);
     UserWalletComponent,
     BillingHistoryComponent,
     BillingHistoryFilterComponent,
-    SettingsNavigationComponent,
     BillingHistoryWithdrawalComponent,
     ReportsListWrapperComponent,
   ],

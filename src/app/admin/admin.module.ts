@@ -20,8 +20,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserListItemComponent } from './user-list/user-list-item/user-list-item.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserListItemComponent } from './users/user-list/user-list-item/user-list-item.component';
 import { UserReportsComponent } from './user-reports/user-reports.component';
 import { SettingsModule } from 'settings/settings.module';
 import { FinancesSettingsComponent } from 'admin/finances/finances-settings.component';
@@ -39,8 +39,8 @@ import { ImpersonationService } from '../impersonation/impersonation.service';
 import { UsersComponent } from 'admin/users/users.component';
 import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
 import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/advertiser-list-item/advertiser-list-item.component';
-import { PublisherListComponent } from 'admin/publisher-list/publisher-list.component';
-import { PublisherListItemComponent } from 'admin/publisher-list/publisher-list-item/publisher-list-item.component';
+import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
+import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 
 @NgModule({
