@@ -20,6 +20,7 @@ export class RefLinkSettingsComponent extends HandleSubscription implements OnIn
   refLinks: RefLink[] = [];
   showLoader: boolean = true;
   createIcon = faPlus;
+  isImpersonated: boolean = false;
 
   constructor(
     private session: SessionService,
@@ -31,6 +32,7 @@ export class RefLinkSettingsComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     const user = this.session.getUser();
+    this.isImpersonated = this.session.isImpersonated();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
     const dataSubscription = this.store.select('state', 'user', 'settings', 'refLinks')

@@ -24,6 +24,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
   changePasswordFormSubmitted = false;
 
   user: LocalStorageUser;
+  isImpersonated: boolean = false;
 
   newPasswordConfirm = new FormControl();
   errorsPasswordChange = false;
@@ -45,6 +46,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     this.createForms();
     this.graceTime = true;
     this.user = this.session.getUser();
+    this.isImpersonated = this.session.isImpersonated()
   }
 
   createForms() {
