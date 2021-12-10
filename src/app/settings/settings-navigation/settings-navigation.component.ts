@@ -56,6 +56,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
       description: '',
       link: '/settings/general',
       values: [
+        { name: 'ADS wallet settings', icon: 'assets/images/preferences.svg' },
         { name: 'Email & password', icon: 'assets/images/preferences.svg' },
         { name: 'Referral links', icon: 'assets/images/preferences.svg' },
         { name: 'Newsletter', icon: 'assets/images/preferences.svg' },

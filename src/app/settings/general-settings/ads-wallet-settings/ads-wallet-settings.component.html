@@ -1,0 +1,41 @@
+<section class="ads-wallet-settings">
+  <div class="dwmth-box dwmth-box--large">
+    <div class="col">
+      <h2 class="dwmth-heading dwmth-heading--primary">
+        ADS Wallet
+      </h2>
+      <p class="dwmth-copy dwmth-copy--large">
+        Here you can set up a connection to the ADS Wallet.
+      </p>
+      <form class="dwmth-form">
+        <div class="row align-start change-form">
+          <div class="dwmth-form-input__box">
+            <label for="account" class="dwmth-form-label">
+              ADS account address
+            </label>
+            <input
+              id="account"
+              class="dwmth-form-input"
+              type="text"
+              name="account"
+              formControlName="account"
+              readonly
+              [placeholder]="user.account"
+            >
+            <span
+              class="input-valid"
+            >ok</span>
+            <span
+              class="error-msg"
+            >
+              error
+            </span>
+          </div>
+          <button class="dwmth-btn dwmth-btn--blue">
+            Connect to wallet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
