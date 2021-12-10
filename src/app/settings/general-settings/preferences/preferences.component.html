@@ -20,7 +20,15 @@
         Here you can change your email and password.
       </p>
 
+      <div
+        class="error-msg"
+        *ngIf="isImpersonated"
+      >
+        You cannot change user preferences during impersonation.
+      </div>
+
       <form
+        *ngIf="!isImpersonated"
         [formGroup]="changeEmailForm"
         (ngSubmit)="onChangeEmail()"
         class="dwmth-form"
@@ -83,6 +91,7 @@
       </form>
 
       <form
+        *ngIf="!isImpersonated"
         [formGroup]="changePasswordForm"
         (ngSubmit)="onChangePassword()"
         class="dwmth-form"
