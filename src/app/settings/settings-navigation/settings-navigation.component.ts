@@ -56,7 +56,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
       description: '',
       link: '/settings/general',
       values: [
-        { name: 'ADS wallet settings', icon: 'assets/images/preferences.svg' },
+        { name: 'Wallet settings', icon: 'assets/images/preferences.svg' },
         { name: 'Email & password', icon: 'assets/images/preferences.svg' },
         { name: 'Referral links', icon: 'assets/images/preferences.svg' },
         { name: 'Newsletter', icon: 'assets/images/preferences.svg' },
@@ -70,6 +70,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
         link: '/settings/billing',
         values: [
           { name: 'Your wallet', icon: 'assets/images/wallet--gray.svg' },
+          { name: 'Auto withdrawal', icon: 'assets/images/wallet--gray.svg' },
           { name: 'Billing history', icon: 'assets/images/history.svg' },
         ],
       })

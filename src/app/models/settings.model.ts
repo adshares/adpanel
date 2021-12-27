@@ -139,6 +139,7 @@ interface AdminSettings {
   referralRefundEnabled?: number;
   referralRefundCommission?: number;
   registrationMode: string;
+  autoRegistrationEnabled: number;
   autoConfirmationEnabled: number;
   aduserInfoUrl: string;
 }

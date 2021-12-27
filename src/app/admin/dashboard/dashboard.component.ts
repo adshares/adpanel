@@ -90,7 +90,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
-      title: 'ADS wallet settings',
+      title: 'Wallet settings',
       description: '',
       link: '/admin/dashboard/account',
       values: [

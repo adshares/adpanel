@@ -32,7 +32,8 @@ import { RefLinkListItemComponent } from 'settings/general-settings/ref-link-set
 import { RefLinkEditorComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor/ref-link-editor.component'
 import { RefLinkEditorDialogComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component'
 import { OwlDateTimeModule } from 'ng-pick-datetime'
-import { AdsWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/ads-wallet-settings.component'
+import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component'
+import { AutoWithdrawalComponent } from 'settings/billing/auto-withdrawal/auto-withdrawal.component'
 
 library.add(fas)
 
@@ -64,11 +65,12 @@ library.add(fas)
     NewsletterSettingsComponent,
     NotificationSettingsComponent,
     UserWalletComponent,
+    AutoWithdrawalComponent,
     BillingHistoryComponent,
     BillingHistoryFilterComponent,
     BillingHistoryWithdrawalComponent,
     ReportsListWrapperComponent,
-    AdsWalletSettingsComponent,
+    AccountWalletSettingsComponent,
   ],
   entryComponents: [
     RefLinkEditorDialogComponent,

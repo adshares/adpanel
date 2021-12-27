@@ -1,0 +1,22 @@
+@import '../../../../styles';
+
+#walletAddress {
+  width: 400px;
+  max-width: 400px;
+}
+
+#walletAddress::placeholder {
+  opacity: 0.7;
+}
+
+.account-wallet-settings {
+
+  .dwmth-form-input__box {
+    margin-right: 25px;
+  }
+
+  form button {
+    margin-top: 37px;
+    margin-right: 25px;
+  }
+}

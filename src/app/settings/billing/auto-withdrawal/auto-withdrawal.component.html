@@ -1,0 +1,74 @@
+<section class="preferences auto-withdraw">
+  <div
+    class="
+      auto-withdraw__box
+      auto-withdraw__box--with-margin"
+  >
+    <h2 class="auto-withdraw__title">
+      Auto withdrawal settings
+    </h2>
+
+    <div class="auto-withdraw__content-container">
+      <span class="warning-msg" *ngIf="!isAutoWithdrawalAvailable">
+        To enable automatic withdrawals, you must first connect your account with a cryptocurrency wallet.
+        <a [routerLink]="['/', 'settings', 'general']">Go to the wallet settings.</a>
+      </span>
+
+      <mat-checkbox
+        [ngModel]="wallet.isAutoWithdrawal"
+        (change)="changeAutoWithdraw($event.checked)"
+        *ngIf="isAutoWithdrawalAvailable"
+      >
+        Automatic withdrawal
+      </mat-checkbox>
+      <form
+        [formGroup]="autoWithdrawalForm"
+        (ngSubmit)="onAutoWithdrawalSave()"
+        *ngIf="showAutoWithdrawalForm"
+        class="dwmth-form"
+      >
+        <div class="dwmth-form-input__box">
+          <label
+            for="limit"
+            class="dwmth-form-label"
+          >
+            The threshold at which the funds will be withdrawn ({{currencyCode}})
+          </label>
+          <input
+            id="limit"
+            type="number"
+            step="0.01"
+            name="limit"
+              formControlName="limit"
+            class="dwmth-form-input admin-param__input"
+          >
+          <span
+            class="input-valid"
+            *ngIf="autoWithdrawalForm.get('limit').valid"
+          ></span>
+          <span
+            class="error-msg"
+            *ngIf="autoWithdrawalForm.hasError('min', ['limit']) && autoWithdrawalFormSubmitted"
+          >
+              Allowed minimum is {{minLimit|formatMoney:2:''}}
+            </span>
+          <span
+            class="error-msg"
+            *ngIf="autoWithdrawalForm.hasError('required', ['limit']) && autoWithdrawalFormSubmitted"
+          >
+              Threshold is required!
+            </span>
+          <span
+            class="error-msg"
+            *ngIf="errorWithdrawalSave"
+          >
+              {{errorWithdrawalSave}}
+            </span>
+        </div>
+        <button class="dwmth-btn dwmth-btn--blue">
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,38 +1,34 @@
-<section class="ads-wallet-settings">
+<section class="account-wallet-settings">
   <div class="dwmth-box dwmth-box--large">
     <div class="col">
       <h2 class="dwmth-heading dwmth-heading--primary">
-        ADS Wallet
+        Account Wallet
       </h2>
       <p class="dwmth-copy dwmth-copy--large">
-        Here you can set up a connection to the ADS Wallet.
+      <p class="dwmth-copy dwmth-copy--large">
+        Here you can set up a connection with a cryptocurrency wallet.
       </p>
       <form class="dwmth-form">
         <div class="row align-start change-form">
           <div class="dwmth-form-input__box">
-            <label for="account" class="dwmth-form-label">
-              ADS account address
+            <label for="walletAddress" class="dwmth-form-label">
+              Wallet address ({{ user.adserverWallet.walletNetwork }})
             </label>
             <input
-              id="account"
+              id="walletAddress"
               class="dwmth-form-input"
               type="text"
-              name="account"
+              name="walletAddress"
               formControlName="account"
               readonly
-              [placeholder]="user.account"
+              [placeholder]="user.adserverWallet.walletAddress"
             >
-            <span
-              class="input-valid"
-            >ok</span>
-            <span
-              class="error-msg"
-            >
-              error
-            </span>
           </div>
           <button class="dwmth-btn dwmth-btn--blue">
-            Connect to wallet
+            Connect to ADS Wallet
+          </button>
+          <button class="dwmth-btn dwmth-btn--blue">
+            Connect to BSC Wallet
           </button>
         </div>
       </form>

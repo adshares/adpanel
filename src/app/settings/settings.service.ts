@@ -86,4 +86,8 @@ export class SettingsService {
     return this.http.post<Invoice>(`${environment.apiUrl}/invoices`, {invoice});
   }
 
+  changeAutoWithdrawal(autoWithdrawal: number|null) {
+    return this.http.patch(`${environment.apiUrl}/wallet/auto-withdrawal`, {autoWithdrawal});
+  }
+
 }
