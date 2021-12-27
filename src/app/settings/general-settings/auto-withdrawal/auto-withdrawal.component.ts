@@ -52,7 +52,9 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     this.isAutoWithdrawalAvailable = wallet.walletNetwork === 'ADS' ||
       wallet.walletNetwork === 'BSC'
     this.showAutoWithdrawalForm = wallet.isAutoWithdrawal
-    const limit = clicksToAds(Math.max(0, this.wallet.autoWithdrawalLimit || this.defaultLimit))
+    const limit = clicksToAds(
+      Math.max(0, this.wallet.autoWithdrawalLimit || this.defaultLimit)
+    )
     this.autoWithdrawalForm = new FormGroup({
       limit: new FormControl(limit, [Validators.required]),
     })

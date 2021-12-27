@@ -12,24 +12,39 @@
         <div class="row align-start change-form">
           <div class="dwmth-form-input__box">
             <label for="walletAddress" class="dwmth-form-label">
-              Wallet address ({{ user.adserverWallet.walletNetwork }})
+              Wallet address ({{ wallet.walletNetwork }})
             </label>
             <input
               id="walletAddress"
               class="dwmth-form-input"
               type="text"
               name="walletAddress"
-              formControlName="account"
               readonly
-              [placeholder]="user.adserverWallet.walletAddress"
+              [value]="wallet.walletAddress"
             >
           </div>
-          <button class="dwmth-btn dwmth-btn--blue">
+          <button
+            class="dwmth-btn dwmth-btn--blue"
+            (click)="initConnectToWallet('ADS')"
+            [disabled]="isSubmitted"
+          >
             Connect to ADS Wallet
           </button>
-          <button class="dwmth-btn dwmth-btn--blue">
+          <button
+            class="dwmth-btn dwmth-btn--blue"
+            (click)="initConnectToWallet('BSC')"
+            [disabled]="isSubmitted"
+          >
             Connect to BSC Wallet
           </button>
+        </div>
+        <div class="row align-start change-form">
+          <span
+            class="error-msg"
+            *ngIf="connectError"
+          >
+            {{connectError}}
+          </span>
         </div>
       </form>
     </div>

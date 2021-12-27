@@ -1,4 +1,4 @@
-import { Moment } from 'moment';
+import { Moment } from 'moment'
 import { UserAdserverWallet } from 'models/user.model'
 
 interface BillingHistoryItem {
@@ -217,9 +217,9 @@ interface NowPaymentsInfo {
 }
 
 interface UnwrappersInfo {
-    chainId: number;
-    networkName: string;
-    contractAddress: string;
+  chainId: number;
+  networkName: string;
+  contractAddress: string;
 }
 
 interface FiatInfo {
@@ -280,6 +280,25 @@ interface Invoice {
   downloadUrl: string;
 }
 
+interface WalletGateway {
+  code: string;
+  name: string;
+  description: string;
+  chainId: number;
+  address: string;
+  contractAddress: string;
+  format: string;
+  prefix: string;
+}
+
+interface WalletToken {
+  token: string;
+  message: string;
+  gateways: {
+    bsc: WalletGateway
+  }
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -316,4 +335,6 @@ export {
   RefLink,
   RefLinkInfo,
   Invoice,
-};
+  WalletGateway,
+  WalletToken,
+}
