@@ -47,9 +47,11 @@ export class AuthEffects {
         let user = this.session.getUser();
         if (null === this.impersonation.getTokenFromStorage()) {
           user = {...user, ...action.payload};
+          this.session.setImpersonatedUser(null);
         } else {
           user.referralRefundEnabled = action.payload.referralRefundEnabled;
           user.referralRefundCommission = action.payload.referralRefundCommission;
+          this.session.setImpersonatedUser(action.payload);
         }
         this.session.setUser(user);
         return Observable.of();

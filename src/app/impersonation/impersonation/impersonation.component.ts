@@ -11,6 +11,7 @@ import { SessionService } from "../../session.service";
 })
 export class ImpersonationComponent extends HandleSubscription implements OnInit {
   impersonationToken: boolean = false;
+  userLabel: string
 
   constructor(
     private router: Router,
@@ -26,6 +27,10 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
     );
     this.subscriptions.push(subscription);
     this.impersonationService.getTokenFromStorage();
+    if (this.sessionService.isImpersonated()) {
+      const user = this.sessionService.getImpersonatedUser()
+      this.userLabel = user.email || user.adserverWallet.walletAddress
+    }
   }
 
   dropImpersonation(): void {
