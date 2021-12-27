@@ -10,24 +10,29 @@
 
     <div class="auto-withdraw__content-container">
       <span class="warning-msg" *ngIf="!isAutoWithdrawalAvailable">
-        To enable automatic withdrawals, you must first connect your account with a cryptocurrency wallet.
-        <a [routerLink]="['/', 'settings', 'general']">Go to the wallet settings.</a>
+        To enable automatic withdrawals, you must first connect your account to ADS or BSC wallet.
       </span>
-
-      <mat-checkbox
-        [ngModel]="wallet.isAutoWithdrawal"
-        (change)="changeAutoWithdraw($event.checked)"
-        *ngIf="isAutoWithdrawalAvailable"
-      >
-        Automatic withdrawal
-      </mat-checkbox>
+      <span class="warning-msg" *ngIf="isAutoWithdrawalAvailable">
+        Automatic withdrawals applies to all incoming funds, including deposits. This setting is not recommended for advertisers.
+      </span>
       <form
         [formGroup]="autoWithdrawalForm"
         (ngSubmit)="onAutoWithdrawalSave()"
-        *ngIf="showAutoWithdrawalForm"
         class="dwmth-form"
+        *ngIf="isAutoWithdrawalAvailable"
       >
         <div class="dwmth-form-input__box">
+          <mat-checkbox
+            [checked]="wallet.isAutoWithdrawal"
+            (change)="changeAutoWithdraw($event.checked)"
+          >
+            Automatic withdrawal
+          </mat-checkbox>
+        </div>
+        <div
+          class="dwmth-form-input__box"
+          *ngIf="showAutoWithdrawalForm"
+        >
           <label
             for="limit"
             class="dwmth-form-label"
@@ -48,12 +53,6 @@
           ></span>
           <span
             class="error-msg"
-            *ngIf="autoWithdrawalForm.hasError('min', ['limit']) && autoWithdrawalFormSubmitted"
-          >
-              Allowed minimum is {{minLimit|formatMoney:2:''}}
-            </span>
-          <span
-            class="error-msg"
             *ngIf="autoWithdrawalForm.hasError('required', ['limit']) && autoWithdrawalFormSubmitted"
           >
               Threshold is required!
@@ -65,7 +64,10 @@
               {{errorWithdrawalSave}}
             </span>
         </div>
-        <button class="dwmth-btn dwmth-btn--blue">
+        <button
+          class="dwmth-btn dwmth-btn--blue"
+          [disabled]="autoWithdrawalFormSubmitted"
+        >
           Save
         </button>
       </form>

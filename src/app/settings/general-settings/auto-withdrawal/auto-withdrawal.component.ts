@@ -4,11 +4,11 @@ import { HandleSubscription } from 'common/handle-subscription'
 import { SessionService } from 'app/session.service'
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
-import { UserAdserverWallet } from 'models/user.model'
+import { User, UserAdserverWallet } from 'models/user.model'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 import { environment } from 'environments/environment'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { clicksToAds } from 'common/utilities/helpers'
+import { adsToClicks, clicksToAds } from 'common/utilities/helpers'
 import { SettingsService } from 'settings/settings.service'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
 
@@ -29,7 +29,6 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   autoWithdrawalFormSubmitted: boolean = false
   errorWithdrawalSave = false
 
-  minLimit: number = 100000000000
   defaultLimit: number = 1000000000000
 
   constructor (
@@ -42,22 +41,25 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit () {
-    this.store.select('state', 'user', 'data', 'adserverWallet').take(1).
+    this.store.select('state', 'user', 'data', 'adserverWallet').take(2).
       subscribe((wallet: UserAdserverWallet) => {
-        this.wallet = wallet
-        this.showAutoWithdrawalForm = this.isAutoWithdrawalAvailable && wallet.isAutoWithdrawal
-        const limit = clicksToAds(Math.max(this.minLimit,
-          this.wallet.autoWithdrawalLimit || this.defaultLimit))
-        this.autoWithdrawalForm = new FormGroup({
-          limit: new FormControl(limit,
-            // [Validators.required,
-            // Validators.min(clicksToAds(this.minLimit))]),
-            [Validators.required]),
-        })
+        this.updateWallet(wallet)
       })
   }
 
+  updateWallet (wallet: UserAdserverWallet) {
+    this.wallet = wallet
+    this.isAutoWithdrawalAvailable = wallet.walletNetwork === 'ADS' ||
+      wallet.walletNetwork === 'BSC'
+    this.showAutoWithdrawalForm = wallet.isAutoWithdrawal
+    const limit = clicksToAds(Math.max(0, this.wallet.autoWithdrawalLimit || this.defaultLimit))
+    this.autoWithdrawalForm = new FormGroup({
+      limit: new FormControl(limit, [Validators.required]),
+    })
+  }
+
   changeAutoWithdraw (enabled: boolean) {
+    this.wallet.isAutoWithdrawal = enabled
     this.showAutoWithdrawalForm = enabled
   }
 
@@ -68,19 +70,19 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     }
     this.errorWithdrawalSave = false
     console.debug('onAutoWithdrawalSave',
-      this.autoWithdrawalForm.get('limit').value)
+      this.wallet.isAutoWithdrawal)
 
     const autoWithdrawal = this.wallet.isAutoWithdrawal
-      ? this.autoWithdrawalForm.get('limit').value
+      ? adsToClicks(this.autoWithdrawalForm.get('limit').value)
       : null
 
     this.settingsService.changeAutoWithdrawal(autoWithdrawal).subscribe(
-      () => {
-        this.autoWithdrawalForm.reset()
+      (user: User) => {
+        this.updateWallet(user.adserverWallet)
         this.dialog.open(ConfirmResponseDialogComponent, {
           data: {
-            title: 'Password changed',
-            message: 'Your password has been changed as requested',
+            title: 'Auto withdrawal changed',
+            message: 'Your withdrawal settings has been changed as requested',
           },
         })
       },
