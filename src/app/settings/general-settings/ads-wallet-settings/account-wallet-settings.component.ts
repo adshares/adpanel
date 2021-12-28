@@ -8,6 +8,8 @@ import { AppState } from 'models/app-state.model'
 import { SettingsService } from 'settings/settings.service'
 import { WalletToken } from 'models/settings.model'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
+import { stringToHex } from 'web3-utils'
+import Web3 from 'web3'
 
 @Component({
   selector: 'app-account-wallet-settings',
@@ -18,6 +20,8 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
   wallet: UserAdserverWallet
   connectError: string | null
   isSubmitted: boolean = false
+  adsWalletAvailable: boolean = true
+  ethereumAvailable: boolean = true
 
   constructor (
     private store: Store<AppState>,
@@ -39,7 +43,6 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     this.connectError = null
     this.settingsService.initConnectWallet().subscribe(
       (token) => {
-        console.debug(token)
         switch (network) {
           case 'ADS':
             this.connectToAds(token)
@@ -49,7 +52,8 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
             break
         }
       }, (error) => {
-        console.error(error)
+        this.connectError = 'Unknown error'
+        this.isSubmitted = false
       },
     )
   }
@@ -59,27 +63,63 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     adsWallet.getInfo().then(
       () => {
         adsWallet.authenticate(token.message).then(response => {
-          console.debug(response)
           if (response.status !== 'accepted') {
             this.connectError = 'Connection was rejected'
-            this.isSubmitted = false
           }
           if (response.testnet) {
             this.connectError = 'Testnet is not supported'
-            this.isSubmitted = false
             return
           }
-          this.connectToWallet('ADS', response.account.address, token.token,
-            response.signature)
-        })
+          this.connectToWallet(
+            'ADS',
+            response.account.address,
+            token.token,
+            response.signature,
+          )
+        }).finally(() => (this.isSubmitted = false))
       },
       () => {
-        window.open('https://adshares.net/wallet', '_blank').focus()
+        this.adsWalletAvailable = false
+        this.isSubmitted = false
       },
     )
   }
 
-  connectToBsc (token: WalletToken) {
+  async connectToBsc (token: WalletToken) {
+    const ethereum = (window as any).ethereum
+    this.ethereumAvailable = typeof ethereum !== 'undefined'
+    if (!this.ethereumAvailable) {
+      this.isSubmitted = false
+      return
+    }
+
+    ethereum.request({ method: 'eth_requestAccounts' }).then(
+      accounts => {
+        ethereum.sendAsync({
+          method: 'personal_sign',
+          params: [stringToHex(token.message), accounts[0]],
+        }, (err, result) => {
+          if (err) {
+            this.connectError = err.message
+            this.isSubmitted = false
+            return
+          }
+          if (result.error) {
+            this.connectError = result.error
+            this.isSubmitted = false
+            return
+          }
+          this.connectToWallet(
+            'BSC',
+            accounts[0],
+            token.token,
+            result.result,
+          )
+        })
+      },
+      err => {
+        this.connectError = err.message
+      })
   }
 
   connectToWallet (
@@ -87,15 +127,18 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     this.settingsService.connectWallet(network, address, token, sign).subscribe(
       (user) => {
         this.wallet = user.adserverWallet
+        this.isSubmitted = false
         this.dialog.open(ConfirmResponseDialogComponent, {
           data: {
             title: 'Wallet connected',
             message: `Your account has been connected to ${network} wallet: ${address}`,
           },
         })
-      }, (err) => {
+      },
+      (err) => {
         this.connectError = err.error.message
         this.isSubmitted = false
-      })
+      },
+    )
   }
 }

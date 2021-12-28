@@ -106,6 +106,24 @@
     }
   }
 
+  &--warning {
+    background-color: pal(orange);
+    color: pal(black) !important;
+
+    &:hover {
+      background-color: darken(pal(orange), 5);
+    }
+  }
+
+  &--danger {
+    background-color: pal(red);
+    color: pal(white) !important;
+
+    &:hover {
+      background-color: darken(pal(red), 5);
+    }
+  }
+
   &--transparent {
     background: transparent;
   }

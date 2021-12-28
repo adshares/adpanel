@@ -24,19 +24,39 @@
             >
           </div>
           <button
+            *ngIf="adsWalletAvailable"
             class="dwmth-btn dwmth-btn--blue"
             (click)="initConnectToWallet('ADS')"
             [disabled]="isSubmitted"
           >
             Connect to ADS Wallet
           </button>
+          <a
+            *ngIf="!adsWalletAvailable"
+            class="dwmth-btn dwmth-btn--danger"
+            href="https://adshares.net/wallet"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
+            Install ADS Wallet first!
+          </a>
           <button
+            *ngIf="ethereumAvailable"
             class="dwmth-btn dwmth-btn--blue"
             (click)="initConnectToWallet('BSC')"
             [disabled]="isSubmitted"
           >
             Connect to BSC Wallet
           </button>
+          <a
+            *ngIf="!ethereumAvailable"
+            class="dwmth-btn dwmth-btn--danger"
+            href="https://metamask.io/"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
+            Install Metamask first!
+          </a>
         </div>
         <div class="row align-start change-form">
           <span
