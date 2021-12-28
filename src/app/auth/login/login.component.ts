@@ -3,20 +3,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import 'rxjs/add/operator/map'
-
 import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
-
 import { LocalStorageUser, User } from 'models/user.model'
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
-
 import { appSettings } from 'app-settings'
 import { isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
 import { Info } from 'models/info.model'
+import AdsWallet from '@adshares/ads-connector'
 
 @Component({
   selector: 'app-login',
@@ -26,12 +24,18 @@ import { Info } from 'models/info.model'
 export class LoginComponent extends HandleSubscription implements OnInit {
   // @ViewChild('rememberUser') rememberUser: ElementRef;
 
-  registrationMode: string;
+  registrationMode: string
   loginForm: FormGroup
 
-  isLoggingIn = false
-  loginFormSubmitted = false
+  isLoggingIn: boolean = false
+  loginFormSubmitted: boolean = false
   criteriaError = false
+
+  adsWalletAvailable: boolean = false
+  ethereumAvailable: boolean = false
+  isAdsLoggingIn: boolean = false
+  isBscLoggingIn: boolean = false
+  walletLoginError: string | null
 
   advertiserApplyFormUrl = appSettings.ADVERTISER_APPLY_FORM_URL
   publisherApplyFormUrl = appSettings.PUBLISHER_APPLY_FORM_URL
@@ -43,7 +47,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private store: Store<AppState>,
-
   ) {
     super()
   }
@@ -58,12 +61,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     // SMELL: this should be elsewhere anyway (?)
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
-      this.navigateToDashboard(user);
+      this.navigateToDashboard(user)
       return
     }
     this.checkIfUserRemembered()
     this.storeReferralTokenIfPresent()
     this.store.dispatch(new authActions.UserLogOutSuccess())
+
+    const adsWallet = new AdsWallet()
+    adsWallet.getInfo().then(() => (this.adsWalletAvailable = true))
+    this.ethereumAvailable = typeof (window as any).ethereum !== 'undefined'
   }
 
   createForm () {
@@ -106,13 +113,15 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
         }
         else if (user.isModerator) {
-          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_MODERATOR)
+          this.session.setAccountTypeChoice(
+            SessionService.ACCOUNT_TYPE_MODERATOR)
         }
         else if (user.isAgency) {
           this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
         }
-        if (redirectUrl && (user.isAdmin || user.isModerator || user.isAgency)) {
-          this.navigateByUrl(redirectUrl);
+        if (redirectUrl &&
+          (user.isAdmin || user.isModerator || user.isAgency)) {
+          this.navigateByUrl(redirectUrl)
         }
 
         if (redirectUrl) {
@@ -133,7 +142,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           }
         }
 
-        this.navigateToDashboard(user);
+        this.navigateToDashboard(user)
       },
       (err) => {
         this.criteriaError = true
@@ -148,22 +157,27 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       if (user.isAdmin) {
         this.navigateByUrl('/admin/dashboard')
         return
-      } else {
-        accountType = null;
       }
-    } else if (SessionService.ACCOUNT_TYPE_MODERATOR=== accountType) {
+      else {
+        accountType = null
+      }
+    }
+    else if (SessionService.ACCOUNT_TYPE_MODERATOR === accountType) {
       if (user.isModerator) {
         this.navigateByUrl('/moderator/dashboard')
         return
-      } else {
-        accountType = null;
       }
-    } else if (SessionService.ACCOUNT_TYPE_AGENCY === accountType) {
+      else {
+        accountType = null
+      }
+    }
+    else if (SessionService.ACCOUNT_TYPE_AGENCY === accountType) {
       if (user.isAgency) {
         this.navigateByUrl('/agency/dashboard')
         return
-      } else {
-        accountType = null;
+      }
+      else {
+        accountType = null
       }
     }
 
@@ -181,8 +195,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       }
     }
 
-    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType && user.isAdvertiser
-      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType && user.isPublisher) {
+    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
+      user.isAdvertiser
+      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
+      user.isPublisher) {
       this.session.setAccountTypeChoice(accountType)
       this.navigateByUrl(`/${accountType}/dashboard`)
     }
@@ -215,5 +231,18 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   private navigateByUrl (url: string) {
     this.router.navigateByUrl(url).catch(e => console.error(e))
+  }
+
+  setWalletLoginStatus (submitted: boolean, network: string | null = null) {
+    if (null === network || 'ADS' === network) {
+      this.isAdsLoggingIn = submitted
+    }
+    if (null === network || 'BSC' === network) {
+      this.isBscLoggingIn = submitted
+    }
+  }
+
+  initWalletLogin (network: string) {
+    this.setWalletLoginStatus(true, network)
   }
 }

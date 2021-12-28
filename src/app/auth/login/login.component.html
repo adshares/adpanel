@@ -4,6 +4,9 @@
     dwmth-login-wrapper"
 >
   <div *ngIf="loginForm">
+    <ng-template #loading>
+      <mat-spinner [diameter]="16" [strokeWidth]="2"></mat-spinner>
+    </ng-template>
     <h2
       class="
           dwmth-heading
@@ -18,6 +21,32 @@
     >
       Please log in to your account.
     </p>
+
+    <div class="login-buttons">
+      <button
+        *ngIf="adsWalletAvailable"
+        class="dwmth-btn dwmth-btn--bordered-light"
+        (click)="initWalletLogin('ADS')"
+        [disabled]="isAdsLoggingIn"
+      >
+        <img src="/assets/images/ads.svg" alt="ADS">
+        <ng-container *ngIf="!isAdsLoggingIn; else loading">
+          Log in with ADS Wallet
+        </ng-container>
+      </button>
+      <button
+        *ngIf="ethereumAvailable"
+        class="dwmth-btn dwmth-btn--bordered-light"
+        (click)="initWalletLogin('BSC')"
+        [disabled]="isBscLoggingIn"
+      >
+        <img src="/assets/images/metamask.svg" alt="MetaMask">
+        <ng-container *ngIf="!isBscLoggingIn; else loading">
+          Log in with MetaMask</ng-container>
+      </button>
+      <div class="error-msg" *ngIf="walletLoginError">{{walletLoginError}}</div>
+      &nbsp;
+    </div>
 
     <form
       (ngSubmit)="login()"
@@ -164,12 +193,7 @@
             dwmth-form-submit-btn"
         data-test="auth-login-form-submit-button"
       >
-          <span *ngIf="!isLoggingIn ; else loading">
-            Log In
-          </span>
-        <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
-        </ng-template>
+        <ng-container *ngIf="!isLoggingIn ; else loading">Log In</ng-container>
       </button>
     </form>
   </div>

@@ -9,6 +9,9 @@
         Here you can set up a connection with a cryptocurrency wallet.
       </p>
       <form class="dwmth-form">
+        <ng-template #loading>
+          <mat-spinner [diameter]="16" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
         <div class="row align-start change-form">
           <div class="dwmth-form-input__box">
             <label for="walletAddress" class="dwmth-form-label">
@@ -23,13 +26,14 @@
               [value]="wallet.walletAddress"
             >
           </div>
+
           <button
             *ngIf="adsWalletAvailable"
             class="dwmth-btn dwmth-btn--blue"
             (click)="initConnectToWallet('ADS')"
             [disabled]="isSubmitted"
           >
-            Connect to ADS Wallet
+            <ng-container *ngIf="!isSubmitted; else loading">Connect to ADS Wallet</ng-container>
           </button>
           <a
             *ngIf="!adsWalletAvailable"
@@ -46,7 +50,7 @@
             (click)="initConnectToWallet('BSC')"
             [disabled]="isSubmitted"
           >
-            Connect to BSC Wallet
+            <ng-container *ngIf="!isSubmitted; else loading">Connect to BSC Wallet</ng-container>
           </button>
           <a
             *ngIf="!ethereumAvailable"
