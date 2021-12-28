@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adshares/ads-connector@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@adshares/ads-connector/-/ads-connector-1.0.3.tgz#430554080c41433873ae31c480814a0c2e5bfd10"
-  integrity sha512-z68ggb3lLfc10WpiI4GZX9xVSkk3CRc+aIAfSIslB4Jgw9p0be8x5RsjhY2MdsEuq6OvaIvR/ckvJ8KlckBybA==
+"@adshares/ads-connector@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@adshares/ads-connector/-/ads-connector-1.0.4.tgz#fa346e8a2d6be116ea3e4c3d87af55b558d4b4fd"
+  integrity sha512-t/+yUvsH3pds3Yp+9z9r1QkVBZT6FX/uK3rmKsalzcZrjTledky0STwo35fOPs140OjUiH4sEQxtXpClKpyviw==
   dependencies:
     "@adshares/ads-wallet" "^1.0.1"
     "@babel/runtime" "^7.15.4"

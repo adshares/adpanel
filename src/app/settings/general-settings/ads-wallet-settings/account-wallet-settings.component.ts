@@ -9,7 +9,6 @@ import { SettingsService } from 'settings/settings.service'
 import { WalletToken } from 'models/settings.model'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
 import { stringToHex } from 'web3-utils'
-import Web3 from 'web3'
 
 @Component({
   selector: 'app-account-wallet-settings',
