@@ -64,9 +64,12 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
         adsWallet.authenticate(token.message).then(response => {
           if (response.status !== 'accepted') {
             this.connectError = 'Connection was rejected'
+            this.isSubmitted = false
+            return
           }
           if (response.testnet) {
             this.connectError = 'Testnet is not supported'
+            this.isSubmitted = false
             return
           }
           this.connectToWallet(
@@ -75,7 +78,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
             token.token,
             response.signature,
           )
-        }).finally(() => (this.isSubmitted = false))
+        })
       },
       () => {
         this.adsWalletAvailable = false
@@ -84,7 +87,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     )
   }
 
-  async connectToBsc (token: WalletToken) {
+  connectToBsc (token: WalletToken) {
     const ethereum = (window as any).ethereum
     this.ethereumAvailable = typeof ethereum !== 'undefined'
     if (!this.ethereumAvailable) {
@@ -135,7 +138,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
         })
       },
       (err) => {
-        this.connectError = err.error.message
+        this.connectError = err.error.message || 'Unknown error'
         this.isSubmitted = false
       },
     )

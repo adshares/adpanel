@@ -15,6 +15,8 @@ import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
 import { Info } from 'models/info.model'
 import AdsWallet from '@adshares/ads-connector'
+import { WalletToken } from 'models/settings.model'
+import { stringToHex } from 'web3-utils'
 
 @Component({
   selector: 'app-login',
@@ -183,8 +185,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     if (!accountType) {
       if (user.isAdvertiser && user.isPublisher) {
-        this.dialog.open(AccountChooseDialogComponent,
-          { disableClose: true })
+        this.dialog.open(AccountChooseDialogComponent, { disableClose: true })
         return
       }
       if (user.isAdvertiser) {
@@ -196,8 +197,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
 
     if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
-      user.isAdvertiser
-      || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
+      user.isAdvertiser || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
       user.isPublisher) {
       this.session.setAccountTypeChoice(accountType)
       this.navigateByUrl(`/${accountType}/dashboard`)
@@ -207,8 +207,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   processLogin (user: User) {
     const rememberUser = false//this.rememberUser.nativeElement.checked;
     const expirationSeconds = rememberUser
-      ?
-      appSettings.REMEMBER_USER_EXPIRATION_SECONDS
+      ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS
       : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS
     const dataToSave: LocalStorageUser = {
       ...user,
@@ -244,5 +243,77 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   initWalletLogin (network: string) {
     this.setWalletLoginStatus(true, network)
+    this.walletLoginError = null
+    this.api.auth.initWalletLogin().subscribe(
+      (token) => {
+        switch (network) {
+          case 'ADS':
+            this.walletLoginAds(token)
+            break
+          case 'BSC':
+            this.walletLoginBsc(token)
+            break
+        }
+      }, (error) => {
+        this.walletLoginError = 'Unknown error'
+        this.setWalletLoginStatus(false, network)
+      },
+    )
+  }
+
+  walletLoginAds (token: WalletToken) {
+    const adsWallet = new AdsWallet()
+    adsWallet.authenticate(token.message).then(response => {
+      if (response.status !== 'accepted') {
+        this.walletLoginError = 'Connection was rejected'
+        this.setWalletLoginStatus(false, 'ADS')
+        return
+      }
+      if (response.testnet) {
+        this.walletLoginError = 'Testnet is not supported'
+        this.setWalletLoginStatus(false, 'ADS')
+        return
+      }
+      this.walletLogin('ADS', response.account.address, token.token, response.signature)
+    })
+  }
+
+  walletLoginBsc (token: WalletToken) {
+    const ethereum = (window as any).ethereum
+    ethereum.request({ method: 'eth_requestAccounts' }).then(
+      accounts => {
+        ethereum.sendAsync({
+          method: 'personal_sign',
+          params: [stringToHex(token.message), accounts[0]],
+        }, (err, result) => {
+          if (err) {
+            this.walletLoginError = err.message
+            this.setWalletLoginStatus(false, 'BSC')
+            return
+          }
+          if (result.error) {
+            this.walletLoginError = result.error
+            this.setWalletLoginStatus(false, 'BSC')
+            return
+          }
+          this.walletLogin('BSC', accounts[0], token.token, result.result)
+        })
+      },
+      err => {
+        this.walletLoginError = err.message
+      })
+  }
+
+  walletLogin (
+    network: string, address: string, token: string, sign: string) {
+    this.api.auth.walletLogin(network, address, token, sign).subscribe(
+      (user) => {
+        this.processLogin(user)
+      },
+      (err) => {
+        this.walletLoginError = err.error.message || 'Unknown error'
+        this.setWalletLoginStatus(false, network)
+      },
+    )
   }
 }

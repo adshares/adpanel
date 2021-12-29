@@ -44,8 +44,8 @@
         <ng-container *ngIf="!isBscLoggingIn; else loading">
           Log in with MetaMask</ng-container>
       </button>
+      <br />
       <div class="error-msg" *ngIf="walletLoginError">{{walletLoginError}}</div>
-      &nbsp;
     </div>
 
     <form
