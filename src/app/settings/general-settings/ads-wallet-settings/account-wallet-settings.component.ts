@@ -87,7 +87,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     )
   }
 
-  connectToBsc (token: WalletToken) {
+  async connectToBsc (token: WalletToken) {
     const ethereum = (window as any).ethereum
     this.ethereumAvailable = typeof ethereum !== 'undefined'
     if (!this.ethereumAvailable) {
@@ -95,38 +95,31 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
       return
     }
 
-    ethereum.request({ method: 'eth_requestAccounts' }).then(
-      accounts => {
-        ethereum.sendAsync({
+    await ethereum.request({ method: 'eth_requestAccounts' }).then(
+      async accounts => {
+        await ethereum.request({
           method: 'personal_sign',
           params: [stringToHex(token.message), accounts[0]],
-        }, (err, result) => {
-          if (err) {
-            this.connectError = err.message
-            this.isSubmitted = false
-            return
-          }
-          if (result.error) {
-            this.connectError = result.error
-            this.isSubmitted = false
-            return
-          }
+        }).then(result => {
           this.connectToWallet(
             'BSC',
             accounts[0],
             token.token,
-            result.result,
+            result,
           )
+        }, error => {
+          this.connectError = error.message
+          this.isSubmitted = false
         })
       },
-      err => {
-        this.connectError = err.message
+      error => {
+        this.connectError = error.message
+        this.isSubmitted = false
       })
   }
 
-  connectToWallet (
-    network: string, address: string, token: string, sign: string) {
-    this.settingsService.connectWallet(network, address, token, sign).subscribe(
+  connectToWallet (network: string, address: string, token: string, signature: string) {
+    this.settingsService.connectWallet(network, address, token, signature).subscribe(
       (user) => {
         this.wallet = user.adserverWallet
         this.isSubmitted = false

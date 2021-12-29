@@ -109,47 +109,49 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     ).subscribe(
       (user: User) => {
         this.processLogin(user)
-
-        const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
-        if (user.isAdmin) {
-          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
-        }
-        else if (user.isModerator) {
-          this.session.setAccountTypeChoice(
-            SessionService.ACCOUNT_TYPE_MODERATOR)
-        }
-        else if (user.isAgency) {
-          this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
-        }
-        if (redirectUrl &&
-          (user.isAdmin || user.isModerator || user.isAgency)) {
-          this.navigateByUrl(redirectUrl)
-        }
-
-        if (redirectUrl) {
-          if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
-            user.isAdvertiser) {
-            this.session.setAccountTypeChoice(
-              SessionService.ACCOUNT_TYPE_ADVERTISER)
-            this.navigateByUrl(redirectUrl)
-            return
-          }
-
-          if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
-            user.isPublisher) {
-            this.session.setAccountTypeChoice(
-              SessionService.ACCOUNT_TYPE_PUBLISHER)
-            this.navigateByUrl(redirectUrl)
-            return
-          }
-        }
-
-        this.navigateToDashboard(user)
       },
       (err) => {
         this.criteriaError = true
         this.isLoggingIn = false
       })
+  }
+
+  redirectAfterLogin (user: User) {
+    const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
+    if (user.isAdmin) {
+      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
+    }
+    else if (user.isModerator) {
+      this.session.setAccountTypeChoice(
+        SessionService.ACCOUNT_TYPE_MODERATOR)
+    }
+    else if (user.isAgency) {
+      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
+    }
+    if (redirectUrl &&
+      (user.isAdmin || user.isModerator || user.isAgency)) {
+      this.navigateByUrl(redirectUrl)
+    }
+
+    if (redirectUrl) {
+      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
+        user.isAdvertiser) {
+        this.session.setAccountTypeChoice(
+          SessionService.ACCOUNT_TYPE_ADVERTISER)
+        this.navigateByUrl(redirectUrl)
+        return
+      }
+
+      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
+        user.isPublisher) {
+        this.session.setAccountTypeChoice(
+          SessionService.ACCOUNT_TYPE_PUBLISHER)
+        this.navigateByUrl(redirectUrl)
+        return
+      }
+    }
+
+    this.navigateToDashboard(user)
   }
 
   navigateToDashboard (user: User) {
@@ -217,6 +219,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
     this.store.dispatch(new authActions.UserLogInSuccess(dataToSave))
     this.session.setUser(dataToSave)
+    this.redirectAfterLogin(user)
   }
 
   private storeReferralTokenIfPresent () {
@@ -232,7 +235,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.router.navigateByUrl(url).catch(e => console.error(e))
   }
 
-  setWalletLoginStatus (submitted: boolean, network: string | null = null) {
+  setWalletLoginStatus (submitted: boolean, network: string | null = null, error: string | null = null) {
+    this.walletLoginError = error
     if (null === network || 'ADS' === network) {
       this.isAdsLoggingIn = submitted
     }
@@ -243,9 +247,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
   initWalletLogin (network: string) {
     this.setWalletLoginStatus(true, network)
-    this.walletLoginError = null
     this.api.auth.initWalletLogin().subscribe(
-      (token) => {
+      token => {
         switch (network) {
           case 'ADS':
             this.walletLoginAds(token)
@@ -254,9 +257,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
             this.walletLoginBsc(token)
             break
         }
-      }, (error) => {
-        this.walletLoginError = 'Unknown error'
-        this.setWalletLoginStatus(false, network)
+      }, () => {
+        this.setWalletLoginStatus(false, network, 'Unknown error')
       },
     )
   }
@@ -265,13 +267,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     const adsWallet = new AdsWallet()
     adsWallet.authenticate(token.message).then(response => {
       if (response.status !== 'accepted') {
-        this.walletLoginError = 'Connection was rejected'
-        this.setWalletLoginStatus(false, 'ADS')
+        this.setWalletLoginStatus(false, 'ADS', 'Connection was rejected')
         return
       }
       if (response.testnet) {
-        this.walletLoginError = 'Testnet is not supported'
-        this.setWalletLoginStatus(false, 'ADS')
+        this.setWalletLoginStatus(false, 'ADS', 'Testnet is not supported')
         return
       }
       this.walletLogin('ADS', response.account.address, token.token, response.signature)
@@ -282,37 +282,27 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     const ethereum = (window as any).ethereum
     ethereum.request({ method: 'eth_requestAccounts' }).then(
       accounts => {
-        ethereum.sendAsync({
+        ethereum.request({
           method: 'personal_sign',
           params: [stringToHex(token.message), accounts[0]],
-        }, (err, result) => {
-          if (err) {
-            this.walletLoginError = err.message
-            this.setWalletLoginStatus(false, 'BSC')
-            return
-          }
-          if (result.error) {
-            this.walletLoginError = result.error
-            this.setWalletLoginStatus(false, 'BSC')
-            return
-          }
-          this.walletLogin('BSC', accounts[0], token.token, result.result)
+        }).then(result => {
+          this.walletLogin('BSC', accounts[0], token.token, result)
+        }, error => {
+          this.setWalletLoginStatus(false, 'BSC', error.message)
         })
       },
-      err => {
-        this.walletLoginError = err.message
+      error => {
+        this.setWalletLoginStatus(false, 'BSC', error.message)
       })
   }
 
-  walletLogin (
-    network: string, address: string, token: string, sign: string) {
-    this.api.auth.walletLogin(network, address, token, sign).subscribe(
-      (user) => {
+  walletLogin (network: string, address: string, token: string, signature: string) {
+    this.api.auth.walletLogin(network, address, token, signature).subscribe(
+      user => {
         this.processLogin(user)
       },
-      (err) => {
-        this.walletLoginError = err.error.message || 'Unknown error'
-        this.setWalletLoginStatus(false, network)
+      () => {
+        this.setWalletLoginStatus(false, network, 'Account or signature is invalid.')
       },
     )
   }

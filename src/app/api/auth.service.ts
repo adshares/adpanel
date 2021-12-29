@@ -37,7 +37,7 @@ export class ApiAuthService {
     return this.http.get<WalletToken>(`${environment.authUrl}/login/wallet/init`)
   }
 
-  walletLogin (network: string, address: string, token: string, sign: string): Observable<User> {
-    return this.http.post<User>(`${environment.authUrl}/login/wallet`, { network, address, token, sign })
+  walletLogin (network: string, address: string, token: string, signature: string): Observable<User> {
+    return this.http.post<User>(`${environment.authUrl}/login/wallet`, { network, address, token, signature })
   }
 }

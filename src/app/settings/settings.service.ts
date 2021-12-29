@@ -105,10 +105,9 @@ export class SettingsService {
     return this.http.get<WalletToken>(`${environment.apiUrl}/wallet/connect/init`)
   }
 
-  connectWallet (
-    network: string, address: string, token: string, sign: string): Observable<User> {
+  connectWallet (network: string, address: string, token: string, signature: string): Observable<User> {
     return this.http.patch<User>(`${environment.apiUrl}/wallet/connect`,
-      { network, address, token, sign })
+      { network, address, token, signature })
   }
 
   changeAutoWithdrawal (autoWithdrawal: number | null): Observable<User> {
