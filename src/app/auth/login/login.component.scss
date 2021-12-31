@@ -20,11 +20,38 @@ h2 {
   margin-left: 50px;
 }
 
-form {
-  margin-top: 20px;
+.login-buttons {
+  margin-top: 10px;
 
   @include media(md-up) {
-    margin-top: 60px;
+    margin-top: 30px;
+  }
+
+  .dwmth-btn {
+    position: relative;
+    padding-left: 40px;
+    min-width: 220px;
+    height: 42px;
+    vertical-align: top;
+
+    > img {
+      position: absolute;
+      left: 5px;
+      width: 30px;
+      max-height: 30px;
+    }
+  }
+
+  .error-msg {
+    display: inline-block;
+  }
+}
+
+form {
+  margin-top: 10px;
+
+  @include media(md-up) {
+    margin-top: 30px;
   }
 
   .error-msg {

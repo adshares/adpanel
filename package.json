@@ -1,6 +1,6 @@
 {
   "name": "adpanel",
-  "version": "1.0.0",
+  "version": "1.11.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --sourcemap=false",
@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@adshares/ads-connector": "^1.0.4",
     "@angular/animations": "^5.0.0",
     "@angular/cdk": "^5.0.0-rc0",
     "@angular/common": "^5.0.0",

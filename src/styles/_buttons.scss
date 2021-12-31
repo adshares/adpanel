@@ -14,6 +14,10 @@
   cursor: pointer;
   line-height: 1;
 
+  .mat-spinner circle {
+    stroke: #fff;
+  }
+
   &--wide {
     padding: 10px 16px;
     min-width: calc(10ch + 16px);
@@ -106,6 +110,24 @@
     }
   }
 
+  &--warning {
+    background-color: pal(orange);
+    color: pal(black) !important;
+
+    &:hover {
+      background-color: darken(pal(orange), 5);
+    }
+  }
+
+  &--danger {
+    background-color: pal(red);
+    color: pal(white) !important;
+
+    &:hover {
+      background-color: darken(pal(red), 5);
+    }
+  }
+
   &--transparent {
     background: transparent;
   }
@@ -145,5 +167,13 @@
     background-color: white;
     color: pal(blue);
     border-color: pal(blue);
+
+    &:hover {
+      background-color: darken(pal(white), 5);
+    }
+
+    .mat-spinner circle {
+      stroke: pal(blue) !important;
+    }
   }
 }

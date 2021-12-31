@@ -41,6 +41,12 @@
   >
     Auto account confirmation
   </mat-checkbox>
+  <mat-checkbox
+    [checked]="settings.autoRegistrationEnabled"
+    (change)="updateSettings($event.checked, 'autoRegistrationEnabled')"
+  >
+    Auto registration allowed
+  </mat-checkbox>
 </app-param-setting>
 
 <app-rejected-domains></app-rejected-domains>

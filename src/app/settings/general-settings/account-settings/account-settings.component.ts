@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageUser } from 'models/user.model'
 
 @Component({
   selector: 'app-account-settings',

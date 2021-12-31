@@ -327,43 +327,16 @@
         row
         align-center
         hidden-sm"
-      *ngIf="!session.isModerator() || session.isImpersonated()"
+      [ngClass]="{'visible-sm': session.isModerator() && !session.isImpersonated()}"
       (click)="logout()"
       data-test="header-log-out-button"
     >
       <span>
+        <small class="user-name">{{userLabel}}</small>
         Log out
       </span>
     </button>
 
-    <button
-      class="
-        dwmth-btn
-        dwmth-btn--transparent
-        row
-        align-center
-        visible-sm"
-      *ngIf="session.isModerator() && !session.isImpersonated()"
-      (click)="logout()"
-      data-test="header-log-out-button"
-    >
-      <span>
-        Log out
-      </span>
-    </button>
-
-    <span
-      class="
-        dwmth-copy
-        dwmth-white
-        logout-on-small-devices
-        visible-xs
-        hidden-sm-up"
-      (click)="logout()"
-      data-test="header-log-out-button"
-    >
-      Log out
-    </span>
     <!-- TODO PAN-183 remove notification -->
     <!--<div-->
     <!--class="-->

@@ -4,6 +4,10 @@ interface UserAdserverWallet {
   totalFundsChange: number;
   totalFundsInCurrency: number;
   walletBalance: number;
+  walletAddress: string | null;
+  walletNetwork: string | null;
+  isAutoWithdrawal: boolean;
+  autoWithdrawalLimit: number;
 }
 
 interface ExchangeRate {
@@ -46,4 +50,4 @@ interface UserRoles extends User {
   advertiser: string;
 }
 
-export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate };
+export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate }
