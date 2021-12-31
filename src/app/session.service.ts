@@ -107,12 +107,4 @@ export class SessionService {
   isImpersonated(): boolean {
     return this.impersonationService.getTokenFromStorage() !== null
   }
-
-  setImpersonatedUser(user: User|null) {
-    localStorage.setItem('impersonatedUser', JSON.stringify(user));
-  }
-
-  getImpersonatedUser(): User|null {
-    return JSON.parse(localStorage.getItem('impersonatedUser'));
-  }
 }
