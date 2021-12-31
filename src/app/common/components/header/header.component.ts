@@ -34,6 +34,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   totalFunds: number
   isTotalFundsValid: boolean = false
   userType: number
+  userLabel: string
   activeUserType: number
   userRolesEnum = userRolesEnum
   settingsMenuOpen = false
@@ -60,6 +61,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     this.supportTelegram = appSettings.SUPPORT_TELEGRAM
     this.supportChat = appSettings.SUPPORT_CHAT
     this.store.dispatch(new SetUser())
+
+    this.userLabel = this.session.getUserLabel()
 
     if (this.session.isAdmin()) {
       this.userType = userRolesEnum.ADMIN

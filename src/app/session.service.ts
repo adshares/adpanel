@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Notification } from 'models/notification.model';
-import { LocalStorageUser } from 'models/user.model';
+import { LocalStorageUser, User } from 'models/user.model'
 import { ImpersonationService } from './impersonation/impersonation.service';
 
 @Injectable()
@@ -48,6 +48,20 @@ export class SessionService {
     return JSON.parse(localStorage.getItem('user'));
   }
 
+  getUserLabel(): string {
+    const user = this.getUser()
+    if (user.email && user.email.length > 0) {
+      const parts = user.email.split('@')
+      const name = parts[0].length > 2 ? parts[0].slice(0, 2) : parts[0];
+      return `${name}***@${parts[1]}`
+    }
+    if (user.adserverWallet.walletAddress) {
+      const address = user.adserverWallet.walletAddress
+      return `${address.slice(0, 5)}…${address.slice(-5)}`
+    }
+    return '';
+  }
+
   isAdmin(): boolean {
     let u = this.getUser();
     return u ? !!u.isAdmin : false;
@@ -92,5 +106,13 @@ export class SessionService {
 
   isImpersonated(): boolean {
     return this.impersonationService.getTokenFromStorage() !== null
+  }
+
+  setImpersonatedUser(user: User|null) {
+    localStorage.setItem('impersonatedUser', JSON.stringify(user));
+  }
+
+  getImpersonatedUser(): User|null {
+    return JSON.parse(localStorage.getItem('impersonatedUser'));
   }
 }

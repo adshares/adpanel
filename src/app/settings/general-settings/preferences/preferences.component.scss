@@ -3,11 +3,13 @@
   max-width: 356px;
 }
 
-  #email::placeholder {
-    opacity: 0.7;
-  }
+#email::placeholder {
+  opacity: 0.7;
+}
 
 .preferences {
+  margin-top: 10px;
+
   .dwmth-form-input__box {
     margin-right: 25px;
   }

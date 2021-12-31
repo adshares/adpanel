@@ -1,0 +1,76 @@
+<section class="account-wallet-settings">
+  <div class="dwmth-box dwmth-box--large">
+    <div class="col">
+      <h2 class="dwmth-heading dwmth-heading--primary">
+        Account Wallet
+      </h2>
+      <p class="dwmth-copy dwmth-copy--large">
+      <p class="dwmth-copy dwmth-copy--large">
+        Here you can set up a connection with a cryptocurrency wallet.
+      </p>
+      <form class="dwmth-form">
+        <ng-template #loading>
+          <mat-spinner [diameter]="16" [strokeWidth]="2" color="accent"></mat-spinner>
+        </ng-template>
+        <div class="row align-start change-form">
+          <div class="dwmth-form-input__box">
+            <label for="walletAddress" class="dwmth-form-label">
+              Wallet address ({{ wallet.walletNetwork }})
+            </label>
+            <input
+              id="walletAddress"
+              class="dwmth-form-input"
+              type="text"
+              name="walletAddress"
+              readonly
+              [value]="wallet.walletAddress"
+            >
+          </div>
+
+          <button
+            *ngIf="adsWalletAvailable"
+            class="dwmth-btn dwmth-btn--blue"
+            (click)="initConnectToWallet('ADS')"
+            [disabled]="isSubmitted"
+          >
+            <ng-container *ngIf="!isSubmitted; else loading">Connect to ADS Wallet</ng-container>
+          </button>
+          <a
+            *ngIf="!adsWalletAvailable"
+            class="dwmth-btn dwmth-btn--danger"
+            href="https://adshares.net/wallet"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
+            Install ADS Wallet first!
+          </a>
+          <button
+            *ngIf="ethereumAvailable"
+            class="dwmth-btn dwmth-btn--blue"
+            (click)="initConnectToWallet('BSC')"
+            [disabled]="isSubmitted"
+          >
+            <ng-container *ngIf="!isSubmitted; else loading">Connect to BSC Wallet</ng-container>
+          </button>
+          <a
+            *ngIf="!ethereumAvailable"
+            class="dwmth-btn dwmth-btn--danger"
+            href="https://metamask.io/"
+            rel="noopener noreferrer nofollow"
+            target="_blank"
+          >
+            Install Metamask first!
+          </a>
+        </div>
+        <div class="row align-start change-form">
+          <span
+            class="error-msg"
+            *ngIf="connectError"
+          >
+            {{connectError}}
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

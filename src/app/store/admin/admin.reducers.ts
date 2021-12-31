@@ -31,6 +31,7 @@ const initialState: AdminState = {
     advertiserCommission: 0,
     coldWalletIsActive: 0,
     registrationMode: 'public',
+    autoRegistrationEnabled: 1,
     autoConfirmationEnabled: 0,
     aduserInfoUrl: '',
   },
