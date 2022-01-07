@@ -55,7 +55,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     })
 
     const controls = {}
-    if (!!this.user.hasPassword) {
+    if (this.user.hasPassword) {
       controls['currentPassword'] = new FormControl('', Validators.required)
     }
     controls['newPassword'] = new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -76,7 +76,6 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       '/auth/email-change-confirm-new/',
     ).subscribe(
       (user) => {
-        console.debug(user)
         this.changeEmailForm.get('email').setValue('')
         let title
         let message
