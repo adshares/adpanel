@@ -75,15 +75,27 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       '/auth/email-change-confirm-old/',
       '/auth/email-change-confirm-new/',
     ).subscribe(
-      (data) => {
-        console.debug(data)
+      (user) => {
+        console.debug(user)
         this.changeEmailForm.get('email').setValue('')
-        this.dialog.open(ConfirmResponseDialogComponent, {
-          data: {
-            title: 'Changing email is a 2 step process',
-            message: 'First you need to verify your request using your current (old) email address.\nPlease check your email and follow instructions to confirm your request',
-          },
-        })
+        let title
+        let message
+
+        if (null !== user) {
+          this.user = user
+          title = 'Email changed'
+          message = 'Your email address has been changed as requested'
+        }
+        else if (!this.user.email) {
+          title = 'Email changed'
+          message = 'We have sent an activation email message to your account. Email activation is required for full access to adpanel.'
+        }
+        else {
+          title = 'Changing email is a 2 step process'
+          message = 'First you need to verify your request using your current (old) email address.\nPlease check your email and follow instructions to confirm your request'
+        }
+
+        this.dialog.open(ConfirmResponseDialogComponent, { data: { title, message } })
       },
       (err: any) => {
         if (err instanceof HttpErrorResponse && err.status === 422) {
@@ -112,7 +124,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       : null
     const newPassword = this.changePasswordForm.get('newPassword').value
 
-    this.errorsPasswordChange = null
+    this.errorsPasswordChange = false
     this.changePasswordFormSubmitted = true
 
     if (!this.changePasswordForm.valid || (this.newPasswordConfirm.value !== newPassword)) {

@@ -77,8 +77,8 @@ export class SettingsService {
       { currency, to, amount, memo })
   }
 
-  changeEmail (email: string, UriStep1: string, UriStep2: string) {
-    return this.http.post(`${environment.authUrl}/email`,
+  changeEmail (email: string, UriStep1: string, UriStep2: string): Observable<User|null> {
+    return this.http.post<User|null>(`${environment.authUrl}/email`,
       { email, UriStep1, UriStep2 })
   }
 
