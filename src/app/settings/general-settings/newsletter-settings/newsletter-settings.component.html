@@ -20,7 +20,16 @@
         We are using our newsletter to share important information about the development of our network, airdrop campaigns and other offers.
         If you prefer to unsubscribe, please change your settings below.
       </p>
+
       <div
+        class="error-msg"
+        *ngIf="isImpersonated"
+      >
+        You cannot change user preferences during impersonation.
+      </div>
+
+      <div
+        *ngIf="!isImpersonated"
         class="
           newsletter-table
           dwmth-copy"

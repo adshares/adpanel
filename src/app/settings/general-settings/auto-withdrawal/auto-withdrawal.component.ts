@@ -22,6 +22,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   crypto: string = CRYPTO
   code: string = CODE
   currencyCode: string = environment.currencyCode
+  isImpersonated: boolean = false;
 
   isAutoWithdrawalAvailable: boolean = false
   autoWithdrawalForm: FormGroup
@@ -45,6 +46,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
       subscribe((wallet: UserAdserverWallet) => {
         this.updateWallet(wallet)
       })
+    this.isImpersonated = this.session.isImpersonated()
   }
 
   updateWallet (wallet: UserAdserverWallet) {
