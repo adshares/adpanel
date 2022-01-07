@@ -54,7 +54,7 @@
               name="email"
               formControlName="email"
               data-test="settings-change-email-form-email"
-              [placeholder]="user.email"
+              [placeholder]="user.email || ''"
             >
             <span
               class="input-valid"
@@ -85,7 +85,8 @@
               dwmth-btn--blue"
             data-test="settings-change-email-form-submit"
           >
-            Change email
+            <ng-container *ngIf="user.email">Change email</ng-container>
+            <ng-container *ngIf="!user.email">Set email</ng-container>
           </button>
         </div>
       </form>
@@ -104,7 +105,7 @@
             change-form"
         >
           <div class="row">
-            <div class="dwmth-form-input__box">
+            <div class="dwmth-form-input__box" *ngIf="user.hasPassword">
               <label
                 for="currentPassword"
                 class="dwmth-form-label"
@@ -207,7 +208,8 @@
               dwmth-btn--blue"
             data-test="settings-change-password-form-submit"
           >
-            Change password
+            <ng-container *ngIf="user.hasPassword">Change password</ng-container>
+            <ng-container *ngIf="!user.hasPassword">Set password</ng-container>
           </button>
         </div>
       </form>

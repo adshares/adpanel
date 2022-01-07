@@ -36,6 +36,7 @@ interface UserInfo {
   uuid: string;
   email: string;
   name: string;
+  hasPassword: boolean;
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;

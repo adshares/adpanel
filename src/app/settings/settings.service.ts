@@ -82,8 +82,8 @@ export class SettingsService {
       { email, UriStep1, UriStep2 })
   }
 
-  changePassword (user: object, uri: string) {
-    return this.http.patch(`${environment.authUrl}/self`, { user, uri })
+  changePassword (user: object, uri: string): Observable<User> {
+    return this.http.patch<User>(`${environment.authUrl}/self`, { user, uri })
   }
 
   newsletter (isSubscribed: boolean): Observable<any> {
