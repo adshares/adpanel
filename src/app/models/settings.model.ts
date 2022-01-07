@@ -141,6 +141,7 @@ interface AdminSettings {
   registrationMode: string;
   autoRegistrationEnabled: number;
   autoConfirmationEnabled: number;
+  emailVerificationRequired: number;
   aduserInfoUrl: string;
 }
 

@@ -33,6 +33,7 @@ const initialState: AdminState = {
     registrationMode: 'public',
     autoRegistrationEnabled: 1,
     autoConfirmationEnabled: 0,
+    emailVerificationRequired: 0,
     aduserInfoUrl: '',
   },
   wallet: {

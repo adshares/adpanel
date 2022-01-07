@@ -36,6 +36,12 @@
   (valueChanged)="updateSettings($event, 'registrationMode')"
 >
   <mat-checkbox
+    [checked]="settings.emailVerificationRequired"
+    (change)="updateSettings($event.checked, 'emailVerificationRequired')"
+  >
+    E-mail verification required
+  </mat-checkbox>
+  <mat-checkbox
     [checked]="settings.autoConfirmationEnabled"
     (change)="updateSettings($event.checked, 'autoConfirmationEnabled')"
   >
