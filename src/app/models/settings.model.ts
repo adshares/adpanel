@@ -36,6 +36,7 @@ interface UserInfo {
   uuid: string;
   email: string;
   name: string;
+  hasPassword: boolean;
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;
@@ -141,6 +142,7 @@ interface AdminSettings {
   registrationMode: string;
   autoRegistrationEnabled: number;
   autoConfirmationEnabled: number;
+  emailVerificationRequired: number;
   aduserInfoUrl: string;
 }
 

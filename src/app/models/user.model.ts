@@ -18,6 +18,7 @@ interface ExchangeRate {
 interface User {
   id: number
   email: string;
+  hasPassword: boolean;
   isAdvertiser: boolean;
   isPublisher: boolean;
   isAdmin: boolean;

@@ -8,6 +8,7 @@ import { User } from 'models/user.model';
 import { MatDialog } from '@angular/material';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
+import { SessionService } from '../../../session.service'
 
 @Component({
   selector: 'app-newsletter-settings',
@@ -17,10 +18,12 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 export class NewsletterSettingsComponent extends HandleSubscription implements OnInit {
   isSubscribed: boolean = false;
   isSettingDisabled: boolean = true;
+  isImpersonated: boolean = false;
 
   constructor(
     private store: Store<AppState>,
     private settingsService: SettingsService,
+    private session: SessionService,
     private dialog: MatDialog,
   ) {
     super();
@@ -33,6 +36,7 @@ export class NewsletterSettingsComponent extends HandleSubscription implements O
         this.isSubscribed = user.isSubscribed;
         this.isSettingDisabled = false;
       });
+    this.isImpersonated = this.session.isImpersonated()
   }
 
   onChangeSubscription(isSubscribed: boolean): void {

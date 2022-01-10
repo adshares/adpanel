@@ -34,7 +34,7 @@ export class AccountNotConfirmedBarComponent extends HandleSubscription implemen
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
       this.isConfirmed = user.isConfirmed;
-      this.isEmailConfirmed = user.isEmailConfirmed;
+      this.isEmailConfirmed = !user.email || user.isEmailConfirmed;
       this.isAdminConfirmed = user.isAdminConfirmed;
     });
     this.subscriptions.push(userDataSubscription);

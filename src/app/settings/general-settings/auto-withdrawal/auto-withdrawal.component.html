@@ -1,14 +1,21 @@
 <section class="preferences auto-withdraw">
   <div
     class="
-      auto-withdraw__box
-      auto-withdraw__box--with-margin"
+      dwmth-box
+      dwmth-box--large"
   >
     <h2 class="auto-withdraw__title">
       Auto withdrawal settings
     </h2>
 
-    <div class="auto-withdraw__content-container">
+    <div
+      class="error-msg"
+      *ngIf="isImpersonated"
+    >
+      You cannot change user preferences during impersonation.
+    </div>
+
+    <div class="auto-withdraw__content-container" *ngIf="!isImpersonated">
       <span class="warning-msg" *ngIf="!isAutoWithdrawalAvailable">
         To enable automatic withdrawals, you must first connect your account to ADS or BSC wallet.
       </span>

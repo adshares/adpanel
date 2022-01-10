@@ -3,6 +3,7 @@ import {ExchangeRate, User, UserAdserverWallet} from 'models/user.model';
 export const userInitialState: User = {
   id: 0,
   email: '',
+  hasPassword: false,
   isAdvertiser: false,
   isPublisher: false,
   isAdmin: false,
