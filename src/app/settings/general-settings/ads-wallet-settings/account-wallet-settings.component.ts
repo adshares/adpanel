@@ -9,6 +9,7 @@ import { SettingsService } from 'settings/settings.service'
 import { WalletToken } from 'models/settings.model'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
 import { stringToHex } from 'web3-utils'
+import { SessionService } from '../../../session.service'
 
 @Component({
   selector: 'app-account-wallet-settings',
@@ -21,10 +22,12 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
   isSubmitted: boolean = false
   adsWalletAvailable: boolean = true
   ethereumAvailable: boolean = true
+  isImpersonated: boolean = false;
 
   constructor (
     private store: Store<AppState>,
     private settingsService: SettingsService,
+    private session: SessionService,
     private dialog: MatDialog,
   ) {
     super()
@@ -35,6 +38,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
       subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet
       })
+    this.isImpersonated = this.session.isImpersonated()
   }
 
   initConnectToWallet (network: string) {

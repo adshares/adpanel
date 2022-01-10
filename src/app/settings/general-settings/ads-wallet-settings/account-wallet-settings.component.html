@@ -8,14 +8,22 @@
       <p class="dwmth-copy dwmth-copy--large">
         Here you can set up a connection with a cryptocurrency wallet.
       </p>
-      <form class="dwmth-form">
+
+      <div
+        class="error-msg"
+        *ngIf="isImpersonated"
+      >
+        You cannot change user preferences during impersonation.
+      </div>
+
+      <form class="dwmth-form" *ngIf="!isImpersonated">
         <ng-template #loading>
           <mat-spinner [diameter]="16" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
         <div class="row align-start change-form">
           <div class="dwmth-form-input__box">
             <label for="walletAddress" class="dwmth-form-label">
-              Wallet address ({{ wallet.walletNetwork }})
+              Wallet address<ng-container *ngIf="wallet.walletNetwork"> ({{ wallet.walletNetwork }})</ng-container>
             </label>
             <input
               id="walletAddress"

@@ -2,24 +2,7 @@
 @import "../../../../styles/colors";
 
 .auto-withdraw {
-  margin-bottom: 8px;
-
-  &__box {
-    @include container(20px, 20px,
-    $border-color: pal(gray, nearly-white)
-    );
-    min-width: 450px;
-    flex: 1;
-    &--with-margin {
-      margin-bottom: 8px;
-    }
-    @media (min-width: 1358px) {
-      &--with-margin {
-        margin-bottom: 0;
-        margin-right: 8px;
-      }
-    }
-  }
+  margin-top: 10px;
 
   &__title {
     @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
