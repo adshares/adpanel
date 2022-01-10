@@ -7,10 +7,12 @@ import { SessionService } from '../../../session.service'
   styleUrls: ['./account-settings.component.scss'],
 })
 export class AccountSettingsComponent {
+  isModerator: boolean = false
 
   constructor (
     private session: SessionService,
   ) {
+    this.isModerator = session.isModerator()
   }
 
 }
