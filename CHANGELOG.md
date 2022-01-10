@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.11.1] - 2022-01-10
 ### Added
 - Create an account with the cryptocurrency wallet
 
@@ -342,7 +344,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.11.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.11.1...develop
+[1.11.1]: https://github.com/adshares/adpanel/compare/v1.11.0...v1.11.1
 [1.11.0]: https://github.com/adshares/adpanel/compare/v1.10.8...v1.11.0
 [1.10.8]: https://github.com/adshares/adpanel/compare/v1.10.7...v1.10.8
 [1.10.7]: https://github.com/adshares/adpanel/compare/v1.10.6...v1.10.7
