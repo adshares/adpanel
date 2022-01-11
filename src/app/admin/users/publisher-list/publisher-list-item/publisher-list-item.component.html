@@ -6,6 +6,7 @@
           class="domain-checker q-{{ rankQuality(domain.rank, domain.info) }}"
           [href]="aduserInfoUrl(domain.name)"
           target="_blank"
+          rel="noopener"
           [title]="domain.info"
         >
           {{ pageRank(domain.rank) }}
