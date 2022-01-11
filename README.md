@@ -12,8 +12,11 @@
     <a href="https://github.com/adshares/adpanel/wiki">Wiki</a>
 </p>
 <p align="center">
-    <a href="https://travis-ci.com/adshares/adpanel" title="master" target="_blank">
-        <img src="https://travis-ci.com/adshares/adpanel.svg?branch=master" alt="Build Status">
+    <a href="https://app.travis-ci.com/github/adshares/adpanel" title="master" target="_blank">
+        <img src="https://app.travis-ci.com/adshares/adpanel.svg?branch=master" alt="Build Status">
+    </a>
+    <a href="https://sonarcloud.io/dashboard?id=adshares-adpanel" title="Code Quality" target="_blank">
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=adshares-adpanel&metric=alert_status" alt="Code Quality">
     </a>
 </p>
 
