@@ -9,7 +9,7 @@
     <small *ngIf="refLink.refundValidUntil">Valid until: {{ refLink.refundValidUntil | formatDate:dateFormat }}</small>
   </td>
   <td class="ref-link-settings__comment">
-    <i>{{ refLink.comment || "-" }}</i>
+    <em>{{ refLink.comment || "-" }}</em>
   </td>
   <td class="ref-link-settings__usage">
     {{ refLink.usageCount }}
