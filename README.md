@@ -12,8 +12,8 @@
     <a href="https://github.com/adshares/adpanel/wiki">Wiki</a>
 </p>
 <p align="center">
-    <a href="https://travis-ci.org/adshares/adpanel" title="master" target="_blank">
-        <img src="https://travis-ci.org/adshares/adpanel.svg?branch=master" alt="Build Status">
+    <a href="https://travis-ci.com/adshares/adpanel" title="master" target="_blank">
+        <img src="https://travis-ci.com/adshares/adpanel.svg?branch=master" alt="Build Status">
     </a>
 </p>
 
