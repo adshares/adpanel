@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HandleSubscription } from 'common/handle-subscription';
 import { SettingsService } from 'settings/settings.service';
 import { AppState } from 'models/app-state.model';
-import { UserAdserverWallet } from 'models/user.model';
+import { User, UserAdserverWallet } from 'models/user.model'
 
 import { adsToClicks, formatMoney } from 'common/utilities/helpers';
 import { appSettings } from 'app-settings';
@@ -33,6 +33,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   btc: string = CRYPTO_BTC;
   faQuestionCircle = faQuestionCircle;
   cryptoCode: string = environment.cryptoCode;
+  user: User;
 
   isConfirmed = false;
   isFormBeingSubmitted = false;
@@ -51,6 +52,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   calculatedFee: number;
   calculatedTotal: number;
   calculatedLeft: number;
+  calculatedReceive: number;
 
   btcInfo: BtcWithdrawInfo;
   calculatedBtcAmount: number;
@@ -67,16 +69,33 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit() {
-    const user = this.session.getUser();
-    this.isConfirmed = user.isConfirmed;
-    this.adserverWallet = user.adserverWallet;
+    this.user = this.session.getUser();
+    this.isConfirmed = this.user.isConfirmed;
+    this.adserverWallet = this.user.adserverWallet;
 
     const infoSubscription = this.api.config.withdrawalInfo().subscribe((data: WithdrawalInfo) => {
-      this.loadingInfo = false;
       this.btcInfo = data.btc;
-      if (this.btcInfo === null) {
-        this.useAdsWithdraw = true;
-        this.createForm();
+
+      if (!this.user.email) {
+        if ('ADS' === this.adserverWallet.walletNetwork || 'BSC' === this.adserverWallet.walletNetwork) {
+          this.selectAdsWithdraw();
+          this.loadingInfo = false;
+        } else if ('BTC' === this.adserverWallet.walletNetwork && null !== this.btcInfo) {
+          this.selectBtcWithdraw();
+          this.loadingInfo = false;
+        } else {
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Withdraw wallet error',
+              message: 'Unsupported wallet network. Please change wallet network or provide e-mail address.',
+            }
+          });
+        }
+      } else if (this.btcInfo === null) {
+        this.selectAdsWithdraw();
+        this.loadingInfo = false;
+      } else {
+        this.loadingInfo = false;
       }
     });
 
@@ -113,6 +132,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     this.calculatedFee = undefined;
     this.calculatedTotal = undefined;
     this.calculatedLeft = undefined;
+    this.calculatedReceive = undefined;
   }
 
   onCalculateWithdrawalSuccess(response: CalculateWithdrawalItem): void {
@@ -120,6 +140,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
 
     this.calculatedFee = response.fee;
     this.calculatedTotal = response.total;
+    this.calculatedReceive = response.amount !== response.receive ? response.receive : undefined;
     this.calculatedLeft = this.adserverWallet ? (this.adserverWallet.walletBalance - response.total) : undefined;
   }
 
@@ -148,11 +169,15 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   createAdsForm(): FormGroup {
+    let address = 'ADS' === this.adserverWallet.walletNetwork ? this.adserverWallet.walletAddress : '';
+    if ('BSC' === this.adserverWallet.walletNetwork) {
+      address = this.adserverWallet.walletAddress;
+    }
     return new FormGroup({
-      address: new FormControl('', [
+      address: this.user.email ? new FormControl(address, [
         Validators.required,
         Validators.pattern(appSettings.ADDRESS_REGEXP)
-      ]),
+      ]) : new FormControl(address),
       amount: new FormControl('', [Validators.required]),
       memo: new FormControl('', Validators.pattern('[0-9a-fA-F]{1,64}'))
     }, (group: FormGroup): {[key: string]: any} => {
@@ -168,11 +193,12 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   createBtcForm(): FormGroup {
+    const address = 'BTC' === this.adserverWallet.walletNetwork ? this.adserverWallet.walletAddress : '';
     return new FormGroup({
-      address: new FormControl('', [
+      address: this.user.email ? new FormControl(address, [
         Validators.required,
         Validators.pattern(appSettings.BTC_ADDRESS_REGEXP)
-      ]),
+      ]) : new FormControl(address),
       amount: new FormControl('', [
         Validators.required,
         Validators.min(this.btcInfo.minAmount),
@@ -197,7 +223,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     }
 
     this.isFormBeingSubmitted = true;
-    
+
     const changeWithdrawAddressSubscription = this.settingsService.withdrawFunds(
       this.withdrawForm.value.address,
       adsToClicks(this.withdrawForm.value.amount),

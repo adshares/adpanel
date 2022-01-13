@@ -74,12 +74,13 @@
         </p>
 
         <ng-container *ngIf="fiat">
+          <hr />
           <button
             *ngFor="let currency of fiat.currencies"
             (click)="selectFiatDeposit(currency)"
             class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
           >
-            Deposit {{ currency }}
+            Order marketing services ({{ currency }})
           </button>
         </ng-container>
 
