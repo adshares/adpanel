@@ -199,6 +199,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       enumToArray(validImageTypes).indexOf(file.type) > -1 : enumToArray(validHtmlTypes).indexOf(file.type) > -1;
     const isImageSizeValid = file.size <= appSettings.MAX_AD_IMAGE_SIZE;
 
+    if (this.isHtmlTypeChosen(form)) {
+      const sizeFromName = file.name.match(/[0-9]+x[0-9]+/)
+      if (null !== sizeFromName && this.displayAdSizes.includes(sizeFromName[0])) {
+        form.get('creativeSize').setValue(sizeFromName[0])
+      }
+    }
+
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)
     );
