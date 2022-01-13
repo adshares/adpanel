@@ -62,6 +62,7 @@
         <div class="dwmth-form-input__box">
           <label class="dwmth-form-label" for="adsAddress">
             Account address
+            <ng-container *ngIf="!user.email">({{ adserverWallet.walletNetwork }})</ng-container>
             <fa-icon
               [icon]="faQuestionCircle"
               matTooltip="e.g. address of your ADS Wallet or an exchange"
@@ -75,6 +76,7 @@
             formControlName="address"
             id="adsAddress"
             name="address"
+            [readOnly]="!user.email"
           >
           <span
             *ngIf="withdrawForm.get('address').valid"
@@ -89,7 +91,7 @@
         </div>
         <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
           Your funds will be transferred to the address above.
-          Please, remember to confirm the withdrawal via email within one hour.
+          <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
         </p>
 
         <div class="total-funds">
@@ -158,7 +160,7 @@
 
         <div
           *ngIf="calculatedFee !== undefined"
-          class="withdraw-funds__btns-wrapper dwmth-copy dwmth-copy--large dwmth-copy--x-dark dwmth-copy--semi"
+          class="withdraw-funds__btns-wrapper dwmth-copy dwmth-copy--plus dwmth-copy--x-dark dwmth-copy--semi"
         >
           <p>
             Transaction fee:
@@ -170,12 +172,21 @@
             </span>
           </p>
           <p>
-            Total withdrawal amount:
+            Total withdrawal:
             <span
               class="total-amount"
               data-test="common-withdraw-funds-form-total-withdraw-amount"
             >
               {{ calculatedTotal | formatMoney:11:crypto:code }}
+            </span>
+          </p>
+          <p *ngIf="calculatedReceive !== undefined">
+            You''ll receive approx.:
+            <span
+              class="total-amount"
+              data-test="common-withdraw-funds-form-total-withdraw-amount"
+            >
+              {{ calculatedReceive | formatMoney:11:crypto:code }}
             </span>
           </p>
           <p *ngIf="calculatedLeft !== undefined">
@@ -186,47 +197,49 @@
           </p>
         </div>
 
-        <div
-          class="dwmth-form-input__box"
-        >
-          <label
-            class="dwmth-form-label"
-            for="address"
+        <ng-container *ngIf="user.email">
+          <div
+            class="dwmth-form-input__box"
           >
-            Message
-          </label>
-          <input
-            class="dwmth-form-input dwmth-form-input--full"
-            data-test="common-withdraw-funds-form-memo-input"
-            formControlName="memo"
-            id="memo"
-            name="memo"
-          >
-          <span
-            *ngIf="withdrawForm.hasError('pattern', ['memo'])"
-            class="error-msg"
-          >
-            Invalid message format
-          </span>
+            <label
+              class="dwmth-form-label"
+              for="memo"
+            >
+              Message
+            </label>
+            <input
+              class="dwmth-form-input dwmth-form-input--full"
+              data-test="common-withdraw-funds-form-memo-input"
+              formControlName="memo"
+              id="memo"
+              name="memo"
+            >
+            <span
+              *ngIf="withdrawForm.hasError('pattern', ['memo'])"
+              class="error-msg"
+            >
+              Invalid message format
+            </span>
 
-          <span
-                  *ngIf="this.withdrawForm.hasError('memoError')"
-                  class="error-msg"
-          >
-            Exchange address provided. You must include a message provided by the exchange.
-          </span>
-        </div>
-        <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
-          It’s necessary to add a message (aka Payment ID or Memo) when transferring your funds directly to an exchange.
-          <fa-icon
-            [icon]="faQuestionCircle"
-            matTooltip="
-                  The message is provided by your exchange.
-                  Please check the deposit section of your exchange and copy-paste the message."
-            matTooltipClass="dwmth-mat-tooltip"
-            matTooltipPosition="above"
-          ></fa-icon>
-        </p>
+            <span
+                    *ngIf="this.withdrawForm.hasError('memoError')"
+                    class="error-msg"
+            >
+              Exchange address provided. You must include a message provided by the exchange.
+            </span>
+          </div>
+          <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
+            It’s necessary to add a message (aka Payment ID or Memo) when transferring your funds directly to an exchange.
+            <fa-icon
+              [icon]="faQuestionCircle"
+              matTooltip="
+                    The message is provided by your exchange.
+                    Please check the deposit section of your exchange and copy-paste the message."
+              matTooltipClass="dwmth-mat-tooltip"
+              matTooltipPosition="above"
+            ></fa-icon>
+          </p>
+        </ng-container>
 
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
@@ -288,6 +301,7 @@
             formControlName="address"
             id="btcAddress"
             name="address"
+            [readOnly]="!user.email"
           >
           <span
             *ngIf="withdrawForm.get('address').valid"
@@ -302,7 +316,7 @@
         </div>
         <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
           Your funds will be transferred to the address above.
-          Please, remember to confirm the withdrawal via email within one hour.
+          <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
         </p>
         <div class="total-funds">
           <p class="dwmth-form-label">

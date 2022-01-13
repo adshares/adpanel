@@ -244,6 +244,7 @@ interface CalculateWithdrawalItem {
   amount: number;
   fee: number;
   total: number;
+  receive: number;
 }
 
 interface ReportsList {

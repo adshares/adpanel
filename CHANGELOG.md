@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.2] - 2022-01-13
+### Added
+- Withdrawal to the cryptocurrency wallet
+- Terms in the footer
+- Automatic size detection for HTML banners
+
 ## [1.11.1] - 2022-01-10
 ### Added
 - Create an account with the cryptocurrency wallet
@@ -344,7 +350,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.11.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.11.2...develop
+[1.11.2]: https://github.com/adshares/adpanel/compare/v1.11.1...v1.11.2
 [1.11.1]: https://github.com/adshares/adpanel/compare/v1.11.0...v1.11.1
 [1.11.0]: https://github.com/adshares/adpanel/compare/v1.10.8...v1.11.0
 [1.10.8]: https://github.com/adshares/adpanel/compare/v1.10.7...v1.10.8

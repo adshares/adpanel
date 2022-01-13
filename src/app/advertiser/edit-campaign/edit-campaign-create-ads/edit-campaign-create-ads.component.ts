@@ -55,7 +55,7 @@ interface UploadingFile {
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
-  displayAdSizes: string[] = enumToArray(displayAdSizesEnum);
+  displayAdSizes: string[];
   popAdSizes: string[] = enumToArray(popAdSizesEnum);
   adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
@@ -88,6 +88,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     private matDialog: MatDialog,
   ) {
     super();
+    this.displayAdSizes = enumToArray(displayAdSizesEnum).sort((a, b) => {
+      const sizesA = a.split('x').map(val => parseInt(val));
+      const sizesB = b.split('x').map(val => parseInt(val));
+      return sizesA[0] === sizesB[0] ? sizesA[1] - sizesB[1] : sizesA[0] - sizesB[0];
+    });
   }
 
   ngOnInit() {
@@ -193,6 +198,13 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const isUploadedTypeValid = this.isImageTypeChosen(form) ?
       enumToArray(validImageTypes).indexOf(file.type) > -1 : enumToArray(validHtmlTypes).indexOf(file.type) > -1;
     const isImageSizeValid = file.size <= appSettings.MAX_AD_IMAGE_SIZE;
+
+    if (this.isHtmlTypeChosen(form)) {
+      const sizeFromName = file.name.match(/[0-9]+x[0-9]+/)
+      if (null !== sizeFromName && this.displayAdSizes.includes(sizeFromName[0])) {
+        form.get('creativeSize').setValue(sizeFromName[0])
+      }
+    }
 
     this.imagesStatus.validation.forEach(
       (validation) => Object.keys(validation).forEach((key) => validation[key] = true)

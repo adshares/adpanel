@@ -16,6 +16,8 @@ export class AuthComponent {
 
   advertiserInstructionLink = appSettings.ADVERTISER_INSTRUCTION_LINK;
   publisherInstructionLink = appSettings.PUBLISHER_INSTRUCTION_LINK;
+  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK
+  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK
   source: string;
   version: string;
 
