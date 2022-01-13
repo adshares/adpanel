@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Withdrawal to the cryptocurrency wallet
+- Terms in the footer
 
 ## [1.11.1] - 2022-01-10
 ### Added
