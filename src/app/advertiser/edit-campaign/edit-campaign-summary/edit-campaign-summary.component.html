@@ -105,24 +105,7 @@
             {{ campaign.basicInformation.targetUrl }}
           </a>
         </div>
-        <!--<div>-->
-          <!--<p-->
-            <!--class="-->
-            <!--dwmth-copy&#45;&#45;small-->
-            <!--label"-->
-          <!--&gt;-->
-            <!--Max CPC-->
-          <!--</p>-->
-          <!--<p-->
-            <!--class="-->
-            <!--dwmth-copy&#45;&#45;dark-->
-            <!--dwmth-copy&#45;&#45;semi"-->
-            <!--data-test="advertiser-campaign-max-cpc"-->
-          <!--&gt;-->
-            <!--{{ campaign.basicInformation.maxCpc | formatMoney:2 }}-->
-          <!--</p>-->
-        <!--</div>-->
-        <div>
+        <div *ngIf="campaign.basicInformation.maxCpm != null">
           <p
             class="
             dwmth-copy--small

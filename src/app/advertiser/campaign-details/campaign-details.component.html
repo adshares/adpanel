@@ -183,73 +183,38 @@
               {{ campaign.basicInformation.targetUrl }}
             </a>
           </div>
-          <!--<div>-->
-            <!--<p-->
-              <!--class="-->
-              <!--dwmth-copy&#45;&#45;small-->
-              <!--label">-->
-              <!--Max Cpc-->
-            <!--</p>-->
-            <!--<p-->
-              <!--class="-->
-              <!--dwmth-copy&#45;&#45;dark-->
-              <!--dwmth-copy&#45;&#45;semi"-->
-              <!--data-test="advertiser-campaign-max-cpc">-->
-              <!--{{ campaign.basicInformation.maxCpc | formatMoney:2 }}-->
-            <!--</p>-->
-          <!--</div>-->
-          <div>
-            <p
-              class="
-              dwmth-copy--small
-              label">
+          <div *ngIf="campaign.basicInformation.maxCpm != null">
+            <p class="dwmth-copy--small label">
               Max CPM
             </p>
             <p
-              class="
-              dwmth-copy--dark
-              dwmth-copy--semi"
-              data-test="advertiser-campaign-max-cpm">
+              class="dwmth-copy--dark dwmth-copy--semi"
+              data-test="advertiser-campaign-max-cpm"
+            >
               {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
             </p>
           </div>
           <div>
-            <p
-              class="
-              dwmth-copy--small
-              label">
+            <p class="dwmth-copy--small label">
               Budget
             </p>
             <p
-              class="
-              dwmth-copy--dark
-              dwmth-copy--semi"
+              class="dwmth-copy--dark dwmth-copy--semi"
               data-test="advertiser-campaign-budget">
               {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4 }}
             </p>
           </div>
           <div>
-            <p
-              class="
-                dwmth-copy--small
-                label"
-            >
+            <p class="dwmth-copy--small label">
               Start date
             </p>
-            <div
-              class="
-              row
-              align-center">
+            <div class="row align-center">
               <img
-                class="
-                dwmth-icon
-                dwmth-icon--prepend"
+                class="dwmth-icon dwmth-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt="">
               <p
-                class="
-                dwmth-copy--dark
-                dwmth-copy--semi"
+                class="dwmth-copy--dark dwmth-copy--semi"
                 data-test="advertiser-campaign-start-date">
                 {{ campaign.basicInformation.dateStart | formatDate }}
               </p>
@@ -257,30 +222,18 @@
 
           </div>
           <div>
-            <p
-              class="
-                dwmth-copy--small
-                label"
-            >
+            <p class="dwmth-copy--small label">
               End date
             </p>
-            <div
-              class="
-              row
-              align-center"
-            >
+            <div class="row align-center">
               <img
-                class="
-                dwmth-icon
-                dwmth-icon--prepend"
+                class="dwmth-icon dwmth-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt=""
               >
               <p
                 *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-                class="
-                dwmth-copy--dark
-                dwmth-copy--semi"
+                class="dwmth-copy--dark dwmth-copy--semi"
                 data-test="advertiser-campaign-end-date"
               >
                 {{ campaign.basicInformation.dateEnd | formatDate }}

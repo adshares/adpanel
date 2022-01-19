@@ -87,117 +87,6 @@
       <app-placeholders-accordion></app-placeholders-accordion>
 
       <div class="dwmth-form-input__box">
-        <div class="row no-gutters">
-          <!--  MAX CPC INPUT CODE BELOW -->
-          <!--<div-->
-            <!--class="-->
-              <!--col-->
-              <!--col-xs-5"-->
-          <!--&gt;-->
-            <!--<div-->
-              <!--class="-->
-                <!--col-->
-                <!--relative"-->
-            <!--&gt;-->
-              <!--<label-->
-                <!--for="campaign-max-cpc"-->
-                <!--class="dwmth-form-label"-->
-              <!--&gt;-->
-                <!--Max CPC ({{currencyCode}})-->
-              <!--</label>-->
-              <!--<input-->
-                <!--id="campaign-max-cpc"-->
-                <!--class="-->
-                  <!--dwmth-form-input-->
-                  <!--input-budget"-->
-                <!--type="number"-->
-                <!--min="0.01"-->
-                <!--name="campaignMaxCpc"-->
-                <!--formControlName="maxCpc"-->
-                <!--data-test="advertiser-edit-campaign-basic-information-form-max-cpc"-->
-              <!--&gt;-->
-              <!--<span-->
-                <!--*ngIf="campaignBasicInfoForm.get('maxCpc').valid"-->
-                <!--class="input-valid"-->
-              <!--&gt;</span>-->
-            <!--</div>-->
-            <!--<span-->
-              <!--class="error-msg"-->
-              <!--*ngIf="-->
-                <!--campaignBasicInfoForm.hasError('required', ['maxCpc']) &&-->
-                <!--campaignBasicInformationSubmitted"-->
-            <!--&gt;-->
-              <!--Max CPC required-->
-            <!--</span>-->
-            <!--<span-->
-              <!--class="error-msg"-->
-              <!--*ngIf="-->
-                <!--campaignBasicInfoForm.hasError('min', ['maxCpc']) &&-->
-                <!--campaignBasicInformationSubmitted"-->
-            <!--&gt;-->
-              <!--Allowed minimum is 0-->
-            <!--</span>-->
-          <!--</div>-->
-          <!-- divider -->
-          <!--<div-->
-            <!--class="-->
-              <!--col-->
-              <!--col-xs-2"-->
-          <!--&gt;-->
-          <!--</div>-->
-          <div
-            class="
-              col
-              col-xs-5"
-          >
-            <div
-              class="
-                col
-                relative"
-            >
-              <label
-                for="campaign-max-cpm"
-                class="dwmth-form-label"
-              >
-                Max CPM ({{currencyCode}})
-              </label>
-              <input
-                id="campaign-max-cpm"
-                class="
-                  dwmth-form-input
-                  input-budget"
-                type="number"
-                step="0.01"
-                name="campaignMaxCpm"
-                formControlName="maxCpm"
-                data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
-              >
-              <span
-                *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
-                class="input-valid"
-              ></span>
-            </div>
-            <span
-              class="error-msg"
-              *ngIf="
-                campaignBasicInfoForm.hasError('required', ['maxCpm']) &&
-                campaignBasicInformationSubmitted"
-            >
-              Max CPM required
-            </span>
-            <span
-              class="error-msg"
-              *ngIf="
-                campaignBasicInfoForm.hasError('min', ['maxCpm']) &&
-                campaignBasicInformationSubmitted"
-            >
-              Allowed minimum is {{this.campaignsConfig.minCpm|formatMoney:2:''}}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="dwmth-form-input__box">
         <div
           class="
             row
@@ -388,6 +277,62 @@
           </div>
         </div>
       </div>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="dwmth-form-label">
+              Advanced
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="dwmth-form-input__box advanced-settings">
+            <div class="row no-gutters">
+              <label class="dwmth-form-label">
+                Max CPM ({{currencyCode}})
+              </label>
+              <mat-checkbox
+                [checked]="isAutoCpm"
+                (change)="changeAutoCpm($event.checked)"
+                data-test="advertiser-edit-campaign-basic-information-form-auto-max-cpm"
+              >
+                auto
+              </mat-checkbox>
+            </div>
+            <div
+                    *ngIf="!isAutoCpm"
+                    class="row no-gutters"
+            >
+              <div class="col">
+                <div class="col relative">
+                  <input
+                          id="campaign-max-cpm"
+                          class="dwmth-form-input input-budget"
+                          type="number"
+                          step="0.01"
+                          name="campaignMaxCpm"
+                          formControlName="maxCpm"
+                          data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
+                  >
+                  <span
+                          *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
+                          class="input-valid"
+                  ></span>
+                </div>
+                <span
+                        class="error-msg"
+                        *ngIf="
+                        campaignBasicInfoForm.hasError('min', ['maxCpm']) &&
+                        campaignBasicInformationSubmitted"
+                >
+                  Allowed minimum is {{this.campaignsConfig.minCpm|formatMoney:2:''}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
     </div>
     <div
       class="dwmth-box

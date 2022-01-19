@@ -16,12 +16,11 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { adsToClicks, clicksToAds, cloneDeep, formatMoney } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
-import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { Campaign } from 'models/campaign.model';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { environment } from 'environments/environment';
 import { CustomValidators } from 'common/utilities/forms';
-import { campaignInitialState } from 'models/initial-state/campaign';
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
@@ -41,7 +40,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   createCampaignMode: boolean;
   changesSaved: boolean;
   campaignBasicInfoForm: FormGroup;
-  campaignsConfig: CampaignsConfig;
+  isAutoCpm: boolean = true;
+  configuredMinCpm: number;
   submitted = false;
 
   constructor(
@@ -59,18 +59,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
 
-    const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
-      .subscribe((campaignsConfig: CampaignsConfig) => {
-        this.campaignsConfig = campaignsConfig;
-        this.campaignBasicInfoForm = new FormGroup({
-          maxCpm: new FormControl(campaignInitialState.basicInformation.maxCpm, [
-            CustomValidators.minOrZero(clicksToAds(campaignsConfig.minCpm)),
-          ]),
-        });
-        this.updateMaxCpmFromStore();
-      });
-    this.subscriptions.push(campaignsConfigSubscription);
-
+    this.updateMaxCpmFromStore();
     this.updateTargetingFromStore();
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
     subscription && this.subscriptions.push(subscription);
@@ -97,7 +86,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
 
   onSubmit(): void {
     this.submitted = true;
-    if (!this.campaignBasicInfoForm.valid) {
+    if (!this.isAutoCpm && !this.campaignBasicInfoForm.valid) {
       return;
     }
     this.submitted = false;
@@ -111,7 +100,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
       requires: this.addedItems,
       excludes: this.excludedItems
     };
-    const maxCpm = adsToClicks(this.campaignBasicInfoForm.value.maxCpm || 0);
+    const maxCpm = this.isAutoCpm ? null : adsToClicks(this.campaignBasicInfoForm.value.maxCpm || 0);
 
     const updatedCampaign = {
       ...this.campaign,
@@ -130,7 +119,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
       requires: this.addedItems,
       excludes: this.excludedItems
     };
-    const maxCpm = adsToClicks(this.campaignBasicInfoForm.value.maxCpm || 0);
+    const maxCpm = this.isAutoCpm ? null : adsToClicks(this.campaignBasicInfoForm.value.maxCpm || 0);
 
     this.changesSaved = true;
 
@@ -178,13 +167,26 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   updateMaxCpmFromStore(): void {
-    this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .take(1)
       .subscribe((lastEditedCampaign: Campaign) => {
         if (lastEditedCampaign.basicInformation.maxCpm !== null) {
+          this.isAutoCpm = false;
           const maxCpm = parseFloat(formatMoney(lastEditedCampaign.basicInformation.maxCpm, 4, true, '.', ''));
-          this.campaignBasicInfoForm.patchValue({maxCpm});
+
+          const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig', 'minCpm')
+            .take(1)
+            .subscribe((minCpm: number) => {
+              this.configuredMinCpm = minCpm;
+              this.campaignBasicInfoForm = new FormGroup({
+                maxCpm: new FormControl(maxCpm, [
+                  CustomValidators.minOrZero(clicksToAds(minCpm)),
+                ]),
+              });
+            });
+          this.subscriptions.push(campaignsConfigSubscription);
         }
       });
+    this.subscriptions.push(lastCampaignSubscription);
   }
 }

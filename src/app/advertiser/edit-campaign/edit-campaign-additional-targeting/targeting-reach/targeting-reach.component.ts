@@ -13,7 +13,8 @@ import { mapToIterable } from 'common/utilities/helpers';
 })
 export class TargetingReach extends HandleSubscription implements OnChanges {
   @Input() ads: Ad[];
-  @Input() cpm: number;
+  @Input() autoCpm: boolean = false;
+  @Input() cpm: number = 0;
   @Input() targeting: AssetTargeting;
 
   private readonly REQUEST_DELAY = 1000;
@@ -88,7 +89,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
         element => (element.key >= this.PRESENTED_REACH_THRESHOLD) && (element.value / 1e11 > this.cpm)
       );
 
-      if (-1 !== index) {
+      if (index !== -1 && !this.autoCpm) {
         impressions = this.impressionsAndCpm[index].key;
         this.nextStepCpm = this.impressionsAndCpm[index].value;
         if (this.impressionsAndCpm.length - 1 === index) {

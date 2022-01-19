@@ -10,6 +10,7 @@ import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { createInitialArray, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -51,7 +52,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: string[] = [];
+  barChartLabels: ChartLabels[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;
