@@ -8,7 +8,7 @@
     <div *ngIf="!reach" class="targeting-reach--label targeting-reach--error">
       We can't estimate impressions.
     </div>
-    <div *ngIf="reach" class="dwmth-copy targeting-reach--info">
+    <div *ngIf="reach && !autoCpm" class="dwmth-copy targeting-reach--info">
       <span *ngIf="nextStepCpm && nextStepImpressions">
         To reach {{ nextStepImpressions | number }} impressions increase CPM to {{ nextStepCpm | formatMoney:2 }}
       </span>

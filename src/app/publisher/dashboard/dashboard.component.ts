@@ -9,6 +9,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
+import { ChartLabels } from 'models/chart/chart-labels.model';
 import { AppState } from 'models/app-state.model';
 import { createInitialArray } from 'common/utilities/helpers';
 
@@ -17,7 +18,6 @@ import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import { User } from 'models/user.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +36,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: string[] = [];
+  barChartLabels: ChartLabels[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
 
   currentChartFilterSettings: ChartFilterSettings;

@@ -53,7 +53,7 @@ interface CampaignBasicInformation {
   name: string;
   targetUrl: string;
   maxCpc: number;
-  maxCpm: number;
+  maxCpm: number | null;
   budget: number;
   dateStart: string;
   dateEnd?: string;
