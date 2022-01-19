@@ -3,6 +3,32 @@
     homepage-view
     site-edit-additional-targeting"
 >
+
+  <section
+    class="
+      dwmth-box
+      site-edit-additional-targeting__checkbox-container
+      col"
+  >
+    <h1 class="mat-expansion-panel-header-title
+               dwmth-heading--secondary
+               classification-section__title">Classification</h1>
+    <p class="
+      dwmth-copy
+      no-gutters
+      dwmth-box--no-padding
+      classification-section__info">
+      After set this setting you will be able to approve banners for this particular site.
+    </p>
+    <mat-checkbox
+      id="require-classified-checkbox"
+      [(ngModel)]="isCheckedOnlyAcceptedBanners"
+      data-test="publisher-edit-site-require-classified-checkbox"
+    >
+      Manual approval of banners
+    </mat-checkbox>
+  </section>
+
   <mat-accordion
     multi="true"
     class="targeting-accordion"

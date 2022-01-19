@@ -49,6 +49,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   createCampaignMode: boolean;
   campaign: Campaign;
   changesSaved: boolean;
+  isAutoCpm: boolean;
 
   constructor(
     private router: Router,
@@ -67,7 +68,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
       maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
-      maxCpm: adsToClicks(campaignBasicInfoValue.maxCpm || 0),
+      maxCpm:
+        this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
@@ -75,7 +77,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
-    const basicInformation = {
+    const basicInformation: {status, name, targetUrl, maxCpc, maxCpm, budget} = {
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
@@ -83,9 +85,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       maxCpm: null,
       budget: null,
     };
-    if (lastEditedCampaign.maxCpc !== null) {
-      basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
-    }
+    // if (lastEditedCampaign.maxCpc !== null) {
+    //   basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
+    // }
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
@@ -173,6 +175,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
+        this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
@@ -182,7 +185,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         if (lastEditedCampaign.basicInformation.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
   }
@@ -211,7 +213,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
           const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
           this.budgetPerDay.setValue(budgetPerDayValue);
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
 
@@ -222,8 +223,11 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
           this.setBudgetValue(calcCampaignBudgetPerHour(val));
           this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
+  }
+
+  changeAutoCpm (checked: boolean) {
+    this.isAutoCpm = checked;
   }
 }

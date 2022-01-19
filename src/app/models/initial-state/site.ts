@@ -17,8 +17,7 @@ export const siteInitialState: Site = {
   domain: '',
   url: '',
   primaryLanguage: '',
-  requireClassified: false,
-  excludeUnclassified: true,
+  onlyAcceptedBanners: false,
   filtering: {
     requires: {},
     excludes: {}
