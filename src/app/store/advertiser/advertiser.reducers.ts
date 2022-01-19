@@ -146,9 +146,8 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
           campaignsTotals: action.payload.total
         }
       }
-      state.campaigns.map(campaign => {
+      state.campaigns.forEach(campaign => {
         action.payload.data.forEach(data => {
-
           if (data.campaignId === campaign.id && !campaignsWithTotal.find(el => el.id === campaign.id)) {
             campaignsWithTotal.push({
               ...campaign,
@@ -156,7 +155,6 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
             })
           }
         });
-
         if (!campaignsWithTotal.find(el => el.id === campaign.id)) {
           campaignsWithTotal.push({...campaign})
         }
