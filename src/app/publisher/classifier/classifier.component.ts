@@ -13,6 +13,7 @@ import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { HandleSubscription } from "common/handle-subscription";
+import { Site } from 'models/site.model'
 
 @Component({
   selector: 'app-classifier',
@@ -23,6 +24,9 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;
+  siteId?: number;
+  siteName?: string;
+  isGlobal: boolean = true;
   isSingleBanner: boolean;
   isLoading: boolean = true;
   bannerClassifications: BannerClassification[] = [];
@@ -47,8 +51,11 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
+    const site: Site = this.route.snapshot.data.site;
+    this.siteId = site ? site.id : null;
+    this.siteName = site ? site.name : null;
+    this.isGlobal = site === undefined;
     this.adSizesOptions = this.route.snapshot.data.sizes.sizes;
-
     this.bannerId = this.route.snapshot.params['bannerId'];
     this.isSingleBanner = this.bannerId !== undefined;
     if (this.isSingleBanner) {
@@ -63,7 +70,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   getBannerClassification(offset?: number) {
     this.isLoading = true;
     const bannersForClassificationSubscription = this.publisherService
-      .getBannerClassification(this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
+      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;
@@ -91,7 +98,11 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   }
 
   onStepBack() {
-    this.router.navigate(['/publisher', 'dashboard']);
+    if (this.isGlobal) {
+      this.router.navigate(['/publisher', 'dashboard'])
+    } else {
+      this.router.navigate(['/publisher', 'site', this.siteId])
+    }
   }
 
   goToGeneralClassifier() {

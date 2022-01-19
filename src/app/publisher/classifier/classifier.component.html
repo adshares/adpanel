@@ -11,7 +11,7 @@
           dwmth-heading
           dwmth-heading--primary"
       >
-        Reject banners
+        {{isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName}}
       </h1>
       <div
         class="
@@ -57,13 +57,14 @@
             dwmth-blue"
           (click)="onStepBack()"
         >
-          Dashboard
+          {{isGlobal ? 'Dashboard' : 'Back to the site'}}
         </button>
       </div>
     </div>
     <app-classifier-filtering
       *ngIf="!isSingleBanner"
       [sizeOptions]="adSizesOptions"
+      [siteId]="siteId"
       (filteringChange)="updateBannersList($event)"
     ></app-classifier-filtering>
     <table
@@ -83,6 +84,7 @@
         <app-classifier-list-item
           *ngFor="let bannerClassification of bannerClassifications"
           [bannerClassification]="bannerClassification"
+          [siteId]="siteId"
         ></app-classifier-list-item>
       </ng-container>
       <tr

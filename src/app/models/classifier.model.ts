@@ -9,6 +9,7 @@ interface BannerClassification {
   cpm?: number;
   cpc?: number;
   classifiedGlobal?: boolean;
+  classifiedSite?: boolean;
 }
 
 interface BannerClassificationResponse {

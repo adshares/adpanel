@@ -14,10 +14,10 @@
 
     <mat-radio-group [formControl]="status" (change)="changeFiltering()">
       <mat-radio-button value="Approved">
-        Omitted
+        {{isGlobal ? 'Omitted' : 'Approved'}}
       </mat-radio-button>
       <mat-radio-button value="Rejected">
-        Rejected
+        {{isGlobal ? 'Rejected' : 'Omitted'}}
       </mat-radio-button>
       <mat-radio-button value="Unclassified">
         Unclassified
