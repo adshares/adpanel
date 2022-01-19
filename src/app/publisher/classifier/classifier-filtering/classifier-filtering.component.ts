@@ -12,17 +12,20 @@ import { BannerClassificationFilters } from 'models/classifier.model';
 export class ClassifierFilteringComponent implements OnInit {
   @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
+  @Input() siteId: number
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
   sizes: Array<string> = [];
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
+  isGlobal: boolean
 
   constructor() {
   }
 
   ngOnInit() {
+    this.isGlobal = this.siteId === null
     this.adSizesOptions = this.sizeOptions || enumToArray(displayAdSizesEnum).concat(enumToArray(popAdSizesEnum));
   }
 
@@ -80,10 +83,12 @@ export class ClassifierFilteringComponent implements OnInit {
   }
 
   get statusDescription(): string {
-    if ('Approved' === this.status.value) {
+    if (this.isGlobal && 'Approved' === this.status.value) {
       return 'Omitted';
     }
-
+    if (!this.isGlobal && 'Rejected' === this.status.value) {
+      return 'Omitted';
+    }
     return this.status.value ? this.status.value : '';
   }
 }

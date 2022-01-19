@@ -34,6 +34,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   createSiteMode: boolean;
   changesSaved: boolean = false;
   showRequiresSection: boolean = false;
+  isCheckedOnlyAcceptedBanners: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -85,6 +86,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     return {
       ...this.site,
       filtering: parseTargetingForBackend(filtering),
+      onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
     }
   }
 
@@ -94,6 +96,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   }
 
   saveSite(isDraft) {
+    this.site.onlyAcceptedBanners = this.isCheckedOnlyAcceptedBanners;
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,
@@ -133,6 +136,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         this.addedItems = [...filtering.requires];
         this.showRequiresSection = this.addedItems.length > 0;
         this.excludedItems = [...filtering.excludes];
+        this.isCheckedOnlyAcceptedBanners = lastEditedSite.onlyAcceptedBanners;
       });
     this.subscriptions.push(lastSiteSubscription);
   }

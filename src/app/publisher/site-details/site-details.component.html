@@ -42,6 +42,20 @@
       </p>
     </div>
 
+    <div class="row justify-end"
+         *ngIf="site.onlyAcceptedBanners"
+    >
+      <button
+        class="
+            dwmth-btn
+            dwmth-btn--bordered-light"
+        (click)="navigateToClassification()"
+        data-test="publisher-site-navigate-to-classifier"
+      >
+        Select banners for approval
+      </button>
+    </div>
+
     <div
       class="
         row
@@ -223,16 +237,49 @@
             src="assets/images/edit-blue.svg"
             alt=""
           >
-          {{(!filtering.requires.length && !filtering.excludes.length) ? 'Add exclusions' : 'Edit exclusions'}}
+          {{(!filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners) ? 'Add exclusions' : 'Edit exclusions'}}
         </button>
       </div>
       <div
-        *ngIf="!!filtering.requires.length || !!filtering.excludes.length"
+        *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners"
         class="
         dwmth-box
         dwmth-copy
         row"
       >
+        <div
+          *ngIf="site.onlyAcceptedBanners"
+          class="col-xs-12"
+        >
+          <div class="dwmth-targeting-details__title">
+            <mat-checkbox
+              class="site-details__checkbox"
+              checked="checked"
+            >
+              Manual approval of banners
+            </mat-checkbox>
+            <button
+              class="
+               dwmth-btn
+               dwmth-btn--edit
+               dwmth-btn--no-border"
+              (click)="navigateToClassification()"
+              data-test="publisher-site-edit-filtering-button"
+            >
+              <img
+                class="
+                  dwmth-icon
+                  dwmth-icon--prepend"
+                src="assets/images/edit-blue.svg"
+                alt=""
+              >
+              Select banners for approval
+            </button>
+          </div>
+          <div>
+            <br /><br />
+          </div>
+        </div>
         <div
           *ngIf="!!filtering.requires.length"
           class="
