@@ -69,7 +69,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       targetUrl: campaignBasicInfoValue.targetUrl,
       maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
       maxCpm:
-        this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm),
+        this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
@@ -85,9 +85,9 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       maxCpm: null,
       budget: null,
     };
-    if (lastEditedCampaign.maxCpc !== null) {
-      basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
-    }
+    // if (lastEditedCampaign.maxCpc !== null) {
+    //   basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
+    // }
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
@@ -185,7 +185,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         if (lastEditedCampaign.basicInformation.dateEnd) {
           this.dateEnd.setValue(moment(lastEditedCampaign.basicInformation.dateEnd));
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
   }
@@ -214,7 +213,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
           const budgetPerDayValue = (val !== null) ? calcCampaignBudgetPerDay(val).toFixed(2) : '';
           this.budgetPerDay.setValue(budgetPerDayValue);
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
 
@@ -225,7 +223,6 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
           this.setBudgetValue(calcCampaignBudgetPerHour(val));
           this.campaignBasicInfoForm.get('budget').setValue(this.budgetValue.toFixed(4));
         }
-      }, () => {
       });
     this.subscriptions.push(subscription);
   }

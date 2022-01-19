@@ -86,7 +86,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
 
   onSubmit(): void {
     this.submitted = true;
-    if (!this.campaignBasicInfoForm.valid) {
+    if (!this.isAutoCpm && !this.campaignBasicInfoForm.valid) {
       return;
     }
     this.submitted = false;
