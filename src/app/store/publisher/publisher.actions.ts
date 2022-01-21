@@ -352,7 +352,7 @@ export type actions =
 
   AddSiteToSites |
   AddSiteToSitesSuccess |
-  LoadSitesTotalsFailure |
+  AddSiteToSitesFailure |
 
   UpdateSite |
   UpdateSiteSuccess |
