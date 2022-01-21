@@ -24,8 +24,6 @@ import { stringToHex } from 'web3-utils'
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends HandleSubscription implements OnInit {
-  // @ViewChild('rememberUser') rememberUser: ElementRef;
-
   registrationMode: string
   loginForm: FormGroup
 
@@ -90,7 +88,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       !isUnixTimePastNow(userData.expiration)) {
       this.loginForm.get('email').setValue(userData.email)
       this.loginForm.get('password').setValue('********')
-      // this.rememberUser.nativeElement.checked = true;
     }
   }
 

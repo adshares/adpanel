@@ -93,7 +93,7 @@ export class PublisherEffects {
       .catch(err => {
         if (err !== HTTP_INTERNAL_SERVER_ERROR) {
           return Observable.of(new publisherActions.AddSiteToSitesFailure(
-            `We weren\'t able to save your site due to this error: ${err.error.message} \n
+            `We weren't able to save your site due to this error: ${err.error.message} \n
             Please try again later.`
           ))
         }
