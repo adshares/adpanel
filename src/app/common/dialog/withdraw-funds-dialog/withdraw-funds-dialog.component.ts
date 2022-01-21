@@ -235,7 +235,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
           this.store.dispatch(new WithdrawFundsSuccess({}));
           this.dialogRef.close();
         },
-        (err: HttpErrorResponse) => {
+        () => {
           this.adsWithdrawFormSubmitted = false;
           this.isFormBeingSubmitted = false;
           this.withdrawServerError = true;

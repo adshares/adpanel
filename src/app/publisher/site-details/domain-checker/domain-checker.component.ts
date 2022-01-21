@@ -54,7 +54,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
       return  'medium';
     }
 
-    let quality = '';
+    let quality;
     if (this.pageRank > 0) {
       quality = 'great';
     } else {

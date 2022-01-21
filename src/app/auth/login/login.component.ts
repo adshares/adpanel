@@ -110,7 +110,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       (user: User) => {
         this.processLogin(user)
       },
-      (err) => {
+      () => {
         this.criteriaError = true
         this.isLoggingIn = false
       })
