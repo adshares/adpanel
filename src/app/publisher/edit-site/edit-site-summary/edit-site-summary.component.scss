@@ -18,15 +18,6 @@
 
   .dwmth-box {
     margin: 8px 0;
-
-    .site-info {
-      &--primary {
-        @extend .dwmth-heading--primary;
-        color: pal(navy);
-        padding-left: 0;
-        margin: 10x 0 30px;
-      }
-    }
   }
 
   &__warning {

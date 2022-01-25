@@ -512,7 +512,8 @@
                 'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
               }">
               <img [src]="adForm.get('image').value.src | trustUrl"
-                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"/>
+                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
+                   alt="">
             </div>
 
             <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value.src"

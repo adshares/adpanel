@@ -79,6 +79,7 @@
             dwmth-icon
             dwmth-icon--prepend"
         [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+        alt=""
       />
       Publisher
     </button>
@@ -102,6 +103,7 @@
             dwmth-navigation__item--hidden
             dwmth-icon--prepend"
               [src]="activeUserType === userType ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
+              alt=""
       />
       <span *ngIf="session.isModerator()">Moderator</span>
       <span *ngIf="session.isAgency()">Agency</span>
@@ -139,6 +141,7 @@
           settings-menu-chevron"
         [class.up]="helpMenuOpen"
         src="assets/images/chevron--gray.svg"
+        alt=""
       >
       <ul
         class="
@@ -194,6 +197,7 @@
             dwmth-icon
             dwmth-icon--prepend"
         src="assets/images/plus-circle.svg"
+        alt=""
       >
       <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
       <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
@@ -222,6 +226,7 @@
           dwmth-icon
           dwmth-icon--prepend"
         src="assets/images/credit-card--white.svg"
+        alt="Wallet balance"
       >
       <div
         class="
@@ -254,6 +259,7 @@
           settings-menu-chevron"
         [class.up]="settingsMenuOpen"
         src="assets/images/chevron--gray.svg"
+        alt=""
       >
       <ul
         class="
@@ -278,6 +284,7 @@
                 dwmth-icon
                 close"
               src="assets/images/plus-circle.svg"
+              alt=""
             >
             Deposit funds
           </button>

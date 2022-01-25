@@ -42,7 +42,7 @@ export class NotificationSettingsComponent extends HandleSubscription implements
         this.pushNotificationsService.addPushNotification({
           type: pushNotificationTypesEnum.INFO,
           title: 'Info',
-          message: 'Notfication settings changed'
+          message: 'Notification settings changed'
         });
       });
   }

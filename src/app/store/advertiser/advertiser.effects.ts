@@ -13,11 +13,11 @@ import {
   ACTIVATE_OUTDATED_CAMPAIGN,
   ActivateOutdatedCampaignStatus,
   ActivateOutdatedCampaignStatusSuccess,
-  ADD_CAMPAIGN_TO_CAMPAIGNS, ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS,
+  ADD_CAMPAIGN_TO_CAMPAIGNS,
   AddCampaignToCampaignsFailure,
   AddCampaignToCampaignsSuccess,
   ClearLastEditedCampaign,
-  CLONE_CAMPAIGN, CLONE_CAMPAIGN_SUCCESS,
+  CLONE_CAMPAIGN,
   CloneCampaignFailure,
   CloneCampaignSuccess,
   DELETE_CAMPAIGN,
@@ -58,8 +58,6 @@ import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { of } from 'rxjs/observable/of'
-import { getSortHeaderNotContainedWithinSortError } from '@angular/material/sort/typings/sort-errors'
 
 @Injectable()
 export class AdvertiserEffects {
@@ -158,7 +156,7 @@ export class AdvertiserEffects {
         };
         return new LoadCampaignTotalsSuccess(totals)
       })
-      .catch((err) => {
+      .catch(() => {
         return Observable.of(new LoadCampaignTotalsFailure())
       })
     );

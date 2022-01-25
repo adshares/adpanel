@@ -55,7 +55,7 @@ export class ForgottenPasswordComponent extends HandleSubscription implements On
       () => {
         this.alwaysGoodDialog()
       },
-      (err) => {
+      () => {
         this.isSendingEmail = false
         this.alwaysGoodDialog()
       },

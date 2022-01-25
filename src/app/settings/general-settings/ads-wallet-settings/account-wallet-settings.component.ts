@@ -54,7 +54,7 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
             this.connectToBsc(token)
             break
         }
-      }, (error) => {
+      }, () => {
         this.connectError = 'Unknown error'
         this.isSubmitted = false
       },
