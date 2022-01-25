@@ -27,6 +27,7 @@ then
 fi
 
 yarn install
+if [ $? -ne 0 ]; then exit 1; fi
 
 #BUILD_DIRECTORY -> TARGET_DIRECTORY -> BACKUP_DIRECTORY
 BUILD_DIRECTORY=dist_tmp
@@ -42,11 +43,14 @@ else
     echo "ERROR: Unsupported environment ($APP_ENV)."
     exit 1
 fi
+if [ $? -ne 0 ]; then exit 1; fi
 
 INDEX_TEMPLATE=src/index.html.template
 INDEX_FILE=$BUILD_DIRECTORY/index.html
 ROBOTS_FILE=$BUILD_DIRECTORY/robots.txt
 bin/build-index-html.sh $INDEX_TEMPLATE $INDEX_FILE $ROBOTS_FILE
+if [ $? -ne 0 ]; then exit 1; fi
+
 envsubst < info.json.template | tee $BUILD_DIRECTORY/info.json
 
 if [ -d $BACKUP_DIRECTORY ]

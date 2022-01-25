@@ -7,8 +7,7 @@ interface Site {
   domain: string;
   url: string;
   primaryLanguage: string | SiteLanguage;
-  requireClassified: boolean;
-  excludeUnclassified: boolean;
+  onlyAcceptedBanners: boolean;
   filtering: {
     requires: object;
     excludes: object;

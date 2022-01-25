@@ -74,12 +74,13 @@
         </p>
 
         <ng-container *ngIf="fiat">
+          <hr />
           <button
             *ngFor="let currency of fiat.currencies"
             (click)="selectFiatDeposit(currency)"
             class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
           >
-            Deposit {{ currency }}
+            Order marketing services ({{ currency }})
           </button>
         </ng-container>
 
@@ -273,7 +274,7 @@
               *ngIf="metamaskChainError"
               class="error-msg col-xs-12"
       >
-          Uknown network. Only Ethereum an Binance Smart Chain is supported.
+          Unknown network. Only Ethereum an Binance Smart Chain is supported.
       </div>
     </div>
 

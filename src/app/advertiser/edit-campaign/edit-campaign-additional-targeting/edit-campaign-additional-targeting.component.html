@@ -4,7 +4,15 @@
     campaign-edit-additional-targeting"
 >
   <div class="dwmth-box">
+    <app-targeting-reach
+      *ngIf="isAutoCpm"
+      [ads]="campaign.ads || []"
+      [autoCpm]="true"
+      [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+    ></app-targeting-reach>
+
     <form
+      *ngIf="!isAutoCpm"
       [formGroup]="campaignBasicInfoForm"
       (ngSubmit)="onSubmit()"
       class="dwmth-form"
@@ -45,15 +53,9 @@
             </div>
             <span
               class="error-msg"
-              *ngIf="campaignBasicInfoForm.hasError('required', ['maxCpm']) && submitted"
-            >
-              Max CPM required
-            </span>
-            <span
-              class="error-msg"
               *ngIf="campaignBasicInfoForm.hasError('min', ['maxCpm']) && submitted"
             >
-              Allowed minimum is {{this.campaignsConfig.minCpm|formatMoney:2:''}}
+              Allowed minimum is {{configuredMinCpm|formatMoney:2:''}}
             </span>
           </div>
         </div>

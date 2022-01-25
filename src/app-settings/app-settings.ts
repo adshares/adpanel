@@ -43,6 +43,8 @@ export const appSettings = {
   PUBLISHER_APPLY_FORM_URL: environment.publisherApplyFormUrl,
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
+  // eth address validation regexp
+  ETH_ADDRESS_REGEXP: '0x[0-9a-fA-F]{40}',
   // Bitcoin address validation regexp
   BTC_ADDRESS_REGEXP: '[13][a-km-zA-HJ-NP-Z1-9]{25,34}',
   // url validation regexp

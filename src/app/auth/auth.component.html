@@ -42,7 +42,7 @@
            target="_blank">Watch video about Adshares</a>
       </div>
 
-      <div class="row align-center justify-between">
+      <div class="row align-center justify-between dwmth-copy dwmth-copy--small">
         <a href="https://adshares.net?utm_source={{source}}&utm_campaign=auth" target="_blank">
           <img
             alt="Adshares Logo"
@@ -51,9 +51,25 @@
             srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
           >
         </a>
-        <span class="application-version">
-          {{ version }}
-        </span>
+        <a
+          class="dwmth-copy--white"
+          [href]="termsOfServiceLink"
+          rel="noopener noreferrer"
+          target="_blank"
+          data-test="common-terms-of-service-link"
+        >
+          Terms of Service
+        </a>
+        <a
+          class="dwmth-copy--white"
+          [href]="privacyPolicyLink"
+          rel="noopener noreferrer"
+          target="_blank"
+          data-test="common-privacy-policy-link"
+        >
+          Privacy Policy
+        </a>
+        <span>{{ version }}</span>
       </div>
     </div>
 

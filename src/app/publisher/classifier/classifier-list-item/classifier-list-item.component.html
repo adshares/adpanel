@@ -33,19 +33,21 @@
           classifier-list-item__btn"
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
+        [ngClass]="{'dwmth-copy--green': !isGlobal}"
       >
-        {{classified === APPROVED ? 'Omitted' : 'Omit'}}
+        {{classified === APPROVED ? (isGlobal ? 'Omitted' : 'Approved') : (isGlobal ? 'Omit' : 'Approve')}}
       </button>
       <button
         class="
           dwmth-btn
           dwmth-btn--white
-          dwmth-copy--red
+          dwmth-copy
           classifier-list-item__btn"
         (click)="classifyBanner(REJECTED)"
         [disabled]="classified === REJECTED"
+        [ngClass]="{'dwmth-copy--red': isGlobal}"
       >
-        {{classified === REJECTED ? 'Rejected' : 'Reject'}}
+        {{classified === REJECTED ? (isGlobal ? 'Rejected' : 'Omitted') : (isGlobal ? 'Reject' : 'Omit')}}
       </button>
     </div>
   </td>

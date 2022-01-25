@@ -11,17 +11,15 @@
     ·
     <a href="https://github.com/adshares/adpanel/wiki">Wiki</a>
 </p>
-<p align="center">
-    <a href="https://app.travis-ci.com/github/adshares/adpanel" title="master" target="_blank">
-        <img src="https://app.travis-ci.com/adshares/adpanel.svg?branch=master" alt="Build Status">
-    </a>
-    <a href="https://sonarcloud.io/dashboard?id=adshares-adpanel" title="Code Quality" target="_blank">
-        <img src="https://sonarcloud.io/api/project_badges/measure?project=adshares-adpanel&metric=alert_status" alt="Code Quality">
-    </a>
-</p>
+
 
 AdPanel is a front-end application for advertising inventory management (both Advertiser & Publisher side).
-It connects to an active [AdServer](https://github.com/adshares/adserver)'s API.
+It connects to an active [AdServer's](https://github.com/adshares/adserver) API.
+
+[![Quality Status](https://sonarcloud.io/api/project_badges/measure?project=adshares-adpanel&metric=alert_status)](https://sonarcloud.io/dashboard?id=adshares-adpanel)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=adshares-adpanel&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=adshares-adpanel)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=adshares-adpanel&metric=security_rating)](https://sonarcloud.io/dashboard?id=adshares-adpanel)
+[![Build Status](https://app.travis-ci.com/adshares/adpanel.svg?branch=master)](https://app.travis-ci.com/github/adshares/adpanel)
 
 ## Quick Start (on Ubuntu 18.04 LTS)
 
