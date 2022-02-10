@@ -4,6 +4,7 @@ import {CODE, CRYPTO, DATE_FORMAT} from "common/utilities/consts";
 import {ShowSuccessSnackbar} from "store/common/common.actions";
 import {Store} from "@ngrx/store";
 import {AppState} from "models/app-state.model";
+import {faExternalLinkSquareAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-ref-link-list-item',
@@ -19,6 +20,7 @@ export class RefLinkListItemComponent implements OnInit {
   readonly crypto: string = CRYPTO;
   readonly code: string = CODE;
   readonly dateFormat: string = DATE_FORMAT;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
 
   constructor(private store: Store<AppState>) {
   }
