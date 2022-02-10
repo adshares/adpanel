@@ -32,7 +32,7 @@ export class ResetPasswordComponent {
         this.token = params['token'];
         this.api.auth.recoveryGet(this.token).subscribe(
           () => [],
-          (err) => {
+          () => {
             this.router.navigate(['/auth/forgotten-password']);
             this.dialog.open(ErrorResponseDialogComponent, {
               data: {

@@ -110,7 +110,7 @@ export class EmailProcessingComponent {
           this.defaultRedirect();
           this.dialogConfirm('Email activation complete', 'Your email has been activated. You have now access to all features of the panel.');
         },
-        (err) => {
+        () => {
           this.defaultRedirect();
           this.dialogError('Email activation failed', 'Token is outdated or you are already activated. If your email is still not activated please use Resend button from email activation bar.');
         }
@@ -124,7 +124,7 @@ export class EmailProcessingComponent {
           this.router.navigate(['/settings/billing'])
           this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
         },
-        (err) => {
+        () => {
           this.defaultRedirect();
           this.dialogError('Withdrawal confirmation failed', 'Token is invalid.');
         }

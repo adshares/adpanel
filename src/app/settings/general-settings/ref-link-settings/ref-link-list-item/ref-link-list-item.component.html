@@ -1,6 +1,14 @@
 <tr class="ref-link-list-item row justify-between">
   <td class="ref-link-settings__token">
-    {{ refLink.token }}
+    <a
+      href="{{getRefLinkUrl()}}"
+      target="_blank"
+      rel="noopener nofollow noreferrer"
+      title="Open referral link"
+    >
+      {{ refLink.token }}
+      <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+    </a>
     <small *ngIf="refLink.validUntil">Valid until: {{ refLink.validUntil | formatDate:dateFormat }}</small>
   </td>
   <td class="ref-link-settings__refund" *ngIf="refundEnabled">
