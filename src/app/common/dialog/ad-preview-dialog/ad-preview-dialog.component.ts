@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AdPreview } from 'models/campaign.model';
+import { adTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-preview-dialog',
@@ -8,7 +9,8 @@ import { AdPreview } from 'models/campaign.model';
   styleUrls: ['./ad-preview-dialog.component.scss'],
 })
 export class AdPreviewDialogComponent {
-  isHtml: boolean;
+  readonly adTypesEnum = adTypesEnum;
+  type: string | number;
   width: string;
   height: string;
 
@@ -19,7 +21,7 @@ export class AdPreviewDialogComponent {
   }
 
   ngOnInit() {
-    this.isHtml = this.data.isHtml;
+    this.type = this.data.type;
     const sizeArray = this.data.size.split('x');
     this.width = sizeArray[0] + 'px';
     this.height = sizeArray[1] + 'px';

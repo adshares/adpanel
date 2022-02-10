@@ -92,7 +92,8 @@
                 (
                 (adForm.get('name').hasError('required')) ||
                  (adForm.get('html') && adForm.get('html').value.src === '')  ||
-                 (adForm.get('image') && adForm.get('image').value.src === '')
+                 (adForm.get('image') && adForm.get('image').value.src === '') ||
+                 (adForm.get('video') && adForm.get('video').value.src === '')
                 )"
                 > !
                 </div>
@@ -172,7 +173,7 @@
                 col-xxxl-1
                 col"
             >
-              <div *ngIf="adForm.get('image') && adForm.get('creativeSize').value"
+              <div *ngIf="(adForm.get('image') || adForm.get('video')) && adForm.get('creativeSize').value"
                    class="dwmth-form-input__box">
                 <span class="dwmth-form-input__box
                              dwmth-form-label
@@ -256,14 +257,15 @@
             class="error-msg"
             *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
           >
-            Invalid size! Make sure that your files is no more than 500 kb.
+            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize|formatFileSize}}.
           </div>
 
           <div
             class="error-msg"
             *ngIf="adsSubmitted && (
               (adForm.get('image') && adForm.get('image').value.src === '' ) ||
-              (adForm.get('html') && adForm.get('html').value.src === '' )
+              (adForm.get('html') && adForm.get('html').value.src === '' ) ||
+              (adForm.get('video') && adForm.get('video').value.src === '' )
             )"
           >
             File required
@@ -321,7 +323,8 @@
               banner"
             *ngIf="!imagesStatus.upload.processing && (
                 (isImageTypeChosen(adForm) && adForm.get('image').value.src === '') ||
-                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src === '')
+                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src === '') ||
+                (isVideoTypeChosen(adForm) && adForm.get('video').value.src === '')
              )"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
@@ -360,14 +363,21 @@
                 class="dwmth-copy"
               >
                 Please upload your HTML banner ad as a zip archive.
-                Please make sure that the file is not larger than 500 KB.
+                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_HTML|formatFileSize}}.
               </p>
               <p
                 *ngIf="isImageTypeChosen(adForm)"
                 class="dwmth-copy"
               >
                 We support JPG, PNG and GIF files.
-                Please make sure that the file is not larger than 500 KB.
+                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_IMAGE|formatFileSize}}.
+              </p>
+              <p
+                *ngIf="isVideoTypeChosen(adForm)"
+                class="dwmth-copy"
+              >
+                We support MP4 files.
+                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_VIDEO|formatFileSize}}.
               </p>
             </div>
           </div>
@@ -382,7 +392,8 @@
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
             *ngIf="imagesStatus.upload.processing || (
                 (isImageTypeChosen(adForm) && adForm.get('image').value.src !== '') ||
-                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src !== '')
+                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src !== '') ||
+                (isVideoTypeChosen(adForm) && adForm.get('video').value.src !== '')
               )"
             data-test="advertiser-edit-campaign-create-ads-form-upload-status"
           >
@@ -394,6 +405,10 @@
               <img *ngIf="isHtmlTypeChosen(adForm)"
                    src="/assets/images/document-zip--blue.svg"
                    alt="Uploaded zip file"
+              >
+              <img *ngIf="isVideoTypeChosen(adForm)"
+                   src="/assets/images/document-blue.svg"
+                   alt="Uploaded video"
               >
             </div>
 
@@ -466,7 +481,7 @@
                 <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
                   {{ adForm.get('creativeSize').value }}
                 </span>
-                <span *ngIf="isImageTypeChosen(adForm) && (adForm.get('creativeSize').value !== ads[i].imageSize)"
+                <span *ngIf="adForm.get('creativeSize').value !== ads[i].imageSize"
                       class="file-box__file-sub-info--secondary"
                       data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
                 >
@@ -483,6 +498,35 @@
                   data-test="advertiser-edit-campaign-create-ads-form-remove-image"
                 >
               </div>
+              <div
+                class="file-box__file-info"
+                *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src"
+                data-test="advertiser-edit-campaign-create-ads-form-video-upload-name"
+              >
+                {{ adForm.get('video').value.name }}
+                <br>
+
+                <span class="file-box__file-sub-info">
+                  <span data-test="advertiser-edit-campaign-create-ads-form-video-size">
+                    {{ adForm.get('creativeSize').value }}
+                  </span>
+                  <span *ngIf="adForm.get('creativeSize').value !== ads[i].imageSize"
+                    class="file-box__file-sub-info--secondary"
+                    data-test="advertiser-edit-campaign-create-ads-form-video-dimensions"
+                  >
+                    {{ ads[i].imageSize }}
+                  </span>
+                </span>
+
+                <img
+                  class="file-box__action-button"
+                  src="/assets/images/trash-gray.svg"
+                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
+                  alt="Remove video"
+                  (click)="removeImage(i)"
+                  data-test="advertiser-edit-campaign-create-ads-form-remove-video"
+                >
+              </div>
             </div>
           </div>
 
@@ -495,7 +539,8 @@
               dwmth-box--blue-border
               dwmth-box__preview"
             *ngIf="(isImageTypeChosen(adForm) && adForm.get('image').value.src) ||
-                   (isHtmlTypeChosen(adForm) && adForm.get('html').value.src)"
+                   (isHtmlTypeChosen(adForm) && adForm.get('html').value.src) ||
+                   (isVideoTypeChosen(adForm) && adForm.get('video').value.src)"
           >
             <div
               class="
@@ -525,6 +570,22 @@
                                   }"
                       [src]="adForm.get('html').value.src | trustUrl"
               ></iframe>
+            </div>
+
+            <div
+              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src && adForm.get('creativeSize').value"
+              class="banner image-poster"
+              [ngStyle]="{
+                'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
+                'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
+              }"
+            >
+              <video
+                controls
+              >
+                <source [src]="adForm.get('video').value.src">
+                Sorry, your browser doesn't support embedded videos.
+              </video>
             </div>
           </div>
 

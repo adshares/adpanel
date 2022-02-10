@@ -49,6 +49,7 @@ import {
   CalculateInCurrency,
   ClickToADSPipe,
 } from './pipes/adshares-token.pipe'
+import { FormatFileSizePipe } from './pipes/format-file-size.pipe'
 import { TestPlaceholdersPipe } from './pipes/test-placeholders.pipe'
 import { TrustHtmlPipe, TrustUrlPipe } from './pipes/trust.pipe'
 import { MomentDatePipe } from './pipes/moment-date.pipe'
@@ -117,6 +118,7 @@ const appComponents = [
   PushNotificationsComponent,
   PushNotificationComponent,
   AdsharesTokenPipe,
+  FormatFileSizePipe,
   CalculateInCurrency,
   ClickToADSPipe,
   TestPlaceholdersPipe,

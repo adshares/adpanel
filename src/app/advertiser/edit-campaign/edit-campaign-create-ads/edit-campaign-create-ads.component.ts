@@ -1,36 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/first';
-import { MatDialog } from '@angular/material';
-import { FileUploader } from 'ng2-file-upload';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import 'rxjs/add/operator/first'
+import { MatDialog } from '@angular/material'
+import { FileUploader } from 'ng2-file-upload'
 import {
   AddCampaignToCampaigns,
   ClearLastEditedCampaign,
   SaveCampaignAds,
   UpdateCampaign
-} from 'store/advertiser/advertiser.actions';
-import { AdvertiserService } from 'advertiser/advertiser.service';
-import { AssetHelpersService } from 'common/asset-helpers.service';
+} from 'store/advertiser/advertiser.actions'
+import { AdvertiserService } from 'advertiser/advertiser.service'
+import { AssetHelpersService } from 'common/asset-helpers.service'
 import {
-  displayAdSizesEnum,
   adStatusesEnum,
   adTypesEnum,
+  displayAdSizesEnum,
   popAdSizesEnum,
   validHtmlTypes,
-  validImageTypes
-} from 'models/enum/ad.enum';
-import { WarningDialogComponent } from "common/dialog/warning-dialog/warning-dialog.component";
-import { HandleSubscription } from "common/handle-subscription";
-import { cloneDeep, cutDirectAdSizeAnchor, enumToArray } from 'common/utilities/helpers';
-import { adInitialState } from 'models/initial-state/ad';
-import { Ad, Campaign } from 'models/campaign.model';
-import { environment } from 'environments/environment';
-import { appSettings } from 'app-settings';
-import { AppState } from 'models/app-state.model';
-import { SessionService } from "../../../session.service";
-import { ShowDialogOnError } from "store/common/common.actions"
+  validImageTypes,
+  validVideoTypes,
+} from 'models/enum/ad.enum'
+import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
+import { HandleSubscription } from 'common/handle-subscription'
+import { cloneDeep, cutDirectAdSizeAnchor, enumToArray } from 'common/utilities/helpers'
+import { adInitialState } from 'models/initial-state/ad'
+import { Ad, Campaign } from 'models/campaign.model'
+import { environment } from 'environments/environment'
+import { appSettings } from 'app-settings'
+import { AppState } from 'models/app-state.model'
+import { SessionService } from '../../../session.service'
+import { ShowDialogOnError } from 'store/common/common.actions'
 
 interface UploadingFile {
   name: string,
@@ -53,6 +54,7 @@ interface UploadingFile {
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
+  readonly appSettings = appSettings;
   adForms: FormGroup[] = [];
   adTypes: string[] = enumToArray(adTypesEnum);
   displayAdSizes: string[];
@@ -144,7 +146,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
   }
 
-  handlePanelExpand(adIndex): void {
+  handlePanelExpand(adIndex: number): void {
     this.adPanelsStatus.fill(false);
     this.adPanelsStatus[adIndex] = true;
   }
@@ -160,7 +162,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     });
 
     let state = {};
-    if (ad.type === adTypesEnum.IMAGE) {
+    if (ad.type === adTypesEnum.IMAGE || ad.type === adTypesEnum.VIDEO) {
       state = {name: ad.name, src: ad.url || '', size: ad.size};
     } else if (ad.type === adTypesEnum.HTML) {
       state = {name: ad.name, src: ad.url || ''};
@@ -195,9 +197,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const file = dropped ? event.file.rawFile : event.target.files[0];
     const adIndex = this.getExpandedPanelIndex();
     const form = this.adForms[adIndex];
-    const isUploadedTypeValid = this.isImageTypeChosen(form) ?
-      enumToArray(validImageTypes).indexOf(file.type) > -1 : enumToArray(validHtmlTypes).indexOf(file.type) > -1;
-    const isImageSizeValid = file.size <= appSettings.MAX_AD_IMAGE_SIZE;
+    const selectedType = form.get('type').value;
+    const isFileTypeValid = EditCampaignCreateAdsComponent.isFileTypeValid(file.type, selectedType);
+    const isFileSizeValid = file.size <= EditCampaignCreateAdsComponent.getMaxFileSize(selectedType);
 
     if (this.isHtmlTypeChosen(form)) {
       const sizeFromName = file.name.match(/[0-9]+x[0-9]+/)
@@ -215,7 +217,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       event.target.value = '';
     }
     this.adjustBannerName(form);
-    if (isUploadedTypeValid && isImageSizeValid) {
+    if (isFileTypeValid && isFileSizeValid) {
       this.sendImage(file, adIndex, form);
     } else {
       this.uploader.queue.pop();
@@ -225,8 +227,8 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         size: file.size,
       };
       this.imagesStatus.validation[adIndex] = {
-        type: isUploadedTypeValid,
-        size: isImageSizeValid,
+        type: isFileTypeValid,
+        size: isFileSizeValid,
         upload: true
       };
     }
@@ -234,6 +236,34 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     if (!!event.target) {
       event.target.value = ''; // this is necessary when user changes type of the banner and then uploads the same file
     }
+  }
+
+  private static isFileTypeValid (fileType: string, selectedType: string | number): boolean {
+    let allowedTypesEnum;
+    if (selectedType === adTypesEnum.IMAGE) {
+      allowedTypesEnum = validImageTypes;
+    } else if (selectedType === adTypesEnum.HTML) {
+      allowedTypesEnum = validHtmlTypes;
+    } else {
+      allowedTypesEnum = validVideoTypes;
+    }
+    return enumToArray(allowedTypesEnum).indexOf(fileType) > -1;
+  }
+
+  private static getMaxFileSize (selectedType: string | number): number {
+    if (selectedType === adTypesEnum.IMAGE) {
+      return appSettings.MAX_AD_SIZE_IMAGE
+    }
+    if (selectedType === adTypesEnum.HTML) {
+      return appSettings.MAX_AD_SIZE_HTML
+    }
+    return appSettings.MAX_AD_SIZE_VIDEO
+  }
+
+  get presentedMaxFileSize (): number {
+    const adForm = this.adForms[this.getExpandedPanelIndex()]
+    const adType = adForm.get('type').value
+    return EditCampaignCreateAdsComponent.getMaxFileSize(adType)
   }
 
   adjustBannerName(form: FormGroup): void {
@@ -252,10 +282,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
   }
 
-  scaleImageToMatchBanner(index) {
+  scaleImageToMatchBanner(index): string {
     const banners = Array.from(document.querySelectorAll('.banner')) as Array<HTMLElement>;
     if (!banners[index]) {
-      return 1;
+      return '1';
     }
     const image = banners[index].querySelector('img');
     const sizes = this.adForms[index].get('creativeSize').value.split('x');
@@ -320,6 +350,19 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
             this.adForms[adIndex].get('html').setValue({
               src: event.body.url,
               name: image.name
+            });
+          } else if (this.isVideoTypeChosen(form) && event.body) {
+            this.adForms[adIndex].get('creativeSize').setValue(event.body.size);
+            this.ads[adIndex] = {
+              ...this.ads[adIndex],
+              url: event.body.url,
+              name: image.name,
+              imageSize: event.body.size,
+            };
+            this.adForms[adIndex].get('video').setValue({
+              name: image.name,
+              src: event.body.url,
+              size: event.body.size,
             });
           }
         }
@@ -442,6 +485,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   isDirectTypeChosen(form): boolean {
     return form.get('type').value === adTypesEnum.DIRECT
+  }
+
+  isVideoTypeChosen(form): boolean {
+    return form.get('type').value === adTypesEnum.VIDEO
   }
 
   cancelUploading() {
