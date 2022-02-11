@@ -7,6 +7,7 @@ export enum adTypesEnum {
   IMAGE,
   HTML,
   DIRECT,
+  VIDEO,
 }
 
 export enum displayAdSizesEnum {
@@ -68,6 +69,10 @@ export enum validHtmlTypes {
   'multipart/x-zip',
   'application/octet-stream',
   'application/x-zip-compressed',
+}
+
+export enum validVideoTypes {
+  'video/mp4',
 }
 
 export enum adUnitStatusesEnum {

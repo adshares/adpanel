@@ -7,6 +7,18 @@
       class="banner-preview__banner"
     />
   </ng-container>
+  <ng-container *ngIf="isVideo">
+    <video
+      autoplay
+      loop
+      [muted]="'muted'"
+      [style.max-width.px]="maxWidth"
+      class="banner-preview__banner"
+    >
+      <source [src]="url">
+      Sorry, your browser doesn't support embedded videos.
+    </video>
+  </ng-container>
   <ng-container *ngIf="showIframe && isHtml">
     <iframe
       [src]="url | trustUrl"
@@ -48,7 +60,7 @@
   </div>
 
   <div
-    *ngIf="isImage || (showIframe && isHtml)"
+    *ngIf="isImage || isVideo || (showIframe && isHtml)"
     [style.width.px]="maxWidth"
     (click)="zoomIn()"
     class="banner-preview__overlay"

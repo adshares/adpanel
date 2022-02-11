@@ -23,7 +23,6 @@ export class BannerPreviewComponent implements OnInit {
     height: '',
   };
 
-  isBannerInputTypeAd: boolean;
   url: string;
   showIframe: boolean = false;
   isLoading: boolean = true;
@@ -35,8 +34,8 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if ((<BannerClassification>this.banner).size) {
-      this.isBannerInputTypeAd = false;
+    const isBannerInputTypeAd = (<BannerClassification>this.banner).size === undefined;
+    if (!isBannerInputTypeAd) {
       this.url = (<BannerClassification>this.banner).url;
 
       const size = (<BannerClassification>this.banner).size;
@@ -54,10 +53,8 @@ export class BannerPreviewComponent implements OnInit {
         };
       }
     } else if (this.isDirectLink) {
-      this.isBannerInputTypeAd = true;
       this.url = cutDirectAdSizeAnchor((<Ad>this.banner).creativeContents);
     } else {
-      this.isBannerInputTypeAd = true;
       this.url = (<Ad>this.banner).url;
       const bannerSizeArray = (<Ad>this.banner).creativeSize.split('x');
       this.bannerChosenSize = {
@@ -67,7 +64,7 @@ export class BannerPreviewComponent implements OnInit {
       this.scale = this.computeScale(parseInt(bannerSizeArray[0]), parseInt(bannerSizeArray[1]));
     }
 
-    if (this.isBannerInputTypeAd && this.isHtml) {
+    if (isBannerInputTypeAd && this.isHtml) {
       this.canLoadIframeContent(this.url);
     } else {
       this.isLoading = false;
@@ -85,6 +82,10 @@ export class BannerPreviewComponent implements OnInit {
 
   get isDirectLink(): boolean {
     return this.banner.type === adTypesEnum.DIRECT;
+  }
+
+  get isVideo(): boolean {
+    return this.banner.type === adTypesEnum.VIDEO;
   }
 
   canLoadIframeContent(url: string): void {
@@ -115,13 +116,13 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   zoomIn(): void {
-    if (!this.isImage && (!this.showIframe || !this.isHtml)) {
+    if (!this.isImage && !this.isVideo && (!this.showIframe || !this.isHtml)) {
       return;
     }
 
     const size = (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize;
     const adPreview: AdPreview = {
-      isHtml: this.isHtml,
+      type: this.banner.type,
       size: size,
       url: this.banner.url,
       landingUrl: this.landingUrl,

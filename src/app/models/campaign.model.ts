@@ -127,7 +127,7 @@ interface Ad {
 }
 
 interface AdPreview {
-  isHtml: boolean;
+  type: string | number;
   size: string;
   url: string;
   landingUrl: string;
@@ -175,4 +175,4 @@ export {
   BidStrategyDetail,
   BidStrategyRequest,
   BidStrategyUuidDefaultResponse,
-};
+}
