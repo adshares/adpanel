@@ -4,12 +4,7 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
 import { environment } from 'environments/environment'
-import {
-  BillingHistory,
-  CalculateWithdrawalItem,
-  Invoice,
-  NotificationItem, WalletToken,
-} from 'models/settings.model'
+import { BillingHistory, CalculateWithdrawalItem, Invoice, NotificationItem, WalletToken } from 'models/settings.model'
 import { User } from 'models/user.model'
 
 @Injectable()
@@ -77,8 +72,8 @@ export class SettingsService {
       { currency, to, amount, memo })
   }
 
-  changeEmail (email: string, UriStep1: string, UriStep2: string): Observable<User|null> {
-    return this.http.post<User|null>(`${environment.authUrl}/email`,
+  changeEmail (email: string, UriStep1: string, UriStep2: string): Observable<User | null> {
+    return this.http.post<User | null>(`${environment.authUrl}/email`,
       { email, UriStep1, UriStep2 })
   }
 
@@ -105,9 +100,13 @@ export class SettingsService {
     return this.http.get<WalletToken>(`${environment.apiUrl}/wallet/connect/init`)
   }
 
-  connectWallet (network: string, address: string, token: string, signature: string): Observable<User> {
-    return this.http.patch<User>(`${environment.apiUrl}/wallet/connect`,
-      { network, address, token, signature })
+  connectWallet (network: string, address: string, token: string, signature: string): Observable<User | null> {
+    return this.http.patch<User | null>(`${environment.apiUrl}/wallet/connect`,
+      { network, address, token, signature, uri: '/auth/connection-confirmation/' })
+  }
+
+  confirmConnectWallet (token: string): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/wallet/connect/confirm/${token}`, {})
   }
 
   changeAutoWithdrawal (autoWithdrawal: number | null): Observable<User> {

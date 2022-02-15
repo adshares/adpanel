@@ -125,17 +125,30 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
   connectToWallet (network: string, address: string, token: string, signature: string) {
     this.settingsService.connectWallet(network, address, token, signature).subscribe(
       (user) => {
-        this.wallet = user.adserverWallet
         this.isSubmitted = false
-        this.dialog.open(ConfirmResponseDialogComponent, {
-          data: {
-            title: 'Wallet connected',
-            message: `Your account has been connected to ${network} wallet: ${address}`,
-          },
-        })
+        if (null !== user) {
+          this.wallet = user.adserverWallet
+          this.dialog.open(ConfirmResponseDialogComponent, {
+            data: {
+              title: 'Wallet connected',
+              message: `Your account has been connected to ${network} wallet: ${address}`,
+            },
+          })
+        } else {
+          this.dialog.open(ConfirmResponseDialogComponent, {
+            data: {
+              title: 'Confirm connection request',
+              message: 'Please check your email and follow instructions to confirm your request',
+            },
+          })
+        }
       },
       (err) => {
         this.connectError = err.error.message || 'Unknown error'
+        if (err.error.errors) {
+          const key = Object.keys(err.error.errors)[0];
+          this.connectError = err.error.errors[key][0];
+        }
         this.isSubmitted = false
       },
     )
