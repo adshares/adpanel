@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Video ads support
+### Changed
+- 2FA requirement when setting password
 
 ## [1.13.2] - 2022-02-10
 ### Changed
