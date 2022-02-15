@@ -7,6 +7,7 @@ import { ApiService } from 'app/api/api.service';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { SettingsService } from 'settings/settings.service'
 
 @Component({
   selector: 'app-email-processing',
@@ -16,11 +17,11 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 export class EmailProcessingComponent {
   action: string;
   token: any;
-  ObjectKeys = Object.keys;
   error: boolean = false;
 
   constructor(
     private api: ApiService,
+    private settings: SettingsService,
     private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
@@ -56,6 +57,11 @@ export class EmailProcessingComponent {
       case 'email-change-confirm-new':
         this.emailChangeConfirmNew();
         return;
+      case 'password-confirm':
+        this.passwordConfirm();
+      case 'connection-confirmation':
+        this.confirmConnection();
+        return;
     }
 
     this.defaultRedirect();
@@ -90,7 +96,7 @@ export class EmailProcessingComponent {
     });
   }
 
-  updateUserEmail(user) {
+  updateUser(user) {
     let u = this.session.getUser();
     if (!u) {
       return;
@@ -99,6 +105,7 @@ export class EmailProcessingComponent {
     u.isAdminConfirmed = user.isAdminConfirmed;
     u.isConfirmed = user.isConfirmed;
     u.email = user.email;
+    u.adserverWallet = user.adserverWallet;
     this.session.setUser(u);
   }
 
@@ -106,7 +113,7 @@ export class EmailProcessingComponent {
     this.api.users.emailActivate(this.token)
       .subscribe(
         (user) => {
-          this.updateUserEmail(user);
+          this.updateUser(user);
           this.defaultRedirect();
           this.dialogConfirm('Email activation complete', 'Your email has been activated. You have now access to all features of the panel.');
         },
@@ -124,9 +131,9 @@ export class EmailProcessingComponent {
           this.router.navigate(['/settings/billing'])
           this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
         },
-        () => {
+        (err) => {
           this.defaultRedirect();
-          this.dialogError('Withdrawal confirmation failed', 'Token is invalid.');
+          this.dialogError('Withdrawal confirmation failed', err.error.message ||  'Unknown error');
         }
       );
   }
@@ -140,11 +147,7 @@ export class EmailProcessingComponent {
         },
         (err) => {
           this.defaultRedirect();
-          if (err.error.errors.message) {
-            this.dialogError('Email change process step failed', err.error.errors.message);
-          } else {
-            this.dialogError('Email change process step failed', 'Unknown error. Please contact support.');
-          }
+          this.dialogError('Email change process step failed', err.error.message || 'Unknown error');
         }
       );
   }
@@ -153,18 +156,46 @@ export class EmailProcessingComponent {
     this.api.users.emailConfirm2New(this.token)
       .subscribe(
         (user) => {
-          this.updateUserEmail(user);
+          this.updateUser(user);
           this.defaultRedirect();
           this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
         },
         (err) => {
           this.defaultRedirect();
-          if (err.error.errors.message) {
-            this.dialogError('Email change process final step failed', err.error.errors.message);
-          } else {
-            this.dialogError('Email change process final step failed', 'Unknown error. Please contact support.');
-          }
+          this.dialogError('Email change process final step failed', err.error.message || 'Unknown error');
         }
       );
+  }
+
+  passwordConfirm() {
+    this.api.users.passwordConfirm(this.token).subscribe(
+      () => {
+        this.dialogConfirm('Password change process complete', 'You can log in with new password.');
+        this.defaultRedirect();
+      },
+      (error) => {
+        this.dialogError('Password change failed', error.error.message || 'Unknown error');
+        this.defaultRedirect();
+      }
+    );
+  }
+
+  confirmConnection() {
+    this.settings.confirmConnectWallet(this.token)
+    .subscribe(
+      (user) => {
+        this.router.navigate(['/settings/general'])
+        this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
+      },
+      (err) => {
+        let error = err.error.message || 'Unknown error';
+        if (err.error.errors) {
+          const key = Object.keys(err.error.errors)[0];
+          error = err.error.errors[key][0];
+        }
+        this.defaultRedirect();
+        this.dialogError('Connection confirmation failed', error);
+      }
+    );
   }
 }
