@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -82,7 +81,6 @@ const advertiserComponents = [
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
     AppCommonModule,
     AdvertiserRoutingModule,
     FontAwesomeModule,
