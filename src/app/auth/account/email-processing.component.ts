@@ -168,17 +168,17 @@ export class EmailProcessingComponent {
   }
 
   passwordConfirm() {
-    this.api.users.passwordConfirm(this.token)
-      .subscribe(
-        () => {
-          this.dialogConfirm('Password change process complete', 'You can log in with new password.');
-          this.defaultRedirect();
-        },
-        (error) => {
-          this.dialogError('Password change failed', error.error.message || 'Unknown error');
-          this.defaultRedirect();
-        }
-      );
+    this.api.users.passwordConfirm(this.token).subscribe(
+      () => {
+        this.dialogConfirm('Password change process complete', 'You can log in with new password.');
+        this.defaultRedirect();
+      },
+      (error) => {
+        this.dialogError('Password change failed', error.error.message || 'Unknown error');
+        this.defaultRedirect();
+      }
+    );
+  }
 
   confirmConnection() {
     this.settings.confirmConnectWallet(this.token)
