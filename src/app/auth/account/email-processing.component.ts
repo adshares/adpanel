@@ -178,10 +178,7 @@ export class EmailProcessingComponent {
           this.defaultRedirect();
         },
         (error) => {
-          this.dialogError(
-            'Password change failed',
-            error.error.message ? error.error.message : 'Unknown error. Please contact support.'
-          );
+          this.dialogError('Password change failed', error.error.message || 'Unknown error');
           this.defaultRedirect();
         }
       );
