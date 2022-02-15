@@ -51,10 +51,12 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
     }
     this.canSubmit = true;
     if (key === 'coldWalletAddress') {
-      this.settings = {
-        ...this.settings,
-        [key]: value
-      };
+      if (typeof value === 'string') {
+        this.settings = {
+          ...this.settings,
+          coldWalletAddress: value
+        }
+      }
       return
     }
     if (key === 'referralRefundCommission') {
