@@ -130,9 +130,9 @@ export class EmailProcessingComponent {
           this.router.navigate(['/settings/billing'])
           this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
         },
-        () => {
+        (err) => {
           this.defaultRedirect();
-          this.dialogError('Withdrawal confirmation failed', 'Token is invalid.');
+          this.dialogError('Withdrawal confirmation failed', err.message ||  'Unknown error');
         }
       );
   }
@@ -146,11 +146,7 @@ export class EmailProcessingComponent {
         },
         (err) => {
           this.defaultRedirect();
-          if (err.error.errors.message) {
-            this.dialogError('Email change process step failed', err.error.errors.message);
-          } else {
-            this.dialogError('Email change process step failed', 'Unknown error. Please contact support.');
-          }
+          this.dialogError('Email change process step failed', err.message || 'Unknown error');
         }
       );
   }
@@ -165,11 +161,7 @@ export class EmailProcessingComponent {
         },
         (err) => {
           this.defaultRedirect();
-          if (err.error.errors.message) {
-            this.dialogError('Email change process final step failed', err.error.errors.message);
-          } else {
-            this.dialogError('Email change process final step failed', 'Unknown error. Please contact support.');
-          }
+          this.dialogError('Email change process final step failed', err.message || 'Unknown error');
         }
       );
   }
@@ -182,7 +174,7 @@ export class EmailProcessingComponent {
         this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
       },
       (err) => {
-        let error = 'Token is invalid.';
+        let error = err.message || 'Unknown error';
         if (err.error.errors) {
           const key = Object.keys(err.error.errors)[0];
           error = err.error.errors[key][0];
