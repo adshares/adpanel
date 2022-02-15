@@ -16,7 +16,6 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 export class EmailProcessingComponent {
   action: string;
   token: any;
-  ObjectKeys = Object.keys;
   error: boolean = false;
 
   constructor(
@@ -55,6 +54,9 @@ export class EmailProcessingComponent {
         return;
       case 'email-change-confirm-new':
         this.emailChangeConfirmNew();
+        return;
+      case 'password-confirm':
+        this.passwordConfirm();
         return;
     }
 
@@ -164,6 +166,23 @@ export class EmailProcessingComponent {
           } else {
             this.dialogError('Email change process final step failed', 'Unknown error. Please contact support.');
           }
+        }
+      );
+  }
+
+  passwordConfirm() {
+    this.api.users.passwordConfirm(this.token)
+      .subscribe(
+        () => {
+          this.dialogConfirm('Password change process complete', 'You can log in with new password.');
+          this.defaultRedirect();
+        },
+        (error) => {
+          this.dialogError(
+            'Password change failed',
+            error.error.message ? error.error.message : 'Unknown error. Please contact support.'
+          );
+          this.defaultRedirect();
         }
       );
   }

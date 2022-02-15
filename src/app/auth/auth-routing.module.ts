@@ -23,6 +23,7 @@ const authRoutes: Routes = [
       {path: 'email-activation/:token', component: EmailProcessingComponent},
       {path: 'email-change-confirm-old/:token', component: EmailProcessingComponent},
       {path: 'email-change-confirm-new/:token', component: EmailProcessingComponent},
+      {path: 'password-confirm/:token', component: EmailProcessingComponent},
 
       {path: 'withdrawal-confirmation/:token', component: EmailProcessingComponent},
     ]

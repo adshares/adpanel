@@ -84,12 +84,10 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
           this.user = user
           title = 'Email changed'
           message = 'Your email address has been changed as requested'
-        }
-        else if (!this.user.email) {
+        } else if (!this.user.email) {
           title = 'Email changed'
           message = 'We have sent an activation email message to your account. Email activation is required for full access to adpanel.'
-        }
-        else {
+        } else {
           title = 'Changing email is a 2 step process'
           message = 'First you need to verify your request using your current (old) email address.\nPlease check your email and follow instructions to confirm your request'
         }
@@ -133,15 +131,22 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
       password_old: currentPassword,
       password_new: newPassword,
     }
-    const changePasswordSubscription = this.settingsService.changePassword(user, '').subscribe(
+    const changePasswordSubscription = this.settingsService.changePassword(user, '/auth/password-confirm/').subscribe(
       (user) => {
-        this.user = user
+        if (user.id) {
+          this.user = user
+        }
         this.changePasswordForm.reset()
         this.newPasswordConfirm.setValue('')
-        this.dialog.open(ConfirmResponseDialogComponent, {
+        this.dialog.open(ConfirmResponseDialogComponent, user.id ? {
           data: {
             title: 'Password changed',
             message: 'Your password has been changed as requested',
+          },
+        } : {
+          data: {
+            title: 'Password change needs confirmation',
+            message: 'Please check your email and follow instructions to confirm your request',
           },
         })
       },
