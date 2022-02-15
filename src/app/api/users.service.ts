@@ -34,7 +34,7 @@ export class ApiUsersService {
   }
 
   passwordConfirm(token: string) {
-    return this.http.get(`${environment.authUrl}/password/confirm/${token}`);
+    return this.http.post(`${environment.authUrl}/password/confirm/${token}`, {});
   }
 
   // guest access
