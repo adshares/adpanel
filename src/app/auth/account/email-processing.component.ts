@@ -17,7 +17,6 @@ import { SettingsService } from 'settings/settings.service'
 export class EmailProcessingComponent {
   action: string;
   token: any;
-  ObjectKeys = Object.keys;
   error: boolean = false;
 
   constructor(
@@ -58,6 +57,8 @@ export class EmailProcessingComponent {
       case 'email-change-confirm-new':
         this.emailChangeConfirmNew();
         return;
+      case 'password-confirm':
+        this.passwordConfirm();
       case 'connection-confirmation':
         this.confirmConnection();
         return;
@@ -164,6 +165,19 @@ export class EmailProcessingComponent {
           this.dialogError('Email change process final step failed', err.error.message || 'Unknown error');
         }
       );
+  }
+
+  passwordConfirm() {
+    this.api.users.passwordConfirm(this.token).subscribe(
+      () => {
+        this.dialogConfirm('Password change process complete', 'You can log in with new password.');
+        this.defaultRedirect();
+      },
+      (error) => {
+        this.dialogError('Password change failed', error.error.message || 'Unknown error');
+        this.defaultRedirect();
+      }
+    );
   }
 
   confirmConnection() {
