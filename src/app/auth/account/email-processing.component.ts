@@ -7,6 +7,7 @@ import { ApiService } from 'app/api/api.service';
 
 import { ConfirmResponseDialogComponent } from "common/dialog/confirm-response-dialog/confirm-response-dialog.component";
 import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialog/error-response-dialog.component";
+import { SettingsService } from 'settings/settings.service'
 
 @Component({
   selector: 'app-email-processing',
@@ -21,6 +22,7 @@ export class EmailProcessingComponent {
 
   constructor(
     private api: ApiService,
+    private settings: SettingsService,
     private session: SessionService,
     private router: Router,
     private route: ActivatedRoute,
@@ -56,6 +58,9 @@ export class EmailProcessingComponent {
       case 'email-change-confirm-new':
         this.emailChangeConfirmNew();
         return;
+      case 'connection-confirmation':
+        this.confirmConnection();
+        return;
     }
 
     this.defaultRedirect();
@@ -90,7 +95,7 @@ export class EmailProcessingComponent {
     });
   }
 
-  updateUserEmail(user) {
+  updateUser(user) {
     let u = this.session.getUser();
     if (!u) {
       return;
@@ -99,6 +104,7 @@ export class EmailProcessingComponent {
     u.isAdminConfirmed = user.isAdminConfirmed;
     u.isConfirmed = user.isConfirmed;
     u.email = user.email;
+    u.adserverWallet = user.adserverWallet;
     this.session.setUser(u);
   }
 
@@ -106,7 +112,7 @@ export class EmailProcessingComponent {
     this.api.users.emailActivate(this.token)
       .subscribe(
         (user) => {
-          this.updateUserEmail(user);
+          this.updateUser(user);
           this.defaultRedirect();
           this.dialogConfirm('Email activation complete', 'Your email has been activated. You have now access to all features of the panel.');
         },
@@ -153,7 +159,7 @@ export class EmailProcessingComponent {
     this.api.users.emailConfirm2New(this.token)
       .subscribe(
         (user) => {
-          this.updateUserEmail(user);
+          this.updateUser(user);
           this.defaultRedirect();
           this.dialogConfirm('Email change process complete', 'Requested email address is now assigned to your account.');
         },
@@ -166,5 +172,24 @@ export class EmailProcessingComponent {
           }
         }
       );
+  }
+
+  confirmConnection() {
+    this.settings.confirmConnectWallet(this.token)
+    .subscribe(
+      (user) => {
+        this.router.navigate(['/settings/general'])
+        this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
+      },
+      (err) => {
+        let error = 'Token is invalid.';
+        if (err.error.errors) {
+          const key = Object.keys(err.error.errors)[0];
+          error = err.error.errors[key][0];
+        }
+        this.defaultRedirect();
+        this.dialogError('Connection confirmation failed', error);
+      }
+    );
   }
 }
