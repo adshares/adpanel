@@ -5,8 +5,12 @@ export const appSettings = {
   ADS_OPERATOR_URL: environment.production ? 'https://operator.adshares.net' : 'https://operator1.e11.click',
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
-  // max byte size of ad image
-  MAX_AD_IMAGE_SIZE: 512000,
+  // maximal size of image ad in bytes
+  MAX_AD_SIZE_IMAGE: 512000,
+  // maximal size of html ad in bytes
+  MAX_AD_SIZE_HTML: 512000,
+  // maximal size of video ad in bytes
+  MAX_AD_SIZE_VIDEO: 1048576,
   // seconds of how long remembered user auth token will be stored
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
   // seconds of how long not remembered user auth token will be stored
