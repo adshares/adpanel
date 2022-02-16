@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.14.1] - 2022-02-16
+### Fixed
+- Fix missing switch return
+
 ## [1.14.0] - 2022-02-15
 ### Added
 - Video ads support
@@ -368,7 +372,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.14.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.14.1...develop
+[1.14.1]: https://github.com/adshares/adpanel/compare/v1.14.0...v1.14.1
 [1.14.0]: https://github.com/adshares/adpanel/compare/v1.13.2...v1.14.0
 [1.13.2]: https://github.com/adshares/adpanel/compare/v1.12.0...v1.13.2
 [1.12.0]: https://github.com/adshares/adpanel/compare/v1.11.2...v1.12.0
