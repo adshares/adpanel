@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Notification } from 'models/notification.model';
-import { LocalStorageUser, User } from 'models/user.model'
+import { LocalStorageUser } from 'models/user.model'
 import { ImpersonationService } from './impersonation/impersonation.service';
 
 @Injectable()

@@ -152,8 +152,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
               }
             );
         }
-      },
-      () => {
       }
     );
   }

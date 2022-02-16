@@ -20,8 +20,6 @@ import { ChartData } from 'models/chart/chart-data.model';
 import { ChartColors } from 'models/chart/chart-colors.model';
 import { ChartOptions } from 'models/chart/chart-options.model';
 import * as commonActions from 'store/common/common.actions';
-import { chartSeriesEnum } from "models/enum/chart.enum";
-import { enumToArray } from "common/utilities/helpers";
 import { ChartLabels } from "models/chart/chart-labels.model";
 import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
 

@@ -1,6 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
-import { Subject } from "rxjs";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-label',
