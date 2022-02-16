@@ -1,4 +1,4 @@
-import {ExchangeRate, User, UserAdserverWallet} from 'models/user.model';
+import {User} from 'models/user.model';
 
 export const userInitialState: User = {
   id: 0,
