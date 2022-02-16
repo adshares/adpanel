@@ -573,15 +573,12 @@
             </div>
 
             <div
-              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src && adForm.get('creativeSize').value"
+              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src"
               class="banner image-poster"
-              [ngStyle]="{
-                'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
-              }"
             >
               <video
                 controls
+                class="video-preview"
               >
                 <source [src]="adForm.get('video').value.src">
                 Sorry, your browser doesn't support embedded videos.
