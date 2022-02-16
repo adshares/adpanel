@@ -134,7 +134,6 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
         ['/advertiser', 'create-campaign', 'create-ad'],
         {queryParams: {step: 3}}
       );
-      return;
     } else {
       this.campaign = {
         ...this.campaign,

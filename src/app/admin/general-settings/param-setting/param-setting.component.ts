@@ -16,9 +16,6 @@ export class ParamSettingComponent {
   @Input() options: object = null;
   @Output() valueChanged: Subject<string> = new Subject();
 
-  constructor() {
-  }
-
   updateValue(value: string): void {
     this.valueChanged.next(value)
   }

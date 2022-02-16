@@ -21,9 +21,6 @@ export class ClassifierFilteringComponent implements OnInit {
   filtering: BannerClassificationFilters = {};
   isGlobal: boolean
 
-  constructor() {
-  }
-
   ngOnInit() {
     this.isGlobal = this.siteId === null
     this.adSizesOptions = this.sizeOptions || enumToArray(displayAdSizesEnum).concat(enumToArray(popAdSizesEnum));

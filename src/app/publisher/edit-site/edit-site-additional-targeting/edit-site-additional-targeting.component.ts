@@ -111,7 +111,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         filteringArray: chosenTargeting
       };
       this.store.dispatch(new AddSiteToSites(this.site));
-      return;
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.router.navigate(
