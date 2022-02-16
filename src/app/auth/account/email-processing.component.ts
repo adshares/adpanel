@@ -59,6 +59,7 @@ export class EmailProcessingComponent {
         return;
       case 'password-confirm':
         this.passwordConfirm();
+        return;
       case 'connection-confirmation':
         this.confirmConnection();
         return;
