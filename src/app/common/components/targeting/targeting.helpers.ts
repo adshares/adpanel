@@ -1,6 +1,6 @@
-import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { customTargetingActionsEnum } from 'models/enum/custom-targeting-actions.enum';
-import { cloneDeep } from 'common/utilities/helpers';
+import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
+import { cloneDeep } from 'common/utilities/helpers'
+import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
 
 export function prepareTargetingChoices(
   options: (TargetingOption | TargetingOptionValue)[]
@@ -59,6 +59,81 @@ function createTargetingChoice(
   return targetingChoice;
 }
 
+export function processTargeting (medium: Medium): TargetingOption[] {
+  const roots = [
+    {
+      key: 'user',
+      label: 'User',
+    },
+    {
+      key: 'site',
+      label: 'Site',
+    },
+    {
+      key: 'device',
+      label: 'Device',
+    },
+  ]
+
+  const result = []
+  for (let i = 0; i < roots.length; i++) {
+    const children = []
+    const targetingItems = medium.targeting[roots[i].key] as TargetingItem[]
+
+    targetingItems.forEach(item => {
+      const id = `${roots[i].key}-${item.name}`
+      const option: TargetingOption = {
+        valueType: 'string',
+        key: item.name,
+        label: item.label,
+        allowInput: item.type === 'input',
+        id,
+      }
+      if (item.items) {
+        option.values = processTargetingItems(item.items, id)
+      }
+      children.push(option)
+    })
+
+    const rootOption: TargetingOption = {
+      valueType: 'group',
+      key: roots[i].key,
+      label: roots[i].label,
+      allowInput: false,
+      children: children,
+      id: roots[i].key,
+    }
+    result.push(rootOption)
+  }
+  return result
+}
+
+function processTargetingItems (items: any, parentId: string, baseId?: string): TargetingOptionValue[] {
+  const result = []
+  for (let key in items) {
+    if (items.hasOwnProperty(key)) {
+      baseId = (baseId === undefined) ? parentId : baseId
+      const id = `${baseId}-${key}`
+
+      const option: TargetingOptionValue = {
+        label: (typeof items[key] === 'string') ? items[key] : items[key].label,
+        value: key,
+        id: id,
+        parent: {
+          id: parentId,
+          valueType: 'string',//TODO remove if not needed
+          allowInput: false,//TODO remove if not needed
+        },
+      }
+      if (typeof items[key] !== 'string') {
+        option.values = processTargetingItems(items[key].values, id, baseId)
+      }
+      result.push(option)
+    }
+  }
+  return result
+}
+
 export function findOptionList(
   optionId: string,
   options: (TargetingOption | TargetingOptionValue)[]
@@ -102,11 +177,11 @@ export function getLabelCompound(
 ): string {
   let label = option.label;
   let currentOption = option;
-  let hasValue, parentOptionId;
+  let hasValue;
 
   do {
-    parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
-    let optionList = findOptionList(parentOptionId, options);
+    const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+    const optionList = findOptionList(parentOptionId, options);
     if (!optionList) {
       break;
     }
@@ -179,7 +254,7 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
   return parsedTargeting;
 }
 
-function createPathObject(obj, keyPath, value) {
+function createPathObject(obj: Object, keyPath: string[], value: string): void {
   const lastKeyIndex = keyPath.length - 1;
 
   for (let i = 0; i < lastKeyIndex; ++i) {
@@ -312,71 +387,32 @@ function addCustomOptionToResult(optionKeys, results, targetingOptions) {
           return;
         }
       } else {
-        rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
-          parseKeyToNumber(lastKeyelement) : lastKeyelement;
+        rawValue = lastKeyelement;
       }
-      let action = customOptionParent['valueType'] === 'number' ?
-        getActionFromKey(lastKeyelement) : -1;
 
       const customOption = prepareCustomOption(
         rawValue,
         customOptionParent,
-        targetingOptions,
-        action
       );
       results.push(customOption);
     }
   });
 }
 
-function parseKeyToNumber(lastKeyElement) {
-  return lastKeyElement.replace(/[<,>\s]/g, '');
-}
-
-function getActionFromKey(lastKeyelement) {
-  const commaIndex = lastKeyelement.indexOf(',');
-
-  switch (commaIndex) {
-    case -1:
-      return customTargetingActionsEnum['Is'];
-    case 1:
-      return customTargetingActionsEnum['Less than'];
-    default:
-      return customTargetingActionsEnum['More than'];
-  }
-}
-
 export function prepareCustomOption(
   value: string | number,
   parentOption: TargetingOption | TargetingOptionValue,
-  targetingOptions: TargetingOption[],
-  action: number
 ) {
-  const optionLabel = parentOption['valueType'] === 'number' ?
-    `${customTargetingActionsEnum[action]} ${value}` : value;
-  const optionValue = parentOption['valueType'] === 'number' ?
-    getnerateNumberOptionValue(value, action) : value;
-
   return {
     id: `${parentOption.id}-${value}`,
     key: `${value}`,
-    label: optionLabel,
+    label: value,
     parent: {
+      id: parentOption.id,
       valueType: parentOption['valueType'],
       allowInput: parentOption['allowInput']
     },
-    value: optionValue,
+    value: value,
     isCustom: true
-  }
-}
-
-function getnerateNumberOptionValue(value: string | number, action: number) {
-  switch (action) {
-    case 0:
-      return `<,${value}>`;
-    case 1:
-      return `<${value}>`;
-    default:
-      return `<${value},>`;
   }
 }

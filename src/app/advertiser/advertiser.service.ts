@@ -9,12 +9,14 @@ import {
   CampaignsConfig,
   CampaignTotalsResponse
 } from 'models/campaign.model';
-import { AssetTargeting, TargetingOption, TargetingReachResponse } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from '@angular/router';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
 import { Subscription } from 'rxjs';
 import { AppState } from 'models/app-state.model';
+import { Media, Medium } from 'models/taxonomy-medium.model'
+import { campaignInitialState } from 'models/initial-state/campaign'
 
 @Injectable()
 export class AdvertiserService {
@@ -60,22 +62,22 @@ export class AdvertiserService {
     return this.http.delete<Campaign>(`${environment.apiUrl}/campaigns/${id}`);
   }
 
-  saveCampaign(campaign: Campaign): Observable<Campaign> {
-    if (campaign.targetingArray) {
-      const targetingObject = parseTargetingForBackend(campaign.targetingArray);
-
-      Object.assign(campaign, {targeting: targetingObject});
-    }
-
-    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, {campaign});
+  saveCampaign (campaign: Campaign): Observable<Campaign> {
+    AdvertiserService.convertCampaignForBackend(campaign)
+    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, { campaign })
   }
 
-  updateCampaign(campaign: Campaign): Observable<Campaign> {
+  updateCampaign (campaign: Campaign): Observable<null> {
+    AdvertiserService.convertCampaignForBackend(campaign)
+    return this.http.patch<null>(`${environment.apiUrl}/campaigns/${campaign.id}`, { campaign })
+  }
+
+  private static convertCampaignForBackend (campaign: Campaign) {
     if (campaign.targetingArray) {
-      const targetingObject = parseTargetingForBackend(campaign.targetingArray);
-      Object.assign(campaign, {targeting: targetingObject});
+      const targetingObject = parseTargetingForBackend(campaign.targetingArray)
+      Object.assign(campaign, { targeting: targetingObject })
+      delete campaign.targetingArray
     }
-    return this.http.patch<Campaign>(`${environment.apiUrl}/campaigns/${campaign.id}`, {campaign});
   }
 
   updateStatus(id: number, status: number) {
@@ -95,13 +97,17 @@ export class AdvertiserService {
     return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
   }
 
-  getTargetingCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting?e=${excludeInternal ? 1 : 0}`);
+  getMedia(): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
+  }
+
+  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
+    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`);
   }
 
   getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
-    let body = {
-      targeting: targetingArray ? parseTargetingForBackend(targetingArray) : {requires: [], excludes: []},
+    const body = {
+      targeting: targetingArray ? parseTargetingForBackend(targetingArray) : campaignInitialState.targeting,
     };
     if (sizes.length > 0) {
       body.targeting.requires['size'] = sizes;

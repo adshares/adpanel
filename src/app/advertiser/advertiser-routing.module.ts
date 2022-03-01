@@ -17,6 +17,7 @@ import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolv
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
+import { MediaResolver } from 'advertiser/resolvers/media.resolver'
 
 const advertiserRoutes: Routes = [
   {
@@ -47,7 +48,8 @@ const advertiserRoutes: Routes = [
         path: 'create-campaign',
         component: EditCampaignComponent,
         resolve: {
-          targetingOptions: TargetingCriteriaResolver
+          media: MediaResolver,
+          targetingOptions: TargetingCriteriaResolver,
         },
         children: [
           {
@@ -73,6 +75,7 @@ const advertiserRoutes: Routes = [
         component: EditCampaignComponent,
         resolve: {
           campaignsConfig: CampaignsConfigResolver,
+          media: MediaResolver,
           targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver,
         },

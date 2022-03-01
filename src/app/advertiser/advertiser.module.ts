@@ -42,6 +42,7 @@ import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.r
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
+import { MediaResolver } from 'advertiser/resolvers/media.resolver'
 
 
 const matModules = [
@@ -99,6 +100,7 @@ const advertiserComponents = [
     CampaignResolver,
     CampaignsConfigResolver,
     TargetingCriteriaResolver,
+    MediaResolver,
     {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],
 

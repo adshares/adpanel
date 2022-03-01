@@ -103,7 +103,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
-          this.getTargeting();
+          this.updateTargeting();
           this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
         }
         this.updateBudgetInfo();
@@ -183,13 +183,15 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  getTargeting() {
+  updateTargeting(): void {
     this.campaign.targeting = {
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
 
-    if (this.targeting.requires.length || this.targeting.excludes.length || !this.campaign) return;
+    if (this.targeting.requires.length || this.targeting.excludes.length) {
+      return
+    }
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {

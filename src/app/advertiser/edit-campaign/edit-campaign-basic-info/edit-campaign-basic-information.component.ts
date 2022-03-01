@@ -22,7 +22,8 @@ import {
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   clicksToAds,
-  formatMoney
+  formatMoney,
+  mapToIterable,
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -50,6 +51,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   campaign: Campaign;
   changesSaved: boolean;
   isAutoCpm: boolean;
+  media: any[]
 
   constructor(
     private router: Router,
@@ -67,27 +69,26 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       status: campaignStatusesEnum.DRAFT,
       name: campaignBasicInfoValue.name,
       targetUrl: campaignBasicInfoValue.targetUrl,
-      maxCpc: 0, // adsToClicks(campaignBasicInfoValue.maxCpc || 0),
+      maxCpc: 0,
       maxCpm:
         this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
+      mediumName: campaignBasicInfoValue.mediumName,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
-    };
+    }
   }
 
   private static convertBasicInfo(lastEditedCampaign: CampaignBasicInformation) {
-    const basicInformation: {status, name, targetUrl, maxCpc, maxCpm, budget} = {
+    const basicInformation = {
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
+      mediumName: lastEditedCampaign.mediumName,
       maxCpc: 0,
       maxCpm: null,
       budget: null,
     };
-    // if (lastEditedCampaign.maxCpc !== null) {
-    //   basicInformation.maxCpc = 0; // formatMoney(lastEditedCampaign.maxCpc, 4, true, '.', '');
-    // }
     if (lastEditedCampaign.maxCpm !== null) {
       basicInformation.maxCpm = parseFloat(formatMoney(lastEditedCampaign.maxCpm, 4, true, '.', ''));
     }
@@ -142,9 +143,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   createForm() {
-    const initialBasicinfo = campaignInitialState.basicInformation;
-    this.setBudgetValue(initialBasicinfo.budget);
-    this.dateStart.setValue(initialBasicinfo.dateStart);
+    const initialBasicInfo = campaignInitialState.basicInformation;
+    this.setBudgetValue(initialBasicInfo.budget);
+    this.dateStart.setValue(initialBasicInfo.dateStart);
+    this.media = mapToIterable(this.route.snapshot.parent.data.media)
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,
@@ -152,27 +154,30 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     ]);
 
     this.campaignBasicInfoForm = new FormGroup({
-      name: new FormControl(initialBasicinfo.name, Validators.required),
-      targetUrl: new FormControl(initialBasicinfo.targetUrl, [
+      name: new FormControl(initialBasicInfo.name, Validators.required),
+      targetUrl: new FormControl(initialBasicInfo.targetUrl, [
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP)
       ]),
-      maxCpc: new FormControl(initialBasicinfo.maxCpc),
-      maxCpm: new FormControl(initialBasicinfo.maxCpm, [
+      maxCpm: new FormControl(initialBasicInfo.maxCpm, [
         CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpm)),
       ]),
-      budget: new FormControl(initialBasicinfo.budget, [
+      budget: new FormControl(initialBasicInfo.budget, [
         Validators.required,
         Validators.min(clicksToAds(this.campaignsConfig.minBudget)),
       ]),
+      mediumName: new FormControl({
+        value: initialBasicInfo.mediumName,
+        disabled: !this.createCampaignMode,
+      }),
     });
 
     this.subscribeBudgetChange();
-    this.getFormDataFromStore();
+    this.loadFormDataFromStore();
   }
 
-  getFormDataFromStore() {
-    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign',)
+  loadFormDataFromStore() {
+    const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
         this.isAutoCpm = lastEditedCampaign.basicInformation.maxCpm === null;

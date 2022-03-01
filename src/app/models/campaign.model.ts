@@ -55,6 +55,7 @@ interface CampaignBasicInformation {
   maxCpc: number;
   maxCpm: number | null;
   budget: number;
+  mediumName: string;
   dateStart: string;
   dateEnd?: string;
 }

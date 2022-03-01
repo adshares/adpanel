@@ -26,6 +26,22 @@
         dwmth-box--large"
     >
       <div class="dwmth-form-input__box">
+        <label class="dwmth-form-label">Medium</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="mediumName"
+          data-test="advertiser-edit-campaign-basic-information-medium-select"
+        >
+          <mat-option
+            *ngFor="let medium of media"
+            [value]="medium.key"
+            data-test="advertiser-edit-campaign-basic-information-medium-option"
+          >
+            {{ medium.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="dwmth-form-input__box">
         <label
           for="campaignName"
           class="dwmth-form-label"

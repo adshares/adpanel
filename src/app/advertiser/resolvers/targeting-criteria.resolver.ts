@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router'
+import { Observable } from 'rxjs/Rx'
 
-import { prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
-import { AdvertiserService } from 'advertiser/advertiser.service';
-import { TargetingOption } from "models/targeting-option.model";
+import { processTargeting } from 'common/components/targeting/targeting.helpers'
+import { AdvertiserService } from 'advertiser/advertiser.service'
+import { TargetingOption } from 'models/targeting-option.model'
 
 @Injectable()
 export class TargetingCriteriaResolver implements Resolve<TargetingOption[]> {
-  constructor(private advertiserService: AdvertiserService) {
+  constructor (private advertiserService: AdvertiserService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
-    return this.advertiserService.getTargetingCriteria()
-      .map((targetingOptions) => prepareTargetingChoices(targetingOptions));
+  resolve (route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
+    return this.advertiserService.getMedium()
+      .map((medium) => processTargeting(medium))
   }
 }

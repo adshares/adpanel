@@ -13,7 +13,7 @@ import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publi
 import { cloneDeep } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { TargetingOptionValue } from 'models/targeting-option.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -35,7 +35,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   site: Site = cloneDeep(siteInitialState);
   createSiteMode: boolean;
   filteredOptions: Observable<object>;
-  targetingOptions : TargetingOptionValue[];
+  siteCategoriesOptions : TargetingOptionValue[];
   selectedTargetingOptionValues: TargetingOptionValue[] = [];
   isSetCategoryMode: boolean;
   changesSaving: boolean = false;
@@ -63,8 +63,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.getLanguages();
-    this.targetingOptions = this.getTargetingOptions();
-    this.isSetCategoryMode = this.targetingOptions.length > 0;
+    this.siteCategoriesOptions = this.createSiteMode ? this.route.snapshot.data.targetingOptions : []
+    this.isSetCategoryMode = this.siteCategoriesOptions.length > 0
     this.createForm();
 
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
@@ -73,24 +73,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
         map((val: string) => val ? this.filterOptions(val) : this.languages.slice())
       )
-  }
-
-  private getTargetingOptions(): TargetingOptionValue[] {
-    if (!this.createSiteMode) {
-      return [];
-    }
-
-    const siteOption = this.route.snapshot.data.targetingOptions.find(option => 'site' === option.key);
-    if (!siteOption) {
-      return [];
-    }
-
-    const categoryOption = (<TargetingOption>siteOption).children.find(option => 'category' === option.key);
-    if (!categoryOption) {
-      return [];
-    }
-
-    return categoryOption.values;
   }
 
   updateSelectedTargetingOptionValues(items): void {
