@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { getLabelCompound, getLabelPath } from 'common/components/targeting/targeting.helpers';
+import { getPathAndLabel } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-targeting-display',
@@ -30,26 +30,23 @@ export class TargetingDisplayComponent implements OnChanges {
   prepareItemsToDisplay(): void {
     this.viewModel = [];
     this.items.forEach((item) => {
+      const [path, label] = getPathAndLabel(item, this.targetingOptions);
       const chosenTargetingItem = {
         id: item.id,
-        label: getLabelCompound(item, this.targetingOptions),
+        label: label,
       };
 
-      const itemLabelPath = getLabelPath(item.id, this.targetingOptions);
       const viewModelParentPathIndex = this.viewModel.findIndex(
-        (viewModelItem) => {
-          return viewModelItem.parentPath === itemLabelPath;
-        }
+        viewModelItem => viewModelItem.parentPath === path
       );
 
       if (viewModelParentPathIndex >= 0) {
         this.viewModel[viewModelParentPathIndex].chosenTargeting.push(chosenTargetingItem);
-
         return;
       }
 
       this.viewModel.push({
-        parentPath: itemLabelPath,
+        parentPath: path,
         chosenTargeting: [chosenTargetingItem],
       });
     });

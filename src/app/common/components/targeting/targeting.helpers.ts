@@ -134,15 +134,13 @@ export function findOptionList(
       return options;
     }
 
-    let result;
     const itemSublist = options[i]['children'] || options[i]['values'];
 
     if (itemSublist) {
-      result = findOptionList(optionId, itemSublist);
-    }
-
-    if (result) {
-      return result;
+      const result = findOptionList(optionId, itemSublist);
+      if (result) {
+        return result;
+      }
     }
   }
 }
@@ -156,66 +154,22 @@ export function findOption(
   return optionList && optionList.find((option) => optionId === option.id);
 }
 
-export function getLabelCompound(
+export function getPathAndLabel (
   option: TargetingOption | TargetingOptionValue,
-  options: TargetingOption[],
-): string {
-  let label = option.label;
-  let currentOption = option;
-  let hasValue;
+  targeting: TargetingOption[]
+): string[] {
+  let pathChain: string[] = []
+  let labelChain: string[] = []
 
   do {
-    const parentOptionId = currentOption.parentId;
-    const optionList = findOptionList(parentOptionId, options);
-    if (!optionList) {
-      break;
+    if (option.hasOwnProperty('value')) {
+      labelChain.push(option.label)
+    } else {
+      pathChain.push(option.label)
     }
-    currentOption = optionList.find((option) => option.id === parentOptionId);
-    if (!currentOption) {
-      break;
-    }
-    hasValue = currentOption.hasOwnProperty('value');
+  } while (option.parentId && (option = findOption(option.parentId, targeting)))
 
-    if (hasValue) {
-      label = currentOption.label + ' / ' + label;
-    }
-
-  } while (hasValue);
-
-  return label;
-}
-
-export function getLabelPath(
-  optionId: string,
-  targeting: TargetingOption[]
-): string {
-  const arrayPath = optionId.split('-');
-
-  return generateLabelPath(arrayPath, targeting);
-}
-
-function generateLabelPath(
-  arrayPath: string[],
-  targeting: TargetingOption[],
-  partialPath: string = ''
-): string {
-  const keyForSearch = arrayPath[0];
-  const searchedOption = targeting.find((option) => option.key === keyForSearch);
-  if (searchedOption.allowInput) {
-    partialPath = searchedOption.id
-      .split('-')
-      .map(el => `${el.charAt(0).toUpperCase()}${el.slice(1)}`)
-      .join(' / ');
-    return partialPath
-  }
-  const newArrayPath = arrayPath.splice(1, arrayPath.length - 1);
-  partialPath += (partialPath === '' ? '' : ' / ') + searchedOption.label;
-
-  if (newArrayPath.length === 1 || !searchedOption.children) {
-    return partialPath;
-  }
-
-  return generateLabelPath(newArrayPath, searchedOption.children ? searchedOption.children : [], partialPath);
+  return [pathChain, labelChain].map(array => array.reverse().join(' / '))
 }
 
 export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {

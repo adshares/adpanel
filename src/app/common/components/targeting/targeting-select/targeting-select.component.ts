@@ -147,12 +147,10 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let hasValue: boolean;
     let parentOption;
     do {
-      const parentOptionId = currentOption.parentId;
-      const optionList = findOptionList(parentOptionId, this.targetingOptions);
-      if (!optionList) {
+      parentOption = findOption(currentOption.parentId, this.targetingOptions)
+      if (!parentOption) {
         break;
       }
-      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = true;
@@ -193,11 +191,10 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let parentOption;
     do {
       const parentOptionId = option.parentId;
-      const optionList = findOptionList(parentOptionId, this.targetingOptions);
-      if (!optionList) {
+      parentOption = findOption(parentOptionId, this.targetingOptions)
+      if (!parentOption) {
         break;
       }
-      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = parentOption.values.some((item) => item.selected || item.subSelected);
