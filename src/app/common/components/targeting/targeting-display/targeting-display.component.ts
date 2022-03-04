@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import { TargetingOptionValue } from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { getLabelCompound, getLabelPath } from 'common/components/targeting/targeting.helpers';
 
 @Component({
@@ -9,10 +9,10 @@ import { getLabelCompound, getLabelPath } from 'common/components/targeting/targ
   styleUrls: ['./targeting-display.component.scss']
 })
 export class TargetingDisplayComponent implements OnChanges {
-  @Input() items;
-  @Input() canRemove;
-  @Input() isExclude;
-  @Input() targetingOptions;
+  @Input() items: TargetingOptionValue[];
+  @Input() canRemove: boolean;
+  @Input() isExclude: boolean;
+  @Input() targetingOptions: TargetingOption[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   viewModel: {
@@ -29,7 +29,6 @@ export class TargetingDisplayComponent implements OnChanges {
 
   prepareItemsToDisplay(): void {
     this.viewModel = [];
-    if (!this.items.length) return;
     this.items.forEach((item) => {
       const chosenTargetingItem = {
         id: item.id,
@@ -56,11 +55,14 @@ export class TargetingDisplayComponent implements OnChanges {
     });
   }
 
-  removeItem(itemId: string): void {
-    const itemInItemsIndex = this.items.findIndex((item) => item.id === itemId);
-
-    this.items.splice(itemInItemsIndex, 1);
-    this.itemsChange.emit(this.items);
-    this.prepareItemsToDisplay();
+  removeItem(id: string): void {
+    let index
+    let idToRemove = id
+    while ((index = this.items.findIndex(item => item.id === idToRemove)) !== -1) {
+      const item = this.items.splice(index, 1)[0]
+      idToRemove = item.parentId
+    }
+    this.itemsChange.emit(this.items)
+    this.prepareItemsToDisplay()
   }
 }
