@@ -14,7 +14,7 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
-import { AssetTargeting } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
@@ -53,7 +53,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     requires: [],
     excludes: []
   };
-  targetingOptions: AssetTargeting;
+  targetingOptions: TargetingOption[];
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
   budgetInfo: string;

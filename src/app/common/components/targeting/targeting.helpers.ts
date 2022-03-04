@@ -2,19 +2,19 @@ import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/ta
 import { cloneDeep } from 'common/utilities/helpers'
 import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
 
-export function prepareTargetingChoices(
+export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
 ): TargetingOption[] {
   const result = [];
 
   for (let i = 0; i < options.length; i++) {
-    result.push(createTargetingChoice(options[i]));
+    result.push(createFilteringChoice(options[i]));
   }
 
   return result;
 }
 
-function createTargetingChoice(
+function createFilteringChoice(
   option: TargetingOption | TargetingOptionValue,
   keyChain: string = '',
   parentOption: TargetingOption = null
@@ -39,7 +39,7 @@ function createTargetingChoice(
 
     for (let i = 0; i < targetingChoice[choiceSublistName].length; i++) {
       targetingChoiceSublist.push(
-        createTargetingChoice(targetingChoice[choiceSublistName][i], key, targetingChoice)
+        createFilteringChoice(targetingChoice[choiceSublistName][i], key, targetingChoice)
       );
     }
 
@@ -47,13 +47,7 @@ function createTargetingChoice(
   }
 
   if (targetingChoice.value) {
-    Object.assign(targetingChoice, {
-      parent: {
-        id: parentOption.id,
-        valueType: parentOption.valueType,
-        allowInput: parentOption.allowInput,
-      }
-    });
+    targetingChoice.parentId = parentOption.id;
   }
 
   return targetingChoice;
@@ -88,6 +82,7 @@ export function processTargeting (medium: Medium): TargetingOption[] {
         label: item.label,
         allowInput: item.type === 'input',
         id,
+        parentId: roots[i].key
       }
       if (item.items) {
         option.values = processTargetingItems(item.items, id)
@@ -119,11 +114,7 @@ function processTargetingItems (items: any, parentId: string, baseId?: string): 
         label: (typeof items[key] === 'string') ? items[key] : items[key].label,
         value: key,
         id: id,
-        parent: {
-          id: parentId,
-          valueType: 'string',//TODO remove if not needed
-          allowInput: false,//TODO remove if not needed
-        },
+        parentId: parentId,
       }
       if (typeof items[key] !== 'string') {
         option.values = processTargetingItems(items[key].values, id, baseId)
@@ -165,12 +156,6 @@ export function findOption(
   return optionList && optionList.find((option) => optionId === option.id);
 }
 
-export function getParentId(optionId: string): string {
-  const optionKeyArray = optionId.split('-');
-
-  return optionKeyArray.splice(0, optionKeyArray.length - 1).join('-');
-}
-
 export function getLabelCompound(
   option: TargetingOption | TargetingOptionValue,
   options: TargetingOption[],
@@ -180,7 +165,7 @@ export function getLabelCompound(
   let hasValue;
 
   do {
-    const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+    const parentOptionId = currentOption.parentId;
     const optionList = findOptionList(parentOptionId, options);
     if (!optionList) {
       break;
@@ -274,28 +259,14 @@ function createPathObject(obj: Object, keyPath: string[], value: string): void {
   }
 }
 
-export function parseTargetingOptionsToArray(targetingObject, targetingOptions): AssetTargeting {
-  const requiresResultKeys = [];
-  const excludesResultKeys = [];
+export function parseTargetingOptionsToArray(targetingObject, targetingOptions: TargetingOption[]): AssetTargeting {
   const requiresResult = [];
   const excludesResult = [];
-  const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
 
   if (targetingObject) {
-    generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
-    generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
+    addTargetingOptionToResult(targetingObject.requires, requiresResult, targetingOptions)
+    addTargetingOptionToResult(targetingObject.excludes, excludesResult, targetingOptions)
   }
-
-  requiresResultKeys.forEach(
-    requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
-  );
-
-  excludesResultKeys.forEach(
-    excludesResultKey => addTargetingOptionToResult(excludesResultKey, excludesResult, targetingOptions)
-  );
-
-  addCustomOptionToResult(requiresResultKeys, requiresResult, targetingOptions);
-  addCustomOptionToResult(excludesResultKeys, excludesResult, targetingOptions);
 
   return {
     requires: requiresResult,
@@ -303,31 +274,42 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
   };
 }
 
-function generateTargetingKeysArray(targetingObject, result, targetingOptionTopKeys, key = '') {
-  Object.keys(targetingObject).forEach((partialKey, keyIndex) => {
-    if (typeof targetingObject[partialKey] === 'object') {
-      if (targetingOptionTopKeys.indexOf(partialKey) > -1) {
-        key = '';
+function addTargetingOptionToResult (
+  targetingObject: object,
+  result: TargetingOptionValue[],
+  targetingOptions: any[],
+  parent: TargetingOption|TargetingOptionValue = undefined
+): void {
+  for (let key in targetingObject) {
+    if (targetingObject.hasOwnProperty(key)) {
+      if (typeof targetingObject[key] === 'object') {
+        const id = parent ? `${parent.id}-${key}` : key
+        const option = targetingOptions.find(targetingOption => targetingOption.id === id)
+        if (option) {
+          addTargetingOptionToResult(targetingObject[key], result, option.children || option.values, option)
+        }
+      } else {
+        const value = targetingObject[key]
+
+        if (parent && parent.allowInput) {
+          result.push(prepareCustomOption(value, parent))
+          continue
+        }
+
+        const id = parent ? `${parent.id}-${value}` : value
+        const option = getTargetingOptionValueById(id, targetingOptions)
+        if (option !== null) {
+          result.push(option)
+        }
       }
-
-      if (Array.isArray(targetingObject[partialKey]) && keyIndex !== 0) {
-        const temporaryKeyArray = key.split('-');
-
-        temporaryKeyArray.splice(-1, 1);
-        key = temporaryKeyArray.join('-');
-      }
-
-      key += (key === '' ? '' : '-') + partialKey;
-      generateTargetingKeysArray(targetingObject[partialKey], result, targetingOptionTopKeys, key);
-
-      return;
     }
-
-    result.push(`${key}-${targetingObject[partialKey]}`);
-  });
+  }
 }
 
-function getTargetingOptionValueById(id: string, targetingOptionValues: TargetingOptionValue[]): TargetingOptionValue|null {
+function getTargetingOptionValueById(
+  id: string,
+  targetingOptionValues: TargetingOptionValue[]
+): TargetingOptionValue | null {
   for (let targetingOptionValue of targetingOptionValues) {
     if (targetingOptionValue.id === id) {
       return targetingOptionValue;
@@ -344,75 +326,15 @@ function getTargetingOptionValueById(id: string, targetingOptionValues: Targetin
   return null;
 }
 
-function addTargetingOptionToResult(resultKey, result, targetingOptions) {
-  targetingOptions.forEach(targetingOption => {
-    if (targetingOption.children) {
-      addTargetingOptionToResult(resultKey, result, targetingOption.children);
-    } else if (targetingOption.values) {
-      const foundResult = getTargetingOptionValueById(resultKey, targetingOption.values);
-      if (foundResult) {
-        result.push(foundResult);
-      }
-    }
-  });
-}
-
-function addCustomOptionToResult(optionKeys, results, targetingOptions) {
-  optionKeys.forEach(optionKey => {
-    const addedResultIndex = !!results.length && results.findIndex(result => {
-      return result.id === optionKey
-    });
-
-    if (addedResultIndex === -1 || addedResultIndex === false) {
-      const parentKeyPathArray = optionKey.split('-');
-      const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
-      let customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
-      let rawValue;
-      if (!customOptionParent) {
-        // if find element that contains custom value based on allow input parameter
-        targetingOptions.forEach(res => {
-          if (res.children && res.children.find(el => el.id.includes(parentKeyPathArray[0]) && el.allowInput)) {
-            customOptionParent = res.children.find(el => {
-              return el.id.includes(parentKeyPathArray[0]) && el.allowInput
-            });
-            // recreate 'pure value' from option key that contain categories and value connected with '-'
-            rawValue = optionKey
-              .split('-')
-              .splice(customOptionParent.id.split('-').length, parentKeyPathArray.length)
-              .join('-')
-          }
-        });
-
-        if (!customOptionParent) {
-          return;
-        }
-      } else {
-        rawValue = lastKeyelement;
-      }
-
-      const customOption = prepareCustomOption(
-        rawValue,
-        customOptionParent,
-      );
-      results.push(customOption);
-    }
-  });
-}
-
 export function prepareCustomOption(
-  value: string | number,
+  value: string,
   parentOption: TargetingOption | TargetingOptionValue,
-) {
+): TargetingOptionValue {
   return {
     id: `${parentOption.id}-${value}`,
-    key: `${value}`,
     label: value,
-    parent: {
-      id: parentOption.id,
-      valueType: parentOption['valueType'],
-      allowInput: parentOption['allowInput']
-    },
     value: value,
+    parentId: parentOption.id,
     isCustom: true
   }
 }

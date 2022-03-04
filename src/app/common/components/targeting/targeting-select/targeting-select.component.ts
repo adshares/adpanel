@@ -15,7 +15,6 @@ import {
 import {
   findOption,
   findOptionList,
-  getParentId
 } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
@@ -106,10 +105,6 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       this.markParentOptions(option);
       this.itemsChange.emit(this.selectedItems);
     }
-
-    if (option.parent.valueType === 'boolean') {
-      this.deselectOppositeBoolean(option);
-    }
   }
 
   private handleSiteCategoryUnknown(option: TargetingOptionValue) {
@@ -152,7 +147,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let hasValue: boolean;
     let parentOption;
     do {
-      const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
+      const parentOptionId = currentOption.parentId;
       const optionList = findOptionList(parentOptionId, this.targetingOptions);
       if (!optionList) {
         break;
@@ -197,7 +192,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let hasValue: boolean;
     let parentOption;
     do {
-      const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
+      const parentOptionId = option.parentId;
       const optionList = findOptionList(parentOptionId, this.targetingOptions);
       if (!optionList) {
         break;
@@ -235,16 +230,6 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  deselectOppositeBoolean(option: TargetingOptionValue): void {
-    const optionList = findOptionList(option.id, this.targetingOptions);
-    const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
-    if (oppositeOption && oppositeOption['selected']) {
-      this.selectedItems = [...this.selectedItems.filter((option) => option.id !== oppositeOption.id)];
-      Object.assign(oppositeOption, {selected: false});
-    }
-    this.itemsChange.emit(this.selectedItems);
-  }
-
   deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions): void {
     options.forEach((option) => {
       const sublist = option['children'] || option['values'];
@@ -263,8 +248,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   }
 
   setBackViewModel(option: TargetingOption | TargetingOptionValue): void {
-    const parentOptionId =
-      (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
+    const parentOptionId = option.parentId;
 
     this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);

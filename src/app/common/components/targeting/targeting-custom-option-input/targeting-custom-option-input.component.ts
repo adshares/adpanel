@@ -52,15 +52,13 @@ export class TargetingCustomOptionInputComponent {
     }
   }
 
-  adjustValueBeforeSave(value: string): TargetingOptionValue {
+  private adjustValueBeforeSave(value: string): TargetingOptionValue {
     const trimmedValue = value.trim().split(' ').join('').toLowerCase();
     return {
       id: `${this.option.id}-${trimmedValue}`,
       label: trimmedValue,
       value: trimmedValue,
-      parent: {
-        valueType: 'string'
-      },
+      parentId: this.option.id,
       selected: true,
       allowInput: false,
       isCustom: true,
