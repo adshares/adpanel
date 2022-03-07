@@ -1,6 +1,9 @@
 import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
 import { cloneDeep } from 'common/utilities/helpers'
 import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
+import { CampaignTargeting } from 'models/campaign.model'
+
+const SEPARATOR = '/'
 
 export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
@@ -24,11 +27,11 @@ function createFilteringChoice(
   let key = keyChain;
   if (option['key']) {
     if (key.length > 0) {
-      key += '-';
+      key += SEPARATOR;
     }
     key += option['key'];
   }
-  const id = option['value'] ? `${key}-${option['value']}` : key;
+  const id = option['value'] ? `${key}${SEPARATOR}${option['value']}` : key;
   const choiceSublistName = option['children'] ?
     'children' : (option['values'] ? 'values' : null);
 
@@ -75,7 +78,7 @@ export function processTargeting (medium: Medium): TargetingOption[] {
     const targetingItems = medium.targeting[roots[i].key] as TargetingItem[]
 
     targetingItems.forEach(item => {
-      const id = `${roots[i].key}-${item.name}`
+      const id = `${roots[i].key}${SEPARATOR}${item.name}`
       const option: TargetingOption = {
         valueType: 'string',
         key: item.name,
@@ -108,7 +111,7 @@ function processTargetingItems (items: any, parentId: string, baseId?: string): 
   for (let key in items) {
     if (items.hasOwnProperty(key)) {
       baseId = (baseId === undefined) ? parentId : baseId
-      const id = `${baseId}-${key}`
+      const id = `${baseId}${SEPARATOR}${key}`
 
       const option: TargetingOptionValue = {
         label: (typeof items[key] === 'string') ? items[key] : items[key].label,
@@ -172,18 +175,18 @@ export function getPathAndLabel (
   return [pathChain, labelChain].map(array => array.reverse().join(' / '))
 }
 
-export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
-  const parsedTargeting = {
+export function parseTargetingForBackend(chosenTargeting: AssetTargeting): CampaignTargeting {
+  const parsedTargeting: CampaignTargeting = {
     requires: {},
     excludes: {}
   };
 
   [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
     targetingList.forEach(targeting => {
-      const suffix = `-${targeting.value}`;
+      const suffix = `${SEPARATOR}${targeting.value}`;
 
       if (targeting.id.endsWith(suffix)) {
-        const keyPartials = targeting.id.slice(0, -(suffix.length)).split('-');
+        const keyPartials = targeting.id.slice(0, -(suffix.length)).split(SEPARATOR);
         const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
         createPathObject(parsedTargetingList, keyPartials, targeting.value);
       }
@@ -193,7 +196,7 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
   return parsedTargeting;
 }
 
-function createPathObject(obj: Object, keyPath: string[], value: string): void {
+function createPathObject(obj: object, keyPath: string[], value: string): void {
   const lastKeyIndex = keyPath.length - 1;
 
   for (let i = 0; i < lastKeyIndex; ++i) {
@@ -213,7 +216,10 @@ function createPathObject(obj: Object, keyPath: string[], value: string): void {
   }
 }
 
-export function parseTargetingOptionsToArray(targetingObject, targetingOptions: TargetingOption[]): AssetTargeting {
+export function parseTargetingOptionsToArray(
+  targetingObject: CampaignTargeting,
+  targetingOptions: TargetingOption[]
+): AssetTargeting {
   const requiresResult = [];
   const excludesResult = [];
 
@@ -237,7 +243,7 @@ function addTargetingOptionToResult (
   for (let key in targetingObject) {
     if (targetingObject.hasOwnProperty(key)) {
       if (typeof targetingObject[key] === 'object') {
-        const id = parent ? `${parent.id}-${key}` : key
+        const id = parent ? `${parent.id}${SEPARATOR}${key}` : key
         const option = targetingOptions.find(targetingOption => targetingOption.id === id)
         if (option) {
           addTargetingOptionToResult(targetingObject[key], result, option.children || option.values, option)
@@ -246,11 +252,11 @@ function addTargetingOptionToResult (
         const value = targetingObject[key]
 
         if (parent && parent.allowInput) {
-          result.push(prepareCustomOption(value, parent))
+          result.push(prepareCustomOption(value, parent.id))
           continue
         }
 
-        const id = parent ? `${parent.id}-${value}` : value
+        const id = parent ? `${parent.id}${SEPARATOR}${value}` : value
         const option = getTargetingOptionValueById(id, targetingOptions)
         if (option !== null) {
           result.push(option)
@@ -282,13 +288,13 @@ function getTargetingOptionValueById(
 
 export function prepareCustomOption(
   value: string,
-  parentOption: TargetingOption | TargetingOptionValue,
+  parentId: string,
 ): TargetingOptionValue {
   return {
-    id: `${parentOption.id}-${value}`,
+    id: `${parentId}${SEPARATOR}${value}`,
     label: value,
     value: value,
-    parentId: parentOption.id,
+    parentId: parentId,
     isCustom: true
   }
 }

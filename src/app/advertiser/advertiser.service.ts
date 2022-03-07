@@ -74,8 +74,7 @@ export class AdvertiserService {
 
   private static convertCampaignForBackend (campaign: Campaign) {
     if (campaign.targetingArray) {
-      const targetingObject = parseTargetingForBackend(campaign.targetingArray)
-      Object.assign(campaign, { targeting: targetingObject })
+      campaign.targeting = parseTargetingForBackend(campaign.targetingArray)
       delete campaign.targetingArray
     }
   }

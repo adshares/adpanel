@@ -6,13 +6,15 @@ interface CampaignsConfig {
   minCpa: number;
 }
 
+type CampaignTargeting = {
+  requires: object;
+  excludes: object;
+}
+
 interface Campaign {
   id?: number;
   basicInformation: CampaignBasicInformation;
-  targeting: {
-    requires: object;
-    excludes: object;
-  };
+  targeting: CampaignTargeting;
   ads: Ad[];
 
   targetingArray?: AssetTargeting;
@@ -168,6 +170,7 @@ export {
   CampaignConversionStatistics,
   CampaignConversionStatisticsTableItem,
   CampaignClassification,
+  CampaignTargeting,
   Ad,
   AdPreview,
   CampaignTotals,

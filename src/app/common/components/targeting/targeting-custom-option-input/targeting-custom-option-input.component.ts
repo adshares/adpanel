@@ -11,8 +11,9 @@ import {
   ENTER,
   SPACE
 } from '@angular/cdk/keycodes';
-import { TargetingOptionValue } from 'models/targeting-option.model';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { MatChipInputEvent } from "@angular/material";
+import { prepareCustomOption } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-targeting-custom-option-input',
@@ -21,7 +22,7 @@ import { MatChipInputEvent } from "@angular/material";
 })
 export class TargetingCustomOptionInputComponent {
   @ViewChild('input') input: ElementRef;
-  @Input() option;
+  @Input() option: TargetingOption | TargetingOptionValue;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
@@ -54,15 +55,9 @@ export class TargetingCustomOptionInputComponent {
 
   private adjustValueBeforeSave(value: string): TargetingOptionValue {
     const trimmedValue = value.trim().split(' ').join('').toLowerCase();
-    return {
-      id: `${this.option.id}-${trimmedValue}`,
-      label: trimmedValue,
-      value: trimmedValue,
-      parentId: this.option.id,
-      selected: true,
-      allowInput: false,
-      isCustom: true,
-    };
+    const option = prepareCustomOption(trimmedValue, this.option.id)
+    option.selected = true
+    return option
   }
 
   remove(option: TargetingOptionValue): void {

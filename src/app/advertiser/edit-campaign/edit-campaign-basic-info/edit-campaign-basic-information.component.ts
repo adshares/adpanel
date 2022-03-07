@@ -51,7 +51,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   campaign: Campaign;
   changesSaved: boolean;
   isAutoCpm: boolean;
-  media: any[]
+  media: {
+    key: string,
+    value: string,
+  }[]
 
   constructor(
     private router: Router,
