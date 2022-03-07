@@ -133,6 +133,7 @@
           ></fa-icon>
         </label>
         <app-targeting-select
+          *ngIf="siteCategoriesOptions && siteCategoriesOptions.length > 0"
           [targetingOptions]="siteCategoriesOptions"
           [addedItems]="selectedTargetingOptionValues"
           (itemsChange)="updateSelectedTargetingOptionValues($event)"

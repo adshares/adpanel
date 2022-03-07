@@ -14,7 +14,6 @@ import { parseTargetingForBackend } from 'common/components/targeting/targeting.
 import { HandleSubscription } from 'common/handle-subscription';
 import { siteStatusEnum } from 'models/enum/site.enum';
 
-//TODO in PAN-25 -> replace rest of targeting variables with filtering ones
 @Component({
   selector: 'app-edit-site-additional-targeting',
   templateUrl: './edit-site-additional-targeting.component.html',
@@ -27,8 +26,8 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;
-  targetingOptionsToAdd: TargetingOption[];
-  targetingOptionsToExclude: TargetingOption[];
+  targetingOptionsToAdd: TargetingOption[] = [];
+  targetingOptionsToExclude: TargetingOption[] = [];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createSiteMode: boolean;

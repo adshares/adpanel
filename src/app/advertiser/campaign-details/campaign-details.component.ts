@@ -17,7 +17,7 @@ import { ChartLabels } from 'models/chart/chart-labels.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
-import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -195,8 +195,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
-      this.targetingOptions = this.route.snapshot.data.targetingOptions;
-      this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+      this.advertiserService.getMedium(this.campaign.basicInformation.mediumName)
+        .take(1)
+        .subscribe(medium => {
+          this.targetingOptions = processTargeting(medium);
+          this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+        })
     }
   }
 

@@ -63,6 +63,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
                 [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
@@ -122,6 +123,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
                 [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 [checkClass]="'stopmark'"

@@ -35,7 +35,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   site: Site = cloneDeep(siteInitialState);
   createSiteMode: boolean;
   filteredOptions: Observable<object>;
-  siteCategoriesOptions : TargetingOptionValue[];
+  siteCategoriesOptions : TargetingOptionValue[] = [];
   selectedTargetingOptionValues: TargetingOptionValue[] = [];
   isSetCategoryMode: boolean;
   changesSaving: boolean = false;

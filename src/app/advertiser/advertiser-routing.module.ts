@@ -39,7 +39,6 @@ const advertiserRoutes: Routes = [
         resolve: {
           bidStrategyDefaultUuid: BidStrategyDefaultResolver,
           campaignsConfig: CampaignsConfigResolver,
-          targetingOptions: TargetingCriteriaResolver,
           filteringOptions: FilteringCriteriaResolver,
           campaign: CampaignResolver
         }

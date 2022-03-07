@@ -17,6 +17,7 @@ import { adsToClicks, clicksToAds, cloneDeep, formatMoney } from 'common/utiliti
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
+import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { environment } from 'environments/environment';
@@ -33,8 +34,8 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   campaign: Campaign;
-  targetingOptionsToAdd: TargetingOption[];
-  targetingOptionsToExclude: TargetingOption[];
+  targetingOptionsToAdd: TargetingOption[] = [];
+  targetingOptionsToExclude: TargetingOption[] = [];
   addedItems: TargetingOptionValue[] = [];
   excludedItems: TargetingOptionValue[] = [];
   createCampaignMode: boolean;
@@ -43,6 +44,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   isAutoCpm: boolean = true;
   configuredMinCpm: number;
   submitted = false;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,12 +57,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   ngOnInit(): void {
-    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
-    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.targetingOptions);
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
 
-    this.updateMaxCpmFromStore();
-    this.updateTargetingFromStore();
+    this.loadMaxCpmAndTargetingFromStore();
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(!this.createCampaignMode);
     subscription && this.subscriptions.push(subscription);
   }
@@ -147,8 +146,9 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     }
   }
 
-  updateTargetingFromStore(): void {
+  loadMaxCpmAndTargetingFromStore(): void {
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .filter(campaign => campaign.targetingArray !== undefined)
       .first()
       .subscribe((lastEditedCampaign: Campaign) => {
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
@@ -158,34 +158,41 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
           this.changesSaved = true;
           return;
         }
-        const targeting = lastEditedCampaign.targetingArray;
-        this.addedItems = [...targeting.requires];
-        this.excludedItems = [...targeting.excludes];
+        this.updateMaxCpm(lastEditedCampaign);
+        this.updateTargeting(lastEditedCampaign);
       });
     this.subscriptions.push(lastCampaignSubscription);
   }
 
-  updateMaxCpmFromStore(): void {
-    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .take(1)
-      .subscribe((lastEditedCampaign: Campaign) => {
-        if (lastEditedCampaign.basicInformation.maxCpm !== null) {
-          this.isAutoCpm = false;
-          const maxCpm = parseFloat(formatMoney(lastEditedCampaign.basicInformation.maxCpm, 4, true, '.', ''));
+  private updateMaxCpm (lastEditedCampaign: Campaign): void {
+    if (lastEditedCampaign.basicInformation.maxCpm !== null) {
+      this.isAutoCpm = false;
+      const maxCpm = parseFloat(formatMoney(lastEditedCampaign.basicInformation.maxCpm, 4, true, '.', ''));
 
-          const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig', 'minCpm')
-            .take(1)
-            .subscribe((minCpm: number) => {
-              this.configuredMinCpm = minCpm;
-              this.campaignBasicInfoForm = new FormGroup({
-                maxCpm: new FormControl(maxCpm, [
-                  CustomValidators.minOrZero(clicksToAds(minCpm)),
-                ]),
-              });
-            });
-          this.subscriptions.push(campaignsConfigSubscription);
-        }
-      });
-    this.subscriptions.push(lastCampaignSubscription);
+      const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig', 'minCpm')
+        .take(1)
+        .subscribe((minCpm: number) => {
+          this.configuredMinCpm = minCpm;
+          this.campaignBasicInfoForm = new FormGroup({
+            maxCpm: new FormControl(maxCpm, [
+              CustomValidators.minOrZero(clicksToAds(minCpm)),
+            ]),
+          });
+        })
+      this.subscriptions.push(campaignsConfigSubscription);
+    }
+  }
+
+  private updateTargeting (lastEditedCampaign: Campaign): void {
+    const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.mediumName)
+      .take(1)
+      .subscribe(medium => {
+        this.targetingOptionsToAdd = processTargeting(medium);
+        this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd);
+        this.addedItems = [...lastEditedCampaign.targetingArray.requires];
+        this.excludedItems = [...lastEditedCampaign.targetingArray.excludes];
+        this.isLoading = false
+      })
+    this.subscriptions.push(targetingSubscription)
   }
 }
