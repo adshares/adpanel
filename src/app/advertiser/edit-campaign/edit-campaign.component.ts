@@ -5,7 +5,7 @@ import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
-import * as advertiserAction from 'store/advertiser/advertiser.actions';
+import { ClearLastEditedCampaign, SaveCampaignTargeting } from 'store/advertiser/advertiser.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { HandleSubscription } from "common/handle-subscription";
@@ -39,7 +39,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
         if (!lastEditedCampaign.targetingArray) {
           const targetingOptions = this.route.snapshot.data.targetingOptions;
           this.store.dispatch(
-            new advertiserAction.SaveCampaignTargeting(
+            new SaveCampaignTargeting(
               parseTargetingOptionsToArray(lastEditedCampaign.targeting, targetingOptions)
             )
           );
@@ -50,7 +50,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
 
   ngOnDestroy() {
     if (this.isEditMode) {
-      this.store.dispatch(new advertiserAction.ClearLastEditedCampaign())
+      this.store.dispatch(new ClearLastEditedCampaign())
     }
   }
 }

@@ -13,6 +13,6 @@ export class TargetingCriteriaResolver implements Resolve<TargetingOption[]> {
 
   resolve (route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
     return this.advertiserService.getMedium()
-      .map((medium) => processTargeting(medium))
+      .map(medium => processTargeting(medium))
   }
 }

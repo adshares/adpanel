@@ -32,7 +32,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   selectedItems: TargetingOptionValue[] = [];
-  viewModel: (TargetingOption | TargetingOptionValue)[];
+  viewModel: (TargetingOption | TargetingOptionValue)[] = [];
   parentViewModel: (TargetingOption | TargetingOptionValue)[];
   parentOption: TargetingOption | TargetingOptionValue;
   targetingOptionsForSearch: (TargetingOption|TargetingOptionValue)[] = [];
@@ -107,7 +107,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  private handleSiteCategoryUnknown(option: TargetingOptionValue) {
+  private handleSiteCategoryUnknown(option: TargetingOptionValue): void {
     if (option.id.startsWith('site-category-')) {
       if ('site-category-unknown' === option.id) {
         const optionList = findOptionList('site-category', this.targetingOptions);

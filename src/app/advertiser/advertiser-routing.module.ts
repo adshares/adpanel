@@ -48,13 +48,15 @@ const advertiserRoutes: Routes = [
         path: 'create-campaign',
         component: EditCampaignComponent,
         resolve: {
-          media: MediaResolver,
           targetingOptions: TargetingCriteriaResolver,
         },
         children: [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'additional-targeting',
@@ -75,7 +77,6 @@ const advertiserRoutes: Routes = [
         component: EditCampaignComponent,
         resolve: {
           campaignsConfig: CampaignsConfigResolver,
-          media: MediaResolver,
           targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver,
         },
@@ -83,6 +84,9 @@ const advertiserRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'bid-strategy',
