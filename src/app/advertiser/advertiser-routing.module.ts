@@ -13,7 +13,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
@@ -46,9 +45,6 @@ const advertiserRoutes: Routes = [
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
-        resolve: {
-          targetingOptions: TargetingCriteriaResolver,
-        },
         children: [
           {
             path: 'basic-information',
@@ -76,7 +72,6 @@ const advertiserRoutes: Routes = [
         component: EditCampaignComponent,
         resolve: {
           campaignsConfig: CampaignsConfigResolver,
-          targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver,
         },
         children: [
