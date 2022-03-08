@@ -66,7 +66,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.loadSiteCategories( this.media[0].key);
+    this.loadSiteCategories(this.media[0].key);
     this.getLanguages();
     this.createForm();
 
@@ -160,7 +160,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     };
 
     if (this.isSetCategoryMode) {
-      this.site['categories'] = this.selectedTargetingOptionValues.map(optionValue => optionValue.value);
+      this.site.categories = this.selectedTargetingOptionValues.map(optionValue => optionValue.value);
     }
 
     return true;
@@ -272,8 +272,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     }
     const siteCategoriesSubscription = this.publisherService.getMedium(mediumName, true)
       .subscribe(options => {
-        this.siteCategoriesOptions = this.createSiteMode ? options : [];
-        this.isSetCategoryMode = this.siteCategoriesOptions.length > 0;
+        this.siteCategoriesOptions = options;
+        this.isSetCategoryMode = options.length > 0;
       })
     this.subscriptions.push(siteCategoriesSubscription);
   }
