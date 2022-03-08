@@ -4,13 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
-import 'rxjs/add/operator/take';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { ShowDialogOnError } from 'store/common/common.actions';
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions';
-import { cloneDeep } from 'common/utilities/helpers';
+import { cloneDeep, mapToIterable } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
 import { TargetingOptionValue } from 'models/targeting-option.model';
@@ -43,6 +42,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
   websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
+  media: {
+    key: string,
+    value: string,
+  }[];
 
   constructor(
     private action$: Actions,
@@ -56,15 +59,15 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   ngOnInit(): void {
+    this.media = mapToIterable(this.route.snapshot.data.media);
     const updateSiteFailureSubscription = this.action$.ofType(UPDATE_SITE_FAILURE).subscribe(() => {
       this.changesSaving = false;
       this.store.dispatch(new ShowDialogOnError(''));
     });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
+    this.loadSiteCategories( this.media[0].key);
     this.getLanguages();
-    this.siteCategoriesOptions = this.createSiteMode ? this.route.snapshot.data.targetingOptions : [];
-    this.isSetCategoryMode = this.siteCategoriesOptions.length > 0;
     this.createForm();
 
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges
@@ -137,7 +140,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       this.dialog.open(ErrorResponseDialogComponent, {
         data: {
           title: 'Invalid site language!',
-          message: `Fill site language field with correct data and submit`,
+          message: 'Fill site language field with correct data and submit',
         }
       });
       return false;
@@ -153,6 +156,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       domain: this.siteBasicInfoForm.controls['domain'].value,
       url: this.siteBasicInfoForm.controls['url'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
+      mediumName: this.siteBasicInfoForm.controls['mediumName'].value,
     };
 
     if (this.isSetCategoryMode) {
@@ -195,7 +199,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         Validators.maxLength(EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX),
         Validators.pattern(/^https?:\/\/(?![.])[^\/?#]+\.[^\/?#]+$/i)
       ]),
-      primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required)
+      primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required),
+      mediumName: new FormControl({
+        value: siteInitialState.mediumName,
+        disabled: !this.createSiteMode,
+      }),
     });
     this.getFormDataFromStore();
   }
@@ -208,6 +216,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         this.site.primaryLanguage = lastEditedSite.primaryLanguage ?
           this.getSiteInitialLanguage(lastEditedSite.primaryLanguage) :
           this.getSiteInitialLanguage();
+        this.site.mediumName = lastEditedSite.mediumName;
         this.siteBasicInfoForm.patchValue(this.site);
       });
     this.subscriptions.push(lastEditedSiteSubscription);
@@ -255,5 +264,17 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     sanitizedUrl = sanitizedUrl.replace(/^(https?:\/\/)(?:.*@)?/i, '$1');
 
     return sanitizedUrl;
+  }
+
+  loadSiteCategories(mediumName: string): void {
+    if (!this.createSiteMode) {
+      return;
+    }
+    const siteCategoriesSubscription = this.publisherService.getMedium(mediumName, true)
+      .subscribe(options => {
+        this.siteCategoriesOptions = this.createSiteMode ? options : [];
+        this.isSetCategoryMode = this.siteCategoriesOptions.length > 0;
+      })
+    this.subscriptions.push(siteCategoriesSubscription);
   }
 }

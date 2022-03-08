@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
-import { TargetingOption } from 'models/targeting-option.model';
-import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { Medium } from 'models/taxonomy-medium.model';
+import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 
 @Injectable()
@@ -78,6 +79,25 @@ export class PublisherService {
 
   getFilteringCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
+  }
+
+  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<TargetingOptionValue[]> {
+    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`)
+      .map((medium) => {
+        const targetingOptions = processTargeting(medium);
+
+        const siteOption = targetingOptions.find(option => 'site' === option.key);
+        if (!siteOption) {
+          return [];
+        }
+
+        const categoryOption = siteOption.children.find(option => 'category' === option.key);
+        if (!categoryOption) {
+          return [];
+        }
+
+        return categoryOption.values;
+      });
   }
 
   getAdUnitSizes(): Observable<AdUnitMetaData[]> {

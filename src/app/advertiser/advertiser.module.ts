@@ -36,7 +36,6 @@ import { CampaignBudgetPerDayPipe } from 'common/pipes/campaign-budget-per-day.p
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { BidStrategyDefaultResolver } from './resolvers/bid-strategy-default.resolver';
 import { CampaignResolver } from './resolvers/campaign.resolver';
-import { MediaResolver } from 'advertiser/resolvers/media.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
@@ -98,7 +97,6 @@ const advertiserComponents = [
     BidStrategyDefaultResolver,
     CampaignResolver,
     CampaignsConfigResolver,
-    MediaResolver,
     {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],
 

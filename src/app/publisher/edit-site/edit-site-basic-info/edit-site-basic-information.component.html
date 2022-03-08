@@ -26,6 +26,23 @@
         site-edit-basic-information__info-box"
     >
       <div class="dwmth-form-input__box">
+        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Medium</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="mediumName"
+          (change)="loadSiteCategories($event.value)"
+          data-test="publisher-edit-site-basic-information-medium-select"
+        >
+          <mat-option
+            *ngFor="let medium of media"
+            [value]="medium.key"
+            data-test="publisher-edit-site-basic-information-medium-option"
+          >
+            {{ medium.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="dwmth-form-input__box">
         <label
           for="siteUrl"
           class="dwmth-form-label"
@@ -151,7 +168,7 @@
                site-edit-basic-information__language">
         <label
           for="languageInput"
-          class="dwmth-form-label dwmth-form-label--shorter"
+          class="dwmth-form-label dwmth-form-label--shorter dwmth-form-label--no-margin-top"
         >
           Content language
         </label>

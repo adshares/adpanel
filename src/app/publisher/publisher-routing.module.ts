@@ -15,10 +15,10 @@ import {EditSiteSummaryComponent} from './edit-site/edit-site-summary/edit-site-
 import {PublisherGuard} from './publisher-guard.service';
 import {SiteResolver} from './resolvers/site.resolver';
 import {FilteringCriteriaResolver} from './resolvers/filtering-criteria.resolver';
+import {MediaResolver} from 'common/resolvers/media.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
 import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
-import {SiteCategoriesResolver} from 'publisher/resolvers/site-categories-resolver.service'
 
 const publisherRoutes: Routes = [
   {
@@ -58,7 +58,7 @@ const publisherRoutes: Routes = [
             component: EditSiteBasicInformationComponent,
             resolve: {
               languagesList: LanguagesListResolver,
-              targetingOptions: SiteCategoriesResolver,
+              media: MediaResolver,
             }
           },
           {
@@ -92,7 +92,10 @@ const publisherRoutes: Routes = [
           {
             path: 'basic-information',
             component: EditSiteBasicInformationComponent,
-            resolve: {languagesList: LanguagesListResolver}
+            resolve: {
+              languagesList: LanguagesListResolver,
+              media: MediaResolver,
+            }
           },
           {
             path: 'pops-settings',

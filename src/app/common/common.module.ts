@@ -77,6 +77,7 @@ import { ReportsListItemComponent } from 'common/components/reports-list/reports
 import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component'
 import { InfoPageComponent } from 'common/info/info-page/info-page.component'
 import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found.component'
+import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 
 const matModules = [
@@ -169,10 +170,11 @@ const appComponents = [
     ...dialogs,
   ],
   providers: [
+    AssetHelpersService,
     BidStrategyService,
     ChartService,
     CommonService,
-    AssetHelpersService,
+    MediaResolver,
     PushNotificationsService,
   ],
   exports: [

@@ -1,12 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { Observable } from 'rxjs/Observable'
 
-import { environment } from 'environments/environment';
-import { Notification } from 'models/notification.model';
-import { reportType } from 'models/enum/user.enum';
+import { environment } from 'environments/environment'
+import { Notification } from 'models/notification.model'
+import { reportType } from 'models/enum/user.enum'
+import { Info } from 'models/info.model'
 import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
-import { Info } from "models/info.model";
+import { Media } from 'models/taxonomy-medium.model'
 
 @Injectable()
 export class CommonService {
@@ -60,5 +61,9 @@ export class CommonService {
 
   getRefLinkInfo(token: string): Observable<RefLinkInfo> {
     return this.http.get<RefLinkInfo>(`${environment.apiUrl}/ref-links/info/${token}`);
+  }
+
+  getMedia(): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
   }
 }

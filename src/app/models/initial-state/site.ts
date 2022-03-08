@@ -17,6 +17,7 @@ export const siteInitialState: Site = {
   domain: '',
   url: '',
   primaryLanguage: '',
+  mediumName: 'web',
   onlyAcceptedBanners: false,
   filtering: {
     requires: {},
