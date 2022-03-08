@@ -54,7 +54,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   media: {
     key: string,
     value: string,
-  }[]
+  }[];
 
   constructor(
     private router: Router,
@@ -149,7 +149,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     const initialBasicInfo = campaignInitialState.basicInformation;
     this.setBudgetValue(initialBasicInfo.budget);
     this.dateStart.setValue(initialBasicInfo.dateStart);
-    this.media = mapToIterable(this.route.snapshot.data.media)
+    this.media = mapToIterable(this.route.snapshot.data.media);
 
     this.budgetPerDay = new FormControl('', [
       Validators.required,

@@ -13,10 +13,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
+import { MediaResolver } from 'advertiser/resolvers/media.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
-import { MediaResolver } from 'advertiser/resolvers/media.resolver'
 
 const advertiserRoutes: Routes = [
   {

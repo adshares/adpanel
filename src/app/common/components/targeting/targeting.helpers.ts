@@ -238,10 +238,10 @@ function addTargetingOptionToResult (
   targetingObject: object,
   result: TargetingOptionValue[],
   targetingOptions: any[],
-  parent: TargetingOption|TargetingOptionValue = undefined
+  parent: TargetingOption | TargetingOptionValue = undefined
 ): void {
-  for (let key in targetingObject) {
-    if (targetingObject.hasOwnProperty(key)) {
+  Object.keys(targetingObject)
+    .forEach(key => {
       if (typeof targetingObject[key] === 'object') {
         const id = parent ? `${parent.id}${SEPARATOR}${key}` : key
         const option = targetingOptions.find(targetingOption => targetingOption.id === id)
@@ -253,7 +253,7 @@ function addTargetingOptionToResult (
 
         if (parent && parent.allowInput) {
           result.push(prepareCustomOption(value, parent.id))
-          continue
+          return
         }
 
         const id = parent ? `${parent.id}${SEPARATOR}${value}` : value
@@ -262,8 +262,7 @@ function addTargetingOptionToResult (
           result.push(option)
         }
       }
-    }
-  }
+    })
 }
 
 function getTargetingOptionValueById(

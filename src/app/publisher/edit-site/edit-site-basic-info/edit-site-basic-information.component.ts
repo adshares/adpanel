@@ -63,8 +63,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.getLanguages();
-    this.siteCategoriesOptions = this.createSiteMode ? this.route.snapshot.data.targetingOptions : []
-    this.isSetCategoryMode = this.siteCategoriesOptions.length > 0
+    this.siteCategoriesOptions = this.createSiteMode ? this.route.snapshot.data.targetingOptions : [];
+    this.isSetCategoryMode = this.siteCategoriesOptions.length > 0;
     this.createForm();
 
     this.filteredOptions = this.siteBasicInfoForm.get('primaryLanguage').valueChanges

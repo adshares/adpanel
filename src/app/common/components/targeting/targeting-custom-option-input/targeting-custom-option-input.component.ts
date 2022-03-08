@@ -30,9 +30,6 @@ export class TargetingCustomOptionInputComponent {
   inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
 
-  constructor() {
-  }
-
   showInput(): void {
     this.inputShown = true;
     setTimeout(() => {
