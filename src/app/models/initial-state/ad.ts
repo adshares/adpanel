@@ -1,15 +1,15 @@
 import { Ad } from 'models/campaign.model';
 import {
   adStatusesEnum,
-  adTypesEnum
+  adCreativeTypes,
 } from 'models/enum/ad.enum';
 
 export const adInitialState: Ad = {
   id: 0,
   status: adStatusesEnum.ACTIVE,
   name: '',
-  type: adTypesEnum.IMAGE,
   creativeSize: null,
+  creativeType: adCreativeTypes.IMAGE,
   clicks: 0,
   impressions: 0,
   ctr: 0,

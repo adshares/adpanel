@@ -3,11 +3,11 @@ export enum adUnitTypesEnum {
   POP = 'pop',
 }
 
-export enum adTypesEnum {
-  IMAGE,
-  HTML,
-  DIRECT,
-  VIDEO,
+export const adCreativeTypes = {
+  IMAGE: 'image',
+  HTML: 'html',
+  DIRECT: 'direct',
+  VIDEO: 'video',
 }
 
 export enum displayAdSizesEnum {

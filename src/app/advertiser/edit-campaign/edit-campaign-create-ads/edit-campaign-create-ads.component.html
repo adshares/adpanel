@@ -155,8 +155,8 @@
                   data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
                 >
                   <mat-option
-                    *ngFor="let adType of adTypes; let adTypeIndex = index"
-                    [value]="adTypeIndex"
+                    *ngFor="let adType of adTypes"
+                    [value]="adType"
                     data-test="advertiser-edit-campaign-create-ads-form-ad-type-option"
                   >
                     {{ adType }}
@@ -257,7 +257,7 @@
             class="error-msg"
             *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
           >
-            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize|formatFileSize}}.
+            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize(i)|formatFileSize}}.
           </div>
 
           <div
@@ -355,7 +355,7 @@
                   class="file-select-input"
                   type="file"
                   id="fileSelect"
-                  (change)="uploadBanner($event)"
+                  (change)="uploadBanner(i, $event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p

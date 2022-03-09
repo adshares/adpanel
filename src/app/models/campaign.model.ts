@@ -114,8 +114,8 @@ interface Ad {
   id: number;
   status: number;
   name: string;
-  type: number;
   creativeSize: string;
+  creativeType: string;
   creativeContents?: string;
   clicks: number;
   impressions: number;
@@ -130,7 +130,7 @@ interface Ad {
 }
 
 interface AdPreview {
-  type: string | number;
+  type: string;
   size: string;
   url: string;
   landingUrl: string;
