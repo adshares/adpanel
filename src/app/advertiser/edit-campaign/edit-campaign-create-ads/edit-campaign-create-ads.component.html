@@ -197,7 +197,7 @@
                 </span>
               </div>
 
-              <div *ngIf="adForm.get('html') && adForm.get('creativeSize').value !== null"
+              <div *ngIf="adForm.get('html')"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Size
@@ -209,7 +209,7 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of displayAdSizes"
+                    *ngFor="let adSize of getAdSizes(adCreativeTypes.HTML)"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
@@ -217,7 +217,7 @@
                 </mat-select>
               </div>
 
-              <div *ngIf="adForm.get('direct') && adForm.get('creativeSize').value !== null"
+              <div *ngIf="adForm.get('direct')"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Display
@@ -229,16 +229,10 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of popAdSizes"
+                    *ngFor="let adSize of getAdSizes(adCreativeTypes.DIRECT)"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
-                  </mat-option>
-                  <mat-option
-                    *ngFor="let adSize of displayAdSizes"
-                    [value]="adSize"
-                    data-test="advertiser-edit-campaign-create-ads-form-size-option">
-                    iframe {{ adSize }}
                   </mat-option>
                 </mat-select>
               </div>
