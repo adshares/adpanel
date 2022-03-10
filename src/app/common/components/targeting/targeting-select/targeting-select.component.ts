@@ -107,18 +107,22 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
-  private handleSiteCategoryUnknown(option: TargetingOptionValue): void {
-    if (option.id.startsWith('site-category-')) {
-      if ('site-category-unknown' === option.id) {
-        const optionList = findOptionList('site-category', this.targetingOptions);
+  private handleSiteCategoryUnknown(optionValue: TargetingOptionValue): void {
+    if (optionValue.id.startsWith('site/category/')) {
+      if ('site/category/unknown' === optionValue.id) {
+        const optionList = findOptionList('site/category', this.targetingOptions);
         if (optionList) {
-          const siteCategory = optionList.find((option) => option.id === 'site-category');
+          const siteCategory = optionList.find((option) => option.id === 'site/category');
           this.removeSubItems(siteCategory);
         } else {
-          this.targetingOptions.forEach((option) => this.removeSubItems(option));
+          this.targetingOptions.forEach((option) => {
+            if (((<TargetingOptionValue>option).selected) && option.id !== optionValue.id) {
+              this.toggleItem(<TargetingOptionValue>option);
+            }
+          });
         }
       } else {
-        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
+        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site/category/unknown' === item.id);
         if (-1 !== indexOfUnknown) {
           this.selectedItems.splice(indexOfUnknown, 1);
         }
@@ -244,8 +248,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     });
   }
 
-  setBackViewModel(option: TargetingOption | TargetingOptionValue): void {
-    const parentOptionId = option.parentId;
+  setBackViewModel(childOption: TargetingOption | TargetingOptionValue): void {
+    const parentOptionId = childOption.parentId;
 
     this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);

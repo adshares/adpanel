@@ -26,10 +26,6 @@ const bannerStatsInitialState = {
   cost: 0,
 };
 
-/** FIXME -> PAN-364 -> refactor reducer by creating class containing needed helper function and data
- * set to help modify data in less repetitive more readable way
- */
-
 export function advertiserReducers(state = initialState, action: AdvertiserActions.actions | AuthActions.actions) {
   switch (action.type) {
     case AdvertiserActions.CLEAR_LAST_EDITED_CAMPAIGN:

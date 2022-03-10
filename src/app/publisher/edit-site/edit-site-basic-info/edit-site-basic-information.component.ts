@@ -270,7 +270,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     if (!this.createSiteMode) {
       return;
     }
-    const siteCategoriesSubscription = this.publisherService.getMedium(mediumName, true)
+    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(mediumName, true)
       .subscribe(options => {
         this.siteCategoriesOptions = options;
         this.isSetCategoryMode = options.length > 0;

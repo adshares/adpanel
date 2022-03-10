@@ -81,8 +81,12 @@ export class PublisherService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
   }
 
-  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<TargetingOptionValue[]> {
+  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
     return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`)
+  }
+
+  siteCategoriesOptions(mediumName: string, excludeInternal: boolean = false): Observable<TargetingOptionValue[]> {
+    return this.getMedium(mediumName, excludeInternal)
       .map((medium) => {
         const targetingOptions = processTargeting(medium);
 

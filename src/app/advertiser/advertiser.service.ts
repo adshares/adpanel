@@ -15,7 +15,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
 import { Subscription } from 'rxjs';
 import { AppState } from 'models/app-state.model';
-import { Media, Medium } from 'models/taxonomy-medium.model'
+import { Medium } from 'models/taxonomy-medium.model'
 import { campaignInitialState } from 'models/initial-state/campaign'
 
 @Injectable()
