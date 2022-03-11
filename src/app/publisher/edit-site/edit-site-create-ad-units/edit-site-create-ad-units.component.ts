@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
@@ -84,7 +83,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
         const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY});
 
-        if (!!savedAdUnits.length) {
+        if (savedAdUnits.length > 0) {
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
             this.adUnitPanelsStatus[index] = false;

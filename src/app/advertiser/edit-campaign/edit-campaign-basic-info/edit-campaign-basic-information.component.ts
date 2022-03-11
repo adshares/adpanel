@@ -66,7 +66,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   get campaignBasicInfo(): CampaignBasicInformation {
-    const campaignBasicInfoValue = this.campaignBasicInfoForm.value;
+    const campaignBasicInfoValue = this.campaignBasicInfoForm.getRawValue();
 
     return {
       status: campaignStatusesEnum.DRAFT,
