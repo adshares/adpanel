@@ -106,25 +106,23 @@ export function processTargeting (medium: Medium): TargetingOption[] {
   return result
 }
 
-function processTargetingItems (items: any, parentId: string, baseId?: string): TargetingOptionValue[] {
+function processTargetingItems (items: object, parentId: string, baseId?: string): TargetingOptionValue[] {
   const result = []
-  for (let key in items) {
-    if (items.hasOwnProperty(key)) {
-      baseId = (baseId === undefined) ? parentId : baseId
-      const id = `${baseId}${SEPARATOR}${key}`
+  const currentBaseId = (baseId === undefined) ? parentId : baseId
+  Object.keys(items).forEach(key => {
+    const id = `${currentBaseId}${SEPARATOR}${key}`
 
-      const option: TargetingOptionValue = {
-        label: (typeof items[key] === 'string') ? items[key] : items[key].label,
-        value: key,
-        id: id,
-        parentId: parentId,
-      }
-      if (typeof items[key] !== 'string') {
-        option.values = processTargetingItems(items[key].values, id, baseId)
-      }
-      result.push(option)
+    const option: TargetingOptionValue = {
+      label: (typeof items[key] === 'string') ? items[key] : items[key].label,
+      value: key,
+      id: id,
+      parentId: parentId,
     }
-  }
+    if (typeof items[key] !== 'string') {
+      option.values = processTargetingItems(items[key].values, id, currentBaseId)
+    }
+    result.push(option)
+  })
   return result
 }
 

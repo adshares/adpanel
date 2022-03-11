@@ -65,9 +65,7 @@ export class TargetingCustomOptionInputComponent {
     }
   }
 
-  saveCustomTargetingOptions(event?: KeyboardEvent): void {
-    if (!event || event.keyCode === ENTER) {
-      this.itemsChange.emit(this.customOptionsArray)
-    }
+  saveCustomTargetingOptions(): void {
+    this.itemsChange.emit(this.customOptionsArray)
   }
 }

@@ -38,7 +38,7 @@
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="true"
                (matChipInputTokenEnd)="add($event)"
-               (keydown)="saveCustomTargetingOptions($event)">
+               (keyup.enter)="saveCustomTargetingOptions()">
       </mat-chip-list>
     </mat-form-field>
 

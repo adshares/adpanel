@@ -29,7 +29,7 @@ interface TargetingItem {
   type: string;
   name: string;
   label: string;
-  items?: any;
+  items?: object;
 }
 
 export {

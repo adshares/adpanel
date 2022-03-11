@@ -46,7 +46,7 @@ export class ClassifierListItemComponent implements OnInit {
     this.setClassificationStatus(isApproved)
 
     this.publisherService.setBannerClassification(this.bannerClassification.bannerId, isApproved, this.siteId).
-      subscribe(() => { },
+      subscribe(() => {},
         (error: HttpErrorResponse) => {
           this.setClassificationStatus(previousClassified)
           if (error.status !== HTTP_INTERNAL_SERVER_ERROR) {
