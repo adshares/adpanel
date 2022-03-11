@@ -110,17 +110,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   private handleSiteCategoryUnknown(optionValue: TargetingOptionValue): void {
     if (optionValue.id.startsWith('site/category/')) {
       if ('site/category/unknown' === optionValue.id) {
-        const optionList = findOptionList('site/category', this.targetingOptions);
-        if (optionList) {
-          const siteCategory = optionList.find((option) => option.id === 'site/category');
-          this.removeSubItems(siteCategory);
-        } else {
-          this.targetingOptions.forEach((option) => {
-            if (((<TargetingOptionValue>option).selected) && option.id !== optionValue.id) {
-              this.toggleItem(<TargetingOptionValue>option);
-            }
-          });
-        }
+        this.uncheckKnownSiteCategoryOptions();
       } else {
         const indexOfUnknown = this.selectedItems.findIndex((item) => 'site/category/unknown' === item.id);
         if (-1 !== indexOfUnknown) {
@@ -128,6 +118,28 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
         }
       }
     }
+  }
+
+  private uncheckKnownSiteCategoryOptions(): void {
+    const siteCategoryOption = findOption('site/category', this.targetingOptions);
+    if (siteCategoryOption) {
+      this.removeSubItems(siteCategoryOption);
+    } else {
+      this.targetingOptions.forEach(option => {
+        if (option.id !== 'site/category/unknown') {
+          this.removeItem(option as TargetingOptionValue);
+        }
+      })
+    }
+  }
+
+  private removeItem(option: TargetingOptionValue): void {
+    option.subSelected = false
+    const index = this.selectedItems.findIndex(item => item.id === option.id)
+    if (-1 !== index) {
+      this.selectedItems.splice(index, 1)
+    }
+    this.removeSubItems(option)
   }
 
   private addSubItems(option: TargetingOptionValue): void {
@@ -218,16 +230,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
 
   private removeSubItems(option: TargetingOption|TargetingOptionValue): void {
     if (option.values) {
-      option.values.forEach(
-        (value) => {
-          value.subSelected = false;
-          const index = this.selectedItems.findIndex((item) => item.id === value.id);
-          if (-1 !== index) {
-            this.selectedItems.splice(index, 1);
-          }
-          this.removeSubItems(value);
-        }
-      );
+      option.values.forEach(value => this.removeItem(value))
     }
   }
 
