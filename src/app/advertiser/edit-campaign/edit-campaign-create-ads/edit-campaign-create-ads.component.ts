@@ -286,7 +286,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   scaleImageToMatchBanner(index: number): string {
-    const banners = Array.from(document.querySelectorAll('.banner')) as Array<HTMLElement>;
+    const banners = Array.from(document.querySelectorAll('.banner'));
     if (!banners[index]) {
       return '1';
     }

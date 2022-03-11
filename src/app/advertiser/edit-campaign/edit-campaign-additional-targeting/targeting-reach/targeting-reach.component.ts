@@ -65,7 +65,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
         if (response.occurrences && response.cpmPercentiles) {
           this.occurrencesMaximum = response.occurrences;
           this.impressionsAndCpm = mapToIterable(response.cpmPercentiles)
-            .sort((a, b) => a.key === b.key ? 0 : a.key > b.key ? -1 : 1)
+            .sort((a, b) => parseInt(b.key) - parseInt(a.key))
             .map(element => ({
               key: Math.round(element.key / 100 * this.occurrencesMaximum),
               value: Math.round(element.value / 1e9) * 1e9

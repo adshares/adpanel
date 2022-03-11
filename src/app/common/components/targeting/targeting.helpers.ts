@@ -10,8 +10,8 @@ export function prepareFilteringChoices(
 ): TargetingOption[] {
   const result = [];
 
-  for (let i = 0; i < options.length; i++) {
-    result.push(createFilteringChoice(options[i]));
+  for (let option of options) {
+    result.push(createFilteringChoice(option));
   }
 
   return result;
@@ -40,9 +40,9 @@ function createFilteringChoice(
   if (choiceSublistName) {
     const targetingChoiceSublist = [];
 
-    for (let i = 0; i < targetingChoice[choiceSublistName].length; i++) {
+    for (let targetingChoiceSublistItem of targetingChoice[choiceSublistName]) {
       targetingChoiceSublist.push(
-        createFilteringChoice(targetingChoice[choiceSublistName][i], key, targetingChoice)
+        createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice)
       );
     }
 
@@ -57,7 +57,7 @@ function createFilteringChoice(
 }
 
 export function processTargeting (medium: Medium): TargetingOption[] {
-  const roots = [
+  const rootNodes = [
     {
       key: 'user',
       label: 'User',
@@ -73,19 +73,19 @@ export function processTargeting (medium: Medium): TargetingOption[] {
   ]
 
   const result = []
-  for (let i = 0; i < roots.length; i++) {
+  for (let rootNode of rootNodes) {
     const children = []
-    const targetingItems = medium.targeting[roots[i].key] as TargetingItem[]
+    const targetingItems = medium.targeting[rootNode.key] as TargetingItem[]
 
     targetingItems.forEach(item => {
-      const id = `${roots[i].key}${SEPARATOR}${item.name}`
+      const id = `${rootNode.key}${SEPARATOR}${item.name}`
       const option: TargetingOption = {
         valueType: 'string',
         key: item.name,
         label: item.label,
         allowInput: item.type === 'input',
         id,
-        parentId: roots[i].key
+        parentId: rootNode.key
       }
       if (item.items) {
         option.values = processTargetingItems(item.items, id)
@@ -95,11 +95,11 @@ export function processTargeting (medium: Medium): TargetingOption[] {
 
     const rootOption: TargetingOption = {
       valueType: 'group',
-      key: roots[i].key,
-      label: roots[i].label,
+      key: rootNode.key,
+      label: rootNode.label,
       allowInput: false,
       children: children,
-      id: roots[i].key,
+      id: rootNode.key,
     }
     result.push(rootOption)
   }
@@ -130,12 +130,12 @@ export function findOptionList(
   optionId: string,
   options: (TargetingOption | TargetingOptionValue)[]
 ): (TargetingOption | TargetingOptionValue)[] {
-  for (let i = 0; i < options.length; i++) {
-    if (options[i].id === optionId) {
+  for (let option of options) {
+    if (option.id === optionId) {
       return options;
     }
 
-    const itemSublist = options[i]['children'] || options[i]['values'];
+    const itemSublist = option['children'] || option['values'];
 
     if (itemSublist) {
       const result = findOptionList(optionId, itemSublist);
