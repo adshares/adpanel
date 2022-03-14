@@ -30,7 +30,7 @@
         <mat-select
           class="dwmth-select"
           formControlName="mediumName"
-          (change)="loadSiteCategories($event.value)"
+          (selectionChange)="onMediumChange($event.value)"
           data-test="publisher-edit-site-basic-information-medium-select"
         >
           <mat-option
@@ -39,6 +39,26 @@
             data-test="publisher-edit-site-basic-information-medium-option"
           >
             {{ medium.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div
+        *ngIf="integrations.length > 0"
+        class="dwmth-form-input__box"
+      >
+        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Integration</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="integrationName"
+          (selectionChange)="onIntegrationChange($event.value)"
+          data-test="publisher-edit-site-basic-information-integration-select"
+        >
+          <mat-option
+            *ngFor="let integration of integrations"
+            [value]="integration.key"
+            data-test="publisher-edit-site-basic-information-integration-option"
+          >
+            {{ integration.value }}
           </mat-option>
         </mat-select>
       </div>

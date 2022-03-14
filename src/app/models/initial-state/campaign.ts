@@ -27,6 +27,7 @@ export const campaignInitialState: Campaign = {
     maxCpm: null,
     budget: null,
     mediumName: 'web',
+    integrationName: null,
     dateStart: moment().format(),
   },
 

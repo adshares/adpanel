@@ -15,7 +15,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
 import { Subscription } from 'rxjs';
 import { AppState } from 'models/app-state.model';
-import { Medium } from 'models/taxonomy-medium.model'
+import { Media, Medium } from 'models/taxonomy-medium.model'
 import { campaignInitialState } from 'models/initial-state/campaign'
 
 @Injectable()
@@ -98,6 +98,10 @@ export class AdvertiserService {
 
   getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
     return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`);
+  }
+
+  getMediumIntegrations(mediumName: string): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${mediumName}/integrations`);
   }
 
   getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {

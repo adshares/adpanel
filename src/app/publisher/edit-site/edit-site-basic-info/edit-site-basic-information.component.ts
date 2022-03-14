@@ -12,7 +12,7 @@ import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publi
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
-import { TargetingOptionValue } from 'models/targeting-option.model';
+import { Entry, TargetingOptionValue } from 'models/targeting-option.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
@@ -42,10 +42,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   websiteDomainLengthMax = EditSiteBasicInformationComponent.WEBSITE_DOMAIN_LENGTH_MAX;
   websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
-  media: {
-    key: string,
-    value: string,
-  }[];
+  media: Entry[];
+  integrations: Entry[] = [];
 
   constructor(
     private action$: Actions,
@@ -66,7 +64,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     });
     this.subscriptions.push(updateSiteFailureSubscription);
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.loadSiteCategories(this.media[0].key);
+    if (this.createSiteMode) {
+      this.onMediumChange(this.media[0].key);
+    }
     this.getLanguages();
     this.createForm();
 
@@ -157,6 +157,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       url: this.siteBasicInfoForm.controls['url'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
       mediumName: this.siteBasicInfoForm.controls['mediumName'].value,
+      integrationName: this.siteBasicInfoForm.controls['integrationName'].value,
     };
 
     if (this.isSetCategoryMode) {
@@ -204,6 +205,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         value: siteInitialState.mediumName,
         disabled: !this.createSiteMode,
       }),
+      integrationName: new FormControl({
+        value: siteInitialState.integrationName,
+        disabled: !this.createSiteMode,
+      }),
     });
     this.getFormDataFromStore();
   }
@@ -216,8 +221,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         this.site.primaryLanguage = lastEditedSite.primaryLanguage ?
           this.getSiteInitialLanguage(lastEditedSite.primaryLanguage) :
           this.getSiteInitialLanguage();
-        this.site.mediumName = lastEditedSite.mediumName;
         this.siteBasicInfoForm.patchValue(this.site);
+        this.onMediumChange(this.site.mediumName);
       });
     this.subscriptions.push(lastEditedSiteSubscription);
   }
@@ -266,15 +271,33 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     return sanitizedUrl;
   }
 
-  loadSiteCategories(mediumName: string): void {
+  loadSiteCategories(mediumName: string, integrationName: string = null): void {
     if (!this.createSiteMode) {
       return;
     }
-    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(mediumName, true)
+    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(mediumName, integrationName)
       .subscribe(options => {
         this.siteCategoriesOptions = options;
         this.isSetCategoryMode = options.length > 0;
       })
     this.subscriptions.push(siteCategoriesSubscription);
+  }
+
+  onMediumChange (mediumName: string): void {
+    const subscription = this.publisherService.getMediumIntegrations(mediumName)
+      .take(1)
+      .subscribe(integrations => {
+        this.integrations = mapToIterable(integrations)
+        if (this.createSiteMode) {
+          const value = this.integrations.length > 0 ? this.integrations[0].key : null
+          this.siteBasicInfoForm.get('integrationName').patchValue(value)
+          this.loadSiteCategories(mediumName, value)
+        }
+      })
+    this.subscriptions.push(subscription)
+  }
+
+  onIntegrationChange (integrationName: string): void {
+    this.loadSiteCategories(this.siteBasicInfoForm.controls['mediumName'].value, integrationName)
   }
 }

@@ -1,3 +1,8 @@
+type Entry = {
+  key: string
+  value: string
+}
+
 interface TargetingOption {
   id?: string;
   key: string;
@@ -40,6 +45,7 @@ interface TargetingReachResponseCpmPercentiles {
 }
 
 export {
+  Entry,
   TargetingOption,
   TargetingOptionValue,
   AssetTargeting,

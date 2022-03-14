@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { Medium } from 'models/taxonomy-medium.model';
+import { Media, Medium } from 'models/taxonomy-medium.model';
 import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 
@@ -81,11 +81,15 @@ export class PublisherService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
   }
 
-  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
+  private getMedium(mediumName: string = 'web', excludeInternal: boolean = true): Observable<Medium> {
     return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`)
   }
 
-  siteCategoriesOptions(mediumName: string, excludeInternal: boolean = false): Observable<TargetingOptionValue[]> {
+  getMediumIntegrations(mediumName: string): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${mediumName}/integrations`);
+  }
+
+  siteCategoriesOptions(mediumName: string, integrationName: string, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
     return this.getMedium(mediumName, excludeInternal)
       .map((medium) => {
         const targetingOptions = processTargeting(medium);

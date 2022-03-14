@@ -18,6 +18,7 @@ export const siteInitialState: Site = {
   url: '',
   primaryLanguage: '',
   mediumName: 'web',
+  integrationName: null,
   onlyAcceptedBanners: false,
   filtering: {
     requires: {},

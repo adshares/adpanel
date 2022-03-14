@@ -8,6 +8,7 @@ import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/campaign.model';
 import { campaignInitialState } from 'models/initial-state/campaign';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
+import { Entry } from 'models/targeting-option.model';
 import {
   LoadCampaignsConfig,
   SaveCampaignBasicInformation,
@@ -51,10 +52,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   campaign: Campaign;
   changesSaved: boolean;
   isAutoCpm: boolean;
-  media: {
-    key: string,
-    value: string,
-  }[];
+  media: Entry[];
+  integrations: Entry[] = [];
 
   constructor(
     private router: Router,
@@ -77,6 +76,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
       mediumName: campaignBasicInfoValue.mediumName,
+      integrationName: campaignBasicInfoValue.integrationName,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     }
@@ -88,6 +88,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
       mediumName: lastEditedCampaign.mediumName,
+      integrationName: lastEditedCampaign.integrationName,
       maxCpc: 0,
       maxCpm: null,
       budget: null,
@@ -173,6 +174,10 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         value: initialBasicInfo.mediumName,
         disabled: !this.createCampaignMode,
       }),
+      integrationName: new FormControl({
+        value: initialBasicInfo.integrationName,
+        disabled: !this.createCampaignMode,
+      }),
     });
 
     this.subscribeBudgetChange();
@@ -187,6 +192,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
+        this.onMediumChange(basicInformation.mediumName)
 
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
@@ -237,5 +243,18 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
 
   changeAutoCpm (checked: boolean) {
     this.isAutoCpm = checked;
+  }
+
+  onMediumChange (mediumName: string): void {
+    const subscription = this.advertiserService.getMediumIntegrations(mediumName)
+      .take(1)
+      .subscribe(integrations => {
+        this.integrations = mapToIterable(integrations)
+        if (this.createCampaignMode) {
+          const value = this.integrations.length > 0 ? this.integrations[0].key : null
+          this.campaignBasicInfoForm.get('integrationName').patchValue(value)
+        }
+      })
+    this.subscriptions.push(subscription)
   }
 }
