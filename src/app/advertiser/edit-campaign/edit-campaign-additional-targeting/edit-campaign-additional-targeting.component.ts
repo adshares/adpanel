@@ -183,14 +183,14 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     }
   }
 
-  private updateTargeting (lastEditedCampaign: Campaign): void {
-    const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.medium)
+  private updateTargeting (campaign: Campaign): void {
+    const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
       .take(1)
       .subscribe(medium => {
         this.targetingOptionsToAdd = processTargeting(medium);
         this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd);
-        this.addedItems = [...lastEditedCampaign.targetingArray.requires];
-        this.excludedItems = [...lastEditedCampaign.targetingArray.excludes];
+        this.addedItems = [...campaign.targetingArray.requires];
+        this.excludedItems = [...campaign.targetingArray.excludes];
         this.isLoading = false
       })
     this.subscriptions.push(targetingSubscription)

@@ -271,7 +271,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     return sanitizedUrl;
   }
 
-  loadSiteCategories(medium: string, vendor: string = null): void {
+  loadSiteCategories(medium: string, vendor: string | null = null): void {
     if (!this.createSiteMode) {
       return;
     }

@@ -92,22 +92,22 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     subscription && this.subscriptions.push(subscription);
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
-      .subscribe((lastEditedCampaign: Campaign) => {
-        this.campaign = lastEditedCampaign;
-        const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
+      .subscribe(campaign => {
+        this.campaign = campaign;
+        const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(campaign);
         if (!campaignNameFilled) {
           this.changesSaved = true;
           return;
         }
 
-        this.advertiserService.getMedium(lastEditedCampaign.basicInformation.medium)
+        this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
           .take(1)
           .subscribe(medium => {
             const supportedTypes = Object.values(adCreativeTypes);
             this.formats = medium.formats.filter(format => supportedTypes.includes(format.type));
             this.adTypes = this.formats.map(format => format.type);
 
-            const savedAds = lastEditedCampaign.ads;
+            const savedAds = campaign.ads;
             if (savedAds.length > 0) {
               savedAds.forEach((savedAd, index) => {
                 this.adForms.push(this.generateFormField(savedAd, this.isEditMode));

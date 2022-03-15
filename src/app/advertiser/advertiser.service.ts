@@ -96,8 +96,8 @@ export class AdvertiserService {
     return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
   }
 
-  getMedium(medium: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
-    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`);
+  getMedium(medium: string = 'web', vendor: string | null = null, excludeInternal: boolean = false): Observable<Medium> {
+    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}&vendor=${vendor}`);
   }
 
   getMediumVendors(medium: string): Observable<Media> {

@@ -35,10 +35,10 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
   ngOnInit(): void {
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .first()
-      .subscribe((campaign: Campaign) => {
+      .subscribe(campaign => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
-        const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium)
+        const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
           .take(1)
           .subscribe(medium => {
             this.targetingOptionsToAdd = processTargeting(medium)
