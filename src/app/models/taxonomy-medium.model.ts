@@ -11,6 +11,7 @@ interface Media {
 interface Medium {
   name: string;
   label: string;
+  vendor: string | null;
   formats: Format[];
   targeting: Targeting;
 }
