@@ -17,8 +17,8 @@ export const siteInitialState: Site = {
   domain: '',
   url: '',
   primaryLanguage: '',
-  mediumName: 'web',
-  integrationName: null,
+  medium: 'web',
+  vendor: null,
   onlyAcceptedBanners: false,
   filtering: {
     requires: {},

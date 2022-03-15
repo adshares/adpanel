@@ -100,7 +100,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
           return;
         }
 
-        this.advertiserService.getMedium(lastEditedCampaign.basicInformation.mediumName)
+        this.advertiserService.getMedium(lastEditedCampaign.basicInformation.medium)
           .take(1)
           .subscribe(medium => {
             const supportedTypes = Object.values(adCreativeTypes);

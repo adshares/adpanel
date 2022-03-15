@@ -5,6 +5,12 @@ import { CampaignTargeting } from 'models/campaign.model'
 
 const SEPARATOR = '/'
 
+export const TargetingOptionType = {
+  GROUP: 'group',
+  STRING: 'string',
+  PARCEL_COORDINATES: 'parcel_coordinates',
+}
+
 export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
 ): TargetingOption[] {
@@ -80,7 +86,7 @@ export function processTargeting (medium: Medium): TargetingOption[] {
     targetingItems.forEach(item => {
       const id = `${rootNode.key}${SEPARATOR}${item.name}`
       const option: TargetingOption = {
-        valueType: 'string',
+        valueType: TargetingOptionType.STRING,
         key: item.name,
         label: item.label,
         allowInput: item.type === 'input',
@@ -94,7 +100,7 @@ export function processTargeting (medium: Medium): TargetingOption[] {
     })
 
     const rootOption: TargetingOption = {
-      valueType: 'group',
+      valueType: TargetingOptionType.GROUP,
       key: rootNode.key,
       label: rootNode.label,
       allowInput: false,
@@ -103,7 +109,53 @@ export function processTargeting (medium: Medium): TargetingOption[] {
     }
     result.push(rootOption)
   }
+
+  if (medium.name === 'metaverse') {
+    excludeSiteDomain(result)
+    const id = 'metaverse-dcl'
+    result.push({
+      valueType: TargetingOptionType.PARCEL_COORDINATES,
+      key: id,
+      label: 'Parcel',
+      allowInput: true,
+      id: id,
+    })
+  }
+
   return result
+}
+
+function encodeDcl(parcelId: string): string {
+  const mappedCoordinates = parcelId.substring(1, parcelId.length - 1).split(', ').map(coordinate => {
+    const value = parseInt(coordinate)
+    return value < 0 ? `n${Math.abs(value)}` : coordinate
+  }).join('_')
+  return `scene_${mappedCoordinates}.decentraland.org`
+}
+
+function decodeDcl(domain: string): string {
+  const mappedCoordinates = domain.slice('scene_'.length, -'.decentraland.org'.length)
+  const coordinates = mappedCoordinates
+    .split('_')
+    .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substr(1)}` : coordinate).join(', ')
+  return `(${coordinates})`
+}
+
+function excludeSiteDomain (result: TargetingOption[]): void {
+  for (let i = 0; i < result.length; i++) {
+    const entry = result[i]
+    if (entry.key === 'site') {
+      const index = entry.children.findIndex(option => option.key === 'domain')
+      if (index !== -1) {
+        if (entry.children.length > 1) {
+          entry.children.splice(index, 1)
+        } else {
+          result.splice(i, 1)
+        }
+      }
+      break
+    }
+  }
 }
 
 function processTargetingItems (items: object, parentId: string, baseId?: string): TargetingOptionValue[] {
@@ -195,6 +247,10 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting): Campa
 }
 
 function createPathObject(obj: object, keyPath: string[], value: string): void {
+  if (keyPath[0] === 'metaverse-dcl') {
+    keyPath = ['site', 'domain']
+    value = encodeDcl(value)
+  }
   const lastKeyIndex = keyPath.length - 1;
 
   for (let i = 0; i < lastKeyIndex; ++i) {
@@ -261,6 +317,15 @@ function addTargetingOptionToResult (
         }
       }
     })
+  if (!parent) {
+    const metaverseVendor = targetingOptions.some(option => option.key === 'metaverse-dcl')
+    if (metaverseVendor && targetingObject['site'] && targetingObject['site']['domain']) {
+      for (let item of targetingObject['site']['domain']) {
+        const decoded = decodeDcl(item)
+        result.push(prepareCustomOption(decoded, 'metaverse-dcl'))
+      }
+    }
+  }
 }
 
 function getTargetingOptionValueById(
@@ -294,4 +359,12 @@ export function prepareCustomOption(
     parentId: parentId,
     isCustom: true
   }
+}
+
+interface TargetingConverter {
+  sourcePath(): string[]
+  destinationPath(): string[]
+
+  encodeValue(value: string): string
+  decodeValue(value: string): string
 }

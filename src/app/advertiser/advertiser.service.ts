@@ -96,12 +96,12 @@ export class AdvertiserService {
     return this.http.get<CampaignsConfig>(`${environment.apiUrl}/options/campaigns`);
   }
 
-  getMedium(mediumName: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
-    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${mediumName}?e=${excludeInternal ? 1 : 0}`);
+  getMedium(medium: string = 'web', excludeInternal: boolean = false): Observable<Medium> {
+    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`);
   }
 
-  getMediumIntegrations(mediumName: string): Observable<Media> {
-    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${mediumName}/integrations`);
+  getMediumVendors(medium: string): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
   }
 
   getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {

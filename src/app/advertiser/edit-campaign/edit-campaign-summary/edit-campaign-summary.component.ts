@@ -38,7 +38,7 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
       .subscribe((campaign: Campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
-        const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.mediumName)
+        const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium)
           .take(1)
           .subscribe(medium => {
             this.targetingOptionsToAdd = processTargeting(medium)

@@ -195,7 +195,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
-      this.advertiserService.getMedium(this.campaign.basicInformation.mediumName)
+      this.advertiserService.getMedium(this.campaign.basicInformation.medium)
         .take(1)
         .subscribe(medium => {
           this.targetingOptions = processTargeting(medium);

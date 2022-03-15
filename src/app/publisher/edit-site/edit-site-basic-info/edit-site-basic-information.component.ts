@@ -43,7 +43,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   websiteUrlLengthMax = EditSiteBasicInformationComponent.WEBSITE_URL_LENGTH_MAX;
   private overwriteNameByDomain = false;
   media: Entry[];
-  integrations: Entry[] = [];
+  vendors: Entry[] = [];
 
   constructor(
     private action$: Actions,
@@ -156,8 +156,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       domain: this.siteBasicInfoForm.controls['domain'].value,
       url: this.siteBasicInfoForm.controls['url'].value,
       primaryLanguage: typeof chosenLanguage === 'object' ? chosenLanguage.code : chosenLanguage,
-      mediumName: this.siteBasicInfoForm.controls['mediumName'].value,
-      integrationName: this.siteBasicInfoForm.controls['integrationName'].value,
+      medium: this.siteBasicInfoForm.controls['medium'].value,
+      vendor: this.siteBasicInfoForm.controls['vendor'].value,
     };
 
     if (this.isSetCategoryMode) {
@@ -201,12 +201,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         Validators.pattern(/^https?:\/\/(?![.])[^\/?#]+\.[^\/?#]+$/i)
       ]),
       primaryLanguage: new FormControl(siteInitialState.primaryLanguage, Validators.required),
-      mediumName: new FormControl({
-        value: siteInitialState.mediumName,
+      medium: new FormControl({
+        value: siteInitialState.medium,
         disabled: !this.createSiteMode,
       }),
-      integrationName: new FormControl({
-        value: siteInitialState.integrationName,
+      vendor: new FormControl({
+        value: siteInitialState.vendor,
         disabled: !this.createSiteMode,
       }),
     });
@@ -222,7 +222,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           this.getSiteInitialLanguage(lastEditedSite.primaryLanguage) :
           this.getSiteInitialLanguage();
         this.siteBasicInfoForm.patchValue(this.site);
-        this.onMediumChange(this.site.mediumName);
+        this.onMediumChange(this.site.medium);
       });
     this.subscriptions.push(lastEditedSiteSubscription);
   }
@@ -271,11 +271,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     return sanitizedUrl;
   }
 
-  loadSiteCategories(mediumName: string, integrationName: string = null): void {
+  loadSiteCategories(medium: string, vendor: string = null): void {
     if (!this.createSiteMode) {
       return;
     }
-    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(mediumName, integrationName)
+    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(medium, vendor)
       .subscribe(options => {
         this.siteCategoriesOptions = options;
         this.isSetCategoryMode = options.length > 0;
@@ -283,21 +283,21 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.subscriptions.push(siteCategoriesSubscription);
   }
 
-  onMediumChange (mediumName: string): void {
-    const subscription = this.publisherService.getMediumIntegrations(mediumName)
+  onMediumChange (medium: string): void {
+    const subscription = this.publisherService.getMediumVendors(medium)
       .take(1)
-      .subscribe(integrations => {
-        this.integrations = mapToIterable(integrations)
+      .subscribe(vendors => {
+        this.vendors = mapToIterable(vendors)
         if (this.createSiteMode) {
-          const value = this.integrations.length > 0 ? this.integrations[0].key : null
-          this.siteBasicInfoForm.get('integrationName').patchValue(value)
-          this.loadSiteCategories(mediumName, value)
+          const value = this.vendors.length > 0 ? this.vendors[0].key : null
+          this.siteBasicInfoForm.get('vendor').patchValue(value)
+          this.loadSiteCategories(medium, value)
         }
       })
     this.subscriptions.push(subscription)
   }
 
-  onIntegrationChange (integrationName: string): void {
-    this.loadSiteCategories(this.siteBasicInfoForm.controls['mediumName'].value, integrationName)
+  onVendorChange (vendor: string): void {
+    this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor)
   }
 }

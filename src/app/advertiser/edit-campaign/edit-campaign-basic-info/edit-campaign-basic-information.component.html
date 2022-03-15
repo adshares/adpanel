@@ -29,7 +29,7 @@
         <label class="dwmth-form-label">Medium</label>
         <mat-select
           class="dwmth-select"
-          formControlName="mediumName"
+          formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
           data-test="advertiser-edit-campaign-basic-information-medium-select"
         >
@@ -43,21 +43,21 @@
         </mat-select>
       </div>
       <div
-        *ngIf="integrations.length > 0"
+        *ngIf="vendors.length > 0"
         class="dwmth-form-input__box"
       >
-        <label class="dwmth-form-label">Integration</label>
+        <label class="dwmth-form-label">Vendor</label>
         <mat-select
           class="dwmth-select"
-          formControlName="integrationName"
-          data-test="advertiser-edit-campaign-basic-information-integration-select"
+          formControlName="vendor"
+          data-test="advertiser-edit-campaign-basic-information-vendor-select"
         >
           <mat-option
-            *ngFor="let integration of integrations"
-            [value]="integration.key"
-            data-test="advertiser-edit-campaign-basic-information-integration-option"
+            *ngFor="let vendor of vendors"
+            [value]="vendor.key"
+            data-test="advertiser-edit-campaign-basic-information-vendor-option"
           >
-            {{ integration.value }}
+            {{ vendor.value }}
           </mat-option>
         </mat-select>
       </div>

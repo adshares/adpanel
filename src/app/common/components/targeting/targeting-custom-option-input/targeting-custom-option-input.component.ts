@@ -1,19 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  ViewChild
-} from '@angular/core';
-import {
-  COMMA,
-  ENTER,
-  SPACE
-} from '@angular/cdk/keycodes';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { MatChipInputEvent } from "@angular/material";
-import { prepareCustomOption } from 'common/components/targeting/targeting.helpers';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core'
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes'
+import { MatChipInputEvent } from '@angular/material'
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
+import { prepareCustomOption, TargetingOptionType } from 'common/components/targeting/targeting.helpers'
 
 @Component({
   selector: 'app-targeting-custom-option-input',
@@ -27,10 +16,15 @@ export class TargetingCustomOptionInputComponent {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   readonly separatorKeysCodes: number[] = [COMMA, SPACE, ENTER];
+  readonly TargetingOptionType = TargetingOptionType;
   inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
+  saveRequested = false;
 
   showInput(): void {
+    if (this.inputShown) {
+      return;
+    }
     this.inputShown = true;
     setTimeout(() => {
       this.input.nativeElement.focus();
@@ -66,6 +60,13 @@ export class TargetingCustomOptionInputComponent {
   }
 
   saveCustomTargetingOptions(): void {
+    this.itemsChange.emit(this.customOptionsArray)
+  }
+
+  saveCustomParcel(coordinateX: string, coordinateY: string): void {
+    const value = `(${coordinateX}, ${coordinateY})`
+    const option = prepareCustomOption(value, this.option.id)
+    this.customOptionsArray.push(option)
     this.itemsChange.emit(this.customOptionsArray)
   }
 }

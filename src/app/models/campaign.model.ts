@@ -57,8 +57,8 @@ interface CampaignBasicInformation {
   maxCpc: number;
   maxCpm: number | null;
   budget: number;
-  mediumName: string;
-  integrationName: string | null;
+  medium: string;
+  vendor: string | null;
   dateStart: string;
   dateEnd?: string;
 }

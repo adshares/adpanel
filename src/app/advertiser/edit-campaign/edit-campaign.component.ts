@@ -38,7 +38,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
       .take(1)
       .subscribe((lastEditedCampaign: Campaign) => {
         if (!lastEditedCampaign.targetingArray) {
-          const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.mediumName)
+          const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.medium)
             .take(1)
             .subscribe(medium => {
               const targetingOptions = processTargeting(medium);

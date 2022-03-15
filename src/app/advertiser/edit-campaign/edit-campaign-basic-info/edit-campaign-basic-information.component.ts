@@ -53,7 +53,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   changesSaved: boolean;
   isAutoCpm: boolean;
   media: Entry[];
-  integrations: Entry[] = [];
+  vendors: Entry[] = [];
 
   constructor(
     private router: Router,
@@ -75,8 +75,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       maxCpm:
         this.isAutoCpm || campaignBasicInfoValue.maxCpm === null ? null : adsToClicks(campaignBasicInfoValue.maxCpm || 0),
       budget: adsToClicks(this.budgetValue || 0),
-      mediumName: campaignBasicInfoValue.mediumName,
-      integrationName: campaignBasicInfoValue.integrationName,
+      medium: campaignBasicInfoValue.medium,
+      vendor: campaignBasicInfoValue.vendor,
       dateStart: moment(this.dateStart.value._d).format(),
       dateEnd: this.dateEnd.value !== null ? moment(this.dateEnd.value._d).format() : null
     }
@@ -87,8 +87,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       status: lastEditedCampaign.status,
       name: lastEditedCampaign.name,
       targetUrl: lastEditedCampaign.targetUrl,
-      mediumName: lastEditedCampaign.mediumName,
-      integrationName: lastEditedCampaign.integrationName,
+      medium: lastEditedCampaign.medium,
+      vendor: lastEditedCampaign.vendor,
       maxCpc: 0,
       maxCpm: null,
       budget: null,
@@ -170,12 +170,12 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         Validators.required,
         Validators.min(clicksToAds(this.campaignsConfig.minBudget)),
       ]),
-      mediumName: new FormControl({
-        value: initialBasicInfo.mediumName,
+      medium: new FormControl({
+        value: initialBasicInfo.medium,
         disabled: !this.createCampaignMode,
       }),
-      integrationName: new FormControl({
-        value: initialBasicInfo.integrationName,
+      vendor: new FormControl({
+        value: initialBasicInfo.vendor,
         disabled: !this.createCampaignMode,
       }),
     });
@@ -192,7 +192,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
         this.setBudgetValue(lastEditedCampaign.basicInformation.budget);
         const basicInformation = EditCampaignBasicInformationComponent.convertBasicInfo(lastEditedCampaign.basicInformation);
         this.campaignBasicInfoForm.patchValue(basicInformation);
-        this.onMediumChange(basicInformation.mediumName)
+        this.onMediumChange(basicInformation.medium)
 
         this.dateStart.setValue(moment(lastEditedCampaign.basicInformation.dateStart));
 
@@ -245,14 +245,14 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     this.isAutoCpm = checked;
   }
 
-  onMediumChange (mediumName: string): void {
-    const subscription = this.advertiserService.getMediumIntegrations(mediumName)
+  onMediumChange (medium: string): void {
+    const subscription = this.advertiserService.getMediumVendors(medium)
       .take(1)
-      .subscribe(integrations => {
-        this.integrations = mapToIterable(integrations)
+      .subscribe(vendors => {
+        this.vendors = mapToIterable(vendors)
         if (this.createCampaignMode) {
-          const value = this.integrations.length > 0 ? this.integrations[0].key : null
-          this.campaignBasicInfoForm.get('integrationName').patchValue(value)
+          const value = this.vendors.length > 0 ? this.vendors[0].key : null
+          this.campaignBasicInfoForm.get('vendor').patchValue(value)
         }
       })
     this.subscriptions.push(subscription)

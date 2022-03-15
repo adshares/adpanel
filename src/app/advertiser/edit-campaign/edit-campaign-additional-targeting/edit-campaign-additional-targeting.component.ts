@@ -184,7 +184,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   private updateTargeting (lastEditedCampaign: Campaign): void {
-    const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.mediumName)
+    const targetingSubscription = this.advertiserService.getMedium(lastEditedCampaign.basicInformation.medium)
       .take(1)
       .subscribe(medium => {
         this.targetingOptionsToAdd = processTargeting(medium);
