@@ -56,6 +56,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
+  displayAds: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -91,6 +92,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     this.site = this.route.snapshot.data.site;
+    this.displayAds = this.site.medium !== 'metaverse';
     this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;

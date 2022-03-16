@@ -75,7 +75,7 @@
             data-test="publisher-site-url"
           >
             {{ site.name }}
-            <small>{{ site.domain }}</small>
+            <small *ngIf="displayAds">{{ site.domain }}</small>
           </h1>
           <p
             *ngIf="mediumLabel !== undefined"
@@ -197,14 +197,13 @@
           align-center"
     >
       <p
-        class="
-            dwmth-copy
-            dwmth-copy--semi"
+        *ngIf="language !== undefined"
+        class="dwmth-copy dwmth-copy--semi"
       >
         Site language:
         <span
           class="lowercase">
-          {{language && language.name}}
+          {{ language.name }}
         </span>
       </p>
       <button
@@ -340,6 +339,7 @@
       </div>
     </div>
 
+    <ng-container *ngIf="displayAds">
     <div class="col">
       <div
         class="
@@ -413,7 +413,7 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          <span *ngIf="!!popAdUnits.length">List of ad units</span>
+          <span *ngIf="!!displayAdUnits.length">List of ad units</span>
           <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
         </p>
         <button
@@ -489,6 +489,7 @@
         </button>
       </div>
     </div>
+    </ng-container>
   </div>
 </div>
 <ng-template #loading>

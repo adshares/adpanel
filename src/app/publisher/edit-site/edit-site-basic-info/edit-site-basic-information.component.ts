@@ -223,6 +223,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           this.getSiteInitialLanguage();
         this.siteBasicInfoForm.patchValue(this.site);
         this.onMediumChange(this.site.medium);
+        if (this.site.medium === 'metaverse') {
+          this.siteBasicInfoForm.get('url').disable();
+        }
       });
     this.subscriptions.push(lastEditedSiteSubscription);
   }
