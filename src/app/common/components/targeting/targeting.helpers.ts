@@ -2,6 +2,8 @@ import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/ta
 import { cloneDeep } from 'common/utilities/helpers'
 import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
 import { CampaignTargeting } from 'models/campaign.model'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 const SEPARATOR = '/'
 
@@ -112,6 +114,8 @@ export function processTargeting (medium: Medium): TargetingOption[] {
 
   if (medium.vendor === DecentralandConverter.ID) {
     new DecentralandConverter().convertTargetingOptions(result)
+  } else if (medium.vendor === CryptovoxelsConverter.ID) {
+    new CryptovoxelsConverter().convertTargetingOptions(result)
   }
 
   return result
@@ -204,12 +208,14 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor
 
   if (vendor === DecentralandConverter.ID) {
     new DecentralandConverter().prepareCampaignTargetingForBackend(parsedTargeting)
+  } else if (vendor === CryptovoxelsConverter.ID) {
+    new CryptovoxelsConverter().prepareCampaignTargetingForBackend(parsedTargeting)
   }
 
   return parsedTargeting;
 }
 
-function createPathObject(obj: object, keyPath: string[], value: string): void {
+export function createPathObject(obj: object, keyPath: string[], value: string): void {
   const lastKeyIndex = keyPath.length - 1;
 
   for (let i = 0; i < lastKeyIndex; ++i) {
@@ -247,6 +253,10 @@ export function parseTargetingOptionsToArray(
   };
 }
 
+function targetingNeedsConversion (targetingOptions: any[], id: string) {
+  return targetingOptions.some(option => option.key === id)
+}
+
 function addTargetingOptionToResult (
   targetingObject: object,
   result: TargetingOptionValue[],
@@ -277,9 +287,10 @@ function addTargetingOptionToResult (
       }
     })
   if (!parent) {
-    const decentralandOptions = targetingOptions.some(option => option.key === DecentralandConverter.ID)
-    if (decentralandOptions) {
+    if (targetingNeedsConversion(targetingOptions, DecentralandConverter.ID)) {
       new DecentralandConverter().convertSelectedTargetingOptionValues(targetingObject, result)
+    } else if (targetingNeedsConversion(targetingOptions, CryptovoxelsConverter.ID)) {
+      new CryptovoxelsConverter().convertSelectedTargetingOptionValues(targetingObject, result)
     }
   }
 }
@@ -317,122 +328,19 @@ export function prepareCustomOption(
   }
 }
 
-interface TargetingConverter {
-  /**
-   * Decode backend value to be used in panel
-   * @param value
-   */
-  decodeValue(value: string): string
-
-  /**
-   * Encode value to be used in backend
-   * @param value
-   */
-  encodeValue(value: string): string
-
-  /**
-   * Converts custom path keys to backend format
-   * @param path array of custom keys
-   */
-  convertPath(path: string[]): string[]
-
-  /**
-   * Convert targeting options
-   * @param targetingOptions targeting options
-   */
-  convertTargetingOptions(targetingOptions: TargetingOption[]): void
-
-  /**
-   * Extract custom options from targeting object and add them to selected options
-   * @param targetingObject targeting object from backend
-   * @param targetingOptionValues selected targeting options
-   */
-  convertSelectedTargetingOptionValues(targetingObject: object, targetingOptionValues: TargetingOptionValue[]): void
-
-  /**
-   * Process targeting object for backend, e.g. add default values if missing, change paths
-   * @param targeting targeting object from backend
-   */
-  prepareCampaignTargetingForBackend(targeting: CampaignTargeting): void
-}
-
-class DecentralandConverter implements TargetingConverter {
-  static ID = 'decentraland'
-
-  decodeValue (value: string): string {
-    const mappedCoordinates = value.slice('scene-'.length, -'.decentraland.org'.length)
-    const coordinates = mappedCoordinates
-      .split('-')
-      .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substr(1)}` : coordinate)
-      .join(', ')
-    return `(${coordinates})`
-  }
-
-  encodeValue (value: string): string {
-    const mappedCoordinates = value.substring(1, value.length - 1)
-      .split(', ')
-      .map(coordinate => coordinate.charAt(0) === '-' ? `n${coordinate.substr(1)}` : coordinate)
-      .join('-')
-    return `scene-${mappedCoordinates}.decentraland.org`
-  }
-
-  convertPath(path: string[]): string[] {
-    return ['site', 'domain']
-  }
-
-  convertTargetingOptions (targetingOptions: TargetingOption[]): void {
-    DecentralandConverter.excludeSiteDomain(targetingOptions)
-    targetingOptions.push({
-      allowInput: true,
-      id: DecentralandConverter.ID,
-      key: DecentralandConverter.ID,
-      label: 'Parcel',
-      valueType: TargetingOptionType.PARCEL_COORDINATES,
-    })
-  }
-
-  convertSelectedTargetingOptionValues (targetingObject: object, result: TargetingOptionValue[]): void {
-    if (targetingObject['site'] && targetingObject['site']['domain']) {
-      for (let item of targetingObject['site']['domain']) {
-        if (item === 'decentraland.org') {
-          continue
+export function excludeSiteDomain (targetingOptions: TargetingOption[]): void {
+  for (let i = 0; i < targetingOptions.length; i++) {
+    const entry = targetingOptions[i]
+    if (entry.key === 'site') {
+      const index = entry.children.findIndex(option => option.key === 'domain')
+      if (index !== -1) {
+        if (entry.children.length > 1) {
+          entry.children.splice(index, 1)
+        } else {
+          targetingOptions.splice(i, 1)
         }
-        result.push(prepareCustomOption(this.decodeValue(item), DecentralandConverter.ID))
       }
-    }
-  }
-
-  prepareCampaignTargetingForBackend(targeting: CampaignTargeting): void {
-    if (targeting.requires[DecentralandConverter.ID]) {
-      for (let parcel of targeting.requires[DecentralandConverter.ID]) {
-        createPathObject(targeting.requires, this.convertPath([DecentralandConverter.ID]), this.encodeValue(parcel))
-      }
-      delete targeting.requires[DecentralandConverter.ID]
-    } else {
-      createPathObject(targeting.requires, ['site', 'domain'], 'decentraland.org')
-    }
-    if (targeting.excludes[DecentralandConverter.ID]) {
-      for (let parcel of targeting.excludes[DecentralandConverter.ID]) {
-        createPathObject(targeting.excludes, this.convertPath([DecentralandConverter.ID]), this.encodeValue(parcel))
-      }
-      delete targeting.requires[DecentralandConverter.ID]
-    }
-  }
-
-  private static excludeSiteDomain (targetingOptions: TargetingOption[]): void {
-    for (let i = 0; i < targetingOptions.length; i++) {
-      const entry = targetingOptions[i]
-      if (entry.key === 'site') {
-        const index = entry.children.findIndex(option => option.key === 'domain')
-        if (index !== -1) {
-          if (entry.children.length > 1) {
-            entry.children.splice(index, 1)
-          } else {
-            targetingOptions.splice(i, 1)
-          }
-        }
-        break
-      }
+      break
     }
   }
 }
