@@ -40,6 +40,9 @@ const publisherRoutes: Routes = [
             path: '',
             pathMatch: 'full',
             component: SiteDetailsComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'classifier',

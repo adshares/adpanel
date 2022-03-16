@@ -58,6 +58,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   currentCampaignStatus: string;
   budgetInfo: string;
   isDefaultBidStrategy: boolean = false;
+  mediumLabel: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -105,6 +106,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
           this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
+          this.prepareMediumLabel(this.campaign)
         }
         this.updateBudgetInfo();
         this.updateConversionTableItems();
@@ -140,6 +142,20 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       userSubscription,
       refreshSubscription
     );
+  }
+
+  private prepareMediumLabel (campaign: Campaign): void {
+    const medium = this.route.snapshot.data.media[campaign.basicInformation.medium]
+    if (medium) {
+      if (campaign.basicInformation.vendor === null) {
+        this.mediumLabel = `${medium} campaign`
+        return
+      }
+      this.advertiserService.getMediumVendors(campaign.basicInformation.medium).subscribe(vendors => {
+        const vendor = vendors[campaign.basicInformation.vendor]
+        this.mediumLabel = vendor ? `${medium} campaign in ${vendor}` : `${medium} campaign`
+      })
+    }
   }
 
   updateBudgetInfo() {

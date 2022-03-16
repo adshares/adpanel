@@ -69,15 +69,21 @@
           col-xs-5
           col-md-7"
       >
-        <h1
-          class="
-            dwmth-heading
-            dwmth-heading--primary"
-          data-test="publisher-site-url"
-        >
-          {{ site.name }}
-          <small>{{ site.domain }}</small>
-        </h1>
+        <div class="col">
+          <h1
+            class="dwmth-heading dwmth-heading--primary"
+            data-test="publisher-site-url"
+          >
+            {{ site.name }}
+            <small>{{ site.domain }}</small>
+          </h1>
+          <p
+            *ngIf="mediumLabel !== undefined"
+            class="dwmth-copy dwmth-copy--semi"
+          >
+            {{ mediumLabel }}
+          </p>
+        </div>
         <app-domain-checker
           [siteId]="site.id"
         ></app-domain-checker>

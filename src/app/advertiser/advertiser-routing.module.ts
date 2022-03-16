@@ -39,7 +39,8 @@ const advertiserRoutes: Routes = [
           bidStrategyDefaultUuid: BidStrategyDefaultResolver,
           campaignsConfig: CampaignsConfigResolver,
           filteringOptions: FilteringCriteriaResolver,
-          campaign: CampaignResolver
+          campaign: CampaignResolver,
+          media: MediaResolver,
         }
       },
       {

@@ -54,8 +54,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartDifferenceInPercentage: number;
   barChartLabels: ChartLabels[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
-
   currentChartFilterSettings: ChartFilterSettings;
+  mediumLabel: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -89,8 +89,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.site = this.route.snapshot.data.site;
+    this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
@@ -123,11 +124,25 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
   }
 
-  sortTable(event: TableSortEvent) {
+  private prepareMediumLabel (site: Site): void {
+    const medium = this.route.snapshot.data.media[site.medium]
+    if (medium) {
+      if (site.vendor === null) {
+        this.mediumLabel = `${medium} ads`
+        return
+      }
+      this.publisherService.getMediumVendors(site.medium).subscribe(vendors => {
+        const vendor = vendors[site.vendor]
+        this.mediumLabel = vendor ? `${medium} ads in ${vendor}` : `${medium} ads`
+      })
+    }
+  }
+
+  sortTable(event: TableSortEvent): void {
     this.site.adUnits = sortArrayByKeys(this.site.adUnits, event.keys, event.sortDesc);
   }
 
-  deleteSite() {
+  deleteSite(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this site?',
@@ -156,7 +171,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  getFiltering() {
+  getFiltering(): void {
     this.site.filtering = {
       requires: this.site.filtering.requires || [],
       excludes: this.site.filtering.excludes || [],
@@ -170,7 +185,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, siteId, reload: boolean = true) {
+  getChartData(chartFilterSettings, siteId, reload: boolean = true): void {
     if (reload) {
       this.barChartData[0].data = [];
     }
@@ -214,7 +229,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  onSiteStatusChange() {
+  onSiteStatusChange(): void {
     if (this.canActivateSite) {
       this.currentSiteStatus = 'active';
     } else {
@@ -224,7 +239,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 
-  downloadReport() {
+  downloadReport(): void {
     this.store.dispatch(
       new RequestReport(
         {

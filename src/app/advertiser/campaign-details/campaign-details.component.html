@@ -39,9 +39,17 @@
         justify-between
         align-center">
       <div class="justify-start">
-        <h1 class="dwmth-heading dwmth-heading--primary">
-          {{ campaign.basicInformation.name }}
-        </h1>
+        <div class="col">
+          <h1 class="dwmth-heading dwmth-heading--primary">
+            {{ campaign.basicInformation.name }}
+          </h1>
+          <p
+            *ngIf="mediumLabel !== undefined"
+            class="dwmth-copy dwmth-copy--dark dwmth-copy--semi label"
+          >
+            {{ mediumLabel }}
+          </p>
+        </div>
       </div>
       <div class="row justify-end align-center">
         <div class="row status-button-wrapper">
