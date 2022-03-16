@@ -360,9 +360,9 @@ class DecentralandConverter implements TargetingConverter {
   static ID = 'decentraland'
 
   decodeValue (value: string): string {
-    const mappedCoordinates = value.slice('scene_'.length, -'.decentraland.org'.length)
+    const mappedCoordinates = value.slice('scene-'.length, -'.decentraland.org'.length)
     const coordinates = mappedCoordinates
-      .split('_')
+      .split('-')
       .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substr(1)}` : coordinate)
       .join(', ')
     return `(${coordinates})`
@@ -372,8 +372,8 @@ class DecentralandConverter implements TargetingConverter {
     const mappedCoordinates = value.substring(1, value.length - 1)
       .split(', ')
       .map(coordinate => coordinate.charAt(0) === '-' ? `n${coordinate.substr(1)}` : coordinate)
-      .join('_')
-    return `scene_${mappedCoordinates}.decentraland.org`
+      .join('-')
+    return `scene-${mappedCoordinates}.decentraland.org`
   }
 
   convertPath(path: string[]): string[] {
