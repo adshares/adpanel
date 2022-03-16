@@ -74,7 +74,7 @@ export class AdvertiserService {
 
   private static convertCampaignForBackend (campaign: Campaign) {
     if (campaign.targetingArray) {
-      campaign.targeting = parseTargetingForBackend(campaign.targetingArray)
+      campaign.targeting = parseTargetingForBackend(campaign.targetingArray, campaign.basicInformation.vendor)
       delete campaign.targetingArray
     }
   }
@@ -104,9 +104,9 @@ export class AdvertiserService {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
   }
 
-  getTargetingReach(sizes: string[], targetingArray?: AssetTargeting): Observable<TargetingReachResponse> {
+  getTargetingReach(sizes: string[], targetingArray?: AssetTargeting, vendor?: string | null): Observable<TargetingReachResponse> {
     const body = {
-      targeting: targetingArray ? parseTargetingForBackend(targetingArray) : campaignInitialState.targeting,
+      targeting: targetingArray ? parseTargetingForBackend(targetingArray, vendor) : campaignInitialState.targeting,
     };
     if (sizes.length > 0) {
       body.targeting.requires['size'] = sizes;

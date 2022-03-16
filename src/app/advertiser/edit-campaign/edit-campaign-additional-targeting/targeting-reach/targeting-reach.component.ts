@@ -16,6 +16,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   @Input() autoCpm: boolean = false;
   @Input() cpm: number = 0;
   @Input() targeting: AssetTargeting;
+  @Input() vendor: string | null = null;
 
   private readonly REQUEST_DELAY = 1000;
   private readonly PRESENTED_REACH_THRESHOLD = 1000;
@@ -59,7 +60,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
   }
 
   getTargetingReach(): void {
-    this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.sizes, this.targeting)
+    this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.sizes, this.targeting, this.vendor)
       .take(1)
       .subscribe(response => {
         if (response.occurrences && response.cpmPercentiles) {

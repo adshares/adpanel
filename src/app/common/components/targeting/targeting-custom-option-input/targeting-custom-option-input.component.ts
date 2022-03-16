@@ -1,8 +1,19 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core'
-import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes'
-import { MatChipInputEvent } from '@angular/material'
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
-import { prepareCustomOption, TargetingOptionType } from 'common/components/targeting/targeting.helpers'
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {
+  COMMA,
+  ENTER,
+  SPACE
+} from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { prepareCustomOption, TargetingOptionType } from 'common/components/targeting/targeting.helpers';
 
 @Component({
   selector: 'app-targeting-custom-option-input',

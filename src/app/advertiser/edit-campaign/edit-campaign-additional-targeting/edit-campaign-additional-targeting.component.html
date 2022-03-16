@@ -16,6 +16,7 @@
       [ads]="campaign.ads || []"
       [autoCpm]="true"
       [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+      [vendor]="campaign.basicInformation.vendor"
     ></app-targeting-reach>
 
     <form
@@ -32,6 +33,7 @@
               [ads]="campaign.ads || []"
               [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
               [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+              [vendor]="campaign.basicInformation.vendor"
             ></app-targeting-reach>
           </div>
           <div class="col">
