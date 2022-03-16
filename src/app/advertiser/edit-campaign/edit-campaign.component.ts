@@ -7,7 +7,7 @@ import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
 import { ClearLastEditedCampaign, SaveCampaignTargeting } from 'store/advertiser/advertiser.actions';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
-import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { CampaignsConfig } from 'models/campaign.model';
 import { HandleSubscription } from "common/handle-subscription";
 
 @Component({

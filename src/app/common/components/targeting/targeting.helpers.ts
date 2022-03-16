@@ -170,18 +170,18 @@ export function getPathAndLabel (
   option: TargetingOption | TargetingOptionValue,
   targeting: TargetingOption[]
 ): string[] {
-  let pathChain: string[] = []
-  let labelChain: string[] = []
+  const pathChain: string[] = []
+  const labelChain: string[] = []
 
   do {
     if (option.hasOwnProperty('value')) {
-      labelChain.push(option.label)
+      labelChain.unshift(option.label)
     } else {
-      pathChain.push(option.label)
+      pathChain.unshift(option.label)
     }
   } while (option.parentId && (option = findOption(option.parentId, targeting)))
 
-  return [pathChain, labelChain].map(array => array.reverse().join(' / '))
+  return [pathChain, labelChain].map(array => array.join(' / '))
 }
 
 export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor?: string | null): CampaignTargeting {
@@ -363,15 +363,16 @@ class DecentralandConverter implements TargetingConverter {
     const mappedCoordinates = value.slice('scene_'.length, -'.decentraland.org'.length)
     const coordinates = mappedCoordinates
       .split('_')
-      .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substr(1)}` : coordinate).join(', ')
+      .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substr(1)}` : coordinate)
+      .join(', ')
     return `(${coordinates})`
   }
 
   encodeValue (value: string): string {
-    const mappedCoordinates = value.substring(1, value.length - 1).split(', ').map(coordinate => {
-      const value = parseInt(coordinate)
-      return value < 0 ? `n${Math.abs(value)}` : coordinate
-    }).join('_')
+    const mappedCoordinates = value.substring(1, value.length - 1)
+      .split(', ')
+      .map(coordinate => coordinate.charAt(0) === '-' ? `n${coordinate.substr(1)}` : coordinate)
+      .join('_')
     return `scene_${mappedCoordinates}.decentraland.org`
   }
 

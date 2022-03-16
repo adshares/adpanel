@@ -89,9 +89,9 @@ export class PublisherService {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
   }
 
-  siteCategoriesOptions(medium: string, vendor: string | null = null, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
-    return this.getMedium(medium, vendor, excludeInternal)
-      .map((medium) => {
+  siteCategoriesOptions(mediumName: string, vendor: string | null = null, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
+    return this.getMedium(mediumName, vendor, excludeInternal)
+      .map(medium => {
         const targetingOptions = processTargeting(medium);
 
         const siteOption = targetingOptions.find(option => 'site' === option.key);
