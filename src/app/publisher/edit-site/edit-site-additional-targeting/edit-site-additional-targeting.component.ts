@@ -22,7 +22,6 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
   @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
 
-  goesToSummary: boolean;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;
@@ -49,7 +48,6 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
-    this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
     this.getSiteFromStore();
   }
 
@@ -71,9 +69,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       this.store.dispatch(new ClearLastEditedSite());
       this.router.navigate(['/publisher', 'site', siteId]);
     } else {
-      this.router.navigate(['/publisher', 'create-site', 'create-ad-units'],
-        {queryParams: {step: 3}})
+      this.router.navigate(['/publisher', 'create-site', this.getPreviousPath()])
     }
+  }
+
+  private getPreviousPath (): string {
+    return this.site.medium !== 'metaverse' ? 'create-ad-units' : 'basic-information'
   }
 
   get siteToSave(): Site {
@@ -113,8 +114,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
       this.router.navigate(
-        ['/publisher', 'create-site', 'summary'],
-        {queryParams: {step: 5}}
+        ['/publisher', 'create-site', 'summary']
       );
     }
   }

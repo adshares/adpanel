@@ -112,10 +112,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
     const moduleDir = `/${userRolesEnum[this.activeUserType].toLowerCase()}`
     const isUserAdvertiser = this.activeUserType === userRolesEnum.ADVERTISER
     const assetDir = isUserAdvertiser ? 'create-campaign' : 'create-site'
+    const queryParams = isUserAdvertiser ? { step: 1 } : {}
 
     this.router.navigate(
       [moduleDir, assetDir, 'basic-information'],
-      { queryParams: { step: 1 } },
+      { queryParams },
     )
   }
 

@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { Component, Input, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-edit-site-navigation',
   templateUrl: './edit-site-navigation.component.html',
   styleUrls: ['./edit-site-navigation.component.scss'],
 })
-export class EditSiteNavigationComponent extends HandleSubscription implements OnInit {
-  steps = [
-    {id: 1, name: 'Basic information'},
-    {id: 2, name: 'Pops'},
-    {id: 3, name: 'Ad units'},
-    {id: 4, name: 'Exclusions'},
-    {id: 5, name: 'Summary'}
-  ];
+export class EditSiteNavigationComponent implements OnInit {
+  steps = [];
 
-  currentStep: number;
+  @Input() currentStep: number
+  @Input() medium: string
 
-  constructor(private route: ActivatedRoute) {
-    super();
-  }
-
-  ngOnInit() {
-    const subscription = this.route.queryParams.subscribe(params => {
-      this.currentStep = parseInt(params.step);
-    });
-    this.subscriptions.push(subscription);
+  ngOnInit(): void {
+    if (this.medium !== 'metaverse') {
+      this.steps = [
+        {id: 1, name: 'Basic information'},
+        {id: 2, name: 'Pops'},
+        {id: 3, name: 'Ad units'},
+        {id: 4, name: 'Exclusions'},
+        {id: 5, name: 'Summary'},
+      ]
+    } else {
+      this.steps = [
+        {id: 1, name: 'Basic information'},
+        {id: 4, name: 'Exclusions'},
+        {id: 5, name: 'Summary'},
+      ]
+    }
   }
 }

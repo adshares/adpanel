@@ -55,14 +55,11 @@ export class SiteListComponent extends HandleSubscription {
     }
   }
 
-  sortTable(event: TableSortEvent) {
+  sortTable(event: TableSortEvent): void {
     this.sites = sortArrayByKeys(this.sites, event.keys, event.sortDesc);
   }
 
-  navigateToCreateSite() {
-    this.router.navigate(
-      ['publisher', 'create-site', 'basic-information'],
-      {queryParams: {step: 1}}
-    );
+  navigateToCreateSite(): void {
+    this.router.navigate(['publisher', 'create-site', 'basic-information']);
   }
 }

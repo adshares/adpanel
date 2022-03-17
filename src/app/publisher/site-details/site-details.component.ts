@@ -218,11 +218,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }));
   }
 
-  navigateToEditSite(path: string, step: number): void {
-    this.router.navigate(
-      ['/publisher', 'edit-site', this.site.id, path],
-      {queryParams: {step, summary: true}}
-    );
+  navigateToEditSite(path: string): void {
+    this.router.navigate(['/publisher', 'edit-site', this.site.id, path]);
   }
 
   navigateToClassification(): void {

@@ -17,12 +17,16 @@ export class AssetHelpersService {
       );
     const fieldFilled = obligatoryField !== '';
     if (!fieldFilled) {
-      const moduleDir = this.isSite(asset) ? 'publisher' : 'advertiser';
-      const assetDir = this.isSite(asset) ? 'create-site' : 'create-campaign';
-      this.router.navigate(
-        [moduleDir, assetDir, 'basic-information'],
-        {queryParams: {step: 1}}
-      );
+      if (this.isSite(asset)) {
+        this.router.navigate(
+          ['publisher', 'create-site', 'basic-information']
+        );
+      } else {
+        this.router.navigate(
+          ['advertiser', 'create-campaign', 'basic-information'],
+          {queryParams: {step: 1}}
+        );
+      }
     }
 
     return fieldFilled

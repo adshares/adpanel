@@ -119,10 +119,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   saveSiteBasicInformation(): void {
     this.store.dispatch(new SaveLastEditedSite(this.site));
-    this.router.navigate(
-      ['/publisher', 'create-site', 'pops-settings'],
-      {queryParams: {step: 2}}
-    );
+    this.router.navigate(['/publisher', 'create-site', this.getNextPath()]);
+  }
+
+  private getNextPath (): string {
+    return this.site.medium !== 'metaverse' ? 'pops-settings' : 'additional-filtering'
   }
 
   updateSite(): void {

@@ -1,7 +1,10 @@
+<app-edit-site-navigation
+  [currentStep]="2"
+  [medium]="site.medium"
+></app-edit-site-navigation>
 <section class="homepage-view site-edit-pops-settings site-edit-create-posters-units">
   <form
     [formGroup]="popsSettingsForm"
-    (ngSubmit)="onSubmit()"
     class="dwmth-form"
     data-test="publisher-edit-site-pops-settings-form"
   >
@@ -73,6 +76,7 @@
           class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
           data-test="publisher-edit-site-save-and-continue"
           [disabled]="changesSaved"
+          (click)="onSubmit()"
         >
           <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
           <ng-template #loading>

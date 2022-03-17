@@ -84,10 +84,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(
-        ['/publisher', 'create-site', 'basic-information'],
-        {queryParams: {step: 1}}
-      );
+      this.router.navigate(['/publisher', 'create-site', 'basic-information']);
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -105,10 +102,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
       };
       this.store.dispatch(new AddSiteToSites(this.site));
     } else {
-      this.router.navigate(
-        ['/publisher', 'create-site', 'create-ad-units'],
-        {queryParams: {step: 3}}
-      );
+      this.router.navigate(['/publisher', 'create-site', 'create-ad-units']);
     }
     this.changesSaved = false;
   }

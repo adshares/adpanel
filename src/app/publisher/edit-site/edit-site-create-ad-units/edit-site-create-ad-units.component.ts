@@ -166,8 +166,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(['/publisher', 'create-site', 'pops-settings'],
-        {queryParams: {step: 2}})
+      this.router.navigate(['/publisher', 'create-site', 'pops-settings'])
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -231,10 +230,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       this.store.dispatch(new AddSiteToSites(this.site));
       return;
     }
-    this.router.navigate(
-      ['/publisher', 'create-site', 'additional-filtering'],
-      {queryParams: {step: 4}}
-    );
+    this.router.navigate(['/publisher', 'create-site', 'additional-filtering']);
   }
 
   removeAdUnit(adIndex: number): void {
