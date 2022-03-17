@@ -1,17 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 
 @Component({
   selector: 'app-edit-site-navigation',
   templateUrl: './edit-site-navigation.component.html',
   styleUrls: ['./edit-site-navigation.component.scss'],
 })
-export class EditSiteNavigationComponent implements OnInit {
+export class EditSiteNavigationComponent implements OnChanges {
   steps: {id: number, name: string}[] = [];
 
   @Input() currentStep: number
   @Input() medium: string
 
-  ngOnInit(): void {
+  ngOnChanges (changes: SimpleChanges): void {
     if (this.medium !== 'metaverse') {
       this.steps = [
         {id: 1, name: 'Basic information'},

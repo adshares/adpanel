@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Targeting supports taxonomy v4
 ### Fixed
 - Video preview overflow
+- Pages order while creating site (navigation)
+- Targeting option indicator while removing complex option
 
 ## [1.14.1] - 2022-02-16
 ### Fixed

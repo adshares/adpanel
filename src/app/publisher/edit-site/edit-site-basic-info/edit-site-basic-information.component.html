@@ -1,6 +1,6 @@
 <app-edit-site-navigation
   [currentStep]="1"
-  [medium]="site.medium"
+  [medium]="medium"
 ></app-edit-site-navigation>
 <section
   class="
@@ -233,20 +233,32 @@
         </span>
       </div>
     </div>
-    <div
-      class="
-        dwmth-box
-        dwmth-box--large
-        row
-        justify-between"
-    >
 
+    <div
+       *ngIf="medium === 'metaverse' && createSiteMode"
+       class="dwmth-box dwmth-box--large"
+    >
+      <p
+        class="dwmth-copy"
+      >
+        To create a site refer to the
+        <a
+          href="https://medium.com/adshares/decentraland-programmatic-ads-ddde9b95ab2e"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >
+          instruction
+          <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+        </a>.
+      </p>
+    </div>
+
+    <div
+      class="dwmth-box dwmth-box--large row justify-between"
+    >
       <button
         type="button"
-        class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+        class="dwmth-btn dwmth-btn--white dwmth-blue"
         role="link"
         (click)="onStepBack()"
         [disabled]="changesSaving"
@@ -255,10 +267,8 @@
       </button>
 
       <button
-        class="
-          dwmth-btn
-          dwmth-btn--wide
-          dwmth-btn--blue"
+        *ngIf="!(medium === 'metaverse' && createSiteMode)"
+        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         [disabled]="changesSaving"
       >

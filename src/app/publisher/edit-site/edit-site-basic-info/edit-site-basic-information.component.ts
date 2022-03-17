@@ -16,7 +16,7 @@ import { Entry, TargetingOptionValue } from 'models/targeting-option.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -27,6 +27,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;
+  faExternalLinkSquareAlt = faExternalLinkSquareAlt
   faQuestionCircle = faQuestionCircle;
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
@@ -44,6 +45,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private overwriteNameByDomain = false;
   media: Entry[];
   vendors: Entry[] = [];
+  medium: string;
 
   constructor(
     private action$: Actions,
@@ -211,6 +213,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         disabled: !this.createSiteMode,
       }),
     });
+    this.siteBasicInfoForm.get('medium').valueChanges.subscribe(value => this.medium = value);
     this.getFormDataFromStore();
   }
 
