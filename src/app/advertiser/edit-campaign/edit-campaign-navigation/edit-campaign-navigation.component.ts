@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, UrlSegment } from '@angular/router'
 import { HandleSubscription } from 'common/handle-subscription'
 
 @Component({
@@ -15,34 +15,36 @@ export class EditCampaignNavigationComponent extends HandleSubscription implemen
     {id: 4, name: 'Summary'},
   ];
 
-  currentStep: number;
+  currentStep: number
 
-  constructor(private route: ActivatedRoute) {
+  constructor (private route: ActivatedRoute) {
     super()
   }
 
-  ngOnInit() {
-    const subscription = this.route.firstChild.url.subscribe(urlSegments => {
-      if (urlSegments && urlSegments[0]) {
-        switch (urlSegments[0].path) {
-          case 'basic-information':
-            this.currentStep = 1
-            break
-          case 'additional-targeting':
-            this.currentStep = 2
-            break
-          case 'create-ad':
-            this.currentStep = 3
-            break
-          case 'summary':
-            this.currentStep = 4
-            break
-          default:
-            this.currentStep = 0
-            break
-        }
-      }
-    });
+  ngOnInit (): void {
+    const subscription = this.route.url.subscribe(urlSegments => this.updateStepByUrl(urlSegments))
     this.subscriptions.push(subscription)
+  }
+
+  private updateStepByUrl (urlSegments: UrlSegment[]): void {
+    if (urlSegments && urlSegments[0]) {
+      switch (urlSegments[0].path) {
+        case 'basic-information':
+          this.currentStep = 1
+          break
+        case 'additional-targeting':
+          this.currentStep = 2
+          break
+        case 'create-ad':
+          this.currentStep = 3
+          break
+        case 'summary':
+          this.currentStep = 4
+          break
+        default:
+          this.currentStep = 0
+          break
+      }
+    }
   }
 }
