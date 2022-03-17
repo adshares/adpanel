@@ -48,9 +48,6 @@ export class AdListItemComponent {
   }
 
   navigateToAdEdition(): void {
-    this.router.navigate(
-      ['/advertiser', 'edit-campaign', this.campaign.id, 'create-ad'],
-      {queryParams: {step: 3}}
-    );
+    this.router.navigate(['/advertiser', 'edit-campaign', this.campaign.id, 'create-ad']);
   }
 }

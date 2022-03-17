@@ -130,10 +130,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   saveCampaignBasicInformation() {
     this.store.dispatch(new SaveCampaignBasicInformation(this.campaignBasicInfo));
     this.changesSaved = true;
-    this.router.navigate(
-      ['/advertiser', 'create-campaign', 'additional-targeting'],
-      {queryParams: {step: 2}}
-    );
+    this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting']);
   }
 
   updateCampaignBasicInfo() {

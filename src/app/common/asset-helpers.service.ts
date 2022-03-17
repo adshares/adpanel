@@ -18,14 +18,9 @@ export class AssetHelpersService {
     const fieldFilled = obligatoryField !== '';
     if (!fieldFilled) {
       if (this.isSite(asset)) {
-        this.router.navigate(
-          ['publisher', 'create-site', 'basic-information']
-        );
+        this.router.navigate(['publisher', 'create-site', 'basic-information']);
       } else {
-        this.router.navigate(
-          ['advertiser', 'create-campaign', 'basic-information'],
-          {queryParams: {step: 1}}
-        );
+        this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
       }
     }
 

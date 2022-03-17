@@ -265,11 +265,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }));
   }
 
-  navigateToCampaignEdition(path: string, step: number): void {
-    this.router.navigate(
-      ['/advertiser', 'edit-campaign', this.campaign.id, path],
-      {queryParams: {step}}
-    );
+  navigateToCampaignEdition(path: string): void {
+    this.router.navigate(['/advertiser', 'edit-campaign', this.campaign.id, path]);
   }
 
   onCampaignStatusChange() {

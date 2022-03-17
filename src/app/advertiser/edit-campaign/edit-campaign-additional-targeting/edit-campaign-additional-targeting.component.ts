@@ -74,9 +74,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
 
   onStepBack(): void {
     if (this.createCampaignMode) {
-      this.router.navigate(
-        ['/advertiser', 'create-campaign', 'basic-information'],
-        {queryParams: {step: 1}});
+      this.router.navigate(['/advertiser', 'create-campaign', 'basic-information']);
     } else {
       this.store.dispatch(new ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
@@ -129,10 +127,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
         maxCpm: maxCpm,
       };
       this.store.dispatch(new SaveCampaignBasicInformation(basicInformation));
-      this.router.navigate(
-        ['/advertiser', 'create-campaign', 'create-ad'],
-        {queryParams: {step: 3}}
-      );
+      this.router.navigate(['/advertiser', 'create-campaign', 'create-ad']);
     } else {
       this.campaign = {
         ...this.campaign,

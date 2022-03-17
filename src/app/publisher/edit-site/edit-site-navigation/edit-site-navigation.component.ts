@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core'
   styleUrls: ['./edit-site-navigation.component.scss'],
 })
 export class EditSiteNavigationComponent implements OnInit {
-  steps = [];
+  steps: {id: number, name: string}[] = [];
 
   @Input() currentStep: number
   @Input() medium: string

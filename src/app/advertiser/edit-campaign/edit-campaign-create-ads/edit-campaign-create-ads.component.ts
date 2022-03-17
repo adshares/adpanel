@@ -466,10 +466,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.store.dispatch(new AddCampaignToCampaigns(campaign));
     } else {
       this.store.dispatch(new SaveCampaignAds(this.ads));
-      this.router.navigate(
-        ['/advertiser', 'create-campaign', 'summary'],
-        {queryParams: {step: 5}}
-      );
+      this.router.navigate(['/advertiser', 'create-campaign', 'summary']);
     }
   }
 
@@ -483,8 +480,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.store.dispatch(new ClearLastEditedCampaign());
       this.router.navigate(['/advertiser', 'campaign', this.campaign.id]);
     } else {
-      this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'],
-        {queryParams: {step: 4}})
+      this.router.navigate(['/advertiser', 'create-campaign', 'additional-targeting'])
     }
   }
 
