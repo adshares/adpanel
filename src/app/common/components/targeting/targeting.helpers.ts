@@ -1,17 +1,15 @@
-import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
+import {
+  AssetTargeting,
+  TargetingOption,
+  TargetingOptionType,
+  TargetingOptionValue
+} from 'models/targeting-option.model'
 import { cloneDeep } from 'common/utilities/helpers'
 import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
 import { CampaignTargeting } from 'models/campaign.model'
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
-
-const SEPARATOR = '/'
-
-export const TargetingOptionType = {
-  GROUP: 'group',
-  STRING: 'string',
-  PARCEL_COORDINATES: 'parcel_coordinates',
-}
+import { createPathObject, prepareCustomOption, SEPARATOR } from 'common/components/targeting/targeting.helpers2'
 
 export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
@@ -215,26 +213,6 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor
   return parsedTargeting;
 }
 
-export function createPathObject(obj: object, keyPath: string[], value: string): void {
-  const lastKeyIndex = keyPath.length - 1;
-
-  for (let i = 0; i < lastKeyIndex; ++i) {
-    const key = keyPath[i];
-
-    if (!(key in obj)) {
-      obj[key] = {};
-    }
-
-    obj = obj[key];
-  }
-
-  if (!obj[keyPath[lastKeyIndex]]) {
-    obj[keyPath[lastKeyIndex]] = [value];
-  } else {
-    obj[keyPath[lastKeyIndex]].push(value);
-  }
-}
-
 export function parseTargetingOptionsToArray(
   targetingObject: CampaignTargeting,
   targetingOptions: TargetingOption[]
@@ -315,32 +293,3 @@ function getTargetingOptionValueById(
   return null;
 }
 
-export function prepareCustomOption(
-  value: string,
-  parentId: string,
-): TargetingOptionValue {
-  return {
-    id: `${parentId}${SEPARATOR}${value}`,
-    label: value,
-    value: value,
-    parentId: parentId,
-    isCustom: true
-  }
-}
-
-export function excludeSiteDomain (targetingOptions: TargetingOption[]): void {
-  for (let i = 0; i < targetingOptions.length; i++) {
-    const entry = targetingOptions[i]
-    if (entry.key === 'site') {
-      const index = entry.children.findIndex(option => option.key === 'domain')
-      if (index !== -1) {
-        if (entry.children.length > 1) {
-          entry.children.splice(index, 1)
-        } else {
-          targetingOptions.splice(i, 1)
-        }
-      }
-      break
-    }
-  }
-}

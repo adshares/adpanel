@@ -16,6 +16,12 @@ interface TargetingOption {
   values?: TargetingOptionValue[];
 }
 
+const TargetingOptionType = {
+  GROUP: 'group',
+  STRING: 'string',
+  PARCEL_COORDINATES: 'parcel_coordinates',
+}
+
 interface TargetingOptionValue {
   id: string;
   label: string;
@@ -47,6 +53,7 @@ interface TargetingReachResponseCpmPercentiles {
 export {
   Entry,
   TargetingOption,
+  TargetingOptionType,
   TargetingOptionValue,
   AssetTargeting,
   TargetingReachResponse,

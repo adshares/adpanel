@@ -1,10 +1,10 @@
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
 import { CampaignTargeting } from 'models/campaign.model'
 import {
-  createPathObject, excludeSiteDomain,
+  createPathObject,
+  excludeSiteDomain,
   prepareCustomOption,
-  TargetingOptionType,
-} from 'common/components/targeting/targeting.helpers'
+} from 'common/components/targeting/targeting.helpers2'
 import { TargetingConverter } from 'common/utilities/targeting-converter/targeting-converter'
 
 export class CryptovoxelsConverter implements TargetingConverter {
@@ -18,7 +18,7 @@ export class CryptovoxelsConverter implements TargetingConverter {
     return `scene-${value}.cryptovoxels.com`
   }
 
-  convertPath(path: string[]): string[] {
+  convertPath (path: string[]): string[] {
     return ['site', 'domain']
   }
 
@@ -44,7 +44,7 @@ export class CryptovoxelsConverter implements TargetingConverter {
     }
   }
 
-  prepareCampaignTargetingForBackend(targeting: CampaignTargeting): void {
+  prepareCampaignTargetingForBackend (targeting: CampaignTargeting): void {
     if (targeting.requires[CryptovoxelsConverter.ID]) {
       for (let parcel of targeting.requires[CryptovoxelsConverter.ID]) {
         createPathObject(targeting.requires, this.convertPath([CryptovoxelsConverter.ID]), this.encodeValue(parcel))

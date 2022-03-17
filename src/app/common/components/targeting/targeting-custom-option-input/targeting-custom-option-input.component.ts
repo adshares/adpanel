@@ -12,8 +12,8 @@ import {
   SPACE
 } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { prepareCustomOption, TargetingOptionType } from 'common/components/targeting/targeting.helpers';
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
+import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2'
 
 @Component({
   selector: 'app-targeting-custom-option-input',

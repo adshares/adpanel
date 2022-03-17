@@ -1,10 +1,10 @@
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model'
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
 import { CampaignTargeting } from 'models/campaign.model'
 import {
-  createPathObject, excludeSiteDomain,
+  createPathObject,
+  excludeSiteDomain,
   prepareCustomOption,
-  TargetingOptionType,
-} from 'common/components/targeting/targeting.helpers'
+} from 'common/components/targeting/targeting.helpers2'
 import { TargetingConverter } from 'common/utilities/targeting-converter/targeting-converter'
 
 export class DecentralandConverter implements TargetingConverter {
@@ -27,7 +27,7 @@ export class DecentralandConverter implements TargetingConverter {
     return `scene-${mappedCoordinates}.decentraland.org`
   }
 
-  convertPath(path: string[]): string[] {
+  convertPath (path: string[]): string[] {
     return ['site', 'domain']
   }
 
@@ -53,7 +53,7 @@ export class DecentralandConverter implements TargetingConverter {
     }
   }
 
-  prepareCampaignTargetingForBackend(targeting: CampaignTargeting): void {
+  prepareCampaignTargetingForBackend (targeting: CampaignTargeting): void {
     if (targeting.requires[DecentralandConverter.ID]) {
       for (let parcel of targeting.requires[DecentralandConverter.ID]) {
         createPathObject(targeting.requires, this.convertPath([DecentralandConverter.ID]), this.encodeValue(parcel))
