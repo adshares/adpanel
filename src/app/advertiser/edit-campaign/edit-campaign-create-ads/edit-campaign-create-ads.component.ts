@@ -15,6 +15,8 @@ import { AssetHelpersService } from 'common/asset-helpers.service'
 import {
   adCreativeTypes,
   adStatusesEnum,
+  fileTypes,
+  validHtmlTypes,
 } from 'models/enum/ad.enum'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
@@ -247,6 +249,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   private isFileMimeTypeValid (mimeType: string, adType: string): boolean {
+    if (adType == adCreativeTypes.HTML) {
+      return validHtmlTypes.includes(mimeType)
+    }
     const allowedMimeTypes = this.formats.find(format => format.type === adType).mimes;
     return allowedMimeTypes.includes(mimeType);
   }
@@ -498,6 +503,17 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   isVideoTypeChosen(form: FormGroup): boolean {
     return form.get('type').value === adCreativeTypes.VIDEO
+  }
+
+  getSupportedFiles(form: FormGroup): string {
+    const adType = form.get('type').value
+    const mimeTypes = this.formats.find(format => format.type === adType).mimes
+    const extensions = mimeTypes.map(mimeType => fileTypes[mimeType] || false)
+      .filter(mimeType => mimeType)
+    if (extensions.length > 1) {
+      extensions[extensions.length - 2] += ` and ${extensions.pop()}`
+    }
+    return extensions.join(', ')
   }
 
   cancelUploading(): void {

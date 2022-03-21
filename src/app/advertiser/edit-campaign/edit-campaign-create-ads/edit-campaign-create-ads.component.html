@@ -364,14 +364,14 @@
                 *ngIf="isImageTypeChosen(adForm)"
                 class="dwmth-copy"
               >
-                We support JPG, PNG and GIF files.
+                We support {{ getSupportedFiles(adForm) }} files.
                 Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_IMAGE|formatFileSize}}.
               </p>
               <p
                 *ngIf="isVideoTypeChosen(adForm)"
                 class="dwmth-copy"
               >
-                We support MP4 files.
+                We support {{ getSupportedFiles(adForm) }} files.
                 Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_VIDEO|formatFileSize}}.
               </p>
             </div>
