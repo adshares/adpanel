@@ -82,7 +82,11 @@ export class PublisherService {
   }
 
   private getMedium(medium: string = 'web', vendor: string | null = null, excludeInternal: boolean = true): Observable<Medium> {
-    return this.http.get<Medium>(`${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}&vendor=${vendor}`)
+    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`
+    if (vendor) {
+      url = `${url}&vendor=${vendor}`
+    }
+    return this.http.get<Medium>(url)
   }
 
   getMediumVendors(medium: string): Observable<Media> {
