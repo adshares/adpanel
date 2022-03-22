@@ -166,4 +166,8 @@ export class PublisherService {
   getSiteCodes(siteId: number, options): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/codes`, {params: options});
   }
+
+  getCryptovoxelsCode (): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/sites/cryptovoxels/code`)
+  }
 }

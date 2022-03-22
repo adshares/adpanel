@@ -1,0 +1,63 @@
+<mat-dialog-content class="text-center mat-dialog-content fill-height">
+  <div
+    (click)="dialogRef.close()"
+    class="dwmth-dialog-close"
+  ></div>
+  <h1
+    class="dwmth-heading dwmth-heading--primary"
+  >
+    Ad code
+  </h1>
+
+  <div>
+    <p
+      class="dwmth-copy dwmth-copy--large"
+    >
+      This code is intended for Cryptovoxels only.
+      Please copy the code and place it in creator.
+    </p>
+
+    <div
+      *ngIf="loaded; else loadingSpinner"
+    >
+      <div
+        *ngIf="null !== code"
+      >
+        <div class="row align-center">
+          <label
+            class="dwmth-copy dwmth-copy--bold col text-left"
+            for="code-container-common"
+          >Paste this code in creator</label>
+
+          <button
+            class="code-copy-btn"
+            (click)="copyCode('code-container-common')"
+          >
+            <fa-icon class="code-copy-btn--icon" [icon]="faCode"></fa-icon>
+            Copy the code
+          </button>
+        </div>
+
+        <textarea
+          id="code-container-common"
+          class="code-container dwmth-box dwmth-box--large dwmth-box--light-border dwmth-copy"
+          [ngModel]="code"
+        ></textarea>
+      </div>
+
+      <div
+        *ngIf="null === code"
+        class="row align-center dwmth-alert dwmth-copy dwmth-gray"
+        >
+          <img src="assets/images/error.svg" alt="Attention">
+          An error occurred. Make sure that you confirmed an account and connected the wallet.
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loadingSpinner>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+</mat-dialog-content>

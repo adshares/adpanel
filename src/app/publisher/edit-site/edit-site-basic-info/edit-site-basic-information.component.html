@@ -19,7 +19,6 @@
 
   <form
     [formGroup]="siteBasicInfoForm"
-    (ngSubmit)="onSubmit()"
     class="dwmth-form"
     data-test="publisher-edit-site-basic-information-form"
   >
@@ -66,6 +65,8 @@
           </mat-option>
         </mat-select>
       </div>
+
+      <ng-container *ngIf="!(medium === 'metaverse' && createSiteMode)">
       <div class="dwmth-form-input__box">
         <label
           for="siteUrl"
@@ -232,18 +233,26 @@
           Content language required
         </span>
       </div>
+      </ng-container>
     </div>
 
     <div
        *ngIf="medium === 'metaverse' && createSiteMode"
        class="dwmth-box dwmth-box--large"
     >
+      <ng-template #connectWallet>
+        <p class="dwmth-copy">
+          Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
+        </p>
+      </ng-template>
+
       <p
+        *ngIf="isConnectedWallet else connectWallet"
         class="dwmth-copy"
       >
         To create a site refer to the
         <a
-          href="https://medium.com/adshares/decentraland-programmatic-ads-ddde9b95ab2e"
+          [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
           target="_blank"
           rel="noopener nofollow noreferrer"
         >
@@ -251,6 +260,22 @@
           <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
         </a>.
       </p>
+
+      <div
+        *ngIf="vendor === 'cryptovoxels'"
+        class="dwmth-box dwmth-box--large"
+      >
+        <div class="row justify-center">
+          <button
+            class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+            role="button"
+            (click)="openGetCryptovoxelsCodeDialog()"
+            data-test="publisher-get-code-button"
+          >
+            Get the ad codes
+          </button>
+        </div>
+      </div>
     </div>
 
     <div
@@ -270,6 +295,7 @@
         *ngIf="!(medium === 'metaverse' && createSiteMode)"
         class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
+        (click)="onSubmit()"
         [disabled]="changesSaving"
       >
         <span *ngIf="!changesSaving; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>

@@ -10,13 +10,18 @@ import { AppState } from 'models/app-state.model';
 import { ShowDialogOnError } from 'store/common/common.actions';
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions';
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers';
+import { ADD_UNIT_CRYPTOVOXELS, ADD_UNIT_DECENTRALAND } from 'models/enum/link.enum';
 import { siteInitialState } from 'models/initial-state/site';
 import { Site, SiteLanguage } from 'models/site.model';
 import { Entry, TargetingOptionValue } from 'models/targeting-option.model';
+import {
+  SiteCodeCryptovoxelsDialogComponent
+} from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { SessionService } from '../../../session.service';
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -27,8 +32,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;
-  faExternalLinkSquareAlt = faExternalLinkSquareAlt
-  faQuestionCircle = faQuestionCircle;
+  readonly ADD_UNIT_CRYPTOVOXELS = ADD_UNIT_CRYPTOVOXELS
+  readonly ADD_UNIT_DECENTRALAND = ADD_UNIT_DECENTRALAND
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  readonly faQuestionCircle = faQuestionCircle
   siteBasicInfoForm: FormGroup;
   languages: SiteLanguage[];
   siteBasicInfoSubmitted = false;
@@ -46,12 +53,14 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   media: Entry[];
   vendors: Entry[] = [];
   medium: string;
+  vendor: string;
 
   constructor(
     private action$: Actions,
     private router: Router,
     private route: ActivatedRoute,
     private publisherService: PublisherService,
+    private session: SessionService,
     private store: Store<AppState>,
     private dialog: MatDialog,
   ) {
@@ -78,6 +87,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
         map((val: string) => val ? this.filterOptions(val) : this.languages.slice())
       )
+  }
+
+  get isConnectedWallet (): boolean {
+    const user = this.session.getUser()
+    return user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null
   }
 
   updateSelectedTargetingOptionValues(items): void {
@@ -296,15 +310,21 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       .subscribe(vendors => {
         this.vendors = mapToIterable(vendors)
         if (this.createSiteMode) {
-          const value = this.vendors.length > 0 ? this.vendors[0].key : null
-          this.siteBasicInfoForm.get('vendor').patchValue(value)
-          this.loadSiteCategories(medium, value)
+          const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
+          this.vendor = vendor
+          this.siteBasicInfoForm.get('vendor').patchValue(vendor)
+          this.loadSiteCategories(medium, vendor)
         }
       })
     this.subscriptions.push(subscription)
   }
 
   onVendorChange (vendor: string): void {
+    this.vendor = vendor
     this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor)
+  }
+
+  openGetCryptovoxelsCodeDialog (): void {
+    this.dialog.open(SiteCodeCryptovoxelsDialogComponent);
   }
 }
