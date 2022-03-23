@@ -64,7 +64,7 @@
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"
-      [option]="option"
+      [option]="toTargetingOption(option)"
       (itemsChange)="handleAddCustomItem($event, option)">
     </app-targeting-custom-option-input>
   </li>
