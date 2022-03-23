@@ -1,0 +1,33 @@
+@import '../../../../styles.scss';
+
+.fill-height {
+  height: 50vh;
+  overflow: auto;
+}
+
+.code-container {
+  height: 30vh;
+  min-height: 64px;
+  overflow: hidden;
+  padding: 5px 10px;
+  width: 100%;
+}
+
+.code-copy-btn {
+  @include btn(
+    $color: pal(blue),
+    $background-color: pal(white),
+    $border-color: pal(white)
+  );
+  max-height: 46px;
+  text-align: left;
+
+  @include media(md-down) {
+    padding: 4px 12px;
+  }
+
+  &--icon {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+}

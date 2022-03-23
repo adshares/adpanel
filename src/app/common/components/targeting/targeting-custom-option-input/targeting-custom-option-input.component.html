@@ -21,9 +21,10 @@
     <mat-icon>add_circle_outline</mat-icon>
   </button>
 
-  <div *ngIf="inputShown"
-       class="row justify-around align-center targeting-custom-option__chip-list-wrapper">
-
+  <div
+    *ngIf="inputShown && option.valueType === TargetingOptionType.STRING"
+    class="row justify-around align-center targeting-custom-option__chip-list-wrapper"
+  >
     <mat-form-field>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let option of customOptionsArray"
@@ -38,7 +39,7 @@
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                [matChipInputAddOnBlur]="true"
                (matChipInputTokenEnd)="add($event)"
-               (keydown)="saveCustomTargetingOptions($event)">
+               (keyup.enter)="saveCustomTargetingOptions()">
       </mat-chip-list>
     </mat-form-field>
 
@@ -48,5 +49,58 @@
             (click)="saveCustomTargetingOptions()">
       <mat-icon class="material-icons">add_circle_outline</mat-icon>
     </button>
+  </div>
+
+  <div
+    *ngIf="inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES"
+    class="col"
+  >
+    <label
+      for="coordinate-x"
+      class="dwmth-form-label"
+    >
+      Coordinate X
+    </label>
+    <input
+      #input
+      id="coordinate-x"
+      name="coordinate-x"
+      class="dwmth-form-input"
+      type="number"
+      step="1"
+      required
+    >
+    <label
+      for="coordinate-y"
+      class="dwmth-form-label"
+    >
+      Coordinate Y
+    </label>
+    <input
+      #inputCoordinationY
+      id="coordinate-y"
+      name="coordinate-y"
+      class="dwmth-form-input"
+      type="number"
+      step="1"
+      (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
+      required
+    >
+    <span
+      *ngIf="saveRequested && !(input.validity.valid && inputCoordinationY.validity.valid)"
+      class="error-msg"
+    >
+      Both coordinates must be set.
+    </span>
+    <div
+       class="dwmth-box dwmth-box--small dwmth-box--no-border row justify-end"
+    >
+      <button
+        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+        (click)="(saveRequested = true) && input.validity.valid && inputCoordinationY.validity.valid && saveCustomParcel(input.value, inputCoordinationY.value)"
+      >
+        Add
+      </button>
+    </div>
   </div>
 </div>

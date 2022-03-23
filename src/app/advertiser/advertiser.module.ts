@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,10 +36,10 @@ import { CampaignBudgetPerDayPipe } from 'common/pipes/campaign-budget-per-day.p
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { BidStrategyDefaultResolver } from './resolvers/bid-strategy-default.resolver';
 import { CampaignResolver } from './resolvers/campaign.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
+import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
 
@@ -76,13 +75,13 @@ const advertiserComponents = [
   CampaignDetailsComponent,
   AdListComponent,
   AdListItemComponent,
+  EditCampaignNavigationComponent,
   TargetingReach,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
     AppCommonModule,
     AdvertiserRoutingModule,
     FontAwesomeModule,
@@ -100,7 +99,6 @@ const advertiserComponents = [
     BidStrategyDefaultResolver,
     CampaignResolver,
     CampaignsConfigResolver,
-    TargetingCriteriaResolver,
     {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],
 

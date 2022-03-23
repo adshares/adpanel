@@ -190,7 +190,11 @@ export class AdvertiserEffects {
           new ClearLastEditedCampaign(),
         ]
       })
-      .catch(() => Observable.of(new AddCampaignToCampaignsFailure()))
+      .catch(error => Observable.of(
+        new AddCampaignToCampaignsFailure(
+          error.error && error.error.message || `Error code: ${error.status}`
+        )
+      ))
     );
 
   @Effect()

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BannerClassification } from 'models/classifier.model';
 import { Ad, AdPreview } from 'models/campaign.model';
-import { adTypesEnum } from 'models/enum/ad.enum';
+import { adCreativeTypes } from 'models/enum/ad.enum';
 import { AdPreviewDialogComponent } from 'common/dialog/ad-preview-dialog/ad-preview-dialog.component';
 import { HTTP_OK } from 'common/utilities/codes';
 import { cutDirectAdSizeAnchor } from 'common/utilities/helpers';
@@ -73,19 +73,19 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   get isImage(): boolean {
-    return this.banner.type === adTypesEnum.IMAGE;
+    return this.getType() === adCreativeTypes.IMAGE;
   }
 
   get isHtml(): boolean {
-    return this.banner.type === adTypesEnum.HTML;
+    return this.getType() === adCreativeTypes.HTML;
   }
 
   get isDirectLink(): boolean {
-    return this.banner.type === adTypesEnum.DIRECT;
+    return this.getType() === adCreativeTypes.DIRECT;
   }
 
   get isVideo(): boolean {
-    return this.banner.type === adTypesEnum.VIDEO;
+    return this.getType() === adCreativeTypes.VIDEO;
   }
 
   canLoadIframeContent(url: string): void {
@@ -122,12 +122,16 @@ export class BannerPreviewComponent implements OnInit {
 
     const size = (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize;
     const adPreview: AdPreview = {
-      type: this.banner.type,
+      type: this.getType(),
       size: size,
       url: this.banner.url,
       landingUrl: this.landingUrl,
     };
 
     this.dialog.open(AdPreviewDialogComponent, {data: adPreview});
+  }
+
+  private getType (): string {
+    return (<Ad>this.banner).creativeType ? (<Ad>this.banner).creativeType : (<BannerClassification>this.banner).type
   }
 }

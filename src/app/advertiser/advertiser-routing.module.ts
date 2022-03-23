@@ -13,7 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CampaignDetailsComponent } from './campaign-details/campaign-details.component';
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
-import { TargetingCriteriaResolver } from './resolvers/targeting-criteria.resolver';
+import { MediaResolver } from 'common/resolvers/media.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
@@ -38,21 +38,21 @@ const advertiserRoutes: Routes = [
         resolve: {
           bidStrategyDefaultUuid: BidStrategyDefaultResolver,
           campaignsConfig: CampaignsConfigResolver,
-          targetingOptions: TargetingCriteriaResolver,
           filteringOptions: FilteringCriteriaResolver,
-          campaign: CampaignResolver
+          campaign: CampaignResolver,
+          media: MediaResolver,
         }
       },
       {
         path: 'create-campaign',
         component: EditCampaignComponent,
-        resolve: {
-          targetingOptions: TargetingCriteriaResolver
-        },
         children: [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'additional-targeting',
@@ -73,13 +73,15 @@ const advertiserRoutes: Routes = [
         component: EditCampaignComponent,
         resolve: {
           campaignsConfig: CampaignsConfigResolver,
-          targetingOptions: TargetingCriteriaResolver,
           campaign: CampaignResolver,
         },
         children: [
           {
             path: 'basic-information',
             component: EditCampaignBasicInformationComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'bid-strategy',

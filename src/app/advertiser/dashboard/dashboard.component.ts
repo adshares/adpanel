@@ -13,7 +13,7 @@ import { ChartLabels } from 'models/chart/chart-labels.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { createInitialArray } from 'common/utilities/helpers';
 
-import * as advertiserActions from 'store/advertiser/advertiser.actions';
+import { LoadCampaigns, LoadCampaignsTotals } from 'store/advertiser/advertiser.actions';
 import { appSettings } from 'app-settings';
 import { timer } from 'rxjs/observable/timer';
 import { RequestReport } from 'store/common/common.actions';
@@ -61,7 +61,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .subscribe(() => {
         if (this.currentChartFilterSettings) {
           this.getChartData(this.currentChartFilterSettings, false);
-          this.store.dispatch(new advertiserActions.LoadCampaignsTotals({
+          this.store.dispatch(new LoadCampaignsTotals({
             from: this.currentChartFilterSettings.currentFrom,
             to: this.currentChartFilterSettings.currentTo
           }));
@@ -97,7 +97,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   }
 
   loadCampaigns(from: string, to: string) {
-    this.store.dispatch(new advertiserActions.LoadCampaigns({from, to}));
+    this.store.dispatch(new LoadCampaigns({from, to}));
 
     const campaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => this.campaigns = campaigns);

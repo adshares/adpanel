@@ -1,3 +1,7 @@
+<app-edit-site-navigation
+  [currentStep]="1"
+  [medium]="medium"
+></app-edit-site-navigation>
 <section
   class="
     homepage-view
@@ -15,7 +19,6 @@
 
   <form
     [formGroup]="siteBasicInfoForm"
-    (ngSubmit)="onSubmit()"
     class="dwmth-form"
     data-test="publisher-edit-site-basic-information-form"
   >
@@ -25,6 +28,45 @@
         dwmth-box--large
         site-edit-basic-information__info-box"
     >
+      <div class="dwmth-form-input__box">
+        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Medium</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="medium"
+          (selectionChange)="onMediumChange($event.value)"
+          data-test="publisher-edit-site-basic-information-medium-select"
+        >
+          <mat-option
+            *ngFor="let medium of media"
+            [value]="medium.key"
+            data-test="publisher-edit-site-basic-information-medium-option"
+          >
+            {{ medium.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div
+        *ngIf="vendors.length > 0"
+        class="dwmth-form-input__box"
+      >
+        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Vendor</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="vendor"
+          (selectionChange)="onVendorChange($event.value)"
+          data-test="publisher-edit-site-basic-information-vendor-select"
+        >
+          <mat-option
+            *ngFor="let vendor of vendors"
+            [value]="vendor.key"
+            data-test="publisher-edit-site-basic-information-vendor-option"
+          >
+            {{ vendor.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <ng-container *ngIf="!(medium === 'metaverse' && createSiteMode)">
       <div class="dwmth-form-input__box">
         <label
           for="siteUrl"
@@ -133,7 +175,8 @@
           ></fa-icon>
         </label>
         <app-targeting-select
-          [targetingOptions]="targetingOptions"
+          *ngIf="siteCategoriesOptions && siteCategoriesOptions.length > 0"
+          [targetingOptions]="siteCategoriesOptions"
           [addedItems]="selectedTargetingOptionValues"
           (itemsChange)="updateSelectedTargetingOptionValues($event)"
         ></app-targeting-select>
@@ -150,7 +193,7 @@
                site-edit-basic-information__language">
         <label
           for="languageInput"
-          class="dwmth-form-label dwmth-form-label--shorter"
+          class="dwmth-form-label dwmth-form-label--shorter dwmth-form-label--no-margin-top"
         >
           Content language
         </label>
@@ -190,21 +233,84 @@
           Content language required
         </span>
       </div>
+      </ng-container>
     </div>
-    <div
-      class="
-        dwmth-box
-        dwmth-box--large
-        row
-        justify-between"
-    >
 
+    <div
+       *ngIf="medium === 'metaverse' && createSiteMode"
+       class="dwmth-box dwmth-box--large"
+    >
+      <ng-template #connectWallet>
+        <p class="dwmth-copy">
+          Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
+        </p>
+      </ng-template>
+
+      <div
+        *ngIf="isConnectedWallet else connectWallet"
+        class="dwmth-copy instruction"
+      >
+        <p>
+          Follow the few steps below to integrate:
+        </p>
+        <ol *ngIf="vendor === 'cryptovoxels'">
+          <li>
+            Generate and copy the Adshares code:
+            <button
+              class="dwmth-btn dwmth-btn--blue dwmth-btn--x-small"
+              role="button"
+              (click)="openGetCryptovoxelsCodeDialog()"
+              data-test="publisher-get-code-button"
+            >
+              Get the ad code
+            </button>
+          </li>
+          <li>Add image object from the Asset Library</li>
+          <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+        </ol>
+        <ol *ngIf="vendor === 'decentraland'">
+          <li>
+            Download the smart item from
+            <a
+              [href]="ADD_UNIT_DECENTRALAND_SMART"
+              target="_blank"
+              rel="noopener nofollow noreferrer">
+              GitHub
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+            </a>
+          </li>
+          <li>Add it using the
+            <a href="https://builder.decentraland.org/"
+               target="_blank"
+               rel="noopener nofollow noreferrer">
+              DCL builder
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+          </a></li>
+          <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+          <li>Provide payout network: {{ wallet.walletNetwork }}</li>
+          <li>Provide payout address: {{ wallet.walletAddress }}</li>
+          <li>Provide adserver URL: {{ serverUrl }}</li>
+        </ol>
+        <p>
+          For more information read
+          <a
+            [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+          >
+            the manual
+            <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="dwmth-box dwmth-box--large row justify-between"
+    >
       <button
         type="button"
-        class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+        class="dwmth-btn dwmth-btn--white dwmth-blue"
         role="link"
         (click)="onStepBack()"
         [disabled]="changesSaving"
@@ -213,11 +319,10 @@
       </button>
 
       <button
-        class="
-          dwmth-btn
-          dwmth-btn--wide
-          dwmth-btn--blue"
+        *ngIf="!(medium === 'metaverse' && createSiteMode)"
+        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
+        (click)="onSubmit()"
         [disabled]="changesSaving"
       >
         <span *ngIf="!changesSaving; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>

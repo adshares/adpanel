@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/first';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
@@ -84,7 +83,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
         const savedAdUnits = lastEditedSite.adUnits.filter(adUnit => { return adUnit.type === adUnitTypesEnum.DISPLAY});
 
-        if (!!savedAdUnits.length) {
+        if (savedAdUnits.length > 0) {
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit));
             this.adUnitPanelsStatus[index] = false;
@@ -167,8 +166,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   onStepBack(): void {
     if (this.createSiteMode) {
-      this.router.navigate(['/publisher', 'create-site', 'pops-settings'],
-        {queryParams: {step: 2}})
+      this.router.navigate(['/publisher', 'create-site', 'pops-settings'])
     } else {
       const siteId = this.site.id;
       this.store.dispatch(new ClearLastEditedSite({}));
@@ -232,10 +230,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       this.store.dispatch(new AddSiteToSites(this.site));
       return;
     }
-    this.router.navigate(
-      ['/publisher', 'create-site', 'additional-filtering'],
-      {queryParams: {step: 4}}
-    );
+    this.router.navigate(['/publisher', 'create-site', 'additional-filtering']);
   }
 
   removeAdUnit(adIndex: number): void {

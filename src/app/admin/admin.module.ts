@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatCheckboxModule,
@@ -46,7 +45,6 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
 @NgModule({
   imports: [
     CommonModule,
-    HttpModule,
     AppCommonModule,
     AdminRoutingModule,
     FontAwesomeModule,

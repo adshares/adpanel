@@ -7,7 +7,6 @@ import {RefLink} from "models/settings.model";
 import {environment} from "environments/environment";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
-import {DATE_AND_TIME_FORMAT} from "common/utilities/consts";
 import { CommonService } from 'common/common.service'
 
 @Component({

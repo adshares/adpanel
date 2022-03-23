@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.15.0] - 2022-03-23
+### Added
+- Cookie3 support
+- Custom metaverses support
+### Changed
+- Targeting supports taxonomy v4
+### Fixed
+- Video preview overflow
+- Pages order while creating site (navigation)
+- Targeting option indicator while removing complex option
+
 ## [1.14.1] - 2022-02-16
 ### Fixed
 - Fix missing switch return
@@ -372,7 +383,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.14.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.15.0...develop
+[1.15.0]: https://github.com/adshares/adpanel/compare/v1.14.1...v1.15.0
 [1.14.1]: https://github.com/adshares/adpanel/compare/v1.14.0...v1.14.1
 [1.14.0]: https://github.com/adshares/adpanel/compare/v1.13.2...v1.14.0
 [1.13.2]: https://github.com/adshares/adpanel/compare/v1.12.0...v1.13.2

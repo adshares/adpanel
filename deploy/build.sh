@@ -3,6 +3,7 @@
 cd ${1:-"."}
 
 set -a
+source .env.dist
 source .env
 set +a
 

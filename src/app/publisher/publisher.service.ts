@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment';
 import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
-import { TargetingOption } from 'models/targeting-option.model';
-import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
+import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { Media, Medium } from 'models/taxonomy-medium.model';
+import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
 
 @Injectable()
@@ -80,6 +81,37 @@ export class PublisherService {
     return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/sites/filtering?e=${excludeInternal ? 1 : 0}`);
   }
 
+  private getMedium(medium: string = 'web', vendor: string | null = null, excludeInternal: boolean = true): Observable<Medium> {
+    let url = `${environment.apiUrl}/options/campaigns/media/${medium}?e=${excludeInternal ? 1 : 0}`
+    if (vendor) {
+      url = `${url}&vendor=${vendor}`
+    }
+    return this.http.get<Medium>(url)
+  }
+
+  getMediumVendors(medium: string): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
+  }
+
+  siteCategoriesOptions(mediumName: string, vendor: string | null = null, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
+    return this.getMedium(mediumName, vendor, excludeInternal)
+      .map(medium => {
+        const targetingOptions = processTargeting(medium);
+
+        const siteOption = targetingOptions.find(option => 'site' === option.key);
+        if (!siteOption) {
+          return [];
+        }
+
+        const categoryOption = siteOption.children.find(option => 'category' === option.key);
+        if (!categoryOption) {
+          return [];
+        }
+
+        return categoryOption.values;
+      });
+  }
+
   getAdUnitSizes(): Observable<AdUnitMetaData[]> {
     return this.http.get<AdUnitMetaData[]>(`${environment.apiUrl}/options/sites/zones`);
   }
@@ -133,5 +165,9 @@ export class PublisherService {
 
   getSiteCodes(siteId: number, options): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/sites/${siteId}/codes`, {params: options});
+  }
+
+  getCryptovoxelsCode (): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/sites/cryptovoxels/code`)
   }
 }

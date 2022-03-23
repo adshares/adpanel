@@ -26,6 +26,8 @@ export const campaignInitialState: Campaign = {
     maxCpc: null,
     maxCpm: null,
     budget: null,
+    medium: 'web',
+    vendor: null,
     dateStart: moment().format(),
   },
 

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { HttpModule } from '@angular/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppCommonModule } from 'common/common.module'
@@ -17,7 +16,6 @@ import { ResetPasswordComponent } from 'auth/reset-password/reset-password.compo
   imports: [
     CommonModule,
     AppCommonModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,

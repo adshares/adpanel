@@ -1,20 +1,29 @@
-import { AssetTargeting, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { customTargetingActionsEnum } from 'models/enum/custom-targeting-actions.enum';
-import { cloneDeep } from 'common/utilities/helpers';
+import {
+  AssetTargeting,
+  TargetingOption,
+  TargetingOptionType,
+  TargetingOptionValue
+} from 'models/targeting-option.model'
+import { cloneDeep } from 'common/utilities/helpers'
+import { Medium, TargetingItem } from 'models/taxonomy-medium.model'
+import { CampaignTargeting } from 'models/campaign.model'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
+import { createPathObject, prepareCustomOption, SEPARATOR } from 'common/components/targeting/targeting.helpers2'
 
-export function prepareTargetingChoices(
+export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
 ): TargetingOption[] {
   const result = [];
 
-  for (let i = 0; i < options.length; i++) {
-    result.push(createTargetingChoice(options[i]));
+  for (let option of options) {
+    result.push(createFilteringChoice(option));
   }
 
   return result;
 }
 
-function createTargetingChoice(
+function createFilteringChoice(
   option: TargetingOption | TargetingOptionValue,
   keyChain: string = '',
   parentOption: TargetingOption = null
@@ -24,11 +33,11 @@ function createTargetingChoice(
   let key = keyChain;
   if (option['key']) {
     if (key.length > 0) {
-      key += '-';
+      key += SEPARATOR;
     }
     key += option['key'];
   }
-  const id = option['value'] ? `${key}-${option['value']}` : key;
+  const id = option['value'] ? `${key}${SEPARATOR}${option['value']}` : key;
   const choiceSublistName = option['children'] ?
     'children' : (option['values'] ? 'values' : null);
 
@@ -37,9 +46,9 @@ function createTargetingChoice(
   if (choiceSublistName) {
     const targetingChoiceSublist = [];
 
-    for (let i = 0; i < targetingChoice[choiceSublistName].length; i++) {
+    for (let targetingChoiceSublistItem of targetingChoice[choiceSublistName]) {
       targetingChoiceSublist.push(
-        createTargetingChoice(targetingChoice[choiceSublistName][i], key, targetingChoice)
+        createFilteringChoice(targetingChoiceSublistItem, key, targetingChoice)
       );
     }
 
@@ -47,36 +56,105 @@ function createTargetingChoice(
   }
 
   if (targetingChoice.value) {
-    Object.assign(targetingChoice, {
-      parent: {
-        id: parentOption.id,
-        valueType: parentOption.valueType,
-        allowInput: parentOption.allowInput,
-      }
-    });
+    targetingChoice.parentId = parentOption.id;
   }
 
   return targetingChoice;
+}
+
+export function processTargeting (medium: Medium): TargetingOption[] {
+  const rootNodes = [
+    {
+      key: 'user',
+      label: 'User',
+    },
+    {
+      key: 'site',
+      label: 'Site',
+    },
+    {
+      key: 'device',
+      label: 'Device',
+    },
+  ]
+
+  const result = []
+  for (let rootNode of rootNodes) {
+    const children = []
+    const targetingItems = medium.targeting[rootNode.key] as TargetingItem[]
+
+    targetingItems.forEach(item => {
+      const id = `${rootNode.key}${SEPARATOR}${item.name}`
+      const option: TargetingOption = {
+        valueType: TargetingOptionType.STRING,
+        key: item.name,
+        label: item.label,
+        allowInput: item.type === 'input',
+        id,
+        parentId: rootNode.key
+      }
+      if (item.items) {
+        option.values = processTargetingItems(item.items, id)
+      }
+      children.push(option)
+    })
+
+    const rootOption: TargetingOption = {
+      valueType: TargetingOptionType.GROUP,
+      key: rootNode.key,
+      label: rootNode.label,
+      allowInput: false,
+      children: children,
+      id: rootNode.key,
+    }
+    result.push(rootOption)
+  }
+
+  if (medium.vendor === DecentralandConverter.ID) {
+    new DecentralandConverter().convertTargetingOptions(result)
+  } else if (medium.vendor === CryptovoxelsConverter.ID) {
+    new CryptovoxelsConverter().convertTargetingOptions(result)
+  }
+
+  return result
+}
+
+function processTargetingItems (items: object, parentId: string, baseId?: string): TargetingOptionValue[] {
+  const result = []
+  const currentBaseId = (baseId === undefined) ? parentId : baseId
+  Object.keys(items).forEach(key => {
+    const id = `${currentBaseId}${SEPARATOR}${key}`
+
+    const option: TargetingOptionValue = {
+      label: (typeof items[key] === 'string') ? items[key] : items[key].label,
+      value: key,
+      id: id,
+      parentId: parentId,
+    }
+    if (typeof items[key] !== 'string') {
+      option.values = processTargetingItems(items[key].values, id, currentBaseId)
+    }
+    result.push(option)
+  })
+  return result
 }
 
 export function findOptionList(
   optionId: string,
   options: (TargetingOption | TargetingOptionValue)[]
 ): (TargetingOption | TargetingOptionValue)[] {
-  for (let i = 0; i < options.length; i++) {
-    if (options[i].id === optionId) {
+  for (let option of options) {
+    if (option.id === optionId) {
       return options;
     }
 
-    let result;
-    const itemSublist = options[i]['children'] || options[i]['values'];
+    const itemSublist = option['children'] || option['values'];
 
     if (itemSublist) {
-      result = findOptionList(optionId, itemSublist);
-    }
-
-    if (result) {
-      return result;
+      const result = findOptionList(optionId, itemSublist);
+      if (result) {
+        return result;
+      }
     }
   }
 }
@@ -90,137 +168,62 @@ export function findOption(
   return optionList && optionList.find((option) => optionId === option.id);
 }
 
-export function getParentId(optionId: string): string {
-  const optionKeyArray = optionId.split('-');
-
-  return optionKeyArray.splice(0, optionKeyArray.length - 1).join('-');
-}
-
-export function getLabelCompound(
+export function getPathAndLabel (
   option: TargetingOption | TargetingOptionValue,
-  options: TargetingOption[],
-): string {
-  let label = option.label;
-  let currentOption = option;
-  let hasValue, parentOptionId;
+  targeting: TargetingOption[]
+): string[] {
+  const pathChain: string[] = []
+  const labelChain: string[] = []
 
   do {
-    parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
-    let optionList = findOptionList(parentOptionId, options);
-    if (!optionList) {
-      break;
+    if (option.hasOwnProperty('value')) {
+      labelChain.unshift(option.label)
+    } else {
+      pathChain.unshift(option.label)
     }
-    currentOption = optionList.find((option) => option.id === parentOptionId);
-    if (!currentOption) {
-      break;
-    }
-    hasValue = currentOption.hasOwnProperty('value');
+  } while (option.parentId && (option = findOption(option.parentId, targeting)))
 
-    if (hasValue) {
-      label = currentOption.label + ' / ' + label;
-    }
-
-  } while (hasValue);
-
-  return label;
+  return [pathChain, labelChain].map(array => array.join(' / '))
 }
 
-export function getLabelPath(
-  optionId: string,
-  targeting: TargetingOption[]
-): string {
-  const arrayPath = optionId.split('-');
-
-  return generateLabelPath(arrayPath, targeting);
-}
-
-function generateLabelPath(
-  arrayPath: string[],
-  targeting: TargetingOption[],
-  partialPath: string = ''
-): string {
-  const keyForSearch = arrayPath[0];
-  const searchedOption = targeting.find((option) => option.key === keyForSearch);
-  if (searchedOption.allowInput) {
-    partialPath = searchedOption.id
-      .split('-')
-      .map(el => `${el.charAt(0).toUpperCase()}${el.slice(1)}`)
-      .join(' / ');
-    return partialPath
-  }
-  const newArrayPath = arrayPath.splice(1, arrayPath.length - 1);
-  partialPath += (partialPath === '' ? '' : ' / ') + searchedOption.label;
-
-  if (newArrayPath.length === 1 || !searchedOption.children) {
-    return partialPath;
-  }
-
-  return generateLabelPath(newArrayPath, searchedOption.children ? searchedOption.children : [], partialPath);
-}
-
-export function parseTargetingForBackend(chosenTargeting: AssetTargeting) {
-  const parsedTargeting = {
+export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor?: string | null): CampaignTargeting {
+  const parsedTargeting: CampaignTargeting = {
     requires: {},
     excludes: {}
   };
 
   [chosenTargeting.requires, chosenTargeting.excludes].forEach((targetingList, index) => {
     targetingList.forEach(targeting => {
-      const suffix = `-${targeting.value}`;
+      const suffix = `${SEPARATOR}${targeting.value}`;
 
       if (targeting.id.endsWith(suffix)) {
-        const keyPartials = targeting.id.slice(0, -(suffix.length)).split('-');
+        const keyPartials = targeting.id.slice(0, -(suffix.length)).split(SEPARATOR);
         const parsedTargetingList = index === 0 ? parsedTargeting.requires : parsedTargeting.excludes;
         createPathObject(parsedTargetingList, keyPartials, targeting.value);
       }
     });
   });
 
+  if (vendor === DecentralandConverter.ID) {
+    new DecentralandConverter().prepareCampaignTargetingForBackend(parsedTargeting)
+  } else if (vendor === CryptovoxelsConverter.ID) {
+    new CryptovoxelsConverter().prepareCampaignTargetingForBackend(parsedTargeting)
+  }
+
   return parsedTargeting;
 }
 
-function createPathObject(obj, keyPath, value) {
-  const lastKeyIndex = keyPath.length - 1;
-
-  for (let i = 0; i < lastKeyIndex; ++i) {
-    const key = keyPath[i];
-
-    if (!(key in obj)) {
-      obj[key] = {};
-    }
-
-    obj = obj[key];
-  }
-
-  if (!obj[keyPath[lastKeyIndex]]) {
-    obj[keyPath[lastKeyIndex]] = [value];
-  } else {
-    obj[keyPath[lastKeyIndex]].push(value);
-  }
-}
-
-export function parseTargetingOptionsToArray(targetingObject, targetingOptions): AssetTargeting {
-  const requiresResultKeys = [];
-  const excludesResultKeys = [];
+export function parseTargetingOptionsToArray(
+  targetingObject: CampaignTargeting,
+  targetingOptions: TargetingOption[]
+): AssetTargeting {
   const requiresResult = [];
   const excludesResult = [];
-  const targetingOptionTopKeys = targetingOptions.map(targeting => targeting.id);
 
   if (targetingObject) {
-    generateTargetingKeysArray(targetingObject.requires, requiresResultKeys, targetingOptionTopKeys);
-    generateTargetingKeysArray(targetingObject.excludes, excludesResultKeys, targetingOptionTopKeys);
+    addTargetingOptionToResult(targetingObject.requires, requiresResult, targetingOptions)
+    addTargetingOptionToResult(targetingObject.excludes, excludesResult, targetingOptions)
   }
-
-  requiresResultKeys.forEach(
-    requiresResultKey => addTargetingOptionToResult(requiresResultKey, requiresResult, targetingOptions)
-  );
-
-  excludesResultKeys.forEach(
-    excludesResultKey => addTargetingOptionToResult(excludesResultKey, excludesResult, targetingOptions)
-  );
-
-  addCustomOptionToResult(requiresResultKeys, requiresResult, targetingOptions);
-  addCustomOptionToResult(excludesResultKeys, excludesResult, targetingOptions);
 
   return {
     requires: requiresResult,
@@ -228,31 +231,52 @@ export function parseTargetingOptionsToArray(targetingObject, targetingOptions):
   };
 }
 
-function generateTargetingKeysArray(targetingObject, result, targetingOptionTopKeys, key = '') {
-  Object.keys(targetingObject).forEach((partialKey, keyIndex) => {
-    if (typeof targetingObject[partialKey] === 'object') {
-      if (targetingOptionTopKeys.indexOf(partialKey) > -1) {
-        key = '';
-      }
-
-      if (Array.isArray(targetingObject[partialKey]) && keyIndex !== 0) {
-        const temporaryKeyArray = key.split('-');
-
-        temporaryKeyArray.splice(-1, 1);
-        key = temporaryKeyArray.join('-');
-      }
-
-      key += (key === '' ? '' : '-') + partialKey;
-      generateTargetingKeysArray(targetingObject[partialKey], result, targetingOptionTopKeys, key);
-
-      return;
-    }
-
-    result.push(`${key}-${targetingObject[partialKey]}`);
-  });
+function targetingNeedsConversion (targetingOptions: any[], id: string) {
+  return targetingOptions.some(option => option.key === id)
 }
 
-function getTargetingOptionValueById(id: string, targetingOptionValues: TargetingOptionValue[]): TargetingOptionValue|null {
+function addTargetingOptionToResult (
+  targetingObject: object,
+  result: TargetingOptionValue[],
+  targetingOptions: any[],
+  parent: TargetingOption | TargetingOptionValue = undefined
+): void {
+  Object.keys(targetingObject)
+    .forEach(key => {
+      if (typeof targetingObject[key] === 'object') {
+        const id = parent ? `${parent.id}${SEPARATOR}${key}` : key
+        const option = targetingOptions.find(targetingOption => targetingOption.id === id)
+        if (option) {
+          addTargetingOptionToResult(targetingObject[key], result, option.children || option.values, option)
+        }
+      } else {
+        const value = targetingObject[key]
+
+        if (parent && parent.allowInput) {
+          result.push(prepareCustomOption(value, parent.id))
+          return
+        }
+
+        const id = parent ? `${parent.id}${SEPARATOR}${value}` : value
+        const option = getTargetingOptionValueById(id, targetingOptions)
+        if (option !== null) {
+          result.push(option)
+        }
+      }
+    })
+  if (!parent) {
+    if (targetingNeedsConversion(targetingOptions, DecentralandConverter.ID)) {
+      new DecentralandConverter().convertSelectedTargetingOptionValues(targetingObject, result)
+    } else if (targetingNeedsConversion(targetingOptions, CryptovoxelsConverter.ID)) {
+      new CryptovoxelsConverter().convertSelectedTargetingOptionValues(targetingObject, result)
+    }
+  }
+}
+
+function getTargetingOptionValueById(
+  id: string,
+  targetingOptionValues: TargetingOptionValue[]
+): TargetingOptionValue | null {
   for (let targetingOptionValue of targetingOptionValues) {
     if (targetingOptionValue.id === id) {
       return targetingOptionValue;
@@ -269,114 +293,3 @@ function getTargetingOptionValueById(id: string, targetingOptionValues: Targetin
   return null;
 }
 
-function addTargetingOptionToResult(resultKey, result, targetingOptions) {
-  targetingOptions.forEach(targetingOption => {
-    if (targetingOption.children) {
-      addTargetingOptionToResult(resultKey, result, targetingOption.children);
-    } else if (targetingOption.values) {
-      const foundResult = getTargetingOptionValueById(resultKey, targetingOption.values);
-      if (foundResult) {
-        result.push(foundResult);
-      }
-    }
-  });
-}
-
-function addCustomOptionToResult(optionKeys, results, targetingOptions) {
-  optionKeys.forEach(optionKey => {
-    const addedResultIndex = !!results.length && results.findIndex(result => {
-      return result.id === optionKey
-    });
-
-    if (addedResultIndex === -1 || addedResultIndex === false) {
-      const parentKeyPathArray = optionKey.split('-');
-      const lastKeyelement = parentKeyPathArray.splice(-1, 1)[0];
-      let customOptionParent = findOption(parentKeyPathArray.join('-'), targetingOptions);
-      let rawValue;
-      if (!customOptionParent) {
-        // if find element that contains custom value based on allow input parameter
-        targetingOptions.forEach(res => {
-          if (res.children && res.children.find(el => el.id.includes(parentKeyPathArray[0]) && el.allowInput)) {
-            customOptionParent = res.children.find(el => {
-              return el.id.includes(parentKeyPathArray[0]) && el.allowInput
-            });
-            // recreate 'pure value' from option key that contain categories and value connected with '-'
-            rawValue = optionKey
-              .split('-')
-              .splice(customOptionParent.id.split('-').length, parentKeyPathArray.length)
-              .join('-')
-          }
-        });
-
-        if (!customOptionParent) {
-          return;
-        }
-      } else {
-        rawValue = customOptionParent && customOptionParent['valueType'] === 'number' ?
-          parseKeyToNumber(lastKeyelement) : lastKeyelement;
-      }
-      let action = customOptionParent['valueType'] === 'number' ?
-        getActionFromKey(lastKeyelement) : -1;
-
-      const customOption = prepareCustomOption(
-        rawValue,
-        customOptionParent,
-        targetingOptions,
-        action
-      );
-      results.push(customOption);
-    }
-  });
-}
-
-function parseKeyToNumber(lastKeyElement) {
-  return lastKeyElement.replace(/[<,>\s]/g, '');
-}
-
-function getActionFromKey(lastKeyelement) {
-  const commaIndex = lastKeyelement.indexOf(',');
-
-  switch (commaIndex) {
-    case -1:
-      return customTargetingActionsEnum['Is'];
-    case 1:
-      return customTargetingActionsEnum['Less than'];
-    default:
-      return customTargetingActionsEnum['More than'];
-  }
-}
-
-export function prepareCustomOption(
-  value: string | number,
-  parentOption: TargetingOption | TargetingOptionValue,
-  targetingOptions: TargetingOption[],
-  action: number
-) {
-  const optionLabel = parentOption['valueType'] === 'number' ?
-    `${customTargetingActionsEnum[action]} ${value}` : value;
-  const optionValue = parentOption['valueType'] === 'number' ?
-    getnerateNumberOptionValue(value, action) : value;
-
-  return {
-    id: `${parentOption.id}-${value}`,
-    key: `${value}`,
-    label: optionLabel,
-    parent: {
-      valueType: parentOption['valueType'],
-      allowInput: parentOption['allowInput']
-    },
-    value: optionValue,
-    isCustom: true
-  }
-}
-
-function getnerateNumberOptionValue(value: string | number, action: number) {
-  switch (action) {
-    case 0:
-      return `<,${value}>`;
-    case 1:
-      return `<${value}>`;
-    default:
-      return `<${value},>`;
-  }
-}

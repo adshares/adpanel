@@ -1,3 +1,8 @@
+type Entry = {
+  key: string
+  value: string
+}
+
 interface TargetingOption {
   id?: string;
   key: string;
@@ -5,9 +10,16 @@ interface TargetingOption {
   description?: string;
   valueType: string;
   allowInput: boolean;
+  parentId?: string;
 
   children?: TargetingOption[];
   values?: TargetingOptionValue[];
+}
+
+const TargetingOptionType = {
+  GROUP: 'group',
+  STRING: 'string',
+  PARCEL_COORDINATES: 'parcel_coordinates',
 }
 
 interface TargetingOptionValue {
@@ -15,7 +27,7 @@ interface TargetingOptionValue {
   label: string;
   description?: string;
   value: string;
-  parent: Partial<TargetingOption>;
+  parentId: string;
 
   selected?: boolean;
   subSelected?: boolean;
@@ -39,7 +51,9 @@ interface TargetingReachResponseCpmPercentiles {
 }
 
 export {
+  Entry,
   TargetingOption,
+  TargetingOptionType,
   TargetingOptionValue,
   AssetTargeting,
   TargetingReachResponse,

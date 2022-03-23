@@ -1,18 +1,3 @@
-export enum adminChartSeriesEnum {
-  SALDO,
-  VIEW,
-  CLICKS
-}
-
-export enum chartSeriesEnum {
-  VIEW,
-  CLICK,
-  CPC,
-  CTR,
-  CPM,
-  SUM
-}
-
 export enum pubChartSeriesEnum {
   view = 'Views',
   click = 'Clicks',

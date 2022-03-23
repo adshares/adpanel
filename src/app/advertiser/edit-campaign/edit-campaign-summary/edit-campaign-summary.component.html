@@ -1,3 +1,4 @@
+<app-edit-asset-navigation></app-edit-asset-navigation>
 <section
   class="
     homepage-view
@@ -45,7 +46,6 @@
       </h3>
       <a
         routerLink="../basic-information"
-        [queryParams]="{step: 1, summary: true}"
         data-test="advertiser-edit-campaign-summary-navigate-to-basic-information"
       >
         <button
@@ -229,7 +229,6 @@
       </h3>
       <a
         routerLink="../additional-targeting"
-        [queryParams]="{step: 4, summary: true}"
         data-test="advertiser-edit-campaign-summary-navigate-to-additional-targeting"
       >
         <button
@@ -313,7 +312,6 @@
       </h3>
       <a
         routerLink="../create-ad"
-        [queryParams]="{step: 2, summary: true}"
         data-test="advertiser-edit-campaign-summary-navigate-to-create-ads"
       >
         <button
@@ -383,7 +381,6 @@
   >
     <a
       routerLink="../create-ad"
-      [queryParams]="{step: 2}"
       data-test="advertiser-edit-campaign-navigate-back"
     >
       <button

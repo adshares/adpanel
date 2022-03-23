@@ -43,7 +43,9 @@ import { ClassifierFilteringComponent } from 'publisher/classifier/classifier-fi
 import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';
 import { LanguagesListResolver } from 'publisher/resolvers/languages-list.resolver';
 import { DomainCheckerComponent } from 'publisher/site-details/domain-checker/domain-checker.component';
-import { TargetingCriteriaResolver } from 'publisher/resolvers/targeting-criteria.resolver'
+import {
+  SiteCodeCryptovoxelsDialogComponent
+} from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
 
 library.add(fas);
 
@@ -66,6 +68,7 @@ const publisherComponents = [
   SiteListItemComponent,
   AdUnitsComponent,
   SiteCodeDialogComponent,
+  SiteCodeCryptovoxelsDialogComponent,
   ClassifierComponent,
   ClassifierListItemComponent,
   ClassifierFilteringComponent,
@@ -99,7 +102,6 @@ const publisherComponents = [
     AdUnitSizesResolver,
     MatchingBannerSizesResolver,
     LanguagesListResolver,
-    TargetingCriteriaResolver,
   ],
   declarations: [
     ...publisherComponents,
@@ -107,6 +109,7 @@ const publisherComponents = [
   ],
   entryComponents: [
     SiteCodeDialogComponent,
+    SiteCodeCryptovoxelsDialogComponent,
   ]
 })
 

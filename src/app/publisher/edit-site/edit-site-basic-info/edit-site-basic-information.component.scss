@@ -28,7 +28,7 @@
     }
   }
 
-  .dwmth-form-label {
+  .dwmth-form-label--no-margin-top {
     margin-top: 0;
   }
 
@@ -50,4 +50,24 @@
     transform: translateY(-15px);
   }
 
+}
+
+.dwmth-form-input:disabled {
+  color: palette(gray);
+  background-color: #ffffff;
+}
+
+.instruction {
+  ol {
+    padding-left: 20px;
+  }
+
+  li {
+    padding: 5px 0;
+    list-style: decimal;
+  }
+
+  p {
+    padding: 10px 0;
+  }
 }

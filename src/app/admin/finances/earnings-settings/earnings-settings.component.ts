@@ -18,7 +18,6 @@ export class EarningsSettingsComponent  {
   @Output() valueChanged = new Subject<number>();
   @Input() message: string;
   @Input() messageClass: string;
-  constructor() {}
 
   updateValue(newValue: number): void {
     const formattedValue = newValue.toFixed(2);

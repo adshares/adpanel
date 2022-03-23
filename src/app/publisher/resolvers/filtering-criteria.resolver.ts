@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { TargetingOption } from 'models/targeting-option.model';
-import { prepareTargetingChoices } from 'common/components/targeting/targeting.helpers';
+import { prepareFilteringChoices } from 'common/components/targeting/targeting.helpers';
 
 @Injectable()
 export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
@@ -13,6 +13,6 @@ export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
     return this.publisherService.getFilteringCriteria()
-      .map((filteringOptions) => prepareTargetingChoices(filteringOptions));
+      .map((filteringOptions) => prepareFilteringChoices(filteringOptions));
   }
 }

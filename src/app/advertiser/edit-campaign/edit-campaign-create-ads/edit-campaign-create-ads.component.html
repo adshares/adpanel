@@ -1,3 +1,4 @@
+<app-edit-asset-navigation></app-edit-asset-navigation>
 <section
   class="
     homepage-view
@@ -155,8 +156,8 @@
                   data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
                 >
                   <mat-option
-                    *ngFor="let adType of adTypes; let adTypeIndex = index"
-                    [value]="adTypeIndex"
+                    *ngFor="let adType of adTypes"
+                    [value]="adType"
                     data-test="advertiser-edit-campaign-create-ads-form-ad-type-option"
                   >
                     {{ adType }}
@@ -197,7 +198,7 @@
                 </span>
               </div>
 
-              <div *ngIf="adForm.get('html') && adForm.get('creativeSize').value !== null"
+              <div *ngIf="adForm.get('html')"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Size
@@ -209,7 +210,7 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of displayAdSizes"
+                    *ngFor="let adSize of getAdSizes(adCreativeTypes.HTML)"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
@@ -217,7 +218,7 @@
                 </mat-select>
               </div>
 
-              <div *ngIf="adForm.get('direct') && adForm.get('creativeSize').value !== null"
+              <div *ngIf="adForm.get('direct')"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Display
@@ -229,16 +230,10 @@
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
                 >
                   <mat-option
-                    *ngFor="let adSize of popAdSizes"
+                    *ngFor="let adSize of getAdSizes(adCreativeTypes.DIRECT)"
                     [value]="adSize"
                     data-test="advertiser-edit-campaign-create-ads-form-size-option">
                     {{ adSize }}
-                  </mat-option>
-                  <mat-option
-                    *ngFor="let adSize of displayAdSizes"
-                    [value]="adSize"
-                    data-test="advertiser-edit-campaign-create-ads-form-size-option">
-                    iframe {{ adSize }}
                   </mat-option>
                 </mat-select>
               </div>
@@ -257,7 +252,7 @@
             class="error-msg"
             *ngIf="imagesStatus.validation[i] && !imagesStatus.validation[i].size"
           >
-            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize|formatFileSize}}.
+            Invalid size! Make sure that your file is no more than {{presentedMaxFileSize(i)|formatFileSize}}.
           </div>
 
           <div
@@ -355,7 +350,7 @@
                   class="file-select-input"
                   type="file"
                   id="fileSelect"
-                  (change)="uploadBanner($event)"
+                  (change)="uploadBanner(i, $event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
               <p
@@ -369,14 +364,14 @@
                 *ngIf="isImageTypeChosen(adForm)"
                 class="dwmth-copy"
               >
-                We support JPG, PNG and GIF files.
+                We support {{ getSupportedFiles(adForm) }} files.
                 Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_IMAGE|formatFileSize}}.
               </p>
               <p
                 *ngIf="isVideoTypeChosen(adForm)"
                 class="dwmth-copy"
               >
-                We support MP4 files.
+                We support {{ getSupportedFiles(adForm) }} files.
                 Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_VIDEO|formatFileSize}}.
               </p>
             </div>
@@ -573,15 +568,12 @@
             </div>
 
             <div
-              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src && adForm.get('creativeSize').value"
+              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src"
               class="banner image-poster"
-              [ngStyle]="{
-                'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
-              }"
             >
               <video
                 controls
+                class="video-preview"
               >
                 <source [src]="adForm.get('video').value.src">
                 Sorry, your browser doesn't support embedded videos.
