@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/operator/take';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';

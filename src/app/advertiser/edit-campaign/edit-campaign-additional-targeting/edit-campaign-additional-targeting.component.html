@@ -1,14 +1,23 @@
+<app-edit-asset-navigation></app-edit-asset-navigation>
 <section
   class="
     homepage-view
     campaign-edit-additional-targeting"
 >
+  <ng-template #loadCampaign>
+    <div class="loading-wrapper">
+      <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="!isLoading else loadCampaign">
   <div class="dwmth-box">
     <app-targeting-reach
       *ngIf="isAutoCpm"
       [ads]="campaign.ads || []"
       [autoCpm]="true"
       [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+      [vendor]="campaign.basicInformation.vendor"
     ></app-targeting-reach>
 
     <form
@@ -25,6 +34,7 @@
               [ads]="campaign.ads || []"
               [cpm]="campaignBasicInfoForm.get('maxCpm').value || 0"
               [targeting]="{requires: this.addedItems, excludes: this.excludedItems}"
+              [vendor]="campaign.basicInformation.vendor"
             ></app-targeting-reach>
           </div>
           <div class="col">
@@ -98,6 +108,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
                 [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
@@ -156,6 +167,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
                 [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 (itemsChange)="updateExcludedItems($event)"
@@ -188,6 +200,7 @@
 
     </div>
   </mat-accordion>
+  </ng-container>
 
   <div
     class="

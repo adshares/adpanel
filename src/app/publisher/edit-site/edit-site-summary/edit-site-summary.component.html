@@ -1,3 +1,7 @@
+<app-edit-site-navigation
+  [currentStep]="5"
+  [medium]="site.medium"
+></app-edit-site-navigation>
 <section
   class="
     homepage-view
@@ -56,7 +60,6 @@
       </h3>
       <a
         routerLink="../basic-information"
-        [queryParams]="{step: 1, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-basic-information"
       >
         <button
@@ -140,7 +143,6 @@
       </h3>
       <a
         routerLink="../additional-filtering"
-        [queryParams]="{step: 4, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-additional-information"
       >
         <button
@@ -170,6 +172,7 @@
     </div>
   </div>
 
+  <ng-container *ngIf="displayAds">
   <div
     class="
       dwmth-box
@@ -191,7 +194,6 @@
       </h3>
       <a
         routerLink="../pops-settings"
-        [queryParams]="{step: 2, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-pops-settings"
       >
         <button
@@ -272,7 +274,6 @@
       </h3>
       <a
         routerLink="../create-ad-units"
-        [queryParams]="{step: 3, summary: true}"
         data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
       >
         <button
@@ -331,6 +332,7 @@
       </div>
     </div>
   </div>
+  </ng-container>
 
   <div
     class="
@@ -340,8 +342,7 @@
       justify-between"
   >
     <a
-      routerLink="../create-ad-units"
-      [queryParams]="{step: 3}"
+      routerLink="../additional-filtering"
       data-test="publisher-edit-site-navigate-back"
     >
       <button

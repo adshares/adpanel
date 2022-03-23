@@ -57,7 +57,6 @@ import { AccountNotConfirmedBarComponent } from 'app/auth/account/not-confirmed-
 import { TargetingSelectComponent } from './components/targeting/targeting-select/targeting-select.component'
 import { TargetingDisplayComponent } from './components/targeting/targeting-display/targeting-display.component'
 import { TableNavigationComponent } from './components/table-navigation/table-navigation.component'
-import { EditAssetNavigationComponent } from './components/edit-asset-navigation/edit-asset-navigation.component'
 import { BidStrategyService } from 'common/bid-strategy.service'
 import { ChartService } from './chart.service'
 import { AssetHelpersService } from './asset-helpers.service'
@@ -77,6 +76,7 @@ import { ReportsListItemComponent } from 'common/components/reports-list/reports
 import { BidStrategySettingsComponent } from 'common/components/bid-strategy/bid-strategy-settings/bid-strategy-settings.component'
 import { InfoPageComponent } from 'common/info/info-page/info-page.component'
 import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found.component'
+import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 
 const matModules = [
@@ -134,7 +134,6 @@ const appComponents = [
   TargetingDisplayComponent,
   TargetingCustomOptionInputComponent,
   TableNavigationComponent,
-  EditAssetNavigationComponent,
   BannerPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
@@ -169,10 +168,11 @@ const appComponents = [
     ...dialogs,
   ],
   providers: [
+    AssetHelpersService,
     BidStrategyService,
     ChartService,
     CommonService,
-    AssetHelpersService,
+    MediaResolver,
     PushNotificationsService,
   ],
   exports: [

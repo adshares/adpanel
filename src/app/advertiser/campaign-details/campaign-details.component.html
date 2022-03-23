@@ -39,9 +39,17 @@
         justify-between
         align-center">
       <div class="justify-start">
-        <h1 class="dwmth-heading dwmth-heading--primary">
-          {{ campaign.basicInformation.name }}
-        </h1>
+        <div class="col">
+          <h1 class="dwmth-heading dwmth-heading--primary">
+            {{ campaign.basicInformation.name }}
+          </h1>
+          <p
+            *ngIf="mediumLabel !== undefined"
+            class="dwmth-copy dwmth-copy--dark dwmth-copy--semi label"
+          >
+            {{ mediumLabel }}
+          </p>
+        </div>
       </div>
       <div class="row justify-end align-center">
         <div class="row status-button-wrapper">
@@ -249,7 +257,7 @@
            dwmth-btn
            dwmth-btn--edit
            no-wrap"
-          (click)="navigateToCampaignEdition('basic-information', 1)"
+          (click)="navigateToCampaignEdition('basic-information')"
           data-test="advertiser-campaign-edit-basic-info-button">
           <img
             class="
@@ -294,7 +302,7 @@
           </div>
           <button
             class="self-end dwmth-btn dwmth-btn--edit"
-            (click)="navigateToCampaignEdition('bid-strategy', 0)"
+            (click)="navigateToCampaignEdition('bid-strategy')"
             data-test="advertiser-campaign-edit-bid-strategy-button"
           >
             <img
@@ -318,7 +326,7 @@
 
         <button
           class="self-end dwmth-btn dwmth-btn--edit"
-          (click)="navigateToCampaignEdition('conversion', 0)"
+          (click)="navigateToCampaignEdition('conversion')"
           data-test="advertiser-campaign-edit-conversion-button"
         >
           <img
@@ -371,7 +379,7 @@
         <button class="self-end
                        dwmth-btn
                        dwmth-btn--edit"
-                (click)="navigateToCampaignEdition('additional-targeting', 2)"
+                (click)="navigateToCampaignEdition('additional-targeting')"
                 data-test="advertiser-campaign-edit-targeting-button">
           <img
             class="dwmth-icon
@@ -449,7 +457,7 @@
             self-end
             dwmth-btn
             dwmth-btn--edit"
-          (click)="navigateToCampaignEdition('create-ad', 3)"
+          (click)="navigateToCampaignEdition('create-ad')"
           data-test="advertiser-campaign-edit-targeting-button"
         >
           <img
@@ -481,7 +489,7 @@
             dwmth-btn--white
             dwmth-blue
             dwmth-btn--no-border"
-          (click)="navigateToCampaignEdition('create-ad', 3)">
+          (click)="navigateToCampaignEdition('create-ad')">
           <img
             src="/assets/images/plus-circle--blue.svg"
             alt="Add new"

@@ -1,3 +1,7 @@
+<app-edit-site-navigation
+  [currentStep]="4"
+  [medium]="site.medium"
+></app-edit-site-navigation>
 <section
   class="
     homepage-view
@@ -63,6 +67,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
                 [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
@@ -122,6 +127,7 @@
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
+                *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
                 [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 [checkClass]="'stopmark'"

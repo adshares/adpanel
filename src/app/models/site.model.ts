@@ -7,6 +7,8 @@ interface Site {
   domain: string;
   url: string;
   primaryLanguage: string | SiteLanguage;
+  medium: string;
+  vendor: string | null;
   onlyAcceptedBanners: boolean;
   filtering: {
     requires: object;

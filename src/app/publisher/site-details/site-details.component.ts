@@ -11,7 +11,7 @@ import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
-import { AssetTargeting } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { createInitialArray, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
@@ -47,15 +47,16 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     requires: [],
     excludes: [],
   };
-  filteringOptions: AssetTargeting;
+  filteringOptions: TargetingOption[];
   currentSiteStatus: string;
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
   barChartLabels: ChartLabels[] = [];
   barChartData: ChartData[] = createInitialArray([{data: []}], 1);
-
   currentChartFilterSettings: ChartFilterSettings;
+  mediumLabel: string;
+  displayAds: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -89,8 +90,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     return this.canActivateSite ? 'Activate' : 'Deactivate'
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.site = this.route.snapshot.data.site;
+    this.displayAds = this.site.medium !== 'metaverse';
+    this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
@@ -123,11 +126,25 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
   }
 
-  sortTable(event: TableSortEvent) {
+  private prepareMediumLabel (site: Site): void {
+    const medium = this.route.snapshot.data.media[site.medium]
+    if (medium) {
+      if (site.vendor === null) {
+        this.mediumLabel = `${medium} ads`
+        return
+      }
+      this.publisherService.getMediumVendors(site.medium).subscribe(vendors => {
+        const vendor = vendors[site.vendor]
+        this.mediumLabel = vendor ? `${medium} ads in ${vendor}` : `${medium} ads`
+      })
+    }
+  }
+
+  sortTable(event: TableSortEvent): void {
     this.site.adUnits = sortArrayByKeys(this.site.adUnits, event.keys, event.sortDesc);
   }
 
-  deleteSite() {
+  deleteSite(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this site?',
@@ -156,7 +173,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  getFiltering() {
+  getFiltering(): void {
     this.site.filtering = {
       requires: this.site.filtering.requires || [],
       excludes: this.site.filtering.excludes || [],
@@ -170,7 +187,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  getChartData(chartFilterSettings, siteId, reload: boolean = true) {
+  getChartData(chartFilterSettings, siteId, reload: boolean = true): void {
     if (reload) {
       this.barChartData[0].data = [];
     }
@@ -201,11 +218,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }));
   }
 
-  navigateToEditSite(path: string, step: number): void {
-    this.router.navigate(
-      ['/publisher', 'edit-site', this.site.id, path],
-      {queryParams: {step, summary: true}}
-    );
+  navigateToEditSite(path: string): void {
+    this.router.navigate(['/publisher', 'edit-site', this.site.id, path]);
   }
 
   navigateToClassification(): void {
@@ -214,7 +228,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     );
   }
 
-  onSiteStatusChange() {
+  onSiteStatusChange(): void {
     if (this.canActivateSite) {
       this.currentSiteStatus = 'active';
     } else {
@@ -224,7 +238,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 
-  downloadReport() {
+  downloadReport(): void {
     this.store.dispatch(
       new RequestReport(
         {

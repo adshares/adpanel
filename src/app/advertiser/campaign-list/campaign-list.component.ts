@@ -36,9 +36,6 @@ export class CampaignListComponent {
   }
 
   navigateToCreateCampaign() {
-    this.router.navigate(
-      ['advertiser', 'create-campaign', 'basic-information'],
-      {queryParams: {step: 1}}
-    );
+    this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/operator/first';
 
 import { AppState } from 'models/app-state.model';
 import {AdUnit, Site} from 'models/site.model';
@@ -23,6 +22,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   site: Site;
   filteringOptions: TargetingOption[];
   canSubmit: boolean;
+  displayAds: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -40,6 +40,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
       .subscribe((lastEditedSite: Site) => {
         this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
         this.site = lastEditedSite;
+        this.displayAds = this.site.medium !== 'metaverse';
       });
 
     this.subscriptions.push(lastSiteSubscription);

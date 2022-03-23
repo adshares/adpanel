@@ -11,7 +11,7 @@ import { PublisherService } from 'publisher/publisher.service';
 import * as publisherActions from './publisher.actions';
 import { ShowSuccessSnackbar } from '../common/common.actions';
 import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
-import { prepareTargetingChoices } from "common/components/targeting/targeting.helpers";
+import { prepareFilteringChoices } from "common/components/targeting/targeting.helpers";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/takeLast";
 import * as moment from "moment";
@@ -114,7 +114,7 @@ export class PublisherEffects {
     .ofType(publisherActions.GET_FILTERING_CRITERIA)
     .map(toPayload)
     .switchMap(() => this.service.getFilteringCriteria())
-    .map((filteringOptions) => prepareTargetingChoices(filteringOptions))
+    .map((filteringOptions) => prepareFilteringChoices(filteringOptions))
     .map((criteria) => new publisherActions.GetFilteringCriteriaSuccess(criteria));
 
   @Effect()

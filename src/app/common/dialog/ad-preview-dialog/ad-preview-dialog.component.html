@@ -27,12 +27,12 @@
         }"
       >
         <img
-          *ngIf="type === adTypesEnum.IMAGE"
+          *ngIf="type === adCreativeTypes.IMAGE"
           [src]="data.url"
           alt
         />
         <iframe
-          *ngIf="type === adTypesEnum.HTML"
+          *ngIf="type === adCreativeTypes.HTML"
           [src]="data.url | trustUrl"
           sandbox="allow-same-origin allow-scripts"
           scrolling="no"
@@ -44,7 +44,7 @@
           }"
         ></iframe>
         <video
-          *ngIf="type === adTypesEnum.VIDEO"
+          *ngIf="type === adCreativeTypes.VIDEO"
           autoplay
           loop
           muted

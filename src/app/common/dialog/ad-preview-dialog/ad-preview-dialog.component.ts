@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AdPreview } from 'models/campaign.model';
-import { adTypesEnum } from 'models/enum/ad.enum';
+import { adCreativeTypes } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-ad-preview-dialog',
@@ -9,8 +9,8 @@ import { adTypesEnum } from 'models/enum/ad.enum';
   styleUrls: ['./ad-preview-dialog.component.scss'],
 })
 export class AdPreviewDialogComponent {
-  readonly adTypesEnum = adTypesEnum;
-  type: string | number;
+  readonly adCreativeTypes = adCreativeTypes;
+  type: string;
   width: string;
   height: string;
 

@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/operator/take';
 
+import { AdvertiserService } from 'advertiser/advertiser.service';
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
-import * as advertiserAction from 'store/advertiser/advertiser.actions';
-import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
-import { Campaign, CampaignsConfig } from 'models/campaign.model';
+import { ClearLastEditedCampaign, SaveCampaignTargeting } from 'store/advertiser/advertiser.actions';
+import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
+import { CampaignsConfig } from 'models/campaign.model';
 import { HandleSubscription } from "common/handle-subscription";
 
 @Component({
@@ -22,6 +22,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
   campaignsConfig: CampaignsConfig;
 
   constructor(
+    private advertiserService: AdvertiserService,
     private store: Store<AppState>,
     private route: ActivatedRoute,
     private router: Router,
@@ -35,14 +36,19 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
 
     const lastEditedCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .take(1)
-      .subscribe((lastEditedCampaign: Campaign) => {
-        if (!lastEditedCampaign.targetingArray) {
-          const targetingOptions = this.route.snapshot.data.targetingOptions;
-          this.store.dispatch(
-            new advertiserAction.SaveCampaignTargeting(
-              parseTargetingOptionsToArray(lastEditedCampaign.targeting, targetingOptions)
-            )
-          );
+      .subscribe(campaign => {
+        if (!campaign.targetingArray) {
+          const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
+            .take(1)
+            .subscribe(medium => {
+              const targetingOptions = processTargeting(medium);
+              this.store.dispatch(
+                new SaveCampaignTargeting(
+                  parseTargetingOptionsToArray(campaign.targeting, targetingOptions)
+                )
+              );
+            });
+          this.subscriptions.push(targetingSubscription);
         }
       });
     this.subscriptions.push(lastEditedCampaignSubscription)
@@ -50,7 +56,7 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
 
   ngOnDestroy() {
     if (this.isEditMode) {
-      this.store.dispatch(new advertiserAction.ClearLastEditedCampaign())
+      this.store.dispatch(new ClearLastEditedCampaign())
     }
   }
 }

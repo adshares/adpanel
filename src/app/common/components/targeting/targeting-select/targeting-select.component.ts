@@ -15,7 +15,6 @@ import {
 import {
   findOption,
   findOptionList,
-  getParentId
 } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
@@ -33,7 +32,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   selectedItems: TargetingOptionValue[] = [];
-  viewModel: (TargetingOption | TargetingOptionValue)[];
+  viewModel: (TargetingOption | TargetingOptionValue)[] = [];
   parentViewModel: (TargetingOption | TargetingOptionValue)[];
   parentOption: TargetingOption | TargetingOptionValue;
   targetingOptionsForSearch: (TargetingOption|TargetingOptionValue)[] = [];
@@ -106,29 +105,41 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
       this.markParentOptions(option);
       this.itemsChange.emit(this.selectedItems);
     }
-
-    if (option.parent.valueType === 'boolean') {
-      this.deselectOppositeBoolean(option);
-    }
   }
 
-  private handleSiteCategoryUnknown(option: TargetingOptionValue) {
-    if (option.id.startsWith('site-category-')) {
-      if ('site-category-unknown' === option.id) {
-        const optionList = findOptionList('site-category', this.targetingOptions);
-        if (optionList) {
-          const siteCategory = optionList.find((option) => option.id === 'site-category');
-          this.removeSubItems(siteCategory);
-        } else {
-          this.targetingOptions.forEach((option) => this.removeSubItems(option));
-        }
+  private handleSiteCategoryUnknown(optionValue: TargetingOptionValue): void {
+    if (optionValue.id.startsWith('site/category/')) {
+      if ('site/category/unknown' === optionValue.id) {
+        this.uncheckKnownSiteCategoryOptions();
       } else {
-        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site-category-unknown' === item.id);
+        const indexOfUnknown = this.selectedItems.findIndex((item) => 'site/category/unknown' === item.id);
         if (-1 !== indexOfUnknown) {
           this.selectedItems.splice(indexOfUnknown, 1);
         }
       }
     }
+  }
+
+  private uncheckKnownSiteCategoryOptions(): void {
+    const siteCategoryOption = findOption('site/category', this.targetingOptions);
+    if (siteCategoryOption) {
+      this.removeSubItems(siteCategoryOption);
+    } else {
+      this.targetingOptions.forEach(option => {
+        if (option.id !== 'site/category/unknown') {
+          this.removeItem(option as TargetingOptionValue);
+        }
+      })
+    }
+  }
+
+  private removeItem(option: TargetingOptionValue): void {
+    option.subSelected = false
+    const index = this.selectedItems.findIndex(item => item.id === option.id)
+    if (-1 !== index) {
+      this.selectedItems.splice(index, 1)
+    }
+    this.removeSubItems(option)
   }
 
   private addSubItems(option: TargetingOptionValue): void {
@@ -152,12 +163,10 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let hasValue: boolean;
     let parentOption;
     do {
-      const parentOptionId = (<TargetingOptionValue>currentOption).parent ? (<TargetingOptionValue>currentOption).parent.id : getParentId(currentOption.id);
-      const optionList = findOptionList(parentOptionId, this.targetingOptions);
-      if (!optionList) {
+      parentOption = findOption(currentOption.parentId, this.targetingOptions)
+      if (!parentOption) {
         break;
       }
-      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = true;
@@ -197,12 +206,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     let hasValue: boolean;
     let parentOption;
     do {
-      const parentOptionId = (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
-      const optionList = findOptionList(parentOptionId, this.targetingOptions);
-      if (!optionList) {
+      const parentOptionId = option.parentId;
+      parentOption = findOption(parentOptionId, this.targetingOptions)
+      if (!parentOption) {
         break;
       }
-      parentOption = optionList.find((option) => option.id === parentOptionId);
       hasValue = parentOption.hasOwnProperty('value');
       if (hasValue) {
         parentOption.subSelected = parentOption.values.some((item) => item.selected || item.subSelected);
@@ -222,27 +230,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
 
   private removeSubItems(option: TargetingOption|TargetingOptionValue): void {
     if (option.values) {
-      option.values.forEach(
-        (value) => {
-          value.subSelected = false;
-          const index = this.selectedItems.findIndex((item) => item.id === value.id);
-          if (-1 !== index) {
-            this.selectedItems.splice(index, 1);
-          }
-          this.removeSubItems(value);
-        }
-      );
+      option.values.forEach(value => this.removeItem(value))
     }
-  }
-
-  deselectOppositeBoolean(option: TargetingOptionValue): void {
-    const optionList = findOptionList(option.id, this.targetingOptions);
-    const oppositeOption = optionList.find((oppositeOption) => oppositeOption.id !== option.id);
-    if (oppositeOption && oppositeOption['selected']) {
-      this.selectedItems = [...this.selectedItems.filter((option) => option.id !== oppositeOption.id)];
-      Object.assign(oppositeOption, {selected: false});
-    }
-    this.itemsChange.emit(this.selectedItems);
   }
 
   deselectRemovedOptions(options: (TargetingOption | TargetingOptionValue)[] = this.targetingOptions): void {
@@ -262,9 +251,8 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     });
   }
 
-  setBackViewModel(option: TargetingOption | TargetingOptionValue): void {
-    const parentOptionId =
-      (<TargetingOptionValue>option).parent ? (<TargetingOptionValue>option).parent.id : getParentId(option.id);
+  setBackViewModel(childOption: TargetingOption | TargetingOptionValue): void {
+    const parentOptionId = childOption.parentId;
 
     this.parentViewModel = findOptionList(parentOptionId, this.targetingOptions);
     this.parentOption = this.parentViewModel.find((option) => option.id === parentOptionId);

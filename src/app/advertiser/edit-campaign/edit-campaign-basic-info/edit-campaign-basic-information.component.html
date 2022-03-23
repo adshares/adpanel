@@ -1,3 +1,4 @@
+<app-edit-asset-navigation></app-edit-asset-navigation>
 <section
   *ngIf="campaignBasicInfoForm"
   class="
@@ -25,6 +26,42 @@
         dwmth-box
         dwmth-box--large"
     >
+      <div class="dwmth-form-input__box">
+        <label class="dwmth-form-label">Medium</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="medium"
+          (selectionChange)="onMediumChange($event.value)"
+          data-test="advertiser-edit-campaign-basic-information-medium-select"
+        >
+          <mat-option
+            *ngFor="let medium of media"
+            [value]="medium.key"
+            data-test="advertiser-edit-campaign-basic-information-medium-option"
+          >
+            {{ medium.value }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div
+        *ngIf="vendors.length > 0"
+        class="dwmth-form-input__box"
+      >
+        <label class="dwmth-form-label">Vendor</label>
+        <mat-select
+          class="dwmth-select"
+          formControlName="vendor"
+          data-test="advertiser-edit-campaign-basic-information-vendor-select"
+        >
+          <mat-option
+            *ngFor="let vendor of vendors"
+            [value]="vendor.key"
+            data-test="advertiser-edit-campaign-basic-information-vendor-option"
+          >
+            {{ vendor.value }}
+          </mat-option>
+        </mat-select>
+      </div>
       <div class="dwmth-form-input__box">
         <label
           for="campaignName"

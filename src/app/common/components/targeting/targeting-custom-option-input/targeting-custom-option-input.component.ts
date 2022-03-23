@@ -11,8 +11,9 @@ import {
   ENTER,
   SPACE
 } from '@angular/cdk/keycodes';
-import { TargetingOptionValue } from 'models/targeting-option.model';
-import { MatChipInputEvent } from "@angular/material";
+import { MatChipInputEvent } from '@angular/material';
+import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
+import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2'
 
 @Component({
   selector: 'app-targeting-custom-option-input',
@@ -21,18 +22,20 @@ import { MatChipInputEvent } from "@angular/material";
 })
 export class TargetingCustomOptionInputComponent {
   @ViewChild('input') input: ElementRef;
-  @Input() option;
+  @Input() option: TargetingOption | TargetingOptionValue;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();
   readonly separatorKeysCodes: number[] = [COMMA, SPACE, ENTER];
+  readonly TargetingOptionType = TargetingOptionType;
   inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
-
-  constructor() {
-  }
+  saveRequested = false;
 
   showInput(): void {
+    if (this.inputShown) {
+      return;
+    }
     this.inputShown = true;
     setTimeout(() => {
       this.input.nativeElement.focus();
@@ -52,19 +55,11 @@ export class TargetingCustomOptionInputComponent {
     }
   }
 
-  adjustValueBeforeSave(value: string): TargetingOptionValue {
+  private adjustValueBeforeSave(value: string): TargetingOptionValue {
     const trimmedValue = value.trim().split(' ').join('').toLowerCase();
-    return {
-      id: `${this.option.id}-${trimmedValue}`,
-      label: trimmedValue,
-      value: trimmedValue,
-      parent: {
-        valueType: 'string'
-      },
-      selected: true,
-      allowInput: false,
-      isCustom: true,
-    };
+    const option = prepareCustomOption(trimmedValue, this.option.id)
+    option.selected = true
+    return option
   }
 
   remove(option: TargetingOptionValue): void {
@@ -75,9 +70,14 @@ export class TargetingCustomOptionInputComponent {
     }
   }
 
-  saveCustomTargetingOptions(event?: KeyboardEvent): void {
-    if (!event || event.keyCode === ENTER) {
-      this.itemsChange.emit(this.customOptionsArray)
-    }
+  saveCustomTargetingOptions(): void {
+    this.itemsChange.emit(this.customOptionsArray)
+  }
+
+  saveCustomParcel(coordinateX: string, coordinateY: string): void {
+    const value = `(${coordinateX}, ${coordinateY})`
+    const option = prepareCustomOption(value, this.option.id)
+    this.customOptionsArray.push(option)
+    this.itemsChange.emit(this.customOptionsArray)
   }
 }

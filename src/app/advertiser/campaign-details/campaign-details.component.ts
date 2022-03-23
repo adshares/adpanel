@@ -14,10 +14,10 @@ import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartData } from 'models/chart/chart-data.model';
 import { ChartLabels } from 'models/chart/chart-labels.model';
-import { AssetTargeting } from 'models/targeting-option.model';
+import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
-import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
+import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -53,11 +53,12 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     requires: [],
     excludes: []
   };
-  targetingOptions: AssetTargeting;
+  targetingOptions: TargetingOption[];
   currentChartFilterSettings: ChartFilterSettings;
   currentCampaignStatus: string;
   budgetInfo: string;
   isDefaultBidStrategy: boolean = false;
+  mediumLabel: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -103,8 +104,9 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
 
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
-          this.getTargeting();
+          this.updateTargeting();
           this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
+          this.prepareMediumLabel(this.campaign)
         }
         this.updateBudgetInfo();
         this.updateConversionTableItems();
@@ -140,6 +142,20 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       userSubscription,
       refreshSubscription
     );
+  }
+
+  private prepareMediumLabel (campaign: Campaign): void {
+    const medium = this.route.snapshot.data.media[campaign.basicInformation.medium]
+    if (medium) {
+      if (campaign.basicInformation.vendor === null) {
+        this.mediumLabel = `${medium} campaign`
+        return
+      }
+      this.advertiserService.getMediumVendors(campaign.basicInformation.medium).subscribe(vendors => {
+        const vendor = vendors[campaign.basicInformation.vendor]
+        this.mediumLabel = vendor ? `${medium} campaign in ${vendor}` : `${medium} campaign`
+      })
+    }
   }
 
   updateBudgetInfo() {
@@ -183,18 +199,24 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  getTargeting() {
+  updateTargeting(): void {
     this.campaign.targeting = {
       requires: this.campaign.targeting.requires || [],
       excludes: this.campaign.targeting.excludes || [],
     };
 
-    if (this.targeting.requires.length || this.targeting.excludes.length || !this.campaign) return;
+    if (this.targeting.requires.length || this.targeting.excludes.length) {
+      return
+    }
     if (Array.isArray(this.campaign.targeting.requires) && Array.isArray(this.campaign.targeting.excludes)) {
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
-      this.targetingOptions = this.route.snapshot.data.targetingOptions;
-      this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+      this.advertiserService.getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
+        .take(1)
+        .subscribe(medium => {
+          this.targetingOptions = processTargeting(medium);
+          this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
+        })
     }
   }
 
@@ -243,11 +265,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }));
   }
 
-  navigateToCampaignEdition(path: string, step: number): void {
-    this.router.navigate(
-      ['/advertiser', 'edit-campaign', this.campaign.id, path],
-      {queryParams: {step}}
-    );
+  navigateToCampaignEdition(path: string): void {
+    this.router.navigate(['/advertiser', 'edit-campaign', this.campaign.id, path]);
   }
 
   onCampaignStatusChange() {

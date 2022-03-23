@@ -69,15 +69,21 @@
           col-xs-5
           col-md-7"
       >
-        <h1
-          class="
-            dwmth-heading
-            dwmth-heading--primary"
-          data-test="publisher-site-url"
-        >
-          {{ site.name }}
-          <small>{{ site.domain }}</small>
-        </h1>
+        <div class="col">
+          <h1
+            class="dwmth-heading dwmth-heading--primary"
+            data-test="publisher-site-url"
+          >
+            {{ site.name }}
+            <small *ngIf="displayAds">{{ site.domain }}</small>
+          </h1>
+          <p
+            *ngIf="mediumLabel !== undefined"
+            class="dwmth-copy dwmth-copy--semi"
+          >
+            {{ mediumLabel }}
+          </p>
+        </div>
         <app-domain-checker
           [siteId]="site.id"
         ></app-domain-checker>
@@ -191,14 +197,13 @@
           align-center"
     >
       <p
-        class="
-            dwmth-copy
-            dwmth-copy--semi"
+        *ngIf="language !== undefined"
+        class="dwmth-copy dwmth-copy--semi"
       >
         Site language:
         <span
           class="lowercase">
-          {{language && language.name}}
+          {{ language.name }}
         </span>
       </p>
       <button
@@ -206,7 +211,7 @@
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-        (click)="navigateToEditSite('basic-information', 1)"
+        (click)="navigateToEditSite('basic-information')"
         data-test="publisher-site-edit-basic-info-button"
       >
         <img
@@ -227,7 +232,7 @@
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-          (click)="navigateToEditSite('additional-filtering', 4)"
+          (click)="navigateToEditSite('additional-filtering')"
           data-test="publisher-site-edit-filtering-button"
         >
           <img
@@ -322,6 +327,8 @@
       </div>
     </section>
 
+
+    <ng-container *ngIf="displayAds">
     <div class="dwmth-box dwmth-box--large">
       <div class="row justify-center">
         <button
@@ -363,7 +370,7 @@
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-            (click)="navigateToEditSite('pops-settings', 2)"
+            (click)="navigateToEditSite('pops-settings')"
             data-test="publisher-site-edit-pops-button"
           >
             <img
@@ -407,7 +414,7 @@
             dwmth-copy
             dwmth-copy--semi"
         >
-          <span *ngIf="!!popAdUnits.length">List of ad units</span>
+          <span *ngIf="!!displayAdUnits.length">List of ad units</span>
           <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
         </p>
         <button
@@ -415,7 +422,7 @@
            dwmth-btn
            dwmth-btn--edit
            dwmth-btn--no-border"
-          (click)="navigateToEditSite('create-ad-units', 3)"
+          (click)="navigateToEditSite('create-ad-units')"
           data-test="publisher-site-edit-ad-units-button"
         >
           <img
@@ -458,7 +465,7 @@
           dwmth-btn--white
           dwmth-blue
           dwmth-btn--no-border"
-        (click)="navigateToEditSite('create-ad-units', 3)"
+        (click)="navigateToEditSite('create-ad-units')"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img
@@ -483,6 +490,7 @@
         </button>
       </div>
     </div>
+    </ng-container>
   </div>
 </div>
 <ng-template #loading>
