@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cookie3 support
 - Custom metaverses support
 ### Changed
-- Targeting supports taxonomy v4
+- Targeting supports taxonomy v2
 ### Fixed
 - Video preview overflow
 - Pages order while creating site (navigation)

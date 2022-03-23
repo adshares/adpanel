@@ -22,7 +22,7 @@ import { prepareCustomOption } from 'common/components/targeting/targeting.helpe
 })
 export class TargetingCustomOptionInputComponent {
   @ViewChild('input') input: ElementRef;
-  @Input() option: TargetingOption | TargetingOptionValue;
+  @Input() option: TargetingOption;
   @Input() addedItems: TargetingOptionValue[];
   @Output()
   itemsChange: EventEmitter<TargetingOptionValue[]> = new EventEmitter<TargetingOptionValue[]>();

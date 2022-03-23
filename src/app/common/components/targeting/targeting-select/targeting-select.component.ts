@@ -107,6 +107,11 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
     }
   }
 
+  toTargetingOption(option: TargetingOption|TargetingOptionValue): TargetingOption
+  {
+    return <TargetingOption>option;
+  }
+
   private handleSiteCategoryUnknown(optionValue: TargetingOptionValue): void {
     if (optionValue.id.startsWith('site/category/')) {
       if ('site/category/unknown' === optionValue.id) {
