@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TooltipPosition } from '@angular/material/tooltip'
 
 @Component({
   selector: 'app-label',
@@ -10,5 +11,5 @@ export class LabelWithTooltipComponent {
   @Input() label: string;
   @Input() forId: string;
   @Input() tooltip: string;
-  @Input() tooltipPosition: string;
+  @Input() tooltipPosition: TooltipPosition;
 }

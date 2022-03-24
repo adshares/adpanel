@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 
@@ -87,7 +87,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.action$ = action$;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getFormDataFromStore();
   }
 
@@ -116,12 +116,14 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.store.dispatch(new SaveConversion(this.campaign));
 
     this.action$
-      .ofType(
-        UPDATE_CAMPAIGN_SUCCESS,
-        UPDATE_CAMPAIGN_FAILURE
+      .pipe(
+        ofType(
+          UPDATE_CAMPAIGN_SUCCESS,
+          UPDATE_CAMPAIGN_FAILURE
+        ),
+        first()
       )
-      .pipe(first())
-      .subscribe((action) => {
+      .subscribe(action => {
         this.submitted = false;
         if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
           this.conversionItemForms.forEach(item => item.markAsPristine());
@@ -133,8 +135,8 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
                 this.campaign = data.campaign;
                 this.adjustConversionData(this.campaign.conversions)
               },
-              (err) => {
-                this.store.dispatch(new ShowDialogOnError(err.code))
+              (error) => {
+                this.store.dispatch(new ShowDialogOnError(error.code))
               }
             )
         }

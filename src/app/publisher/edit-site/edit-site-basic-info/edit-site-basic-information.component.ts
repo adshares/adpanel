@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Actions } from '@ngrx/effects'
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
@@ -73,10 +73,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   ngOnInit (): void {
     this.media = mapToIterable(this.route.snapshot.data.media)
-    const updateSiteFailureSubscription = this.action$.ofType(UPDATE_SITE_FAILURE).subscribe(() => {
-      this.changesSaving = false
-      this.store.dispatch(new ShowDialogOnError(''))
-    })
+    const updateSiteFailureSubscription = this.action$
+      .pipe(ofType(UPDATE_SITE_FAILURE))
+      .subscribe(() => {
+        this.changesSaving = false
+        this.store.dispatch(new ShowDialogOnError(''))
+      })
     this.subscriptions.push(updateSiteFailureSubscription)
     this.createSiteMode = !!this.router.url.match('/create-site/')
     if (this.createSiteMode) {

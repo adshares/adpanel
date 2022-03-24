@@ -13,7 +13,7 @@ import {
 import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
 import { forkJoin as observableForkJoin } from 'rxjs'
-import { isNumeric } from 'rxjs/util/isNumeric'
+import { isNumeric } from 'rxjs/internal-compatibility'
 import { environment } from 'environments/environment'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 
