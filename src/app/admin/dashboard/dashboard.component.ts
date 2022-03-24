@@ -7,8 +7,7 @@ import { License } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
 import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
-import { timer } from 'rxjs/observable/timer';
+import { Subscription, timer } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({

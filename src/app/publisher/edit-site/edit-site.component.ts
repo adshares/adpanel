@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 import { fadeAnimation } from 'common/animations/fade.animation';
 import { AppState } from 'models/app-state.model';
@@ -27,10 +28,10 @@ export class EditSiteComponent extends HandleSubscription implements OnInit, OnD
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isEditMode = !!this.router.url.match('/edit-site/');
     const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .take(1)
+      .pipe(take(1))
       .subscribe((lastEditedSite: Site) => {
         const filteringOptions = this.route.snapshot.data.filteringOptions;
         this.store.dispatch(
@@ -43,7 +44,7 @@ export class EditSiteComponent extends HandleSubscription implements OnInit, OnD
     this.subscriptions.push(lastEditedSiteSubscription);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.isEditMode) {
       this.store.dispatch(new publisherActions.ClearLastEditedSite())
     }

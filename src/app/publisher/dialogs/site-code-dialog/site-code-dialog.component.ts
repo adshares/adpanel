@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { take, debounceTime } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -70,7 +71,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     this.subscriptions.push(minCpmSubscription);
 
     const codeFormSubscription = this.codeForm.valueChanges
-      .debounceTime(this.MINIMAL_DELAY_BETWEEN_CODE_REQUESTS)
+      .pipe(debounceTime(this.MINIMAL_DELAY_BETWEEN_CODE_REQUESTS))
       .subscribe(
         () => {
           if (this.codeForm.valid) {
@@ -93,7 +94,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
     this.loadingInfo = true;
 
     this.publisherService.getSiteCodes(this.siteId, this.getCodeOptions())
-      .take(1)
+      .pipe(take(1))
       .subscribe(
         response => {
           this.codes = response.codes;

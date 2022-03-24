@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/first';
+import { first } from 'rxjs/operators';
 import { AddSiteToSites, ClearLastEditedSite, SaveSiteFiltering, UpdateSite } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
@@ -121,7 +121,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
 
   getSiteFromStore() {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
+      .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         this.site = lastEditedSite;
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);

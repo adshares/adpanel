@@ -25,7 +25,8 @@ import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, CloneCampaign
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { User } from 'models/user.model';
 import { appSettings } from 'app-settings';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 
@@ -87,7 +88,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const id = this.route.snapshot.data.campaign.id;
 
     this.store.select('state', 'common', 'chartFilterSettings')
-      .take(1)
+      .pipe(take(1))
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.getChartData(chartFilterSettings, id)
       });
@@ -212,7 +213,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       this.targeting = this.campaign.targeting as AssetTargeting;
     } else {
       this.advertiserService.getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
-        .take(1)
+        .pipe(take(1))
         .subscribe(medium => {
           this.targetingOptions = processTargeting(medium);
           this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
@@ -234,7 +235,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         'campaigns',
         campaignId,
       )
-      .take(1)
+      .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
@@ -248,7 +249,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       chartFilterSettings.currentFrom,
       chartFilterSettings.currentTo,
       campaignId
-    ).take(1).subscribe(
+    ).pipe(take(1)).subscribe(
       data => {
         this.conversionsStatistics = data;
         this.updateConversionTableItems();

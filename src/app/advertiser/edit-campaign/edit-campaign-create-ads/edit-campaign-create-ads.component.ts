@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
+import { take, first } from 'rxjs/operators';
 import { FileUploader } from 'ng2-file-upload'
 import {
   AddCampaignToCampaigns,
@@ -93,7 +94,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
     subscription && this.subscriptions.push(subscription);
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .first()
+      .pipe(first())
       .subscribe(campaign => {
         this.campaign = campaign;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(campaign);
@@ -103,7 +104,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         }
 
         this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
-          .take(1)
+          .pipe(take(1))
           .subscribe(medium => {
             const supportedTypes = Object.values(adCreativeTypes);
             this.formats = medium.formats.filter(format => supportedTypes.includes(format.type));

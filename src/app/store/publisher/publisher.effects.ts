@@ -1,26 +1,33 @@
-import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Router } from "@angular/router";
-import { MatDialog } from '@angular/material/dialog';
+import { Injectable } from '@angular/core'
+import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Router } from '@angular/router'
+import { MatDialog } from '@angular/material/dialog'
+import { of as observableOf } from 'rxjs'
+import { catchError, map, switchMap } from 'rxjs/operators'
 
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import { PublisherService } from 'publisher/publisher.service';
-import * as publisherActions from './publisher.actions';
-import { ShowSuccessSnackbar } from '../common/common.actions';
-import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages';
-import { prepareFilteringChoices } from "common/components/targeting/targeting.helpers";
-import { Observable } from "rxjs";
-import "rxjs/add/operator/takeLast";
-import * as moment from "moment";
-import { HTTP_INTERNAL_SERVER_ERROR } from "common/utilities/codes";
-import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
+import { PublisherService } from 'publisher/publisher.service'
+import * as publisherActions from './publisher.actions'
+import {
+  AddSiteToSites,
+  LoadSite,
+  LoadSites,
+  LoadSitesTotals,
+  LoadSiteTotals,
+  UpdateSite,
+  UpdateSiteFiltering,
+  UpdateSiteStatus,
+  UpdateSiteUnits
+} from './publisher.actions'
+import { ShowSuccessSnackbar } from '../common/common.actions'
+import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
+import { prepareFilteringChoices } from 'common/components/targeting/targeting.helpers'
+import * as moment from 'moment'
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
+import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
 
 @Injectable()
 export class PublisherEffects {
-  constructor(
+  constructor (
     private actions$: Actions,
     private service: PublisherService,
     private router: Router,
@@ -30,139 +37,179 @@ export class PublisherEffects {
 
   @Effect()
   loadSites$ = this.actions$
-    .ofType(publisherActions.LOAD_SITES)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getSites()
-      .switchMap((sites) => {
-        const to = payload.to || moment().format();
-        const from = payload.from || moment().subtract(7, 'd').format();
-        return [
-          new publisherActions.LoadSitesSuccess(sites),
-          new publisherActions.LoadSitesTotals({from, to})
-        ]
-      })
-      .catch(() => Observable.of(new publisherActions.LoadSitesTotalsFailure()))
-    );
+    .pipe(
+      ofType<LoadSites>(publisherActions.LOAD_SITES),
+      map(action => action.payload),
+      switchMap(payload => this.service.getSites()
+        .pipe(
+          switchMap(sites => {
+            let to = payload.to || moment().format()
+            let from = payload.from || moment().subtract(7, 'd').format()
+            if (typeof to === 'object') {
+              to = to.format()
+            }
+            if (typeof from === 'object') {
+              from = from.format()
+            }
+            return [
+              new publisherActions.LoadSitesSuccess(sites),
+              new publisherActions.LoadSitesTotals({
+                from,
+                to
+              })
+            ]
+          }),
+          catchError(() => observableOf(new publisherActions.LoadSitesTotalsFailure()))
+        )
+      )
+    )
 
   @Effect()
   loadSite$ = this.actions$
-    .ofType(publisherActions.LOAD_SITE)
-    .map(toPayload)
-    .switchMap((id) => this.service.getSite(id)
-      .map(site => new publisherActions.LoadSiteSuccess(site))
-      .catch(() => Observable.of(new publisherActions.LoadSiteFailure()))
-    );
+    .pipe(
+      ofType<LoadSite>(publisherActions.LOAD_SITE),
+      switchMap(action => this.service.getSite(action.payload)
+        .pipe(
+          map(site => new publisherActions.LoadSiteSuccess(site)),
+          catchError(() => observableOf(new publisherActions.LoadSiteFailure()))
+        )
+      )
+    )
 
   @Effect()
   loadSiteTotals$ = this.actions$
-    .ofType(publisherActions.LOAD_SITE_TOTALS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
-      .map((sitesTotals) => new publisherActions.LoadSiteTotalsSuccess(sitesTotals))
-      .catch(() => Observable.of(new publisherActions.LoadSiteTotalsFailure()))
-    );
+    .pipe(
+      ofType<LoadSiteTotals>(publisherActions.LOAD_SITE_TOTALS),
+      map(action => action.payload),
+      switchMap(payload => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
+        .pipe(
+          map(sitesTotals => new publisherActions.LoadSiteTotalsSuccess(sitesTotals)),
+          catchError(() => observableOf(new publisherActions.LoadSiteTotalsFailure()))
+        )
+      )
+    )
 
   @Effect()
   loadSitesTotals$ = this.actions$
-    .ofType(publisherActions.LOAD_SITES_TOTALS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`)
-      .map((sitesTotals) => new publisherActions.LoadSitesTotalsSuccess(sitesTotals))
-      .catch(() => Observable.of(new publisherActions.LoadSitesTotalsFailure()))
-    );
+    .pipe(
+      ofType<LoadSitesTotals>(publisherActions.LOAD_SITES_TOTALS),
+      map(action => action.payload),
+      switchMap(payload => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`)
+        .pipe(
+          map(sitesTotals => new publisherActions.LoadSitesTotalsSuccess(sitesTotals)),
+          catchError(() => observableOf(new publisherActions.LoadSitesTotalsFailure()))
+        )
+      )
+    )
 
   @Effect()
   addSiteToSites$ = this.actions$
-    .ofType(publisherActions.ADD_SITE_TO_SITES)
-    .map(toPayload)
-    .switchMap((payload) => this.service.saveSite(payload)
-      .switchMap((site) => {
-        this.router.navigate(['/publisher', 'dashboard']);
-        this.dialog.open(ConfirmResponseDialogComponent, {
-          data: {
-            title: 'The site has been added successfully',
-            message: 'The site is pending verification.\nYou will be notified by an e-mail when the status changes.',
-          }
-        });
+    .pipe(
+      ofType<AddSiteToSites>(publisherActions.ADD_SITE_TO_SITES),
+      switchMap(action => this.service.saveSite(action.payload)
+        .pipe(
+          switchMap((site) => {
+            this.router.navigate(['/publisher', 'dashboard'])
+            this.dialog.open(ConfirmResponseDialogComponent, {
+              data: {
+                title: 'The site has been added successfully',
+                message: 'The site is pending verification.\nYou will be notified by an e-mail when the status changes.',
+              }
+            })
 
-        return [
-          new publisherActions.AddSiteToSitesSuccess(site),
-          new publisherActions.ClearLastEditedSite()
-        ]
-      })
-      .catch(err => {
-        if (err !== HTTP_INTERNAL_SERVER_ERROR) {
-          return Observable.of(new publisherActions.AddSiteToSitesFailure(
-            `We weren't able to save your site due to this error: ${err.error.message} \n
+            return [
+              new publisherActions.AddSiteToSitesSuccess(site),
+              new publisherActions.ClearLastEditedSite()
+            ]
+          }),
+          catchError(error => {
+            if (error !== HTTP_INTERNAL_SERVER_ERROR) {
+              return observableOf(new publisherActions.AddSiteToSitesFailure(
+                `We weren't able to save your site due to this error: ${error.error.message} \n
             Please try again later.`
-          ))
-        }
-      })
-    );
+              ))
+            }
+          })
+        )
+      )
+    )
 
   @Effect()
   getLanguageList$ = this.actions$
-    .ofType(publisherActions.GET_LANGUAGES_LIST)
-    .map(toPayload)
-    .switchMap(() => this.service.getLanguagesList()
-      .map((list) => new publisherActions.GetLanguagesListSuccess(list))
-      .catch(() => Observable.of(new publisherActions.GetLanguagesListFailure()))
-    );
+    .pipe(
+      ofType(publisherActions.GET_LANGUAGES_LIST),
+      switchMap(() => this.service.getLanguagesList()
+        .pipe(
+          map(siteLanguages => new publisherActions.GetLanguagesListSuccess(siteLanguages)),
+          catchError(() => observableOf(new publisherActions.GetLanguagesListFailure()))
+        )
+      )
+    )
 
   @Effect()
   getFilteringCriteria$ = this.actions$
-    .ofType(publisherActions.GET_FILTERING_CRITERIA)
-    .map(toPayload)
-    .switchMap(() => this.service.getFilteringCriteria())
-    .map((filteringOptions) => prepareFilteringChoices(filteringOptions))
-    .map((criteria) => new publisherActions.GetFilteringCriteriaSuccess(criteria));
+    .pipe(
+      ofType(publisherActions.GET_FILTERING_CRITERIA),
+      switchMap(() => this.service.getFilteringCriteria()),
+      map(filteringOptions => new publisherActions.GetFilteringCriteriaSuccess(prepareFilteringChoices(filteringOptions)))
+    )
 
   @Effect()
   updateSite$ = this.actions$
-    .ofType(
-      publisherActions.UPDATE_SITE,
-      publisherActions.UPDATE_SITE_FILTERING
+    .pipe(
+      ofType<UpdateSite | UpdateSiteFiltering>(
+        publisherActions.UPDATE_SITE,
+        publisherActions.UPDATE_SITE_FILTERING
+      ),
+      map(action => action.payload),
+      switchMap(payload => this.service.updateSiteData(payload.id, payload)
+        .pipe(
+          switchMap(() => {
+            this.router.navigate(['/publisher', 'site', payload.id])
+            return [
+              new publisherActions.UpdateSiteSuccess(payload),
+              new publisherActions.ClearLastEditedSite(),
+            ]
+          }),
+          catchError(() => observableOf(new publisherActions.UpdateSiteFailure()))
+        )
+      )
     )
-    .map(toPayload)
-    .switchMap(payload => this.service.updateSiteData(payload.id, payload)
-      .switchMap(() => {
-        this.router.navigate(['/publisher', 'site', payload.id]);
-        return [
-          new publisherActions.UpdateSiteSuccess(payload),
-          new publisherActions.ClearLastEditedSite(),
-        ]
-      })
-      .catch(() => Observable.of(new publisherActions.UpdateSiteFailure()))
-    );
 
   @Effect()
   updateSiteAdUnits$ = this.actions$
-    .ofType(
-      publisherActions.UPDATE_SITE_UNITS,
+    .pipe(
+      ofType<UpdateSiteUnits>(publisherActions.UPDATE_SITE_UNITS),
+      map(action => action.payload),
+      switchMap(payload => this.service.updateSiteData(payload.id, payload)
+        .pipe(
+          switchMap(() => {
+            this.router.navigate(['/publisher', 'site', payload.id])
+            return [
+              new publisherActions.ClearLastEditedSite(),
+              new publisherActions.UpdateSiteUnitsSuccess(),
+              new publisherActions.LoadSite(payload.id),
+            ]
+          }),
+          catchError(() => observableOf(new publisherActions.UpdateSiteUnitsFailure()))
+        )
+      )
     )
-    .map(toPayload)
-    .switchMap(payload => this.service.updateSiteData(payload.id, payload)
-      .switchMap(() => {
-        this.router.navigate(['/publisher', 'site', payload.id]);
-        return [
-          new publisherActions.ClearLastEditedSite(),
-          new publisherActions.UpdateSiteUnitsSuccess(),
-          new publisherActions.LoadSite(payload.id),
-        ]
-      })
-      .catch(() => Observable.of(new publisherActions.UpdateSiteUnitsFailure()))
-    );
 
   @Effect()
   updateSiteStatus$ = this.actions$
-    .ofType(publisherActions.UPDATE_SITE_STATUS)
-    .map(toPayload)
-    .switchMap(payload => this.service.updateSiteData(payload.id, payload)
-      .switchMap(() => [
-          new publisherActions.UpdateSiteStatusSuccess(payload),
-          new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
-        ]
+    .pipe(
+      ofType<UpdateSiteStatus>(publisherActions.UPDATE_SITE_STATUS),
+      map(action => action.payload),
+      switchMap(payload => this.service.updateSiteData(payload.id, payload)
+        .pipe(
+          switchMap(() => [
+              new publisherActions.UpdateSiteStatusSuccess(payload),
+              new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
+            ]
+          ),
+          catchError(() => observableOf(new publisherActions.UpdateSiteStatusFailure()))
+        )
       )
-      .catch(() => Observable.of(new publisherActions.UpdateSiteStatusFailure()))
-    );
+    )
 }

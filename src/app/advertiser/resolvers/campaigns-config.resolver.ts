@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { CampaignsConfig } from "models/campaign.model";
 

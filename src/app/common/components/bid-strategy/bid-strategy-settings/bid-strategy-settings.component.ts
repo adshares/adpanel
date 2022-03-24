@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { forkJoin as observableForkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
@@ -51,10 +52,10 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   ngOnInit() {
     this.isAdmin = this.sessionService.isAdmin();
 
-    Observable.forkJoin(
-      this.bidStrategyService.getTargetingCriteria(),
-      this.bidStrategyService.getBidStrategies(),
-    ).subscribe(
+    observableForkJoin([
+        this.bidStrategyService.getTargetingCriteria(),
+        this.bidStrategyService.getBidStrategies(),
+    ]).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
         this.handleFetchedTargetingOptions(responses[0]);
         this.handleFetchedBidStrategies(responses[1]);
@@ -262,7 +263,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     this.isDownloadInProgress = true;
 
     this.bidStrategyService.getBidStrategySpreadsheet(this.bidStrategyUuidSelected)
-      .take(1)
+      .pipe(take(1))
       .subscribe(
         response => {
           downloadReport(response);

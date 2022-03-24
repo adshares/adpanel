@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router'
-import { Observable } from 'rxjs/Rx'
+import { Observable } from 'rxjs'
 import { CommonService } from 'common/common.service'
 import { Media } from 'models/taxonomy-medium.model'
 

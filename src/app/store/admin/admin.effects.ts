@@ -1,7 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
-import 'rxjs/add/operator/switchMap';
-import { delay } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { Actions, Effect, ofType } from '@ngrx/effects'
 import {
   GET_INDEX,
   GET_LICENSE,
@@ -28,10 +26,13 @@ import {
   LoadAdminSettingsSuccess,
   LoadAdminWalletFailure,
   LoadAdminWalletSuccess,
+  LoadAdvertisers,
   LoadAdvertisersFailure,
   LoadAdvertisersSuccess,
+  LoadPublishers,
   LoadPublishersFailure,
   LoadPublishersSuccess,
+  LoadUsers,
   LoadUsersFailure,
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
@@ -39,23 +40,27 @@ import {
   SET_PRIVACY_SETTINGS,
   SET_REJECTED_DOMAINS,
   SET_TERMS_SETTINGS,
+  SetAdminSettings,
   SetAdminSettingsFailure,
   SetAdminSettingsSuccess,
+  SetPrivacySettings,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
+  SetRejectedDomains,
   SetRejectedDomainsFailure,
   SetRejectedDomainsSuccess,
+  SetTermsSettings,
   SetTermsSettingsSuccess,
-} from './admin.actions';
-import { ShowSuccessSnackbar } from '../common/common.actions';
-import { SAVE_SUCCESS } from 'common/utilities/messages';
-import { AdminService } from 'admin/admin.service';
-import { Observable } from 'rxjs';
-import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
-import { HTTP_NOT_FOUND } from 'common/utilities/codes';
-import 'rxjs/add/operator/debounceTime';
-import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions';
-import {AdminSettingsResponse} from "models/settings.model";
+} from './admin.actions'
+import { ShowSuccessSnackbar } from '../common/common.actions'
+import { SAVE_SUCCESS } from 'common/utilities/messages'
+import { AdminService } from 'admin/admin.service'
+import { merge, of as observableOf } from 'rxjs'
+import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rxjs/operators'
+import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe'
+import { HTTP_NOT_FOUND } from 'common/utilities/codes'
+import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
+import { AdminSettingsResponse } from 'models/settings.model'
 
 @Injectable()
 export class AdminEffects {
@@ -72,221 +77,272 @@ export class AdminEffects {
 
   @Effect()
   loadUsers$ = this.actions$
-    .ofType(LOAD_USERS)
-    .debounceTime(100)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getUsers(payload.nextPage, payload.searchPhrase, payload.filters, payload.orderBy, payload.direction)
-      .map((users) => new LoadUsersSuccess(users))
-      .catch((err) => Observable.of(new LoadUsersFailure(err)))
-    );
+    .pipe(
+      ofType<LoadUsers>(LOAD_USERS),
+      debounceTime(100),
+      map(action => action.payload),
+      switchMap(payload => {
+          return this.service.getUsers(payload.nextPage, payload.searchPhrase, payload.filters, payload.orderBy, payload.direction)
+            .pipe(
+              map(users => new LoadUsersSuccess(users)),
+              catchError(error => observableOf(new LoadUsersFailure(error)))
+            )
+        }
+      )
+    )
 
   @Effect()
   loadAdvertisers$ = this.actions$
-    .ofType(LOAD_ADVERTISERS)
-    .debounceTime(100)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getAdvertisers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
-      .map((advertisers) => new LoadAdvertisersSuccess(advertisers))
-      .catch((err) => Observable.of(new LoadAdvertisersFailure(err)))
-    );
+    .pipe(
+      ofType<LoadAdvertisers>(LOAD_ADVERTISERS),
+      debounceTime(100),
+      map(action => action.payload),
+      switchMap(payload => this.service.getAdvertisers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
+        .pipe(
+          map(advertisers => new LoadAdvertisersSuccess(advertisers)),
+          catchError(error => observableOf(new LoadAdvertisersFailure(error)))
+        )
+      )
+    )
 
   @Effect()
   loadPublishers$ = this.actions$
-    .ofType(LOAD_PUBLISHERS)
-    .debounceTime(100)
-    .map(toPayload)
-    .switchMap((payload) => this.service.getPublishers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
-      .map((publishers) => new LoadPublishersSuccess(publishers))
-      .catch((err) => Observable.of(new LoadPublishersFailure(err)))
-    );
+    .pipe(
+      ofType<LoadPublishers>(LOAD_PUBLISHERS),
+      debounceTime(100),
+      map(action => action.payload),
+      switchMap(payload => this.service.getPublishers(payload.groupBy, payload.interval, payload.searchPhrase, payload.minDailyViews)
+        .pipe(
+          map(publishers => new LoadPublishersSuccess(publishers)),
+          catchError(error => observableOf(new LoadPublishersFailure(error)))
+        )
+      )
+    )
 
   @Effect()
   requestGetIndex$ = this.actions$
-    .ofType(REQUEST_GET_INDEX)
-    .map(() => {
-      this.allowGetIndex = true;
-      return new GetIndex();
-    });
+    .pipe(
+      ofType(REQUEST_GET_INDEX),
+      map(() => {
+        this.allowGetIndex = true
+        return new GetIndex()
+      })
+    )
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logOut$ = this.actions$
-    .ofType(USER_LOG_OUT_SUCCESS)
-    .do(() => {
-      this.allowGetIndex = false;
-    });
-
-  @Effect()
-  getIndex$ = this.actions$
-    .ofType(GET_INDEX)
-    .filter(() => this.allowGetIndex)
-    .switchMap(() => {
-        return this.service.getIndexUpdateTime()
-          .switchMap(response => {
-            if (!response || !response.indexUpdateTime) {
-              throw new Error('Invalid format');
-            }
-
-            return Observable.merge(
-              Observable.of(new GetIndexSuccess(response)),
-              Observable.of(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX)),
-            )
-          })
-          .catch((error) => {
-            return Observable.merge(
-              Observable.of(new GetIndexFailure(error)),
-              Observable.of(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX_AFTER_ERROR)),
-            );
-          })
-      }
-    );
-
-  @Effect()
-  getLicense$ = this.actions$
-    .ofType(GET_LICENSE)
-    .switchMap(() => this.service.getLicense()
-      .map((license) => {
-        return new GetLicenseSuccess(license)
-      })
-      .catch((err) => {
-        if (err.status === HTTP_NOT_FOUND) {
-          return Observable.of(new GetLicenseFailure());
-        }
-        return Observable.of(new GetLicenseFailure(
-          'We weren\'t able to get your license. Please, try again later'
-        ))
-      })
-    );
-
-  @Effect()
-  loadAdminSettings$ = this.actions$
-    .ofType(LOAD_ADMIN_SETTINGS)
-    .switchMap(() => this.service.getAdminSettings()
-      .map((response: AdminSettingsResponse) => {
-        return <AdminSettingsResponse>{
-          settings: {
-            ...response.settings,
-            advertiserCommission: Number((response.settings.advertiserCommission * 100).toFixed(2)),
-            publisherCommission: Number((response.settings.publisherCommission * 100).toFixed(2)),
-            referralRefundCommission: Number((response.settings.referralRefundCommission * 100).toFixed(2)),
-            hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
-            hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
-          }
-        }
-      })
-      .map((settings) => new LoadAdminSettingsSuccess(settings))
-      .catch((err) => Observable.of(new LoadAdminSettingsFailure(err)))
-    );
-
-  @Effect()
-  loadAdminWallet$ = this.actions$
-    .ofType(LOAD_ADMIN_WALLET)
-    .switchMap(() => this.service.getAdminWallet()
-      .map((wallet) => new LoadAdminWalletSuccess(wallet))
-      .catch((err) => Observable.of(new LoadAdminWalletFailure(err)))
-    );
-
-  @Effect()
-  saveAdminSettings$ = this.actions$
-    .ofType(SET_ADMIN_SETTINGS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.setAdminSettings(payload)
-      .switchMap(() => [
-        new SetAdminSettingsSuccess(payload),
-        new ShowSuccessSnackbar(SAVE_SUCCESS)
-      ])
-      .catch(() => Observable.of(new SetAdminSettingsFailure(
-        'We weren\'t able to save your settings this time. Please, try again later'
-      )))
-    );
-
-  @Effect()
-  getPrivacySettings$ = this.actions$
-    .ofType(GET_PRIVACY_SETTINGS)
-    .map(toPayload)
-    .switchMap(() => this.service.getPrivacySettings()
-      .map((privacyData) => new GetPrivacySettingsSuccess(privacyData))
-      .catch((err) => {
-        if (err.status === HTTP_NOT_FOUND) {
-          return Observable.of();
-        }
-        return Observable.of(new GetPrivacySettingsFailure(
-          'We weren\'t able to save your settings this time. Please, try again later'
-        ))
-      })
-    );
-
-  @Effect()
-  getTermsSettings$ = this.actions$
-    .ofType(GET_TERMS_SETTINGS)
-    .map(toPayload)
-    .switchMap(() => this.service.getTermsAndConditions()
-      .map((termsData) => new GetTermsSettingsSuccess(termsData))
-      .catch((err) => {
-        if (err.status === HTTP_NOT_FOUND) {
-          return Observable.of();
-        }
-        return Observable.of(new GetTermsSettingsFailure(
-          'We weren\'t able to save your settings this time. Please, try again later'
-        ));
-      })
-    );
-
-  @Effect()
-  setTermsSettings$ = this.actions$
-    .ofType(SET_TERMS_SETTINGS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.setTermsAndConditions(payload)
-      .switchMap((termsData) => [
-        new SetTermsSettingsSuccess(termsData),
-        new ShowSuccessSnackbar(SAVE_SUCCESS)
-      ])
-      .catch(() => {
-        return Observable.of(new SetPrivacySettingsFailure(
-          'We weren\'t able to save your settings this time. Please, try again later'
-        ))
-      })
-    );
-
-  @Effect()
-  setPrivacySettings$ = this.actions$
-    .ofType(SET_PRIVACY_SETTINGS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.setPrivacySettings(payload)
-      .switchMap((termsData) => [
-        new SetPrivacySettingsSuccess(termsData),
-        new ShowSuccessSnackbar(SAVE_SUCCESS)
-      ])
-      .catch(() => {
-        return Observable.of(new SetPrivacySettingsFailure(
-          'We weren\'t able to save your settings this time. Please, try again later'
-        ))
+    .pipe(
+      ofType(USER_LOG_OUT_SUCCESS),
+      tap(() => {
+        this.allowGetIndex = false
       })
     )
 
   @Effect()
+  getIndex$ = this.actions$
+    .pipe(
+      ofType(GET_INDEX),
+      filter(() => this.allowGetIndex),
+      switchMap(() => this.service.getIndexUpdateTime()
+        .pipe(
+          switchMap(response => {
+            if (!response || !response.indexUpdateTime) {
+              throw new Error('Invalid format')
+            }
+
+            return merge(
+              observableOf(new GetIndexSuccess(response)),
+              observableOf(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX)),
+            )
+          }),
+          catchError((error) => {
+            return merge(
+              observableOf(new GetIndexFailure(error)),
+              observableOf(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX_AFTER_ERROR)),
+            )
+          })
+        )
+      )
+    )
+
+  @Effect()
+  getLicense$ = this.actions$
+    .pipe(
+      ofType(GET_LICENSE),
+      switchMap(() => this.service.getLicense()
+        .pipe(
+          map(license => new GetLicenseSuccess(license)),
+          catchError(error => {
+            if (error.status === HTTP_NOT_FOUND) {
+              return observableOf(new GetLicenseFailure())
+            }
+            return observableOf(new GetLicenseFailure(
+              'We weren\'t able to get your license. Please, try again later'
+            ))
+          })
+        )
+      )
+    )
+
+  @Effect()
+  loadAdminSettings$ = this.actions$
+    .pipe(
+      ofType(LOAD_ADMIN_SETTINGS),
+      switchMap(() => this.service.getAdminSettings()
+        .pipe(
+          map((response: AdminSettingsResponse) => {
+            return <AdminSettingsResponse>{
+              settings: {
+                ...response.settings,
+                advertiserCommission: Number((response.settings.advertiserCommission * 100).toFixed(2)),
+                publisherCommission: Number((response.settings.publisherCommission * 100).toFixed(2)),
+                referralRefundCommission: Number((response.settings.referralRefundCommission * 100).toFixed(2)),
+                hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
+                hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
+              }
+            }
+          }),
+          map(settings => new LoadAdminSettingsSuccess(settings)),
+          catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
+        )
+      )
+    )
+
+  @Effect()
+  loadAdminWallet$ = this.actions$
+    .pipe(
+      ofType(LOAD_ADMIN_WALLET),
+      switchMap(() => this.service.getAdminWallet()
+        .pipe(
+          map(wallet => new LoadAdminWalletSuccess(wallet)),
+          catchError(error => observableOf(new LoadAdminWalletFailure(error)))
+        )
+      )
+    )
+
+  @Effect()
+  saveAdminSettings$ = this.actions$
+    .pipe(
+      ofType<SetAdminSettings>(SET_ADMIN_SETTINGS),
+      switchMap(action => this.service.setAdminSettings(action.payload)
+        .pipe(
+          switchMap(() => [
+            new SetAdminSettingsSuccess(action.payload),
+            new ShowSuccessSnackbar(SAVE_SUCCESS)
+          ]),
+          catchError(() => observableOf(new SetAdminSettingsFailure(
+            'We weren\'t able to save your settings this time. Please, try again later'
+          )))
+        )
+      )
+    )
+
+  @Effect()
+  getPrivacySettings$ = this.actions$
+    .pipe(
+      ofType(GET_PRIVACY_SETTINGS),
+      switchMap(() => this.service.getPrivacySettings()
+        .pipe(
+          map(privacyData => new GetPrivacySettingsSuccess(privacyData)),
+          catchError(error => {
+            if (error.status === HTTP_NOT_FOUND) {
+              return observableOf()
+            }
+            return observableOf(new GetPrivacySettingsFailure(
+              'We weren\'t able to save your settings this time. Please, try again later'
+            ))
+          })
+        )
+      )
+    )
+
+  @Effect()
+  getTermsSettings$ = this.actions$
+    .pipe(
+      ofType(GET_TERMS_SETTINGS),
+      switchMap(() => this.service.getTermsAndConditions()
+        .pipe(
+          map((termsData) => new GetTermsSettingsSuccess(termsData)),
+          catchError(error => {
+            if (error.status === HTTP_NOT_FOUND) {
+              return observableOf();
+            }
+            return observableOf(new GetTermsSettingsFailure(
+              'We weren\'t able to save your settings this time. Please, try again later'
+            ));
+          })
+        )
+      )
+    )
+
+  @Effect()
+  setTermsSettings$ = this.actions$
+    .pipe(
+      ofType<SetTermsSettings>(SET_TERMS_SETTINGS),
+      switchMap(action => this.service.setTermsAndConditions(action.payload)
+        .pipe(
+          switchMap((termsData) => [
+            new SetTermsSettingsSuccess(termsData),
+            new ShowSuccessSnackbar(SAVE_SUCCESS)
+          ]),
+          catchError(() => {
+            return observableOf(new SetPrivacySettingsFailure(
+              'We weren\'t able to save your settings this time. Please, try again later'
+            ))
+          })
+        )
+      )
+    )
+
+  @Effect()
+  setPrivacySettings$ = this.actions$
+    .pipe(
+      ofType<SetPrivacySettings>(SET_PRIVACY_SETTINGS),
+      switchMap(action => this.service.setPrivacySettings(action.payload)
+        .pipe(
+          switchMap(termsData => [
+            new SetPrivacySettingsSuccess(termsData),
+            new ShowSuccessSnackbar(SAVE_SUCCESS)
+          ]),
+          catchError(() => {
+            return observableOf(new SetPrivacySettingsFailure(
+              'We weren\'t able to save your settings this time. Please, try again later'
+            ))
+          })
+        )
+      )
+    )
+
+  @Effect()
   getRejectedDomains$ = this.actions$
-    .ofType(GET_REJECTED_DOMAINS)
-    .map(toPayload)
-    .switchMap(() => this.service.getRejectedDomains()
-      .map((response) => new GetRejectedDomainsSuccess(response))
-      .catch(() => {
-        return Observable.of(new GetRejectedDomainsFailure(
-          'Rejected domains are not available. Please, try again later.'
-        ));
-      })
-    );
+    .pipe(
+      ofType(GET_REJECTED_DOMAINS),
+      switchMap(() => this.service.getRejectedDomains()
+        .pipe(
+          map(response => new GetRejectedDomainsSuccess(response)),
+          catchError(() => {
+            return observableOf(new GetRejectedDomainsFailure(
+              'Rejected domains are not available. Please, try again later.'
+            ))
+          })
+        )
+      )
+    )
 
   @Effect()
   setRejectedDomains$ = this.actions$
-    .ofType(SET_REJECTED_DOMAINS)
-    .map(toPayload)
-    .switchMap((payload) => this.service.putRejectedDomains(payload)
-      .switchMap(() => [
-        new SetRejectedDomainsSuccess(),
-        new ShowSuccessSnackbar(SAVE_SUCCESS),
-      ])
-      .catch(() => Observable.of(new SetRejectedDomainsFailure(
-        'Rejected domains were not saved. Please, try again later.'
-      )))
-    );
+    .pipe(
+      ofType<SetRejectedDomains>(SET_REJECTED_DOMAINS),
+      switchMap(action => this.service.putRejectedDomains(action.payload)
+        .pipe(
+          switchMap(() => [
+            new SetRejectedDomainsSuccess(),
+            new ShowSuccessSnackbar(SAVE_SUCCESS),
+          ]),
+          catchError(() => observableOf(new SetRejectedDomainsFailure(
+            'Rejected domains were not saved. Please, try again later.'
+          )))
+        )
+      )
+    )
 }

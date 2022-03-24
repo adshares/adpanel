@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import AdsWallet from '@adshares/ads-connector'
 import { MatDialog } from '@angular/material'
+import { take } from 'rxjs/operators'
 import { UserAdserverWallet } from 'models/user.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { Store } from '@ngrx/store'
@@ -33,9 +34,10 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     super()
   }
 
-  ngOnInit () {
-    this.store.select('state', 'user', 'data', 'adserverWallet').take(2).
-      subscribe((wallet: UserAdserverWallet) => {
+  ngOnInit (): void {
+    this.store.select('state', 'user', 'data', 'adserverWallet')
+      .pipe(take(2))
+      .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet
       })
     this.isImpersonated = this.session.isImpersonated()

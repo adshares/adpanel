@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { timer } from 'rxjs/observable/timer';
+import { Subscription, timer } from 'rxjs';
 import { Store } from "@ngrx/store";
 
 import { HandleSubscription } from 'common/handle-subscription';

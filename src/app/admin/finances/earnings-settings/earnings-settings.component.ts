@@ -10,8 +10,8 @@ import { Subject } from "rxjs";
 export class EarningsSettingsComponent  {
   @Input() title: string;
   @Input() desc: string;
-  @Input() min: string;
-  @Input() max: string;
+  @Input() min: number;
+  @Input() max: number;
   @Input() step: number;
   @Input() format: string;
   @Input() value: number;

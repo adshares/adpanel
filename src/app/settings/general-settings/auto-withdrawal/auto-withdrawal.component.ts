@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material'
+import { take } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription'
 import { SessionService } from 'app/session.service'
 import { AppState } from 'models/app-state.model'
@@ -42,7 +43,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit () {
-    this.store.select('state', 'user', 'data', 'adserverWallet').take(2).
+    this.store.select('state', 'user', 'data', 'adserverWallet').pipe(take(2)).
       subscribe((wallet: UserAdserverWallet) => {
         this.updateWallet(wallet)
       })

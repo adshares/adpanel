@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
 
 import { User } from 'models/user.model';
 import { AppState } from 'models/app-state.model';
@@ -35,7 +36,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
 
   ngOnInit() {
     const userDataSubscription = this.store.select('state', 'user', 'data')
-      .first()
+      .pipe(first())
       .subscribe(userData => {
         this.userData = userData;
         this.userData.isPublisher = !!this.router.url.match('/publisher/');

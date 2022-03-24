@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { SiteLanguage } from "models/site.model";
 import { GetLanguagesList } from "store/publisher/publisher.actions";
 import { AppState } from "models/app-state.model";
@@ -17,7 +18,7 @@ export class LanguagesListResolver implements Resolve<SiteLanguage[]> {
   }
 
   initLanguagesList(): void {
-    this.store.take(1).subscribe(store => {
+    this.store.pipe(take(1)).subscribe(store => {
       const list = store.state.publisher.languagesList;
 
       if (list.length <= 0) {
@@ -28,7 +29,9 @@ export class LanguagesListResolver implements Resolve<SiteLanguage[]> {
 
   waitForListToLoad(): Observable<SiteLanguage[]> {
     return this.store.select('state', 'publisher', 'languagesList')
-      .filter((el)=> el.length > 0 )
-      .take(1);
+      .pipe(
+        filter(el => el.length > 0),
+        take(1)
+      );
   }
 }

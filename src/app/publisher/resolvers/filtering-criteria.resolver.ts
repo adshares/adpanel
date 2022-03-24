@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { TargetingOption } from 'models/targeting-option.model';
@@ -12,7 +13,8 @@ export class FilteringCriteriaResolver implements Resolve<TargetingOption[]> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<TargetingOption[]> {
-    return this.publisherService.getFilteringCriteria()
-      .map((filteringOptions) => prepareFilteringChoices(filteringOptions));
+    return this.publisherService.getFilteringCriteria().pipe(
+      map((filteringOptions) => prepareFilteringChoices(filteringOptions))
+    );
   }
 }

@@ -8,17 +8,14 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-// import { PushNotificationsService } from 'common/components/push-notifications/push-notifications.service';
-// import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';
 import { environment } from 'environments/environment.ts';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ImpersonationService } from '../impersonation/impersonation.service';
@@ -35,7 +32,6 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
 
   constructor(
     private router: Router,
-    // private pushNotificationsService: PushNotificationsService,
     private dialog: MatDialog,
     private session: SessionService,
     private impersonationService: ImpersonationService
@@ -79,13 +75,6 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
         'Connection failed',
         'Could not connect to our server API. Please check your Internet connection and try again.'
       );
-
-      // TODO: review during notification preparation
-      // this.pushNotificationsService.addPushNotification({
-      //   type: pushNotificationTypesEnum.ERROR,
-      //   title: 'Error',
-      //   message: 'Cannot connect to server'
-      // });
     }
   }
 
@@ -116,7 +105,7 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
       });
     }
 
-    return next.handle(request).do(
+    return next.handle(request).pipe(tap(
       (event: HttpEvent<any>) => {
         if (HttpEventType.Response === event.type) {
           this.onConnectionSuccess();
@@ -151,18 +140,12 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
 
         if (err instanceof HttpErrorResponse && err.status === HTTP_INTERNAL_SERVER_ERROR && (!err.url || -1 === err.url.indexOf('/check'))) {
           this.dialogError('Server request failed', 'It looks like our request failed on the server returning code 500, please try again or contact our support.');
-          // TODO: review during notification preparation
-          // this.pushNotificationsService.addPushNotification({
-          //   type: pushNotificationTypesEnum.ERROR,
-          //   title: 'Error',
-          //   message: 'Cannot connect to server'
-          // });
           return err;
         }
 
         return err;
       }
-    );
+    ));
   }
 
   // TODO: fix + location? // looks like bs, not what we are looking for

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BidStrategyService } from 'common/bid-strategy.service';
 
 @Injectable()
@@ -9,6 +10,6 @@ export class BidStrategyDefaultResolver implements Resolve<string> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<string> {
-    return this.bidStrategyService.getBidStrategyUuidDefault().map((response) => response.uuid);
+    return this.bidStrategyService.getBidStrategyUuidDefault().pipe(map(response => response.uuid));
   }
 }

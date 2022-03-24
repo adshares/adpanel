@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { fadeAnimation } from 'common/animations/fade.animation';
@@ -35,11 +36,11 @@ export class EditCampaignComponent extends HandleSubscription implements OnInit,
     this.isEditMode = !!this.router.url.match('/edit-campaign/');
 
     const lastEditedCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .take(1)
+      .pipe(take(1))
       .subscribe(campaign => {
         if (!campaign.targetingArray) {
           const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
-            .take(1)
+            .pipe(take(1))
             .subscribe(medium => {
               const targetingOptions = processTargeting(medium);
               this.store.dispatch(

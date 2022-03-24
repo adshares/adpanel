@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Site } from 'models/site.model';
-import { Store } from "@ngrx/store";
-import { AppState } from "models/app-state.model";
-import { LoadSite, SetLastEditedSite } from "store/publisher/publisher.actions";
-import { HandleSubscription } from "common/handle-subscription";
-
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router'
+import { Observable } from 'rxjs'
+import { filter, map, take, tap } from 'rxjs/operators'
+import { Site } from 'models/site.model'
+import { Store } from '@ngrx/store'
+import { AppState } from 'models/app-state.model'
+import { LoadSite, SetLastEditedSite } from 'store/publisher/publisher.actions'
+import { HandleSubscription } from 'common/handle-subscription'
 
 @Injectable()
 export class SiteResolver extends HandleSubscription implements Resolve<Site> {
@@ -26,17 +26,19 @@ export class SiteResolver extends HandleSubscription implements Resolve<Site> {
     this.store.dispatch(new LoadSite(id));
   }
 
-  waitForSiteDataToLoad(id: number, isInEditMode: boolean): Observable<Site> {
+  waitForSiteDataToLoad (id: number, isInEditMode: boolean): Observable<Site> {
     return this.store.select('state', 'publisher', 'sites')
-      .map(sites => sites.find(site => site.id === id))
-      .filter(site => !!site)
-      .do((site) => {
-        if (isInEditMode) {
-          this.store.dispatch(new SetLastEditedSite(site))
-        } else {
-          return site;
-        }
-      })
-      .take(1);
+      .pipe(
+        map(sites => sites.find(site => site.id === id)),
+        filter(site => !!site),
+        tap(site => {
+          if (isInEditMode) {
+            this.store.dispatch(new SetLastEditedSite(site));
+          } else {
+            return site;
+          }
+        }),
+        take(1)
+      )
   }
 }

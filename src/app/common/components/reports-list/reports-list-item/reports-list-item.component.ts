@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { ReportsListItem } from 'models/settings.model';
 import { CommonService } from 'common/common.service';
@@ -41,7 +42,7 @@ export class ReportsListItemComponent implements OnInit {
 
   download(): void {
     this.service.getReport(this.item.id)
-      .take(1)
+      .pipe(take(1))
       .subscribe(
         response => downloadReport(response),
         () => this.store.dispatch(

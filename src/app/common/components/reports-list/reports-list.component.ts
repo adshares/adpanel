@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { CommonService } from 'common/common.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ReportsListItem } from 'models/settings.model';
@@ -24,7 +25,7 @@ export class ReportsListComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     const subscription = timer(0, this.REFRESH_PERIOD).subscribe(
-      () => this.service.getReportsList().take(1).subscribe(
+      () => this.service.getReportsList().pipe(take(1)).subscribe(
         response => {
           this.reportsListAdvertiser = response.advertiser || [];
           this.reportsListPublisher = response.publisher || [];
