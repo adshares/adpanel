@@ -89,13 +89,7 @@
 
                 <div
                   class="error-msg error-msg--small"
-                  *ngIf="(adsSubmitted && !adPanelsStatus[i]) &&
-                (
-                (adForm.get('name').hasError('required')) ||
-                 (adForm.get('html') && adForm.get('html').value.src === '')  ||
-                 (adForm.get('image') && adForm.get('image').value.src === '') ||
-                 (adForm.get('video') && adForm.get('video').value.src === '')
-                )"
+                  *ngIf="adsSubmitted && !adPanelsStatus[i] && adForm.invalid"
                 > !
                 </div>
               </div>
@@ -174,7 +168,7 @@
                 col-xxxl-1
                 col"
             >
-              <div *ngIf="(adForm.get('image') || adForm.get('video')) && adForm.get('creativeSize').value"
+              <div *ngIf="(isImageTypeChosen(adForm) || isVideoTypeChosen(adForm)) && adForm.get('creativeSize').value"
                    class="dwmth-form-input__box">
                 <span class="dwmth-form-input__box
                              dwmth-form-label
@@ -186,7 +180,7 @@
                 </span>
               </div>
 
-              <div *ngIf="adForm.get('image') && !adForm.get('creativeSize').value"
+              <div *ngIf="isImageTypeChosen(adForm) && !adForm.get('creativeSize').value"
                    class="dwmth-form-input__box">
                 <span class="dwmth-form-input__box
                              dwmth-form-label
@@ -194,11 +188,11 @@
                   Info
                 </span>
                 <span class="dwmth-copy">
-                  <a href="https://adshares.net/units" target="_blank" rel="noopener">List of available Ad sizes</a>
+                  <a href="{{ADSHARES_UNITS}}" target="_blank" rel="noopener">List of available Ad sizes</a>
                 </span>
               </div>
 
-              <div *ngIf="adForm.get('html')"
+              <div *ngIf="isHtmlTypeChosen(adForm)"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Size
@@ -218,7 +212,7 @@
                 </mat-select>
               </div>
 
-              <div *ngIf="adForm.get('direct')"
+              <div *ngIf="isDirectTypeChosen(adForm)"
                    class="dwmth-form-input__box">
                 <label class="dwmth-form-label">
                   Display
@@ -238,7 +232,6 @@
                 </mat-select>
               </div>
             </div>
-
           </div>
 
           <div
@@ -257,11 +250,7 @@
 
           <div
             class="error-msg"
-            *ngIf="adsSubmitted && (
-              (adForm.get('image') && adForm.get('image').value.src === '' ) ||
-              (adForm.get('html') && adForm.get('html').value.src === '' ) ||
-              (adForm.get('video') && adForm.get('video').value.src === '' )
-            )"
+            *ngIf="adsSubmitted && adForm.get('fileSrc') && adForm.get('fileSrc').hasError('required')"
           >
             File required
           </div>
@@ -316,11 +305,7 @@
               dwmth-box--blue-border
               drag-and-drop-box
               banner"
-            *ngIf="!imagesStatus.upload.processing && (
-                (isImageTypeChosen(adForm) && adForm.get('image').value.src === '') ||
-                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src === '') ||
-                (isVideoTypeChosen(adForm) && adForm.get('video').value.src === '')
-             )"
+            *ngIf="!imagesStatus.upload.processing && adForm.get('fileSrc') && adForm.get('fileSrc').value === ''"
             ng2FileDrop
             [ngClass]="{'drag-and-drop-box--file-over': imagesStatus.overDrop[i]}"
             (fileOver)="fileOverDropArea($event, i)"
@@ -385,11 +370,7 @@
               file-box
               file-box--grey-background"
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
-            *ngIf="imagesStatus.upload.processing || (
-                (isImageTypeChosen(adForm) && adForm.get('image').value.src !== '') ||
-                (isHtmlTypeChosen(adForm) && adForm.get('html').value.src !== '') ||
-                (isVideoTypeChosen(adForm) && adForm.get('video').value.src !== '')
-              )"
+            *ngIf="imagesStatus.upload.processing || (adForm.get('fileSrc') && adForm.get('fileSrc').value !== '')"
             data-test="advertiser-edit-campaign-create-ads-form-upload-status"
           >
             <div class="col-xs-1">
@@ -445,82 +426,17 @@
 
               <div
                 class="file-box__file-info"
-                *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value"
-                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
+                *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value"
+                data-test="advertiser-edit-campaign-create-ads-form-upload-name"
               >
-                {{ adForm.get('html').value.name }}
+                {{ adForm.get('fileName').value }}
                 <br>
-                <span class="file-box__file-sub-info"
-                      data-test="advertiser-edit-campaign-create-ads-form-image-size">
+                <span
+                  class="file-box__file-sub-info"
+                  data-test="advertiser-edit-campaign-create-ads-form-size"
+                >
                   {{ adForm.get('creativeSize').value }}
                 </span>
-
-                <img
-                  class="file-box__action-button"
-                  src="/assets/images/trash-gray.svg"
-                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
-                  alt="Remove image"
-                  (click)="removeImage(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-remove-image"
-                >
-              </div>
-              <div
-                class="file-box__file-info"
-                *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src"
-                data-test="advertiser-edit-campaign-create-ads-form-image-upload-name"
-              >
-                {{ adForm.get('image').value.name }}
-                <br>
-
-                <span class="file-box__file-sub-info">
-                <span data-test="advertiser-edit-campaign-create-ads-form-image-size">
-                  {{ adForm.get('creativeSize').value }}
-                </span>
-                <span *ngIf="adForm.get('creativeSize').value !== ads[i].imageSize"
-                      class="file-box__file-sub-info--secondary"
-                      data-test="advertiser-edit-campaign-create-ads-form-image-dimensions"
-                >
-                  {{ ads[i].imageSize }}
-                </span>
-                </span>
-
-                <img
-                  class="file-box__action-button"
-                  src="/assets/images/trash-gray.svg"
-                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
-                  alt="Remove image"
-                  (click)="removeImage(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-remove-image"
-                >
-              </div>
-              <div
-                class="file-box__file-info"
-                *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src"
-                data-test="advertiser-edit-campaign-create-ads-form-video-upload-name"
-              >
-                {{ adForm.get('video').value.name }}
-                <br>
-
-                <span class="file-box__file-sub-info">
-                  <span data-test="advertiser-edit-campaign-create-ads-form-video-size">
-                    {{ adForm.get('creativeSize').value }}
-                  </span>
-                  <span *ngIf="adForm.get('creativeSize').value !== ads[i].imageSize"
-                    class="file-box__file-sub-info--secondary"
-                    data-test="advertiser-edit-campaign-create-ads-form-video-dimensions"
-                  >
-                    {{ ads[i].imageSize }}
-                  </span>
-                </span>
-
-                <img
-                  class="file-box__action-button"
-                  src="/assets/images/trash-gray.svg"
-                  *ngIf="adForm.get('status').value === adStatusesEnum.DRAFT"
-                  alt="Remove video"
-                  (click)="removeImage(i)"
-                  data-test="advertiser-edit-campaign-create-ads-form-remove-video"
-                >
               </div>
             </div>
           </div>
@@ -533,9 +449,7 @@
               dwmth-box--dashed
               dwmth-box--blue-border
               dwmth-box__preview"
-            *ngIf="(isImageTypeChosen(adForm) && adForm.get('image').value.src) ||
-                   (isHtmlTypeChosen(adForm) && adForm.get('html').value.src) ||
-                   (isVideoTypeChosen(adForm) && adForm.get('video').value.src)"
+            *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value"
           >
             <div
               class="
@@ -545,37 +459,36 @@
                 dwmth-box--no-padding">
               Preview
             </div>
-            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('image').value.src && adForm.get('creativeSize').value"
+            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('creativeSize').value"
                  class="banner image-poster"
                  [ngStyle]="{
                 'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
                 'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
               }">
-              <img [src]="adForm.get('image').value.src | trustUrl"
+              <img [src]="adForm.get('fileSrc').value | trustUrl"
                    [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
                    alt="">
             </div>
 
-            <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('html').value.src"
+            <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('creativeSize').value"
                  class="banner">
-              <iframe *ngIf="adForm.get('creativeSize').value"
-                      [ngStyle]="{
+              <iframe [ngStyle]="{
                                   'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
                                   'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
                                   }"
-                      [src]="adForm.get('html').value.src | trustUrl"
+                      [src]="adForm.get('fileSrc').value | trustUrl"
               ></iframe>
             </div>
 
             <div
-              *ngIf="isVideoTypeChosen(adForm) && adForm.get('video').value.src"
+              *ngIf="isVideoTypeChosen(adForm)"
               class="banner image-poster"
             >
               <video
                 controls
                 class="video-preview"
               >
-                <source [src]="adForm.get('video').value.src">
+                <source [src]="adForm.get('fileSrc').value">
                 Sorry, your browser doesn't support embedded videos.
               </video>
             </div>

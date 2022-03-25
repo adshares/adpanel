@@ -126,8 +126,6 @@ interface Ad {
   cost: number;
   budget: number;
   url: string;
-
-  imageSize?: string;
 }
 
 interface AdPreview {
