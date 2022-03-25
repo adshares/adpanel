@@ -36,20 +36,20 @@
   (valueChanged)="updateSettings($event, 'registrationMode')"
 >
   <mat-checkbox
-    [checked]="settings.emailVerificationRequired"
-    (change)="updateSettings($event.checked, 'emailVerificationRequired')"
+    [checked]="settings.emailVerificationRequired === 1"
+    (change)="updateSettings($event.checked ? 1 : 0, 'emailVerificationRequired')"
   >
     E-mail verification required
   </mat-checkbox>
   <mat-checkbox
-    [checked]="settings.autoConfirmationEnabled"
-    (change)="updateSettings($event.checked, 'autoConfirmationEnabled')"
+    [checked]="settings.autoConfirmationEnabled === 1"
+    (change)="updateSettings($event.checked ? 1 : 0, 'autoConfirmationEnabled')"
   >
     Auto account confirmation
   </mat-checkbox>
   <mat-checkbox
-    [checked]="settings.autoRegistrationEnabled"
-    (change)="updateSettings($event.checked, 'autoRegistrationEnabled')"
+    [checked]="settings.autoRegistrationEnabled === 1"
+    (change)="updateSettings($event.checked ? 1 : 0, 'autoRegistrationEnabled')"
   >
     Auto registration allowed
   </mat-checkbox>
