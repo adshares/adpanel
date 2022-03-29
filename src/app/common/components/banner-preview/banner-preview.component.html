@@ -19,6 +19,12 @@
       Sorry, your browser doesn't support embedded videos.
     </video>
   </ng-container>
+  <ng-container *ngIf="isModel">
+    <div
+    >
+      MODEL3D
+    </div>
+  </ng-container>
   <ng-container *ngIf="showIframe && isHtml">
     <iframe
       [src]="url | trustUrl"
@@ -60,7 +66,7 @@
   </div>
 
   <div
-    *ngIf="isImage || isVideo || (showIframe && isHtml)"
+    *ngIf="isImage || isVideo || isModel || (showIframe && isHtml)"
     [style.width.px]="maxWidth"
     (click)="zoomIn()"
     class="banner-preview__overlay"

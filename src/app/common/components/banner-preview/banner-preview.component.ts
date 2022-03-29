@@ -88,6 +88,10 @@ export class BannerPreviewComponent implements OnInit {
     return this.getType() === adCreativeTypes.VIDEO;
   }
 
+  get isModel(): boolean {
+    return this.getType() === adCreativeTypes.MODEL;
+  }
+
   canLoadIframeContent(url: string): void {
     fetch(url, {method: 'HEAD'})
       .then(res => {
@@ -116,10 +120,6 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   zoomIn(): void {
-    if (!this.isImage && !this.isVideo && (!this.showIframe || !this.isHtml)) {
-      return;
-    }
-
     const size = (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize;
     const adPreview: AdPreview = {
       type: this.getType(),

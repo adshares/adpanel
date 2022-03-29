@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import {
   ACESFilmicToneMapping,
   AnimationMixer,
@@ -9,10 +9,12 @@ import {
   Clock,
   Color,
   DirectionalLight,
+  FileLoader,
   Group,
   HemisphereLight,
   Line,
   LineBasicMaterial,
+  LoaderUtils,
   Object3D,
   PerspectiveCamera,
   PMREMGenerator,
@@ -36,23 +38,27 @@ export class ModelPreviewComponent implements OnInit {
   @ViewChild('modelPreview')
   modelPreview: ElementRef
 
-  modelUrl = 'assets/T-Rex.vox'
-  mimeType = 'model/voxel'
-  // modelUrl = 'assets/LittlestTokyo.glb'
-  // mimeType = 'model/gltf-binary'
+  @Input() modelUrl: string
 
   ngOnInit (): void {
-    if (this.mimeType === 'model/voxel') {
-      this.displayVoxModel(this.modelPreview.nativeElement)
-    } else if (this.mimeType === 'model/gltf-binary') {
-      this.displayGltfModel(this.modelPreview.nativeElement)
-    }
+    const loader = new FileLoader()
+    loader.setResponseType('arraybuffer')
+    loader.load(
+      this.modelUrl,
+      buffer => {
+        const magic = LoaderUtils.decodeText(new Uint8Array(buffer, 0, 4))
+        if (magic === 'glTF') {
+          this.displayGltfModel(this.modelPreview.nativeElement, buffer)
+        } else if (magic === 'VOX ') {
+          this.displayVoxModel(this.modelPreview.nativeElement, buffer)
+        }
+      },
+      () => {
+        // progress not supported at this moment
+      },
+      () => this.handleLoadError(this.modelPreview.nativeElement, 'Cannot load model')
+    )
   }
-
-  //////// new
-  // extractModelUrl(element) {
-  //   return element.removeAttributeNode(element.getAttributeNode('data-src')).value
-  // }
 
   scaleUniformlyTo2x2x2 (box): number {
     return 1 / Math.max(
@@ -121,9 +127,8 @@ export class ModelPreviewComponent implements OnInit {
     element.appendChild(spanElement)
   }
 
-  displayGltfModel (element): void {
+  displayGltfModel (element, buffer): void {
     let mixer
-    const modelUrl = this.modelUrl
 
     const clock = new Clock()
     const renderer = this.initRenderer(element)
@@ -140,22 +145,28 @@ export class ModelPreviewComponent implements OnInit {
 
     const loader = new GLTFLoader()
     loader.setMeshoptDecoder(MeshoptDecoder)
-    loader.load(modelUrl, gltf => {
-      const model = gltf.scene
-      const boundingBox = new Box3().setFromObject(model)
-      model.scale.setScalar(this.scaleUniformlyTo2x2x2(boundingBox))
-      scene.add(model)
+    try {
+      loader.parse(
+        buffer,
+        '',
+        gltf => {
+          const model = gltf.scene
+          const boundingBox = new Box3().setFromObject(model)
+          model.scale.setScalar(this.scaleUniformlyTo2x2x2(boundingBox))
+          scene.add(model)
 
-      if (gltf.animations.length > 0) {
-        mixer = new AnimationMixer(model)
-        mixer.clipAction(gltf.animations[0]).play()
-      }
-      element.appendChild(renderer.domElement)
-      animate()
-    }, () => {
-    }, error => {
-      this.handleLoadError(element, error)
-    })
+          if (gltf.animations.length > 0) {
+            mixer = new AnimationMixer(model)
+            mixer.clipAction(gltf.animations[0]).play()
+          }
+          element.appendChild(renderer.domElement)
+          animate()
+        },
+        error => this.handleLoadError(element, error)
+      )
+    } catch (error) {
+      this.handleLoadError(element, error);
+    }
 
     function animate (): void {
       requestAnimationFrame(animate)
@@ -168,8 +179,7 @@ export class ModelPreviewComponent implements OnInit {
     }
   }
 
-  displayVoxModel (element): void {
-    const modelUrl = this.modelUrl
+  displayVoxModel (element, buffer): void {
     const renderer = this.initRenderer(element)
     const camera = this.initCamera()
     const scene = this.initScene()
@@ -185,7 +195,8 @@ export class ModelPreviewComponent implements OnInit {
     scene.add(directionalLight2)
 
     const loader = new VOXLoader()
-    loader.load(modelUrl, chunks => {
+    try {
+      const chunks = loader.parse(buffer)
       const group = new Group()
       const boundingBox = new Box3()
       const palette = chunks[chunks.length - 1].palette
@@ -202,10 +213,9 @@ export class ModelPreviewComponent implements OnInit {
 
       element.appendChild(renderer.domElement)
       requestAnimationFrame(animate)
-    }, () => {
-    }, error => {
+    } catch (error) {
       this.handleLoadError(element, error)
-    })
+    }
 
     function animate (time): void {
       requestAnimationFrame(animate)

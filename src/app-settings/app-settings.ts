@@ -11,6 +11,8 @@ export const appSettings = {
   MAX_AD_SIZE_HTML: 512000,
   // maximal size of video ad in bytes
   MAX_AD_SIZE_VIDEO: 1048576,
+  // maximal size of model ad in bytes
+  MAX_AD_SIZE_MODEL: 512000,
   // seconds of how long remembered user auth token will be stored
   REMEMBER_USER_EXPIRATION_SECONDS: 259200,
   // seconds of how long not remembered user auth token will be stored

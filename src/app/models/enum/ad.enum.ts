@@ -8,6 +8,7 @@ export const adCreativeTypes = {
   HTML: 'html',
   DIRECT: 'direct',
   VIDEO: 'video',
+  MODEL: 'model',
 }
 
 export enum adStatusesEnum {
@@ -31,10 +32,17 @@ export const validHtmlTypes = [
   'multipart/x-zip',
 ]
 
+export const validModelTypes = [
+  'application/octet-stream',
+  '',
+]
+
 export const fileTypes = {
   'image/gif': 'GIF',
   'image/jpeg': 'JPG',
   'image/png': 'PNG',
   'image/webp': 'WEBP',
+  'model/gltf-binary': 'GLB',
+  'model/voxel': 'VOX',
   'video/mp4': 'MP4',
 }

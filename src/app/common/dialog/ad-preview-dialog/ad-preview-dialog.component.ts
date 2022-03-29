@@ -22,8 +22,13 @@ export class AdPreviewDialogComponent {
 
   ngOnInit() {
     this.type = this.data.type;
-    const sizeArray = this.data.size.split('x');
-    this.width = sizeArray[0] + 'px';
-    this.height = sizeArray[1] + 'px';
+    if (this.type === adCreativeTypes.MODEL) {
+      this.width = '450px';
+      this.height = '450px';
+    } else {
+      const sizeArray = this.data.size.split('x');
+      this.width = sizeArray[0] + 'px';
+      this.height = sizeArray[1] + 'px';
+    }
   }
 }

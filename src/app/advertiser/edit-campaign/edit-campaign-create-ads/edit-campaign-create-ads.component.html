@@ -338,27 +338,22 @@
                   (change)="uploadBanner(i, $event)"
                   data-test="advertiser-edit-campaign-create-ads-form-image-upload">
               </p>
-              <p
-                *ngIf="isHtmlTypeChosen(adForm)"
-                class="dwmth-copy"
-              >
-                Please upload your HTML banner ad as a zip archive.
-                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_HTML|formatFileSize}}.
-              </p>
-              <p
-                *ngIf="isImageTypeChosen(adForm)"
-                class="dwmth-copy"
-              >
-                We support {{ getSupportedFiles(adForm) }} files.
-                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_IMAGE|formatFileSize}}.
-              </p>
-              <p
-                *ngIf="isVideoTypeChosen(adForm)"
-                class="dwmth-copy"
-              >
-                We support {{ getSupportedFiles(adForm) }} files.
-                Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_VIDEO|formatFileSize}}.
-              </p>
+              <ng-container [ngSwitch]="adForm.get('type').value">
+                <p
+                  *ngSwitchCase="adCreativeTypes.HTML"
+                  class="dwmth-copy"
+                >
+                  Please upload your HTML banner ad as a zip archive.
+                  Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_HTML|formatFileSize}}.
+                </p>
+                <p
+                  *ngSwitchDefault
+                  class="dwmth-copy"
+                >
+                  We support {{ getSupportedFiles(adForm) }} files.
+                  Please make sure that the file is not larger than {{getSupportedFileSize(adForm)|formatFileSize}}.
+                </p>
+              </ng-container>
             </div>
           </div>
 
@@ -373,18 +368,21 @@
             *ngIf="imagesStatus.upload.processing || (adForm.get('fileSrc') && adForm.get('fileSrc').value !== '')"
             data-test="advertiser-edit-campaign-create-ads-form-upload-status"
           >
-            <div class="col-xs-1">
-              <img *ngIf="isImageTypeChosen(adForm)"
+            <div
+              [ngSwitch]="adForm.get('type').value"
+              class="col-xs-1"
+            >
+              <img *ngSwitchCase="adCreativeTypes.IMAGE"
                    src="/assets/images/document-png--blue.svg"
                    alt="Uploaded image"
               >
-              <img *ngIf="isHtmlTypeChosen(adForm)"
+              <img *ngSwitchCase="adCreativeTypes.HTML"
                    src="/assets/images/document-zip--blue.svg"
                    alt="Uploaded zip file"
               >
-              <img *ngIf="isVideoTypeChosen(adForm)"
+              <img *ngSwitchDefault
                    src="/assets/images/document-blue.svg"
-                   alt="Uploaded video"
+                   alt="Uploaded file"
               >
             </div>
 
@@ -449,7 +447,7 @@
               dwmth-box--dashed
               dwmth-box--blue-border
               dwmth-box__preview"
-            *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value"
+            *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value && adForm.get('creativeSize').value"
           >
             <div
               class="
@@ -459,39 +457,57 @@
                 dwmth-box--no-padding">
               Preview
             </div>
-            <div *ngIf="isImageTypeChosen(adForm) && adForm.get('creativeSize').value"
-                 class="banner image-poster"
-                 [ngStyle]="{
-                'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
-              }">
-              <img [src]="adForm.get('fileSrc').value | trustUrl"
-                   [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
-                   alt="">
-            </div>
 
-            <div *ngIf="isHtmlTypeChosen(adForm) && adForm.get('creativeSize').value"
-                 class="banner">
-              <iframe [ngStyle]="{
-                                  'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                                  'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
-                                  }"
-                      [src]="adForm.get('fileSrc').value | trustUrl"
-              ></iframe>
-            </div>
-
-            <div
-              *ngIf="isVideoTypeChosen(adForm)"
-              class="banner image-poster"
-            >
-              <video
-                controls
-                class="video-preview"
+            <ng-container [ngSwitch]="adForm.get('type').value">
+              <div
+                *ngSwitchCase="adCreativeTypes.IMAGE"
+                class="banner image-poster"
+                [ngStyle]="{
+                  'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
+                  'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
+                }"
               >
-                <source [src]="adForm.get('fileSrc').value">
-                Sorry, your browser doesn't support embedded videos.
-              </video>
-            </div>
+                <img
+                  [src]="adForm.get('fileSrc').value | trustUrl"
+                  [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
+                  alt="">
+              </div>
+
+              <div
+                *ngSwitchCase="adCreativeTypes.HTML"
+                class="banner"
+              >
+                <iframe
+                  [ngStyle]="{
+                    'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
+                    'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
+                  }"
+                  [src]="adForm.get('fileSrc').value | trustUrl"
+                ></iframe>
+              </div>
+
+              <div
+                *ngSwitchCase="adCreativeTypes.VIDEO"
+                class="banner image-poster"
+              >
+                <video
+                  controls
+                  class="video-preview"
+                >
+                  <source [src]="adForm.get('fileSrc').value">
+                  Sorry, your browser doesn't support embedded videos.
+                </video>
+              </div>
+
+              <div
+                *ngSwitchCase="adCreativeTypes.MODEL"
+                class="model-preview-container"
+              >
+                <app-model-preview
+                  [modelUrl]="adForm.get('fileSrc').value"
+                ></app-model-preview>
+              </div>
+            </ng-container>
           </div>
 
           <button

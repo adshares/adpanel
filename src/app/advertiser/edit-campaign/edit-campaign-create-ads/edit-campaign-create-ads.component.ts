@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
-import { take, first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators'
 import { FileUploader } from 'ng2-file-upload'
 import {
   AddCampaignToCampaigns,
@@ -13,12 +13,7 @@ import {
 } from 'store/advertiser/advertiser.actions'
 import { AdvertiserService } from 'advertiser/advertiser.service'
 import { AssetHelpersService } from 'common/asset-helpers.service'
-import {
-  adCreativeTypes,
-  adStatusesEnum,
-  fileTypes,
-  validHtmlTypes,
-} from 'models/enum/ad.enum'
+import { adCreativeTypes, adStatusesEnum, fileTypes, validHtmlTypes, validModelTypes, } from 'models/enum/ad.enum'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
 import { cloneDeep, cutDirectAdSizeAnchor } from 'common/utilities/helpers'
@@ -252,21 +247,29 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   private isFileMimeTypeValid (mimeType: string, adType: string): boolean {
-    if (adType == adCreativeTypes.HTML) {
+    if (adType === adCreativeTypes.HTML) {
       return validHtmlTypes.includes(mimeType)
+    }
+    if (adType === adCreativeTypes.MODEL) {
+      return validModelTypes.includes(mimeType)
     }
     const allowedMimeTypes = this.formats.find(format => format.type === adType).mimes;
     return allowedMimeTypes.includes(mimeType);
   }
 
   private static getMaxFileSize (adType: string): number {
-    if (adType === adCreativeTypes.IMAGE) {
-      return appSettings.MAX_AD_SIZE_IMAGE
+    switch (adType) {
+      case adCreativeTypes.IMAGE:
+        return appSettings.MAX_AD_SIZE_IMAGE
+      case adCreativeTypes.HTML:
+        return appSettings.MAX_AD_SIZE_HTML
+      case adCreativeTypes.VIDEO:
+        return appSettings.MAX_AD_SIZE_VIDEO
+      case adCreativeTypes.MODEL:
+        return appSettings.MAX_AD_SIZE_MODEL
+      default:
+        return 0
     }
-    if (adType === adCreativeTypes.HTML) {
-      return appSettings.MAX_AD_SIZE_HTML
-    }
-    return appSettings.MAX_AD_SIZE_VIDEO
   }
 
   presentedMaxFileSize (index: number): number {
@@ -310,9 +313,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
-  selectProperImageBannerSize(size: string, index: number): void {
+  selectProperImageBannerSize(form: FormGroup, size: string): void {
     if (this.getAdSizes(adCreativeTypes.IMAGE).includes(size)) {
-      this.adForms[index].get('creativeSize').setValue(size);
+      form.get('creativeSize').setValue(size);
     } else {
       this.showImageSizeWarning();
     }
@@ -348,12 +351,14 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
             url: event.body.url,
           };
           if (this.isImageTypeChosen(form)) {
-            this.selectProperImageBannerSize(event.body.size, adIndex);
+            this.selectProperImageBannerSize(form, event.body.size)
           } else if (this.isVideoTypeChosen(form)) {
-            this.adForms[adIndex].get('creativeSize').setValue(event.body.size);
+            form.get('creativeSize').setValue(event.body.size)
+          } else if (this.isModelTypeChosen(form)) {
+            form.get('creativeSize').setValue(event.body.size || 'cube')
           }
-          this.adForms[adIndex].get('fileName').setValue(file.name)
-          this.adForms[adIndex].get('fileSrc').setValue(event.body.url)
+          form.get('fileName').setValue(file.name)
+          form.get('fileSrc').setValue(event.body.url)
         }
       },
       (err) => this.store.dispatch(new ShowDialogOnError(err.error.message))
@@ -429,7 +434,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adForms.forEach((form, index) => this.updateAdInfo(index));
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
-      this.adForms.every((adForm, index) => this.isDirectTypeChosen(adForm) || !!this.ads[index].url) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
@@ -483,6 +487,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return form.get('type').value === adCreativeTypes.VIDEO
   }
 
+  isModelTypeChosen(form: FormGroup): boolean {
+    return form.get('type').value === adCreativeTypes.MODEL
+  }
+
   getSupportedFiles(form: FormGroup): string {
     const adType = form.get('type').value
     const mimeTypes = this.formats.find(format => format.type === adType).mimes
@@ -492,6 +500,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       extensions[extensions.length - 2] += ` and ${extensions.pop()}`
     }
     return extensions.join(', ')
+  }
+
+  getSupportedFileSize(form: FormGroup): number {
+    const adType = form.get('type').value
+    return EditCampaignCreateAdsComponent.getMaxFileSize(adType)
   }
 
   cancelUploading(): void {
