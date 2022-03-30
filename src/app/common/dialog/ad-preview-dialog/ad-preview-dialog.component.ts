@@ -20,7 +20,7 @@ export class AdPreviewDialogComponent {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.type = this.data.type;
     if (this.type === adCreativeTypes.MODEL) {
       this.width = '450px';

@@ -13,6 +13,7 @@ import { cutDirectAdSizeAnchor } from 'common/utilities/helpers';
   styleUrls: ['./banner-preview.component.scss'],
 })
 export class BannerPreviewComponent implements OnInit {
+  readonly adCreativeTypes = adCreativeTypes
   @Input() banner: BannerClassification | Ad;
   @Input() landingUrl: string;
   @Input() maxWidth: number;
@@ -72,24 +73,16 @@ export class BannerPreviewComponent implements OnInit {
     }
   }
 
-  get isImage(): boolean {
-    return this.getType() === adCreativeTypes.IMAGE;
+  get isZoomAvailable(): boolean {
+    return this.showIframe && !this.isDirectLink;
   }
 
   get isHtml(): boolean {
-    return this.getType() === adCreativeTypes.HTML;
+    return this.type === adCreativeTypes.HTML;
   }
 
   get isDirectLink(): boolean {
-    return this.getType() === adCreativeTypes.DIRECT;
-  }
-
-  get isVideo(): boolean {
-    return this.getType() === adCreativeTypes.VIDEO;
-  }
-
-  get isModel(): boolean {
-    return this.getType() === adCreativeTypes.MODEL;
+    return this.type === adCreativeTypes.DIRECT;
   }
 
   canLoadIframeContent(url: string): void {
@@ -120,18 +113,21 @@ export class BannerPreviewComponent implements OnInit {
   }
 
   zoomIn(): void {
-    const size = (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize;
-    const adPreview: AdPreview = {
-      type: this.getType(),
-      size: size,
+    const data: AdPreview = {
+      type: this.type,
+      size: this.size,
       url: this.banner.url,
       landingUrl: this.landingUrl,
     };
 
-    this.dialog.open(AdPreviewDialogComponent, {data: adPreview});
+    this.dialog.open(AdPreviewDialogComponent, {data});
   }
 
-  private getType (): string {
+  get size (): string {
+    return (<BannerClassification>this.banner).size ? (<BannerClassification>this.banner).size : (<Ad>this.banner).creativeSize
+  }
+
+  get type (): string {
     return (<Ad>this.banner).creativeType ? (<Ad>this.banner).creativeType : (<BannerClassification>this.banner).type
   }
 }
