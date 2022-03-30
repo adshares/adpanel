@@ -35,6 +35,8 @@ import { VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader'
   styleUrls: ['./model-preview.component.scss'],
 })
 export class ModelPreviewComponent implements OnInit {
+  private readonly MEGAVOX_SIZE_LIMIT = 126
+
   @ViewChild('modelPreview')
   modelPreview: ElementRef
 
@@ -56,7 +58,7 @@ export class ModelPreviewComponent implements OnInit {
       () => {
         // progress not supported at this moment
       },
-      () => this.handleLoadError(this.modelPreview.nativeElement, 'Cannot load model')
+      () => this.handleLoadError(this.modelPreview.nativeElement, new Error('Cannot load model'))
     )
   }
 
@@ -72,7 +74,7 @@ export class ModelPreviewComponent implements OnInit {
   }
 
   initCamera (): Camera {
-    const camera = new PerspectiveCamera(50, 1, 0.01, 10)
+    const camera = new PerspectiveCamera(50, 1, 0.01, 1000)
     camera.position.set(1.75, 0.75, 1.75)
     return camera
   }
@@ -87,12 +89,10 @@ export class ModelPreviewComponent implements OnInit {
   initScene (): Scene {
     const scene = new Scene()
     scene.background = new Color(0xbbbbbb)
-    scene.add(this.axes(1.0))
-    scene.add(this.frame(2.0))
     return scene
   }
 
-  initControls (camera, renderer): OrbitControls {
+  initControls (camera: Camera, renderer: WebGLRenderer): OrbitControls {
     const controls = new OrbitControls(camera, renderer.domElement)
     controls.minDistance = 1.5
     controls.maxDistance = 4.5
@@ -101,7 +101,7 @@ export class ModelPreviewComponent implements OnInit {
     return controls
   }
 
-  axes (length): Object3D {
+  axes (length: number): Object3D {
     const points = []
     points.push(new Vector3(length, 0, 0))
     points.push(new Vector3(0, 0, 0))
@@ -113,13 +113,13 @@ export class ModelPreviewComponent implements OnInit {
     return new Line(geometry, material)
   }
 
-  frame (length): Object3D {
+  frame (length: number): Object3D {
     const geometry = new BoxGeometry(length, length, length)
     const material = new LineBasicMaterial({ color: 0x00ffff })
     return new Line(geometry, material)
   }
 
-  handleLoadError (element, error): void {
+  handleLoadError (element, error: Error): void {
     console.error(error)
     const message = error.message ? `Error during model load: ${error.message}` : 'Model load failed'
     const spanElement = document.createElement('span')
@@ -138,6 +138,8 @@ export class ModelPreviewComponent implements OnInit {
 
     const camera = this.initCamera()
     const scene = this.initScene()
+    scene.add(this.axes(1.0))
+    scene.add(this.frame(2.0))
     const environment = new RoomEnvironment()
     const pmremGenerator = new PMREMGenerator(renderer)
     scene.environment = pmremGenerator.fromScene(environment).texture
@@ -183,6 +185,8 @@ export class ModelPreviewComponent implements OnInit {
     const renderer = this.initRenderer(element)
     const camera = this.initCamera()
     const scene = this.initScene()
+    scene.add(this.axes(this.MEGAVOX_SIZE_LIMIT / 2))
+    scene.add(this.frame(this.MEGAVOX_SIZE_LIMIT))
     const controls = this.initControls(camera, renderer)
 
     const hemisphereLight = new HemisphereLight(0x888888, 0x444444, 1)
@@ -197,6 +201,10 @@ export class ModelPreviewComponent implements OnInit {
     const loader = new VOXLoader()
     try {
       const chunks = loader.parse(buffer)
+      if (chunks === undefined) {
+        this.handleLoadError(element, new Error('Not a valid VOX file'))
+        return
+      }
       const group = new Group()
       const boundingBox = new Box3()
       const palette = chunks[chunks.length - 1].palette
@@ -207,9 +215,24 @@ export class ModelPreviewComponent implements OnInit {
         mesh.visible = false
         group.add(mesh)
       })
+
+      if (
+        boundingBox.max.x - boundingBox.min.x > this.MEGAVOX_SIZE_LIMIT ||
+        boundingBox.max.y - boundingBox.min.y > this.MEGAVOX_SIZE_LIMIT ||
+        boundingBox.max.z - boundingBox.min.z > this.MEGAVOX_SIZE_LIMIT
+      ) {
+        this.handleLoadError(
+          element,
+          new Error(`Model size exceeds the Megavox limit ${this.MEGAVOX_SIZE_LIMIT}x${this.MEGAVOX_SIZE_LIMIT}x${this.MEGAVOX_SIZE_LIMIT}`)
+        )
+        return
+      }
+
       group.name = 'model'
-      group.scale.setScalar(this.scaleUniformlyTo2x2x2(boundingBox))
       scene.add(group)
+      const scale = this.scaleUniformlyTo2x2x2(boundingBox)
+      scene.scale.setScalar(scale)
+      controls.maxDistance = 4.5 * (this.MEGAVOX_SIZE_LIMIT / 2) * scale
 
       element.appendChild(renderer.domElement)
       requestAnimationFrame(animate)
