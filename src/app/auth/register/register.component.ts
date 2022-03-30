@@ -16,8 +16,8 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
 import { CommonService } from 'common/common.service'
-import {of as observableOf, forkJoin as observableForkJoin } from 'rxjs'
-import {take, switchMap} from 'rxjs/operators'
+import { of as observableOf, forkJoin as observableForkJoin } from 'rxjs'
+import { take, switchMap } from 'rxjs/operators'
 import { RefLinkInfo } from 'models/settings.model'
 import { Info } from 'models/info.model'
 

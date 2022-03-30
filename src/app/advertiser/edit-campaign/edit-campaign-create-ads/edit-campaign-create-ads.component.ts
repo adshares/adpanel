@@ -9,11 +9,17 @@ import {
   AddCampaignToCampaigns,
   ClearLastEditedCampaign,
   SaveCampaignAds,
-  UpdateCampaign
+  UpdateCampaign,
 } from 'store/advertiser/advertiser.actions'
 import { AdvertiserService } from 'advertiser/advertiser.service'
 import { AssetHelpersService } from 'common/asset-helpers.service'
-import { adCreativeTypes, adStatusesEnum, fileTypes, validHtmlTypes, validModelTypes, } from 'models/enum/ad.enum'
+import {
+  adCreativeTypes,
+  adStatusesEnum,
+  fileTypes,
+  validHtmlTypes,
+  validModelTypes,
+} from 'models/enum/ad.enum'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
 import { cloneDeep, cutDirectAdSizeAnchor } from 'common/utilities/helpers'

@@ -53,8 +53,8 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     this.isAdmin = this.sessionService.isAdmin();
 
     observableForkJoin([
-        this.bidStrategyService.getTargetingCriteria(),
-        this.bidStrategyService.getBidStrategies(),
+      this.bidStrategyService.getTargetingCriteria(),
+      this.bidStrategyService.getBidStrategies(),
     ]).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
         this.handleFetchedTargetingOptions(responses[0]);

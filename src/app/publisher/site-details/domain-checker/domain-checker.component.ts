@@ -52,7 +52,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   cpmQuality(): string {
     if (this.inVerification) {
-      return  'medium';
+      return 'medium';
     }
 
     let quality;

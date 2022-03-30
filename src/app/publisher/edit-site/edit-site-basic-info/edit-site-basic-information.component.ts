@@ -5,7 +5,7 @@ import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
-import { take, first,  map, startWith } from 'rxjs/operators'
+import { take, first, map, startWith } from 'rxjs/operators'
 import { AppState } from 'models/app-state.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions'
