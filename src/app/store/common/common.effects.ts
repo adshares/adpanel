@@ -2,21 +2,18 @@ import { Injectable } from '@angular/core'
 import { MatDialog, MatSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
 import { Actions, Effect, ofType } from '@ngrx/effects'
+import { of as observableOf } from 'rxjs'
 import { catchError, map, switchMap, tap } from 'rxjs/operators'
 
 import { CommonService } from 'common/common.service'
 import {
   LOAD_INFO,
-  LOAD_INFO_FAILURE,
   LOAD_NOTIFICATIONS,
-  LoadInfoFailure,
   LoadInfoSuccess,
   LoadNotificationsSuccess,
   REQUEST_REPORT,
-  REQUEST_REPORT_FAILURE,
   REQUEST_REPORT_SUCCESS,
   RequestReport,
-  RequestReportFailure,
   RequestReportSuccess,
   SHOW_DIALOG_ON_ERROR,
   SHOW_SUCCESS_SNACKBAR,
@@ -24,33 +21,14 @@ import {
   ShowSuccessSnackbar,
 } from './common.actions'
 import {
-  ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
-  AddCampaignToCampaignsFailure,
-  DELETE_CAMPAIGN_FAILURE,
-  DeleteCampaignFailure,
   UPDATE_CAMPAIGN_FAILURE,
   UpdateCampaignFailure,
 } from 'store/advertiser/advertiser.actions'
-import { ADD_SITE_TO_SITES_FAILURE, AddSiteToSitesFailure } from 'store/publisher/publisher.actions'
-import {
-  GET_PRIVACY_SETTINGS_FAILURE,
-  GET_REJECTED_DOMAINS_FAILURE,
-  GET_TERMS_SETTINGS_FAILURE,
-  GetPrivacySettingsFailure,
-  GetRejectedDomainsFailure,
-  GetTermsSettingsFailure,
-  SET_ADMIN_SETTINGS_FAILURE,
-  SET_REJECTED_DOMAINS_FAILURE,
-  SetAdminSettingsFailure,
-  SetRejectedDomainsFailure,
-} from 'store/admin/admin.actions'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component'
-import { CANCEL_AWAITING_TRANSACTION_FAILURE, CancelAwaitingTransactionFailure } from 'store/settings/settings.actions'
 import {
   UserConfirmResponseDialogComponent
 } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
-import { of } from 'rxjs'
 import { SessionService } from '../../session.service'
 
 @Injectable()
@@ -72,7 +50,7 @@ export class CommonEffects {
       switchMap(() => this.service.getInfo()
         .pipe(
           map(info => new LoadInfoSuccess(info)),
-          catchError(error => of(new LoadInfoFailure(error.message)))
+          catchError(error => observableOf(new ShowDialogOnError(error.message)))
         )
       )
     )
@@ -88,37 +66,15 @@ export class CommonEffects {
   @Effect({ dispatch: false })
   handleErrors = this.actions$
     .pipe(
-      ofType<LoadInfoFailure |
-        ShowDialogOnError |
-        UpdateCampaignFailure |
-        DeleteCampaignFailure |
-        AddCampaignToCampaignsFailure |
-        AddSiteToSitesFailure |
-        SetAdminSettingsFailure |
-        GetPrivacySettingsFailure |
-        GetTermsSettingsFailure |
-        GetRejectedDomainsFailure |
-        SetRejectedDomainsFailure |
-        CancelAwaitingTransactionFailure |
-        RequestReportFailure>(
-        LOAD_INFO_FAILURE,
+      ofType<ShowDialogOnError |
+        UpdateCampaignFailure>(
         SHOW_DIALOG_ON_ERROR,
         UPDATE_CAMPAIGN_FAILURE,
-        DELETE_CAMPAIGN_FAILURE,
-        ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE,
-        ADD_SITE_TO_SITES_FAILURE,
-        SET_ADMIN_SETTINGS_FAILURE,
-        GET_PRIVACY_SETTINGS_FAILURE,
-        GET_TERMS_SETTINGS_FAILURE,
-        GET_REJECTED_DOMAINS_FAILURE,
-        SET_REJECTED_DOMAINS_FAILURE,
-        CANCEL_AWAITING_TRANSACTION_FAILURE,
-        REQUEST_REPORT_FAILURE,
       ),
       tap(action => {
         this.dialog.open(ErrorResponseDialogComponent, {
           data: {
-            title: `Error occurred`,
+            title: 'Error occurred',
             message: `${action.payload}`,
           }
         })
@@ -145,11 +101,10 @@ export class CommonEffects {
       switchMap(payload => this.service.report(payload.type, payload.dateStart, payload.dateEnd, payload.id)
         .pipe(
           map(() => new RequestReportSuccess()),
-          catchError(() => {
-              return of(
-                new RequestReportFailure('Report cannot be generated at this moment. Please try again later.')
-              )
-            }
+          catchError(
+            () => observableOf(
+              new ShowDialogOnError('Report cannot be generated at this moment. Please try again later.')
+            )
           )
         )
       )

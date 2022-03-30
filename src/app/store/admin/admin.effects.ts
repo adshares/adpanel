@@ -11,11 +11,8 @@ import {
   GetIndexSuccess,
   GetLicenseFailure,
   GetLicenseSuccess,
-  GetPrivacySettingsFailure,
   GetPrivacySettingsSuccess,
-  GetRejectedDomainsFailure,
   GetRejectedDomainsSuccess,
-  GetTermsSettingsFailure,
   GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
   LOAD_ADMIN_WALLET,
@@ -41,18 +38,16 @@ import {
   SET_REJECTED_DOMAINS,
   SET_TERMS_SETTINGS,
   SetAdminSettings,
-  SetAdminSettingsFailure,
   SetAdminSettingsSuccess,
   SetPrivacySettings,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
   SetRejectedDomains,
-  SetRejectedDomainsFailure,
   SetRejectedDomainsSuccess,
   SetTermsSettings,
   SetTermsSettingsSuccess,
 } from './admin.actions'
-import { ShowSuccessSnackbar } from '../common/common.actions'
+import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import { SAVE_SUCCESS } from 'common/utilities/messages'
 import { AdminService } from 'admin/admin.service'
 import { merge, of as observableOf } from 'rxjs'
@@ -230,7 +225,7 @@ export class AdminEffects {
             new SetAdminSettingsSuccess(action.payload),
             new ShowSuccessSnackbar(SAVE_SUCCESS)
           ]),
-          catchError(() => observableOf(new SetAdminSettingsFailure(
+          catchError(() => observableOf(new ShowDialogOnError(
             'We weren\'t able to save your settings this time. Please, try again later'
           )))
         )
@@ -248,8 +243,8 @@ export class AdminEffects {
             if (error.status === HTTP_NOT_FOUND) {
               return observableOf()
             }
-            return observableOf(new GetPrivacySettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
+            return observableOf(new ShowDialogOnError(
+              'We weren\'t able to fetch your settings this time. Please, try again later'
             ))
           })
         )
@@ -267,8 +262,8 @@ export class AdminEffects {
             if (error.status === HTTP_NOT_FOUND) {
               return observableOf();
             }
-            return observableOf(new GetTermsSettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
+            return observableOf(new ShowDialogOnError(
+              'We weren\'t able to fetch your settings this time. Please, try again later'
             ));
           })
         )
@@ -320,11 +315,9 @@ export class AdminEffects {
       switchMap(() => this.service.getRejectedDomains()
         .pipe(
           map(response => new GetRejectedDomainsSuccess(response)),
-          catchError(() => {
-            return observableOf(new GetRejectedDomainsFailure(
-              'Rejected domains are not available. Please, try again later.'
-            ))
-          })
+          catchError(() => observableOf(
+            new ShowDialogOnError('Rejected domains are not available. Please, try again later.')
+          ))
         )
       )
     )
@@ -339,7 +332,7 @@ export class AdminEffects {
             new SetRejectedDomainsSuccess(),
             new ShowSuccessSnackbar(SAVE_SUCCESS),
           ]),
-          catchError(() => observableOf(new SetRejectedDomainsFailure(
+          catchError(() => observableOf(new ShowDialogOnError(
             'Rejected domains were not saved. Please, try again later.'
           )))
         )

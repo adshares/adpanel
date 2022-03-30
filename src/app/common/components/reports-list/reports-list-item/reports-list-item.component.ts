@@ -5,7 +5,7 @@ import { AppState } from 'models/app-state.model';
 import { ReportsListItem } from 'models/settings.model';
 import { CommonService } from 'common/common.service';
 import { downloadReport } from 'common/utilities/helpers';
-import { RequestReportFailure } from 'store/common/common.actions';
+import { ShowDialogOnError } from 'store/common/common.actions';
 import { reportState } from 'models/enum/user.enum';
 import { faCheck, faHistory, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,7 +46,7 @@ export class ReportsListItemComponent implements OnInit {
       .subscribe(
         response => downloadReport(response),
         () => this.store.dispatch(
-          new RequestReportFailure('Report cannot be downloaded at this moment. Please try again later.')
+          new ShowDialogOnError('Report cannot be downloaded at this moment. Please try again later.')
         ),
       );
   }

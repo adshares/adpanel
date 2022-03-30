@@ -6,19 +6,47 @@ import { of as observableOf } from 'rxjs'
 import { catchError, map, switchMap } from 'rxjs/operators'
 
 import { PublisherService } from 'publisher/publisher.service'
-import * as publisherActions from './publisher.actions'
 import {
+  ADD_SITE_TO_SITES,
   AddSiteToSites,
+  AddSiteToSitesSuccess,
+  ClearLastEditedSite,
+  GET_FILTERING_CRITERIA,
+  GET_LANGUAGES_LIST,
+  GetFilteringCriteriaSuccess,
+  GetLanguagesListFailure,
+  GetLanguagesListSuccess,
+  LOAD_SITE,
+  LOAD_SITE_TOTALS,
+  LOAD_SITES,
+  LOAD_SITES_TOTALS,
   LoadSite,
+  LoadSiteFailure,
   LoadSites,
+  LoadSitesSuccess,
   LoadSitesTotals,
+  LoadSitesTotalsFailure,
+  LoadSitesTotalsSuccess,
+  LoadSiteSuccess,
   LoadSiteTotals,
+  LoadSiteTotalsFailure,
+  LoadSiteTotalsSuccess,
+  UPDATE_SITE,
+  UPDATE_SITE_FILTERING,
+  UPDATE_SITE_STATUS,
+  UPDATE_SITE_UNITS,
   UpdateSite,
+  UpdateSiteFailure,
   UpdateSiteFiltering,
   UpdateSiteStatus,
-  UpdateSiteUnits
+  UpdateSiteStatusFailure,
+  UpdateSiteStatusSuccess,
+  UpdateSiteSuccess,
+  UpdateSiteUnits,
+  UpdateSiteUnitsFailure,
+  UpdateSiteUnitsSuccess,
 } from './publisher.actions'
-import { ShowSuccessSnackbar } from '../common/common.actions'
+import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
 import { prepareFilteringChoices } from 'common/components/targeting/targeting.helpers'
 import * as moment from 'moment'
@@ -38,7 +66,7 @@ export class PublisherEffects {
   @Effect()
   loadSites$ = this.actions$
     .pipe(
-      ofType<LoadSites>(publisherActions.LOAD_SITES),
+      ofType<LoadSites>(LOAD_SITES),
       map(action => action.payload),
       switchMap(payload => this.service.getSites()
         .pipe(
@@ -52,14 +80,14 @@ export class PublisherEffects {
               from = from.format()
             }
             return [
-              new publisherActions.LoadSitesSuccess(sites),
-              new publisherActions.LoadSitesTotals({
+              new LoadSitesSuccess(sites),
+              new LoadSitesTotals({
                 from,
                 to
               })
             ]
           }),
-          catchError(() => observableOf(new publisherActions.LoadSitesTotalsFailure()))
+          catchError(() => observableOf(new LoadSitesTotalsFailure()))
         )
       )
     )
@@ -67,11 +95,11 @@ export class PublisherEffects {
   @Effect()
   loadSite$ = this.actions$
     .pipe(
-      ofType<LoadSite>(publisherActions.LOAD_SITE),
+      ofType<LoadSite>(LOAD_SITE),
       switchMap(action => this.service.getSite(action.payload)
         .pipe(
-          map(site => new publisherActions.LoadSiteSuccess(site)),
-          catchError(() => observableOf(new publisherActions.LoadSiteFailure()))
+          map(site => new LoadSiteSuccess(site)),
+          catchError(() => observableOf(new LoadSiteFailure()))
         )
       )
     )
@@ -79,12 +107,12 @@ export class PublisherEffects {
   @Effect()
   loadSiteTotals$ = this.actions$
     .pipe(
-      ofType<LoadSiteTotals>(publisherActions.LOAD_SITE_TOTALS),
+      ofType<LoadSiteTotals>(LOAD_SITE_TOTALS),
       map(action => action.payload),
       switchMap(payload => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`, payload.id)
         .pipe(
-          map(sitesTotals => new publisherActions.LoadSiteTotalsSuccess(sitesTotals)),
-          catchError(() => observableOf(new publisherActions.LoadSiteTotalsFailure()))
+          map(sitesTotals => new LoadSiteTotalsSuccess(sitesTotals)),
+          catchError(() => observableOf(new LoadSiteTotalsFailure()))
         )
       )
     )
@@ -92,12 +120,12 @@ export class PublisherEffects {
   @Effect()
   loadSitesTotals$ = this.actions$
     .pipe(
-      ofType<LoadSitesTotals>(publisherActions.LOAD_SITES_TOTALS),
+      ofType<LoadSitesTotals>(LOAD_SITES_TOTALS),
       map(action => action.payload),
       switchMap(payload => this.service.getSitesTotals(`${payload.from}`, `${payload.to}`)
         .pipe(
-          map(sitesTotals => new publisherActions.LoadSitesTotalsSuccess(sitesTotals)),
-          catchError(() => observableOf(new publisherActions.LoadSitesTotalsFailure()))
+          map(sitesTotals => new LoadSitesTotalsSuccess(sitesTotals)),
+          catchError(() => observableOf(new LoadSitesTotalsFailure()))
         )
       )
     )
@@ -105,7 +133,7 @@ export class PublisherEffects {
   @Effect()
   addSiteToSites$ = this.actions$
     .pipe(
-      ofType<AddSiteToSites>(publisherActions.ADD_SITE_TO_SITES),
+      ofType<AddSiteToSites>(ADD_SITE_TO_SITES),
       switchMap(action => this.service.saveSite(action.payload)
         .pipe(
           switchMap((site) => {
@@ -118,13 +146,13 @@ export class PublisherEffects {
             })
 
             return [
-              new publisherActions.AddSiteToSitesSuccess(site),
-              new publisherActions.ClearLastEditedSite()
+              new AddSiteToSitesSuccess(site),
+              new ClearLastEditedSite()
             ]
           }),
           catchError(error => {
             if (error !== HTTP_INTERNAL_SERVER_ERROR) {
-              return observableOf(new publisherActions.AddSiteToSitesFailure(
+              return observableOf(new ShowDialogOnError(
                 `We weren't able to save your site due to this error: ${error.error.message} \n
             Please try again later.`
               ))
@@ -137,11 +165,11 @@ export class PublisherEffects {
   @Effect()
   getLanguageList$ = this.actions$
     .pipe(
-      ofType(publisherActions.GET_LANGUAGES_LIST),
+      ofType(GET_LANGUAGES_LIST),
       switchMap(() => this.service.getLanguagesList()
         .pipe(
-          map(siteLanguages => new publisherActions.GetLanguagesListSuccess(siteLanguages)),
-          catchError(() => observableOf(new publisherActions.GetLanguagesListFailure()))
+          map(siteLanguages => new GetLanguagesListSuccess(siteLanguages)),
+          catchError(() => observableOf(new GetLanguagesListFailure()))
         )
       )
     )
@@ -149,17 +177,17 @@ export class PublisherEffects {
   @Effect()
   getFilteringCriteria$ = this.actions$
     .pipe(
-      ofType(publisherActions.GET_FILTERING_CRITERIA),
+      ofType(GET_FILTERING_CRITERIA),
       switchMap(() => this.service.getFilteringCriteria()),
-      map(filteringOptions => new publisherActions.GetFilteringCriteriaSuccess(prepareFilteringChoices(filteringOptions)))
+      map(filteringOptions => new GetFilteringCriteriaSuccess(prepareFilteringChoices(filteringOptions)))
     )
 
   @Effect()
   updateSite$ = this.actions$
     .pipe(
       ofType<UpdateSite | UpdateSiteFiltering>(
-        publisherActions.UPDATE_SITE,
-        publisherActions.UPDATE_SITE_FILTERING
+        UPDATE_SITE,
+        UPDATE_SITE_FILTERING
       ),
       map(action => action.payload),
       switchMap(payload => this.service.updateSiteData(payload.id, payload)
@@ -167,11 +195,11 @@ export class PublisherEffects {
           switchMap(() => {
             this.router.navigate(['/publisher', 'site', payload.id])
             return [
-              new publisherActions.UpdateSiteSuccess(payload),
-              new publisherActions.ClearLastEditedSite(),
+              new UpdateSiteSuccess(payload),
+              new ClearLastEditedSite(),
             ]
           }),
-          catchError(() => observableOf(new publisherActions.UpdateSiteFailure()))
+          catchError(() => observableOf(new UpdateSiteFailure()))
         )
       )
     )
@@ -179,19 +207,19 @@ export class PublisherEffects {
   @Effect()
   updateSiteAdUnits$ = this.actions$
     .pipe(
-      ofType<UpdateSiteUnits>(publisherActions.UPDATE_SITE_UNITS),
+      ofType<UpdateSiteUnits>(UPDATE_SITE_UNITS),
       map(action => action.payload),
       switchMap(payload => this.service.updateSiteData(payload.id, payload)
         .pipe(
           switchMap(() => {
             this.router.navigate(['/publisher', 'site', payload.id])
             return [
-              new publisherActions.ClearLastEditedSite(),
-              new publisherActions.UpdateSiteUnitsSuccess(),
-              new publisherActions.LoadSite(payload.id),
+              new ClearLastEditedSite(),
+              new UpdateSiteUnitsSuccess(),
+              new LoadSite(payload.id),
             ]
           }),
-          catchError(() => observableOf(new publisherActions.UpdateSiteUnitsFailure()))
+          catchError(() => observableOf(new UpdateSiteUnitsFailure()))
         )
       )
     )
@@ -199,16 +227,16 @@ export class PublisherEffects {
   @Effect()
   updateSiteStatus$ = this.actions$
     .pipe(
-      ofType<UpdateSiteStatus>(publisherActions.UPDATE_SITE_STATUS),
+      ofType<UpdateSiteStatus>(UPDATE_SITE_STATUS),
       map(action => action.payload),
       switchMap(payload => this.service.updateSiteData(payload.id, payload)
         .pipe(
           switchMap(() => [
-              new publisherActions.UpdateSiteStatusSuccess(payload),
+              new UpdateSiteStatusSuccess(payload),
               new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
             ]
           ),
-          catchError(() => observableOf(new publisherActions.UpdateSiteStatusFailure()))
+          catchError(() => observableOf(new UpdateSiteStatusFailure()))
         )
       )
     )

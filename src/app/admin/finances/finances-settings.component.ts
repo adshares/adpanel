@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
-import { LoadAdminWallet, SetAdminSettings, SetAdminSettingsFailure } from 'store/admin/admin.actions';
+import { LoadAdminWallet, SetAdminSettings } from 'store/admin/admin.actions';
+import { ShowDialogOnError } from 'store/common/common.actions';
 import { AdminSettings, AdminWallet } from 'models/settings.model';
 import { environment } from 'environments/environment';
 import { CODE, CRYPTO } from 'common/utilities/consts';
@@ -74,7 +75,7 @@ export class FinancesSettingsComponent extends HandleSubscription implements OnI
 
   saveSettings(): void {
     if (this.settings.hotwalletMinValue > this.settings.hotwalletMaxValue) {
-      this.store.dispatch(new SetAdminSettingsFailure(
+      this.store.dispatch(new ShowDialogOnError(
         'Maximal threshold value cannot be smaller than a minimal.'
       ));
       return;

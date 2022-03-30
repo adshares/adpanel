@@ -6,7 +6,6 @@ import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
 import {
   CANCEL_AWAITING_TRANSACTION,
   CancelAwaitingTransaction,
-  CancelAwaitingTransactionFailure,
   CancelAwaitingTransactionSuccess,
   GET_BILLING_HISTORY,
   GET_CURRENT_BALANCE,
@@ -22,7 +21,7 @@ import {
 import { SettingsService } from 'settings/settings.service'
 import { ApiAuthService } from '../../api/auth.service'
 import { Action } from '@ngrx/store/store'
-import { ShowSuccessSnackbar } from 'store/common/common.actions'
+import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions'
 import { TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 import { CommonService } from 'common/common.service'
 
@@ -77,7 +76,7 @@ export class SettingsEffects {
             new CancelAwaitingTransactionSuccess(),
             new ShowSuccessSnackbar(TRANSACTION_DELETE_SUCCESS),
           ]),
-          catchError(error => observableOf(new CancelAwaitingTransactionFailure(error.error.message || ''))
+          catchError(error => observableOf(new ShowDialogOnError(error.error.message || ''))
           )
         )
       )

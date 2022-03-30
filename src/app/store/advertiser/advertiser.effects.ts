@@ -12,7 +12,6 @@ import {
   ActivateOutdatedCampaignStatusSuccess,
   ADD_CAMPAIGN_TO_CAMPAIGNS,
   AddCampaignToCampaigns,
-  AddCampaignToCampaignsFailure,
   AddCampaignToCampaignsSuccess,
   ClearLastEditedCampaign,
   CLONE_CAMPAIGN,
@@ -21,7 +20,6 @@ import {
   CloneCampaignSuccess,
   DELETE_CAMPAIGN,
   DeleteCampaign,
-  DeleteCampaignFailure,
   DeleteCampaignSuccess,
   LOAD_CAMPAIGN,
   LOAD_CAMPAIGN_TOTALS,
@@ -53,7 +51,7 @@ import {
   UpdateCampaignStatusSuccess,
   UpdateCampaignSuccess,
 } from './advertiser.actions'
-import { ShowSuccessSnackbar } from '../common/common.actions'
+import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import * as moment from 'moment'
 import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
 import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
@@ -220,7 +218,7 @@ export class AdvertiserEffects {
             ]
           }),
           catchError(error => observableOf(
-            new AddCampaignToCampaignsFailure(
+            new ShowDialogOnError(
               error.error && error.error.message || `Error code: ${error.status}`
             )
           ))
@@ -417,11 +415,9 @@ export class AdvertiserEffects {
             this.router.navigate(['/advertiser', 'dashboard'])
             return new DeleteCampaignSuccess(payload)
           }),
-          catchError(() => {
-            return observableOf(new DeleteCampaignFailure(
-              `Given campaign cannot be deleted at this moment. Please try again later.`)
-            )
-          })
+          catchError(() => observableOf(
+            new ShowDialogOnError(`Given campaign cannot be deleted at this moment. Please try again later.`)
+          ))
         )
       )
     )

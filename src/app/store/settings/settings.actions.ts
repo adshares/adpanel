@@ -15,7 +15,6 @@ export const GET_CURRENT_BALANCE_FAILURE = 'Get current balance failure';
 
 export const CANCEL_AWAITING_TRANSACTION = 'Cancel awaiting transaction';
 export const CANCEL_AWAITING_TRANSACTION_SUCCESS = 'Cancel awaiting transaction success';
-export const CANCEL_AWAITING_TRANSACTION_FAILURE = 'Cancel awaiting transaction failure';
 
 export const GET_BILLING_HISTORY = 'Get billing history';
 export const GET_BILLING_HISTORY_SUCCESS = 'Get billing history success';
@@ -83,13 +82,6 @@ export class CancelAwaitingTransactionSuccess implements Action {
   }
 }
 
-export class CancelAwaitingTransactionFailure implements Action {
-  readonly type: string = CANCEL_AWAITING_TRANSACTION_FAILURE;
-
-  constructor(public payload: string) {
-  }
-}
-
 export class GetBillingHistory implements Action {
   readonly type: string = GET_BILLING_HISTORY;
 
@@ -147,7 +139,6 @@ export type actions = LoadNotificationsSettings
   | GetCurrentBalanceFailure
   | CancelAwaitingTransaction
   | CancelAwaitingTransactionSuccess
-  | CancelAwaitingTransactionFailure
   | GetBillingHistory
   | GetBillingHistorySuccess
   | GetBillingHistoryFailure
