@@ -9,18 +9,18 @@ env:
     - DEV_XDEBUG="false"
     - APP_VERSION="travis"
     - CONTEXT_INFO="travis"
+    - NODE_OPTIONS="--max_old_space_size=4096"
 
 jobs:
   include:
 #    - install: true
 #      script: sonar-scanner
 #
-    - env: APP_ENV=prod APP_PROD=true APP_NAME=Adpanel APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$ NODE_OPTIONS="--max_old_space_size=4096"
+    - env: APP_ENV=prod APP_PROD=true APP_NAME=Adpanel APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$
       before_script:
-        - echo "$NODE_OPTIONS"
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
-        - yarn build --configuration ${APP_ENV}
+        - yarn build --configuration=${APP_ENV}
 
 addons:
   sonarcloud:
