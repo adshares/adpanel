@@ -128,7 +128,7 @@ export class EmailProcessingComponent {
   confirmWithdrawal() {
     this.api.users.confirmWithdrawal(this.token)
       .subscribe(
-        (user) => {
+        () => {
           this.router.navigate(['/settings/billing'])
           this.dialogConfirm('Withdrawal confirmed', 'You should see the transaction in your account history.');
         },
@@ -184,7 +184,7 @@ export class EmailProcessingComponent {
   confirmConnection() {
     this.settings.confirmConnectWallet(this.token)
     .subscribe(
-      (user) => {
+      () => {
         this.router.navigate(['/settings/general'])
         this.dialogConfirm('Connection confirmed', 'Your cryptocurrency wallet has been successfully connected.');
       },

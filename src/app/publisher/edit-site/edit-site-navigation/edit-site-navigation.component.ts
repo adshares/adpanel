@@ -11,7 +11,7 @@ export class EditSiteNavigationComponent implements OnChanges {
   @Input() currentStep: number
   @Input() medium: string
 
-  ngOnChanges (changes: SimpleChanges): void {
+  ngOnChanges (_changes: SimpleChanges): void {
     if (this.medium !== 'metaverse') {
       this.steps = [
         {id: 1, name: 'Basic information'},

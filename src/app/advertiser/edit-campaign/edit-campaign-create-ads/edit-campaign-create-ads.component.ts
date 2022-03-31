@@ -436,8 +436,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adsSubmitted = true;
     this.changesSaved = true;
 
-    this.adForms.forEach((adForm) => adForm.updateValueAndValidity());
-    this.adForms.forEach((form, index) => this.updateAdInfo(index));
+    this.adForms.forEach((adForm, index) => {
+      adForm.updateValueAndValidity()
+      this.updateAdInfo(index)
+    });
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);

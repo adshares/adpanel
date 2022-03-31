@@ -49,7 +49,7 @@ export class SiteListComponent extends HandleSubscription {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (this.tableNavigationRef) {
       this.tableNavigationRef.refresh();
     }
