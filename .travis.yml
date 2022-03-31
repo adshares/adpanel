@@ -15,9 +15,9 @@ jobs:
 #    - install: true
 #      script: sonar-scanner
 #
-    - env: APP_ENV=prod APP_PROD=true APP_NAME=Adpanel APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$ NODE_OPTIONS="-–max_old_space_size=8192"
+    - env: APP_ENV=prod APP_PROD=true APP_NAME=Adpanel APP_CURRENCY_CODE=USD APP_CURRENCY_SYMBOL=\$
       before_script:
-        - node --version
+        - export NODE_OPTIONS="-–max_old_space_size=8192"
         - echo "$NODE_OPTIONS"
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
