@@ -50,14 +50,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     const infoSubscription = this.store.select('state', 'common', 'info').
       subscribe((info: Info) => {
         this.registrationMode = info.registrationMode
       })
     this.subscriptions.push(infoSubscription)
     this.createForm()
-    // SMELL: this should be elsewhere anyway (?)
+
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
       this.navigateToDashboard(user)
@@ -72,7 +72,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.ethereumAvailable = typeof (window as any).ethereum !== 'undefined'
   }
 
-  createForm () {
+  createForm (): void {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('',
@@ -80,7 +80,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     })
   }
 
-  checkIfUserRemembered () {
+  checkIfUserRemembered (): void {
     const userData = JSON.parse(localStorage.getItem('adshUser'))
 
     if (userData && userData.remember &&
@@ -90,7 +90,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  login () {
+  login (): void {
     this.loginFormSubmitted = true
 
     if (!this.loginForm.valid) {
@@ -112,7 +112,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       })
   }
 
-  redirectAfterLogin (user: User) {
+  redirectAfterLogin (user: User): void {
     const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
     if (user.isAdmin) {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
@@ -150,7 +150,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.navigateToDashboard(user)
   }
 
-  navigateToDashboard (user: User) {
+  navigateToDashboard (user: User): void {
     let accountType = this.session.getAccountTypeChoice()
 
     if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
@@ -202,8 +202,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  processLogin (user: User) {
-    const rememberUser = false//this.rememberUser.nativeElement.checked;
+  processLogin (user: User): void {
+    const rememberUser = false
     const expirationSeconds = rememberUser
       ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS
       : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS
@@ -218,7 +218,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.redirectAfterLogin(user)
   }
 
-  private storeReferralTokenIfPresent () {
+  private storeReferralTokenIfPresent (): void {
     this.route.queryParams.subscribe(params => {
       const referralToken = params['r']
       if (referralToken) {
@@ -227,11 +227,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     })
   }
 
-  private navigateByUrl (url: string) {
+  private navigateByUrl (url: string): void {
     this.router.navigateByUrl(url).catch(e => console.error(e))
   }
 
-  setWalletLoginStatus (submitted: boolean, network: string | null = null, error: string | null = null) {
+  setWalletLoginStatus (submitted: boolean, network: string | null = null, error: string | null = null): void {
     this.walletLoginError = error
     if (null === network || 'ADS' === network) {
       this.isAdsLoggingIn = submitted
@@ -241,7 +241,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  initWalletLogin (network: string) {
+  initWalletLogin (network: string): void {
     this.setWalletLoginStatus(true, network)
     this.api.auth.initWalletLogin().subscribe(
       token => {
@@ -259,7 +259,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     )
   }
 
-  walletLoginAds (token: WalletToken) {
+  walletLoginAds (token: WalletToken): void {
     const adsWallet = new AdsWallet()
     adsWallet.authenticate(token.message).then(response => {
       if (response.status !== 'accepted') {
@@ -274,7 +274,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     })
   }
 
-  walletLoginBsc (token: WalletToken) {
+  walletLoginBsc (token: WalletToken): void {
     const ethereum = (window as any).ethereum
     ethereum.request({ method: 'eth_requestAccounts' }).then(
       accounts => {
@@ -292,7 +292,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       })
   }
 
-  walletLogin (network: string, address: string, token: string, signature: string) {
+  walletLogin (network: string, address: string, token: string, signature: string): void {
     this.api.auth.walletLogin(network, address, token, signature).subscribe(
       user => {
         this.processLogin(user)
