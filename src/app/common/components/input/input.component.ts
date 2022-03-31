@@ -23,9 +23,6 @@ export class InputComponent {
   @Output() valueChanged = new Subject<any>();
   questionMarkIcon = faQuestionCircle;
 
-  constructor() {
-  }
-
   updateValue(newValue: any): void {
     this.valueChanged.next(newValue);
   }

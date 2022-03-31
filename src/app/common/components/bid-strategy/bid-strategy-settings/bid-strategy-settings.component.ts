@@ -49,7 +49,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isAdmin = this.sessionService.isAdmin();
 
     observableForkJoin([
@@ -124,12 +124,12 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   onBidStrategySelect(): void {
     this.isLoading = true;
 
-    const bidStrategy = this.bidStrategies.find((bidStrategy) => this.bidStrategyUuidSelected === bidStrategy.uuid);
+    const bidStrategy = this.bidStrategies.find(item => this.bidStrategyUuidSelected === item.uuid);
     if (bidStrategy) {
       const temporaryEntries = cloneDeep(this.availableEntries);
 
-      bidStrategy.details.forEach((detail) => {
-        const index = temporaryEntries.findIndex((entry) => entry.key === detail.category);
+      bidStrategy.details.forEach(detail => {
+        const index = temporaryEntries.findIndex(entry => entry.key === detail.category);
         if (index >= 0) {
           temporaryEntries[index].value = Math.round(detail.rank * 100);
         }
@@ -186,7 +186,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
-        const definedBidStrategy = this.bidStrategies.find((bidStrategy) => this.bidStrategyUuidSelected === bidStrategy.uuid);
+        const definedBidStrategy = this.bidStrategies.find(item => this.bidStrategyUuidSelected === item.uuid);
         definedBidStrategy.name = bidStrategy.name;
         definedBidStrategy.details = bidStrategy.details;
       },

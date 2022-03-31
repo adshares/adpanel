@@ -232,18 +232,16 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   getFormDataFromStore(): void {
     this.store.dispatch(new LoadCampaignsConfig());
 
-    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
-      }, () => {
       });
 
-    let configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+    const configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
       .subscribe((config: CampaignsConfig) => {
         this.campaignsConfig = config;
         this.adjustConversionData(this.campaign.conversions);
-      }, () => {
       });
 
     this.subscriptions.push(subscription, configSubscription);

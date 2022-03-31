@@ -48,7 +48,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const handleHistoryUpdate = this.action$
       .pipe(ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS))
       .subscribe(() => this.getBillingHistory());
@@ -65,7 +65,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
       });
     this.subscriptions.push(dataSubscription);
     this.getBillingHistory();
-  };
+  }
 
   getBillingHistory(limit?: number, offset?: number): void {
     this.showLoader = true;

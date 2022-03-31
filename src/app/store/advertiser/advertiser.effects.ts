@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { AdvertiserService } from 'advertiser/advertiser.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { MatDialog } from '@angular/material'
-import { from, of as observableOf } from 'rxjs'
+import { from as observableFrom, of as observableOf } from 'rxjs'
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators'
 import {
   ACTIVATE_OUTDATED_CAMPAIGN,
@@ -94,7 +94,7 @@ export class AdvertiserEffects {
                 }
               }
             })
-            return from([
+            return observableFrom([
               new LoadCampaignsSuccess(campaigns),
               new LoadCampaignsConfig(),
               new LoadCampaignsTotals({
@@ -140,7 +140,7 @@ export class AdvertiserEffects {
                 status: adjustCampaignStatus(payload.campaign.basicInformation, this.currentDate)
               }
             }
-            return from([
+            return observableFrom([
               new LoadCampaignSuccess(campaign),
               new LoadCampaignsConfig(),
             ])
