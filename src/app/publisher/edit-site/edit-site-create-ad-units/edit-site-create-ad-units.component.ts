@@ -46,7 +46,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.DISPLAY);
 

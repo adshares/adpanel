@@ -1,5 +1,6 @@
 export enum adUnitTypesEnum {
   DISPLAY = 'display',
+  MODEL ='model',
   POP = 'pop',
 }
 
