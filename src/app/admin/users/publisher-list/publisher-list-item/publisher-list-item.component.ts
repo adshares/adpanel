@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { Router } from '@angular/router';
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router'
+import { take } from 'rxjs/operators'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { AdminSettings, PublisherInfo } from 'models/settings.model'
-import { AdminService } from 'admin/admin.service';
-import { ImpersonationService } from '../../../../impersonation/impersonation.service';
-import { SessionService } from '../../../../session.service';
+import { AdminService } from 'admin/admin.service'
+import { ImpersonationService } from '../../../../impersonation/impersonation.service'
+import { SessionService } from '../../../../session.service'
 import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
@@ -31,11 +32,12 @@ export class PublisherListItemComponent implements OnInit {
     this.loggedUser = sessionService.getUser()
   }
 
-  ngOnInit () {
-    this.store.select('state', 'admin',
-      'settings').take(1).subscribe((settings: AdminSettings) => {
-      this.settings = settings
-    })
+  ngOnInit (): void {
+    this.store.select('state', 'admin', 'settings')
+      .pipe(take(1))
+      .subscribe((settings: AdminSettings) => {
+        this.settings = settings
+      })
   }
 
   canImpersonate (userId: number): boolean {

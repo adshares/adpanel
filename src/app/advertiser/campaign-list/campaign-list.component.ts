@@ -25,17 +25,17 @@ export class CampaignListComponent {
   ) {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(_changes: SimpleChanges): void {
     if (this.tableNavigationRef) {
       this.tableNavigationRef.refresh();
     }
   }
 
-  sortTable(event: TableSortEvent) {
+  sortTable(event: TableSortEvent): void {
     this.campaigns = sortArrayByKeys(this.campaigns, event.keys, event.sortDesc);
   }
 
-  navigateToCreateCampaign() {
+  navigateToCreateCampaign(): void {
     this.router.navigate(['advertiser', 'create-campaign', 'basic-information']);
   }
 }

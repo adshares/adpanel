@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { BidStrategy, Campaign, CampaignsConfig } from 'models/campaign.model';
 import {
@@ -63,7 +64,7 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
 
   getCampaignFromStore(): void {
     const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .first()
+      .pipe(first())
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
         const bidStrategyUuid = this.campaign.bidStrategy.uuid;
@@ -90,10 +91,13 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
     };
     this.store.dispatch(new SaveConversion(this.campaign));
 
-    this.action$.ofType(
-      UPDATE_CAMPAIGN_SUCCESS,
-      UPDATE_CAMPAIGN_FAILURE
-    ).first().subscribe((action) => {
+    this.action$.pipe(
+      ofType(
+        UPDATE_CAMPAIGN_SUCCESS,
+        UPDATE_CAMPAIGN_FAILURE
+      ),
+      first()
+    ).subscribe(action => {
       this.submitted = false;
       if (UPDATE_CAMPAIGN_SUCCESS === action.type) {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));

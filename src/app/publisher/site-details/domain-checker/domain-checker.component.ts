@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { SiteRank } from 'models/site.model';
 import { pageRankInfoEnum } from 'models/enum/site.enum'
 
@@ -27,7 +28,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   ngOnInit(): void {
     const domainCheckSubscription = timer(0, DomainCheckerComponent.UPDATE_INTERVAL)
-      .switchMap(() => this.publisherService.getSiteRank(this.siteId))
+      .pipe(switchMap(() => this.publisherService.getSiteRank(this.siteId)))
       .subscribe(
         (response: SiteRank) => {
           this.updateMessage(response.rank || 0, response.info || pageRankInfoEnum.UNKNOWN);
@@ -51,7 +52,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
 
   cpmQuality(): string {
     if (this.inVerification) {
-      return  'medium';
+      return 'medium';
     }
 
     let quality;

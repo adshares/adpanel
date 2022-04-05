@@ -47,8 +47,9 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-chip-list-wrapper {
+  align-items: flex-start !important;
   flex-direction: column !important;
-  margin-right: 8px;
+  margin: 0 8px 0 0 !important;
 }
 
 .mat-chip:not(.mat-basic-chip) {
@@ -62,7 +63,6 @@ mat-chip:not(.mat-basic-chip) {
 .targeting-custom-option__chip-list-wrapper {
   .mat-chip-list-wrapper {
     flex-direction: row !important;
-    margin-right: 8px;
   }
   .mat-form-field {
     width: calc(100% - 30px);

@@ -19,7 +19,7 @@ export class ModeratorGuard implements CanActivate {
   }
 
   canActivate (
-    route: ActivatedRouteSnapshot,
+    _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.session.isModerator()) {

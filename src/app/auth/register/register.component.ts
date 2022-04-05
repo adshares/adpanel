@@ -16,7 +16,8 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
 import { CommonService } from 'common/common.service'
-import { Observable } from 'rxjs'
+import { of as observableOf, forkJoin as observableForkJoin } from 'rxjs'
+import { take, switchMap } from 'rxjs/operators'
 import { RefLinkInfo } from 'models/settings.model'
 import { Info } from 'models/info.model'
 
@@ -49,14 +50,14 @@ export class RegisterComponent extends HandleSubscription {
   }
 
   ngOnInit () {
-    this.activatedRoute.params.switchMap((params) => {
-      return Observable.forkJoin(
-        this.store.select('state', 'common', 'info').take(1),
+    this.activatedRoute.params.pipe(switchMap((params) => {
+      return observableForkJoin([
+        this.store.select('state', 'common', 'info').pipe(take(1)),
         params['token']
           ? this.common.getRefLinkInfo(params['token'])
-          : Observable.of(null)
-      )
-    }).subscribe(
+          : observableOf(null)
+      ])
+    })).subscribe(
       (responses: [Info, RefLinkInfo]) => {
         this.registrationMode = responses[0].registrationMode
         this.refLinkInfo = responses[1]

@@ -13,7 +13,6 @@ export const SAVE_CONVERSION = 'Save conversion';
 
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
-export const ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE = 'Campaign added to user campaigns failure';
 
 export const LOAD_CAMPAIGNS = 'Campaigns loading';
 export const LOAD_CAMPAIGNS_SUCCESS = 'Campaigns loading success';
@@ -55,7 +54,6 @@ export const CLONE_CAMPAIGN_FAILURE = 'Clone campaign failure';
 
 export const DELETE_CAMPAIGN = 'Delete campaign';
 export const DELETE_CAMPAIGN_SUCCESS = 'Delete campaign success';
-export const DELETE_CAMPAIGN_FAILURE = 'Delete campaign failure';
 
 export class ClearLastEditedCampaign implements Action {
   readonly type = CLEAR_LAST_EDITED_CAMPAIGN;
@@ -159,13 +157,6 @@ export class AddCampaignToCampaignsSuccess implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS;
 
   constructor(public payload: Campaign) {
-  }
-}
-
-export class AddCampaignToCampaignsFailure implements Action {
-  readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_FAILURE;
-
-  constructor(public payload?: any) {
   }
 }
 
@@ -330,13 +321,6 @@ export class DeleteCampaignSuccess implements Action {
   }
 }
 
-export class DeleteCampaignFailure implements Action {
-  readonly type: string = DELETE_CAMPAIGN_FAILURE;
-
-  constructor(public payload?: any) {
-  }
-}
-
 export type actions =
   ClearLastEditedCampaign |
   SetLastEditedCampaign |
@@ -346,7 +330,6 @@ export type actions =
   SaveConversion |
 
   AddCampaignToCampaigns |
-  AddCampaignToCampaignsFailure |
   AddCampaignToCampaignsSuccess |
 
   LoadCampaigns |
@@ -377,7 +360,6 @@ export type actions =
 
   DeleteCampaign |
   DeleteCampaignSuccess |
-  DeleteCampaignFailure |
 
   UpdateCampaignStatus |
   UpdateCampaignStatusSuccess |

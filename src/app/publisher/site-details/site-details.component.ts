@@ -26,7 +26,8 @@ import { TableSortEvent } from 'models/table.model';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
 import { appSettings } from 'app-settings';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 
@@ -99,7 +100,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
 
     this.store.select('state', 'common', 'chartFilterSettings')
-      .take(1)
+      .pipe(take(1))
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.getChartData(chartFilterSettings, this.site.id);
       });
@@ -201,7 +202,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         'sites',
         siteId
       )
-      .take(1)
+      .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;

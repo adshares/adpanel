@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import {
@@ -13,7 +14,6 @@ import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { NavigationStart, Router } from '@angular/router';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
-import { Subscription } from 'rxjs';
 import { AppState } from 'models/app-state.model';
 import { Media, Medium } from 'models/taxonomy-medium.model'
 import { campaignInitialState } from 'models/initial-state/campaign'
@@ -131,7 +131,7 @@ export class AdvertiserService {
 
   cleanEditedCampaignOnRouteChange(shouldSubscribe: boolean): Subscription {
     return shouldSubscribe && this.router.events
-      .filter(event => event instanceof NavigationStart)
+      .pipe(filter(event => event instanceof NavigationStart))
       .subscribe(() => this.store.dispatch(new ClearLastEditedCampaign()));
   }
 }

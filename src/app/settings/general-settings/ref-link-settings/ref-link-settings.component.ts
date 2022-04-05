@@ -30,7 +30,7 @@ export class RefLinkSettingsComponent extends HandleSubscription implements OnIn
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const user = this.session.getUser();
     this.isImpersonated = this.session.isImpersonated();
     this.refundEnabled = user.referralRefundEnabled;
@@ -51,6 +51,6 @@ export class RefLinkSettingsComponent extends HandleSubscription implements OnIn
 
   create(): void {
     const dialog = this.dialog.open(RefLinkEditorDialogComponent, {});
-    dialog.componentInstance.refLinkSaved.subscribe(refLink => this.getRefLinks())
+    dialog.componentInstance.refLinkSaved.subscribe(_refLink => this.getRefLinks())
   }
 }

@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignBasicInformation, CampaignsConfig } from 'models/campaign.model';
@@ -244,7 +245,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
 
   onMediumChange (medium: string): void {
     const subscription = this.advertiserService.getMediumVendors(medium)
-      .take(1)
+      .pipe(take(1))
       .subscribe(vendors => {
         this.vendors = mapToIterable(vendors)
         if (this.createCampaignMode) {

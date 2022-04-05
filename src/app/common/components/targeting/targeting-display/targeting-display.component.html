@@ -13,7 +13,7 @@
       <mat-chip
         *ngFor="let targetingItem of groupedTargeting.chosenTargeting"
         [ngClass]="{'hide-remove': !canRemove}"
-        (remove)="removeItem(targetingItem.id)"
+        (removed)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item"
       >
         <p class="dwmth-copy dwmth-copy--x-dark dwmth-copy--semi">

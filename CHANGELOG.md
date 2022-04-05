@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.16.0] - 2022-04-05
+### Added
+- 3d models upload and preview
+### Changed
+- Angular 6
+
 ## [1.15.0] - 2022-03-23
 ### Added
 - Cookie3 support
@@ -383,7 +389,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.15.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.16.0...develop
+[1.16.0]: https://github.com/adshares/adpanel/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/adshares/adpanel/compare/v1.14.1...v1.15.0
 [1.14.1]: https://github.com/adshares/adpanel/compare/v1.14.0...v1.14.1
 [1.14.0]: https://github.com/adshares/adpanel/compare/v1.13.2...v1.14.0

@@ -9,6 +9,7 @@ env:
     - DEV_XDEBUG="false"
     - APP_VERSION="travis"
     - CONTEXT_INFO="travis"
+    - NODE_OPTIONS="--max_old_space_size=4096"
 
 jobs:
   include:
@@ -19,7 +20,7 @@ jobs:
       before_script:
         - envsubst < src/environments/environment.ts.template > src/environments/environment.${APP_ENV}.ts
       script:
-        - yarn build --environment ${APP_ENV}
+        - yarn build --configuration=${APP_ENV}
 
 addons:
   sonarcloud:

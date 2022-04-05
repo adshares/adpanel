@@ -1,5 +1,8 @@
-<div class="banner-preview">
-  <ng-container *ngIf="isImage">
+<div
+  [ngSwitch]="type"
+  class="banner-preview"
+>
+  <ng-container *ngSwitchCase="adCreativeTypes.IMAGE">
     <img
       [src]="url"
       [style.max-width.px]="maxWidth"
@@ -7,7 +10,7 @@
       class="banner-preview__banner"
     />
   </ng-container>
-  <ng-container *ngIf="isVideo">
+  <ng-container *ngSwitchCase="adCreativeTypes.VIDEO">
     <video
       autoplay
       loop
@@ -19,22 +22,31 @@
       Sorry, your browser doesn't support embedded videos.
     </video>
   </ng-container>
-  <ng-container *ngIf="showIframe && isHtml">
-    <iframe
-      [src]="url | trustUrl"
-      sandbox="allow-same-origin allow-scripts"
-      title="Ad Preview"
-      scrolling="no"
-      [ngStyle]="{
-        'width': bannerChosenSize.width,
-        'height': bannerChosenSize.height,
-        'overflow': 'hidden',
-        'transform': 'scale(' + scale + ')',
-        'transform-origin': 'left'
-      }"
-    ></iframe>
+  <ng-container *ngSwitchCase="adCreativeTypes.MODEL">
+    <div class="square-preview">
+      <app-model-preview
+        [modelUrl]="url"
+      ></app-model-preview>
+    </div>
   </ng-container>
-  <ng-container *ngIf="isDirectLink">
+  <ng-container *ngSwitchCase="adCreativeTypes.HTML">
+    <ng-container *ngIf="showIframe">
+      <iframe
+        [src]="url | trustUrl"
+        sandbox="allow-same-origin allow-scripts"
+        title="Ad Preview"
+        scrolling="no"
+        [ngStyle]="{
+          'width': bannerChosenSize.width,
+          'height': bannerChosenSize.height,
+          'overflow': 'hidden',
+          'transform': 'scale(' + scale + ')',
+          'transform-origin': 'left'
+        }"
+      ></iframe>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngSwitchCase="adCreativeTypes.DIRECT">
     <div
       [style.width.px]="maxWidth"
       class="banner-preview__direct"
@@ -47,20 +59,22 @@
       ><code>{{ url }}</code></a>
     </div>
   </ng-container>
-  <ng-container *ngIf="isLoading">
-    <div class="row
-                justify-center">
-      <mat-spinner [diameter]="30" [strokeWidth]="2" color="#55a8fd"></mat-spinner>
-    </div>
-  </ng-container>
+
   <div
+    *ngIf="isLoading"
+    class="row justify-center"
+  >
+    <mat-spinner [diameter]="30" [strokeWidth]="2" color="#55a8fd"></mat-spinner>
+  </div>
+  <div
+    *ngIf="!showIframe && !isLoading"
     class="error-msg"
-    *ngIf="!showIframe && !isLoading">
+  >
     Content not available
   </div>
 
   <div
-    *ngIf="isImage || isVideo || (showIframe && isHtml)"
+    *ngIf="isZoomAvailable"
     [style.width.px]="maxWidth"
     (click)="zoomIn()"
     class="banner-preview__overlay"

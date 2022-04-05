@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { SettingsService } from 'settings/settings.service';
@@ -31,7 +32,7 @@ export class NewsletterSettingsComponent extends HandleSubscription implements O
 
   ngOnInit() {
     this.store.select('state', 'user', 'data')
-      .take(1)
+      .pipe(take(1))
       .subscribe((user: User) => {
         this.isSubscribed = user.isSubscribed;
         this.isSettingDisabled = false;

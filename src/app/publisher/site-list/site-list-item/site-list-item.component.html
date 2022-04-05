@@ -23,7 +23,7 @@
       <div class="status-wrapper__list-item">
         <mat-select #statusSelect
                     [value]=" "
-                    (change)="onSiteStatusChange($event)"
+                    (selectionChange)="onSiteStatusChange($event.value)"
                     data-test="publisher-site-status-select"
         >
           <mat-option

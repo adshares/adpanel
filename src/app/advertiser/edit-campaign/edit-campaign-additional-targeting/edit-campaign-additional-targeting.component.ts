@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import 'rxjs/add/operator/first';
+import { filter, first, take } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import {
@@ -143,8 +143,10 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
 
   loadMaxCpmAndTargetingFromStore(): void {
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .filter(campaign => campaign.targetingArray !== undefined)
-      .first()
+      .pipe(
+        filter(campaign => campaign.targetingArray !== undefined),
+        first()
+      )
       .subscribe((lastEditedCampaign: Campaign) => {
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedCampaign);
         this.campaign = lastEditedCampaign;
@@ -165,7 +167,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
       const maxCpm = parseFloat(formatMoney(lastEditedCampaign.basicInformation.maxCpm, 4, true, '.', ''));
 
       const campaignsConfigSubscription = this.store.select('state', 'advertiser', 'campaignsConfig', 'minCpm')
-        .take(1)
+        .pipe(take(1))
         .subscribe((minCpm: number) => {
           this.configuredMinCpm = minCpm;
           this.campaignBasicInfoForm = new FormGroup({
@@ -180,7 +182,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
 
   private updateTargeting (campaign: Campaign): void {
     const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
-      .take(1)
+      .pipe(take(1))
       .subscribe(medium => {
         this.targetingOptionsToAdd = processTargeting(medium);
         this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd);

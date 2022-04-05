@@ -37,7 +37,7 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
     this.subscriptions.push(adminStoreSettingsSubscription)
   }
 
-  updateSettings (value: number, key: string): void {
+  updateSettings (value: number | string, key: string): void {
     this.settings = {
       ...this.settings,
       [key]: value,

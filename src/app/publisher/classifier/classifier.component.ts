@@ -8,7 +8,6 @@ import {
   BannerClassificationFilters,
   BannerClassificationResponse
 } from 'models/classifier.model';
-import { TableSortEvent } from 'models/table.model';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
@@ -94,10 +93,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.subscriptions.push(bannersForClassificationSubscription);
   }
 
-  sortTable(event: TableSortEvent) {
-  }
-
-  onStepBack() {
+  onStepBack(): void {
     if (this.isGlobal) {
       this.router.navigate(['/publisher', 'dashboard'])
     } else {
@@ -105,7 +101,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     }
   }
 
-  goToGeneralClassifier() {
+  goToGeneralClassifier(): void {
     this.router.navigate(['/publisher', 'classifier']);
   }
 

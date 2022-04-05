@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Actions } from '@ngrx/effects'
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
-import { map, startWith } from 'rxjs/operators'
+import { take, first, map, startWith } from 'rxjs/operators'
 import { AppState } from 'models/app-state.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions'
@@ -73,10 +73,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   ngOnInit (): void {
     this.media = mapToIterable(this.route.snapshot.data.media)
-    const updateSiteFailureSubscription = this.action$.ofType(UPDATE_SITE_FAILURE).subscribe(() => {
-      this.changesSaving = false
-      this.store.dispatch(new ShowDialogOnError(''))
-    })
+    const updateSiteFailureSubscription = this.action$
+      .pipe(ofType(UPDATE_SITE_FAILURE))
+      .subscribe(() => {
+        this.changesSaving = false
+        this.store.dispatch(new ShowDialogOnError(''))
+      })
     this.subscriptions.push(updateSiteFailureSubscription)
     this.createSiteMode = !!this.router.url.match('/create-site/')
     if (this.createSiteMode) {
@@ -106,9 +108,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   getLanguages (): void {
-    const languageListSubscription = this.store.select('state', 'publisher', 'languagesList').
-      first().
-      subscribe((languagesList) => {
+    const languageListSubscription = this.store.select('state', 'publisher', 'languagesList')
+      .pipe(first())
+      .subscribe((languagesList) => {
         this.languages = languagesList
       })
     this.subscriptions.push(languageListSubscription)
@@ -239,9 +241,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   getFormDataFromStore (): void {
-    const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite').
-      take(1).
-      subscribe((lastEditedSite) => {
+    const lastEditedSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+      .pipe(take(1))
+      .subscribe((lastEditedSite) => {
         this.site = cloneDeep(lastEditedSite)
         this.site.primaryLanguage = lastEditedSite.primaryLanguage ?
           this.getSiteInitialLanguage(lastEditedSite.primaryLanguage) :
@@ -314,7 +316,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   onMediumChange (medium: string): void {
-    const subscription = this.publisherService.getMediumVendors(medium).take(1).subscribe(vendors => {
+    const subscription = this.publisherService.getMediumVendors(medium)
+      .pipe(take(1))
+      .subscribe(vendors => {
       this.vendors = mapToIterable(vendors)
       if (this.createSiteMode) {
         const vendor = this.vendors.length > 0 ? this.vendors[0].key : null

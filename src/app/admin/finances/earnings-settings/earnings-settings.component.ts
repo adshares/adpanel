@@ -1,4 +1,4 @@
-import { Component, Input,  Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Subject } from "rxjs";
 
 @Component({
@@ -7,11 +7,11 @@ import { Subject } from "rxjs";
   styleUrls: ['./earnings-settings.component.scss'],
   host: {'class': 'app-finances-settings'},
 })
-export class EarningsSettingsComponent  {
+export class EarningsSettingsComponent {
   @Input() title: string;
   @Input() desc: string;
-  @Input() min: string;
-  @Input() max: string;
+  @Input() min: number;
+  @Input() max: number;
   @Input() step: number;
   @Input() format: string;
   @Input() value: number;

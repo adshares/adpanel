@@ -1,10 +1,12 @@
 import { Component } from '@angular/core'
 import AdsWallet from '@adshares/ads-connector'
 import { MatDialog } from '@angular/material'
+import { take } from 'rxjs/operators'
 import { UserAdserverWallet } from 'models/user.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
+import { ADSHARES_WALLET } from 'models/enum/link.enum'
 import { SettingsService } from 'settings/settings.service'
 import { WalletToken } from 'models/settings.model'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
@@ -17,6 +19,7 @@ import { SessionService } from '../../../session.service'
   styleUrls: ['./account-wallet-settings.component.scss'],
 })
 export class AccountWalletSettingsComponent extends HandleSubscription {
+  readonly ADSHARES_WALLET = ADSHARES_WALLET
   wallet: UserAdserverWallet
   connectError: string | null
   isSubmitted: boolean = false
@@ -33,9 +36,10 @@ export class AccountWalletSettingsComponent extends HandleSubscription {
     super()
   }
 
-  ngOnInit () {
-    this.store.select('state', 'user', 'data', 'adserverWallet').take(2).
-      subscribe((wallet: UserAdserverWallet) => {
+  ngOnInit (): void {
+    this.store.select('state', 'user', 'data', 'adserverWallet')
+      .pipe(take(2))
+      .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet
       })
     this.isImpersonated = this.session.isImpersonated()
