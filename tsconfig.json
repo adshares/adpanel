@@ -31,12 +31,7 @@
         "auth/*": [ "app/auth/*" ],
         "advertiser/*": [ "app/advertiser/*" ],
         "publisher/*": [ "app/publisher/*" ],
-        "settings/*": [ "app/settings/*" ],
-        "crypto": [ "../node_modules/crypto-browserify" ],
-        "http": [ "../node_modules/http-browserify" ],
-        "https": [ "../node_modules/https-browserify" ],
-        "os": [ "../node_modules/os-browserify" ],
-        "stream": [ "../node_modules/stream-browserify" ]
+        "settings/*": [ "app/settings/*" ]
     },
     "module": "es2015"
   }
