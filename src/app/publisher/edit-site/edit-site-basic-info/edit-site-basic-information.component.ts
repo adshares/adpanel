@@ -12,20 +12,14 @@ import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publi
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers'
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
-import { ADD_UNIT_CRYPTOVOXELS, ADD_UNIT_DECENTRALAND, ADD_UNIT_DECENTRALAND_SMART } from 'models/enum/link.enum'
 import { siteInitialState } from 'models/initial-state/site'
 import { Site, SiteLanguage } from 'models/site.model'
 import { Entry, TargetingOptionValue } from 'models/targeting-option.model'
-import {
-  SiteCodeCryptovoxelsDialogComponent,
-} from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
 import { PublisherService } from 'publisher/publisher.service'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
-import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { SessionService } from '../../../session.service'
-import { UserAdserverWallet } from 'models/user.model'
-import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -36,10 +30,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024
-  readonly ADD_UNIT_CRYPTOVOXELS = ADD_UNIT_CRYPTOVOXELS
-  readonly ADD_UNIT_DECENTRALAND = ADD_UNIT_DECENTRALAND
-  readonly ADD_UNIT_DECENTRALAND_SMART = ADD_UNIT_DECENTRALAND_SMART
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
   readonly faQuestionCircle = faQuestionCircle
   readonly SETUP_VERSION = {
     AUTOMATIC: 'auto',
@@ -63,7 +53,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   vendors: Entry[] = []
   medium: string
   vendor: string
-  serverUrl: string = environment.serverUrl
 
   constructor (
     private action$: Actions,
@@ -98,15 +87,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
       map((val: string) => val ? this.filterOptions(val) : this.languages.slice()),
     )
-  }
-
-  get isConnectedWallet (): boolean {
-    const user = this.session.getUser()
-    return user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null
-  }
-
-  get wallet (): UserAdserverWallet {
-    return this.session.getUser().adserverWallet
   }
 
   updateSelectedTargetingOptionValues (items): void {
@@ -382,10 +362,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.updateFormGroupOnVendorChange(vendor)
     this.vendor = vendor
     this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor)
-  }
-
-  openGetCryptovoxelsCodeDialog (): void {
-    this.dialog.open(SiteCodeCryptovoxelsDialogComponent)
   }
 
   updateFormGroupOnVendorChange(vendor: string | null): void {

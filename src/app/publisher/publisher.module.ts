@@ -47,6 +47,12 @@ import { DomainCheckerComponent } from 'publisher/site-details/domain-checker/do
 import {
   SiteCodeCryptovoxelsDialogComponent
 } from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
+import {
+  SiteCodeMetaverseDialogComponent
+} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
+import {
+  MetaverseInstructions
+} from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component'
 
 library.add(fas);
 
@@ -70,10 +76,12 @@ const publisherComponents = [
   AdUnitsComponent,
   SiteCodeDialogComponent,
   SiteCodeCryptovoxelsDialogComponent,
+  SiteCodeMetaverseDialogComponent,
   ClassifierComponent,
   ClassifierListItemComponent,
   ClassifierFilteringComponent,
   DomainCheckerComponent,
+  MetaverseInstructions,
 ];
 
 @NgModule({
@@ -112,6 +120,7 @@ const publisherComponents = [
   entryComponents: [
     SiteCodeDialogComponent,
     SiteCodeCryptovoxelsDialogComponent,
+    SiteCodeMetaverseDialogComponent,
   ]
 })
 
