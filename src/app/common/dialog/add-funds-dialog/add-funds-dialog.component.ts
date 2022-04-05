@@ -12,7 +12,8 @@ import {
 } from 'models/settings.model'
 import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
-import { isNumeric } from 'rxjs/util/isNumeric'
+import { forkJoin as observableForkJoin } from 'rxjs'
+import { isNumeric } from 'rxjs/internal-compatibility'
 import { environment } from 'environments/environment'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 
@@ -20,7 +21,6 @@ import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
 import { appSettings } from 'app-settings'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { Observable } from 'rxjs'
 import { SettingsService } from 'settings/settings.service'
 
 const Web3 = require('web3')
@@ -137,10 +137,10 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     const user = this.session.getUser()
     this.isConfirmed = user.isConfirmed
 
-    const infoSubscription = Observable.forkJoin(
+    const infoSubscription = observableForkJoin([
       this.api.config.depositInfo(),
       this.api.config.countries(),
-    ).subscribe(
+    ]).subscribe(
       (responses: [DepositInfo, Country[]]) => {
         const info = responses[0]
         this.loadingInfo = false

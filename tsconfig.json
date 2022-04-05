@@ -1,4 +1,7 @@
 {
+  "angularCompilerOptions": {
+    "preserveWhitespaces": false
+  },
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
@@ -29,6 +32,7 @@
         "advertiser/*": [ "app/advertiser/*" ],
         "publisher/*": [ "app/publisher/*" ],
         "settings/*": [ "app/settings/*" ]
-    }
+    },
+    "module": "es2015"
   }
 }

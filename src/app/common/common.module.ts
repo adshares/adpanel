@@ -78,6 +78,7 @@ import { InfoPageComponent } from 'common/info/info-page/info-page.component'
 import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found.component'
 import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
+import { ModelPreviewComponent } from 'common/components/model-preview/model-preview.component'
 
 const matModules = [
   MatDialogModule,
@@ -135,6 +136,7 @@ const appComponents = [
   TargetingCustomOptionInputComponent,
   TableNavigationComponent,
   BannerPreviewComponent,
+  ModelPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
   InputComponent,

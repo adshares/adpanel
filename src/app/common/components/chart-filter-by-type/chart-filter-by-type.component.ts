@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
 
 import { User } from 'models/user.model';
 import { AppState } from 'models/app-state.model';
@@ -33,9 +34,9 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const userDataSubscription = this.store.select('state', 'user', 'data')
-      .first()
+      .pipe(first())
       .subscribe(userData => {
         this.userData = userData;
         this.userData.isPublisher = !!this.router.url.match('/publisher/');
@@ -45,7 +46,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     this.subscriptions.push(userDataSubscription);
   }
 
-  setInitialDataByUserType() {
+  setInitialDataByUserType(): void {
     if (this.userData.isAdvertiser) {
       this.setChartSeriesArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
@@ -76,7 +77,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     this.currentAssetSeries = this.chartSeries[0];
   }
 
-  setChartSeriesArray(seriesEnum) {
+  setChartSeriesArray(seriesEnum): void {
     this.chartSeries = Object.entries(seriesEnum).map(dataArr => {
       return {
         label: dataArr[1],
@@ -85,12 +86,12 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
     });
   }
 
-  updateAssetId(event) {
+  updateAssetId(event): void {
     this.currentAssetId = event.value;
     this.updateId.emit(this.currentAssetId);
   }
 
-  updateAssetSeries(event) {
+  updateAssetSeries(event): void {
     this.currentAssetSeries = event.value;
     this.updateSeries.emit(this.currentAssetSeries);
   }

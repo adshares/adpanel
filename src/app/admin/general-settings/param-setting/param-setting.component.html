@@ -21,7 +21,7 @@
     *ngIf="optionKeys().length"
     [value]="value"
     class="dwmth-form-input admin-param__select"
-    (change)="updateValue($event.value)"
+    (selectionChange)="updateValue($event.value)"
   >
     <mat-option
       *ngFor="let key of optionKeys()"

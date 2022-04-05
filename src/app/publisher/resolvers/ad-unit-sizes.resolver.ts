@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Resolve } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { PublisherService } from 'publisher/publisher.service';
 import { AdUnitMetaData } from 'models/site.model';
@@ -10,7 +10,7 @@ export class AdUnitSizesResolver implements Resolve<AdUnitMetaData[]> {
   constructor(private publisherService: PublisherService) {
   }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AdUnitMetaData[]> {
+  resolve(): Observable<AdUnitMetaData[]> {
     return this.publisherService.getAdUnitSizes();
   }
 }

@@ -16,15 +16,12 @@ export class InputComponent {
   @Input() step?: number;
   @Input() format: string;
   @Input() helper: string;
-  @Input() value: number;
+  @Input() value: number | string;
   @Input() showSlider?: boolean;
   @Input() readonly?: boolean;
   @Input() transformDecimal: boolean;
   @Output() valueChanged = new Subject<any>();
   questionMarkIcon = faQuestionCircle;
-
-  constructor() {
-  }
 
   updateValue(newValue: any): void {
     this.valueChanged.next(newValue);

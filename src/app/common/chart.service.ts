@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {environment} from 'environments/environment';
 
 @Injectable()
@@ -18,8 +18,8 @@ export class ChartService {
       }
     };
 
-    return this.http.get(`${environment.apiUrl}/${role}/stats/chart/${type}/${frequency}/${from}/${to}`, options)
-      .map((chartData: any) => {
+    return this.http.get(`${environment.apiUrl}/${role}/stats/chart/${type}/${frequency}/${from}/${to}`, options).pipe(
+      map((chartData: any) => {
         let dataObject = {
           timestamps: [],
           values: [],
@@ -36,5 +36,6 @@ export class ChartService {
         });
         return dataObject
       })
+    )
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/first';
+import { take, first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign } from 'models/campaign.model';
@@ -34,12 +34,12 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
 
   ngOnInit(): void {
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .first()
+      .pipe(first())
       .subscribe(campaign => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
         const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
-          .take(1)
+          .pipe(take(1))
           .subscribe(medium => {
             this.targetingOptionsToAdd = processTargeting(medium)
             this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd)

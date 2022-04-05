@@ -34,11 +34,9 @@ export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
-export const SET_ADMIN_SETTINGS_FAILURE = 'Save new admin settings failure';
 
 export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
 export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
-export const GET_PRIVACY_SETTINGS_FAILURE = 'Get admin privacy settings failure';
 
 export const SET_PRIVACY_SETTINGS = 'Set admin privacy settings';
 export const SET_PRIVACY_SETTINGS_SUCCESS = 'Set admin privacy settings success';
@@ -46,7 +44,6 @@ export const SET_PRIVACY_SETTINGS_FAILURE = 'Set admin privacy settings failure'
 
 export const GET_TERMS_SETTINGS = 'Get admin terms settings';
 export const GET_TERMS_SETTINGS_SUCCESS = 'Get admin terms settings success';
-export const GET_TERMS_SETTINGS_FAILURE = 'Get admin terms settings failure';
 
 export const SET_TERMS_SETTINGS = 'Set admin terms settings';
 export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
@@ -54,11 +51,9 @@ export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
 
 export const GET_REJECTED_DOMAINS = 'Get admin rejected domains';
 export const GET_REJECTED_DOMAINS_SUCCESS = 'Get admin rejected domains success';
-export const GET_REJECTED_DOMAINS_FAILURE = 'Get admin rejected domains failure';
 
 export const SET_REJECTED_DOMAINS = 'Set admin rejected domains';
 export const SET_REJECTED_DOMAINS_SUCCESS = 'Set admin rejected domains success';
-export const SET_REJECTED_DOMAINS_FAILURE = 'Set admin rejected domains failure';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -189,13 +184,6 @@ export class SetAdminSettingsSuccess implements Action {
   }
 }
 
-export class SetAdminSettingsFailure implements Action {
-  readonly type: string = SET_ADMIN_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
 export class GetPrivacySettings implements Action {
   readonly type: string = GET_PRIVACY_SETTINGS;
 
@@ -207,13 +195,6 @@ export class GetPrivacySettingsSuccess implements Action {
   readonly type: string = GET_PRIVACY_SETTINGS_SUCCESS;
 
   constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
-  }
-}
-
-export class GetPrivacySettingsFailure implements Action {
-  readonly type: string = GET_PRIVACY_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
   }
 }
 
@@ -252,13 +233,6 @@ export class GetTermsSettingsSuccess implements Action {
   }
 }
 
-export class GetTermsSettingsFailure implements Action {
-  readonly type: string = GET_TERMS_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
 export class SetTermsSettings implements Action {
   readonly type: string = SET_TERMS_SETTINGS;
 
@@ -294,13 +268,6 @@ export class GetRejectedDomainsSuccess implements Action {
   }
 }
 
-export class GetRejectedDomainsFailure implements Action {
-  readonly type: string = GET_REJECTED_DOMAINS_FAILURE;
-
-  constructor(public payload: string) {
-  }
-}
-
 export class SetRejectedDomains implements Action {
   readonly type: string = SET_REJECTED_DOMAINS;
 
@@ -310,13 +277,6 @@ export class SetRejectedDomains implements Action {
 
 export class SetRejectedDomainsSuccess implements Action {
   readonly type: string = SET_REJECTED_DOMAINS_SUCCESS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class SetRejectedDomainsFailure implements Action {
-  readonly type: string = SET_REJECTED_DOMAINS_FAILURE;
 
   constructor(public payload?: any) {
   }
@@ -394,11 +354,9 @@ export type actions =
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
-  SetAdminSettingsFailure |
 
   GetPrivacySettings |
   GetPrivacySettingsSuccess |
-  GetPrivacySettingsFailure |
 
   SetPrivacySettings |
   SetPrivacySettingsSuccess |
@@ -406,7 +364,6 @@ export type actions =
 
   GetTermsSettings |
   GetTermsSettingsSuccess |
-  GetTermsSettingsFailure |
 
   SetTermsSettings |
   SetTermsSettingsSuccess |
@@ -414,11 +371,9 @@ export type actions =
 
   GetRejectedDomains |
   GetRejectedDomainsSuccess |
-  GetRejectedDomainsFailure |
 
   SetRejectedDomains |
   SetRejectedDomainsSuccess |
-  SetRejectedDomainsFailure |
 
   RequestGetIndex |
   GetIndex |

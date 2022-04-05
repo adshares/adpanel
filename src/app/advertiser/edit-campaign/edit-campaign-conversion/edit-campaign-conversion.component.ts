@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
@@ -20,7 +21,6 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
-import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
 import { environment } from 'environments/environment';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
@@ -82,13 +82,12 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
     action$: Actions,
-    private clickToADSPipe: ClickToADSPipe
   ) {
     super();
     this.action$ = action$;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getFormDataFromStore();
   }
 
@@ -117,25 +116,27 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.store.dispatch(new SaveConversion(this.campaign));
 
     this.action$
-      .ofType(
-        UPDATE_CAMPAIGN_SUCCESS,
-        UPDATE_CAMPAIGN_FAILURE
+      .pipe(
+        ofType(
+          UPDATE_CAMPAIGN_SUCCESS,
+          UPDATE_CAMPAIGN_FAILURE
+        ),
+        first()
       )
-      .first()
-      .subscribe((action) => {
+      .subscribe(action => {
         this.submitted = false;
         if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
           this.conversionItemForms.forEach(item => item.markAsPristine());
           this.conversionItemForms.forEach(item => item.markAsUntouched());
           this.advertiserService.getCampaign(this.campaign.id)
-            .first()
+            .pipe(first())
             .subscribe(
               (data) => {
                 this.campaign = data.campaign;
                 this.adjustConversionData(this.campaign.conversions)
               },
-              (err) => {
-                this.store.dispatch(new ShowDialogOnError(err.code))
+              (error) => {
+                this.store.dispatch(new ShowDialogOnError(error.code))
               }
             )
         }
@@ -231,18 +232,16 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   getFormDataFromStore(): void {
     this.store.dispatch(new LoadCampaignsConfig());
 
-    let subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .first()
+    const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+      .pipe(first())
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
-      }, () => {
       });
 
-    let configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+    const configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
       .subscribe((config: CampaignsConfig) => {
         this.campaignsConfig = config;
         this.adjustConversionData(this.campaign.conversions);
-      }, () => {
       });
 
     this.subscriptions.push(subscription, configSubscription);

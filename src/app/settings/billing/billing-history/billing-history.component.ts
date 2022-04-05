@@ -4,7 +4,7 @@ import { BillingHistory } from 'models/settings.model';
 import { SettingsService } from 'settings/settings.service';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { DATE_FORMAT } from 'common/utilities/consts';
-import { Actions } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import {
@@ -48,9 +48,9 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const handleHistoryUpdate = this.action$
-      .ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS)
+      .pipe(ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS))
       .subscribe(() => this.getBillingHistory());
     this.subscriptions.push(handleHistoryUpdate);
 
@@ -65,7 +65,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
       });
     this.subscriptions.push(dataSubscription);
     this.getBillingHistory();
-  };
+  }
 
   getBillingHistory(limit?: number, offset?: number): void {
     this.showLoader = true;

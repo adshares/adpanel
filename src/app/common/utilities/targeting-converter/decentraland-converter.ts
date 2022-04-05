@@ -27,7 +27,7 @@ export class DecentralandConverter implements TargetingConverter {
     return `scene-${mappedCoordinates}.decentraland.org`
   }
 
-  convertPath (path: string[]): string[] {
+  convertPath (_path: string[]): string[] {
     return ['site', 'domain']
   }
 

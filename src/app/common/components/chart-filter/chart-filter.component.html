@@ -42,7 +42,7 @@
             dwmth-navy
             lowercase-to-capitalize"
         [class.selected]="preset.id === currentDaysSpan"
-        (click)="filterChart(preset.id, 0)"
+        (click)="filterChart(preset.id, 0, false)"
         data-test="chart-filter-preset"
       >
         {{ preset.name }}

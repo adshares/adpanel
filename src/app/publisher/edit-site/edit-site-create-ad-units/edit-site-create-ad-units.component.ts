@@ -17,6 +17,7 @@ import {
 import { HandleSubscription } from "common/handle-subscription";
 import { siteStatusEnum } from "models/enum/site.enum";
 import {adUnitTypesEnum} from "models/enum/ad.enum";
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-edit-site-create-poster-units',
@@ -45,7 +46,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.DISPLAY);
 
@@ -72,7 +73,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
   fillFormWithData(): void {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
+      .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
 

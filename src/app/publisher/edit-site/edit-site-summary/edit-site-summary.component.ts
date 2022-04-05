@@ -12,6 +12,7 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import {adUnitTypesEnum} from "models/enum/ad.enum";
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-edit-site-summary',
@@ -36,7 +37,7 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
 
   ngOnInit() {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
-      .first()
+      .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         this.filteringOptions = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
         this.site = lastEditedSite;

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/first';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ApiService } from 'app/api/api.service';

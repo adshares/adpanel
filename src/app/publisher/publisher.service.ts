@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { AdUnitMetaData, Site, SiteLanguage, SiteRank, SitesTotals } from 'models/site.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
@@ -95,21 +96,25 @@ export class PublisherService {
 
   siteCategoriesOptions(mediumName: string, vendor: string | null = null, excludeInternal: boolean = true): Observable<TargetingOptionValue[]> {
     return this.getMedium(mediumName, vendor, excludeInternal)
-      .map(medium => {
-        const targetingOptions = processTargeting(medium);
+      .pipe(
+        map(medium => PublisherService.extractSiteCategoriesFromMedium(medium))
+      );
+  }
 
-        const siteOption = targetingOptions.find(option => 'site' === option.key);
-        if (!siteOption) {
-          return [];
-        }
+  private static extractSiteCategoriesFromMedium (medium: Medium) {
+    const targetingOptions = processTargeting(medium)
 
-        const categoryOption = siteOption.children.find(option => 'category' === option.key);
-        if (!categoryOption) {
-          return [];
-        }
+    const siteOption = targetingOptions.find(option => 'site' === option.key)
+    if (!siteOption) {
+      return []
+    }
 
-        return categoryOption.values;
-      });
+    const categoryOption = siteOption.children.find(option => 'category' === option.key)
+    if (!categoryOption) {
+      return []
+    }
+
+    return categoryOption.values
   }
 
   getAdUnitSizes(): Observable<AdUnitMetaData[]> {

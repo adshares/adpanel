@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import 'rxjs/add/operator/first';
 
 import {PublisherService} from 'publisher/publisher.service';
 import {cloneDeep} from 'common/utilities/helpers';
@@ -44,7 +43,7 @@ export class EditSitePopsSettingsComponent extends HandleSubscription implements
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.adUnitSizes = cloneDeep(this.route.snapshot.data.adUnitSizes).filter(item => item.type === adUnitTypesEnum.POP);
 

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
 
 import { PushNotification } from 'models/push-notification';
 import { pushNotificationTypesEnum } from 'models/enum/push-notification.enum';

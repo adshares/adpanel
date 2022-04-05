@@ -3,6 +3,7 @@ import { Ad } from 'models/campaign.model';
 import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
+import { take, debounceTime } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription';
 import { mapToIterable } from 'common/utilities/helpers';
 
@@ -37,7 +38,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
     super();
 
     const changeSubscription = this.targetingChanged
-      .debounceTime(this.REQUEST_DELAY)
+      .pipe(debounceTime(this.REQUEST_DELAY))
       .subscribe(() => this.getTargetingReach());
     this.subscriptions.push(changeSubscription);
   }
@@ -61,7 +62,7 @@ export class TargetingReach extends HandleSubscription implements OnChanges {
 
   getTargetingReach(): void {
     this.targetingReachSubscription = this.advertiserService.getTargetingReach(this.sizes, this.targeting, this.vendor)
-      .take(1)
+      .pipe(take(1))
       .subscribe(response => {
         if (response.occurrences && response.cpmPercentiles) {
           this.occurrencesMaximum = response.occurrences;

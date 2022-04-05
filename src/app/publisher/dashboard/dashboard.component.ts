@@ -15,7 +15,8 @@ import { createInitialArray } from 'common/utilities/helpers';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { appSettings } from 'app-settings';
-import { timer } from 'rxjs/observable/timer';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
 
@@ -84,7 +85,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         'sites',
         chartFilterSettings.currentAssetId,
       )
-      .take(1)
+      .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;

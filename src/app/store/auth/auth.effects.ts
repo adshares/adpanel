@@ -1,25 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
+import { Actions, Effect, ofType } from '@ngrx/effects'
+import { of as observableOf } from 'rxjs'
+import { catchError, switchMap } from 'rxjs/operators'
+import { SET_USER, SET_USER_SUCCESS, SetUserFailure, SetUserSuccess, } from 'store/auth/auth.actions'
+import { ApiAuthService } from '../../api/auth.service'
+import { User } from 'models/user.model'
 import {
-  Actions,
-  Effect
-} from '@ngrx/effects';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from "rxjs";
-import {
-  SET_USER, SET_USER_SUCCESS,
-  SetUserFailure,
-  SetUserSuccess,
-} from "store/auth/auth.actions";
-import { ApiAuthService } from "../../api/auth.service";
-import { User } from "models/user.model";
-import {GET_CURRENT_BALANCE_SUCCESS, GetCurrentBalance} from "store/settings/settings.actions";
-import {Action} from "@ngrx/store";
-import {SessionService} from "../../session.service";
-import {ImpersonationService} from "../../impersonation/impersonation.service";
+  GET_CURRENT_BALANCE_SUCCESS,
+  GetCurrentBalance,
+  GetCurrentBalanceSuccess,
+} from 'store/settings/settings.actions'
+import { SessionService } from '../../session.service'
+import { ImpersonationService } from '../../impersonation/impersonation.service'
 
 @Injectable()
 export class AuthEffects {
-  constructor(
+  constructor (
     private actions$: Actions,
     private service: ApiAuthService,
     private session: SessionService,
@@ -29,30 +25,36 @@ export class AuthEffects {
 
   @Effect()
   setUser$ = this.actions$
-    .ofType(SET_USER)
-    .switchMap(() => this.service.check()
-      .switchMap((user) => {
-        return [
-          new SetUserSuccess(<User>user),
-          new GetCurrentBalance
-        ]
-      })
-      .catch(() => Observable.of(new SetUserFailure()))
-    );
+    .pipe(
+      ofType(SET_USER),
+      switchMap(() => this.service.check()
+        .pipe(
+          switchMap((user) => {
+            return [
+              new SetUserSuccess(<User>user),
+              new GetCurrentBalance
+            ]
+          }),
+          catchError(() => observableOf(new SetUserFailure()))
+        )
+      )
+    )
 
   @Effect()
-  setUserSuccess$: Observable<Action> = this.actions$
-    .ofType(SET_USER_SUCCESS, GET_CURRENT_BALANCE_SUCCESS)
-    .switchMap((action: SetUserSuccess) => {
-        let user = this.session.getUser();
-        if (null === this.impersonation.getTokenFromStorage()) {
-          user = {...user, ...action.payload};
-        } else {
-          user.referralRefundEnabled = action.payload.referralRefundEnabled;
-          user.referralRefundCommission = action.payload.referralRefundCommission;
+  setUserSuccess$ = this.actions$
+    .pipe(
+      ofType<SetUserSuccess | GetCurrentBalanceSuccess>(SET_USER_SUCCESS, GET_CURRENT_BALANCE_SUCCESS),
+      switchMap(action => {
+          let user = this.session.getUser()
+          if (null === this.impersonation.getTokenFromStorage()) {
+            user = { ...user, ...action.payload }
+          } else {
+            user.referralRefundEnabled = action.payload.referralRefundEnabled
+            user.referralRefundCommission = action.payload.referralRefundCommission
+          }
+          this.session.setUser(user)
+          return observableOf()
         }
-        this.session.setUser(user);
-        return Observable.of();
-      }
-    );
+      )
+    )
 }

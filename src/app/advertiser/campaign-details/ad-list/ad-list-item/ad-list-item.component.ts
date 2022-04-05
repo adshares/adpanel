@@ -29,11 +29,10 @@ export class AdListItemComponent {
     private router: Router) {
   }
 
-  changeAdStatus(previousStatus) {
-    const statusActive = previousStatus !== this.adStatusesEnum.ACTIVE;
-
+  changeAdStatus(active: boolean): void {
+    const previousStatus = this.ad.status
     this.ad.status =
-      statusActive ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
+      active ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
 
     this.advertiserService.updateAdStatus(this.campaign.id, this.ad.id, this.ad.status).subscribe(
       () => {

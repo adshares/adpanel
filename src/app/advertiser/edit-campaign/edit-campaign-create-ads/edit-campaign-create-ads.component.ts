@@ -3,12 +3,13 @@ import { Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
+import { first, take } from 'rxjs/operators'
 import { FileUploader } from 'ng2-file-upload'
 import {
   AddCampaignToCampaigns,
   ClearLastEditedCampaign,
   SaveCampaignAds,
-  UpdateCampaign
+  UpdateCampaign,
 } from 'store/advertiser/advertiser.actions'
 import { AdvertiserService } from 'advertiser/advertiser.service'
 import { AssetHelpersService } from 'common/asset-helpers.service'
@@ -17,6 +18,7 @@ import {
   adStatusesEnum,
   fileTypes,
   validHtmlTypes,
+  validModelTypes,
 } from 'models/enum/ad.enum'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
@@ -25,6 +27,7 @@ import { Ad, Campaign } from 'models/campaign.model'
 import { environment } from 'environments/environment'
 import { appSettings } from 'app-settings'
 import { AppState } from 'models/app-state.model'
+import { ADSHARES_UNITS } from 'models/enum/link.enum'
 import { Format } from 'models/taxonomy-medium.model'
 import { SessionService } from '../../../session.service'
 import { ShowDialogOnError } from 'store/common/common.actions'
@@ -50,11 +53,11 @@ interface UploadingFile {
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
+  readonly ADSHARES_UNITS = ADSHARES_UNITS
   readonly adCreativeTypes = adCreativeTypes;
   readonly appSettings = appSettings;
   adForms: FormGroup[] = [];
   adTypes: string[];
-  adStatusesEnum = adStatusesEnum;
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
@@ -93,7 +96,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const subscription = this.advertiserService.cleanEditedCampaignOnRouteChange(this.isEditMode);
     subscription && this.subscriptions.push(subscription);
     const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
-      .first()
+      .pipe(first())
       .subscribe(campaign => {
         this.campaign = campaign;
         const campaignNameFilled = this.assetHelpers.redirectIfNameNotFilled(campaign);
@@ -103,7 +106,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
         }
 
         this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
-          .take(1)
+          .pipe(take(1))
           .subscribe(medium => {
             const supportedTypes = Object.values(adCreativeTypes);
             this.formats = medium.formats.filter(format => supportedTypes.includes(format.type));
@@ -139,7 +142,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   private getAdInitialState (): Ad {
     const type = this.adTypes[0]
-    const size = (type === adCreativeTypes.IMAGE || type === adCreativeTypes.VIDEO) ? null : this.getAdSizes(type)[0]
+    const size = (type === adCreativeTypes.HTML || type === adCreativeTypes.DIRECT) ? this.getAdSizes(type)[0] : null
     return {
       id: 0,
       status: adStatusesEnum.ACTIVE,
@@ -180,21 +183,22 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       status: new FormControl(ad.status)
     });
 
-    let state = {};
-    if (type === adCreativeTypes.IMAGE || type === adCreativeTypes.VIDEO || type === adCreativeTypes.HTML) {
-      state = {name: ad.name, src: ad.url || ''};
-    } else if (type === adCreativeTypes.DIRECT) {
-      state = {name: ad.name};
+    if (EditCampaignCreateAdsComponent.isUploadAdType(type)) {
+      formGroup.addControl('fileName', new FormControl(ad.name))
+      formGroup.addControl('fileSrc', new FormControl(ad.url || '', Validators.required))
+    } else {
       formGroup.get('creativeContents').setValidators([
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP),
       ]);
     }
 
-    formGroup.controls[type] = new FormControl(state);
     formGroup.updateValueAndValidity();
-
     return formGroup;
+  }
+
+  private static isUploadAdType (type: string): boolean {
+    return type !== adCreativeTypes.DIRECT
   }
 
   fileOverDropArea(isOverDrop, adIndex: number): void {
@@ -228,7 +232,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
     this.adjustBannerName(form);
     if (isFileTypeValid && isFileSizeValid) {
-      this.sendImage(file, adIndex, form);
+      this.sendFile(file, adIndex, form);
     } else {
       this.uploader.queue.pop();
       this.imagesStatus = {
@@ -249,21 +253,29 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   }
 
   private isFileMimeTypeValid (mimeType: string, adType: string): boolean {
-    if (adType == adCreativeTypes.HTML) {
+    if (adType === adCreativeTypes.HTML) {
       return validHtmlTypes.includes(mimeType)
+    }
+    if (adType === adCreativeTypes.MODEL) {
+      return validModelTypes.includes(mimeType)
     }
     const allowedMimeTypes = this.formats.find(format => format.type === adType).mimes;
     return allowedMimeTypes.includes(mimeType);
   }
 
   private static getMaxFileSize (adType: string): number {
-    if (adType === adCreativeTypes.IMAGE) {
-      return appSettings.MAX_AD_SIZE_IMAGE
+    switch (adType) {
+      case adCreativeTypes.IMAGE:
+        return appSettings.MAX_AD_SIZE_IMAGE
+      case adCreativeTypes.HTML:
+        return appSettings.MAX_AD_SIZE_HTML
+      case adCreativeTypes.VIDEO:
+        return appSettings.MAX_AD_SIZE_VIDEO
+      case adCreativeTypes.MODEL:
+        return appSettings.MAX_AD_SIZE_MODEL
+      default:
+        return 0
     }
-    if (adType === adCreativeTypes.HTML) {
-      return appSettings.MAX_AD_SIZE_HTML
-    }
-    return appSettings.MAX_AD_SIZE_VIDEO
   }
 
   presentedMaxFileSize (index: number): number {
@@ -307,9 +319,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
   }
 
-  selectProperImageBannerSize(size: string, index: number): void {
+  selectProperImageBannerSize(form: FormGroup, size: string): void {
     if (this.getAdSizes(adCreativeTypes.IMAGE).includes(size)) {
-      this.adForms[index].get('creativeSize').setValue(size);
+      form.get('creativeSize').setValue(size);
     } else {
       this.showImageSizeWarning();
     }
@@ -325,9 +337,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     });
   }
 
-  sendImage(image, adIndex: number, form: FormGroup): void {
+  sendFile(file, adIndex: number, form: FormGroup): void {
     const data = new FormData();
-    data.append('file', image, image.name);
+    data.append('file', file, file.name);
     const uploadBannerSubscription = this.advertiserService.uploadBanner(data).subscribe(
       (event) => {
         if (event.type === 1) {
@@ -337,52 +349,27 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
           this.imagesStatus.upload.processing = false;
           this.uploader.queue.pop();
 
-          if (this.isImageTypeChosen(form) && event.body) {
-            this.selectProperImageBannerSize(event.body.size, adIndex);
-            this.ads[adIndex] = {
-              ...this.ads[adIndex],
-              url: event.body.url,
-              name: image.name,
-              imageSize: event.body.size
-            };
-            this.adForms[adIndex].get('image').setValue({
-              name: image.name,
-              src: event.body.url,
-            });
-          } else if (this.isHtmlTypeChosen(form) && event.body) {
-            this.ads[adIndex] = {
-              ...this.ads[adIndex],
-              url: event.body.url,
-            };
-            this.adForms[adIndex].get('html').setValue({
-              src: event.body.url,
-              name: image.name
-            });
-          } else if (this.isVideoTypeChosen(form) && event.body) {
-            this.adForms[adIndex].get('creativeSize').setValue(event.body.size);
-            this.ads[adIndex] = {
-              ...this.ads[adIndex],
-              url: event.body.url,
-              name: image.name,
-              imageSize: event.body.size,
-            };
-            this.adForms[adIndex].get('video').setValue({
-              name: image.name,
-              src: event.body.url,
-            });
+          if (!event.body) {
+            return
           }
+          this.ads[adIndex] = {
+            ...this.ads[adIndex],
+            url: event.body.url,
+          };
+          if (this.isImageTypeChosen(form)) {
+            this.selectProperImageBannerSize(form, event.body.size)
+          } else if (this.isVideoTypeChosen(form)) {
+            form.get('creativeSize').setValue(event.body.size)
+          } else if (this.isModelTypeChosen(form)) {
+            form.get('creativeSize').setValue(event.body.size || 'cube')
+          }
+          form.get('fileName').setValue(file.name)
+          form.get('fileSrc').setValue(event.body.url)
         }
       },
       (err) => this.store.dispatch(new ShowDialogOnError(err.error.message))
     );
     this.subscriptions.push(uploadBannerSubscription);
-  }
-
-  removeImage(adIndex: number): void {
-    Object.assign(this.ads[adIndex], {url: '', imageSize: ''});
-    this.adForms[adIndex].get('image').setValue({name: '', src: ''});
-    this.imagesStatus.validation.splice(adIndex, 1);
-    this.adsSubmitted = false;
   }
 
   updateAdInfo(adIndex: number): void {
@@ -404,24 +391,26 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       this.imagesStatus.validation.splice(adIndex, 1);
     }
 
-    this.adTypes.forEach((type) => delete adForm.controls[type]);
-    adForm.controls[adTypeName] = new FormControl({src: ''});
-    adForm.updateValueAndValidity();
-
-    if (adForm.get('html')) {
-      adForm.get('creativeSize').setValue(this.getAdSizes(adCreativeTypes.HTML)[0]);
-      adForm.get('creativeContents').setValidators([]);
-    } else if (adForm.get('direct')) {
-      adForm.get('creativeSize').setValue(this.getAdSizes(adCreativeTypes.DIRECT)[0]);
+    if (adForm.get('fileSrc')) {
+      adForm.removeControl('fileName')
+      adForm.removeControl('fileSrc')
+    }
+    if (EditCampaignCreateAdsComponent.isUploadAdType(adTypeName)) {
+      adForm.addControl('fileName', new FormControl(''))
+      adForm.addControl('fileSrc', new FormControl('', Validators.required))
+      adForm.get('creativeContents').setValidators([])
+    } else {
       adForm.get('creativeContents').setValidators([
         Validators.required,
         Validators.pattern(appSettings.TARGET_URL_REGEXP),
-      ]);
-    } else {
-      adForm.get('creativeSize').setValue(null);
-      adForm.get('creativeContents').setValidators([]);
+      ])
     }
+
+    const initialCreativeSize = (adTypeName === adCreativeTypes.HTML || adTypeName === adCreativeTypes.DIRECT) ? this.getAdSizes(adTypeName)[0] : null
+    adForm.get('creativeSize').setValue(initialCreativeSize);
+
     this.adjustBannerName(adForm);
+    adForm.updateValueAndValidity();
   }
 
   setAdSize(adIndex: number): void {
@@ -447,11 +436,12 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     this.adsSubmitted = true;
     this.changesSaved = true;
 
-    this.adForms.forEach((adForm) => adForm.updateValueAndValidity());
-    this.adForms.forEach((form, index) => this.updateAdInfo(index));
+    this.adForms.forEach((adForm, index) => {
+      adForm.updateValueAndValidity()
+      this.updateAdInfo(index)
+    });
 
     const adsValid = this.adForms.every((adForm) => adForm.valid) &&
-      this.adForms.every((adForm, index) => this.isDirectTypeChosen(adForm) || !!this.ads[index].url) &&
       this.imagesStatus.validation.every((validation) => validation.size && validation.type);
 
     if (adsValid) {
@@ -505,6 +495,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return form.get('type').value === adCreativeTypes.VIDEO
   }
 
+  isModelTypeChosen(form: FormGroup): boolean {
+    return form.get('type').value === adCreativeTypes.MODEL
+  }
+
   getSupportedFiles(form: FormGroup): string {
     const adType = form.get('type').value
     const mimeTypes = this.formats.find(format => format.type === adType).mimes
@@ -514,6 +508,11 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
       extensions[extensions.length - 2] += ` and ${extensions.pop()}`
     }
     return extensions.join(', ')
+  }
+
+  getSupportedFileSize(form: FormGroup): number {
+    const adType = form.get('type').value
+    return EditCampaignCreateAdsComponent.getMaxFileSize(adType)
   }
 
   cancelUploading(): void {

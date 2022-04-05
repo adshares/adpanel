@@ -18,7 +18,7 @@ export class CryptovoxelsConverter implements TargetingConverter {
     return `scene-${value}.cryptovoxels.com`
   }
 
-  convertPath (path: string[]): string[] {
+  convertPath (_path: string[]): string[] {
     return ['site', 'domain']
   }
 

@@ -36,10 +36,10 @@ TARGET_DIRECTORY=dist
 BACKUP_DIRECTORY=dist_backup
 if [[ ${APP_ENV} == 'dev' ]]
 then
-    yarn build --output-path=$BUILD_DIRECTORY
+    yarn build --configuration=dev --output-path=$BUILD_DIRECTORY
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-    yarn build --prod --output-path=$BUILD_DIRECTORY
+    yarn build --configuration=prod --output-path=$BUILD_DIRECTORY
 else
     echo "ERROR: Unsupported environment ($APP_ENV)."
     exit 1

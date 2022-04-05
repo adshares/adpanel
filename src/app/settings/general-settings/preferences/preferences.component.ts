@@ -42,14 +42,14 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.graceTime = true
     this.user = this.session.getUser()
     this.isImpersonated = this.session.isImpersonated()
     this.createForms()
   }
 
-  createForms () {
+  createForms (): void {
     this.changeEmailForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
     })
@@ -62,7 +62,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     this.changePasswordForm = new FormGroup(controls)
   }
 
-  onChangeEmail () {
+  onChangeEmail (): void {
     this.changeEmailFormSubmitted = true
     if (!this.changeEmailForm.valid) {
       return
@@ -115,7 +115,7 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     )
   }
 
-  onChangePassword () {
+  onChangePassword (): void {
     const currentPassword = this.changePasswordForm.get('currentPassword')
       ? this.changePasswordForm.get('currentPassword').value
       : null
@@ -127,11 +127,11 @@ export class PreferencesComponent extends HandleSubscription implements OnInit {
     if (!this.changePasswordForm.valid || (this.newPasswordConfirm.value !== newPassword)) {
       return
     }
-    const user = {
+    const userPasswords = {
       password_old: currentPassword,
       password_new: newPassword,
     }
-    const changePasswordSubscription = this.settingsService.changePassword(user, '/auth/password-confirm/').subscribe(
+    const changePasswordSubscription = this.settingsService.changePassword(userPasswords, '/auth/password-confirm/').subscribe(
       (user) => {
         if (user.id) {
           this.user = user
