@@ -38,7 +38,7 @@ fi
 curl --max-time 10 -s -w '\n' "${ADSERVER_URL}/panel/placeholders?types[]=index-title&types[]=index-description&types[]=index-keywords&types[]=index-meta-tags&types[]=robots-txt" | node bin/build-index.js "$INDEX_TEMPLATE" "$INDEX_FILE_TEMPORARY" "$ROBOTS_FILE"
 
 cd "$BUILD_DIRECTORY"
-WILDCARDS=("inline.*.js" "polyfills.*.js" "styles.*.js" "vendor.bundle.js" "main.*.js")
+WILDCARDS=("inline.*.js" "polyfills.*.js" "styles.*.js" "runtime.*.js" "main.*.js")
 SCRIPTS=
 for WILDCARD in "${WILDCARDS[@]}"
 do
