@@ -32,8 +32,8 @@
     margin-top: 0;
   }
 
-.dwmth-box {
-    margin: 8px 0;
+  .dwmth-box {
+    margin: 16px 0 8px 0;
   }
 
   &__language {
@@ -55,6 +55,14 @@
 .dwmth-form-input:disabled {
   color: palette(gray);
   background-color: #ffffff;
+}
+
+.dwmth-form-input__box__full {
+  width: 100%;
+}
+
+.dwmth-form-label--inline {
+  margin-right: 10px;
 }
 
 .instruction {

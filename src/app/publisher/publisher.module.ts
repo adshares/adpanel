@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import {
   MatAutocompleteModule,
+  MatButtonToggleModule,
   MatCheckboxModule,
   MatExpansionModule,
   MatFormFieldModule,
@@ -83,6 +84,7 @@ const publisherComponents = [
     ReactiveFormsModule,
     FormsModule,
     MatAutocompleteModule,
+    MatButtonToggleModule,
     MatCheckboxModule,
     MatOptionModule,
     MatFormFieldModule,

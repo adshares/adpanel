@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Actions, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
@@ -41,6 +41,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   readonly ADD_UNIT_DECENTRALAND_SMART = ADD_UNIT_DECENTRALAND_SMART
   readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
   readonly faQuestionCircle = faQuestionCircle
+  readonly SETUP_VERSION = {
+    AUTOMATIC: 'auto',
+    MANUAL: 'manual',
+  }
   siteBasicInfoForm: FormGroup
   languages: SiteLanguage[]
   siteBasicInfoSubmitted = false
@@ -264,6 +268,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         value: siteInitialState.vendor,
         disabled: !this.createSiteMode,
       }),
+      setupVersionControl: new FormControl(this.SETUP_VERSION.MANUAL),
     })
     this.siteBasicInfoForm.get('medium').valueChanges.subscribe(value => this.medium = value)
     this.getFormDataFromStore()
@@ -362,6 +367,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       .subscribe(vendors => {
         this.vendors = mapToIterable(vendors)
         if (this.createSiteMode) {
+          this.setupVersionControl.setValue(medium === 'metaverse' ? this.SETUP_VERSION.AUTOMATIC : this.SETUP_VERSION.MANUAL)
           const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
           this.updateFormGroupOnVendorChange(vendor)
           this.vendor = vendor
@@ -405,5 +411,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   get hasParcelIdError(): boolean {
     const parcelId = this.siteBasicInfoForm.get('parcelId')
     return parcelId.invalid && (parcelId.touched || parcelId.dirty)
+  }
+
+  get setupVersionControl(): AbstractControl {
+    return this.siteBasicInfoForm.get('setupVersionControl')
   }
 }

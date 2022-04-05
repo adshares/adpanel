@@ -118,91 +118,181 @@
         </span>
       </div>
 
-      <ng-container [ngSwitch]="vendor">
+      <ng-container *ngIf="medium === 'metaverse'">
         <div
-          *ngSwitchCase="'cryptovoxels'"
-          class="dwmth-form-input__box"
+          *ngIf="createSiteMode"
+          class="dwmth-box row"
         >
-          <label
-            for="parcelId"
-            class="dwmth-form-label"
-          >
-            Parcel's ID
-            <fa-icon
-              matTooltipClass="dwmth-mat-tooltip"
-              matTooltip="
-                Enter your parcel's ID.
-                Ad units will be displayed only on specified parcel."
-              matTooltipPosition="right"
-              [icon]="faQuestionCircle"
-            ></fa-icon>
-          </label>
-
-          <input
-            (blur)="overwriteUrl()"
-            formControlName="parcelId"
-            id="parcelId"
-            class="dwmth-form-input dwmth-form-input--full"
-            type="number"
-            required
-            data-test="publisher-edit-site-basic-information-form-parcel-id"
-          >
-          <span
-            *ngIf="hasParcelIdError"
-            class="error-msg"
-          >
-            Please provide a parcel's ID
-          </span>
+          <label class="dwmth-form-label dwmth-form-label--inline">Setup</label>
+          <mat-button-toggle-group formControlName="setupVersionControl" aria-label="Font Style">
+            <mat-button-toggle value="{{SETUP_VERSION.AUTOMATIC}}">Automatic</mat-button-toggle>
+            <mat-button-toggle value="{{SETUP_VERSION.MANUAL}}">Manual</mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
 
         <div
-          *ngSwitchCase="'decentraland'"
-          class="dwmth-form-input__box"
+          [ngSwitch]="setupVersionControl.value"
+          class="dwmth-box row"
         >
-          <label
-            for="parcelCoordinateX"
-            class="dwmth-form-label"
-          >
-            Parcel's coordinates
-            <fa-icon
-              matTooltipClass="dwmth-mat-tooltip"
-              matTooltip="
-                Enter your parcel's coordinates.
-                Ad units will be displayed only on specified parcel."
-              matTooltipPosition="right"
-              [icon]="faQuestionCircle"
-            ></fa-icon>
-          </label>
+          <ng-container *ngSwitchCase="SETUP_VERSION.AUTOMATIC">
+              <ng-template #connectWallet>
+                <p class="dwmth-copy">
+                  Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
+                </p>
+              </ng-template>
 
-          <div class="row justify-between">
-            <input
-              (blur)="overwriteUrl()"
-              formControlName="parcelCoordinateX"
-              id="parcelCoordinateX"
-              class="dwmth-form-input"
-              type="number"
-              required
-              data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x"
-            >
-            <input
-              (blur)="overwriteUrl()"
-              formControlName="parcelCoordinateY"
-              id="parcelCoordinateY"
-              class="dwmth-form-input"
-              type="number"
-              required
-              data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y"
-            >
-          </div>
-          <span
-            *ngIf="hasParcelCoordinateError"
-            class="error-msg"
-          >
-            Please provide parcel's coordinates
-          </span>
+              <div
+                *ngIf="isConnectedWallet else connectWallet"
+                class="dwmth-copy instruction"
+              >
+                <p>
+                  Follow the few steps below to integrate:
+                </p>
+                <ol *ngIf="vendor === 'cryptovoxels'">
+                  <li>
+                    Generate and copy the Adshares code:
+                    <button
+                      class="dwmth-btn dwmth-btn--blue dwmth-btn--x-small"
+                      role="button"
+                      (click)="openGetCryptovoxelsCodeDialog()"
+                      data-test="publisher-get-code-button"
+                    >
+                      Get the ad code
+                    </button>
+                  </li>
+                  <li>Add image object from the Asset Library</li>
+                  <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+                </ol>
+                <ol *ngIf="vendor === 'decentraland'">
+                  <li>
+                    Download the smart item from
+                    <a
+                      [href]="ADD_UNIT_DECENTRALAND_SMART"
+                      target="_blank"
+                      rel="noopener nofollow noreferrer"
+                    >
+                      GitHub
+                      <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+                    </a>
+                  </li>
+                  <li>Add it using the
+                    <a href="https://builder.decentraland.org/"
+                       target="_blank"
+                       rel="noopener nofollow noreferrer"
+                    >
+                      DCL builder
+                      <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+                    </a>
+                  </li>
+                  <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+                  <li>Provide payout network: {{ wallet.walletNetwork }}</li>
+                  <li>Provide payout address: {{ wallet.walletAddress }}</li>
+                  <li>Provide adserver URL: {{ serverUrl }}</li>
+                </ol>
+                <p>
+                  For more information read
+                  <a
+                    [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
+                    target="_blank"
+                    rel="noopener nofollow noreferrer"
+                  >
+                    the manual
+                    <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+                  </a>.
+                </p>
+              </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="SETUP_VERSION.MANUAL">
+            <ng-container [ngSwitch]="vendor">
+              <div
+                *ngSwitchCase="'cryptovoxels'"
+                class="dwmth-form-input__box"
+              >
+                <label
+                  for="parcelId"
+                  class="dwmth-form-label"
+                >
+                  Parcel's ID
+                  <fa-icon
+                    matTooltipClass="dwmth-mat-tooltip"
+                    matTooltip="
+                      Enter your parcel's ID.
+                      Ad units will be displayed only on specified parcel."
+                    matTooltipPosition="right"
+                    [icon]="faQuestionCircle"
+                  ></fa-icon>
+                </label>
+
+                <input
+                  (blur)="overwriteUrl()"
+                  formControlName="parcelId"
+                  id="parcelId"
+                  class="dwmth-form-input dwmth-form-input--full"
+                  type="number"
+                  required
+                  data-test="publisher-edit-site-basic-information-form-parcel-id"
+                >
+                <span
+                  *ngIf="hasParcelIdError"
+                  class="error-msg"
+                >
+                  Please provide a parcel's ID
+                </span>
+              </div>
+
+              <div
+                *ngSwitchCase="'decentraland'"
+                class="dwmth-form-input__box dwmth-form-input__box__full"
+              >
+                <label
+                  for="parcelCoordinateX"
+                  class="dwmth-form-label"
+                >
+                  Parcel's coordinates
+                  <fa-icon
+                    matTooltipClass="dwmth-mat-tooltip"
+                    matTooltip="
+                      Enter your parcel's coordinates.
+                      Ad units will be displayed only on specified parcel."
+                    matTooltipPosition="right"
+                    [icon]="faQuestionCircle"
+                  ></fa-icon>
+                </label>
+
+                <div class="row justify-between">
+                  <input
+                    (blur)="overwriteUrl()"
+                    formControlName="parcelCoordinateX"
+                    id="parcelCoordinateX"
+                    class="dwmth-form-input"
+                    type="number"
+                    required
+                    data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x"
+                  >
+                  <input
+                    (blur)="overwriteUrl()"
+                    formControlName="parcelCoordinateY"
+                    id="parcelCoordinateY"
+                    class="dwmth-form-input"
+                    type="number"
+                    required
+                    data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y"
+                  >
+                </div>
+                <span
+                  *ngIf="hasParcelCoordinateError"
+                  class="error-msg"
+                >
+                  Please provide parcel's coordinates
+                </span>
+              </div>
+            </ng-container>
+          </ng-container>
         </div>
       </ng-container>
 
+      <ng-container *ngIf="setupVersionControl.value === SETUP_VERSION.MANUAL">
       <div class="dwmth-form-input__box">
         <label
           for="siteName"
@@ -232,7 +322,7 @@
         ></span>
         <span
           class="error-msg"
-          *ngIf="!siteBasicInfoForm.get('name').valid && siteBasicInfoSubmitted"
+          *ngIf="siteBasicInfoSubmitted && siteBasicInfoForm.get('name').invalid"
         >
           Please provide a valid name.
         </span>
@@ -318,75 +408,7 @@
           Content language required
         </span>
       </div>
-    </div>
-
-    <div
-       *ngIf="medium === 'metaverse' && createSiteMode"
-       class="dwmth-box dwmth-box--large"
-    >
-      <ng-template #connectWallet>
-        <p class="dwmth-copy">
-          Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
-        </p>
-      </ng-template>
-
-      <div
-        *ngIf="isConnectedWallet else connectWallet"
-        class="dwmth-copy instruction"
-      >
-        <p>
-          Follow the few steps below to integrate:
-        </p>
-        <ol *ngIf="vendor === 'cryptovoxels'">
-          <li>
-            Generate and copy the Adshares code:
-            <button
-              class="dwmth-btn dwmth-btn--blue dwmth-btn--x-small"
-              role="button"
-              (click)="openGetCryptovoxelsCodeDialog()"
-              data-test="publisher-get-code-button"
-            >
-              Get the ad code
-            </button>
-          </li>
-          <li>Add image object from the Asset Library</li>
-          <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
-        </ol>
-        <ol *ngIf="vendor === 'decentraland'">
-          <li>
-            Download the smart item from
-            <a
-              [href]="ADD_UNIT_DECENTRALAND_SMART"
-              target="_blank"
-              rel="noopener nofollow noreferrer">
-              GitHub
-              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
-            </a>
-          </li>
-          <li>Add it using the
-            <a href="https://builder.decentraland.org/"
-               target="_blank"
-               rel="noopener nofollow noreferrer">
-              DCL builder
-              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
-          </a></li>
-          <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
-          <li>Provide payout network: {{ wallet.walletNetwork }}</li>
-          <li>Provide payout address: {{ wallet.walletAddress }}</li>
-          <li>Provide adserver URL: {{ serverUrl }}</li>
-        </ol>
-        <p>
-          For more information read
-          <a
-            [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
-            target="_blank"
-            rel="noopener nofollow noreferrer"
-          >
-            the manual
-            <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
-          </a>.
-        </p>
-      </div>
+      </ng-container>
     </div>
 
     <div
@@ -403,6 +425,7 @@
       </button>
 
       <button
+        *ngIf="setupVersionControl.value === SETUP_VERSION.MANUAL"
         class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
