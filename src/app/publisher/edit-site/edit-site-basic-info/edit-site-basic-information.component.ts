@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Actions, ofType } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
-import { take, first, map, startWith } from 'rxjs/operators'
+import { first, map, startWith, take } from 'rxjs/operators'
 import { AppState } from 'models/app-state.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions'
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 import { ADD_UNIT_CRYPTOVOXELS, ADD_UNIT_DECENTRALAND, ADD_UNIT_DECENTRALAND_SMART } from 'models/enum/link.enum'
 import { siteInitialState } from 'models/initial-state/site'
 import { Site, SiteLanguage } from 'models/site.model'
@@ -137,6 +139,33 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     )
   }
 
+  overwriteUrl (): void {
+    const vendor = this.siteBasicInfoForm.get('vendor').value
+    let url, name
+    if (vendor === 'cryptovoxels') {
+      const value = this.siteBasicInfoForm.get('parcelId').value
+      url = new CryptovoxelsConverter().encodeValue(value)
+      name = `Cryptovoxels ${value}`
+    } else if (vendor === 'decentraland') {
+      const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX').value
+      const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY').value
+      if (coordinateX === null || coordinateY === null) {
+        return
+      }
+      const value = `(${coordinateX}, ${coordinateY})`
+      url = new DecentralandConverter().encodeValue(value)
+      name = `Decentraland ${value}`
+    }
+
+    if (url !== undefined) {
+      this.siteBasicInfoForm.get('url').setValue(`https://${url}`)
+      this.onUrlBlur()
+      if (this.siteBasicInfoForm.get('name').value.length === 0) {
+        this.siteBasicInfoForm.get('name').setValue(name)
+      }
+    }
+  }
+
   onStepBack (): void {
     this.createSiteMode ? this.router.navigate(['/publisher', 'dashboard']) :
       this.router.navigate(['/publisher', 'site', this.site.id])
@@ -196,7 +225,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   onUrlFocus (): void {
     const domain = this.siteBasicInfoForm.get('domain').value
     const name = this.siteBasicInfoForm.get('name').value
-    this.overwriteNameByDomain = name.length == 0 || name == domain
+    this.overwriteNameByDomain = name.length === 0 || name == domain
   }
 
   onUrlBlur (): void {
@@ -250,8 +279,20 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           this.getSiteInitialLanguage()
         this.siteBasicInfoForm.patchValue(this.site)
         this.onMediumChange(this.site.medium)
-        if (this.site.medium === 'metaverse') {
-          this.siteBasicInfoForm.get('url').disable()
+        if (!this.createSiteMode) {
+          this.vendor = this.site.vendor
+          this.updateFormGroupOnVendorChange(this.vendor)
+          if (this.site.medium === 'metaverse') {
+            if (this.vendor === 'cryptovoxels') {
+              const value = new CryptovoxelsConverter().decodeValue(this.site.url.slice('https://'.length))
+              this.siteBasicInfoForm.get('parcelId').setValue(value)
+            } else if (this.vendor === 'decentraland') {
+              const value = new DecentralandConverter().decodeValue(this.site.url.slice('https://'.length))
+              const coordinates = value.slice(1, value.length - 1).split(', ')
+              this.siteBasicInfoForm.get('parcelCoordinateX').setValue(coordinates[0])
+              this.siteBasicInfoForm.get('parcelCoordinateY').setValue(coordinates[1])
+            }
+          }
         }
       })
     this.subscriptions.push(lastEditedSiteSubscription)
@@ -319,23 +360,50 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     const subscription = this.publisherService.getMediumVendors(medium)
       .pipe(take(1))
       .subscribe(vendors => {
-      this.vendors = mapToIterable(vendors)
-      if (this.createSiteMode) {
-        const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
-        this.vendor = vendor
-        this.siteBasicInfoForm.get('vendor').patchValue(vendor)
-        this.loadSiteCategories(medium, vendor)
-      }
-    })
+        this.vendors = mapToIterable(vendors)
+        if (this.createSiteMode) {
+          const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
+          this.updateFormGroupOnVendorChange(vendor)
+          this.vendor = vendor
+          this.siteBasicInfoForm.get('vendor').patchValue(vendor)
+          this.loadSiteCategories(medium, vendor)
+        }
+      })
     this.subscriptions.push(subscription)
   }
 
   onVendorChange (vendor: string): void {
+    this.updateFormGroupOnVendorChange(vendor)
     this.vendor = vendor
     this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor)
   }
 
   openGetCryptovoxelsCodeDialog (): void {
     this.dialog.open(SiteCodeCryptovoxelsDialogComponent)
+  }
+
+  updateFormGroupOnVendorChange(vendor: string | null): void {
+    this.siteBasicInfoForm.removeControl('parcelId')
+    this.siteBasicInfoForm.removeControl('parcelCoordinateX')
+    this.siteBasicInfoForm.removeControl('parcelCoordinateY')
+
+    if (vendor === 'cryptovoxels') {
+      this.siteBasicInfoForm.addControl('parcelId', new FormControl(null, Validators.required))
+    } else if (vendor === 'decentraland') {
+      this.siteBasicInfoForm.addControl('parcelCoordinateX', new FormControl(null, Validators.required))
+      this.siteBasicInfoForm.addControl('parcelCoordinateY', new FormControl(null, Validators.required))
+    }
+  }
+
+  get hasParcelCoordinateError(): boolean {
+    const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX')
+    const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY')
+    return (coordinateX.invalid && (coordinateX.touched || coordinateX.dirty)) ||
+      (coordinateY.invalid && (coordinateY.touched || coordinateY.dirty))
+  }
+
+  get hasParcelIdError(): boolean {
+    const parcelId = this.siteBasicInfoForm.get('parcelId')
+    return parcelId.invalid && (parcelId.touched || parcelId.dirty)
   }
 }

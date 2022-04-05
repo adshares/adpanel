@@ -66,8 +66,10 @@
         </mat-select>
       </div>
 
-      <ng-container *ngIf="!(medium === 'metaverse' && createSiteMode)">
-      <div class="dwmth-form-input__box">
+      <div
+        [ngClass]="{'hidden': medium !== 'web'}"
+        class="dwmth-form-input__box"
+      >
         <label
           for="siteUrl"
           class="dwmth-form-label"
@@ -86,9 +88,7 @@
         <input
           formControlName="url"
           id="siteUrl"
-          class="
-            dwmth-form-input
-            dwmth-form-input--full"
+          class="dwmth-form-input dwmth-form-input--full"
           type="text"
           (focus)="onUrlFocus()"
           (blur)="onUrlBlur()"
@@ -96,11 +96,11 @@
         >
         <span
           class="input-valid"
-          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').valid && siteBasicInfoForm.get('url').touched"
+          *ngIf="siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').valid && (siteBasicInfoForm.get('url').touched || siteBasicInfoForm.get('url').dirty)"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!(siteBasicInfoForm.get('url').valid && siteBasicInfoForm.get('domain').valid) && siteBasicInfoSubmitted"
+          *ngIf="siteBasicInfoSubmitted && (siteBasicInfoForm.get('url').invalid || siteBasicInfoForm.get('domain').invalid)"
         >
           Please provide a valid URL. Protocol http(s) is required.
         </span>
@@ -117,6 +117,91 @@
           Limit the length of domain to at most {{ websiteDomainLengthMax }} characters
         </span>
       </div>
+
+      <ng-container [ngSwitch]="vendor">
+        <div
+          *ngSwitchCase="'cryptovoxels'"
+          class="dwmth-form-input__box"
+        >
+          <label
+            for="parcelId"
+            class="dwmth-form-label"
+          >
+            Parcel's ID
+            <fa-icon
+              matTooltipClass="dwmth-mat-tooltip"
+              matTooltip="
+                Enter your parcel's ID.
+                Ad units will be displayed only on specified parcel."
+              matTooltipPosition="right"
+              [icon]="faQuestionCircle"
+            ></fa-icon>
+          </label>
+
+          <input
+            (blur)="overwriteUrl()"
+            formControlName="parcelId"
+            id="parcelId"
+            class="dwmth-form-input dwmth-form-input--full"
+            type="number"
+            required
+            data-test="publisher-edit-site-basic-information-form-parcel-id"
+          >
+          <span
+            *ngIf="hasParcelIdError"
+            class="error-msg"
+          >
+            Please provide a parcel's ID
+          </span>
+        </div>
+
+        <div
+          *ngSwitchCase="'decentraland'"
+          class="dwmth-form-input__box"
+        >
+          <label
+            for="parcelCoordinateX"
+            class="dwmth-form-label"
+          >
+            Parcel's coordinates
+            <fa-icon
+              matTooltipClass="dwmth-mat-tooltip"
+              matTooltip="
+                Enter your parcel's coordinates.
+                Ad units will be displayed only on specified parcel."
+              matTooltipPosition="right"
+              [icon]="faQuestionCircle"
+            ></fa-icon>
+          </label>
+
+          <div class="row justify-between">
+            <input
+              (blur)="overwriteUrl()"
+              formControlName="parcelCoordinateX"
+              id="parcelCoordinateX"
+              class="dwmth-form-input"
+              type="number"
+              required
+              data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x"
+            >
+            <input
+              (blur)="overwriteUrl()"
+              formControlName="parcelCoordinateY"
+              id="parcelCoordinateY"
+              class="dwmth-form-input"
+              type="number"
+              required
+              data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y"
+            >
+          </div>
+          <span
+            *ngIf="hasParcelCoordinateError"
+            class="error-msg"
+          >
+            Please provide parcel's coordinates
+          </span>
+        </div>
+      </ng-container>
 
       <div class="dwmth-form-input__box">
         <label
@@ -233,7 +318,6 @@
           Content language required
         </span>
       </div>
-      </ng-container>
     </div>
 
     <div
@@ -319,7 +403,6 @@
       </button>
 
       <button
-        *ngIf="!(medium === 'metaverse' && createSiteMode)"
         class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
