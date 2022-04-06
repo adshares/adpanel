@@ -43,7 +43,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   faEnvelope = faEnvelope
   faPaperPlane = faPaperPlane
   faComments = faComments
-  notificationsTotal: number
   envContext: string | null = environment.context
 
   constructor (
@@ -99,7 +98,6 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         break
     }
 
-    this.notificationsTotal = this.session.getNotificationsCount()
     const userDataStateSubscription = this.store.select('state', 'user',
       'data').subscribe((data: User) => {
       this.totalFunds = data.adserverWallet.totalFunds

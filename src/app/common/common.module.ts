@@ -36,10 +36,6 @@ import { WithdrawFundsDialogComponent } from './dialog/withdraw-funds-dialog/wit
 import { ChangeAutomaticWithdrawDialogComponent } from './dialog/change-automatic-withdraw-dialog/change-automatic-withdraw-dialog.component'
 import { UserConfirmResponseDialogComponent } from './dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
 import { HeaderComponent } from './components/header/header.component'
-import { NotificationsComponent } from './components/notifications/notifications.component'
-import { NotificationComponent } from './components/notifications/notification/notification.component'
-import { PushNotificationsComponent } from './components/push-notifications/push-notifications.component'
-import { PushNotificationComponent } from './components/push-notifications/push-notification/push-notification.component'
 import { ChartComponent } from './components/chart/chart.component'
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component'
 import { ChartFilterByTypeComponent } from './components/chart-filter-by-type/chart-filter-by-type.component'
@@ -60,7 +56,6 @@ import { TableNavigationComponent } from './components/table-navigation/table-na
 import { BidStrategyService } from 'common/bid-strategy.service'
 import { ChartService } from './chart.service'
 import { AssetHelpersService } from './asset-helpers.service'
-import { PushNotificationsService } from './components/push-notifications/push-notifications.service'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component'
 import { SettingsMenuItemComponent } from 'common/components/settings-menu-item/settings-menu-item.component'
@@ -114,10 +109,6 @@ const dialogs = [
 
 const appComponents = [
   HeaderComponent,
-  NotificationsComponent,
-  NotificationComponent,
-  PushNotificationsComponent,
-  PushNotificationComponent,
   AdsharesTokenPipe,
   FormatFileSizePipe,
   CalculateInCurrency,
@@ -175,7 +166,6 @@ const appComponents = [
     ChartService,
     CommonService,
     MediaResolver,
-    PushNotificationsService,
   ],
   exports: [
     ...appComponents,

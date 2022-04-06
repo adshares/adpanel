@@ -18,7 +18,6 @@ import { BillingComponent } from './billing/billing.component'
 import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component'
 import { PreferencesComponent } from './general-settings/preferences/preferences.component'
 import { NewsletterSettingsComponent } from './general-settings/newsletter-settings/newsletter-settings.component'
-import { NotificationSettingsComponent } from './general-settings/notification-settings/notification-settings.component'
 import { UserWalletComponent } from './billing/user-wallet/user-wallet.component'
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component'
 import { BillingHistoryFilterComponent } from 'settings/billing/billing-history/billing-history-filter/billing-history-filter.component'
@@ -63,7 +62,6 @@ library.add(fas)
     RefLinkEditorComponent,
     RefLinkEditorDialogComponent,
     NewsletterSettingsComponent,
-    NotificationSettingsComponent,
     UserWalletComponent,
     AutoWithdrawalComponent,
     BillingHistoryComponent,

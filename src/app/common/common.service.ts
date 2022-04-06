@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
 import { environment } from 'environments/environment'
-import { Notification } from 'models/notification.model'
 import { reportType } from 'models/enum/user.enum'
 import { Info } from 'models/info.model'
 import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
@@ -17,14 +16,6 @@ export class CommonService {
 
   getInfo(): Observable<Info> {
     return this.http.get<Info>(`${environment.serverUrl}/info`);
-  }
-
-  getNotifications(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${environment.apiUrl}/notifications`);
-  }
-
-  dismissNotification(notification: Notification): Observable<Notification> {
-    return this.http.post<Notification>(`${environment.apiUrl}/dismiss_notification`, notification);
   }
 
   report(type: reportType, dateStart: string, dateEnd: string, id?: number): Observable<any> {
