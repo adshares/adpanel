@@ -15,7 +15,6 @@ function removeDecimalPart(value: number | string) {
 @Pipe({
   name: 'formatMoney'
 })
-
 export class AdsharesTokenPipe implements PipeTransform {
   transform(value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol',): string {
     let symbol, code;
@@ -40,7 +39,6 @@ export class AdsharesTokenPipe implements PipeTransform {
 @Pipe({
   name: 'calculateInCurrency'
 })
-
 export class CalculateInCurrency extends HandleSubscription implements PipeTransform {
   data: ExchangeRate;
 
@@ -61,13 +59,12 @@ export class CalculateInCurrency extends HandleSubscription implements PipeTrans
     } else {
       return NOT_AVAILABLE;
     }
-  };
+  }
 }
 
 @Pipe({
   name: 'ClickToADS'
 })
-
 export class ClickToADSPipe implements PipeTransform {
   transform(value: number, precision: number = 11): number {
     const formattedMoney = formatMoney(removeDecimalPart(value), precision)
@@ -81,7 +78,6 @@ export class ClickToADSPipe implements PipeTransform {
 @Pipe({
   name: 'budgetPerDay'
 })
-
 export class AdsharesBudgetPerDayPipe implements PipeTransform {
   transform(value: number): number {
     return calcCampaignBudgetPerDay(value);
