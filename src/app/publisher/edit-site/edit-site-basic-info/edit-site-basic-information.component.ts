@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Actions, ofType } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
 import { Observable } from 'rxjs'
-import { take, first, map, startWith } from 'rxjs/operators'
+import { first, map, startWith, take } from 'rxjs/operators'
 import { AppState } from 'models/app-state.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
 import { SaveLastEditedSite, UPDATE_SITE_FAILURE, UpdateSite } from 'store/publisher/publisher.actions'
 import { cloneDeep, mapToIterable } from 'common/utilities/helpers'
-import { ADD_UNIT_CRYPTOVOXELS, ADD_UNIT_DECENTRALAND, ADD_UNIT_DECENTRALAND_SMART } from 'models/enum/link.enum'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 import { siteInitialState } from 'models/initial-state/site'
 import { Site, SiteLanguage } from 'models/site.model'
 import { Entry, TargetingOptionValue } from 'models/targeting-option.model'
-import {
-  SiteCodeCryptovoxelsDialogComponent,
-} from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
 import { PublisherService } from 'publisher/publisher.service'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
-import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { SessionService } from '../../../session.service'
-import { UserAdserverWallet } from 'models/user.model'
-import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-edit-site-basic-information',
@@ -34,11 +30,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024
-  readonly ADD_UNIT_CRYPTOVOXELS = ADD_UNIT_CRYPTOVOXELS
-  readonly ADD_UNIT_DECENTRALAND = ADD_UNIT_DECENTRALAND
-  readonly ADD_UNIT_DECENTRALAND_SMART = ADD_UNIT_DECENTRALAND_SMART
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
   readonly faQuestionCircle = faQuestionCircle
+  readonly SETUP_VERSION = {
+    AUTOMATIC: 'auto',
+    MANUAL: 'manual',
+  }
   siteBasicInfoForm: FormGroup
   languages: SiteLanguage[]
   siteBasicInfoSubmitted = false
@@ -57,7 +53,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   vendors: Entry[] = []
   medium: string
   vendor: string
-  serverUrl: string = environment.serverUrl
 
   constructor (
     private action$: Actions,
@@ -94,15 +89,6 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     )
   }
 
-  get isConnectedWallet (): boolean {
-    const user = this.session.getUser()
-    return user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null
-  }
-
-  get wallet (): UserAdserverWallet {
-    return this.session.getUser().adserverWallet
-  }
-
   updateSelectedTargetingOptionValues (items): void {
     this.selectedTargetingOptionValues = [...items]
   }
@@ -135,6 +121,33 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         this.changesSaving = false
       },
     )
+  }
+
+  overwriteUrl (): void {
+    const vendor = this.siteBasicInfoForm.get('vendor').value
+    let url, name
+    if (vendor === 'cryptovoxels') {
+      const value = this.siteBasicInfoForm.get('parcelId').value
+      url = new CryptovoxelsConverter().encodeValue(value)
+      name = `Cryptovoxels ${value}`
+    } else if (vendor === 'decentraland') {
+      const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX').value
+      const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY').value
+      if (coordinateX === null || coordinateY === null) {
+        return
+      }
+      const value = `(${coordinateX}, ${coordinateY})`
+      url = new DecentralandConverter().encodeValue(value)
+      name = `Decentraland ${value}`
+    }
+
+    if (url !== undefined) {
+      this.siteBasicInfoForm.get('url').setValue(`https://${url}`)
+      this.onUrlBlur()
+      if (this.siteBasicInfoForm.get('name').value.length === 0) {
+        this.siteBasicInfoForm.get('name').setValue(name)
+      }
+    }
   }
 
   onStepBack (): void {
@@ -196,7 +209,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   onUrlFocus (): void {
     const domain = this.siteBasicInfoForm.get('domain').value
     const name = this.siteBasicInfoForm.get('name').value
-    this.overwriteNameByDomain = name.length == 0 || name == domain
+    this.overwriteNameByDomain = name.length === 0 || name == domain
   }
 
   onUrlBlur (): void {
@@ -235,6 +248,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
         value: siteInitialState.vendor,
         disabled: !this.createSiteMode,
       }),
+      setupVersionControl: new FormControl(this.SETUP_VERSION.MANUAL),
     })
     this.siteBasicInfoForm.get('medium').valueChanges.subscribe(value => this.medium = value)
     this.getFormDataFromStore()
@@ -250,8 +264,20 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           this.getSiteInitialLanguage()
         this.siteBasicInfoForm.patchValue(this.site)
         this.onMediumChange(this.site.medium)
-        if (this.site.medium === 'metaverse') {
-          this.siteBasicInfoForm.get('url').disable()
+        if (!this.createSiteMode) {
+          this.vendor = this.site.vendor
+          this.updateFormGroupOnVendorChange(this.vendor)
+          if (this.site.medium === 'metaverse') {
+            if (this.vendor === 'cryptovoxels') {
+              const value = new CryptovoxelsConverter().decodeValue(this.site.url.slice('https://'.length))
+              this.siteBasicInfoForm.get('parcelId').setValue(value)
+            } else if (this.vendor === 'decentraland') {
+              const value = new DecentralandConverter().decodeValue(this.site.url.slice('https://'.length))
+              const coordinates = value.slice(1, value.length - 1).split(', ')
+              this.siteBasicInfoForm.get('parcelCoordinateX').setValue(coordinates[0])
+              this.siteBasicInfoForm.get('parcelCoordinateY').setValue(coordinates[1])
+            }
+          }
         }
       })
     this.subscriptions.push(lastEditedSiteSubscription)
@@ -319,23 +345,51 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     const subscription = this.publisherService.getMediumVendors(medium)
       .pipe(take(1))
       .subscribe(vendors => {
-      this.vendors = mapToIterable(vendors)
-      if (this.createSiteMode) {
-        const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
-        this.vendor = vendor
-        this.siteBasicInfoForm.get('vendor').patchValue(vendor)
-        this.loadSiteCategories(medium, vendor)
-      }
-    })
+        this.vendors = mapToIterable(vendors)
+        if (this.createSiteMode) {
+          this.setupVersionControl.setValue(medium === 'metaverse' ? this.SETUP_VERSION.AUTOMATIC : this.SETUP_VERSION.MANUAL)
+          const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
+          this.updateFormGroupOnVendorChange(vendor)
+          this.vendor = vendor
+          this.siteBasicInfoForm.get('vendor').patchValue(vendor)
+          this.loadSiteCategories(medium, vendor)
+        }
+      })
     this.subscriptions.push(subscription)
   }
 
   onVendorChange (vendor: string): void {
+    this.updateFormGroupOnVendorChange(vendor)
     this.vendor = vendor
     this.loadSiteCategories(this.siteBasicInfoForm.controls['medium'].value, vendor)
   }
 
-  openGetCryptovoxelsCodeDialog (): void {
-    this.dialog.open(SiteCodeCryptovoxelsDialogComponent)
+  updateFormGroupOnVendorChange(vendor: string | null): void {
+    this.siteBasicInfoForm.removeControl('parcelId')
+    this.siteBasicInfoForm.removeControl('parcelCoordinateX')
+    this.siteBasicInfoForm.removeControl('parcelCoordinateY')
+
+    if (vendor === 'cryptovoxels') {
+      this.siteBasicInfoForm.addControl('parcelId', new FormControl(null, Validators.required))
+    } else if (vendor === 'decentraland') {
+      this.siteBasicInfoForm.addControl('parcelCoordinateX', new FormControl(null, Validators.required))
+      this.siteBasicInfoForm.addControl('parcelCoordinateY', new FormControl(null, Validators.required))
+    }
+  }
+
+  get hasParcelCoordinateError(): boolean {
+    const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX')
+    const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY')
+    return (coordinateX.invalid && (coordinateX.touched || coordinateX.dirty)) ||
+      (coordinateY.invalid && (coordinateY.touched || coordinateY.dirty))
+  }
+
+  get hasParcelIdError(): boolean {
+    const parcelId = this.siteBasicInfoForm.get('parcelId')
+    return parcelId.invalid && (parcelId.touched || parcelId.dirty)
+  }
+
+  get setupVersionControl(): AbstractControl {
+    return this.siteBasicInfoForm.get('setupVersionControl')
   }
 }

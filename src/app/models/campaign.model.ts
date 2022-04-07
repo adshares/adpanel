@@ -1,5 +1,12 @@
 import { AssetTargeting } from './targeting-option.model';
 
+interface BannersConfig {
+  uploadLimitImage: number;
+  uploadLimitModel: number;
+  uploadLimitVideo: number;
+  uploadLimitZip: number;
+}
+
 interface CampaignsConfig {
   minBudget: number;
   minCpm: number;
@@ -161,6 +168,7 @@ interface BidStrategyUuidDefaultResponse {
 }
 
 export {
+  BannersConfig,
   CampaignsConfig,
   Campaign,
   CampaignBasicInformation,

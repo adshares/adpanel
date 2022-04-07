@@ -1,0 +1,16 @@
+@import '../../../../../styles.scss';
+
+.instruction {
+  ol {
+    padding-left: 20px;
+  }
+
+  li {
+    padding: 5px 0;
+    list-style: decimal;
+  }
+
+  p {
+    padding: 10px 0;
+  }
+}

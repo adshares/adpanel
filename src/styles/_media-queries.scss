@@ -30,8 +30,8 @@ $retina: (
 
 // Retina
 @mixin retina {
-  @media #{$retina} {@content};
-};
+  @media #{$retina} {@content}
+}
 
 $viewport: (
   xs-up: "#{$screen} and (min-width: #{$xs-breakpoint})",
@@ -59,8 +59,8 @@ $viewport: (
 );
 
 @mixin media($name) {
-  @media #{map-get($viewport, $name)} {@content};
-};
+  @media #{map-get($viewport, $name)} {@content}
+}
 
 $viewport_sizes_up: (
   xs: 'xs-up',

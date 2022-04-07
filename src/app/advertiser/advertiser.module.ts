@@ -37,6 +37,7 @@ import { AdvertiserGuard } from './advertiser-guard.service';
 import { BidStrategyDefaultResolver } from './resolvers/bid-strategy-default.resolver';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
+import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classification-info/campaign-classification-info.component';
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
@@ -97,6 +98,7 @@ const advertiserComponents = [
   providers: [
     AdvertiserGuard,
     BidStrategyDefaultResolver,
+    BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,
     {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},

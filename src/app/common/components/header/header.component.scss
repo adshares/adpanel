@@ -72,11 +72,6 @@
       right: 6px;
     }
 
-    .notifications-total {
-      @include center(both);
-      @include font(14, semi)
-    }
-
     &--hidden {
       @include media(md-down) {
         display: none;

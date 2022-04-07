@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.16.1] - 2022-04-07
+### Added
+- Creating and editing metaverse site
+### Changed
+- Uploaded file's size limit from adserver
+
 ## [1.16.0] - 2022-04-05
 ### Added
 - 3d models upload and preview
@@ -389,7 +395,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.16.0...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.16.1...develop
+[1.16.1]: https://github.com/adshares/adpanel/compare/v1.16.0...v1.16.1
 [1.16.0]: https://github.com/adshares/adpanel/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/adshares/adpanel/compare/v1.14.1...v1.15.0
 [1.14.1]: https://github.com/adshares/adpanel/compare/v1.14.0...v1.14.1

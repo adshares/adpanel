@@ -8,9 +8,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators'
 import { CommonService } from 'common/common.service'
 import {
   LOAD_INFO,
-  LOAD_NOTIFICATIONS,
   LoadInfoSuccess,
-  LoadNotificationsSuccess,
   REQUEST_REPORT,
   REQUEST_REPORT_SUCCESS,
   RequestReport,
@@ -53,14 +51,6 @@ export class CommonEffects {
           catchError(error => observableOf(new ShowDialogOnError(error.message)))
         )
       )
-    )
-
-  @Effect()
-  loadNotifications = this.actions$
-    .pipe(
-      ofType(LOAD_NOTIFICATIONS),
-      switchMap(() => this.service.getNotifications()),
-      map(notifications => new LoadNotificationsSuccess(notifications))
     )
 
   @Effect({ dispatch: false })

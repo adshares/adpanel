@@ -7,8 +7,4 @@ import { Component, Input } from '@angular/core';
 })
 export class SettingsMenuItemComponent {
   @Input() menuItem;
-
-  constructor(
-  ) {
-  }
 }

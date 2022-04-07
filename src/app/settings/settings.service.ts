@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { environment } from 'environments/environment'
-import { BillingHistory, CalculateWithdrawalItem, Invoice, NotificationItem, WalletToken } from 'models/settings.model'
+import { BillingHistory, CalculateWithdrawalItem, Invoice, WalletToken } from 'models/settings.model'
 import { User } from 'models/user.model'
 
 @Injectable()
@@ -37,17 +37,6 @@ export class SettingsService {
     return this.http.get(`${environment.apiUrl}/wallet/history?` +
       httpParams.toString().replace(/\+/gi, '%2B')).
       pipe(map((billingHistory: BillingHistory) => billingHistory))
-  }
-
-  getNotificationsSettings (): Observable<NotificationItem[]> {
-    return this.http.get(`${environment.apiUrl}/settings/notifications`).
-      pipe(map((notificationSettings: NotificationItem[]) => notificationSettings))
-  }
-
-  updateNotificationsSettings (newSettings: NotificationItem[]): Observable<NotificationItem[]> {
-    return this.http.patch(`${environment.apiUrl}/settings/notifications`,
-      newSettings).
-      pipe(map((notificationSettings: NotificationItem[]) => notificationSettings))
   }
 
   changeAutomaticWithdraw (period: string, amount: number) {
