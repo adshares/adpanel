@@ -25,12 +25,6 @@ interface BillingHistoryFilter {
   types: number[];
 }
 
-interface NotificationItem {
-  name: string;
-  notification: string;
-  email: string;
-}
-
 interface UserInfo {
   id: number;
   uuid: string;
@@ -306,7 +300,6 @@ export {
   BillingHistoryItem,
   BillingHistory,
   BillingHistoryFilter,
-  NotificationItem,
   Users,
   UserInfo,
   Advertisers,

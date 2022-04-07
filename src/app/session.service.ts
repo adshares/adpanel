@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Notification } from 'models/notification.model';
 import { LocalStorageUser } from 'models/user.model'
 import { ImpersonationService } from './impersonation/impersonation.service';
 
@@ -16,32 +15,14 @@ export class SessionService {
 
   constructor(private impersonationService: ImpersonationService) {}
 
-  drop() {
+  drop(): void {
     this.isActive = false;
-    localStorage.removeItem('adsharesAddress');
-    localStorage.removeItem('notifications');
     localStorage.removeItem('user');
     this.impersonationService.dropImpersonationToken();
   }
 
   getAccountTypeChoice(): string {
     return localStorage.getItem('accountTypeChoice');
-  }
-
-  getAdsharesAddress(): string {
-    return localStorage.getItem('adsharesAddress');
-  }
-
-  getNotifications(): Notification[] {
-    return JSON.parse(localStorage.getItem('notifications'));
-  }
-
-  getNotificationsCount(): number {
-    const notifications = this.getNotifications();
-    if (!notifications) {
-      return 0;
-    }
-    return notifications.length;
   }
 
   getUser(): LocalStorageUser|null {
@@ -91,15 +72,7 @@ export class SessionService {
     localStorage.setItem('accountTypeChoice', type);
   }
 
-  setAdsharesAddress(adsharesAddress: string) {
-    localStorage.setItem('adsharesAddress', adsharesAddress);
-  }
-
-  setNotifications(notifications: Notification[]) {
-    localStorage.setItem('notifications', JSON.stringify(notifications));
-  }
-
-  setUser(user: LocalStorageUser) {
+  setUser(user: LocalStorageUser): void {
     this.isActive = true;
     localStorage.setItem('user', JSON.stringify(user));
   }

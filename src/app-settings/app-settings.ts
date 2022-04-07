@@ -19,10 +19,6 @@ export const appSettings = {
   AUTH_TOKEN_EXPIRATION_SECONDS: 900,
   // time after which advertisers'/publishers' charts and tables will be automatically refreshed
   AUTOMATIC_REFRESH_INTERVAL: 60000,
-  // update notification time in milliseconds
-  UPDATE_NOTIFICATION_MILLISECONDS_INTERVAL: 60000,
-  // dismiss push notification time in milliseconds
-  DISMISS_PUSH_NOTIFICATION_INTERVAL: 10000,
   // withdraw amounts values
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
   // privacy policy link

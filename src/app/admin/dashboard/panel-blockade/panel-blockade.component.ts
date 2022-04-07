@@ -8,7 +8,4 @@ import { Component, Input } from '@angular/core';
 
 export class PanelBlockadeComponent {
   @Input() url: string;
-
-  constructor() {
-  }
 }

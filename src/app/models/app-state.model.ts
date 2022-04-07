@@ -7,7 +7,6 @@ import {
   BillingHistory,
   Index,
   License,
-  NotificationItem,
   Publishers,
   RefLink,
   TermsAndPrivacy,
@@ -15,7 +14,6 @@ import {
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import { Notification } from 'models/notification.model';
 import { TargetingOption } from 'models/targeting-option.model';
 import {Info} from "models/info.model";
 
@@ -49,7 +47,6 @@ interface PublisherState {
 }
 
 interface SettingsState {
-  notificationsSettings: NotificationItem[];
   billingHistory: BillingHistory;
   refLinks: RefLink[];
 }
@@ -77,7 +74,6 @@ interface CommonState {
   activeUserType: number;
   adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
-  notifications: Notification[];
   impersonationToken: string;
 }
 

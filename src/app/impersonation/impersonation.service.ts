@@ -6,9 +6,6 @@ const IMPERSONATION_TOKEN = 'impersonationToken';
 export class ImpersonationService {
   impersonationMode: EventEmitter<string | null> = new EventEmitter<string | null>();
 
-  constructor() {
-  }
-
   setImpersonationToken(token: string) {
     localStorage.setItem(IMPERSONATION_TOKEN, token);
     this.impersonationMode.emit(token)
