@@ -6,7 +6,7 @@ import { UserAdserverWallet } from 'models/user.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
-import { ADSHARES_WALLET } from 'models/enum/link.enum'
+import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { SettingsService } from 'settings/settings.service'
 import { WalletToken } from 'models/settings.model'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
@@ -20,6 +20,7 @@ import { SessionService } from '../../../session.service'
 })
 export class AccountWalletSettingsComponent extends HandleSubscription {
   readonly ADSHARES_WALLET = ADSHARES_WALLET
+  readonly METAMASK_WALLET = METAMASK_WALLET
   wallet: UserAdserverWallet
   connectError: string | null
   isSubmitted: boolean = false

@@ -25,7 +25,7 @@
     <div class="login-buttons row justify-between">
       <button
         *ngIf="adsWalletAvailable"
-        class="dwmth-btn dwmth-btn--bordered-light"
+        class="dwmth-btn dwmth-btn-with-img dwmth-btn--bordered-light"
         (click)="initWalletLogin('ADS')"
         [disabled]="isAdsLoggingIn"
       >
@@ -34,9 +34,18 @@
           Log in with ADS Wallet
         </ng-container>
       </button>
+      <a
+        *ngIf="!adsWalletAvailable"
+        class="dwmth-btn dwmth-btn--danger"
+        href="{{ADSHARES_WALLET}}"
+        rel="noopener noreferrer nofollow"
+        target="_blank"
+      >
+        Install ADS Wallet first!
+      </a>
       <button
         *ngIf="ethereumAvailable"
-        class="dwmth-btn dwmth-btn--bordered-light"
+        class="dwmth-btn dwmth-btn-with-img dwmth-btn--bordered-light"
         (click)="initWalletLogin('BSC')"
         [disabled]="isBscLoggingIn"
       >
@@ -44,6 +53,15 @@
         <ng-container *ngIf="!isBscLoggingIn; else loading">
           Log in with MetaMask</ng-container>
       </button>
+      <a
+        *ngIf="!ethereumAvailable"
+        class="dwmth-btn dwmth-btn--danger"
+        href="{{METAMASK_WALLET}}"
+        rel="noopener noreferrer nofollow"
+        target="_blank"
+      >
+        Install Metamask first!
+      </a>
       <br />
       <div class="error-msg" *ngIf="walletLoginError">{{walletLoginError}}</div>
     </div>

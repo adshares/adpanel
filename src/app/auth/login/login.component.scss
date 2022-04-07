@@ -28,10 +28,13 @@ h2 {
 
   .dwmth-btn {
     position: relative;
-    padding-left: 40px;
     min-width: 220px;
     height: 42px;
     vertical-align: top;
+
+    &-with-img {
+      padding-left: 40px;
+    }
 
     > img {
       position: absolute;
