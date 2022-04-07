@@ -32,8 +32,8 @@
     margin-top: 0;
   }
 
-.dwmth-box {
-    margin: 8px 0;
+  .dwmth-box {
+    margin: 16px 0 8px 0;
   }
 
   &__language {
@@ -57,17 +57,10 @@
   background-color: #ffffff;
 }
 
-.instruction {
-  ol {
-    padding-left: 20px;
-  }
+.dwmth-form-input__box__full {
+  width: 100%;
+}
 
-  li {
-    padding: 5px 0;
-    list-style: decimal;
-  }
-
-  p {
-    padding: 10px 0;
-  }
+.dwmth-form-label--inline {
+  margin-right: 10px;
 }

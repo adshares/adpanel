@@ -1,0 +1,68 @@
+<ng-container>
+    <ng-template #connectWallet>
+      <p class="dwmth-copy">
+        Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
+      </p>
+    </ng-template>
+
+    <div
+      *ngIf="isConnectedWallet else connectWallet"
+      class="dwmth-copy instruction"
+    >
+      <p>
+        Follow the few steps below to integrate:
+      </p>
+      <ol *ngIf="vendor === 'cryptovoxels'">
+        <li>
+          Generate and copy the Adshares code:
+          <button
+            class="dwmth-btn dwmth-btn--blue dwmth-btn--x-small"
+            role="button"
+            (click)="openGetCryptovoxelsCodeDialog()"
+            data-test="publisher-get-code-button"
+          >
+            Get the ad code
+          </button>
+        </li>
+        <li>Add image object from the Asset Library</li>
+        <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+      </ol>
+      <ol *ngIf="vendor === 'decentraland'">
+        <li>
+          Download the smart item from
+          <a
+            [href]="ADD_UNIT_DECENTRALAND_SMART"
+            target="_blank"
+            rel="noopener nofollow noreferrer"
+          >
+            GitHub
+            <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+          </a>
+        </li>
+        <li>Add it using the
+          <a href="https://builder.decentraland.org/"
+             target="_blank"
+             rel="noopener nofollow noreferrer"
+          >
+            DCL builder
+            <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+          </a>
+        </li>
+        <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
+        <li>Provide payout network: {{ wallet.walletNetwork }}</li>
+        <li>Provide payout address: {{ wallet.walletAddress }}</li>
+        <li>Provide adserver URL: {{ serverUrl }}</li>
+      </ol>
+      <p>
+        For more information read
+        <a
+          [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
+          target="_blank"
+          rel="noopener nofollow noreferrer"
+        >
+          the manual
+          <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+        </a>.
+      </p>
+    </div>
+</ng-container>

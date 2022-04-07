@@ -30,6 +30,9 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import {
+  SiteCodeMetaverseDialogComponent
+} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
 
 @Component({
   selector: 'app-site-details',
@@ -257,6 +260,15 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   openGetCodeDialog(): void {
+    if (!this.displayAds) {
+      this.dialog.open(SiteCodeMetaverseDialogComponent, {
+        data : {
+          vendor: this.site.vendor,
+        },
+      });
+      return
+    }
+
     this.dialog.open(SiteCodeDialogComponent, {
       data : {
         siteId : this.site.id,
