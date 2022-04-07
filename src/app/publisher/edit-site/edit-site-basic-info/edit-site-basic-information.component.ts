@@ -15,6 +15,7 @@ import { DecentralandConverter } from 'common/utilities/targeting-converter/dece
 import { siteInitialState } from 'models/initial-state/site'
 import { Site, SiteLanguage } from 'models/site.model'
 import { Entry, TargetingOptionValue } from 'models/targeting-option.model'
+import { User } from 'models/user.model'
 import { PublisherService } from 'publisher/publisher.service'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
@@ -53,6 +54,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   vendors: Entry[] = []
   medium: string
   vendor: string
+  isConnectedWallet: boolean = false
 
   constructor (
     private action$: Actions,
@@ -87,6 +89,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       map((value: string | SiteLanguage) => typeof value === 'string' ? value : value.name),
       map((val: string) => val ? this.filterOptions(val) : this.languages.slice()),
     )
+    this.updateWalletConnectionState()
   }
 
   updateSelectedTargetingOptionValues (items): void {
@@ -391,5 +394,12 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   get setupVersionControl(): AbstractControl {
     return this.siteBasicInfoForm.get('setupVersionControl')
+  }
+
+  private updateWalletConnectionState (): void {
+    const userSubscription = this.store.select('state', 'user', 'data').subscribe((user: User) => {
+      this.isConnectedWallet = user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null
+    })
+    this.subscriptions.push(userSubscription)
   }
 }

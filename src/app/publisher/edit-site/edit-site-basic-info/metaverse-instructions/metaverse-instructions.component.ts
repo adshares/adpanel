@@ -28,11 +28,6 @@ export class MetaverseInstructions {
   ) {
   }
 
-  get isConnectedWallet (): boolean {
-    const user = this.session.getUser()
-    return user.isConfirmed && user.adserverWallet.walletAddress !== null && user.adserverWallet.walletNetwork !== null
-  }
-
   get wallet (): UserAdserverWallet {
     return this.session.getUser().adserverWallet
   }
