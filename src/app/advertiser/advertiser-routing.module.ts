@@ -14,6 +14,7 @@ import { CampaignDetailsComponent } from './campaign-details/campaign-details.co
 import { AdvertiserGuard } from './advertiser-guard.service';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { MediaResolver } from 'common/resolvers/media.resolver';
+import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
 import { BidStrategyDefaultResolver } from 'advertiser/resolvers/bid-strategy-default.resolver';
@@ -61,6 +62,9 @@ const advertiserRoutes: Routes = [
           {
             path: 'create-ad',
             component: EditCampaignCreateAdsComponent,
+            resolve: {
+              bannersConfig: BannersConfigResolver,
+            },
           },
           {
             path: 'summary',
@@ -98,6 +102,9 @@ const advertiserRoutes: Routes = [
           {
             path: 'create-ad',
             component: EditCampaignCreateAdsComponent,
+            resolve: {
+              bannersConfig: BannersConfigResolver,
+            },
           },
           {
             path: 'summary',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { MatDialog } from '@angular/material'
@@ -22,6 +22,7 @@ import {
 } from 'models/enum/ad.enum'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
+import { HTTP_REQUEST_ENTITY_TOO_LARGE } from 'common/utilities/codes'
 import { cloneDeep, cutDirectAdSizeAnchor } from 'common/utilities/helpers'
 import { Ad, Campaign } from 'models/campaign.model'
 import { environment } from 'environments/environment'
@@ -83,6 +84,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   constructor(
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
+    private route: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>,
     private session: SessionService,
@@ -213,7 +215,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const form = this.adForms[adIndex];
     const adType = form.get('type').value;
     const isFileTypeValid = this.isFileMimeTypeValid(file.type, adType);
-    const isFileSizeValid = file.size <= EditCampaignCreateAdsComponent.getMaxFileSize(adType);
+    const isFileSizeValid = file.size <= this.getMaxFileSize(adType);
 
     if (this.isHtmlTypeChosen(form)) {
       const sizeFromName = file.name.match(/[0-9]+x[0-9]+/)
@@ -263,16 +265,16 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     return allowedMimeTypes.includes(mimeType);
   }
 
-  private static getMaxFileSize (adType: string): number {
+  getMaxFileSize (adType: string): number {
     switch (adType) {
       case adCreativeTypes.IMAGE:
-        return appSettings.MAX_AD_SIZE_IMAGE
+        return this.route.snapshot.data.bannersConfig.uploadLimitImage
       case adCreativeTypes.HTML:
-        return appSettings.MAX_AD_SIZE_HTML
+        return this.route.snapshot.data.bannersConfig.uploadLimitZip
       case adCreativeTypes.VIDEO:
-        return appSettings.MAX_AD_SIZE_VIDEO
+        return this.route.snapshot.data.bannersConfig.uploadLimitVideo
       case adCreativeTypes.MODEL:
-        return appSettings.MAX_AD_SIZE_MODEL
+        return this.route.snapshot.data.bannersConfig.uploadLimitModel
       default:
         return 0
     }
@@ -281,7 +283,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   presentedMaxFileSize (index: number): number {
     const adForm = this.adForms[index]
     const adType = adForm.get('type').value
-    return EditCampaignCreateAdsComponent.getMaxFileSize(adType)
+    return this.getMaxFileSize(adType)
   }
 
   adjustBannerName(form: FormGroup): void {
@@ -341,7 +343,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     const data = new FormData();
     data.append('file', file, file.name);
     const uploadBannerSubscription = this.advertiserService.uploadBanner(data).subscribe(
-      (event) => {
+      event => {
         if (event.type === 1) {
           this.imagesStatus.upload.processing = true;
           this.imagesStatus.upload.progress = Math.round(event.loaded / event.total * 100);
@@ -367,7 +369,9 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
           form.get('fileSrc').setValue(event.body.url)
         }
       },
-      (err) => this.store.dispatch(new ShowDialogOnError(err.error.message))
+      error => this.store.dispatch(new ShowDialogOnError(
+        error.error.code === HTTP_REQUEST_ENTITY_TOO_LARGE ? 'Payload too large' : error.error.message)
+      )
     );
     this.subscriptions.push(uploadBannerSubscription);
   }
@@ -512,7 +516,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
 
   getSupportedFileSize(form: FormGroup): number {
     const adType = form.get('type').value
-    return EditCampaignCreateAdsComponent.getMaxFileSize(adType)
+    return this.getMaxFileSize(adType)
   }
 
   cancelUploading(): void {
