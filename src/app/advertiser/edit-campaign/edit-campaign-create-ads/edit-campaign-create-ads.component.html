@@ -344,7 +344,7 @@
                   class="dwmth-copy"
                 >
                   Please upload your HTML banner ad as a zip archive.
-                  Please make sure that the file is not larger than {{appSettings.MAX_AD_SIZE_HTML|formatFileSize}}.
+                  Please make sure that the file is not larger than {{getMaxFileSize(adCreativeTypes.HTML)|formatFileSize}}.
                 </p>
                 <p
                   *ngSwitchDefault

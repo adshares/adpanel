@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { environment } from 'environments/environment';
 import {
+  BannersConfig,
   Campaign,
   CampaignConversionStatistics,
   CampaignsConfig,
@@ -12,7 +14,6 @@ import {
 } from 'models/campaign.model';
 import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { NavigationStart, Router } from '@angular/router';
 import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
 import { AppState } from 'models/app-state.model';
 import { Media, Medium } from 'models/taxonomy-medium.model'
@@ -90,6 +91,10 @@ export class AdvertiserService {
 
   activateOutdatedCampaign(id: number) {
     return this.http.patch(`${environment.apiUrl}/campaigns/${id}/activate-outdated`, null);
+  }
+
+  getBannersConfig(): Observable<BannersConfig> {
+    return this.http.get<BannersConfig>(`${environment.apiUrl}/options/banners`);
   }
 
   getCampaignsConfig(): Observable<CampaignsConfig> {
