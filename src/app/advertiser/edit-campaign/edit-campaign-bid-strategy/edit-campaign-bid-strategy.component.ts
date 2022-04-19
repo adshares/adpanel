@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
 import { BidStrategy, Campaign, CampaignsConfig } from 'models/campaign.model';
@@ -97,7 +97,7 @@ export class EditCampaignBidStrategyComponent extends HandleSubscription impleme
         UPDATE_CAMPAIGN_FAILURE
       ),
       first()
-    ).subscribe(action => {
+    ).subscribe((action: Action) => {
       this.submitted = false;
       if (UPDATE_CAMPAIGN_SUCCESS === action.type) {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
