@@ -258,7 +258,7 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
   return errors;
 };
 
-function downloadReport(data: Response) {
+function downloadReport(data: any): void {
   const fileName = data.headers.get('content-disposition').split('filename=')[1] || 'report.xlsx';
   const type = data.headers.get('content-type');
   const blob = new Blob([data.body], {type});

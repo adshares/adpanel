@@ -27,7 +27,14 @@
         (wallet.walletBalance | formatMoney:2:crypto:code) }}
       </h1>
 
-      <div class="user-wallet__funds-actions">
+      <div
+              class="error-msg"
+              *ngIf="isImpersonated"
+      >
+        You cannot change user balance during impersonation.
+      </div>
+
+      <div class="user-wallet__funds-actions" *ngIf="!isImpersonated">
         <div>
           <button
             class="user-wallet__btn user-wallet__btn--white"

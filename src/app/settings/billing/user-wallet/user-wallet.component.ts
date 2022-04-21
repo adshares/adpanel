@@ -21,6 +21,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
+  isImpersonated: boolean = false;
 
   constructor(
     private dialog: MatDialog,
@@ -43,5 +44,6 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
       .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet;
       });
+    this.isImpersonated = this.session.isImpersonated()
   }
 }

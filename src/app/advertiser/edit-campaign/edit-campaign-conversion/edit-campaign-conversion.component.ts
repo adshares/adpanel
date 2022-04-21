@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
@@ -123,7 +123,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         ),
         first()
       )
-      .subscribe(action => {
+      .subscribe((action: Action) => {
         this.submitted = false;
         if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
           this.conversionItemForms.forEach(item => item.markAsPristine());
