@@ -78,7 +78,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       })
     this.subscriptions.push(updateSiteFailureSubscription)
     this.createSiteMode = !!this.router.url.match('/create-site/')
-    if (this.createSiteMode) {
+    if (this.createSiteMode && this.media.length > 0) {
       this.onMediumChange(this.media[0].key)
     }
     this.getLanguages()

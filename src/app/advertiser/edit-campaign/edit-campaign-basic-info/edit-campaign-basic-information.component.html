@@ -29,6 +29,7 @@
       <div class="dwmth-form-input__box">
         <label class="dwmth-form-label">Medium</label>
         <mat-select
+          *ngIf="media.length > 0 else missingTaxonomy"
           class="dwmth-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
@@ -398,3 +399,8 @@
   </form>
 </section>
 
+<ng-template #missingTaxonomy>
+  <div class="error-msg">
+    Taxonomy is not available. Please contact support.
+  </div>
+</ng-template>
