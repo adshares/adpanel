@@ -140,6 +140,11 @@ interface AdminSettings {
   aduserInfoUrl: string;
 }
 
+interface AdminSiteOptions {
+  classifierLocalBanners: string;
+  acceptBannersManually: number;
+}
+
 interface AdminWallet {
   balance: number;
   unusedBonuses: number;
@@ -151,6 +156,10 @@ interface AdminIndexUpdateTimeResponse {
 
 interface AdminSettingsResponse {
   settings: AdminSettings;
+}
+
+interface AdminSiteOptionsResponse{
+  options: AdminSiteOptions
 }
 
 interface AdminWalletResponse {
@@ -307,6 +316,7 @@ export {
   Publishers,
   PublisherInfo,
   AdminSettings,
+  AdminSiteOptions,
   AdminWallet,
   AdsharesAddress,
   WithdrawalInfo,
@@ -320,6 +330,7 @@ export {
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
+  AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
   RejectedDomainsResponse,
