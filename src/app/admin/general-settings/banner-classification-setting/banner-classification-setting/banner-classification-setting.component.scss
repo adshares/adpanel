@@ -1,0 +1,27 @@
+.banner{
+
+  &__wrapper{
+    margin-left: 30px;
+    padding: 30px;
+  }
+
+  &__controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__radio-wrapper{
+    display: flex;
+    flex-direction: column;
+
+    & > mat-radio-button{
+      margin-top: 4px;
+    }
+  }
+
+  &__submit-btn-box{
+    margin-top: 16px;
+  }
+}
