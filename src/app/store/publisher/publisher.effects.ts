@@ -11,9 +11,7 @@ import {
   AddSiteToSites,
   AddSiteToSitesSuccess,
   ClearLastEditedSite,
-  GET_FILTERING_CRITERIA,
   GET_LANGUAGES_LIST,
-  GetFilteringCriteriaSuccess,
   GetLanguagesListFailure,
   GetLanguagesListSuccess,
   LOAD_SITE,
@@ -48,7 +46,6 @@ import {
 } from './publisher.actions'
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import { STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
-import { prepareFilteringChoices } from 'common/components/targeting/targeting.helpers'
 import * as moment from 'moment'
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
@@ -172,14 +169,6 @@ export class PublisherEffects {
           catchError(() => observableOf(new GetLanguagesListFailure()))
         )
       )
-    )
-
-  @Effect()
-  getFilteringCriteria$ = this.actions$
-    .pipe(
-      ofType(GET_FILTERING_CRITERIA),
-      switchMap(() => this.service.getFilteringCriteria()),
-      map(filteringOptions => new GetFilteringCriteriaSuccess(prepareFilteringChoices(filteringOptions)))
     )
 
   @Effect()
