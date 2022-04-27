@@ -41,6 +41,8 @@ import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/adverti
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
+import { BannerClassificationSettingComponent } from './general-settings/banner-classification-setting/banner-classification-setting/banner-classification-setting.component';
+import { MatRadioModule } from '@angular/material/radio'
 
 @NgModule({
   imports: [
@@ -62,6 +64,7 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
     MatDatepickerModule,
     MatSelectModule,
     MatTabsModule,
+    MatRadioModule,
   ],
   providers: [
     AdminGuard,
@@ -89,6 +92,7 @@ import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-set
     RejectedDomainsComponent,
     PanelBlockadeComponent,
     PanelPlaceholdersSettingsComponent,
+    BannerClassificationSettingComponent,
   ],
   entryComponents: [
     SuccessSnackbarComponent,

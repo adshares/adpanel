@@ -8,12 +8,14 @@ import {
   GET_REJECTED_DOMAINS_SUCCESS,
   GET_TERMS_SETTINGS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
+  LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
   LOAD_ADMIN_WALLET_SUCCESS,
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
-} from './admin.actions';
+  SET_ADMIN_SITE_OPTIONS_SUCCESS,
+} from './admin.actions'
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
@@ -35,6 +37,10 @@ const initialState: AdminState = {
     autoConfirmationEnabled: 0,
     emailVerificationRequired: 0,
     aduserInfoUrl: '',
+  },
+  siteOptions: {
+    classifierLocalBanners: 'all-by-default',
+    acceptBannersManually: 0,
   },
   wallet: {
     balance: 0,
@@ -92,6 +98,11 @@ export function adminReducers(state = initialState, action: actions) {
         ...state,
         settings: action.payload.settings
       };
+    case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
+      return {
+        ...state,
+        siteOptions: action.payload
+      };
     case LOAD_ADMIN_WALLET_SUCCESS:
       return {
         ...state,
@@ -101,6 +112,11 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload
+      };
+    case SET_ADMIN_SITE_OPTIONS_SUCCESS:
+      return {
+        ...state,
+        siteOptions: action.payload
       };
     case GET_PRIVACY_SETTINGS_SUCCESS:
       return {
