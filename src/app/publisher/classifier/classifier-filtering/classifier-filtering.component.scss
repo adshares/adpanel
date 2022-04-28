@@ -20,4 +20,19 @@
   &__btn {
     @include btn();
   }
+
+  &__content-padding{
+    padding-left: 12px;
+  }
+
+  &__icon{
+    margin-right: 4px;
+  }
+}
+
+.local-classifier{
+
+  &__wrapper{
+    padding-left: 16px;
+  }
 }

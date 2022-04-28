@@ -1,115 +1,120 @@
-<mat-accordion class="classifier-filtering">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>
-          filter_list
-        </mat-icon>
-        Filter banners by status
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ statusDescription }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+ <mat-accordion class="classifier-filtering">
+    <mat-expansion-panel >
+      <mat-expansion-panel-header class="classifier-filtering__content-padding">
+        <mat-panel-title>
+          <mat-icon class="classifier-filtering__icon">
+            filter_list
+          </mat-icon>
+          Filter banners by status
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ statusDescription }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-radio-group [formControl]="status" (change)="changeFiltering()">
-      <mat-radio-button value="Approved">
-        {{isGlobal ? 'Omitted' : 'Approved'}}
-      </mat-radio-button>
-      <mat-radio-button value="Rejected">
-        {{isGlobal ? 'Rejected' : 'Omitted'}}
-      </mat-radio-button>
-      <mat-radio-button value="Unclassified">
-        Unclassified
-      </mat-radio-button>
-      <mat-radio-button value="">
-        All
-      </mat-radio-button>
-    </mat-radio-group>
-  </mat-expansion-panel>
-  <mat-expansion-panel *ngIf="adSizesOptions.length > 0">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>
-          filter_list
-        </mat-icon>
-        Filter banners by size
-      </mat-panel-title>
-      <mat-panel-description>
+      <mat-radio-group [formControl]="status" (change)="changeFiltering()">
+        <mat-radio-button value="Approved">
+          {{isGlobal ? 'Omitted' : 'Approved'}}
+        </mat-radio-button>
+        <mat-radio-button value="Rejected">
+          {{isGlobal ? 'Rejected' : 'Omitted'}}
+        </mat-radio-button>
+        <mat-radio-button value="Unclassified">
+          Unclassified
+        </mat-radio-button>
+        <mat-radio-button value="">
+          All
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="adSizesOptions.length > 0">
+      <mat-expansion-panel-header class="classifier-filtering__content-padding">
+        <mat-panel-title>
+          <mat-icon class="classifier-filtering__icon">
+            filter_list
+          </mat-icon>
+          Filter banners by size
+        </mat-panel-title>
+        <mat-panel-description>
         <span *ngFor="let chosenSize of sizes"
               class="classifier-filtering__chosen-value">
           {{ chosenSize }}
         </span>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-checkbox *ngFor="let sizeOption of adSizesOptions"
-                  (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
-    </mat-checkbox>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>
-          filter_list
-        </mat-icon>
-        Filter banners by landing url
-      </mat-panel-title>
-      <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-checkbox *ngFor="let sizeOption of adSizesOptions"
+                    (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
+      </mat-checkbox>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="classifier-filtering__content-padding">
+        <mat-panel-title>
+          <mat-icon class="classifier-filtering__icon">
+            filter_list
+          </mat-icon>
+          Filter banners by landing url
+        </mat-panel-title>
+        <mat-panel-description>
         <span class="classifier-filtering__chosen-value">
           {{ landingUrl.value }}
         </span>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <form (submit)="changeFilteringByLandingUrl()">
-      <label class="classifier-filtering__label"
-             for="landingUrl">
-        Landing url
-      </label>
-      <input id="landingUrl"
-             [formControl]="landingUrl"
-             type="text"
-             class="classifier-filtering__input"/>
-      <button type="submit"
-              class="classifier-filtering__btn">
-        Search
-      </button>
-    </form>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <mat-icon>
-          filter_list
-        </mat-icon>
-        Filter banners by id
-      </mat-panel-title>
-      <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form (submit)="changeFilteringByLandingUrl()">
+        <label class="classifier-filtering__label"
+               for="landingUrl">
+          Landing url
+        </label>
+        <input id="landingUrl"
+               [formControl]="landingUrl"
+               type="text"
+               class="classifier-filtering__input"/>
+        <button type="submit"
+                class="classifier-filtering__btn">
+          Search
+        </button>
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="classifier-filtering__content-padding">
+        <mat-panel-title>
+          <mat-icon class="classifier-filtering__icon">
+            filter_list
+          </mat-icon>
+          Filter banners by id
+        </mat-panel-title>
+        <mat-panel-description>
         <span class="classifier-filtering__chosen-value">
           {{ bannerId.value }}
         </span>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <form
-      (submit)="changeFilteringByBannerId()"
-    >
-      <label class="classifier-filtering__label"
-             for="bannerId">
-        Banner id
-      </label>
-      <input id="bannerId"
-             [formControl]="bannerId"
-             type="text"
-             class="classifier-filtering__input"/>
-      <button type="submit"
-              class="classifier-filtering__btn">
-        Search
-      </button>
-      <button
-        class="classifier-filtering__btn"
-        (click)="changeFilteringByBannerIdReset()"
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form
+              (submit)="changeFilteringByBannerId()"
       >
-        Clear
-      </button>
-    </form>
-  </mat-expansion-panel>
-</mat-accordion>
+        <label class="classifier-filtering__label"
+               for="bannerId">
+          Banner id
+        </label>
+        <input id="bannerId"
+               [formControl]="bannerId"
+               type="text"
+               class="classifier-filtering__input"/>
+        <button type="submit"
+                class="classifier-filtering__btn">
+          Search
+        </button>
+        <button
+                class="classifier-filtering__btn"
+                (click)="changeFilteringByBannerIdReset()"
+        >
+          Clear
+        </button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+ <div class="dwmth-box local-classifier__wrapper">
+  <mat-checkbox>
+    Filter banners by local server
+  </mat-checkbox>
+</div>
