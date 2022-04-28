@@ -29,7 +29,7 @@
       <div class="dwmth-form-input__box">
         <label class="dwmth-form-label">Medium</label>
         <mat-select
-          *ngIf="media.length > 0 else missingTaxonomy"
+          *ngIf="isTaxonomy else missingTaxonomy"
           class="dwmth-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
@@ -386,8 +386,11 @@
               data-test="advertiser-navigate-to-dashboard">
         {{ createCampaignMode ? 'Back to dashboard' : 'Back' }}
       </button>
-      <button class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
-              data-test="advertiser-edit-campaign-save-and-continue">
+      <button
+        *ngIf="isTaxonomy"
+        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+        data-test="advertiser-edit-campaign-save-and-continue"
+      >
         <span *ngIf="!changesSaved; else loading">
         {{ createCampaignMode ? 'Save & continue' : 'Update' }}
         </span>
