@@ -11,7 +11,7 @@ import { cloneDeep, downloadReport } from 'common/utilities/helpers';
 import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../../session.service';
 import { BidStrategyService } from 'common/bid-strategy.service';
-import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_NOT_FOUND } from 'common/utilities/codes';
 
 interface BidStrategyComponentEntry {
   key: string;
@@ -54,25 +54,27 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   ngOnInit(): void {
     this.isAdmin = this.sessionService.isAdmin();
 
-    observableForkJoin([
+    const subscription = observableForkJoin([
       this.bidStrategyService.getTargetingCriteria(),
       this.bidStrategyService.getBidStrategies(),
     ]).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
-        if (responses[0].length === 0) {
-          this.bidStrategiesOptionsAreMissing = true;
-          this.isLoading = false;
-          return;
-        }
         this.handleFetchedTargetingOptions(responses[0]);
         this.handleFetchedBidStrategies(responses[1]);
       },
-      (error) => {
+      error => {
         const status = error.status ? error.status : 0;
-        if (status !== HTTP_INTERNAL_SERVER_ERROR) {
+        if (status === HTTP_INTERNAL_SERVER_ERROR) {
+          return
+        }
+        if (status === HTTP_NOT_FOUND) {
+          this.bidStrategiesOptionsAreMissing = true;
+          this.store.dispatch(new ShowDialogOnError('Bid strategies options are not available. Please contact support'));
+        } else {
           this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
         }
       });
+    this.subscriptions.push(subscription)
   }
 
   private handleFetchedTargetingOptions(targetingOptions: TargetingOption[]): void {
@@ -126,6 +128,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
     if (this.bidStrategyUuidSelected) {
       this.onBidStrategySelect();
     } else {
+      this.addNewBidStrategy();
       this.isLoading = false;
     }
   }

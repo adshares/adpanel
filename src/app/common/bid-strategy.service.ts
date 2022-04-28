@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
-import { TargetingOption } from 'models/targeting-option.model';
+import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BidStrategy, BidStrategyRequest, BidStrategyUuidDefaultResponse } from 'models/campaign.model';
+import { TargetingOption } from 'models/targeting-option.model';
+import { Medium } from 'models/taxonomy-medium.model';
 
 @Injectable()
 export class BidStrategyService {
@@ -12,8 +14,15 @@ export class BidStrategyService {
   constructor(private http: HttpClient) {
   }
 
-  getTargetingCriteria(): Observable<TargetingOption[]> {
-    return this.http.get<TargetingOption[]>(`${environment.apiUrl}/options/campaigns/targeting`);
+  getTargetingCriteria(medium: string = 'web', vendor: string | null = null): Observable<TargetingOption[]> {
+    let url = `${environment.apiUrl}/options/campaigns/media/${medium}`
+    if (vendor) {
+      url = `${url}?vendor=${vendor}`
+    }
+    return this.http.get<Medium>(url)
+      .pipe(
+        map(medium => processTargeting(medium))
+      );
   }
 
   getBidStrategies(attachDefault: boolean = false): Observable<BidStrategy[]> {
