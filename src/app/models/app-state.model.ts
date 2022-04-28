@@ -14,7 +14,6 @@ import {
 } from './settings.model';
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import { TargetingOption } from 'models/targeting-option.model';
 import {Info} from "models/info.model";
 
 interface AppState {
@@ -43,7 +42,6 @@ interface PublisherState {
   dataLoaded: boolean;
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
-  filteringCriteria: TargetingOption[];
 }
 
 interface SettingsState {

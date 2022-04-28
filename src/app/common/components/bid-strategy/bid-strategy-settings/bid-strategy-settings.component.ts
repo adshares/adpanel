@@ -11,6 +11,7 @@ import { cloneDeep, downloadReport } from 'common/utilities/helpers';
 import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../../session.service';
 import { BidStrategyService } from 'common/bid-strategy.service';
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
 
 interface BidStrategyComponentEntry {
   key: string;
@@ -37,6 +38,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   bidStrategyUuidSelected: string | null = null;
   bidStrategyNameSelected: string = '';
   isLoading: boolean = true;
+  bidStrategiesOptionsAreMissing: boolean = false;
   isAdmin: boolean = false;
   isDownloadInProgress: boolean = false;
   isUploadInProgress: boolean = false;
@@ -57,12 +59,19 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       this.bidStrategyService.getBidStrategies(),
     ]).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
+        if (responses[0].length === 0) {
+          this.bidStrategiesOptionsAreMissing = true;
+          this.isLoading = false;
+          return;
+        }
         this.handleFetchedTargetingOptions(responses[0]);
         this.handleFetchedBidStrategies(responses[1]);
       },
       (error) => {
         const status = error.status ? error.status : 0;
-        this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
+        if (status !== HTTP_INTERNAL_SERVER_ERROR) {
+          this.store.dispatch(new ShowDialogOnError(`Reload the page to load data. Error code (${status})`));
+        }
       });
   }
 

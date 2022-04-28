@@ -59,6 +59,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   currentCampaignStatus: string;
   budgetInfo: string;
   isDefaultBidStrategy: boolean = false;
+  isTaxonomyMissing = false;
   mediumLabel: string;
 
   constructor(
@@ -214,10 +215,13 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     } else {
       this.advertiserService.getMedium(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
         .pipe(take(1))
-        .subscribe(medium => {
-          this.targetingOptions = processTargeting(medium);
-          this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions);
-        })
+        .subscribe(
+          medium => {
+            this.targetingOptions = processTargeting(medium)
+            this.targeting = parseTargetingOptionsToArray(this.campaign.targeting, this.targetingOptions)
+          },
+          () => this.isTaxonomyMissing = true
+        )
     }
   }
 

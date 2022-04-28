@@ -78,7 +78,7 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
       })
     this.subscriptions.push(updateSiteFailureSubscription)
     this.createSiteMode = !!this.router.url.match('/create-site/')
-    if (this.createSiteMode) {
+    if (this.createSiteMode && this.media.length > 0) {
       this.onMediumChange(this.media[0].key)
     }
     this.getLanguages()
@@ -336,8 +336,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     if (!this.createSiteMode) {
       return
     }
-    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(medium, vendor).
-      subscribe(options => {
+    const siteCategoriesSubscription = this.publisherService.siteCategoriesOptions(medium, vendor)
+      .subscribe(options => {
         this.siteCategoriesOptions = options
         this.isSetCategoryMode = options.length > 0
       })
@@ -394,6 +394,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
 
   get setupVersionControl(): AbstractControl {
     return this.siteBasicInfoForm.get('setupVersionControl')
+  }
+
+  get isTaxonomy(): boolean {
+    return this.media.length > 0
   }
 
   private updateWalletConnectionState (): void {
