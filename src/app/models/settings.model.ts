@@ -158,7 +158,7 @@ interface AdminSettingsResponse {
   settings: AdminSettings;
 }
 
-interface AdminSiteOptionsResponse{
+interface AdminSiteOptionsResponse {
   options: AdminSiteOptions
 }
 

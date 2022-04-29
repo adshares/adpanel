@@ -21,18 +21,19 @@
     @include btn();
   }
 
-  &__content-padding{
+  &__content-padding {
     padding-left: 12px;
   }
 
-  &__icon{
+  &__icon {
     margin-right: 4px;
   }
-}
 
-.local-classifier{
-
-  &__wrapper{
+  &__checkbox {
     padding-left: 16px;
+  }
+
+  &__hidden {
+    display: none;
   }
 }

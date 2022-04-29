@@ -32,6 +32,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   totalCount: number = 0;
   refreshIcon = faSyncAlt;
   adSizesOptions: string[];
+  classifierLocalBanners: number
   filtering: BannerClassificationFilters = {
     status: {
       unclassified: 1
@@ -51,12 +52,15 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     const site: Site = this.route.snapshot.data.site;
+    const classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
     this.siteId = site ? site.id : null;
     this.siteName = site ? site.name : null;
     this.isGlobal = site === undefined;
     this.adSizesOptions = this.route.snapshot.data.sizes.sizes;
     this.bannerId = this.route.snapshot.params['bannerId'];
     this.isSingleBanner = this.bannerId !== undefined;
+    this.classifierLocalBanners = classifierOption === 'all-by-default' ? 0 : 1
+    this.filtering.classifierLocalBanners = this.classifierLocalBanners
     if (this.isSingleBanner) {
       this.filtering = {
         bannerId: this.bannerId,
@@ -69,7 +73,14 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   getBannerClassification(offset?: number) {
     this.isLoading = true;
     const bannersForClassificationSubscription = this.publisherService
-      .getBannerClassification(this.siteId, this.PAGE_SIZE, this.filtering, this.adSizesOptions, offset)
+      .getBannerClassification(
+        this.siteId,
+        this.PAGE_SIZE,
+        this.filtering,
+        this.adSizesOptions,
+        this.classifierLocalBanners,
+        offset
+      )
       .subscribe(
         (bannerClassificationResponse: BannerClassificationResponse) => {
           this.bannerClassifications = bannerClassificationResponse.items;

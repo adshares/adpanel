@@ -19,6 +19,7 @@ import {MediaResolver} from 'common/resolvers/media.resolver';
 import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
 import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
+import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
 
 const publisherRoutes: Routes = [
   {
@@ -47,7 +48,10 @@ const publisherRoutes: Routes = [
           {
             path: 'classifier',
             component: ClassifierComponent,
-            resolve: {sizes: MatchingBannerSizesResolver}
+            resolve: {
+              sizes: MatchingBannerSizesResolver,
+              siteOptions: SiteOptionsResolver
+            }
           }
         ]
       },
@@ -123,12 +127,18 @@ const publisherRoutes: Routes = [
       {
         path: 'classifier/:bannerId',
         component: ClassifierComponent,
-        resolve: {sizes: MatchingBannerSizesResolver}
+        resolve: {
+          sizes: MatchingBannerSizesResolver,
+          siteOptions: SiteOptionsResolver
+        }
       },
       {
         path: 'classifier',
         component: ClassifierComponent,
-        resolve: {sizes: MatchingBannerSizesResolver}
+        resolve: {
+          sizes: MatchingBannerSizesResolver,
+          siteOptions: SiteOptionsResolver
+        }
       },
     ]
   },

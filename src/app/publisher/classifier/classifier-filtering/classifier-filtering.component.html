@@ -113,8 +113,15 @@
       </form>
     </mat-expansion-panel>
   </mat-accordion>
- <div class="dwmth-box local-classifier__wrapper">
-  <mat-checkbox>
-    Filter banners by local server
+ <div
+  [ngClass]="classifierOption === 'local-only'
+    ? 'classifier-filtering__hidden'
+    : 'dwmth-box classifier-filtering__checkbox'"
+ >
+  <mat-checkbox
+    [checked]="classifierLocalBanners !== 0"
+    (change)="changeFilterByServer($event.checked)"
+  >
+    Show banners only from local server
   </mat-checkbox>
 </div>
