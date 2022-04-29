@@ -80,7 +80,8 @@ const publisherRoutes: Routes = [
           },
           {
               path: 'additional-filtering',
-              component: EditSiteAdditionalTargetingComponent
+              component: EditSiteAdditionalTargetingComponent,
+              resolve: { siteOptions: SiteOptionsResolver }
           },
           {
             path: 'summary',
