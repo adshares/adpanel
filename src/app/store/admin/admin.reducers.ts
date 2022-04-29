@@ -98,11 +98,6 @@ export function adminReducers(state = initialState, action: actions) {
         ...state,
         settings: action.payload.settings
       };
-    case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
-      return {
-        ...state,
-        siteOptions: action.payload
-      };
     case LOAD_ADMIN_WALLET_SUCCESS:
       return {
         ...state,
@@ -113,6 +108,7 @@ export function adminReducers(state = initialState, action: actions) {
         ...state,
         settings: action.payload
       };
+    case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
     case SET_ADMIN_SITE_OPTIONS_SUCCESS:
       return {
         ...state,

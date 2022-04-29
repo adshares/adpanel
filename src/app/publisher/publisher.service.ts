@@ -131,7 +131,7 @@ export class PublisherService {
     limit?: number,
     filtering?: BannerClassificationFilters,
     possibleSizes: string[] = [],
-    local?: number,
+    _local?: number,
     offset?: number,
   )
     : Observable<BannerClassificationResponse> {
