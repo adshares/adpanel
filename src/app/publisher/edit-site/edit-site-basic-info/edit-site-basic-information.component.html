@@ -31,6 +31,7 @@
       <div class="dwmth-form-input__box">
         <label class="dwmth-form-label dwmth-form-label--no-margin-top">Medium</label>
         <mat-select
+          *ngIf="isTaxonomy else missingTaxonomy"
           class="dwmth-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
@@ -371,7 +372,7 @@
       </button>
 
       <button
-        *ngIf="setupVersionControl.value === SETUP_VERSION.MANUAL"
+        *ngIf="isTaxonomy && (setupVersionControl.value === SETUP_VERSION.MANUAL)"
         class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
@@ -386,3 +387,10 @@
     </div>
   </form>
 </section>
+
+<ng-template #missingTaxonomy>
+  <div class="error-msg">
+    Taxonomy is not available. Please contact support.
+  </div>
+</ng-template>
+

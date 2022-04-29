@@ -189,7 +189,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
         this.addedItems = [...campaign.targetingArray.requires];
         this.excludedItems = [...campaign.targetingArray.excludes];
         this.isLoading = false
-      })
+      }, () => this.isLoading = false)
     this.subscriptions.push(targetingSubscription)
   }
 }
