@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Wallet login buttons visibility
 - Angular 7
+- Bid strategy depends on medium
 ### Fixed
 - Metaverse site creation when wallet not connected
 - Forbid buttons to change balance during impersonation

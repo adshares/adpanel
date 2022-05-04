@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -6,8 +7,8 @@ import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
-import { cloneDeep, downloadReport } from 'common/utilities/helpers';
+import { Entry, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import { cloneDeep, downloadReport, mapToIterable } from 'common/utilities/helpers';
 import { DELETE_SUCCESS, SAVE_SUCCESS } from 'common/utilities/messages';
 import { SessionService } from '../../../../session.service';
 import { BidStrategyService } from 'common/bid-strategy.service';
@@ -25,6 +26,8 @@ interface BidStrategyComponentEntry {
   styleUrls: ['./bid-strategy-settings.component.scss'],
 })
 export class BidStrategySettingsComponent extends HandleSubscription implements OnInit {
+  @Input() medium: string
+  @Input() vendor: string | null
   readonly PREDEFINED_RANKS = [100, 80, 60, 40, 20, 0];
   readonly MAXIMAL_SPREADSHEET_SIZE_IN_BYTES = 100000;
   readonly SPREADSHEET_MIME_TYPES: string[] = [
@@ -42,9 +45,12 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   isAdmin: boolean = false;
   isDownloadInProgress: boolean = false;
   isUploadInProgress: boolean = false;
+  media: Entry[] = []
+  vendors: Entry[] = []
 
   constructor(
     private bidStrategyService: BidStrategyService,
+    private route: ActivatedRoute,
     private sessionService: SessionService,
     private store: Store<AppState>,
   ) {
@@ -53,10 +59,18 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
 
   ngOnInit(): void {
     this.isAdmin = this.sessionService.isAdmin();
+    this.media = mapToIterable(this.route.snapshot.data.media)
+    if (this.medium === undefined && this.media.length > 0) {
+      this.onMediumChange(this.media[0].key)
+    } else {
+      this.updateBidStrategiesList()
+    }
+  }
 
+  private updateBidStrategiesList(): void {
     const subscription = observableForkJoin([
-      this.bidStrategyService.getTargetingCriteria(),
-      this.bidStrategyService.getBidStrategies(),
+      this.bidStrategyService.getTargetingCriteria(this.medium, this.vendor),
+      this.bidStrategyService.getBidStrategies(this.medium, this.vendor),
     ]).subscribe(
       (responses: [TargetingOption[], BidStrategy[]]) => {
         this.handleFetchedTargetingOptions(responses[0]);
@@ -122,9 +136,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
 
   private handleFetchedBidStrategies(bidStrategies: BidStrategy[]): void {
     this.bidStrategies = bidStrategies;
-    if (!this.bidStrategyUuidSelected) {
-      this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
-    }
+    this.bidStrategyUuidSelected = bidStrategies.length > 0 ? bidStrategies[0].uuid : null;
     if (this.bidStrategyUuidSelected) {
       this.onBidStrategySelect();
     } else {
@@ -136,10 +148,9 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   onBidStrategySelect(): void {
     this.isLoading = true;
 
+    const temporaryEntries = cloneDeep(this.availableEntries);
     const bidStrategy = this.bidStrategies.find(item => this.bidStrategyUuidSelected === item.uuid);
     if (bidStrategy) {
-      const temporaryEntries = cloneDeep(this.availableEntries);
-
       bidStrategy.details.forEach(detail => {
         const index = temporaryEntries.findIndex(entry => entry.key === detail.category);
         if (index >= 0) {
@@ -148,9 +159,8 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       });
 
       this.bidStrategyNameSelected = bidStrategy.name;
-      this.entries = temporaryEntries;
     }
-
+    this.entries = temporaryEntries;
     this.isLoading = false;
   }
 
@@ -174,7 +184,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   save(): void {
     const bidStrategy = this.getBidStrategyFromForm();
 
-    this.bidStrategyService.putBidStrategy(bidStrategy).subscribe(
+    this.bidStrategyService.putBidStrategy(bidStrategy, this.medium, this.vendor).subscribe(
       (response) => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
 
@@ -227,7 +237,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       return;
     }
 
-    this.bidStrategyService.putBidStrategyUuidDefault(this.bidStrategyUuidSelected).subscribe(
+    this.bidStrategyService.putBidStrategyUuidDefault(this.bidStrategyUuidSelected, this.medium, this.vendor).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
       },
@@ -318,7 +328,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
         () => {
           this.isUploadInProgress = false;
           this.isLoading = true;
-          this.bidStrategyService.getBidStrategies().subscribe(
+          this.bidStrategyService.getBidStrategies(this.medium, this.vendor).subscribe(
             (response) => this.handleFetchedBidStrategies(response),
             (error) => {
               const status = error.status ? error.status : 0;
@@ -333,5 +343,26 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
         }
       );
     this.subscriptions.push(sendFileSubscription);
+  }
+
+  onMediumChange(medium: string): void {
+    this.medium = medium
+    const subscription = this.bidStrategyService.getMediumVendors(medium)
+      .pipe(take(1))
+      .subscribe(vendors => {
+        this.vendors = mapToIterable(vendors)
+        const vendor = this.vendors.length > 0 ? this.vendors[0].key : null
+        this.onVendorChange(vendor)
+      })
+    this.subscriptions.push(subscription)
+  }
+
+  onVendorChange(vendor: string | null): void {
+    this.vendor = vendor
+    this.updateBidStrategiesList()
+  }
+
+  get isTaxonomy(): boolean {
+    return this.media.length > 0
   }
 }

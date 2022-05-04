@@ -9,6 +9,7 @@ import {
   CampaignsConfig
 } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
+import { BidStrategyService } from 'common/bid-strategy.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
@@ -37,7 +38,6 @@ import { reportType } from 'models/enum/user.enum';
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  bidStrategyDefaultUuid: string;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
   campaign: Campaign;
@@ -67,6 +67,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     private router: Router,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
+    private bidStrategyService: BidStrategyService,
     private chartService: ChartService,
     private dialog: MatDialog
   ) {
@@ -83,8 +84,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     return this.canActivateCampaign ? 'Activate' : 'Deactivate'
   }
 
-  ngOnInit() {
-    this.bidStrategyDefaultUuid = this.route.snapshot.data.bidStrategyDefaultUuid;
+  ngOnInit(): void {
     this.campaignsConfig = this.route.snapshot.data.campaignsConfig;
     const id = this.route.snapshot.data.campaign.id;
 
@@ -107,7 +107,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
-          this.isDefaultBidStrategy = this.bidStrategyDefaultUuid === this.campaign.bidStrategy.uuid;
+          this.bidStrategyService.getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
+            .subscribe(uuid => {
+              this.isDefaultBidStrategy = this.campaign.bidStrategy.uuid === uuid;
+            })
           this.prepareMediumLabel(this.campaign)
         }
         this.updateBudgetInfo();

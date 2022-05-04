@@ -6,7 +6,7 @@ import { environment } from 'environments/environment';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BidStrategy, BidStrategyRequest, BidStrategyUuidDefaultResponse } from 'models/campaign.model';
 import { TargetingOption } from 'models/targeting-option.model';
-import { Medium } from 'models/taxonomy-medium.model';
+import { Media, Medium } from 'models/taxonomy-medium.model';
 
 @Injectable()
 export class BidStrategyService {
@@ -25,17 +25,30 @@ export class BidStrategyService {
       );
   }
 
-  getBidStrategies(attachDefault: boolean = false): Observable<BidStrategy[]> {
+  getMediumVendors(medium: string): Observable<Media> {
+    return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media/${medium}/vendors`);
+  }
+
+  getBidStrategies(medium: string = 'web', vendor: string | null = null, attachDefault: boolean = false): Observable<BidStrategy[]> {
+    let url = `${environment.apiUrl}/campaigns/bid-strategy/media/${medium}`
+    if (vendor) {
+      url = `${url}?vendor=${vendor}`
+    }
     const params = {};
     if (attachDefault) {
       params['attach-default'] = 'true';
     }
 
-    return this.http.get<BidStrategy[]>(`${environment.apiUrl}/campaigns/bid-strategy`, {params});
+    return this.http.get<BidStrategy[]>(url, {params});
   }
 
-  putBidStrategy(bidStrategy: BidStrategyRequest): Observable<any> {
-    return this.http.put<any>(`${environment.apiUrl}/campaigns/bid-strategy`, bidStrategy);
+  putBidStrategy(bidStrategy: BidStrategyRequest, medium: string = 'web', vendor: string | null = null): Observable<any> {
+    let url = `${environment.apiUrl}/campaigns/bid-strategy/media/${medium}`
+    if (vendor) {
+      url = `${url}?vendor=${vendor}`
+    }
+
+    return this.http.put<any>(url, bidStrategy);
   }
 
   patchBidStrategy(uuid: string, bidStrategy: BidStrategyRequest): Observable<any> {
@@ -46,12 +59,21 @@ export class BidStrategyService {
     return this.http.delete<any>(`${environment.apiUrl}/campaigns/bid-strategy/${uuid}`);
   }
 
-  getBidStrategyUuidDefault(): Observable<BidStrategyUuidDefaultResponse> {
-    return this.http.get<BidStrategyUuidDefaultResponse>(`${environment.apiUrl}/campaigns/bid-strategy/uuid-default`);
+  getBidStrategyUuidDefault(medium: string = 'web', vendor: string | null = null): Observable<string> {
+    let url = `${environment.apiUrl}/campaigns/bid-strategy/media/${medium}/uuid-default`
+    if (vendor) {
+      url = `${url}?vendor=${vendor}`
+    }
+    return this.http.get<BidStrategyUuidDefaultResponse>(url)
+      .pipe(map(response => response.uuid));
   }
 
-  putBidStrategyUuidDefault(uuid: string): Observable<any> {
-    return this.http.put<any>(`${environment.serverUrl}/admin/campaigns/bid-strategy/uuid-default`, {uuid});
+  putBidStrategyUuidDefault(uuid: string, medium: string = 'web', vendor: string | null = null): Observable<any> {
+    let url = `${environment.serverUrl}/admin/campaigns/bid-strategy/media/${medium}/uuid-default`
+    if (vendor) {
+      url = `${url}?vendor=${vendor}`
+    }
+    return this.http.put<any>(url, {uuid});
   }
 
   getBidStrategySpreadsheet(bidStrategyUuid: string): Observable<any> {
