@@ -92,6 +92,10 @@
     justify-content: center;
     background: pal(gray, x-light);
     border: 1px solid pal(gray, light);
+
+    & img{
+      width: 100%;
+    }
   }
 
   &__size-label {
