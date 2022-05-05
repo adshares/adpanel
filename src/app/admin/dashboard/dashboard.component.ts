@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'models/app-state.model';
-import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions';
+import { GetLicense, LoadAdminSettings, LoadAdminSiteOptions, RequestGetIndex } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { License } from 'models/settings.model';
@@ -43,10 +43,11 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       link: '/admin/dashboard/general',
       values: [
         {name: 'License', icon: 'assets/images/preferences.svg'},
-        {name: 'Set business name', icon: 'assets/images/preferences.svg'},
-        {name: 'Set technical email', icon: 'assets/images/preferences.svg'},
-        {name: 'Set support email', icon: 'assets/images/preferences.svg'},
-        {name: 'Set registration mode', icon: 'assets/images/preferences.svg'},
+        {name: 'Business name', icon: 'assets/images/preferences.svg'},
+        {name: 'Technical email', icon: 'assets/images/preferences.svg'},
+        {name: 'Support email', icon: 'assets/images/preferences.svg'},
+        {name: 'Registration mode', icon: 'assets/images/preferences.svg'},
+        {name: 'Site options', icon: 'assets/images/preferences.svg'},
         {name: 'Rejected domains', icon: 'assets/images/preferences.svg'},
         {name: 'Bid strategy', icon: 'assets/images/preferences.svg'},
       ],
@@ -112,6 +113,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
     this.store.dispatch(new RequestGetIndex());
+    this.store.dispatch(new LoadAdminSiteOptions())
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;

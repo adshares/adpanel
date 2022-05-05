@@ -20,4 +20,20 @@
   &__btn {
     @include btn();
   }
+
+  &__content-padding {
+    padding-left: 12px;
+  }
+
+  &__icon {
+    margin-right: 4px;
+  }
+
+  &__checkbox {
+    padding-left: 16px;
+  }
+
+  &__hidden {
+    display: none;
+  }
 }

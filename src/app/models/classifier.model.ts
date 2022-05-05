@@ -31,6 +31,7 @@ interface BannerClassificationFilters {
   sizes?: Array<string>;
   bannerId?: string;
   landingUrl?: string;
+  classifierLocalBanners?: number;
 }
 
 export {

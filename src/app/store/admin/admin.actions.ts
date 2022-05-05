@@ -3,7 +3,7 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse,
+  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   License,
@@ -28,12 +28,19 @@ export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
 
+export const LOAD_ADMIN_SITE_OPTIONS = 'Admin site options loading';
+export const LOAD_ADMIN_SITE_OPTIONS_SUCCESS = 'Admin site options loading success';
+export const LOAD_ADMIN_SITE_OPTIONS_FAILURE = 'Admin site options loading failure';
+
 export const LOAD_ADMIN_WALLET = 'Admin wallet loading';
 export const LOAD_ADMIN_WALLET_SUCCESS = 'Admin wallet loading success';
 export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
+
+export const SET_ADMIN_SITE_OPTIONS = 'Save new admin site options';
+export const SET_ADMIN_SITE_OPTIONS_SUCCESS = 'Save new admin site options success';
 
 export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
 export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
@@ -148,6 +155,27 @@ export class LoadAdminSettingsFailure implements Action {
   }
 }
 
+export class LoadAdminSiteOptions implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadAdminSiteOptionsSuccess implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_SUCCESS;
+
+  constructor(public payload: AdminSiteOptionsResponse) {
+  }
+}
+
+export class LoadAdminSiteOptionsFailure implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
 export class LoadAdminWallet implements Action {
   readonly type: string = LOAD_ADMIN_WALLET;
 
@@ -181,6 +209,21 @@ export class SetAdminSettingsSuccess implements Action {
 
 
   constructor(public payload: AdminSettings) {
+  }
+}
+
+export class SetAdminSiteOptions implements Action {
+  readonly type: string = SET_ADMIN_SITE_OPTIONS;
+
+  constructor(public payload: AdminSiteOptions) {
+  }
+}
+
+export class SetAdminSiteOptionsSuccess implements Action {
+  readonly type: string = SET_ADMIN_SITE_OPTIONS_SUCCESS;
+
+
+  constructor(public payload: AdminSiteOptions) {
   }
 }
 
@@ -348,12 +391,19 @@ export type actions =
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
 
+  LoadAdminSiteOptions |
+  LoadAdminSiteOptionsSuccess |
+  LoadAdminSiteOptionsFailure |
+
   LoadAdminWallet |
   LoadAdminWalletSuccess |
   LoadAdminWalletFailure |
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
+
+  SetAdminSiteOptions |
+  SetAdminSiteOptionsSuccess |
 
   GetPrivacySettings |
   GetPrivacySettingsSuccess |
