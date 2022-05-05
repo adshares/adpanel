@@ -15,12 +15,15 @@ import {
   GetRejectedDomainsSuccess,
   GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
+  LOAD_ADMIN_SITE_OPTIONS,
   LOAD_ADMIN_WALLET,
   LOAD_ADVERTISERS,
   LOAD_PUBLISHERS,
   LOAD_USERS,
   LoadAdminSettingsFailure,
   LoadAdminSettingsSuccess,
+  LoadAdminSiteOptionsFailure,
+  LoadAdminSiteOptionsSuccess,
   LoadAdminWalletFailure,
   LoadAdminWalletSuccess,
   LoadAdvertisers,
@@ -34,11 +37,14 @@ import {
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
   SET_ADMIN_SETTINGS,
+  SET_ADMIN_SITE_OPTIONS,
   SET_PRIVACY_SETTINGS,
   SET_REJECTED_DOMAINS,
   SET_TERMS_SETTINGS,
   SetAdminSettings,
   SetAdminSettingsSuccess,
+  SetAdminSiteOptions,
+  SetAdminSiteOptionsSuccess,
   SetPrivacySettings,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
@@ -55,7 +61,7 @@ import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rx
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe'
 import { HTTP_NOT_FOUND } from 'common/utilities/codes'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
-import { AdminSettingsResponse } from 'models/settings.model'
+import { AdminSettingsResponse, AdminSiteOptionsResponse } from 'models/settings.model'
 
 @Injectable()
 export class AdminEffects {
@@ -204,6 +210,25 @@ export class AdminEffects {
     )
 
   @Effect()
+  loadAdminSiteOptions$ = this.actions$
+    .pipe(
+      ofType(LOAD_ADMIN_SITE_OPTIONS),
+      switchMap(() => this.service.getAdminSiteOptions()
+        .pipe(
+          map((response: AdminSiteOptionsResponse) => {
+            return <AdminSiteOptionsResponse>{
+              ...response,
+            }
+          }),
+          map(options => new LoadAdminSiteOptionsSuccess(options)),
+          catchError(error => {
+            return observableOf(new LoadAdminSiteOptionsFailure(error))
+          })
+        )
+      )
+    )
+
+  @Effect()
   loadAdminWallet$ = this.actions$
     .pipe(
       ofType(LOAD_ADMIN_WALLET),
@@ -227,6 +252,23 @@ export class AdminEffects {
           ]),
           catchError(() => observableOf(new ShowDialogOnError(
             'We weren\'t able to save your settings this time. Please, try again later'
+          )))
+        )
+      )
+    )
+
+  @Effect()
+  saveAdminSiteOptions$ = this.actions$
+    .pipe(
+      ofType<SetAdminSiteOptions>(SET_ADMIN_SITE_OPTIONS),
+      switchMap(action => this.service.setAdminSiteOptions(action.payload)
+        .pipe(
+          switchMap(() => [
+            new SetAdminSiteOptionsSuccess(action.payload),
+            new ShowSuccessSnackbar(SAVE_SUCCESS)
+          ]),
+          catchError(() => observableOf(new ShowDialogOnError(
+            'We weren\'t able to save your site options this time. Please, try again later'
           )))
         )
       )

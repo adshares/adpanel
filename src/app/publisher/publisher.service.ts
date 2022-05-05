@@ -8,6 +8,7 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { Media, Medium } from 'models/taxonomy-medium.model';
 import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
+import { AdminSiteOptions } from 'models/settings.model'
 
 @Injectable()
 export class PublisherService {
@@ -130,7 +131,7 @@ export class PublisherService {
     limit?: number,
     filtering?: BannerClassificationFilters,
     possibleSizes: string[] = [],
-    offset?: number
+    offset?: number,
   )
     : Observable<BannerClassificationResponse> {
     let params = {};
@@ -150,11 +151,15 @@ export class PublisherService {
         sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
           : JSON.stringify(possibleSizes),
         landingUrl: filtering.landingUrl || '',
+        local: filtering.classifierLocalBanners
       };
     }
-
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
       {params});
+  }
+
+  getSiteOptions(): Observable<AdminSiteOptions>{
+    return this.http.get<AdminSiteOptions>(`${environment.apiUrl}/options/sites`)
   }
 
   setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {
