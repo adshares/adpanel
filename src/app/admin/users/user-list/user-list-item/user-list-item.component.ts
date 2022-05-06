@@ -14,6 +14,9 @@ import { SessionService } from '../../../../session.service'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 import { User } from 'models/user.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
+import { MatDialog } from '@angular/material/dialog'
+import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component'
+import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component'
 
 @Component({
   selector: 'app-user-list-item',
@@ -36,6 +39,7 @@ export class UserListItemComponent {
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
     private router: Router,
+    private dialog: MatDialog,
   ) {
     this.loggedUser = sessionService.getUser()
   }
@@ -163,5 +167,18 @@ export class UserListItemComponent {
     else {
       return this.user.isAdvertiser ? 'Advertiser' : 'Publisher'
     }
+  }
+
+  showBanConfirmationDialog(){
+    this.dialog.open(BanUserDialogComponent, {
+      autoFocus: false,
+      data: this.user
+    })
+  }
+
+  showDeleteConfirmationDialog(){
+    this.dialog.open(DeleteUserDialogComponent, {
+      data: this.user
+    })
   }
 }

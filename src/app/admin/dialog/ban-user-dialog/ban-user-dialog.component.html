@@ -1,0 +1,55 @@
+<mat-dialog-content class="mat-dialog-content">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary">
+      Do you want ban this user?
+    </h1>
+    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+    <div class="col form-container" [formGroup]="form">
+      <div class="dwmth-form-input__box">
+        <label
+          for="reason"
+          class="dwmth-form-label"
+        >
+          Reason of ban
+          <fa-icon
+            matTooltipClass="dwmth-mat-tooltip"
+            matTooltip="Reason will be displayed to the banned user"
+            matTooltipPosition="right"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
+        </label>
+        <textarea
+          id="reason"
+          class="dwmth-form-input dwmth-form-input--full"
+          type="text"
+          name="reason"
+          formControlName="reason"
+          placeholder="Reason of ban"
+          rows="6"
+        ></textarea>
+        <span
+          *ngIf="(form.get('reason').touched && form.get('reason').invalid) || (form.get('reason').dirty && form.get('reason').invalid)"
+          class="error-msg"
+        >
+          Reason is required
+        </span>
+      </div>
+    </div>
+    <div class="row justify-end dialog-controls">
+      <button
+        class="dwmth-btn dwmth-btn--white"
+        (click)="onCancelButtonClick()"
+      >
+        Cancel
+      </button>
+      <button
+        class="dwmth-btn dwmth-btn--danger"
+        [disabled]="form.invalid"
+        (click)="onConfirmButtonClick()"
+      >
+        Confirm
+      </button>
+    </div>
+  </section>
+
+</mat-dialog-content>

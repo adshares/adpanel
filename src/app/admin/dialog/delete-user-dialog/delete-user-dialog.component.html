@@ -1,0 +1,32 @@
+<mat-dialog-content class="mat-dialog-content">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary">
+      Do you want delete this user?
+    </h1>
+    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+      <div class="dialog-checkbox__wrapper">
+        <mat-checkbox
+                [checked]="isDeletionConfirm"
+                (change)="confirmDeletion()"
+        >
+          This operation is irreversible! Confirm the deletion
+        </mat-checkbox>
+      </div>
+    <div class="row justify-end dialog-controls">
+      <button
+              class="dwmth-btn dwmth-btn--white"
+              (click)="onCancelButtonClick()"
+      >
+        Cancel
+      </button>
+      <button
+              class="dwmth-btn dwmth-btn--danger"
+              (click)="onConfirmButtonClick()"
+              [disabled]="!isDeletionConfirm"
+      >
+        Confirm
+      </button>
+    </div>
+  </section>
+
+</mat-dialog-content>
