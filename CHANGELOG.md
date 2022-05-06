@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Configuration default site classification and filtering options on admin panel
 ### Changed
 - Wallet login buttons visibility
 - Angular 7
@@ -14,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Metaverse site creation when wallet not connected
 - Forbid buttons to change balance during impersonation
 - Error while targeting/filtering is not available
+- Image view on upload advertisement
 
 ## [1.16.1] - 2022-04-07
 ### Added

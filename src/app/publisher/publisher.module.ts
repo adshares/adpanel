@@ -53,6 +53,7 @@ import {
 import {
   MetaverseInstructions
 } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component'
+import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
 
 library.add(fas);
 
@@ -111,6 +112,7 @@ const publisherComponents = [
     FilteringCriteriaResolver,
     AdUnitSizesResolver,
     MatchingBannerSizesResolver,
+    SiteOptionsResolver,
     LanguagesListResolver,
   ],
   declarations: [

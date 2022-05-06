@@ -5,13 +5,13 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse,
+  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   PublisherInfo,
   RejectedDomainsResponse,
   UserInfo
-} from 'models/settings.model';
+} from 'models/settings.model'
 import { environment } from 'environments/environment';
 import { adsToClicks, buildUrl } from 'common/utilities/helpers'
 
@@ -100,6 +100,10 @@ export class AdminService {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }
 
+  getAdminSiteOptions(): Observable<AdminSiteOptionsResponse> {
+    return this.http.get<AdminSiteOptionsResponse>(`${environment.apiUrl}/options/sites`);
+  }
+
   getAdminWallet(): Observable<AdminWalletResponse> {
     return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
   }
@@ -130,6 +134,10 @@ export class AdminService {
       hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
     };
     return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
+  }
+
+  setAdminSiteOptions(options: AdminSiteOptions): Observable<AdminSiteOptionsResponse> {
+    return this.http.patch<AdminSiteOptionsResponse>(`${environment.serverUrl}/admin/site-settings`, {...options});
   }
 
   getLicense(): Observable<any> {
