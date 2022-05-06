@@ -6,6 +6,9 @@ import { SessionService } from '../../session.service'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { User } from 'models/user.model'
+import { MatDialog } from '@angular/material/dialog'
+import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component'
+import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component'
 
 @Component({
   selector: 'app-impersonation',
@@ -15,12 +18,15 @@ import { User } from 'models/user.model'
 export class ImpersonationComponent extends HandleSubscription implements OnInit {
   impersonationToken: boolean = false
   userLabel: string
+  userEmail: string
+  userUuid: string
 
   constructor (
     private router: Router,
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
     private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     super()
   }
@@ -33,6 +39,8 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
     this.impersonationService.getTokenFromStorage()
     this.store.select('state', 'user', 'data').subscribe((user: User) => {
       this.userLabel = user.email || user.adserverWallet.walletAddress
+      this.userEmail = user.email
+      this.userUuid = user.uuid
     })
   }
 
@@ -51,5 +59,18 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
       accountType = SessionService.ACCOUNT_TYPE_AGENCY
     }
     this.sessionService.setAccountTypeChoice(accountType)
+  }
+
+  showBanConfirmationDialog(){
+    this.dialog.open(BanUserDialogComponent, {
+      data: {email: this.userEmail, uuid: this.userUuid}
+
+    })
+  }
+
+  showDeleteConfirmationDialog(){
+    this.dialog.open(DeleteUserDialogComponent, {
+      data: {email: this.userEmail, uuid: this.userUuid}
+    })
   }
 }

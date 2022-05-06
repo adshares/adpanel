@@ -69,12 +69,14 @@
     </button>
     <button
       class="user-list-item__btn user-list-item__btn--danger"
+      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency"
       (click)="showBanConfirmationDialog()"
     >
       Ban user
     </button>
     <button
       class="user-list-item__btn user-list-item__btn--danger"
+      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency"
       (click)="showDeleteConfirmationDialog()"
     >
       Delete user
