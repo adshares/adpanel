@@ -237,7 +237,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
       return;
     }
 
-    this.bidStrategyService.putBidStrategyUuidDefault(this.bidStrategyUuidSelected, this.medium, this.vendor).subscribe(
+    this.bidStrategyService.patchBidStrategyUuidDefault(this.bidStrategyUuidSelected, this.medium, this.vendor).subscribe(
       () => {
         this.store.dispatch(new ShowSuccessSnackbar(SAVE_SUCCESS));
       },
@@ -346,6 +346,8 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   }
 
   onMediumChange(medium: string): void {
+    this.isLoading = true
+    this.vendors = []
     this.medium = medium
     const subscription = this.bidStrategyService.getMediumVendors(medium)
       .pipe(take(1))
@@ -358,6 +360,7 @@ export class BidStrategySettingsComponent extends HandleSubscription implements 
   }
 
   onVendorChange(vendor: string | null): void {
+    this.isLoading = true
     this.vendor = vendor
     this.updateBidStrategiesList()
   }

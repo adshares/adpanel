@@ -68,12 +68,12 @@ export class BidStrategyService {
       .pipe(map(response => response.uuid));
   }
 
-  putBidStrategyUuidDefault(uuid: string, medium: string = 'web', vendor: string | null = null): Observable<any> {
+  patchBidStrategyUuidDefault(uuid: string, medium: string = 'web', vendor: string | null = null): Observable<any> {
     let url = `${environment.serverUrl}/admin/campaigns/bid-strategy/media/${medium}/uuid-default`
     if (vendor) {
       url = `${url}?vendor=${vendor}`
     }
-    return this.http.put<any>(url, {uuid});
+    return this.http.patch<any>(url, {uuid});
   }
 
   getBidStrategySpreadsheet(bidStrategyUuid: string): Observable<any> {
