@@ -21,7 +21,7 @@ export class BidStrategyService {
     }
     return this.http.get<Medium>(url)
       .pipe(
-        map(medium => processTargeting(medium))
+        map(mediumObject => processTargeting(mediumObject))
       );
   }
 
