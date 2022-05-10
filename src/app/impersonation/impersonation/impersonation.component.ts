@@ -9,6 +9,10 @@ import { User } from 'models/user.model'
 import { MatDialog } from '@angular/material/dialog'
 import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component'
 import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component'
+import {
+  UserConfirmResponseDialogComponent
+} from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
+import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions'
 
 @Component({
   selector: 'app-impersonation',
@@ -19,7 +23,8 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
   impersonationToken: boolean = false
   userLabel: string
   userEmail: string
-  userUuid: string
+  userId: number
+  userIsBanned: boolean
 
   constructor (
     private router: Router,
@@ -40,7 +45,8 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
     this.store.select('state', 'user', 'data').subscribe((user: User) => {
       this.userLabel = user.email || user.adserverWallet.walletAddress
       this.userEmail = user.email
-      this.userUuid = user.uuid
+      this.userId = user.id
+      this.userIsBanned = user.isBanned
     })
   }
 
@@ -63,14 +69,43 @@ export class ImpersonationComponent extends HandleSubscription implements OnInit
 
   showBanConfirmationDialog(){
     this.dialog.open(BanUserDialogComponent, {
-      data: {email: this.userEmail, uuid: this.userUuid}
-
+      autoFocus: false,
+      data: this.userEmail
     })
+      .afterClosed()
+      .subscribe(result => {
+        if(result) {
+          this.dropImpersonation()
+          this.store.dispatch(new BanUser({ id: this.userId, reason: result }))
+        }
+      })
+  }
+
+  showUnbanConfirmationDialog(){
+    this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: `Do you want unban user ${this.userEmail}?`
+      }
+    })
+      .afterClosed()
+      .subscribe(result => {
+        if(result){
+          this.dropImpersonation()
+          this.store.dispatch(new UnbanUser(this.userId))
+        }
+      })
   }
 
   showDeleteConfirmationDialog(){
     this.dialog.open(DeleteUserDialogComponent, {
-      data: {email: this.userEmail, uuid: this.userUuid}
+      data: this.userEmail
     })
+      .afterClosed()
+      .subscribe(result => {
+        if(result){
+          this.dropImpersonation()
+          this.store.dispatch(new DeleteUser(this.userId))
+        }
+      })
   }
 }

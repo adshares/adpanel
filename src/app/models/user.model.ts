@@ -37,6 +37,8 @@ interface User {
   referralToken?: string;
   referralRefundEnabled: boolean;
   referralRefundCommission: number;
+  isBanned: boolean;
+  banReason: string;
 }
 
 interface LocalStorageUser extends User {

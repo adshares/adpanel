@@ -7,9 +7,17 @@
   <div class="impersonation-controllers">
     <button
             class="action-btn action-btn--danger"
+            *ngIf="!userIsBanned"
             (click)="showBanConfirmationDialog()"
     >
       Ban user
+    </button>
+    <button
+            class="action-btn action-btn--danger"
+            *ngIf="userIsBanned"
+            (click)="showUnbanConfirmationDialog()"
+    >
+      Unban user
     </button>
     <button
             class="action-btn action-btn--danger"
