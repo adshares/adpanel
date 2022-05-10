@@ -401,11 +401,9 @@ export class AdminEffects {
                 new BanUserSuccess(userInfo),
                 new ShowSuccessSnackbar(SAVE_SUCCESS)
               ]),
-              catchError((res) => {
-                return observableOf(new ShowDialogOnError(
-                  `Operation failure. ${ res.error.message }`
-                ))
-              })
+              catchError((res) => observableOf(new ShowDialogOnError(
+                `Operation failure. ${ res.error.message }`
+              )))
             )
         }
       )
@@ -422,11 +420,9 @@ export class AdminEffects {
                 new UnbanUserSuccess(userInfo),
                 new ShowSuccessSnackbar(SAVE_SUCCESS)
               ]),
-              catchError((res) => {
-                return observableOf(new ShowDialogOnError(
-                  `Operation failure. ${ res.error.message }`
-                ))
-              })
+              catchError((res) => observableOf(new ShowDialogOnError(
+                `Operation failure. ${ res.error.message }`
+              )))
             )
         }
       )
@@ -445,11 +441,9 @@ export class AdminEffects {
                   new ShowSuccessSnackbar(SAVE_SUCCESS)
                 ]
               }),
-              catchError((res) => {
-                return observableOf(new ShowDialogOnError(
-                  `Operation failure. ${ res.error.message }`
-                ))
-              })
+              catchError((res) => observableOf(new ShowDialogOnError(
+          `Operation failure. ${ res.error.message }`
+              )))
             )
         }
       )
