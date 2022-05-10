@@ -20,13 +20,4 @@ export class DeleteUserDialogComponent implements OnInit {
   confirmDeletion(){
     this.isDeletionConfirm = !this.isDeletionConfirm
   }
-
-  onConfirmButtonClick(){
-    console.log(`user with id ${this.user.uuid} was deleted`)
-    this.dialogRef.close()
-  }
-
-  onCancelButtonClick(){
-    this.dialogRef.close()
-  }
 }

@@ -17,6 +17,11 @@ import { ShowDialogOnError } from 'store/common/common.actions'
 import { MatDialog } from '@angular/material/dialog'
 import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component'
 import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component'
+import {
+  UserConfirmResponseDialogComponent
+} from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
+import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions'
+
 
 @Component({
   selector: 'app-user-list-item',
@@ -172,13 +177,39 @@ export class UserListItemComponent {
   showBanConfirmationDialog(){
     this.dialog.open(BanUserDialogComponent, {
       autoFocus: false,
-      data: this.user
+      data: this.user.email
     })
+      .afterClosed()
+      .subscribe(result => {
+        if(result) {
+          this.store.dispatch(new BanUser({ id: this.user.id, reason: result }))
+        }
+      })
+  }
+
+  showUnbanConfirmationDialog(){
+    this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: `Do you want unban user ${this.user.email}?`
+      }
+    })
+      .afterClosed()
+      .subscribe(result => {
+        if(result){
+          this.store.dispatch(new UnbanUser(this.user.id))
+        }
+      })
   }
 
   showDeleteConfirmationDialog(){
     this.dialog.open(DeleteUserDialogComponent, {
-      data: this.user
+      data: this.user.email
     })
+      .afterClosed()
+      .subscribe(result => {
+        if(result){
+          this.store.dispatch(new DeleteUser(this.user.id))
+        }
+      })
   }
 }

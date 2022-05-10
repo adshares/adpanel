@@ -3,7 +3,7 @@
     <h1 class="dwmth-heading dwmth-heading--primary">
       Do you want ban this user?
     </h1>
-    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+    <p class="dwmth-copy dwmth-copy--bold">{{user}}</p>
     <div class="col form-container" [formGroup]="form">
       <div class="dwmth-form-input__box">
         <label
@@ -38,14 +38,15 @@
     <div class="row justify-end dialog-controls">
       <button
         class="dwmth-btn dwmth-btn--white"
-        (click)="onCancelButtonClick()"
+        [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
         class="dwmth-btn dwmth-btn--danger"
         [disabled]="form.invalid"
-        (click)="onConfirmButtonClick()"
+
+        [mat-dialog-close]="form.get('reason').value"
       >
         Confirm
       </button>

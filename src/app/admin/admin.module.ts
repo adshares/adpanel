@@ -45,6 +45,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SiteOptionsSettingsComponent } from './general-settings/site-options-settings/site-options-settings.component';
 import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
 import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-us
     MatSelectModule,
     MatTabsModule,
     MatRadioModule,
+    MatDialogModule,
   ],
   providers: [
     AdminGuard,

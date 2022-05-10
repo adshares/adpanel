@@ -13,26 +13,14 @@ export class BanUserDialogComponent implements OnInit {
   form: FormGroup
   readonly faQuestionCircle = faQuestionCircle
 
-  constructor(
+  constructor (
     public dialogRef: MatDialogRef<BanUserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public user: any,
-
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.form = new FormGroup({
       reason: new FormControl(null, [Validators.required])
     })
   }
-
-  onConfirmButtonClick(){
-    console.log(`user with id ${this.user.uuid} was banned`)
-    console.log('Reason:',this.form.get('reason').value.trim() ? this.form.get('reason').value.trim() : null)
-    this.dialogRef.close()
-  }
-
-  onCancelButtonClick(){
-    this.dialogRef.close()
-  }
-
 }

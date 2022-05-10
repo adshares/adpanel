@@ -69,10 +69,17 @@
     </button>
     <button
       class="user-list-item__btn user-list-item__btn--danger"
-      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency"
+      *ngIf="(loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency) && !user.isBanned"
       (click)="showBanConfirmationDialog()"
     >
       Ban user
+    </button>
+    <button
+      class="user-list-item__btn user-list-item__btn--danger"
+      *ngIf="(loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency) && user.isBanned"
+      (click)="showUnbanConfirmationDialog()"
+    >
+      Unban user
     </button>
     <button
       class="user-list-item__btn user-list-item__btn--danger"

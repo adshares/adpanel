@@ -3,7 +3,7 @@
     <h1 class="dwmth-heading dwmth-heading--primary">
       Do you want delete this user?
     </h1>
-    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+    <p class="dwmth-copy dwmth-copy--bold">{{user}}</p>
       <div class="dialog-checkbox__wrapper">
         <mat-checkbox
                 [checked]="isDeletionConfirm"
@@ -15,14 +15,14 @@
     <div class="row justify-end dialog-controls">
       <button
               class="dwmth-btn dwmth-btn--white"
-              (click)="onCancelButtonClick()"
+              [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
               class="dwmth-btn dwmth-btn--danger"
-              (click)="onConfirmButtonClick()"
               [disabled]="!isDeletionConfirm"
+              [mat-dialog-close]="true"
       >
         Confirm
       </button>
