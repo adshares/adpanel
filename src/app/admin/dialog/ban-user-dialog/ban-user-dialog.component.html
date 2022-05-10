@@ -38,15 +38,14 @@
     </div>
     <div class="row justify-end dialog-controls">
       <button
-        class="dwmth-btn dwmth-btn--white"
+        class="dwmth-btn dwmth-btn--white dialog-controls--btn"
         [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
-        class="dwmth-btn dwmth-btn--danger"
+        class="dwmth-btn dwmth-btn--danger dialog-controls--btn"
         [disabled]="form.invalid"
-
         [mat-dialog-close]="form.get('reason').value"
       >
         Confirm

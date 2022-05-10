@@ -6,23 +6,23 @@
     <p class="dwmth-copy dwmth-copy--bold">{{user}}</p>
       <div class="dialog-checkbox__wrapper">
         <mat-checkbox
-                [checked]="isDeletionConfirm"
-                (change)="confirmDeletion()"
+          [checked]="isDeletionConfirm"
+          (change)="confirmDeletion()"
         >
           This operation is irreversible! Confirm the deletion
         </mat-checkbox>
       </div>
     <div class="row justify-end dialog-controls">
       <button
-              class="dwmth-btn dwmth-btn--white"
-              [mat-dialog-close]="false"
+        class="dwmth-btn dwmth-btn--white dialog-controls--btn"
+        [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
-              class="dwmth-btn dwmth-btn--danger"
-              [disabled]="!isDeletionConfirm"
-              [mat-dialog-close]="true"
+        class="dwmth-btn dwmth-btn--danger dialog-controls--btn"
+        [disabled]="!isDeletionConfirm"
+        [mat-dialog-close]="true"
       >
         Confirm
       </button>

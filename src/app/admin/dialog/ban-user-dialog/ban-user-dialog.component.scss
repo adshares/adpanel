@@ -10,4 +10,10 @@
 
 .dialog-controls{
   margin-top: 5px;
+
+  &--btn{
+    &:not(:last-child){
+      margin-right: 1rem;
+    }
+  }
 }
