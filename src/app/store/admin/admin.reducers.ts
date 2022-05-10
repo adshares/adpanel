@@ -170,7 +170,6 @@ export function adminReducers(state = initialState, action: actions) {
 
     case DELETE_USER_SUCCESS:
       const updatedListOfUsers = state.users.data.filter(user => user.id !== action.payload)
-      console.log(action.payload)
       return {
         ...state,
         users: {
