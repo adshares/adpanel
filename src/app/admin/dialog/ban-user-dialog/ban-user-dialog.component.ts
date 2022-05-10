@@ -20,7 +20,7 @@ export class BanUserDialogComponent implements OnInit {
 
   ngOnInit () {
     this.form = new FormGroup({
-      reason: new FormControl(null, [Validators.required])
+      reason: new FormControl(null, [Validators.required, Validators.maxLength(255)])
     })
   }
 }

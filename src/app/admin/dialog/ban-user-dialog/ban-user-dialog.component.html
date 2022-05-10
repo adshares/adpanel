@@ -3,7 +3,8 @@
     <h1 class="dwmth-heading dwmth-heading--primary">
       Do you want ban this user?
     </h1>
-    <p class="dwmth-copy dwmth-copy--bold">{{user}}</p>
+    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+    <p *ngIf="user.banReason" class="dwmth-copy dwmth-multiline dialog__reason-field">Previous reason: {{user.banReason}}</p>
     <div class="col form-container" [formGroup]="form">
       <div class="dwmth-form-input__box">
         <label
@@ -31,7 +32,7 @@
           *ngIf="(form.get('reason').touched && form.get('reason').invalid) || (form.get('reason').dirty && form.get('reason').invalid)"
           class="error-msg"
         >
-          Reason is required
+          {{form.get('reason').value ? 'Max length 255 characters' : 'Reason is required'}}
         </span>
       </div>
     </div>
