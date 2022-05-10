@@ -177,7 +177,7 @@ export class UserListItemComponent {
   showBanConfirmationDialog(){
     this.dialog.open(BanUserDialogComponent, {
       autoFocus: false,
-      data: this.user.email
+      data: this.user
     })
       .afterClosed()
       .subscribe(result => {
