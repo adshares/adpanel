@@ -38,19 +38,13 @@ interface User {
   referralRefundEnabled: boolean;
   referralRefundCommission: number;
   isBanned: boolean;
-  banReason: string;
+  banReason: string | null;
 }
 
 interface LocalStorageUser extends User {
   remember: boolean;
   passwordLength: number;
   expiration: number;
-}
-
-interface UserRoles extends User {
-  admin: string;
-  publisher: string;
-  advertiser: string;
 }
 
 export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate }
