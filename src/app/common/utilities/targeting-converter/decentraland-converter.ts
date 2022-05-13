@@ -11,7 +11,7 @@ export class DecentralandConverter implements TargetingConverter {
   static ID = 'decentraland'
 
   decodeValue (value: string): string {
-    const mappedCoordinates = value.slice('scene-'.length, -'.decentraland.org'.length)
+    const mappedCoordinates = value.replace('/', '').slice('scene-'.length, -'.decentraland.org'.length)
     const coordinates = mappedCoordinates
       .split('-')
       .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substring(1)}` : coordinate)
