@@ -12,6 +12,7 @@ import {
   faHandHoldingUsd,
   faFileInvoiceDollar,
   faQuestion,
+  faUserSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import * as moment from 'moment';
 import { appSettings } from 'app-settings';
@@ -68,14 +69,12 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
 
   get showBonusIcon(): boolean {
     return this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_INCOME ||
-      this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_EXPENDITURE;
+      this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_EXPENDITURE ||
+      this.billingHistoryItem.type === billingHistoryItemTypeEnum.BONUS_TAKEOVER;
   }
 
   getIcon(): void {
     switch (this.billingHistoryItem.type) {
-      case billingHistoryItemTypeEnum.UNKNOWN:
-        this.icon = faQuestion;
-        break;
       case billingHistoryItemTypeEnum.REFUND:
       case billingHistoryItemTypeEnum.DEPOSIT:
         this.icon = faArchive;
@@ -89,8 +88,14 @@ export class BillingHistoryWithdrawalComponent implements OnInit {
       case billingHistoryItemTypeEnum.BONUS_EXPENDITURE:
         this.icon = faFileInvoiceDollar;
         break;
+      case billingHistoryItemTypeEnum.TAKEOVER:
+      case billingHistoryItemTypeEnum.BONUS_TAKEOVER:
+        this.icon = faUserSlash;
+        break;
+      case billingHistoryItemTypeEnum.UNKNOWN:
       default:
         this.icon = faQuestion;
+        break;
     }
   }
 
