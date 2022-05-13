@@ -16,6 +16,7 @@ import { createInitialArray, enumToArray, sortArrayByKeys } from 'common/utiliti
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from '@angular/material';
@@ -33,6 +34,7 @@ import { reportType } from 'models/enum/user.enum';
 import {
   SiteCodeMetaverseDialogComponent
 } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-site-details',
@@ -61,6 +63,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
   displayAds: boolean;
+  siteLinkUrl: string
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
 
   constructor(
     private route: ActivatedRoute,
@@ -101,6 +105,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
+    this.siteLinkUrl = this.site.medium === 'metaverse'
+      ? new DecentralandConverter().convertToDecentralandSiteUrl(this.site.url)
+      : this.site.url
 
     this.store.select('state', 'common', 'chartFilterSettings')
       .pipe(take(1))

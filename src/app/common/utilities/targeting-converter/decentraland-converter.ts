@@ -69,4 +69,11 @@ export class DecentralandConverter implements TargetingConverter {
       delete targeting.requires[DecentralandConverter.ID]
     }
   }
+
+  convertToDecentralandSiteUrl(url: string): string {
+    const decodedValue = this.decodeValue(url.slice('https://'.length))
+    const coordinates = decodedValue.slice(1, decodedValue.length - 1).split(', ')
+
+    return `https://play.decentraland.org/?position=${coordinates[0]}%2C${coordinates[1]}&realm=dg`
+  }
 }

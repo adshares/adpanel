@@ -76,6 +76,9 @@
           >
             {{ site.name }}
             <small *ngIf="displayAds">{{ site.domain }}</small>
+            <a href="{{siteLinkUrl}}" target="_blank">
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--small link-icon"></fa-icon>
+            </a>
           </h1>
           <p
             *ngIf="mediumLabel !== undefined"
