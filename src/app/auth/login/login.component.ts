@@ -111,7 +111,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
-              message: `${res.error.reason } \n\n In case of doubts, please contact support ${appSettings.SUPPORT_EMAIL}`,
+              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${appSettings.SUPPORT_EMAIL}`,
             }
           })
           this.isLoggingIn = false
