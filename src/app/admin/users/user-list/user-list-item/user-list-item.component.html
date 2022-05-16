@@ -44,7 +44,7 @@
       Confirm
     </button>
     <button
-      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency"
+      *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency  && !user.isBanned"
       class="user-list-item__btn user-list-item__btn--warning"
       (click)="handleSwitchingToModerator()"
       [disabled]="isSaving"
@@ -52,7 +52,7 @@
       Switch to moderator
     </button>
     <button
-      *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdmin && !user.isModerator && !user.isAgency"
+      *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdmin && !user.isModerator && !user.isAgency && !user.isBanned"
       class="user-list-item__btn"
       (click)="handleSwitchingToAgency()"
       [disabled]="isSaving"
