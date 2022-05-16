@@ -105,9 +105,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
-    this.siteLinkUrl = this.site.medium === 'metaverse'
+    this.siteLinkUrl = this.site.vendor === 'decentraland'
       ? new DecentralandConverter().convertToDecentralandSiteUrl(this.site.url)
       : this.site.url
+    console.log(this.site)
 
     this.store.select('state', 'common', 'chartFilterSettings')
       .pipe(take(1))
