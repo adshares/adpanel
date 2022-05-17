@@ -151,7 +151,7 @@ export class UserListItemComponent {
     else if (this.user.isBanned) {
       return 'Banned'
     }
-    else if (this.user.isAdvertiser && this.user.isPublisher && !this.user.isBanned) {
+    else if (this.user.isAdvertiser && this.user.isPublisher) {
       return 'Adv / Pub'
     }
     else {
