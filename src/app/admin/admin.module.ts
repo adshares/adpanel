@@ -46,6 +46,8 @@ import { SiteOptionsSettingsComponent } from './general-settings/site-options-se
 import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
 import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
 import { MatDialogModule } from '@angular/material/dialog'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
   imports: [
@@ -69,6 +71,8 @@ import { MatDialogModule } from '@angular/material/dialog'
     MatTabsModule,
     MatRadioModule,
     MatDialogModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   providers: [
     AdminGuard,

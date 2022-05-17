@@ -148,7 +148,10 @@ export class UserListItemComponent {
     else if (this.user.isAgency) {
       return 'Agency'
     }
-    else if (this.user.isAdvertiser && this.user.isPublisher) {
+    else if (this.user.isBanned) {
+      return 'Banned'
+    }
+    else if (this.user.isAdvertiser && this.user.isPublisher && !this.user.isBanned) {
       return 'Adv / Pub'
     }
     else {
