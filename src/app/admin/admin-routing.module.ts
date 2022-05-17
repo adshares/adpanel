@@ -11,6 +11,7 @@ import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settings/privacy-and-terms-settings.component";
 import { UsersComponent } from "admin/users/users.component";
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
+import { MediaResolver } from 'common/resolvers/media.resolver'
 
 const adminRoutes: Routes = [
   {
@@ -31,6 +32,9 @@ const adminRoutes: Routes = [
           {
             path: 'general',
             component: GeneralSettingsComponent,
+            resolve: {
+              media: MediaResolver,
+            }
           },
           {
             path: 'finance',

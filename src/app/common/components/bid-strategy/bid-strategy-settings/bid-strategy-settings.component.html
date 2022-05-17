@@ -16,6 +16,46 @@
     </p>
   </section>
 
+  <div
+    *ngIf="isAdmin"
+    class="dwmth-box dwmth-box-narrow"
+  >
+    <div class="dwmth-form-input__box">
+      <label class="dwmth-form-label">Medium</label>
+      <mat-select
+        *ngIf="isTaxonomy else missingTaxonomy"
+        class="dwmth-select"
+        [value]="medium"
+        (selectionChange)="onMediumChange($event.value)"
+      >
+        <mat-option
+          *ngFor="let medium of media"
+          [value]="medium.key"
+        >
+          {{ medium.value }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div
+      *ngIf="vendors.length > 0"
+      class="dwmth-form-input__box"
+    >
+      <label class="dwmth-form-label">Vendor</label>
+      <mat-select
+        class="dwmth-select"
+        [value]="vendor"
+        (selectionChange)="onVendorChange($event.value)"
+      >
+        <mat-option
+          *ngFor="let vendor of vendors"
+          [value]="vendor.key"
+        >
+          {{ vendor.value }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
   <ng-container *ngIf="!bidStrategiesOptionsAreMissing else missingBidStrategiesOptions">
     <div
       *ngIf="!isLoading && bidStrategies.length > 0"
@@ -161,5 +201,10 @@
 <ng-template #missingBidStrategiesOptions>
   <div class="error-msg">
     Bid strategies options are not available. Please contact support.
+  </div>
+</ng-template>
+<ng-template #missingTaxonomy>
+  <div class="error-msg">
+    Taxonomy is not available. Please contact support.
   </div>
 </ng-template>
