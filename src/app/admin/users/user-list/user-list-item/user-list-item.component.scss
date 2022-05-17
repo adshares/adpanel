@@ -11,6 +11,10 @@
     display: flex;
     align-items: center;
 
+    &--actions {
+      justify-content: flex-end;
+    }
+
     &--bold {
       @include copy(
         $color: pal(navy, base),
@@ -38,15 +42,6 @@
   }
 
   &__btn {
-    @include btn(
-      $border-color: pal(navy, light),
-      $color: pal(navy, light),
-      $background-color: pal(white),
-      $padding-horizontal: 12px,
-      $padding-vertical: 8px
-    );
-    margin-left: 5px;
-    margin-right: 5px;
 
     &[disabled] {
       border-color: lighten(pal(navy, light), 30%);
