@@ -402,17 +402,10 @@ export class BanUserSuccess implements Action {
   }
 }
 
-export class BanUserFailure implements Action {
-  readonly type: string = BAN_USER_FAILURE;
-
-  constructor (public payload?: UserBanDetails) {
-  }
-}
-
 export class UnbanUser implements Action {
   readonly type: string = UNBAN_USER;
 
-  constructor (public payload: UserBanDetails['id']) {
+  constructor (public payload: number) {
   }
 }
 
@@ -423,31 +416,17 @@ export class UnbanUserSuccess implements Action {
   }
 }
 
-export class UnbanUserFailure implements Action {
-  readonly type: string = UNBAN_USER_FAILURE;
-
-  constructor (public payload?: UserBanDetails) {
-  }
-}
-
 export class DeleteUser implements Action {
   readonly type: string = DELETE_USER;
 
-  constructor (public payload: UserBanDetails['id']) {
+  constructor (public payload: number) {
   }
 }
 
 export class DeleteUserSuccess implements Action {
   readonly type: string = DELETE_USER_SUCCESS;
 
-  constructor (public payload?: UserBanDetails['id']) {
-  }
-}
-
-export class DeleteUserFailure implements Action {
-  readonly type: string = DELETE_USER_FAILURE;
-
-  constructor (public payload?: UserBanDetails) {
+  constructor (public payload?: number) {
   }
 }
 
@@ -513,12 +492,9 @@ export type actions =
 
   BanUser |
   BanUserSuccess |
-  BanUserFailure |
 
   UnbanUser |
   UnbanUserSuccess |
-  UnbanUserFailure |
 
   DeleteUser |
-  DeleteUserSuccess |
-  DeleteUserFailure ;
+  DeleteUserSuccess ;
