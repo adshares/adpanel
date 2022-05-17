@@ -1,5 +1,5 @@
 <tr class="user-list-item">
-  <td class="col-xs-4 user-list-item__cell user-list-item__cell--bold">
+  <td class="col-xs-5 user-list-item__cell user-list-item__cell--bold">
     <button
       [disabled]="!canImpersonate"
       class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"
@@ -21,16 +21,16 @@
       [title]="user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'"
     ></fa-icon>
   </td>
-  <td class="col-xs-1 user-list-item__funds">
+  <td class="col-xs-2 user-list-item__funds">
     {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
     <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
   </td>
-  <td class="col-xs-1 user-list-item__funds">
+  <td class="col-xs-2 user-list-item__funds">
     {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
     <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
   </td>
   <td
-    class="col-xs-1 user-list-item__cell"
+    class="col-xs-2 justify-center user-list-item__cell"
     [ngClass]="{'dwmth-copy--red': userRole === 'Banned'}"
     [title]="userRoleTitle">
     {{ userRole }}
