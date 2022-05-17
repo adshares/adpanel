@@ -174,11 +174,11 @@ export class AdminService {
     return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`, { reason: userBanDetails.reason })
   }
 
-  unbanUser(id: UserBanDetails['id']): Observable<UserInfo> {
+  unbanUser(id: number): Observable<UserInfo> {
     return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/unban`, {})
   }
 
-  deleteUser(id:UserBanDetails['id']): Observable<any> {
+  deleteUser(id: number): Observable<any> {
     return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/delete`, {})
   }
 }
