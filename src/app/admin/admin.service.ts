@@ -10,6 +10,7 @@ import {
   AdvertiserInfo,
   PublisherInfo,
   RejectedDomainsResponse,
+  UserBanDetails,
   UserInfo
 } from 'models/settings.model'
 import { environment } from 'environments/environment';
@@ -167,5 +168,17 @@ export class AdminService {
 
   putRejectedDomains(domains: string[]): Observable<any> {
     return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
+  }
+
+  banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`, { reason: userBanDetails.reason })
+  }
+
+  unbanUser(id: number): Observable<UserInfo> {
+    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/unban`, {})
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/delete`, {})
   }
 }

@@ -1,0 +1,56 @@
+<mat-dialog-content class="mat-dialog-content">
+  <section>
+    <h1 class="dwmth-heading dwmth-heading--primary">
+      Do you want ban this user?
+    </h1>
+    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
+    <p *ngIf="user.banReason" class="dwmth-copy dwmth-multiline dialog__reason-field">Previous reason: {{user.banReason}}</p>
+    <div class="col form-container" [formGroup]="form">
+      <div class="dwmth-form-input__box">
+        <label
+          for="reason"
+          class="dwmth-form-label"
+        >
+          Reason of ban
+          <fa-icon
+            matTooltipClass="dwmth-mat-tooltip"
+            matTooltip="Reason will be displayed to the banned user"
+            matTooltipPosition="right"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
+        </label>
+        <textarea
+          id="reason"
+          class="dwmth-form-input dwmth-form-input--full"
+          type="text"
+          name="reason"
+          formControlName="reason"
+          placeholder="Reason of ban"
+          rows="6"
+        ></textarea>
+        <span
+          *ngIf="(form.get('reason').touched && form.get('reason').invalid) || (form.get('reason').dirty && form.get('reason').invalid)"
+          class="error-msg"
+        >
+          {{form.get('reason').value ? 'Max length 255 characters' : 'Reason is required'}}
+        </span>
+      </div>
+    </div>
+    <div class="row justify-end dialog-controls">
+      <button
+        class="dwmth-btn dwmth-btn--white dialog-controls--btn"
+        [mat-dialog-close]="false"
+      >
+        Cancel
+      </button>
+      <button
+        class="dwmth-btn dwmth-btn--danger dialog-controls--btn"
+        [disabled]="form.invalid"
+        [mat-dialog-close]="form.get('reason').value"
+      >
+        Confirm
+      </button>
+    </div>
+  </section>
+
+</mat-dialog-content>

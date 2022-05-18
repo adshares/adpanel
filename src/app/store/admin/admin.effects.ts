@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core'
 import { Actions, Effect, ofType } from '@ngrx/effects'
 import {
+  BAN_USER,
+  BanUser,
+  BanUserSuccess,
+  DELETE_USER,
+  DeleteUser,
+  DeleteUserSuccess,
   GET_INDEX,
   GET_LICENSE,
   GET_PRIVACY_SETTINGS,
@@ -52,6 +58,9 @@ import {
   SetRejectedDomainsSuccess,
   SetTermsSettings,
   SetTermsSettingsSuccess,
+  UNBAN_USER,
+  UnbanUser,
+  UnbanUserSuccess,
 } from './admin.actions'
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import { SAVE_SUCCESS } from 'common/utilities/messages'
@@ -380,4 +389,63 @@ export class AdminEffects {
         )
       )
     )
+
+  @Effect()
+  BanUser$ = this.actions$
+    .pipe(
+      ofType<BanUser>(BAN_USER),
+      switchMap(action => {
+          return this.service.banUser(action.payload)
+            .pipe(
+              switchMap((userInfo) => [
+                new BanUserSuccess(userInfo),
+                new ShowSuccessSnackbar(SAVE_SUCCESS)
+              ]),
+              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
+            )
+        }
+      )
+    )
+
+  @Effect()
+  UnbanUser$ = this.actions$
+    .pipe(
+      ofType<UnbanUser>(UNBAN_USER),
+      switchMap(action => {
+          return this.service.unbanUser(action.payload)
+            .pipe(
+              switchMap((userInfo) => [
+                new UnbanUserSuccess(userInfo),
+                new ShowSuccessSnackbar(SAVE_SUCCESS)
+              ]),
+              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
+            )
+        }
+      )
+    )
+
+  @Effect()
+  DeleteUser$ = this.actions$
+    .pipe(
+      ofType<DeleteUser>(DELETE_USER),
+      switchMap(action => {
+          return this.service.deleteUser(action.payload)
+            .pipe(
+              switchMap(() => {
+                return [
+                  new DeleteUserSuccess(action.payload),
+                  new ShowSuccessSnackbar(SAVE_SUCCESS)
+                ]
+              }),
+              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
+            )
+        }
+      )
+    )
+
+  private static showDialogOnErrorObservable (response) {
+    return observableOf(new ShowDialogOnError(
+      `Operation failure. ${response.error.message}`
+    ))
+  }
 }

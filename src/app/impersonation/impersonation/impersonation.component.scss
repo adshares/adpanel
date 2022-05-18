@@ -16,12 +16,33 @@
     display: flex;
     align-self: center;
   }
+}
 
-  &__action-btn {
-    @include btn(
-      $color: pal(gray, dark),
-      $background-color: pal(white),
-      $border-color: pal(gray, dark)
-    );
+.action-btn {
+  @include btn(
+          $color: pal(gray, dark),
+          $background-color: pal(white),
+          $border-color: pal(gray, dark)
+  );
+  margin-left: 8px;
+
+  &[disabled] {
+    border-color: lighten(pal(navy, light), 30%);
+    color: lighten(pal(navy, light), 30%);
+  }
+
+  &--success {
+    border-color: pal(green, dark);
+    color: pal(green, dark);
+  }
+
+  &--warning {
+    border-color: pal(orange, dark);
+    color: pal(orange, dark);
+  }
+
+  &--danger {
+    border-color: pal(red, dark);
+    color: pal(red, dark);
   }
 }

@@ -53,11 +53,11 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
   ];
 
   userListNavigationItems = [
-    {title: 'Email', columnWidth: 'col-xs-4', keys: ['email']},
-    {title: 'Wallet balance', columnWidth: 'col-xs-1', hideArrows: true},
-    {title: 'Bonus balance', columnWidth: 'col-xs-1', hideArrows: true},
-    {title: 'Role', columnWidth: 'col-xs-1', hideArrows: true},
-    {title: 'Actions', columnWidth: 'col-xs-3', hideArrows: true}
+    {title: 'Email', columnWidth: 'col-xs-5', keys: ['email']},
+    {title: 'Wallet balance', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
+    {title: 'Bonus balance', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
+    {title: 'Role', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
+    {title: 'Actions', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
   advertiserListNavigationItems = [

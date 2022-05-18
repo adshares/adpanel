@@ -42,7 +42,12 @@ import { PublisherListComponent } from 'admin/users/publisher-list/publisher-lis
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { SiteOptionsSettingsComponent } from './general-settings/site-options-settings/site-options-settings.component'
+import { SiteOptionsSettingsComponent } from './general-settings/site-options-settings/site-options-settings.component';
+import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
   imports: [
@@ -65,6 +70,9 @@ import { SiteOptionsSettingsComponent } from './general-settings/site-options-se
     MatSelectModule,
     MatTabsModule,
     MatRadioModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   providers: [
     AdminGuard,
@@ -93,9 +101,13 @@ import { SiteOptionsSettingsComponent } from './general-settings/site-options-se
     PanelBlockadeComponent,
     PanelPlaceholdersSettingsComponent,
     SiteOptionsSettingsComponent,
+    BanUserDialogComponent,
+    DeleteUserDialogComponent,
   ],
   entryComponents: [
     SuccessSnackbarComponent,
+    BanUserDialogComponent,
+    DeleteUserDialogComponent,
   ]
 })
 export class AdminModule {
