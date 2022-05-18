@@ -283,4 +283,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       },
     });
   }
+
+  get showSiteLinkUrl(): boolean {
+    return 'DCL Builder' !== this.site.name
+  }
 }

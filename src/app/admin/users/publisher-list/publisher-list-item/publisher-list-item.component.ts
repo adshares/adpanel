@@ -10,6 +10,7 @@ import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { User } from 'models/user.model'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 @Component({
   selector: 'app-publisher-list-item',
@@ -63,11 +64,28 @@ export class PublisherListItemComponent implements OnInit {
     const list = {};
     domains.forEach((name, index) => {
       const domain = name.trim();
+
+      let presentedName = domain
+      let url = (urls[index] || '').trim()
+      const isDecentraland = domain.match(/^scene-[n]?\d+-[n]?\d+.decentraland.org/)
+      if (isDecentraland) {
+        if ('scene-0-0.decentraland.org' === domain) {
+          presentedName = 'DCL Builder'
+          url = ''
+        } else {
+          const converter = new DecentralandConverter()
+          presentedName = `Decentraland ${converter.decodeValue(domain)}`
+          if (url.length > 0) {
+            url = converter.convertToDecentralandSiteUrl(url)
+          }
+        }
+      }
       list[domain] = {
-        name: domain,
+        domain: domain,
+        name: presentedName,
         rank: parseFloat(ranks[index] || '0'),
         info: (infos[index] || pageRankInfoEnum.UNKNOWN).trim(),
-        url: (urls[index] || '').trim(),
+        url: url,
       }
     })
     return Object.values(list);
