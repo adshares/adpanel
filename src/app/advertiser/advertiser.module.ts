@@ -34,7 +34,6 @@ import { AdListItemComponent } from './campaign-details/ad-list/ad-list-item/ad-
 
 import { CampaignBudgetPerDayPipe } from 'common/pipes/campaign-budget-per-day.pipe';
 import { AdvertiserGuard } from './advertiser-guard.service';
-import { BidStrategyDefaultResolver } from './resolvers/bid-strategy-default.resolver';
 import { CampaignResolver } from './resolvers/campaign.resolver';
 import { DATE_AND_TIME_PICKER_FORMATS } from 'common/utilities/consts';
 import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
@@ -97,7 +96,6 @@ const advertiserComponents = [
   ],
   providers: [
     AdvertiserGuard,
-    BidStrategyDefaultResolver,
     BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,

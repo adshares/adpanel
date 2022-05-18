@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Wallet login buttons visibility
 - Angular 7
+- Bid strategy depends on medium
 ### Fixed
 - Displayed coordinates when edit site basic info
 - Metaverse site creation when wallet not connected
