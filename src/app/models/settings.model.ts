@@ -41,6 +41,8 @@ interface UserInfo {
   isConfirmed: boolean;
   isSubscribed: boolean;
   adserverWallet: UserAdserverWallet;
+  isBanned: number;
+  banReason: string | null;
 }
 
 interface Users {
@@ -305,6 +307,11 @@ interface WalletToken {
   }
 }
 
+interface UserBanDetails {
+  id: number;
+  reason: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -344,4 +351,5 @@ export {
   Invoice,
   WalletGateway,
   WalletToken,
+  UserBanDetails,
 }

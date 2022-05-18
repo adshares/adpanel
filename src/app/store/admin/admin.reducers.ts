@@ -1,5 +1,7 @@
 import {
   actions,
+  BAN_USER_SUCCESS,
+  DELETE_USER_SUCCESS,
   GET_INDEX_FAILURE,
   GET_INDEX_SUCCESS,
   GET_LICENSE_FAILURE,
@@ -15,6 +17,7 @@ import {
   LOAD_USERS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
   SET_ADMIN_SITE_OPTIONS_SUCCESS,
+  UNBAN_USER_SUCCESS,
 } from './admin.actions'
 import { AdminState } from 'models/app-state.model';
 
@@ -145,7 +148,6 @@ export function adminReducers(state = initialState, action: actions) {
       };
     case GET_INDEX_FAILURE:
       const updateTime = (!state.index) ? '' : state.index.updateTime;
-
       return {
         ...state,
         index: {
@@ -153,6 +155,28 @@ export function adminReducers(state = initialState, action: actions) {
           error: true,
         }
       };
+    case BAN_USER_SUCCESS:
+    case UNBAN_USER_SUCCESS:
+      const idx = state.users.data.findIndex(user => user.id === action.payload.id)
+      state.users.data[idx] = action.payload
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          data: [...state.users.data]
+        }
+      };
+
+    case DELETE_USER_SUCCESS:
+      const updatedListOfUsers = state.users.data.filter(user => user.id !== action.payload)
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          data: [...updatedListOfUsers]
+        }
+      }
     default:
       return state;
   }

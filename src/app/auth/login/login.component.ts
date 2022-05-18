@@ -17,6 +17,7 @@ import AdsWallet from '@adshares/ads-connector'
 import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
 import { stringToHex } from 'web3-utils'
+import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
 
 @Component({
   selector: 'app-login',
@@ -105,7 +106,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       (user: User) => {
         this.processLogin(user)
       },
-      () => {
+      (res) => {
+        if(res.status === 403){
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: 'Your account is banned',
+              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${appSettings.SUPPORT_EMAIL}`,
+            }
+          })
+          this.isLoggingIn = false
+          return
+        }
         this.criteriaError = true
         this.isLoggingIn = false
       })

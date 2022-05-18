@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Links to publisher sites in publisher panel
 - Configuration default site classification and filtering options on admin panel
+- Opportunity for admin to ban unban and delete users 
 ### Changed
 - Wallet login buttons visibility
 - Angular 7
