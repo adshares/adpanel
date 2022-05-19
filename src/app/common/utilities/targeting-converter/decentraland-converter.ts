@@ -70,7 +70,7 @@ export class DecentralandConverter implements TargetingConverter {
     }
   }
 
-  convertToDecentralandSiteUrl(url: string): string {
+  convertBackendUrlToValidUrl(url: string): string {
     const decodedValue = this.decodeValue(url.slice('https://'.length))
     const coordinates = decodedValue.slice(1, decodedValue.length - 1).split(', ')
 

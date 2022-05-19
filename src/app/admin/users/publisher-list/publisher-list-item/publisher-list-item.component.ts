@@ -10,6 +10,7 @@ import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { User } from 'models/user.model'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 @Component({
@@ -67,8 +68,7 @@ export class PublisherListItemComponent implements OnInit {
 
       let presentedName = domain
       let url = (urls[index] || '').trim()
-      const isDecentraland = domain.match(/^scene-[n]?\d+-[n]?\d+.decentraland.org/)
-      if (isDecentraland) {
+      if (PublisherListItemComponent.isDecentralandDomain(domain)) {
         if ('scene-0-0.decentraland.org' === domain) {
           presentedName = 'DCL Builder'
           url = ''
@@ -76,8 +76,14 @@ export class PublisherListItemComponent implements OnInit {
           const converter = new DecentralandConverter()
           presentedName = `Decentraland ${converter.decodeValue(domain)}`
           if (url.length > 0) {
-            url = converter.convertToDecentralandSiteUrl(url)
+            url = converter.convertBackendUrlToValidUrl(url)
           }
+        }
+      } else if (PublisherListItemComponent.isCryptovoxelsDomain(domain)) {
+        const converter = new CryptovoxelsConverter()
+        presentedName = `Cryptovoxels ${converter.decodeValue(domain)}`
+        if (url.length > 0) {
+          url = converter.convertBackendUrlToValidUrl(url)
         }
       }
       list[domain] = {
@@ -89,6 +95,14 @@ export class PublisherListItemComponent implements OnInit {
       }
     })
     return Object.values(list);
+  }
+
+  private static isDecentralandDomain(domain: string): boolean {
+    return null !== domain.match(/^scene-[n]?\d+-[n]?\d+.decentraland.org/)
+  }
+
+  private static isCryptovoxelsDomain(domain: string): boolean {
+    return null !== domain.match(/^scene-\d+.cryptovoxels.com/)
   }
 
   pageRank(rank: number): number {

@@ -35,6 +35,7 @@ import {
   SiteCodeMetaverseDialogComponent
 } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 
 @Component({
   selector: 'app-site-details',
@@ -105,9 +106,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
     this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
-    this.siteLinkUrl = this.site.medium === 'metaverse' && this.site.vendor === 'decentraland'
-      ? new DecentralandConverter().convertToDecentralandSiteUrl(this.site.url)
-      : this.site.url
+    this.siteLinkUrl = this.getSiteLinkUrl()
 
     this.store.select('state', 'common', 'chartFilterSettings')
       .pipe(take(1))
@@ -135,6 +134,19 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       });
 
     this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
+  }
+
+  private getSiteLinkUrl(): string {
+    if ('metaverse' === this.site.medium) {
+      if ('decentraland' === this.site.vendor) {
+        return 'DCL Builder' !== this.site.name
+          ? new DecentralandConverter().convertBackendUrlToValidUrl(this.site.url)
+          : ''
+      } else if ('cryptovoxels' === this.site.vendor) {
+        return new CryptovoxelsConverter().convertBackendUrlToValidUrl(this.site.url)
+      }
+    }
+    return this.site.url
   }
 
   private prepareMediumLabel (site: Site): void {
@@ -282,9 +294,5 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         hasSitePops: this.hasSitePops(),
       },
     });
-  }
-
-  get showSiteLinkUrl(): boolean {
-    return 'DCL Builder' !== this.site.name
   }
 }
