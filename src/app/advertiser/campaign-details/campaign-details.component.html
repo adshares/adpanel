@@ -375,65 +375,67 @@
     <!--Targeting details section-->
 
     <section class="dwmth-box dwmth-box--high">
-      <div class="row justify-end">
-        <button class="self-end
-                       dwmth-btn
-                       dwmth-btn--edit"
-                (click)="navigateToCampaignEdition('additional-targeting')"
-                data-test="advertiser-campaign-edit-targeting-button">
-          <img
-            class="dwmth-icon
-                     dwmth-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt="">
-          {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
-        </button>
-      </div>
-      <div
-        *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
-        class="
-        dwmth-copy
-        row">
-        <div *ngIf="!!targeting.requires.length"
-             class="
-          col-xs-12
-          col-lg-6
-          dwmth-box--no-padding"
-        >
-          <h2 class="dwmth-targeting-details__title
-                     dwmth-copy--large
-                     dwmth-copy--semi">Targeting: </h2>
-          <div>
-            <app-targeting-display
-              class="app-targeting-display"
-              [items]="targeting.requires"
-              [isExclude]="false"
-              [canRemove]="false"
-              [targetingOptions]="targetingOptions"
-            ></app-targeting-display>
-          </div>
+      <ng-container *ngIf="!isTaxonomyMissing else missingTaxonomy">
+        <div class="row justify-end">
+          <button class="self-end
+                         dwmth-btn
+                         dwmth-btn--edit"
+                  (click)="navigateToCampaignEdition('additional-targeting')"
+                  data-test="advertiser-campaign-edit-targeting-button">
+            <img
+              class="dwmth-icon
+                       dwmth-icon--prepend"
+              src="assets/images/edit-blue.svg"
+              alt="">
+            {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
+          </button>
         </div>
-
         <div
-          *ngIf="!!targeting.excludes.length"
+          *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
           class="
-          col-xs-12
-          col-lg-6
-          dwmth-box--no-padding">
-          <h2 class="dwmth-targeting-details__title
-                     dwmth-copy--large
-                     dwmth-copy--semi">Exclusions: </h2>
-          <div>
-            <app-targeting-display
-              class="app-targeting-display"
-              [items]="targeting.excludes"
-              [isExclude]="true"
-              [canRemove]="false"
-              [targetingOptions]="targetingOptions"
-            ></app-targeting-display>
+          dwmth-copy
+          row">
+          <div *ngIf="!!targeting.requires.length"
+               class="
+            col-xs-12
+            col-lg-6
+            dwmth-box--no-padding"
+          >
+            <h2 class="dwmth-targeting-details__title
+                       dwmth-copy--large
+                       dwmth-copy--semi">Targeting: </h2>
+            <div>
+              <app-targeting-display
+                class="app-targeting-display"
+                [items]="targeting.requires"
+                [isExclude]="false"
+                [canRemove]="false"
+                [targetingOptions]="targetingOptions"
+              ></app-targeting-display>
+            </div>
+          </div>
+
+          <div
+            *ngIf="!!targeting.excludes.length"
+            class="
+            col-xs-12
+            col-lg-6
+            dwmth-box--no-padding">
+            <h2 class="dwmth-targeting-details__title
+                       dwmth-copy--large
+                       dwmth-copy--semi">Exclusions: </h2>
+            <div>
+              <app-targeting-display
+                class="app-targeting-display"
+                [items]="targeting.excludes"
+                [isExclude]="true"
+                [canRemove]="false"
+                [targetingOptions]="targetingOptions"
+              ></app-targeting-display>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </section>
 
     <!--Campaign list section-->
@@ -507,4 +509,8 @@
     <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
   </div>
 </ng-template>
-
+<ng-template #missingTaxonomy>
+  <div class="error-msg">
+    Taxonomy is not available. Please contact support.
+  </div>
+</ng-template>

@@ -462,14 +462,9 @@
               <div
                 *ngSwitchCase="adCreativeTypes.IMAGE"
                 class="banner image-poster"
-                [ngStyle]="{
-                  'width': adForm.get('creativeSize').value.split('x')[0] + 'px',
-                  'height': adForm.get('creativeSize').value.split('x')[1] + 'px'
-                }"
               >
                 <img
                   [src]="adForm.get('fileSrc').value | trustUrl"
-                  [ngStyle]="{'transform': 'scale('+ scaleImageToMatchBanner(i)+ ')'}"
                   alt="">
               </div>
 

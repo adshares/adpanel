@@ -1,0 +1,13 @@
+.dialog-checkbox__wrapper{
+  margin-top: 10px;
+}
+
+.dialog-controls{
+  margin-top: 5px;
+
+  &--btn{
+    &:not(:last-child){
+      margin-right: 1rem;
+    }
+  }
+}

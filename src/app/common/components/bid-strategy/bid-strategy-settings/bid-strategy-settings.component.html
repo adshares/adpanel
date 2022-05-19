@@ -17,143 +17,194 @@
   </section>
 
   <div
-    *ngIf="!isLoading && bidStrategies.length > 0"
+    *ngIf="isAdmin"
+    class="dwmth-box dwmth-box-narrow"
   >
-    <div
-      class="row bid-strategy__row align-center space-top"
-    >
-      <mat-form-field>
-        <mat-label>Select bid strategy</mat-label>
-        <mat-select
-          [(value)]="bidStrategyUuidSelected"
-          (selectionChange)="onBidStrategySelect()"
-        >
-          <mat-option
-            *ngFor="let bidStrategy of bidStrategies"
-            [value]="bidStrategy.uuid"
-          >
-            {{ bidStrategy.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="appended">
-        <button
-          class="dwmth-btn dwmth-btn--blue"
-          (click)="addNewBidStrategy()"
-        >
-          <img
-            class="dwmth-icon dwmth-icon--prepend"
-            src="assets/images/plus-circle.svg"
-            alt="Add new bid strategy"
-          >
-          Add new bid strategy
-        </button>
-      </div>
-      <button
-        *ngIf="isAdmin"
-        class="dwmth-btn dwmth-btn--blue appended"
-        (click)="setDefaultBidStrategy()"
+    <div class="dwmth-form-input__box">
+      <label class="dwmth-form-label">Medium</label>
+      <mat-select
+        *ngIf="isTaxonomy else missingTaxonomy"
+        class="dwmth-select"
+        [value]="medium"
+        (selectionChange)="onMediumChange($event.value)"
       >
-        Set as default
-      </button>
-      <button
-        class="dwmth-btn dwmth-btn--blue appended"
-        (click)="deleteBidStrategy()"
-      >
-        Delete
-      </button>
+        <mat-option
+          *ngFor="let medium of media"
+          [value]="medium.key"
+        >
+          {{ medium.value }}
+        </mat-option>
+      </mat-select>
     </div>
-
-    <div class="row">
-      <button
-        (click)="downloadSpreadsheet()"
-        class="dwmth-btn dwmth-btn--blue bid-strategy__spreadsheet-button"
+    <div
+      *ngIf="vendors.length > 0"
+      class="dwmth-form-input__box"
+    >
+      <label class="dwmth-form-label">Vendor</label>
+      <mat-select
+        class="dwmth-select"
+        [value]="vendor"
+        (selectionChange)="onVendorChange($event.value)"
       >
-        <span *ngIf="!isDownloadInProgress else loading">Download</span>
-      </button>
-
-      <label
-        class="dwmth-btn dwmth-btn--blue bid-strategy__spreadsheet-button appended"
-        for="fileSelect"
-      >
-        <span *ngIf="!isUploadInProgress else loading">Upload</span>
-      </label>
-      <input
-        (change)="uploadSpreadsheet($event)"
-        class="file-select-input"
-        type="file"
-        id="fileSelect"
-      >
+        <mat-option
+          *ngFor="let vendor of vendors"
+          [value]="vendor.key"
+        >
+          {{ vendor.value }}
+        </mat-option>
+      </mat-select>
     </div>
   </div>
 
-  <div *ngIf="!isLoading" class="space-top">
-    <mat-form-field>
-      <mat-label>Bid strategy name</mat-label>
-      <input
-        [(ngModel)]="bidStrategyNameSelected"
-        matInput
-        type="text"
-        maxlength="255"
-        minlength="1"
-        placeholder=""
-        required="required"
-        class="dwmth-form-input dwmth-form-input--full"
-      />
-    </mat-form-field>
-
-    <button
-      (click)="saveOrUpdate()"
-      class="dwmth-btn dwmth-btn--blue appended"
+  <ng-container *ngIf="!bidStrategiesOptionsAreMissing else missingBidStrategiesOptions">
+    <div
+      *ngIf="!isLoading && bidStrategies.length > 0"
     >
-      Save bid strategy
-    </button>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title class="dwmth-copy dwmth-copy--medium">
-          <div class="row justify-between align-center">
-            Categories
-          </div>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <div *ngFor="let entry of entries" class="row align-center bid-strategy__row">
-        <div class="col-xs-6">{{ entry.label }}</div>
-        <div class="col-xs-6" data-id="{{ entry.key }}">
-          <input
-            [(ngModel)]="entry.value"
-            type="number"
-            min="0"
-            max="100"
-            step="1"
-            class="bid-strategy__input"
-          />
+      <div
+        class="row bid-strategy__row align-center space-top"
+      >
+        <mat-form-field>
+          <mat-label>Select bid strategy</mat-label>
+          <mat-select
+            [(value)]="bidStrategyUuidSelected"
+            (selectionChange)="onBidStrategySelect()"
+          >
+            <mat-option
+              *ngFor="let bidStrategy of bidStrategies"
+              [value]="bidStrategy.uuid"
+            >
+              {{ bidStrategy.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="appended">
           <button
-            *ngFor="let predefinedRank of PREDEFINED_RANKS"
-            (click)="entry.value = predefinedRank"
-            class="bid-strategy__rank-button"
-          >{{ predefinedRank }}
+            class="dwmth-btn dwmth-btn--blue"
+            (click)="addNewBidStrategy()"
+          >
+            <img
+              class="dwmth-icon dwmth-icon--prepend"
+              src="assets/images/plus-circle.svg"
+              alt="Add new bid strategy"
+            >
+            Add new bid strategy
           </button>
         </div>
-      </div>
-
-      <div class="row space-top justify-end">
         <button
-          (click)="saveOrUpdate()"
-          class="dwmth-btn dwmth-btn--blue"
+          *ngIf="isAdmin"
+          class="dwmth-btn dwmth-btn--blue appended"
+          (click)="setDefaultBidStrategy()"
         >
-          Save bid strategy
+          Set as default
+        </button>
+        <button
+          class="dwmth-btn dwmth-btn--blue appended"
+          (click)="deleteBidStrategy()"
+        >
+          Delete
         </button>
       </div>
-    </mat-expansion-panel>
-  </div>
 
-  <div *ngIf="isLoading" class="loading-wrapper">
-    <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
-  </div>
+      <div class="row">
+        <button
+          (click)="downloadSpreadsheet()"
+          class="dwmth-btn dwmth-btn--blue bid-strategy__spreadsheet-button"
+        >
+          <span *ngIf="!isDownloadInProgress else loading">Download</span>
+        </button>
 
+        <label
+          class="dwmth-btn dwmth-btn--blue bid-strategy__spreadsheet-button appended"
+          for="fileSelect"
+        >
+          <span *ngIf="!isUploadInProgress else loading">Upload</span>
+        </label>
+        <input
+          (change)="uploadSpreadsheet($event)"
+          class="file-select-input"
+          type="file"
+          id="fileSelect"
+        >
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="space-top">
+      <mat-form-field>
+        <mat-label>Bid strategy name</mat-label>
+        <input
+          [(ngModel)]="bidStrategyNameSelected"
+          matInput
+          type="text"
+          maxlength="255"
+          minlength="1"
+          placeholder=""
+          required="required"
+          class="dwmth-form-input dwmth-form-input--full"
+        />
+      </mat-form-field>
+
+      <button
+        (click)="saveOrUpdate()"
+        class="dwmth-btn dwmth-btn--blue appended"
+      >
+        Save bid strategy
+      </button>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="dwmth-copy dwmth-copy--medium">
+            <div class="row justify-between align-center">
+              Categories
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngFor="let entry of entries" class="row align-center bid-strategy__row">
+          <div class="col-xs-6">{{ entry.label }}</div>
+          <div class="col-xs-6" data-id="{{ entry.key }}">
+            <input
+              [(ngModel)]="entry.value"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              class="bid-strategy__input"
+            />
+            <button
+              *ngFor="let predefinedRank of PREDEFINED_RANKS"
+              (click)="entry.value = predefinedRank"
+              class="bid-strategy__rank-button"
+            >{{ predefinedRank }}
+            </button>
+          </div>
+        </div>
+
+        <div class="row space-top justify-end">
+          <button
+            (click)="saveOrUpdate()"
+            class="dwmth-btn dwmth-btn--blue"
+          >
+            Save bid strategy
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-wrapper">
+      <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+    </div>
+  </ng-container>
 </article>
 <ng-template #loading>
   <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+</ng-template>
+<ng-template #missingBidStrategiesOptions>
+  <div class="error-msg">
+    Bid strategies options are not available. Please contact support.
+  </div>
+</ng-template>
+<ng-template #missingTaxonomy>
+  <div class="error-msg">
+    Taxonomy is not available. Please contact support.
+  </div>
 </ng-template>

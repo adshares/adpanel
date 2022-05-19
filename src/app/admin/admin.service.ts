@@ -5,13 +5,14 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse,
+  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   PublisherInfo,
   RejectedDomainsResponse,
+  UserBanDetails,
   UserInfo
-} from 'models/settings.model';
+} from 'models/settings.model'
 import { environment } from 'environments/environment';
 import { adsToClicks, buildUrl } from 'common/utilities/helpers'
 
@@ -100,6 +101,10 @@ export class AdminService {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }
 
+  getAdminSiteOptions(): Observable<AdminSiteOptionsResponse> {
+    return this.http.get<AdminSiteOptionsResponse>(`${environment.apiUrl}/options/sites`);
+  }
+
   getAdminWallet(): Observable<AdminWalletResponse> {
     return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
   }
@@ -132,6 +137,10 @@ export class AdminService {
     return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
   }
 
+  setAdminSiteOptions(options: AdminSiteOptions): Observable<AdminSiteOptionsResponse> {
+    return this.http.patch<AdminSiteOptionsResponse>(`${environment.serverUrl}/admin/site-settings`, {...options});
+  }
+
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
   }
@@ -159,5 +168,17 @@ export class AdminService {
 
   putRejectedDomains(domains: string[]): Observable<any> {
     return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
+  }
+
+  banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`, { reason: userBanDetails.reason })
+  }
+
+  unbanUser(id: number): Observable<UserInfo> {
+    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/unban`, {})
+  }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/delete`, {})
   }
 }

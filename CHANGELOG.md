@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.17.0] - 2022-04-07
+### Added
+- Links to publisher sites in publisher panel
+- Configuration default site classification and filtering options on admin panel
+- Opportunity for admin to ban unban and delete users 
+### Changed
+- Wallet login buttons visibility
+- Angular 7
+- Bid strategy depends on medium
+### Fixed
+- Displayed coordinates when edit site basic info
+- Metaverse site creation when wallet not connected
+- Forbid buttons to change balance during impersonation
+- Error while targeting/filtering is not available
+- Image view on upload advertisement
+
 ## [1.16.1] - 2022-04-07
 ### Added
 - Creating and editing metaverse site
@@ -395,7 +411,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.16.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.17.0...develop
+[1.17.0]: https://github.com/adshares/adpanel/compare/v1.16.1...v1.17.0
 [1.16.1]: https://github.com/adshares/adpanel/compare/v1.16.0...v1.16.1
 [1.16.0]: https://github.com/adshares/adpanel/compare/v1.15.0...v1.16.0
 [1.15.0]: https://github.com/adshares/adpanel/compare/v1.14.1...v1.15.0

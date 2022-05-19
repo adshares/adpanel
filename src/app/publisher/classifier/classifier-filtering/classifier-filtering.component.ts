@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BannerClassificationFilters } from 'models/classifier.model';
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-classifier-filtering',
@@ -11,6 +12,7 @@ export class ClassifierFilteringComponent implements OnInit {
   @Input() sizeOptions: string[];
   @Output() filteringChange: EventEmitter<any> = new EventEmitter<any>();
   @Input() siteId: number
+  @Input() classifierLocalBanners: number
   status = new FormControl('Unclassified');
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
@@ -18,10 +20,14 @@ export class ClassifierFilteringComponent implements OnInit {
   adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {};
   isGlobal: boolean
+  classifierOption: string
+
+  constructor(private route: ActivatedRoute,) {}
 
   ngOnInit() {
     this.isGlobal = this.siteId === null
     this.adSizesOptions = this.sizeOptions || [];
+    this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
   }
 
   sizeSelect(e, size: string): void {
@@ -85,5 +91,14 @@ export class ClassifierFilteringComponent implements OnInit {
       return 'Omitted';
     }
     return this.status.value ? this.status.value : '';
+  }
+
+  changeFilterByServer(isChecked){
+    this.classifierLocalBanners = isChecked === true ? 1 : 0
+    this.filtering = {
+      ...this.filtering,
+      classifierLocalBanners: this.classifierLocalBanners
+    }
+    this.filteringChange.emit(this.filtering)
   }
 }

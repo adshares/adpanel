@@ -4,9 +4,31 @@
     <mat-icon> info</mat-icon>
     <strong>This is impersonation mode ({{userLabel}})</strong>
   </div>
-  <button class="impersonation-bar__action-btn"
-          (click)="dropImpersonation()">
-    Drop impersonation mode
-  </button>
+  <div class="impersonation-controllers">
+    <button
+            class="action-btn action-btn--danger"
+            *ngIf="!userIsBanned"
+            (click)="showBanConfirmationDialog()"
+    >
+      Ban user
+    </button>
+    <button
+            class="action-btn action-btn--danger"
+            *ngIf="userIsBanned"
+            (click)="showUnbanConfirmationDialog()"
+    >
+      Unban user
+    </button>
+    <button
+            class="action-btn action-btn--danger"
+            (click)="showDeleteConfirmationDialog()"
+    >
+      Delete user
+    </button>
+    <button class="action-btn"
+            (click)="dropImpersonation()">
+      Drop impersonation mode
+    </button>
+  </div>
 </article>
 

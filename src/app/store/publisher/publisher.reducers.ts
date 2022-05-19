@@ -10,7 +10,6 @@ const initialState: PublisherState = {
   dataLoaded: false,
   lastEditedSite: siteInitialState,
   languagesList: [],
-  filteringCriteria: [],
 };
 const unitStatsInitialState = {
   clicks: 0,
@@ -159,12 +158,6 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         languagesList: [...action.payload]
-      };
-
-    case PublisherActions.GET_FILTERING_CRITERIA_SUCCESS:
-      return {
-        ...state,
-        filteringCriteria: [...action.payload]
       };
 
     case PublisherActions.UPDATE_SITE:

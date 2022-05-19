@@ -10,7 +10,7 @@
 
   <div class="dwmth-box dwmth-box--large">
     <h3 class="dwmth-heading dwmth-heading--secondary">
-      Select bid strategy <span *ngIf="campaign">for {{ campaign.basicInformation.name}} campaign</span>
+      Select bid strategy for {{ campaign.basicInformation.name}} campaign
     </h3>
     <div class="dwmth-copy">
       Here you can select bid strategy for the campaign.
@@ -37,15 +37,15 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="dwmth-copy">
-      [X] - bid strategy defined by administrator
-    </div>
     <div *ngIf="isLoading" class="loading-wrapper">
       <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
     </div>
   </div>
 
-  <app-bid-strategy-settings></app-bid-strategy-settings>
+  <app-bid-strategy-settings
+    [medium]="campaign.basicInformation.medium"
+    [vendor]="campaign.basicInformation.vendor"
+  ></app-bid-strategy-settings>
 
   <div class="dwmth-box dwmth-box--large row justify-between">
     <button

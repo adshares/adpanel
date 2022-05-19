@@ -3,12 +3,13 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse,
+  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   License,
   PublisherInfo,
   RejectedDomainsResponse,
+  UserBanDetails,
   UserInfo,
 } from 'models/settings.model'
 
@@ -28,12 +29,19 @@ export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
 
+export const LOAD_ADMIN_SITE_OPTIONS = 'Admin site options loading';
+export const LOAD_ADMIN_SITE_OPTIONS_SUCCESS = 'Admin site options loading success';
+export const LOAD_ADMIN_SITE_OPTIONS_FAILURE = 'Admin site options loading failure';
+
 export const LOAD_ADMIN_WALLET = 'Admin wallet loading';
 export const LOAD_ADMIN_WALLET_SUCCESS = 'Admin wallet loading success';
 export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
+
+export const SET_ADMIN_SITE_OPTIONS = 'Save new admin site options';
+export const SET_ADMIN_SITE_OPTIONS_SUCCESS = 'Save new admin site options success';
 
 export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
 export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
@@ -63,6 +71,19 @@ export const GET_INDEX_FAILURE = 'Get index failure';
 export const GET_LICENSE = 'Get license';
 export const GET_LICENSE_SUCCESS = 'Get license success';
 export const GET_LICENSE_FAILURE = 'Get license failure';
+
+export const BAN_USER = 'Ban user';
+export const BAN_USER_SUCCESS = 'Ban user success';
+export const BAN_USER_FAILURE = 'Ban user failure';
+
+export const UNBAN_USER = 'Unban user';
+export const UNBAN_USER_SUCCESS = 'Unban user success';
+export const UNBAN_USER_FAILURE = 'Unban user failure';
+
+export const DELETE_USER = 'Delete user';
+export const DELETE_USER_SUCCESS = 'Delete user success';
+export const DELETE_USER_FAILURE = 'Delete user failure';
+
 
 export class LoadUsers implements Action {
   readonly type: string = LOAD_USERS;
@@ -148,6 +169,27 @@ export class LoadAdminSettingsFailure implements Action {
   }
 }
 
+export class LoadAdminSiteOptions implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class LoadAdminSiteOptionsSuccess implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_SUCCESS;
+
+  constructor(public payload: AdminSiteOptionsResponse) {
+  }
+}
+
+export class LoadAdminSiteOptionsFailure implements Action {
+  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_FAILURE;
+
+  constructor(public payload?: string) {
+  }
+}
+
 export class LoadAdminWallet implements Action {
   readonly type: string = LOAD_ADMIN_WALLET;
 
@@ -181,6 +223,21 @@ export class SetAdminSettingsSuccess implements Action {
 
 
   constructor(public payload: AdminSettings) {
+  }
+}
+
+export class SetAdminSiteOptions implements Action {
+  readonly type: string = SET_ADMIN_SITE_OPTIONS;
+
+  constructor(public payload: AdminSiteOptions) {
+  }
+}
+
+export class SetAdminSiteOptionsSuccess implements Action {
+  readonly type: string = SET_ADMIN_SITE_OPTIONS_SUCCESS;
+
+
+  constructor(public payload: AdminSiteOptions) {
   }
 }
 
@@ -331,6 +388,48 @@ export class GetLicenseFailure implements Action {
   }
 }
 
+export class BanUser implements Action {
+  readonly type: string = BAN_USER;
+
+  constructor (public payload: UserBanDetails) {
+  }
+}
+
+export class BanUserSuccess implements Action {
+  readonly type: string = BAN_USER_SUCCESS;
+
+  constructor (public payload?: UserInfo) {
+  }
+}
+
+export class UnbanUser implements Action {
+  readonly type: string = UNBAN_USER;
+
+  constructor (public payload: number) {
+  }
+}
+
+export class UnbanUserSuccess implements Action {
+  readonly type: string = UNBAN_USER_SUCCESS;
+
+  constructor (public payload?: UserInfo) {
+  }
+}
+
+export class DeleteUser implements Action {
+  readonly type: string = DELETE_USER;
+
+  constructor (public payload: number) {
+  }
+}
+
+export class DeleteUserSuccess implements Action {
+  readonly type: string = DELETE_USER_SUCCESS;
+
+  constructor (public payload?: number) {
+  }
+}
+
 export type actions =
   LoadUsers |
   LoadUsersSuccess |
@@ -348,12 +447,19 @@ export type actions =
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
 
+  LoadAdminSiteOptions |
+  LoadAdminSiteOptionsSuccess |
+  LoadAdminSiteOptionsFailure |
+
   LoadAdminWallet |
   LoadAdminWalletSuccess |
   LoadAdminWalletFailure |
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
+
+  SetAdminSiteOptions |
+  SetAdminSiteOptionsSuccess |
 
   GetPrivacySettings |
   GetPrivacySettingsSuccess |
@@ -382,4 +488,13 @@ export type actions =
 
   GetLicense |
   GetLicenseSuccess |
-  GetLicenseFailure;
+  GetLicenseFailure |
+
+  BanUser |
+  BanUserSuccess |
+
+  UnbanUser |
+  UnbanUserSuccess |
+
+  DeleteUser |
+  DeleteUserSuccess ;

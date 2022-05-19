@@ -41,6 +41,8 @@ interface UserInfo {
   isConfirmed: boolean;
   isSubscribed: boolean;
   adserverWallet: UserAdserverWallet;
+  isBanned: number;
+  banReason: string | null;
 }
 
 interface Users {
@@ -140,6 +142,11 @@ interface AdminSettings {
   aduserInfoUrl: string;
 }
 
+interface AdminSiteOptions {
+  classifierLocalBanners: string;
+  acceptBannersManually: number;
+}
+
 interface AdminWallet {
   balance: number;
   unusedBonuses: number;
@@ -151,6 +158,10 @@ interface AdminIndexUpdateTimeResponse {
 
 interface AdminSettingsResponse {
   settings: AdminSettings;
+}
+
+interface AdminSiteOptionsResponse {
+  options: AdminSiteOptions
 }
 
 interface AdminWalletResponse {
@@ -296,6 +307,11 @@ interface WalletToken {
   }
 }
 
+interface UserBanDetails {
+  id: number;
+  reason: string;
+}
+
 export {
   BillingHistoryItem,
   BillingHistory,
@@ -307,6 +323,7 @@ export {
   Publishers,
   PublisherInfo,
   AdminSettings,
+  AdminSiteOptions,
   AdminWallet,
   AdsharesAddress,
   WithdrawalInfo,
@@ -320,6 +337,7 @@ export {
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
+  AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
   RejectedDomainsResponse,
@@ -333,4 +351,5 @@ export {
   Invoice,
   WalletGateway,
   WalletToken,
+  UserBanDetails,
 }

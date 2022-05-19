@@ -32,10 +32,10 @@ if (!indexFile) {
   process.exit(1)
 }
 
-const message = fs.readFileSync('/dev/stdin').toString().trim();
+let message = fs.readFileSync('/dev/stdin').toString().trim();
 if (!message) {
   console.log('No JSON provided');
-  process.exit(1)
+  message = '[]';
 }
 
 const json = JSON.parse(message);

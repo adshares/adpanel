@@ -1,5 +1,7 @@
 import {
   actions,
+  BAN_USER_SUCCESS,
+  DELETE_USER_SUCCESS,
   GET_INDEX_FAILURE,
   GET_INDEX_SUCCESS,
   GET_LICENSE_FAILURE,
@@ -8,12 +10,15 @@ import {
   GET_REJECTED_DOMAINS_SUCCESS,
   GET_TERMS_SETTINGS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
+  LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
   LOAD_ADMIN_WALLET_SUCCESS,
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
-} from './admin.actions';
+  SET_ADMIN_SITE_OPTIONS_SUCCESS,
+  UNBAN_USER_SUCCESS,
+} from './admin.actions'
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
@@ -35,6 +40,10 @@ const initialState: AdminState = {
     autoConfirmationEnabled: 0,
     emailVerificationRequired: 0,
     aduserInfoUrl: '',
+  },
+  siteOptions: {
+    classifierLocalBanners: 'all-by-default',
+    acceptBannersManually: 0,
   },
   wallet: {
     balance: 0,
@@ -102,6 +111,12 @@ export function adminReducers(state = initialState, action: actions) {
         ...state,
         settings: action.payload
       };
+    case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
+    case SET_ADMIN_SITE_OPTIONS_SUCCESS:
+      return {
+        ...state,
+        siteOptions: action.payload
+      };
     case GET_PRIVACY_SETTINGS_SUCCESS:
       return {
         ...state,
@@ -133,7 +148,6 @@ export function adminReducers(state = initialState, action: actions) {
       };
     case GET_INDEX_FAILURE:
       const updateTime = (!state.index) ? '' : state.index.updateTime;
-
       return {
         ...state,
         index: {
@@ -141,6 +155,28 @@ export function adminReducers(state = initialState, action: actions) {
           error: true,
         }
       };
+    case BAN_USER_SUCCESS:
+    case UNBAN_USER_SUCCESS:
+      const idx = state.users.data.findIndex(user => user.id === action.payload.id)
+      state.users.data[idx] = action.payload
+
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          data: [...state.users.data]
+        }
+      };
+
+    case DELETE_USER_SUCCESS:
+      const updatedListOfUsers = state.users.data.filter(user => user.id !== action.payload)
+      return {
+        ...state,
+        users: {
+          ...state.users,
+          data: [...updatedListOfUsers]
+        }
+      }
     default:
       return state;
   }

@@ -255,4 +255,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       })
     this.subscriptions.push(subscription)
   }
+
+  get isTaxonomy(): boolean {
+    return this.media.length > 0
+  }
 }

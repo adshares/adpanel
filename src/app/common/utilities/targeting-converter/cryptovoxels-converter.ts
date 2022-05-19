@@ -60,4 +60,9 @@ export class CryptovoxelsConverter implements TargetingConverter {
       delete targeting.requires[CryptovoxelsConverter.ID]
     }
   }
+
+  convertBackendUrlToValidUrl(url: string): string {
+    const id = this.decodeValue(url.slice('https://'.length))
+    return `https://www.cryptovoxels.com/parcels/${id}`
+  }
 }

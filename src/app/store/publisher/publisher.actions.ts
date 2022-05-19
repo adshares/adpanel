@@ -1,15 +1,11 @@
 import { Action } from '@ngrx/store';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
-import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
+import { AssetTargeting } from 'models/targeting-option.model';
 import { TimespanFilter } from 'models/chart/chart-filter-settings.model';
 
 export const GET_LANGUAGES_LIST = 'Getting languages';
 export const GET_LANGUAGES_LIST_SUCCESS = 'Languages list loading success';
 export const GET_LANGUAGES_LIST_FAILURE = 'Languages loading failure';
-
-export const GET_FILTERING_CRITERIA = 'Getting filtering criteria';
-export const GET_FILTERING_CRITERIA_SUCCESS = 'Filtering criteria loading';
-export const GET_FILTERING_CRITERIA_FAILURE = 'Filtering criteria loading failure';
 
 export const LOAD_SITE = 'Site loading';
 export const LOAD_SITE_SUCCESS = 'Site loading success';
@@ -206,27 +202,6 @@ export class GetLanguagesListFailure implements Action {
   }
 }
 
-export class GetFilteringCriteria implements Action {
-  readonly type = GET_FILTERING_CRITERIA;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetFilteringCriteriaSuccess implements Action {
-  readonly type = GET_FILTERING_CRITERIA_SUCCESS;
-
-  constructor(public payload: TargetingOption[]) {
-  }
-}
-
-export class GetFilteringCriteriaFailure implements Action {
-  readonly type = GET_FILTERING_CRITERIA_FAILURE;
-
-  constructor(public payload?: any) {
-  }
-}
-
 export class UpdateSite implements Action {
   readonly type = UPDATE_SITE;
 
@@ -315,10 +290,6 @@ export type actions =
   GetLanguagesList |
   GetLanguagesListSuccess |
   GetLanguagesListFailure |
-
-  GetFilteringCriteria |
-  GetFilteringCriteriaSuccess |
-  GetFilteringCriteriaFailure |
 
   LoadSite |
   LoadSiteSuccess |

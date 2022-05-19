@@ -1,7 +1,7 @@
 import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
-  AdminSettings,
+  AdminSettings, AdminSiteOptions,
   AdminWallet,
   Advertisers,
   BillingHistory,
@@ -11,10 +11,9 @@ import {
   RefLink,
   TermsAndPrivacy,
   Users,
-} from './settings.model';
+} from './settings.model'
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import { TargetingOption } from 'models/targeting-option.model';
 import {Info} from "models/info.model";
 
 interface AppState {
@@ -43,7 +42,6 @@ interface PublisherState {
   dataLoaded: boolean;
   lastEditedSite: Site;
   languagesList: SiteLanguage[];
-  filteringCriteria: TargetingOption[];
 }
 
 interface SettingsState {
@@ -61,6 +59,7 @@ interface AdminState {
   advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
+  siteOptions: AdminSiteOptions;
   wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;
   rejectedDomains: string[];

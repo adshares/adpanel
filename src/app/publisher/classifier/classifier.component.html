@@ -65,6 +65,7 @@
       *ngIf="!isSingleBanner"
       [sizeOptions]="adSizesOptions"
       [siteId]="siteId"
+      [classifierLocalBanners]="classifierLocalBanners"
       (filteringChange)="updateBannersList($event)"
     ></app-classifier-filtering>
     <table
