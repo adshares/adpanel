@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Links to publisher sites in publisher panel
 - Configuration default site classification and filtering options on admin panel
 - Opportunity for admin to ban unban and delete users 
 ### Changed
@@ -14,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Angular 7
 - Bid strategy depends on medium
 ### Fixed
+- Displayed coordinates when edit site basic info
 - Metaverse site creation when wallet not connected
 - Forbid buttons to change balance during impersonation
 - Error while targeting/filtering is not available

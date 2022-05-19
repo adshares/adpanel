@@ -10,6 +10,8 @@ import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { User } from 'models/user.model'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 @Component({
   selector: 'app-publisher-list-item',
@@ -63,14 +65,44 @@ export class PublisherListItemComponent implements OnInit {
     const list = {};
     domains.forEach((name, index) => {
       const domain = name.trim();
+
+      let presentedName = domain
+      let url = (urls[index] || '').trim()
+      if (PublisherListItemComponent.isDecentralandDomain(domain)) {
+        if ('scene-0-0.decentraland.org' === domain) {
+          presentedName = 'DCL Builder'
+          url = ''
+        } else {
+          const converter = new DecentralandConverter()
+          presentedName = `Decentraland ${converter.decodeValue(domain)}`
+          if (url.length > 0) {
+            url = converter.convertBackendUrlToValidUrl(url)
+          }
+        }
+      } else if (PublisherListItemComponent.isCryptovoxelsDomain(domain)) {
+        const converter = new CryptovoxelsConverter()
+        presentedName = `Cryptovoxels ${converter.decodeValue(domain)}`
+        if (url.length > 0) {
+          url = converter.convertBackendUrlToValidUrl(url)
+        }
+      }
       list[domain] = {
-        name: domain,
+        domain: domain,
+        name: presentedName,
         rank: parseFloat(ranks[index] || '0'),
         info: (infos[index] || pageRankInfoEnum.UNKNOWN).trim(),
-        url: (urls[index] || '').trim(),
+        url: url,
       }
     })
     return Object.values(list);
+  }
+
+  private static isDecentralandDomain(domain: string): boolean {
+    return null !== domain.match(/^scene-[n]?\d+-[n]?\d+.decentraland.org/)
+  }
+
+  private static isCryptovoxelsDomain(domain: string): boolean {
+    return null !== domain.match(/^scene-\d+.cryptovoxels.com/)
   }
 
   pageRank(rank: number): number {

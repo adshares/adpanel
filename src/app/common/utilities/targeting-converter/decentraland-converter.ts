@@ -11,7 +11,7 @@ export class DecentralandConverter implements TargetingConverter {
   static ID = 'decentraland'
 
   decodeValue (value: string): string {
-    const mappedCoordinates = value.slice('scene-'.length, -'.decentraland.org'.length)
+    const mappedCoordinates = value.replace('/', '').slice('scene-'.length, -'.decentraland.org'.length)
     const coordinates = mappedCoordinates
       .split('-')
       .map(coordinate => coordinate.charAt(0) === 'n' ? `-${coordinate.substring(1)}` : coordinate)
@@ -68,5 +68,12 @@ export class DecentralandConverter implements TargetingConverter {
       }
       delete targeting.requires[DecentralandConverter.ID]
     }
+  }
+
+  convertBackendUrlToValidUrl(url: string): string {
+    const decodedValue = this.decodeValue(url.slice('https://'.length))
+    const coordinates = decodedValue.slice(1, decodedValue.length - 1).split(', ')
+
+    return `https://play.decentraland.org/?position=${coordinates[0]}%2C${coordinates[1]}&realm=dg`
   }
 }
