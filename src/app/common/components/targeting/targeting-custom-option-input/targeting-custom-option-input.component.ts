@@ -11,7 +11,7 @@ import {
   ENTER,
   SPACE
 } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2'
 

@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import {
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-} from '@angular/material'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SettingsRoutingModule } from './settings-routing.module'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'

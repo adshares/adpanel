@@ -20,7 +20,7 @@ import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, CloneCampaign } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';

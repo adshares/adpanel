@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { BillingHistory } from 'models/settings.model';
 import { SettingsService } from 'settings/settings.service';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';

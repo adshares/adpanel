@@ -19,7 +19,7 @@ import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.acti
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';

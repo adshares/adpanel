@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSliderModule
-} from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

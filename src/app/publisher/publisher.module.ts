@@ -2,19 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
-import {
-  MatAutocompleteModule,
-  MatButtonToggleModule,
-  MatCheckboxModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatOptionModule,
-  MatPaginatorModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatTabsModule,
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatOptionModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { PublisherRoutingModule } from './publisher-routing.module';
 import { PublisherGuard } from './publisher-guard.service';
 import { AppCommonModule } from 'common/common.module';

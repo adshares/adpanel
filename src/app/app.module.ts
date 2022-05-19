@@ -5,7 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
-import { DateAdapter, GestureConfig, MAT_DATE_FORMATS } from '@angular/material'
+import { DateAdapter, GestureConfig, MAT_DATE_FORMATS } from '@angular/material/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'

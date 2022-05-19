@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ImpersonationComponent } from "./impersonation/impersonation.component";
-import { MatIconModule } from "@angular/material";
+import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from "@angular/common";
 import { BrowserModule } from "@angular/platform-browser";
 

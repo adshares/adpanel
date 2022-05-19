@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog';
 import { first, take } from 'rxjs/operators'
 import { FileUploader } from 'ng2-file-upload'
 import {
