@@ -20,7 +20,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   styleUrls: ['./edit-site-additional-targeting.component.scss']
 })
 export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
+  @ViewChild(TargetingSelectComponent, {static: false}) targetingSelectComponent: TargetingSelectComponent;// TODO remove?
 
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;

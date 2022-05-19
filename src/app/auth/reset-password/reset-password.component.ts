@@ -14,7 +14,7 @@ import { ErrorResponseDialogComponent } from "common/dialog/error-response-dialo
 })
 export class ResetPasswordComponent {
   token: any;
-  @ViewChild('confirmPasswordForm') confirmPasswordForm: NgForm;
+  @ViewChild('confirmPasswordForm', {static: false}) confirmPasswordForm: NgForm;
   isPasswordConfirm = false;
   confirmErrors = {};
 

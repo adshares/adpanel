@@ -18,7 +18,7 @@ export class CampaignListComponent {
   @Input() campaigns: Campaign[];
   @Input() campaignsTotals: CampaignTotals;
   @Input() filterSettings: ChartFilterSettings[];
-  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
+  @ViewChild(TableNavigationComponent, {static: false}) tableNavigationRef: TableNavigationComponent;
 
   constructor(
     private router: Router

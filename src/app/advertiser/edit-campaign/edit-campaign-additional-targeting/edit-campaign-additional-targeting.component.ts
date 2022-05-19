@@ -29,7 +29,7 @@ import { CustomValidators } from 'common/utilities/forms';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
+  @ViewChild(TargetingSelectComponent, {static: false}) targetingSelectComponent: TargetingSelectComponent;//TODO remove?
   currencyCode: string = environment.currencyCode;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;

@@ -26,8 +26,8 @@ import { reportType } from 'models/enum/user.enum';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  @ViewChild(SiteListComponent) siteListRef: SiteListComponent;
+  @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
+  @ViewChild(SiteListComponent, {static: false}) siteListRef: SiteListComponent;//TODO remove?
 
   sites: Site[];
   sitesLoaded: boolean = false;

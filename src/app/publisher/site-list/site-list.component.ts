@@ -16,7 +16,7 @@ export class SiteListComponent extends HandleSubscription {
   @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;
-  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
+  @ViewChild(TableNavigationComponent, {static: false}) tableNavigationRef: TableNavigationComponent;
   siteStatuses: any[];
 
   constructor(

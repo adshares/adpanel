@@ -13,7 +13,7 @@ import { TableNavigationComponent } from "common/components/table-navigation/tab
 export class AdListComponent implements OnChanges {
   @Input() adList: Ad[];
   @Input() campaign: Campaign;
-  @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
+  @ViewChild(TableNavigationComponent, {static: false}) tableNavigationRef: TableNavigationComponent;
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.tableNavigationRef) {
