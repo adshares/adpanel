@@ -22,27 +22,27 @@
     }
   }
 
-  /deep/ &__token {
+  ::ng-deep &__token {
     width: 250px;
   }
 
-  /deep/ &__refund {
+  ::ng-deep &__refund {
     width: 250px;
   }
 
-  /deep/ &__comment {
+  ::ng-deep &__comment {
     width: 200px;
   }
 
-  /deep/ &__usage {
+  ::ng-deep &__usage {
     width: 150px;
   }
 
-  /deep/ &__refunded {
+  ::ng-deep &__refunded {
     width: 175px;
   }
 
-  /deep/ &__actions {
+  ::ng-deep &__actions {
     width: 105px;
   }
 }

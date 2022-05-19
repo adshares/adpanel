@@ -51,7 +51,7 @@ form {
     margin-right: 30px;
   }
 
-  /deep/ .mat-input-wrapper {
+  ::ng-deep .mat-input-wrapper {
     padding-bottom: 9px !important;
     .mat-input-infix {
       width: 120px;

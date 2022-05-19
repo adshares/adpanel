@@ -55,7 +55,7 @@
     width: 220px;
   }
 
-  /deep/ &__no-actions {
+  ::ng-deep &__no-actions {
     thead .table-nav__row:last-of-type,
     tbody .user-list-item td:last-of-type {
       display: none !important;

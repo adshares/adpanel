@@ -296,11 +296,11 @@
 */
 
 @each $color in $main_colors {
-  .dwmth-#{$color} {
+  .dwmth-#{"" + $color} {
     color: pal($color);
   }
 
-  .dwmth-bg-#{$color} {
+  .dwmth-bg-#{"" + $color} {
     background-color: pal($color);
   }
 }
