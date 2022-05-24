@@ -144,10 +144,17 @@
     "@angular-devkit/core" "8.3.29"
     rxjs "6.4.0"
 
-"@angular/animations@^7.0.1":
-  version "7.2.16"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.16.tgz#6e3f43df292bc53c3a526dabfd8025b3cd03b070"
-  integrity sha512-jH7haM3Hgtn1EW9b0Vfq6UqSz+rx3l7k+gJi9tuHEOPZdBTjtv3sNQxmM0IKxzOuTfM8KhRFkUlzyi43kfdp0w==
+"@angular-material-components/datetime-picker@^2.0.0":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@angular-material-components/datetime-picker/-/datetime-picker-2.0.4.tgz#3a298eb29fc4a8adbbb70fe09bab0ae916d0c186"
+  integrity sha512-3nXGFz7GXbFYeBI2/72rcmPFTWtcC1ERlgdkaY+65dFHXPIc8hKGv6o+JbtCoYPg7xmVCCy4xhmOgfd/CFGyOw==
+  dependencies:
+    tslib "^1.9.0"
+
+"@angular-material-components/moment-adapter@^2.0.0":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@angular-material-components/moment-adapter/-/moment-adapter-2.0.2.tgz#9c9f160413396bc4aaa85d75519b47f3c5bd1ff1"
+  integrity sha512-QO8ftUkUzFIK8QhG9Z/f00Y5Z1BYBdOmIiEHOd6hwcKQK2PS87tAIETPLOjHnUONSAQjTVWcw8/WpQTBqCNxyA==
   dependencies:
     tslib "^1.9.0"
 
@@ -157,15 +164,6 @@
   integrity sha512-3Vc9TnNpKdtvKIXcWDFINSsnwgEMiDmLzjceWg1iYKwpeZGQahUXPoesLwQazBMmxJzQiA4HOMj0TTXKZ+Jzkg==
   dependencies:
     tslib "^1.9.0"
-
-"@angular/cdk@^7.0.2":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.7.tgz#ce1ad53ba04beb9c8e950acc5691ea0143753764"
-  integrity sha512-xbXxhHHKGkVuW6K7pzPmvpJXIwpl0ykBnvA2g+/7Sgy5Pd35wCC+UtHD9RYczDM/mkygNxMQtagyCErwFnDtQA==
-  dependencies:
-    tslib "^1.7.1"
-  optionalDependencies:
-    parse5 "^5.0.0"
 
 "@angular/cdk@^8.2.3":
   version "8.2.3"
@@ -202,13 +200,6 @@
     universal-analytics "^0.4.20"
     uuid "^3.3.2"
 
-"@angular/common@^7.0.1":
-  version "7.2.16"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-7.2.16.tgz#72127b5ed7d75a400c58b9bd6c2cd691f47c8096"
-  integrity sha512-lPo2Vt5zmKeKTdMxHMUuViouMiK4QsmO6dGTIhJ7QAx9mov0QYb4sUVKN9Ix32Aeeznaa97qJnhevyDncJqvSA==
-  dependencies:
-    tslib "^1.9.0"
-
 "@angular/common@^8.2.14":
   version "8.2.14"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-8.2.14.tgz#027e52b2951c14082d6e3af1a4ffa1356220e439"
@@ -239,24 +230,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@^7.0.1":
-  version "7.2.16"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-7.2.16.tgz#317f707bc75ca5a90ba470c34e49e6adb7026e85"
-  integrity sha512-z1RuBinuYeC4KLv8Z95YOgIQLd4nkoApdxkIZaWALwSkgeBuHJn4bCBn2cL0gJ/KO2x18TiTU5HuC+uyBt0AVQ==
-  dependencies:
-    tslib "^1.9.0"
-
 "@angular/core@^8.2.14":
   version "8.2.14"
   resolved "https://registry.yarnpkg.com/@angular/core/-/core-8.2.14.tgz#35566f5b19480369229477e7e0e0fde740bd5204"
   integrity sha512-zeePkigi+hPh3rN7yoNENG/YUBUsIvUXdxx+AZq+QPaFeKEA2FBSrKn36ojHFrdJUjKzl0lPMEiGC2b6a6bo6g==
-  dependencies:
-    tslib "^1.9.0"
-
-"@angular/forms@^7.0.1":
-  version "7.2.16"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-7.2.16.tgz#18769a2203edf87a1cc279dc2145da62b82f144e"
-  integrity sha512-50JTXco6w1HOi5o6RQ6PVSR0tD4Y2aRcCFBfLXvzDi78aZOSEdOYaSm78RDUNzGCbjwdMCIbX8eOdQgUUtsEFA==
   dependencies:
     tslib "^1.9.0"
 
@@ -5801,24 +5778,6 @@ neo-async@^2.5.0, neo-async@^2.6.1:
 next-tick@1, next-tick@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
-
-ng-pick-datetime-moment@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/ng-pick-datetime-moment/-/ng-pick-datetime-moment-1.0.8.tgz#4adc644457989a5a02cb570698c317972c8fd906"
-  integrity sha512-aIUaKjneCqTwoDN3WUgJ692au2EtIFZW0InECs7mfYqKxXHb7+rwMe/XcDzpjH84c9PHjsyAG5s9n4gCvT/IdA==
-  dependencies:
-    "@angular/animations" "^7.0.1"
-    "@angular/cdk" "^7.0.2"
-    "@angular/common" "^7.0.1"
-    "@angular/core" "^7.0.1"
-    "@angular/forms" "^7.0.1"
-    moment "^2.22.2"
-    ng-pick-datetime "^7.0.0"
-
-ng-pick-datetime@7.0.0, ng-pick-datetime@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-7.0.0.tgz#c78d1cfaee183691a4a44cd4f39c98f9c1d1595f"
-  integrity sha512-SbS+zKX6gOlYpgH8zDSx2EL32ak0Z0y1Ksu1ECP/FiwVBM2mHgbzdfyDYhMmKFB0GKn5yCwXTandR1FCQXe62w==
 
 ng2-charts@^1.6.0:
   version "1.6.0"

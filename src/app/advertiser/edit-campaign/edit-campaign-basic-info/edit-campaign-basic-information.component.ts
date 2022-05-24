@@ -47,7 +47,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   dateStart = new FormControl(campaignInitialState.basicInformation.dateStart.toString(), Validators.required);
   dateEnd = new FormControl();
   calcBudgetToHour: boolean = false;
-  today = new Date();
+  today = moment();
   goesToSummary: boolean;
   createCampaignMode: boolean;
   campaign: Campaign;

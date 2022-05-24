@@ -248,15 +248,15 @@
           >
             <label class="dwmth-form-label">Start date</label>
             <mat-form-field
+              (click)="dateStartPicker.open()"
               class="
                 dwmth-form-input
                 dwmth-form-input--narrow
                 row"
             >
               <img
-                [owlDateTimeTrigger]="dateStartPicker"
                 src="/assets/images/calendar.svg"
-                alt="Add new icon"
+                alt="Calendar"
                 class="dwmth-icon">
               <input
                 class="
@@ -264,16 +264,15 @@
                 dwmth-form-input--narrow
                 dwmth-form-input--date
                 row"
-                [owlDateTime]="dateStartPicker"
+                [ngxMatDatetimePicker]="dateStartPicker"
                 [formControl]="dateStart"
-                [owlDateTimeTrigger]="dateStartPicker"
                 [min]="today"
                 matInput
                 type="text"
                 required
                 data-test="advertiser-edit-campaign-basic-information-form-start-date"
               >
-              <owl-date-time #dateStartPicker></owl-date-time>
+              <ngx-mat-datetime-picker #dateStartPicker></ngx-mat-datetime-picker>
             </mat-form-field>
 
             <span
@@ -292,25 +291,26 @@
             <label class="dwmth-form-label">
               End date (optional)
             </label>
-            <mat-form-field class="dwmth-form-input
+            <mat-form-field
+                    (click)="dateEndPicker.open()"
+                    class="dwmth-form-input
                                    dwmth-form-input--narrow
                                    row">
-              <img [owlDateTimeTrigger]="dateEndPicker"
+              <img
                    src="/assets/images/calendar.svg"
-                   alt="Add new icon"
+                   alt="Calendar"
                    class="dwmth-icon">
               <input class="dwmth-form-input
                        dwmth-form-input--narrow
                        dwmth-form-input--date
                        row"
-                     [owlDateTime]="dateEndPicker"
-                     [owlDateTimeTrigger]="dateEndPicker"
+                     [ngxMatDatetimePicker]="dateEndPicker"
                      matInput
                      [min]="dateStart.value"
                      [formControl]="dateEnd"
                      data-test="advertiser-edit-campaign-basic-information-form-end-date"
               >
-              <owl-date-time #dateEndPicker></owl-date-time>
+              <ngx-mat-datetime-picker #dateEndPicker></ngx-mat-datetime-picker>
             </mat-form-field>
           </div>
         </div>

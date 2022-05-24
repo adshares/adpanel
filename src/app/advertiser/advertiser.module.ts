@@ -13,8 +13,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
-import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
+import { NGX_MAT_DATE_FORMATS, NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppCommonModule } from 'common/common.module';
 import { AdvertiserComponent } from './advertiser.component';
@@ -89,9 +89,8 @@ const advertiserComponents = [
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    OwlMomentDateTimeModule,
+    NgxMatDatetimePickerModule,
+    NgxMatMomentModule,
     ...matModules,
     MatChipsModule,
   ],
@@ -100,7 +99,7 @@ const advertiserComponents = [
     BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,
-    {provide: OWL_DATE_TIME_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
+    {provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
   ],
 
   declarations: [

@@ -67,25 +67,22 @@
           <div class="dwmth-form-input__box" *ngIf="form.get('refundValidUntil')">
             <label class="dwmth-form-label">Refund valid until</label>
             <mat-form-field
-              class="
-                  dwmth-form-input
-                  dwmth-form-input--narrow"
+              (click)="refundValidUntilPicker.open()"
+              class="dwmth-form-input dwmth-form-input--narrow"
             >
               <img
-                [owlDateTimeTrigger]="refundValidUntilPicker"
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="dwmth-icon">
+                class="dwmth-icon dwmth-icon--prepend">
               <input
-                [owlDateTime]="refundValidUntilPicker"
                 [formControl]="refundValidUntilControl"
-                [owlDateTimeTrigger]="refundValidUntilPicker"
+                [matDatepicker]="refundValidUntilPicker"
                 [min]="today"
                 matInput
                 type="text"
                 autocomplete="off"
               >
-              <owl-date-time #refundValidUntilPicker [pickerType]="'calendar'"></owl-date-time>
+              <mat-datepicker #refundValidUntilPicker></mat-datepicker>
             </mat-form-field>
             <span
               class="error-msg"
@@ -122,25 +119,22 @@
           <div class="dwmth-form-input__box" *ngIf="form.get('validUntil')">
             <label class="dwmth-form-label">Link valid until</label>
             <mat-form-field
-              class="
-                  dwmth-form-input
-                  dwmth-form-input--narrow"
+              (click)="validUntilPicker.open()"
+              class="dwmth-form-input dwmth-form-input--narrow"
             >
               <img
-                [owlDateTimeTrigger]="validUntilPicker"
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="dwmth-icon">
+                class="dwmth-icon dwmth-icon--prepend">
               <input
-                [owlDateTime]="validUntilPicker"
                 [formControl]="validUntilControl"
-                [owlDateTimeTrigger]="validUntilPicker"
+                [matDatepicker]="validUntilPicker"
                 [min]="today"
                 matInput
                 type="text"
                 autocomplete="off"
               >
-              <owl-date-time #validUntilPicker [pickerType]="'calendar'"></owl-date-time>
+              <mat-datepicker #validUntilPicker></mat-datepicker>
             </mat-form-field>
             <span
               class="error-msg"

@@ -28,7 +28,6 @@ import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/repor
 import { RefLinkListItemComponent } from 'settings/general-settings/ref-link-settings/ref-link-list-item/ref-link-list-item.component'
 import { RefLinkEditorComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor/ref-link-editor.component'
 import { RefLinkEditorDialogComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component'
-import { OwlDateTimeModule } from 'ng-pick-datetime'
 import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component'
 import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdrawal/auto-withdrawal.component'
 
@@ -47,7 +46,6 @@ library.add(fas)
     MatPaginatorModule,
     SettingsRoutingModule,
     FontAwesomeModule,
-    OwlDateTimeModule,
   ],
   declarations: [
     ClickOutsideDirective,
