@@ -148,7 +148,6 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     ));
   }
 
-  // TODO: fix + location? // looks like bs, not what we are looking for
   extendTokenExpiration() {
     const user: LocalStorageUser = this.session.getUser();
     if (!user) {

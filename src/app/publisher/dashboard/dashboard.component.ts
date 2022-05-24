@@ -4,7 +4,6 @@ import * as moment from 'moment';
 
 import { ChartService } from 'common/chart.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
-import { SiteListComponent } from 'publisher/site-list/site-list.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
@@ -27,7 +26,6 @@ import { reportType } from 'models/enum/user.enum';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
-  @ViewChild(SiteListComponent, {static: false}) siteListRef: SiteListComponent;//TODO remove?
 
   sites: Site[];
   sitesLoaded: boolean = false;

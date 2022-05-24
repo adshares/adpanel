@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
@@ -9,7 +9,6 @@ import { cloneDeep } from 'common/utilities/helpers';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -20,8 +19,6 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   styleUrls: ['./edit-site-additional-targeting.component.scss']
 })
 export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  @ViewChild(TargetingSelectComponent, {static: false}) targetingSelectComponent: TargetingSelectComponent;// TODO remove?
-
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;

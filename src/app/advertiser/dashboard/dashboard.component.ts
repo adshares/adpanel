@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
 import { ChartComponent } from 'common/components/chart/chart.component';
-import { CampaignListComponent } from 'advertiser/campaign-list/campaign-list.component';
 import { ChartService } from 'common/chart.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Campaign, CampaignTotals } from 'models/campaign.model';
@@ -27,7 +26,6 @@ import { reportType } from 'models/enum/user.enum';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
-  @ViewChild(CampaignListComponent, {static: false}) campaignListRef: CampaignListComponent;//TODO remove?
 
   campaigns: Campaign[];
   campaignsLoaded: boolean = false;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'
 import { take } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription'
 import { SessionService } from 'app/session.service'

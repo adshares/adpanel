@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'
 import { HandleSubscription } from 'common/handle-subscription'
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component'
 import { userRolesEnum } from 'models/enum/user.enum'

@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { filter, first, take } from 'rxjs/operators';
-
 import { Store } from '@ngrx/store';
 import {
   AddCampaignToCampaigns,
@@ -18,7 +17,6 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { environment } from 'environments/environment';
 import { CustomValidators } from 'common/utilities/forms';
@@ -29,7 +27,6 @@ import { CustomValidators } from 'common/utilities/forms';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  @ViewChild(TargetingSelectComponent, {static: false}) targetingSelectComponent: TargetingSelectComponent;//TODO remove?
   currencyCode: string = environment.currencyCode;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
