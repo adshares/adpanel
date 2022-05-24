@@ -11,15 +11,13 @@ import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSpinner } from '@angular/material/progress-spinner';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatMomentDateModule } from '@angular/material-moment-adapter'
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { ChartsModule } from 'ng2-charts'
 import { ClickOutsideDirective } from './clickOutside.directive'
