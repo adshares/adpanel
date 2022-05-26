@@ -8,8 +8,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { SettingsRoutingModule } from './settings-routing.module'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import { AppCommonModule } from 'common/common.module'
 import { SettingsComponent } from './settings.component'
 import { BillingComponent } from './billing/billing.component'
@@ -20,8 +20,6 @@ import { UserWalletComponent } from './billing/user-wallet/user-wallet.component
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component'
 import { BillingHistoryFilterComponent } from 'settings/billing/billing-history/billing-history-filter/billing-history-filter.component'
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import { RefLinkSettingsComponent } from 'settings/general-settings/ref-link-settings/ref-link-settings.component'
 import { ClickOutsideDirective } from 'settings/clickOutside.directive'
 import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component'
@@ -31,7 +29,6 @@ import { RefLinkEditorDialogComponent } from 'settings/general-settings/ref-link
 import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component'
 import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdrawal/auto-withdrawal.component'
 
-library.add(fas)
 
 @NgModule({
   imports: [
@@ -71,4 +68,7 @@ library.add(fas)
   ],
 })
 export class SettingsModule {
+  constructor (library: FaIconLibrary) {
+    library.addIconPacks(fas)
+  }
 }

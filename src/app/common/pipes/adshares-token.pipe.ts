@@ -3,10 +3,10 @@ import { calcCampaignBudgetPerDay, formatMoney } from 'common/utilities/helpers'
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { ExchangeRate } from "models/user.model";
-import { HandleSubscription } from "common/handle-subscription";
 import { NOT_AVAILABLE } from "common/utilities/messages";
 import { environment } from "environments/environment";
 import { CRYPTO, CRYPTO_BTC } from "common/utilities/consts";
+import { take } from 'rxjs/operators';
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];
@@ -39,17 +39,15 @@ export class AdsharesTokenPipe implements PipeTransform {
 @Pipe({
   name: 'calculateInCurrency'
 })
-export class CalculateInCurrency extends HandleSubscription implements PipeTransform {
+export class CalculateInCurrency implements PipeTransform {
   data: ExchangeRate;
 
   constructor(private store: Store<AppState>) {
-    super();
-    const exchangeDataSubscription = store.select('state', 'user', 'data', 'exchangeRate').subscribe(
-      exchangeData => {
+    store.select('state', 'user', 'data', 'exchangeRate')
+      .pipe(take(1))
+      .subscribe(exchangeData => {
         this.data = exchangeData
-      }
-    );
-    this.subscriptions.push(exchangeDataSubscription);
+      });
   }
 
   transform(value: number, precision: number = 11): string {

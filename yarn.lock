@@ -1285,28 +1285,29 @@
     "@ethersproject/properties" "^5.1.0"
     "@ethersproject/strings" "^5.1.0"
 
-"@fortawesome/angular-fontawesome@0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.4.0.tgz#ab794362a5e37124b834564dcb55ed1c0ce0413a"
-  integrity sha512-DYVXdCzwQo6d0CxVMRK+10LpBAvYN9xigWeQW4wKYq/Czd5es46nPMKixB5rHfNViECwwlM2gTM61K4DpxlJxg==
-  dependencies:
-    tslib "^1.9.0"
+"@fortawesome/angular-fontawesome@~0.6.0":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.6.1.tgz#1ebe5db16bfdd4be44bdde61f78c760eb4e219fa"
+  integrity sha512-ARQjtRuT+ZskzJDJKPwuiGO3+7nS0iyNLU/uHVJHfG4LwGJxwVIGldwg1SU957sra0Z0OtWEajHMhiS4vB9LwQ==
 
-"@fortawesome/fontawesome-common-types@^0.2.15":
-  version "0.2.15"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.15.tgz#16af950653083d1e3064061de9f8e5e3b579f688"
+"@fortawesome/fontawesome-common-types@6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.1.1.tgz#7dc996042d21fc1ae850e3173b5c67b0549f9105"
+  integrity sha512-wVn5WJPirFTnzN6tR95abCx+ocH+3IFLXAgyavnf9hUmN0CfWoDjPT/BAWsUVwSlYYVBeCLJxaqi7ZGe4uSjBA==
 
-"@fortawesome/fontawesome-svg-core@^1.2.8":
-  version "1.2.15"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.15.tgz#368f9fc7e8e8d8636495dc7483f97510f920ba97"
+"@fortawesome/fontawesome-svg-core@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.1.1.tgz#3424ec6182515951816be9b11665d67efdce5b5f"
+  integrity sha512-NCg0w2YIp81f4V6cMGD9iomfsIj7GWrqmsa0ZsPh59G7PKiGN1KymZNxmF00ssuAlo/VZmpK6xazsGOwzKYUMg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.15"
+    "@fortawesome/fontawesome-common-types" "6.1.1"
 
-"@fortawesome/free-solid-svg-icons@^5.5.0":
-  version "5.7.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.7.2.tgz#9ec2ed353d630092a8e19cc8aae2f716572963e5"
+"@fortawesome/free-solid-svg-icons@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.1.1.tgz#3369e673f8fe8be2fba30b1ec274d47490a830a6"
+  integrity sha512-0/5exxavOhI/D4Ovm2r3vxNojGZioPwmFrKg0ZUH69Q68uFhFPs6+dhAToh6VEQBntxPRYPuT5Cg1tpNa9JUPg==
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.15"
+    "@fortawesome/fontawesome-common-types" "6.1.1"
 
 "@gar/promisify@^1.0.1":
   version "1.1.3"
@@ -1369,20 +1370,20 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.6.4"
 
-"@ngrx/effects@^8.0.0":
-  version "8.6.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-8.6.1.tgz#6038a5e9cc3db27fdea4cfbcc6e2ae63721e8a26"
-  integrity sha512-nvokfJ+LXez3DuAVSWW4w/eMrjPoSpzyHSToIVbDTVIF4JZ3g8fKdi9aHYAeXy2MDR1BaV7zMTmM9w6J0TDZtw==
+"@ngrx/effects@^9.0.0":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-9.2.1.tgz#dffee80e933f8bc9e2ef98950d93feac4f6d4b0a"
+  integrity sha512-qWOnRYHdKzjCvcH6WOKra+KPlrMyS9ahoVvOSboJK7S3xzj9Pp5mgtcDBXqN9LlPbXDEzjZjFDJQMAtlP4c3Ig==
 
-"@ngrx/store-devtools@^8.0.0":
-  version "8.6.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-8.6.1.tgz#6fea7ba2544a35f606ccaa3c3be5251fece65b71"
-  integrity sha512-rWW8FMKgb3paKmlhS8T/T3Sjm4w2WiQAOKU2cXy8D4ZrGTrFhaZDxHsn7eo+l3AN1EMXQh/w/eNLpevtCrO/wg==
+"@ngrx/store-devtools@^9.0.0":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-9.2.1.tgz#dc026ad53c57bb77f3ed1051e9b0931186a65cef"
+  integrity sha512-f7/hg884uSKsXiQbcdBJS/3rpk1KKFmy6gR0OeCqxjkZRjSq/onCsEXPKURt7MqJcRYCiNA2rIHxF/fz2j+8Kg==
 
-"@ngrx/store@^8.0.0":
-  version "8.6.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-8.6.1.tgz#ee4c7d3b8bcc59cf042ae76e6743130408e9b2d8"
-  integrity sha512-bV7X0hNywd6N5YroWdZffIEvLKdHZo/l4tCK9FC/o5OezVyPRKZ6QVHz8e2jnLvqj55XzOJNR/tsYh4iuVi2pg==
+"@ngrx/store@^9.0.0":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-9.2.1.tgz#a05934bb83344efe669e52acd90b17ebe10c4ab4"
+  integrity sha512-18mLKH7CAi5+F1zYbbxoCDKE8piCxZkwOoPlXEsq/LBKrZvYIvOeSlEXMjiUp3cCL3QOT27QvWIqQkIuE9b7mg==
 
 "@ngtools/webpack@9.1.15":
   version "9.1.15"
@@ -1472,6 +1473,13 @@
   integrity sha512-pqr857jrp2kPuO9uRjZ3PwnJTjoQy+fcdxvBTvHm6dkmEL9q+hDD/2j/0ELOBPtPnS8LjCX0gI9nbl8lVkadpg==
   dependencies:
     "@types/node" "*"
+
+"@types/chart.js@^2.9.24":
+  version "2.9.37"
+  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.37.tgz#8af70862b154fedf938b5b87debdb3a70f6e3208"
+  integrity sha512-9bosRfHhkXxKYfrw94EmyDQcdjMaQPkU1fH2tDxu8DWXxf1mjzWQAV4laJF51ZbC2ycYwNDvIm1rGez8Bug0vg==
+  dependencies:
+    moment "^2.10.2"
 
 "@types/glob@^7.1.1":
   version "7.2.0"
@@ -2528,25 +2536,28 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chart.js@^2.6.0:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.3.tgz#cdb61618830bf216dc887e2f7b1b3c228b73c57e"
+chart.js@^2.9.3:
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.9.4.tgz#0827f9563faffb2dc5c06562f8eb10337d5b9684"
+  integrity sha512-B07aAzxcrikjAPyV+01j7BmOpxtQETxTSlQ26BEYJ+3iUkbNKaOJ/nDbT6JjyqYxseM0ON12COHYdU2cTIjC7A==
   dependencies:
     chartjs-color "^2.1.0"
     moment "^2.10.2"
 
-chartjs-color-string@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
+chartjs-color-string@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.6.0.tgz#1df096621c0e70720a64f4135ea171d051402f71"
+  integrity sha512-TIB5OKn1hPJvO7JcteW4WY/63v6KwEdt6udfnDE9iCAZgy+V4SrbSxoIbTw/xkUIapjEI4ExGtD0+6D3KyFd7A==
   dependencies:
     color-name "^1.0.0"
 
 chartjs-color@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.4.1.tgz#6118bba202fe1ea79dd7f7c0f9da93467296c3b0"
+  integrity sha512-haqOg1+Yebys/Ts/9bLo/BqUcONQOdr/hoEr2LLTRl6C5LXctUdHxsCYfvQVg5JIxITrfCNUDr4ntqmQk9+/0w==
   dependencies:
-    chartjs-color-string "^0.5.0"
-    color-convert "^0.5.3"
+    chartjs-color-string "^0.6.0"
+    color-convert "^1.9.3"
 
 "chokidar@>=2.0.0 <4.0.0", chokidar@^3.0.0, chokidar@^3.4.1:
   version "3.5.3"
@@ -2719,10 +2730,6 @@ collection-visit@^1.0.0:
   dependencies:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
-
-color-convert@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
 
 color-convert@^1.9.0, color-convert@^1.9.3:
   version "1.9.3"
@@ -5644,6 +5651,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash-es@^4.17.15:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
@@ -6215,15 +6227,21 @@ next-tick@1, next-tick@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-ng2-charts@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ng2-charts/-/ng2-charts-1.6.0.tgz#108a2133ff62a8623895240fadbddbea2951f29d"
+ng2-charts@^2.0.0:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/ng2-charts/-/ng2-charts-2.4.3.tgz#e1de6cb55fe04248a5f92d342cf6423507fa532d"
+  integrity sha512-tPrhHSS2DfVyipXQ0gykOPc8zFNnj2b7sAebUVty392vHnEGYCwsP6YbFfpr1iXu4yBSRm4Gt5lffR5w0uyYSw==
   dependencies:
-    chart.js "^2.6.0"
+    "@types/chart.js" "^2.9.24"
+    lodash-es "^4.17.15"
+    tslib "^2.0.0"
 
-ng2-file-upload@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.3.0.tgz#d90f8f568f62383462175f8bdfa0096b131f277a"
+ng2-file-upload@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.4.0.tgz#8dea28d573234c52af474ad2a4001b335271e5c4"
+  integrity sha512-3J/KPU/tyh/ad6TFeUbrxX+SihUj0iOEt2Zsg4EX7mB3GFiQscXOfcUOxCkBtPWWWaqt3azrYbVGzsYa3/7NzQ==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -7880,7 +7898,7 @@ rxjs@6.5.4:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^6.0.0, rxjs@^6.5.3:
+rxjs@^6.5.3:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
   integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
@@ -8910,6 +8928,11 @@ tslib@^1.10.0:
 tslib@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
+
+tslib@^2.0.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tty-browserify@0.0.0:
   version "0.0.0"

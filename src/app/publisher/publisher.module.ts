@@ -35,8 +35,7 @@ import { ClassifierListItemComponent } from './classifier/classifier-list-item/c
 import { SiteResolver } from './resolvers/site.resolver';
 import { FilteringCriteriaResolver } from './resolvers/filtering-criteria.resolver';
 import { AdUnitSizesResolver } from './resolvers/ad-unit-sizes.resolver';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { ClassifierFilteringComponent } from 'publisher/classifier/classifier-filtering/classifier-filtering.component';
 import { MatchingBannerSizesResolver } from 'publisher/resolvers/matching-banner-sizes.resolver';
@@ -52,8 +51,6 @@ import {
   MetaverseInstructions
 } from 'publisher/edit-site/edit-site-basic-info/metaverse-instructions/metaverse-instructions.component'
 import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
-
-library.add(fas);
 
 
 const editSiteComponents = [
@@ -125,4 +122,7 @@ const publisherComponents = [
 })
 
 export class PublisherModule {
+  constructor (library: FaIconLibrary) {
+    library.addIconPacks(fas)
+  }
 }

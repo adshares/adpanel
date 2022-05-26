@@ -7,10 +7,10 @@ import { ChartComponent } from 'common/components/chart/chart.component';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Site, SitesTotals } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { AppState } from 'models/app-state.model';
-import { createInitialArray } from 'common/utilities/helpers';
+import { createInitialDataSet } from 'common/utilities/helpers';
 
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { appSettings } from 'app-settings';
@@ -35,8 +35,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = [];
-  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
+  barChartLabels: Label[] = [];
+  barChartData: ChartDataSets[] = createInitialDataSet();
 
   currentChartFilterSettings: ChartFilterSettings;
 
@@ -86,7 +86,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
+        this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
