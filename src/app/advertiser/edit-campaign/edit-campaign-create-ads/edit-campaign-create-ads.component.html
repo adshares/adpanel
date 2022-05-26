@@ -345,7 +345,17 @@
                 >
                   Please upload your HTML banner ad as a zip archive.
                   Please make sure that the file is not larger than {{getMaxFileSize(adCreativeTypes.HTML)|formatFileSize}}.
+
                 </p>
+                <a
+                        *ngSwitchCase="adCreativeTypes.HTML"
+                        class="dwmth-copy"
+                        href="http://github.com/adshares/adserver/wiki/How-to-add-html-banner"
+                        target="_blank"
+                >
+                  How to add an HTML ad.
+
+                </a>
                 <p
                   *ngSwitchDefault
                   class="dwmth-copy"
