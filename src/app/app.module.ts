@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
-import { DateAdapter, GestureConfig, MAT_DATE_FORMATS } from '@angular/material/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
@@ -84,7 +84,6 @@ const appModules = [
       useClass: RequestInterceptor,
       multi: true,
     },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
     { provide: DateAdapter, useClass: MomentDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: DATE_PICKER_FORMATS },
     AdvertiserService,

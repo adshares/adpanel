@@ -21,7 +21,7 @@ import { prepareCustomOption } from 'common/components/targeting/targeting.helpe
   styleUrls: ['./targeting-custom-option-input.component.scss'],
 })
 export class TargetingCustomOptionInputComponent {
-  @ViewChild('input', {static: false}) input: ElementRef;
+  @ViewChild('input') input: ElementRef;
   @Input() option: TargetingOption;
   @Input() addedItems: TargetingOptionValue[];
   @Output()

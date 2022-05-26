@@ -16,7 +16,7 @@ import { AppState } from 'models/app-state.model'
   styleUrls: ['./forgotten-password.component.scss'],
 })
 export class ForgottenPasswordComponent extends HandleSubscription implements OnInit {
-  @ViewChild('remindPasswordForm', {static: false}) remindPasswordForm: NgForm
+  @ViewChild('remindPasswordForm') remindPasswordForm: NgForm
 
   registrationMode: string
   isSendingEmail = false

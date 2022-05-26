@@ -27,7 +27,7 @@ import { Info } from 'models/info.model'
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends HandleSubscription {
-  @ViewChild('registrationForm', {static: false}) registrationForm: NgForm
+  @ViewChild('registrationForm') registrationForm: NgForm
 
   isLoading = true
   isRegistering = false

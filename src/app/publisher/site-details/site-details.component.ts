@@ -43,7 +43,7 @@ import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryp
   styleUrls: ['./site-details.component.scss'],
 })
 export class SiteDetailsComponent extends HandleSubscription implements OnInit {
-  @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
   dataLoaded: boolean = false;
   site: Site;
   siteStatusEnum = siteStatusEnum;

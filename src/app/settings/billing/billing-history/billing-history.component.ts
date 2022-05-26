@@ -23,7 +23,7 @@ import { Moment } from 'moment';
   styleUrls: ['./billing-history.component.scss'],
 })
 export class BillingHistoryComponent extends HandleSubscription implements OnInit {
-  @ViewChild('paginator', {static: false}) paginator: MatPaginator;
+  @ViewChild('paginator') paginator: MatPaginator;
   emptyBillingHistory: BillingHistory = {
     limit: 10,
     offset: 0,

@@ -37,7 +37,7 @@ import { reportType } from 'models/enum/user.enum';
   styleUrls: ['./campaign-details.component.scss']
 })
 export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
-  @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;
   campaign: Campaign;

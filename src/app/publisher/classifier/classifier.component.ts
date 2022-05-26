@@ -21,7 +21,7 @@ import { Site } from 'models/site.model'
   styleUrls: ['./classifier.component.scss']
 })
 export class ClassifierComponent extends HandleSubscription implements OnInit {
-  @ViewChild('paginator', {static: false}) paginator: MatPaginator;
+  @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;
   siteId?: number;

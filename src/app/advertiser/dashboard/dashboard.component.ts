@@ -25,7 +25,7 @@ import { reportType } from 'models/enum/user.enum';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  @ViewChild(ChartComponent, {static: false}) appChartRef: ChartComponent;
+  @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaigns: Campaign[];
   campaignsLoaded: boolean = false;

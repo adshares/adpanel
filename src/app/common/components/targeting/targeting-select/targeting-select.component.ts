@@ -25,7 +25,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./targeting-select.component.scss']
 })
 export class TargetingSelectComponent implements OnInit, OnChanges {
-  @ViewChild('searchInput', {static: false}) searchInput: ElementRef;
+  @ViewChild('searchInput') searchInput: ElementRef;
   @Input() targetingOptions: (TargetingOption|TargetingOptionValue)[];
   @Input() addedItems: TargetingOptionValue[];
   @Input() checkClass: string = 'checkmark';
