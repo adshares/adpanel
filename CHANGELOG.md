@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.18.0] - 2022-05-26
 ### Added
 - Link to wiki guide on how to add an HTML file 
 
