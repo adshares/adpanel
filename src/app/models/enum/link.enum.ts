@@ -8,3 +8,5 @@ export const ADSHARES_UNITS = 'https://adshares.net/units'
 export const ADSHARES_WALLET = 'https://adshares.net/wallet'
 // Metamask wallet installation instruction
 export const METAMASK_WALLET = 'https://metamask.io/'
+// wiki guide on how to add an html ad
+export const WIKI_HTML_AD = 'https://github.com/adshares/adserver/wiki/How-to-add-html-banner'
