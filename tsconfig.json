@@ -35,6 +35,6 @@
         "publisher/*": [ "app/publisher/*" ],
         "settings/*": [ "app/settings/*" ]
     },
-    "module": "esnext"
+    "module": "es2020"
   }
 }

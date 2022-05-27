@@ -1,7 +1,8 @@
-import { OnDestroy } from '@angular/core'
+import { Injectable, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-export class HandleSubscription implements OnDestroy {
+@Injectable()
+export abstract class HandleSubscription implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   ngOnDestroy() {

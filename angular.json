@@ -11,6 +11,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "web3",
+              "web3-utils"
+            ],
             "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
