@@ -44,7 +44,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
         dataLoaded: false
       };
     case PublisherActions.LOAD_SITE_SUCCESS: {
-      const _sites = state.sites;
+      const _sites = [...state.sites];
       const i = _sites.findIndex(el => el.id === action.payload.id);
       if (-1 !== i) {
         _sites[i] = action.payload;
@@ -54,7 +54,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
 
       return {
         ...state,
-        sites: [..._sites],
+        sites: _sites,
       };
     }
     case PublisherActions.LOAD_SITES_TOTALS_SUCCESS:
@@ -83,7 +83,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
       };
 
     case PublisherActions.LOAD_SITE_TOTALS_SUCCESS: {
-      const _sites = state.sites;
+      const _sites = [...state.sites];
       const i = _sites.findIndex(el => el.id === action.payload.total.siteId);
 
       let unitStats = [];
@@ -114,7 +114,7 @@ export function publisherReducers(state = initialState, action: PublisherActions
       return {
         ...state,
         dataLoaded: true,
-        sites: [..._sites],
+        sites: _sites,
       };
     }
     case PublisherActions.SAVE_LAST_EDITED_SITE:

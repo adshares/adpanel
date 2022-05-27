@@ -26,7 +26,10 @@ export class SiteListItemComponent implements OnInit {
   }
 
   onSiteStatusChange(status: string): void {
-    this.site.status = this.siteStatuses.findIndex(el => el.value === status);
+    this.site = {
+      ...this.site,
+      status: this.siteStatuses.findIndex(el => el.value === status)
+    };
     this.currentSiteStatus = status;
     this.store.dispatch(new UpdateSiteStatus(this.site));
   }

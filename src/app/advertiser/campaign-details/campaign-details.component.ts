@@ -17,7 +17,7 @@ import { ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers'
+import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers'
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { MatDialog } from '@angular/material/dialog';
@@ -100,9 +100,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        this.campaign = campaigns.find(el => {
-          return el.id === id;
-        });
+        this.campaign = cloneDeep(campaigns.find(campaign => campaign.id === id));
 
         if (this.campaign) {
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
