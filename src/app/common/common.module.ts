@@ -152,9 +152,6 @@ const appComponents = [
     ...dialogs,
     ...appComponents,
   ],
-  entryComponents: [
-    ...dialogs,
-  ],
   providers: [
     AssetHelpersService,
     BidStrategyService,

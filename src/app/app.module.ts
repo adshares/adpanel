@@ -96,10 +96,6 @@ const appModules = [
     AppComponent,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [
-    ConfirmResponseDialogComponent,
-    ErrorResponseDialogComponent,
-  ],
 })
 export class AppModule {
 }

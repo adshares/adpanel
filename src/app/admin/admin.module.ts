@@ -25,7 +25,6 @@ import { FinancesSettingsComponent } from 'admin/finances/finances-settings.comp
 import { EarningsSettingsComponent } from 'admin/finances/earnings-settings/earnings-settings.component';
 import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
 import { ParamSettingComponent } from 'admin/general-settings/param-setting/param-setting.component';
-import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
@@ -102,11 +101,6 @@ import { MatButtonModule } from '@angular/material/button'
     BanUserDialogComponent,
     DeleteUserDialogComponent,
   ],
-  entryComponents: [
-    SuccessSnackbarComponent,
-    BanUserDialogComponent,
-    DeleteUserDialogComponent,
-  ]
 })
 export class AdminModule {
 }

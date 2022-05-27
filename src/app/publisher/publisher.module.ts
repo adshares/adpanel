@@ -114,11 +114,6 @@ const publisherComponents = [
     ...publisherComponents,
     ...editSiteComponents,
   ],
-  entryComponents: [
-    SiteCodeDialogComponent,
-    SiteCodeCryptovoxelsDialogComponent,
-    SiteCodeMetaverseDialogComponent,
-  ]
 })
 
 export class PublisherModule {

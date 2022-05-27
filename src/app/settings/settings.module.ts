@@ -63,9 +63,6 @@ import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdraw
     ReportsListWrapperComponent,
     AccountWalletSettingsComponent,
   ],
-  entryComponents: [
-    RefLinkEditorDialogComponent,
-  ],
 })
 export class SettingsModule {
   constructor (library: FaIconLibrary) {
