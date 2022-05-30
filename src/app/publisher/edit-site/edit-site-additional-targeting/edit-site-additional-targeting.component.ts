@@ -44,9 +44,7 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     super();
   }
 
-  ngOnInit() {
-    const acceptBannersManuallyOption = this.route.snapshot.data.siteOptions.acceptBannersManually
-    this.isCheckedOnlyAcceptedBanners = !!acceptBannersManuallyOption
+  ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
     this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
     this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
@@ -136,6 +134,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         this.addedItems = [...filtering.requires];
         this.showRequiresSection = this.addedItems.length > 0;
         this.excludedItems = [...filtering.excludes];
+
+        if (this.createSiteMode) {
+          this.isCheckedOnlyAcceptedBanners = !!this.route.snapshot.data.siteOptions.acceptBannersManually
+        } else {
+          this.isCheckedOnlyAcceptedBanners = lastEditedSite.onlyAcceptedBanners
+        }
       });
     this.subscriptions.push(lastSiteSubscription);
   }
