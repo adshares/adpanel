@@ -9,6 +9,7 @@ import { SessionService } from '../../../../session.service'
 import { pageRankInfoEnum } from 'models/enum/site.enum'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
+import { DECENTRALAND_BUILDER } from 'models/enum/link.enum'
 import { User } from 'models/user.model'
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
@@ -71,7 +72,7 @@ export class PublisherListItemComponent implements OnInit {
       if (PublisherListItemComponent.isDecentralandDomain(domain)) {
         if ('scene-0-0.decentraland.org' === domain) {
           presentedName = 'DCL Builder'
-          url = ''
+          url = DECENTRALAND_BUILDER
         } else {
           const converter = new DecentralandConverter()
           presentedName = `Decentraland ${converter.decodeValue(domain)}`
