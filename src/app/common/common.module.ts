@@ -11,7 +11,7 @@ import { MatDialogContent, MatDialogModule } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
-import { MatSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -163,12 +163,11 @@ const appComponents = [
     ...appComponents,
     BrowserAnimationsModule,
     MatTooltipModule,
-    MatSpinner,
     MatDialogContent,
+    MatProgressSpinnerModule,
     MatSlideToggle,
     MatIconModule,
   ],
 })
-
 export class AppCommonModule {
 }

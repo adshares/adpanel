@@ -39,6 +39,7 @@
         "https": ["../node_modules/https-browserify"],
         "os": ["../node_modules/os-browserify"],
         "stream": ["../node_modules/stream-browserify"],
+        "url": ["../node_modules/url"],
         "vm": ["../node_modules/vm-browserify"]
     },
     "module": "es2020"

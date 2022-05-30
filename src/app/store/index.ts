@@ -1,5 +1,4 @@
-import { ActionReducer, combineReducers } from '@ngrx/store/';
-
+import { ActionReducer, combineReducers } from '@ngrx/store';
 import { authReducers } from './auth/auth.reducers';
 import { advertiserReducers } from './advertiser/advertiser.reducers';
 import { publisherReducers } from './publisher/publisher.reducers';

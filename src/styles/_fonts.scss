@@ -33,7 +33,6 @@ $fonts: (
 }
 
 @mixin font-size($value: 16) {
-  font-size: $value + px;
   font-size: calculateRem($value);
 }
 
