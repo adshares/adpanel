@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $fonts: (
   heavy: 'Lato-Black',
   bold: 'Lato-Black',
@@ -26,7 +28,7 @@ $fonts: (
 }
 
 @function calculateRem($size) {
-  $remSize: $size / 16;
+  $remSize: math.div($size, 16);
   @return $remSize * 1rem;
 }
 

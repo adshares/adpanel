@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { siteStatusEnum } from 'models/enum/site.enum.ts';
+import { siteStatusEnum } from 'models/enum/site.enum';
 import { UpdateSiteStatus } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
 import { Site } from 'models/site.model';

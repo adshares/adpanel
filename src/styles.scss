@@ -1,13 +1,13 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
-@include mat-core();
+@include mat.core();
 
-$app-primary: mat-palette($mat-blue, A200);
-$app-accent:  mat-palette($mat-green, 300);
-$app-theme:   mat-light-theme($app-primary, $app-accent);
+$app-primary: mat.define-palette(mat.$blue-palette, A200);
+$app-accent:  mat.define-palette(mat.$green-palette, 300);
+$app-theme:   mat.define-light-theme($app-primary, $app-accent);
 
 // Include the default theme styles.
-@include angular-material-theme($app-theme);
+@include mat.all-component-themes($app-theme);
 
 @import 'styles/mixins';
 @import 'styles/keyframes';

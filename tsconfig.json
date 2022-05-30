@@ -10,7 +10,6 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2015",
     "typeRoots": [
@@ -33,7 +32,14 @@
         "auth/*": [ "app/auth/*" ],
         "advertiser/*": [ "app/advertiser/*" ],
         "publisher/*": [ "app/publisher/*" ],
-        "settings/*": [ "app/settings/*" ]
+        "settings/*": [ "app/settings/*" ],
+        "assert": ["../node_modules/assert"],
+        "crypto": ["../node_modules/crypto-browserify"],
+        "http": ["../node_modules/stream-http"],
+        "https": ["../node_modules/https-browserify"],
+        "os": ["../node_modules/os-browserify"],
+        "stream": ["../node_modules/stream-browserify"],
+        "vm": ["../node_modules/vm-browserify"]
     },
     "module": "es2020"
   }
