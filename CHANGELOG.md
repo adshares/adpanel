@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Angular 10
+- Angular 13
 
 ## [1.17.0] - 2022-05-19
 ### Added

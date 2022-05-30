@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -97,7 +96,6 @@ const publisherComponents = [
     MatSelectModule,
     MatExpansionModule,
     MatRadioModule,
-    ChartsModule,
     FontAwesomeModule,
     MatTabsModule,
   ],
