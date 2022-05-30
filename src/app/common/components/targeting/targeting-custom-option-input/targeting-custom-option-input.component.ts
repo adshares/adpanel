@@ -43,7 +43,7 @@ export class TargetingCustomOptionInputComponent {
   }
 
   add(event: MatChipInputEvent): void {
-    const input = event.input;
+    const input = event.chipInput.inputElement;
 
     if ((event.value || '').trim()) {
       const value = this.adjustValueBeforeSave(event.value);
