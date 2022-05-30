@@ -82,7 +82,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   isEditMode: boolean;
   formats: Format[];
 
-
   constructor(
     private advertiserService: AdvertiserService,
     private assetHelpers: AssetHelpersService,
