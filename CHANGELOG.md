@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Newsletter subscription
 - DCL builder link
+- Edit site's option for manual approval
 
 ## [1.17.0] - 2022-05-19
 ### Added
