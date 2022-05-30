@@ -71,7 +71,7 @@ export class SettingsService {
   }
 
   newsletter (isSubscribed: boolean): Observable<any> {
-    return this.http.post(`${environment.authUrl}/newsletter/subscription`,
+    return this.http.post(`${environment.apiUrl}/newsletter/subscription`,
       { isSubscribed })
   }
 
