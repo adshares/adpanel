@@ -6,5 +6,7 @@ export const ADD_UNIT_DECENTRALAND_SMART = 'https://adshar.es/dclsmart'
 export const ADSHARES_UNITS = 'https://adshares.net/units'
 // Adshares wallet installation instruction
 export const ADSHARES_WALLET = 'https://adshares.net/wallet'
+// Decentraland builder
+export const DECENTRALAND_BUILDER = 'https://builder.decentraland.org/'
 // Metamask wallet installation instruction
 export const METAMASK_WALLET = 'https://metamask.io/'
