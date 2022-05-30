@@ -147,7 +147,7 @@ const publisherRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(publisherRoutes)
+    RouterModule.forRoot(publisherRoutes, { relativeLinkResolution: 'legacy' })
   ],
   exports: [
     RouterModule

@@ -33,7 +33,7 @@ const agencyRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(agencyRoutes),
+    RouterModule.forRoot(agencyRoutes, { relativeLinkResolution: 'legacy' }),
   ],
   exports: [
     RouterModule,
