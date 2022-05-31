@@ -68,7 +68,7 @@ const adminRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(adminRoutes, { relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(adminRoutes)
   ],
   exports: [
     RouterModule

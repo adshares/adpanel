@@ -119,7 +119,7 @@ const advertiserRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(advertiserRoutes, { relativeLinkResolution: 'legacy' })
+    RouterModule.forRoot(advertiserRoutes)
   ],
   exports: [
     RouterModule

@@ -33,7 +33,7 @@ const moderatorRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(moderatorRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(moderatorRoutes),
   ],
   exports: [
     RouterModule,

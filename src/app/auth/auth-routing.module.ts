@@ -32,7 +32,7 @@ const authRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(authRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(authRoutes),
   ],
   exports: [
     RouterModule
