@@ -1,11 +1,11 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
 
-@Injectable()
+@Component({selector: 'HandleSubscription'})
 export abstract class HandleSubscription implements OnDestroy {
   subscriptions: Subscription[] = [];
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

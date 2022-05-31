@@ -1,12 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { calcCampaignBudgetPerDay, formatMoney } from 'common/utilities/helpers';
-import { AppState } from "models/app-state.model";
-import { Store } from "@ngrx/store";
-import { ExchangeRate } from "models/user.model";
-import { NOT_AVAILABLE } from "common/utilities/messages";
-import { environment } from "environments/environment";
-import { CRYPTO, CRYPTO_BTC } from "common/utilities/consts";
-import { take } from 'rxjs/operators';
+import { Pipe, PipeTransform } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { HandleSubscription } from 'common/handle-subscription'
+import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts'
+import { calcCampaignBudgetPerDay, formatMoney } from 'common/utilities/helpers'
+import { NOT_AVAILABLE } from 'common/utilities/messages'
+import { environment } from 'environments/environment'
+import { AppState } from 'models/app-state.model'
+import { ExchangeRate } from 'models/user.model'
+import { filter } from 'rxjs/operators'
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];
@@ -39,24 +40,27 @@ export class AdsharesTokenPipe implements PipeTransform {
 @Pipe({
   name: 'calculateInCurrency'
 })
-export class CalculateInCurrency implements PipeTransform {
-  data: ExchangeRate;
+export class CalculateInCurrency extends HandleSubscription implements PipeTransform {
+  private rate: ExchangeRate = null;
 
   constructor(private store: Store<AppState>) {
-    store.select('state', 'user', 'data', 'exchangeRate')
-      .pipe(take(1))
-      .subscribe(exchangeData => {
-        this.data = exchangeData
-      });
+    super();
+    const exchangeDataSubscription = store.select('state', 'user', 'data', 'exchangeRate')
+      .pipe(filter(exchangeRate => null !== exchangeRate))
+      .subscribe(
+        exchangeRate => {
+          this.rate = exchangeRate
+        }
+      )
+    this.subscriptions.push(exchangeDataSubscription);
   }
 
   transform(value: number, precision: number = 11): string {
-    if (this.data !== null) {
-      const calculateInCurrency = value > 0 ? value * this.data.value : 0;
-      return `${formatMoney(removeDecimalPart(calculateInCurrency), precision)} ${this.data.currency}`;
-    } else {
-      return NOT_AVAILABLE;
+    if (null === this.rate) {
+      return NOT_AVAILABLE
     }
+    const calculateInCurrency = value > 0 ? value * this.rate.value : 0
+    return `${formatMoney(removeDecimalPart(calculateInCurrency), precision)} ${this.rate.currency}`
   }
 }
 
