@@ -140,6 +140,14 @@ export function publisherReducers(state = initialState, action: PublisherActions
           filteringArray: action.payload
         }
       };
+    case PublisherActions.SAVE_LAST_EDITED_SITE_ONLY_ACCEPTED_BANNERS:
+      return {
+        ...state,
+        lastEditedSite: {
+          ...state.lastEditedSite,
+          onlyAcceptedBanners: action.payload
+        }
+      };
     case PublisherActions.SAVE_LAST_EDITED_SITE_AD_UNITS:
       return {
         ...state,
