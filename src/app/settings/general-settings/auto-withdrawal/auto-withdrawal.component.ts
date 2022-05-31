@@ -63,8 +63,11 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     })
   }
 
-  changeAutoWithdraw (enabled: boolean) {
-    this.wallet.isAutoWithdrawal = enabled
+  changeAutoWithdraw (enabled: boolean): void {
+    this.wallet = {
+      ...this.wallet,
+      isAutoWithdrawal: enabled
+    }
     this.showAutoWithdrawalForm = enabled
   }
 
@@ -74,8 +77,6 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
       return
     }
     this.errorWithdrawalSave = false
-    console.debug('onAutoWithdrawalSave',
-      this.wallet.isAutoWithdrawal)
 
     const autoWithdrawal = this.wallet.isAutoWithdrawal
       ? adsToClicks(this.autoWithdrawalForm.get('limit').value)

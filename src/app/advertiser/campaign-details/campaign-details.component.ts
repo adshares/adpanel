@@ -100,9 +100,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        this.campaign = cloneDeep(campaigns.find(campaign => campaign.id === id));
+        const selectedCampaign = campaigns.find(campaign => campaign.id === id)
 
-        if (this.campaign) {
+        if (undefined !== selectedCampaign) {
+          this.campaign = cloneDeep(selectedCampaign);
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
           this.bidStrategyService.getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
@@ -161,7 +162,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  updateBudgetInfo() {
+  updateBudgetInfo(): void {
     this.budgetInfo = null;
     if (!this.campaignsConfig || !this.campaign || !this.user) {
       return;
@@ -172,7 +173,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  cloneCampaign() {
+  cloneCampaign(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to clone this campaign?',
@@ -187,7 +188,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  deleteCampaign() {
+  deleteCampaign(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this campaign?',

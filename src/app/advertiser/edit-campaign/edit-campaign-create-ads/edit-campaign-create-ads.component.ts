@@ -58,7 +58,7 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   readonly adCreativeTypes = adCreativeTypes;
   readonly appSettings = appSettings;
   adForms: FormGroup[] = [];
-  adTypes: string[];
+  adTypes: string[] = [];
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];
