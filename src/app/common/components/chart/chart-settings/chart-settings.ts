@@ -11,7 +11,23 @@ const chartOptions: ChartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   tooltips: {
+    mode: 'index',
+    intersect: false,
     enabled: false,
+    callbacks: {
+      title: (tooltipItems: ChartTooltipItem[], data: ChartData) => {
+        return adjustLabelFormat(data.labels[tooltipItems[0].index], data.labels);
+      },
+      label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
+        let label = data.datasets[0].label || '';
+
+        if (label) {
+          label += ': ';
+        }
+        label += Math.round(Number(tooltipItem.yLabel) * 100) / 100;
+        return label;
+      }
+    },
     custom: function (tooltipModel) {
       let tooltipEl = document.getElementById('chartjs-tooltip');
 
@@ -72,22 +88,6 @@ const chartOptions: ChartOptions = {
         boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)',
         transition: 'opacity 0.3s ease'
       });
-    },
-    mode: 'index',
-    intersect: false,
-    callbacks: {
-      title: (tooltipItems: ChartTooltipItem[], data: ChartData) => {
-        return adjustLabelFormat(data.labels[tooltipItems[0].index], data.labels);
-      },
-      label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
-        let label = data.datasets[0].label || '';
-
-        if (label) {
-          label += ': ';
-        }
-        label += Math.round(Number(tooltipItem.yLabel) * 100) / 100;
-        return label;
-      }
     },
   },
   hover: {

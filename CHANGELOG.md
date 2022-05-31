@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Angular 13
+### Fixed
+- Setting date range for charts
 
 ## [1.17.1] - 2022-05-30
 ### Fixed
