@@ -71,6 +71,7 @@
         From
       </label>
       <mat-form-field
+        (click)="dateFromPicker.open()"
         class="
           dwmth-form-input
           dwmth-form-input--narrow
@@ -84,10 +85,8 @@
           class="
             dwmth-icon
             dwmth-icon--prepend"
-          (click)="dateFromPicker.open()"
         >
         <input
-          (click)="dateFromPicker.open()"
           matInput
           [matDatepicker]="dateFromPicker"
           [formControl]="dateFrom"
@@ -95,10 +94,6 @@
           [max]="dateTo.value || today"
           data-test="chart-filter-custom-date-from"
         >
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateFromPicker"
-        ></mat-datepicker-toggle>
         <mat-datepicker #dateFromPicker
                         (opened)="setCalendarStatus(true)"
                         (closed)="setCalendarStatus(false)"></mat-datepicker>
@@ -112,6 +107,7 @@
         To
       </label>
       <mat-form-field
+        (click)="dateToPicker.open()"
         class="
           dwmth-form-input
           dwmth-form-input--narrow
@@ -125,10 +121,8 @@
           class="
             dwmth-icon
             dwmth-icon--prepend"
-          (click)="dateToPicker.open()"
         >
         <input
-          (click)="dateToPicker.open()"
           matInput
           [matDatepicker]="dateToPicker"
           [formControl]="dateTo"
@@ -137,10 +131,6 @@
           [max]="today"
           data-test="chart-filter-custom-date-to"
         >
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="dateToPicker"
-        ></mat-datepicker-toggle>
         <mat-datepicker #dateToPicker
                         (opened)="setCalendarStatus(true)"
                         (closed)="setCalendarStatus(false)"></mat-datepicker>

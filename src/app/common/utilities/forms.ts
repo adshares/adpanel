@@ -1,5 +1,4 @@
-import { ValidatorFn } from "@angular/forms/src/directives/validators";
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export class CustomValidators {
 

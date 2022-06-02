@@ -13,14 +13,14 @@ import { BidStrategyService } from 'common/bid-strategy.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
-import { createInitialArray, validCampaignBudget } from 'common/utilities/helpers';
+import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers'
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { DeleteCampaign, LoadCampaignTotals, UpdateCampaignStatus, CloneCampaign } from 'store/advertiser/advertiser.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
@@ -48,8 +48,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = [];
-  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
+  barChartLabels: Label[] = [];
+  barChartData: ChartDataSets[] = createInitialDataSet();
   targeting: AssetTargeting = {
     requires: [],
     excludes: []
@@ -100,11 +100,10 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     const campaignSubscription = this.store.select('state', 'advertiser', 'campaigns')
       .subscribe((campaigns: Campaign[]) => {
         if (!campaigns || !campaigns.length) return;
-        this.campaign = campaigns.find(el => {
-          return el.id === id;
-        });
+        const selectedCampaign = campaigns.find(campaign => campaign.id === id)
 
-        if (this.campaign) {
+        if (undefined !== selectedCampaign) {
+          this.campaign = cloneDeep(selectedCampaign);
           this.currentCampaignStatus = campaignStatusesEnum[this.campaign.basicInformation.status].toLowerCase();
           this.updateTargeting();
           this.bidStrategyService.getBidStrategyUuidDefault(this.campaign.basicInformation.medium, this.campaign.basicInformation.vendor)
@@ -163,7 +162,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  updateBudgetInfo() {
+  updateBudgetInfo(): void {
     this.budgetInfo = null;
     if (!this.campaignsConfig || !this.campaign || !this.user) {
       return;
@@ -174,7 +173,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     }
   }
 
-  cloneCampaign() {
+  cloneCampaign(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to clone this campaign?',
@@ -189,7 +188,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
     );
   }
 
-  deleteCampaign() {
+  deleteCampaign(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this campaign?',
@@ -245,7 +244,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
+        this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map((item) => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

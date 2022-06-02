@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { take, debounceTime } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';

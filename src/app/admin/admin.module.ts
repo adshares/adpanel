@@ -1,16 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSliderModule
-} from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -27,7 +25,6 @@ import { FinancesSettingsComponent } from 'admin/finances/finances-settings.comp
 import { EarningsSettingsComponent } from 'admin/finances/earnings-settings/earnings-settings.component';
 import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
 import { ParamSettingComponent } from 'admin/general-settings/param-setting/param-setting.component';
-import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
@@ -104,11 +101,6 @@ import { MatButtonModule } from '@angular/material/button'
     BanUserDialogComponent,
     DeleteUserDialogComponent,
   ],
-  entryComponents: [
-    SuccessSnackbarComponent,
-    BanUserDialogComponent,
-    DeleteUserDialogComponent,
-  ]
 })
 export class AdminModule {
 }

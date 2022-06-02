@@ -98,8 +98,8 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
         dataLoaded: false
       };
     case AdvertiserActions.LOAD_CAMPAIGN_SUCCESS: {
-      const _campaigns = state.campaigns;
-      const i = _campaigns.findIndex(el => el.id === action.payload.id);
+      const _campaigns = [...state.campaigns];
+      const i = _campaigns.findIndex(campaign => campaign.id === action.payload.id);
       if (-1 !== i) {
         _campaigns[i] = action.payload;
       } else {
@@ -108,7 +108,7 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
 
       return {
         ...state,
-        campaigns: [..._campaigns],
+        campaigns: _campaigns,
       };
     }
     case AdvertiserActions.DELETE_CAMPAIGN_SUCCESS:
@@ -162,7 +162,7 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
         campaignsTotals: action.payload.total
       };
     case AdvertiserActions.LOAD_CAMPAIGN_TOTALS_SUCCESS: {
-      const _campaigns = state.campaigns;
+      const _campaigns = [...state.campaigns];
       const i = _campaigns.findIndex(el => el.id === action.payload.total.campaignId);
 
       let bannerStats = [];
@@ -193,7 +193,7 @@ export function advertiserReducers(state = initialState, action: AdvertiserActio
       return {
         ...state,
         dataLoaded: true,
-        campaigns: [..._campaigns],
+        campaigns: _campaigns,
       };
     }
     case AdvertiserActions.LOAD_CAMPAIGNS_CONFIG_SUCCESS:

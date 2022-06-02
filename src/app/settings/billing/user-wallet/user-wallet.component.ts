@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';

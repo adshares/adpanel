@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import {
-  MatCheckboxModule,
-  MatDatepickerModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-} from '@angular/material'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { SettingsRoutingModule } from './settings-routing.module'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import { AppCommonModule } from 'common/common.module'
 import { SettingsComponent } from './settings.component'
 import { BillingComponent } from './billing/billing.component'
@@ -22,19 +20,15 @@ import { UserWalletComponent } from './billing/user-wallet/user-wallet.component
 import { BillingHistoryComponent } from './billing/billing-history/billing-history.component'
 import { BillingHistoryFilterComponent } from 'settings/billing/billing-history/billing-history-filter/billing-history-filter.component'
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 import { RefLinkSettingsComponent } from 'settings/general-settings/ref-link-settings/ref-link-settings.component'
 import { ClickOutsideDirective } from 'settings/clickOutside.directive'
 import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component'
 import { RefLinkListItemComponent } from 'settings/general-settings/ref-link-settings/ref-link-list-item/ref-link-list-item.component'
 import { RefLinkEditorComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor/ref-link-editor.component'
 import { RefLinkEditorDialogComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component'
-import { OwlDateTimeModule } from 'ng-pick-datetime'
 import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component'
 import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdrawal/auto-withdrawal.component'
 
-library.add(fas)
 
 @NgModule({
   imports: [
@@ -49,7 +43,6 @@ library.add(fas)
     MatPaginatorModule,
     SettingsRoutingModule,
     FontAwesomeModule,
-    OwlDateTimeModule,
   ],
   declarations: [
     ClickOutsideDirective,
@@ -70,9 +63,9 @@ library.add(fas)
     ReportsListWrapperComponent,
     AccountWalletSettingsComponent,
   ],
-  entryComponents: [
-    RefLinkEditorDialogComponent,
-  ],
 })
 export class SettingsModule {
+  constructor (library: FaIconLibrary) {
+    library.addIconPacks(fas)
+  }
 }

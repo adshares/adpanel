@@ -64,20 +64,26 @@ export class AdvertiserService {
   }
 
   saveCampaign (campaign: Campaign): Observable<Campaign> {
-    AdvertiserService.convertCampaignForBackend(campaign)
-    return this.http.post<Campaign>(`${environment.apiUrl}/campaigns`, { campaign })
+    return this.http.post<Campaign>(
+      `${environment.apiUrl}/campaigns`,
+      { campaign: AdvertiserService.convertCampaignForBackend(campaign) }
+    )
   }
 
   updateCampaign (campaign: Campaign): Observable<null> {
-    AdvertiserService.convertCampaignForBackend(campaign)
-    return this.http.patch<null>(`${environment.apiUrl}/campaigns/${campaign.id}`, { campaign })
+    return this.http.patch<null>(
+      `${environment.apiUrl}/campaigns/${campaign.id}`,
+      { campaign: AdvertiserService.convertCampaignForBackend(campaign) }
+    )
   }
 
-  private static convertCampaignForBackend (campaign: Campaign) {
+  private static convertCampaignForBackend (campaign: Campaign): Campaign {
     if (campaign.targetingArray) {
-      campaign.targeting = parseTargetingForBackend(campaign.targetingArray, campaign.basicInformation.vendor)
-      delete campaign.targetingArray
+      const {targetingArray, ...reducedCampaign} = campaign
+      reducedCampaign.targeting = parseTargetingForBackend(targetingArray, campaign.basicInformation.vendor)
+      return reducedCampaign
     }
+    return campaign
   }
 
   updateStatus(id: number, status: number) {

@@ -157,14 +157,15 @@ export function adminReducers(state = initialState, action: actions) {
       };
     case BAN_USER_SUCCESS:
     case UNBAN_USER_SUCCESS:
-      const idx = state.users.data.findIndex(user => user.id === action.payload.id)
-      state.users.data[idx] = action.payload
+      const data = [...state.users.data]
+      const index = data.findIndex(user => user.id === action.payload.id)
+      data[index] = action.payload
 
       return {
         ...state,
         users: {
           ...state.users,
-          data: [...state.users.data]
+          data: data,
         }
       };
 

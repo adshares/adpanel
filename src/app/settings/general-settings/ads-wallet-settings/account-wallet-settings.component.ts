@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import AdsWallet from '@adshares/ads-connector'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 import { take } from 'rxjs/operators'
 import { UserAdserverWallet } from 'models/user.model'
 import { HandleSubscription } from 'common/handle-subscription'

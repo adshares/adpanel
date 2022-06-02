@@ -1,6 +1,6 @@
 @import '../../../styles.scss';
 
-:host /deep/ {
+:host ::ng-deep {
   section.container {
     padding: 10px 0 !important;
   }

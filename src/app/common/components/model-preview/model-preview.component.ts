@@ -37,8 +37,7 @@ import { VOXLoader, VOXMesh } from 'three/examples/jsm/loaders/VOXLoader'
 export class ModelPreviewComponent implements OnInit {
   private readonly MEGAVOX_SIZE_LIMIT = 126
 
-  @ViewChild('modelPreview')
-  modelPreview: ElementRef
+  @ViewChild('modelPreview') modelPreview: ElementRef
 
   @Input() modelUrl: string
 

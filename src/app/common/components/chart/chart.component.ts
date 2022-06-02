@@ -16,12 +16,12 @@ import {
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartColors } from 'models/chart/chart-colors.model';
-import { ChartOptions } from 'models/chart/chart-options.model';
+import { Color } from 'ng2-charts/lib/color';
+import { ChartDataSets, ChartOptions } from 'chart.js'
 import * as commonActions from 'store/common/common.actions';
-import { ChartLabels } from "models/chart/chart-labels.model";
+import { Label } from 'ng2-charts';
 import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
+import { cloneDeep } from 'common/utilities/helpers'
 
 
 @Component({
@@ -31,30 +31,30 @@ import { chartSeriesInitialState } from "models/initial-state/chart-filter-setti
 })
 export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
-  @Input() barChartData: ChartData[];
-  @Input() barChartLabels: ChartLabels[];
+  @Input() barChartData: ChartDataSets[];
+  @Input() barChartLabels: Label[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings;
   barChartOptions: ChartOptions = chartOptions;
-  barChartColors: ChartColors[] = chartColors;
+  barChartColors: Color[] = chartColors;
   static seriesType;
 
   constructor(private store: Store<AppState>) {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
-        this.currentChartFilterSettings = chartFilterSettings;
+        this.currentChartFilterSettings = cloneDeep(chartFilterSettings);
       });
 
     this.subscriptions.push(chartFilterSubscription);
   }
 
-  ngOnChanges() {
-    ChartComponent.seriesType = this.barChartData[0].currentSeries;
+  ngOnChanges(): void {
+    ChartComponent.seriesType = this.barChartData[0].label;
   }
 
   updateChartData(timespan) {
@@ -86,12 +86,6 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
 
   updateChartDataAssetId(assetId) {
     this.currentChartFilterSettings.currentAssetId = assetId;
-    this.updateCurrentFilterSettingsInStore();
-    this.update.emit(this.currentChartFilterSettings);
-  }
-
-  updateChartDataBannerId(id: number): void {
-    this.currentChartFilterSettings.currentBannerId = id;
     this.updateCurrentFilterSettingsInStore();
     this.update.emit(this.currentChartFilterSettings);
   }

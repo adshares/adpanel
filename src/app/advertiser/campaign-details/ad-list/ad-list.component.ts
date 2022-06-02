@@ -15,7 +15,7 @@ export class AdListComponent implements OnChanges {
   @Input() campaign: Campaign;
   @ViewChild(TableNavigationComponent) tableNavigationRef: TableNavigationComponent;
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(_changes: SimpleChanges) {
     if (this.tableNavigationRef) {
       this.tableNavigationRef.refresh();
     }

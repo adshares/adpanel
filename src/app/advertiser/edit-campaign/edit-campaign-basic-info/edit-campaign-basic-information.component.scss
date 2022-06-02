@@ -39,3 +39,15 @@
 .advanced-settings label {
   margin: 2px 32px 4px 0;
 }
+
+::ng-deep .mat-datepicker-content {
+  max-width: 296px;
+}
+
+::ng-deep .ngx-mat-timepicker {
+  width: 140px;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 170px !important;
+}

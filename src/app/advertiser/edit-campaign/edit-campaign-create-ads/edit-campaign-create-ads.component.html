@@ -26,7 +26,7 @@
   </div>
 
   <div
-    *ngIf="adForms.length > 5"
+    *ngIf="adTypes.length > 0 && adForms.length > 5"
     class="
       row
       justify-center
@@ -533,6 +533,7 @@
   </div>
 
   <div
+    *ngIf="adTypes.length > 0"
     class="
       row
       justify-center

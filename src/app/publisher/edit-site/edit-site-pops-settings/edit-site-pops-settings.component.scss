@@ -62,9 +62,6 @@
       color: pal(blue);
       @include font(14, bold);
 
-      &.leaderboard {
-        padding: 10px 30px;
-      }
       &.large-rectangle {
         padding: 25px;
       }
