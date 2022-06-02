@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 import { first, take } from 'rxjs/operators'
 import { FileUploader } from 'ng2-file-upload'
 import {
@@ -28,7 +28,7 @@ import { Ad, Campaign } from 'models/campaign.model'
 import { environment } from 'environments/environment'
 import { appSettings } from 'app-settings'
 import { AppState } from 'models/app-state.model'
-import { ADSHARES_UNITS } from 'models/enum/link.enum'
+import {ADSHARES_UNITS, WIKI_HTML_AD} from 'models/enum/link.enum'
 import { Format } from 'models/taxonomy-medium.model'
 import { SessionService } from '../../../session.service'
 import { ShowDialogOnError } from 'store/common/common.actions'
@@ -55,10 +55,11 @@ interface UploadingFile {
 })
 export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
   readonly ADSHARES_UNITS = ADSHARES_UNITS
+  readonly WIKI_HTML_AD = WIKI_HTML_AD;
   readonly adCreativeTypes = adCreativeTypes;
   readonly appSettings = appSettings;
   adForms: FormGroup[] = [];
-  adTypes: string[];
+  adTypes: string[] = [];
   ads: Ad[] = [];
   adsSubmitted = false;
   adPanelsStatus: boolean[] = [];

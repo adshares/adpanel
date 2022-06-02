@@ -287,8 +287,11 @@ input[type=radio]:checked + label .checkbox-label {
   padding-right: 30px;
 
   &:after {
-    @extend .error-msg:after;
+    position: absolute;
+    display: block;
     content: url('/assets/images/confirm_icon.svg');
+    top: 9px;
+    right: 5px;
   }
 }
 
@@ -300,7 +303,10 @@ input[type=radio]:checked + label .checkbox-label {
   padding-right: 30px;
 
   &:after {
-    @extend .error-msg:after;
+    position: absolute;
+    display: block;
     content: url('/assets/images/confirm_icon.svg');
+    top: 9px;
+    right: 5px;
   }
 }

@@ -39,15 +39,13 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
       .pipe(first())
       .subscribe(userData => {
         this.userData = userData;
-        this.userData.isPublisher = !!this.router.url.match('/publisher/');
-        this.userData.isAdvertiser = !!this.router.url.match('/advertiser/');
         this.setInitialDataByUserType();
       });
     this.subscriptions.push(userDataSubscription);
   }
 
   setInitialDataByUserType(): void {
-    if (this.userData.isAdvertiser) {
+    if (this.isAdvertiserFilter()) {
       this.setChartSeriesArray(advChartSeriesEnum);
       const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
@@ -59,7 +57,7 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
           this.assetsInfo.unshift({id: 0, name: 'All Campaigns'});
         });
       this.subscriptions.push(userCampaignsSubscription);
-    } else if (this.userData.isPublisher) {
+    } else if (this.isPublisherFilter()) {
       this.setChartSeriesArray(pubChartSeriesEnum);
       const userSiteSubscription = this.store.select('state', 'publisher', 'sites')
         .subscribe((sites: Site[]) => {
@@ -75,6 +73,14 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
       this.setChartSeriesArray(advChartSeriesEnum);
     }
     this.currentAssetSeries = this.chartSeries[0];
+  }
+
+  private isAdvertiserFilter(): boolean {
+    return null !== this.router.url.match('/advertiser/')
+  }
+
+  private isPublisherFilter(): boolean {
+    return null !== this.router.url.match('/publisher/')
   }
 
   setChartSeriesArray(seriesEnum): void {

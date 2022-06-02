@@ -11,7 +11,7 @@ import {
   ENTER,
   SPACE
 } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { TargetingOption, TargetingOptionType, TargetingOptionValue } from 'models/targeting-option.model'
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2'
 
@@ -43,7 +43,7 @@ export class TargetingCustomOptionInputComponent {
   }
 
   add(event: MatChipInputEvent): void {
-    const input = event.input;
+    const input = event.chipInput.inputElement;
 
     if ((event.value || '').trim()) {
       const value = this.adjustValueBeforeSave(event.value);

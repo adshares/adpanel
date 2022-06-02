@@ -51,8 +51,19 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
 
   saveCampaign(isDraft): void {
     if (!isDraft) {
-      this.campaign.basicInformation.status = campaignStatusesEnum.ACTIVE;
-      this.campaign.ads.forEach((ad) => ad.status = adStatusesEnum.ACTIVE);
+      this.campaign = {
+        ...this.campaign,
+        ads: this.campaign.ads.map(ad => {
+          return {
+            ...ad,
+            status: adStatusesEnum.ACTIVE
+          }
+        }),
+        basicInformation: {
+          ...this.campaign.basicInformation,
+          status: campaignStatusesEnum.ACTIVE,
+        }
+      }
     }
     this.store.dispatch(new AddCampaignToCampaigns(this.campaign));
   }

@@ -4,14 +4,14 @@
   },
   "compileOnSave": false,
   "compilerOptions": {
+    "downlevelIteration": true,
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -32,8 +32,16 @@
         "auth/*": [ "app/auth/*" ],
         "advertiser/*": [ "app/advertiser/*" ],
         "publisher/*": [ "app/publisher/*" ],
-        "settings/*": [ "app/settings/*" ]
+        "settings/*": [ "app/settings/*" ],
+        "assert": ["../node_modules/assert"],
+        "crypto": ["../node_modules/crypto-browserify"],
+        "http": ["../node_modules/stream-http"],
+        "https": ["../node_modules/https-browserify"],
+        "os": ["../node_modules/os-browserify"],
+        "stream": ["../node_modules/stream-browserify"],
+        "url": ["../node_modules/url"],
+        "vm": ["../node_modules/vm-browserify"]
     },
-    "module": "es2015"
+    "module": "es2020"
   }
 }

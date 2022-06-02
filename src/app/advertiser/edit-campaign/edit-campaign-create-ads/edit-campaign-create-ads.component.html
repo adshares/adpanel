@@ -26,7 +26,7 @@
   </div>
 
   <div
-    *ngIf="adForms.length > 5"
+    *ngIf="adTypes.length > 0 && adForms.length > 5"
     class="
       row
       justify-center
@@ -346,6 +346,16 @@
                   Please upload your HTML banner ad as a zip archive.
                   Please make sure that the file is not larger than {{getMaxFileSize(adCreativeTypes.HTML)|formatFileSize}}.
                 </p>
+                <a
+                        *ngSwitchCase="adCreativeTypes.HTML"
+                        class="dwmth-copy"
+                        href="{{WIKI_HTML_AD}}"
+                        target="_blank"
+                        rel="noopener nofollow noreferrer"
+                >
+                  How to add an HTML ad
+
+                </a>
                 <p
                   *ngSwitchDefault
                   class="dwmth-copy"
@@ -523,6 +533,7 @@
   </div>
 
   <div
+    *ngIf="adTypes.length > 0"
     class="
       row
       justify-center

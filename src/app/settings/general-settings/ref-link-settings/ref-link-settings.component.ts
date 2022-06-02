@@ -6,7 +6,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "models/app-state.model";
 import {HandleSubscription} from "common/handle-subscription";
 import {GetRefLinks} from "store/settings/settings.actions";
-import {MatDialog} from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import {RefLinkEditorDialogComponent} from "settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component";
 
 @Component({

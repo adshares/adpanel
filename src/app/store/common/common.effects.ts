@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { Actions, Effect, ofType } from '@ngrx/effects'
 import { of as observableOf } from 'rxjs'

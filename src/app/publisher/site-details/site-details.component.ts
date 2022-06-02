@@ -9,17 +9,17 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
-import { createInitialArray, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { cloneDeep, createInitialDataSet, enumToArray, sortArrayByKeys } from 'common/utilities/helpers'
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
@@ -60,8 +60,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = [];
-  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
+  barChartLabels: Label[] = [];
+  barChartData: ChartDataSets[] = createInitialDataSet();
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
   displayAds: boolean;
@@ -101,7 +101,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
-    this.site = this.route.snapshot.data.site;
+    this.site = cloneDeep(this.route.snapshot.data.site);
     this.displayAds = this.site.medium !== 'metaverse';
     this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
@@ -120,7 +120,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
     const sitesSubscription = this.store.select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
-        this.site = sites.find(el => el.id === this.site.id);
+        this.site = cloneDeep(sites.find(el => el.id === this.site.id));
         this.getFiltering();
       });
 
@@ -228,7 +228,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
+        this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
@@ -258,7 +258,10 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     } else {
       this.currentSiteStatus = 'inactive';
     }
-    this.site.status = this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus);
+    this.site = {
+      ...this.site,
+      status: this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus)
+    };
     this.store.dispatch(new UpdateSiteStatus(this.site));
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialogRef } from '@angular/material'
+import { MatDialogRef } from '@angular/material/dialog'
 import { HandleSubscription } from 'common/handle-subscription'
 import {
   Country,
@@ -23,7 +23,7 @@ import { appSettings } from 'app-settings'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { SettingsService } from 'settings/settings.service'
 
-const Web3 = require('web3')
+import Web3 from 'web3'
 
 @Component({
   selector: 'app-add-funds-dialog',

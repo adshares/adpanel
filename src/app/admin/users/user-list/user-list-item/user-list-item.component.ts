@@ -142,14 +142,14 @@ export class UserListItemComponent {
     if (this.user.isAdmin) {
       return 'Admin'
     }
+    else if (this.user.isBanned) {
+      return 'Banned'
+    }
     else if (this.user.isModerator) {
       return 'Moderator'
     }
     else if (this.user.isAgency) {
       return 'Agency'
-    }
-    else if (this.user.isBanned) {
-      return 'Banned'
     }
     else if (this.user.isAdvertiser && this.user.isPublisher) {
       return 'Adv / Pub'

@@ -122,7 +122,7 @@
     position: relative;
   }
 
-  /deep/ router-outlet ~ * {
+  ::ng-deep router-outlet ~ * {
     position: absolute;
     width: calc(100% - (40px * 2));
     height: calc(100% - 135px);

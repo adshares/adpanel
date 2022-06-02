@@ -74,15 +74,12 @@ export const GET_LICENSE_FAILURE = 'Get license failure';
 
 export const BAN_USER = 'Ban user';
 export const BAN_USER_SUCCESS = 'Ban user success';
-export const BAN_USER_FAILURE = 'Ban user failure';
 
 export const UNBAN_USER = 'Unban user';
 export const UNBAN_USER_SUCCESS = 'Unban user success';
-export const UNBAN_USER_FAILURE = 'Unban user failure';
 
 export const DELETE_USER = 'Delete user';
 export const DELETE_USER_SUCCESS = 'Delete user success';
-export const DELETE_USER_FAILURE = 'Delete user failure';
 
 
 export class LoadUsers implements Action {
