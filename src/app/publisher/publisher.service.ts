@@ -56,11 +56,12 @@ export class PublisherService {
   }
 
   saveSite(site: Site): Observable<Site> {
+    const temporarySiteObject = {...site};
     if (site.filteringArray) {
-      const targetingObject = parseTargetingForBackend(site.filteringArray);
-      Object.assign(site, {filtering: targetingObject});
+      const filteringObject = parseTargetingForBackend(site.filteringArray);
+      Object.assign(temporarySiteObject, {filtering: filteringObject});
     }
-    const {filteringArray, ...reducedSite} = site;
+    const {filteringArray, ...reducedSite} = temporarySiteObject;
 
     return this.http.post<Site>(`${environment.apiUrl}/sites`, {site: reducedSite});
   }

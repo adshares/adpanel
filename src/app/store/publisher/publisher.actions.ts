@@ -27,6 +27,7 @@ export const CLEAR_LAST_EDITED_SITE = 'Last edited site cleared';
 export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
 export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
+export const SAVE_LAST_EDITED_SITE_ONLY_ACCEPTED_BANNERS = 'Site only accepted banners saved';
 export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
 
 export const ADD_SITE_TO_SITES = 'Save site';
@@ -157,6 +158,13 @@ export class SaveSiteFiltering implements Action {
   readonly type: string = SAVE_LAST_EDITED_SITE_FILTERING;
 
   constructor(public payload: AssetTargeting) {
+  }
+}
+
+export class SaveSiteOnlyAcceptedBanners implements Action {
+  readonly type: string = SAVE_LAST_EDITED_SITE_ONLY_ACCEPTED_BANNERS;
+
+  constructor(public payload: boolean) {
   }
 }
 

@@ -1,9 +1,5 @@
-import { ChartOptions } from 'models/chart/chart-options.model';
-import { ChartColors } from 'models/chart/chart-colors.model';
-import {
-  ChartJsComputedData,
-  TooltipItem
-} from 'models/chart/chart-other.model';
+import { Color } from 'ng2-charts/lib/color';
+import { ChartData, ChartOptions, ChartTooltipItem } from 'chart.js';
 import {
   adjustLabelFormat,
   adjustTooltipValueFormat,
@@ -12,7 +8,6 @@ import {
 
 
 const chartOptions: ChartOptions = {
-  scaleShowVerticalLines: false,
   responsive: true,
   maintainAspectRatio: false,
   tooltips: {
@@ -20,25 +15,20 @@ const chartOptions: ChartOptions = {
     intersect: false,
     enabled: false,
     callbacks: {
-      title: (tooltipItems: TooltipItem[], data: ChartJsComputedData) => {
+      title: (tooltipItems: ChartTooltipItem[], data: ChartData) => {
         return adjustLabelFormat(data.labels[tooltipItems[0].index], data.labels);
       },
-      label: (tooltipItem: TooltipItem, data: ChartJsComputedData) => {
-        let label = data.datasets[0].currentSeries || '';
+      label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
+        let label = data.datasets[0].label || '';
 
         if (label) {
           label += ': ';
         }
-        label += Math.round(tooltipItem.yLabel * 100) / 100;
+        label += Math.round(Number(tooltipItem.yLabel) * 100) / 100;
         return label;
       }
     },
-
     custom: function (tooltipModel) {
-      const getBody = (bodyItem) => {
-        return bodyItem.lines;
-      };
-      // Tooltip Element
       let tooltipEl = document.getElementById('chartjs-tooltip');
 
       // Create element on first render
@@ -62,7 +52,7 @@ const chartOptions: ChartOptions = {
       // Set Text
       if (tooltipModel.body) {
         const titleLines = tooltipModel.title || [];
-        const bodyLines = tooltipModel.body.map(getBody);
+        const bodyLines = tooltipModel.body.map(bodyItem => bodyItem.lines);
 
         let innerHtml = '<thead>';
         titleLines.forEach((title) => {
@@ -70,10 +60,9 @@ const chartOptions: ChartOptions = {
         });
         innerHtml += '</thead><tbody>';
 
-        bodyLines.forEach((body, i) => {
-          const value = body[0].split(':')[1];
-          const span = '<span></span>';
-          innerHtml += '<tr><td>' + span + adjustTooltipValueFormat(value) + '</td></tr>';
+        bodyLines.forEach(bodyLine => {
+          const value = bodyLine[0].split(': ')[1];
+          innerHtml += '<tr><td><span>' + adjustTooltipValueFormat(value) + '</span></td></tr>';
         });
         innerHtml += '</tbody>';
         const tableRoot = tooltipEl.querySelector('table');
@@ -99,7 +88,7 @@ const chartOptions: ChartOptions = {
         boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.15)',
         transition: 'opacity 0.3s ease'
       });
-    }
+    },
   },
   hover: {
     mode: 'index',
@@ -107,38 +96,38 @@ const chartOptions: ChartOptions = {
   },
   scales: {
     xAxes: [{
-      barPercentage: 0.2,
       gridLines: {
         borderDash: [8, 4],
-        color: '#eff2f4'
+        color: '#eff2f4',
+        display : false,
       },
       ticks: {
         autoSkip: false,
+        beginAtZero: true,
+        callback: (value, index, data) => adjustLabelFormat(value, data),
         maxRotation: 70,
         fontColor: '#9c9c9c',
         fontSize: 15,
-        beginAtZero: true,
-        callback: (value, index, data) => adjustLabelFormat(value, data),
       }
     }],
     yAxes: [{
       gridLines: {
         color: '#eff2f4',
-        zeroLineColor: '#eff2f4'
+        zeroLineColor: '#eff2f4',
       },
       ticks: {
-        maxTicksLimit: 3,
+        beginAtZero: true,
+        callback: (value, _index, _values) => adjustYAxesTics(value),
         fontColor: '#9c9c9c',
         fontSize: 16,
-        beginAtZero: true,
+        maxTicksLimit: 3,
         padding: 10,
-        callback: (value) => adjustYAxesTics(value),
       }
     }]
   }
 };
 
-const chartColors: ChartColors[] = [
+const chartColors: Color[] = [
   {
     backgroundColor: '#55a8fd',
     borderColor: '#55a8fd',

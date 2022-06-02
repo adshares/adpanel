@@ -1,10 +1,14 @@
-import { OnDestroy } from '@angular/core'
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
 
-export class HandleSubscription implements OnDestroy {
+@Component({
+  selector: 'HandleSubscription',
+  template: '',
+})
+export abstract class HandleSubscription implements OnDestroy {
   subscriptions: Subscription[] = [];
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

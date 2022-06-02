@@ -20,7 +20,7 @@ import {
 } from './settings.actions'
 import { SettingsService } from 'settings/settings.service'
 import { ApiAuthService } from '../../api/auth.service'
-import { Action } from '@ngrx/store/store'
+import { Action } from '@ngrx/store'
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions'
 import { TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 import { CommonService } from 'common/common.service'

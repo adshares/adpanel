@@ -4,7 +4,7 @@ import { Campaign } from 'models/campaign.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { AdvertiserService } from "advertiser/advertiser.service";
 import { enumToArray } from "common/utilities/helpers";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { AppState } from "models/app-state.model";
 import { Store } from "@ngrx/store";
 import { UpdateCampaignStatus } from 'store/advertiser/advertiser.actions';

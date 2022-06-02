@@ -34,10 +34,6 @@ export const LOAD_CAMPAIGNS_TOTALS = 'Campaigns totals loading';
 export const LOAD_CAMPAIGNS_TOTALS_SUCCESS = 'Campaigns totals loading success';
 export const LOAD_CAMPAIGNS_TOTALS_FAILURE = 'Campaigns totals loading failure';
 
-export const LOAD_CAMPAIGN_BANNER_DATA = 'Campaign banners totals loading';
-export const LOAD_CAMPAIGN_BANNER_DATA_SUCCESS = 'Campaign banners totals loading success';
-export const LOAD_CAMPAIGN_BANNER_DATA_FAILURE = 'Campaign banners totals loading failure';
-
 export const UPDATE_CAMPAIGN = 'Update campaign';
 export const UPDATE_CAMPAIGN_SUCCESS = 'Update campaign success';
 export const UPDATE_CAMPAIGN_FAILURE = 'Update campaign failure';
@@ -157,27 +153,6 @@ export class AddCampaignToCampaignsSuccess implements Action {
   readonly type = ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS;
 
   constructor(public payload: Campaign) {
-  }
-}
-
-export class LoadCampaignBannerData implements Action {
-  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA;
-
-  constructor(public payload: any) {
-  }
-}
-
-export class LoadCampaignBannerDataSuccess implements Action {
-  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_SUCCESS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadCampaignBannerDataFailure implements Action {
-  readonly type: string = LOAD_CAMPAIGN_BANNER_DATA_FAILURE;
-
-  constructor(public payload?: any) {
   }
 }
 
@@ -351,8 +326,6 @@ export type actions =
   LoadCampaignsTotals |
   LoadCampaignsTotalsSuccess |
   LoadCampaignsTotalsFailure |
-
-  LoadCampaignBannerDataFailure |
 
   UpdateCampaign |
   UpdateCampaignSuccess |

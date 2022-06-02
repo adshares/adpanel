@@ -42,6 +42,6 @@
   display: none;
 }
 
-/deep/ .mat-input-infix {
+::ng-deep .mat-input-infix {
   width: 400px !important;
 }

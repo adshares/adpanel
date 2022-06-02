@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 import { take } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription'
 import { SessionService } from 'app/session.service'
@@ -63,8 +63,11 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     })
   }
 
-  changeAutoWithdraw (enabled: boolean) {
-    this.wallet.isAutoWithdrawal = enabled
+  changeAutoWithdraw (enabled: boolean): void {
+    this.wallet = {
+      ...this.wallet,
+      isAutoWithdrawal: enabled
+    }
     this.showAutoWithdrawalForm = enabled
   }
 
@@ -74,8 +77,6 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
       return
     }
     this.errorWithdrawalSave = false
-    console.debug('onAutoWithdrawalSave',
-      this.wallet.isAutoWithdrawal)
 
     const autoWithdrawal = this.wallet.isAutoWithdrawal
       ? adsToClicks(this.autoWithdrawalForm.get('limit').value)

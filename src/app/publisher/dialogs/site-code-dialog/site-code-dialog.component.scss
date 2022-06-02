@@ -77,6 +77,6 @@
   margin-top: 0;
 }
 
-/deep/ .mat-expansion-panel-body {
+::ng-deep .mat-expansion-panel-body {
   border: 1px pal(gray, light) solid;
 }

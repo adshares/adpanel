@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Angular 13
+### Fixed
+- Setting date range for charts
 
 ## [1.17.1] - 2022-05-30
 ### Fixed
@@ -20,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Links to publisher sites in publisher panel
 - Configuration default site classification and filtering options on admin panel
-- Opportunity for admin to ban unban and delete users 
+- Opportunity for admin to ban, unban and delete users
 ### Changed
 - Wallet login buttons visibility
 - Angular 7

@@ -24,7 +24,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
   form: FormGroup;
   showLoader = false;
   formSubmitted = false;
-  today = new Date();
+  today = moment();
   validUntilControl: FormControl;
   refundValidUntilControl: FormControl;
 
@@ -36,8 +36,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     super();
   }
 
-  ngOnInit() {
-
+  ngOnInit(): void {
     const user = this.session.getUser();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;

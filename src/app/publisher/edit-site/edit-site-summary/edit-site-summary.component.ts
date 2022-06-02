@@ -59,7 +59,10 @@ export class EditSiteSummaryComponent extends HandleSubscription implements OnIn
   saveSite(isDraft): void {
     this.canSubmit = false;
     if (!isDraft) {
-      this.site.status = siteStatusEnum.ACTIVE;
+      this.site = {
+        ...this.site,
+        status: siteStatusEnum.ACTIVE
+      };
     }
     this.store.dispatch(new AddSiteToSites(this.site));
   }

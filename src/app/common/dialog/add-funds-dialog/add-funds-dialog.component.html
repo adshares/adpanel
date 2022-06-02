@@ -432,7 +432,7 @@
             ></span>
             <span
               class="error-msg"
-              *ngIf="(fiatForm.hasError('min', ['netAmount']) || fiatForm.hasError('max', ['netAmount'])) && isFormBeingSubmitted"
+              *ngIf="(fiatForm.hasError('min', ['netAmount']) || fiatForm.hasError('max', ['netAmount']) || fiatForm.hasError('required', ['netAmount'])) && isFormBeingSubmitted"
             >
               Provide correct deposit amount
             </span>

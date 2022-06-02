@@ -6,7 +6,7 @@ import { AppState } from 'models/app-state.model';
 import { SettingsService } from 'settings/settings.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { User } from 'models/user.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { SessionService } from '../../../session.service'

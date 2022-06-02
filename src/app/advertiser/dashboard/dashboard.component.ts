@@ -3,15 +3,14 @@ import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
 import { ChartComponent } from 'common/components/chart/chart.component';
-import { CampaignListComponent } from 'advertiser/campaign-list/campaign-list.component';
 import { ChartService } from 'common/chart.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
-import { ChartData } from 'models/chart/chart-data.model';
-import { ChartLabels } from 'models/chart/chart-labels.model';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { createInitialArray } from 'common/utilities/helpers';
+import { createInitialDataSet } from 'common/utilities/helpers';
 
 import { LoadCampaigns, LoadCampaignsTotals } from 'store/advertiser/advertiser.actions';
 import { appSettings } from 'app-settings';
@@ -27,7 +26,6 @@ import { reportType } from 'models/enum/user.enum';
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
-  @ViewChild(CampaignListComponent) campaignListRef: CampaignListComponent;
 
   campaigns: Campaign[];
   campaignsLoaded: boolean = false;
@@ -37,8 +35,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: ChartLabels[] = [];
-  barChartData: ChartData[] = createInitialArray([{data: []}], 1);
+  barChartLabels: Label[] = [];
+  barChartData: ChartDataSets[] = createInitialDataSet();
 
   currentChartFilterSettings: ChartFilterSettings;
 
@@ -89,7 +87,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       .pipe(take(1))
       .subscribe(data => {
         this.barChartData[0].data = data.values;
-        this.barChartData[0].currentSeries = chartFilterSettings.currentSeries.label;
+        this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = data.timestamps.map(item => moment(item).format());
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;

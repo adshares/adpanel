@@ -16,7 +16,7 @@ import { appSettings } from 'app-settings';
 import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { environment } from 'environments/environment.ts';
+import { environment } from 'environments/environment';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
@@ -148,7 +148,6 @@ export class RequestInterceptor extends HandleSubscription implements HttpInterc
     ));
   }
 
-  // TODO: fix + location? // looks like bs, not what we are looking for
   extendTokenExpiration() {
     const user: LocalStorageUser = this.session.getUser();
     if (!user) {

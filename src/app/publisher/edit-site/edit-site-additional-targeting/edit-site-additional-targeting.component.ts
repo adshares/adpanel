@@ -1,15 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
-import { AddSiteToSites, ClearLastEditedSite, SaveSiteFiltering, UpdateSite } from 'store/publisher/publisher.actions';
+import {
+  AddSiteToSites,
+  ClearLastEditedSite,
+  SaveSiteFiltering,
+  SaveSiteOnlyAcceptedBanners,
+  UpdateSite
+} from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
-import { TargetingSelectComponent } from 'common/components/targeting/targeting-select/targeting-select.component';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -20,8 +25,6 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   styleUrls: ['./edit-site-additional-targeting.component.scss']
 })
 export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  @ViewChild(TargetingSelectComponent) targetingSelectComponent: TargetingSelectComponent;
-
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;
@@ -51,15 +54,15 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     this.getSiteFromStore();
   }
 
-  updateAddedItems(items) {
+  updateAddedItems(items): void {
     this.addedItems = [...items];
   }
 
-  updateExcludedItems(items) {
+  updateExcludedItems(items): void {
     this.excludedItems = [...items];
   }
 
-  onSubmit() {
+  onSubmit(): void {
     return this.createSiteMode ? this.saveSite(false) : this.updateSite();
   }
 
@@ -90,13 +93,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     }
   }
 
-  updateSite() {
+  updateSite(): void {
     this.changesSaved = true;
     this.store.dispatch(new UpdateSite(this.siteToSave));
   }
 
-  saveSite(isDraft) {
-    this.site.onlyAcceptedBanners = this.isCheckedOnlyAcceptedBanners;
+  saveSite(isDraft): void {
     const chosenTargeting = {
       requires: this.addedItems,
       excludes: this.excludedItems,
@@ -107,19 +109,21 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
     if (isDraft) {
       this.site = {
         ...this.site,
+        onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
         status: siteStatusEnum.DRAFT,
         filteringArray: chosenTargeting
       };
       this.store.dispatch(new AddSiteToSites(this.site));
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
+      this.store.dispatch(new SaveSiteOnlyAcceptedBanners(this.isCheckedOnlyAcceptedBanners));
       this.router.navigate(
         ['/publisher', 'create-site', 'summary']
       );
     }
   }
 
-  getSiteFromStore() {
+  getSiteFromStore(): void {
     const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
