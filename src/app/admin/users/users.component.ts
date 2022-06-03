@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HandleSubscription } from 'common/handle-subscription';
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-users',
@@ -7,5 +8,21 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends HandleSubscription {
-
+  constructor (
+    private route: ActivatedRoute
+  ) {super()}
+  links = [
+    {
+      label: 'Users',
+      path: './all',
+    },
+    {
+      label: 'Publishers',
+      path: './publishers',
+    },
+    {
+      label: 'Advertisers',
+      path: './advertisers',
+    },
+  ]
 }
