@@ -31,7 +31,7 @@ export class SessionService {
 
   getUserLabel(): string {
     const user = this.getUser()
-    if (user.email && user.email.length > 0) {
+    if (user.email && user.email.indexOf('@') > 0) {
       const parts = user.email.split('@')
       const name = parts[0].length > 2 ? parts[0].slice(0, 2) : parts[0];
       return `${name}***@${parts[1]}`
