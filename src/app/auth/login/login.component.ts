@@ -137,6 +137,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (redirectUrl &&
       (user.isAdmin || user.isModerator || user.isAgency)) {
       this.navigateByUrl(redirectUrl)
+      return
     }
 
     if (redirectUrl) {
