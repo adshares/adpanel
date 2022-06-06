@@ -7,6 +7,8 @@ import { PublisherInfo, Publishers } from 'models/settings.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { LoadPublishers } from 'store/admin/admin.actions';
+import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-publisher-list',
@@ -45,7 +47,11 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
   sortKeys = [];
   sortDesc = false;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
     super();
   }
 
@@ -57,6 +63,7 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
         this.filterPublishers();
       });
     this.subscriptions.push(publishersSubscription);
+    this.subscriptions.push(this.checkQueryParams())
     this.loadPublishers();
   }
 
@@ -66,26 +73,30 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
     this.store.dispatch(new LoadPublishers({
       groupBy: this.groupBy,
       interval: this.interval,
-      searchPhrase: this.searchPhrase.toLowerCase().trim(),
+      searchPhrase: this.searchPhrase ? this.searchPhrase.toLowerCase().trim() : null,
       minDailyViews: this.minDailyViews,
     }));
   }
 
   groupPublishers(groupBy): void {
     this.groupBy = groupBy;
+    this.changeQueryParams()
     this.loadPublishers();
   }
 
   changeInterval(interval): void {
     this.interval = interval;
+    this.changeQueryParams()
     this.loadPublishers();
   }
 
   onSearchChange(): void {
+    this.changeQueryParams()
     this.loadPublishers();
   }
 
   onMinDailyViewsChange(): void {
+    this.changeQueryParams()
     this.loadPublishers();
   }
 
@@ -107,5 +118,47 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
   handlePaginationEvent(e): void {
     this.page = e.pageIndex + 1;
     this.filterPublishers();
+  }
+
+  changeQueryParams(): void {
+    const queryParams = {
+      groupBy: this.groupBy === 'domain' ? null : this.groupBy,
+      interval: this.interval === 'week' ? null : this.interval,
+      minDailyViews: this.minDailyViews === 1000 ? null : this.minDailyViews,
+      searchPhrase: this.searchPhrase || null,
+    }
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        ...queryParams
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    })
+  }
+
+  checkQueryParams(): Subscription {
+    return this.activatedRoute.queryParams.subscribe(param => {
+      for(let key in param) {
+        if(typeof this[key] !== 'undefined') {
+          this[key] = param[key]
+        }
+      }
+    })
+  }
+
+  onResetButtonClick(): void {
+    this.searchPhrase = null
+    this.groupBy = 'domain'
+    this.interval = 'week'
+    this.minDailyViews = 1000
+    this.sortKeys = ['email']
+    this.sortDesc = false
+    this.changeQueryParams()
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      replaceUrl: true
+    })
+    this.loadPublishers()
   }
 }

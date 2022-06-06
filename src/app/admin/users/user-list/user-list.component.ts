@@ -9,6 +9,7 @@ import * as adminActions from 'store/admin/admin.actions'
 import { appSettings } from 'app-settings'
 import { SessionService } from '../../../session.service'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-user-list',
@@ -60,7 +61,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
         this.isLoading = !this.users
       })
     this.subscriptions.push(usersSubscription)
-    this.checkQueryParams()
+    this.subscriptions.push(this.checkQueryParams())
     this.loadUsers()
   }
 
@@ -85,13 +86,10 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     }))
   }
 
-  async filterUsersByType (type, resetSearch = false) {
+  filterUsersByType (type) {
     this.selectedType = type
-    if (resetSearch) {
-      this.userSearch = null
-      await this.changeQueryParams()
-      this.loadUsers()
-    }
+    this.changeQueryParams()
+    this.loadUsers()
   }
 
   filterEmailUnconfirmed () {
@@ -145,8 +143,8 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     })
   }
 
-  checkQueryParams(): void {
-    this.activatedRoute.queryParams.subscribe(param => {
+  checkQueryParams(): Subscription {
+    return this.activatedRoute.queryParams.subscribe(param => {
       for(let key in param) {
         if(typeof this[key] !== 'undefined') {
           if(param[key] === 'true' || param[key] === 'false') {
@@ -167,6 +165,10 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     this.sortKeys = []
     this.sortDesc = false
     this.changeQueryParams()
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      replaceUrl: true
+    })
     this.loadUsers()
   }
 }

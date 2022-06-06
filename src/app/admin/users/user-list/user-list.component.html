@@ -32,17 +32,12 @@
           Unconfirmed account
         </mat-checkbox>
         <label>Filter by type:</label>
-        <mat-radio-group
-                (change)="filterUsersByType($event.value, true)"
-                [(ngModel)]="selectedType"
-        >
-          <mat-radio-button
-                  class="user-list__checkbox"
-                  *ngFor="let type of userTypes"
-                  [value]="type">
-            {{type}}
-          </mat-radio-button>
-        </mat-radio-group>
+        <mat-checkbox (change)="filterUsersByType(type)"
+                      *ngFor="let type of userTypes"
+                      [checked]="type === selectedType"
+                      class="user-list__checkbox">
+          {{type}}
+        </mat-checkbox>
       </div>
       <button class="dwmth-btn dwmth-btn--tiny dwmth-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
     </div>

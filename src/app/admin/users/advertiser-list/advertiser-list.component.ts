@@ -7,6 +7,8 @@ import { Advertisers, AdvertiserInfo } from 'models/settings.model';
 import { sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { LoadAdvertisers } from 'store/admin/admin.actions';
+import { ActivatedRoute, Router } from '@angular/router'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-advertiser-list',
@@ -45,7 +47,11 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
   sortKeys = [];
   sortDesc = false;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
     super();
   }
 
@@ -57,6 +63,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
         this.filterAdvertisers();
       });
     this.subscriptions.push(advertisersSubscription);
+    this.subscriptions.push(this.checkQueryParams())
     this.loadAdvertisers();
   }
 
@@ -66,26 +73,30 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
     this.store.dispatch(new LoadAdvertisers({
       groupBy: this.groupBy,
       interval: this.interval,
-      searchPhrase: this.searchPhrase.toLowerCase().trim(),
+      searchPhrase: this.searchPhrase ? this.searchPhrase.toLowerCase().trim() : null,
       minDailyViews: this.minDailyViews,
     }));
   }
 
   groupAdvertisers(groupBy): void {
     this.groupBy = groupBy;
+    this.changeQueryParams()
     this.loadAdvertisers();
   }
 
   changeInterval(interval): void {
     this.interval = interval;
+    this.changeQueryParams()
     this.loadAdvertisers();
   }
 
   onSearchChange(): void {
+    this.changeQueryParams()
     this.loadAdvertisers();
   }
 
   onMinDailyViewsChange(): void {
+    this.changeQueryParams()
     this.loadAdvertisers();
   }
 
@@ -107,5 +118,49 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
   handlePaginationEvent(e): void {
     this.page = e.pageIndex + 1;
     this.filterAdvertisers();
+  }
+
+  changeQueryParams(): void {
+    const queryParams = {
+      groupBy: this.groupBy === 'campaign' ? null : this.groupBy,
+      interval: this.interval === 'week' ? null : this.interval,
+      minDailyViews: this.minDailyViews === 10000 ? null : this.minDailyViews,
+      searchPhrase: this.searchPhrase || null,
+      sort: null,
+      order: null
+    }
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        ...queryParams
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    })
+  }
+
+  checkQueryParams(): Subscription {
+    return this.activatedRoute.queryParams.subscribe(param => {
+      for(let key in param) {
+        if(typeof this[key] !== 'undefined') {
+          this[key] = param[key]
+        }
+      }
+    })
+  }
+
+  onResetButtonClick(): void {
+    this.searchPhrase = null
+    this.groupBy = 'campaign'
+    this.interval = 'week'
+    this.minDailyViews = 10000
+    this.sortKeys = ['email']
+    this.sortDesc = false
+    this.changeQueryParams()
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      replaceUrl: true
+    })
+    this.loadAdvertisers()
   }
 }
