@@ -8,6 +8,7 @@ import { TableSortEvent } from 'models/table.model'
 import * as adminActions from 'store/admin/admin.actions'
 import { appSettings } from 'app-settings'
 import { SessionService } from '../../../session.service'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-user-list',
@@ -36,16 +37,18 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   users: Users
   isLoading: boolean = true
   userTypes: string[] = appSettings.USER_TYPES
-  selectedType: string = 'All'
+  selectedType: string | null = 'All'
   onlyEmailUnconfirmed: boolean = false
   onlyAdminUnconfirmed: boolean = false
-  userSearch: string = null
+  userSearch: string | null = null
   sortKeys: string[] = []
   sortDesc: boolean = false
 
   constructor (
     private store: Store<AppState>,
-    private session: SessionService
+    private session: SessionService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     super()
   }
@@ -57,6 +60,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
         this.isLoading = !this.users
       })
     this.subscriptions.push(usersSubscription)
+    this.checkQueryParams()
     this.loadUsers()
   }
 
@@ -81,25 +85,29 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     }))
   }
 
-  filterUsersByType (type, resetSearch = false) {
+  async filterUsersByType (type, resetSearch = false) {
     this.selectedType = type
     if (resetSearch) {
       this.userSearch = null
+      await this.changeQueryParams()
       this.loadUsers()
     }
   }
 
   filterEmailUnconfirmed () {
     this.onlyEmailUnconfirmed = !this.onlyEmailUnconfirmed;
+    this.changeQueryParams()
     this.loadUsers()
   }
 
   filterAdminUnconfirmed () {
     this.onlyAdminUnconfirmed = !this.onlyAdminUnconfirmed;
+    this.changeQueryParams()
     this.loadUsers()
   }
 
   onSearchChange () {
+    this.changeQueryParams()
     this.loadUsers()
   }
 
@@ -118,5 +126,47 @@ export class UserListComponent extends HandleSubscription implements OnInit {
     e.pageIndex + 1 ? this.users.prevPageUrl
       : this.users.nextPageUrl
     this.loadUsers(payload)
+  }
+
+  changeQueryParams(): void {
+    const queryParams = {
+      selectedType: this.selectedType === 'All' ? null : this.selectedType,
+      onlyEmailUnconfirmed: this.onlyEmailUnconfirmed || null,
+      onlyAdminUnconfirmed: this.onlyAdminUnconfirmed || null,
+      userSearch: this.userSearch || null,
+    }
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        ...queryParams
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    })
+  }
+
+  checkQueryParams(): void {
+    this.activatedRoute.queryParams.subscribe(param => {
+      for(let key in param) {
+        if(typeof this[key] !== 'undefined') {
+          if(param[key] === 'true' || param[key] === 'false') {
+            this[key] = JSON.parse(param[key])
+            continue
+          }
+          this[key] = param[key]
+        }
+      }
+    })
+  }
+
+  onResetButtonClick(): void {
+    this.selectedType = 'All'
+    this.onlyEmailUnconfirmed = false
+    this.onlyAdminUnconfirmed = false
+    this.userSearch = null
+    this.sortKeys = []
+    this.sortDesc = false
+    this.changeQueryParams()
+    this.loadUsers()
   }
 }
