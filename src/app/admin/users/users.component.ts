@@ -34,15 +34,12 @@ export class UsersComponent extends HandleSubscription {
     this.links.forEach(link => {
       if(link.label === 'Users'){
         link.queryParams = localStorageQueryParamsForUsers
-        return
       }
       else if(link.label === 'Publishers'){
         link.queryParams = localStorageQueryParamsForPublishers
-        return
       }
       else if(link.label === 'Advertisers'){
         link.queryParams = localStorageQueryParamsForAdvertisers
-        return
       }
     })
   }
