@@ -3,9 +3,9 @@ import { ChartData, ChartOptions, ChartTooltipItem } from 'chart.js';
 import {
   adjustLabelFormat,
   adjustTooltipValueFormat,
-  adjustYAxesTics
-} from "common/components/chart/chart-settings/chart-settings.helpers";
-
+  adjustYAxesTics,
+} from 'common/components/chart/chart-settings/chart-settings.helpers'
+import { formatNumberWithComma } from 'common/utilities/helpers'
 
 const chartOptions: ChartOptions = {
   responsive: true,
@@ -62,7 +62,7 @@ const chartOptions: ChartOptions = {
 
         bodyLines.forEach(bodyLine => {
           const value = bodyLine[0].split(': ')[1];
-          innerHtml += '<tr><td><span>' + adjustTooltipValueFormat(value) + '</span></td></tr>';
+          innerHtml += '<tr><td><span>' + formatNumberWithComma(adjustTooltipValueFormat(value)) + '</span></td></tr>';
         });
         innerHtml += '</tbody>';
         const tableRoot = tooltipEl.querySelector('table');
