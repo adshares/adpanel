@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import { HandleSubscription } from 'common/handle-subscription';
-import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-users',
@@ -9,20 +8,42 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class UsersComponent extends HandleSubscription {
   constructor (
-    private route: ActivatedRoute
   ) {super()}
   links = [
     {
       label: 'Users',
       path: './all',
+      queryParams: null,
     },
     {
       label: 'Publishers',
       path: './publishers',
+      queryParams: null,
     },
     {
       label: 'Advertisers',
       path: './advertisers',
+      queryParams: null,
     },
   ]
+
+  onTabClick(){
+    const localStorageQueryParamsForUsers = JSON.parse(localStorage.getItem('usersQueryParams'))
+    const localStorageQueryParamsForPublishers = JSON.parse(localStorage.getItem('publishersQueryParams'))
+    const localStorageQueryParamsForAdvertisers = JSON.parse(localStorage.getItem('advertisersQueryParams'))
+    this.links.forEach(link => {
+      if(link.label === 'Users'){
+        link.queryParams = localStorageQueryParamsForUsers
+        return
+      }
+      else if(link.label === 'Publishers'){
+        link.queryParams = localStorageQueryParamsForPublishers
+        return
+      }
+      else if(link.label === 'Advertisers'){
+        link.queryParams = localStorageQueryParamsForAdvertisers
+        return
+      }
+    })
+  }
 }

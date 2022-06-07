@@ -112,6 +112,7 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
   sortTable(event: TableSortEvent): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
+    this.changeQueryParams()
     this.filterPublishers();
   }
 
@@ -126,6 +127,8 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
       interval: this.interval === 'week' ? null : this.interval,
       minDailyViews: this.minDailyViews === 1000 ? null : this.minDailyViews,
       searchPhrase: this.searchPhrase || null,
+      sort: this.sortKeys[0],
+      order: this.sortDesc ? 'desc' : 'asc',
     }
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
@@ -135,6 +138,7 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
       queryParamsHandling: 'merge',
       replaceUrl: true
     })
+    localStorage.setItem('publishersQueryParams', JSON.stringify(queryParams))
   }
 
   checkQueryParams(): Subscription {
@@ -159,6 +163,8 @@ export class PublisherListComponent extends HandleSubscription implements OnInit
       relativeTo: this.activatedRoute,
       replaceUrl: true
     })
+    localStorage.removeItem('publishersQueryParams')
+
     this.loadPublishers()
   }
 }

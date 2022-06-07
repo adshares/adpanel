@@ -44,7 +44,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
 
   pageSize = 15;
   page = 1;
-  sortKeys = [];
+  sortKeys = ['email'];
   sortDesc = false;
 
   constructor(
@@ -80,23 +80,23 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
 
   groupAdvertisers(groupBy): void {
     this.groupBy = groupBy;
-    this.changeQueryParams()
+    this.changeQueryParams();
     this.loadAdvertisers();
   }
 
   changeInterval(interval): void {
     this.interval = interval;
-    this.changeQueryParams()
+    this.changeQueryParams();
     this.loadAdvertisers();
   }
 
   onSearchChange(): void {
-    this.changeQueryParams()
+    this.changeQueryParams();
     this.loadAdvertisers();
   }
 
   onMinDailyViewsChange(): void {
-    this.changeQueryParams()
+    this.changeQueryParams();
     this.loadAdvertisers();
   }
 
@@ -112,6 +112,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
   sortTable(event: TableSortEvent): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
+    this.changeQueryParams();
     this.filterAdvertisers();
   }
 
@@ -126,8 +127,8 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
       interval: this.interval === 'week' ? null : this.interval,
       minDailyViews: this.minDailyViews === 10000 ? null : this.minDailyViews,
       searchPhrase: this.searchPhrase || null,
-      sort: null,
-      order: null
+      sort: this.sortKeys[0],
+      order: this.sortDesc ? 'desc' : 'asc',
     }
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
@@ -137,6 +138,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
       queryParamsHandling: 'merge',
       replaceUrl: true
     })
+    localStorage.setItem('advertisersQueryParams', JSON.stringify(queryParams))
   }
 
   checkQueryParams(): Subscription {
@@ -161,6 +163,8 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
       relativeTo: this.activatedRoute,
       replaceUrl: true
     })
+    localStorage.removeItem('advertisersQueryParams')
+
     this.loadAdvertisers()
   }
 }

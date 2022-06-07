@@ -5,7 +5,9 @@
                *ngFor="let link of links"
                [routerLink]="link.path"
                routerLinkActive #rla="routerLinkActive"
+               [queryParams]="link.queryParams"
                [active]="rla.isActive"
+               (click)="onTabClick()"
             >
                 <span class="link-label">{{link.label}}</span>
             </a>

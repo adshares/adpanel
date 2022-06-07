@@ -112,6 +112,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
   sortTable (event: TableSortEvent) {
     this.sortKeys = event.keys
     this.sortDesc = event.sortDesc
+    this.changeQueryParams()
     this.loadUsers()
   }
 
@@ -132,6 +133,8 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       onlyEmailUnconfirmed: this.onlyEmailUnconfirmed || null,
       onlyAdminUnconfirmed: this.onlyAdminUnconfirmed || null,
       userSearch: this.userSearch || null,
+      sort: this.sortKeys[0],
+      order: this.sortDesc ? 'desc' : 'asc',
     }
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
@@ -141,6 +144,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       queryParamsHandling: 'merge',
       replaceUrl: true
     })
+    localStorage.setItem('usersQueryParams', JSON.stringify(queryParams))
   }
 
   checkQueryParams(): Subscription {
@@ -169,6 +173,7 @@ export class UserListComponent extends HandleSubscription implements OnInit {
       relativeTo: this.activatedRoute,
       replaceUrl: true
     })
+    localStorage.removeItem('usersQueryParams')
     this.loadUsers()
   }
 }
