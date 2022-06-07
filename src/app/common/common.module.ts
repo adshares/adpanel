@@ -39,6 +39,7 @@ import {
   AdsharesTokenPipe,
   CalculateInCurrency,
   ClickToADSPipe,
+  FormatNumberWithCommaPipe,
 } from './pipes/adshares-token.pipe'
 import { FormatFileSizePipe } from './pipes/format-file-size.pipe'
 import { TestPlaceholdersPipe } from './pipes/test-placeholders.pipe'
@@ -134,6 +135,7 @@ const appComponents = [
   InfoPageComponent,
   PageNotFoundComponent,
   SettingsNavigationComponent,
+  FormatNumberWithCommaPipe,
 ]
 
 @NgModule({
