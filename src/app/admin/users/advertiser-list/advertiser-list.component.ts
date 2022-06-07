@@ -44,7 +44,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
 
   pageSize = 15;
   page = 1;
-  sortKeys = ['email'];
+  sortKeys = [];
   sortDesc = false;
 
   constructor(
@@ -156,7 +156,7 @@ export class AdvertiserListComponent extends HandleSubscription implements OnIni
     this.groupBy = 'campaign'
     this.interval = 'week'
     this.minDailyViews = 10000
-    this.sortKeys = ['email']
+    this.sortKeys = []
     this.sortDesc = false
     this.changeQueryParams()
     this.router.navigate([], {
