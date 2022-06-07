@@ -85,3 +85,12 @@ export class AdsharesBudgetPerDayPipe implements PipeTransform {
     return calcCampaignBudgetPerDay(value);
   }
 }
+
+@Pipe({
+  name: 'formatNumberWithComa'
+})
+export class FormatNumberWithCommaPipe implements PipeTransform  {
+  transform(value: number | string): string {
+  return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+}
