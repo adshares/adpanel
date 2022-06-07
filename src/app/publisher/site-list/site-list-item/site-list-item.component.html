@@ -79,7 +79,7 @@
           align-center"
   >
         <span data-test="publisher-site-impressions">
-          {{ (site.impressions || 0) }}
+          {{ (site.impressions || 0) | formatNumberWithComa }}
         </span>
   </td>
   <td

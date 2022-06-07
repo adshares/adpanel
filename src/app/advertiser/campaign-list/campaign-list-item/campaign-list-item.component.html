@@ -87,7 +87,7 @@
           align-center"
     data-test="advertiser-campaign-impressions"
   >
-    <span>{{ campaign.impressions || 0}}</span>
+    <span>{{ (campaign.impressions || 0) | formatNumberWithComa }}</span>
   </td>
   <td
     class="

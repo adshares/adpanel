@@ -24,7 +24,7 @@
         {{ sitesTotals.clicks }}
       </td>
       <td class="col-xs-1">
-        {{ sitesTotals.impressions }}
+        {{ sitesTotals.impressions | formatNumberWithComa }}
       </td>
       <td class="col-xs-1">
         {{ sitesTotals.ctr | percent:'1.2-2' }}
