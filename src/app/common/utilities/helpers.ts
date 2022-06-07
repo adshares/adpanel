@@ -281,6 +281,10 @@ function buildUrl(url: string, params: string[]): string {
   return `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${params.join("&")}`
 }
 
+function formatNumberWithComma (value) {
+  return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 export {
   adsToClicks,
   clicksToAds,
@@ -299,4 +303,5 @@ export {
   downloadReport,
   mapToIterable,
   buildUrl,
+  formatNumberWithComma
 };

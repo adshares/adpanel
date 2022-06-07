@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { HandleSubscription } from 'common/handle-subscription'
 import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts'
-import { calcCampaignBudgetPerDay, formatMoney } from 'common/utilities/helpers'
+import { calcCampaignBudgetPerDay, formatMoney, formatNumberWithComma } from 'common/utilities/helpers'
 import { NOT_AVAILABLE } from 'common/utilities/messages'
 import { environment } from 'environments/environment'
 import { AppState } from 'models/app-state.model'
@@ -91,6 +91,6 @@ export class AdsharesBudgetPerDayPipe implements PipeTransform {
 })
 export class FormatNumberWithCommaPipe implements PipeTransform  {
   transform(value: number | string): string {
-  return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return formatNumberWithComma(value);
   }
 }
