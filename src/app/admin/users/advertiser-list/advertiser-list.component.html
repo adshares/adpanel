@@ -10,8 +10,8 @@
         <mat-icon> search</mat-icon>
         <label>Search for advertiser:
           <input
-            [(ngModel)]="searchPhrase"
-            (ngModelChange)="onSearchChange()"
+            [(ngModel)]="queryParams.searchPhrase"
+            (ngModelChange)="onParamChange('searchPhrase', $event)"
             class="advertiser-list__input"
             data-test="admin-user-search-input"
             id="search"
@@ -21,31 +21,31 @@
       </div>
       <div class="advertiser-list__filters">
         <label>Group by:</label>
-        <mat-checkbox (change)="groupAdvertisers('campaign')"
-                      [checked]="'campaign' === groupBy"
+        <mat-checkbox (change)="onParamChange('groupBy','campaign')"
+                      [checked]="'campaign' === queryParams.groupBy"
                       class="advertiser-list__checkbox">
           campaign
         </mat-checkbox>
-        <mat-checkbox (change)="groupAdvertisers('user')"
-                      [checked]="'user' === groupBy"
+        <mat-checkbox (change)="onParamChange('groupBy','user')"
+                      [checked]="'user' === queryParams.groupBy"
                       class="advertiser-list__checkbox">
           user
         </mat-checkbox>
       </div>
       <div class="advertiser-list__filters">
         <label>Interval:</label>
-        <mat-checkbox (change)="changeInterval('week')"
-                      [checked]="'week' === interval"
+        <mat-checkbox (change)="onParamChange('interval','week')"
+                      [checked]="'week' === queryParams.interval"
                       class="advertiser-list__checkbox">
           week
         </mat-checkbox>
-        <mat-checkbox (change)="changeInterval('day')"
-                      [checked]="'day' === interval"
+        <mat-checkbox (change)="onParamChange('interval', 'day')"
+                      [checked]="'day' === queryParams.interval"
                       class="advertiser-list__checkbox">
           day
         </mat-checkbox>
-        <mat-checkbox (change)="changeInterval('hour')"
-                      [checked]="'hour' === interval"
+        <mat-checkbox (change)="onParamChange('interval', 'hour')"
+                      [checked]="'hour' === queryParams.interval"
                       class="publisher-list__checkbox">
           hour
         </mat-checkbox>
@@ -53,8 +53,8 @@
       <div class="advertiser-list__filters">
         <label>Min daily views:
         <input
-          [(ngModel)]="minDailyViews"
-          (ngModelChange)="onMinDailyViewsChange()"
+          [(ngModel)]="queryParams.minDailyViews"
+          (ngModelChange)="onParamChange('minDailyViews', $event)"
           type="number"
           min="0"
           step="1"
@@ -75,10 +75,10 @@
     <tbody *ngIf="!isLoading; else loading"
            class="col advertiser-list__table-body">
       <app-advertiser-list-item
-        *ngFor="let advertiser of filteredAdvertisers"
+        *ngFor="let advertiser of filteredList"
         [advertiser]="advertiser"
       ></app-advertiser-list-item>
-    <tr *ngIf="!filteredAdvertisers.length"
+    <tr *ngIf="!filteredList.length"
         class="advertiser-list__loader-container">
       NO RESULTS
     </tr>
@@ -96,7 +96,7 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event)"
-    [length]="advertisers ? advertisers.data.length : 0"
+    [length]="list ? list.data.length : 0"
     [pageIndex]="page - 1"
     [pageSize]="pageSize"
   >
