@@ -10,8 +10,8 @@
         <mat-icon> search</mat-icon>
         <label>Search for users:
           <input
-            [(ngModel)]="userSearch"
-            (ngModelChange)="onSearchChange()"
+            [(ngModel)]="queryParams.userSearch"
+            (ngModelChange)="onParamChange('userSearch', $event)"
             class="user-list__input"
             data-test="admin-user-search-input"
             id="search"
@@ -21,40 +21,41 @@
       </div>
       <div class="user-list__filters">
         <label>Filter by status:</label>
-        <mat-checkbox (change)="filterEmailUnconfirmed()"
-                      [checked]="onlyEmailUnconfirmed"
+        <mat-checkbox (change)="onParamChange('onlyEmailUnconfirmed', !queryParams.onlyEmailUnconfirmed)"
+                      [checked]="queryParams.onlyEmailUnconfirmed"
                       class="user-list__checkbox">
           Unconfirmed email
         </mat-checkbox>
-        <mat-checkbox (change)="filterAdminUnconfirmed()"
-                      [checked]="onlyAdminUnconfirmed"
+        <mat-checkbox (change)="onParamChange('onlyAdminUnconfirmed', !queryParams.onlyAdminUnconfirmed)"
+                      [checked]="queryParams.onlyAdminUnconfirmed"
                       class="user-list__checkbox">
           Unconfirmed account
         </mat-checkbox>
         <label>Filter by type:</label>
-        <mat-checkbox (change)="filterUsersByType(type, true)"
+        <mat-checkbox (change)="onParamChange('selectedType', type)"
                       *ngFor="let type of userTypes"
-                      [checked]="type === selectedType"
+                      [checked]="type === queryParams.selectedType"
                       class="user-list__checkbox">
           {{type}}
         </mat-checkbox>
       </div>
+      <button class="dwmth-btn dwmth-btn--tiny dwmth-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
     </div>
   </div>
 
   <table class="user-list__items" [ngClass]="{'user-list__no-actions' : !showActions}">
     <app-table-navigation
-      (sortTable)="sortTable($event)"
+      (sortTable)="sortTable($event, true)"
       [navigationName]="'userListNavigation'"
     ></app-table-navigation>
     <tbody *ngIf="!isLoading; else loading"
            class="col user-list__table-body">
 
     <app-user-list-item
-      *ngFor="let user of users.data"
+      *ngFor="let user of list.data"
       [user]="user"
     ></app-user-list-item>
-    <tr *ngIf="!users.data.length"
+    <tr *ngIf="!list.data.length"
         class="user-list__loader-container">
       NO RESULTS
     </tr>
@@ -71,10 +72,10 @@
   </table>
 
   <mat-paginator
-    (page)="handlePaginationEvent($event)"
-    [@fadeIn]
-    [length]="users ? users.total : 0"
-    [pageSize]="15"
+    (page)="handlePaginationEvent($event, true)"
+    [length]="list ? list.total : 0"
+    [pageIndex]="page - 1"
+    [pageSize]="pageSize"
   >
   </mat-paginator>
 </section>
