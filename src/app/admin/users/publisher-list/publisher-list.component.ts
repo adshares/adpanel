@@ -39,8 +39,8 @@ export interface PublishersQueryParams {
   ],
 })
 export class PublisherListComponent extends BaseListComponent implements OnInit {
-  componentStore: Store<AppState>
-  defaultParams: PublishersQueryParams = {
+  readonly componentStore: Store<AppState>
+  readonly defaultParams: PublishersQueryParams = {
     searchPhrase: '',
     groupBy: 'domain',
     interval: 'week',

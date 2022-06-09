@@ -42,8 +42,8 @@ export interface UsersQueryParams {
   ],
 })
 export class UserListComponent extends BaseListComponent implements OnInit {
-  componentStore: Store<AppState>
-  defaultParams: UsersQueryParams = {
+  readonly componentStore: Store<AppState>
+  readonly defaultParams: UsersQueryParams = {
     selectedType: 'All',
     onlyEmailUnconfirmed: false,
     onlyAdminUnconfirmed: false,

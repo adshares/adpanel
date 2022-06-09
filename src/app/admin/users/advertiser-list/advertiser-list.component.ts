@@ -39,8 +39,8 @@ export interface AdvertisersQueryParams {
   ],
 })
 export class AdvertiserListComponent extends BaseListComponent implements OnInit {
-  componentStore: Store<AppState>
-  defaultParams: AdvertisersQueryParams = {
+  readonly componentStore: Store<AppState>
+  readonly defaultParams: AdvertisersQueryParams = {
     searchPhrase: '',
     groupBy: 'campaign',
     interval: 'week',
