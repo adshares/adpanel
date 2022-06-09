@@ -8,7 +8,7 @@ import { AdminService } from 'admin/admin.service';
 import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 import * as moment from 'moment';
 import { Subscription, timer } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { take, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -117,15 +117,15 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
+        if (isBlocked) {
+          const licenseSubscription = this.store.select('state', 'admin', 'license')
+            .pipe(take(1))
+            .subscribe((license: License) => {
+              this.licenseDetailUrl = license.detailsUrl;
+            });
+          this.subscriptions.push(licenseSubscription);
+        }
       });
-
-    if (this.isPanelBlocked) {
-      const licenseSubscription = this.store.select('state', 'admin', 'license')
-        .subscribe((license: License) => {
-          this.licenseDetailUrl = license.detailsUrl;
-        });
-      this.subscriptions.push(licenseSubscription);
-    }
 
     const adminStoreIndexSubscription = this.store.select('state', 'admin', 'index')
       .subscribe((index) => {
