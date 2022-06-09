@@ -10,8 +10,8 @@
         <mat-icon> search</mat-icon>
         <label>Search for publisher:
           <input
-            [(ngModel)]="searchPhrase"
-            (ngModelChange)="onSearchChange()"
+            [(ngModel)]="queryParams.searchPhrase"
+            (ngModelChange)="onParamChange('searchPhrase', $event)"
             class="publisher-list__input"
             data-test="admin-user-search-input"
             id="search"
@@ -21,31 +21,31 @@
       </div>
       <div class="publisher-list__filters">
         <label>Group by:</label>
-        <mat-checkbox (change)="groupPublishers('domain')"
-                      [checked]="'domain' === groupBy"
+        <mat-checkbox (change)="onParamChange('groupBy','campaign')"
+                      [checked]="'domain' === queryParams.groupBy"
                       class="publisher-list__checkbox">
           domain
         </mat-checkbox>
-        <mat-checkbox (change)="groupPublishers('user')"
-                      [checked]="'user' === groupBy"
+        <mat-checkbox (change)="onParamChange('groupBy','user')"
+                      [checked]="'user' === queryParams.groupBy"
                       class="publisher-list__checkbox">
           email
         </mat-checkbox>
       </div>
       <div class="publisher-list__filters">
         <label>Interval:</label>
-        <mat-checkbox (change)="changeInterval('week')"
-                      [checked]="'week' === interval"
+        <mat-checkbox (change)="onParamChange('interval','week')"
+                      [checked]="'week' === queryParams.interval"
                       class="publisher-list__checkbox">
           week
         </mat-checkbox>
-        <mat-checkbox (change)="changeInterval('day')"
-                      [checked]="'day' === interval"
+        <mat-checkbox (change)="onParamChange('interval','day')"
+                      [checked]="'day' === queryParams.interval"
                       class="publisher-list__checkbox">
           day
         </mat-checkbox>
-        <mat-checkbox (change)="changeInterval('hour')"
-                      [checked]="'hour' === interval"
+        <mat-checkbox (change)="onParamChange('interval','hour')"
+                      [checked]="'hour' === queryParams.interval"
                       class="publisher-list__checkbox">
           hour
         </mat-checkbox>
@@ -53,8 +53,8 @@
       <div class="publisher-list__filters">
         <label>Min daily views:
         <input
-          [(ngModel)]="minDailyViews"
-          (ngModelChange)="onMinDailyViewsChange()"
+          [(ngModel)]="queryParams.minDailyViews"
+          (ngModelChange)="onParamChange('minDailyViews', $event)"
           type="number"
           min="0"
           step="1"
@@ -63,6 +63,7 @@
         >
       </label>
       </div>
+      <button class="dwmth-btn dwmth-btn--tiny dwmth-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
     </div>
   </div>
 
@@ -74,10 +75,10 @@
     <tbody *ngIf="!isLoading; else loading"
            class="col publisher-list__table-body">
       <app-publisher-list-item
-        *ngFor="let publisher of filteredPublishers"
+        *ngFor="let publisher of filteredList"
         [publisher]="publisher"
       ></app-publisher-list-item>
-    <tr *ngIf="!filteredPublishers.length"
+    <tr *ngIf="!filteredList.length"
         class="publisher-list__loader-container">
       NO RESULTS
     </tr>
@@ -95,7 +96,7 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event)"
-    [length]="publishers ? publishers.data.length : 0"
+    [length]="list ? list.data.length : 0"
     [pageIndex]="page - 1"
     [pageSize]="pageSize"
   >

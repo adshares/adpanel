@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger, } from '@angular/animations';
-import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
-import { PublisherInfo, Publishers } from 'models/settings.model';
-import { sortArrayByKeys } from 'common/utilities/helpers';
-import { TableSortEvent } from 'models/table.model';
-import { LoadPublishers } from 'store/admin/admin.actions';
+import { LoadPublishers } from 'store/admin/admin.actions'
+import { ActivatedRoute, Router } from '@angular/router'
+import { BaseListComponent } from 'admin/users/base-list/base-list.component'
+
+export interface PublishersQueryParams {
+  searchPhrase: string | null,
+  groupBy: 'domain' | 'user',
+  interval: 'week' | 'day' | 'hour',
+  minDailyViews: number,
+  sort?: string[],
+  order?: 'desc' | 'asc'
+}
 
 @Component({
   selector: 'app-publisher-list',
@@ -31,81 +38,51 @@ import { LoadPublishers } from 'store/admin/admin.actions';
     )
   ],
 })
-export class PublisherListComponent extends HandleSubscription implements OnInit {
-  publishers: Publishers;
-  filteredPublishers: PublisherInfo[];
-  searchPhrase = '';
-  groupBy = 'domain';
-  interval = 'week';
-  minDailyViews = 1000;
-  isLoading: boolean = true;
+export class PublisherListComponent extends BaseListComponent implements OnInit {
+  readonly componentStore: Store<AppState>
+  readonly defaultParams: PublishersQueryParams = {
+    searchPhrase: '',
+    groupBy: 'domain',
+    interval: 'week',
+    minDailyViews: 10000,
+  }
+  localStorageName = 'publishersQueryParams'
 
-  pageSize = 15;
-  page = 1;
-  sortKeys = [];
-  sortDesc = false;
-
-  constructor(private store: Store<AppState>) {
-    super();
+  constructor(
+    store: Store<AppState>,
+    router: Router,
+    activatedRoute: ActivatedRoute
+  ) {
+    super(store, router, activatedRoute);
+    this.componentStore = store
   }
 
-  ngOnInit(): void {
-    const publishersSubscription = this.store.select('state', 'admin', 'publishers')
-      .subscribe(publishers => {
-        this.publishers = publishers;
-        this.isLoading = !this.publishers;
-        this.filterPublishers();
-      });
-    this.subscriptions.push(publishersSubscription);
-    this.loadPublishers();
-  }
-
-  loadPublishers(): void {
+  loadList(): void {
     this.isLoading = true;
     this.page = 1;
-    this.store.dispatch(new LoadPublishers({
-      groupBy: this.groupBy,
-      interval: this.interval,
-      searchPhrase: this.searchPhrase.toLowerCase().trim(),
-      minDailyViews: this.minDailyViews,
+    this.componentStore.dispatch(new LoadPublishers({
+      ...this.queryParams
     }));
   }
 
-  groupPublishers(groupBy): void {
-    this.groupBy = groupBy;
-    this.loadPublishers();
+  get defaultQueryParams (): object {
+    return this.defaultParams
   }
 
-  changeInterval(interval): void {
-    this.interval = interval;
-    this.loadPublishers();
-  }
-
-  onSearchChange(): void {
-    this.loadPublishers();
-  }
-
-  onMinDailyViewsChange(): void {
-    this.loadPublishers();
-  }
-
-  filterPublishers(): void {
-    if (this.publishers && this.publishers.data) {
-      this.filteredPublishers = sortArrayByKeys(this.publishers.data, this.sortKeys, this.sortDesc);
-      this.filteredPublishers = this.filteredPublishers.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
-    } else {
-      this.filteredPublishers = [];
+  ngOnInit(): void {
+    const publishersSubscription = this.componentStore.select('state', 'admin', 'publishers')
+      .subscribe(publishers => {
+        this.list = publishers;
+        this.isLoading = !this.list;
+        this.onPageChange();
+      });
+    this.subscriptions.push(publishersSubscription);
+    this.queryParams = {
+      ...this.defaultParams,
+      sort: this.sortKeys[0] || null,
+      order: this.sortDesc ? 'desc' : 'asc',
     }
-  }
-
-  sortTable(event: TableSortEvent): void {
-    this.sortKeys = event.keys;
-    this.sortDesc = event.sortDesc;
-    this.filterPublishers();
-  }
-
-  handlePaginationEvent(e): void {
-    this.page = e.pageIndex + 1;
-    this.filterPublishers();
+    this.subscriptions.push(this.checkQueryParams())
+    this.loadList();
   }
 }

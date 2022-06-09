@@ -15,3 +15,11 @@
     );
   }
 }
+
+.link-label {
+  @include copy(
+          $font-size: 20,
+          $color: pal(navy, base),
+          $font-weight: bold
+  );
+}

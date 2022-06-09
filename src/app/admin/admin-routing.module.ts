@@ -12,6 +12,9 @@ import { PrivacyAndTermsSettingsComponent } from "admin/privacy-and-terms-settin
 import { UsersComponent } from "admin/users/users.component";
 import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 import { MediaResolver } from 'common/resolvers/media.resolver'
+import { UserListComponent } from 'admin/users/user-list/user-list.component'
+import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
+import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
 
 const adminRoutes: Routes = [
   {
@@ -23,11 +26,34 @@ const adminRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-
         children: [
           {
             path: '',
+            redirectTo: 'users',
+            pathMatch: 'full'
+          },
+          {
+            path: 'users',
             component: UsersComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'all',
+                pathMatch: 'full'
+              },
+              {
+                path: 'all',
+                component: UserListComponent
+              },
+              {
+                path: 'advertisers',
+                component: AdvertiserListComponent
+              },
+              {
+                path: 'publishers',
+                component: PublisherListComponent
+              },
+            ]
           },
           {
             path: 'general',
@@ -55,10 +81,6 @@ const adminRoutes: Routes = [
           {
             path: 'placeholders',
             component: PanelPlaceholdersSettingsComponent,
-          },
-          {
-            path: 'users',
-            component: UsersComponent
           },
         ]
       },
