@@ -31,12 +31,12 @@ export abstract class BaseListComponent extends HandleSubscription {
     super()
   }
 
-  get queryParams () {
-    return this._queryParams
-  }
-
   get list () {
     return this._list
+  }
+
+  get filteredList () {
+    return this._filteredList
   }
 
   get isLoading (): boolean {
@@ -51,8 +51,16 @@ export abstract class BaseListComponent extends HandleSubscription {
     return this._pageSize
   }
 
+  get queryParams () {
+    return this._queryParams
+  }
+
   set list (value) {
     this._list = value
+  }
+
+  set filteredList (value) {
+    this._filteredList = value
   }
 
   set isLoading (value: boolean) {
