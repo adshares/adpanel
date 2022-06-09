@@ -13,17 +13,17 @@ export class UsersComponent extends HandleSubscription {
     {
       label: 'Users',
       path: './all',
-      queryParams: null,
+      queryParams: JSON.parse(localStorage.getItem('usersQueryParams')),
     },
     {
       label: 'Publishers',
       path: './publishers',
-      queryParams: null,
+      queryParams: JSON.parse(localStorage.getItem('publishersQueryParams')),
     },
     {
       label: 'Advertisers',
       path: './advertisers',
-      queryParams: null,
+      queryParams: JSON.parse(localStorage.getItem('advertisersQueryParams')),
     },
   ]
 

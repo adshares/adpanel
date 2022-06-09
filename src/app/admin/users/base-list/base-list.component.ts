@@ -19,7 +19,7 @@ export abstract class BaseListComponent extends HandleSubscription {
   protected sortKeys = [];
   protected sortDesc = false;
 
-  abstract loadList (): void
+  abstract loadList (nextPage?): void
   abstract get defaultQueryParams (): object
 
 
@@ -49,7 +49,7 @@ export abstract class BaseListComponent extends HandleSubscription {
     }
   }
 
-  sortTable(event: TableSortEvent): void {
+  sortTable(event: TableSortEvent, responseWithPagination = false): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
     this.queryParams = {
@@ -58,12 +58,19 @@ export abstract class BaseListComponent extends HandleSubscription {
       order: this.sortDesc ? 'desc' : 'asc',
     }
     this.changeQueryParams();
-    this.onPageChange();
+    responseWithPagination ? this.loadList() : this.onPageChange()
   }
 
-  handlePaginationEvent(e): void {
-    this.page = e.pageIndex + 1;
-    this.onPageChange();
+  handlePaginationEvent(e, responseWithPagination = false): void {
+    if(responseWithPagination){
+      const nextPage = this.list.prevPageUrl && this.list.currentPage >=
+      e.pageIndex + 1 ? this.list.prevPageUrl
+        : this.list.nextPageUrl
+      this.loadList(nextPage)
+      return
+    }
+    this.page = e.pageIndex + 1
+    this.onPageChange()
   }
 
   changeQueryParams(): void {
@@ -111,113 +118,3 @@ export abstract class BaseListComponent extends HandleSubscription {
     this.loadList()
   }
 }
-
-
-
-// ngOnInit () {
-//   console.log(this.queryParams)
-//   // this.subscriptions.push(this.checkQueryParams())
-//
-// }
-
-// sortTable (event: TableSortEvent) {
-//   this.sortKeys = event.keys
-//   this.sortDesc = event.sortDesc
-//   this.changeQueryParams()
-//   this.loadUsers()
-// }
-
-// handlePaginationEvent (e): void {
-//   const payload = this.users.prevPageUrl && this.users.currentPage >=
-//   e.pageIndex + 1 ? this.users.prevPageUrl
-//     : this.users.nextPageUrl
-//   this.loadUsers(payload)
-// }
-
-// @Component({
-//   selector: 'app-base-list',
-//   template: '',
-//   animations: [
-//     trigger(
-//       'fadeIn',
-//       [
-//         transition(
-//           ':enter', [
-//             style({opacity: 0}),
-//             animate('400ms', style({'opacity': 1}))
-//           ]
-//         ),
-//         transition(
-//           ':leave', [
-//             style({opacity: 1}),
-//             animate('400ms', style({'opacity': 0}))
-//           ]
-//         )]
-//     )
-//   ],
-// })
-
-
-//
-// groupAdvertisers(groupBy): void {
-//   this.filtersParams = {
-//     ...this.filtersParams,
-//     groupBy: groupBy
-//   };
-//   this.queryParams = {
-//     ...this.queryParams,
-//     groupBy: groupBy === 'campaign' ? null : groupBy
-//   }
-//   this.changeQueryParams();
-//   this.loadList();
-// }
-
-
-// if(typeof this.filtersParams[key] !== 'undefined' && this.queryParams[key]) {
-//   this.filtersParams[key] = this.queryParams[key]
-// }
-
-
-// groupList(groupBy): void {
-//   this.queryParams = {
-//     ...this.queryParams,
-//     groupBy: groupBy
-//   };
-//   // this.queryParams = {
-//   //   ...this.queryParams,
-//   //   groupBy: groupBy === this.defaultParams.groupBy ? null : groupBy
-//   // }
-//   this.changeQueryParams();
-//   this.loadList();
-// }
-//
-// changeInterval(interval): void {
-//   this.queryParams = {
-//     ...this.queryParams,
-//     interval: interval
-//   };
-//   // this.queryParams = {
-//   //   ...this.queryParams,
-//   //   interval: interval === this.defaultParams.interval ? null : interval
-//   // }
-//   this.changeQueryParams();
-//   this.loadList();
-// }
-//
-// onSearchChange(): void {
-//   this.queryParams = {
-//     ...this.queryParams,
-//     searchPhrase: this.queryParams.searchPhrase
-//   }
-//   this.changeQueryParams();
-//   this.loadList();
-// }
-//
-// onMinDailyViewsChange(): void {
-//   this.queryParams = {
-//     ...this.queryParams,
-//     minDailyViews: this.queryParams.minDailyViews
-//   }
-//   this.changeQueryParams();
-//   this.loadList();
-// }
