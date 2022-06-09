@@ -49,7 +49,7 @@ export abstract class BaseListComponent extends HandleSubscription {
     }
   }
 
-  sortTable(event: TableSortEvent, responseWithPagination = false): void {
+  sortTable(event: TableSortEvent, paginationHandledByServer = false): void {
     this.sortKeys = event.keys;
     this.sortDesc = event.sortDesc;
     this.queryParams = {
@@ -58,11 +58,11 @@ export abstract class BaseListComponent extends HandleSubscription {
       order: this.sortDesc ? 'desc' : 'asc',
     }
     this.changeQueryParams();
-    responseWithPagination ? this.loadList() : this.onPageChange()
+    paginationHandledByServer ? this.loadList() : this.onPageChange()
   }
 
-  handlePaginationEvent(e, responseWithPagination = false): void {
-    if(responseWithPagination){
+  handlePaginationEvent(e, paginationHandledByServer = false): void {
+    if(paginationHandledByServer){
       const nextPage = this.list.prevPageUrl && this.list.currentPage >=
       e.pageIndex + 1 ? this.list.prevPageUrl
         : this.list.nextPageUrl
