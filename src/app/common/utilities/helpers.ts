@@ -284,7 +284,7 @@ function checkDirectedDeal (campaign) {
   if (campaign.basicInformation.medium === 'metaverse' && campaign.targeting.requires.site?.domain) {
     const isTargetingForParcel = campaign.targeting.requires.site.domain.find(domain => domain.startsWith('scene'))
     if(isTargetingForParcel){
-      isDirectDeal = !!campaign.targeting.requires.site.domain.length;
+      isDirectDeal = true;
     }
   }
   return isDirectDeal
