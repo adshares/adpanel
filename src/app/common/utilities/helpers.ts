@@ -170,18 +170,12 @@ const adjustCampaignStatus = (campaignInfo, currentDate): number => {
 };
 
 const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
-  let isDirectDeal = false;
   let accountError = false;
   let budgetError = false;
   let cpmError = false;
   let cpaError = false;
   const isOutdated = campaign.basicInformation.dateEnd && (moment(new Date()) > moment(campaign.basicInformation.dateEnd));
-
-  if ('undefined' !== typeof (campaign.targeting.requires['site'])) {
-    if ('undefined' !== typeof (campaign.targeting.requires['site']['domain'])) {
-      isDirectDeal = campaign.targeting.requires['site']['domain'].length > 0;
-    }
-  }
+  const isDirectDeal = checkDirectedDeal(campaign)
 
   const currency = user.exchangeRate ? user.exchangeRate.currency : '';
   const rate = user.exchangeRate ? user.exchangeRate.value : 1;
@@ -283,6 +277,17 @@ function buildUrl(url: string, params: string[]): string {
 
 function formatNumberWithComma (value) {
   return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function checkDirectedDeal (campaign) {
+  let isDirectDeal = false
+  if (campaign.basicInformation.medium === 'metaverse' && campaign.targeting.requires.site?.domain) {
+    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(domain => domain.startsWith('scene'))
+    if(isTargetingForParcel){
+      isDirectDeal = true;
+    }
+  }
+  return isDirectDeal
 }
 
 export {
