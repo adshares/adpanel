@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Format impressions amount (thousand separators)
 ### Fixed
+- Direct deal for metaverse
 - License details url
 
 ## [1.18.0] - 2022-06-02
