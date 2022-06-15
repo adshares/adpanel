@@ -25,7 +25,7 @@
         {{ campaignsTotals.clicks }}
       </td>
       <td class="col-xs-1">
-        {{ campaignsTotals.impressions }}
+        {{ campaignsTotals.impressions | formatNumberWithComa }}
       </td>
       <td class="col-xs-1">
         {{ campaignsTotals.ctr | percent:'1.2-2' }}

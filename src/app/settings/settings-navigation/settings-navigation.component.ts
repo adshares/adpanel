@@ -33,6 +33,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
         values: [
           { name: 'Users List', icon: 'assets/images/user-gray.svg' },
           { name: 'Publishers', icon: 'assets/images/user-gray.svg' },
+          { name: 'Advertisers', icon: 'assets/images/user-gray.svg' },
           { name: 'Reports', icon: 'assets/images/user-gray.svg' },
         ],
       })

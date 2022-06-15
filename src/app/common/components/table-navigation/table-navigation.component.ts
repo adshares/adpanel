@@ -165,6 +165,13 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
 
     this.subscriptions.push(this.activatedRoute.queryParams.subscribe(params => {
       this.params = params;
+      if(!params.order){
+        this.navigationItems.forEach(item => {
+          if(item.isSortedBy){
+            item.isSortedBy = false
+          }
+        })
+      }
       this.refresh()
     }));
   }
