@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { of as observableOf } from 'rxjs'
@@ -60,8 +60,7 @@ export class PublisherEffects {
   ) {
   }
 
-  @Effect()
-  loadSites$ = this.actions$
+  loadSites$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadSites>(LOAD_SITES),
       map(action => action.payload),
@@ -87,10 +86,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new LoadSitesTotalsFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadSite$ = this.actions$
+  loadSite$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadSite>(LOAD_SITE),
       switchMap(action => this.service.getSite(action.payload)
@@ -99,10 +97,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new LoadSiteFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadSiteTotals$ = this.actions$
+  loadSiteTotals$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadSiteTotals>(LOAD_SITE_TOTALS),
       map(action => action.payload),
@@ -112,10 +109,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new LoadSiteTotalsFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadSitesTotals$ = this.actions$
+  loadSitesTotals$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadSitesTotals>(LOAD_SITES_TOTALS),
       map(action => action.payload),
@@ -125,10 +121,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new LoadSitesTotalsFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  addSiteToSites$ = this.actions$
+  addSiteToSites$ = createEffect(() => this.actions$
     .pipe(
       ofType<AddSiteToSites>(ADD_SITE_TO_SITES),
       switchMap(action => this.service.saveSite(action.payload)
@@ -157,10 +152,9 @@ export class PublisherEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  getLanguageList$ = this.actions$
+  getLanguageList$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_LANGUAGES_LIST),
       switchMap(() => this.service.getLanguagesList()
@@ -169,10 +163,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new GetLanguagesListFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  updateSite$ = this.actions$
+  updateSite$ = createEffect(() => this.actions$
     .pipe(
       ofType<UpdateSite | UpdateSiteFiltering>(
         UPDATE_SITE,
@@ -191,10 +184,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new UpdateSiteFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  updateSiteAdUnits$ = this.actions$
+  updateSiteAdUnits$ = createEffect(() => this.actions$
     .pipe(
       ofType<UpdateSiteUnits>(UPDATE_SITE_UNITS),
       map(action => action.payload),
@@ -211,10 +203,9 @@ export class PublisherEffects {
           catchError(() => observableOf(new UpdateSiteUnitsFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  updateSiteStatus$ = this.actions$
+  updateSiteStatus$ = createEffect(() => this.actions$
     .pipe(
       ofType<UpdateSiteStatus>(UPDATE_SITE_STATUS),
       map(action => action.payload),
@@ -228,5 +219,5 @@ export class PublisherEffects {
           catchError(() => observableOf(new UpdateSiteStatusFailure()))
         )
       )
-    )
+    ))
 }

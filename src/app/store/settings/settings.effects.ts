@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Observable, of as observableOf, timer as observableTimer } from 'rxjs'
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
@@ -35,8 +35,7 @@ export class SettingsEffects {
   ) {
   }
 
-  @Effect()
-  getWalletBalanceInterval$: Observable<Action> = this.actions$
+  getWalletBalanceInterval$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(GET_CURRENT_BALANCE),
       switchMap(() => observableTimer(0, 5000)
@@ -50,10 +49,9 @@ export class SettingsEffects {
           )
         )
       )
-    )
+    ))
 
-  @Effect()
-  getBillingHistory$ = this.actions$
+  getBillingHistory$ = createEffect(() => this.actions$
     .pipe(
       ofType<GetBillingHistory>(GET_BILLING_HISTORY),
       map(action => action.payload),
@@ -64,10 +62,9 @@ export class SettingsEffects {
           )
         )
       )
-    )
+    ))
 
-  @Effect()
-  cancelAwaitingTransaction$ = this.actions$
+  cancelAwaitingTransaction$ = createEffect(() => this.actions$
     .pipe(
       ofType<CancelAwaitingTransaction>(CANCEL_AWAITING_TRANSACTION),
       switchMap(action => this.service.cancelAwaitingTransaction(action.payload)
@@ -80,10 +77,9 @@ export class SettingsEffects {
           )
         )
       )
-    )
+    ))
 
-  @Effect()
-  getRefLinks$ = this.actions$
+  getRefLinks$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_REF_LINKS),
       switchMap(() => this.common.getRefLinks()
@@ -92,5 +88,5 @@ export class SettingsEffects {
           catchError(error => observableOf(new GetRefLinksFailure(error)))
         )
       )
-    )
+    ))
 }

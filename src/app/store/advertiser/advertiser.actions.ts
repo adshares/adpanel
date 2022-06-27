@@ -10,7 +10,6 @@ export const SAVE_CAMPAIGN_TARGETING = 'Campaign targeting information saved';
 export const SAVE_CAMPAIGN_ADS = 'Campaign ads saved';
 export const SAVE_CONVERSION = 'Save conversion';
 
-
 export const ADD_CAMPAIGN_TO_CAMPAIGNS = 'Campaign added to user campaigns';
 export const ADD_CAMPAIGN_TO_CAMPAIGNS_SUCCESS = 'Campaign added to user campaigns success';
 

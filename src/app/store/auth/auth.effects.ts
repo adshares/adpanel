@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core'
-import { Actions, Effect, ofType } from '@ngrx/effects'
-import { of as observableOf } from 'rxjs'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { EMPTY, of as observableOf } from 'rxjs'
 import { catchError, switchMap } from 'rxjs/operators'
 import { SET_USER, SET_USER_SUCCESS, SetUserFailure, SetUserSuccess, } from 'store/auth/auth.actions'
 import { ApiAuthService } from '../../api/auth.service'
-import { User } from 'models/user.model'
 import {
   GET_CURRENT_BALANCE_SUCCESS,
   GetCurrentBalance,
@@ -23,25 +22,23 @@ export class AuthEffects {
   ) {
   }
 
-  @Effect()
-  setUser$ = this.actions$
+  setUser$ = createEffect(() => this.actions$
     .pipe(
       ofType(SET_USER),
       switchMap(() => this.service.check()
         .pipe(
           switchMap((user) => {
             return [
-              new SetUserSuccess(<User>user),
-              new GetCurrentBalance
+              new SetUserSuccess(user),
+              new GetCurrentBalance(),
             ]
           }),
           catchError(() => observableOf(new SetUserFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  setUserSuccess$ = this.actions$
+  setUserSuccess$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetUserSuccess | GetCurrentBalanceSuccess>(SET_USER_SUCCESS, GET_CURRENT_BALANCE_SUCCESS),
       switchMap(action => {
@@ -53,8 +50,8 @@ export class AuthEffects {
             user.referralRefundCommission = action.payload.referralRefundCommission
           }
           this.session.setUser(user)
-          return observableOf()
+          return EMPTY
         }
       )
-    )
+    ), {dispatch: false})
 }
