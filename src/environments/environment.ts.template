@@ -17,5 +17,6 @@ export const environment = {
   supportTelegram: '${SUPPORT_TELEGRAM}',
   supportChat: '${SUPPORT_CHAT}',
   advertiserApplyFormUrl: '${ADVERTISER_APPLY_FORM_URL}',
-  publisherApplyFormUrl: '${PUBLISHER_APPLY_FORM_URL}'
+  publisherApplyFormUrl: '${PUBLISHER_APPLY_FORM_URL}',
+  adControllerUrl: '${ADCONTROLLER_URL}',
 };

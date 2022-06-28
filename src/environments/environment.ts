@@ -7,7 +7,7 @@ export const environment = {
   authUrl: serverUrl + '/auth',
   apiUrl: serverUrl + '/api',
   xdebug: false,
-  version: "0",
+  version: '0',
   context: 'local',
   currencySymbol: '$',
   currencyCode: 'USD',
@@ -17,5 +17,6 @@ export const environment = {
   supportTelegram: 'AdsharesNet',
   supportChat: 'https://t.me/adshares',
   advertiserApplyFormUrl: '',
-  publisherApplyFormUrl: ''
+  publisherApplyFormUrl: '',
+  adControllerUrl: '',
 };
