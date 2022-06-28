@@ -6,11 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- License details url
 
 ## [1.18.2] - 2022-06-02
 ### Added
-- Opportunity sort and filter tables in query parameters
+- Opportunity to sort and filter tables in query parameters
 - Remembering selected filters when switching tabs
+### Changed
+- Format impressions amount (thousand separators)
 ### Fixed
 - Direct deal for metaverse
 - Metamask connection
