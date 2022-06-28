@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 import {
   BAN_USER,
   BanUser,
@@ -85,8 +85,7 @@ export class AdminEffects {
   ) {
   }
 
-  @Effect()
-  loadUsers$ = this.actions$
+  loadUsers$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadUsers>(LOAD_USERS),
       debounceTime(100),
@@ -99,10 +98,9 @@ export class AdminEffects {
             )
         }
       )
-    )
+    ))
 
-  @Effect()
-  loadAdvertisers$ = this.actions$
+  loadAdvertisers$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadAdvertisers>(LOAD_ADVERTISERS),
       debounceTime(100),
@@ -113,10 +111,9 @@ export class AdminEffects {
           catchError(error => observableOf(new LoadAdvertisersFailure(error)))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadPublishers$ = this.actions$
+  loadPublishers$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadPublishers>(LOAD_PUBLISHERS),
       debounceTime(100),
@@ -127,29 +124,26 @@ export class AdminEffects {
           catchError(error => observableOf(new LoadPublishersFailure(error)))
         )
       )
-    )
+    ))
 
-  @Effect()
-  requestGetIndex$ = this.actions$
+  requestGetIndex$ = createEffect(() => this.actions$
     .pipe(
       ofType(REQUEST_GET_INDEX),
       map(() => {
         this.allowGetIndex = true
         return new GetIndex()
       })
-    )
+    ))
 
-  @Effect({ dispatch: false })
-  logOut$ = this.actions$
+  logOut$ = createEffect(() => this.actions$
     .pipe(
       ofType(USER_LOG_OUT_SUCCESS),
       tap(() => {
         this.allowGetIndex = false
       })
-    )
+    ), { dispatch: false })
 
-  @Effect()
-  getIndex$ = this.actions$
+  getIndex$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_INDEX),
       filter(() => this.allowGetIndex),
@@ -173,10 +167,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  getLicense$ = this.actions$
+  getLicense$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_LICENSE),
       switchMap(() => this.service.getLicense()
@@ -192,10 +185,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadAdminSettings$ = this.actions$
+  loadAdminSettings$ = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_ADMIN_SETTINGS),
       switchMap(() => this.service.getAdminSettings()
@@ -216,10 +208,9 @@ export class AdminEffects {
           catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadAdminSiteOptions$ = this.actions$
+  loadAdminSiteOptions$ = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_ADMIN_SITE_OPTIONS),
       switchMap(() => this.service.getAdminSiteOptions()
@@ -235,10 +226,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadAdminWallet$ = this.actions$
+  loadAdminWallet$ = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_ADMIN_WALLET),
       switchMap(() => this.service.getAdminWallet()
@@ -247,10 +237,9 @@ export class AdminEffects {
           catchError(error => observableOf(new LoadAdminWalletFailure(error)))
         )
       )
-    )
+    ))
 
-  @Effect()
-  saveAdminSettings$ = this.actions$
+  saveAdminSettings$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetAdminSettings>(SET_ADMIN_SETTINGS),
       switchMap(action => this.service.setAdminSettings(action.payload)
@@ -264,10 +253,9 @@ export class AdminEffects {
           )))
         )
       )
-    )
+    ))
 
-  @Effect()
-  saveAdminSiteOptions$ = this.actions$
+  saveAdminSiteOptions$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetAdminSiteOptions>(SET_ADMIN_SITE_OPTIONS),
       switchMap(action => this.service.setAdminSiteOptions(action.payload)
@@ -281,10 +269,9 @@ export class AdminEffects {
           )))
         )
       )
-    )
+    ))
 
-  @Effect()
-  getPrivacySettings$ = this.actions$
+  getPrivacySettings$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_PRIVACY_SETTINGS),
       switchMap(() => this.service.getPrivacySettings()
@@ -292,7 +279,7 @@ export class AdminEffects {
           map(privacyData => new GetPrivacySettingsSuccess(privacyData)),
           catchError(error => {
             if (error.status === HTTP_NOT_FOUND) {
-              return observableOf()
+              return observableOf(new GetPrivacySettingsSuccess({content: ''}));
             }
             return observableOf(new ShowDialogOnError(
               'We weren\'t able to fetch your settings this time. Please, try again later'
@@ -300,10 +287,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  getTermsSettings$ = this.actions$
+  getTermsSettings$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_TERMS_SETTINGS),
       switchMap(() => this.service.getTermsAndConditions()
@@ -311,7 +297,7 @@ export class AdminEffects {
           map((termsData) => new GetTermsSettingsSuccess(termsData)),
           catchError(error => {
             if (error.status === HTTP_NOT_FOUND) {
-              return observableOf();
+              return observableOf(new GetTermsSettingsSuccess({content: ''}));
             }
             return observableOf(new ShowDialogOnError(
               'We weren\'t able to fetch your settings this time. Please, try again later'
@@ -319,10 +305,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  setTermsSettings$ = this.actions$
+  setTermsSettings$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetTermsSettings>(SET_TERMS_SETTINGS),
       switchMap(action => this.service.setTermsAndConditions(action.payload)
@@ -338,10 +323,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  setPrivacySettings$ = this.actions$
+  setPrivacySettings$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetPrivacySettings>(SET_PRIVACY_SETTINGS),
       switchMap(action => this.service.setPrivacySettings(action.payload)
@@ -357,10 +341,9 @@ export class AdminEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  getRejectedDomains$ = this.actions$
+  getRejectedDomains$ = createEffect(() => this.actions$
     .pipe(
       ofType(GET_REJECTED_DOMAINS),
       switchMap(() => this.service.getRejectedDomains()
@@ -371,10 +354,9 @@ export class AdminEffects {
           ))
         )
       )
-    )
+    ))
 
-  @Effect()
-  setRejectedDomains$ = this.actions$
+  setRejectedDomains$ = createEffect(() => this.actions$
     .pipe(
       ofType<SetRejectedDomains>(SET_REJECTED_DOMAINS),
       switchMap(action => this.service.putRejectedDomains(action.payload)
@@ -388,10 +370,9 @@ export class AdminEffects {
           )))
         )
       )
-    )
+    ))
 
-  @Effect()
-  BanUser$ = this.actions$
+  BanUser$ = createEffect(() => this.actions$
     .pipe(
       ofType<BanUser>(BAN_USER),
       switchMap(action => {
@@ -405,10 +386,9 @@ export class AdminEffects {
             )
         }
       )
-    )
+    ))
 
-  @Effect()
-  UnbanUser$ = this.actions$
+  UnbanUser$ = createEffect(() => this.actions$
     .pipe(
       ofType<UnbanUser>(UNBAN_USER),
       switchMap(action => {
@@ -422,10 +402,9 @@ export class AdminEffects {
             )
         }
       )
-    )
+    ))
 
-  @Effect()
-  DeleteUser$ = this.actions$
+  DeleteUser$ = createEffect(() => this.actions$
     .pipe(
       ofType<DeleteUser>(DELETE_USER),
       switchMap(action => {
@@ -441,7 +420,7 @@ export class AdminEffects {
             )
         }
       )
-    )
+    ))
 
   private static showDialogOnErrorObservable (response) {
     return observableOf(new ShowDialogOnError(

@@ -69,7 +69,6 @@ function enumToObjectArray(enumInput) {
   return enumNameArrayObject;
 }
 
-
 function formatMoney(
   value,
   precision: number = 11,

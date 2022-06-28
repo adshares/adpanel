@@ -228,7 +228,6 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     });
   }
 
-
   getFormDataFromStore(): void {
     this.store.dispatch(new LoadCampaignsConfig());
 

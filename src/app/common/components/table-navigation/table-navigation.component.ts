@@ -109,7 +109,6 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'C6', columnWidth: 'col-xs-1-3', keys: ['rpmChange']},
   ];
 
-
   adUnitsNavigation = [
     {title: 'Name', columnWidth: 'col-xs-1', keys: ['name']},
     {title: 'Size', columnWidth: 'col-xs-1', hideArrows: true},

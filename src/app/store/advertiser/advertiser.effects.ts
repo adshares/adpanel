@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Store } from '@ngrx/store'
 import { AdvertiserService } from 'advertiser/advertiser.service'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -78,8 +78,7 @@ export class AdvertiserEffects {
   ) {
   }
 
-  @Effect()
-  loadCampaigns$ = this.actions$
+  loadCampaigns$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadCampaigns>(LOAD_CAMPAIGNS),
       switchMap(action => this.service.getCampaigns()
@@ -106,10 +105,9 @@ export class AdvertiserEffects {
           catchError(() => observableOf(new LoadCampaignsFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadCampaignsTotals$ = this.actions$
+  loadCampaignsTotals$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadCampaignTotals>(LOAD_CAMPAIGNS_TOTALS),
       map(action => action.payload),
@@ -123,10 +121,9 @@ export class AdvertiserEffects {
             catchError(() => observableOf(new LoadCampaignsTotalsFailure()))
           )
       })
-    )
+    ))
 
-  @Effect()
-  loadCampaign$ = this.actions$
+  loadCampaign$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadCampaign>(LOAD_CAMPAIGN),
       map(action => action.payload),
@@ -148,10 +145,9 @@ export class AdvertiserEffects {
           catchError(() => observableOf(new LoadCampaignFailure()))
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadCampaignTotals$ = this.actions$
+  loadCampaignTotals$ = createEffect(() => this.actions$
     .pipe(
       ofType<LoadCampaignTotals>(LOAD_CAMPAIGN_TOTALS),
       map(action => action.payload),
@@ -181,10 +177,9 @@ export class AdvertiserEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  loadCampaignsConfig$ = this.actions$
+  loadCampaignsConfig$ = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_CAMPAIGNS_CONFIG),
       switchMap(() => this.service.getCampaignsConfig()
@@ -192,10 +187,9 @@ export class AdvertiserEffects {
           map(payload => new LoadCampaignsConfigSuccess(<CampaignsConfig>payload)),
           catchError(() => observableOf(new LoadCampaignsConfigFailure()))
         )
-      ))
+      )))
 
-  @Effect()
-  addCampaignToCampaigns = this.actions$
+  addCampaignToCampaigns = createEffect(() => this.actions$
     .pipe(
       ofType<AddCampaignToCampaigns>(ADD_CAMPAIGN_TO_CAMPAIGNS),
       map(action => action.payload),
@@ -224,10 +218,9 @@ export class AdvertiserEffects {
           ))
         )
       )
-    )
+    ))
 
-  @Effect()
-  updateCampaign = this.actions$
+  updateCampaign = createEffect(() => this.actions$
     .pipe(
       ofType<UpdateCampaign>(UPDATE_CAMPAIGN),
       map(action => action.payload),
@@ -246,10 +239,9 @@ export class AdvertiserEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  saveConversion = this.actions$
+  saveConversion = createEffect(() => this.actions$
     .pipe(
       ofType<SaveConversion>(SAVE_CONVERSION),
       map(action => action.payload),
@@ -267,10 +259,9 @@ export class AdvertiserEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  updateCampaignStatus = this.actions$
+  updateCampaignStatus = createEffect(() => this.actions$
     .pipe(
       ofType(UPDATE_CAMPAIGN_STATUS),
       withLatestFrom(this.store$.select('state', 'user', 'data')),
@@ -337,10 +328,9 @@ export class AdvertiserEffects {
             })
           )
       })
-    )
+    ))
 
-  @Effect()
-  activateOutdatedCampaign = this.actions$
+  activateOutdatedCampaign = createEffect(() => this.actions$
     .pipe(
       ofType(ACTIVATE_OUTDATED_CAMPAIGN),
       withLatestFrom(this.store$.select('state', 'user', 'data')),
@@ -379,10 +369,9 @@ export class AdvertiserEffects {
           })
         )
       })
-    )
+    ))
 
-  @Effect()
-  cloneCampaign = this.actions$
+  cloneCampaign = createEffect(() => this.actions$
     .pipe(
       ofType<CloneCampaign>(CLONE_CAMPAIGN),
       switchMap(action => this.service.cloneCampaign(action.payload)
@@ -402,10 +391,9 @@ export class AdvertiserEffects {
           })
         )
       )
-    )
+    ))
 
-  @Effect()
-  deleteCampaign = this.actions$
+  deleteCampaign = createEffect(() => this.actions$
     .pipe(
       ofType<DeleteCampaign>(DELETE_CAMPAIGN),
       map(action => action.payload),
@@ -420,5 +408,5 @@ export class AdvertiserEffects {
           ))
         )
       )
-    )
+    ))
 }

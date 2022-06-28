@@ -218,7 +218,6 @@ export class SetAdminSettings implements Action {
 export class SetAdminSettingsSuccess implements Action {
   readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
 
-
   constructor(public payload: AdminSettings) {
   }
 }
@@ -232,7 +231,6 @@ export class SetAdminSiteOptions implements Action {
 
 export class SetAdminSiteOptionsSuccess implements Action {
   readonly type: string = SET_ADMIN_SITE_OPTIONS_SUCCESS;
-
 
   constructor(public payload: AdminSiteOptions) {
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
-import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { of as observableOf } from 'rxjs'
 import { catchError, map, switchMap, tap } from 'rxjs/operators'
 
@@ -42,8 +42,7 @@ export class CommonEffects {
   ) {
   }
 
-  @Effect()
-  loadInfo = this.actions$
+  loadInfo = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_INFO),
       switchMap(() => this.service.getInfo()
@@ -52,10 +51,9 @@ export class CommonEffects {
           catchError(error => observableOf(new ShowDialogOnError(error.message)))
         )
       )
-    )
+    ))
 
-  @Effect({ dispatch: false })
-  handleErrors = this.actions$
+  handleErrors = createEffect(() => this.actions$
     .pipe(
       ofType<ShowDialogOnError |
         UpdateCampaignFailure>(
@@ -70,10 +68,9 @@ export class CommonEffects {
           }
         })
       })
-    )
+    ), { dispatch: false })
 
-  @Effect({ dispatch: false })
-  handleSuccessActions = this.actions$
+  handleSuccessActions = createEffect(() => this.actions$
     .pipe(
       ofType<ShowSuccessSnackbar>(SHOW_SUCCESS_SNACKBAR),
       tap(action => {
@@ -82,10 +79,9 @@ export class CommonEffects {
           duration: 500,
         })
       })
-    )
+    ), { dispatch: false })
 
-  @Effect()
-  requestReport = this.actions$
+  requestReport = createEffect(() => this.actions$
     .pipe(
       ofType<RequestReport>(REQUEST_REPORT),
       map(action => action.payload),
@@ -99,10 +95,9 @@ export class CommonEffects {
           )
         )
       )
-    )
+    ))
 
-  @Effect({ dispatch: false })
-  requestReportSuccess = this.actions$
+  requestReportSuccess = createEffect(() => this.actions$
     .pipe(
       ofType<RequestReportSuccess>(REQUEST_REPORT_SUCCESS),
       tap(() => {
@@ -120,5 +115,5 @@ export class CommonEffects {
           .afterClosed()
           .subscribe(result => result && this.router.navigateByUrl('/settings/reports'))
       })
-    )
+    ), { dispatch: false })
 }
