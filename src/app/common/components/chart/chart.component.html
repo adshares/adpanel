@@ -1,12 +1,11 @@
 <canvas
-  *ngIf="barChartData[0].data.length ; else loading"
+  *ngIf="barChartData[0].data.length > 0 && barChartLabels.length > 0; else loading"
   baseChart
   [datasets]="barChartData"
   [labels]="barChartLabels"
   [options]="barChartOptions"
   [legend]="false"
-  chartType="bar"
-  [colors]="barChartColors"
+  [type]="'bar'"
   data-test="chart-bar-chart-canvas"
 ></canvas>
 <ng-template #loading>

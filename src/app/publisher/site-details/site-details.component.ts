@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as moment from 'moment';
 
 import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
@@ -9,8 +8,6 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep, createInitialDataSet, enumToArray, sortArrayByKeys } from 'common/utilities/helpers'
 import { siteStatusEnum } from 'models/enum/site.enum';
@@ -23,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import * as codes from 'common/utilities/codes';
 import { ChartComponent } from 'common/components/chart/chart.component';
+import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { TableSortEvent } from 'models/table.model';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { SiteCodeDialogComponent } from 'publisher/dialogs/site-code-dialog/site-code-dialog.component';
@@ -60,8 +58,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: Label[] = [];
-  barChartData: ChartDataSets[] = createInitialDataSet();
+  barChartLabels: string[] = [];
+  barChartData = createInitialDataSet();
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
   displayAds: boolean;
@@ -229,7 +227,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
-        this.barChartLabels = data.timestamps.map(item => moment(item).format());
+        this.barChartLabels = mapDatesToChartLabels(data.timestamps);
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;

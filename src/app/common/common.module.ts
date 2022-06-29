@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatMomentDateModule } from '@angular/material-moment-adapter'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { ChartsModule } from 'ng2-charts'
+import { NgChartsModule } from 'ng2-charts'
 import { ClickOutsideDirective } from './clickOutside.directive'
 import { CommonService } from './common.service'
 import { AccountChooseDialogComponent } from './dialog/account-choose-dialog/account-choose-dialog.component'
@@ -145,7 +145,7 @@ const appComponents = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule,
+    NgChartsModule,
     ...matModules,
     MatExpansionModule,
   ],
