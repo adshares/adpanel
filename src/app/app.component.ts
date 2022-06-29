@@ -22,6 +22,7 @@ import { environment } from "environments/environment";
   animations: [fadeAnimation]
 })
 export class AppComponent extends HandleSubscription implements OnInit {
+  private readonly MODE_INITIALIZATION = 'initialization';
   name: string = null;
   info: Info = null;
 
@@ -40,6 +41,10 @@ export class AppComponent extends HandleSubscription implements OnInit {
     this.name = environment.name;
     const infoSubscription = this.store.select('state', 'common', 'info')
       .subscribe((info: Info) => {
+        if (environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
+          window.location.href = environment.adControllerUrl
+          return
+        }
         this.info = info;
       });
     this.subscriptions.push(infoSubscription);
