@@ -3,13 +3,8 @@
 .general-settings {
   padding: 30px;
   min-width: 500px;
-  width: calc(100% - 300px);
 
   @include media(xl-up) {
     width: calc(100% - 380px);
-  }
-
-  .settings-outlet & {
-    width: 100% !important;
   }
 }

@@ -294,12 +294,6 @@
         </div>
 
         <div class="row justify-end">
-          <div
-            *ngIf="isDefaultBidStrategy"
-            class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
-          >
-            New feature!
-          </div>
           <button
             class="self-end dwmth-btn dwmth-btn--edit"
             (click)="navigateToCampaignEdition('bid-strategy')"
@@ -317,13 +311,6 @@
     </section>
     <section class="dwmth-box dwmth-box--high">
       <div class="row justify-end">
-        <div
-          *ngIf="undefined == campaign.conversions || campaign.conversions.length == 0"
-          class="row align-center dwmth-box dwmth-copy dwmth-copy--semi dwmth-copy--green new-feature"
-        >
-          New feature!
-        </div>
-
         <button
           class="self-end dwmth-btn dwmth-btn--edit"
           (click)="navigateToCampaignEdition('conversion')"
