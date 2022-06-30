@@ -68,7 +68,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       return
     }
     this.checkIfUserRemembered()
-    this.storeReferralTokenIfPresent()
+    this.redirectIfReferralTokenPresent()
     this.store.dispatch(new authActions.UserLogOutSuccess())
   }
 
@@ -229,7 +229,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     this.redirectAfterLogin(user)
   }
 
-  private storeReferralTokenIfPresent (): void {
+  private redirectIfReferralTokenPresent (): void {
     this.route.queryParams.subscribe(params => {
       const referralToken = params['r']
       if (referralToken) {
@@ -313,7 +313,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   walletLogin (network: string, address: string, token: string, signature: string): void {
-    this.api.auth.walletLogin(network, address, token, signature).subscribe(
+    const referralToken = 'register' === this.route.snapshot.queryParams['from'] ? this.api.users.getReferralToken() : null
+    this.api.auth.walletLogin(network, address, token, signature, referralToken).subscribe(
       user => {
         this.processLogin(user)
       },
