@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redirection to AdController during initialization
 ### Fixed
 - License details url
+- Registration with wallet in restricted mode
 
 ## [1.18.2] - 2022-06-02
 ### Added
