@@ -313,7 +313,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   walletLogin (network: string, address: string, token: string, signature: string): void {
-    const referralToken = 'register' === this.route.snapshot.queryParams['from'] ? this.api.users.getReferralToken() : null
+    const referralToken = this.api.users.getReferralToken()
     this.api.auth.walletLogin(network, address, token, signature, referralToken).subscribe(
       user => {
         this.processLogin(user)
