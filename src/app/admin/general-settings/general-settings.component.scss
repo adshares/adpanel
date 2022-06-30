@@ -1,12 +1,3 @@
-.general-settings {
-  padding: 30px;
-  width: calc(100% - 380px);
-
-  .settings-outlet & {
-    width: auto;
-  }
-}
-
 .bid-strategy-wrapper {
   margin-top: 30px;
   margin-left: 30px;
@@ -14,8 +5,4 @@
 
 .app-license {
   margin: 30px;
-}
-
-.settings-outlet .general-settings {
-  width: 100% !important;
 }

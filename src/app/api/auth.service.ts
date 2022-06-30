@@ -37,7 +37,11 @@ export class ApiAuthService {
     return this.http.get<WalletToken>(`${environment.authUrl}/login/wallet/init`)
   }
 
-  walletLogin (network: string, address: string, token: string, signature: string): Observable<User> {
-    return this.http.post<User>(`${environment.authUrl}/login/wallet`, { network, address, token, signature })
+  walletLogin (network: string, address: string, token: string, signature: string, referralToken: string = null): Observable<User> {
+    const body = { network, address, token, signature }
+    if (null !== referralToken) {
+      body['referralToken'] = referralToken
+    }
+    return this.http.post<User>(`${environment.authUrl}/login/wallet`, body)
   }
 }

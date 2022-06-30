@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.18.4] - 2022-06-30
+### Added
+- Redirection to AdController during initialization
+### Fixed
+- License details url
+- Registration with wallet in restricted mode
+
 ## [1.18.2] - 2022-06-02
 ### Added
-- Opportunity sort and filter tables in query parameters
+- Opportunity to sort and filter tables in query parameters
 - Remembering selected filters when switching tabs
+### Changed
+- Format impressions amount (thousand separators)
 ### Fixed
 - Direct deal for metaverse
 - Metamask connection
@@ -435,7 +444,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
  
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.2...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.4...develop
+[1.18.4]: https://github.com/adshares/adpanel/compare/v1.18.2...v1.18.4
 [1.18.2]: https://github.com/adshares/adpanel/compare/v1.18.0...v1.18.2
 [1.18.0]: https://github.com/adshares/adpanel/compare/v1.17.1...v1.18.0
 [1.17.1]: https://github.com/adshares/adpanel/compare/v1.17.0...v1.17.1
