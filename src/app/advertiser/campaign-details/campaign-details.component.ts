@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as moment from 'moment';
 import {
   Campaign,
   CampaignConversionStatistics,
@@ -11,10 +10,9 @@ import {
 import { AppState } from 'models/app-state.model';
 import { BidStrategyService } from 'common/bid-strategy.service';
 import { ChartComponent } from 'common/components/chart/chart.component';
+import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { ChartService } from 'common/chart.service';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers'
@@ -48,8 +46,8 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
   barChartValue: number;
   barChartDifference: number;
   barChartDifferenceInPercentage: number;
-  barChartLabels: Label[] = [];
-  barChartData: ChartDataSets[] = createInitialDataSet();
+  barChartLabels: string[] = [];
+  barChartData = createInitialDataSet();
   targeting: AssetTargeting = {
     requires: [],
     excludes: []
@@ -245,7 +243,7 @@ export class CampaignDetailsComponent extends HandleSubscription implements OnIn
       .subscribe(data => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
-        this.barChartLabels = data.timestamps.map((item) => moment(item).format());
+        this.barChartLabels = mapDatesToChartLabels(data.timestamps);
         this.barChartValue = data.total;
         this.barChartDifference = data.difference;
         this.barChartDifferenceInPercentage = data.differenceInPercentage;

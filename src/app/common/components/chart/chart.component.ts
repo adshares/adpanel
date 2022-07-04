@@ -9,17 +9,12 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
-import {
-  chartColors,
-  chartOptions
-} from './chart-settings/chart-settings';
+import { chartOptions } from './chart-settings/chart-settings';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { Color } from 'ng2-charts/lib/color';
-import { ChartDataSets, ChartOptions } from 'chart.js'
+import { ChartDataset } from 'chart.js'
 import * as commonActions from 'store/common/common.actions';
-import { Label } from 'ng2-charts';
 import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
 import { cloneDeep } from 'common/utilities/helpers'
 
@@ -31,13 +26,12 @@ import { cloneDeep } from 'common/utilities/helpers'
 })
 export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
-  @Input() barChartData: ChartDataSets[];
-  @Input() barChartLabels: Label[];
+  @Input() barChartData: ChartDataset<'bar'>[];
+  @Input() barChartLabels: string[];
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings;
-  barChartOptions: ChartOptions = chartOptions;
-  barChartColors: Color[] = chartColors;
+  barChartOptions = chartOptions;
   static seriesType;
 
   constructor(private store: Store<AppState>) {

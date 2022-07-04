@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
-import { ChartDataSets } from 'chart.js';
+import { ChartDataset } from 'chart.js';
 
 
 function adsToClicks(amount: any): number {
@@ -119,8 +119,8 @@ function isUnixTimePastNow(unixTime): boolean {
   return unixTime < nowUnix;
 }
 
-function createInitialDataSet(): ChartDataSets[] {
-  return [{barPercentage: 0.2, data: [], label: ''}];
+function createInitialDataSet(): ChartDataset<any>[] {
+  return [{data: [], label: ''}];
 }
 
 function sortArrayByKeys<assetItem>(
