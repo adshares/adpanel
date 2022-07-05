@@ -152,7 +152,7 @@ export class PublisherService {
         sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
           : JSON.stringify(possibleSizes),
         landingUrl: filtering.landingUrl || '',
-        local: filtering.classifierLocalBanners
+        local: filtering.classifierLocalBanners || ''
       };
     }
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
