@@ -79,7 +79,6 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
         this.siteId,
         this.PAGE_SIZE,
         this.filtering,
-        this.adSizesOptions,
         offset
       )
       .subscribe(
