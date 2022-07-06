@@ -149,11 +149,11 @@ export class PublisherService {
       params = {
         ...params,
         ...filtering.status,
-        sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
-          : JSON.stringify(possibleSizes),
+        sizes: JSON.stringify(filtering.sizes),
         landingUrl: filtering.landingUrl || '',
         local: filtering.classifierLocalBanners || ''
       };
+      console.log(filtering)
     }
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
       {params});

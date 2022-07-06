@@ -64,6 +64,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.filtering.classifierLocalBanners = this.classifierLocalBanners
     if (this.isSingleBanner) {
       this.filtering = {
+        ...this.filtering,
         bannerId: this.bannerId,
       }
     }

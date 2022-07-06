@@ -169,6 +169,10 @@ mat-chip:not(.mat-basic-chip) {
 .classifier-filtering {
   .mat-checkbox {
     min-width: 100px;
+
+    &:first-child{
+      min-width: 75px;
+    }
   }
 
   .mat-expansion-panel-body {
