@@ -152,7 +152,6 @@ export class PublisherService {
         landingUrl: filtering.landingUrl || '',
         local: filtering.classifierLocalBanners || ''
       };
-      console.log(filtering)
     }
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,
       {params});
