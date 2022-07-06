@@ -131,7 +131,6 @@ export class PublisherService {
     siteId?: number,
     limit?: number,
     filtering?: BannerClassificationFilters,
-    possibleSizes: string[] = [],
     offset?: number,
   )
     : Observable<BannerClassificationResponse> {
@@ -149,10 +148,9 @@ export class PublisherService {
       params = {
         ...params,
         ...filtering.status,
-        sizes: (!!filtering.sizes && filtering.sizes.length) ? JSON.stringify(filtering.sizes)
-          : JSON.stringify(possibleSizes),
+        sizes: JSON.stringify(filtering.sizes),
         landingUrl: filtering.landingUrl || '',
-        local: filtering.classifierLocalBanners
+        local: filtering.classifierLocalBanners || ''
       };
     }
     return this.http.get<BannerClassificationResponse>(`${environment.apiUrl}/classifications/${siteId || ''}`,

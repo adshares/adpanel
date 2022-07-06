@@ -18,9 +18,14 @@ export class ClassifierFilteringComponent implements OnInit {
   bannerId = new FormControl('');
   sizes: Array<string> = [];
   adSizesOptions: string[] = [];
-  filtering: BannerClassificationFilters = {};
+  filtering: BannerClassificationFilters = {
+    sizes: [],
+  };
   isGlobal: boolean
   classifierOption: string
+
+  allSizes: boolean
+  allSizesMatching: boolean
 
   constructor(private route: ActivatedRoute,) {}
 
@@ -28,6 +33,56 @@ export class ClassifierFilteringComponent implements OnInit {
     this.isGlobal = this.siteId === null
     this.adSizesOptions = this.sizeOptions || [];
     this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
+    this.filtering = {
+      ...this.filtering,
+      sizes: this.adSizesOptions
+    }
+    this.checkBannerSizeOptions()
+  }
+
+  checkBannerSizeOptions() {
+    this.allSizes = !this.filtering.sizes.length
+    this.allSizesMatching = this.filtering.sizes.length === this.adSizesOptions.length
+    this.filteringChange.emit(this.filtering);
+  }
+
+  sizeOptionChange(e, option) {
+    if(e.checked && option === 'allSizes'){
+      this.sizes = []
+      this.filtering = {
+        ...this.filtering,
+        sizes: this.sizes
+      }
+      this.checkBannerSizeOptions()
+    }
+
+    if(e.checked && option === 'allSizesMatching'){
+      this.sizes = this.adSizesOptions
+      this.filtering = {
+        ...this.filtering,
+        sizes: this.sizes
+      }
+      this.checkBannerSizeOptions()
+    }
+
+    if(!e.checked && option === 'allSizesMatching'){
+      this.sizes = []
+      this.filtering = {
+        ...this.filtering,
+        sizes: this.sizes
+      }
+      this.checkBannerSizeOptions()
+    }
+
+    if(!e.checked && option === 'allSizes'){
+      this.sizes = this.adSizesOptions
+      this.filtering = {
+        ...this.filtering,
+        sizes: this.sizes
+      }
+      this.checkBannerSizeOptions()
+    }
+
   }
 
   sizeSelect(e, size: string): void {
@@ -43,7 +98,7 @@ export class ClassifierFilteringComponent implements OnInit {
       ...this.filtering,
       sizes: this.sizes
     };
-    this.filteringChange.emit(this.filtering);
+    this.checkBannerSizeOptions()
   }
 
   changeFiltering(): void {
