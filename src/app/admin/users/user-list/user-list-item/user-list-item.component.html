@@ -45,10 +45,11 @@
     </button>
     <mat-menu #menu="matMenu">
       <button
-              *ngIf="!user.isAdminConfirmed"
-              class="user-list-item__btn user-list-item__btn--success"
-              (click)="handleConfirmation()"
-              [disabled]="isSaving"
+        mat-menu-item
+        *ngIf="!user.isAdminConfirmed"
+        class="user-list-item__btn user-list-item__btn--success"
+        (click)="handleConfirmation()"
+        [disabled]="isSaving"
       >
         Confirm
       </button>
