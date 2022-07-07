@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Checkbox for control size matching
+### Removed
+- Ad units' tags from site details
 
 ## [1.18.4] - 2022-06-30
 ### Added
