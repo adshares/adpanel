@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.18.5] - 2022-07-08
+### Added
+- Checkbox for control size matching
+
 ## [1.18.4] - 2022-06-30
 ### Added
 - Redirection to AdController during initialization
@@ -443,8 +447,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Advertiser features (Campaigns & Ads)
 - Publisher features (Sites & AdUnits)
 
- 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.4...develop
+
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.5...develop
+[1.18.5]: https://github.com/adshares/adpanel/compare/v1.18.4...v1.18.5
 [1.18.4]: https://github.com/adshares/adpanel/compare/v1.18.2...v1.18.4
 [1.18.2]: https://github.com/adshares/adpanel/compare/v1.18.0...v1.18.2
 [1.18.0]: https://github.com/adshares/adpanel/compare/v1.17.1...v1.18.0

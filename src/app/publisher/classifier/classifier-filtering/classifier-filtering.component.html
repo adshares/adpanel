@@ -36,14 +36,50 @@
           Filter banners by size
         </mat-panel-title>
         <mat-panel-description>
-        <span *ngFor="let chosenSize of sizes"
-              class="classifier-filtering__chosen-value">
-          {{ chosenSize }}
-        </span>
+          <span
+            *ngIf="sizes.length === 0 && filtering.sizes.length === 0"
+            class="classifier-filtering__chosen-value"
+          >
+            All
+          </span>
+          <span
+            *ngIf="adSizesOptions.length === filtering.sizes.length"
+            class="classifier-filtering__chosen-value"
+          >
+            All matching
+          </span>
+          <ng-container *ngIf="sizes.length !== adSizesOptions.length">
+            <span
+              *ngFor="let chosenSize of sizes"
+              class="classifier-filtering__chosen-value"
+            >
+            {{ chosenSize }}
+          </span>
+          </ng-container>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <mat-checkbox *ngFor="let sizeOption of adSizesOptions"
-                    (change)="sizeSelect($event, sizeOption)"> {{sizeOption}}
+  
+      <div class="classifier-filtering__size-controls">
+        <mat-checkbox
+            (change)="sizeOptionChange($event, 'allSizes')"
+            [checked]="allSizes"
+        >
+          All
+        </mat-checkbox>
+        <mat-checkbox
+          (change)="sizeOptionChange($event, 'allSizesMatching')"
+          [checked]="allSizesMatching"
+        >
+          All matching
+        </mat-checkbox>
+      </div>
+      
+      <mat-checkbox
+        *ngFor="let sizeOption of adSizesOptions"
+        (change)="sizeSelect($event, sizeOption)"
+        [checked]="filtering.sizes.includes(sizeOption)"
+      >
+        {{sizeOption}}
       </mat-checkbox>
     </mat-expansion-panel>
     <mat-expansion-panel>
