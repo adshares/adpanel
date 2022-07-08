@@ -60,9 +60,13 @@
 
                 <div
                   class="error-msg error-msg--small"
-                  *ngIf="(adUnitsSubmitted && !adUnitPanelsStatus[adUnitIndex]) && (
-                  adUnitForm.get('name').hasError('required') ||
-                 !adUnitForm.get('size').value)"
+                  *ngIf="
+                    (adUnitsSubmitted || !createSiteMode)
+                    && !adUnitPanelsStatus[adUnitIndex]
+                    && (
+                        adUnitForm.get('name').hasError('required')
+                        || !adUnitForm.get('size').value
+                      )"
                 > !
                 </div>
               </div>
@@ -137,6 +141,7 @@
             Ad unit size
           </div>
           <div
+            *ngIf="createSiteMode || adUnitForm.get('size').value"
             [ngClass]="filteredAdUnitSizes[adUnitIndex].length > 4 ? 'justify-between' : 'justify-start'"
             class="row"
           >
@@ -186,6 +191,14 @@
               </div>
 
             </div>
+          </div>
+          <div
+            *ngIf="!createSiteMode && !adUnitForm.get('size').value"
+            class="row"
+          >
+            <span class="error-msg">
+              The original size of this ad unit was deprecated and won't be supported
+            </span>
           </div>
           <div class="
                      row
