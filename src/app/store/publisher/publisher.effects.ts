@@ -37,11 +37,9 @@ import {
   UpdateSiteFailure,
   UpdateSiteFiltering,
   UpdateSiteStatus,
-  UpdateSiteStatusFailure,
   UpdateSiteStatusSuccess,
   UpdateSiteSuccess,
   UpdateSiteUnits,
-  UpdateSiteUnitsFailure,
   UpdateSiteUnitsSuccess,
 } from './publisher.actions'
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
@@ -200,7 +198,7 @@ export class PublisherEffects {
               new LoadSite(payload.id),
             ]
           }),
-          catchError(() => observableOf(new UpdateSiteUnitsFailure()))
+          catchError(() => observableOf(new ShowDialogOnError('Ad units cannot be updated')))
         )
       )
     ))
@@ -216,7 +214,7 @@ export class PublisherEffects {
               new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS)
             ]
           ),
-          catchError(() => observableOf(new UpdateSiteStatusFailure()))
+          catchError(() => observableOf(new ShowDialogOnError('Site status cannot be changed')))
         )
       )
     ))
