@@ -215,7 +215,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.changesSaved = true;
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
-    console.log('adUnitsValid', adUnitsValid)
     if (adUnitsValid) {
       this.adUnitsSubmitted = false;
       this.store.dispatch(new SaveLastEditedSiteAdUnits(this.adUnitsToSave));
