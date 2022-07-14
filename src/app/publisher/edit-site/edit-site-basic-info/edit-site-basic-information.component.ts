@@ -168,7 +168,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   }
 
   updateSite (): void {
-    this.store.dispatch(new UpdateSite(this.site))
+    const { adUnits, ...reducedSite } = this.site
+    this.store.dispatch(new UpdateSite(reducedSite))
   }
 
   adjustSiteDataBeforeSave (): boolean {

@@ -74,10 +74,8 @@ export class PublisherService {
     return this.http.delete<boolean>(`${environment.apiUrl}/sites/${id}`);
   }
 
-  updateSiteData(id: number, site: Site): Observable<Site> {
-    const {filteringArray, ...reducedSite} = site;
-
-    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site: reducedSite});
+  updateSiteData(id: number, site: Partial<Site>): Observable<Site> {
+    return this.http.patch<Site>(`${environment.apiUrl}/sites/${id}`, {site});
   }
 
   getFilteringCriteria(excludeInternal: boolean = false): Observable<TargetingOption[]> {

@@ -343,6 +343,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
   sendFile(file, adIndex: number, form: FormGroup): void {
     const data = new FormData();
     data.append('file', file, file.name);
+    data.append('medium', this.campaign.basicInformation.medium);
+    if (null !== this.campaign.basicInformation.vendor) {
+      data.append('vendor', this.campaign.basicInformation.vendor);
+    }
     const uploadBannerSubscription = this.advertiserService.uploadBanner(data).subscribe(
       event => {
         if (event.type === 1) {

@@ -31,6 +31,6 @@ export class SiteListItemComponent implements OnInit {
       status: this.siteStatuses.findIndex(el => el.value === status)
     };
     this.currentSiteStatus = status;
-    this.store.dispatch(new UpdateSiteStatus(this.site));
+    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: this.site.status}));
   }
 }

@@ -51,6 +51,10 @@
             >{{ tag }}</div>
           </div>
         </div>
+        <div
+          *ngIf="0 === adUnitSizes.length"
+          class="dwmth-copy dwmth-copy--large"
+        >Pops are not available for current medium</div>
       </div>
     </div>
 
