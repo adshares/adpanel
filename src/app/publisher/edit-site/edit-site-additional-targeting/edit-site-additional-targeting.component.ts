@@ -86,8 +86,9 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       excludes: [...this.excludedItems],
     };
 
+    const { adUnits, ...reducedSite } = this.site
     return {
-      ...this.site,
+      ...reducedSite,
       filtering: parseTargetingForBackend(filtering),
       onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
     }

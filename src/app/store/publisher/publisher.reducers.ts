@@ -168,14 +168,17 @@ export function publisherReducers(state = initialState, action: PublisherActions
         languagesList: [...action.payload]
       };
 
-    case PublisherActions.UPDATE_SITE:
-    case PublisherActions.UPDATE_SITE_FILTERING:
-      const oldSites = state.sites.filter(site => site.id !== action.payload.id);
+    case PublisherActions.UPDATE_SITE_SUCCESS:
+    case PublisherActions.UPDATE_SITE_STATUS_SUCCESS:
+      const siteIndex = state.sites.findIndex(site => site.id === action.payload.id);
+      const oldSites = [ ...state.sites ]
+      const oldSite = oldSites.splice(siteIndex, 1)[0];
       return {
         ...state,
         sites: [
           ...oldSites,
           {
+            ...oldSite,
             ...action.payload
           }
         ]

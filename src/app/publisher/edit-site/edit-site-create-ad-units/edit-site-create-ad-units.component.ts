@@ -113,7 +113,11 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
       (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.label
     );
-    Object.assign(chosenAdSize, {selected: true});
+    if (chosenAdSize) {
+      Object.assign(chosenAdSize, {selected: true});
+    } else {
+      this.adUnitForms[adIndex].patchValue({size: undefined})
+    }
   }
 
   generateFormField(adUnit: Partial<AdUnit>): FormGroup {
@@ -211,7 +215,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.changesSaved = true;
     this.adUnitsSubmitted = true;
     const adUnitsValid = this.adUnitForms.every((adForm) => adForm.valid);
-
     if (adUnitsValid) {
       this.adUnitsSubmitted = false;
       this.store.dispatch(new SaveLastEditedSiteAdUnits(this.adUnitsToSave));

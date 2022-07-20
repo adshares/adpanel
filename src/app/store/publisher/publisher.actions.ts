@@ -39,7 +39,6 @@ export const UPDATE_SITE_FAILURE = 'Site update failure';
 
 export const UPDATE_SITE_STATUS = 'Update site status';
 export const UPDATE_SITE_STATUS_SUCCESS = 'Update site status success';
-export const UPDATE_SITE_STATUS_FAILURE = 'Update site status failure';
 
 export const UPDATE_SITE_FILTERING = 'Site filtering update';
 export const UPDATE_SITE_FILTERING_SUCCESS = 'Site filtering update success';
@@ -47,7 +46,6 @@ export const UPDATE_SITE_FILTERING_FAILURE = 'Site filtering update failure';
 
 export const UPDATE_SITE_UNITS = 'Site units update';
 export const UPDATE_SITE_UNITS_SUCCESS = 'Site units update success';
-export const UPDATE_SITE_UNITS_FAILURE = 'Site units update failure';
 
 export class LoadSites implements Action {
   readonly type: string = LOAD_SITES;
@@ -213,14 +211,14 @@ export class GetLanguagesListFailure implements Action {
 export class UpdateSite implements Action {
   readonly type = UPDATE_SITE;
 
-  constructor(public payload: Site) {
+  constructor(public payload: Partial<Site>) {
   }
 }
 
 export class UpdateSiteSuccess implements Action {
   readonly type = UPDATE_SITE_SUCCESS;
 
-  constructor(public payload: Site) {
+  constructor(public payload: Partial<Site>) {
   }
 }
 
@@ -234,21 +232,14 @@ export class UpdateSiteFailure implements Action {
 export class UpdateSiteStatus implements Action {
   readonly type = UPDATE_SITE_STATUS;
 
-  constructor(public payload: Site) {
+  constructor(public payload: Partial<Site>) {
   }
 }
 
 export class UpdateSiteStatusSuccess implements Action {
   readonly type = UPDATE_SITE_STATUS_SUCCESS;
 
-  constructor(public payload: Site) {
-  }
-}
-
-export class UpdateSiteStatusFailure implements Action {
-  readonly type = UPDATE_SITE_STATUS_FAILURE;
-
-  constructor(public payload?: any) {
+  constructor(public payload: Partial<Site>) {
   }
 }
 
@@ -284,13 +275,6 @@ export class UpdateSiteUnitsSuccess implements Action {
   readonly type = UPDATE_SITE_UNITS_SUCCESS;
 
   constructor(public payload?: Site) {
-  }
-}
-
-export class UpdateSiteUnitsFailure implements Action {
-  readonly type = UPDATE_SITE_UNITS_FAILURE;
-
-  constructor(public payload?: any) {
   }
 }
 
@@ -330,12 +314,10 @@ export type actions =
 
   UpdateSiteStatus |
   UpdateSiteStatusSuccess |
-  UpdateSiteStatusFailure |
 
   UpdateSiteFiltering |
   UpdateSiteFilteringSuccess |
   UpdateSiteFilteringFailure |
 
   UpdateSiteUnits |
-  UpdateSiteUnitsSuccess |
-  UpdateSiteUnitsFailure;
+  UpdateSiteUnitsSuccess;

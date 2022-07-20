@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.18.6] - 2022-07-20
+### Fixed
+- Handling missing ad unit's size
+### Removed
+- Ad units' tags from site details
+
 ## [1.18.5] - 2022-07-08
 ### Added
 - Checkbox for control size matching
@@ -448,7 +454,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.5...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.6...develop
+[1.18.6]: https://github.com/adshares/adpanel/compare/v1.18.5...v1.18.6
 [1.18.5]: https://github.com/adshares/adpanel/compare/v1.18.4...v1.18.5
 [1.18.4]: https://github.com/adshares/adpanel/compare/v1.18.2...v1.18.4
 [1.18.2]: https://github.com/adshares/adpanel/compare/v1.18.0...v1.18.2

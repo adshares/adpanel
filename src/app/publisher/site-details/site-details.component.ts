@@ -260,7 +260,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       ...this.site,
       status: this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus)
     };
-    this.store.dispatch(new UpdateSiteStatus(this.site));
+    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: this.site.status}));
   }
 
   downloadReport(): void {
