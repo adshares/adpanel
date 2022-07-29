@@ -86,7 +86,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
 
         if (savedAdUnits.length > 0) {
           savedAdUnits.forEach((savedAdUnit, index) => {
-            this.adUnitForms.push(this.generateFormField(savedAdUnit));
+            this.adUnitForms.push(this.generateFormField(savedAdUnit, true));
             this.adUnitPanelsStatus[index] = false;
             this.selectChosenSize(savedAdUnit, index);
           });
@@ -120,7 +120,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     }
   }
 
-  generateFormField(adUnit: Partial<AdUnit>): FormGroup {
+  generateFormField(adUnit: Partial<AdUnit>, saved: boolean = false): FormGroup {
     this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
     this.allAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
@@ -133,6 +133,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       label: new FormControl(adUnit.label, Validators.required),
       tags: new FormControl(adUnit.tags, Validators.required),
       id: new FormControl(adUnit.id),
+      saved: new FormControl(saved)
     });
   }
 

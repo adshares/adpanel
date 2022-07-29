@@ -97,6 +97,7 @@
                   class="dwmth-form-input"
                   formControlName="name"
                   data-test="publisher-edit-site-create-ad-units-form-short-headline"
+                  [readonly]="!adUnitForm.get('size').value && adUnitForm.get('saved').value"
                 >
                 <span
                   *ngIf="adUnitForm.get('name').valid"
@@ -141,7 +142,7 @@
             Ad unit size
           </div>
           <div
-            *ngIf="createSiteMode || adUnitForm.get('size').value"
+            *ngIf="adUnitForm.get('size').value || !adUnitForm.get('saved').value"
             [ngClass]="filteredAdUnitSizes[adUnitIndex].length > 4 ? 'justify-between' : 'justify-start'"
             class="row"
           >
@@ -193,7 +194,7 @@
             </div>
           </div>
           <div
-            *ngIf="!createSiteMode && !adUnitForm.get('size').value"
+            *ngIf="!adUnitForm.get('size').value && adUnitForm.get('saved').value"
             class="row"
           >
             <span class="error-msg">
