@@ -38,7 +38,7 @@
   </td>
   <td class="col-xs-2 billing-table-row__amount"
       data-test="settings-billing-history-item-amount">
-    {{ billingHistoryItem.amount | formatMoney:11:crypto:code }}
+    {{ billingHistoryItem.amount | formatMoney:11:'':'none' }}
   </td>
   <td class="col-xs-2">
     <img

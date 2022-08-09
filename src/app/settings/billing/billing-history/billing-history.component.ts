@@ -16,6 +16,7 @@ import {
 import { HandleSubscription } from 'common/handle-subscription';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-billing-history',
@@ -34,6 +35,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   billingHistory: BillingHistory = this.emptyBillingHistory;
   showLoader: boolean = true;
   refreshIcon = faSyncAlt;
+  cryptoCode: string = environment.cryptoCode
 
   readonly DATE_FORMAT: string = DATE_FORMAT;
   dateFrom: Moment;
