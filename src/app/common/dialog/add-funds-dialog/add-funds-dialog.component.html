@@ -333,18 +333,6 @@
         </span>
       </div>
 
-      <div class="ads-amount">
-        <span class="dwmth-form-label">
-          Your deposit will amount to approx.
-        </span>
-        <span
-          class="dwmth-copy dwmth-copy--large"
-          data-test="common-now-payments-dialog-ads-amount"
-        >
-          {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + environment.cryptoCode }}
-        </span>
-      </div>
-
       <div class="row justify-center deposit__btns-wrapper">
         <div *ngIf="isConfirmed">
           <button

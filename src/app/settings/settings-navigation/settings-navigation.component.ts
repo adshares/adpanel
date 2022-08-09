@@ -15,7 +15,7 @@ import { environment } from 'environments/environment'
 export class SettingsNavigationComponent extends HandleSubscription {
   crypto: string = CRYPTO
   code: string = CODE
-  calculateFunds = environment.currencySymbol !== environment.cryptoSymbol
+  calculateFunds = environment.currencyCode !== environment.cryptoCode
   wallet: UserAdserverWallet
   totalFunds: number
   user: LocalStorageUser

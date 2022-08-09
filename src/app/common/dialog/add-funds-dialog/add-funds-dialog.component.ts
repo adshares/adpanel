@@ -14,8 +14,6 @@ import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
 import { forkJoin as observableForkJoin } from 'rxjs'
 import { isNumeric } from 'rxjs/internal-compatibility'
-import { environment } from 'environments/environment'
-import { CODE, CRYPTO } from 'common/utilities/consts'
 
 import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
@@ -77,9 +75,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     }]
 
   getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK
-  environment = environment
-  crypto: string = CRYPTO
-  code: string = CODE
   isConfirmed = false
 
   loadingInfo: boolean = true
@@ -109,7 +104,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   nowPayments: NowPaymentsInfo
   nowPaymentsDefaultAmount: number = 100
   nowPaymentsAmount: number
-  nowPaymentsAdsAmount: number
   nowPaymentsAmountError: boolean = false
   nowPaymentsServerError: boolean = false
 
@@ -345,8 +339,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
   setNowPaymentsAmount (amount: number) {
     this.nowPaymentsAmount = amount
-    this.nowPaymentsAdsAmount = Math.round(
-      1e11 * (this.nowPaymentsAmount / this.nowPayments.exchangeRate))
   }
 
   keydownNowPaymentsAmount (event) {
@@ -357,7 +349,6 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
 
   changeNowPaymentsAmount (event) {
     if (!this.validNowPaymentsAmount(event.target.value)) {
-      this.nowPaymentsAdsAmount = null
       this.nowPaymentsAmountError = true
       return
     }
