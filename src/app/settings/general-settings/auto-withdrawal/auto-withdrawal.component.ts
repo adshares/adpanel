@@ -6,7 +6,6 @@ import { SessionService } from 'app/session.service'
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
 import { User, UserAdserverWallet } from 'models/user.model'
-import { CODE, CRYPTO } from 'common/utilities/consts'
 import { environment } from 'environments/environment'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { adsToClicks, clicksToAds } from 'common/utilities/helpers'
@@ -20,8 +19,6 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 })
 export class AutoWithdrawalComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet
-  crypto: string = CRYPTO
-  code: string = CODE
   currencyCode: string = environment.currencyCode
   isImpersonated: boolean = false;
 
