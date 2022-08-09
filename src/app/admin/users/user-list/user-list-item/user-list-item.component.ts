@@ -21,6 +21,7 @@ import {
   UserConfirmResponseDialogComponent
 } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
 import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions'
+import { environment } from 'environments/environment'
 
 
 @Component({
@@ -35,6 +36,7 @@ export class UserListItemComponent {
   faIconAdminConfirmed = faCheck
   crypto: string = CRYPTO
   code: string = CODE
+  calculateFunds = environment.currencySymbol !== environment.cryptoSymbol
   faIconImpersonation = faUserSecret
   isSaving: boolean = false;
 

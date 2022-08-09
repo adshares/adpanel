@@ -31,7 +31,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   supportChat
   crypto: string = CRYPTO
   code: string = CODE
-  showFundsInCurrency = environment.currencySymbol !== environment.cryptoSymbol
+  calculateFunds = environment.currencySymbol !== environment.cryptoSymbol
   totalFunds: number
   isTotalFundsValid: boolean = false
   userType: number

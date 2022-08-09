@@ -5,7 +5,7 @@
     >
       Total balance:
     </h6>
-    <span *ngIf="showFundsInCurrency"
+    <span *ngIf="calculateFunds"
           class="settings-navigation__account-status--in-currency"
           data-test="user-total-funds"
     >
@@ -15,7 +15,7 @@
           data-test="user-total-funds"
     >
       {{
-      showFundsInCurrency ?
+      calculateFunds ?
         (totalFunds | formatMoney:2:crypto:code) :
         (totalFunds | formatMoney:2)
       }}

@@ -22,12 +22,22 @@
     ></fa-icon>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
-    <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+    <ng-container *ngIf="calculateFunds else noCalculationWalletBalance">
+      {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
+      <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+    </ng-container>
+    <ng-template #noCalculationWalletBalance>
+      {{ user.adserverWallet.walletBalance | formatMoney:2 }}
+    </ng-template>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
-    <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+    <ng-container *ngIf="calculateFunds else noCalculationBonusBalance">
+      {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
+      <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+    </ng-container>
+    <ng-template #noCalculationBonusBalance>
+      {{ user.adserverWallet.bonusBalance | formatMoney:2 }}
+    </ng-template>
   </td>
   <td
     class="col-xs-2 justify-center user-list-item__cell"
