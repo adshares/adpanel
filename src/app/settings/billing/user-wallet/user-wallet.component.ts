@@ -9,6 +9,7 @@ import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
 import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
+import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-user-wallet',
@@ -21,6 +22,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
+  showFundsInCurrency = environment.currencySymbol !== environment.cryptoSymbol
   isImpersonated: boolean = false;
 
   constructor(

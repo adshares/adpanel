@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { CODE, CRYPTO } from 'common/utilities/consts'
+import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-settings-navigation',
@@ -14,6 +15,7 @@ import { CODE, CRYPTO } from 'common/utilities/consts'
 export class SettingsNavigationComponent extends HandleSubscription {
   crypto: string = CRYPTO
   code: string = CODE
+  showFundsInCurrency = environment.currencySymbol !== environment.cryptoSymbol
   wallet: UserAdserverWallet
   totalFunds: number
   user: LocalStorageUser
