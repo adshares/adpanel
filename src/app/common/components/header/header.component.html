@@ -237,11 +237,7 @@
           class="dwmth-tokens"
           data-test="user-total-funds"
         >
-          {{
-          calculateFunds ?
-            (totalFunds | formatMoney:2:crypto:code) :
-            (totalFunds | formatMoney:2)
-          }}
+          {{ totalFunds | formatMoney:2:crypto:code }}
         </span>
         <span
           *ngIf="calculateFunds"

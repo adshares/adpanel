@@ -14,11 +14,7 @@
     <span class="settings-navigation__account-status"
           data-test="user-total-funds"
     >
-      {{
-      calculateFunds ?
-        (totalFunds | formatMoney:2:crypto:code) :
-        (totalFunds | formatMoney:2)
-      }}
+        {{ totalFunds | formatMoney:2:crypto:code }}
       </span>
   </div>
   <ul class="settings-navigation__category"

@@ -24,14 +24,7 @@
       <h1 class="user-wallet__funds"
           data-test="user-total-funds"
       >
-        {{
-        calculateFunds ?
-          (wallet.walletBalance > 0 ?
-            (wallet.walletBalance | formatMoney:11:crypto:code) :
-            (wallet.walletBalance | formatMoney:2:crypto:code)
-          ) :
-          wallet.walletBalance | formatMoney:2
-        }}
+        {{ wallet.walletBalance | formatMoney:4:crypto:code }}
       </h1>
 
       <div
@@ -111,14 +104,7 @@
       <strong class="user-wallet__funds"
               data-test="bonus-funds"
       >
-        {{
-        calculateFunds ?
-          (wallet.bonusBalance > 0 ?
-            (wallet.bonusBalance | formatMoney:11:crypto:code) :
-            (wallet.bonusBalance | formatMoney:2:crypto:code)
-          ) :
-          wallet.bonusBalance | formatMoney:2
-        }}
+        {{ wallet.bonusBalance | formatMoney:4:crypto:code }}
       </strong>
     </div>
   </div>

@@ -33,6 +33,11 @@ export class AdsharesTokenPipe implements PipeTransform {
       code = format !== 'symbol' ? environment.currencySymbol : '';
     }
 
+    if ('$' === code) {
+      symbol = '$'
+      code = ''
+    }
+
     return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;
   }
 }
