@@ -1,9 +1,9 @@
 import * as commonActions from './common.actions';
 import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
+import { CommonState } from 'models/app-state.model'
 
-const initialState = {
+const initialState: CommonState = {
   activeUserType: 1,
-  adsharesAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState,
   impersonationToken: null,
   info: null,
@@ -25,11 +25,6 @@ export function commonReducers(state = initialState, action: commonActions.actio
       return {
         ...state,
         chartFilterSettings: Object.assign({}, action.payload)
-      };
-    case commonActions.SET_ADSHARES_ADDRESS:
-      return {
-        ...state,
-        adsharesAddress: action.payload
       };
     default:
       return state;
