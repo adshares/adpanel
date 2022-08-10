@@ -7,6 +7,10 @@ const initialState: CommonState = {
   chartFilterSettings: chartFilterSettingsInitialState,
   impersonationToken: null,
   info: null,
+  options: {
+    appCurrency: 'ADS',
+    displayCurrency: 'USD',
+  },
 };
 
 export function commonReducers(state = initialState, action: commonActions.actions) {
@@ -15,6 +19,11 @@ export function commonReducers(state = initialState, action: commonActions.actio
       return {
         ...state,
         info: action.payload
+      };
+    case commonActions.LOAD_OPTIONS_SUCCESS:
+      return {
+        ...state,
+        options: action.payload
       };
     case commonActions.SET_ACTIVE_USER_TYPE:
       return {

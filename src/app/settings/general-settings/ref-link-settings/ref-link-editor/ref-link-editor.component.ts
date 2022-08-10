@@ -1,13 +1,15 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Store } from '@ngrx/store'
 import {HandleSubscription} from 'common/handle-subscription';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SessionService} from "../../../../session.service";
 import {SettingsService} from "settings/settings.service";
 import {RefLink} from "models/settings.model";
-import {environment} from "environments/environment";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
 import { CommonService } from 'common/common.service'
+import { AppState } from 'models/app-state.model'
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-ref-link-editor',
@@ -16,7 +18,7 @@ import { CommonService } from 'common/common.service'
 })
 export class RefLinkEditorComponent extends HandleSubscription implements OnInit {
   @Output() public refLinkSaved = new EventEmitter<RefLink>();
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   refundEnabled: boolean;
   defaultRefundCommission: number;
   refundCommission: number;
@@ -32,6 +34,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     private session: SessionService,
     private settings: SettingsService,
     private common: CommonService,
+    private store: Store<AppState>,
   ) {
     super();
   }
@@ -40,6 +43,10 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     const user = this.session.getUser();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
+    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+      .pipe(take(1))
+      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+    this.subscriptions.push(currencySubscription)
 
     this.form = new FormGroup({
       token: new FormControl(null, [Validators.minLength(6), Validators.maxLength(32)]),

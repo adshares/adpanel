@@ -7,7 +7,7 @@ import {
   WEEK_AND_MONTH_FORMAT,
   YEAR_FORMAT,
 } from 'common/utilities/consts'
-import { formatMoney } from 'common/utilities/helpers'
+import { currencySymbolByCode, formatMoney } from 'common/utilities/helpers'
 import { advChartSeriesEnum, pubChartSeriesEnum } from 'models/enum/chart.enum'
 import { ChartComponent } from 'common/components/chart/chart.component'
 import { environment } from 'environments/environment'
@@ -65,7 +65,7 @@ export const adjustYAxesTics = (value) => {
     case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value)
-      return `${environment.currencySymbol}${val > 0 ? formatMoney(val, 2) : 0}`
+      return `${currencySymbolByCode(environment.currencyCode)}${val > 0 ? formatMoney(val, 2) : 0}`
     default:
       return `${value}`
   }

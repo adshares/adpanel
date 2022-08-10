@@ -6,7 +6,6 @@ import { SessionService } from 'app/session.service'
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
 import { User, UserAdserverWallet } from 'models/user.model'
-import { environment } from 'environments/environment'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { adsToClicks, clicksToAds } from 'common/utilities/helpers'
 import { SettingsService } from 'settings/settings.service'
@@ -19,7 +18,7 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 })
 export class AutoWithdrawalComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet
-  currencyCode: string = environment.currencyCode
+  currencyCode: string
   isImpersonated: boolean = false;
 
   isAutoWithdrawalAvailable: boolean = false
@@ -39,7 +38,11 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+      .pipe(take(1))
+      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+    this.subscriptions.push(currencySubscription);
     this.store.select('state', 'user', 'data', 'adserverWallet').pipe(take(2)).
       subscribe((wallet: UserAdserverWallet) => {
         this.updateWallet(wallet)

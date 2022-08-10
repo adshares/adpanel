@@ -18,6 +18,7 @@ import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
 import { stringToHex } from 'web3-utils'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
+import { LoadOptions } from 'store/common/common.actions'
 
 @Component({
   selector: 'app-login',
@@ -226,6 +227,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     }
     this.store.dispatch(new authActions.UserLogInSuccess(dataToSave))
     this.session.setUser(dataToSave)
+    this.store.dispatch(new LoadOptions());
     this.redirectAfterLogin(user)
   }
 

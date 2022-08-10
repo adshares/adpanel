@@ -2,7 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { HandleSubscription } from 'common/handle-subscription'
 import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts'
-import { calcCampaignBudgetPerDay, formatMoney, formatNumberWithComma } from 'common/utilities/helpers'
+import {
+  calcCampaignBudgetPerDay,
+  currencySymbolByCode,
+  formatMoney,
+  formatNumberWithComma,
+} from 'common/utilities/helpers'
 import { NOT_AVAILABLE } from 'common/utilities/messages'
 import { environment } from 'environments/environment'
 import { AppState } from 'models/app-state.model'
@@ -17,25 +22,20 @@ function removeDecimalPart(value: number | string) {
   name: 'formatMoney'
 })
 export class AdsharesTokenPipe implements PipeTransform {
-  transform(value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol',): string {
+  transform (value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol'): string {
     let symbol, code;
 
     if (format === 'none') {
       symbol = code = '';
     } else if (currency === CRYPTO) {
-      symbol = format === 'symbol' ? environment.cryptoSymbol : '';
-      code = format !== 'symbol' ? environment.cryptoSymbol : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(environment.cryptoCode) : '';
+      code = format !== 'symbol' ? environment.cryptoCode : '';
     } else if (currency === CRYPTO_BTC) {
       symbol = format === 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
       code = format !== 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
     } else {
-      symbol = format === 'symbol' ? environment.currencySymbol : '';
-      code = format !== 'symbol' ? environment.currencySymbol : '';
-    }
-
-    if ('$' === code) {
-      symbol = '$'
-      code = ''
+      symbol = format === 'symbol' ? currencySymbolByCode(environment.currencyCode) : '';
+      code = format !== 'symbol' ? environment.currencyCode : '';
     }
 
     return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;

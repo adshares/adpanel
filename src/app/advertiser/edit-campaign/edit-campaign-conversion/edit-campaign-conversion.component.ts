@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
@@ -22,7 +22,6 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
-import { environment } from 'environments/environment';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
 import { CustomValidators } from "common/utilities/forms";
 
@@ -32,7 +31,7 @@ import { CustomValidators } from "common/utilities/forms";
   styleUrls: ['./edit-campaign-conversion.component.scss']
 })
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
 
@@ -229,6 +228,9 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   getFormDataFromStore(): void {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+      .pipe(take(1))
+      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
     this.store.dispatch(new LoadCampaignsConfig());
 
     const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
@@ -243,7 +245,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         this.adjustConversionData(this.campaign.conversions);
       });
 
-    this.subscriptions.push(subscription, configSubscription);
+    this.subscriptions.push(currencySubscription, subscription, configSubscription);
   }
 
   addConversionEmpty(type: string): void {

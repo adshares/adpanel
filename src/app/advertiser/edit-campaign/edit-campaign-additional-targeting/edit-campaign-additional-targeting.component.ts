@@ -18,7 +18,6 @@ import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
-import { environment } from 'environments/environment';
 import { CustomValidators } from 'common/utilities/forms';
 
 @Component({
@@ -27,7 +26,7 @@ import { CustomValidators } from 'common/utilities/forms';
   styleUrls: ['./edit-campaign-additional-targeting.component.scss']
 })
 export class EditCampaignAdditionalTargetingComponent extends HandleSubscription implements OnInit {
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   campaign: Campaign;
@@ -54,6 +53,10 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   ngOnInit(): void {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+      .pipe(take(1))
+      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+    this.subscriptions.push(currencySubscription)
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
 
     this.loadMaxCpmAndTargetingFromStore();
