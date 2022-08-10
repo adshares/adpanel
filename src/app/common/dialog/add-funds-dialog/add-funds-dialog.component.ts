@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialogRef } from '@angular/material/dialog'
+import { Store } from '@ngrx/store'
 import { HandleSubscription } from 'common/handle-subscription'
 import {
   Country,
@@ -14,14 +15,14 @@ import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
 import { forkJoin as observableForkJoin } from 'rxjs'
 import { isNumeric } from 'rxjs/internal-compatibility'
-import { environment } from 'environments/environment'
 import { CODE, CRYPTO } from 'common/utilities/consts'
-
+import { AppState } from 'models/app-state.model'
 import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
 import { appSettings } from 'app-settings'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { SettingsService } from 'settings/settings.service'
+import { take } from 'rxjs/operators'
 
 import Web3 from 'web3'
 
@@ -31,7 +32,7 @@ import Web3 from 'web3'
   styleUrls: ['./add-funds-dialog.component.scss'],
 })
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
-  readonly ADS_CRYPTO_CODE = 'ADS'
+  readonly ADS_TOKEN_CODE = 'ADS'
   abi: any = [
     {
       'constant': true,
@@ -78,7 +79,7 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     }]
 
   getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK
-  environment = environment
+  appCurrency: string
   crypto: string = CRYPTO
   code: string = CODE
   isConfirmed = false
@@ -130,11 +131,16 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     private api: ApiService,
     private session: SessionService,
     private settings: SettingsService,
+    private store: Store<AppState>,
   ) {
     super()
   }
 
   ngOnInit () {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'appCurrency')
+      .pipe(take(1))
+      .subscribe(appCurrency => this.appCurrency = appCurrency)
+    this.subscriptions.push(currencySubscription)
     const user = this.session.getUser()
     this.isConfirmed = user.isConfirmed
 

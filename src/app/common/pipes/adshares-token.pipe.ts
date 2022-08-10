@@ -28,14 +28,14 @@ export class AdsharesTokenPipe implements PipeTransform {
     if (format === 'none') {
       symbol = code = '';
     } else if (currency === CRYPTO) {
-      symbol = format === 'symbol' ? currencySymbolByCode(environment.cryptoCode) : '';
-      code = format !== 'symbol' ? environment.cryptoCode : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(environment.appCurrencyCode) : '';
+      code = format !== 'symbol' ? environment.appCurrencyCode : '';
     } else if (currency === CRYPTO_BTC) {
       symbol = format === 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
       code = format !== 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
     } else {
-      symbol = format === 'symbol' ? currencySymbolByCode(environment.currencyCode) : '';
-      code = format !== 'symbol' ? environment.currencyCode : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(environment.displayCurrencyCode) : '';
+      code = format !== 'symbol' ? environment.displayCurrencyCode : '';
     }
 
     return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;

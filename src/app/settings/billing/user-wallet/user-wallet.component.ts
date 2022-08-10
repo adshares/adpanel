@@ -22,7 +22,7 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
-  calculateFunds = environment.currencyCode !== environment.cryptoCode
+  calculateFunds = environment.displayCurrencyCode !== environment.appCurrencyCode
   isImpersonated: boolean = false;
 
   constructor(

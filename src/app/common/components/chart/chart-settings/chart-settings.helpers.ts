@@ -47,7 +47,7 @@ export const adjustTooltipValueFormat = (value: string): string => {
     case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value)
-      return `${type}: ${val > 0 ? formatMoney(val, 2) : 0} ${environment.currencyCode}`
+      return `${type}: ${val > 0 ? formatMoney(val, 2) : 0} ${environment.displayCurrencyCode}`
     default:
       return `${type}: ${value}`
   }
@@ -65,7 +65,7 @@ export const adjustYAxesTics = (value) => {
     case pubChartSeriesEnum.sumHour:
     case pubChartSeriesEnum.rpm:
       const val = parseInt(value)
-      return `${currencySymbolByCode(environment.currencyCode)}${val > 0 ? formatMoney(val, 2) : 0}`
+      return `${currencySymbolByCode(environment.displayCurrencyCode)}${val > 0 ? formatMoney(val, 2) : 0}`
     default:
       return `${value}`
   }

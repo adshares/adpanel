@@ -5,7 +5,6 @@ import { HandleSubscription } from 'common/handle-subscription';
 import { LoadAdminWallet, SetAdminSettings } from 'store/admin/admin.actions';
 import { ShowDialogOnError } from 'store/common/common.actions';
 import { AdminSettings, AdminWallet } from 'models/settings.model';
-import { environment } from 'environments/environment';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 
 @Component({
@@ -15,7 +14,7 @@ import { CODE, CRYPTO } from 'common/utilities/consts';
   host: {'class': 'app-finances'},
 })
 export class FinancesSettingsComponent extends HandleSubscription implements OnInit {
-  cryptoCode: string = environment.cryptoCode;
+  readonly ADS_TOKEN_CODE: string = 'ADS';
   crypto: string = CRYPTO;
   code: string = CODE;
   settings: AdminSettings;

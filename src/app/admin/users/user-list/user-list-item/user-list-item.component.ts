@@ -36,7 +36,7 @@ export class UserListItemComponent {
   faIconAdminConfirmed = faCheck
   crypto: string = CRYPTO
   code: string = CODE
-  calculateFunds = environment.currencyCode !== environment.cryptoCode
+  calculateFunds = environment.displayCurrencyCode !== environment.appCurrencyCode
   faIconImpersonation = faUserSecret
   isSaving: boolean = false;
 

@@ -16,7 +16,7 @@ import {
 import { HandleSubscription } from 'common/handle-subscription';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { environment } from 'environments/environment';
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-billing-history',
@@ -35,7 +35,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   billingHistory: BillingHistory = this.emptyBillingHistory;
   showLoader: boolean = true;
   refreshIcon = faSyncAlt;
-  cryptoCode: string = environment.cryptoCode
+  appCurrency: string
 
   readonly DATE_FORMAT: string = DATE_FORMAT;
   dateFrom: Moment;
@@ -52,6 +52,10 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit(): void {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'appCurrency')
+      .pipe(take(1))
+      .subscribe(appCurrency => this.appCurrency = appCurrency)
+    this.subscriptions.push(currencySubscription)
     const handleHistoryUpdate = this.action$
       .pipe(ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS))
       .subscribe(() => this.getBillingHistory());

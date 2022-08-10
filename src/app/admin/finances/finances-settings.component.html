@@ -111,7 +111,7 @@
       [type]="'number'"
       [step]="10"
       [value]="settings.hotwalletMinValue"
-      [format]="cryptoCode"
+      [format]="ADS_TOKEN_CODE"
       helper="Set a minimum amount required to run operations. In case the amount drops below the
       specified threshold, you will be notified via e-mail"
       (valueChanged)="updateSettings($event, 'hotwalletMinValue')"
@@ -123,7 +123,7 @@
       [type]="'number'"
       [step]="10"
       [value]="settings.hotwalletMaxValue"
-      [format]="cryptoCode"
+      [format]="ADS_TOKEN_CODE"
       helper="Set a maximum amount that can be stored on a hot wallet. All funds exceeding this amount
       will be automatically transferred to your cold wallet."
       (valueChanged)="updateSettings($event, 'hotwalletMaxValue')"

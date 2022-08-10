@@ -15,11 +15,11 @@ import { BtcWithdrawInfo, CalculateWithdrawalItem, WithdrawalInfo } from 'models
 import * as codes from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { WithdrawFundsSuccess } from 'store/settings/settings.actions';
-import { environment } from 'environments/environment';
 import { CODE, CRYPTO, CRYPTO_BTC } from 'common/utilities/consts';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from "../../../session.service";
 import { ApiService } from "../../../api/api.service";
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -27,12 +27,11 @@ import { ApiService } from "../../../api/api.service";
   styleUrls: ['./withdraw-funds-dialog.component.scss']
 })
 export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
-  environment = environment;
   crypto: string = CRYPTO;
   code: string = CODE;
   btc: string = CRYPTO_BTC;
   faQuestionCircle = faQuestionCircle;
-  cryptoCode: string = environment.cryptoCode;
+  appCurrency: string;
   user: User;
 
   isConfirmed = false;
@@ -68,7 +67,11 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    const currencySubscription = this.store.select('state', 'common', 'options', 'appCurrency')
+      .pipe(take(1))
+      .subscribe(appCurrency => this.appCurrency = appCurrency)
+    this.subscriptions.push(currencySubscription)
     this.user = this.session.getUser();
     this.isConfirmed = this.user.isConfirmed;
     this.adserverWallet = this.user.adserverWallet;
