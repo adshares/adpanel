@@ -9,7 +9,5 @@ export const environment = {
   xdebug: false,
   version: '0',
   context: 'local',
-  advertiserApplyFormUrl: '',
-  publisherApplyFormUrl: '',
   adControllerUrl: '',
 };

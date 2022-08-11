@@ -9,7 +9,5 @@ export const environment = {
   xdebug: ${DEV_XDEBUG},
   version: '${APP_VERSION}',
   context: '${CONTEXT_INFO}',
-  advertiserApplyFormUrl: '${ADVERTISER_APPLY_FORM_URL}',
-  publisherApplyFormUrl: '${PUBLISHER_APPLY_FORM_URL}',
   adControllerUrl: '${ADCONTROLLER_URL}',
 };
