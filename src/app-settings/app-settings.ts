@@ -25,16 +25,6 @@ export const appSettings = {
   ADVERTISER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-advertisers',
   // publisher instruction wiki link
   PUBLISHER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-publishers',
-  // support email
-  SUPPORT_EMAIL: environment.supportEmail,
-  // support telegram
-  SUPPORT_TELEGRAM: environment.supportTelegram,
-  // support chat
-  SUPPORT_CHAT: environment.supportChat,
-  // advertiser apply form url
-  ADVERTISER_APPLY_FORM_URL: environment.advertiserApplyFormUrl,
-  // publisher apply form url
-  PUBLISHER_APPLY_FORM_URL: environment.publisherApplyFormUrl,
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
   // eth address validation regexp

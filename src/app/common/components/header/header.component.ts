@@ -18,7 +18,6 @@ import {
   faLifeRing,
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
-import { appSettings } from 'app-settings'
 import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
@@ -64,12 +63,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
       .pipe(take(1))
       .subscribe(options => {
         this.calculateFunds = options.displayCurrency !== options.appCurrency
+        this.supportChat = options.supportChat
+        this.supportEmail = options.supportEmail
+        this.supportTelegram = options.supportTelegram
       })
     this.subscriptions.push(optionsSubscription)
-
-    this.supportEmail = appSettings.SUPPORT_EMAIL
-    this.supportTelegram = appSettings.SUPPORT_TELEGRAM
-    this.supportChat = appSettings.SUPPORT_CHAT
     this.store.dispatch(new SetUser())
 
     this.userLabel = this.session.getUserLabel()
