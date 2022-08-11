@@ -1,14 +1,10 @@
 import { Action } from '@ngrx/store';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { reportType } from 'models/enum/user.enum';
-import { Info } from 'models/info.model';
-import { Options } from 'models/options.model';
+import {Info} from "models/info.model";
 
 export const LOAD_INFO = 'Info loading';
 export const LOAD_INFO_SUCCESS = 'Info loading success';
-
-export const LOAD_OPTIONS = 'Options loading';
-export const LOAD_OPTIONS_SUCCESS = 'Options loading success';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
@@ -30,20 +26,6 @@ export class LoadInfoSuccess implements Action {
   readonly type: string = LOAD_INFO_SUCCESS;
 
   constructor(public payload: Info) {
-  }
-}
-
-export class LoadOptions implements Action {
-  readonly type: string = LOAD_OPTIONS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadOptionsSuccess implements Action {
-  readonly type: string = LOAD_OPTIONS_SUCCESS;
-
-  constructor(public payload: Options) {
   }
 }
 
@@ -92,8 +74,6 @@ export class RequestReportSuccess implements Action {
 export type actions =
   | LoadInfo
   | LoadInfoSuccess
-  | LoadOptions
-  | LoadOptionsSuccess
   | SetActiveUserType
   | SetChartFilterSettings
   | ShowSuccessSnackbar

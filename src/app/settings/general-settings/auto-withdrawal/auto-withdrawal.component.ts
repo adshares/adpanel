@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { adsToClicks, clicksToAds } from 'common/utilities/helpers'
 import { SettingsService } from 'settings/settings.service'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-auto-withdrawal',
@@ -31,6 +32,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
 
   constructor (
     private dialog: MatDialog,
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settingsService: SettingsService,
     private store: Store<AppState>,
@@ -39,9 +41,11 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit (): void {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+      .subscribe(options => {
+        this.currencyCode = options.displayCurrency
+      })
     this.subscriptions.push(currencySubscription);
     this.store.select('state', 'user', 'data', 'adserverWallet').pipe(take(2)).
       subscribe((wallet: UserAdserverWallet) => {

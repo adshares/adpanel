@@ -10,6 +10,7 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'models/user.model'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -31,6 +32,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     private publisherService: PublisherService,
+    private serverOptionsService: ServerOptionsService,
     private store: Store<AppState>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,9 +56,11 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
       popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
     });
 
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+      .subscribe(options => {
+        this.currencyCode = options.displayCurrency
+      })
     this.subscriptions.push(currencySubscription);
 
     const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges

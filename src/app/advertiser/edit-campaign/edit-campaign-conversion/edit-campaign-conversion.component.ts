@@ -24,6 +24,7 @@ import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.acti
 import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
 import { CustomValidators } from "common/utilities/forms";
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -79,6 +80,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
+    private serverOptionsService: ServerOptionsService,
     private dialog: MatDialog,
     action$: Actions,
   ) {
@@ -228,9 +230,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   getFormDataFromStore(): void {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+      .subscribe(options => {
+        this.currencyCode = options.displayCurrency
+      })
     this.store.dispatch(new LoadCampaignsConfig());
 
     const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')

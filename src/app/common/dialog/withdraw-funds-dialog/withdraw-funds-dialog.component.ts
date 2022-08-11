@@ -20,6 +20,7 @@ import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from "../../../session.service";
 import { ApiService } from "../../../api/api.service";
 import { take } from 'rxjs/operators'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-withdraw-funds-dialog',
@@ -59,6 +60,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   constructor(
     public dialogRef: MatDialogRef<WithdrawFundsDialogComponent>,
     private store: Store<AppState>,
+    private serverOptionsService: ServerOptionsService,
     private settingsService: SettingsService,
     private api: ApiService,
     private session: SessionService,
@@ -68,9 +70,11 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'appCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(appCurrency => this.appCurrency = appCurrency)
+      .subscribe(options => {
+        this.appCurrency = options.appCurrency
+      })
     this.subscriptions.push(currencySubscription)
     this.user = this.session.getUser();
     this.isConfirmed = this.user.isConfirmed;

@@ -9,7 +9,8 @@ import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
 import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
-import { environment } from 'environments/environment'
+import { take } from 'rxjs/operators'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-user-wallet',
@@ -22,11 +23,12 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
-  calculateFunds = environment.displayCurrencyCode !== environment.appCurrencyCode
+  calculateFunds: boolean
   isImpersonated: boolean = false;
 
   constructor(
     private dialog: MatDialog,
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private store: Store<AppState>
   ) {
@@ -41,11 +43,20 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
     this.dialog.open(WithdrawFundsDialogComponent);
   }
 
-  ngOnInit() {
-    this.store.select('state', 'user', 'data', 'adserverWallet')
+  ngOnInit(): void {
+
+    const optionsSubscription = this.serverOptionsService.getOptions()
+      .pipe(take(1))
+      .subscribe(options => {
+        this.calculateFunds = options.displayCurrency !== options.appCurrency
+      })
+    this.subscriptions.push(optionsSubscription)
+
+    const walletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
       .subscribe((wallet: UserAdserverWallet) => {
         this.wallet = wallet;
       });
+    this.subscriptions.push(walletSubscription)
     this.isImpersonated = this.session.isImpersonated()
   }
 }

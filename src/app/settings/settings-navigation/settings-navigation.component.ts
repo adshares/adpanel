@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { CODE, CRYPTO } from 'common/utilities/consts'
-import { environment } from 'environments/environment'
+import { take } from 'rxjs/operators'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-settings-navigation',
@@ -15,13 +16,14 @@ import { environment } from 'environments/environment'
 export class SettingsNavigationComponent extends HandleSubscription {
   crypto: string = CRYPTO
   code: string = CODE
-  calculateFunds = environment.displayCurrencyCode !== environment.appCurrencyCode
+  calculateFunds: boolean
   wallet: UserAdserverWallet
   totalFunds: number
   user: LocalStorageUser
   settings = []
 
   constructor (
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private store: Store<AppState>,
   ) {
@@ -87,7 +89,14 @@ export class SettingsNavigationComponent extends HandleSubscription {
     }
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
+    const optionsSubscription = this.serverOptionsService.getOptions()
+      .pipe(take(1))
+      .subscribe(options => {
+        this.calculateFunds = options.displayCurrency !== options.appCurrency
+      })
+    this.subscriptions.push(optionsSubscription)
+
     this.user = this.session.getUser()
     const userDataStateSubscription = this.store.select('state', 'user', 'data',
       'adserverWallet', 'totalFunds').subscribe((totalFunds: number) => {

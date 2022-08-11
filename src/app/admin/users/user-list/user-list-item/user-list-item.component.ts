@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import {
@@ -11,6 +11,7 @@ import { AdminService } from 'admin/admin.service'
 import { AppState } from 'models/app-state.model'
 import { ImpersonationService } from '../../../../impersonation/impersonation.service'
 import { SessionService } from '../../../../session.service'
+import { HandleSubscription } from 'common/handle-subscription'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 import { User } from 'models/user.model'
 import { ShowDialogOnError } from 'store/common/common.actions'
@@ -21,7 +22,8 @@ import {
   UserConfirmResponseDialogComponent
 } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
 import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions'
-import { environment } from 'environments/environment'
+import { ServerOptionsService } from 'common/server-options.service'
+import { take } from 'rxjs/operators'
 
 
 @Component({
@@ -29,26 +31,37 @@ import { environment } from 'environments/environment'
   templateUrl: './user-list-item.component.html',
   styleUrls: ['./user-list-item.component.scss'],
 })
-export class UserListItemComponent {
+export class UserListItemComponent extends HandleSubscription implements OnInit {
   @Input() user: UserInfo
   loggedUser: User
   faIconEmailConfirmed = faEnvelope
   faIconAdminConfirmed = faCheck
   crypto: string = CRYPTO
   code: string = CODE
-  calculateFunds = environment.displayCurrencyCode !== environment.appCurrencyCode
+  calculateFunds: boolean
   faIconImpersonation = faUserSecret
   isSaving: boolean = false;
 
   constructor (
     private adminService: AdminService,
+    private serviceOptionsService: ServerOptionsService,
     private store: Store<AppState>,
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
     private router: Router,
     private dialog: MatDialog,
   ) {
-    this.loggedUser = sessionService.getUser()
+    super()
+  }
+
+  ngOnInit(): void {
+    this.loggedUser = this.sessionService.getUser()
+    const subscription = this.serviceOptionsService.getOptions()
+      .pipe(take(1))
+      .subscribe(options => {
+        this.calculateFunds = options.displayCurrency !== options.appCurrency
+      })
+    this.subscriptions.push(subscription)
   }
 
   handleConfirmation (): void {

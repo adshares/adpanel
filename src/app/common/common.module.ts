@@ -70,6 +70,7 @@ import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found
 import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 import { ModelPreviewComponent } from 'common/components/model-preview/model-preview.component'
+import { ServerOptionsService } from 'common/server-options.service'
 
 const matModules = [
   MatDialogModule,
@@ -160,6 +161,7 @@ const appComponents = [
     ChartService,
     CommonService,
     MediaResolver,
+    ServerOptionsService,
   ],
   exports: [
     ...appComponents,

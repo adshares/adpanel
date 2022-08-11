@@ -30,6 +30,7 @@ import {
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { CustomValidators } from "common/utilities/forms";
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -60,6 +61,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
+    private serverOptionsService: ServerOptionsService,
   ) {
     super();
   }
@@ -103,9 +105,11 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+      .subscribe(options => {
+        this.currencyCode = options.displayCurrency
+      })
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);

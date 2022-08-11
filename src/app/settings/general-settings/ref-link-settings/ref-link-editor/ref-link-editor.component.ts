@@ -1,5 +1,4 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { Store } from '@ngrx/store'
 import {HandleSubscription} from 'common/handle-subscription';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SessionService} from "../../../../session.service";
@@ -8,8 +7,8 @@ import {RefLink} from "models/settings.model";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
 import { CommonService } from 'common/common.service'
-import { AppState } from 'models/app-state.model'
 import { take } from 'rxjs/operators'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-ref-link-editor',
@@ -31,10 +30,10 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
   refundValidUntilControl: FormControl;
 
   constructor(
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
     private common: CommonService,
-    private store: Store<AppState>,
   ) {
     super();
   }
@@ -43,9 +42,11 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     const user = this.session.getUser();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+      .subscribe(options => {
+        this.currencyCode = options.displayCurrency
+      })
     this.subscriptions.push(currencySubscription)
 
     this.form = new FormGroup({

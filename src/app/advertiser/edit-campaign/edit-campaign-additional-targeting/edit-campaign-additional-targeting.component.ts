@@ -19,6 +19,7 @@ import { Campaign } from 'models/campaign.model';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { HandleSubscription } from 'common/handle-subscription';
 import { CustomValidators } from 'common/utilities/forms';
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-edit-campaign-additional-targeting',
@@ -47,15 +48,18 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
     private store: Store<AppState>,
     private router: Router,
     private advertiserService: AdvertiserService,
+    private serverOptionsService: ServerOptionsService,
     private assetHelpers: AssetHelpersService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'displayCurrency')
-      .pipe(take(1))
-      .subscribe(displayCurrency => this.currencyCode = displayCurrency)
+    const currencySubscription = this.serverOptionsService.getOptions()
+        .pipe(take(1))
+        .subscribe(options => {
+          this.currencyCode = options.displayCurrency
+        })
     this.subscriptions.push(currencySubscription)
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
 

@@ -9,9 +9,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators'
 import { CommonService } from 'common/common.service'
 import {
   LOAD_INFO,
-  LOAD_OPTIONS,
   LoadInfoSuccess,
-  LoadOptionsSuccess,
   REQUEST_REPORT,
   REQUEST_REPORT_SUCCESS,
   RequestReport,
@@ -52,19 +50,6 @@ export class CommonEffects {
           map(info => new LoadInfoSuccess(info)),
           catchError(error => observableOf(new ShowDialogOnError(error.message)))
         )
-      )
-    ))
-
-  loadOptions$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(LOAD_OPTIONS),
-      switchMap(() => {
-          return this.service.getOptions()
-            .pipe(
-              map(options => new LoadOptionsSuccess(options)),
-              catchError(error => observableOf(new ShowDialogOnError(error.message)))
-            )
-        }
       )
     ))
 

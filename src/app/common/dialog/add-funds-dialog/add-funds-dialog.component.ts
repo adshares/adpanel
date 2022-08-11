@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialogRef } from '@angular/material/dialog'
-import { Store } from '@ngrx/store'
 import { HandleSubscription } from 'common/handle-subscription'
 import {
   Country,
@@ -16,7 +15,6 @@ import { SessionService } from 'app/session.service'
 import { forkJoin as observableForkJoin } from 'rxjs'
 import { isNumeric } from 'rxjs/internal-compatibility'
 import { CODE, CRYPTO } from 'common/utilities/consts'
-import { AppState } from 'models/app-state.model'
 import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
 import { appSettings } from 'app-settings'
@@ -25,6 +23,7 @@ import { SettingsService } from 'settings/settings.service'
 import { take } from 'rxjs/operators'
 
 import Web3 from 'web3'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -129,17 +128,19 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   constructor (
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
     private api: ApiService,
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
-    private store: Store<AppState>,
   ) {
     super()
   }
 
   ngOnInit () {
-    const currencySubscription = this.store.select('state', 'common', 'options', 'appCurrency')
+    const currencySubscription = this.serverOptionsService.getOptions()
       .pipe(take(1))
-      .subscribe(appCurrency => this.appCurrency = appCurrency)
+      .subscribe(options => {
+        this.appCurrency = options.appCurrency
+      })
     this.subscriptions.push(currencySubscription)
     const user = this.session.getUser()
     this.isConfirmed = user.isConfirmed
