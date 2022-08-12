@@ -13,18 +13,6 @@ export const appSettings = {
   AUTOMATIC_REFRESH_INTERVAL: 60000,
   // withdraw amounts values
   WITHDRAWAL_AMOUNTS: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-  // privacy policy link
-  PRIVACY_POLICY_LINK: environment.serverUrl + '/policies/privacy.html',
-  // terms of service link
-  TERMS_OF_SERVICE_LINK: environment.serverUrl + '/policies/terms.html',
-  // get ADS faq link
-  GET_ADS_FAQ_LINK: 'https://adshar.es/getADS',
-  // withdraw ADS faq link
-  WITHDRAW_ADS_FAQ_LINK: 'https://adshar.es/withdrawADS',
-  // advertiser instruction wiki link
-  ADVERTISER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-advertisers',
-  // publisher instruction wiki link
-  PUBLISHER_INSTRUCTION_LINK: 'https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-publishers',
   // blockchain address validation regexp
   ADDRESS_REGEXP: '[0-9a-fA-F]{4}-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}|XXXX)',
   // eth address validation regexp

@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 
 import { ApiService } from 'app/api/api.service'
 import { HandleSubscription } from 'common/handle-subscription'
-import { appSettings } from 'app-settings'
 import { User } from 'models/user.model'
 import { HttpErrorResponse } from '@angular/common/http'
 import {
@@ -31,8 +30,8 @@ export class RegisterComponent extends HandleSubscription {
 
   isLoading = true
   isRegistering = false
-  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK
-  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK
+  privacyPolicyLink: string
+  termsOfServiceLink: string
   user: User
   registrationEnabled: boolean = false
   registrationMode: string
@@ -49,7 +48,7 @@ export class RegisterComponent extends HandleSubscription {
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
     this.activatedRoute.params.pipe(switchMap((params) => {
       return observableForkJoin([
         this.store.select('state', 'common', 'info').pipe(take(1)),
@@ -59,7 +58,9 @@ export class RegisterComponent extends HandleSubscription {
       ])
     })).subscribe(
       (responses: [Info, RefLinkInfo]) => {
+        this.privacyPolicyLink = responses[0].privacyUrl
         this.registrationMode = responses[0].registrationMode
+        this.termsOfServiceLink = responses[0].termsUrl
         this.refLinkInfo = responses[1]
         if (this.refLinkInfo) {
           this.api.users.setReferralToken(this.refLinkInfo.token)

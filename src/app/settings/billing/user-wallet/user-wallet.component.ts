@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { WithdrawFundsDialogComponent } from 'common/dialog/withdraw-funds-dialog/withdraw-funds-dialog.component';
-import { appSettings } from 'app-settings';
 import { SessionService } from "app/session.service";
 import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
@@ -11,6 +10,7 @@ import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
 import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
+import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum'
 
 @Component({
   selector: 'app-user-wallet',
@@ -18,8 +18,8 @@ import { ServerOptionsService } from 'common/server-options.service'
   styleUrls: ['./user-wallet.component.scss']
 })
 export class UserWalletComponent extends HandleSubscription implements OnInit {
-  getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK;
-  withdrawAdsFaqLink = appSettings.WITHDRAW_ADS_FAQ_LINK;
+  getAdsFaqLink = GET_ADS_FAQ
+  withdrawAdsFaqLink = WITHDRAW_ADS_FAQ
   wallet: UserAdserverWallet;
   crypto: string = CRYPTO;
   code: string = CODE;
