@@ -23,7 +23,6 @@ import {
 } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
 import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions'
 import { ServerOptionsService } from 'common/server-options.service'
-import { take } from 'rxjs/operators'
 
 
 @Component({
@@ -56,12 +55,8 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
 
   ngOnInit(): void {
     this.loggedUser = this.sessionService.getUser()
-    const subscription = this.serviceOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.calculateFunds = options.displayCurrency !== options.appCurrency
-      })
-    this.subscriptions.push(subscription)
+    const options = this.serviceOptionsService.getOptions()
+    this.calculateFunds = options.displayCurrency !== options.appCurrency
   }
 
   handleConfirmation (): void {

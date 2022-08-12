@@ -12,7 +12,7 @@ import {
 import { NOT_AVAILABLE } from 'common/utilities/messages'
 import { AppState } from 'models/app-state.model'
 import { ExchangeRate } from 'models/user.model'
-import { filter, take } from 'rxjs/operators'
+import { filter } from 'rxjs/operators'
 
 function removeDecimalPart(value: number | string) {
   return (`${value}`).split('.')[0];
@@ -22,18 +22,14 @@ function removeDecimalPart(value: number | string) {
   name: 'formatMoney'
 })
 export class AdsharesTokenPipe extends HandleSubscription implements PipeTransform {
-  private appCurrencyCode: string
-  private currencyCode: string
+  private readonly appCurrencyCode: string
+  private readonly currencyCode: string
 
   constructor (private serverOptionsService : ServerOptionsService) {
     super()
-    const optionsSubscription = serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.appCurrencyCode = options.appCurrency
-        this.currencyCode = options.displayCurrency
-      })
-    this.subscriptions.push(optionsSubscription)
+    const options = serverOptionsService.getOptions()
+    this.appCurrencyCode = options.appCurrency
+    this.currencyCode = options.displayCurrency
   }
 
   transform (value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol'): string {

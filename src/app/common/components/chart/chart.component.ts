@@ -18,7 +18,6 @@ import * as commonActions from 'store/common/common.actions';
 import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
 import { cloneDeep } from 'common/utilities/helpers'
 import { ServerOptionsService } from 'common/server-options.service'
-import { take } from 'rxjs/operators'
 
 
 @Component({
@@ -44,18 +43,12 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   }
 
   ngOnInit(): void {
-    const optionsSubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.barChartOptions = chartOptions(options.displayCurrency)
-      })
-    this.subscriptions.push(optionsSubscription)
+    this.barChartOptions = chartOptions(this.serverOptionsService.getOptions().displayCurrency)
 
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = cloneDeep(chartFilterSettings);
       });
-
     this.subscriptions.push(chartFilterSubscription);
   }
 

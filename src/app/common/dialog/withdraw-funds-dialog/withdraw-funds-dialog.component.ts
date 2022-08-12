@@ -19,7 +19,6 @@ import { CODE, CRYPTO, CRYPTO_BTC } from 'common/utilities/consts';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from "../../../session.service";
 import { ApiService } from "../../../api/api.service";
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -70,12 +69,7 @@ export class WithdrawFundsDialogComponent extends HandleSubscription implements 
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.appCurrency = options.appCurrency
-      })
-    this.subscriptions.push(currencySubscription)
+    this.appCurrency = this.serverOptionsService.getOptions().appCurrency
     this.user = this.session.getUser();
     this.isConfirmed = this.user.isConfirmed;
     this.adserverWallet = this.user.adserverWallet;

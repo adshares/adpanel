@@ -19,7 +19,6 @@ import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { SettingsService } from 'settings/settings.service'
-import { take } from 'rxjs/operators'
 import Web3 from 'web3'
 import { ServerOptionsService } from 'common/server-options.service'
 import { GET_ADS_FAQ } from 'models/enum/link.enum'
@@ -134,13 +133,8 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
     super()
   }
 
-  ngOnInit () {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.appCurrency = options.appCurrency
-      })
-    this.subscriptions.push(currencySubscription)
+  ngOnInit (): void {
+    this.appCurrency = this.serverOptionsService.getOptions().appCurrency
     const user = this.session.getUser()
     this.isConfirmed = user.isConfirmed
 

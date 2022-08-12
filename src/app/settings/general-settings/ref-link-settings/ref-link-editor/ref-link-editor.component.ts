@@ -7,7 +7,6 @@ import {RefLink} from "models/settings.model";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
 import { CommonService } from 'common/common.service'
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -42,12 +41,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     const user = this.session.getUser();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.currencyCode = options.displayCurrency
-      })
-    this.subscriptions.push(currencySubscription)
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
 
     this.form = new FormGroup({
       token: new FormControl(null, [Validators.minLength(6), Validators.maxLength(32)]),

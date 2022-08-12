@@ -41,12 +41,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit (): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.currencyCode = options.displayCurrency
-      })
-    this.subscriptions.push(currencySubscription);
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.select('state', 'user', 'data', 'adserverWallet').pipe(take(2)).
       subscribe((wallet: UserAdserverWallet) => {
         this.updateWallet(wallet)

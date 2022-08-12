@@ -8,7 +8,6 @@ import {AppState} from "models/app-state.model";
 import {Store} from "@ngrx/store";
 import { UserAdserverWallet } from "models/user.model";
 import { CODE, CRYPTO } from "common/utilities/consts";
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 import { GET_ADS_FAQ, WITHDRAW_ADS_FAQ } from 'models/enum/link.enum'
 
@@ -44,13 +43,8 @@ export class UserWalletComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
-
-    const optionsSubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.calculateFunds = options.displayCurrency !== options.appCurrency
-      })
-    this.subscriptions.push(optionsSubscription)
+    const options = this.serverOptionsService.getOptions()
+    this.calculateFunds = options.displayCurrency !== options.appCurrency
 
     const walletSubscription = this.store.select('state', 'user', 'data', 'adserverWallet')
       .subscribe((wallet: UserAdserverWallet) => {

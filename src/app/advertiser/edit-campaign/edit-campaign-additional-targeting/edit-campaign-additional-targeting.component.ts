@@ -55,12 +55,7 @@ export class EditCampaignAdditionalTargetingComponent extends HandleSubscription
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-        .pipe(take(1))
-        .subscribe(options => {
-          this.currencyCode = options.displayCurrency
-        })
-    this.subscriptions.push(currencySubscription)
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
 
     this.loadMaxCpmAndTargetingFromStore();

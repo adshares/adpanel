@@ -105,11 +105,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.currencyCode = options.displayCurrency
-      })
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);
@@ -122,7 +118,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
       });
 
     subscription && this.subscriptions.push(subscription);
-    this.subscriptions.push(currencySubscription, campaignsConfigSubscription);
+    this.subscriptions.push(campaignsConfigSubscription);
   }
 
   onSubmit() {

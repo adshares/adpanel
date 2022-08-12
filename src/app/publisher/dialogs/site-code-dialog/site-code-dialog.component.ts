@@ -56,12 +56,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
       popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
     });
 
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.currencyCode = options.displayCurrency
-      })
-    this.subscriptions.push(currencySubscription);
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
 
     const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges
       .subscribe(

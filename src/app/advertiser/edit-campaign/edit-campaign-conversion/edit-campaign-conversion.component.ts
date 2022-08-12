@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { first, take } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
 import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
@@ -230,11 +230,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   getFormDataFromStore(): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.currencyCode = options.displayCurrency
-      })
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.dispatch(new LoadCampaignsConfig());
 
     const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
@@ -249,7 +245,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         this.adjustConversionData(this.campaign.conversions);
       });
 
-    this.subscriptions.push(currencySubscription, subscription, configSubscription);
+    this.subscriptions.push(subscription, configSubscription);
   }
 
   addConversionEmpty(type: string): void {

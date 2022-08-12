@@ -18,7 +18,6 @@ import {
   faLifeRing,
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -59,15 +58,11 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit (): void {
-    const optionsSubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.calculateFunds = options.displayCurrency !== options.appCurrency
-        this.supportChat = options.supportChat
-        this.supportEmail = options.supportEmail
-        this.supportTelegram = options.supportTelegram
-      })
-    this.subscriptions.push(optionsSubscription)
+    const options = this.serverOptionsService.getOptions()
+    this.calculateFunds = options.displayCurrency !== options.appCurrency
+    this.supportChat = options.supportChat
+    this.supportEmail = options.supportEmail
+    this.supportTelegram = options.supportTelegram
     this.store.dispatch(new SetUser())
 
     this.userLabel = this.session.getUserLabel()

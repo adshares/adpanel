@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import { HandleSubscription } from 'common/handle-subscription'
 import { CODE, CRYPTO } from 'common/utilities/consts'
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -90,12 +89,8 @@ export class SettingsNavigationComponent extends HandleSubscription {
   }
 
   ngOnInit (): void {
-    const optionsSubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.calculateFunds = options.displayCurrency !== options.appCurrency
-      })
-    this.subscriptions.push(optionsSubscription)
+    const options = this.serverOptionsService.getOptions()
+    this.calculateFunds = options.displayCurrency !== options.appCurrency
 
     this.user = this.session.getUser()
     const userDataStateSubscription = this.store.select('state', 'user', 'data',

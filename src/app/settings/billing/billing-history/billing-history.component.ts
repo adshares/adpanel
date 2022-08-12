@@ -16,7 +16,6 @@ import {
 import { HandleSubscription } from 'common/handle-subscription';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { take } from 'rxjs/operators'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -54,12 +53,7 @@ export class BillingHistoryComponent extends HandleSubscription implements OnIni
   }
 
   ngOnInit(): void {
-    const currencySubscription = this.serverOptionsService.getOptions()
-      .pipe(take(1))
-      .subscribe(options => {
-        this.appCurrency = options.appCurrency
-      })
-    this.subscriptions.push(currencySubscription)
+    this.appCurrency = this.serverOptionsService.getOptions().appCurrency
     const handleHistoryUpdate = this.action$
       .pipe(ofType(CANCEL_AWAITING_TRANSACTION, WITHDRAW_FUNDS_SUCCESS))
       .subscribe(() => this.getBillingHistory());
