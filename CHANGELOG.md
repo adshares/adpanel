@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Currency can be used in settlements
+- Dynamically load currency and other AdServer's options
 
 ## [1.18.7] - 2022-07-29
 ### Fixed

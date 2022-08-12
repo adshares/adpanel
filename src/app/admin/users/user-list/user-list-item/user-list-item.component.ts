@@ -43,7 +43,7 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
 
   constructor (
     private adminService: AdminService,
-    private serviceOptionsService: ServerOptionsService,
+    private serverOptionsService: ServerOptionsService,
     private store: Store<AppState>,
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
@@ -55,7 +55,7 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
 
   ngOnInit(): void {
     this.loggedUser = this.sessionService.getUser()
-    const options = this.serviceOptionsService.getOptions()
+    const options = this.serverOptionsService.getOptions()
     this.calculateFunds = options.displayCurrency !== options.appCurrency
   }
 
