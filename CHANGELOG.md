@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Dynamically load currency and other AdServer's options
 - Decrease index replace delay
+- Display regular users' flows based on their interest (advertiser/publisher)
 
 ## [1.18.7] - 2022-07-29
 ### Fixed

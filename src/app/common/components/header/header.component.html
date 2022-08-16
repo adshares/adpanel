@@ -37,7 +37,7 @@
     </a>
     <button
       type="button"
-      *ngIf="!session.isModerator() || session.isImpersonated()"
+      *ngIf="session.isAdvertiser() && !session.isModerator() || session.isImpersonated() && actAsAdvertiser"
       class="dwmth-btn--no-border
                row
                align-center
@@ -61,7 +61,7 @@
     </button>
     <button
       type="button"
-      *ngIf="!session.isModerator() || session.isImpersonated()"
+      *ngIf="session.isPublisher() && !session.isModerator() || session.isImpersonated() && actAsPublisher"
       class="dwmth-btn--no-border
                row
                align-center
