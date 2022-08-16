@@ -7,7 +7,7 @@ set -eu
 cd "$(dirname "$0")"
 cd ..
 
-MINIMUM_DELAY_BEFORE_REPLACE=86400
+MINIMUM_DELAY_BEFORE_REPLACE=3600
 PREVIEW_FILE=dist/preview.html
 INDEX_FILE=dist/index.html
 
