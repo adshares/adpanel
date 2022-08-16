@@ -8,7 +8,7 @@ export const LOAD_INFO_SUCCESS = 'Info loading success';
 
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
-export const SET_ADSHARES_ADDRESS = 'Adshares Address set';
+
 export const SHOW_SUCCESS_SNACKBAR = 'Show success snackbar';
 export const SHOW_DIALOG_ON_ERROR = 'Show dialog on error';
 
@@ -50,13 +50,6 @@ export class SetChartFilterSettings implements Action {
   }
 }
 
-export class SetAdsharesAddress implements Action {
-  readonly type = SET_ADSHARES_ADDRESS;
-
-  constructor(public payload: string) {
-  }
-}
-
 export class ShowSuccessSnackbar implements Action {
   readonly type = SHOW_SUCCESS_SNACKBAR;
 
@@ -83,7 +76,6 @@ export type actions =
   | LoadInfoSuccess
   | SetActiveUserType
   | SetChartFilterSettings
-  | SetAdsharesAddress
   | ShowSuccessSnackbar
   | RequestReport
   | RequestReportSuccess;

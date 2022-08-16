@@ -39,9 +39,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   isAdsLoggingIn: boolean = false
   isBscLoggingIn: boolean = false
   walletLoginError: string | null
-
-  advertiserApplyFormUrl = appSettings.ADVERTISER_APPLY_FORM_URL
-  publisherApplyFormUrl = appSettings.PUBLISHER_APPLY_FORM_URL
+  advertiserApplyFormUrl: string
+  publisherApplyFormUrl: string
+  private supportEmail: string
 
   constructor (
     private api: ApiService,
@@ -55,9 +55,12 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit (): void {
-    const infoSubscription = this.store.select('state', 'common', 'info').
-      subscribe((info: Info) => {
+    const infoSubscription = this.store.select('state', 'common', 'info')
+      .subscribe((info: Info) => {
+        this.advertiserApplyFormUrl = info.advertiserApplyFormUrl
+        this.publisherApplyFormUrl = info.publisherApplyFormUrl
         this.registrationMode = info.registrationMode
+        this.supportEmail = info.supportEmail
       })
     this.subscriptions.push(infoSubscription)
     this.createForm()
@@ -111,7 +114,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
-              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${appSettings.SUPPORT_EMAIL}`,
+              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${this.supportEmail}`,
             }
           })
           this.isLoggingIn = false

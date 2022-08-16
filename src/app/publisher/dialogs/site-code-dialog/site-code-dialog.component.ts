@@ -4,13 +4,13 @@ import { take, debounceTime } from 'rxjs/operators';
 import { HandleSubscription } from 'common/handle-subscription';
 import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'environments/environment';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import { SiteCodes } from 'models/site.model';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'models/user.model'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -19,9 +19,9 @@ import { AppState } from 'models/app-state.model'
 })
 export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
-  readonly CURRENCY_CODE: string = environment.currencyCode;
   faCode = faCode;
 
+  currencyCode: string;
   codes?: SiteCodes = null;
   codeForm: FormGroup;
   loadingInfo: boolean = true;
@@ -32,6 +32,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
   constructor(
     public dialogRef: MatDialogRef<SiteCodeDialogComponent>,
     private publisherService: PublisherService,
+    private serverOptionsService: ServerOptionsService,
     private store: Store<AppState>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,6 +55,8 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
       popInterval: new FormControl(1, [Validators.required, Validators.min(1)]),
       popBurst: new FormControl(1, [Validators.required, Validators.min(1)]),
     });
+
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
 
     const minCpmSubscription = this.codeForm.get('isMinCpm').valueChanges
       .subscribe(

@@ -6,12 +6,11 @@ import { SessionService } from 'app/session.service'
 import { AppState } from 'models/app-state.model'
 import { Store } from '@ngrx/store'
 import { User, UserAdserverWallet } from 'models/user.model'
-import { CODE, CRYPTO } from 'common/utilities/consts'
-import { environment } from 'environments/environment'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { adsToClicks, clicksToAds } from 'common/utilities/helpers'
 import { SettingsService } from 'settings/settings.service'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-auto-withdrawal',
@@ -20,9 +19,7 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 })
 export class AutoWithdrawalComponent extends HandleSubscription implements OnInit {
   wallet: UserAdserverWallet
-  crypto: string = CRYPTO
-  code: string = CODE
-  currencyCode: string = environment.currencyCode
+  currencyCode: string
   isImpersonated: boolean = false;
 
   isAutoWithdrawalAvailable: boolean = false
@@ -35,6 +32,7 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
 
   constructor (
     private dialog: MatDialog,
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settingsService: SettingsService,
     private store: Store<AppState>,
@@ -42,7 +40,8 @@ export class AutoWithdrawalComponent extends HandleSubscription implements OnIni
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.select('state', 'user', 'data', 'adserverWallet').pipe(take(2)).
       subscribe((wallet: UserAdserverWallet) => {
         this.updateWallet(wallet)

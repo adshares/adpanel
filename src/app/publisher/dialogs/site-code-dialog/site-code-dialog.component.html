@@ -79,7 +79,7 @@
                   formControlName="minCpm"
                   class="dwmth-form-input input-in-text input-in-text--amount justify-center"
                 />
-                <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">{{ CURRENCY_CODE }} only</span>
+                <span class="dwmth-info-box mat-checkbox-label align-with-checkbox">{{ currencyCode }} only</span>
 
                 <div
                   *ngIf="!codeForm.get('minCpm').valid"
@@ -87,7 +87,7 @@
                 >
                   <span
                     class="error-msg error-msg-in-text"
-                  >Value must be greater than 0.0001 {{ CURRENCY_CODE }}</span>
+                  >Value must be greater than 0.0001 {{ currencyCode }}</span>
                 </div>
               </div>
               <div class="col-xs-5">

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
-import { fadeAnimation } from 'common/animations/fade.animation';
-import { environment } from "environments/environment";
-import { appSettings } from "app-settings";
+import { fadeAnimation } from 'common/animations/fade.animation'
+import { environment } from 'environments/environment'
+import { ADVERTISER_INSTRUCTION_LINK, PUBLISHER_INSTRUCTION_LINK } from 'models/enum/link.enum'
+import { take } from 'rxjs/operators'
+import { Store } from '@ngrx/store'
+import { AppState } from 'models/app-state.model'
 
 @Component({
   selector: 'app-auth',
@@ -12,18 +15,29 @@ import { appSettings } from "app-settings";
 })
 
 export class AuthComponent {
-  getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : ''
 
-  advertiserInstructionLink = appSettings.ADVERTISER_INSTRUCTION_LINK;
-  publisherInstructionLink = appSettings.PUBLISHER_INSTRUCTION_LINK;
-  privacyPolicyLink = appSettings.PRIVACY_POLICY_LINK
-  termsOfServiceLink = appSettings.TERMS_OF_SERVICE_LINK
-  source: string;
-  version: string;
+  advertiserInstructionLink = ADVERTISER_INSTRUCTION_LINK
+  publisherInstructionLink = PUBLISHER_INSTRUCTION_LINK
+  privacyPolicyLink: string
+  termsOfServiceLink: string
+  source: string
+  version: string
 
-  constructor(
+  constructor (
+    private store: Store<AppState>,
   ) {
-    this.source = environment.name.toLowerCase().replace(/\s+/, '-');
-    this.version = environment.version;
+    this.source = environment.name.toLowerCase().replace(/\s+/, '-')
+    this.version = environment.version
+  }
+
+  ngOnInit (): void {
+    this.store.select('state', 'common', 'info')
+      .pipe(take(1))
+      .subscribe(info => {
+          this.privacyPolicyLink = info.privacyUrl
+          this.termsOfServiceLink = info.termsUrl
+        },
+      )
   }
 }

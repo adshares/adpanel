@@ -1,10 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { HandleSubscription } from 'common/handle-subscription'
+import { ServerOptionsService } from 'common/server-options.service'
 import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts'
-import { calcCampaignBudgetPerDay, formatMoney, formatNumberWithComma } from 'common/utilities/helpers'
+import {
+  calcCampaignBudgetPerDay,
+  currencySymbolByCode,
+  formatMoney,
+  formatNumberWithComma,
+} from 'common/utilities/helpers'
 import { NOT_AVAILABLE } from 'common/utilities/messages'
-import { environment } from 'environments/environment'
 import { AppState } from 'models/app-state.model'
 import { ExchangeRate } from 'models/user.model'
 import { filter } from 'rxjs/operators'
@@ -16,21 +21,31 @@ function removeDecimalPart(value: number | string) {
 @Pipe({
   name: 'formatMoney'
 })
-export class AdsharesTokenPipe implements PipeTransform {
-  transform(value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol',): string {
+export class AdsharesTokenPipe extends HandleSubscription implements PipeTransform {
+  private readonly appCurrencyCode: string
+  private readonly currencyCode: string
+
+  constructor (private serverOptionsService : ServerOptionsService) {
+    super()
+    const options = serverOptionsService.getOptions()
+    this.appCurrencyCode = options.appCurrency
+    this.currencyCode = options.displayCurrency
+  }
+
+  transform (value: number | string, precision: number = 11, currency: string = 'other', format: string = 'symbol'): string {
     let symbol, code;
 
     if (format === 'none') {
       symbol = code = '';
     } else if (currency === CRYPTO) {
-      symbol = format === 'symbol' ? environment.cryptoSymbol : '';
-      code = format !== 'symbol' ? environment.cryptoSymbol : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(this.appCurrencyCode) : '';
+      code = format !== 'symbol' ? this.appCurrencyCode : '';
     } else if (currency === CRYPTO_BTC) {
       symbol = format === 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
       code = format !== 'symbol' ? CRYPTO_BTC.toUpperCase() : '';
     } else {
-      symbol = format === 'symbol' ? environment.currencySymbol : '';
-      code = format !== 'symbol' ? environment.currencySymbol : '';
+      symbol = format === 'symbol' ? currencySymbolByCode(this.currencyCode) : '';
+      code = format !== 'symbol' ? this.currencyCode : '';
     }
 
     return `${symbol}${formatMoney(removeDecimalPart(value), precision)} ${code}`;

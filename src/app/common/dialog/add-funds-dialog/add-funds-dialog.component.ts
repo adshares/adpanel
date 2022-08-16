@@ -14,16 +14,14 @@ import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
 import { forkJoin as observableForkJoin } from 'rxjs'
 import { isNumeric } from 'rxjs/internal-compatibility'
-import { environment } from 'environments/environment'
 import { CODE, CRYPTO } from 'common/utilities/consts'
-
 import { Contract } from 'web3-eth-contract'
 import { hexToNumber } from 'web3-utils'
-import { appSettings } from 'app-settings'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { SettingsService } from 'settings/settings.service'
-
 import Web3 from 'web3'
+import { ServerOptionsService } from 'common/server-options.service'
+import { GET_ADS_FAQ } from 'models/enum/link.enum'
 
 @Component({
   selector: 'app-add-funds-dialog',
@@ -31,6 +29,7 @@ import Web3 from 'web3'
   styleUrls: ['./add-funds-dialog.component.scss'],
 })
 export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
+  readonly ADS_TOKEN_CODE = 'ADS'
   abi: any = [
     {
       'constant': true,
@@ -76,8 +75,8 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
       'type': 'function',
     }]
 
-  getAdsFaqLink = appSettings.GET_ADS_FAQ_LINK
-  environment = environment
+  getAdsFaqLink = GET_ADS_FAQ
+  appCurrency: string
   crypto: string = CRYPTO
   code: string = CODE
   isConfirmed = false
@@ -127,13 +126,15 @@ export class AddFundsDialogComponent extends HandleSubscription implements OnIni
   constructor (
     public dialogRef: MatDialogRef<AddFundsDialogComponent>,
     private api: ApiService,
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
   ) {
     super()
   }
 
-  ngOnInit () {
+  ngOnInit (): void {
+    this.appCurrency = this.serverOptionsService.getOptions().appCurrency
     const user = this.session.getUser()
     this.isConfirmed = user.isConfirmed
 
