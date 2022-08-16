@@ -132,7 +132,10 @@
       <mat-form-field>
         <mat-label>Bid strategy name</mat-label>
         <input
+          id="name"
+          name="name"
           [(ngModel)]="bidStrategyNameSelected"
+          #name="ngModel"
           matInput
           type="text"
           maxlength="255"
@@ -145,6 +148,7 @@
 
       <button
         (click)="saveOrUpdate()"
+        [disabled]="name.invalid"
         class="dwmth-btn dwmth-btn--blue appended"
       >
         Save bid strategy
