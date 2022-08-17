@@ -333,7 +333,7 @@
         </span>
       </div>
 
-      <div class="ads-amount">
+      <div *ngIf="ADS_TOKEN_CODE === appCurrency" class="ads-amount">
         <span class="dwmth-form-label">
           Your deposit will amount to approx.
         </span>
@@ -341,7 +341,7 @@
           class="dwmth-copy dwmth-copy--large"
           data-test="common-now-payments-dialog-ads-amount"
         >
-          {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + environment.cryptoCode }}
+          {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + ADS_TOKEN_CODE }}
         </span>
       </div>
 

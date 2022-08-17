@@ -1,5 +1,6 @@
 export interface Info {
   adsAddress: string;
+  advertiserApplyFormUrl?: string;
   capabilities: string[]
   demandFee: number;
   inventoryUrl: string;
@@ -8,6 +9,7 @@ export interface Info {
   name: string;
   panelUrl: string;
   privacyUrl: string;
+  publisherApplyFormUrl?: string;
   registrationMode: string;
   serverUrl: string;
   supplyFee: number;

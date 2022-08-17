@@ -240,6 +240,7 @@
           {{ totalFunds | formatMoney:2:crypto:code }}
         </span>
         <span
+          *ngIf="calculateFunds"
           class="dwmth-header__money-in-currency"
           data-test="user-total-funds"
         >

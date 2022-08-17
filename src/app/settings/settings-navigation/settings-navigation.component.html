@@ -5,7 +5,8 @@
     >
       Total balance:
     </h6>
-    <span class="settings-navigation__account-status--in-currency"
+    <span *ngIf="calculateFunds"
+          class="settings-navigation__account-status--in-currency"
           data-test="user-total-funds"
     >
         {{ totalFunds | calculateInCurrency:2 }}

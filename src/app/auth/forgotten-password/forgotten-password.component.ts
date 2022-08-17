@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms'
 import { Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { ApiService } from 'app/api/api.service'
-import { appSettings } from 'app-settings'
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component'
 import { Info } from 'models/info.model'
 import { HandleSubscription } from 'common/handle-subscription'
@@ -21,7 +20,6 @@ export class ForgottenPasswordComponent extends HandleSubscription implements On
   registrationMode: string
   isSendingEmail = false
   emailDoesntExist = false
-  supportEmail = appSettings.SUPPORT_EMAIL
 
   constructor (
     private router: Router,

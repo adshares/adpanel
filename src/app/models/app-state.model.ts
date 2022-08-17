@@ -71,7 +71,6 @@ interface AdminState {
 interface CommonState {
   info: Info;
   activeUserType: number;
-  adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
   impersonationToken: string;
 }

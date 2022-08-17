@@ -22,9 +22,9 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
-import { environment } from 'environments/environment';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
 import { CustomValidators } from "common/utilities/forms";
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-edit-campaign-conversion',
@@ -32,7 +32,7 @@ import { CustomValidators } from "common/utilities/forms";
   styleUrls: ['./edit-campaign-conversion.component.scss']
 })
 export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
 
@@ -80,6 +80,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
+    private serverOptionsService: ServerOptionsService,
     private dialog: MatDialog,
     action$: Actions,
   ) {
@@ -229,6 +230,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   getFormDataFromStore(): void {
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.dispatch(new LoadCampaignsConfig());
 
     const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')

@@ -289,12 +289,22 @@ function checkDirectedDeal (campaign) {
   return isDirectDeal
 }
 
+function currencySymbolByCode(code: string): string {
+  switch (code) {
+    case 'USD':
+      return '$'
+    default:
+      return code
+  }
+}
+
 export {
   adsToClicks,
   clicksToAds,
   calcCampaignBudgetPerDay,
   calcCampaignBudgetPerHour,
   cloneDeep,
+  currencySymbolByCode,
   cutDirectAdSizeAnchor,
   enumToArray,
   enumToObjectArray,
