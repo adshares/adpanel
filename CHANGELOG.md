@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.18.8] - 2022-08-17
 ### Fixed
 - Disable saving bid strategy while name is empty
 
@@ -460,7 +462,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.7...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.8...develop
+[1.18.8]: https://github.com/adshares/adpanel/compare/v1.18.7...v1.18.8
 [1.18.7]: https://github.com/adshares/adpanel/compare/v1.18.6...v1.18.7
 [1.18.6]: https://github.com/adshares/adpanel/compare/v1.18.5...v1.18.6
 [1.18.5]: https://github.com/adshares/adpanel/compare/v1.18.4...v1.18.5
