@@ -45,6 +45,8 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   faPaperPlane = faPaperPlane
   faComments = faComments
   envContext: string | null = environment.context
+  actAsAdvertiser: boolean
+  actAsPublisher: boolean
 
   constructor (
     private router: Router,
@@ -102,11 +104,13 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         break
     }
 
-    const userDataStateSubscription = this.store.select('state', 'user',
-      'data').subscribe((data: User) => {
-      this.totalFunds = data.adserverWallet.totalFunds
-      this.isTotalFundsValid = data.isAdserverWalletValid
-    })
+    const userDataStateSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((data: User) => {
+        this.totalFunds = data.adserverWallet.totalFunds
+        this.isTotalFundsValid = data.isAdserverWalletValid
+        this.actAsAdvertiser = data.isAdvertiser
+        this.actAsPublisher = data.isPublisher
+      })
     this.subscriptions.push(userDataStateSubscription)
   }
 
