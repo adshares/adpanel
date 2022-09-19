@@ -88,6 +88,42 @@
       </button>
       <button
         mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdvertiser"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('grantAdvertising')"
+        [disabled]="isSaving"
+      >
+        Grant Advertising
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isPublisher"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('grantPublishing')"
+        [disabled]="isSaving"
+      >
+        Grant Publishing
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isAdvertiser"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('denyAdvertising')"
+        [disabled]="isSaving"
+      >
+        Deny Advertising
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isPublisher"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('denyPublishing')"
+        [disabled]="isSaving"
+      >
+        Deny Publishing
+      </button>
+      <button
+        mat-menu-item
         class="user-list-item__btn user-list-item__btn--danger"
         *ngIf="(loggedUser.isAdmin && !user.isAdmin) && !user.isBanned"
         (click)="showBanConfirmationDialog()"

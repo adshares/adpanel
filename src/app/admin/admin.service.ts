@@ -93,6 +93,10 @@ export class AdminService {
     return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToRegular`, {})
   }
 
+  changeUserRights(id: number, operation: string): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/${operation}`, {})
+  }
+
   impersonateUser(id: number): Observable<string> {
     return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
   }

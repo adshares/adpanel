@@ -131,8 +131,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
     }
     else if (user.isModerator) {
-      this.session.setAccountTypeChoice(
-        SessionService.ACCOUNT_TYPE_MODERATOR)
+      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_MODERATOR)
     }
     else if (user.isAgency) {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
@@ -213,7 +212,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       user.isPublisher) {
       this.session.setAccountTypeChoice(accountType)
       this.navigateByUrl(`/${accountType}/dashboard`)
+      return
     }
+
+    this.navigateByUrl(`/settings/general`)
   }
 
   processLogin (user: User): void {

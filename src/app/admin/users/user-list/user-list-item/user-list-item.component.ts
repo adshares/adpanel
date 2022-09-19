@@ -143,6 +143,23 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
     )
   }
 
+  handleUserRightsChange(operation: string): void {
+    this.isSaving = true;
+    this.adminService.changeUserRights(this.user.id, operation).subscribe(
+      (user) => {
+        this.user = {
+          ...this.user,
+          ...user,
+        }
+        this.isSaving = false;
+      },
+      () => {
+        this.isSaving = false;
+        this.store.dispatch(new ShowDialogOnError(''));
+      }
+    )
+  }
+
   get canImpersonate (): boolean {
     return !this.user.isAdmin && !this.user.isModerator
       && this.user.id !== this.loggedUser.id
@@ -161,11 +178,14 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
     else if (this.user.isAgency) {
       return 'Agency'
     }
-    else if (this.user.isAdvertiser && this.user.isPublisher) {
-      return 'Adv / Pub'
+    else if (this.user.isAdvertiser) {
+      return this.user.isPublisher ? 'Adv / Pub' : 'Advertiser'
+    }
+    else if (this.user.isPublisher) {
+      return 'Publisher'
     }
     else {
-      return this.user.isAdvertiser ? 'Advertiser' : 'Publisher'
+      return 'No role'
     }
   }
 
@@ -173,17 +193,23 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
     if (this.user.isAdmin) {
       return 'Administrator'
     }
+    else if (this.user.isBanned) {
+      return 'Banned'
+    }
     else if (this.user.isModerator) {
       return 'Moderator'
     }
     else if (this.user.isAgency) {
       return 'Agency'
     }
-    else if (this.user.isAdvertiser && this.user.isPublisher) {
-      return 'Advertiser and Publisher'
+    else if (this.user.isAdvertiser) {
+      return this.user.isPublisher ? 'Advertiser and Publisher' : 'Advertiser'
+    }
+    else if (this.user.isPublisher) {
+      return 'Publisher'
     }
     else {
-      return this.user.isAdvertiser ? 'Advertiser' : 'Publisher'
+      return 'User has no advertiser nor publisher role'
     }
   }
 
