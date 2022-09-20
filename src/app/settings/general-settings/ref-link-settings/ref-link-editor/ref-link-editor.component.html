@@ -144,6 +144,24 @@
             </span>
           </div>
         </div>
+        <ng-container *ngIf="chooseUserRole">
+          <div
+            *ngIf="form.get('userRoles') else loading"
+            class="dwmth-form-input__box"
+          >
+            <label class="dwmth-form-label">
+              User roles
+            </label>
+            <mat-radio-group
+              aria-label="Select user roles"
+              formControlName="userRoles"
+            >
+              <mat-radio-button value="advertiser">Advertiser</mat-radio-button>
+              <mat-radio-button value="publisher">Publisher</mat-radio-button>
+              <mat-radio-button value="advertiser,publisher">Both</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </ng-container>
         <div class="dwmth-form-input__box">
           <label
             for="token"

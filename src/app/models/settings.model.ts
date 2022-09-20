@@ -288,6 +288,10 @@ interface Invoice {
   downloadUrl: string;
 }
 
+interface UserRoles {
+  defaultUserRoles: string[];
+}
+
 interface WalletGateway {
   code: string;
   name: string;
@@ -349,6 +353,7 @@ export {
   RefLink,
   RefLinkInfo,
   Invoice,
+  UserRoles,
   WalletGateway,
   WalletToken,
   UserBanDetails,

@@ -27,6 +27,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
   today = moment();
   validUntilControl: FormControl;
   refundValidUntilControl: FormControl;
+  chooseUserRole: boolean = false
 
   constructor(
     private serverOptionsService: ServerOptionsService,
@@ -53,11 +54,20 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     this.refundValidUntilControl = new FormControl(null);
 
     if (this.session.isModerator()) {
+      this.chooseUserRole = true
       this.form.addControl('validUntil', this.validUntilControl);
       this.form.addControl('singleUse', new FormControl(false));
       this.form.addControl('bonus', new FormControl(null, [Validators.min(0)]));
       this.form.addControl('refund', new FormControl(null, [Validators.min(0), Validators.min(1)]));
       this.form.addControl('refundValidUntil', this.refundValidUntilControl);
+      const rolesSubscription = this.settings.userRoles()
+        .subscribe(
+          response => {
+            const roles = response.defaultUserRoles.sort().join(',')
+            this.form.addControl('userRoles', new FormControl(roles))
+          }
+        )
+      this.subscriptions.push(rolesSubscription)
     }
 
     this.subscriptions.push(this.form.valueChanges
