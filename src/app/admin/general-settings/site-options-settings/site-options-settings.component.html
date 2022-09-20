@@ -13,12 +13,11 @@
     >
       Require banner acceptance by default
     </mat-checkbox>
-    <div class="banner__radio-wrapper">
+    <div>
       <label class="dwmth-copy" id="banners-classification">Classification of banners from the server</label>
       <mat-radio-group
-              class="banner__radio-wrapper"
               aria-label="banners-classification"
-              [(ngModel)]="siteOptions.classifierLocalBanners"
+              [ngModel]="siteOptions.classifierLocalBanners"
               (change)="onOptionChange($event.value, 'classifierLocalBanners')"
       >
         <mat-radio-button [value]="'all-by-default'">Default from all servers</mat-radio-button>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { environment } from 'environments/environment'
-import { BillingHistory, CalculateWithdrawalItem, Invoice, WalletToken } from 'models/settings.model'
+import { BillingHistory, CalculateWithdrawalItem, Invoice, UserRoles, WalletToken } from 'models/settings.model'
 import { User } from 'models/user.model'
 
 @Injectable()
@@ -101,5 +101,9 @@ export class SettingsService {
   changeAutoWithdrawal (autoWithdrawal: number | null): Observable<User> {
     return this.http.patch<User>(`${environment.apiUrl}/wallet/auto-withdrawal`,
       { autoWithdrawal })
+  }
+
+  userRoles (): Observable<UserRoles> {
+    return this.http.get<UserRoles>(`${environment.apiUrl}/options/server/default-user-roles`, {})
   }
 }

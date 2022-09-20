@@ -12,15 +12,6 @@
     align-items: center;
   }
 
-  &__radio-wrapper{
-    display: flex;
-    flex-direction: column;
-
-    & > mat-radio-button{
-      margin-top: 4px;
-    }
-  }
-
   &__submit-btn-box{
     margin-top: 16px;
   }
