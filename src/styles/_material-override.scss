@@ -207,6 +207,15 @@ mat-chip:not(.mat-basic-chip) {
   }
 }
 
+.mat-radio-group {
+  display: flex;
+  flex-direction: column;
+
+  & > mat-radio-button {
+    margin-top: 4px;
+  }
+}
+
 .mat-snack-bar-container {
   background-color: pal(navy, light);
 }
