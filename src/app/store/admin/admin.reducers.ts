@@ -6,8 +6,6 @@ import {
   GET_INDEX_SUCCESS,
   GET_LICENSE_FAILURE,
   GET_LICENSE_SUCCESS,
-  GET_PRIVACY_SETTINGS_SUCCESS,
-  GET_TERMS_SETTINGS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
   LOAD_ADMIN_WALLET_SUCCESS,
@@ -46,10 +44,6 @@ const initialState: AdminState = {
   wallet: {
     balance: 0,
     unusedBonuses: 0,
-  },
-  termsAndPrivacy: {
-    privacy: '',
-    terms: '',
   },
   license: null,
   index: null,
@@ -112,22 +106,6 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         siteOptions: action.payload
-      };
-    case GET_PRIVACY_SETTINGS_SUCCESS:
-      return {
-        ...state,
-        termsAndPrivacy: {
-          ...state.termsAndPrivacy,
-          privacy: action.payload.content
-        }
-      };
-    case GET_TERMS_SETTINGS_SUCCESS:
-      return {
-        ...state,
-        termsAndPrivacy: {
-          ...state.termsAndPrivacy,
-          terms: action.payload.content
-        }
       };
     case GET_INDEX_SUCCESS:
       return {

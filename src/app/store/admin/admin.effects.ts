@@ -9,15 +9,11 @@ import {
   DeleteUserSuccess,
   GET_INDEX,
   GET_LICENSE,
-  GET_PRIVACY_SETTINGS,
-  GET_TERMS_SETTINGS,
   GetIndex,
   GetIndexFailure,
   GetIndexSuccess,
   GetLicenseFailure,
   GetLicenseSuccess,
-  GetPrivacySettingsSuccess,
-  GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
   LOAD_ADMIN_SITE_OPTIONS,
   LOAD_ADMIN_WALLET,
@@ -41,15 +37,8 @@ import {
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
   SET_ADMIN_SETTINGS,
-  SET_PRIVACY_SETTINGS,
-  SET_TERMS_SETTINGS,
   SetAdminSettings,
   SetAdminSettingsSuccess,
-  SetPrivacySettings,
-  SetPrivacySettingsFailure,
-  SetPrivacySettingsSuccess,
-  SetTermsSettings,
-  SetTermsSettingsSuccess,
   UNBAN_USER,
   UnbanUser,
   UnbanUserSuccess,
@@ -238,78 +227,6 @@ export class AdminEffects {
           catchError(() => observableOf(new ShowDialogOnError(
             'We weren\'t able to save your settings this time. Please, try again later'
           )))
-        )
-      )
-    ))
-
-  getPrivacySettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_PRIVACY_SETTINGS),
-      switchMap(() => this.service.getPrivacySettings()
-        .pipe(
-          map(privacyData => new GetPrivacySettingsSuccess(privacyData)),
-          catchError(error => {
-            if (error.status === HTTP_NOT_FOUND) {
-              return observableOf(new GetPrivacySettingsSuccess({content: ''}));
-            }
-            return observableOf(new ShowDialogOnError(
-              'We weren\'t able to fetch your settings this time. Please, try again later'
-            ))
-          })
-        )
-      )
-    ))
-
-  getTermsSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_TERMS_SETTINGS),
-      switchMap(() => this.service.getTermsAndConditions()
-        .pipe(
-          map((termsData) => new GetTermsSettingsSuccess(termsData)),
-          catchError(error => {
-            if (error.status === HTTP_NOT_FOUND) {
-              return observableOf(new GetTermsSettingsSuccess({content: ''}));
-            }
-            return observableOf(new ShowDialogOnError(
-              'We weren\'t able to fetch your settings this time. Please, try again later'
-            ));
-          })
-        )
-      )
-    ))
-
-  setTermsSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetTermsSettings>(SET_TERMS_SETTINGS),
-      switchMap(action => this.service.setTermsAndConditions(action.payload)
-        .pipe(
-          switchMap((termsData) => [
-            new SetTermsSettingsSuccess(termsData),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => {
-            return observableOf(new SetPrivacySettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
-            ))
-          })
-        )
-      )
-    ))
-
-  setPrivacySettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetPrivacySettings>(SET_PRIVACY_SETTINGS),
-      switchMap(action => this.service.setPrivacySettings(action.payload)
-        .pipe(
-          switchMap(termsData => [
-            new SetPrivacySettingsSuccess(termsData),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => {
-            return observableOf(new SetPrivacySettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
-            ))
-          })
         )
       )
     ))

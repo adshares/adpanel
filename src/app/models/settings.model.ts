@@ -168,11 +168,6 @@ interface AdminWalletResponse {
   wallet: AdminWallet;
 }
 
-interface TermsAndPrivacy {
-  privacy: string;
-  terms: string;
-}
-
 interface License {
   type: string;
   dateStart: string;
@@ -184,10 +179,6 @@ interface License {
 interface Index {
   updateTime: string;
   error: boolean;
-}
-
-interface AdminPrivacyAndTermsSettingsResponse {
-  content: string;
 }
 
 interface AdsharesAddress {
@@ -339,8 +330,6 @@ export {
   AdminSettingsResponse,
   AdminSiteOptionsResponse,
   AdminWalletResponse,
-  AdminPrivacyAndTermsSettingsResponse,
-  TermsAndPrivacy,
   License,
   Index,
   ReportsList,

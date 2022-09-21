@@ -26,7 +26,6 @@ import { EarningsSettingsComponent } from 'admin/finances/earnings-settings/earn
 import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
-import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { UsersComponent } from 'admin/users/users.component';
@@ -87,7 +86,6 @@ import { MatButtonModule } from '@angular/material/button'
     EarningsSettingsComponent,
     GeneralSettingsComponent,
     RebrandingComponent,
-    PrivacyAndTermsSettingsComponent,
     PanelBlockadeComponent,
     PanelPlaceholdersSettingsComponent,
     BanUserDialogComponent,

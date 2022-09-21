@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   AdminIndexUpdateTimeResponse,
-  AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
   AdminSettingsResponse, AdminSiteOptionsResponse,
   AdminWalletResponse,
@@ -110,22 +109,6 @@ export class AdminService {
 
   getAdminWallet(): Observable<AdminWalletResponse> {
     return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
-  }
-
-  getTermsAndConditions(): Observable<AdminPrivacyAndTermsSettingsResponse> {
-    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/terms`);
-  }
-
-  setTermsAndConditions(content): Observable<string> {
-    return this.http.put<string>(`${environment.serverUrl}/admin/terms`, {content});
-  }
-
-  getPrivacySettings(): Observable<AdminPrivacyAndTermsSettingsResponse> {
-    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/privacy`);
-  }
-
-  setPrivacySettings(content): Observable<string> {
-    return this.http.put<string>(`${environment.serverUrl}/admin/privacy`, {content});
   }
 
   setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {

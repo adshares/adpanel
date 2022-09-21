@@ -58,15 +58,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
-      title: 'Privacy settings',
-      description: '',
-      link: '/admin/dashboard/privacy',
-      values: [
-        {name: 'Privacy', icon: 'assets/images/preferences.svg'},
-        {name: 'Terms and conditions', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
       title: 'Panel placeholders',
       description: '',
       link: '/admin/dashboard/placeholders',

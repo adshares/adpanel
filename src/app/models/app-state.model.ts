@@ -10,7 +10,6 @@ import {
   License,
   Publishers,
   RefLink,
-  TermsAndPrivacy,
   Users,
 } from './settings.model'
 import { User } from './user.model';
@@ -62,7 +61,6 @@ interface AdminState {
   settings: AdminSettings;
   siteOptions: AdminSiteOptions;
   wallet: AdminWallet;
-  termsAndPrivacy: TermsAndPrivacy;
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;

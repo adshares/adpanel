@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store'
 import {
   AdminIndexUpdateTimeResponse,
-  AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse, AdminSiteOptionsResponse,
+  AdminSettingsResponse,
+  AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   License,
@@ -38,20 +38,6 @@ export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
-
-export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
-export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
-
-export const SET_PRIVACY_SETTINGS = 'Set admin privacy settings';
-export const SET_PRIVACY_SETTINGS_SUCCESS = 'Set admin privacy settings success';
-export const SET_PRIVACY_SETTINGS_FAILURE = 'Set admin privacy settings failure';
-
-export const GET_TERMS_SETTINGS = 'Get admin terms settings';
-export const GET_TERMS_SETTINGS_SUCCESS = 'Get admin terms settings success';
-
-export const SET_TERMS_SETTINGS = 'Set admin terms settings';
-export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
-export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -212,76 +198,6 @@ export class SetAdminSettingsSuccess implements Action {
   }
 }
 
-export class GetPrivacySettings implements Action {
-  readonly type: string = GET_PRIVACY_SETTINGS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetPrivacySettingsSuccess implements Action {
-  readonly type: string = GET_PRIVACY_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
-  }
-}
-
-export class SetPrivacySettings implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetPrivacySettingsSuccess implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetPrivacySettingsFailure implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class GetTermsSettings implements Action {
-  readonly type: string = GET_TERMS_SETTINGS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetTermsSettingsSuccess implements Action {
-  readonly type: string = GET_TERMS_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
-  }
-}
-
-export class SetTermsSettings implements Action {
-  readonly type: string = SET_TERMS_SETTINGS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetTermsSettingsSuccess implements Action {
-  readonly type: string = SET_TERMS_SETTINGS_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetTermsSettingsFailure implements Action {
-  readonly type: string = SET_TERMS_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
 export class RequestGetIndex implements Action {
   readonly type: string = REQUEST_GET_INDEX;
 
@@ -400,20 +316,6 @@ export type actions =
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
-
-  GetPrivacySettings |
-  GetPrivacySettingsSuccess |
-
-  SetPrivacySettings |
-  SetPrivacySettingsSuccess |
-  SetPrivacySettingsFailure |
-
-  GetTermsSettings |
-  GetTermsSettingsSuccess |
-
-  SetTermsSettings |
-  SetTermsSettingsSuccess |
-  SetTermsSettingsFailure |
 
   RequestGetIndex |
   GetIndex |
