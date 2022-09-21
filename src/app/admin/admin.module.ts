@@ -28,7 +28,6 @@ import { ParamSettingComponent } from 'admin/general-settings/param-setting/para
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
 import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
-import { LicenseComponent } from 'admin/general-settings/license/license.component';
 import { RejectedDomainsComponent } from 'admin/general-settings/rejected-domains/rejected-domains.component';
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
@@ -93,7 +92,6 @@ import { MatButtonModule } from '@angular/material/button'
     GeneralSettingsComponent,
     RebrandingComponent,
     PrivacyAndTermsSettingsComponent,
-    LicenseComponent,
     RejectedDomainsComponent,
     PanelBlockadeComponent,
     PanelPlaceholdersSettingsComponent,

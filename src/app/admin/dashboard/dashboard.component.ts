@@ -43,7 +43,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       description: '',
       link: '/admin/dashboard/general',
       values: [
-        {name: 'License', icon: 'assets/images/preferences.svg'},
         {name: 'Business name', icon: 'assets/images/preferences.svg'},
         {name: 'Technical email', icon: 'assets/images/preferences.svg'},
         {name: 'Support email', icon: 'assets/images/preferences.svg'},
