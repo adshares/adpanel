@@ -190,10 +190,6 @@ interface AdminPrivacyAndTermsSettingsResponse {
   content: string;
 }
 
-interface RejectedDomainsResponse {
-  domains: string[];
-}
-
 interface AdsharesAddress {
   adsharesAddress: string;
 }
@@ -344,7 +340,6 @@ export {
   AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdminPrivacyAndTermsSettingsResponse,
-  RejectedDomainsResponse,
   TermsAndPrivacy,
   License,
   Index,

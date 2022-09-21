@@ -16,11 +16,6 @@ import { SetAdminSettings } from 'store/admin/admin.actions'
 export class GeneralSettingsComponent extends HandleSubscription implements OnInit {
   settings: AdminSettings
   canSubmit: boolean = false
-  registrationModes = {
-    public: 'Public',
-    restricted: 'Restricted',
-    private: 'Private',
-  }
 
   constructor (
     private store: Store<AppState>,
@@ -35,14 +30,6 @@ export class GeneralSettingsComponent extends HandleSubscription implements OnIn
     })
 
     this.subscriptions.push(adminStoreSettingsSubscription)
-  }
-
-  updateSettings (value: number | string, key: string): void {
-    this.settings = {
-      ...this.settings,
-      [key]: value,
-    }
-    this.canSubmit = true
   }
 
   saveSettings (): void {

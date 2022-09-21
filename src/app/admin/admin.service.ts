@@ -9,7 +9,6 @@ import {
   AdminWalletResponse,
   AdvertiserInfo,
   PublisherInfo,
-  RejectedDomainsResponse,
   UserBanDetails,
   UserInfo
 } from 'models/settings.model'
@@ -164,14 +163,6 @@ export class AdminService {
 
   patchPanelPlaceholders(placeholders): Observable<any> {
     return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
-  }
-
-  getRejectedDomains(): Observable<RejectedDomainsResponse> {
-    return this.http.get<RejectedDomainsResponse>(`${environment.serverUrl}/admin/rejected-domains`);
-  }
-
-  putRejectedDomains(domains: string[]): Observable<any> {
-    return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
   }
 
   banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {

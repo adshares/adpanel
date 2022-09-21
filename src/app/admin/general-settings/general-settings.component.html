@@ -5,57 +5,9 @@
     Save settings
   </button>
 </div>
-<app-param-setting
-  [title]="'Business name'"
-  [desc]=" 'Set a new business name.'"
-  [value]="settings.adserverName"
-  (valueChanged)="updateSettings($event, 'adserverName')"
->
-</app-param-setting>
-<app-param-setting
-  [title]="'Technical email'"
-  [desc]=" 'Set a new technical email.'"
-  [value]="settings.technicalEmail"
-  (valueChanged)="updateSettings($event, 'technicalEmail')"
->
-</app-param-setting>
-<app-param-setting
-  [title]="'Support email'"
-  [desc]=" 'Set a new support email.'"
-  [value]="settings.supportEmail"
-  (valueChanged)="updateSettings($event, 'supportEmail')"
->
-</app-param-setting>
-<app-param-setting
-  [title]="'Registration Mode'"
-  [desc]=" 'Set registration mode.'"
-  [value]="settings.registrationMode"
-  [options]="registrationModes"
-  (valueChanged)="updateSettings($event, 'registrationMode')"
->
-  <mat-checkbox
-    [checked]="settings.emailVerificationRequired === 1"
-    (change)="updateSettings($event.checked ? 1 : 0, 'emailVerificationRequired')"
-  >
-    E-mail verification required
-  </mat-checkbox>
-  <mat-checkbox
-    [checked]="settings.autoConfirmationEnabled === 1"
-    (change)="updateSettings($event.checked ? 1 : 0, 'autoConfirmationEnabled')"
-  >
-    Auto account confirmation
-  </mat-checkbox>
-  <mat-checkbox
-    [checked]="settings.autoRegistrationEnabled === 1"
-    (change)="updateSettings($event.checked ? 1 : 0, 'autoRegistrationEnabled')"
-  >
-    Auto registration allowed
-  </mat-checkbox>
-</app-param-setting>
 
 <app-site-options-settings></app-site-options-settings>
 
-<app-rejected-domains></app-rejected-domains>
 <div class="bid-strategy-wrapper">
   <app-bid-strategy-settings></app-bid-strategy-settings>
 </div>

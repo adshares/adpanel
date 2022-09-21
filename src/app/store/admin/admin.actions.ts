@@ -8,7 +8,6 @@ import {
   AdvertiserInfo,
   License,
   PublisherInfo,
-  RejectedDomainsResponse,
   UserBanDetails,
   UserInfo,
 } from 'models/settings.model'
@@ -56,12 +55,6 @@ export const GET_TERMS_SETTINGS_SUCCESS = 'Get admin terms settings success';
 export const SET_TERMS_SETTINGS = 'Set admin terms settings';
 export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
 export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
-
-export const GET_REJECTED_DOMAINS = 'Get admin rejected domains';
-export const GET_REJECTED_DOMAINS_SUCCESS = 'Get admin rejected domains success';
-
-export const SET_REJECTED_DOMAINS = 'Set admin rejected domains';
-export const SET_REJECTED_DOMAINS_SUCCESS = 'Set admin rejected domains success';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -306,34 +299,6 @@ export class SetTermsSettingsFailure implements Action {
   }
 }
 
-export class GetRejectedDomains implements Action {
-  readonly type: string = GET_REJECTED_DOMAINS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetRejectedDomainsSuccess implements Action {
-  readonly type: string = GET_REJECTED_DOMAINS_SUCCESS;
-
-  constructor(public payload: RejectedDomainsResponse) {
-  }
-}
-
-export class SetRejectedDomains implements Action {
-  readonly type: string = SET_REJECTED_DOMAINS;
-
-  constructor(public payload: string[]) {
-  }
-}
-
-export class SetRejectedDomainsSuccess implements Action {
-  readonly type: string = SET_REJECTED_DOMAINS_SUCCESS;
-
-  constructor(public payload?: any) {
-  }
-}
-
 export class RequestGetIndex implements Action {
   readonly type: string = REQUEST_GET_INDEX;
 
@@ -469,12 +434,6 @@ export type actions =
   SetTermsSettings |
   SetTermsSettingsSuccess |
   SetTermsSettingsFailure |
-
-  GetRejectedDomains |
-  GetRejectedDomainsSuccess |
-
-  SetRejectedDomains |
-  SetRejectedDomainsSuccess |
 
   RequestGetIndex |
   GetIndex |

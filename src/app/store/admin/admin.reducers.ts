@@ -7,7 +7,6 @@ import {
   GET_LICENSE_FAILURE,
   GET_LICENSE_SUCCESS,
   GET_PRIVACY_SETTINGS_SUCCESS,
-  GET_REJECTED_DOMAINS_SUCCESS,
   GET_TERMS_SETTINGS_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
@@ -53,7 +52,6 @@ const initialState: AdminState = {
     privacy: '',
     terms: '',
   },
-  rejectedDomains: [],
   license: null,
   index: null,
   panelBlockade: false,
@@ -132,11 +130,6 @@ export function adminReducers(state = initialState, action: actions) {
           ...state.termsAndPrivacy,
           terms: action.payload.content
         }
-      };
-    case GET_REJECTED_DOMAINS_SUCCESS:
-      return {
-        ...state,
-        rejectedDomains: action.payload.domains,
       };
     case GET_INDEX_SUCCESS:
       return {

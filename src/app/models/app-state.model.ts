@@ -62,7 +62,6 @@ interface AdminState {
   siteOptions: AdminSiteOptions;
   wallet: AdminWallet;
   termsAndPrivacy: TermsAndPrivacy;
-  rejectedDomains: string[];
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;

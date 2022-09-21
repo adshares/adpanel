@@ -10,7 +10,6 @@ import {
   GET_INDEX,
   GET_LICENSE,
   GET_PRIVACY_SETTINGS,
-  GET_REJECTED_DOMAINS,
   GET_TERMS_SETTINGS,
   GetIndex,
   GetIndexFailure,
@@ -18,7 +17,6 @@ import {
   GetLicenseFailure,
   GetLicenseSuccess,
   GetPrivacySettingsSuccess,
-  GetRejectedDomainsSuccess,
   GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
   LOAD_ADMIN_SITE_OPTIONS,
@@ -45,7 +43,6 @@ import {
   SET_ADMIN_SETTINGS,
   SET_ADMIN_SITE_OPTIONS,
   SET_PRIVACY_SETTINGS,
-  SET_REJECTED_DOMAINS,
   SET_TERMS_SETTINGS,
   SetAdminSettings,
   SetAdminSettingsSuccess,
@@ -54,8 +51,6 @@ import {
   SetPrivacySettings,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
-  SetRejectedDomains,
-  SetRejectedDomainsSuccess,
   SetTermsSettings,
   SetTermsSettingsSuccess,
   UNBAN_USER,
@@ -339,35 +334,6 @@ export class AdminEffects {
               'We weren\'t able to save your settings this time. Please, try again later'
             ))
           })
-        )
-      )
-    ))
-
-  getRejectedDomains$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_REJECTED_DOMAINS),
-      switchMap(() => this.service.getRejectedDomains()
-        .pipe(
-          map(response => new GetRejectedDomainsSuccess(response)),
-          catchError(() => observableOf(
-            new ShowDialogOnError('Rejected domains are not available. Please, try again later.')
-          ))
-        )
-      )
-    ))
-
-  setRejectedDomains$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetRejectedDomains>(SET_REJECTED_DOMAINS),
-      switchMap(action => this.service.putRejectedDomains(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetRejectedDomainsSuccess(),
-            new ShowSuccessSnackbar(SAVE_SUCCESS),
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'Rejected domains were not saved. Please, try again later.'
-          )))
         )
       )
     ))
