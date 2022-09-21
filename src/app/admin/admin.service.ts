@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -129,19 +129,6 @@ export class AdminService {
 
   getIndexUpdateTime(): Observable<AdminIndexUpdateTimeResponse> {
     return this.http.get<AdminIndexUpdateTimeResponse>(`${environment.serverUrl}/admin/index/update-time`);
-  }
-
-  getPanelPlaceholders(types: string[]): Observable<any> {
-    let params = new HttpParams();
-    types.forEach(type => {
-      params = params.append('types[]', type);
-    });
-
-    return this.http.get<any>(`${environment.serverUrl}/panel/placeholders`, {params});
-  }
-
-  patchPanelPlaceholders(placeholders): Observable<any> {
-    return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
   }
 
   banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {

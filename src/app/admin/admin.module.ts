@@ -32,7 +32,6 @@ import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-
 import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/advertiser-list-item/advertiser-list-item.component';
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
-import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
 import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
@@ -85,7 +84,6 @@ import { MatButtonModule } from '@angular/material/button'
     EarningsSettingsComponent,
     GeneralSettingsComponent,
     PanelBlockadeComponent,
-    PanelPlaceholdersSettingsComponent,
     BanUserDialogComponent,
     DeleteUserDialogComponent,
   ],

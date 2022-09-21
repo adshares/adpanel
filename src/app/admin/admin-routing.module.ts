@@ -8,7 +8,6 @@ import { AccountSettingsComponent } from "settings/general-settings/account-sett
 import { FinancesSettingsComponent } from "admin/finances/finances-settings.component";
 import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
 import { UsersComponent } from "admin/users/users.component";
-import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 import { MediaResolver } from 'common/resolvers/media.resolver'
 import { UserListComponent } from 'admin/users/user-list/user-list.component'
 import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
@@ -71,10 +70,6 @@ const adminRoutes: Routes = [
           {
             path: 'account',
             component: AccountSettingsComponent,
-          },
-          {
-            path: 'placeholders',
-            component: PanelPlaceholdersSettingsComponent,
           },
         ]
       },
