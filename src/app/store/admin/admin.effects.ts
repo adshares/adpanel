@@ -41,13 +41,10 @@ import {
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
   SET_ADMIN_SETTINGS,
-  SET_ADMIN_SITE_OPTIONS,
   SET_PRIVACY_SETTINGS,
   SET_TERMS_SETTINGS,
   SetAdminSettings,
   SetAdminSettingsSuccess,
-  SetAdminSiteOptions,
-  SetAdminSiteOptionsSuccess,
   SetPrivacySettings,
   SetPrivacySettingsFailure,
   SetPrivacySettingsSuccess,
@@ -65,7 +62,7 @@ import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rx
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe'
 import { HTTP_NOT_FOUND } from 'common/utilities/codes'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
-import { AdminSettingsResponse, AdminSiteOptionsResponse } from 'models/settings.model'
+import { AdminSettingsResponse } from 'models/settings.model'
 
 @Injectable()
 export class AdminEffects {
@@ -210,11 +207,6 @@ export class AdminEffects {
       ofType(LOAD_ADMIN_SITE_OPTIONS),
       switchMap(() => this.service.getAdminSiteOptions()
         .pipe(
-          map((response: AdminSiteOptionsResponse) => {
-            return <AdminSiteOptionsResponse>{
-              ...response,
-            }
-          }),
           map(options => new LoadAdminSiteOptionsSuccess(options)),
           catchError(error => {
             return observableOf(new LoadAdminSiteOptionsFailure(error))
@@ -245,22 +237,6 @@ export class AdminEffects {
           ]),
           catchError(() => observableOf(new ShowDialogOnError(
             'We weren\'t able to save your settings this time. Please, try again later'
-          )))
-        )
-      )
-    ))
-
-  saveAdminSiteOptions$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetAdminSiteOptions>(SET_ADMIN_SITE_OPTIONS),
-      switchMap(action => this.service.setAdminSiteOptions(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetAdminSiteOptionsSuccess(action.payload),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'We weren\'t able to save your site options this time. Please, try again later'
           )))
         )
       )

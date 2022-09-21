@@ -3,7 +3,7 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
+  AdminSettingsResponse, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   License,
@@ -38,9 +38,6 @@ export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
 
 export const SET_ADMIN_SETTINGS = 'Save new admin settings';
 export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
-
-export const SET_ADMIN_SITE_OPTIONS = 'Save new admin site options';
-export const SET_ADMIN_SITE_OPTIONS_SUCCESS = 'Save new admin site options success';
 
 export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
 export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
@@ -212,20 +209,6 @@ export class SetAdminSettingsSuccess implements Action {
   readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
 
   constructor(public payload: AdminSettings) {
-  }
-}
-
-export class SetAdminSiteOptions implements Action {
-  readonly type: string = SET_ADMIN_SITE_OPTIONS;
-
-  constructor(public payload: AdminSiteOptions) {
-  }
-}
-
-export class SetAdminSiteOptionsSuccess implements Action {
-  readonly type: string = SET_ADMIN_SITE_OPTIONS_SUCCESS;
-
-  constructor(public payload: AdminSiteOptions) {
   }
 }
 
@@ -417,9 +400,6 @@ export type actions =
 
   SetAdminSettings |
   SetAdminSettingsSuccess |
-
-  SetAdminSiteOptions |
-  SetAdminSiteOptionsSuccess |
 
   GetPrivacySettings |
   GetPrivacySettingsSuccess |

@@ -1,7 +1,8 @@
 import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
-  AdminSettings, AdminSiteOptions,
+  AdminSettings,
+  AdminSiteOptions,
   AdminWallet,
   Advertisers,
   BillingHistory,

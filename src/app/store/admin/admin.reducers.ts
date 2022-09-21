@@ -15,7 +15,6 @@ import {
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
   SET_ADMIN_SETTINGS_SUCCESS,
-  SET_ADMIN_SITE_OPTIONS_SUCCESS,
   UNBAN_USER_SUCCESS,
 } from './admin.actions'
 import { AdminState } from 'models/app-state.model';
@@ -110,7 +109,6 @@ export function adminReducers(state = initialState, action: actions) {
         settings: action.payload
       };
     case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
-    case SET_ADMIN_SITE_OPTIONS_SUCCESS:
       return {
         ...state,
         siteOptions: action.payload

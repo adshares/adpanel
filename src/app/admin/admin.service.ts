@@ -5,7 +5,7 @@ import {
   AdminIndexUpdateTimeResponse,
   AdminPrivacyAndTermsSettingsResponse,
   AdminSettings,
-  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
+  AdminSettingsResponse, AdminSiteOptionsResponse,
   AdminWalletResponse,
   AdvertiserInfo,
   PublisherInfo,
@@ -138,10 +138,6 @@ export class AdminService {
       hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
     };
     return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
-  }
-
-  setAdminSiteOptions(options: AdminSiteOptions): Observable<AdminSiteOptionsResponse> {
-    return this.http.patch<AdminSiteOptionsResponse>(`${environment.serverUrl}/admin/site-settings`, {...options});
   }
 
   getLicense(): Observable<any> {
