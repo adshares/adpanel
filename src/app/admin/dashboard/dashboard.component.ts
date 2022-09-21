@@ -67,14 +67,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       ],
     },
     {
-      title: 'Rebranding',
-      description: '',
-      link: '/admin/dashboard/rebranding',
-      values: [
-        {name: 'Image assets', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
       title: 'Wallet settings',
       description: '',
       link: '/admin/dashboard/account',
