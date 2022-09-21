@@ -127,11 +127,6 @@ interface AdminSettings {
   adUserInfoUrl: string;
 }
 
-interface SiteOptions {
-  classifierLocalBanners: string;
-  acceptBannersManually: number;
-}
-
 interface AdminIndexUpdateTimeResponse {
   indexUpdateTime: string;
 }
@@ -241,6 +236,11 @@ interface RefLinkInfo {
   status: string;
 }
 
+interface SiteOptions {
+  classifierLocalBanners: string;
+  acceptBannersManually: number;
+}
+
 interface Invoice {
   id: number;
 
@@ -286,7 +286,6 @@ export {
   Publishers,
   PublisherInfo,
   AdminSettings,
-  SiteOptions,
   AdsharesAddress,
   WithdrawalInfo,
   BtcWithdrawInfo,
@@ -305,6 +304,7 @@ export {
   ReportsListItem,
   RefLink,
   RefLinkInfo,
+  SiteOptions,
   Invoice,
   UserRoles,
   WalletGateway,
