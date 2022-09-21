@@ -8,11 +8,9 @@ import {
   GET_LICENSE_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
-  LOAD_ADMIN_WALLET_SUCCESS,
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
-  SET_ADMIN_SETTINGS_SUCCESS,
   UNBAN_USER_SUCCESS,
 } from './admin.actions'
 import { AdminState } from 'models/app-state.model';
@@ -40,10 +38,6 @@ const initialState: AdminState = {
   siteOptions: {
     classifierLocalBanners: 'all-by-default',
     acceptBannersManually: 0,
-  },
-  wallet: {
-    balance: 0,
-    unusedBonuses: 0,
   },
   license: null,
   index: null,
@@ -91,16 +85,6 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload.settings
-      };
-    case LOAD_ADMIN_WALLET_SUCCESS:
-      return {
-        ...state,
-        wallet: action.payload.wallet,
-      };
-    case SET_ADMIN_SETTINGS_SUCCESS:
-      return {
-        ...state,
-        settings: action.payload
       };
     case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
       return {

@@ -16,7 +16,6 @@ import {
   GetLicenseSuccess,
   LOAD_ADMIN_SETTINGS,
   LOAD_ADMIN_SITE_OPTIONS,
-  LOAD_ADMIN_WALLET,
   LOAD_ADVERTISERS,
   LOAD_PUBLISHERS,
   LOAD_USERS,
@@ -24,8 +23,6 @@ import {
   LoadAdminSettingsSuccess,
   LoadAdminSiteOptionsFailure,
   LoadAdminSiteOptionsSuccess,
-  LoadAdminWalletFailure,
-  LoadAdminWalletSuccess,
   LoadAdvertisers,
   LoadAdvertisersFailure,
   LoadAdvertisersSuccess,
@@ -36,9 +33,6 @@ import {
   LoadUsersFailure,
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
-  SET_ADMIN_SETTINGS,
-  SetAdminSettings,
-  SetAdminSettingsSuccess,
   UNBAN_USER,
   UnbanUser,
   UnbanUserSuccess,
@@ -200,33 +194,6 @@ export class AdminEffects {
           catchError(error => {
             return observableOf(new LoadAdminSiteOptionsFailure(error))
           })
-        )
-      )
-    ))
-
-  loadAdminWallet$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(LOAD_ADMIN_WALLET),
-      switchMap(() => this.service.getAdminWallet()
-        .pipe(
-          map(wallet => new LoadAdminWalletSuccess(wallet)),
-          catchError(error => observableOf(new LoadAdminWalletFailure(error)))
-        )
-      )
-    ))
-
-  saveAdminSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetAdminSettings>(SET_ADMIN_SETTINGS),
-      switchMap(action => this.service.setAdminSettings(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetAdminSettingsSuccess(action.payload),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'We weren\'t able to save your settings this time. Please, try again later'
-          )))
         )
       )
     ))

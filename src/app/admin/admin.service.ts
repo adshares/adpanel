@@ -3,16 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   AdminIndexUpdateTimeResponse,
-  AdminSettings,
-  AdminSettingsResponse, AdminSiteOptionsResponse,
-  AdminWalletResponse,
+  AdminSettingsResponse,
+  AdminSiteOptionsResponse,
   AdvertiserInfo,
   PublisherInfo,
   UserBanDetails,
   UserInfo
 } from 'models/settings.model'
 import { environment } from 'environments/environment';
-import { adsToClicks, buildUrl } from 'common/utilities/helpers'
+import { buildUrl } from 'common/utilities/helpers'
 
 @Injectable()
 export class AdminService {
@@ -105,22 +104,6 @@ export class AdminService {
 
   getAdminSiteOptions(): Observable<AdminSiteOptionsResponse> {
     return this.http.get<AdminSiteOptionsResponse>(`${environment.apiUrl}/options/sites`);
-  }
-
-  getAdminWallet(): Observable<AdminWalletResponse> {
-    return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
-  }
-
-  setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
-    const formatValues = {
-      ...settings,
-      advertiserCommission: settings.advertiserCommission / 100,
-      publisherCommission: settings.publisherCommission / 100,
-      referralRefundCommission: settings.referralRefundCommission / 100,
-      hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
-      hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
-    };
-    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
   }
 
   getLicense(): Observable<any> {

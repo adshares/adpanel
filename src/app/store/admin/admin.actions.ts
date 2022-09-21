@@ -1,10 +1,8 @@
 import { Action } from '@ngrx/store'
 import {
   AdminIndexUpdateTimeResponse,
-  AdminSettings,
   AdminSettingsResponse,
   AdminSiteOptionsResponse,
-  AdminWalletResponse,
   AdvertiserInfo,
   License,
   PublisherInfo,
@@ -31,13 +29,6 @@ export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
 export const LOAD_ADMIN_SITE_OPTIONS = 'Admin site options loading';
 export const LOAD_ADMIN_SITE_OPTIONS_SUCCESS = 'Admin site options loading success';
 export const LOAD_ADMIN_SITE_OPTIONS_FAILURE = 'Admin site options loading failure';
-
-export const LOAD_ADMIN_WALLET = 'Admin wallet loading';
-export const LOAD_ADMIN_WALLET_SUCCESS = 'Admin wallet loading success';
-export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
-
-export const SET_ADMIN_SETTINGS = 'Save new admin settings';
-export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -163,41 +154,6 @@ export class LoadAdminSiteOptionsFailure implements Action {
   }
 }
 
-export class LoadAdminWallet implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadAdminWalletSuccess implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET_SUCCESS;
-
-  constructor(public payload: AdminWalletResponse) {
-  }
-}
-
-export class LoadAdminWalletFailure implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class SetAdminSettings implements Action {
-  readonly type: string = SET_ADMIN_SETTINGS;
-
-  constructor(public payload: AdminSettings) {
-  }
-}
-
-export class SetAdminSettingsSuccess implements Action {
-  readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminSettings) {
-  }
-}
-
 export class RequestGetIndex implements Action {
   readonly type: string = REQUEST_GET_INDEX;
 
@@ -309,13 +265,6 @@ export type actions =
   LoadAdminSiteOptions |
   LoadAdminSiteOptionsSuccess |
   LoadAdminSiteOptionsFailure |
-
-  LoadAdminWallet |
-  LoadAdminWalletSuccess |
-  LoadAdminWalletFailure |
-
-  SetAdminSettings |
-  SetAdminSettingsSuccess |
 
   RequestGetIndex |
   GetIndex |

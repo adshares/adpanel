@@ -21,8 +21,6 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserListItemComponent } from './users/user-list/user-list-item/user-list-item.component';
 import { UserReportsComponent } from './user-reports/user-reports.component';
 import { SettingsModule } from 'settings/settings.module';
-import { FinancesSettingsComponent } from 'admin/finances/finances-settings.component';
-import { EarningsSettingsComponent } from 'admin/finances/earnings-settings/earnings-settings.component';
 import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
@@ -80,8 +78,6 @@ import { MatButtonModule } from '@angular/material/button'
     PublisherListComponent,
     PublisherListItemComponent,
     UserReportsComponent,
-    FinancesSettingsComponent,
-    EarningsSettingsComponent,
     GeneralSettingsComponent,
     PanelBlockadeComponent,
     BanUserDialogComponent,

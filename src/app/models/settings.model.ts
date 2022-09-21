@@ -147,11 +147,6 @@ interface AdminSiteOptions {
   acceptBannersManually: number;
 }
 
-interface AdminWallet {
-  balance: number;
-  unusedBonuses: number;
-}
-
 interface AdminIndexUpdateTimeResponse {
   indexUpdateTime: string;
 }
@@ -162,10 +157,6 @@ interface AdminSettingsResponse {
 
 interface AdminSiteOptionsResponse {
   options: AdminSiteOptions
-}
-
-interface AdminWalletResponse {
-  wallet: AdminWallet;
 }
 
 interface License {
@@ -315,7 +306,6 @@ export {
   PublisherInfo,
   AdminSettings,
   AdminSiteOptions,
-  AdminWallet,
   AdsharesAddress,
   WithdrawalInfo,
   BtcWithdrawInfo,
@@ -329,7 +319,6 @@ export {
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdminSiteOptionsResponse,
-  AdminWalletResponse,
   License,
   Index,
   ReportsList,

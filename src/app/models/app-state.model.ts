@@ -3,7 +3,6 @@ import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
   AdminSiteOptions,
-  AdminWallet,
   Advertisers,
   BillingHistory,
   Index,
@@ -60,7 +59,6 @@ interface AdminState {
   publishers: Publishers;
   settings: AdminSettings;
   siteOptions: AdminSiteOptions;
-  wallet: AdminWallet;
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;
