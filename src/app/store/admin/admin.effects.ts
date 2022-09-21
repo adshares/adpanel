@@ -15,14 +15,11 @@ import {
   GetLicenseFailure,
   GetLicenseSuccess,
   LOAD_ADMIN_SETTINGS,
-  LOAD_ADMIN_SITE_OPTIONS,
   LOAD_ADVERTISERS,
   LOAD_PUBLISHERS,
   LOAD_USERS,
   LoadAdminSettingsFailure,
   LoadAdminSettingsSuccess,
-  LoadAdminSiteOptionsFailure,
-  LoadAdminSiteOptionsSuccess,
   LoadAdvertisers,
   LoadAdvertisersFailure,
   LoadAdvertisersSuccess,
@@ -181,19 +178,6 @@ export class AdminEffects {
           }),
           map(settings => new LoadAdminSettingsSuccess(settings)),
           catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
-        )
-      )
-    ))
-
-  loadAdminSiteOptions$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(LOAD_ADMIN_SITE_OPTIONS),
-      switchMap(() => this.service.getAdminSiteOptions()
-        .pipe(
-          map(options => new LoadAdminSiteOptionsSuccess(options)),
-          catchError(error => {
-            return observableOf(new LoadAdminSiteOptionsFailure(error))
-          })
         )
       )
     ))

@@ -142,7 +142,7 @@ interface AdminSettings {
   aduserInfoUrl: string;
 }
 
-interface AdminSiteOptions {
+interface SiteOptions {
   classifierLocalBanners: string;
   acceptBannersManually: number;
 }
@@ -153,10 +153,6 @@ interface AdminIndexUpdateTimeResponse {
 
 interface AdminSettingsResponse {
   settings: AdminSettings;
-}
-
-interface AdminSiteOptionsResponse {
-  options: AdminSiteOptions
 }
 
 interface License {
@@ -305,7 +301,7 @@ export {
   Publishers,
   PublisherInfo,
   AdminSettings,
-  AdminSiteOptions,
+  SiteOptions,
   AdsharesAddress,
   WithdrawalInfo,
   BtcWithdrawInfo,
@@ -318,7 +314,6 @@ export {
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
-  AdminSiteOptionsResponse,
   License,
   Index,
   ReportsList,

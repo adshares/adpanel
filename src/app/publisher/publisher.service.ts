@@ -8,7 +8,7 @@ import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.m
 import { Media, Medium } from 'models/taxonomy-medium.model';
 import { parseTargetingForBackend, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { BannerClassificationFilters, BannerClassificationResponse } from 'models/classifier.model';
-import { AdminSiteOptions } from 'models/settings.model'
+import { SiteOptions } from 'models/settings.model'
 
 @Injectable()
 export class PublisherService {
@@ -155,8 +155,8 @@ export class PublisherService {
       {params});
   }
 
-  getSiteOptions(): Observable<AdminSiteOptions>{
-    return this.http.get<AdminSiteOptions>(`${environment.apiUrl}/options/sites`)
+  getSiteOptions(): Observable<SiteOptions>{
+    return this.http.get<SiteOptions>(`${environment.apiUrl}/options/sites`)
   }
 
   setBannerClassification(bannerId: number, status: boolean, siteId?: number): Observable<number> {

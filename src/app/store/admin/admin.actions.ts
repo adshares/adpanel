@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store'
 import {
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
-  AdminSiteOptionsResponse,
   AdvertiserInfo,
   License,
   PublisherInfo,
@@ -25,10 +24,6 @@ export const LOAD_PUBLISHERS_FAILURE = 'Publishers loading failure';
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
-
-export const LOAD_ADMIN_SITE_OPTIONS = 'Admin site options loading';
-export const LOAD_ADMIN_SITE_OPTIONS_SUCCESS = 'Admin site options loading success';
-export const LOAD_ADMIN_SITE_OPTIONS_FAILURE = 'Admin site options loading failure';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -128,27 +123,6 @@ export class LoadAdminSettingsSuccess implements Action {
 
 export class LoadAdminSettingsFailure implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class LoadAdminSiteOptions implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadAdminSiteOptionsSuccess implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_SUCCESS;
-
-  constructor(public payload: AdminSiteOptionsResponse) {
-  }
-}
-
-export class LoadAdminSiteOptionsFailure implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_FAILURE;
 
   constructor(public payload?: string) {
   }
@@ -261,10 +235,6 @@ export type actions =
   LoadAdminSettings |
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
-
-  LoadAdminSiteOptions |
-  LoadAdminSiteOptionsSuccess |
-  LoadAdminSiteOptionsFailure |
 
   RequestGetIndex |
   GetIndex |

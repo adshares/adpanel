@@ -2,7 +2,6 @@ import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
   AdminSettings,
-  AdminSiteOptions,
   Advertisers,
   BillingHistory,
   Index,
@@ -58,7 +57,6 @@ interface AdminState {
   advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
-  siteOptions: AdminSiteOptions;
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;

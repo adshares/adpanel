@@ -7,7 +7,6 @@ import {
   GET_LICENSE_FAILURE,
   GET_LICENSE_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
-  LOAD_ADMIN_SITE_OPTIONS_SUCCESS,
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
@@ -34,10 +33,6 @@ const initialState: AdminState = {
     autoConfirmationEnabled: 0,
     emailVerificationRequired: 0,
     aduserInfoUrl: '',
-  },
-  siteOptions: {
-    classifierLocalBanners: 'all-by-default',
-    acceptBannersManually: 0,
   },
   license: null,
   index: null,
@@ -85,11 +80,6 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload.settings
-      };
-    case LOAD_ADMIN_SITE_OPTIONS_SUCCESS:
-      return {
-        ...state,
-        siteOptions: action.payload
       };
     case GET_INDEX_SUCCESS:
       return {

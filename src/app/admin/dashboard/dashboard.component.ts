@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'models/app-state.model';
-import { GetLicense, LoadAdminSettings, LoadAdminSiteOptions, RequestGetIndex } from 'store/admin/admin.actions'
+import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { License } from 'models/settings.model';
@@ -70,7 +70,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
     this.store.dispatch(new RequestGetIndex());
-    this.store.dispatch(new LoadAdminSiteOptions())
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;

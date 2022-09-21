@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import {
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
-  AdminSiteOptionsResponse,
   AdvertiserInfo,
   PublisherInfo,
   UserBanDetails,
@@ -100,10 +99,6 @@ export class AdminService {
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
-  }
-
-  getAdminSiteOptions(): Observable<AdminSiteOptionsResponse> {
-    return this.http.get<AdminSiteOptionsResponse>(`${environment.apiUrl}/options/sites`);
   }
 
   getLicense(): Observable<any> {
