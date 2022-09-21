@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { take } from 'rxjs/operators'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { AdminSettings, PublisherInfo } from 'models/settings.model'
+import { PublisherInfo } from 'models/settings.model'
 import { AdminService } from 'admin/admin.service'
 import { ImpersonationService } from '../../../../impersonation/impersonation.service'
 import { SessionService } from '../../../../session.service'
@@ -22,7 +22,7 @@ import { DecentralandConverter } from 'common/utilities/targeting-converter/dece
 export class PublisherListItemComponent implements OnInit {
   @Input() publisher: PublisherInfo;
   loggedUser: User
-  settings: AdminSettings;
+  adUserInfoUrl: string;
   faIconImpersonation = faUserSecret;
 
   constructor(
@@ -38,8 +38,8 @@ export class PublisherListItemComponent implements OnInit {
   ngOnInit (): void {
     this.store.select('state', 'admin', 'settings')
       .pipe(take(1))
-      .subscribe((settings: AdminSettings) => {
-        this.settings = settings
+      .subscribe(settings => {
+        this.adUserInfoUrl = settings.adUserInfoUrl
       })
   }
 
@@ -130,8 +130,8 @@ export class PublisherListItemComponent implements OnInit {
     return `great`
   }
 
-  aduserInfoUrl(domain: string): string
+  getAdUserInfoUrl(domain: string): string
   {
-    return this.settings.aduserInfoUrl.replace('{domain}', domain);
+    return this.adUserInfoUrl.replace('{domain}', domain);
   }
 }

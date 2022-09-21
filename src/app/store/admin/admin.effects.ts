@@ -39,10 +39,8 @@ import { SAVE_SUCCESS } from 'common/utilities/messages'
 import { AdminService } from 'admin/admin.service'
 import { merge, of as observableOf } from 'rxjs'
 import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rxjs/operators'
-import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe'
 import { HTTP_NOT_FOUND } from 'common/utilities/codes'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
-import { AdminSettingsResponse } from 'models/settings.model'
 
 @Injectable()
 export class AdminEffects {
@@ -53,7 +51,6 @@ export class AdminEffects {
   constructor(
     private actions$: Actions,
     private service: AdminService,
-    private clickToADSPipe: ClickToADSPipe
   ) {
   }
 
@@ -164,18 +161,6 @@ export class AdminEffects {
       ofType(LOAD_ADMIN_SETTINGS),
       switchMap(() => this.service.getAdminSettings()
         .pipe(
-          map((response: AdminSettingsResponse) => {
-            return <AdminSettingsResponse>{
-              settings: {
-                ...response.settings,
-                advertiserCommission: Number((response.settings.advertiserCommission * 100).toFixed(2)),
-                publisherCommission: Number((response.settings.publisherCommission * 100).toFixed(2)),
-                referralRefundCommission: Number((response.settings.referralRefundCommission * 100).toFixed(2)),
-                hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
-                hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
-              }
-            }
-          }),
           map(settings => new LoadAdminSettingsSuccess(settings)),
           catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
         )

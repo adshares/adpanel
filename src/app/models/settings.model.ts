@@ -124,22 +124,7 @@ interface Publishers {
 }
 
 interface AdminSettings {
-  adserverName: string;
-  coldWalletAddress: string;
-  hotwalletMaxValue: number;
-  hotwalletMinValue: number;
-  supportEmail: string;
-  technicalEmail: string;
-  publisherCommission?: number;
-  advertiserCommission?: number;
-  coldWalletIsActive?: number;
-  referralRefundEnabled?: number;
-  referralRefundCommission?: number;
-  registrationMode: string;
-  autoRegistrationEnabled: number;
-  autoConfirmationEnabled: number;
-  emailVerificationRequired: number;
-  aduserInfoUrl: string;
+  adUserInfoUrl: string;
 }
 
 interface SiteOptions {
