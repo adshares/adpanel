@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Decrease index replace delay
 - Display regular users' flows based on their interest (advertiser/publisher)
 ### Removed
-- Configuration available in AdController
+- Configuration moved to AdController
 
 ## [1.18.8] - 2022-08-17
 ### Fixed

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
 import { AppState } from 'models/app-state.model';
 import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
@@ -9,6 +10,7 @@ import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 import * as moment from 'moment';
 import { Subscription, timer } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
+import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   readonly PREVIEW_URL: string = `${window.location.protocol}//${window.location.host}/preview`;
   private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
   private readonly PREVIEW_GENERATING_DELAY_MINUTES = 6;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  adControllerUrl = environment.adControllerUrl
   showIndexUpdateMessage: boolean = false;
   showIndexUpdateError: boolean = false;
   showPreviewLink: boolean = false;
