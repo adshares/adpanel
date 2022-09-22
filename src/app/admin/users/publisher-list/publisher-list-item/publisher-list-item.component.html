@@ -4,7 +4,7 @@
       <span class="domain" *ngFor="let domain of domainsInfo(publisher)">
         <a
           class="domain-checker q-{{ rankQuality(domain.rank, domain.info) }}"
-          [href]="aduserInfoUrl(domain.domain)"
+          [href]="getAdUserInfoUrl(domain.domain)"
           target="_blank"
           rel="noopener"
           [title]="domain.info"

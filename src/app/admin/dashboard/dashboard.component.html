@@ -28,6 +28,22 @@
         generating preview
       </span>
     </div>
+    <div *ngIf="adControllerUrl"
+         class="dwmth-copy justify-center message"
+    >
+      <a [href]="adControllerUrl"
+         rel="noopener nofollow noreferrer"
+         target="_blank"
+         data-test="settings-category-link"
+      >
+        <h3 class="dwmth-copy--large">
+          <span class="dwmth-copy--x-dark">
+            AdController Panel
+          </span>
+          <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+        </h3>
+      </a>
+    </div>
     <ul>
       <li *ngFor="let menuItem of settings">
         <app-settings-menu-item [menuItem]="menuItem"></app-settings-menu-item>

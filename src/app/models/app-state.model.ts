@@ -1,15 +1,13 @@
 import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
-  AdminSettings, AdminSiteOptions,
-  AdminWallet,
+  AdminSettings,
   Advertisers,
   BillingHistory,
   Index,
   License,
   Publishers,
   RefLink,
-  TermsAndPrivacy,
   Users,
 } from './settings.model'
 import { User } from './user.model';
@@ -59,10 +57,6 @@ interface AdminState {
   advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
-  siteOptions: AdminSiteOptions;
-  wallet: AdminWallet;
-  termsAndPrivacy: TermsAndPrivacy;
-  rejectedDomains: string[];
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;

@@ -56,7 +56,6 @@ import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dia
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component'
 import { SettingsMenuItemComponent } from 'common/components/settings-menu-item/settings-menu-item.component'
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component'
-import { InputComponent } from 'common/components/input/input.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component'
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component'
@@ -128,7 +127,6 @@ const appComponents = [
   ModelPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
-  InputComponent,
   LabelWithTooltipComponent,
   PlaceholdersAccordion,
   ReportsListComponent,

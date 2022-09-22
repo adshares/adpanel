@@ -9,29 +9,17 @@ import {
   DeleteUserSuccess,
   GET_INDEX,
   GET_LICENSE,
-  GET_PRIVACY_SETTINGS,
-  GET_REJECTED_DOMAINS,
-  GET_TERMS_SETTINGS,
   GetIndex,
   GetIndexFailure,
   GetIndexSuccess,
   GetLicenseFailure,
   GetLicenseSuccess,
-  GetPrivacySettingsSuccess,
-  GetRejectedDomainsSuccess,
-  GetTermsSettingsSuccess,
   LOAD_ADMIN_SETTINGS,
-  LOAD_ADMIN_SITE_OPTIONS,
-  LOAD_ADMIN_WALLET,
   LOAD_ADVERTISERS,
   LOAD_PUBLISHERS,
   LOAD_USERS,
   LoadAdminSettingsFailure,
   LoadAdminSettingsSuccess,
-  LoadAdminSiteOptionsFailure,
-  LoadAdminSiteOptionsSuccess,
-  LoadAdminWalletFailure,
-  LoadAdminWalletSuccess,
   LoadAdvertisers,
   LoadAdvertisersFailure,
   LoadAdvertisersSuccess,
@@ -42,22 +30,6 @@ import {
   LoadUsersFailure,
   LoadUsersSuccess,
   REQUEST_GET_INDEX,
-  SET_ADMIN_SETTINGS,
-  SET_ADMIN_SITE_OPTIONS,
-  SET_PRIVACY_SETTINGS,
-  SET_REJECTED_DOMAINS,
-  SET_TERMS_SETTINGS,
-  SetAdminSettings,
-  SetAdminSettingsSuccess,
-  SetAdminSiteOptions,
-  SetAdminSiteOptionsSuccess,
-  SetPrivacySettings,
-  SetPrivacySettingsFailure,
-  SetPrivacySettingsSuccess,
-  SetRejectedDomains,
-  SetRejectedDomainsSuccess,
-  SetTermsSettings,
-  SetTermsSettingsSuccess,
   UNBAN_USER,
   UnbanUser,
   UnbanUserSuccess,
@@ -67,10 +39,8 @@ import { SAVE_SUCCESS } from 'common/utilities/messages'
 import { AdminService } from 'admin/admin.service'
 import { merge, of as observableOf } from 'rxjs'
 import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rxjs/operators'
-import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe'
 import { HTTP_NOT_FOUND } from 'common/utilities/codes'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
-import { AdminSettingsResponse, AdminSiteOptionsResponse } from 'models/settings.model'
 
 @Injectable()
 export class AdminEffects {
@@ -81,7 +51,6 @@ export class AdminEffects {
   constructor(
     private actions$: Actions,
     private service: AdminService,
-    private clickToADSPipe: ClickToADSPipe
   ) {
   }
 
@@ -192,182 +161,8 @@ export class AdminEffects {
       ofType(LOAD_ADMIN_SETTINGS),
       switchMap(() => this.service.getAdminSettings()
         .pipe(
-          map((response: AdminSettingsResponse) => {
-            return <AdminSettingsResponse>{
-              settings: {
-                ...response.settings,
-                advertiserCommission: Number((response.settings.advertiserCommission * 100).toFixed(2)),
-                publisherCommission: Number((response.settings.publisherCommission * 100).toFixed(2)),
-                referralRefundCommission: Number((response.settings.referralRefundCommission * 100).toFixed(2)),
-                hotwalletMaxValue: this.clickToADSPipe.transform(response.settings.hotwalletMaxValue),
-                hotwalletMinValue: this.clickToADSPipe.transform(response.settings.hotwalletMinValue),
-              }
-            }
-          }),
           map(settings => new LoadAdminSettingsSuccess(settings)),
           catchError(error => observableOf(new LoadAdminSettingsFailure(error)))
-        )
-      )
-    ))
-
-  loadAdminSiteOptions$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(LOAD_ADMIN_SITE_OPTIONS),
-      switchMap(() => this.service.getAdminSiteOptions()
-        .pipe(
-          map((response: AdminSiteOptionsResponse) => {
-            return <AdminSiteOptionsResponse>{
-              ...response,
-            }
-          }),
-          map(options => new LoadAdminSiteOptionsSuccess(options)),
-          catchError(error => {
-            return observableOf(new LoadAdminSiteOptionsFailure(error))
-          })
-        )
-      )
-    ))
-
-  loadAdminWallet$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(LOAD_ADMIN_WALLET),
-      switchMap(() => this.service.getAdminWallet()
-        .pipe(
-          map(wallet => new LoadAdminWalletSuccess(wallet)),
-          catchError(error => observableOf(new LoadAdminWalletFailure(error)))
-        )
-      )
-    ))
-
-  saveAdminSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetAdminSettings>(SET_ADMIN_SETTINGS),
-      switchMap(action => this.service.setAdminSettings(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetAdminSettingsSuccess(action.payload),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'We weren\'t able to save your settings this time. Please, try again later'
-          )))
-        )
-      )
-    ))
-
-  saveAdminSiteOptions$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetAdminSiteOptions>(SET_ADMIN_SITE_OPTIONS),
-      switchMap(action => this.service.setAdminSiteOptions(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetAdminSiteOptionsSuccess(action.payload),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'We weren\'t able to save your site options this time. Please, try again later'
-          )))
-        )
-      )
-    ))
-
-  getPrivacySettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_PRIVACY_SETTINGS),
-      switchMap(() => this.service.getPrivacySettings()
-        .pipe(
-          map(privacyData => new GetPrivacySettingsSuccess(privacyData)),
-          catchError(error => {
-            if (error.status === HTTP_NOT_FOUND) {
-              return observableOf(new GetPrivacySettingsSuccess({content: ''}));
-            }
-            return observableOf(new ShowDialogOnError(
-              'We weren\'t able to fetch your settings this time. Please, try again later'
-            ))
-          })
-        )
-      )
-    ))
-
-  getTermsSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_TERMS_SETTINGS),
-      switchMap(() => this.service.getTermsAndConditions()
-        .pipe(
-          map((termsData) => new GetTermsSettingsSuccess(termsData)),
-          catchError(error => {
-            if (error.status === HTTP_NOT_FOUND) {
-              return observableOf(new GetTermsSettingsSuccess({content: ''}));
-            }
-            return observableOf(new ShowDialogOnError(
-              'We weren\'t able to fetch your settings this time. Please, try again later'
-            ));
-          })
-        )
-      )
-    ))
-
-  setTermsSettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetTermsSettings>(SET_TERMS_SETTINGS),
-      switchMap(action => this.service.setTermsAndConditions(action.payload)
-        .pipe(
-          switchMap((termsData) => [
-            new SetTermsSettingsSuccess(termsData),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => {
-            return observableOf(new SetPrivacySettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
-            ))
-          })
-        )
-      )
-    ))
-
-  setPrivacySettings$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetPrivacySettings>(SET_PRIVACY_SETTINGS),
-      switchMap(action => this.service.setPrivacySettings(action.payload)
-        .pipe(
-          switchMap(termsData => [
-            new SetPrivacySettingsSuccess(termsData),
-            new ShowSuccessSnackbar(SAVE_SUCCESS)
-          ]),
-          catchError(() => {
-            return observableOf(new SetPrivacySettingsFailure(
-              'We weren\'t able to save your settings this time. Please, try again later'
-            ))
-          })
-        )
-      )
-    ))
-
-  getRejectedDomains$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_REJECTED_DOMAINS),
-      switchMap(() => this.service.getRejectedDomains()
-        .pipe(
-          map(response => new GetRejectedDomainsSuccess(response)),
-          catchError(() => observableOf(
-            new ShowDialogOnError('Rejected domains are not available. Please, try again later.')
-          ))
-        )
-      )
-    ))
-
-  setRejectedDomains$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<SetRejectedDomains>(SET_REJECTED_DOMAINS),
-      switchMap(action => this.service.putRejectedDomains(action.payload)
-        .pipe(
-          switchMap(() => [
-            new SetRejectedDomainsSuccess(),
-            new ShowSuccessSnackbar(SAVE_SUCCESS),
-          ]),
-          catchError(() => observableOf(new ShowDialogOnError(
-            'Rejected domains were not saved. Please, try again later.'
-          )))
         )
       )
     ))

@@ -124,32 +124,7 @@ interface Publishers {
 }
 
 interface AdminSettings {
-  adserverName: string;
-  coldWalletAddress: string;
-  hotwalletMaxValue: number;
-  hotwalletMinValue: number;
-  supportEmail: string;
-  technicalEmail: string;
-  publisherCommission?: number;
-  advertiserCommission?: number;
-  coldWalletIsActive?: number;
-  referralRefundEnabled?: number;
-  referralRefundCommission?: number;
-  registrationMode: string;
-  autoRegistrationEnabled: number;
-  autoConfirmationEnabled: number;
-  emailVerificationRequired: number;
-  aduserInfoUrl: string;
-}
-
-interface AdminSiteOptions {
-  classifierLocalBanners: string;
-  acceptBannersManually: number;
-}
-
-interface AdminWallet {
-  balance: number;
-  unusedBonuses: number;
+  adUserInfoUrl: string;
 }
 
 interface AdminIndexUpdateTimeResponse {
@@ -158,19 +133,6 @@ interface AdminIndexUpdateTimeResponse {
 
 interface AdminSettingsResponse {
   settings: AdminSettings;
-}
-
-interface AdminSiteOptionsResponse {
-  options: AdminSiteOptions
-}
-
-interface AdminWalletResponse {
-  wallet: AdminWallet;
-}
-
-interface TermsAndPrivacy {
-  privacy: string;
-  terms: string;
 }
 
 interface License {
@@ -184,14 +146,6 @@ interface License {
 interface Index {
   updateTime: string;
   error: boolean;
-}
-
-interface AdminPrivacyAndTermsSettingsResponse {
-  content: string;
-}
-
-interface RejectedDomainsResponse {
-  domains: string[];
 }
 
 interface AdsharesAddress {
@@ -282,6 +236,11 @@ interface RefLinkInfo {
   status: string;
 }
 
+interface SiteOptions {
+  classifierLocalBanners: string;
+  acceptBannersManually: number;
+}
+
 interface Invoice {
   id: number;
 
@@ -327,8 +286,6 @@ export {
   Publishers,
   PublisherInfo,
   AdminSettings,
-  AdminSiteOptions,
-  AdminWallet,
   AdsharesAddress,
   WithdrawalInfo,
   BtcWithdrawInfo,
@@ -341,17 +298,13 @@ export {
   CalculateWithdrawalItem,
   AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
-  AdminSiteOptionsResponse,
-  AdminWalletResponse,
-  AdminPrivacyAndTermsSettingsResponse,
-  RejectedDomainsResponse,
-  TermsAndPrivacy,
   License,
   Index,
   ReportsList,
   ReportsListItem,
   RefLink,
   RefLinkInfo,
+  SiteOptions,
   Invoice,
   UserRoles,
   WalletGateway,
