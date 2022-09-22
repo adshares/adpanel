@@ -3,13 +3,13 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { of as observableOf } from 'rxjs'
+import { forkJoin, of as observableOf } from 'rxjs'
 import { catchError, map, switchMap, tap } from 'rxjs/operators'
-
 import { CommonService } from 'common/common.service'
 import {
   LOAD_INFO,
   LoadInfoSuccess,
+  LoadPlaceholdersSuccess,
   REQUEST_REPORT,
   REQUEST_REPORT_SUCCESS,
   RequestReport,
@@ -45,11 +45,17 @@ export class CommonEffects {
   loadInfo = createEffect(() => this.actions$
     .pipe(
       ofType(LOAD_INFO),
-      switchMap(() => this.service.getInfo()
-        .pipe(
-          map(info => new LoadInfoSuccess(info)),
-          catchError(error => observableOf(new ShowDialogOnError(error.message)))
-        )
+      switchMap(() => forkJoin({
+          info: this.service.getInfo(),
+          placeholders: this.service.getLoginPlaceholders(),
+        })
+          .pipe(
+            switchMap(result => [
+              new LoadInfoSuccess(result.info),
+              new LoadPlaceholdersSuccess(result.placeholders),
+            ]),
+            catchError(error => observableOf(new ShowDialogOnError(error.message))),
+          )
       )
     ))
 

@@ -7,6 +7,7 @@ const initialState: CommonState = {
   chartFilterSettings: chartFilterSettingsInitialState,
   impersonationToken: null,
   info: null,
+  placeholders: null,
 };
 
 export function commonReducers(state = initialState, action: commonActions.actions) {
@@ -15,6 +16,14 @@ export function commonReducers(state = initialState, action: commonActions.actio
       return {
         ...state,
         info: action.payload
+      };
+    case commonActions.LOAD_PLACEHOLDERS_SUCCESS:
+      return {
+        ...state,
+        placeholders: {
+          ...state.placeholders,
+          ...action.payload,
+        }
       };
     case commonActions.SET_ACTIVE_USER_TYPE:
       return {

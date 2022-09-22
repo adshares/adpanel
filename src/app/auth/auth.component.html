@@ -1,51 +1,15 @@
 <section class="dwmth-auth row align-center">
   <div class="container row dwmth-auth-wrapper">
-    <div class="col col-xs-0 col-lg-6 dwmth-auth__poster justify-between hidden-lg">
-      <div>
-        <h1 class="dwmth-heading--hero dwmth-white">
-          <span class="dwmth-heading--light">
-            Blockchain
-          </span>
-          Transformation<br>in Advertising
-        </h1>
-        <div
-          class="row align-center dwmth-copy dwmth-copy--semi dwmth-copy--uppercase dwmth-blue dwmth-auth__poster-advantages">
-          <span>
-            Low Fees
-          </span>
-          <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
-          <span>
-            Censorship Resistant
-          </span>
-          <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
-          <span>
-            AI Ready
-          </span>
-        </div>
-      </div>
-      <div class="dwmth-copy dwmth-auth__poster-benefits">
-        <h3 class="dwmth-heading--secondary">Join as an ADVERTISER</h3>
-        <ul>
-          <li>Significantly lower fees compared to mainstream ad networks</li>
-          <li>Availability for small advertisers - no minimum budget</li>
-          <li>Innovation in ad delivery to prevent ad blocking</li>
-        </ul>
-        <h3 class="dwmth-heading--secondary">Join as a PUBLISHER</h3>
-        <ul>
-          <li>Availability for small publishers - no traffic requirements</li>
-          <li>Almost instant payments - automatic hourly transfers</li>
-          <li>Quick and easy registration</li>
-        </ul>
-      </div>
-      <div class="dwmth-copy dwmth-copy--semi dwmth-copy--uppercase">
-        <a class="dwmth-blue" href="https://adshares.net/about?utm_source={{source}}&utm_campaign=auth#video"
-           target="_blank">Watch video about Adshares</a>
-      </div>
+    <div class="col col-xs-12 col-lg-6 dwmth-auth__poster justify-between hidden-lg">
+      <div *ngIf="null !== loginInfo else isLoading ? loading : loginInfoTemplate"
+           [innerHtml]="loginInfo"
+           class="col flex-auto dwmth-auth__poster-content"
+      ></div>
 
       <div class="row align-center justify-between dwmth-copy dwmth-copy--small">
         <a href="https://adshares.net?utm_source={{source}}&utm_campaign=auth" target="_blank">
           <img
-            alt="Adshares Logo"
+            alt=""
             class="dwmth-logo"
             src="assets/images/logo--white.png"
             srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
@@ -114,3 +78,53 @@
     srcset="assets/images/wave-down@2x.png 2x, assets/images/wave-down@3x.png 3x"
   >
 </section>
+
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #loginInfoTemplate>
+  <div class="col flex-auto justify-between dwmth-auth__poster-content">
+    <div>
+      <h1 class="dwmth-heading--hero dwmth-white">
+            <span class="dwmth-heading--light">
+              Blockchain
+            </span>
+        Transformation<br>in Advertising
+      </h1>
+      <div class="row align-center dwmth-copy dwmth-copy--semi dwmth-copy--uppercase dwmth-blue dwmth-auth__poster-advantages">
+            <span>
+              Low Fees
+            </span>
+        <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
+        <span>
+              Censorship Resistant
+            </span>
+        <div class="dwmth-circle dwmth-circle--x-small dwmth-bg-blue"></div>
+        <span>
+              AI Ready
+            </span>
+      </div>
+    </div>
+    <div class="dwmth-copy dwmth-auth__poster-benefits">
+      <h3 class="dwmth-heading--secondary">Join as an ADVERTISER</h3>
+      <ul>
+        <li>Significantly lower fees compared to mainstream ad networks</li>
+        <li>Availability for small advertisers - no minimum budget</li>
+        <li>Innovation in ad delivery to prevent ad blocking</li>
+      </ul>
+      <h3 class="dwmth-heading--secondary">Join as a PUBLISHER</h3>
+      <ul>
+        <li>Availability for small publishers - no traffic requirements</li>
+        <li>Almost instant payments - automatic hourly transfers</li>
+        <li>Quick and easy registration</li>
+      </ul>
+    </div>
+    <div class="dwmth-copy dwmth-copy--semi dwmth-copy--uppercase">
+      <a class="dwmth-blue"
+         href="https://adshares.net/about?utm_source={{source}}&utm_campaign=auth#video"
+         target="_blank">Watch video about Adshares</a>
+    </div>
+  </div>
+</ng-template>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'environments/environment'
 import { reportType } from 'models/enum/user.enum'
-import { Info } from 'models/info.model'
+import { Info, Placeholders } from 'models/info.model'
 import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
 import { Media } from 'models/taxonomy-medium.model'
 import { Options } from 'models/options.model'
@@ -61,5 +61,9 @@ export class CommonService {
 
   getMedia(): Observable<Media> {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
+  }
+
+  getLoginPlaceholders(): Observable<Placeholders>{
+    return this.http.get<Placeholders>(`${environment.serverUrl}/panel/placeholders/login`);
   }
 }

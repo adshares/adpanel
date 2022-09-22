@@ -12,7 +12,6 @@ import { isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
-import { Info } from 'models/info.model'
 import AdsWallet from '@adshares/ads-connector'
 import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
@@ -55,10 +54,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit (): void {
+    const loginPlaceholdersSubscription = this.store.select('state', 'common', 'placeholders')
+      .subscribe(placeholders => {
+        this.advertiserApplyFormUrl = placeholders?.advertiserApplyFormUrl
+        this.publisherApplyFormUrl = placeholders?.publisherApplyFormUrl
+      })
+    this.subscriptions.push(loginPlaceholdersSubscription)
     const infoSubscription = this.store.select('state', 'common', 'info')
-      .subscribe((info: Info) => {
-        this.advertiserApplyFormUrl = info.advertiserApplyFormUrl
-        this.publisherApplyFormUrl = info.publisherApplyFormUrl
+      .subscribe(info => {
         this.registrationMode = info.registrationMode
         this.supportEmail = info.supportEmail
       })
