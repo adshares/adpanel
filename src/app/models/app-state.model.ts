@@ -12,7 +12,7 @@ import {
 } from './settings.model'
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import {Info} from "models/info.model";
+import { Info, Placeholders } from 'models/info.model'
 
 interface AppState {
   state: {
@@ -67,6 +67,7 @@ interface CommonState {
   activeUserType: number;
   chartFilterSettings: ChartFilterSettings;
   impersonationToken: string;
+  placeholders: Placeholders;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState };
