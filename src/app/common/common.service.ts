@@ -4,9 +4,10 @@ import { Observable } from 'rxjs'
 
 import { environment } from 'environments/environment'
 import { reportType } from 'models/enum/user.enum'
-import { Info } from 'models/info.model'
+import { Info, Placeholders } from 'models/info.model'
 import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
 import { Media } from 'models/taxonomy-medium.model'
+import { Options } from 'models/options.model'
 
 @Injectable()
 export class CommonService {
@@ -16,6 +17,10 @@ export class CommonService {
 
   getInfo(): Observable<Info> {
     return this.http.get<Info>(`${environment.serverUrl}/info`);
+  }
+
+  getOptions(): Observable<Options> {
+    return this.http.get<Options>(`${environment.serverUrl}/api/options/server`);
   }
 
   report(type: reportType, dateStart: string, dateEnd: string, id?: number): Observable<any> {
@@ -56,5 +61,9 @@ export class CommonService {
 
   getMedia(): Observable<Media> {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
+  }
+
+  getLoginPlaceholders(): Observable<Placeholders>{
+    return this.http.get<Placeholders>(`${environment.serverUrl}/panel/placeholders/login`);
   }
 }

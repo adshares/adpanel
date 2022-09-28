@@ -1,14 +1,10 @@
 import { Action } from '@ngrx/store'
 import {
   AdminIndexUpdateTimeResponse,
-  AdminPrivacyAndTermsSettingsResponse,
-  AdminSettings,
-  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
-  AdminWalletResponse,
+  AdminSettingsResponse,
   AdvertiserInfo,
   License,
   PublisherInfo,
-  RejectedDomainsResponse,
   UserBanDetails,
   UserInfo,
 } from 'models/settings.model'
@@ -28,40 +24,6 @@ export const LOAD_PUBLISHERS_FAILURE = 'Publishers loading failure';
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
-
-export const LOAD_ADMIN_SITE_OPTIONS = 'Admin site options loading';
-export const LOAD_ADMIN_SITE_OPTIONS_SUCCESS = 'Admin site options loading success';
-export const LOAD_ADMIN_SITE_OPTIONS_FAILURE = 'Admin site options loading failure';
-
-export const LOAD_ADMIN_WALLET = 'Admin wallet loading';
-export const LOAD_ADMIN_WALLET_SUCCESS = 'Admin wallet loading success';
-export const LOAD_ADMIN_WALLET_FAILURE = 'Admin wallet loading failure';
-
-export const SET_ADMIN_SETTINGS = 'Save new admin settings';
-export const SET_ADMIN_SETTINGS_SUCCESS = 'Save new admin settings success';
-
-export const SET_ADMIN_SITE_OPTIONS = 'Save new admin site options';
-export const SET_ADMIN_SITE_OPTIONS_SUCCESS = 'Save new admin site options success';
-
-export const GET_PRIVACY_SETTINGS = 'Get admin privacy settings';
-export const GET_PRIVACY_SETTINGS_SUCCESS = 'Get admin privacy settings success';
-
-export const SET_PRIVACY_SETTINGS = 'Set admin privacy settings';
-export const SET_PRIVACY_SETTINGS_SUCCESS = 'Set admin privacy settings success';
-export const SET_PRIVACY_SETTINGS_FAILURE = 'Set admin privacy settings failure';
-
-export const GET_TERMS_SETTINGS = 'Get admin terms settings';
-export const GET_TERMS_SETTINGS_SUCCESS = 'Get admin terms settings success';
-
-export const SET_TERMS_SETTINGS = 'Set admin terms settings';
-export const SET_TERMS_SETTINGS_SUCCESS = 'Set admin terms settings success';
-export const SET_TERMS_SETTINGS_FAILURE = 'Set admin terms settings failure';
-
-export const GET_REJECTED_DOMAINS = 'Get admin rejected domains';
-export const GET_REJECTED_DOMAINS_SUCCESS = 'Get admin rejected domains success';
-
-export const SET_REJECTED_DOMAINS = 'Set admin rejected domains';
-export const SET_REJECTED_DOMAINS_SUCCESS = 'Set admin rejected domains success';
 
 export const REQUEST_GET_INDEX = 'Request Get index';
 export const GET_INDEX = 'Get index';
@@ -163,174 +125,6 @@ export class LoadAdminSettingsFailure implements Action {
   readonly type: string = LOAD_ADMIN_SETTINGS_FAILURE;
 
   constructor(public payload?: string) {
-  }
-}
-
-export class LoadAdminSiteOptions implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadAdminSiteOptionsSuccess implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_SUCCESS;
-
-  constructor(public payload: AdminSiteOptionsResponse) {
-  }
-}
-
-export class LoadAdminSiteOptionsFailure implements Action {
-  readonly type: string = LOAD_ADMIN_SITE_OPTIONS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class LoadAdminWallet implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class LoadAdminWalletSuccess implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET_SUCCESS;
-
-  constructor(public payload: AdminWalletResponse) {
-  }
-}
-
-export class LoadAdminWalletFailure implements Action {
-  readonly type: string = LOAD_ADMIN_WALLET_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class SetAdminSettings implements Action {
-  readonly type: string = SET_ADMIN_SETTINGS;
-
-  constructor(public payload: AdminSettings) {
-  }
-}
-
-export class SetAdminSettingsSuccess implements Action {
-  readonly type: string = SET_ADMIN_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminSettings) {
-  }
-}
-
-export class SetAdminSiteOptions implements Action {
-  readonly type: string = SET_ADMIN_SITE_OPTIONS;
-
-  constructor(public payload: AdminSiteOptions) {
-  }
-}
-
-export class SetAdminSiteOptionsSuccess implements Action {
-  readonly type: string = SET_ADMIN_SITE_OPTIONS_SUCCESS;
-
-  constructor(public payload: AdminSiteOptions) {
-  }
-}
-
-export class GetPrivacySettings implements Action {
-  readonly type: string = GET_PRIVACY_SETTINGS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetPrivacySettingsSuccess implements Action {
-  readonly type: string = GET_PRIVACY_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
-  }
-}
-
-export class SetPrivacySettings implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetPrivacySettingsSuccess implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetPrivacySettingsFailure implements Action {
-  readonly type: string = SET_PRIVACY_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class GetTermsSettings implements Action {
-  readonly type: string = GET_TERMS_SETTINGS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetTermsSettingsSuccess implements Action {
-  readonly type: string = GET_TERMS_SETTINGS_SUCCESS;
-
-  constructor(public payload: AdminPrivacyAndTermsSettingsResponse) {
-  }
-}
-
-export class SetTermsSettings implements Action {
-  readonly type: string = SET_TERMS_SETTINGS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetTermsSettingsSuccess implements Action {
-  readonly type: string = SET_TERMS_SETTINGS_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class SetTermsSettingsFailure implements Action {
-  readonly type: string = SET_TERMS_SETTINGS_FAILURE;
-
-  constructor(public payload?: string) {
-  }
-}
-
-export class GetRejectedDomains implements Action {
-  readonly type: string = GET_REJECTED_DOMAINS;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetRejectedDomainsSuccess implements Action {
-  readonly type: string = GET_REJECTED_DOMAINS_SUCCESS;
-
-  constructor(public payload: RejectedDomainsResponse) {
-  }
-}
-
-export class SetRejectedDomains implements Action {
-  readonly type: string = SET_REJECTED_DOMAINS;
-
-  constructor(public payload: string[]) {
-  }
-}
-
-export class SetRejectedDomainsSuccess implements Action {
-  readonly type: string = SET_REJECTED_DOMAINS_SUCCESS;
-
-  constructor(public payload?: any) {
   }
 }
 
@@ -441,40 +235,6 @@ export type actions =
   LoadAdminSettings |
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
-
-  LoadAdminSiteOptions |
-  LoadAdminSiteOptionsSuccess |
-  LoadAdminSiteOptionsFailure |
-
-  LoadAdminWallet |
-  LoadAdminWalletSuccess |
-  LoadAdminWalletFailure |
-
-  SetAdminSettings |
-  SetAdminSettingsSuccess |
-
-  SetAdminSiteOptions |
-  SetAdminSiteOptionsSuccess |
-
-  GetPrivacySettings |
-  GetPrivacySettingsSuccess |
-
-  SetPrivacySettings |
-  SetPrivacySettingsSuccess |
-  SetPrivacySettingsFailure |
-
-  GetTermsSettings |
-  GetTermsSettingsSuccess |
-
-  SetTermsSettings |
-  SetTermsSettingsSuccess |
-  SetTermsSettingsFailure |
-
-  GetRejectedDomains |
-  GetRejectedDomainsSuccess |
-
-  SetRejectedDomains |
-  SetRejectedDomainsSuccess |
 
   RequestGetIndex |
   GetIndex |

@@ -17,12 +17,16 @@ import { MediaResolver } from 'common/resolvers/media.resolver';
 import { BannersConfigResolver } from 'advertiser/resolvers/banners-config.resolver';
 import { CampaignsConfigResolver } from 'advertiser/resolvers/campaigns-config.resolver';
 import { FilteringCriteriaResolver } from 'publisher/resolvers/filtering-criteria.resolver';
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const advertiserRoutes: Routes = [
   {
     path: 'advertiser',
     component: AdvertiserComponent,
     canActivate: [AdvertiserGuard],
+    resolve: {
+      options: ServerOptionsResolver,
+    },
     children: [
       {path: '', pathMatch: 'full', redirectTo: '/advertiser/dashboard'},
       {

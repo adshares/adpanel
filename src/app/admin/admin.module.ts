@@ -21,15 +21,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserListItemComponent } from './users/user-list/user-list-item/user-list-item.component';
 import { UserReportsComponent } from './user-reports/user-reports.component';
 import { SettingsModule } from 'settings/settings.module';
-import { FinancesSettingsComponent } from 'admin/finances/finances-settings.component';
-import { EarningsSettingsComponent } from 'admin/finances/earnings-settings/earnings-settings.component';
 import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
-import { ParamSettingComponent } from 'admin/general-settings/param-setting/param-setting.component';
 import { ClickToADSPipe } from 'common/pipes/adshares-token.pipe';
-import { RebrandingComponent } from 'admin/rebranding/rebranding.component';
-import { PrivacyAndTermsSettingsComponent } from 'admin/privacy-and-terms-settings/privacy-and-terms-settings.component';
-import { LicenseComponent } from 'admin/general-settings/license/license.component';
-import { RejectedDomainsComponent } from 'admin/general-settings/rejected-domains/rejected-domains.component';
 import { PanelBlockadeComponent } from 'admin/dashboard/panel-blockade/panel-blockade.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { UsersComponent } from 'admin/users/users.component';
@@ -37,9 +30,7 @@ import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-
 import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/advertiser-list-item/advertiser-list-item.component';
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
-import { PanelPlaceholdersSettingsComponent } from 'admin/panel-placeholders-settings/panel-placeholders-settings.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { SiteOptionsSettingsComponent } from './general-settings/site-options-settings/site-options-settings.component';
 import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
 import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -87,17 +78,8 @@ import { MatButtonModule } from '@angular/material/button'
     PublisherListComponent,
     PublisherListItemComponent,
     UserReportsComponent,
-    FinancesSettingsComponent,
-    EarningsSettingsComponent,
-    ParamSettingComponent,
     GeneralSettingsComponent,
-    RebrandingComponent,
-    PrivacyAndTermsSettingsComponent,
-    LicenseComponent,
-    RejectedDomainsComponent,
     PanelBlockadeComponent,
-    PanelPlaceholdersSettingsComponent,
-    SiteOptionsSettingsComponent,
     BanUserDialogComponent,
     DeleteUserDialogComponent,
   ],

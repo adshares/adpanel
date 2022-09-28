@@ -4,7 +4,7 @@
   padding: 30px;
   min-width: 500px;
 
-  @include media(xl-up) {
+  @include media(xxl-up) {
     width: calc(100% - 380px);
   }
 }

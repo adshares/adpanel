@@ -56,7 +56,6 @@ import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dia
 import { BannerPreviewComponent } from 'common/components/banner-preview/banner-preview.component'
 import { SettingsMenuItemComponent } from 'common/components/settings-menu-item/settings-menu-item.component'
 import { SuccessSnackbarComponent } from 'common/dialog/success-snackbar/success-snackbar.component'
-import { InputComponent } from 'common/components/input/input.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { TargetingCustomOptionInputComponent } from 'common/components/targeting/targeting-custom-option-input/targeting-custom-option-input.component'
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component'
@@ -70,6 +69,8 @@ import { PageNotFoundComponent } from 'common/info/page-not-found/page-not-found
 import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 import { ModelPreviewComponent } from 'common/components/model-preview/model-preview.component'
+import { ServerOptionsService } from 'common/server-options.service'
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const matModules = [
   MatDialogModule,
@@ -126,7 +127,6 @@ const appComponents = [
   ModelPreviewComponent,
   SettingsMenuItemComponent,
   SuccessSnackbarComponent,
-  InputComponent,
   LabelWithTooltipComponent,
   PlaceholdersAccordion,
   ReportsListComponent,
@@ -160,6 +160,8 @@ const appComponents = [
     ChartService,
     CommonService,
     MediaResolver,
+    ServerOptionsResolver,
+    ServerOptionsService,
   ],
   exports: [
     ...appComponents,

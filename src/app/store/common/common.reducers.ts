@@ -1,12 +1,13 @@
 import * as commonActions from './common.actions';
 import { chartFilterSettingsInitialState } from 'models/initial-state/chart-filter-settings';
+import { CommonState } from 'models/app-state.model'
 
-const initialState = {
+const initialState: CommonState = {
   activeUserType: 1,
-  adsharesAddress: '',
   chartFilterSettings: chartFilterSettingsInitialState,
   impersonationToken: null,
   info: null,
+  placeholders: null,
 };
 
 export function commonReducers(state = initialState, action: commonActions.actions) {
@@ -15,6 +16,14 @@ export function commonReducers(state = initialState, action: commonActions.actio
       return {
         ...state,
         info: action.payload
+      };
+    case commonActions.LOAD_PLACEHOLDERS_SUCCESS:
+      return {
+        ...state,
+        placeholders: {
+          ...state.placeholders,
+          ...action.payload,
+        }
       };
     case commonActions.SET_ACTIVE_USER_TYPE:
       return {
@@ -25,11 +34,6 @@ export function commonReducers(state = initialState, action: commonActions.actio
       return {
         ...state,
         chartFilterSettings: Object.assign({}, action.payload)
-      };
-    case commonActions.SET_ADSHARES_ADDRESS:
-      return {
-        ...state,
-        adsharesAddress: action.payload
       };
     default:
       return state;

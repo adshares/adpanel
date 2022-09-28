@@ -18,7 +18,7 @@ import {
   faLifeRing,
   faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons'
-import { appSettings } from 'app-settings'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-header',
@@ -31,6 +31,7 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   supportChat
   crypto: string = CRYPTO
   code: string = CODE
+  calculateFunds: boolean
   totalFunds: number
   isTotalFundsValid: boolean = false
   userType: number
@@ -44,21 +45,26 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   faPaperPlane = faPaperPlane
   faComments = faComments
   envContext: string | null = environment.context
+  actAsAdvertiser: boolean
+  actAsPublisher: boolean
 
   constructor (
     private router: Router,
     private dialog: MatDialog,
     public auth: AuthService,
+    private serverOptionsService: ServerOptionsService,
     public session: SessionService,
     private store: Store<AppState>,
   ) {
     super()
   }
 
-  ngOnInit () {
-    this.supportEmail = appSettings.SUPPORT_EMAIL
-    this.supportTelegram = appSettings.SUPPORT_TELEGRAM
-    this.supportChat = appSettings.SUPPORT_CHAT
+  ngOnInit (): void {
+    const options = this.serverOptionsService.getOptions()
+    this.calculateFunds = options.displayCurrency !== options.appCurrency
+    this.supportChat = options.supportChat
+    this.supportEmail = options.supportEmail
+    this.supportTelegram = options.supportTelegram
     this.store.dispatch(new SetUser())
 
     this.userLabel = this.session.getUserLabel()
@@ -98,11 +104,13 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
         break
     }
 
-    const userDataStateSubscription = this.store.select('state', 'user',
-      'data').subscribe((data: User) => {
-      this.totalFunds = data.adserverWallet.totalFunds
-      this.isTotalFundsValid = data.isAdserverWalletValid
-    })
+    const userDataStateSubscription = this.store.select('state', 'user', 'data')
+      .subscribe((data: User) => {
+        this.totalFunds = data.adserverWallet.totalFunds
+        this.isTotalFundsValid = data.isAdserverWalletValid
+        this.actAsAdvertiser = data.isAdvertiser
+        this.actAsPublisher = data.isPublisher
+      })
     this.subscriptions.push(userDataStateSubscription)
   }
 

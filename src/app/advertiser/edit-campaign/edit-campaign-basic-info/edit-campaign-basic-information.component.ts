@@ -29,8 +29,8 @@ import {
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
-import { environment } from 'environments/environment';
 import { CustomValidators } from "common/utilities/forms";
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-edit-campaign-basic-information',
@@ -38,7 +38,7 @@ import { CustomValidators } from "common/utilities/forms";
   styleUrls: ['./edit-campaign-basic-information.component.scss']
 })
 export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;
   campaignBasicInformationSubmitted = false;
@@ -61,6 +61,7 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
+    private serverOptionsService: ServerOptionsService,
   ) {
     super();
   }
@@ -103,7 +104,8 @@ export class EditCampaignBasicInformationComponent extends HandleSubscription im
     return basicInformation;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
     this.store.dispatch(new LoadCampaignsConfig());
     this.createCampaignMode = !!this.router.url.match('/create-campaign/');
     this.route.queryParams.subscribe(params => this.goesToSummary = !!params.summary);

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2022-09-28
+### Added
+- Change user roles
+- Load login info from API
+### Changed
+- Dynamically load currency and other AdServer's options
+- Decrease index replace delay
+- Display regular users' flows based on their interest (advertiser/publisher)
+### Removed
+- Configuration moved to AdController
+
 ## [1.18.8] - 2022-08-17
 ### Fixed
 - Disable saving bid strategy while name is empty
@@ -462,7 +473,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.8...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.1.0...develop
+[2.1.0]: https://github.com/adshares/adpanel/compare/v1.18.8...v2.1.0
 [1.18.8]: https://github.com/adshares/adpanel/compare/v1.18.7...v1.18.8
 [1.18.7]: https://github.com/adshares/adpanel/compare/v1.18.6...v1.18.7
 [1.18.6]: https://github.com/adshares/adpanel/compare/v1.18.5...v1.18.6

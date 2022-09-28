@@ -1,20 +1,16 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   AdminIndexUpdateTimeResponse,
-  AdminPrivacyAndTermsSettingsResponse,
-  AdminSettings,
-  AdminSettingsResponse, AdminSiteOptions, AdminSiteOptionsResponse,
-  AdminWalletResponse,
+  AdminSettingsResponse,
   AdvertiserInfo,
   PublisherInfo,
-  RejectedDomainsResponse,
   UserBanDetails,
   UserInfo
 } from 'models/settings.model'
 import { environment } from 'environments/environment';
-import { adsToClicks, buildUrl } from 'common/utilities/helpers'
+import { buildUrl } from 'common/utilities/helpers'
 
 @Injectable()
 export class AdminService {
@@ -93,6 +89,10 @@ export class AdminService {
     return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToRegular`, {})
   }
 
+  changeUserRights(id: number, operation: string): Observable<UserInfo> {
+    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/${operation}`, {})
+  }
+
   impersonateUser(id: number): Observable<string> {
     return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
   }
@@ -101,73 +101,12 @@ export class AdminService {
     return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
   }
 
-  getAdminSiteOptions(): Observable<AdminSiteOptionsResponse> {
-    return this.http.get<AdminSiteOptionsResponse>(`${environment.apiUrl}/options/sites`);
-  }
-
-  getAdminWallet(): Observable<AdminWalletResponse> {
-    return this.http.get<AdminWalletResponse>(`${environment.serverUrl}/admin/wallet`);
-  }
-
-  getTermsAndConditions(): Observable<AdminPrivacyAndTermsSettingsResponse> {
-    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/terms`);
-  }
-
-  setTermsAndConditions(content): Observable<string> {
-    return this.http.put<string>(`${environment.serverUrl}/admin/terms`, {content});
-  }
-
-  getPrivacySettings(): Observable<AdminPrivacyAndTermsSettingsResponse> {
-    return this.http.get<AdminPrivacyAndTermsSettingsResponse>(`${environment.serverUrl}/admin/privacy`);
-  }
-
-  setPrivacySettings(content): Observable<string> {
-    return this.http.put<string>(`${environment.serverUrl}/admin/privacy`, {content});
-  }
-
-  setAdminSettings(settings: AdminSettings): Observable<AdminSettingsResponse> {
-    const formatValues = {
-      ...settings,
-      advertiserCommission: settings.advertiserCommission / 100,
-      publisherCommission: settings.publisherCommission / 100,
-      referralRefundCommission: settings.referralRefundCommission / 100,
-      hotwalletMaxValue: adsToClicks(settings.hotwalletMaxValue),
-      hotwalletMinValue: adsToClicks(settings.hotwalletMinValue),
-    };
-    return this.http.put<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`, {settings: formatValues});
-  }
-
-  setAdminSiteOptions(options: AdminSiteOptions): Observable<AdminSiteOptionsResponse> {
-    return this.http.patch<AdminSiteOptionsResponse>(`${environment.serverUrl}/admin/site-settings`, {...options});
-  }
-
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
   }
 
   getIndexUpdateTime(): Observable<AdminIndexUpdateTimeResponse> {
     return this.http.get<AdminIndexUpdateTimeResponse>(`${environment.serverUrl}/admin/index/update-time`);
-  }
-
-  getPanelPlaceholders(types: string[]): Observable<any> {
-    let params = new HttpParams();
-    types.forEach(type => {
-      params = params.append('types[]', type);
-    });
-
-    return this.http.get<any>(`${environment.serverUrl}/panel/placeholders`, {params});
-  }
-
-  patchPanelPlaceholders(placeholders): Observable<any> {
-    return this.http.patch<any>(`${environment.serverUrl}/admin/panel-placeholders`, placeholders);
-  }
-
-  getRejectedDomains(): Observable<RejectedDomainsResponse> {
-    return this.http.get<RejectedDomainsResponse>(`${environment.serverUrl}/admin/rejected-domains`);
-  }
-
-  putRejectedDomains(domains: string[]): Observable<any> {
-    return this.http.put<any>(`${environment.serverUrl}/admin/rejected-domains`, {domains});
   }
 
   banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {

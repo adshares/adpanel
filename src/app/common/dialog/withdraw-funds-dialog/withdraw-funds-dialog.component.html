@@ -108,7 +108,7 @@
 
         <div class="dwmth-form-input__box">
           <label class="dwmth-form-label" for="adsAmount">
-            Withdrawal amount ({{cryptoCode}})
+            Withdrawal amount ({{appCurrency}})
           </label>
           <input
             class="dwmth-form-input dwmth-form-input--full"
@@ -331,7 +331,7 @@
         </div>
         <div class="dwmth-form-input__box">
           <label class="dwmth-form-label" for="btcAmount">
-            Withdrawal amount ({{cryptoCode}})
+            Withdrawal amount ({{appCurrency}})
           </label>
           <input
             (keyup)="keyupBtcWithdrawAdsAmount($event)"
@@ -363,8 +363,8 @@
           </span>
         </div>
         <p class="dwmth-form-label">
-          The min. withdraw is <strong>{{btcInfo.minAmount}} {{cryptoCode}}</strong>
-          and the max. is <strong>{{btcInfo.maxAmount}} {{cryptoCode}}</strong>
+          The min. withdraw is <strong>{{btcInfo.minAmount}} {{appCurrency}}</strong>
+          and the max. is <strong>{{btcInfo.maxAmount}} {{appCurrency}}</strong>
         </p>
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxBtcWithdrawAmount()"

@@ -4,10 +4,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SessionService} from "../../../../session.service";
 import {SettingsService} from "settings/settings.service";
 import {RefLink} from "models/settings.model";
-import {environment} from "environments/environment";
 import {adsToClicks} from "common/utilities/helpers";
 import * as moment from "moment";
 import { CommonService } from 'common/common.service'
+import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
   selector: 'app-ref-link-editor',
@@ -16,7 +16,7 @@ import { CommonService } from 'common/common.service'
 })
 export class RefLinkEditorComponent extends HandleSubscription implements OnInit {
   @Output() public refLinkSaved = new EventEmitter<RefLink>();
-  currencyCode: string = environment.currencyCode;
+  currencyCode: string;
   refundEnabled: boolean;
   defaultRefundCommission: number;
   refundCommission: number;
@@ -27,8 +27,10 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
   today = moment();
   validUntilControl: FormControl;
   refundValidUntilControl: FormControl;
+  chooseUserRole: boolean = false
 
   constructor(
+    private serverOptionsService: ServerOptionsService,
     private session: SessionService,
     private settings: SettingsService,
     private common: CommonService,
@@ -40,6 +42,7 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     const user = this.session.getUser();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
 
     this.form = new FormGroup({
       token: new FormControl(null, [Validators.minLength(6), Validators.maxLength(32)]),
@@ -51,11 +54,20 @@ export class RefLinkEditorComponent extends HandleSubscription implements OnInit
     this.refundValidUntilControl = new FormControl(null);
 
     if (this.session.isModerator()) {
+      this.chooseUserRole = true
       this.form.addControl('validUntil', this.validUntilControl);
       this.form.addControl('singleUse', new FormControl(false));
       this.form.addControl('bonus', new FormControl(null, [Validators.min(0)]));
       this.form.addControl('refund', new FormControl(null, [Validators.min(0), Validators.min(1)]));
       this.form.addControl('refundValidUntil', this.refundValidUntilControl);
+      const rolesSubscription = this.settings.userRoles()
+        .subscribe(
+          response => {
+            const roles = response.defaultUserRoles.sort().join(',')
+            this.form.addControl('userRoles', new FormControl(roles))
+          }
+        )
+      this.subscriptions.push(rolesSubscription)
     }
 
     this.subscriptions.push(this.form.valueChanges

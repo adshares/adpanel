@@ -13,10 +13,11 @@ import { chartOptions } from './chart-settings/chart-settings';
 import { AppState } from 'models/app-state.model';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
-import { ChartDataset } from 'chart.js'
+import { ChartDataset, ChartOptions } from 'chart.js'
 import * as commonActions from 'store/common/common.actions';
 import { chartSeriesInitialState } from "models/initial-state/chart-filter-settings";
 import { cloneDeep } from 'common/utilities/helpers'
+import { ServerOptionsService } from 'common/server-options.service'
 
 
 @Component({
@@ -31,19 +32,23 @@ export class ChartComponent extends HandleSubscription implements OnInit, OnDest
   @Output() update: EventEmitter<ChartFilterSettings> = new EventEmitter();
 
   currentChartFilterSettings: ChartFilterSettings;
-  barChartOptions = chartOptions;
+  barChartOptions: ChartOptions<'bar'>
   static seriesType;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private serverOptionsService: ServerOptionsService,
+    private store: Store<AppState>,
+  ) {
     super();
   }
 
   ngOnInit(): void {
+    this.barChartOptions = chartOptions(this.serverOptionsService.getOptions().displayCurrency)
+
     const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = cloneDeep(chartFilterSettings);
       });
-
     this.subscriptions.push(chartFilterSubscription);
   }
 

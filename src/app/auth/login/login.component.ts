@@ -12,7 +12,6 @@ import { isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
-import { Info } from 'models/info.model'
 import AdsWallet from '@adshares/ads-connector'
 import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
@@ -39,9 +38,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   isAdsLoggingIn: boolean = false
   isBscLoggingIn: boolean = false
   walletLoginError: string | null
-
-  advertiserApplyFormUrl = appSettings.ADVERTISER_APPLY_FORM_URL
-  publisherApplyFormUrl = appSettings.PUBLISHER_APPLY_FORM_URL
+  advertiserApplyFormUrl: string
+  publisherApplyFormUrl: string
+  private supportEmail: string
 
   constructor (
     private api: ApiService,
@@ -55,9 +54,16 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit (): void {
-    const infoSubscription = this.store.select('state', 'common', 'info').
-      subscribe((info: Info) => {
+    const loginPlaceholdersSubscription = this.store.select('state', 'common', 'placeholders')
+      .subscribe(placeholders => {
+        this.advertiserApplyFormUrl = placeholders?.advertiserApplyFormUrl
+        this.publisherApplyFormUrl = placeholders?.publisherApplyFormUrl
+      })
+    this.subscriptions.push(loginPlaceholdersSubscription)
+    const infoSubscription = this.store.select('state', 'common', 'info')
+      .subscribe(info => {
         this.registrationMode = info.registrationMode
+        this.supportEmail = info.supportEmail
       })
     this.subscriptions.push(infoSubscription)
     this.createForm()
@@ -111,7 +117,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
-              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${appSettings.SUPPORT_EMAIL}`,
+              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${this.supportEmail}`,
             }
           })
           this.isLoggingIn = false
@@ -128,8 +134,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
     }
     else if (user.isModerator) {
-      this.session.setAccountTypeChoice(
-        SessionService.ACCOUNT_TYPE_MODERATOR)
+      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_MODERATOR)
     }
     else if (user.isAgency) {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
@@ -210,7 +215,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       user.isPublisher) {
       this.session.setAccountTypeChoice(accountType)
       this.navigateByUrl(`/${accountType}/dashboard`)
+      return
     }
+
+    this.navigateByUrl(`/settings/general`)
   }
 
   processLogin (user: User): void {

@@ -8,12 +8,16 @@ import { UsersComponent } from 'admin/users/users.component'
 import { UserListComponent } from 'admin/users/user-list/user-list.component'
 import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const agencyRoutes: Routes = [
   {
     path: 'agency',
     component: AdminComponent,
     canActivate: [AgencyGuard],
+    resolve: {
+      options: ServerOptionsResolver,
+    },
     children: [
       {
         path: 'dashboard',

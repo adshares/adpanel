@@ -20,12 +20,16 @@ import {AdUnitSizesResolver} from './resolvers/ad-unit-sizes.resolver';
 import {MatchingBannerSizesResolver} from "publisher/resolvers/matching-banner-sizes.resolver";
 import {LanguagesListResolver} from "publisher/resolvers/languages-list.resolver";
 import { SiteOptionsResolver } from 'publisher/resolvers/site-options.resolver'
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const publisherRoutes: Routes = [
   {
     path: 'publisher',
     component: PublisherComponent,
     canActivate: [PublisherGuard],
+    resolve: {
+      options: ServerOptionsResolver,
+    },
     children: [
       {path: '', pathMatch: 'full', redirectTo: '/publisher/dashboard'},
       {path: 'dashboard', component: DashboardComponent},

@@ -15,3 +15,9 @@ export interface Info {
   termsUrl: string;
   version: string;
 }
+
+export interface Placeholders {
+  advertiserApplyFormUrl: string | null;
+  publisherApplyFormUrl: string | null;
+  loginInfo: string | null;
+}

@@ -6,7 +6,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatPaginatorModule } from '@angular/material/paginator'
-
+import { MatRadioModule } from '@angular/material/radio'
 import { SettingsRoutingModule } from './settings-routing.module'
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -41,6 +41,7 @@ import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdraw
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
+    MatRadioModule,
     SettingsRoutingModule,
     FontAwesomeModule,
   ],

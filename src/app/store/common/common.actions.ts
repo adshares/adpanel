@@ -1,14 +1,16 @@
 import { Action } from '@ngrx/store';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { reportType } from 'models/enum/user.enum';
-import {Info} from "models/info.model";
+import { Info, Placeholders } from 'models/info.model'
 
 export const LOAD_INFO = 'Info loading';
 export const LOAD_INFO_SUCCESS = 'Info loading success';
 
+export const LOAD_PLACEHOLDERS_SUCCESS = 'Load placeholders success';
+
 export const SET_ACTIVE_USER_TYPE = 'Active User Type set';
 export const SET_CHART_FILTER_SETTINGS = 'Chart filter settings set';
-export const SET_ADSHARES_ADDRESS = 'Adshares Address set';
+
 export const SHOW_SUCCESS_SNACKBAR = 'Show success snackbar';
 export const SHOW_DIALOG_ON_ERROR = 'Show dialog on error';
 
@@ -26,6 +28,13 @@ export class LoadInfoSuccess implements Action {
   readonly type: string = LOAD_INFO_SUCCESS;
 
   constructor(public payload: Info) {
+  }
+}
+
+export class LoadPlaceholdersSuccess implements Action {
+  readonly type: string = LOAD_PLACEHOLDERS_SUCCESS;
+
+  constructor(public payload: Placeholders) {
   }
 }
 
@@ -47,13 +56,6 @@ export class SetChartFilterSettings implements Action {
   readonly type = SET_CHART_FILTER_SETTINGS;
 
   constructor(public payload: ChartFilterSettings) {
-  }
-}
-
-export class SetAdsharesAddress implements Action {
-  readonly type = SET_ADSHARES_ADDRESS;
-
-  constructor(public payload: string) {
   }
 }
 
@@ -81,9 +83,9 @@ export class RequestReportSuccess implements Action {
 export type actions =
   | LoadInfo
   | LoadInfoSuccess
+  | LoadPlaceholdersSuccess
   | SetActiveUserType
   | SetChartFilterSettings
-  | SetAdsharesAddress
   | ShowSuccessSnackbar
   | RequestReport
   | RequestReportSuccess;

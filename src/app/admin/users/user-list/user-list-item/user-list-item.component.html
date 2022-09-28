@@ -22,12 +22,18 @@
     ></fa-icon>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}<br>
-    <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}
+    <ng-container *ngIf="calculateFunds">
+      <br>
+      <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+    </ng-container>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}<br>
-    <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}
+    <ng-container *ngIf="calculateFunds">
+      <br>
+      <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+    </ng-container>
   </td>
   <td
     class="col-xs-2 justify-center user-list-item__cell"
@@ -79,6 +85,42 @@
         [disabled]="isSaving"
       >
         Switch to regular
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdvertiser"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('grantAdvertising')"
+        [disabled]="isSaving"
+      >
+        Grant Advertising
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isPublisher"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('grantPublishing')"
+        [disabled]="isSaving"
+      >
+        Grant Publishing
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isAdvertiser"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('denyAdvertising')"
+        [disabled]="isSaving"
+      >
+        Deny Advertising
+      </button>
+      <button
+        mat-menu-item
+        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isPublisher"
+        class="user-list-item__btn"
+        (click)="handleUserRightsChange('denyPublishing')"
+        [disabled]="isSaving"
+      >
+        Deny Publishing
       </button>
       <button
         mat-menu-item

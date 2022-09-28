@@ -1,20 +1,18 @@
 import { Campaign, CampaignsConfig, CampaignTotals } from './campaign.model';
 import { Site, SiteLanguage, SitesTotals } from './site.model';
 import {
-  AdminSettings, AdminSiteOptions,
-  AdminWallet,
+  AdminSettings,
   Advertisers,
   BillingHistory,
   Index,
   License,
   Publishers,
   RefLink,
-  TermsAndPrivacy,
   Users,
 } from './settings.model'
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
-import {Info} from "models/info.model";
+import { Info, Placeholders } from 'models/info.model'
 
 interface AppState {
   state: {
@@ -59,10 +57,6 @@ interface AdminState {
   advertisers: Advertisers;
   publishers: Publishers;
   settings: AdminSettings;
-  siteOptions: AdminSiteOptions;
-  wallet: AdminWallet;
-  termsAndPrivacy: TermsAndPrivacy;
-  rejectedDomains: string[];
   license: License | null;
   index: Index | null;
   panelBlockade: boolean;
@@ -71,9 +65,9 @@ interface AdminState {
 interface CommonState {
   info: Info;
   activeUserType: number;
-  adsharesAddress: string;
   chartFilterSettings: ChartFilterSettings;
   impersonationToken: string;
+  placeholders: Placeholders;
 }
 
 export { AppState, UserState, AdvertiserState, PublisherState, SettingsState, AdminState, CommonState };

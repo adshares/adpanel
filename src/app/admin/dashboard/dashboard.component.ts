@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
 import { AppState } from 'models/app-state.model';
-import { GetLicense, LoadAdminSettings, LoadAdminSiteOptions, RequestGetIndex } from 'store/admin/admin.actions'
+import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { License } from 'models/settings.model';
@@ -9,6 +10,7 @@ import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
 import * as moment from 'moment';
 import { Subscription, timer } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
+import { environment } from 'environments/environment'
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +21,8 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   readonly PREVIEW_URL: string = `${window.location.protocol}//${window.location.host}/preview`;
   private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
   private readonly PREVIEW_GENERATING_DELAY_MINUTES = 6;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  adControllerUrl = environment.adControllerUrl
   showIndexUpdateMessage: boolean = false;
   showIndexUpdateError: boolean = false;
   showPreviewLink: boolean = false;
@@ -43,51 +47,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
       description: '',
       link: '/admin/dashboard/general',
       values: [
-        {name: 'License', icon: 'assets/images/preferences.svg'},
-        {name: 'Business name', icon: 'assets/images/preferences.svg'},
-        {name: 'Technical email', icon: 'assets/images/preferences.svg'},
-        {name: 'Support email', icon: 'assets/images/preferences.svg'},
-        {name: 'Registration mode', icon: 'assets/images/preferences.svg'},
-        {name: 'Site options', icon: 'assets/images/preferences.svg'},
-        {name: 'Rejected domains', icon: 'assets/images/preferences.svg'},
         {name: 'Bid strategy', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
-      title: 'Finance settings',
-      description: '',
-      link: '/admin/dashboard/finance',
-      values: [
-        {name: 'Set your commissions', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Wallet status', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Referral settings', icon: 'assets/images/wallet--gray.svg'},
-        {name: 'Set your thresholds', icon: 'assets/images/wallet--gray.svg'},
-      ],
-    },
-    {
-      title: 'Privacy settings',
-      description: '',
-      link: '/admin/dashboard/privacy',
-      values: [
-        {name: 'Privacy', icon: 'assets/images/preferences.svg'},
-        {name: 'Terms and conditions', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
-      title: 'Panel placeholders',
-      description: '',
-      link: '/admin/dashboard/placeholders',
-      values: [
-        {name: 'index.html', icon: 'assets/images/preferences.svg'},
-        {name: 'robots.txt', icon: 'assets/images/preferences.svg'},
-      ],
-    },
-    {
-      title: 'Rebranding',
-      description: '',
-      link: '/admin/dashboard/rebranding',
-      values: [
-        {name: 'Image assets', icon: 'assets/images/preferences.svg'},
       ],
     },
     {
@@ -114,7 +74,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
     this.store.dispatch(new RequestGetIndex());
-    this.store.dispatch(new LoadAdminSiteOptions())
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
