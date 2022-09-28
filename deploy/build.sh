@@ -14,16 +14,31 @@ export ADSERVER_URL=${ADSERVER_URL:-${ADSERVER_URL_FROM_CMD}}
 export DEV_XDEBUG=${DEV_XDEBUG:-false}
 export APP_ENV=${APP_ENV:-prod}
 
-envsubst < src/environments/environment.ts.template | tee src/environments/environment.${APP_ENV}.ts
+envsubst < src/environments/environment.ts.template | tee src/environments/environment."${APP_ENV}".ts
 
-if [[ ! -z ${BRAND_ASSETS_DIR:-""} ]]
+CSS_FILES_COUNT=0
+if [[ -n ${BRAND_ASSETS_DIR:-""} ]]
 then
   if [[ ! -d ${BRAND_ASSETS_DIR} ]]
   then
-      echo "Brand assets directory ${BRAND_ASSETS_DIR} doesn't exist."
+    echo "Brand assets directory ${BRAND_ASSETS_DIR} doesn't exist."
   else
-      cp -f ${BRAND_ASSETS_DIR}/favicon* src/
-      cp -f ${BRAND_ASSETS_DIR}/logo* src/assets/images/
+    echo "Copying brand assets from ${BRAND_ASSETS_DIR}"
+    cp -fr "${BRAND_ASSETS_DIR}"/* src/
+
+    echo "Attaching css styles"
+    PATH_LENGTH=$((1 + ${#BRAND_ASSETS_DIR}))
+    CSS_FILES=$(find "$BRAND_ASSETS_DIR" -name '*.css' -type f | cut -c $PATH_LENGTH-)
+    for CSS_FILE in $CSS_FILES
+    do
+      CSS_FILES_COUNT=$(("$CSS_FILES_COUNT" + 1))
+      echo "- ${CSS_FILE}"
+      echo "@import '${CSS_FILE::-4}';" >> 'src/styles.scss'
+    done
+    if [[ $CSS_FILES_COUNT -eq 0 ]]
+    then
+      echo "No css styles to attach"
+    fi
   fi
 fi
 
@@ -36,15 +51,21 @@ TARGET_DIRECTORY=dist
 BACKUP_DIRECTORY=dist_backup
 if [[ ${APP_ENV} == 'dev' ]]
 then
-    yarn build --configuration=dev --output-path=$BUILD_DIRECTORY
+  yarn build --configuration=dev --output-path=$BUILD_DIRECTORY
 elif [[ ${APP_ENV} == 'prod' ]]
 then
-    yarn build --configuration=prod --output-path=$BUILD_DIRECTORY
+  yarn build --configuration=prod --output-path=$BUILD_DIRECTORY
 else
-    echo "ERROR: Unsupported environment ($APP_ENV)."
-    exit 1
+  echo "ERROR: Unsupported environment ($APP_ENV)."
+  exit 1
 fi
 if [ $? -ne 0 ]; then exit 1; fi
+
+if [[ $CSS_FILES_COUNT -gt 0 ]]
+then
+  echo "Reverting css styles"
+  head src/styles.scss -n -"$CSS_FILES_COUNT" > tmp && mv tmp src/styles.scss
+fi
 
 INDEX_TEMPLATE=src/index.html.template
 INDEX_FILE=$BUILD_DIRECTORY/index.html

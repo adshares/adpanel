@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dynamically load currency and other AdServer's options
 - Decrease index replace delay
 - Display regular users' flows based on their interest (advertiser/publisher)
+- Rebranding script attaches custom styles
 ### Removed
 - Configuration moved to AdController
 
