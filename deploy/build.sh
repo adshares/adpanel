@@ -16,7 +16,6 @@ export APP_ENV=${APP_ENV:-prod}
 
 envsubst < src/environments/environment.ts.template | tee src/environments/environment."${APP_ENV}".ts
 
-CSS_FILES_COUNT=0
 if [[ -n ${BRAND_ASSETS_DIR:-""} ]]
 then
   if [[ ! -d ${BRAND_ASSETS_DIR} ]]
@@ -25,20 +24,6 @@ then
   else
     echo "Copying brand assets from ${BRAND_ASSETS_DIR}"
     cp -fr "${BRAND_ASSETS_DIR}"/* src/
-
-    echo "Attaching css styles"
-    PATH_LENGTH=$((1 + ${#BRAND_ASSETS_DIR}))
-    CSS_FILES=$(find "$BRAND_ASSETS_DIR" -name '*.css' -type f | cut -c $PATH_LENGTH-)
-    for CSS_FILE in $CSS_FILES
-    do
-      CSS_FILES_COUNT=$(("$CSS_FILES_COUNT" + 1))
-      echo "- ${CSS_FILE}"
-      echo "@import '${CSS_FILE::-4}';" >> 'src/styles.scss'
-    done
-    if [[ $CSS_FILES_COUNT -eq 0 ]]
-    then
-      echo "No css styles to attach"
-    fi
   fi
 fi
 
@@ -61,10 +46,25 @@ else
 fi
 if [ $? -ne 0 ]; then exit 1; fi
 
-if [[ $CSS_FILES_COUNT -gt 0 ]]
+if [[ -n ${BRAND_ASSETS_DIR:-""} ]]
 then
-  echo "Reverting css styles"
-  head src/styles.scss -n -"$CSS_FILES_COUNT" > tmp && mv tmp src/styles.scss
+  if [[ -d ${BRAND_ASSETS_DIR} ]]
+  then
+    RESULT_CSS_FILE=$(find "$BUILD_DIRECTORY" -maxdepth 1 -name 'style*.css' -type f -print -quit)
+    echo "Attaching css styles to $RESULT_CSS_FILE"
+    CSS_FILES_COUNT=0
+    CSS_FILES=$(find "$BRAND_ASSETS_DIR" -name '*.css' -type f)
+    for CSS_FILE in $CSS_FILES
+    do
+      CSS_FILES_COUNT=$(("$CSS_FILES_COUNT" + 1))
+      echo "- ${CSS_FILE}"
+      cat "$CSS_FILE" >> "$RESULT_CSS_FILE"
+    done
+    if [[ $CSS_FILES_COUNT -eq 0 ]]
+    then
+      echo "No css styles to attach"
+    fi
+  fi
 fi
 
 INDEX_TEMPLATE=src/index.html.template
