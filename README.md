@@ -9,7 +9,7 @@
     ·
     <a href="https://github.com/adshares/adpanel/issues/new?template=feature_request.md&labels=New%20Feature">Request feature</a>
     ·
-    <a href="https://github.com/adshares/adpanel/wiki">Wiki</a>
+    <a href="https://docs.adshares.net/adserver/">Docs</a>
 </p>
 
 

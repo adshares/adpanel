@@ -6,14 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Rebranding script attaches custom styles
+
+## [2.1.0] - 2022-09-28
 ### Added
-- Change user rights
+- Change user roles
 - Load login info from API
 ### Changed
 - Dynamically load currency and other AdServer's options
 - Decrease index replace delay
 - Display regular users' flows based on their interest (advertiser/publisher)
-- Rebranding script attaches custom styles
 ### Removed
 - Configuration moved to AdController
 
@@ -472,7 +475,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v1.18.8...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.1.0...develop
+[2.1.0]: https://github.com/adshares/adpanel/compare/v1.18.8...v2.1.0
 [1.18.8]: https://github.com/adshares/adpanel/compare/v1.18.7...v1.18.8
 [1.18.7]: https://github.com/adshares/adpanel/compare/v1.18.6...v1.18.7
 [1.18.6]: https://github.com/adshares/adpanel/compare/v1.18.5...v1.18.6
