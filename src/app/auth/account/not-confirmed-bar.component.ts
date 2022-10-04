@@ -17,9 +17,9 @@ import { HandleSubscription } from 'common/handle-subscription'
 })
 export class AccountNotConfirmedBarComponent extends HandleSubscription implements OnInit {
   user: User;
-  isConfirmed;
-  isEmailConfirmed;
-  isAdminConfirmed;
+  display: boolean;
+  isEmailConfirmed: boolean = true;
+  isAdminConfirmed: boolean;
 
   constructor(
     private api: ApiService,
@@ -29,17 +29,17 @@ export class AccountNotConfirmedBarComponent extends HandleSubscription implemen
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
-      this.isConfirmed = user.isConfirmed;
-      this.isEmailConfirmed = !user.email || user.isEmailConfirmed;
-      this.isAdminConfirmed = user.isAdminConfirmed;
-    });
+        this.isAdminConfirmed = user.isAdminConfirmed;
+        this.isEmailConfirmed = user.isEmailConfirmed || !user.email || -1 === user.email.indexOf('@');
+        this.display = !this.isAdminConfirmed || !this.isEmailConfirmed;
+      });
     this.subscriptions.push(userDataSubscription);
   }
 
-  resendActivationEmail() {
+  resendActivationEmail(): void {
     this.api.users.emailActivateResend("/auth/email-activation/")
       .subscribe(
         () => {

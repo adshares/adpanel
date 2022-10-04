@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Rebranding script attaches custom styles
+### Fixed
+- Do not display resend email activation while not applicable
 
 ## [2.1.0] - 2022-09-28
 ### Added
