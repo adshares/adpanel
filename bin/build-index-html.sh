@@ -46,7 +46,7 @@ do
   [[ "$FILE" ]] && SCRIPTS+="<script type=\"text/javascript\" src=\"$(basename "$FILE")\"></script>"
 done
 
-WILDCARDS=("styles.*.css" "custom.css")
+WILDCARDS=("styles.*.css" "custom.*.css")
 STYLESHEETS=
 for WILDCARD in "${WILDCARDS[@]}"
 do
