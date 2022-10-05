@@ -43,7 +43,7 @@ SCRIPTS=
 for WILDCARD in "${WILDCARDS[@]}"
 do
   FILE=$(find . -name "$WILDCARD")
-  [[ "$FILE" ]] && SCRIPTS+="<script src=\"$(basename "$FILE")\" type=\"module\"></script>"
+  [[ "$FILE" ]] && SCRIPTS+="<script type=\"text/javascript\" src=\"$(basename "$FILE")\"></script>"
 done
 
 WILDCARDS=("styles.*.css" "custom.css")
