@@ -1,5 +1,5 @@
 .ref-link-list-item {
-  padding: 15px 0;
+  padding: 12px 0;
   display: flex;
   border-bottom: 1px solid #eee;
 
@@ -11,5 +11,9 @@
       display: block;
       font-size: 80%;
     }
+  }
+
+  .ref-link-settings__actions {
+    min-height: 68px;
   }
 }
