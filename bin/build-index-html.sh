@@ -42,17 +42,21 @@ WILDCARDS=("runtime.*.js" "polyfills.*.js" "styles.*.js" "vendor.bundle.js" "mai
 SCRIPTS=
 for WILDCARD in "${WILDCARDS[@]}"
 do
-    FILE=$(find . -name "$WILDCARD")
-    [[ "$FILE" ]] && SCRIPTS+="<script type=\"text/javascript\" src=\"$(basename "$FILE")\"></script>"
+  FILE=$(find . -name "$WILDCARD")
+  [[ "$FILE" ]] && SCRIPTS+="<script src=\"$(basename "$FILE")\" type=\"module\"></script>"
 done
 
-STYLESHEET=$(find . -name 'styles.*.css')
+WILDCARDS=("styles.*.css" "custom.css")
+STYLESHEETS=
+for WILDCARD in "${WILDCARDS[@]}"
+do
+  FILE=$(find . -name "$WILDCARD")
+  [[ "$FILE" ]] && STYLESHEETS+="<link href=\"$(basename "$FILE")\" rel=\"stylesheet\"/>"
+done
+
 cd ..
 sed -i "s~</body>~${SCRIPTS}</body>~" "$INDEX_FILE_TEMPORARY"
-if [[ "$STYLESHEET" ]]
-then
-  sed -i "s~</head>~<link href=\"$(basename "$STYLESHEET")\" rel=\"stylesheet\"/></head>~" "$INDEX_FILE_TEMPORARY"
-fi
+sed -i "s~</head>~${STYLESHEETS}</head>~" "$INDEX_FILE_TEMPORARY"
 
 envsubst < "$INDEX_FILE_TEMPORARY" > "$INDEX_FILE"
 rm "$INDEX_FILE_TEMPORARY"
