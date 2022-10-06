@@ -231,6 +231,26 @@ interface RefLink {
   refundValidUntil: string;
 }
 
+interface PaginatorResponse<T> {
+  currentPage: number;
+  data: T[];
+  firstPageUrl: string;
+  from: number;
+  lastPage: number;
+  lastPageUrl: string;
+  links: {
+    active: boolean,
+    label: string,
+    url: string,
+  }[];
+  nextPageUrl: string | null;
+  path: string;
+  perPage: number;
+  prevPageUrl: string | null;
+  to: number;
+  total: number;
+}
+
 interface RefLinkInfo {
   token: string;
   status: string;
@@ -300,6 +320,7 @@ export {
   AdminSettingsResponse,
   License,
   Index,
+  PaginatorResponse,
   ReportsList,
   ReportsListItem,
   RefLink,

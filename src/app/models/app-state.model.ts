@@ -6,6 +6,7 @@ import {
   BillingHistory,
   Index,
   License,
+  PaginatorResponse,
   Publishers,
   RefLink,
   Users,
@@ -44,7 +45,7 @@ interface PublisherState {
 
 interface SettingsState {
   billingHistory: BillingHistory;
-  refLinks: RefLink[];
+  refLinks: PaginatorResponse<RefLink>;
 }
 
 interface UserState {

@@ -73,7 +73,7 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event, true)"
-    [length]="list ? list.total : 0"
+    [length]="total"
     [pageIndex]="page - 1"
     [pageSize]="pageSize"
   >

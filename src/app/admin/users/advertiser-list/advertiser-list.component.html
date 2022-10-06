@@ -96,7 +96,7 @@
 
   <mat-paginator
     (page)="handlePaginationEvent($event)"
-    [length]="list ? list.data.length : 0"
+    [length]="total"
     [pageIndex]="page - 1"
     [pageSize]="pageSize"
   >

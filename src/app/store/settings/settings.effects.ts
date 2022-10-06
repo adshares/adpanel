@@ -18,6 +18,7 @@ import {
   GetBillingHistorySuccess,
   GetCurrentBalanceFailure,
   GetCurrentBalanceSuccess,
+  GetRefLinks,
   GetRefLinksFailure,
   GetRefLinksSuccess,
 } from './settings.actions'
@@ -85,8 +86,8 @@ export class SettingsEffects {
 
   getRefLinks$ = createEffect(() => this.actions$
     .pipe(
-      ofType(GET_REF_LINKS),
-      switchMap(() => this.common.getRefLinks()
+      ofType<GetRefLinks>(GET_REF_LINKS),
+      switchMap(action => this.common.getRefLinks(action.payload.pageUrl)
         .pipe(
           map(refLinks => new GetRefLinksSuccess(refLinks)),
           catchError(error => observableOf(new GetRefLinksFailure(error)))

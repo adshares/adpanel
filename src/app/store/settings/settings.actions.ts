@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store'
-import { BillingHistory, RefLink } from 'models/settings.model'
+import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model'
 import { User } from 'models/user.model'
 
 export const GET_CURRENT_BALANCE = 'Get current balance';
@@ -88,14 +88,14 @@ export class WithdrawFundsSuccess implements Action {
 export class GetRefLinks implements Action {
   readonly type: string = GET_REF_LINKS;
 
-  constructor(public payload?: any) {
+  constructor(public payload: { pageUrl: string|undefined }) {
   }
 }
 
 export class GetRefLinksSuccess implements Action {
   readonly type: string = GET_REF_LINKS_SUCCESS;
 
-  constructor(public payload: RefLink[]) {
+  constructor(public payload: PaginatorResponse<RefLink>) {
   }
 }
 
