@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
 import { Store } from '@ngrx/store'
 import {
-  UserConfirmResponseDialogComponent
+  UserConfirmResponseDialogComponent,
 } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
 import { CODE, CRYPTO, DATE_FORMAT } from 'common/utilities/consts'
 import { AppState } from 'models/app-state.model'
@@ -39,8 +39,7 @@ export class RefLinkListItemComponent implements OnInit {
     this.bonusCommission = refund * (1 - this.refLink.keptRefund);
   }
 
-  getRefLinkUrl(): string
-  {
+  getRefLinkUrl(): string {
     const domain = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
     return`${domain}/ref/${this.refLink.token}`;
   }

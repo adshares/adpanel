@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 import { environment } from 'environments/environment'
 import { reportType } from 'models/enum/user.enum'
 import { Info, Placeholders } from 'models/info.model'
-import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
+import { PaginatorResponse, RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
 import { Media } from 'models/taxonomy-medium.model'
 import { Options } from 'models/options.model'
 
@@ -47,8 +47,11 @@ export class CommonService {
     return this.http.get<any>(`${environment.apiUrl}/stats/report/${id}`, options);
   }
 
-  getRefLinks(): Observable<RefLink[]> {
-    return this.http.get<RefLink[]>(`${environment.apiUrl}/ref-links`);
+  getRefLinks(pageUrl: string|undefined): Observable<PaginatorResponse<RefLink>> {
+    const url = undefined === pageUrl
+      ? `${environment.apiUrl}/ref-links`
+      : (pageUrl && (environment.serverUrl.startsWith('https:') && pageUrl.replace(/^http:/, 'https:')) || pageUrl);
+    return this.http.get<PaginatorResponse<RefLink>>(url);
   }
 
   saveRefLink(refLink: object): Observable<RefLink> {

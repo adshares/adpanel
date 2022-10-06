@@ -55,6 +55,10 @@ export abstract class BaseListComponent extends HandleSubscription {
     return this._queryParams
   }
 
+  get total (): number {
+    return this._list?.total || 0
+  }
+
   set list (value) {
     this._list = value
   }
