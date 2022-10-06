@@ -7,11 +7,7 @@ import {
   DELETE_USER,
   DeleteUser,
   DeleteUserSuccess,
-  GET_INDEX,
   GET_LICENSE,
-  GetIndex,
-  GetIndexFailure,
-  GetIndexSuccess,
   GetLicenseFailure,
   GetLicenseSuccess,
   LOAD_ADMIN_SETTINGS,
@@ -29,7 +25,6 @@ import {
   LoadUsers,
   LoadUsersFailure,
   LoadUsersSuccess,
-  REQUEST_GET_INDEX,
   UNBAN_USER,
   UnbanUser,
   UnbanUserSuccess,
@@ -37,17 +32,12 @@ import {
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import { SAVE_SUCCESS } from 'common/utilities/messages'
 import { AdminService } from 'admin/admin.service'
-import { merge, of as observableOf } from 'rxjs'
-import { catchError, debounceTime, delay, filter, map, switchMap, tap } from 'rxjs/operators'
+import { of as observableOf } from 'rxjs'
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators'
 import { HTTP_NOT_FOUND } from 'common/utilities/codes'
-import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
 
 @Injectable()
 export class AdminEffects {
-  private readonly INTERVAL_GET_INDEX = 3600000;
-  private readonly INTERVAL_GET_INDEX_AFTER_ERROR = 10000;
-  private allowGetIndex = false;
-
   constructor(
     private actions$: Actions,
     private service: AdminService,
@@ -91,49 +81,6 @@ export class AdminEffects {
         .pipe(
           map(publishers => new LoadPublishersSuccess(publishers)),
           catchError(error => observableOf(new LoadPublishersFailure(error)))
-        )
-      )
-    ))
-
-  requestGetIndex$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(REQUEST_GET_INDEX),
-      map(() => {
-        this.allowGetIndex = true
-        return new GetIndex()
-      })
-    ))
-
-  logOut$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(USER_LOG_OUT_SUCCESS),
-      tap(() => {
-        this.allowGetIndex = false
-      })
-    ), { dispatch: false })
-
-  getIndex$ = createEffect(() => this.actions$
-    .pipe(
-      ofType(GET_INDEX),
-      filter(() => this.allowGetIndex),
-      switchMap(() => this.service.getIndexUpdateTime()
-        .pipe(
-          switchMap(response => {
-            if (!response || !response.indexUpdateTime) {
-              throw new Error('Invalid format')
-            }
-
-            return merge(
-              observableOf(new GetIndexSuccess(response)),
-              observableOf(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX)),
-            )
-          }),
-          catchError((error) => {
-            return merge(
-              observableOf(new GetIndexFailure(error)),
-              observableOf(new GetIndex()).pipe(delay(this.INTERVAL_GET_INDEX_AFTER_ERROR)),
-            )
-          })
         )
       )
     ))

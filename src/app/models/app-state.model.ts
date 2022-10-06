@@ -4,7 +4,6 @@ import {
   AdminSettings,
   Advertisers,
   BillingHistory,
-  Index,
   License,
   PaginatorResponse,
   Publishers,
@@ -59,7 +58,6 @@ interface AdminState {
   publishers: Publishers;
   settings: AdminSettings;
   license: License | null;
-  index: Index | null;
   panelBlockade: boolean;
 }
 
