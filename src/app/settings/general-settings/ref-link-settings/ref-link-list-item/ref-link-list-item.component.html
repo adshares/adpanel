@@ -33,6 +33,7 @@
     >Copy URL
     </button>
     <button
+      *ngIf="!refLink.used"
       class="dwmth-btn dwmth-btn--x-small dwmth-btn--blue"
       (click)="delete()"
     >Delete

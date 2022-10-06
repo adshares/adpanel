@@ -1,4 +1,4 @@
-import { GET_BILLING_HISTORY_SUCCESS, GET_REF_LINKS_SUCCESS } from './settings.actions'
+import { DELETE_REF_LINK_SUCCESS, GET_BILLING_HISTORY_SUCCESS, GET_REF_LINKS_SUCCESS } from './settings.actions'
 import { SettingsState } from 'models/app-state.model'
 import { actions } from 'store/admin/admin.actions'
 
@@ -24,6 +24,12 @@ export function settingsReducers(state = initialState, action: actions) {
       return {
         ...state,
         refLinks: action.payload
+      };
+    case DELETE_REF_LINK_SUCCESS:
+      const refLinks = state.refLinks.filter(el => el.id !== action.payload)
+      return {
+        ...state,
+        refLinks: refLinks,
       };
     default:
       return state;

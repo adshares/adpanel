@@ -8,8 +8,8 @@ import {
 import { CODE, CRYPTO, DATE_FORMAT } from 'common/utilities/consts'
 import { AppState } from 'models/app-state.model'
 import { RefLink } from 'models/settings.model'
-import { UnbanUser } from 'store/admin/admin.actions'
 import { ShowSuccessSnackbar } from 'store/common/common.actions'
+import { DeleteRefLink } from 'store/settings/settings.actions'
 
 @Component({
   selector: 'app-ref-link-list-item',
@@ -64,7 +64,7 @@ export class RefLinkListItemComponent implements OnInit {
       .afterClosed()
       .subscribe(result => {
         if (result) {
-          this.store.dispatch(new UnbanUser(this.refLink.id))
+          this.store.dispatch(new DeleteRefLink(this.refLink.id))
         }
       })
   }
