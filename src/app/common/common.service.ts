@@ -59,6 +59,10 @@ export class CommonService {
     return this.http.get<RefLinkInfo>(`${environment.apiUrl}/ref-links/info/${token}`);
   }
 
+  deleteRefLink(refLinkId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/ref-links/${refLinkId}`);
+  }
+
   getMedia(): Observable<Media> {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
   }

@@ -26,14 +26,17 @@
   <td class="ref-link-settings__refunded" *ngIf="refundEnabled">
     {{ refLink.refunded | formatMoney:4:crypto:code }}
   </td>
-  <td class="ref-link-settings__actions">
+  <td class="ref-link-settings__actions col justify-between">
     <button
-      class="
-            dwmth-btn
-            dwmth-btn--x-small
-            dwmth-btn--blue"
+      class="dwmth-btn dwmth-btn--x-small dwmth-btn--blue"
       (click)="copyUrl()"
     >Copy URL
+    </button>
+    <button
+      *ngIf="!refLink.used"
+      class="dwmth-btn dwmth-btn--x-small dwmth-btn--blue"
+      (click)="delete()"
+    >Delete
     </button>
   </td>
 </tr>

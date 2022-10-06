@@ -1,10 +1,15 @@
-import {Component, Input, OnInit, } from '@angular/core';
-import {RefLink} from "models/settings.model";
-import {CODE, CRYPTO, DATE_FORMAT} from "common/utilities/consts";
-import {ShowSuccessSnackbar} from "store/common/common.actions";
-import {Store} from "@ngrx/store";
-import {AppState} from "models/app-state.model";
-import {faExternalLinkSquareAlt} from '@fortawesome/free-solid-svg-icons';
+import { Component, Input, OnInit, } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
+import { Store } from '@ngrx/store'
+import {
+  UserConfirmResponseDialogComponent
+} from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component'
+import { CODE, CRYPTO, DATE_FORMAT } from 'common/utilities/consts'
+import { AppState } from 'models/app-state.model'
+import { RefLink } from 'models/settings.model'
+import { ShowSuccessSnackbar } from 'store/common/common.actions'
+import { DeleteRefLink } from 'store/settings/settings.actions'
 
 @Component({
   selector: 'app-ref-link-list-item',
@@ -22,10 +27,13 @@ export class RefLinkListItemComponent implements OnInit {
   readonly dateFormat: string = DATE_FORMAT;
   readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store<AppState>,
+  ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     let refund = this.refLink.refund || this.defaultRefundCommission;
     this.refundCommission = refund * this.refLink.keptRefund;
     this.bonusCommission = refund * (1 - this.refLink.keptRefund);
@@ -45,5 +53,19 @@ export class RefLinkListItemComponent implements OnInit {
     });
     document.execCommand('copy');
     this.store.dispatch(new ShowSuccessSnackbar('Copied!'))
+  }
+
+  delete(): void {
+    this.dialog.open(UserConfirmResponseDialogComponent, {
+      data: {
+        message: `Do you want delete referral link ${this.refLink.token}?`
+      }
+    })
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.store.dispatch(new DeleteRefLink(this.refLink.id))
+        }
+      })
   }
 }
