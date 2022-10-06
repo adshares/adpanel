@@ -11,5 +11,5 @@ else
     _REDIRECTION="&>> ${LOG_DIR}/adpanel-crontab.log"
 fi
 
-echo "*/5 * * * * ${SERVICE_DIR}/bin/build-preview-html.sh ${_REDIRECTION}"
-echo "59 * * * * ${SERVICE_DIR}/bin/replace-index-with-preview.sh ${_REDIRECTION}"
+echo "#*/5 * * * * ${SERVICE_DIR}/bin/build-preview-html.sh ${_REDIRECTION}"
+echo "#59 * * * * ${SERVICE_DIR}/bin/replace-index-with-preview.sh ${_REDIRECTION}"

@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store'
 import {
-  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdvertiserInfo,
   License,
@@ -24,11 +23,6 @@ export const LOAD_PUBLISHERS_FAILURE = 'Publishers loading failure';
 export const LOAD_ADMIN_SETTINGS = 'Admin settings loading';
 export const LOAD_ADMIN_SETTINGS_SUCCESS = 'Admin settings loading success';
 export const LOAD_ADMIN_SETTINGS_FAILURE = 'Admin settings loading failure';
-
-export const REQUEST_GET_INDEX = 'Request Get index';
-export const GET_INDEX = 'Get index';
-export const GET_INDEX_SUCCESS = 'Get index success';
-export const GET_INDEX_FAILURE = 'Get index failure';
 
 export const GET_LICENSE = 'Get license';
 export const GET_LICENSE_SUCCESS = 'Get license success';
@@ -128,34 +122,6 @@ export class LoadAdminSettingsFailure implements Action {
   }
 }
 
-export class RequestGetIndex implements Action {
-  readonly type: string = REQUEST_GET_INDEX;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetIndex implements Action {
-  readonly type: string = GET_INDEX;
-
-  constructor(public payload?: any) {
-  }
-}
-
-export class GetIndexSuccess implements Action {
-  readonly type: string = GET_INDEX_SUCCESS;
-
-  constructor(public payload: AdminIndexUpdateTimeResponse) {
-  }
-}
-
-export class GetIndexFailure implements Action {
-  readonly type: string = GET_INDEX_FAILURE;
-
-  constructor(public payload?: any) {
-  }
-}
-
 export class GetLicense implements Action {
   readonly type: string = GET_LICENSE;
 
@@ -235,11 +201,6 @@ export type actions =
   LoadAdminSettings |
   LoadAdminSettingsSuccess |
   LoadAdminSettingsFailure |
-
-  RequestGetIndex |
-  GetIndex |
-  GetIndexSuccess |
-  GetIndexFailure |
 
   GetLicense |
   GetLicenseSuccess |
