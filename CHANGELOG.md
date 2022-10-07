@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Referral links pagination
 ### Changed
 - Extract reload from build script
+### Removed
+- Preview of next release (rebranding)
 
 ## [2.1.1] - 2022-10-04
 ### Changed

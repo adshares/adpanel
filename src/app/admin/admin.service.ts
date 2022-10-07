@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   AdvertiserInfo,
   PublisherInfo,
@@ -103,10 +102,6 @@ export class AdminService {
 
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
-  }
-
-  getIndexUpdateTime(): Observable<AdminIndexUpdateTimeResponse> {
-    return this.http.get<AdminIndexUpdateTimeResponse>(`${environment.serverUrl}/admin/index/update-time`);
   }
 
   banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {

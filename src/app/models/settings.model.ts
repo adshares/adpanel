@@ -127,10 +127,6 @@ interface AdminSettings {
   adUserInfoUrl: string;
 }
 
-interface AdminIndexUpdateTimeResponse {
-  indexUpdateTime: string;
-}
-
 interface AdminSettingsResponse {
   settings: AdminSettings;
 }
@@ -141,11 +137,6 @@ interface License {
   dateEnd: string;
   owner: string;
   detailsUrl: string;
-}
-
-interface Index {
-  updateTime: string;
-  error: boolean;
 }
 
 interface AdsharesAddress {
@@ -316,10 +307,8 @@ export {
   FiatInfo,
   Country,
   CalculateWithdrawalItem,
-  AdminIndexUpdateTimeResponse,
   AdminSettingsResponse,
   License,
-  Index,
   PaginatorResponse,
   ReportsList,
   ReportsListItem,
