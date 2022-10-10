@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
+import { faGears } from '@fortawesome/free-solid-svg-icons'
 import { AppState } from 'models/app-state.model';
 import { GetLicense, LoadAdminSettings } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
@@ -15,7 +15,7 @@ import { environment } from 'environments/environment'
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  readonly faGears = faGears
   adControllerUrl = environment.adControllerUrl
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
