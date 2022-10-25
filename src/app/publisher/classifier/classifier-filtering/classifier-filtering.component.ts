@@ -33,6 +33,8 @@ export class ClassifierFilteringComponent implements OnInit {
     this.isGlobal = this.siteId === null
     this.adSizesOptions = this.sizeOptions || [];
     this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
+    this.allSizes = !this.filtering.sizes.length
+    this.allSizesMatching = this.filtering.sizes.length === this.adSizesOptions.length
     this.filtering = {
       ...this.filtering,
       sizes: this.adSizesOptions
@@ -43,7 +45,6 @@ export class ClassifierFilteringComponent implements OnInit {
   checkBannerSizeOptions() {
     this.allSizes = !this.filtering.sizes.length
     this.allSizesMatching = this.filtering.sizes.length === this.adSizesOptions.length
-    this.filteringChange.emit(this.filtering);
   }
 
   sizeOptionChange(e, option) {
@@ -54,6 +55,7 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(e.checked && option === 'allSizesMatching'){
@@ -63,6 +65,7 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(!e.checked && option === 'allSizesMatching'){
@@ -72,6 +75,7 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(!e.checked && option === 'allSizes'){
@@ -81,6 +85,7 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
   }
@@ -99,6 +104,7 @@ export class ClassifierFilteringComponent implements OnInit {
       sizes: this.sizes
     };
     this.checkBannerSizeOptions()
+    this.filteringChange.emit(this.filtering);
   }
 
   changeFiltering(): void {
