@@ -62,6 +62,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
     this.isSingleBanner = this.bannerId !== undefined;
     this.classifierLocalBanners = classifierOption === 'all-by-default' ? 0 : 1
     this.filtering.classifierLocalBanners = this.classifierLocalBanners
+    this.filtering.sizes = this.route.snapshot.data.sizes.sizes
     if (this.isSingleBanner) {
       this.filtering = {
         ...this.filtering,
@@ -127,7 +128,7 @@ export class ClassifierComponent extends HandleSubscription implements OnInit {
   }
 
   updateBannersList(filtering: BannerClassificationFilters): void {
-    this.filtering = filtering;
+    this.filtering = {...this.filtering, ...filtering};
     this.getBannerClassification()
   }
 }
