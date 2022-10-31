@@ -68,7 +68,6 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.adSizesOptions.push('Recommended');
     this.adSizesOptions.push('All');
     this.adSizesOptions.push(...tags);
-
   }
 
   fillFormWithData(): void {
@@ -88,7 +87,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
           savedAdUnits.forEach((savedAdUnit, index) => {
             this.adUnitForms.push(this.generateFormField(savedAdUnit, true));
             this.adUnitPanelsStatus[index] = false;
-            this.selectChosenSize(savedAdUnit, index);
+            this.unsetSizeIfNotSupported(savedAdUnit, index);
           });
         } else {
           this.createEmptyAd();
@@ -109,13 +108,9 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.adUnitPanelsStatus[adIndex] = true;
   }
 
-  selectChosenSize(savedAdUnit: AdUnit, adIndex: number): void {
-    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(
-      (filteredAdUnitSize) => filteredAdUnitSize.label === savedAdUnit.label
-    );
-    if (chosenAdSize) {
-      Object.assign(chosenAdSize, {selected: true});
-    } else {
+  unsetSizeIfNotSupported(savedAdUnit: AdUnit, adIndex: number): void {
+    const chosenAdSize = this.filteredAdUnitSizes[adIndex].find(adUnit => adUnit.size === savedAdUnit.size);
+    if (undefined === chosenAdSize) {
       this.adUnitForms[adIndex].patchValue({size: undefined})
     }
   }
