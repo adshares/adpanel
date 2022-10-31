@@ -119,6 +119,8 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
     this.filteredAdUnitSizes.push(cloneDeep(this.adUnitSizes));
     this.allAdUnitSizes.push(cloneDeep(this.adUnitSizes));
 
+    const adUnitMetaData = this.adUnitSizes.find(adUnitMetaData => adUnitMetaData.size === adUnit.size);
+
     return new FormGroup({
       name: new FormControl(adUnit.name, Validators.required),
       type: new FormControl(adUnit.type, Validators.required),
@@ -126,7 +128,7 @@ export class EditSiteCreateAdUnitsComponent extends HandleSubscription implement
       status: new FormControl(adUnit.status),
       size: new FormControl(adUnit.size, Validators.required),
       label: new FormControl(adUnit.label, Validators.required),
-      tags: new FormControl(adUnit.tags, Validators.required),
+      tags: new FormControl(adUnitMetaData?.tags, Validators.required),
       id: new FormControl(adUnit.id),
       saved: new FormControl(saved)
     });
