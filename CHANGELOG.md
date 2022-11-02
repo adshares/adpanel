@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Referral links pagination
 ### Changed
 - Extract reload from build script
+- Replaced CSS prefix `dwmth` with `ap`
 ### Removed
 - Preview of next release (rebranding)
 

@@ -1,9 +1,9 @@
 <mat-dialog-content class="mat-dialog-content">
   <section>
-    <h1 class="dwmth-heading dwmth-heading--primary">
+    <h1 class="ap-heading ap-heading--primary">
       Do you want delete this user?
     </h1>
-    <p class="dwmth-copy dwmth-copy--bold">{{user}}</p>
+    <p class="ap-copy ap-copy--bold">{{user}}</p>
       <div class="dialog-checkbox__wrapper">
         <mat-checkbox
           [checked]="isDeletionConfirm"
@@ -14,13 +14,13 @@
       </div>
     <div class="row justify-end dialog-controls">
       <button
-        class="dwmth-btn dwmth-btn--white dialog-controls--btn"
+        class="ap-btn ap-btn--white dialog-controls--btn"
         [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
-        class="dwmth-btn dwmth-btn--danger dialog-controls--btn"
+        class="ap-btn ap-btn--danger dialog-controls--btn"
         [disabled]="!isDeletionConfirm"
         [mat-dialog-close]="true"
       >

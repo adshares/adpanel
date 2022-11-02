@@ -1,17 +1,17 @@
 <mat-dialog-content class="text-center mat-dialog-content fill-height">
   <div
     (click)="dialogRef.close()"
-    class="dwmth-dialog-close"
+    class="ap-dialog-close"
   ></div>
   <h1
-    class="dwmth-heading dwmth-heading--primary"
+    class="ap-heading ap-heading--primary"
   >
     Ad code
   </h1>
 
   <div>
     <p
-      class="dwmth-copy dwmth-copy--large"
+      class="ap-copy ap-copy--large"
     >
       This code is intended for Cryptovoxels only.
       Please copy the code and place it in creator.
@@ -25,7 +25,7 @@
       >
         <div class="row align-center">
           <label
-            class="dwmth-copy dwmth-copy--bold col text-left"
+            class="ap-copy ap-copy--bold col text-left"
             for="code-container-common"
           >Paste this code in creator</label>
 
@@ -40,14 +40,14 @@
 
         <textarea
           id="code-container-common"
-          class="code-container dwmth-box dwmth-box--large dwmth-box--light-border dwmth-copy"
+          class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
           [ngModel]="code"
         ></textarea>
       </div>
 
       <div
         *ngIf="null === code"
-        class="row align-center dwmth-alert dwmth-copy dwmth-gray"
+        class="row align-center ap-alert ap-copy ap-gray"
         >
           <img src="assets/images/error.svg" alt="Attention">
           An error occurred. Make sure that you confirmed an account and connected the wallet.

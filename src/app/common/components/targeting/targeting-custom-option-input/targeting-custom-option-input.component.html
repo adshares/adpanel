@@ -6,9 +6,9 @@
   <label class="
         targeting-custom-option__label
         align-center
-        dwmth-copy
-        dwmth-copy--x-dark
-        dwmth-copy--semi"
+        ap-copy
+        ap-copy--x-dark
+        ap-copy--semi"
          [ngClass]="{'targeting-custom-option__label--input-shown': inputShown}"
   >
     {{option.label}}
@@ -57,7 +57,7 @@
   >
     <label
       for="coordinate-x"
-      class="dwmth-form-label"
+      class="ap-form-label"
     >
       Coordinate X
     </label>
@@ -65,14 +65,14 @@
       #input
       id="coordinate-x"
       name="coordinate-x"
-      class="dwmth-form-input"
+      class="ap-form-input"
       type="number"
       step="1"
       required
     >
     <label
       for="coordinate-y"
-      class="dwmth-form-label"
+      class="ap-form-label"
     >
       Coordinate Y
     </label>
@@ -80,7 +80,7 @@
       #inputCoordinationY
       id="coordinate-y"
       name="coordinate-y"
-      class="dwmth-form-input"
+      class="ap-form-input"
       type="number"
       step="1"
       (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
@@ -93,10 +93,10 @@
       Both coordinates must be set.
     </span>
     <div
-       class="dwmth-box dwmth-box--small dwmth-box--no-border row justify-end"
+       class="ap-box ap-box--small ap-box--no-border row justify-end"
     >
       <button
-        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+        class="ap-btn ap-btn--wide ap-btn--blue"
         (click)="(saveRequested = true) && input.validity.valid && inputCoordinationY.validity.valid && saveCustomParcel(input.value, inputCoordinationY.value)"
       >
         Add

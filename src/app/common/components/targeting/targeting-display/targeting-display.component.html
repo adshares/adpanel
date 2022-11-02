@@ -2,7 +2,7 @@
   <mat-chip-list *ngFor="let groupedTargeting of viewModel"
                  class="app-targeting-display__chip-list">
     <div
-      class="dwmth-copy"
+      class="ap-copy"
       [ngClass]="{'targeting-display__exclude-text': isExclude}"
       data-test="common-targeting-display-selected-item"
     >
@@ -16,7 +16,7 @@
         (removed)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item"
       >
-        <p class="dwmth-copy dwmth-copy--x-dark dwmth-copy--semi">
+        <p class="ap-copy ap-copy--x-dark ap-copy--semi">
           {{ targetingItem.label }}
         </p>
           <mat-icon matChipRemove>cancel</mat-icon>

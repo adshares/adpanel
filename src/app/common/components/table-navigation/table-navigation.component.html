@@ -12,16 +12,16 @@
     *ngIf="!menuItem.hideArrows"
     class="
       col
-      dwmth-posters-list__sort"
+      ap-posters-list__sort"
   >
     <div
-      class="dwmth-sort-triangle"
+      class="ap-sort-triangle"
       [class.active]="!menuItem.sortedDesc && menuItem.isSortedBy"
     ></div>
     <div
       class="
-        dwmth-sort-triangle
-        dwmth-sort-triangle--down"
+        ap-sort-triangle
+        ap-sort-triangle--down"
       [class.active]="menuItem.sortedDesc && menuItem.isSortedBy"
     ></div>
   </th>

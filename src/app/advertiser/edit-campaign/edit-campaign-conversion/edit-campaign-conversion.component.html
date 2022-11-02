@@ -6,15 +6,15 @@
   <div class="text-center">
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Conversions
     </h1>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--medium"
+        ap-copy
+        ap-copy--medium"
     >
       Here you can define conversions and the amount you are willing to spend on a single conversion.<br />
       This dashboard lets you set specific actions you want to pay for – e.g. registrations or sales.
@@ -23,13 +23,13 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large"
+      ap-box
+      ap-box--large"
   >
     <h3
       class="
-        dwmth-heading
-        dwmth-heading--secondary"
+        ap-heading
+        ap-heading--secondary"
     >
       Conversions
     </h3>
@@ -40,7 +40,7 @@
       <mat-tab label="Basic">
         <div
           class="
-            dwmth-copy
+            ap-copy
             description-type"
         >
           In this mode each conversion has a constant value.
@@ -49,9 +49,9 @@
         </div>
         <div class="row justify-end align-center">
           <button
-            class="dwmth-btn
-               dwmth-btn--white
-               dwmth-blue
+            class="ap-btn
+               ap-btn--white
+               ap-blue
                campaign-edit-conversion__btn-add"
             (click)="addConversionEmpty(TYPE_BASIC)"
             data-test="advertiser-conversion-add-basic-button"
@@ -64,10 +64,10 @@
           *ngIf="conversionItemFormsBasic.length > 0"
           class="
             row
-            dwmth-box
+            ap-box
             align-center
             justify-between
-            dwmth-copy"
+            ap-copy"
         >
           <app-label
             class="col-xs-3 row justify-start align-center"
@@ -95,7 +95,7 @@
           <div class="col-xs-1 row justify-center">Generate link</div>
         </div>
 
-        <div class="dwmth-box dwmth-box--no-padding campaign-edit-conversion__list animated-list">
+        <div class="ap-box ap-box--no-padding campaign-edit-conversion__list animated-list">
           <form
             *ngFor="let conversionItemForm of conversionItemFormsBasic; let conversionItemFormIndex = index"
             [formGroup]="conversionItemForm"
@@ -103,10 +103,10 @@
           >
             <div
               class="row
-                   dwmth-box
+                   ap-box
                    align-start
                    justify-between
-                   dwmth-copy"
+                   ap-copy"
             >
               <div
                 class="
@@ -116,7 +116,7 @@
               >
                 <input
                   id="name"
-                  class="dwmth-form-input"
+                  class="ap-form-input"
                   formControlName="name"
                   data-test="advertiser-conversion-item-name"
                 >
@@ -135,7 +135,7 @@
               >
                 <mat-select
                   id="type"
-                  class="dwmth-select campaign-edit-conversion__select"
+                  class="ap-select campaign-edit-conversion__select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
                 >
@@ -172,7 +172,7 @@
                     id="value"
                     type="number"
                     step="0.01"
-                    class="dwmth-form-input campaign-edit-conversion__value-input"
+                    class="ap-form-input campaign-edit-conversion__value-input"
                     formControlName="value"
                     data-test="advertiser-conversion-item-value"
                   >
@@ -227,7 +227,7 @@
       <mat-tab label="Advanced">
         <div
           class="
-            dwmth-copy
+            ap-copy
             description-type"
         >
           In this mode each conversion has a unique HTTP request which must be created dynamically.
@@ -238,7 +238,7 @@
         <div
           *ngIf="campaign.secret"
           class="
-            dwmth-copy
+            ap-copy
             description-type"
         >
           Secret phrase is a character string necessary to sign the transferred data.
@@ -253,12 +253,12 @@
           .
           <div
             class="
-              dwmth-copy
+              ap-copy
               description-type">
             Secret phrase:
-            <span class="dwmth-copy--bold">{{campaign.secret}}</span>
+            <span class="ap-copy--bold">{{campaign.secret}}</span>
             <i
-              matTooltipClass="dwmth-mat-tooltip"
+              matTooltipClass="ap-mat-tooltip"
               matTooltip="Copy secret phrase"
               matTooltipPosition="above"
               role="button"
@@ -274,9 +274,9 @@
 
         <div class="row justify-end align-center">
           <button
-            class="dwmth-btn
-               dwmth-btn--white
-               dwmth-blue
+            class="ap-btn
+               ap-btn--white
+               ap-blue
                campaign-edit-conversion__btn-add"
             (click)="addConversionEmpty(TYPE_ADVANCED)"
             data-test="advertiser-conversion-add-advanced-button"
@@ -289,10 +289,10 @@
           *ngIf="conversionItemFormsAdvanced.length > 0"
           class="
             row
-            dwmth-box
+            ap-box
             align-center
             justify-between
-            dwmth-copy"
+            ap-copy"
         >
           <app-label
             class="col-xs-2 row justify-start"
@@ -332,7 +332,7 @@
         </div>
 
         <div
-          class="dwmth-box dwmth-box--no-padding"
+          class="ap-box ap-box--no-padding"
         >
           <form
             *ngFor="let conversionItemForm of conversionItemFormsAdvanced; let conversionItemFormIndex = index"
@@ -341,10 +341,10 @@
           >
             <div
               class="row
-                   dwmth-box
+                   ap-box
                    align-start
                    justify-between
-                   dwmth-copy"
+                   ap-copy"
             >
               <div
                 class="
@@ -354,7 +354,7 @@
               >
                 <input
                   id="nameAdv"
-                  class="dwmth-form-input"
+                  class="ap-form-input"
                   formControlName="name"
                   data-test="advertiser-conversion-item-name"
                 >
@@ -373,7 +373,7 @@
               >
                 <mat-select
                   id="typeAdv"
-                  class="dwmth-select campaign-edit-conversion__select"
+                  class="ap-select campaign-edit-conversion__select"
                   formControlName="type"
                   data-test="advertiser-conversion-item-type-select"
                 >
@@ -410,7 +410,7 @@
                     id="valueAdv"
                     type="number"
                     step="0.01"
-                    class="dwmth-form-input campaign-edit-conversion__value-input"
+                    class="ap-form-input campaign-edit-conversion__value-input"
                     formControlName="value"
                     data-test="advertiser-conversion-item-value"
                   >
@@ -495,19 +495,19 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large"
+      ap-box
+      ap-box--large"
   >
     <h3
       class="
-        dwmth-heading
-        dwmth-heading--secondary"
+        ap-heading
+        ap-heading--secondary"
     >
       Click conversion
     </h3>
     <div
       class="
-        dwmth-copy
+        ap-copy
         description-type"
     >
       Click conversion type defines how clicks are registered.
@@ -521,7 +521,7 @@
       <mat-form-field>
         <mat-label>Select click conversion type:</mat-label>
         <mat-select
-          class="dwmth-select"
+          class="ap-select"
           [(value)]="campaign.conversionClick"
           data-test="advertiser-conversion-click-select"
         >
@@ -534,7 +534,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div class="dwmth-form-label">
+      <div class="ap-form-label">
         <button
           *ngIf="campaign.conversionClickLink"
           class="campaign-edit-conversion__btn"
@@ -548,16 +548,16 @@
   </div>
 
   <div
-    class="dwmth-box
-           dwmth-box--large
+    class="ap-box
+           ap-box--large
            row
            justify-between"
   >
     <button
       type="button"
-      class="dwmth-btn
-             dwmth-btn--white
-             dwmth-blue"
+      class="ap-btn
+             ap-btn--white
+             ap-blue"
       (click)="onStepBack()"
       [disabled]="submitted"
       data-test="advertiser-navigate-to-dashboard"
@@ -566,7 +566,7 @@
     </button>
 
     <button
-      class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+      class="ap-btn ap-btn--wide ap-btn--blue"
       (click)="updateCampaignConversion()"
       [disabled]="submitted"
       data-test="advertiser-edit-campaign-save-and-continue"

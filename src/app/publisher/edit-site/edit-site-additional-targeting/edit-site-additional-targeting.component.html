@@ -10,17 +10,17 @@
 
   <section
     class="
-      dwmth-box
+      ap-box
       site-edit-additional-targeting__checkbox-container
       col"
   >
     <h1 class="mat-expansion-panel-header-title
-               dwmth-heading--secondary
+               ap-heading--secondary
                classification-section__title">Classification</h1>
     <p class="
-      dwmth-copy
+      ap-copy
       no-gutters
-      dwmth-box--no-padding
+      ap-box--no-padding
       classification-section__info">
       After set this setting you will be able to approve banners for this particular site.
     </p>
@@ -40,7 +40,7 @@
   >
     <div
       *ngIf="showRequiresSection"
-      class="dwmth-box"
+      class="ap-box"
     >
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
@@ -49,8 +49,8 @@
       >
         <mat-expansion-panel-header
           class="
-            dwmth-heading
-            dwmth-heading--secondary"
+            ap-heading
+            ap-heading--secondary"
         >
           <mat-panel-title>
             Targeting
@@ -59,7 +59,7 @@
 
         <div class="row">
           <div class="col-xs-6 no-gutters">
-            <p class="dwmth-copy"
+            <p class="ap-copy"
             >
               In this window you can select the keywords that will help you
               choose the ads that are related to your site and meet your requirements.
@@ -87,7 +87,7 @@
         </div>
       </mat-expansion-panel>
 
-      <div class="dwmth-targeting-display__preview">
+      <div class="ap-targeting-display__preview">
         <app-targeting-display
           [items]="addedItems"
           [canRemove]="true"
@@ -100,7 +100,7 @@
     </div>
 
 
-    <div class="dwmth-box">
+    <div class="ap-box">
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
         (closed)="excludePanelOpenState = false"
@@ -109,8 +109,8 @@
       >
         <mat-expansion-panel-header
           class="
-            dwmth-heading
-            dwmth-heading--secondary"
+            ap-heading
+            ap-heading--secondary"
         >
           <mat-panel-title>
             Exclusions
@@ -119,7 +119,7 @@
 
         <div class="row">
           <div class="col-xs-6">
-            <p class="dwmth-copy"
+            <p class="ap-copy"
             >
               Please select banner ad categories that you don’t want to display on your site.
               If you don’t exclude any categories, all available ads will be displayed on your site - e.g. adult, gambling, investment etc.
@@ -137,7 +137,7 @@
           </div>
 
           <div class="col-xs-6">
-            <p _ngcontent-c7="" class="dwmth-copy--redder dwmth-copy--plus">
+            <p _ngcontent-c7="" class="ap-copy--redder ap-copy--plus">
               These ads will NOT appear on your website:
             </p>
             <app-targeting-display
@@ -151,7 +151,7 @@
         </div>
       </mat-expansion-panel>
 
-      <div class="dwmth-targeting-display__preview">
+      <div class="ap-targeting-display__preview">
         <app-targeting-display
           [items]="excludedItems"
           [canRemove]="true"
@@ -166,16 +166,16 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       row
       justify-between"
   >
     <button
       class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
+          ap-btn
+          ap-btn--white
+          ap-blue"
       role="link"
       (click)="onStepBack()"
     >
@@ -188,9 +188,9 @@
         (click)="saveSite(true)"
         [disabled]="changesSaved"
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue
+          ap-btn
+          ap-btn--white
+          ap-blue
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
@@ -199,9 +199,9 @@
       <button
         (click)="onSubmit()"
         class="
-          dwmth-btn
-          dwmth-btn--wide
-          dwmth-btn--blue"
+          ap-btn
+          ap-btn--wide
+          ap-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>

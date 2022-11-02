@@ -1,10 +1,10 @@
 <section class="account-wallet-settings">
-  <div class="dwmth-box dwmth-box--large">
+  <div class="ap-box ap-box--large">
     <div class="col">
-      <h2 class="dwmth-heading dwmth-heading--primary">
+      <h2 class="ap-heading ap-heading--primary">
         Account Wallet
       </h2>
-      <p class="dwmth-copy dwmth-copy--large">
+      <p class="ap-copy ap-copy--large">
         Here you can set up a connection with a cryptocurrency wallet.
       </p>
 
@@ -15,18 +15,18 @@
         You cannot change user preferences during impersonation.
       </div>
 
-      <form class="dwmth-form" *ngIf="!isImpersonated">
+      <form class="ap-form" *ngIf="!isImpersonated">
         <ng-template #loading>
           <mat-spinner [diameter]="16" [strokeWidth]="2" color="accent"></mat-spinner>
         </ng-template>
         <div class="row align-start change-form">
-          <div class="dwmth-form-input__box">
-            <label for="walletAddress" class="dwmth-form-label">
+          <div class="ap-form-input__box">
+            <label for="walletAddress" class="ap-form-label">
               Wallet address<ng-container *ngIf="wallet.walletNetwork"> ({{ wallet.walletNetwork }})</ng-container>
             </label>
             <input
               id="walletAddress"
-              class="dwmth-form-input"
+              class="ap-form-input"
               type="text"
               name="walletAddress"
               readonly
@@ -36,7 +36,7 @@
 
           <button
             *ngIf="adsWalletAvailable"
-            class="dwmth-btn dwmth-btn--blue"
+            class="ap-btn ap-btn--blue"
             (click)="initConnectToWallet('ADS')"
             [disabled]="isSubmitted"
           >
@@ -44,7 +44,7 @@
           </button>
           <a
             *ngIf="!adsWalletAvailable"
-            class="dwmth-btn dwmth-btn--danger"
+            class="ap-btn ap-btn--danger"
             href="{{ADSHARES_WALLET}}"
             rel="noopener noreferrer nofollow"
             target="_blank"
@@ -53,7 +53,7 @@
           </a>
           <button
             *ngIf="ethereumAvailable"
-            class="dwmth-btn dwmth-btn--blue"
+            class="ap-btn ap-btn--blue"
             (click)="initConnectToWallet('BSC')"
             [disabled]="isSubmitted"
           >
@@ -61,7 +61,7 @@
           </button>
           <a
             *ngIf="!ethereumAvailable"
-            class="dwmth-btn dwmth-btn--danger"
+            class="ap-btn ap-btn--danger"
             href="{{METAMASK_WALLET}}"
             rel="noopener noreferrer nofollow"
             target="_blank"
