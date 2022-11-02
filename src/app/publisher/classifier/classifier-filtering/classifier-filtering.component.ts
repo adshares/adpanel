@@ -32,13 +32,12 @@ export class ClassifierFilteringComponent implements OnInit {
     this.isGlobal = this.siteId === null
     this.sizes = this.sizeOptions
     this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
-    this.allSizes = !this.filtering.sizes.length
-    this.allSizesMatching = this.filtering.sizes.length === this.adSizesOptions.length
     this.filtering = {
       ...this.filtering,
       sizes: this.sizeOptions
     }
     this.checkBannerSizeOptions()
+
   }
 
   checkBannerSizeOptions() {
