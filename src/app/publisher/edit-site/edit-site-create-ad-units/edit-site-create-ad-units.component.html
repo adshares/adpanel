@@ -148,8 +148,9 @@
           >
             <div
               class="site-edit-create-posters-units__poster-unit"
-              [ngClass]="{'site-edit-create-posters-units__poster-unit--selected':
-              adUnitForm.get('label').value === adUnit.label}"
+              [ngClass]="{
+                'site-edit-create-posters-units__poster-unit--selected': adUnitForm.get('size').value === adUnit.size
+              }"
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
