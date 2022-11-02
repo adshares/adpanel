@@ -27,7 +27,7 @@
         </mat-radio-button>
       </mat-radio-group>
     </mat-expansion-panel>
-    <mat-expansion-panel *ngIf="adSizesOptions.length > 0">
+    <mat-expansion-panel *ngIf="sizeOptions.length > 0">
       <mat-expansion-panel-header class="classifier-filtering__content-padding">
         <mat-panel-title>
           <mat-icon class="classifier-filtering__icon">
@@ -43,12 +43,12 @@
             All
           </span>
           <span
-            *ngIf="adSizesOptions.length === filtering.sizes.length"
+            *ngIf="sizeOptions.length === filtering.sizes.length"
             class="classifier-filtering__chosen-value"
           >
             All matching
           </span>
-          <ng-container *ngIf="sizes.length !== adSizesOptions.length">
+          <ng-container *ngIf="sizes.length !== sizeOptions.length">
             <span
               *ngFor="let chosenSize of sizes"
               class="classifier-filtering__chosen-value"
@@ -75,7 +75,7 @@
       </div>
       
       <mat-checkbox
-        *ngFor="let sizeOption of adSizesOptions"
+        *ngFor="let sizeOption of sizeOptions"
         (change)="sizeSelect($event, sizeOption)"
         [checked]="filtering.sizes.includes(sizeOption)"
       >
