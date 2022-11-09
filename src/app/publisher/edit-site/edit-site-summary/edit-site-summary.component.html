@@ -14,15 +14,15 @@
   >
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Summary
     </h1>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--medium"
+        ap-copy
+        ap-copy--medium"
     >
       Please check if all settings are correct and publish the site.
       Next you need to get your code.
@@ -41,8 +41,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       site-edit-summary__basic-info"
   >
     <div
@@ -53,8 +53,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         1. Basic information
       </h3>
@@ -64,9 +64,9 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
@@ -78,18 +78,18 @@
                   site-edit-summary__basic-info-element">
         <p
           class="
-          dwmth-copy
-          dwmth-copy--light"
+          ap-copy
+          ap-copy--light"
         >
           Website name
         </p>
 
         <p
           class="
-          dwmth-copy
-          dwmth-copy--semi
-          dwmth-copy--medium
-          dwmth-copy--x-dark"
+          ap-copy
+          ap-copy--semi
+          ap-copy--medium
+          ap-copy--x-dark"
           data-test="publisher-site-url"
         >
           {{ site.name }}
@@ -102,18 +102,18 @@
           col"
       >
         <p
-          class="dwmth-copy
-          dwmth-copy--light"
+          class="ap-copy
+          ap-copy--light"
         >
           Content language
         </p>
 
         <p
           class="
-            dwmth-copy
-            dwmth-copy--semi
-            dwmth-copy--medium
-            dwmth-copy--x-dark"
+            ap-copy
+            ap-copy--semi
+            ap-copy--medium
+            ap-copy--x-dark"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -124,8 +124,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       site-edit-summary__targeting-info"
   >
     <div
@@ -136,8 +136,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         2. Exclusions
       </h3>
@@ -147,15 +147,15 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
       </a>
     </div>
-    <div class="row" *ngIf="!site.filteringArray.excludes.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div class="row" *ngIf="!site.filteringArray.excludes.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div class="row" *ngIf="!!site.filteringArray.excludes.length">
       <div
         class="
@@ -175,8 +175,8 @@
   <ng-container *ngIf="displayAds">
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       site-edit-summary__poster-info"
   >
     <div
@@ -187,8 +187,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         3. Pops
       </h3>
@@ -198,15 +198,15 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
       </a>
     </div>
-    <div class="row" *ngIf="!popAdUnits.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div class="row" *ngIf="!popAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div *ngIf="!!popAdUnits.length"
          class="row"
          [ngClass]="popAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
@@ -224,7 +224,7 @@
                   site-edit-create-posters-units__poster-unit__visualization-box"
         >
           <div
-            class="dwmth-copy site-edit-summary__poster-unit__visualization"
+            class="ap-copy site-edit-summary__poster-unit__visualization"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
           >
             {{ adUnit.name }}
@@ -232,17 +232,17 @@
         </div>
 
         <strong
-          class="dwmth-copy
-                 dwmth-copy--semi
-                 dwmth-copy--x-dark
-                 dwmth-copy--medium"
+          class="ap-copy
+                 ap-copy--semi
+                 ap-copy--x-dark
+                 ap-copy--medium"
           data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
           {{ adUnit.size }}
         </strong>
         <div>
           <div
-            class="dwmth-chip-box"
+            class="ap-chip-box"
             *ngFor="let tag of adUnit.tags"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
           >
@@ -255,8 +255,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       site-edit-summary__poster-info"
   >
     <div
@@ -267,8 +267,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         4. Ad units
       </h3>
@@ -278,15 +278,15 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
       </a>
     </div>
-    <div class="row" *ngIf="!displayAdUnits.length"><strong class="site-edit-summary__warning dwmth-copy">(none)</strong></div>
+    <div class="row" *ngIf="!displayAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div *ngIf="!!displayAdUnits.length"
          class="row"
          [ngClass]="displayAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
@@ -304,7 +304,7 @@
                   site-edit-create-posters-units__poster-unit__visualization-box"
         >
           <div
-            class="dwmth-copy site-edit-summary__poster-unit__visualization"
+            class="ap-copy site-edit-summary__poster-unit__visualization"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
           >
             {{ adUnit.name }}
@@ -312,17 +312,17 @@
         </div>
 
         <strong
-          class="dwmth-copy
-                 dwmth-copy--semi
-                 dwmth-copy--x-dark
-                 dwmth-copy--medium"
+          class="ap-copy
+                 ap-copy--semi
+                 ap-copy--x-dark
+                 ap-copy--medium"
           data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
           {{ adUnit.size }}
         </strong>
         <div>
           <div
-            class="dwmth-chip-box"
+            class="ap-chip-box"
             *ngFor="let tag of adUnit.tags"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
           >
@@ -336,8 +336,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       row
       justify-between"
   >
@@ -347,9 +347,9 @@
     >
       <button
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
+          ap-btn
+          ap-btn--white
+          ap-blue"
       >
         Back
       </button>
@@ -358,9 +358,9 @@
     <div class="row">
       <button
         class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue
+            ap-btn
+            ap-btn--white
+            ap-blue
             save-as-draft"
         type="button"
         (click)="saveSite(true)"
@@ -371,8 +371,8 @@
       <button
         [disabled]="canSubmit"
         class="
-            dwmth-btn
-            dwmth-btn--blue"
+            ap-btn
+            ap-btn--blue"
         (click)="saveSite(false)"
         type="button"
         data-test="publisher-edit-site-start-site"

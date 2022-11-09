@@ -1,6 +1,6 @@
 <section
   class="
-    dwmth-edit-asset__navigation
+    ap-edit-asset__navigation
     row
     align-center"
 >
@@ -14,20 +14,20 @@
       <div
         *ngFor="let step of steps"
         class="
-          dwmth-edit-asset__navigation-step
+          ap-edit-asset__navigation-step
           row
           align-center"
       >
         <div
-          class="dwmth-circle"
+          class="ap-circle"
           [class.inactive]="currentStep < step.id"
           [class.active]="currentStep === step.id"
           [class.done]="currentStep > step.id">
         </div>
-        <p class="dwmth-copy">
+        <p class="ap-copy">
           {{ step.name }}
         </p>
-        <div class="dwmth-step-link-indicator"></div>
+        <div class="ap-step-link-indicator"></div>
       </div>
   </div>
 </section>

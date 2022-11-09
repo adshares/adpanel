@@ -1,19 +1,19 @@
 <mat-dialog-content class="mat-dialog-content">
   <section>
-    <h1 class="dwmth-heading dwmth-heading--primary">
+    <h1 class="ap-heading ap-heading--primary">
       Do you want ban this user?
     </h1>
-    <p class="dwmth-copy dwmth-copy--bold">{{user.email}}</p>
-    <p *ngIf="user.banReason" class="dwmth-copy dwmth-multiline dialog__reason-field">Previous reason: {{user.banReason}}</p>
+    <p class="ap-copy ap-copy--bold">{{user.email}}</p>
+    <p *ngIf="user.banReason" class="ap-copy ap-multiline dialog__reason-field">Previous reason: {{user.banReason}}</p>
     <div class="col form-container" [formGroup]="form">
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="reason"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Reason of ban
           <fa-icon
-            matTooltipClass="dwmth-mat-tooltip"
+            matTooltipClass="ap-mat-tooltip"
             matTooltip="Reason will be displayed to the banned user"
             matTooltipPosition="right"
             [icon]="faQuestionCircle"
@@ -21,7 +21,7 @@
         </label>
         <textarea
           id="reason"
-          class="dwmth-form-input dwmth-form-input--full"
+          class="ap-form-input ap-form-input--full"
           type="text"
           name="reason"
           formControlName="reason"
@@ -38,13 +38,13 @@
     </div>
     <div class="row justify-end dialog-controls">
       <button
-        class="dwmth-btn dwmth-btn--white dialog-controls--btn"
+        class="ap-btn ap-btn--white dialog-controls--btn"
         [mat-dialog-close]="false"
       >
         Cancel
       </button>
       <button
-        class="dwmth-btn dwmth-btn--danger dialog-controls--btn"
+        class="ap-btn ap-btn--danger dialog-controls--btn"
         [disabled]="form.invalid"
         [mat-dialog-close]="form.get('reason').value"
       >

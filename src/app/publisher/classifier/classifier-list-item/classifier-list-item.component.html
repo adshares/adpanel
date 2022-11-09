@@ -1,4 +1,4 @@
-<tr class="dwmth-box dwmth-box--no-padding row justify-between no-gutters align-center classifier-list-item__row">
+<tr class="ap-box ap-box--no-padding row justify-between no-gutters align-center classifier-list-item__row">
   <td
     #appBannerPreviewContainer
     class="col-xs-7"
@@ -11,11 +11,11 @@
   </td>
   <td class="col-xs-1 col">
     <span
-      class="text-left dwmth-copy dwmth-copy--blue dwmth-copy--small"> {{ bannerClassification.type }} </span>
-    <span class="text-left dwmth-copy dwmth-copy--bold"> {{ bannerClassification.size }} </span>
+      class="text-left ap-copy ap-copy--blue ap-copy--small"> {{ bannerClassification.type }} </span>
+    <span class="text-left ap-copy ap-copy--bold"> {{ bannerClassification.size }} </span>
   </td>
   <td class="col-xs-2 col classifier-list-item__link">
-    <a class="dwmth-copy dwmth-copy dwmth-copy--no-wrap"
+    <a class="ap-copy ap-copy ap-copy--no-wrap"
        [title]="bannerClassification.landingUrl"
        [href]="bannerClassification.landingUrl">
       {{bannerClassification.landingUrl}}
@@ -27,25 +27,25 @@
                   'classifier-list-item__btns--reversed': classified === REJECTED}">
       <button
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-copy
+          ap-btn
+          ap-btn--white
+          ap-copy
           classifier-list-item__btn"
         (click)="classifyBanner(APPROVED)"
         [disabled]="classified === APPROVED"
-        [ngClass]="{'dwmth-copy--green': !isGlobal}"
+        [ngClass]="{'ap-copy--green': !isGlobal}"
       >
         {{classified === APPROVED ? (isGlobal ? 'Omitted' : 'Approved') : (isGlobal ? 'Omit' : 'Approve')}}
       </button>
       <button
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-copy
+          ap-btn
+          ap-btn--white
+          ap-copy
           classifier-list-item__btn"
         (click)="classifyBanner(REJECTED)"
         [disabled]="classified === REJECTED"
-        [ngClass]="{'dwmth-copy--red': isGlobal}"
+        [ngClass]="{'ap-copy--red': isGlobal}"
       >
         {{classified === REJECTED ? (isGlobal ? 'Rejected' : 'Omitted') : (isGlobal ? 'Reject' : 'Omit')}}
       </button>

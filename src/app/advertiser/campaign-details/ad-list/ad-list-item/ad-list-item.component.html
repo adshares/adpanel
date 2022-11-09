@@ -1,6 +1,6 @@
 <tr
   class="
-       dwmth-box dwmth-box--no-padding
+       ap-box ap-box--no-padding
        row
        align-center"
 >
@@ -8,7 +8,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
   >
     <div
@@ -20,7 +20,7 @@
         [checked]="ad.status === adStatusesEnum.ACTIVE"
         [disabled]="ad.status === adStatusesEnum.REJECTED"
         (change)="changeAdStatus($event.checked)"
-        matTooltipClass="dwmth-mat-tooltip"
+        matTooltipClass="ap-mat-tooltip"
         [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by the classifier.' : null"
         matTooltipPosition="right"
         data-test="advertiser-ad-change-ad-status-toggle"
@@ -31,7 +31,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-name"
   >
@@ -54,7 +54,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-cost"
     [title]=" (ad.cost || 0) | formatMoney:4"
@@ -65,7 +65,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-clicks">
     {{ ad.clicks || 0}}
@@ -74,7 +74,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-impressions"
   >
@@ -84,7 +84,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-ctr"
   >
@@ -94,7 +94,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-average-cpm"
     [title]="(ad.averageCpm || 0) | formatMoney:4"
@@ -105,7 +105,7 @@
     class="
          col-xs-1
          row
-         dwmth-copy
+         ap-copy
          align-center"
     data-test="advertiser-ad-average-cpc"
     [title]="(ad.averageCpc || 0) | formatMoney:4"
@@ -120,7 +120,7 @@
           clickable-area
           align-center
           justify-center
-          dwmth-posters-list-item__nav-item"
+          ap-posters-list-item__nav-item"
     (click)="navigateToAdEdition()"
     role="link"
   >

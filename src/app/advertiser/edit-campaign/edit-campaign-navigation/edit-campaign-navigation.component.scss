@@ -1,16 +1,16 @@
 @import '../../../../styles';
 
-.dwmth-edit-asset__navigation {
+.ap-edit-asset__navigation {
   background: pal(white);
   height: 64px;
 
   &-step:last-of-type {
-    .dwmth-step-link-indicator {
+    .ap-step-link-indicator {
       display: none;
     }
   }
 
-  .dwmth-circle {
+  .ap-circle {
     margin-right: 15px;
 
     &.done + p,

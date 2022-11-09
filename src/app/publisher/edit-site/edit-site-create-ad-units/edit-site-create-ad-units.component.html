@@ -14,22 +14,22 @@
   >
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Select ad units
     </h1>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--large"
+        ap-copy
+        ap-copy--large"
     >
       Please select the size of an ad unit you want to place on your website.
       If you want to generate more than one ad unit, please click the "Create new ad unit" button on the bottom part of the site and pick the desired sizes.
     </p>
   </div>
   <div
-    class="dwmth-box dwmth-box--no-padding"
+    class="ap-box ap-box--no-padding"
     *ngFor="let adUnitForm of adUnitForms; let adUnitIndex = index"
   >
     <form
@@ -46,8 +46,8 @@
           <mat-expansion-panel-header>
             <mat-panel-title
               class="
-                dwmth-heading
-                dwmth-heading--secondary"
+                ap-heading
+                ap-heading--secondary"
             >
               <div class="row justify-between align-center">
                 <div>
@@ -85,16 +85,16 @@
                 col-lg-3
                 col-xxl-2"
             >
-              <div class="dwmth-form-input__box">
+              <div class="ap-form-input__box">
                 <label
                   for="name"
-                  class="dwmth-form-label"
+                  class="ap-form-label"
                 >
                   Ad unit name
                 </label>
                 <input
                   id="name"
-                  class="dwmth-form-input"
+                  class="ap-form-input"
                   formControlName="name"
                   data-test="publisher-edit-site-create-ad-units-form-short-headline"
                   [readonly]="!adUnitForm.get('size').value && adUnitForm.get('saved').value"
@@ -114,10 +114,10 @@
 
 
             <div class="col-xs-3">
-              <div class="dwmth-form-input__box">
-                <label class="dwmth-form-label">Display:</label>
+              <div class="ap-form-input__box">
+                <label class="ap-form-label">Display:</label>
                 <mat-select
-                  class="dwmth-select"
+                  class="ap-select"
                   formControlName="adUnitSizeFilter"
                   (selectionChange)="onAdUnitSizeFilterChange(adUnitIndex)"
                   data-test="publisher-edit-site-create-ad-units-form-size-select"
@@ -136,7 +136,7 @@
 
           <div
             class="
-                dwmth-form-label
+                ap-form-label
                 site-edit-create-posters-units__unit-label"
           >
             Ad unit size
@@ -148,8 +148,9 @@
           >
             <div
               class="site-edit-create-posters-units__poster-unit"
-              [ngClass]="{'site-edit-create-posters-units__poster-unit--selected':
-              adUnitForm.get('label').value === adUnit.label}"
+              [ngClass]="{
+                'site-edit-create-posters-units__poster-unit--selected': adUnitForm.get('size').value === adUnit.size
+              }"
               *ngFor="let adUnit of filteredAdUnitSizes[adUnitIndex]"
               role="button"
               (click)="selectAdUnit(adUnit, adUnitIndex)"
@@ -163,7 +164,7 @@
                   site-edit-create-poster-unit__poster-unit__visualization-box"
               >
                 <div
-                  class="dwmth-copy site-edit-create-posters-units_poster-unit__visualization"
+                  class="ap-copy site-edit-create-posters-units_poster-unit__visualization"
                   data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
                 >
                   {{ adUnit.label }}
@@ -173,17 +174,17 @@
               <strong
                 class="
                   site-edit-create-posters-units__poster-unit-title
-                  dwmth-copy
-                  dwmth-copy--semi
-                  dwmth-copy--x-dark
-                  dwmth-copy--medium"
+                  ap-copy
+                  ap-copy--semi
+                  ap-copy--x-dark
+                  ap-copy--medium"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
                 {{ adUnit.size }}
               </strong>
               <div>
                 <div
-                  class="dwmth-chip-box"
+                  class="ap-chip-box"
                   *ngFor="let tag of adUnit.tags"
                   data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
                 >
@@ -207,9 +208,9 @@
                      site-edit-create-posters-units__delete-btn-wrapper">
             <button
               class="
-              dwmth-btn
-              dwmth-btn--white
-              dwmth-blue"
+              ap-btn
+              ap-btn--white
+              ap-blue"
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
@@ -232,17 +233,17 @@
     class="
       row
       justify-center
-      dwmth-box
-      dwmth-box--no-margin"
+      ap-box
+      ap-box--no-margin"
   >
     <button
       class="
         row
         align-center
-        dwmth-btn
-        dwmth-btn--white
-        dwmth-blue
-        dwmth-btn--no-border"
+        ap-btn
+        ap-btn--white
+        ap-blue
+        ap-btn--no-border"
       (click)="createEmptyAd()"
       data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
     >
@@ -250,8 +251,8 @@
         src="assets/images/plus-circle--blue.svg"
         alt="Add new"
         class="
-          dwmth-icon
-          dwmth-icon--prepend"
+          ap-icon
+          ap-icon--prepend"
       >
         Create new ad unit
     </button>
@@ -260,16 +261,16 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       row
       justify-between"
   >
     <button
       class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
+          ap-btn
+          ap-btn--white
+          ap-blue"
       role="link"
       (click)="onStepBack()"
     >
@@ -282,9 +283,9 @@
         (click)="saveAdUnits(true)"
         type="button"
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue
+          ap-btn
+          ap-btn--white
+          ap-blue
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
@@ -293,9 +294,9 @@
       <button
         type="submit"
         class="
-          dwmth-btn
-          dwmth-btn--wide
-          dwmth-btn--blue"
+          ap-btn
+          ap-btn--wide
+          ap-btn--blue"
         (click)="onSubmit()"
         data-test="publisher-edit-site-save-and-continue"
       >

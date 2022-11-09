@@ -7,6 +7,9 @@ import {
   CANCEL_AWAITING_TRANSACTION,
   CancelAwaitingTransaction,
   CancelAwaitingTransactionSuccess,
+  DELETE_REF_LINK,
+  DeleteRefLink,
+  DeleteRefLinkSuccess,
   GET_BILLING_HISTORY,
   GET_CURRENT_BALANCE,
   GET_REF_LINKS,
@@ -15,6 +18,7 @@ import {
   GetBillingHistorySuccess,
   GetCurrentBalanceFailure,
   GetCurrentBalanceSuccess,
+  GetRefLinks,
   GetRefLinksFailure,
   GetRefLinksSuccess,
 } from './settings.actions'
@@ -22,8 +26,9 @@ import { SettingsService } from 'settings/settings.service'
 import { ApiAuthService } from '../../api/auth.service'
 import { Action } from '@ngrx/store'
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions'
-import { TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 import { CommonService } from 'common/common.service'
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
+import { DELETE_SUCCESS, TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 
 @Injectable()
 export class SettingsEffects {
@@ -81,12 +86,35 @@ export class SettingsEffects {
 
   getRefLinks$ = createEffect(() => this.actions$
     .pipe(
-      ofType(GET_REF_LINKS),
-      switchMap(() => this.common.getRefLinks()
+      ofType<GetRefLinks>(GET_REF_LINKS),
+      switchMap(action => this.common.getRefLinks(action.payload.pageUrl)
         .pipe(
           map(refLinks => new GetRefLinksSuccess(refLinks)),
           catchError(error => observableOf(new GetRefLinksFailure(error)))
         )
       )
     ))
+
+  deleteRefLink$ = createEffect(() => this.actions$
+    .pipe(
+      ofType<DeleteRefLink>(DELETE_REF_LINK),
+      switchMap(action => {
+        const refLinkId = action.payload
+        return this.common.deleteRefLink(refLinkId)
+          .pipe(
+            switchMap(() => [
+              new DeleteRefLinkSuccess(refLinkId),
+              new ShowSuccessSnackbar(DELETE_SUCCESS),
+            ]),
+            catchError(error => {
+              if (HTTP_INTERNAL_SERVER_ERROR === error.status) {
+                return []
+              }
+              return observableOf(new ShowDialogOnError(`Deletion failed. Error code: ${error.status}`))
+            })
+          )
+        }
+      )
+    )
+  )
 }

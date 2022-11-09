@@ -1,12 +1,12 @@
 <div
   *ngIf="reportListLoaded; else loading"
-  class="reports-table dwmth-copy"
+  class="reports-table ap-copy"
 >
   <div
     *ngIf="reportsListAdvertiser.length > 0"
   >
     <p
-      class="dwmth-copy dwmth-copy--large"
+      class="ap-copy ap-copy--large"
     >
       Advertiser reports
     </p>
@@ -22,7 +22,7 @@
     *ngIf="reportsListPublisher.length > 0"
   >
     <p
-      class="dwmth-copy dwmth-copy--large"
+      class="ap-copy ap-copy--large"
     >
       Publisher reports
     </p>
@@ -38,7 +38,7 @@
     *ngIf="0 === reportsListAdvertiser.length && 0 === reportsListPublisher.length"
   >
     <p
-      class="dwmth-copy dwmth-copy--large"
+      class="ap-copy ap-copy--large"
     >
       Report list is empty
     </p>

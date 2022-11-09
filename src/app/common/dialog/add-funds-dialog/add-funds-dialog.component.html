@@ -5,12 +5,12 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="dwmth-dialog-close"
+    class="ap-dialog-close"
   ></div>
   <h1
     class="
-      dwmth-heading
-      dwmth-heading--primary"
+      ap-heading
+      ap-heading--primary"
   >
     <span *ngIf="useNativeDeposit">Deposit ADS</span>
     <span *ngIf="useWrappedDeposit">Deposit Wrapped ADS</span>
@@ -24,18 +24,18 @@
         else useNativeDeposit && nativeDeposit || useNowPaymentsDeposit && nowPaymentsDeposit || useWrappedDeposit && wrappedDeposit || useFiatDeposit && fiatDeposit"
       class="add-funds-selector"
     >
-      <p class="dwmth-copy dwmth-copy--medium dialog-description">
+      <p class="ap-copy ap-copy--medium dialog-description">
         Select your preferred deposit method. You can choose between the native ADS coin and over 30 other
         cryptocurrencies, including BTC and ETH.
       </p>
       <div class="add-funds-content dialog-main-content">
         <button
           (click)="selectNativeDeposit()"
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          class="ap-btn ap-btn--blue ap-btn--block"
         >
           Deposit ADS
         </button>
-        <p class="dwmth-copy dwmth-copy--medium">
+        <p class="ap-copy ap-copy--medium">
           No fee, super fast.
           <a
             [href]="getAdsFaqLink"
@@ -48,11 +48,11 @@
 
         <button
                 (click)="selectWrappedDeposit()"
-                class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+                class="ap-btn ap-btn--blue ap-btn--block"
         >
           Deposit Wrapped ADS
         </button>
-        <p class="dwmth-copy dwmth-copy--medium">
+        <p class="ap-copy ap-copy--medium">
           Easily bought on
           <a href="https://app.uniswap.org/#/swap?outputCurrency=0xcfcecfe2bd2fed07a9145222e8a7ad9cf1ccd22a" rel="noopener noreferrer nofollow" target="_blank">Ethereum</a>
           and
@@ -63,11 +63,11 @@
         <button
                 *ngIf="nowPayments !== null"
           (click)="selectNowPaymentsDeposit()"
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          class="ap-btn ap-btn--blue ap-btn--block"
         >
           Deposit with&nbsp;<span class="now_payments_logo"><span>NOW</span>Payments</span>
         </button>
-        <p class="dwmth-copy dwmth-copy--medium" *ngIf="nowPayments !== null">
+        <p class="ap-copy ap-copy--medium" *ngIf="nowPayments !== null">
           Deposit BTC, ETH, LTC and other cryptocurrencies.
           <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
             full list here.</a>
@@ -78,7 +78,7 @@
           <button
             *ngFor="let currency of fiat.currencies"
             (click)="selectFiatDeposit(currency)"
-            class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+            class="ap-btn ap-btn--blue ap-btn--block"
           >
             Order marketing services ({{ currency }})
           </button>
@@ -89,14 +89,14 @@
   </div>
 
   <ng-template #nativeDeposit>
-    <p class="dwmth-copy dwmth-copy--medium dialog-description">
+    <p class="ap-copy ap-copy--medium dialog-description">
       Here is the information required to deposit funds to your account.
     </p>
 
     <div class="add-funds-content dialog-main-content">
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
           for="adshares-address"
         >
           Adshares’ account address:
@@ -104,7 +104,7 @@
         <input
           #address
           [value]="adsharesAddress"
-          class="dwmth-form-input dwmth-form-input--full"
+          class="ap-form-input ap-form-input--full"
           data-test="common-add-funds-dialog-adshares-address"
           id="adshares-address"
           name="adshares-address"
@@ -112,7 +112,7 @@
         >
         <span class="input-valid"></span>
       </div>
-      <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
+      <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
         Please transfer your ADS coins to this address.
         Remember to add a message (aka Payment ID or Memo), otherwise your funds will not be deposited.
       </p>
@@ -120,16 +120,16 @@
         class="row justify-end">
         <button
           (click)="copyInput(address)"
-          class="dwmth-btn dwmth-btn--blue"
+          class="ap-btn ap-btn--blue"
           data-test="common-add-funds-dialog-adshares-address-copy"
         >
           Copy to clipboard
         </button>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
           for="memo"
         >
           Message
@@ -137,7 +137,7 @@
         <input
           #memo
           [value]="paymentMemo"
-          class="dwmth-form-input dwmth-form-input--full"
+          class="ap-form-input ap-form-input--full"
           data-test="common-add-funds-dialog-user-memo"
           id="memo"
           name="memo"
@@ -146,14 +146,14 @@
         >
         <span class="input-valid"></span>
       </div>
-      <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
+      <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
         The message is necessary to deposit ADS coins to your account.
         Please add the message above to your transfer.
       </p>
       <div class="row justify-end">
         <button
           (click)="copyInput(memo)"
-          class="dwmth-btn dwmth-btn--blue"
+          class="ap-btn ap-btn--blue"
           data-test="common-add-funds-dialog-user-memo-copy"
         >
           Copy to clipboard
@@ -173,7 +173,7 @@
     <button
       (click)="restartDepositMethod()"
       *ngIf="nowPayments"
-      class="dwmth-btn dwmth-btn--white"
+      class="ap-btn ap-btn--white"
     >
       Back
     </button>
@@ -181,24 +181,24 @@
 
 
   <ng-template #wrappedDeposit>
-    <p class="dwmth-copy dwmth-copy--medium dialog-description">
+    <p class="ap-copy ap-copy--medium dialog-description">
       allows you to directly deposit wrapped ADS
     </p>
 
     <div class="add-funds-content dialog-main-content" *ngIf="metamaskConnected && !metamaskTxid">
-      <div class="dwmth-form-input__box">
-        <p class="dwmth-copy add-funds-dialog__hint">Network: <strong>{{metamaskNetwork}}</strong></p>
-        <p class="dwmth-copy add-funds-dialog__hint">Address: <strong>{{metamaskAccount}}</strong></p>
-        <p class="dwmth-copy add-funds-dialog__hint">Available to deposit: <strong>{{metamaskAccountAds}} ADS</strong></p>
+      <div class="ap-form-input__box">
+        <p class="ap-copy add-funds-dialog__hint">Network: <strong>{{metamaskNetwork}}</strong></p>
+        <p class="ap-copy add-funds-dialog__hint">Address: <strong>{{metamaskAccount}}</strong></p>
+        <p class="ap-copy add-funds-dialog__hint">Available to deposit: <strong>{{metamaskAccountAds}} ADS</strong></p>
 
         <label
-                class="dwmth-form-label"
+                class="ap-form-label"
                 for="amount"
         >
           Deposit amount ADS:
         </label>
         <input
-                class="dwmth-form-input dwmth-form-input--full"
+                class="ap-form-input ap-form-input--full"
                 data-test="common-wrapped-dialog-adshares-amount"
                 id="wrapped_amount"
                 name="amount"
@@ -219,7 +219,7 @@
         <div *ngIf="isConfirmed">
           <button
                   (click)="depositWrapped()"
-                  class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+                  class="ap-btn ap-btn--blue ap-btn--block"
                   data-test="common-now-payments-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit with Metamask</span>
@@ -232,7 +232,7 @@
           {{metamaskError}}
           </p>
 
-          <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
+          <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
             You need to sign transaction using Metamask.
             A notification will be sent via e-mail once the funds have been deposited.
           </p>
@@ -263,7 +263,7 @@
     <div class="add-funds-content dialog-main-content" *ngIf="!metamaskConnected && metamaskAvailable">
       <button
               (click)="connectMetamask()"
-              class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+              class="ap-btn ap-btn--blue ap-btn--block"
               data-test="common-now-payments-submit-button"
       >
         <span *ngIf="!isMetamaskConnecting; else loadingBtn">Connect Metamask</span>
@@ -286,14 +286,14 @@
 
     <button
             (click)="restartDepositMethod()"
-            class="dwmth-btn dwmth-btn--white"
+            class="ap-btn ap-btn--white"
     >
       Back
     </button>
   </ng-template>
 
   <ng-template #nowPaymentsDeposit>
-    <p class="dwmth-copy dwmth-copy--medium dialog-description">
+    <p class="ap-copy ap-copy--medium dialog-description">
       allows you to make deposits in Bitcoin, Ethereum,
       Litecoin, and over 30 other cryptocurrencies.
       <a href="https://nowpayments.io/supported-coins/" rel="noopener noreferrer nofollow" target="_blank">Check the
@@ -301,9 +301,9 @@
     </p>
 
     <div class="add-funds-content dialog-main-content">
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
           for="amount"
         >
           Deposit amount ({{nowPayments.currency}}):
@@ -311,7 +311,7 @@
         <input
           (change)="changeNowPaymentsAmount($event)"
           (keyup)="keydownNowPaymentsAmount($event)"
-          class="dwmth-form-input dwmth-form-input--full"
+          class="ap-form-input ap-form-input--full"
           data-test="common-now-payments-dialog-adshares-amount"
           id="amount"
           max="{{nowPayments.maxAmount}}"
@@ -327,18 +327,18 @@
         >
           Provide correct deposit amount
         </span>
-        <span class="dwmth-form-label">
+        <span class="ap-form-label">
           The min. deposit is <strong>{{nowPayments.minAmount}} {{nowPayments.currency}}</strong>
           and the max. is <strong>{{nowPayments.maxAmount}} {{nowPayments.currency}}</strong>
         </span>
       </div>
 
       <div *ngIf="ADS_TOKEN_CODE === appCurrency" class="ads-amount">
-        <span class="dwmth-form-label">
+        <span class="ap-form-label">
           Your deposit will amount to approx.
         </span>
         <span
-          class="dwmth-copy dwmth-copy--large"
+          class="ap-copy ap-copy--large"
           data-test="common-now-payments-dialog-ads-amount"
         >
           {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + ADS_TOKEN_CODE }}
@@ -349,12 +349,12 @@
         <div *ngIf="isConfirmed">
           <button
             (click)="depositNowPaymentsFunds()"
-            class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+            class="ap-btn ap-btn--blue ap-btn--block"
             data-test="common-now-payments-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Deposit</span>
           </button>
-          <p class="dwmth-copy dwmth-copy--blue add-funds-dialog__hint">
+          <p class="ap-copy ap-copy--blue add-funds-dialog__hint">
             You will be redirected to NowPayments.io.
             Please note that it may take up to a few hours to deposit your funds, depending on the cryptocurrency you
             are using.
@@ -379,46 +379,46 @@
 
     <button
       (click)="restartDepositMethod()"
-      class="dwmth-btn dwmth-btn--white"
+      class="ap-btn ap-btn--white"
     >
       Back
     </button>
   </ng-template>
 
   <ng-template #fiatDeposit>
-    <p class="dwmth-copy dwmth-copy--medium dialog-description">
+    <p class="ap-copy ap-copy--medium dialog-description">
       You will get proforma invoice in {{ fiatCurrency }}
     </p>
 
     <div class="add-funds-content dialog-main-content" *ngIf="fiatInvoice">
-      <p class="dwmth-copy dwmth-copy--medium dialog-description">
+      <p class="ap-copy ap-copy--medium dialog-description">
         You will receive funds in your account after the payment is credited
       </p>
       <a
         target="_blank"
-        class="dwmth-btn dwmth-btn--blue dwmth-btn--block dwmth-copy--white download-link"
+        class="ap-btn ap-btn--blue ap-btn--block ap-copy--white download-link"
         [href]="fiatInvoice.downloadUrl"
       >Download invoice</a>
     </div>
 
     <div class="add-funds-content dialog-main-content" *ngIf="!fiatInvoice">
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <form
           id="fiat-form"
-          class="dwmth-form"
+          class="ap-form"
           [formGroup]="fiatForm"
           (ngSubmit)="onFiatSubmit()"
         >
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatNetAmount"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Deposit amount ({{ fiatCurrency }}):
             </label>
             <input
               id="fiatNetAmount"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="netAmount"
               formControlName="netAmount"
               max="{{fiat.maxAmount}}"
@@ -443,21 +443,21 @@
               {{ fiatForm.getError('custom', ['netAmount']) }}
             </span>
           </div>
-          <span class="dwmth-form-label">
+          <span class="ap-form-label">
             The min. deposit is <strong>{{fiat.minAmount}} {{fiatCurrency}}</strong>
             and the max. is <strong>{{fiat.maxAmount}} {{fiatCurrency}}</strong>
           </span>
 
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatBuyerName"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Company name:
             </label>
             <input
               id="fiatBuyerName"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="buyerName"
               formControlName="buyerName"
               type="text"
@@ -486,16 +486,16 @@
             </span>
           </div>
 
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatBuyerAddress"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Company address:
             </label>
             <input
               id="fiatBuyerAddress"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="buyerAddress"
               formControlName="buyerAddress"
               type="text"
@@ -524,16 +524,16 @@
             </span>
           </div>
 
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatBuyerPostalCode"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Postal code:
             </label>
             <input
               id="fiatBuyerPostalCode"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="buyerPostalCode"
               formControlName="buyerPostalCode"
               type="text"
@@ -556,16 +556,16 @@
             </span>
           </div>
 
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatBuyerCity"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               City:
             </label>
             <input
               id="fiatBuyerCity"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="buyerCity"
               formControlName="buyerCity"
               type="text"
@@ -589,21 +589,21 @@
           </div>
 
 
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatBuyerCountry"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Country:
             </label>
             <mat-select
               id="fiatBuyerCountry"
-              class="dwmth-form-select dwmth-form-select--full"
+              class="ap-form-select ap-form-select--full"
               formControlName="buyerCountry"
             >
               <input
                 type="search"
-                class="dwmth-form-input dwmth-form-search-option"
+                class="ap-form-input ap-form-search-option"
                 placeholder="Search"
                 (keyup)="filterCountries($event)">
               <mat-option
@@ -622,16 +622,16 @@
           </div>
 
           <div class="row justify-between">
-            <div class="dwmth-form-input__box dwmth-form-input__inline">
+            <div class="ap-form-input__box ap-form-input__inline">
               <label
                 for="fiatBuyerVatId"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 VAT id (tax id):
               </label>
               <input
                 id="fiatBuyerVatId"
-                class="dwmth-form-input dwmth-form-input--full"
+                class="ap-form-input ap-form-input--full"
                 name="buyerVatId"
                 formControlName="buyerVatId"
                 type="text"
@@ -659,7 +659,7 @@
                 {{ fiatForm.getError('custom', ['buyerVatId']) }}
               </span>
             </div>
-            <div class="dwmth-form-input__box">
+            <div class="ap-form-input__box">
               <mat-checkbox
                 formControlName="euVat"
                 *ngIf="fiatForm.get('euVat')"
@@ -669,16 +669,16 @@
               </mat-checkbox>
             </div>
           </div>
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="fiatComments"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Comments:
             </label>
             <input
               id="fiatComments"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               name="comments"
               formControlName="comments"
               type="text"
@@ -704,7 +704,7 @@
             <div *ngIf="isConfirmed">
               <button
                 type="submit"
-                class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+                class="ap-btn ap-btn--blue ap-btn--block"
                 >
                 <span *ngIf="!showLoader; else loadingBtn">Get invoice</span>
               </button>
@@ -722,7 +722,7 @@
 
     <button
       (click)="restartDepositMethod()"
-      class="dwmth-btn dwmth-btn--white"
+      class="ap-btn ap-btn--white"
     >
       Back
     </button>

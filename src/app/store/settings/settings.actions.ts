@@ -1,9 +1,6 @@
-import { Action } from '@ngrx/store';
-import {
-  BillingHistory,
-  RefLink,
-} from 'models/settings.model';
-import { User } from 'models/user.model';
+import { Action } from '@ngrx/store'
+import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model'
+import { User } from 'models/user.model'
 
 export const GET_CURRENT_BALANCE = 'Get current balance';
 export const GET_CURRENT_BALANCE_SUCCESS = 'Get current balance success';
@@ -19,6 +16,9 @@ export const GET_BILLING_HISTORY_FAILURE = 'Get billing history failure'
 export const GET_REF_LINKS = 'Get ref links';
 export const GET_REF_LINKS_SUCCESS = 'Get ref links success';
 export const GET_REF_LINKS_FAILURE = 'Get ref links failure';
+
+export const DELETE_REF_LINK = 'Delete ref link';
+export const DELETE_REF_LINK_SUCCESS = 'Delete ref link success';
 
 export const WITHDRAW_FUNDS_SUCCESS = 'Withdraw funds success';
 
@@ -88,14 +88,14 @@ export class WithdrawFundsSuccess implements Action {
 export class GetRefLinks implements Action {
   readonly type: string = GET_REF_LINKS;
 
-  constructor(public payload?: any) {
+  constructor(public payload: { pageUrl: string|undefined }) {
   }
 }
 
 export class GetRefLinksSuccess implements Action {
   readonly type: string = GET_REF_LINKS_SUCCESS;
 
-  constructor(public payload: RefLink[]) {
+  constructor(public payload: PaginatorResponse<RefLink>) {
   }
 }
 
@@ -103,6 +103,20 @@ export class GetRefLinksFailure implements Action {
   readonly type: string = GET_REF_LINKS_FAILURE;
 
   constructor(public payload: string) {
+  }
+}
+
+export class DeleteRefLink implements Action {
+  readonly type: string = DELETE_REF_LINK
+
+  constructor(public payload: number) {
+  }
+}
+
+export class DeleteRefLinkSuccess implements Action {
+  readonly type: string = DELETE_REF_LINK_SUCCESS
+
+  constructor(public payload: number) {
   }
 }
 
@@ -117,4 +131,6 @@ export type actions = GetCurrentBalance
   | WithdrawFundsSuccess
   | GetRefLinks
   | GetRefLinksSuccess
-  | GetRefLinksFailure;
+  | GetRefLinksFailure
+  | DeleteRefLink
+  | DeleteRefLinkSuccess;

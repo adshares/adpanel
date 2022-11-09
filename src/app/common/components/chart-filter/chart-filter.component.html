@@ -4,7 +4,7 @@
 >
   <button
     class="
-      dwmth-select
+      ap-select
       lowercase-to-capitalize
     "
     (click)="showDatepicker()"
@@ -15,7 +15,7 @@
   <div
     class="
       chart-filters
-      dwmth-box"
+      ap-box"
     [class.visible]="datepickerVisible"
   >
     <div
@@ -27,7 +27,7 @@
     >
       <span
         class="
-          dwmth-copy
+          ap-copy
           hidden-md"
       >
         Sort by date range
@@ -36,10 +36,10 @@
         type="button"
         *ngFor="let preset of filterPresets"
         class="
-            dwmth-btn
-            dwmth-button--small
-            dwmth-bg-white
-            dwmth-navy
+            ap-btn
+            ap-button--small
+            ap-bg-white
+            ap-navy
             lowercase-to-capitalize"
         [class.selected]="preset.id === currentDaysSpan"
         (click)="filterChart(preset.id, 0, false)"
@@ -58,33 +58,33 @@
     >
       <span
         class="
-          dwmth-copy
+          ap-copy
           hidden-md"
       >
         or select manually
       </span>
       <label
         class="
-          dwmth-copy
-          dwmth-copy--small"
+          ap-copy
+          ap-copy--small"
       >
         From
       </label>
       <mat-form-field
         (click)="dateFromPicker.open()"
         class="
-          dwmth-form-input
-          dwmth-form-input--narrow
-          dwmth-form-input--datepicker
-          dwmth-form-input--datepicker--narrow
+          ap-form-input
+          ap-form-input--narrow
+          ap-form-input--datepicker
+          ap-form-input--datepicker--narrow
           row"
       >
         <img
           src="assets/images/calendar.svg"
           alt="Select date from"
           class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
         >
         <input
           matInput
@@ -101,26 +101,26 @@
 
       <label
         class="
-          dwmth-copy
-          dwmth-copy--small"
+          ap-copy
+          ap-copy--small"
       >
         To
       </label>
       <mat-form-field
         (click)="dateToPicker.open()"
         class="
-          dwmth-form-input
-          dwmth-form-input--narrow
-          dwmth-form-input--datepicker
-          dwmth-form-input--datepicker--narrow
+          ap-form-input
+          ap-form-input--narrow
+          ap-form-input--datepicker
+          ap-form-input--datepicker--narrow
           row"
       >
         <img
           src="assets/images/calendar.svg"
           alt="Select date to"
           class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
         >
         <input
           matInput
@@ -138,17 +138,17 @@
       <button
         type="button"
         class="
-          dwmth-btn
-          dwmth-button--small
-          dwmth-bg-gray--light
-          dwmth-navy"
+          ap-btn
+          ap-button--small
+          ap-bg-gray--light
+          ap-navy"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterChartByDatepicker()"
         data-test="chart-filter-apply-datespan-button"
       >
         Apply
         <img
-          class="dwmth-icon--append"
+          class="ap-icon--append"
           src="assets/images/chevron--right.svg"
           alt=""
         >

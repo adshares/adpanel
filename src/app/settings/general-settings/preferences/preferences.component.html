@@ -1,21 +1,21 @@
 <section class="preferences">
   <div
     class="
-      dwmth-box
-      dwmth-box--large"
+      ap-box
+      ap-box--large"
   >
     <div class="col">
       <h2
         class="
-          dwmth-heading
-          dwmth-heading--primary"
+          ap-heading
+          ap-heading--primary"
       >
         Email & password
       </h2>
       <p
         class="
-          dwmth-copy
-          dwmth-copy--large"
+          ap-copy
+          ap-copy--large"
       >
         Here you can change your email and password.
       </p>
@@ -31,7 +31,7 @@
         *ngIf="!isImpersonated"
         [formGroup]="changeEmailForm"
         (ngSubmit)="onChangeEmail()"
-        class="dwmth-form"
+        class="ap-form"
         data-test="settings-change-email-form"
       >
         <div
@@ -40,16 +40,16 @@
             align-start
             change-form"
         >
-          <div class="dwmth-form-input__box">
+          <div class="ap-form-input__box">
             <label
               for="email"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Email address
             </label>
             <input
               id="email"
-              class="dwmth-form-input"
+              class="ap-form-input"
               type="email"
               name="email"
               formControlName="email"
@@ -81,8 +81,8 @@
           </div>
           <button
             class="
-              dwmth-btn
-              dwmth-btn--blue"
+              ap-btn
+              ap-btn--blue"
             data-test="settings-change-email-form-submit"
           >
             <ng-container *ngIf="user.email">Change email</ng-container>
@@ -95,7 +95,7 @@
         *ngIf="!isImpersonated"
         [formGroup]="changePasswordForm"
         (ngSubmit)="onChangePassword()"
-        class="dwmth-form"
+        class="ap-form"
         data-test="settings-change-password-form"
       >
         <div
@@ -105,16 +105,16 @@
             change-form"
         >
           <div class="row">
-            <div class="dwmth-form-input__box" *ngIf="user.hasPassword">
+            <div class="ap-form-input__box" *ngIf="user.hasPassword">
               <label
                 for="currentPassword"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 Current Password
               </label>
               <input
                 id="currentPassword"
-                class="dwmth-form-input"
+                class="ap-form-input"
                 type="password"
                 name="currentPassword"
                 formControlName="currentPassword"
@@ -135,16 +135,16 @@
                 Current password required!
               </span>
             </div>
-            <div class="dwmth-form-input__box">
+            <div class="ap-form-input__box">
               <label
                 for="newPassword"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 New password
               </label>
               <input
                 id="newPassword"
-                class="dwmth-form-input"
+                class="ap-form-input"
                 type="password"
                 name="newPassword"
                 formControlName="newPassword"
@@ -170,16 +170,16 @@
               </span>
             </div>
 
-            <div class="dwmth-form-input__box">
+            <div class="ap-form-input__box">
               <label
                 for="newPasswordConfirm"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 Confirm password
               </label>
               <input
                 id="newPasswordConfirm"
-                class="dwmth-form-input"
+                class="ap-form-input"
                 type="password"
                 name="newPasswordConfirm"
                 [formControl]="newPasswordConfirm"
@@ -204,8 +204,8 @@
           </div>
           <button
             class="
-              dwmth-btn
-              dwmth-btn--blue"
+              ap-btn
+              ap-btn--blue"
             data-test="settings-change-password-form-submit"
           >
             <ng-container *ngIf="user.hasPassword">Change password</ng-container>

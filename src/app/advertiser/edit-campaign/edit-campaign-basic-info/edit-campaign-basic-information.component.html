@@ -8,8 +8,8 @@
   <div class="text-center">
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Basic information
     </h1>
@@ -18,19 +18,19 @@
   <form
     [formGroup]="campaignBasicInfoForm"
     (ngSubmit)="onSubmit()"
-    class="dwmth-form"
+    class="ap-form"
     data-test="advertiser-edit-campaign-basic-information-form"
   >
     <div
       class="
-        dwmth-box
-        dwmth-box--large"
+        ap-box
+        ap-box--large"
     >
-      <div class="dwmth-form-input__box">
-        <label class="dwmth-form-label">Medium</label>
+      <div class="ap-form-input__box">
+        <label class="ap-form-label">Medium</label>
         <mat-select
           *ngIf="isTaxonomy else missingTaxonomy"
-          class="dwmth-select"
+          class="ap-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
           data-test="advertiser-edit-campaign-basic-information-medium-select"
@@ -46,11 +46,11 @@
       </div>
       <div
         *ngIf="vendors.length > 0"
-        class="dwmth-form-input__box"
+        class="ap-form-input__box"
       >
-        <label class="dwmth-form-label">Vendor</label>
+        <label class="ap-form-label">Vendor</label>
         <mat-select
-          class="dwmth-select"
+          class="ap-select"
           formControlName="vendor"
           data-test="advertiser-edit-campaign-basic-information-vendor-select"
         >
@@ -63,18 +63,18 @@
           </mat-option>
         </mat-select>
       </div>
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="campaignName"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Campaign name
         </label>
         <input
           id="campaignName"
           class="
-            dwmth-form-input
-            dwmth-form-input--full"
+            ap-form-input
+            ap-form-input--full"
           name="campaignName"
           formControlName="name"
           data-test="advertiser-edit-campaign-basic-information-form-name"
@@ -93,18 +93,18 @@
         </span>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="campaignTargetURL"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Target URL
         </label>
         <input
           id="campaignTargetURL"
           class="
-            dwmth-form-input
-            dwmth-form-input--full"
+            ap-form-input
+            ap-form-input--full"
           type="text"
           name="campaignTargetURL"
           formControlName="targetUrl"
@@ -124,7 +124,7 @@
 
       <app-placeholders-accordion></app-placeholders-accordion>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <div
           class="
             row
@@ -139,14 +139,14 @@
             <div class="relative">
               <label
                 for="campaign-budget-per-day"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 Budget ({{currencyCode}}/day)
               </label>
               <input
                 id="campaign-budget-per-day"
                 class="
-                  dwmth-form-input
+                  ap-form-input
                   input-budget"
                 type="number"
                 step="0.01"
@@ -192,14 +192,14 @@
             <div class="relative">
               <label
                 for="campaign-budget"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 Budget ({{currencyCode}}/hour)
               </label>
               <input
                 id="campaign-budget"
                 class="
-                  dwmth-form-input
+                  ap-form-input
                   input-budget"
                 type="number"
                 step="0.0001"
@@ -233,7 +233,7 @@
         </div>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <div
           class="
             row
@@ -246,23 +246,23 @@
               col-xs-5
               col-xxl-3"
           >
-            <label class="dwmth-form-label">Start date</label>
+            <label class="ap-form-label">Start date</label>
             <mat-form-field
               (click)="dateStartPicker.open()"
               class="
-                dwmth-form-input
-                dwmth-form-input--narrow
+                ap-form-input
+                ap-form-input--narrow
                 row"
             >
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="dwmth-icon">
+                class="ap-icon">
               <input
                 class="
-                dwmth-form-input
-                dwmth-form-input--narrow
-                dwmth-form-input--date
+                ap-form-input
+                ap-form-input--narrow
+                ap-form-input--date
                 row"
                 [ngxMatDatetimePicker]="dateStartPicker"
                 [formControl]="dateStart"
@@ -288,21 +288,21 @@
               col-xs-5
               col-xxl-3"
           >
-            <label class="dwmth-form-label">
+            <label class="ap-form-label">
               End date (optional)
             </label>
             <mat-form-field
                     (click)="dateEndPicker.open()"
-                    class="dwmth-form-input
-                                   dwmth-form-input--narrow
+                    class="ap-form-input
+                                   ap-form-input--narrow
                                    row">
               <img
                    src="/assets/images/calendar.svg"
                    alt="Calendar"
-                   class="dwmth-icon">
-              <input class="dwmth-form-input
-                       dwmth-form-input--narrow
-                       dwmth-form-input--date
+                   class="ap-icon">
+              <input class="ap-form-input
+                       ap-form-input--narrow
+                       ap-form-input--date
                        row"
                      [ngxMatDatetimePicker]="dateEndPicker"
                      matInput
@@ -319,14 +319,14 @@
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title class="dwmth-form-label">
+            <mat-panel-title class="ap-form-label">
               Advanced
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <div class="dwmth-form-input__box advanced-settings">
+          <div class="ap-form-input__box advanced-settings">
             <div class="row no-gutters">
-              <label class="dwmth-form-label">
+              <label class="ap-form-label">
                 Max CPM ({{currencyCode}})
               </label>
               <mat-checkbox
@@ -345,7 +345,7 @@
                 <div class="col relative">
                   <input
                           id="campaign-max-cpm"
-                          class="dwmth-form-input input-budget"
+                          class="ap-form-input input-budget"
                           type="number"
                           step="0.01"
                           name="campaignMaxCpm"
@@ -373,14 +373,14 @@
 
     </div>
     <div
-      class="dwmth-box
-             dwmth-box--large
+      class="ap-box
+             ap-box--large
              row
              justify-between">
       <button type="button"
-              class="dwmth-btn
-                     dwmth-btn--white
-                     dwmth-blue"
+              class="ap-btn
+                     ap-btn--white
+                     ap-blue"
               (click)="onStepBack()"
               [disabled]="campaignBasicInformationSubmitted || changesSaved"
               data-test="advertiser-navigate-to-dashboard">
@@ -388,7 +388,7 @@
       </button>
       <button
         *ngIf="isTaxonomy"
-        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+        class="ap-btn ap-btn--wide ap-btn--blue"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">

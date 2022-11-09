@@ -17,7 +17,7 @@
     margin: 0 auto;
   }
 
-  .dwmth-box {
+  .ap-box {
     margin: 8px 0;
 
     &__preview {
@@ -59,7 +59,7 @@
       }
 
       .file-box__file-sub-info {
-        @extend .dwmth-copy;
+        @extend .ap-copy;
         line-height: 24px;
         color: pal(blue, base);
         font-weight: inherit;
@@ -125,7 +125,7 @@
   }
 }
 
-.dwmth-form-input__box {
+.ap-form-input__box {
   margin-right: 15px;
 
   input#creative-contents {
