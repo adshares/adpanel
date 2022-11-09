@@ -4,14 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { MatDialog } from '@angular/material/dialog'
 import { ApiService } from 'app/api/api.service'
 import { SessionService } from 'app/session.service'
-import { LocalStorageUser, User } from 'models/user.model'
-import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
-import { appSettings } from 'app-settings'
-import { isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
-import * as authActions from 'store/auth/auth.actions'
 import AdsWallet from '@adshares/ads-connector'
 import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
@@ -20,11 +15,11 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
 import { HTTP_FORBIDDEN } from 'common/utilities/codes'
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-oauth-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends HandleSubscription implements OnInit {
+export class OAuthLoginComponent extends HandleSubscription implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET
   readonly METAMASK_WALLET = METAMASK_WALLET
   registrationMode: string
@@ -68,15 +63,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       })
     this.subscriptions.push(infoSubscription)
     this.createForm()
-
-    const user: LocalStorageUser = this.session.getUser()
-    if (user) {
-      this.navigateToDashboard(user)
-      return
-    }
-    this.checkIfUserRemembered()
-    this.redirectIfReferralTokenPresent()
-    this.store.dispatch(new authActions.UserLogOutSuccess())
   }
 
   createForm (): void {
@@ -85,16 +71,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       password: new FormControl('',
         [Validators.required, Validators.minLength(8)]),
     })
-  }
-
-  checkIfUserRemembered (): void {
-    const userData = JSON.parse(localStorage.getItem('adshUser'))
-
-    if (userData && userData.remember &&
-      !isUnixTimePastNow(userData.expiration)) {
-      this.loginForm.get('email').setValue(userData.email)
-      this.loginForm.get('password').setValue('********')
-    }
   }
 
   login (): void {
@@ -106,19 +82,17 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     this.isLoggingIn = true
 
-    this.api.auth.login(
+    this.api.auth.oauthLogin(
       this.loginForm.value.email,
       this.loginForm.value.password,
     ).subscribe(
-      (user: User) => {
-        this.processLogin(user)
-      },
+      () => this.redirectAfterLogin(),
       (res) => {
         if (res.status === HTTP_FORBIDDEN) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
-              message: `Info: ${res.error.reason } \n\n In case of doubts, please contact support ${this.supportEmail}`,
+              message: `Info: ${res.error.reason} \n\n In case of doubts, please contact support ${this.supportEmail}`,
             }
           })
           this.isLoggingIn = false
@@ -129,126 +103,8 @@ export class LoginComponent extends HandleSubscription implements OnInit {
       })
   }
 
-  redirectAfterLogin (user: User): void {
-    const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
-    if (user.isAdmin) {
-      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
-    }
-    else if (user.isModerator) {
-      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_MODERATOR)
-    }
-    else if (user.isAgency) {
-      this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_AGENCY)
-    }
-    if (redirectUrl &&
-      (user.isAdmin || user.isModerator || user.isAgency)) {
-      this.navigateByUrl(redirectUrl)
-      return
-    }
-
-    if (redirectUrl) {
-      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
-        user.isAdvertiser) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_ADVERTISER)
-        this.navigateByUrl(redirectUrl)
-        return
-      }
-
-      if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
-        user.isPublisher) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_PUBLISHER)
-        this.navigateByUrl(redirectUrl)
-        return
-      }
-    }
-
-    this.navigateToDashboard(user)
-  }
-
-  navigateToDashboard (user: User): void {
-    let accountType = this.session.getAccountTypeChoice()
-
-    if (SessionService.ACCOUNT_TYPE_ADMIN === accountType) {
-      if (user.isAdmin) {
-        this.navigateByUrl('/admin/dashboard')
-        return
-      }
-      else {
-        accountType = null
-      }
-    }
-    else if (SessionService.ACCOUNT_TYPE_MODERATOR === accountType) {
-      if (user.isModerator) {
-        this.navigateByUrl('/moderator/dashboard')
-        return
-      }
-      else {
-        accountType = null
-      }
-    }
-    else if (SessionService.ACCOUNT_TYPE_AGENCY === accountType) {
-      if (user.isAgency) {
-        this.navigateByUrl('/agency/dashboard')
-        return
-      }
-      else {
-        accountType = null
-      }
-    }
-
-    if (!accountType) {
-      if (user.isAdvertiser && user.isPublisher) {
-        this.dialog.open(AccountChooseDialogComponent, { disableClose: true })
-        return
-      }
-      if (user.isAdvertiser) {
-        accountType = SessionService.ACCOUNT_TYPE_ADVERTISER
-      }
-      if (user.isPublisher) {
-        accountType = SessionService.ACCOUNT_TYPE_PUBLISHER
-      }
-    }
-
-    if (SessionService.ACCOUNT_TYPE_ADVERTISER === accountType &&
-      user.isAdvertiser || SessionService.ACCOUNT_TYPE_PUBLISHER === accountType &&
-      user.isPublisher) {
-      this.session.setAccountTypeChoice(accountType)
-      this.navigateByUrl(`/${accountType}/dashboard`)
-      return
-    }
-
-    this.navigateByUrl(`/settings/general`)
-  }
-
-  processLogin (user: User): void {
-    const rememberUser = false
-    const expirationSeconds = rememberUser
-      ? appSettings.REMEMBER_USER_EXPIRATION_SECONDS
-      : appSettings.AUTH_TOKEN_EXPIRATION_SECONDS
-    const dataToSave: LocalStorageUser = {
-      ...user,
-      remember: rememberUser,
-      passwordLength: this.loginForm.get('password').value.length,
-      expiration: ((+new Date) / 1000 | 0) + expirationSeconds,
-    }
-    this.store.dispatch(new authActions.UserLogInSuccess(dataToSave))
-    this.session.setUser(dataToSave)
-    this.redirectAfterLogin(user)
-  }
-
-  private redirectIfReferralTokenPresent (): void {
-    this.route.queryParams.subscribe(params => {
-      const referralToken = params['r']
-      if (referralToken) {
-        this.router.navigate(['ref', referralToken])
-      }
-    })
-  }
-
-  private navigateByUrl (url: string): void {
-    this.router.navigateByUrl(url).catch(e => console.error(e))
+  redirectAfterLogin (): void {
+    window.location.href = this.route.snapshot.queryParams.redirect_uri
   }
 
   setWalletLoginStatus (submitted: boolean, network: string | null = null, error: string | null = null): void {
@@ -322,10 +178,9 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   walletLogin (network: string, address: string, token: string, signature: string): void {
-    const referralToken = this.api.users.getReferralToken()
-    this.api.auth.walletLogin(network, address, token, signature, referralToken).subscribe(
-      user => {
-        this.processLogin(user)
+    this.api.auth.oauthWalletLogin(network, address, token, signature).subscribe(
+      () => {
+        this.redirectAfterLogin()
       },
       () => {
         this.setWalletLoginStatus(false, network, 'Account or signature is invalid.')

@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { RegisteredComponent } from './registered/registered.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { EmailProcessingComponent } from "auth/account/email-processing.component";
+import { OAuthLoginComponent } from 'auth/login/oauth-login.component'
 import { ResetPasswordComponent } from "auth/reset-password/reset-password.component";
 
 const authRoutes: Routes = [
@@ -27,6 +28,11 @@ const authRoutes: Routes = [
       {path: 'withdrawal-confirmation/:token', component: EmailProcessingComponent},
       {path: 'connection-confirmation/:token', component: EmailProcessingComponent},
     ]
+  },
+  {
+    path: 'oauth', component: AuthComponent, children: [
+      {path: 'login', component: OAuthLoginComponent},
+    ],
   },
 ];
 

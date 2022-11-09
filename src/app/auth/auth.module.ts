@@ -6,6 +6,7 @@ import { AppCommonModule } from 'common/common.module'
 import { AuthRoutingModule } from './auth-routing.module'
 import { AuthComponent } from './auth.component'
 import { LoginComponent } from './login/login.component'
+import { OAuthLoginComponent } from 'auth/login/oauth-login.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component'
 import { RegisteredComponent } from './registered/registered.component'
@@ -24,6 +25,7 @@ import { ResetPasswordComponent } from 'auth/reset-password/reset-password.compo
     EmailProcessingComponent,
     AuthComponent,
     LoginComponent,
+    OAuthLoginComponent,
     RegisterComponent,
     RegisteredComponent,
     ForgottenPasswordComponent,
