@@ -8,7 +8,7 @@ import { LocalStorageUser, User } from 'models/user.model'
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
 import { appSettings } from 'app-settings'
-import { isUnixTimePastNow } from 'common/utilities/helpers'
+import { buildUrl, isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
@@ -17,7 +17,7 @@ import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
 import { stringToHex } from 'web3-utils'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
-import { HTTP_FORBIDDEN } from 'common/utilities/codes'
+import { HTTP_FORBIDDEN, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
 
 @Component({
   selector: 'app-login',
@@ -71,7 +71,11 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
-      this.navigateToDashboard(user)
+      if (this.isOauth()) {
+        this.oauthRedirect()
+      } else {
+        this.navigateToDashboard(user)
+      }
       return
     }
     this.checkIfUserRemembered()
@@ -114,7 +118,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.processLogin(user)
       },
       (res) => {
-        if (res.status === HTTP_FORBIDDEN) {
+        if (HTTP_FORBIDDEN === res.status) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
@@ -130,6 +134,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   redirectAfterLogin (user: User): void {
+    if (this.isOauth()) {
+      this.oauthRedirect()
+      return
+    }
     const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
     if (user.isAdmin) {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
@@ -331,5 +339,29 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.setWalletLoginStatus(false, network, 'Account or signature is invalid.')
       },
     )
+  }
+
+  isOauth(): boolean
+  {
+    return undefined !== this.route.snapshot.queryParams.redirect_uri
+  }
+
+  oauthRedirect (): void {
+    const url = buildUrl(this.route.snapshot.queryParams.redirect_uri, ['no_redirect=true'])
+    this.api.auth.oauthAuthorize(url)
+      .subscribe(
+        response => window.location.href = response.location,
+        error => {
+          if (HTTP_INTERNAL_SERVER_ERROR === error?.status) {
+            return
+          }
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Authorization failed`,
+              message: `Server respond with an error ${error.status ? error.status : 0}`,
+            }
+          });
+        }
+      )
   }
 }

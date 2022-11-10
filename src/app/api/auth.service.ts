@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'environments/environment'
-import { User } from 'models/user.model'
+import { OAuthAuthorizeResponse, User } from 'models/user.model'
 import { WalletToken } from 'models/settings.model'
 
 @Injectable()
@@ -45,32 +45,7 @@ export class ApiAuthService {
     return this.http.post<User>(`${environment.authUrl}/login/wallet`, body)
   }
 
-  oauthLogin (email: string, password: string): Observable<null> {
-    return this.http.post<null>(
-      `${environment.authUrl}/oauth/login`,
-      { email, password },
-      ApiAuthService.getOAuthOptions()
-    )
-  }
-
-  oauthWalletLogin (network: string, address: string, token: string, signature: string): Observable<null> {
-    return this.http.post<null>(
-      `${environment.authUrl}/oauth/login/wallet`,
-      { network, address, token, signature },
-      ApiAuthService.getOAuthOptions())
-  }
-
-  private static getOAuthOptions (): Object {
-    return {
-      headers: {
-        'X-XSRF-TOKEN': ApiAuthService.getCsrfToken(),
-      },
-      withCredentials: true,
-    }
-  }
-
-  private static getCsrfToken (): string {
-    const tokenEntry = document.cookie.split(';').filter(cookie => cookie.trim().startsWith('XSRF-TOKEN'))[0]
-    return decodeURIComponent(tokenEntry.split('=')[1])
+  oauthAuthorize (url: string): Observable<OAuthAuthorizeResponse> {
+    return this.http.get<OAuthAuthorizeResponse>(url)
   }
 }
