@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { buildUrl } from 'common/utilities/helpers'
 import { environment } from 'environments/environment'
 import { OAuthAuthorizeResponse, User } from 'models/user.model'
 import { WalletToken } from 'models/settings.model'
@@ -46,6 +47,6 @@ export class ApiAuthService {
   }
 
   oauthAuthorize (url: string): Observable<OAuthAuthorizeResponse> {
-    return this.http.get<OAuthAuthorizeResponse>(url)
+    return this.http.get<OAuthAuthorizeResponse>(buildUrl(url, ['no_redirect=true']))
   }
 }

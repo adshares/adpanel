@@ -8,7 +8,7 @@ import { LocalStorageUser, User } from 'models/user.model'
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component'
 import { HandleSubscription } from 'common/handle-subscription'
 import { appSettings } from 'app-settings'
-import { buildUrl, isUnixTimePastNow } from 'common/utilities/helpers'
+import { isUnixTimePastNow } from 'common/utilities/helpers'
 import { Store } from '@ngrx/store'
 import { AppState } from 'models/app-state.model'
 import * as authActions from 'store/auth/auth.actions'
@@ -71,11 +71,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
-      if (this.isOauth()) {
-        this.oauthRedirect()
-      } else {
-        this.navigateToDashboard(user)
-      }
+      this.redirectAfterLogin(user)
       return
     }
     this.checkIfUserRemembered()
@@ -157,16 +153,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (redirectUrl) {
       if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
         user.isAdvertiser) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_ADVERTISER)
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER)
         this.navigateByUrl(redirectUrl)
         return
       }
 
       if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
         user.isPublisher) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_PUBLISHER)
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER)
         this.navigateByUrl(redirectUrl)
         return
       }
@@ -347,8 +341,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   oauthRedirect (): void {
-    const url = buildUrl(this.route.snapshot.queryParams.redirect_uri, ['no_redirect=true'])
-    this.api.auth.oauthAuthorize(url)
+    this.api.auth.oauthAuthorize(this.route.snapshot.queryParams.redirect_uri)
       .subscribe(
         response => window.location.href = response.location,
         error => {
