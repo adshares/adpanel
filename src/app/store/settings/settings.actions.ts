@@ -1,6 +1,16 @@
 import { Action } from '@ngrx/store'
 import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model'
 import { User } from 'models/user.model'
+import { AccessToken, AccessTokenResponse } from 'models/access-token.model'
+
+export const GET_ACCESS_TOKENS = 'Get access tokens';
+export const GET_ACCESS_TOKENS_SUCCESS = 'Get access tokens success';
+
+export const ADD_ACCESS_TOKEN = 'Add access token';
+export const ADD_ACCESS_TOKEN_SUCCESS = 'Add access token success';
+
+export const DELETE_ACCESS_TOKEN = 'Delete access token';
+export const DELETE_ACCESS_TOKEN_SUCCESS = 'Delete access token success';
 
 export const GET_CURRENT_BALANCE = 'Get current balance';
 export const GET_CURRENT_BALANCE_SUCCESS = 'Get current balance success';
@@ -21,6 +31,48 @@ export const DELETE_REF_LINK = 'Delete ref link';
 export const DELETE_REF_LINK_SUCCESS = 'Delete ref link success';
 
 export const WITHDRAW_FUNDS_SUCCESS = 'Withdraw funds success';
+
+export class GetAccessTokens implements Action {
+  readonly type: string = GET_ACCESS_TOKENS;
+
+  constructor(public payload?: any) {
+  }
+}
+
+export class GetAccessTokensSuccess implements Action {
+  readonly type: string = GET_ACCESS_TOKENS_SUCCESS;
+
+  constructor(public payload: AccessTokenResponse[]) {
+  }
+}
+
+export class AddAccessToken implements Action {
+  readonly type: string = ADD_ACCESS_TOKEN;
+
+  constructor(public payload: AccessToken) {
+  }
+}
+
+export class AddAccessTokenSuccess implements Action {
+  readonly type: string = ADD_ACCESS_TOKEN_SUCCESS;
+
+  constructor(public payload: AccessTokenResponse) {
+  }
+}
+
+export class DeleteAccessToken implements Action {
+  readonly type: string = DELETE_ACCESS_TOKEN;
+
+  constructor(public payload: string) {
+  }
+}
+
+export class DeleteAccessTokenSuccess implements Action {
+  readonly type: string = DELETE_ACCESS_TOKEN_SUCCESS;
+
+  constructor(public payload: string) {
+  }
+}
 
 export class GetCurrentBalance implements Action {
   readonly type: string = GET_CURRENT_BALANCE;
@@ -120,7 +172,10 @@ export class DeleteRefLinkSuccess implements Action {
   }
 }
 
-export type actions = GetCurrentBalance
+export type actions =
+  AddAccessToken
+  | AddAccessTokenSuccess
+  | GetCurrentBalance
   | GetCurrentBalanceSuccess
   | GetCurrentBalanceFailure
   | CancelAwaitingTransaction

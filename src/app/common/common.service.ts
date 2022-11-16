@@ -3,6 +3,12 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
 import { environment } from 'environments/environment'
+import {
+  AccessToken,
+  AccessTokenResponse,
+  AccessTokenResponseWithSecret,
+  AccessTokenScope,
+} from 'models/access-token.model'
 import { reportType } from 'models/enum/user.enum'
 import { Info, Placeholders } from 'models/info.model'
 import { PaginatorResponse, RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
@@ -72,5 +78,21 @@ export class CommonService {
 
   getLoginPlaceholders(): Observable<Placeholders>{
     return this.http.get<Placeholders>(`${environment.serverUrl}/panel/placeholders/login`);
+  }
+
+  getAccessTokenScopes (): Observable<AccessTokenScope[]> {
+    return this.http.get<AccessTokenScope[]>(`${environment.authUrl}/scopes`)
+  }
+
+  getAccessTokens (): Observable<AccessTokenResponse[]> {
+    return this.http.get<AccessTokenResponse[]>(`${environment.authUrl}/personal-access-tokens`)
+  }
+
+  addAccessToken (token: AccessToken): Observable<AccessTokenResponseWithSecret> {
+    return this.http.post<AccessTokenResponseWithSecret>(`${environment.authUrl}/personal-access-tokens`, token)
+  }
+
+  deleteAccessToken (id: string): Observable<null> {
+    return this.http.delete<null>(`${environment.authUrl}/personal-access-tokens/${id}`)
   }
 }

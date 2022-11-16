@@ -1,8 +1,20 @@
-import { DELETE_REF_LINK_SUCCESS, GET_BILLING_HISTORY_SUCCESS, GET_REF_LINKS_SUCCESS } from './settings.actions'
+import {
+  ADD_ACCESS_TOKEN_SUCCESS,
+  DELETE_ACCESS_TOKEN_SUCCESS,
+  DELETE_REF_LINK_SUCCESS,
+  GET_ACCESS_TOKENS_SUCCESS,
+  GET_BILLING_HISTORY_SUCCESS,
+  GET_REF_LINKS_SUCCESS,
+} from './settings.actions'
 import { SettingsState } from 'models/app-state.model'
 import { actions } from 'store/admin/admin.actions'
+import {
+  AccessTokenResponse,
+  AccessTokenStore,
+} from 'models/access-token.model'
 
 const initialState: SettingsState = {
+  accessTokens: [],
   billingHistory: {
     limit: 10,
     offset: 0,
@@ -27,8 +39,37 @@ const initialState: SettingsState = {
   },
 };
 
+function mapAccessTokenToStore (accessToken: AccessTokenResponse): AccessTokenStore {
+  return <AccessTokenStore>{
+    id: accessToken.id,
+    name: accessToken.name,
+    scopes: accessToken.scopes,
+    expiresAt: accessToken.expiresAt,
+  }
+}
+
 export function settingsReducers(state = initialState, action: actions) {
   switch (action.type) {
+    case GET_ACCESS_TOKENS_SUCCESS: {
+      return {
+        ...state,
+        accessTokens: (<AccessTokenResponse[]>action.payload).map(accessToken => mapAccessTokenToStore(accessToken))
+      }
+    }
+    case ADD_ACCESS_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        accessTokens: [...state.accessTokens, mapAccessTokenToStore(<AccessTokenResponse>action.payload)]
+      }
+    }
+    case DELETE_ACCESS_TOKEN_SUCCESS: {
+      const id = action.payload
+      const accessTokens = state.accessTokens.filter(el => el.id !== id)
+      return {
+        ...state,
+        accessTokens: accessTokens
+      }
+    }
     case GET_BILLING_HISTORY_SUCCESS:
       return {
         ...state,

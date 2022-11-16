@@ -5,6 +5,7 @@ import { SettingsComponent } from './settings.component';
 import { AccountSettingsComponent } from './general-settings/account-settings/account-settings.component';
 import { BillingComponent } from './billing/billing.component';
 import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component';
+import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service'
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const settingsRoutes: Routes = [
@@ -15,7 +16,13 @@ const settingsRoutes: Routes = [
       options: ServerOptionsResolver,
     },
     children: [
-      {path: 'general', component: AccountSettingsComponent},
+      {
+        path: 'general',
+        component: AccountSettingsComponent,
+        resolve: {
+          scopes: AccessTokenScopesResolver,
+        }
+      },
       {
         path: 'billing',
         component: BillingComponent,
