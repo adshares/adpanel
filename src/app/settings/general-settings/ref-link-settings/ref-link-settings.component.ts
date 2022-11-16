@@ -17,7 +17,6 @@ import { GetRefLinks } from 'store/settings/settings.actions'
   styleUrls: ['./ref-link-settings.component.scss']
 })
 export class RefLinkSettingsComponent extends BaseListComponent implements OnInit {
-  readonly componentStore: Store<AppState>
   refundEnabled: boolean;
   defaultRefundCommission: number;
   createIcon = faPlus;
@@ -31,7 +30,6 @@ export class RefLinkSettingsComponent extends BaseListComponent implements OnIni
     private session: SessionService,
   ) {
     super(store, router, activatedRoute);
-    this.componentStore = store
   }
 
   ngOnInit(): void {
@@ -39,18 +37,18 @@ export class RefLinkSettingsComponent extends BaseListComponent implements OnIni
     this.isImpersonated = this.session.isImpersonated();
     this.refundEnabled = user.referralRefundEnabled;
     this.defaultRefundCommission = user.referralRefundCommission;
-    const dataSubscription = this.componentStore.select('state', 'user', 'settings', 'refLinks')
+    const dataSubscription = this.store.select('state', 'user', 'settings', 'refLinks')
       .subscribe((refLinks) => {
         this.list = refLinks
         this.pageSize = refLinks.perPage
         if (refLinks.data.length < refLinks.perPage) {
           if (refLinks.currentPage < refLinks.lastPage) {
             const url = refLinks.links.find(link => link.active).url
-            this.componentStore.dispatch(new GetRefLinks({ pageUrl: url }))
+            this.store.dispatch(new GetRefLinks({ pageUrl: url }))
             return
           } else {
             if (0 === refLinks.data.length && refLinks.prevPageUrl !== null) {
-              this.componentStore.dispatch(new GetRefLinks({ pageUrl: refLinks.prevPageUrl }))
+              this.store.dispatch(new GetRefLinks({ pageUrl: refLinks.prevPageUrl }))
               return
             }
           }
@@ -72,6 +70,6 @@ export class RefLinkSettingsComponent extends BaseListComponent implements OnIni
 
   loadList(nextPage?): void {
     this.isLoading = true
-    this.componentStore.dispatch(new GetRefLinks({pageUrl: nextPage}))
+    this.store.dispatch(new GetRefLinks({pageUrl: nextPage}))
   }
 }
