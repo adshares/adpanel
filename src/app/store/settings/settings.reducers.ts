@@ -10,6 +10,7 @@ import { SettingsState } from 'models/app-state.model'
 import { actions } from 'store/admin/admin.actions'
 import {
   AccessTokenResponse,
+  AccessTokenResponseWithSecret,
   AccessTokenStore,
 } from 'models/access-token.model'
 
@@ -59,7 +60,7 @@ export function settingsReducers(state = initialState, action: actions) {
     case ADD_ACCESS_TOKEN_SUCCESS: {
       return {
         ...state,
-        accessTokens: [...state.accessTokens, mapAccessTokenToStore(<AccessTokenResponse>action.payload)]
+        accessTokens: [mapAccessTokenToStore((<AccessTokenResponseWithSecret>action.payload).token), ...state.accessTokens]
       }
     }
     case DELETE_ACCESS_TOKEN_SUCCESS: {

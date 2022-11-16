@@ -110,7 +110,7 @@ export class SettingsEffects {
       ofType<AddAccessToken>(ADD_ACCESS_TOKEN),
       switchMap(action => this.common.addAccessToken(action.payload)
         .pipe(
-          map(accessToken => new AddAccessTokenSuccess(accessToken.token)),
+          map(accessToken => new AddAccessTokenSuccess(accessToken)),
           catchError(error => observableOf(new ShowDialogOnError(`Token creation failed. Error code: ${error.status}`)))
         )
       )

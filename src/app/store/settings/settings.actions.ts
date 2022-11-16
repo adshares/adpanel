@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store'
+import { AccessToken, AccessTokenResponse, AccessTokenResponseWithSecret } from 'models/access-token.model'
 import { BillingHistory, PaginatorResponse, RefLink } from 'models/settings.model'
 import { User } from 'models/user.model'
-import { AccessToken, AccessTokenResponse } from 'models/access-token.model'
 
 export const GET_ACCESS_TOKENS = 'Get access tokens';
 export const GET_ACCESS_TOKENS_SUCCESS = 'Get access tokens success';
@@ -56,7 +56,7 @@ export class AddAccessToken implements Action {
 export class AddAccessTokenSuccess implements Action {
   readonly type: string = ADD_ACCESS_TOKEN_SUCCESS;
 
-  constructor(public payload: AccessTokenResponse) {
+  constructor(public payload: AccessTokenResponseWithSecret) {
   }
 }
 
