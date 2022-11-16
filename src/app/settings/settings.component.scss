@@ -1,8 +1,18 @@
-.settings {
-  min-height: calc(100vh - 86px);
+@import '../../styles';
 
-  ::ng-deep .ap-confirmation-alert .container {
-    padding-left: 30px !important;
-    margin-left: 0 !important;
+.settings {
+  min-height: calc(100vh - $app-header-height);
+
+  .settings-outlet {
+    min-width: 540px;
+    width: calc(100% - 260px);
+
+    @include media(md-up) {
+      width: calc(100% - 300px);
+    }
+
+    @include media(xxl-up) {
+      width: calc(100vw - 740px);
+    }
   }
 }
