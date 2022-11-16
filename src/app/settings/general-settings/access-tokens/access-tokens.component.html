@@ -5,26 +5,36 @@
         Access tokens
       </h2>
       <div class="row">
-        <form [formGroup]="newTokenForm" (ngSubmit)="onAddToken()">
-          <label for="name">Name: </label>
-          <input id="name" type="text" formControlName="name">
+        <form class="ap-form" [formGroup]="newTokenForm" (ngSubmit)="onAddToken()">
+          <div class="row gap no-wrap">
+            <div class="ap-form-input__box">
+              <label class="ap-form-label" for="name">Name: </label>
+              <input class="ap-form-input" id="name" type="text" formControlName="name">
+            </div>
 
-          <label>Scopes: </label>
-          <p *ngFor="let availableScope of availableScopes; let i = index" formGroupName="scopes">
-            <mat-checkbox formControlName="{{ availableScope.id }}">{{ availableScope.description }}</mat-checkbox>
-          </p>
+            <div class="ap-form-input__box">
+              <label class="ap-form-label">Scopes: </label>
+              <div class="row gap">
+                <ng-container *ngFor="let availableScope of availableScopes; let i = index" formGroupName="scopes">
+                  <mat-checkbox formControlName="{{ availableScope.id }}">{{ availableScope.description }}</mat-checkbox>
+                </ng-container>
+              </div>
+            </div>
 
-          <button
-            class="ap-btn ap-btn--blue"
-            type="submit"
-            [disabled]="!newTokenForm.valid"
-          >
-            <fa-icon
-              class="ap-icon ap-icon--prepend"
-              [icon]="createIcon"
-            ></fa-icon>
-            Create token
-          </button>
+            <div class="ap-form-input__box">
+              <button
+                class="ap-form-submit-btn ap-btn ap-btn--blue"
+                type="submit"
+                [disabled]="!newTokenForm.valid"
+              >
+                <fa-icon
+                  class="ap-icon ap-icon--prepend"
+                  [icon]="createIcon"
+                ></fa-icon>
+                Create
+              </button>
+            </div>
+          </div>
         </form>
       </div>
 
