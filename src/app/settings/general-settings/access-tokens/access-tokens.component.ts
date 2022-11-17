@@ -8,14 +8,14 @@ import { Store } from '@ngrx/store'
 import { BaseListComponent } from 'admin/users/base-list/base-list.component'
 import { AccessTokenScope } from 'models/access-token.model'
 import { AppState } from 'models/app-state.model'
-import { first } from 'rxjs/operators'
+import { AccessTokenDialogComponent } from 'settings/dialogs/access-token-dialog/access-token-dialog.component'
 import {
   ADD_ACCESS_TOKEN_SUCCESS,
   AddAccessToken,
   AddAccessTokenSuccess,
-  GetAccessTokens
+  GetAccessTokens,
 } from 'store/settings/settings.actions'
-import { AccessTokenDialogComponent } from 'settings/dialogs/access-token-dialog/access-token-dialog.component'
+import { first } from 'rxjs/operators'
 
 @Component({
   selector: 'app-access-tokens',
@@ -23,9 +23,9 @@ import { AccessTokenDialogComponent } from 'settings/dialogs/access-token-dialog
   styleUrls: ['./access-tokens.component.scss']
 })
 export class AccessTokensComponent extends BaseListComponent implements OnInit {
-  availableScopes: AccessTokenScope[] = []
-  createIcon = faPlus
-  newTokenForm: any
+  readonly faPlus = faPlus
+  availableScopes: AccessTokenScope[]
+  newTokenForm: FormGroup
 
   constructor (
     activatedRoute: ActivatedRoute,
@@ -58,7 +58,7 @@ export class AccessTokensComponent extends BaseListComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this.availableScopes = this.activatedRoute.snapshot.data.scopes
+    this.availableScopes = this.activatedRoute.snapshot.data.scopes || []
 
     const scopesControls = {}
     this.availableScopes.forEach(availableScope => scopesControls[availableScope.id] = new FormControl())

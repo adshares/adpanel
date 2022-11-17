@@ -21,7 +21,7 @@ const settingsRoutes: Routes = [
         component: AccountSettingsComponent,
         resolve: {
           scopes: AccessTokenScopesResolver,
-        }
+        },
       },
       {
         path: 'billing',

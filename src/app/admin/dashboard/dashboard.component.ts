@@ -47,6 +47,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
         {name: 'Account Wallet', icon: 'assets/images/preferences.svg'},
         {name: 'Email & password', icon: 'assets/images/preferences.svg'},
         {name: 'Referral links', icon: 'assets/images/preferences.svg'},
+        {name: 'Access tokens', icon: 'assets/images/preferences.svg'},
         {name: 'Newsletter', icon: 'assets/images/preferences.svg'},
       ],
     },

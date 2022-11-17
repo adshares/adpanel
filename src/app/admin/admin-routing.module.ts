@@ -11,6 +11,7 @@ import { MediaResolver } from 'common/resolvers/media.resolver'
 import { UserListComponent } from 'admin/users/user-list/user-list.component'
 import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
+import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service'
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const adminRoutes: Routes = [
@@ -65,6 +66,9 @@ const adminRoutes: Routes = [
           {
             path: 'account',
             component: AccountSettingsComponent,
+            resolve: {
+              scopes: AccessTokenScopesResolver,
+            },
           },
         ]
       },
