@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Deleting referral links
 - Referral links pagination
+- OAuth2 access tokens list
 ### Changed
 - Extract reload from build script
 - Replaced CSS prefix `dwmth` with `ap`
