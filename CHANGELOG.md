@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replaced CSS prefix `dwmth` with `ap`
 ### Removed
 - Preview of next release (rebranding)
+### Fixed
+- Unnecessary admin approval message
 
 ## [2.1.1] - 2022-10-04
 ### Changed
