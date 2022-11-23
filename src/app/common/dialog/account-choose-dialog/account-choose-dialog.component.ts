@@ -18,13 +18,13 @@ export class AccountChooseDialogComponent {
   }
 
   redirectToPublisher() {
-    this.session.setAccountTypeChoice('publisher');
+    this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
     this.router.navigate(['/publisher/dashboard']);
     this.dialogRef.close();
   }
 
   redirectToAdvertiser() {
-    this.session.setAccountTypeChoice('advertiser');
+    this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
     this.router.navigate(['/advertiser/dashboard']);
     this.dialogRef.close();
   }

@@ -133,11 +133,11 @@ export class UserListItemComponent extends HandleSubscription implements OnInit 
         this.impersonationService.setImpersonationToken(token)
         if (this.user.isPublisher) {
           this.router.navigate(['/publisher', 'dashboard'])
-          this.sessionService.setAccountTypeChoice('publisher')
+          this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER)
         }
         else {
           this.router.navigate(['/advertiser', 'dashboard'])
-          this.sessionService.setAccountTypeChoice('advertiser')
+          this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER)
         }
       },
     )

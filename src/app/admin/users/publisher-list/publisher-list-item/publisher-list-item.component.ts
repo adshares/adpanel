@@ -52,7 +52,7 @@ export class PublisherListItemComponent implements OnInit {
       (token) => {
         this.impersonationService.setImpersonationToken(token);
         this.router.navigate(['/publisher', 'dashboard']);
-        this.sessionService.setAccountTypeChoice('publisher');
+        this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER);
       }
     )
   }
