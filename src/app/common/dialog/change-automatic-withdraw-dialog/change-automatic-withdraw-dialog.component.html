@@ -5,20 +5,20 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="dwmth-dialog-close"
+    class="ap-dialog-close"
   ></div>
   <h1
     class="
-      dwmth-heading
-      dwmth-heading--primary"
+      ap-heading
+      ap-heading--primary"
   >
     Automatic Withdraws
   </h1>
 
   <p
     class="
-      dwmth-copy
-      dwmth-copy--large
+      ap-copy
+      ap-copy--large
       dialog-description"
   >
   </p>
@@ -31,16 +31,16 @@
     <form
       [formGroup]="automaticWithdrawForm"
       (ngSubmit)="saveNewAutomaticWithdrawOptions()"
-      class="dwmth-form"
+      class="ap-form"
       data-test="common-automatic-withdraw-options-form"
     >
       <div class="select">
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">
             Period of Time
           </label>
           <mat-select
-            class="dwmth-select"
+            class="ap-select"
             id="period"
             formControlName="period"
             required
@@ -65,12 +65,12 @@
       </div>
 
       <div class="select">
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">
             Amount
           </label>
           <mat-select
-            class="dwmth-select"
+            class="ap-select"
             id="amount"
             formControlName="amount"
             required
@@ -101,8 +101,8 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--blue"
+            ap-btn
+            ap-btn--blue"
           data-test="common-automatic-withdraw-options-form-submit-button"
           *ngIf="isConfirmed"
         >

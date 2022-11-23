@@ -10,8 +10,8 @@
   <div class="text-center">
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Basic information
     </h1>
@@ -19,20 +19,20 @@
 
   <form
     [formGroup]="siteBasicInfoForm"
-    class="dwmth-form"
+    class="ap-form"
     data-test="publisher-edit-site-basic-information-form"
   >
     <div
       class="
-        dwmth-box
-        dwmth-box--large
+        ap-box
+        ap-box--large
         site-edit-basic-information__info-box"
     >
-      <div class="dwmth-form-input__box">
-        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Medium</label>
+      <div class="ap-form-input__box">
+        <label class="ap-form-label ap-form-label--no-margin-top">Medium</label>
         <mat-select
           *ngIf="isTaxonomy else missingTaxonomy"
-          class="dwmth-select"
+          class="ap-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
           data-test="publisher-edit-site-basic-information-medium-select"
@@ -48,11 +48,11 @@
       </div>
       <div
         *ngIf="vendors.length > 0"
-        class="dwmth-form-input__box"
+        class="ap-form-input__box"
       >
-        <label class="dwmth-form-label dwmth-form-label--no-margin-top">Vendor</label>
+        <label class="ap-form-label ap-form-label--no-margin-top">Vendor</label>
         <mat-select
-          class="dwmth-select"
+          class="ap-select"
           formControlName="vendor"
           (selectionChange)="onVendorChange($event.value)"
           data-test="publisher-edit-site-basic-information-vendor-select"
@@ -69,15 +69,15 @@
 
       <div
         [ngClass]="{'hidden': medium !== 'web'}"
-        class="dwmth-form-input__box"
+        class="ap-form-input__box"
       >
         <label
           for="siteUrl"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Website URL
           <fa-icon
-            matTooltipClass="dwmth-mat-tooltip"
+            matTooltipClass="ap-mat-tooltip"
             matTooltip="
               Enter your website's URL address.
               Ad units will be displayed only under the specified domain."
@@ -89,7 +89,7 @@
         <input
           formControlName="url"
           id="siteUrl"
-          class="dwmth-form-input dwmth-form-input--full"
+          class="ap-form-input ap-form-input--full"
           type="text"
           (focus)="onUrlFocus()"
           (blur)="onUrlBlur()"
@@ -121,7 +121,7 @@
 
       <ng-container *ngIf="medium === 'metaverse'">
         <ng-template #connectWallet>
-          <div class="dwmth-box dwmth-copy">
+          <div class="ap-box ap-copy">
             Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
           </div>
         </ng-template>
@@ -131,9 +131,9 @@
         >
           <div
             *ngIf="createSiteMode"
-            class="dwmth-box row"
+            class="ap-box row"
           >
-            <label class="dwmth-form-label dwmth-form-label--inline">Setup</label>
+            <label class="ap-form-label ap-form-label--inline">Setup</label>
             <mat-button-toggle-group formControlName="setupVersionControl" aria-label="Font Style">
               <mat-button-toggle value="{{SETUP_VERSION.AUTOMATIC}}">Automatic</mat-button-toggle>
               <mat-button-toggle value="{{SETUP_VERSION.MANUAL}}">Manual</mat-button-toggle>
@@ -142,7 +142,7 @@
 
           <div
             [ngSwitch]="setupVersionControl.value"
-            class="dwmth-box row"
+            class="ap-box row"
           >
             <app-metaverse-instructions
               *ngSwitchCase="SETUP_VERSION.AUTOMATIC"
@@ -153,15 +153,15 @@
               <ng-container [ngSwitch]="vendor">
                 <div
                   *ngSwitchCase="'cryptovoxels'"
-                  class="dwmth-form-input__box"
+                  class="ap-form-input__box"
                 >
                   <label
                     for="parcelId"
-                    class="dwmth-form-label"
+                    class="ap-form-label"
                   >
                     Parcel's ID
                     <fa-icon
-                      matTooltipClass="dwmth-mat-tooltip"
+                      matTooltipClass="ap-mat-tooltip"
                       matTooltip="
                         Enter your parcel's ID.
                         Ad units will be displayed only on specified parcel."
@@ -174,7 +174,7 @@
                     (blur)="overwriteUrl()"
                     formControlName="parcelId"
                     id="parcelId"
-                    class="dwmth-form-input dwmth-form-input--full"
+                    class="ap-form-input ap-form-input--full"
                     type="number"
                     required
                     data-test="publisher-edit-site-basic-information-form-parcel-id"
@@ -189,15 +189,15 @@
 
                 <div
                   *ngSwitchCase="'decentraland'"
-                  class="dwmth-form-input__box dwmth-form-input__box__full"
+                  class="ap-form-input__box ap-form-input__box__full"
                 >
                   <label
                     for="parcelCoordinateX"
-                    class="dwmth-form-label"
+                    class="ap-form-label"
                   >
                     Parcel's coordinates
                     <fa-icon
-                      matTooltipClass="dwmth-mat-tooltip"
+                      matTooltipClass="ap-mat-tooltip"
                       matTooltip="
                         Enter your parcel's coordinates.
                         Ad units will be displayed only on specified parcel."
@@ -211,7 +211,7 @@
                       (blur)="overwriteUrl()"
                       formControlName="parcelCoordinateX"
                       id="parcelCoordinateX"
-                      class="dwmth-form-input"
+                      class="ap-form-input"
                       type="number"
                       required
                       data-test="publisher-edit-site-basic-information-form-parcel-coordinate-x"
@@ -220,7 +220,7 @@
                       (blur)="overwriteUrl()"
                       formControlName="parcelCoordinateY"
                       id="parcelCoordinateY"
-                      class="dwmth-form-input"
+                      class="ap-form-input"
                       type="number"
                       required
                       data-test="publisher-edit-site-basic-information-form-parcel-coordinate-y"
@@ -240,14 +240,14 @@
       </ng-container>
 
       <ng-container *ngIf="setupVersionControl.value === SETUP_VERSION.MANUAL">
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="siteName"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Website name
           <fa-icon
-            matTooltipClass="dwmth-mat-tooltip"
+            matTooltipClass="ap-mat-tooltip"
             matTooltip="Enter your website custom name to make the navigation easier."
             matTooltipPosition="right"
             [icon]="faQuestionCircle"
@@ -258,8 +258,8 @@
           formControlName="name"
           id="siteName"
           class="
-            dwmth-form-input
-            dwmth-form-input--full"
+            ap-form-input
+            ap-form-input--full"
           type="text"
           data-test="publisher-edit-site-basic-information-form-name"
         >
@@ -283,14 +283,14 @@
 
       <div
         *ngIf="isSetCategoryMode"
-        class="dwmth-form-input__box"
+        class="ap-form-input__box"
       >
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Category
           <fa-icon
-            matTooltipClass="dwmth-mat-tooltip"
+            matTooltipClass="ap-mat-tooltip"
             matTooltip="Choose the categories that best match your site."
             matTooltipPosition="right"
             [icon]="faQuestionCircle"
@@ -311,19 +311,19 @@
       </div>
 
       <div
-        class="dwmth-form-input__box
+        class="ap-form-input__box
                site-edit-basic-information__language">
         <label
           for="languageInput"
-          class="dwmth-form-label dwmth-form-label--shorter dwmth-form-label--no-margin-top"
+          class="ap-form-label ap-form-label--shorter ap-form-label--no-margin-top"
         >
           Content language
         </label>
         <mat-form-field appearance="standard" class="col">
           <input matInput
                  class="
-                    dwmth-form-input
-                    dwmth-form-input--full"
+                    ap-form-input
+                    ap-form-input--full"
                  id="languageInput"
                  formControlName="primaryLanguage"
                  type="text"
@@ -342,9 +342,9 @@
         </mat-form-field>
         <span
           class="
-            dwmth-copy
-            dwmth-copy--light
-            dwmth-copy__hint">
+            ap-copy
+            ap-copy--light
+            ap-copy__hint">
           Please specify the primary language of your website.
         </span>
 
@@ -359,11 +359,11 @@
     </div>
 
     <div
-      class="dwmth-box dwmth-box--large row justify-between"
+      class="ap-box ap-box--large row justify-between"
     >
       <button
         type="button"
-        class="dwmth-btn dwmth-btn--white dwmth-blue"
+        class="ap-btn ap-btn--white ap-blue"
         role="link"
         (click)="onStepBack()"
         [disabled]="changesSaving"
@@ -373,7 +373,7 @@
 
       <button
         *ngIf="isTaxonomy && (setupVersionControl.value === SETUP_VERSION.MANUAL)"
-        class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+        class="ap-btn ap-btn--wide ap-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
         [disabled]="changesSaving"

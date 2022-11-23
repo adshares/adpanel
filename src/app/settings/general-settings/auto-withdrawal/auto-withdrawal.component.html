@@ -1,8 +1,8 @@
 <section class="preferences auto-withdraw">
   <div
     class="
-      dwmth-box
-      dwmth-box--large"
+      ap-box
+      ap-box--large"
   >
     <h2 class="auto-withdraw__title">
       Auto withdrawal settings
@@ -25,10 +25,10 @@
       <form
         [formGroup]="autoWithdrawalForm"
         (ngSubmit)="onAutoWithdrawalSave()"
-        class="dwmth-form"
+        class="ap-form"
         *ngIf="isAutoWithdrawalAvailable"
       >
-        <div class="dwmth-form-input__box">
+        <div class="ap-form-input__box">
           <mat-checkbox
             [checked]="wallet.isAutoWithdrawal"
             (change)="changeAutoWithdraw($event.checked)"
@@ -37,12 +37,12 @@
           </mat-checkbox>
         </div>
         <div
-          class="dwmth-form-input__box"
+          class="ap-form-input__box"
           *ngIf="showAutoWithdrawalForm"
         >
           <label
             for="limit"
-            class="dwmth-form-label"
+            class="ap-form-label"
           >
             The threshold at which the funds will be withdrawn ({{currencyCode}})
           </label>
@@ -52,7 +52,7 @@
             step="0.01"
             name="limit"
             formControlName="limit"
-            class="dwmth-form-input admin-param__input"
+            class="ap-form-input admin-param__input"
           >
           <span
             class="input-valid"
@@ -72,7 +72,7 @@
             </span>
         </div>
         <button
-          class="dwmth-btn dwmth-btn--blue"
+          class="ap-btn ap-btn--blue"
           [disabled]="autoWithdrawalFormSubmitted"
         >
           Save

@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons'
+import { faGears } from '@fortawesome/free-solid-svg-icons'
 import { AppState } from 'models/app-state.model';
-import { GetLicense, LoadAdminSettings, RequestGetIndex } from 'store/admin/admin.actions'
+import { GetLicense, LoadAdminSettings } from 'store/admin/admin.actions'
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { License } from 'models/settings.model';
 import { AdminService } from 'admin/admin.service';
-import { DATE_AND_TIME_FORMAT } from 'common/utilities/consts';
-import * as moment from 'moment';
-import { Subscription, timer } from 'rxjs';
-import { take, takeWhile } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { environment } from 'environments/environment'
 
 @Component({
@@ -18,16 +15,8 @@ import { environment } from 'environments/environment'
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends HandleSubscription implements OnInit {
-  readonly PREVIEW_URL: string = `${window.location.protocol}//${window.location.host}/preview`;
-  private readonly DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE = 3;
-  private readonly PREVIEW_GENERATING_DELAY_MINUTES = 6;
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  readonly faGears = faGears
   adControllerUrl = environment.adControllerUrl
-  showIndexUpdateMessage: boolean = false;
-  showIndexUpdateError: boolean = false;
-  showPreviewLink: boolean = false;
-  indexUpdateTime: string | null = null;
-  checkIfPreviewReady: Subscription | null = null;
   isPanelBlocked: boolean = false;
   licenseDetailUrl: string = null;
   settings = [
@@ -73,7 +62,6 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   ngOnInit() {
     this.store.dispatch(new LoadAdminSettings());
     this.store.dispatch(new GetLicense());
-    this.store.dispatch(new RequestGetIndex());
     const adminStoreSettingsSubscription = this.store.select('state', 'admin', 'panelBlockade')
       .subscribe((isBlocked: boolean) => {
         this.isPanelBlocked = isBlocked;
@@ -86,45 +74,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
           this.subscriptions.push(licenseSubscription);
         }
       });
-
-    const adminStoreIndexSubscription = this.store.select('state', 'admin', 'index')
-      .subscribe((index) => {
-        if (null === index) {
-          return;
-        }
-
-        if (index.error) {
-          this.showIndexUpdateError = true;
-          return;
-        }
-
-        const date = moment(index.updateTime);
-        this.indexUpdateTime = date.format(DATE_AND_TIME_FORMAT);
-        this.showIndexUpdateMessage = moment().diff(date, 'days', true) < this.DAYS_TO_DISPLAY_MESSAGE_AFTER_INDEX_UPDATE;
-        if (null !== this.checkIfPreviewReady) {
-          this.checkIfPreviewReady.unsubscribe();
-        }
-        if (this.showIndexUpdateMessage) {
-          this.showPreviewLink = moment().diff(date, 'minutes', true) >= this.PREVIEW_GENERATING_DELAY_MINUTES;
-          if (!this.showPreviewLink) {
-            this.checkIfPreviewReady = timer(60000, 60000)
-              .pipe(takeWhile(() => !this.showPreviewLink))
-              .subscribe(() => {
-                this.showPreviewLink = moment().diff(date, 'minutes', true) >= this.PREVIEW_GENERATING_DELAY_MINUTES;
-              });
-          }
-        }
-        this.showIndexUpdateError = false;
-      });
-
-    this.subscriptions.push(adminStoreSettingsSubscription, adminStoreIndexSubscription);
-  }
-
-  ngOnDestroy() {
-    if (null !== this.checkIfPreviewReady) {
-      this.checkIfPreviewReady.unsubscribe();
-    }
-    super.ngOnDestroy();
+    this.subscriptions.push(adminStoreSettingsSubscription);
   }
 }
 

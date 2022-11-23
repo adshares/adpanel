@@ -4,7 +4,7 @@
   Dots / Icons / Navigation icon styling / Validation icon styling
 */
 
-.dwmth-logo {
+.ap-logo {
   height: auto;
   max-width: 100px;
   margin-bottom: 10px;
@@ -20,7 +20,7 @@
   }
 }
 
-.dwmth-circle {
+.ap-circle {
   $module: &;
 
   width: 18px;
@@ -89,13 +89,13 @@
   }
 }
 
-.dwmth-step-link-indicator {
+.ap-step-link-indicator {
   width: 64px;
   margin: 0 30px;
   border: 1px dashed pal(gray, light);
 }
 
-.dwmth-icon {
+.ap-icon {
   height: 16px;
 
   &--prepend {
@@ -133,7 +133,7 @@
   }
 }
 
-.dwmth-chevron {
+.ap-chevron {
   &:before {
     border-color: pal(navy);
     border-style: solid;
@@ -175,7 +175,7 @@
 
 }
 
-.dwmth-sort-triangle {
+.ap-sort-triangle {
   width: 5px;
   height: 7px;
   border-bottom: solid 5px pal(gray, mid-light);
@@ -196,14 +196,14 @@
   boxes
 */
 
-.dwmth-box {
+.ap-box {
   border-radius: 2px;
   background-color: pal(white);
   border: 1px solid pal(gray, nearly-white);
   padding: 8px 7px;
   margin-top: 2px;
 
-  & .dwmth-box {
+  & .ap-box {
     border: none;
     padding: 0;
     margin: 0;
@@ -276,7 +276,7 @@
   }
 }
 
-.dwmth-chip-box {
+.ap-chip-box {
   background-color: pal(gray, x-light);
   color: pal(gray, dark);
   @include font(14, semi);
@@ -296,24 +296,24 @@
 */
 
 @each $color in $main_colors {
-  .dwmth-#{"" + $color} {
+  .ap-#{"" + $color} {
     color: pal($color);
   }
 
-  .dwmth-bg-#{"" + $color} {
+  .ap-bg-#{"" + $color} {
     background-color: pal($color);
   }
 }
 
-.dwmth-bg-navy--light {
+.ap-bg-navy--light {
   background-color: pal(navy, light);
 }
 
-.dwmth-bg-gray--light {
+.ap-bg-gray--light {
   background-color: pal(gray, light);
 }
 
-.dwmth-header-bg {
+.ap-header-bg {
   background: pal(navy);
 }
 
@@ -349,7 +349,7 @@ router-outlet ~ * {
   status
 */
 
-.dwmth-status {
+.ap-status {
   @include font(14, semi);
   text-transform: uppercase;
   width: 100%;
@@ -398,7 +398,7 @@ router-outlet ~ * {
   }
 }
 
-.dwmth-posters-list__sort {
+.ap-posters-list__sort {
   margin-left: 6px;
 }
 
@@ -450,7 +450,7 @@ router-outlet ~ * {
   margin: -16px 0;
 }
 
-.dwmth-tooltip {
+.ap-tooltip {
   padding: 20px 25px;
   min-width: 200px;
   max-width: 300px;
@@ -482,7 +482,7 @@ router-outlet ~ * {
 
 // targeting
 
-.dwmth-targeting-details {
+.ap-targeting-details {
   &__title {
     transform: translateY(-32px);
     z-index: 1;
@@ -507,7 +507,7 @@ router-outlet ~ * {
     }
   }
 
-  .dwmth-select {
+  .ap-select {
     border: 1px solid pal(gray, light);
   }
 }
@@ -525,19 +525,19 @@ router-outlet ~ * {
     color: pal(green);
   }
 
-  .dwmth-copy[data-status="inactive"],
-  .dwmth-copy[data-status="suspended"],
-  .dwmth-copy[data-status="archived"],
-  .dwmth-copy[data-status="draft"] {
+  .ap-copy[data-status="inactive"],
+  .ap-copy[data-status="suspended"],
+  .ap-copy[data-status="archived"],
+  .ap-copy[data-status="draft"] {
     color: pal(red, dark);
   }
 }
 
-.dwmth-targeting-display__preview {
+.ap-targeting-display__preview {
   margin-left: 26px;
 }
 
-.dwmth-mat-tooltip {
+.ap-mat-tooltip {
   font-size: 1rem;
   background-color: pal(navy, faded);
 }
@@ -554,7 +554,7 @@ router-outlet ~ * {
   margin-top: 30px;
 }
 
-.dwmth-textarea {
+.ap-textarea {
   padding: 8px;
   border-radius: 3px;
   min-height: 150px;
@@ -563,7 +563,7 @@ router-outlet ~ * {
   resize: vertical;
 }
 
-.dwmth-info-box {
+.ap-info-box {
   max-width: 100%;
   display: inline-flex;
   align-items: center;

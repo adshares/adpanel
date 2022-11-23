@@ -18,14 +18,14 @@
     width: 100%
   }
 
-  .dwmth-copy--medium {
+  .ap-copy--medium {
     @include font(17, normal);
     margin-top: 10px;
     margin-bottom: 30px;
     text-align: center;
   }
 
-  .dwmth-btn--blue .now_payments_logo {
+  .ap-btn--blue .now_payments_logo {
     color: #2b2b37;
     line-height: 19px;
     span {
@@ -54,11 +54,11 @@
 }
 
 form {
-  .dwmth-form-input__inline {
+  .ap-form-input__inline {
     width: 300px;
   }
 
-  .dwmth-form-input__box mat-checkbox {
+  .ap-form-input__box mat-checkbox {
     margin-top: 45px;
   }
 }

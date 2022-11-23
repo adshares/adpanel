@@ -1,30 +1,30 @@
 <section>
   <h1
     class="
-      dwmth-heading
-      dwmth-heading--primary"
+      ap-heading
+      ap-heading--primary"
   >
     Create new referral link
   </h1>
 
   <div>
-    <p class="dwmth-copy" *ngIf="refundEnabled">
+    <p class="ap-copy" *ngIf="refundEnabled">
       Your refund commission rate: {{ defaultRefundCommission | percent:'1.0-2' }}<br />
       Set Friends’ commission bonus rate
     </p>
     <form
       id="ref-link-form"
-      class="dwmth-form"
+      class="ap-form"
       [formGroup]="form"
       (ngSubmit)="onSubmit()"
     >
       <div class="commission" *ngIf="refundEnabled">
-        <span class="dwmth-copy dwmth-copy--large">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
-        <span class="dwmth-copy dwmth-copy--large" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
+        <span class="ap-copy ap-copy--large">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
+        <span class="ap-copy ap-copy--large" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
       </div>
 
       <div>
-        <div class="commission-select justify-between dwmth-copy dwmth-copy--large" *ngIf="refundEnabled">
+        <div class="commission-select justify-between ap-copy ap-copy--large" *ngIf="refundEnabled">
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
             [for]="'keptRefund' + option"
@@ -40,16 +40,16 @@
           </label>
         </div>
         <div class="row justify-between" *ngIf="refundEnabled">
-          <div class="dwmth-form-input__box dwmth-form-input__inline" *ngIf="form.get('refund')">
+          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('refund')">
             <label
               for="refund"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Custom refund commission rate
             </label>
             <input
               id="refund"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               type="number"
               min="0"
               max="100"
@@ -64,16 +64,16 @@
               {{ form.getError('custom', ['refund']) }}
             </span>
           </div>
-          <div class="dwmth-form-input__box" *ngIf="form.get('refundValidUntil')">
-            <label class="dwmth-form-label">Refund valid until</label>
+          <div class="ap-form-input__box" *ngIf="form.get('refundValidUntil')">
+            <label class="ap-form-label">Refund valid until</label>
             <mat-form-field
               (click)="refundValidUntilPicker.open()"
-              class="dwmth-form-input dwmth-form-input--narrow"
+              class="ap-form-input ap-form-input--narrow"
             >
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="dwmth-icon dwmth-icon--prepend">
+                class="ap-icon ap-icon--prepend">
               <input
                 [formControl]="refundValidUntilControl"
                 [matDatepicker]="refundValidUntilPicker"
@@ -93,16 +93,16 @@
           </div>
         </div>
         <div class="row justify-between">
-          <div class="dwmth-form-input__box dwmth-form-input__inline" *ngIf="form.get('bonus')">
+          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('bonus')">
             <label
               for="refund"
-              class="dwmth-form-label"
+              class="ap-form-label"
             >
               Additional bonus ({{currencyCode}})
             </label>
             <input
               id="bonus"
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               type="number"
               min="0"
               step="0.01"
@@ -116,16 +116,16 @@
               {{ form.getError('custom', ['bonus']) }}
             </span>
           </div>
-          <div class="dwmth-form-input__box" *ngIf="form.get('validUntil')">
-            <label class="dwmth-form-label">Link valid until</label>
+          <div class="ap-form-input__box" *ngIf="form.get('validUntil')">
+            <label class="ap-form-label">Link valid until</label>
             <mat-form-field
               (click)="validUntilPicker.open()"
-              class="dwmth-form-input dwmth-form-input--narrow"
+              class="ap-form-input ap-form-input--narrow"
             >
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="dwmth-icon dwmth-icon--prepend">
+                class="ap-icon ap-icon--prepend">
               <input
                 [formControl]="validUntilControl"
                 [matDatepicker]="validUntilPicker"
@@ -147,9 +147,9 @@
         <ng-container *ngIf="chooseUserRole">
           <div
             *ngIf="form.get('userRoles') else loading"
-            class="dwmth-form-input__box"
+            class="ap-form-input__box"
           >
-            <label class="dwmth-form-label">
+            <label class="ap-form-label">
               User roles
             </label>
             <mat-radio-group
@@ -162,16 +162,16 @@
             </mat-radio-group>
           </div>
         </ng-container>
-        <div class="dwmth-form-input__box">
+        <div class="ap-form-input__box">
           <label
             for="token"
-            class="dwmth-form-label"
+            class="ap-form-label"
           >
             Referral token
           </label>
           <input
             id="token"
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             type="text"
             name="token"
             formControlName="token"
@@ -200,16 +200,16 @@
             {{ form.getError('custom', ['token']) }}
           </span>
         </div>
-        <div class="dwmth-form-input__box">
+        <div class="ap-form-input__box">
           <label
             for="comment"
-            class="dwmth-form-label"
+            class="ap-form-label"
           >
             Note
           </label>
           <input
             id="comment"
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             type="text"
             name="comment"
             formControlName="comment"
@@ -228,8 +228,8 @@
             *ngIf="!showLoader; else loading"
             type="submit"
             class="
-                dwmth-btn
-                dwmth-btn--blue"
+                ap-btn
+                ap-btn--blue"
           >
             Generate link
           </button>

@@ -2,21 +2,21 @@
   <td class="billing-table-row__status-cell">
     <div
       class="
-        dwmth-box
-        dwmth-box--x-small
+        ap-box
+        ap-box--x-small
         billing-table-row__status
         text-center"
       attr.data-status="{{ status }}"
     >
       <span *ngIf="billingHistoryItem.status === statusEnum.RESERVED"
-         matTooltipClass="dwmth-mat-tooltip"
+         matTooltipClass="ap-mat-tooltip"
          matTooltip="The amount reserved for the ongoing campaign. After every hour the status is changed to “processing”."
          matTooltipPosition="above"
          class="billing-table-row__tooltip-placeholder"
       >
       </span>
       <span *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
-         matTooltipClass="dwmth-mat-tooltip"
+         matTooltipClass="ap-mat-tooltip"
          matTooltip="Confirm the transaction via email. If the transaction has not been confirmed within one hour, please cancel it and send another transfer."
          matTooltipPosition="above"
          class="billing-table-row__tooltip-placeholder"
@@ -43,15 +43,15 @@
   <td class="col-xs-2">
     <img
       class="
-      dwmth-icon
-      dwmth-icon--prepend"
+      ap-icon
+      ap-icon--prepend"
       src="assets/images/calendar.svg"
       alt="Calendar Icon"
     >
     <span
       class="
-      dwmth-copy
-      dwmth-copy--x-dark"
+      ap-copy
+      ap-copy--x-dark"
       data-test="settings-billing-history-item-date"
     >
       {{ billingHistoryItemDate }}
@@ -70,7 +70,7 @@
     </a>
     <span *ngIf="!link">{{billingHistoryItem.txid}}</span>
     <button *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
-            class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
+            class="ap-btn ap-btn--white ap-copy--blue"
             (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
             data-test="settings-billing-history-item-cancel-btn">
       CANCEL

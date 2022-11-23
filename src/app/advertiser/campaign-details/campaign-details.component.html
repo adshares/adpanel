@@ -10,24 +10,24 @@
         data-test="advertiser-navigate-to-dashboard">
         <p
           class="
-            dwmth-copy
-            dwmth-copy--small">
+            ap-copy
+            ap-copy--small">
           My campaigns
         </p>
       </a>
       <div
         class="
-          dwmth-circle
-          dwmth-circle--x-small
-          dwmth-circle--navy
+          ap-circle
+          ap-circle--x-small
+          ap-circle--navy
           breadcrumbs-divider">
       </div>
       <p
         class="
-          dwmth-copy
-          dwmth-copy--small
-          dwmth-copy--x-dark
-          dwmth-copy--semi">
+          ap-copy
+          ap-copy--small
+          ap-copy--x-dark
+          ap-copy--semi">
         {{ campaign.basicInformation.name }}
       </p>
     </div>
@@ -40,12 +40,12 @@
         align-center">
       <div class="justify-start">
         <div class="col">
-          <h1 class="dwmth-heading dwmth-heading--primary">
+          <h1 class="ap-heading ap-heading--primary">
             {{ campaign.basicInformation.name }}
           </h1>
           <p
             *ngIf="mediumLabel !== undefined"
-            class="dwmth-copy dwmth-copy--dark dwmth-copy--semi label"
+            class="ap-copy ap-copy--dark ap-copy--semi label"
           >
             {{ mediumLabel }}
           </p>
@@ -53,13 +53,13 @@
       </div>
       <div class="row justify-end align-center">
         <div class="row status-button-wrapper">
-          <span class="dwmth-copy">Campaign is </span>
-          <span class="dwmth-copy lowercase-to-capitalize"
+          <span class="ap-copy">Campaign is </span>
+          <span class="ap-copy lowercase-to-capitalize"
                 data-test="advertiser-campaign-status"
                 [attr.data-status]="currentCampaignStatus">
               {{ currentCampaignStatus }}
             </span>
-          <button class="dwmth-btn dwmth-btn--white dwmth-status--btn dwmth-copy--dark"
+          <button class="ap-btn ap-btn--white ap-status--btn ap-copy--dark"
                   (click)="onCampaignStatusChange()"
                   data-test="advertiser-campaign-status-change-button"
                   [attr.data-status]="currentCampaignStatus">
@@ -68,32 +68,32 @@
         </div>
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
+            ap-btn
+            ap-btn--white
             btn-delete
-            dwmth-copy--dark"
+            ap-copy--dark"
           data-test="advertiser-campaign-delete-button"
           (click)="cloneCampaign()">
           <img
             class="
-              dwmth-icon
-              dwmth-icon--prepend"
+              ap-icon
+              ap-icon--prepend"
             src="/assets/images/plus-circle--blue.svg"
             alt="">
           Clone campaign
         </button>
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
+            ap-btn
+            ap-btn--white
             btn-delete
-            dwmth-copy--dark"
+            ap-copy--dark"
           data-test="advertiser-campaign-delete-button"
           (click)="deleteCampaign()">
           <img
             class="
-              dwmth-icon
-              dwmth-icon--prepend"
+              ap-icon
+              ap-icon--prepend"
             src="/assets/images/x-circle--gray.svg"
             alt="">
           Delete campaign
@@ -102,7 +102,7 @@
     </div>
 
     <div
-      class="row align-center dwmth-alert dwmth-copy dwmth-gray"
+      class="row align-center ap-alert ap-copy ap-gray"
       *ngIf="budgetInfo"
     >
         <img src="assets/images/error.svg" alt="Attention">
@@ -111,10 +111,10 @@
 
     <!-- chart-->
     <div
-      class="dwmth-box"
+      class="ap-box"
     >
       <div
-        class="dwmth-box"
+        class="ap-box"
       >
         <div class="justify-between row">
           <div class="col-xs-4">
@@ -123,9 +123,9 @@
             >
               <button
                 class="
-                  dwmth-btn
-                  dwmth-btn--white
-                  dwmth-copy--dark"
+                  ap-btn
+                  ap-btn--white
+                  ap-copy--dark"
                 data-test="advertiser-campaign-download-report-button"
               >
                 Generate a report
@@ -168,16 +168,16 @@
     </div>
     <!-- chart end-->
 
-    <div class="dwmth-box">
+    <div class="ap-box">
       <div class="row
                   no-wrap
                   justify-between">
         <div class="row
                     align-center
-                    dwmth-copy
+                    ap-copy
                     campaign-basic-information">
           <div>
-            <p class="dwmth-copy--small label">
+            <p class="ap-copy--small label">
               Target URL
             </p>
             <a
@@ -185,44 +185,44 @@
               [title]="campaign.basicInformation.targetUrl"
               rel="nofollow noopener noreferrer"
               target="_blank"
-              class="dwmth-copy dwmth-copy--dark dwmth-copy--semi"
+              class="ap-copy ap-copy--dark ap-copy--semi"
               data-test="advertiser-campaign-target-url"
             >
               {{ campaign.basicInformation.targetUrl }}
             </a>
           </div>
           <div *ngIf="campaign.basicInformation.maxCpm != null">
-            <p class="dwmth-copy--small label">
+            <p class="ap-copy--small label">
               Max CPM
             </p>
             <p
-              class="dwmth-copy--dark dwmth-copy--semi"
+              class="ap-copy--dark ap-copy--semi"
               data-test="advertiser-campaign-max-cpm"
             >
               {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
             </p>
           </div>
           <div>
-            <p class="dwmth-copy--small label">
+            <p class="ap-copy--small label">
               Budget
             </p>
             <p
-              class="dwmth-copy--dark dwmth-copy--semi"
+              class="ap-copy--dark ap-copy--semi"
               data-test="advertiser-campaign-budget">
               {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4 }}
             </p>
           </div>
           <div>
-            <p class="dwmth-copy--small label">
+            <p class="ap-copy--small label">
               Start date
             </p>
             <div class="row align-center">
               <img
-                class="dwmth-icon dwmth-icon--prepend"
+                class="ap-icon ap-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt="">
               <p
-                class="dwmth-copy--dark dwmth-copy--semi"
+                class="ap-copy--dark ap-copy--semi"
                 data-test="advertiser-campaign-start-date">
                 {{ campaign.basicInformation.dateStart | formatDate }}
               </p>
@@ -230,18 +230,18 @@
 
           </div>
           <div>
-            <p class="dwmth-copy--small label">
+            <p class="ap-copy--small label">
               End date
             </p>
             <div class="row align-center">
               <img
-                class="dwmth-icon dwmth-icon--prepend"
+                class="ap-icon ap-icon--prepend"
                 src="/assets/images/calendar.svg"
                 alt=""
               >
               <p
                 *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-                class="dwmth-copy--dark dwmth-copy--semi"
+                class="ap-copy--dark ap-copy--semi"
                 data-test="advertiser-campaign-end-date"
               >
                 {{ campaign.basicInformation.dateEnd | formatDate }}
@@ -254,15 +254,15 @@
         </div>
         <button
           class="
-           dwmth-btn
-           dwmth-btn--edit
+           ap-btn
+           ap-btn--edit
            no-wrap"
           (click)="navigateToCampaignEdition('basic-information')"
           data-test="advertiser-campaign-edit-basic-info-button">
           <img
             class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
           Edit basic info
@@ -272,8 +272,8 @@
 
     <section
       *ngIf="campaign.classifications"
-      class="dwmth-box
-             dwmth-box--high"
+      class="ap-box
+             ap-box--high"
     >
     <div class="row campaign-classification-wrapper">
       <app-campaign-classification-info
@@ -282,25 +282,25 @@
       ></app-campaign-classification-info>
     </div>
     </section>
-    <section class="dwmth-box dwmth-box--high">
+    <section class="ap-box ap-box--high">
       <div class="row justify-between align-center">
         <div>
-          <p class="dwmth-copy dwmth-copy--small label">
+          <p class="ap-copy ap-copy--small label">
             Bid strategy
           </p>
-          <p class="dwmth-copy--dark dwmth-copy--semi">
+          <p class="ap-copy--dark ap-copy--semi">
             {{ campaign.bidStrategy.name }}
           </p>
         </div>
 
         <div class="row justify-end">
           <button
-            class="self-end dwmth-btn dwmth-btn--edit"
+            class="self-end ap-btn ap-btn--edit"
             (click)="navigateToCampaignEdition('bid-strategy')"
             data-test="advertiser-campaign-edit-bid-strategy-button"
           >
             <img
-              class="dwmth-icon dwmth-icon--prepend"
+              class="ap-icon ap-icon--prepend"
               src="assets/images/edit-blue.svg"
               alt=""
             >
@@ -309,15 +309,15 @@
         </div>
       </div>
     </section>
-    <section class="dwmth-box dwmth-box--high">
+    <section class="ap-box ap-box--high">
       <div class="row justify-end">
         <button
-          class="self-end dwmth-btn dwmth-btn--edit"
+          class="self-end ap-btn ap-btn--edit"
           (click)="navigateToCampaignEdition('conversion')"
           data-test="advertiser-campaign-edit-conversion-button"
         >
           <img
-            class="dwmth-icon dwmth-icon--prepend"
+            class="ap-icon ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
           >
@@ -325,7 +325,7 @@
         </button>
       </div>
       <div *ngIf="conversionTableItems.length > 0">
-        <div class="row dwmth-box justify-between dwmth-copy dwmth-copy--semi">
+        <div class="row ap-box justify-between ap-copy ap-copy--semi">
           <div class="col-xs-3">
             Name
           </div>
@@ -341,7 +341,7 @@
         </div>
 
         <div *ngFor="let conversion of conversionTableItems"
-          class="row dwmth-box justify-between dwmth-copy"
+          class="row ap-box justify-between ap-copy"
         >
           <div class="col-xs-3">
             {{ conversion.name }}
@@ -361,17 +361,17 @@
 
     <!--Targeting details section-->
 
-    <section class="dwmth-box dwmth-box--high">
+    <section class="ap-box ap-box--high">
       <ng-container *ngIf="!isTaxonomyMissing else missingTaxonomy">
         <div class="row justify-end">
           <button class="self-end
-                         dwmth-btn
-                         dwmth-btn--edit"
+                         ap-btn
+                         ap-btn--edit"
                   (click)="navigateToCampaignEdition('additional-targeting')"
                   data-test="advertiser-campaign-edit-targeting-button">
             <img
-              class="dwmth-icon
-                       dwmth-icon--prepend"
+              class="ap-icon
+                       ap-icon--prepend"
               src="assets/images/edit-blue.svg"
               alt="">
             {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
@@ -380,17 +380,17 @@
         <div
           *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
           class="
-          dwmth-copy
+          ap-copy
           row">
           <div *ngIf="!!targeting.requires.length"
                class="
             col-xs-12
             col-lg-6
-            dwmth-box--no-padding"
+            ap-box--no-padding"
           >
-            <h2 class="dwmth-targeting-details__title
-                       dwmth-copy--large
-                       dwmth-copy--semi">Targeting: </h2>
+            <h2 class="ap-targeting-details__title
+                       ap-copy--large
+                       ap-copy--semi">Targeting: </h2>
             <div>
               <app-targeting-display
                 class="app-targeting-display"
@@ -407,10 +407,10 @@
             class="
             col-xs-12
             col-lg-6
-            dwmth-box--no-padding">
-            <h2 class="dwmth-targeting-details__title
-                       dwmth-copy--large
-                       dwmth-copy--semi">Exclusions: </h2>
+            ap-box--no-padding">
+            <h2 class="ap-targeting-details__title
+                       ap-copy--large
+                       ap-copy--semi">Exclusions: </h2>
             <div>
               <app-targeting-display
                 class="app-targeting-display"
@@ -430,28 +430,28 @@
     <section *ngIf="campaign.ads.length" class="col">
       <div
         class="
-          dwmth-box
+          ap-box
           row
           justify-between
           align-center">
         <p
           class="
-            dwmth-copy
-            dwmth-copy--semi"
+            ap-copy
+            ap-copy--semi"
         >
           List of ads
         </p>
         <button
           class="
             self-end
-            dwmth-btn
-            dwmth-btn--edit"
+            ap-btn
+            ap-btn--edit"
           (click)="navigateToCampaignEdition('create-ad')"
           data-test="advertiser-campaign-edit-targeting-button"
         >
           <img
-            class="dwmth-icon
-                   dwmth-icon--prepend"
+            class="ap-icon
+                   ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt="">
           Add new advertisement
@@ -464,8 +464,8 @@
 
     <div
       class="
-        dwmth-box
-        dwmth-box--no-margin">
+        ap-box
+        ap-box--no-margin">
       <div
         class="
           row
@@ -474,17 +474,17 @@
           class="
             row
             align-center
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue
-            dwmth-btn--no-border"
+            ap-btn
+            ap-btn--white
+            ap-blue
+            ap-btn--no-border"
           (click)="navigateToCampaignEdition('create-ad')">
           <img
             src="/assets/images/plus-circle--blue.svg"
             alt="Add new"
             class="
-              dwmth-icon
-              dwmth-icon--prepend"/>
+              ap-icon
+              ap-icon--prepend"/>
           {{campaign.ads.length ? 'Add new advertisement' : 'Upload your first ad'}}
         </button>
       </div>

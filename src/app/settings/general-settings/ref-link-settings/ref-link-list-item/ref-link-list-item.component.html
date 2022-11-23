@@ -7,7 +7,7 @@
       title="Open referral link"
     >
       {{ refLink.token }}
-      <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+      <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--large"></fa-icon>
     </a>
     <small *ngIf="refLink.validUntil">Valid until: {{ refLink.validUntil | formatDate:dateFormat }}</small>
   </td>
@@ -26,14 +26,17 @@
   <td class="ref-link-settings__refunded" *ngIf="refundEnabled">
     {{ refLink.refunded | formatMoney:4:crypto:code }}
   </td>
-  <td class="ref-link-settings__actions">
+  <td class="ref-link-settings__actions col justify-between">
     <button
-      class="
-            dwmth-btn
-            dwmth-btn--x-small
-            dwmth-btn--blue"
+      class="ap-btn ap-btn--x-small ap-btn--blue"
       (click)="copyUrl()"
     >Copy URL
+    </button>
+    <button
+      *ngIf="!refLink.used"
+      class="ap-btn ap-btn--x-small ap-btn--danger"
+      (click)="delete()"
+    >Delete
     </button>
   </td>
 </tr>

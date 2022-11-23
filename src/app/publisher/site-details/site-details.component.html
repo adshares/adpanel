@@ -16,26 +16,26 @@
       >
         <p
           class="
-            dwmth-copy
-            dwmth-copy--small"
+            ap-copy
+            ap-copy--small"
         >
           My sites
         </p>
       </a>
       <div
         class="
-          dwmth-circle
-          dwmth-circle--x-small
-          dwmth-circle--navy
+          ap-circle
+          ap-circle--x-small
+          ap-circle--navy
           breadcrumbs-divider"
       >
       </div>
       <p
         class="
-          dwmth-copy
-          dwmth-copy--small
-          dwmth-copy--x-dark
-          dwmth-copy--semi"
+          ap-copy
+          ap-copy--small
+          ap-copy--x-dark
+          ap-copy--semi"
         data-test="publisher-site-url"
       >
         {{ site.name }}
@@ -47,8 +47,8 @@
     >
       <button
         class="
-            dwmth-btn
-            dwmth-btn--bordered-light"
+            ap-btn
+            ap-btn--bordered-light"
         (click)="navigateToClassification()"
         data-test="publisher-site-navigate-to-classifier"
       >
@@ -71,18 +71,18 @@
       >
         <div class="col">
           <h1
-            class="dwmth-heading dwmth-heading--primary"
+            class="ap-heading ap-heading--primary"
             data-test="publisher-site-url"
           >
             {{ site.name }}
             <small *ngIf="displayAds">{{ site.domain }}</small>
             <a *ngIf="siteLinkUrl" href="{{siteLinkUrl}}" target="_blank" rel="noopener nofollow noreferrer">
-              <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--small link-icon"></fa-icon>
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--small link-icon"></fa-icon>
             </a>
           </h1>
           <p
             *ngIf="mediumLabel !== undefined"
-            class="dwmth-copy dwmth-copy--semi"
+            class="ap-copy ap-copy--semi"
           >
             {{ mediumLabel }}
           </p>
@@ -100,13 +100,13 @@
           align-center"
       >
         <div class="row status-button-wrapper">
-          <span class="dwmth-copy">This site is </span>
-          <span class="dwmth-copy lowercase-to-capitalize"
+          <span class="ap-copy">This site is </span>
+          <span class="ap-copy lowercase-to-capitalize"
                 data-test="publisher-site-status"
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
             </span>
-          <button class="dwmth-btn dwmth-btn--white dwmth-status--btn"
+          <button class="ap-btn ap-btn--white ap-status--btn"
                   (click)="onSiteStatusChange()"
                   data-test="publisher-site-status-change-button"
                   [attr.data-status]="currentSiteStatus">
@@ -115,17 +115,17 @@
         </div>
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-btn--with-icon
+            ap-btn
+            ap-btn--white
+            ap-btn--with-icon
             btn-delete
-            dwmth-copy--dark"
+            ap-copy--dark"
           (click)="deleteSite()"
         >
           <img
             class="
-              dwmth-icon
-              dwmth-icon--prepend"
+              ap-icon
+              ap-icon--prepend"
             src="/assets/images/x-circle--dark.svg"
             alt=""
           >
@@ -135,7 +135,7 @@
     </div>
 
     <!-- chart-->
-    <div class="dwmth-box">
+    <div class="ap-box">
       <div class="row">
         <div class="col-xs-4">
           <a
@@ -143,9 +143,9 @@
           >
             <button
               class="
-                dwmth-btn
-                dwmth-btn--white
-                dwmth-copy--dark"
+                ap-btn
+                ap-btn--white
+                ap-copy--dark"
               data-test="publisher-site-download-report-button"
             >
               Generate a report
@@ -168,7 +168,7 @@
       </div>
       <div
         class="
-          dwmth-box"
+          ap-box"
       >
         <div
           class="
@@ -193,15 +193,15 @@
 
     <div
       class="
-          dwmth-box
-          dwmth-box--high
+          ap-box
+          ap-box--high
           row
           justify-between
           align-center"
     >
       <p
         *ngIf="language !== undefined"
-        class="dwmth-copy dwmth-copy--semi"
+        class="ap-copy ap-copy--semi"
       >
         Site language:
         <span
@@ -211,16 +211,16 @@
       </p>
       <button
         class="
-           dwmth-btn
-           dwmth-btn--edit
-           dwmth-btn--no-border"
+           ap-btn
+           ap-btn--edit
+           ap-btn--no-border"
         (click)="navigateToEditSite('basic-information')"
         data-test="publisher-site-edit-basic-info-button"
       >
         <img
           class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
           src="assets/images/edit-blue.svg"
           alt=""
         >
@@ -228,20 +228,20 @@
       </button>
     </div>
 
-    <section class="dwmth-box dwmth-box--high">
+    <section class="ap-box ap-box--high">
       <div class="row justify-end">
         <button
           class="
-           dwmth-btn
-           dwmth-btn--edit
-           dwmth-btn--no-border"
+           ap-btn
+           ap-btn--edit
+           ap-btn--no-border"
           (click)="navigateToEditSite('additional-filtering')"
           data-test="publisher-site-edit-filtering-button"
         >
           <img
             class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
           >
@@ -251,15 +251,15 @@
       <div
         *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners"
         class="
-        dwmth-box
-        dwmth-copy
+        ap-box
+        ap-copy
         row"
       >
         <div
           *ngIf="site.onlyAcceptedBanners"
           class="col-xs-12"
         >
-          <div class="dwmth-targeting-details__title">
+          <div class="ap-targeting-details__title">
             <mat-checkbox
               class="site-details__checkbox"
               checked="checked"
@@ -268,16 +268,16 @@
             </mat-checkbox>
             <button
               class="
-               dwmth-btn
-               dwmth-btn--edit
-               dwmth-btn--no-border"
+               ap-btn
+               ap-btn--edit
+               ap-btn--no-border"
               (click)="navigateToClassification()"
               data-test="publisher-site-edit-filtering-button"
             >
               <img
                 class="
-                  dwmth-icon
-                  dwmth-icon--prepend"
+                  ap-icon
+                  ap-icon--prepend"
                 src="assets/images/edit-blue.svg"
                 alt=""
               >
@@ -294,9 +294,9 @@
           col-xs-12
           col-lg-6"
         >
-          <h2 class="dwmth-targeting-details__title
-                     dwmth-copy--large
-                     dwmth-copy--semi">Targeting: </h2>
+          <h2 class="ap-targeting-details__title
+                     ap-copy--large
+                     ap-copy--semi">Targeting: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -314,9 +314,9 @@
           col-xs-12
           col-lg-6"
         >
-          <h2 class="dwmth-targeting-details__title
-                     dwmth-copy--large
-                     dwmth-copy--semi">Exclusions: </h2>
+          <h2 class="ap-targeting-details__title
+                     ap-copy--large
+                     ap-copy--semi">Exclusions: </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -331,10 +331,10 @@
     </section>
 
 
-    <div class="dwmth-box dwmth-box--large">
+    <div class="ap-box ap-box--large">
       <div class="row justify-center">
         <button
-          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          class="ap-btn ap-btn--wide ap-btn--blue"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button"
         >
@@ -347,15 +347,15 @@
     <div class="col">
       <div
         class="
-          dwmth-box
+          ap-box
           ad-units
           row
           justify-between
           align-center">
         <p
           class="
-            dwmth-copy
-            dwmth-copy--semi"
+            ap-copy
+            ap-copy--semi"
         >
           <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
           <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
@@ -364,16 +364,16 @@
         <div class="row justify-end">
           <button
             class="
-           dwmth-btn
-           dwmth-btn--edit
-           dwmth-btn--no-border"
+           ap-btn
+           ap-btn--edit
+           ap-btn--no-border"
             (click)="navigateToEditSite('pops-settings')"
             data-test="publisher-site-edit-pops-button"
           >
             <img
               class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
               src="assets/images/edit-blue.svg"
               alt=""
             >
@@ -388,7 +388,7 @@
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
             (sortTable)="sortTable($event)"
-            class="row dwmth-copy"
+            class="row ap-copy"
           ></app-table-navigation>
           <app-poster-units
             *ngFor="let adUnit of popAdUnits"
@@ -401,31 +401,31 @@
     <div class="col">
       <div
         class="
-          dwmth-box
+          ap-box
           ad-units
           row
           justify-between
           align-center">
         <p
           class="
-            dwmth-copy
-            dwmth-copy--semi"
+            ap-copy
+            ap-copy--semi"
         >
           <span *ngIf="!!displayAdUnits.length">List of ad units</span>
           <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
         </p>
         <button
           class="
-           dwmth-btn
-           dwmth-btn--edit
-           dwmth-btn--no-border"
+           ap-btn
+           ap-btn--edit
+           ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
           data-test="publisher-site-edit-ad-units-button"
         >
           <img
             class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
           >
@@ -440,7 +440,7 @@
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
             (sortTable)="sortTable($event)"
-            class="row dwmth-copy"
+            class="row ap-copy"
           ></app-table-navigation>
           <app-poster-units
             *ngFor="let adUnit of displayAdUnits"
@@ -452,23 +452,23 @@
 
     <div
       class="
-        dwmth-box
+        ap-box
         row
         justify-center"
     >
       <button
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue
-          dwmth-btn--no-border"
+          ap-btn
+          ap-btn--white
+          ap-blue
+          ap-btn--no-border"
         (click)="navigateToEditSite('create-ad-units')"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img
           class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
           src="assets/images/plus-circle--blue.svg"
           alt=""
         >
@@ -476,10 +476,10 @@
       </button>
     </div>
 
-    <div class="dwmth-box dwmth-box--large">
+    <div class="ap-box ap-box--large">
       <div class="row justify-center">
         <button
-          class="dwmth-btn dwmth-btn--wide dwmth-btn--blue"
+          class="ap-btn ap-btn--wide ap-btn--blue"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button"
         >

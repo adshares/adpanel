@@ -4,8 +4,8 @@ import {
   AdminSettings,
   Advertisers,
   BillingHistory,
-  Index,
   License,
+  PaginatorResponse,
   Publishers,
   RefLink,
   Users,
@@ -44,7 +44,7 @@ interface PublisherState {
 
 interface SettingsState {
   billingHistory: BillingHistory;
-  refLinks: RefLink[];
+  refLinks: PaginatorResponse<RefLink>;
 }
 
 interface UserState {
@@ -58,7 +58,6 @@ interface AdminState {
   publishers: Publishers;
   settings: AdminSettings;
   license: License | null;
-  index: Index | null;
   panelBlockade: boolean;
 }
 

@@ -11,15 +11,15 @@
   >
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Upload ads
     </h1>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--medium"
+        ap-copy
+        ap-copy--medium"
     >
       Please select the ad type and upload your banner ads.
     </p>
@@ -30,16 +30,16 @@
     class="
       row
       justify-center
-      dwmth-box
-      dwmth-box--no-margin"
+      ap-box
+      ap-box--no-margin"
   >
     <button
       class="
         align-center
-        dwmth-btn
-        dwmth-btn--white
-        dwmth-blue
-        dwmth-btn--no-border"
+        ap-btn
+        ap-btn--white
+        ap-blue
+        ap-btn--no-border"
       (click)="createEmptyAd()"
       data-test="advertiser-edit-campaign-create-ads-create-new-ad"
     >
@@ -47,15 +47,15 @@
         src="assets/images/plus-circle--blue.svg"
         alt="Add new"
         class="
-          dwmth-icon
-          dwmth-icon--prepend"
+          ap-icon
+          ap-icon--prepend"
       >
       Add new advertisement
     </button>
   </div>
 
   <div
-    class="dwmth-box dwmth-box--no-padding"
+    class="ap-box ap-box--no-padding"
     *ngFor="let adForm of adForms; let i = index"
   >
     <form
@@ -72,8 +72,8 @@
           <mat-expansion-panel-header>
             <mat-panel-title
               class="
-                dwmth-heading
-                dwmth-heading--secondary"
+                ap-heading
+                ap-heading--secondary"
             >
               <div class="row justify-between align-center">
                 <div>
@@ -108,16 +108,16 @@
                 col-xxl-3
                 col-xxxl-2"
             >
-              <div class="dwmth-form-input__box">
+              <div class="ap-form-input__box">
                 <label
                   for="name"
-                  class="dwmth-form-label"
+                  class="ap-form-label"
                 >
                   Short headline
                 </label>
                 <input
                   id="name"
-                  class="dwmth-form-input"
+                  class="ap-form-input"
                   formControlName="name"
                   data-test="advertiser-edit-campaign-create-ads-form-name"
                 >
@@ -141,10 +141,10 @@
                 col-xxl-2
                 col-xxxl-1"
             >
-              <div class="dwmth-form-input__box">
-                <label class="dwmth-form-label">Ad type</label>
+              <div class="ap-form-input__box">
+                <label class="ap-form-label">Ad type</label>
                 <mat-select
-                  class="dwmth-select"
+                  class="ap-select"
                   formControlName="type"
                   (selectionChange)="setAdType(i)"
                   data-test="advertiser-edit-campaign-create-ads-form-ad-type-select"
@@ -169,36 +169,36 @@
                 col"
             >
               <div *ngIf="(isImageTypeChosen(adForm) || isVideoTypeChosen(adForm)) && adForm.get('creativeSize').value"
-                   class="dwmth-form-input__box">
-                <span class="dwmth-form-input__box
-                             dwmth-form-label
+                   class="ap-form-input__box">
+                <span class="ap-form-input__box
+                             ap-form-label
                              campaign-edit-create-bnr__size-label">
                   Size
                 </span>
-                <span class="dwmth-copy">
+                <span class="ap-copy">
                   {{ adForm.get('creativeSize').value }}
                 </span>
               </div>
 
               <div *ngIf="isImageTypeChosen(adForm) && !adForm.get('creativeSize').value"
-                   class="dwmth-form-input__box">
-                <span class="dwmth-form-input__box
-                             dwmth-form-label
+                   class="ap-form-input__box">
+                <span class="ap-form-input__box
+                             ap-form-label
                              campaign-edit-create-bnr__size-label">
                   Info
                 </span>
-                <span class="dwmth-copy">
+                <span class="ap-copy">
                   <a href="{{ADSHARES_UNITS}}" target="_blank" rel="noopener">List of available Ad sizes</a>
                 </span>
               </div>
 
               <div *ngIf="isHtmlTypeChosen(adForm)"
-                   class="dwmth-form-input__box">
-                <label class="dwmth-form-label">
+                   class="ap-form-input__box">
+                <label class="ap-form-label">
                   Size
                 </label>
                 <mat-select
-                  class="dwmth-select"
+                  class="ap-select"
                   formControlName="creativeSize"
                   (selectionChange)="setAdSize(i)"
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
@@ -213,12 +213,12 @@
               </div>
 
               <div *ngIf="isDirectTypeChosen(adForm)"
-                   class="dwmth-form-input__box">
-                <label class="dwmth-form-label">
+                   class="ap-form-input__box">
+                <label class="ap-form-label">
                   Display
                 </label>
                 <mat-select
-                  class="dwmth-select"
+                  class="ap-select"
                   formControlName="creativeSize"
                   (selectionChange)="setAdSize(i)"
                   data-test="advertiser-edit-campaign-create-ads-form-size-select"
@@ -265,16 +265,16 @@
           <div class="no-gutters"
             *ngIf="isDirectTypeChosen(adForm)"
           >
-            <div class="dwmth-form-input__box">
+            <div class="ap-form-input__box">
               <label
                 for="creative-contents"
-                class="dwmth-form-label"
+                class="ap-form-label"
               >
                 URL
               </label>
               <input
                 id="creative-contents"
-                class="dwmth-form-input"
+                class="ap-form-input"
                 formControlName="creativeContents"
                 type="url"
                 data-test="advertiser-edit-campaign-create-ads-form-url"
@@ -298,11 +298,11 @@
               col
               align-center
               justify-center
-              dwmth-box
-              dwmth-box--large
-              dwmth-box--bordered
-              dwmth-box--dashed
-              dwmth-box--blue-border
+              ap-box
+              ap-box--large
+              ap-box--bordered
+              ap-box--dashed
+              ap-box--blue-border
               drag-and-drop-box
               banner"
             *ngIf="!imagesStatus.upload.processing && adForm.get('fileSrc') && adForm.get('fileSrc').value === ''"
@@ -319,14 +319,14 @@
             <div>
               <p
                 class="
-                  dwmth-copy
-                  dwmth-copy--semi
-                  dwmth-copy--dark"
+                  ap-copy
+                  ap-copy--semi
+                  ap-copy--dark"
               >
                 Drag & Drop or
 
                 <label
-                  class="dwmth-blue"
+                  class="ap-blue"
                   for="fileSelect">
                   Browse
                 </label>
@@ -341,14 +341,14 @@
               <ng-container [ngSwitch]="adForm.get('type').value">
                 <p
                   *ngSwitchCase="adCreativeTypes.HTML"
-                  class="dwmth-copy"
+                  class="ap-copy"
                 >
                   Please upload your HTML banner ad as a zip archive.
                   Please make sure that the file is not larger than {{getMaxFileSize(adCreativeTypes.HTML)|formatFileSize}}.
                 </p>
                 <a
                         *ngSwitchCase="adCreativeTypes.HTML"
-                        class="dwmth-copy"
+                        class="ap-copy"
                         href="{{WIKI_HTML_AD}}"
                         target="_blank"
                         rel="noopener nofollow noreferrer"
@@ -358,7 +358,7 @@
                 </a>
                 <p
                   *ngSwitchDefault
-                  class="dwmth-copy"
+                  class="ap-copy"
                 >
                   We support {{ getSupportedFiles(adForm) }} files.
                   Please make sure that the file is not larger than {{getSupportedFileSize(adForm)|formatFileSize}}.
@@ -371,7 +371,7 @@
             class="
               row
               align-right
-              dwmth-box
+              ap-box
               file-box
               file-box--grey-background"
             [ngClass]="{'file-box--upload': imagesStatus.upload.processing}"
@@ -452,19 +452,19 @@
           <div
             class="
               row
-              dwmth-box
-              dwmth-box--bordered
-              dwmth-box--dashed
-              dwmth-box--blue-border
-              dwmth-box__preview"
+              ap-box
+              ap-box--bordered
+              ap-box--dashed
+              ap-box--blue-border
+              ap-box__preview"
             *ngIf="adForm.get('fileSrc') && adForm.get('fileSrc').value && adForm.get('creativeSize').value"
           >
             <div
               class="
                 col-xs-12
-                dwmth-copy
-                dwmth-copy--light
-                dwmth-box--no-padding">
+                ap-copy
+                ap-copy--light
+                ap-box--no-padding">
               Preview
             </div>
 
@@ -518,9 +518,9 @@
 
           <button
             class="
-              dwmth-btn
-              dwmth-btn--white
-              dwmth-blue
+              ap-btn
+              ap-btn--white
+              ap-blue
               save-as-draft"
             (click)="removeNewAd(i)"
             data-test="advertiser-edit-campaign-create-ads-form-remove-ad"
@@ -537,16 +537,16 @@
     class="
       row
       justify-center
-      dwmth-box
-      dwmth-box--no-margin"
+      ap-box
+      ap-box--no-margin"
   >
     <button
       class="
         align-center
-        dwmth-btn
-        dwmth-btn--white
-        dwmth-blue
-        dwmth-btn--no-border"
+        ap-btn
+        ap-btn--white
+        ap-blue
+        ap-btn--no-border"
       (click)="createEmptyAd()"
       data-test="advertiser-edit-campaign-create-ads-create-new-ad"
     >
@@ -554,8 +554,8 @@
         src="assets/images/plus-circle--blue.svg"
         alt="Add new"
         class="
-          dwmth-icon
-          dwmth-icon--prepend"
+          ap-icon
+          ap-icon--prepend"
       >
       Add new advertisement
     </button>
@@ -563,16 +563,16 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       row
       justify-between"
   >
     <button
       class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
+          ap-btn
+          ap-btn--white
+          ap-blue"
       (click)="onStepBack()"
       data-test="advertiser-edit-campaign-navigate-back"
     >
@@ -584,17 +584,17 @@
         *ngIf="!isEditMode"
         (click)="onSubmit(true)"
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue
+          ap-btn
+          ap-btn--white
+          ap-blue
           save-as-draft"
         data-test="advertiser-edit-campaign-save-as-draft"
       >
         Save as draft
       </button>
-      <button class="dwmth-btn
-                     dwmth-btn--wide
-                     dwmth-btn--blue"
+      <button class="ap-btn
+                     ap-btn--wide
+                     ap-btn--blue"
               (click)="onSubmit()"
               data-test="advertiser-edit-campaign-save-and-continue"
       >

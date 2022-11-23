@@ -9,7 +9,7 @@
     margin-bottom: 5px;
   }
 
-  .dwmth-heading {
+  .ap-heading {
     margin-bottom: 22px;
   }
 }
@@ -31,12 +31,12 @@
     margin: 0 auto;
   }
 
-  .dwmth-box {
+  .ap-box {
     margin: 8px 0;
 
     .campaign-info {
       &--primary {
-        @extend .dwmth-copy;
+        @extend .ap-copy;
         color: pal(navy);
         padding-left: 0;
       }
@@ -56,11 +56,11 @@
       padding: 20px;
     }
 
-    .dwmth-heading {
+    .ap-heading {
       margin-bottom: 32px;
     }
 
-    .dwmth-icon {
+    .ap-icon {
       margin: 0 4px 0 0;
       width: 15px;
       height: 15px;
@@ -78,7 +78,7 @@
   &__targeting-info {
     padding: 41px 30px 38px;
 
-    .dwmth-heading {
+    .ap-heading {
       margin-bottom: 22px;
     }
   }
@@ -86,7 +86,7 @@
   &__poster-info {
     padding: 40px 30px 42px;
 
-    .dwmth-heading {
+    .ap-heading {
       margin-bottom: 25px;
     }
   }

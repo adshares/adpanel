@@ -17,7 +17,6 @@ export class ClassifierFilteringComponent implements OnInit {
   landingUrl = new FormControl('');
   bannerId = new FormControl('');
   sizes: Array<string> = [];
-  adSizesOptions: string[] = [];
   filtering: BannerClassificationFilters = {
     sizes: [],
   };
@@ -31,19 +30,19 @@ export class ClassifierFilteringComponent implements OnInit {
 
   ngOnInit() {
     this.isGlobal = this.siteId === null
-    this.adSizesOptions = this.sizeOptions || [];
+    this.sizes = this.sizeOptions
     this.classifierOption = this.route.snapshot.data.siteOptions.classifierLocalBanners
     this.filtering = {
       ...this.filtering,
-      sizes: this.adSizesOptions
+      sizes: this.sizeOptions
     }
     this.checkBannerSizeOptions()
+
   }
 
   checkBannerSizeOptions() {
     this.allSizes = !this.filtering.sizes.length
-    this.allSizesMatching = this.filtering.sizes.length === this.adSizesOptions.length
-    this.filteringChange.emit(this.filtering);
+    this.allSizesMatching = this.filtering.sizes.length === this.sizeOptions.length
   }
 
   sizeOptionChange(e, option) {
@@ -54,15 +53,17 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(e.checked && option === 'allSizesMatching'){
-      this.sizes = this.adSizesOptions
+      this.sizes = this.sizeOptions
       this.filtering = {
         ...this.filtering,
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(!e.checked && option === 'allSizesMatching'){
@@ -72,15 +73,17 @@ export class ClassifierFilteringComponent implements OnInit {
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
     if(!e.checked && option === 'allSizes'){
-      this.sizes = this.adSizesOptions
+      this.sizes = this.sizeOptions
       this.filtering = {
         ...this.filtering,
         sizes: this.sizes
       }
       this.checkBannerSizeOptions()
+      this.filteringChange.emit(this.filtering);
     }
 
   }
@@ -99,6 +102,7 @@ export class ClassifierFilteringComponent implements OnInit {
       sizes: this.sizes
     };
     this.checkBannerSizeOptions()
+    this.filteringChange.emit(this.filtering);
   }
 
   changeFiltering(): void {

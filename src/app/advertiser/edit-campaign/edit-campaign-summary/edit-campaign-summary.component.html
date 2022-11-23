@@ -11,15 +11,15 @@
   >
     <h1
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Summary
     </h1>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--large"
+        ap-copy
+        ap-copy--large"
     >
       Below is summary of all the data defining your campaign.
     </p>
@@ -27,8 +27,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       campaign-edit-summary__basic-info-wrapper"
   >
     <div
@@ -39,8 +39,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         1. Basic information
       </h3>
@@ -50,9 +50,9 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
@@ -65,21 +65,21 @@
         class="
         row
         align-center
-        dwmth-copy
+        ap-copy
         campaign-edit-summary__basic-info"
       >
         <div>
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             Campaign name:
           </p>
           <p
             class="
-            dwmth-copy--dark
-            dwmth-copy--semi"
+            ap-copy--dark
+            ap-copy--semi"
             data-test="advertiser-campaign-name"
           >
             {{ campaign.basicInformation.name }}
@@ -89,7 +89,7 @@
         <div>
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             Target URL:
@@ -99,7 +99,7 @@
             [title]="campaign.basicInformation.targetUrl"
             rel="nofollow noopener noreferrer"
             target="_blank"
-            class="dwmth-copy--dark dwmth-copy--semi"
+            class="ap-copy--dark ap-copy--semi"
             data-test="advertiser-campaign-target-url"
           >
             {{ campaign.basicInformation.targetUrl }}
@@ -108,15 +108,15 @@
         <div *ngIf="campaign.basicInformation.maxCpm != null">
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             Max CPM
           </p>
           <p
             class="
-            dwmth-copy--dark
-            dwmth-copy--semi"
+            ap-copy--dark
+            ap-copy--semi"
             data-test="advertiser-campaign-max-cpm"
           >
             {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
@@ -125,15 +125,15 @@
         <div>
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             Budget
           </p>
           <p
             class="
-            dwmth-copy--dark
-            dwmth-copy--semi"
+            ap-copy--dark
+            ap-copy--semi"
             data-test="advertiser-campaign-budget"
           >
             {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4}}
@@ -142,7 +142,7 @@
         <div>
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             Start date
@@ -154,15 +154,15 @@
           >
             <img
               class="
-              dwmth-icon
-              dwmth-icon--prepend"
+              ap-icon
+              ap-icon--prepend"
               src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
               class="
-              dwmth-copy--dark
-              dwmth-copy--semi"
+              ap-copy--dark
+              ap-copy--semi"
               data-test="advertiser-campaign-start-date"
             >
               {{ campaign.basicInformation.dateStart | formatDate }}
@@ -173,7 +173,7 @@
         <div>
           <p
             class="
-            dwmth-copy--small
+            ap-copy--small
             label"
           >
             End date
@@ -185,16 +185,16 @@
           >
             <img
               class="
-                dwmth-icon
-                dwmth-icon--prepend"
+                ap-icon
+                ap-icon--prepend"
               src="/assets/images/calendar.svg"
               alt="Calendar Icon"
             >
             <p
               *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
               class="
-                dwmth-copy--dark
-                dwmth-copy--semi"
+                ap-copy--dark
+                ap-copy--semi"
               data-test="advertiser-campaign-end-date"
             >
               {{ campaign.basicInformation.dateEnd | formatDate }}
@@ -210,8 +210,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       campaign-edit-summary__targeting-info"
   >
     <div
@@ -222,8 +222,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         2. Filtering
       </h3>
@@ -233,9 +233,9 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
@@ -250,8 +250,8 @@
       >
         <p
           class="
-            dwmth-copy
-            dwmth-copy--x-dark
+            ap-copy
+            ap-copy--x-dark
             targeting-title"
         >
           Targeting:
@@ -272,8 +272,8 @@
       >
         <p
           class="
-            dwmth-copy
-            dwmth-copy--x-dark
+            ap-copy
+            ap-copy--x-dark
             targeting-title"
         >
           Exclusions:
@@ -293,8 +293,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       campaign-edit-summary__poster-info"
   >
     <div
@@ -305,8 +305,8 @@
     >
       <h3
         class="
-          dwmth-heading
-          dwmth-heading--secondary"
+          ap-heading
+          ap-heading--secondary"
       >
         3. Ads
       </h3>
@@ -316,9 +316,9 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
         >
           Edit
         </button>
@@ -342,8 +342,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       campaign-edit-summary__poster-info"
   >
     <div
@@ -354,8 +354,8 @@
     >
       <p
         class="
-          dwmth-copy
-          dwmth-copy--medium"
+          ap-copy
+          ap-copy--medium"
       >
         Please note that it is possible to base your campaign on conversions - i.e. set specific actions you want to pay for – e.g. registrations or sales.
         In case you want to use this feature, please go to your campaign settings and select “Edit conversions”.
@@ -374,8 +374,8 @@
 
   <div
     class="
-      dwmth-box
-      dwmth-box--large
+      ap-box
+      ap-box--large
       row
       justify-between"
   >
@@ -385,9 +385,9 @@
     >
       <button
         class="
-          dwmth-btn
-          dwmth-btn--white
-          dwmth-blue"
+          ap-btn
+          ap-btn--white
+          ap-blue"
       >
         Back
       </button>
@@ -396,9 +396,9 @@
     <div class="row">
       <button
         class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue
+            ap-btn
+            ap-btn--white
+            ap-blue
             save-as-draft"
         (click)="saveCampaign(true)"
         data-test="advertiser-edit-campaign-save-as-draft"
@@ -407,8 +407,8 @@
       </button>
       <button
         class="
-            dwmth-btn
-            dwmth-btn--blue"
+            ap-btn
+            ap-btn--blue"
         (click)="saveCampaign(false)"
         data-test="advertiser-edit-campaign-start-campaign"
       >

@@ -1,7 +1,7 @@
 <div
   class="
     col
-    dwmth-login-wrapper"
+    ap-login-wrapper"
 >
   <div *ngIf="loginForm">
     <ng-template #loading>
@@ -9,15 +9,15 @@
     </ng-template>
     <h2
       class="
-          dwmth-heading
-          dwmth-heading--primary"
+          ap-heading
+          ap-heading--primary"
     >
       Hello!
     </h2>
     <p
       class="
-          dwmth-copy
-          dwmth-copy--large"
+          ap-copy
+          ap-copy--large"
     >
       Please log in to your account.
     </p>
@@ -25,7 +25,7 @@
     <div class="login-buttons row justify-between">
       <button
         *ngIf="adsWalletAvailable"
-        class="dwmth-btn dwmth-btn-with-img dwmth-btn--bordered-light"
+        class="ap-btn ap-btn-with-img ap-btn--bordered-light"
         (click)="initWalletLogin('ADS')"
         [disabled]="isAdsLoggingIn"
       >
@@ -36,7 +36,7 @@
       </button>
       <a
         *ngIf="!adsWalletAvailable"
-        class="dwmth-btn dwmth-btn--danger"
+        class="ap-btn ap-btn--danger"
         href="{{ADSHARES_WALLET}}"
         rel="noopener noreferrer nofollow"
         target="_blank"
@@ -45,7 +45,7 @@
       </a>
       <button
         *ngIf="ethereumAvailable"
-        class="dwmth-btn dwmth-btn-with-img dwmth-btn--bordered-light"
+        class="ap-btn ap-btn-with-img ap-btn--bordered-light"
         (click)="initWalletLogin('BSC')"
         [disabled]="isBscLoggingIn"
       >
@@ -55,7 +55,7 @@
       </button>
       <a
         *ngIf="!ethereumAvailable"
-        class="dwmth-btn dwmth-btn--danger"
+        class="ap-btn ap-btn--danger"
         href="{{METAMASK_WALLET}}"
         rel="noopener noreferrer nofollow"
         target="_blank"
@@ -69,7 +69,7 @@
     <form
       (ngSubmit)="login()"
       [formGroup]="loginForm"
-      class="dwmth-form"
+      class="ap-form"
       data-test="auth-login-form"
     >
       <div
@@ -78,15 +78,15 @@
       >
         Password or email is invalid.
       </div>
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
           for="email"
         >
           Email address
         </label>
         <input
-          class="dwmth-form-input"
+          class="ap-form-input"
           data-test="auth-login-form-email"
           formControlName="email"
           id="email"
@@ -111,15 +111,15 @@
           </span>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
-          class="dwmth-form-label"
+          class="ap-form-label"
           for="password"
         >
           Password
         </label>
         <input
-          class="dwmth-form-input"
+          class="ap-form-input"
           data-test="auth-login-form-password"
           formControlName="password"
           id="password"
@@ -148,7 +148,7 @@
             row
             align-center
             justify-between
-            dwmth-login__remember"
+            ap-login__remember"
       >
         <!--
                   <div
@@ -168,16 +168,16 @@
                     ></label>
                     <span
                       class="
-                        dwmth-copy
-                        dwmth-copy&#45;&#45;large
-                        dwmth-copy&#45;&#45;x-dark"
+                        ap-copy
+                        ap-copy&#45;&#45;large
+                        ap-copy&#45;&#45;x-dark"
                     >
                       Remember me
                     </span>
                   </div>
         -->
         <a
-          class="dwmth-copy"
+          class="ap-copy"
           data-test="auth-redirect-to-forgotten-password"
           routerLink="/auth/forgotten-password"
         >
@@ -187,10 +187,10 @@
 
       <button
         class="
-            dwmth-btn
-            dwmth-btn--wide
-            dwmth-btn--blue
-            dwmth-form-submit-btn"
+            ap-btn
+            ap-btn--wide
+            ap-btn--blue
+            ap-form-submit-btn"
         data-test="auth-login-form-submit-button"
       >
         <ng-container *ngIf="!isLoggingIn ; else loading">Log In</ng-container>
@@ -198,11 +198,11 @@
     </form>
   </div>
 
-  <p class="dwmth-copy" *ngIf="registrationMode !== 'private'">
+  <p class="ap-copy" *ngIf="registrationMode !== 'private'">
     Don't have an account?
     <a
       *ngIf="registrationMode === 'public'"
-      class="dwmth-blue"
+      class="ap-blue"
       data-test="auth-redirect-to-registration"
       routerLink="/auth/register"
     >
@@ -210,7 +210,7 @@
     </a>
     <a
       *ngIf="registrationMode === 'restricted' && advertiserApplyFormUrl"
-      class="dwmth-blue block-link"
+      class="ap-blue block-link"
       data-test="auth-redirect-to-registration"
       [href]="advertiserApplyFormUrl"
     >
@@ -218,7 +218,7 @@
     </a>
     <a
       *ngIf="registrationMode === 'restricted' && publisherApplyFormUrl"
-      class="dwmth-blue block-link"
+      class="ap-blue block-link"
       data-test="auth-redirect-to-registration"
       [href]="publisherApplyFormUrl"
     >
