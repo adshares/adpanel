@@ -32,6 +32,9 @@ export class AccountNotConfirmedBarComponent extends HandleSubscription implemen
   ngOnInit(): void {
     const userDataSubscription = this.store.select('state', 'user', 'data')
       .subscribe((user: User) => {
+        if (!user.uuid) {
+          return
+        }
         this.isAdminConfirmed = user.isAdminConfirmed;
         this.isEmailConfirmed = user.isEmailConfirmed || !user.email || -1 === user.email.indexOf('@');
         this.display = !this.isAdminConfirmed || !this.isEmailConfirmed;

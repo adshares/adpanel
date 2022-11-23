@@ -1,3 +1,7 @@
+interface OAuthAuthorizeResponse {
+  location: string;
+}
+
 interface UserAdserverWallet {
   totalFunds: number;
   bonusBalance: number;
@@ -47,4 +51,4 @@ interface LocalStorageUser extends User {
   expiration: number;
 }
 
-export { UserAdserverWallet, User, LocalStorageUser, ExchangeRate }
+export { OAuthAuthorizeResponse, UserAdserverWallet, User, LocalStorageUser, ExchangeRate }

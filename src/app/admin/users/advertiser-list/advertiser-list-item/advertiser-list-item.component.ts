@@ -35,7 +35,7 @@ export class AdvertiserListItemComponent {
       (token) => {
         this.impersonationService.setImpersonationToken(token);
         this.router.navigate(['/advertiser', 'dashboard']);
-        this.sessionService.setAccountTypeChoice('advertiser');
+        this.sessionService.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER);
       }
     )
   }

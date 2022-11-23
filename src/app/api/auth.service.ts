@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
+import { buildUrl } from 'common/utilities/helpers'
 import { environment } from 'environments/environment'
-import { User } from 'models/user.model'
+import { OAuthAuthorizeResponse, User } from 'models/user.model'
 import { WalletToken } from 'models/settings.model'
 
 @Injectable()
@@ -43,5 +44,9 @@ export class ApiAuthService {
       body['referralToken'] = referralToken
     }
     return this.http.post<User>(`${environment.authUrl}/login/wallet`, body)
+  }
+
+  oauthAuthorize (url: string): Observable<OAuthAuthorizeResponse> {
+    return this.http.get<OAuthAuthorizeResponse>(buildUrl(url, ['no_redirect=true']))
   }
 }
