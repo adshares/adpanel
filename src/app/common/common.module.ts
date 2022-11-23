@@ -70,6 +70,7 @@ import { MediaResolver } from 'common/resolvers/media.resolver'
 import { SettingsNavigationComponent } from 'settings/settings-navigation/settings-navigation.component'
 import { ModelPreviewComponent } from 'common/components/model-preview/model-preview.component'
 import { ServerOptionsService } from 'common/server-options.service'
+import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service'
 import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
 
 const matModules = [
@@ -155,6 +156,7 @@ const appComponents = [
     ...appComponents,
   ],
   providers: [
+    AccessTokenScopesResolver,
     AssetHelpersService,
     BidStrategyService,
     ChartService,

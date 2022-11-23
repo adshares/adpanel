@@ -39,7 +39,6 @@ export interface PublishersQueryParams {
   ],
 })
 export class PublisherListComponent extends BaseListComponent implements OnInit {
-  readonly componentStore: Store<AppState>
   readonly defaultParams: PublishersQueryParams = {
     searchPhrase: '',
     groupBy: 'domain',
@@ -54,13 +53,12 @@ export class PublisherListComponent extends BaseListComponent implements OnInit 
     activatedRoute: ActivatedRoute
   ) {
     super(store, router, activatedRoute);
-    this.componentStore = store
   }
 
   loadList(): void {
     this.isLoading = true;
     this.page = 1;
-    this.componentStore.dispatch(new LoadPublishers({
+    this.store.dispatch(new LoadPublishers({
       ...this.queryParams
     }));
   }
@@ -70,7 +68,7 @@ export class PublisherListComponent extends BaseListComponent implements OnInit 
   }
 
   ngOnInit(): void {
-    const publishersSubscription = this.componentStore.select('state', 'admin', 'publishers')
+    const publishersSubscription = this.store.select('state', 'admin', 'publishers')
       .subscribe(publishers => {
         this.list = publishers;
         this.isLoading = !this.list;

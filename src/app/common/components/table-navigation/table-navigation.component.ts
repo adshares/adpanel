@@ -126,6 +126,13 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
   ];
 
+  accessTokenItems = [
+    {title: 'Name', columnWidth: 'col-xs-3', hideArrows: true},
+    {title: 'Scopes', columnWidth: 'col-xs-5', hideArrows: true},
+    {title: 'Expires at', columnWidth: 'col-xs-2', hideArrows: true},
+    {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
+  ];
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -159,6 +166,11 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
       case 'classifierListNavigation':
         this.navigationItems = [...this.classifierListNavigationItems];
         break;
+      case 'accessTokenItems':
+        this.navigationItems = [...this.accessTokenItems];
+        break;
+      default:
+        throw new Error('Unsupported table navigation name')
     }
 
     this.subscriptions.push(this.activatedRoute.queryParams.subscribe(params => {

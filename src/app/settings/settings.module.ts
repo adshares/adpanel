@@ -22,11 +22,16 @@ import { BillingHistoryFilterComponent } from 'settings/billing/billing-history/
 import { BillingHistoryWithdrawalComponent } from './billing/billing-history/billing-history-withdrawal/billing-history-withdrawal.component'
 import { RefLinkSettingsComponent } from 'settings/general-settings/ref-link-settings/ref-link-settings.component'
 import { ClickOutsideDirective } from 'settings/clickOutside.directive'
+import { AccessTokenDialogComponent } from 'settings/dialogs/access-token-dialog/access-token-dialog.component'
 import { ReportsListWrapperComponent } from 'settings/reports-list-wrapper/reports-list-wrapper.component'
 import { RefLinkListItemComponent } from 'settings/general-settings/ref-link-settings/ref-link-list-item/ref-link-list-item.component'
 import { RefLinkEditorComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor/ref-link-editor.component'
 import { RefLinkEditorDialogComponent } from 'settings/general-settings/ref-link-settings/ref-link-editor-dialog/ref-link-editor-dialog.component'
 import { AccountWalletSettingsComponent } from 'settings/general-settings/ads-wallet-settings/account-wallet-settings.component'
+import { AccessTokensComponent } from 'settings/general-settings/access-tokens/access-tokens.component'
+import {
+  AccessTokenListItemComponent
+} from 'settings/general-settings/access-tokens/access-token-list-item/access-token-list-item.component'
 import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdrawal/auto-withdrawal.component'
 
 
@@ -46,6 +51,9 @@ import { AutoWithdrawalComponent } from 'settings/general-settings/auto-withdraw
     FontAwesomeModule,
   ],
   declarations: [
+    AccessTokenDialogComponent,
+    AccessTokenListItemComponent,
+    AccessTokensComponent,
     ClickOutsideDirective,
     SettingsComponent,
     BillingComponent,

@@ -12,6 +12,7 @@ import {
 } from './settings.model'
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
+import { AccessTokenStore } from 'models/access-token.model'
 import { Info, Placeholders } from 'models/info.model'
 
 interface AppState {
@@ -43,6 +44,7 @@ interface PublisherState {
 }
 
 interface SettingsState {
+  accessTokens: AccessTokenStore[];
   billingHistory: BillingHistory;
   refLinks: PaginatorResponse<RefLink>;
 }

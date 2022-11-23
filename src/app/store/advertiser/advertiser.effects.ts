@@ -53,7 +53,7 @@ import {
 } from './advertiser.actions'
 import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
 import * as moment from 'moment'
-import { HTTP_BAD_REQUEST, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
+import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNPROCESSABLE_ENTITY } from 'common/utilities/codes'
 import { SAVE_SUCCESS, STATUS_SAVE_SUCCESS } from 'common/utilities/messages'
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component'
 import { adjustCampaignStatus, validCampaignBudget } from 'common/utilities/helpers'
@@ -293,7 +293,7 @@ export class AdvertiserEffects {
               }
 
               let errorMsg
-              if (error.status === HTTP_BAD_REQUEST) {
+              if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
                 const errors = validCampaignBudget(config, campaign, user)
 
                 if ((errors.length == 1) && isCampaignOutdated()) {
@@ -355,7 +355,7 @@ export class AdvertiserEffects {
               return []
             }
             let errorMsg
-            if (error.status === HTTP_BAD_REQUEST) {
+            if (error.status === HTTP_UNPROCESSABLE_ENTITY) {
               const errors = validCampaignBudget(config, campaign, user)
               if (errors.length == 0) {
                 errors.push('Please check if you have enough money on your account.')
