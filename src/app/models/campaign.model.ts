@@ -35,8 +35,6 @@ interface Campaign {
   secret: string;
   conversionClick: number;
   conversionClickLink?: string;
-  classificationStatus: number;
-  classificationTags?: string;
   classifications: CampaignClassification[];
   bidStrategy?: CampaignBidStrategy;
 }
