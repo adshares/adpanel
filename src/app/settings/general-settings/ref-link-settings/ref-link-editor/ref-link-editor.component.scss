@@ -1,7 +1,7 @@
 @import '../../../../../styles.scss';
 
 .commission {
-  background: pal(blue, 'light');
+  background: pal(secondary);
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
@@ -27,11 +27,11 @@
 
     &:hover {
       cursor: pointer;
-      background: pal(grey, 'light');
+      background: pal(gray);
     }
 
     &.checked {
-      background: pal(green, 'light');
+      background: pal(success);
     }
   }
 }

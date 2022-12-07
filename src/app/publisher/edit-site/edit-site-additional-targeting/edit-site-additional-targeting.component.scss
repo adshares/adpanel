@@ -40,7 +40,7 @@
     max-width: 300px;
 
     &:hover {
-      color: darken(pal(blue), 10%);
+      color: pal(secondary);
     }
   }
 }

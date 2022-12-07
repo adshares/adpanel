@@ -11,8 +11,8 @@
 @mixin container(
   $padding-horizontal: 8px,
   $padding-vertical: 8px,
-  $background-color: pal(white),
-  $border-color: pal(white),
+  $background-color: pal(light),
+  $border-color: pal(light),
   $margin-top: 2px,
   $margin-bottom: 0,
   $border-width: 1px
@@ -30,7 +30,7 @@
 }
 
 @mixin copy(
-  $color: pal(gray, mid-dark),
+  $color: pal(gray),
   $font-size: 16,
   $margin-horizontal: 0,
   $margin-vertical: 0,
@@ -55,11 +55,11 @@
 }
 
 @mixin btn(
-  $color: pal(white),
-  $background-color: pal(blue, base),
+  $color: pal(light),
+  $background-color: pal(secondary),
   $padding-horizontal: 16px,
   $padding-vertical: 12px,
-  $border-color: pal(blue, base)
+  $border-color: pal(secondary)
 ) {
   @include font(16, normal);
   border: 1px solid $border-color;
@@ -78,12 +78,12 @@
 
   &:focus,
   &:hover:not([disabled]) {
-    background-color: darken($background-color, 5%);
+    background-color: $background-color;
   }
 
   &[disabled] {
-    background-color: lighten($background-color, 5%);
-    border-color: lighten($border-color, 5%);
+    background-color: $background-color;
+    border-color: $border-color;
     cursor: not-allowed;
   }
 }
@@ -92,7 +92,7 @@
   @include font(16, medium);
   border-radius: 2px;
   background-color: #f8f9fc;
-  border: solid 1px pal(gray, light);
+  border: solid 1px pal(gray);
   padding: 12px 13px 12px 18px;
   max-width: $max-width;
 }
@@ -103,7 +103,7 @@
   $margin-horizontal: 0
 ) {
   @include font(16, medium);
-  color: pal(gray, mid-dark);
+  color: pal(gray);
   margin: $margin-top $margin-horizontal $margin-bottom;
   display: inline-block;
 }

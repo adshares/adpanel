@@ -3,133 +3,23 @@
 .ap-auth {
   height: 100vh;
   width: 100vw;
-  background-image: radial-gradient(circle at 24% 13%, #0c1733, #000000);
-  position: relative;
-
-  &-wrapper {
-    height: 90%;
-    width: 100vw;
-    z-index: getIndex(authWrapper);
-    justify-content: center;
-
-    @include media(md-up) {
-      height: 70vh;
-      min-height: 730px;
-    }
-  }
-
-  &__poster {
-    background-image: radial-gradient(circle at 24% 13%, #121e3e, #0b1329);
-    max-width: 600px;
-    padding: 40px;
-
-    @include media(md-up) {
-      height: 70vh;
-      min-height: 730px;
-    }
-
-    &-advantages {
-      margin-top: 20px;
-    }
-
-    &-benefits {
-      margin-top: -50px;
-      color: pal(gray, mid-light);
-
-      .ap-heading--secondary {
-        margin: 50px 0 10px 0;
-      }
-
-      li {
-        text-indent: 10px;
-        display: block;
-
-        &:before {
-          content: "-";
-          padding-right: 5px;
-        }
-      }
-    }
-
-    &-content {
-      padding-bottom: 16px;
-    }
-  }
+  background-color: $body-bg;
+  padding: 30px;
 
   &__content {
+    max-width: 900px;
+    max-height: 450px;
     height: 100%;
-    max-width: 600px;
-    padding: 20px;
-    overflow: scroll;
-
-    @include media(sm-up) {
-      overflow: hidden;
-      padding: 60px 40px 40px;
-      height: 70vh;
-      min-height: 730px;
-    }
-
-    .ap-copy-instructions {
-      line-height: 34px;
-    }
-  }
-
-  &-bubbles {
-    position: absolute;
-
-    &:nth-of-type(1) {
-      top: 5%;
-      left: 30%;
-    }
-
-    &:nth-of-type(2) {
-      top: 65%;
-      left: 40%;
-      z-index: 0;
-
-      @include media(lg-up) {
-        z-index: getIndex(bubbleTop);
-      }
-    }
-
-    &:nth-of-type(3) {
-      bottom: 15%;
-      left: 3%;
-    }
-  }
-
-  &-wave {
-    position: absolute;
-
-    &-up {
-      top: 0;
-      right: 0;
-    }
-
-    &-down {
-      bottom: 0;
-      left: 0;
-    }
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-.ap-circle {
-  margin: 0 15px;
-}
-
-:host {
-  display: flex;
-  overflow: hidden;
-  height: 100vh;
-
-  .ap-auth__content {
-    position: relative;
-  }
-
-  ::ng-deep router-outlet ~ * {
-    position: absolute;
-    width: calc(100% - (40px * 2));
-    height: calc(100% - 135px);
-    min-height: auto;
+.ap-login {
+  &__footer {
+    padding: 16px 16px 32px ;
+    background-color: $primary;
+    border-radius: 0 0 10px 10px;
   }
 }

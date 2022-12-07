@@ -18,7 +18,7 @@
 
 .targeting-display {
   &__exclude-text {
-    color: pal(red);
+    color: pal(error);
   }
 }
 
@@ -32,7 +32,7 @@
 
 .remove {
   font-size: 11px;
-  color: pal(red, dark);
+  color: pal(error);
   position: absolute;
   top: 50%;
   left: 50%;

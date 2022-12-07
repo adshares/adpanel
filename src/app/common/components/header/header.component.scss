@@ -12,11 +12,11 @@
   }
 
   &--userselect {
-    background: pal(grey);
+    background: pal(gray);
     padding: 0 20px;
 
     &.active-type {
-      background: pal(white);
+      background: pal(light);
     }
 
     img {
@@ -34,7 +34,7 @@
 
   &__logo-subtitle {
     text-transform: uppercase;
-    color: pal(red, dark);
+    color: pal(error);
     font-size: 14px;
     line-height: 1;
   }
@@ -45,7 +45,7 @@
 }
 
 .ap-btn.ap-btn--invalid {
-  color: pal(gray, mid-dark);
+  color: pal(gray);
 }
 
 .ap-navigation {
@@ -102,7 +102,7 @@
 .choose-user-menu {
   position: absolute;
   top: 36px;
-  background: pal(white);
+  background: pal(light);
   z-index: 999;
   width: 240px;
   opacity: 0;
@@ -140,8 +140,8 @@
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    color: pal(black);
-    border: 1px solid pal(gray, light);
+    color: pal(dark);
+    border: 1px solid pal(gray);
 
     &:not(:first-of-type) {
       border-top: none;

@@ -1,55 +1,131 @@
+:root {
+  --primary: #003D4D;
+  --secondary: #96DFEF;
+  --primary-alt: #002F36;
+  --secondary-alt: #BFF7FF;
+  --body-bg: #DFDFDF;
+  --body-color: #000000;
+  --dark: #000000;
+  --light: #FFFFFF;
+  --gray: #BFBFBF;
+  --error: #FF414D;
+  --error-bg: #FFA0A6;
+  --warning: #FFB400;
+  --warning-bg: #F8E7BF;
+  --success: #19AD42;
+  --success-bg: #8DEBC8;
+  --info: #003D4D;
+  --info-bg: #96DFEF;
+}
+
+$primary: var(--primary);
+$secondary: var(--secondary);
+$primary-alt: var(--primary-alt);
+$secondary-alt: var(--secondary-alt);
+$body-bg: var(--body-bg);
+$body-color: var(--body-color);
+$dark: var(--dark);
+$light: var(--light);
+$gray: var(--gray);
+$error: var(--error);
+$error-bg: var(--error-bg);
+$warning: var(--warning);
+$warning-bg: var(--warning-bg);
+$success: var(--success);
+$success-bg: var(--success-bg);
+$info: var(--info);
+$info-bg: var(--info-bg);
+
 $palette-colors: (
-  black: (
-    mid-light: #505970,
-    base: #000
+  primary: (
+    base: $primary,
+    dark: $primary-alt,
+    light: #809EA6
   ),
-  gray: (
-    nearly-white: #f0f0f0,
-    extreme-light: #fbfbfb,
-    ultra-light: #f8f9fc,
-    x-light: #f5f7fc,
-    light: #eceef3,
-    semi-light: #e7e9f1,
-    mid-light: #d3d7dc,
-    base: #aebac7,
-    light-dark: #abb4bd,
-    mid-dark: #747474,
-    dark: #4e576e,
-    x-dark: #262524
+  secondary:(
+    base: $secondary
   ),
-  white: (
-    base: #fff
+  primary-alt:(
+    base: $primary-alt
   ),
-  navy: (
-    faded: #1b274b,
-    light: #4d5b82,
-    base: #121f3e
+  secondary-alt:(
+    base: $secondary-alt
   ),
-  green: (
-    light: #e9faf2,
-    base: #81c784,
-    dark: #009406
+  body-bg:(
+    base: $body-bg
   ),
-  orange: (
-    dark: #ffa500,
-    light: #e9faf2,
-    base: #faf2cc
+  body-color:(
+    base: $body-color
   ),
-  blue: (
-    light: #e0eefd,
-    base: #55a8fd
+  dark:(
+    base: $dark
   ),
-  red: (
-    light: #fff2f2,
-    base: #ff7e7e,
-    dark: #f0001e,
+  light:(
+    base: $light
   ),
-  yellow: (
-    base: #ffcd32,
-  )
+  gray:(
+    base: $gray
+  ),
+  error:(
+    base: $error,
+    dark: #a0000a,
+    light: $error-bg,
+  ),
+  error-bg:(
+    base: $error-bg
+  ),
+  warning:(
+    base: $warning
+  ),
+  warning-bg:(
+    base: $warning-bg
+  ),
+  success:(
+    base: $success,
+    light: $success-bg,
+  ),
+  success-bg:(
+    base: $success-bg
+  ),
+  info:(
+    base: $info
+  ),
+  info-bg:(
+    base: $info-bg
+  ),
+
+
+
+//  black: (
+//    base: $dark
+//  ),
+//  //gray: (
+//  //  base: $gray,
+//  //),
+//  white: (
+//    base: $light
+//  ),
+//  navy: (
+//    base: $primary
+//  ),
+//  green: (
+//    base: $success
+//  ),
+//  orange: (
+//    base: $warning
+//  ),
+//  blue: (
+//    base: var(--secondary),
+//  ),
+//  red: (
+//    base: $error,
+//  ),
+//  yellow: (
+//    base: $warning,
+//  )
 );
 
-$main_colors: white, navy, blue, green, red, orange;
+$main_colors: light, primary, secondary, success, error, warning;
 
 @function palette($palette, $tone: 'base') {
   @return map-get(map-get($palette-colors, $palette), $tone);

@@ -1,7 +1,7 @@
 @import '../../../../styles';
 
 .ap-edit-asset__navigation {
-  background: pal(white);
+  background: pal(light);
   height: 64px;
 
   &-step:last-of-type {
@@ -16,7 +16,7 @@
     &.done + p,
     &.active + p {
       @include font-weight(semi);
-      color: pal(navy);
+      color: pal(primary);
     }
   }
 }

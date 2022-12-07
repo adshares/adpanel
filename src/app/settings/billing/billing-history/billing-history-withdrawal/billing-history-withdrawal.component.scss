@@ -16,18 +16,18 @@
     position: relative;
 
     &[data-status="ACCEPTED"] {
-      color: pal(green);
-      background-color: pal(green, light);
+      color: pal(success);
+      background-color: pal(success, light);
     }
 
     &[data-status="PENDING"] {
       color: pal(gray);
-      background-color: pal(gray, ultra-light);
+      background-color: pal(gray);
     }
 
     &[data-status="REJECTED"] {
-      color: pal(red);
-      background-color: pal(red, light);
+      color: pal(error);
+      background-color: pal(error, light);
     }
   }
 
@@ -37,7 +37,7 @@
 
   &__bonus {
     position: absolute;
-    color: pal(yellow, base);
+    color: pal(warning);
     z-index: 1;
     left: -11px;
     top: -20px;
@@ -51,11 +51,11 @@
     }
 
     &--income {
-      color: pal(green);
+      color: pal(success);
     }
 
     &--expenditure {
-      color: pal(red);
+      color: pal(error);
     }
   }
 

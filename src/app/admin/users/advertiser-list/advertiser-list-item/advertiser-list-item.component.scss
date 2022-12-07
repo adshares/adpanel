@@ -1,7 +1,7 @@
 @import '../../../../../styles';
 
 .advertiser-list-item {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container($border-color: pal(gray));
   display: flex;
   justify-content: space-between;
   min-height: 52px;
@@ -13,7 +13,7 @@
 
     &--bold {
       @include copy(
-        $color: pal(navy, base),
+        $color: pal(primary),
         $font-weight: semi,
         $font-size: 16
       );
@@ -26,9 +26,9 @@
 
   &__btn {
     @include btn(
-      $border-color: pal(navy, light),
-      $color: pal(navy, light),
-      $background-color: pal(white),
+      $border-color: pal(primary),
+      $color: pal(primary, light),
+      $background-color: pal(light),
       $padding-horizontal: 12px,
       $padding-vertical: 8px
     );
@@ -42,10 +42,10 @@
     justify-content: flex-end;
 
     &__positive {
-      color: pal(green);
+      color: pal(success);
     }
     &__negative {
-      color: pal(red);
+      color: pal(error);
     }
   }
 
@@ -55,7 +55,7 @@
     overflow: visible !important;
     padding: 0 !important;
     @include copy(
-      $color: pal(navy, base),
+      $color: pal(primary),
       $font-weight: semi,
       $font-size: 16
     );
@@ -70,7 +70,7 @@
 
     &:hover > div {
       position: absolute;
-      background: pal(gray, light);
+      background: pal(gray);
       z-index: 100;
     }
   }

@@ -10,7 +10,7 @@
   &__title {
     @include copy(
       $font-size: 20,
-      $color: pal(navy, base),
+      $color: pal(primary),
       $font-weight: bold
     );
   }
@@ -19,7 +19,7 @@
 .link-label {
   @include copy(
           $font-size: 20,
-          $color: pal(navy, base),
+          $color: pal(primary),
           $font-weight: bold
   );
 }

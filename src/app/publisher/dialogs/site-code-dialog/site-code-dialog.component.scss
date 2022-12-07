@@ -28,9 +28,9 @@
 
 .code-copy-btn {
   @include btn(
-    $color: pal(blue),
-    $background-color: pal(white),
-    $border-color: pal(white)
+    $color: pal(secondary),
+    $background-color: pal(light),
+    $border-color: pal(light)
   );
   max-height: 46px;
   text-align: left;
@@ -78,5 +78,5 @@
 }
 
 ::ng-deep .mat-expansion-panel-body {
-  border: 1px pal(gray, light) solid;
+  border: 1px pal(gray) solid;
 }

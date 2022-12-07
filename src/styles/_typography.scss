@@ -1,9 +1,9 @@
 :root {
-  color: pal(gray, dark);
+  color: pal(gray);
 }
 
 .ap-heading {
-  color: pal(navy);
+  color: pal(body-color);
   word-break: break-all;
 
   &--hero {
@@ -18,35 +18,24 @@
     text-overflow: ellipsis;
   }
 
-  &--primary {
+  &--h2 {
     @include font(32, bold);
-    letter-spacing: -0.1px;
-    margin: 10px 0;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
 
-    @include media(md-up) {
-      @include font(36, bold);
-    }
+  &--h3 {
+    @include font(24, semiBold);
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
 
-    @include media(lg-up) {
-      @include font(32, bold);
-    }
+  &--primary {
+    color: pal(primary);
   }
 
   &--secondary {
-    @include font(24, semi);
-    margin: 7px 0;
-  }
-
-  &--white {
-    color: pal(white);
-  }
-
-  &--faded {
-    color: pal(navy, faded);
-  }
-
-  &--light {
-    color: pal(navy, light);
+    color: pal(secondary)
   }
 
   &--uppercase {
@@ -55,73 +44,41 @@
 }
 
 .ap-copy {
-  color: pal(gray, mid-dark);
+  color: pal(body-color);
   @include font(16, normal);
   overflow: hidden;
   text-overflow: ellipsis;
-
-  &--large {
-    @include font(22, normal);
-    margin: 5px 0;
-  }
-
-  &--medium {
-    @include font(20, normal);
-    margin: 5px 0;
-  }
-
-  &--plus {
-    @include font(18, normal);
-    margin: 5px 0;
-  }
 
   &--small {
     @include font(14, normal);
   }
 
-  &--x-small {
-    @include font(14, normal);
-  }
-
   &--white {
-    color: pal(white) !important;
+    color: pal(light) !important;
   }
 
-  &--light {
-    color: pal(gray) !important;
-  }
-
-  &--dark {
-    line-height: 1;
-    color: pal(gray, dark) !important;
-  }
-
-  &--x-dark {
-    color: pal(navy, light) !important;
+  &--primary {
+    color: pal(primary) !important;
   }
 
   &--blue {
-    color: darken(pal(blue), 5) !important;
+    color: pal(secondary) !important;
   }
 
   &--red {
-    color: pal(red) !important;
-  }
-
-  &--redder {
-    color: red !important;
+    color: pal(error) !important;
   }
 
   &--green {
-    color: pal(green, dark) !important;
+    color: pal(success) !important;
   }
 
   &--green-light {
-    color: pal(green, base) !important;
+    color: pal(success, light) !important;
   }
 
   &--orange {
-    color: palette(orange, dark) !important;
+    color: palette(warning) !important;
   }
 
   &--thin {
@@ -132,7 +89,7 @@
   }
 
   &--semi {
-    @include font-weight(semi);
+    @include font-weight(semiBold);
   }
 
   &--bold {
@@ -155,9 +112,9 @@
 
 .ap-alert {
   padding: 18px 7px;
-  background: pal(red, light);
+  background: pal(error, light);
   justify-content: center;
-  border: 1px solid pal(red, dark);
+  border: 1px solid pal(error, dark);
 }
 
 .text-center {

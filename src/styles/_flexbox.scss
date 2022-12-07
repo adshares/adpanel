@@ -42,6 +42,10 @@
   &.reverse {
     flex-direction: row-reverse;
   }
+
+  &--gap32 {
+    gap: 32px
+  }
 }
 
 .col {

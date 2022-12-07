@@ -20,24 +20,24 @@
   }
 
   &__link {
-    @include copy($color: pal(blue, base));
+    @include copy($color: pal(secondary));
     display: block;
     margin-top: 8px;
 
     &:hover,
     &:focus {
-      color: darken(pal(blue, base), 15%);
+      color: pal(secondary);
     }
   }
 
   &__copy-icon {
     cursor: pointer;
-    color: pal(gray, mid-dark);
+    color: pal(gray);
     outline: none;
 
     &:hover,
     &:focus {
-      color: darken(pal(gray, mid-dark), 10%);
+      color: pal(gray);
     }
   }
 }

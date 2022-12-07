@@ -3,7 +3,7 @@
 .targeting-custom-option {
   &__form {
     @include container(
-      $border-color: pal(gray, light),
+      $border-color: pal(gray),
       $padding-vertical: 8px,
       $padding-horizontal: 8px,
       $margin-top: 0
@@ -43,7 +43,7 @@
     height: 24px;
     width: 24px;
     font-size: 26px;
-    color: pal(blue, base);
+    color: pal(secondary);
     padding: 0;
 
     & .material-icons {
@@ -53,7 +53,7 @@
 
     &:focus,
     &:hover {
-      color: darken(pal(blue, base), 10%);
+      color: pal(secondary);
       box-shadow: 0 10px 20px rgba(196, 194, 194, 0.19), -1px 5px 6px rgba(114, 112, 112, 0.23)
     }
   }

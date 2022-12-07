@@ -22,7 +22,7 @@ html, body {
   max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: pal(gray, ultra-light);
+  background-color: pal(gray);
 
   &.overflow-hidden {
     overflow: hidden;
@@ -80,9 +80,9 @@ input::-webkit-inner-spin-button {
   outline: none;
 }
 
-a:any-link {
-  color: pal(blue);
-}
+//a:any-link {
+//  color: pal(secondary);
+//}
 
 a {
   cursor: pointer;

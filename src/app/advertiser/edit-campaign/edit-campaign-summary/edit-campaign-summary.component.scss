@@ -37,7 +37,7 @@
     .campaign-info {
       &--primary {
         @extend .ap-copy;
-        color: pal(navy);
+        color: pal(primary);
         padding-left: 0;
       }
     }
@@ -98,8 +98,8 @@
 
 .campaign-poster {
   position: relative;
-  background-color: pal(white);
-  border: 1px solid pal(gray, nearly-white);
+  background-color: pal(light);
+  border: 1px solid pal(gray);
   border-radius: 2px;
   margin-top: 6px;
   width: 49.6%;

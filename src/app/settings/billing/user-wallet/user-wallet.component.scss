@@ -10,7 +10,7 @@
 
   &__wallet-box {
     @include container(20px, 20px,
-    $border-color: pal(gray, nearly-white)
+    $border-color: pal(gray)
     );
     min-width: 450px;
     flex: 1;
@@ -27,11 +27,11 @@
 
   &__title,
   &__funds {
-    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
+    @include copy($color: pal(primary), $font-weight: bold, $font-size: 32)
   }
 
   &__funds-in-currency {
-    @include copy($color: pal(gray, mid-dark), $font-size: 22);
+    @include copy($color: pal(gray), $font-size: 22);
     margin-top: 16px;
   }
 
@@ -41,7 +41,7 @@
   }
 
   &__content-container {
-    @include container(0, 0, $border-color: pal(white));
+    @include container(0, 0, $border-color: pal(light));
     display: flex;
     flex-direction: column;
   }
@@ -62,18 +62,18 @@
     white-space: nowrap;
 
     &--white {
-      color: pal(blue, base);
-      background-color: pal(white, base);
-      border-color: pal(gray, light);
+      color: pal(secondary);
+      background-color: pal(light);
+      border-color: pal(gray);
 
       &:focus,
       &:hover:not([disabled]) {
-        background-color: darken(pal(white, base), 5%);
+        background-color: pal(light);
       }
 
       &[disabled] {
-        background-color: lighten(pal(white, base), 5%);
-        border-color: lighten(pal(gray, light), 5%);
+        background-color: pal(light);
+        border-color: pal(light);
       }
     }
 
@@ -88,10 +88,10 @@
   }
 
   &__link {
-    @include copy($color: pal(blue));
+    @include copy($color: pal(secondary));
 
     &:hover {
-      color: darken(pal(blue), 15%);
+      color: pal(secondary);
     }
   }
 }

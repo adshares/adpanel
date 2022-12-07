@@ -7,7 +7,7 @@
     font-size: 1.7em;
 
     &--ready {
-      color: pal(green);
+      color: pal(success);
     }
 
     &--preparing {
@@ -15,7 +15,7 @@
     }
 
     &--deleted {
-      color: pal(red);
+      color: pal(error);
     }
   }
 }

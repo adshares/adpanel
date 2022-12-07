@@ -3,11 +3,11 @@
 .settings-menu-item {
   height: 100%;
   padding: 16px 0 16px 24px;
-  border-left: 2px solid pal(gray, light);
+  border-left: 2px solid pal(gray);
   position: relative;
 
   &.active {
-    border-color: pal(blue);
+    border-color: pal(secondary);
   }
 
   &__submenu {

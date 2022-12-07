@@ -1,62 +1,69 @@
 @import '../../../styles.scss';
 
 .ap-login {
-  &-wrapper {
-    height: 100%;
+  &__header {
+    padding: 50px 205px;
+    background-color: $primary;
+    text-align: left;
+    border-radius: 10px 10px 0 0;
   }
 
-  &__remember {
-    margin-top: 30px;
-  }
-}
-
-h2 {
-  margin: 10px 0;
-}
-
-.block-link {
-  display: block;
-  margin: 10px 10px 10px 50px;
-}
-
-.login-buttons {
-  margin-top: 10px;
-
-  @include media(md-up) {
-    margin-top: 30px;
-  }
-
-  .ap-btn {
-    position: relative;
-    min-width: 220px;
-    height: 42px;
-    vertical-align: top;
-
-    &-with-img {
-      padding-left: 40px;
-    }
-
-    > img {
-      position: absolute;
-      left: 5px;
-      width: 30px;
-      max-height: 30px;
-    }
-  }
-
-  .error-msg {
-    display: inline-block;
+  &__content {
+    padding: 50px 205px;
+    background-color: $light;
   }
 }
 
 form {
-  margin-top: 10px;
-
-  @include media(md-up) {
-    margin-top: 30px;
+  & .ap-form-input__box {
+    margin-bottom: 24px;
   }
 
-  .error-msg {
-    max-width: 320px;
+  & .ap-form-input {
+    padding-right: 35px;
+  }
+
+  & a {
+    color: $body-color;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-size: 14px;
+  }
+
+  & .ap-form-submit-btn {
+    margin: 32px 0 0 ;
   }
 }
+
+.login-buttons {
+  margin-top: 32px;
+  & p {
+    color: $body-color;
+    margin-bottom: 16px;
+  }
+
+  & .alt-login-btn {
+    & > img {
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
+}
+
+//.ap-btn {
+//  //position: relative;
+//  //min-width: 220px;
+//  //height: 42px;
+//  //vertical-align: top;
+//
+//  &-with-img {
+//    padding-left: 40px;
+//  }
+//
+//  > img {
+//    position: absolute;
+//    left: 5px;
+//    width: 30px;
+//    max-height: 30px;
+//  }
+//}

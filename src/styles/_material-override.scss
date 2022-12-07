@@ -3,7 +3,7 @@
 }
 
 .cdk-overlay-dark-backdrop {
-  background: pal(navy);
+  background: pal(primary);
 }
 
 .mat-dialog-container {
@@ -42,7 +42,7 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-chip:not(.mat-basic-chip) {
-  background-color: pal(gray, x-light);
+  background-color: pal(gray);
   @include font(14, 500);
 }
 
@@ -85,7 +85,7 @@ mat-chip:not(.mat-basic-chip) {
     width: 100%;
     margin-top: 8px;
     padding: 8px;
-    background: pal(gray, x-light);
+    background: pal(gray);
   }
 }
 
@@ -140,14 +140,14 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-checkbox-label {
-  color: pal(navy, light);
+  color: pal(primary);
   font-family: "Lato-Regular", sans-serif;
   font-size: 15px;
   line-height: 1;
 }
 
 .mat-checkbox-frame {
-  border: 2px solid pal(navy, light);
+  border: 2px solid pal(primary);
 }
 
 .mat-expansion-panel-spacing {
@@ -217,23 +217,23 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .mat-snack-bar-container {
-  background-color: pal(navy, light);
+  background-color: pal(primary);
 }
 
-.material-icons {
-  margin-right: 8px;
-}
+//.material-icons {
+//  margin-right: 8px;
+//}
 
 .mat-paginator-container {
-  border: 1px solid pal(gray, nearly-white);
+  border: 1px solid pal(gray);
 }
 
 .classifier-filtering .mat-expansion-panel:first-of-type {
-  border: 1px solid pal(gray, nearly-white);
+  border: 1px solid pal(gray);
   border-bottom: none;
 }
 
 .classifier-filtering .mat-expansion-panel:last-of-type {
-  border: 1px solid pal(gray, nearly-white);
+  border: 1px solid pal(gray);
   border-top: none;
 }

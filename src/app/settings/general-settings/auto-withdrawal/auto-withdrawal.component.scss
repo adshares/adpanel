@@ -5,7 +5,7 @@
   margin-top: 10px;
 
   &__title {
-    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
+    @include copy($color: pal(primary), $font-weight: bold, $font-size: 32)
   }
 
   &__sub-title {
@@ -14,7 +14,7 @@
   }
 
   &__content-container {
-    @include container(0, 0, $border-color: pal(white));
+    @include container(0, 0, $border-color: pal(light));
     display: flex;
     flex-direction: column;
     margin-top: 10px;

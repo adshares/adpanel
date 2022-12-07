@@ -1,7 +1,7 @@
 @import '../../../../../styles';
 
 .publisher-list-item {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container($border-color: pal(gray));
   display: flex;
   justify-content: space-between;
   min-height: 52px;
@@ -13,8 +13,8 @@
 
     &--bold {
       @include copy(
-        $color: pal(navy, base),
-        $font-weight: semi,
+        $color: pal(primary),
+        $font-weight: semiBold,
         $font-size: 16
       );
     }
@@ -22,9 +22,9 @@
 
   &__btn {
     @include btn(
-      $border-color: pal(navy, light),
-      $color: pal(navy, light),
-      $background-color: pal(white),
+      $border-color: pal(primary, light),
+      $color: pal(primary, light),
+      $background-color: pal(light),
       $padding-horizontal: 12px,
       $padding-vertical: 8px
     );
@@ -42,10 +42,10 @@
     justify-content: flex-end;
 
     &__positive {
-      color: pal(green);
+      color: pal(success);
     }
     &__negative {
-      color: pal(red);
+      color: pal(error);
     }
   }
 
@@ -55,7 +55,7 @@
     overflow: visible !important;
     padding: 0 !important;
     @include copy(
-      $color: pal(navy, base),
+      $color: pal(primary),
       $font-weight: semi,
       $font-size: 16
     );
@@ -69,7 +69,7 @@
 
     &:hover > div {
       position: absolute;
-      background: pal(gray, light);
+      background: pal(gray);
       z-index: 100;
     }
   }
@@ -84,23 +84,23 @@
     text-align: center;
 
     &.q-great {
-      border-color: pal(green);
-      color: pal(green);
+      border-color: pal(success);
+      color: pal(success);
     }
 
     &.q-good {
-      border-color: pal(blue);
-      color: pal(blue);
+      border-color: pal(secondary);
+      color: pal(secondary);
     }
 
     &.q-medium {
-      border-color: pal(orange, dark);
-      color: pal(orange, dark);
+      border-color: pal(warning);
+      color: pal(warning);
     }
 
     &.q-bad {
-      border-color: pal(red);
-      color: pal(red);
+      border-color: pal(error);
+      color: pal(error);
     }
   }
 

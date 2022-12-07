@@ -37,6 +37,7 @@ export class AuthComponent extends HandleSubscription {
   }
 
   ngOnInit (): void {
+    console.log(this.source)
     this.store.select('state', 'common', 'info')
       .pipe(take(1))
       .subscribe(info => {

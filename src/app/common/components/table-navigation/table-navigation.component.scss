@@ -1,7 +1,7 @@
 @import "../../../../styles";
 
 .table-nav {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container($border-color: pal(gray));
   display: flex;
   justify-content: space-between;
   width: 100%;

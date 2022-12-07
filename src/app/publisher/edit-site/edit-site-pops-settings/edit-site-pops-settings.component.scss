@@ -28,7 +28,7 @@
     flex-basis: 16%;
     margin: 2px;
     border-radius: 2px;
-    border: 2px solid pal(gray, ultra-light);
+    border: 2px solid pal(gray);
     cursor: pointer;
     pointer-events: all;
     display: flex;
@@ -37,7 +37,7 @@
 
     .selected-icon {
       font-size: 175%;
-      color: pal(gray, 'semi-light');
+      color: pal(gray);
       margin-right: 7px;
       vertical-align: middle;
       display: inline-block;
@@ -45,21 +45,21 @@
     }
 
     &:hover {
-      box-shadow: 0 4px 12px pal(gray, base);
+      box-shadow: 0 4px 12px pal(gray);
     }
 
     &--selected {
-      background: pal(gray, ultra-light);
-      border-color: pal(green);
+      background: pal(gray);
+      border-color: pal(success);
 
       .selected-icon {
-        color: pal(green);
+        color: pal(success);
       }
     }
 
     &__visualization {
-      background-color: pal(blue, light);
-      color: pal(blue);
+      background-color: pal(primary);
+      color: pal(secondary);
       @include font(14, bold);
 
       &.large-rectangle {
@@ -70,7 +70,7 @@
       }
 
       &-box {
-        background-color: pal(gray, ultra-light);
+        background-color: pal(gray);
         padding: 30px 60px;
         min-height: 150px;
         margin-bottom: 15px;

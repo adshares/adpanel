@@ -1,7 +1,7 @@
 @import '../../../../../styles';
 
 .user-list-item {
-  @include container($border-color: pal(gray, nearly-white));
+  @include container($border-color: pal(gray));
   display: flex;
   justify-content: space-between;
   min-height: 52px;
@@ -17,8 +17,8 @@
 
     &--bold {
       @include copy(
-        $color: pal(navy, base),
-        $font-weight: semi,
+        $color: pal(primary),
+        $font-weight: semiBold,
         $font-size: 16
       );
     }
@@ -34,33 +34,33 @@
 
   &__status {
     margin-left: 5px;
-    color: pal(gray, light);
+    color: pal(gray);
 
     &.confirmed {
-      color: pal(green, base);
+      color: pal(success);
     }
   }
 
   &__btn {
 
     &[disabled] {
-      border-color: lighten(pal(navy, light), 30%);
-      color: lighten(pal(navy, light), 30%);
+      border-color: pal(primary, light);
+      color: pal(primary, light);
     }
 
     &--success {
-      border-color: pal(green, dark);
-      color: pal(green, dark);
+      border-color: pal(success);
+      color: pal(success);
     }
 
     &--warning {
-      border-color: pal(orange, dark);
-      color: pal(orange, dark);
+      border-color: pal(warning);
+      color: pal(warning);
     }
 
     &--danger {
-      border-color: pal(red, dark);
-      color: pal(red, dark);
+      border-color: pal(error);
+      color: pal(error);
     }
   }
 }

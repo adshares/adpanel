@@ -37,11 +37,11 @@
 
   &__search-container {
     @include container(
-      $border-color: pal(gray, light)
+      $border-color: pal(gray)
     );
     @include copy(
       $font-size: 18,
-      $color: pal(gray, x-dark)
+      $color: pal(gray)
     );
     mat-icon {
       vertical-align: middle;

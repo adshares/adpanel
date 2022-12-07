@@ -21,7 +21,7 @@
   }
 
   &__warning {
-    color: pal(red);
+    color: pal(error);
   }
 
   &__info-cell {
@@ -51,7 +51,7 @@
     flex-basis: 16%;
     margin: 2px;
     border-radius: 2px;
-    border: 2px solid pal(gray, x-light);
+    border: 2px solid pal(gray);
     cursor: pointer;
     pointer-events: all;
     display: flex;
@@ -59,11 +59,11 @@
     justify-content: center;
 
     &__visualization {
-      color: pal(blue);
+      color: pal(secondary);
       @include font(14, bold);
 
       &-box {
-        background-color: pal(gray, ultra-light);
+        background-color: pal(gray);
         padding: 30px 60px;
         min-height: 150px;
         margin-bottom: 15px;

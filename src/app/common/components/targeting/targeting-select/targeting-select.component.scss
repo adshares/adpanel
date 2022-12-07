@@ -22,12 +22,12 @@
     position: absolute;
     top: 12px;
     left: 6px;
-    border: 1px solid pal(navy, light);
+    border: 1px solid pal(primary);
 
     &:before, &:after {
       content: '';
       position: absolute;
-      background: pal(navy, light);
+      background: pal(primary);
     }
 
     &:before {
@@ -51,18 +51,18 @@
 
   &__help-icon {
     margin-left: 4px;
-    color: pal(blue, base);
+    color: pal(secondary);
   }
 
   &__option {
     @include container(
-      $border-color: pal(gray, light),
+      $border-color: pal(gray),
       $padding-vertical: 8px,
       $padding-horizontal: 15px,
       $margin-top: 0
     );
     @include copy(
-      $color: pal(navy, light),
+      $color: pal(primary),
       $font-weight: semi);
     border-top: none;
     cursor: pointer;
@@ -74,7 +74,7 @@
 
     &:hover,
     &:focus {
-      background-color: darken(pal(gray, extreme-light), 1%);
+      background-color: pal(gray);
       transition: background-color 0.2s ease;
       cursor: pointer;
     }

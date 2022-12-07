@@ -24,7 +24,7 @@
 
   &__btn {
     width: calc(6ch + 16px);
-    border: 1px solid pal(gray, mid-dark);
+    border: 1px solid pal(gray);
 
     &:disabled {
       border: none;
@@ -32,8 +32,8 @@
     }
 
     .classifier-list-item__btns--classified &:not(:disabled) {
-      color: pal(gray, mid-dark);
-      border: 1px solid pal(gray, mid-dark);
+      color: pal(gray);
+      border: 1px solid pal(gray);
     }
   }
 

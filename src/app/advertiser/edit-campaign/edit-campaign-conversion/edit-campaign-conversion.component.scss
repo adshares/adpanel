@@ -38,7 +38,7 @@
     justify-content: center;
     cursor: pointer;
     font-size: 26px;
-    color: pal(blue, base);
+    color: pal(secondary);
     padding: 8px 30px;
     margin: -8px -30px;
 
@@ -53,7 +53,7 @@
 
     &:focus,
     &:hover {
-      color: darken(pal(blue, base), 10%);
+      color: pal(secondary);
     }
   }
 
@@ -93,12 +93,12 @@
 
   &__copy-icon {
     cursor: pointer;
-    color: pal(gray, mid-dark);
+    color: pal(gray);
     outline: none;
 
     &:hover,
     &:focus {
-      color: darken(pal(gray, mid-dark), 10%);
+      color: pal(gray);
     }
   }
 }

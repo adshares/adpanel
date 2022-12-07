@@ -9,7 +9,7 @@
 
   &__info {
     @include copy(
-      $color: pal(red),
+      $color: pal(error),
       $font-size: 18,
       $font-weight: semi
     );
@@ -20,29 +20,29 @@
 
 .action-btn {
   @include btn(
-          $color: pal(gray, dark),
-          $background-color: pal(white),
-          $border-color: pal(gray, dark)
+          $color: pal(gray),
+          $background-color: pal(light),
+          $border-color: pal(gray)
   );
   margin-left: 8px;
 
   &[disabled] {
-    border-color: lighten(pal(navy, light), 30%);
-    color: lighten(pal(navy, light), 30%);
+    border-color: pal(primary);
+    color: pal(primary);
   }
 
   &--success {
-    border-color: pal(green, dark);
-    color: pal(green, dark);
+    border-color: pal(success);
+    color: pal(success);
   }
 
   &--warning {
-    border-color: pal(orange, dark);
-    color: pal(orange, dark);
+    border-color: pal(warning);
+    color: pal(warning);
   }
 
   &--danger {
-    border-color: pal(red, dark);
-    color: pal(red, dark);
+    border-color: pal(error);
+    color: pal(error);
   }
 }

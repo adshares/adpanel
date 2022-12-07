@@ -4,7 +4,7 @@
   height: 100%;
   width: 260px;
   padding: 20px 40px;
-  background-color: pal(white);
+  background-color: pal(light);
   transition: width 0.5s ease-in;
 
   @include media(md-up) {
@@ -12,18 +12,18 @@
   }
 
   &__totals-funds {
-    @include container(20px, 20px, pal(blue, base));
+    @include container(20px, 20px, pal(secondary));
     display: flex;
     flex-direction: column;
   }
 
   &__title {
-    @include copy(pal(white));
+    @include copy(pal(light));
   }
 
   &__account-status {
     @include copy(
-        pal(white),
+        pal(light),
       $font-size: 26,
       $font-weight: bold,
       $margin-vertical: 0px
@@ -31,7 +31,7 @@
 
     &--in-currency {
       @include copy(
-          pal(white),
+          pal(light),
         $font-size: 20,
         $font-weight: normal,
         $margin-vertical: 10px

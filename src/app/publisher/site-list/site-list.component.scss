@@ -52,8 +52,8 @@
 
   &__add-btn {
     @include btn(
-      $color: pal(blue),
-      $background-color: pal(white),
+      $color: pal(secondary),
+      $background-color: pal(light),
       $border-color: transparent,
       $padding-vertical: 0
     )

@@ -9,7 +9,7 @@
   &__box {
     padding: 20px 20px 10px;
     min-width: 400px;
-    border: solid 1px pal(gray, light);
+    border: solid 1px pal(gray);
     margin: 40px 0;
 
     @include media(md-up) {
@@ -25,7 +25,7 @@
     }
 
     &.account-selected {
-      border: solid 2px pal(blue);
+      border: solid 2px pal(secondary);
     }
   }
 }

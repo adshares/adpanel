@@ -10,15 +10,15 @@
   }
 
   &__in-progress {
-    color: pal(blue);
+    color: pal(secondary);
   }
 
   &__error {
-    color: pal(red);
+    color: pal(error);
   }
 
   &__success {
-    color: pal(green);
+    color: pal(success);
   }
 
   .mat-chip {

@@ -2,30 +2,30 @@
 
 .domain-checker {
   @include font(16, normal);
-  border: 1px solid pal(gray, light);
+  border: 1px solid pal(gray);
   border-radius: 2px;
   padding: 8px 16px;
-  color: pal(gray, dark);
-  background: pal(white);
+  color: pal(gray);
+  background: pal(light);
 
   &:not(:last-child) {
     margin-right: 10px;
   }
 
   &.q-great {
-    border-color: pal(green);
-    color: pal(green);
+    border-color: pal(success);
+    color: pal(success);
   }
   &.q-good {
-    border-color: pal(blue);
-    color: pal(blue);
+    border-color: pal(secondary);
+    color: pal(secondary);
   }
   &.q-medium {
-    border-color: pal(orange, dark);
-    color: pal(orange, dark);
+    border-color: pal(warning);
+    color: pal(warning);
  }
   &.q-bad {
-    border-color: pal(red);
-    color: pal(red);
+    border-color: pal(error);
+    color: pal(error);
   }
 }
