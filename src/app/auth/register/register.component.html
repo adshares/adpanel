@@ -2,8 +2,8 @@
   *ngIf="!isLoading; else loading"
   class="
     col
-    dwmth__registration
-    dwmth__registration-wrapper"
+    ap__registration
+    ap__registration-wrapper"
 >
   <p
     class="error-msg error-msg--irremovable"
@@ -19,46 +19,46 @@
   </p>
   <div
     *ngIf="registrationEnabled"
-    class="dwmth__registration-form"
+    class="ap__registration-form"
   >
     <h2
       class="
-        dwmth-heading
-        dwmth-heading--primary"
+        ap-heading
+        ap-heading--primary"
     >
       Create Account
     </h2>
-    <p class="dwmth-copy dwmth-box dwmth-box--blue-border">
+    <p class="ap-copy ap-box ap-box--blue-border">
       To create an account using ADS Wallet or MetaMask, just
       <a
-        class="dwmth-blue"
+        class="ap-blue"
         routerLink="/auth/login"
         data-test="auth-redirect-to-login"
       >log in</a>.
     </p>
     <p
       class="
-        dwmth-copy
-        dwmth-copy--large"
+        ap-copy
+        ap-copy--large"
     >
       We need your basic information to create your account.
     </p>
     <form
       #registrationForm="ngForm"
       (ngSubmit)="register()"
-      class="dwmth-form"
+      class="ap-form"
       data-test="auth-registration-form"
     >
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="email"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Email address
         </label>
         <input
           id="email"
-          class="dwmth-form-input"
+          class="ap-form-input"
           type="email"
           name="email"
           ngModel
@@ -85,16 +85,16 @@
         </span>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="password"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Password
         </label>
         <input
           id="password"
-          class="dwmth-form-input"
+          class="ap-form-input"
           name="password"
           type="password"
           ngModel
@@ -118,16 +118,16 @@
         </span>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="confirmPassword"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Confirm password
         </label>
         <input
           id="confirmPassword"
-          class="dwmth-form-input"
+          class="ap-form-input"
           name="confirmPassword"
           type="password"
           ngModel
@@ -149,13 +149,13 @@
 
       <div
         class="
-          dwmth-form-input__box
-          dwmth__registration-consent"
+          ap-form-input__box
+          ap__registration-consent"
       >
         <p
           class="
-            dwmth-copy
-            dwmth-copy--small"
+            ap-copy
+            ap-copy--small"
         >
           <input
             id="acceptTerms"
@@ -173,7 +173,7 @@
               class="checkbox-label"></span>
           I agree to Adshares'
           <a
-            class="dwmth-blue"
+            class="ap-blue"
             [href]="termsOfServiceLink"
             rel="noopener noreferrer"
             target="_blank"
@@ -183,7 +183,7 @@
           </a>
           and
           <a
-            class="dwmth-blue"
+            class="ap-blue"
             [href]="privacyPolicyLink"
             rel="noopener noreferrer"
             target="_blank"
@@ -202,10 +202,10 @@
 
       <button
         class="
-          dwmth-btn
-          dwmth-btn--wide
-          dwmth-btn--blue
-          dwmth-form-submit-btn"
+          ap-btn
+          ap-btn--wide
+          ap-btn--blue
+          ap-form-submit-btn"
         data-test="auth-registration-form-submit-button"
       >
         <span *ngIf="!isRegistering ; else loading">
@@ -214,13 +214,13 @@
       </button>
     </form>
   </div>
-  <div class="dwmth__registration-login-info">
+  <div class="ap__registration-login-info">
     <p
-      class="dwmth-copy"
+      class="ap-copy"
     >
       Maybe you already have an account?
       <a
-        class="dwmth-blue"
+        class="ap-blue"
         routerLink="/auth/login"
         data-test="auth-redirect-to-login"
       >

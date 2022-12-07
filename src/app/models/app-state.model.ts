@@ -4,14 +4,15 @@ import {
   AdminSettings,
   Advertisers,
   BillingHistory,
-  Index,
   License,
+  PaginatorResponse,
   Publishers,
   RefLink,
   Users,
 } from './settings.model'
 import { User } from './user.model';
 import { ChartFilterSettings } from './chart/chart-filter-settings.model';
+import { AccessTokenStore } from 'models/access-token.model'
 import { Info, Placeholders } from 'models/info.model'
 
 interface AppState {
@@ -43,8 +44,9 @@ interface PublisherState {
 }
 
 interface SettingsState {
+  accessTokens: AccessTokenStore[];
   billingHistory: BillingHistory;
-  refLinks: RefLink[];
+  refLinks: PaginatorResponse<RefLink>;
 }
 
 interface UserState {
@@ -58,7 +60,6 @@ interface AdminState {
   publishers: Publishers;
   settings: AdminSettings;
   license: License | null;
-  index: Index | null;
   panelBlockade: boolean;
 }
 

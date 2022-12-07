@@ -4,17 +4,30 @@ import { Observable, of as observableOf, timer as observableTimer } from 'rxjs'
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators'
 import { USER_LOG_OUT_SUCCESS } from 'store/auth/auth.actions'
 import {
+  ADD_ACCESS_TOKEN,
+  AddAccessToken,
+  AddAccessTokenSuccess,
   CANCEL_AWAITING_TRANSACTION,
   CancelAwaitingTransaction,
   CancelAwaitingTransactionSuccess,
+  DELETE_ACCESS_TOKEN,
+  DELETE_REF_LINK,
+  DeleteAccessToken,
+  DeleteAccessTokenSuccess,
+  DeleteRefLink,
+  DeleteRefLinkSuccess,
+  GET_ACCESS_TOKENS,
   GET_BILLING_HISTORY,
   GET_CURRENT_BALANCE,
   GET_REF_LINKS,
+  GetAccessTokens,
+  GetAccessTokensSuccess,
   GetBillingHistory,
   GetBillingHistoryFailure,
   GetBillingHistorySuccess,
   GetCurrentBalanceFailure,
   GetCurrentBalanceSuccess,
+  GetRefLinks,
   GetRefLinksFailure,
   GetRefLinksSuccess,
 } from './settings.actions'
@@ -22,8 +35,9 @@ import { SettingsService } from 'settings/settings.service'
 import { ApiAuthService } from '../../api/auth.service'
 import { Action } from '@ngrx/store'
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions'
-import { TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 import { CommonService } from 'common/common.service'
+import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
+import { DELETE_SUCCESS, TRANSACTION_DELETE_SUCCESS } from 'common/utilities/messages'
 
 @Injectable()
 export class SettingsEffects {
@@ -79,14 +93,73 @@ export class SettingsEffects {
       )
     ))
 
+  getAccessTokens$ = createEffect(() => this.actions$
+    .pipe(
+      ofType<GetAccessTokens>(GET_ACCESS_TOKENS),
+      switchMap(() => this.common.getAccessTokens()
+        .pipe(
+          map(accessTokens => new GetAccessTokensSuccess(accessTokens)),
+          catchError(error => observableOf(new ShowDialogOnError(`Token fetch failed. Error code: ${error.status}`)))
+        )
+      )
+    )
+  )
+
+  addAccessToken$ = createEffect(() => this.actions$
+    .pipe(
+      ofType<AddAccessToken>(ADD_ACCESS_TOKEN),
+      switchMap(action => this.common.addAccessToken(action.payload)
+        .pipe(
+          map(accessToken => new AddAccessTokenSuccess(accessToken)),
+          catchError(error => observableOf(new ShowDialogOnError(`Token creation failed. Error code: ${error.status}`)))
+        )
+      )
+    )
+  )
+
+  deleteAccessToken$ = createEffect(() => this.actions$
+    .pipe(
+      ofType<DeleteAccessToken>(DELETE_ACCESS_TOKEN),
+      switchMap(action => this.common.deleteAccessToken(action.payload)
+        .pipe(
+          map(() => new DeleteAccessTokenSuccess(action.payload)),
+          catchError(error => observableOf(new ShowDialogOnError(`Token deletion failed. Error code: ${error.status}`)))
+        )
+      )
+    )
+  )
+
   getRefLinks$ = createEffect(() => this.actions$
     .pipe(
-      ofType(GET_REF_LINKS),
-      switchMap(() => this.common.getRefLinks()
+      ofType<GetRefLinks>(GET_REF_LINKS),
+      switchMap(action => this.common.getRefLinks(action.payload.pageUrl)
         .pipe(
           map(refLinks => new GetRefLinksSuccess(refLinks)),
           catchError(error => observableOf(new GetRefLinksFailure(error)))
         )
       )
     ))
+
+  deleteRefLink$ = createEffect(() => this.actions$
+    .pipe(
+      ofType<DeleteRefLink>(DELETE_REF_LINK),
+      switchMap(action => {
+        const refLinkId = action.payload
+        return this.common.deleteRefLink(refLinkId)
+          .pipe(
+            switchMap(() => [
+              new DeleteRefLinkSuccess(refLinkId),
+              new ShowSuccessSnackbar(DELETE_SUCCESS),
+            ]),
+            catchError(error => {
+              if (HTTP_INTERNAL_SERVER_ERROR === error.status) {
+                return []
+              }
+              return observableOf(new ShowDialogOnError(`Deletion failed. Error code: ${error.status}`))
+            })
+          )
+        }
+      )
+    )
+  )
 }

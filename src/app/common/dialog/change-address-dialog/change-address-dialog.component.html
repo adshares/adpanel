@@ -5,20 +5,20 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="dwmth-dialog-close"
+    class="ap-dialog-close"
   ></div>
   <h1
     class="
-      dwmth-heading
-      dwmth-heading--primary"
+      ap-heading
+      ap-heading--primary"
   >
     Change address
   </h1>
 
   <p
     class="
-      dwmth-copy
-      dwmth-copy--large
+      ap-copy
+      ap-copy--large
       dialog-description"
   >
   </p>
@@ -31,21 +31,21 @@
     <form
       [formGroup]="changeWithdrawAddressForm"
       (ngSubmit)="changeWithdrawAddress()"
-      class="dwmth-form"
+      class="ap-form"
       data-test="common-change-withdraw-address-form"
     >
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="user-address"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           Your wallet address
         </label>
         <input
           id="user-address"
           class="
-            dwmth-form-input
-            dwmth-form-input--full"
+            ap-form-input
+            ap-form-input--full"
           name="user-address"
           [value]="adsharesAddress"
           disabled
@@ -54,18 +54,18 @@
         <span class="input-valid"></span>
       </div>
 
-      <div class="dwmth-form-input__box">
+      <div class="ap-form-input__box">
         <label
           for="address"
-          class="dwmth-form-label"
+          class="ap-form-label"
         >
           New address
         </label>
         <input
           id="address"
           class="
-            dwmth-form-input
-            dwmth-form-input--full"
+            ap-form-input
+            ap-form-input--full"
           type="url"
           name="address"
           formControlName="address"
@@ -90,8 +90,8 @@
       >
         <button
           class="
-            dwmth-btn
-            dwmth-btn--blue"
+            ap-btn
+            ap-btn--blue"
           data-test="common-change-withdraw-address-form-submit-button"
           *ngIf="isConfirmed"
         >

@@ -39,7 +39,6 @@ export interface AdvertisersQueryParams {
   ],
 })
 export class AdvertiserListComponent extends BaseListComponent implements OnInit {
-  readonly componentStore: Store<AppState>
   readonly defaultParams: AdvertisersQueryParams = {
     searchPhrase: '',
     groupBy: 'campaign',
@@ -54,13 +53,12 @@ export class AdvertiserListComponent extends BaseListComponent implements OnInit
     activatedRoute: ActivatedRoute
   ) {
     super(store, router, activatedRoute);
-    this.componentStore = store
   }
 
   loadList(): void {
     this.isLoading = true;
     this.page = 1;
-    this.componentStore.dispatch(new LoadAdvertisers({
+    this.store.dispatch(new LoadAdvertisers({
       ...this.queryParams
     }));
   }
@@ -70,7 +68,7 @@ export class AdvertiserListComponent extends BaseListComponent implements OnInit
   }
 
   ngOnInit(): void {
-    const advertisersSubscription = this.componentStore.select('state', 'admin', 'advertisers')
+    const advertisersSubscription = this.store.select('state', 'admin', 'advertisers')
       .subscribe(advertisers => {
         this.list = advertisers;
         this.isLoading = !this.list;

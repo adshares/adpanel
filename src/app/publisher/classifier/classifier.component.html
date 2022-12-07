@@ -8,8 +8,8 @@
     >
       <h1
         class="
-          dwmth-heading
-          dwmth-heading--primary"
+          ap-heading
+          ap-heading--primary"
       >
         {{isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName}}
       </h1>
@@ -22,10 +22,10 @@
           *ngIf="isSingleBanner"
           type="button"
           class="
-            dwmth-btn
-            dwmth-btn--prepend
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--prepend
+            ap-btn--white
+            ap-blue"
           (click)="goToGeneralClassifier()"
         >
           Show all
@@ -34,16 +34,16 @@
           *ngIf="!isSingleBanner"
           type="button"
           class="
-            dwmth-btn
-            dwmth-btn--prepend
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--prepend
+            ap-btn--white
+            ap-blue"
           (click)="refresh()"
         >
           <fa-icon
             class="
-              dwmth-icon
-              dwmth-icon--prepend"
+              ap-icon
+              ap-icon--prepend"
             [icon]="refreshIcon"
           >
           </fa-icon>
@@ -52,9 +52,9 @@
         <button
           type="button"
           class="
-            dwmth-btn
-            dwmth-btn--white
-            dwmth-blue"
+            ap-btn
+            ap-btn--white
+            ap-blue"
           (click)="onStepBack()"
         >
           {{isGlobal ? 'Dashboard' : 'Back to the site'}}
@@ -71,14 +71,14 @@
     <table
       class="
         col
-        dwmth-ad-list"
+        ap-ad-list"
     >
       <app-table-navigation
         [navigationName]="'classifierListNavigation'"
         class="
           row
-          dwmth-copy
-          dwmth-copy--small"
+          ap-copy
+          ap-copy--small"
       ></app-table-navigation>
       <ng-container *ngIf="!isLoading; else loading">
         <app-classifier-list-item
@@ -89,16 +89,16 @@
       </ng-container>
       <tr
         *ngIf="bannerClassifications.length === 0 && !isLoading"
-        class="dwmth-box row justify-center"
+        class="ap-box row justify-center"
       >
-        <td class="dwmth-copy dwmth-copy--blue dwmth-copy--large">
+        <td class="ap-copy ap-copy--blue ap-copy--large">
           {{filtering.status || !!filtering.sizes ?
             'No banners matching filters' : 'There are no banners to reject'
           }}
         </td>
       </tr>
       <ng-template #loading>
-        <div class="dwmth-box row justify-center">
+        <div class="ap-box row justify-center">
           <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
         </div>
       </ng-template>

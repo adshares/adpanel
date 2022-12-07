@@ -2,45 +2,18 @@
   <app-panel-blockade *ngIf="isPanelBlocked"
                       [url]="licenseDetailUrl"></app-panel-blockade>
   <div class="admin-dashboard__side-menu">
-    <div
-      *ngIf="showIndexUpdateError"
-      class="dwmth-copy dwmth-copy--red justify-center message"
-    >
-      Panel placeholders' update time cannot be fetched.
-    </div>
-    <div
-      *ngIf="showIndexUpdateMessage"
-      class="dwmth-copy dwmth-copy--red justify-center message"
-    >
-      Panel placeholders were updated on {{ indexUpdateTime }}<br />
-      <a
-        *ngIf="showPreviewLink"
-        [href]=PREVIEW_URL
-        rel="noopener nofollow noreferrer"
-        target="_blank"
-      >
-        preview available
-      </a>
-      <span
-        *ngIf="!showPreviewLink"
-        class="dwmth-copy"
-      >
-        generating preview
-      </span>
-    </div>
     <div *ngIf="adControllerUrl"
-         class="dwmth-copy justify-center message"
+         class="ap-copy justify-center message"
     >
       <a [href]="adControllerUrl"
          rel="noopener nofollow noreferrer"
-         target="_blank"
          data-test="settings-category-link"
       >
-        <h3 class="dwmth-copy--large">
-          <span class="dwmth-copy--x-dark">
+        <h3 class="ap-copy--large">
+          <span class="ap-copy--x-dark">
             AdController Panel
           </span>
-          <fa-icon [icon]="faExternalLinkSquareAlt" class="dwmth-icon dwmth-icon--large"></fa-icon>
+          <fa-icon [icon]="faGears" class="ap-icon ap-icon--large"></fa-icon>
         </h3>
       </a>
     </div>

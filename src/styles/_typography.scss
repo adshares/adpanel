@@ -2,7 +2,7 @@
   color: pal(gray, dark);
 }
 
-.dwmth-heading {
+.ap-heading {
   color: pal(navy);
   word-break: break-all;
 
@@ -54,7 +54,7 @@
   }
 }
 
-.dwmth-copy {
+.ap-copy {
   color: pal(gray, mid-dark);
   @include font(16, normal);
   overflow: hidden;
@@ -153,7 +153,7 @@
   }
 }
 
-.dwmth-alert {
+.ap-alert {
   padding: 18px 7px;
   background: pal(red, light);
   justify-content: center;

@@ -2,8 +2,6 @@ import {
   actions,
   BAN_USER_SUCCESS,
   DELETE_USER_SUCCESS,
-  GET_INDEX_FAILURE,
-  GET_INDEX_SUCCESS,
   GET_LICENSE_FAILURE,
   GET_LICENSE_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
@@ -22,7 +20,6 @@ const initialState: AdminState = {
     adUserInfoUrl: '',
   },
   license: null,
-  index: null,
   panelBlockade: false,
 };
 
@@ -67,23 +64,6 @@ export function adminReducers(state = initialState, action: actions) {
       return {
         ...state,
         settings: action.payload.settings
-      };
-    case GET_INDEX_SUCCESS:
-      return {
-        ...state,
-        index: {
-          updateTime: action.payload.indexUpdateTime,
-          error: false,
-        }
-      };
-    case GET_INDEX_FAILURE:
-      const updateTime = (!state.index) ? '' : state.index.updateTime;
-      return {
-        ...state,
-        index: {
-          updateTime,
-          error: true,
-        }
       };
     case BAN_USER_SUCCESS:
     case UNBAN_USER_SUCCESS:

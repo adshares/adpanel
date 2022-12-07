@@ -1,4 +1,4 @@
-.dwmth-dialog-close {
+.ap-dialog-close {
   cursor: pointer;
   padding: 10px;
   border: 1px solid pal(gray, light);
@@ -27,15 +27,15 @@
   }
 }
 
-.dwmth-error {
+.ap-error {
   color: pal(red);
 }
 
-.dwmth-success {
+.ap-success {
   color: pal(green);
 }
 
-.dwmth-multiline {
+.ap-multiline {
   white-space: pre-wrap;
 }
 

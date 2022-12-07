@@ -1,0 +1,57 @@
+<section class="access-tokens">
+  <div class="ap-box ap-box--large">
+    <div class="col">
+      <h2 class="ap-heading ap-heading--primary">
+        Access tokens
+      </h2>
+      <div class="row">
+        <form class="ap-form" [formGroup]="newTokenForm" (ngSubmit)="onAddToken()">
+          <div class="row gap no-wrap">
+            <div class="ap-form-input__box">
+              <label class="ap-form-label" for="name">Name: </label>
+              <input class="ap-form-input" id="name" type="text" formControlName="name">
+            </div>
+
+            <div class="ap-form-input__box">
+              <label class="ap-form-label">Scopes: </label>
+              <div class="row gap">
+                <ng-container *ngFor="let availableScope of availableScopes; let i = index" formGroupName="scopes">
+                  <mat-checkbox formControlName="{{ availableScope.id }}">{{ availableScope.description }}</mat-checkbox>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="ap-form-input__box">
+              <button
+                class="ap-form-submit-btn ap-btn ap-btn--blue"
+                type="submit"
+                [disabled]="!newTokenForm.valid"
+              >
+                <fa-icon
+                  class="ap-icon ap-icon--prepend"
+                  [icon]="faPlus"
+                ></fa-icon>
+                Create
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <table class="ap-copy">
+        <app-table-navigation [navigationName]="'accessTokenItems'"></app-table-navigation>
+        <tbody *ngIf="!isLoading; else loading">
+          <app-access-token-list-item
+            *ngFor="let accessToken of list"
+            [accessToken]="accessToken"
+          ></app-access-token-list-item>
+        </tbody>
+        <ng-template #loading>
+          <div class="loading-wrapper">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,22 +1,22 @@
 <tr
   *ngIf="site; else loading"
-  class="dwmth-box
-        dwmth-site-list__item
+  class="ap-box
+        ap-site-list__item
         row
         justify-between
         align-center
-        dwmth-copy"
+        ap-copy"
   data-test="publisher-navigate-to-site-details"
 >
   <td
     class="
           row
-          dwmth-site-list__status-cell
+          ap-site-list__status-cell
           align-center"
     (click)="statusSelect.open()"
     role="button"
   >
-    <div class="dwmth-status"
+    <div class="ap-status"
          [attr.data-status]="currentSiteStatus"
     >
       {{ currentSiteStatus }}
@@ -45,7 +45,7 @@
           align-center"
     role="link"
   >
-    <a class="dwmth-copy dwmth-copy--bold clickable-row-a"
+    <a class="ap-copy ap-copy--bold clickable-row-a"
        routerLink="/publisher/site/{{site.id}}"
           data-test="publisher-site-url">
       {{ site.name }}
@@ -109,7 +109,7 @@
           row
           align-center
           justify-center
-          dwmth-site-list__item-site-details"
+          ap-site-list__item-site-details"
     role="link"
   >
     <a routerLink="/publisher/site/{{site.id}}" class="clickable-row-a">
@@ -121,7 +121,7 @@
   </td>
 </tr>
 <ng-template #loading>
-  <div class="dwmth-box dwmth-box--large justify-center align-center">
+  <div class="ap-box ap-box--large justify-center align-center">
     <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
   </div>
 </ng-template>

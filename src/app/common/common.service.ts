@@ -3,9 +3,15 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 
 import { environment } from 'environments/environment'
+import {
+  AccessToken,
+  AccessTokenResponse,
+  AccessTokenResponseWithSecret,
+  AccessTokenScope,
+} from 'models/access-token.model'
 import { reportType } from 'models/enum/user.enum'
 import { Info, Placeholders } from 'models/info.model'
-import { RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
+import { PaginatorResponse, RefLink, RefLinkInfo, ReportsList } from 'models/settings.model'
 import { Media } from 'models/taxonomy-medium.model'
 import { Options } from 'models/options.model'
 
@@ -47,8 +53,11 @@ export class CommonService {
     return this.http.get<any>(`${environment.apiUrl}/stats/report/${id}`, options);
   }
 
-  getRefLinks(): Observable<RefLink[]> {
-    return this.http.get<RefLink[]>(`${environment.apiUrl}/ref-links`);
+  getRefLinks(pageUrl: string|undefined): Observable<PaginatorResponse<RefLink>> {
+    const url = undefined === pageUrl
+      ? `${environment.apiUrl}/ref-links`
+      : (pageUrl && (environment.serverUrl.startsWith('https:') && pageUrl.replace(/^http:/, 'https:')) || pageUrl);
+    return this.http.get<PaginatorResponse<RefLink>>(url);
   }
 
   saveRefLink(refLink: object): Observable<RefLink> {
@@ -59,11 +68,31 @@ export class CommonService {
     return this.http.get<RefLinkInfo>(`${environment.apiUrl}/ref-links/info/${token}`);
   }
 
+  deleteRefLink(refLinkId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/ref-links/${refLinkId}`);
+  }
+
   getMedia(): Observable<Media> {
     return this.http.get<Media>(`${environment.apiUrl}/options/campaigns/media`);
   }
 
   getLoginPlaceholders(): Observable<Placeholders>{
     return this.http.get<Placeholders>(`${environment.serverUrl}/panel/placeholders/login`);
+  }
+
+  getAccessTokenScopes (): Observable<AccessTokenScope[]> {
+    return this.http.get<AccessTokenScope[]>(`${environment.authUrl}/scopes`)
+  }
+
+  getAccessTokens (): Observable<AccessTokenResponse[]> {
+    return this.http.get<AccessTokenResponse[]>(`${environment.authUrl}/personal-access-tokens`)
+  }
+
+  addAccessToken (token: AccessToken): Observable<AccessTokenResponseWithSecret> {
+    return this.http.post<AccessTokenResponseWithSecret>(`${environment.authUrl}/personal-access-tokens`, token)
+  }
+
+  deleteAccessToken (id: string): Observable<null> {
+    return this.http.delete<null>(`${environment.authUrl}/personal-access-tokens/${id}`)
   }
 }

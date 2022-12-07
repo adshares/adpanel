@@ -1,15 +1,15 @@
 <tr *ngIf="campaign; else loading"
     class="row
-        dwmth-box dwmth-campaign-list__item
+        ap-box ap-campaign-list__item
         align-center
         justify-between
-        dwmth-copy"
+        ap-copy"
     data-test="advertiser-navigate-to-campaign-details">
-  <td class="row dwmth-campaign-list__status-cell align-center">
+  <td class="row ap-campaign-list__status-cell align-center">
     <div
       (click)="statusSelect.open()"
       [attr.data-status]="currentCampaignStatus"
-      class="dwmth-status dwmth-campaign-list__status"
+      class="ap-status ap-campaign-list__status"
       role="button"
     >
       {{ currentCampaignStatus }}
@@ -33,7 +33,7 @@
         </mat-select>
       </div>
     </div>
-    <div class="dwmth-campaign-list__classification">
+    <div class="ap-campaign-list__classification">
       <app-campaign-classification-info  [classifications]="campaign.classifications"></app-campaign-classification-info>
     </div>
   </td>
@@ -43,7 +43,7 @@
           row
           align-center"
   >
-    <a class="dwmth-copy dwmth-copy--no-wrap dwmth-copy--bold clickable-row-a"
+    <a class="ap-copy ap-copy--no-wrap ap-copy--bold clickable-row-a"
        data-test="advertiser-campaign-name"
        routerLink="/advertiser/campaign/{{campaign.id}}"
     >
@@ -124,7 +124,7 @@
           row
           align-center
           justify-center
-          dwmth-campaign-list__item-campaign-details"
+          ap-campaign-list__item-campaign-details"
     role="link"
   >
     <a class="clickable-row-a" routerLink="/advertiser/campaign/{{campaign.id}}">
@@ -136,7 +136,7 @@
   </td>
 </tr>
 <ng-template #loading>
-  <div class="dwmth-box dwmth-box--large justify-center align-center">
+  <div class="ap-box ap-box--large justify-center align-center">
     <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
   </div>
 </ng-template>

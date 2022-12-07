@@ -63,6 +63,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
         { name: 'Wallet settings', icon: 'assets/images/preferences.svg' },
         { name: 'Email & password', icon: 'assets/images/preferences.svg' },
         { name: 'Referral links', icon: 'assets/images/preferences.svg' },
+        { name: 'Access tokens', icon: 'assets/images/preferences.svg' },
         { name: 'Newsletter', icon: 'assets/images/preferences.svg' },
       ],
     })

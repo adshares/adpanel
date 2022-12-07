@@ -1,6 +1,6 @@
 @import '../../../../styles.scss';
 
-.dwmth-header {
+.ap-header {
   width: 100vw;
   height: $app-header-height;
 
@@ -44,17 +44,17 @@
   }
 }
 
-.dwmth-btn.dwmth-btn--invalid {
+.ap-btn.ap-btn--invalid {
   color: pal(gray, mid-dark);
 }
 
-.dwmth-navigation {
+.ap-navigation {
   &__item {
     margin: 0 5px;
     height: 42px;
     cursor: pointer;
 
-    .dwmth-logo {
+    .ap-logo {
       margin-right: 15px;
 
       @include media(md-up) {
@@ -62,12 +62,12 @@
       }
     }
 
-    .dwmth-chevron {
+    .ap-chevron {
       right: 10px;
       top: 15px;
     }
 
-    .dwmth-circle {
+    .ap-circle {
       top: 6px;
       right: 6px;
     }
@@ -80,12 +80,12 @@
   }
 }
 
-.dwmth-tokens {
+.ap-tokens {
   @include font(14, semi);
 }
 
 
-.dwmth-usd {
+.ap-usd {
   @include font(9, semi);
   color: pal(gray);
 }

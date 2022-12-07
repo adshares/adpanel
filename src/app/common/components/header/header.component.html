@@ -1,7 +1,7 @@
 <section
   class="
-    dwmth-header
-    dwmth-header-bg
+    ap-header
+    ap-header-bg
     container-fluid
     row
     align-center
@@ -18,12 +18,12 @@
     >
       <div
         class="
-          dwmth-navigation__item
+          ap-navigation__item
           col
           align-center"
       >
         <img
-          class="dwmth-logo"
+          class="ap-logo"
           src="assets/images/logo--white.png"
           srcset="
             assets/images/logo--white@2x.png 2x,
@@ -31,29 +31,29 @@
           alt="Adshares Logo"
         >
         <span *ngIf="!!envContext"
-              class="dwmth-copy
-                     dwmth-header__logo-subtitle">{{envContext}}</span>
+              class="ap-copy
+                     ap-header__logo-subtitle">{{envContext}}</span>
       </div>
     </a>
     <button
       type="button"
       *ngIf="session.isAdvertiser() && !session.isModerator() || session.isImpersonated() && actAsAdvertiser"
-      class="dwmth-btn--no-border
+      class="ap-btn--no-border
                row
                align-center
-               dwmth-navigation__item
-               dwmth-header--userselect
-               dwmth-copy--uppercase
-               dwmth-copy--semi
-               dwmth-copy--lineheight-reset"
+               ap-navigation__item
+               ap-header--userselect
+               ap-copy--uppercase
+               ap-copy--semi
+               ap-copy--lineheight-reset"
       [ngClass]="{'active-type': activeUserType === userRolesEnum.ADVERTISER}"
       (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
     >
       <img
         class="
-            dwmth-icon
-            dwmth-navigation__item--hidden
-            dwmth-icon--prepend"
+            ap-icon
+            ap-navigation__item--hidden
+            ap-icon--prepend"
         [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         alt="user"
       />
@@ -62,22 +62,22 @@
     <button
       type="button"
       *ngIf="session.isPublisher() && !session.isModerator() || session.isImpersonated() && actAsPublisher"
-      class="dwmth-btn--no-border
+      class="ap-btn--no-border
                row
                align-center
-               dwmth-navigation__item
-               dwmth-header--userselect
-               dwmth-copy--uppercase
-               dwmth-copy--semi
-               dwmth-copy--lineheight-reset"
+               ap-navigation__item
+               ap-header--userselect
+               ap-copy--uppercase
+               ap-copy--semi
+               ap-copy--lineheight-reset"
       [ngClass]="{'active-type': activeUserType === userRolesEnum.PUBLISHER}"
       (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
     >
       <img
         class="
-            dwmth-navigation__item--hidden
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-navigation__item--hidden
+            ap-icon
+            ap-icon--prepend"
         [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
         alt=""
       />
@@ -86,22 +86,22 @@
     <button
             type="button"
             *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
-            class="dwmth-btn--no-border
+            class="ap-btn--no-border
                row
                align-center
-               dwmth-navigation__item
-               dwmth-header--userselect
-               dwmth-copy--uppercase
-               dwmth-copy--semi
-               dwmth-copy--lineheight-reset"
+               ap-navigation__item
+               ap-header--userselect
+               ap-copy--uppercase
+               ap-copy--semi
+               ap-copy--lineheight-reset"
             [ngClass]="{'active-type': activeUserType === userType}"
             (click)="setActiveUserType(userType)"
     >
       <img
               class="
-            dwmth-icon
-            dwmth-navigation__item--hidden
-            dwmth-icon--prepend"
+            ap-icon
+            ap-navigation__item--hidden
+            ap-icon--prepend"
               [src]="activeUserType === userType ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
               alt=""
       />
@@ -119,8 +119,8 @@
     <div
       *ngIf="!session.isModerator() || session.isImpersonated()"
       class="
-        dwmth-btn
-        dwmth-btn--transparent
+        ap-btn
+        ap-btn--transparent
         row
         align-center
         help-menu"
@@ -130,14 +130,14 @@
       <fa-icon
         [icon]="faLifeRing"
         class="
-            dwmth-icon
-            dwmth-icon--prepend"></fa-icon>
+            ap-icon
+            ap-icon--prepend"></fa-icon>
       <span>Support</span>
       <img
         class="
-          dwmth-icon
-          dwmth-icon--small
-          dwmth-icon--append
+          ap-icon
+          ap-icon--small
+          ap-icon--append
           settings-menu-chevron"
         [class.up]="helpMenuOpen"
         src="assets/images/chevron--gray.svg"
@@ -146,31 +146,31 @@
       <ul
         class="
           settings-menu
-          dwmth-copy"
+          ap-copy"
         [class.open]="helpMenuOpen"
       >
         <li class="settings-menu__item" *ngIf="supportChat">
           <fa-icon
             [icon]="faComments"
             class="
-            dwmth-icon
-            dwmth-icon--prepend"></fa-icon>
+            ap-icon
+            ap-icon--prepend"></fa-icon>
           <a href="{{supportChat}}" target="_blank" rel="noopener nofollow noreferrer">Community chat</a>
         </li>
         <li class="settings-menu__item" *ngIf="supportTelegram">
           <fa-icon
             [icon]="faPaperPlane"
             class="
-            dwmth-icon
-            dwmth-icon--prepend"></fa-icon>
+            ap-icon
+            ap-icon--prepend"></fa-icon>
           <a href="https://t.me/{{supportTelegram}}" target="_blank" rel="noopener nofollow noreferrer">@{{supportTelegram}}</a>
         </li>
         <li class="settings-menu__item" *ngIf="supportEmail">
           <fa-icon
             [icon]="faEnvelope"
             class="
-            dwmth-icon
-            dwmth-icon--prepend"></fa-icon>
+            ap-icon
+            ap-icon--prepend"></fa-icon>
           <a href="mailto:{{supportEmail}}" target="_blank" rel="noopener nofollow noreferrer">{{supportEmail}}</a>
         </li>
       </ul>
@@ -180,12 +180,12 @@
     <button
       *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
       class="
-        dwmth-btn
-        dwmth-btn--with-icon
-        dwmth-btn--wide
-        dwmth-bg-blue
-        dwmth-navigation__item
-        dwmth-navigation__item--hidden
+        ap-btn
+        ap-btn--with-icon
+        ap-btn--wide
+        ap-bg-blue
+        ap-navigation__item
+        ap-navigation__item--hidden
         row
         align-center
         hidden-md-down"
@@ -194,8 +194,8 @@
     >
       <img
         class="
-            dwmth-icon
-            dwmth-icon--prepend"
+            ap-icon
+            ap-icon--prepend"
         src="assets/images/plus-circle.svg"
         alt=""
       >
@@ -208,12 +208,12 @@
         row
         align-center
         relative
-        dwmth-bg-navy--light
-        dwmth-navigation__item
-        dwmth-btn
-        dwmth-btn--no-vertical-padding"
-      [class.dwmth-btn--invalid]="!isTotalFundsValid"
-      matTooltipClass="dwmth-mat-tooltip"
+        ap-bg-navy--light
+        ap-navigation__item
+        ap-btn
+        ap-btn--no-vertical-padding"
+      [class.ap-btn--invalid]="!isTotalFundsValid"
+      matTooltipClass="ap-mat-tooltip"
       [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"
       matTooltipPosition="left"
       (mouseover)="toggleSettingsMenu(true)"
@@ -222,9 +222,9 @@
     >
       <img
         class="
-          dwmth-navigation__item--hidden
-          dwmth-icon
-          dwmth-icon--prepend"
+          ap-navigation__item--hidden
+          ap-icon
+          ap-icon--prepend"
         src="assets/images/credit-card--white.svg"
         alt="Wallet balance"
       >
@@ -234,29 +234,29 @@
           justify-start"
       >
         <span
-          class="dwmth-tokens"
+          class="ap-tokens"
           data-test="user-total-funds"
         >
           {{ totalFunds | formatMoney:2:crypto:code }}
         </span>
         <span
           *ngIf="calculateFunds"
-          class="dwmth-header__money-in-currency"
+          class="ap-header__money-in-currency"
           data-test="user-total-funds"
         >
           {{ totalFunds | calculateInCurrency:2 }}
         </span>
         <span
-          class="dwmth-usd"
+          class="ap-usd"
           data-test="user-total-funds-in-currency"
         >
         </span>
       </div>
       <img
         class="
-          dwmth-icon
-          dwmth-icon--small
-          dwmth-icon--append
+          ap-icon
+          ap-icon--small
+          ap-icon--append
           settings-menu-chevron"
         [class.up]="settingsMenuOpen"
         src="assets/images/chevron--gray.svg"
@@ -265,15 +265,15 @@
       <ul
         class="
           settings-menu
-          dwmth-copy"
+          ap-copy"
         [class.open]="settingsMenuOpen"
       >
         <li class="settings-menu__item">
           <button
             class="
-              dwmth-btn
-              dwmth-btn--blue
-              dwmth-btn--tiny
+              ap-btn
+              ap-btn--blue
+              ap-btn--tiny
               row
               justify-between
               align-center"
@@ -282,7 +282,7 @@
           >
             <img
               class="
-                dwmth-icon
+                ap-icon
                 close"
               src="assets/images/plus-circle.svg"
               alt=""
@@ -331,8 +331,8 @@
 
     <button
       class="
-        dwmth-btn
-        dwmth-btn--transparent
+        ap-btn
+        ap-btn--transparent
         row
         align-center
         hidden-sm"

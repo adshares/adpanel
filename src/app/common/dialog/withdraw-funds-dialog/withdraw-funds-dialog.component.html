@@ -5,12 +5,12 @@
 >
   <div
     (click)="dialogRef.close()"
-    class="dwmth-dialog-close"
+    class="ap-dialog-close"
   ></div>
   <h1
     class="
-      dwmth-heading
-      dwmth-heading--primary"
+      ap-heading
+      ap-heading--primary"
   >
     <span *ngIf="useAdsWithdraw">Withdraw ADS</span>
     <span *ngIf="useBtcWithdraw">Withdraw BTC</span>
@@ -24,23 +24,23 @@
         else useAdsWithdraw && adsWithdrawForm || useBtcWithdraw && btcWithdrawForm"
       class="withdraw-funds-selector"
     >
-      <p class="dwmth-copy dwmth-copy--large dialog-description">
+      <p class="ap-copy ap-copy--large dialog-description">
         Select your preferred withdraw method. You can choose between the native ADS coin and Bitcoin.
       </p>
       <div class="add-funds-content dialog-main-content">
         <button
           (click)="selectAdsWithdraw()"
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          class="ap-btn ap-btn--blue ap-btn--block"
         >
           Withdraw ADS
         </button>
-        <p class="dwmth-copy dwmth-copy--medium">
+        <p class="ap-copy ap-copy--medium">
           No fee, super fast.
         </p>
 
         <button
           (click)="selectBtcWithdraw()"
-          class="dwmth-btn dwmth-btn--blue dwmth-btn--block"
+          class="ap-btn ap-btn--blue ap-btn--block"
         >
           Withdraw BTC
         </button>
@@ -49,29 +49,29 @@
   </div>
 
   <ng-template #adsWithdrawForm>
-    <p class="dwmth-copy dwmth-copy--large dwmth-customize-subheading">
+    <p class="ap-copy ap-copy--large ap-customize-subheading">
       Fill in the form below to withdraw your funds.
     </p>
     <div class="dialog-main-content dialog-main-content--short">
       <form
         (ngSubmit)="withdrawFunds()"
         [formGroup]="withdrawForm"
-        class="dwmth-form"
+        class="ap-form"
         data-test="common-withdraw-funds-form"
       >
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label" for="adsAddress">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="adsAddress">
             Account address
             <ng-container *ngIf="!user.email">({{ adserverWallet.walletNetwork }})</ng-container>
             <fa-icon
               [icon]="faQuestionCircle"
               matTooltip="e.g. address of your ADS Wallet or an exchange"
-              matTooltipClass="dwmth-mat-tooltip"
+              matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="above"
             ></fa-icon>
           </label>
           <input
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-address"
             formControlName="address"
             id="adsAddress"
@@ -89,29 +89,29 @@
             Please provide a valid address.
           </span>
         </div>
-        <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
+        <p class="ap-copy ap-copy--blue ap-customize-subheading">
           Your funds will be transferred to the address above.
           <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
         </p>
 
         <div class="total-funds">
-          <p class="dwmth-form-label">
+          <p class="ap-form-label">
             Total balance:
           </p>
           <h1
-            class="dwmth-heading dwmth-heading--primary"
+            class="ap-heading ap-heading--primary"
             data-test="user-total-funds"
           >
             {{ adserverWallet.walletBalance | formatMoney:11:crypto:code}}
           </h1>
         </div>
 
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label" for="adsAmount">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="adsAmount">
             Withdrawal amount ({{appCurrency}})
           </label>
           <input
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-withdraw-amount"
             formControlName="amount"
             id="adsAmount"
@@ -139,7 +139,7 @@
 
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxAdsWithdrawAmount()"
-                  class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
+                  class="ap-btn ap-btn--white ap-copy--blue"
                   data-test="common-withdraw-funds-form-btn-withdraw-max"
                   type="button"
           >
@@ -150,7 +150,7 @@
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
             (click)="calculateAdsFee()"
-            class="dwmth-btn dwmth-btn--blue"
+            class="ap-btn ap-btn--blue"
             data-test="common-withdraw-funds-form-btn-calc-fee"
             type="button"
           >
@@ -160,7 +160,7 @@
 
         <div
           *ngIf="calculatedFee !== undefined"
-          class="withdraw-funds__btns-wrapper dwmth-copy dwmth-copy--plus dwmth-copy--x-dark dwmth-copy--semi"
+          class="withdraw-funds__btns-wrapper ap-copy ap-copy--plus ap-copy--x-dark ap-copy--semi"
         >
           <p>
             Transaction fee:
@@ -199,16 +199,16 @@
 
         <ng-container *ngIf="user.email">
           <div
-            class="dwmth-form-input__box"
+            class="ap-form-input__box"
           >
             <label
-              class="dwmth-form-label"
+              class="ap-form-label"
               for="memo"
             >
               Message
             </label>
             <input
-              class="dwmth-form-input dwmth-form-input--full"
+              class="ap-form-input ap-form-input--full"
               data-test="common-withdraw-funds-form-memo-input"
               formControlName="memo"
               id="memo"
@@ -228,14 +228,14 @@
               Exchange address provided. You must include a message provided by the exchange.
             </span>
           </div>
-          <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
+          <p class="ap-copy ap-copy--blue ap-customize-subheading">
             It’s necessary to add a message (aka Payment ID or Memo) when transferring your funds directly to an exchange.
             <fa-icon
               [icon]="faQuestionCircle"
               matTooltip="
                     The message is provided by your exchange.
                     Please check the deposit section of your exchange and copy-paste the message."
-              matTooltipClass="dwmth-mat-tooltip"
+              matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="above"
             ></fa-icon>
           </p>
@@ -244,7 +244,7 @@
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
             *ngIf="isConfirmed"
-            class="dwmth-btn dwmth-btn--blue  dwmth-btn--block "
+            class="ap-btn ap-btn--blue  ap-btn--block "
             data-test="common-withdraw-funds-form-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
@@ -268,35 +268,35 @@
     <button
       (click)="restartWithdrawMethod()"
       *ngIf="btcInfo"
-      class="dwmth-btn dwmth-btn--white"
+      class="ap-btn ap-btn--white"
     >
       Back
     </button>
   </ng-template>
 
   <ng-template #btcWithdrawForm>
-    <p class="dwmth-copy dwmth-copy--large dwmth-customize-subheading">
+    <p class="ap-copy ap-copy--large ap-customize-subheading">
       Fill in the form below to withdraw your funds.
     </p>
     <div class="dialog-main-content dialog-main-content--short">
       <form
         (ngSubmit)="withdrawFunds()"
         [formGroup]="withdrawForm"
-        class="dwmth-form"
+        class="ap-form"
         data-test="common-withdraw-funds-form"
       >
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label" for="btcAddress">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="btcAddress">
             Bitcoin address
             <fa-icon
               [icon]="faQuestionCircle"
               matTooltip="e.g. address of your BTC Wallet or an exchange"
-              matTooltipClass="dwmth-mat-tooltip"
+              matTooltipClass="ap-mat-tooltip"
               matTooltipPosition="above"
             ></fa-icon>
           </label>
           <input
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-address"
             formControlName="address"
             id="btcAddress"
@@ -314,28 +314,28 @@
             Please provide a valid address.
           </span>
         </div>
-        <p class="dwmth-copy dwmth-copy--blue dwmth-customize-subheading">
+        <p class="ap-copy ap-copy--blue ap-customize-subheading">
           Your funds will be transferred to the address above.
           <ng-container *ngIf="user.email">Please, remember to confirm the withdrawal via email within one hour.</ng-container>
         </p>
         <div class="total-funds">
-          <p class="dwmth-form-label">
+          <p class="ap-form-label">
             Total balance:
           </p>
           <h1
-            class="dwmth-heading dwmth-heading--primary"
+            class="ap-heading ap-heading--primary"
             data-test="user-total-funds"
           >
             {{ adserverWallet.walletBalance | formatMoney:11:crypto:code}}
           </h1>
         </div>
-        <div class="dwmth-form-input__box">
-          <label class="dwmth-form-label" for="btcAmount">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label" for="btcAmount">
             Withdrawal amount ({{appCurrency}})
           </label>
           <input
             (keyup)="keyupBtcWithdrawAdsAmount($event)"
-            class="dwmth-form-input dwmth-form-input--full"
+            class="ap-form-input ap-form-input--full"
             data-test="common-withdraw-funds-form-withdraw-amount"
             formControlName="amount"
             id="btcAmount"
@@ -362,13 +362,13 @@
             The amount exceeds your balance
           </span>
         </div>
-        <p class="dwmth-form-label">
+        <p class="ap-form-label">
           The min. withdraw is <strong>{{btcInfo.minAmount}} {{appCurrency}}</strong>
           and the max. is <strong>{{btcInfo.maxAmount}} {{appCurrency}}</strong>
         </p>
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxBtcWithdrawAmount()"
-                  class="dwmth-btn dwmth-btn--white dwmth-copy--blue"
+                  class="ap-btn ap-btn--white ap-copy--blue"
                   data-test="common-withdraw-funds-form-btn-withdraw-max"
                   type="button"
           >
@@ -376,11 +376,11 @@
           </button>
         </div>
         <div class="btc-amount">
-          <span class="dwmth-form-label">
+          <span class="ap-form-label">
             Your withdraw will amount to approx.
           </span>
           <span
-            class="dwmth-copy dwmth-copy--large"
+            class="ap-copy ap-copy--large"
             data-test="common-now-payments-dialog-ads-amount"
           >
             {{ calculatedBtcAmount ? (calculatedBtcAmount | formatMoney:6:btc:code) : '? ' + btc.toUpperCase() }}
@@ -389,7 +389,7 @@
         <div class="row justify-center withdraw-funds__btns-wrapper">
           <button
             *ngIf="isConfirmed"
-            class="dwmth-btn dwmth-btn--blue  dwmth-btn--block "
+            class="ap-btn ap-btn--blue  ap-btn--block "
             data-test="common-withdraw-funds-form-submit-button"
           >
             <span *ngIf="!isFormBeingSubmitted; else loadingBtn">Withdraw</span>
@@ -412,7 +412,7 @@
 
     <button
       (click)="restartWithdrawMethod()"
-      class="dwmth-btn dwmth-btn--white"
+      class="ap-btn ap-btn--white"
     >
       Back
     </button>

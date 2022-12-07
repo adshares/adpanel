@@ -117,8 +117,8 @@ export class PublisherService {
     return categoryOption.values
   }
 
-  getAdUnitSizes(): Observable<AdUnitMetaData[]> {
-    return this.http.get<AdUnitMetaData[]>(`${environment.apiUrl}/options/sites/zones`);
+  getAdUnitSizes(): Observable<Partial<AdUnitMetaData>[]> {
+    return this.http.get<Partial<AdUnitMetaData>[]>(`${environment.apiUrl}/options/sites/zones`);
   }
 
   getPossibleSizeOptionForBannerClassification(siteId?: number): Observable<string[]> {

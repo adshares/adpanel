@@ -1,11 +1,16 @@
 @import '../../../styles';
 
-.dwmth-confirmation-alert {
+.ap-confirmation-alert {
   padding: 18px 0;
   background: #e6eaf3;
 
   .admin-unconfirmed {
     margin-right: 10px;
     color: pal(orange, dark);
+  }
+
+  .container {
+    padding-left: 30px;
+    margin-left: 0;
   }
 }

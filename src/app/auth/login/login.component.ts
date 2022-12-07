@@ -17,6 +17,7 @@ import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum'
 import { WalletToken } from 'models/settings.model'
 import { stringToHex } from 'web3-utils'
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component'
+import { HTTP_FORBIDDEN, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes'
 
 @Component({
   selector: 'app-login',
@@ -70,7 +71,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
 
     const user: LocalStorageUser = this.session.getUser()
     if (user) {
-      this.navigateToDashboard(user)
+      this.redirectAfterLogin(user)
       return
     }
     this.checkIfUserRemembered()
@@ -113,7 +114,7 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.processLogin(user)
       },
       (res) => {
-        if(res.status === 403){
+        if (HTTP_FORBIDDEN === res.status) {
           this.dialog.open(ErrorResponseDialogComponent, {
             data: {
               title: 'Your account is banned',
@@ -129,6 +130,10 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   redirectAfterLogin (user: User): void {
+    if (this.isOauth()) {
+      this.oauthRedirect()
+      return
+    }
     const redirectUrl = this.route.snapshot.queryParams['redirectUrl']
     if (user.isAdmin) {
       this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADMIN)
@@ -148,16 +153,14 @@ export class LoginComponent extends HandleSubscription implements OnInit {
     if (redirectUrl) {
       if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_ADVERTISER) &&
         user.isAdvertiser) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_ADVERTISER)
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_ADVERTISER)
         this.navigateByUrl(redirectUrl)
         return
       }
 
       if (redirectUrl.includes(SessionService.ACCOUNT_TYPE_PUBLISHER) &&
         user.isPublisher) {
-        this.session.setAccountTypeChoice(
-          SessionService.ACCOUNT_TYPE_PUBLISHER)
+        this.session.setAccountTypeChoice(SessionService.ACCOUNT_TYPE_PUBLISHER)
         this.navigateByUrl(redirectUrl)
         return
       }
@@ -330,5 +333,28 @@ export class LoginComponent extends HandleSubscription implements OnInit {
         this.setWalletLoginStatus(false, network, 'Account or signature is invalid.')
       },
     )
+  }
+
+  isOauth(): boolean
+  {
+    return undefined !== this.route.snapshot.queryParams.redirect_uri
+  }
+
+  oauthRedirect (): void {
+    this.api.auth.oauthAuthorize(this.route.snapshot.queryParams.redirect_uri)
+      .subscribe(
+        response => window.location.href = response.location,
+        error => {
+          if (HTTP_INTERNAL_SERVER_ERROR === error?.status) {
+            return
+          }
+          this.dialog.open(ErrorResponseDialogComponent, {
+            data: {
+              title: `Authorization failed`,
+              message: `Server respond with an error ${error.status ? error.status : 0}`,
+            }
+          });
+        }
+      )
   }
 }

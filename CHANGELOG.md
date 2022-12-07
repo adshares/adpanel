@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2022-12-07
+### Added
+- Deleting referral links
+- Referral links pagination
+- OAuth2
+- OAuth2 access tokens list
+### Changed
+- Extract reload from build script
+- Replaced CSS prefix `dwmth` with `ap`
+### Removed
+- Preview of next release (rebranding)
+### Fixed
+- Unnecessary admin approval message
+
 ## [2.1.1] - 2022-10-04
 ### Changed
 - Rebranding script attaches custom styles
@@ -479,7 +493,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.1.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.2.0...develop
+[2.2.0]: https://github.com/adshares/adpanel/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/adshares/adpanel/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/adshares/adpanel/compare/v1.18.8...v2.1.0
 [1.18.8]: https://github.com/adshares/adpanel/compare/v1.18.7...v1.18.8

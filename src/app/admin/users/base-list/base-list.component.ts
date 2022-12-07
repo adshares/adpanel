@@ -24,9 +24,9 @@ export abstract class BaseListComponent extends HandleSubscription {
   abstract get defaultQueryParams (): object
 
   protected constructor(
-    private store: Store<AppState>,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    protected store: Store<AppState>,
+    protected router: Router,
+    protected activatedRoute: ActivatedRoute
   ) {
     super()
   }
@@ -53,6 +53,10 @@ export abstract class BaseListComponent extends HandleSubscription {
 
   get queryParams () {
     return this._queryParams
+  }
+
+  get total (): number {
+    return this._list?.total || 0
   }
 
   set list (value) {

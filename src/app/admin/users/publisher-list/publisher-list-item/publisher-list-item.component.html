@@ -26,9 +26,9 @@
         [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of publisher.userIds"
         (click)="handleImpersonating(userId)"
-        class="dwmth-btn dwmth-btn--tiny dwmth-btn--no-vertical-padding dwmth-btn--no-border dwmth-btn--white dwmth-btn--transparent"
+        class="ap-btn ap-btn--tiny ap-btn--no-vertical-padding ap-btn--no-border ap-btn--white ap-btn--transparent"
       >
-        <fa-icon [icon]="faIconImpersonation" class="dwmth-icon dwmth-icon--large fa-lg"></fa-icon>
+        <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
       </button>
       {{ publisher.email }}
     </div>

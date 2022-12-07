@@ -42,7 +42,6 @@ export interface UsersQueryParams {
   ],
 })
 export class UserListComponent extends BaseListComponent implements OnInit {
-  readonly componentStore: Store<AppState>
   readonly defaultParams: UsersQueryParams = {
     selectedType: 'All',
     onlyEmailUnconfirmed: false,
@@ -59,7 +58,6 @@ export class UserListComponent extends BaseListComponent implements OnInit {
     private session: SessionService,
   ) {
     super(store, router, activatedRoute);
-    this.componentStore = store
   }
 
   loadList(nextPage?: string): void {
@@ -75,7 +73,7 @@ export class UserListComponent extends BaseListComponent implements OnInit {
     if (this.queryParams.selectedType) {
       filters.push(this.queryParams.selectedType.toLowerCase());
     }
-    this.componentStore.dispatch(new LoadUsers({
+    this.store.dispatch(new LoadUsers({
       nextPage,
       searchPhrase: this.queryParams.userSearch ? this.queryParams.userSearch.toLowerCase().trim() : null,
       filters,
@@ -89,7 +87,7 @@ export class UserListComponent extends BaseListComponent implements OnInit {
   }
 
   ngOnInit () {
-    const usersSubscription = this.componentStore.select('state', 'admin', 'users').
+    const usersSubscription = this.store.select('state', 'admin', 'users').
       subscribe(users => {
         this.list = users
         this.isLoading = !this.list
