@@ -9,7 +9,7 @@
       <h1
         class="
           ap-heading
-          ap-heading--primary"
+          ap-heading-h2"
       >
         {{isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName}}
       </h1>
@@ -23,9 +23,7 @@
           type="button"
           class="
             ap-btn
-            ap-btn--prepend
-            ap-btn--white
-            ap-blue"
+            ap-btn--primary"
           (click)="goToGeneralClassifier()"
         >
           Show all
@@ -35,9 +33,7 @@
           type="button"
           class="
             ap-btn
-            ap-btn--prepend
-            ap-btn--white
-            ap-blue"
+            ap-btn--primary"
           (click)="refresh()"
         >
           <fa-icon
@@ -53,8 +49,7 @@
           type="button"
           class="
             ap-btn
-            ap-btn--white
-            ap-blue"
+            ap-btn--primary"
           (click)="onStepBack()"
         >
           {{isGlobal ? 'Dashboard' : 'Back to the site'}}
@@ -91,7 +86,7 @@
         *ngIf="bannerClassifications.length === 0 && !isLoading"
         class="ap-box row justify-center"
       >
-        <td class="ap-copy ap-copy--blue ap-copy--large">
+        <td class="ap-copy ap-copy--blue">
           {{filtering.status || !!filtering.sizes ?
             'No banners matching filters' : 'There are no banners to reject'
           }}

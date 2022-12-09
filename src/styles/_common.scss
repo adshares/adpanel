@@ -96,7 +96,7 @@
 }
 
 .ap-icon {
-  height: 16px;
+  //height: 16px;
 
   &--prepend {
     margin-right: 10px;
@@ -197,9 +197,8 @@
 */
 
 .ap-box {
-  border-radius: 2px;
+  border-radius: 10px;
   background-color: pal(light);
-  border: 1px solid pal(gray);
   padding: 8px 7px;
   margin-top: 2px;
 
@@ -314,7 +313,7 @@
 }
 
 .ap-header-bg {
-  background: pal(primary);
+  background: pal(body-bg);
 }
 
 /*
@@ -578,4 +577,9 @@
     font-weight: 600;
     color: pal(secondary);
   }
+}
+
+.ap-divider {
+  margin: 0;
+  border-bottom: 1px solid pal(grey)
 }

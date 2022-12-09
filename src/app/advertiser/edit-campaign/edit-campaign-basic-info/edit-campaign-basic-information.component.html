@@ -9,7 +9,7 @@
     <h1
       class="
         ap-heading
-        ap-heading--primary"
+        ap-heading--h2"
     >
       Basic information
     </h1>
@@ -379,7 +379,7 @@
              justify-between">
       <button type="button"
               class="ap-btn
-                     ap-btn--white
+                     ap-btn--primary
                      ap-blue"
               (click)="onStepBack()"
               [disabled]="campaignBasicInformationSubmitted || changesSaved"
@@ -388,7 +388,7 @@
       </button>
       <button
         *ngIf="isTaxonomy"
-        class="ap-btn ap-btn--wide ap-btn--blue"
+        class="ap-btn ap-btn--primary"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">

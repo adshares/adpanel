@@ -10,7 +10,7 @@
   >
     <div class="text-center site-edit-create-posters-units">
       <h1 class="ap-heading ap-heading--h2">Pops settings</h1>
-      <p class="ap-copy ap-copy--large">
+      <p class="ap-copy">
         Pops ads are advertisements that show up in a new browser window.<br />
         If you want to make extra profit, please activate pop-up or pop-under ads for your site below.
       </p>
@@ -53,13 +53,13 @@
         </div>
         <div
           *ngIf="0 === adUnitSizes.length"
-          class="ap-copy ap-copy--large"
+          class="ap-copy"
         >Pops are not available for current medium</div>
       </div>
     </div>
 
     <div class="ap-box ap-box--large row justify-between">
-      <button class="ap-btn ap-btn--white ap-blue"
+      <button class="ap-btn ap-btn--primary ap-blue"
               role="link"
               (click)="onStepBack()"
       >
@@ -70,14 +70,14 @@
           *ngIf="createSiteMode"
           (click)="saveAdUnits(true)"
           type="button"
-          class="ap-btn ap-btn--white ap-blue save-as-draft"
+          class="ap-btn ap-btn--primary ap-blue save-as-draft"
           data-test="publisher-edit-site-save-as-draft"
         >
           Save as draft
         </button>
         <button
           type="submit"
-          class="ap-btn ap-btn--wide ap-btn--blue"
+          class="ap-btn ap-btn--primary"
           data-test="publisher-edit-site-save-and-continue"
           [disabled]="changesSaved"
           (click)="onSubmit()"

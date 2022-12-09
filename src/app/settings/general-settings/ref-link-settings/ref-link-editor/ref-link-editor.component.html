@@ -2,7 +2,7 @@
   <h1
     class="
       ap-heading
-      ap-heading--primary"
+      ap-heading--h2"
   >
     Create new referral link
   </h1>
@@ -19,12 +19,12 @@
       (ngSubmit)="onSubmit()"
     >
       <div class="commission" *ngIf="refundEnabled">
-        <span class="ap-copy ap-copy--large">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
-        <span class="ap-copy ap-copy--large" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
+        <span class="ap-copy">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
+        <span class="ap-copy" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
       </div>
 
       <div>
-        <div class="commission-select justify-between ap-copy ap-copy--large" *ngIf="refundEnabled">
+        <div class="commission-select justify-between ap-copy" *ngIf="refundEnabled">
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
             [for]="'keptRefund' + option"

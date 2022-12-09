@@ -79,7 +79,7 @@
         </mat-form-field>
         <div class="appended">
           <button
-            class="ap-btn ap-btn--blue"
+            class="ap-btn ap-btn--primary"
             (click)="addNewBidStrategy()"
           >
             <img
@@ -92,13 +92,13 @@
         </div>
         <button
           *ngIf="isAdmin"
-          class="ap-btn ap-btn--blue appended"
+          class="ap-btn ap-btn--primary appended"
           (click)="setDefaultBidStrategy()"
         >
           Set as default
         </button>
         <button
-          class="ap-btn ap-btn--blue appended"
+          class="ap-btn ap-btn--primary appended"
           (click)="deleteBidStrategy()"
         >
           Delete

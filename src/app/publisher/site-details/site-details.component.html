@@ -106,7 +106,7 @@
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
             </span>
-          <button class="ap-btn ap-btn--white ap-status--btn"
+          <button class="ap-btn ap-btn--primary ap-status--btn"
                   (click)="onSiteStatusChange()"
                   data-test="publisher-site-status-change-button"
                   [attr.data-status]="currentSiteStatus">
@@ -116,7 +116,7 @@
         <button
           class="
             ap-btn
-            ap-btn--white
+            ap-btn--primary
             ap-btn--with-icon
             btn-delete
             ap-copy--dark"
@@ -144,7 +144,7 @@
             <button
               class="
                 ap-btn
-                ap-btn--white
+                ap-btn--primary
                 ap-copy--dark"
               data-test="publisher-site-download-report-button"
             >
@@ -212,6 +212,7 @@
       <button
         class="
            ap-btn
+           ap-btn--primary
            ap-btn--edit
            ap-btn--no-border"
         (click)="navigateToEditSite('basic-information')"
@@ -233,6 +234,7 @@
         <button
           class="
            ap-btn
+           ap-btn--primary
            ap-btn--edit
            ap-btn--no-border"
           (click)="navigateToEditSite('additional-filtering')"
@@ -269,6 +271,7 @@
             <button
               class="
                ap-btn
+               ap-btn--primary
                ap-btn--edit
                ap-btn--no-border"
               (click)="navigateToClassification()"
@@ -295,7 +298,6 @@
           col-lg-6"
         >
           <h2 class="ap-targeting-details__title
-                     ap-copy--large
                      ap-copy--semi">Targeting: </h2>
           <div>
             <app-targeting-display
@@ -315,7 +317,6 @@
           col-lg-6"
         >
           <h2 class="ap-targeting-details__title
-                     ap-copy--large
                      ap-copy--semi">Exclusions: </h2>
           <div>
             <app-targeting-display
@@ -334,7 +335,7 @@
     <div class="ap-box ap-box--large">
       <div class="row justify-center">
         <button
-          class="ap-btn ap-btn--wide ap-btn--blue"
+          class="ap-btn ap-btn--primary"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button"
         >
@@ -365,6 +366,7 @@
           <button
             class="
            ap-btn
+           ap-btn--primary
            ap-btn--edit
            ap-btn--no-border"
             (click)="navigateToEditSite('pops-settings')"
@@ -417,6 +419,7 @@
         <button
           class="
            ap-btn
+           ap-btn--primary
            ap-btn--edit
            ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
@@ -459,7 +462,7 @@
       <button
         class="
           ap-btn
-          ap-btn--white
+          ap-btn--primary
           ap-blue
           ap-btn--no-border"
         (click)="navigateToEditSite('create-ad-units')"
@@ -479,7 +482,7 @@
     <div class="ap-box ap-box--large">
       <div class="row justify-center">
         <button
-          class="ap-btn ap-btn--wide ap-btn--blue"
+          class="ap-btn ap-btn--primary"
           (click)="openGetCodeDialog()"
           data-test="publisher-get-code-button"
         >

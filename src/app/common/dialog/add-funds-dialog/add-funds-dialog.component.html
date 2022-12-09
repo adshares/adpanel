@@ -10,7 +10,7 @@
   <h1
     class="
       ap-heading
-      ap-heading--primary"
+      ap-heading--h2"
   >
     <span *ngIf="useNativeDeposit">Deposit ADS</span>
     <span *ngIf="useWrappedDeposit">Deposit Wrapped ADS</span>
@@ -31,7 +31,7 @@
       <div class="add-funds-content dialog-main-content">
         <button
           (click)="selectNativeDeposit()"
-          class="ap-btn ap-btn--blue ap-btn--block"
+          class="ap-btn ap-btn--primary ap-btn--block"
         >
           Deposit ADS
         </button>
@@ -48,7 +48,7 @@
 
         <button
                 (click)="selectWrappedDeposit()"
-                class="ap-btn ap-btn--blue ap-btn--block"
+                class="ap-btn ap-btn--primary ap-btn--block"
         >
           Deposit Wrapped ADS
         </button>
@@ -63,7 +63,7 @@
         <button
                 *ngIf="nowPayments !== null"
           (click)="selectNowPaymentsDeposit()"
-          class="ap-btn ap-btn--blue ap-btn--block"
+          class="ap-btn ap-btn--primary ap-btn--block"
         >
           Deposit with&nbsp;<span class="now_payments_logo"><span>NOW</span>Payments</span>
         </button>
@@ -173,7 +173,7 @@
     <button
       (click)="restartDepositMethod()"
       *ngIf="nowPayments"
-      class="ap-btn ap-btn--white"
+      class="ap-btn ap-btn--primary"
     >
       Back
     </button>
@@ -286,7 +286,7 @@
 
     <button
             (click)="restartDepositMethod()"
-            class="ap-btn ap-btn--white"
+            class="ap-btn ap-btn--primary"
     >
       Back
     </button>
@@ -338,7 +338,7 @@
           Your deposit will amount to approx.
         </span>
         <span
-          class="ap-copy ap-copy--large"
+          class="ap-copy"
           data-test="common-now-payments-dialog-ads-amount"
         >
           {{ nowPaymentsAdsAmount ? (nowPaymentsAdsAmount | formatMoney:0:crypto:code) : '? ' + ADS_TOKEN_CODE }}
@@ -379,7 +379,7 @@
 
     <button
       (click)="restartDepositMethod()"
-      class="ap-btn ap-btn--white"
+      class="ap-btn ap-btn--primary"
     >
       Back
     </button>
@@ -722,7 +722,7 @@
 
     <button
       (click)="restartDepositMethod()"
-      class="ap-btn ap-btn--white"
+      class="ap-btn ap-btn--primary"
     >
       Back
     </button>

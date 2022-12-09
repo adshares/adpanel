@@ -26,7 +26,7 @@
         [disabled]="!canImpersonate(userId)"
         *ngFor="let userId of publisher.userIds"
         (click)="handleImpersonating(userId)"
-        class="ap-btn ap-btn--tiny ap-btn--no-vertical-padding ap-btn--no-border ap-btn--white ap-btn--transparent"
+        class="ap-icon-btn"
       >
         <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
       </button>

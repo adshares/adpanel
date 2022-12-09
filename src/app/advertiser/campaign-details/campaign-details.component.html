@@ -26,7 +26,6 @@
         class="
           ap-copy
           ap-copy--small
-          ap-copy--x-dark
           ap-copy--semi">
         {{ campaign.basicInformation.name }}
       </p>
@@ -45,7 +44,7 @@
           </h1>
           <p
             *ngIf="mediumLabel !== undefined"
-            class="ap-copy ap-copy--dark ap-copy--semi label"
+            class="ap-copy ap-copy--semi label"
           >
             {{ mediumLabel }}
           </p>
@@ -59,7 +58,7 @@
                 [attr.data-status]="currentCampaignStatus">
               {{ currentCampaignStatus }}
             </span>
-          <button class="ap-btn ap-btn--white ap-status--btn ap-copy--dark"
+          <button class="ap-btn ap-btn--primary ap-status--btn"
                   (click)="onCampaignStatusChange()"
                   data-test="advertiser-campaign-status-change-button"
                   [attr.data-status]="currentCampaignStatus">
@@ -69,9 +68,8 @@
         <button
           class="
             ap-btn
-            ap-btn--white
-            btn-delete
-            ap-copy--dark"
+            ap-btn--primary
+            btn-delete"
           data-test="advertiser-campaign-delete-button"
           (click)="cloneCampaign()">
           <img
@@ -85,9 +83,8 @@
         <button
           class="
             ap-btn
-            ap-btn--white
-            btn-delete
-            ap-copy--dark"
+            ap-btn--primary
+            btn-delete"
           data-test="advertiser-campaign-delete-button"
           (click)="deleteCampaign()">
           <img
@@ -124,8 +121,7 @@
               <button
                 class="
                   ap-btn
-                  ap-btn--white
-                  ap-copy--dark"
+                  ap-btn--primary"
                 data-test="advertiser-campaign-download-report-button"
               >
                 Generate a report
@@ -185,7 +181,7 @@
               [title]="campaign.basicInformation.targetUrl"
               rel="nofollow noopener noreferrer"
               target="_blank"
-              class="ap-copy ap-copy--dark ap-copy--semi"
+              class="ap-copy ap-copy--semi"
               data-test="advertiser-campaign-target-url"
             >
               {{ campaign.basicInformation.targetUrl }}
@@ -255,6 +251,7 @@
         <button
           class="
            ap-btn
+           ap-btn--primary
            ap-btn--edit
            no-wrap"
           (click)="navigateToCampaignEdition('basic-information')"
@@ -295,7 +292,7 @@
 
         <div class="row justify-end">
           <button
-            class="self-end ap-btn ap-btn--edit"
+            class="self-end ap-btn ap-btn--primary ap-btn--edit"
             (click)="navigateToCampaignEdition('bid-strategy')"
             data-test="advertiser-campaign-edit-bid-strategy-button"
           >
@@ -312,7 +309,7 @@
     <section class="ap-box ap-box--high">
       <div class="row justify-end">
         <button
-          class="self-end ap-btn ap-btn--edit"
+          class="self-end ap-btn ap-btn--primary ap-btn--edit"
           (click)="navigateToCampaignEdition('conversion')"
           data-test="advertiser-campaign-edit-conversion-button"
         >
@@ -366,6 +363,7 @@
         <div class="row justify-end">
           <button class="self-end
                          ap-btn
+                         ap-btn--primary
                          ap-btn--edit"
                   (click)="navigateToCampaignEdition('additional-targeting')"
                   data-test="advertiser-campaign-edit-targeting-button">
@@ -389,7 +387,6 @@
             ap-box--no-padding"
           >
             <h2 class="ap-targeting-details__title
-                       ap-copy--large
                        ap-copy--semi">Targeting: </h2>
             <div>
               <app-targeting-display
@@ -409,7 +406,6 @@
             col-lg-6
             ap-box--no-padding">
             <h2 class="ap-targeting-details__title
-                       ap-copy--large
                        ap-copy--semi">Exclusions: </h2>
             <div>
               <app-targeting-display
@@ -445,6 +441,7 @@
           class="
             self-end
             ap-btn
+            ap-btn--primary
             ap-btn--edit"
           (click)="navigateToCampaignEdition('create-ad')"
           data-test="advertiser-campaign-edit-targeting-button"
@@ -475,9 +472,8 @@
             row
             align-center
             ap-btn
-            ap-btn--white
-            ap-blue
-            ap-btn--no-border"
+            ap-btn--primary
+            ap-blue"
           (click)="navigateToCampaignEdition('create-ad')">
           <img
             src="/assets/images/plus-circle--blue.svg"

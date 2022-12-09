@@ -88,7 +88,7 @@
         <mat-expansion-panel-header
           class="
             ap-heading
-            ap-heading--secondary"
+            ap-heading--h3"
         >
           <mat-panel-title>
             Targeting
@@ -150,7 +150,7 @@
         <mat-expansion-panel-header
           class="
             ap-heading
-            ap-heading--secondary"
+            ap-heading--h3"
         >
           <mat-panel-title>
             Exclusions
@@ -212,7 +212,7 @@
     <button
       class="
           ap-btn
-          ap-btn--white
+          ap-btn--primary
           ap-blue"
       role="link"
       (click)="onStepBack()"
@@ -225,7 +225,7 @@
         (click)="saveCampaignTargetingAndCpm(true)"
         class="
           ap-btn
-          ap-btn--white
+          ap-btn--primary
           ap-blue
           save-as-draft"
         data-test="advertiser-edit-campaign-save-as-draft"
@@ -236,8 +236,7 @@
         (click)="onSubmit()"
         class="
           ap-btn
-          ap-btn--wide
-          ap-btn--blue"
+          ap-btn--primary"
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">{{createCampaignMode ? 'Save & continue' : 'Update'}}</span>

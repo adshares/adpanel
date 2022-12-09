@@ -4,6 +4,10 @@
   width: 100vw;
   height: $app-header-height;
 
+  & .ap-icon {
+    color: pal(primary);
+  }
+
 
   @include media(sm-down-without-sm) {
     height: 110px;
@@ -11,19 +15,19 @@
     justify-content: center;
   }
 
-  &--userselect {
-    background: pal(gray);
-    padding: 0 20px;
-
-    &.active-type {
-      background: pal(light);
-    }
-
-    img {
-      top: calc((42px - 18px) / 2);
-      left: 15px;
-    }
-  }
+  //&--userselect {
+  //  background: pal(gray);
+  //  padding: 0 20px;
+  //
+  //  &.active-type {
+  //    background: pal(light);
+  //  }
+  //
+  //  img {
+  //    top: calc((42px - 18px) / 2);
+  //    left: 15px;
+  //  }
+  //}
 
   > div {
     @include media(sm-down-without-sm) {

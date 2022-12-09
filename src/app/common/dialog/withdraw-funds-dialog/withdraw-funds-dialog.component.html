@@ -10,7 +10,7 @@
   <h1
     class="
       ap-heading
-      ap-heading--primary"
+      ap-heading--h2"
   >
     <span *ngIf="useAdsWithdraw">Withdraw ADS</span>
     <span *ngIf="useBtcWithdraw">Withdraw BTC</span>
@@ -24,13 +24,13 @@
         else useAdsWithdraw && adsWithdrawForm || useBtcWithdraw && btcWithdrawForm"
       class="withdraw-funds-selector"
     >
-      <p class="ap-copy ap-copy--large dialog-description">
+      <p class="ap-copy dialog-description">
         Select your preferred withdraw method. You can choose between the native ADS coin and Bitcoin.
       </p>
       <div class="add-funds-content dialog-main-content">
         <button
           (click)="selectAdsWithdraw()"
-          class="ap-btn ap-btn--blue ap-btn--block"
+          class="ap-btn ap-btn--primary ap-btn--block"
         >
           Withdraw ADS
         </button>
@@ -40,7 +40,7 @@
 
         <button
           (click)="selectBtcWithdraw()"
-          class="ap-btn ap-btn--blue ap-btn--block"
+          class="ap-btn ap-btn--primary ap-btn--block"
         >
           Withdraw BTC
         </button>
@@ -49,7 +49,7 @@
   </div>
 
   <ng-template #adsWithdrawForm>
-    <p class="ap-copy ap-copy--large ap-customize-subheading">
+    <p class="ap-copy ap-customize-subheading">
       Fill in the form below to withdraw your funds.
     </p>
     <div class="dialog-main-content dialog-main-content--short">
@@ -139,7 +139,7 @@
 
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxAdsWithdrawAmount()"
-                  class="ap-btn ap-btn--white ap-copy--blue"
+                  class="ap-btn ap-btn--primary ap-copy--blue"
                   data-test="common-withdraw-funds-form-btn-withdraw-max"
                   type="button"
           >
@@ -268,14 +268,14 @@
     <button
       (click)="restartWithdrawMethod()"
       *ngIf="btcInfo"
-      class="ap-btn ap-btn--white"
+      class="ap-btn ap-btn--primary"
     >
       Back
     </button>
   </ng-template>
 
   <ng-template #btcWithdrawForm>
-    <p class="ap-copy ap-copy--large ap-customize-subheading">
+    <p class="ap-copy ap-customize-subheading">
       Fill in the form below to withdraw your funds.
     </p>
     <div class="dialog-main-content dialog-main-content--short">
@@ -368,7 +368,7 @@
         </p>
         <div class="withdraw-funds__btns-wrapper row justify-between">
           <button (click)="getMaxBtcWithdrawAmount()"
-                  class="ap-btn ap-btn--white ap-copy--blue"
+                  class="ap-btn ap-btn--primary ap-copy--blue"
                   data-test="common-withdraw-funds-form-btn-withdraw-max"
                   type="button"
           >
@@ -380,7 +380,7 @@
             Your withdraw will amount to approx.
           </span>
           <span
-            class="ap-copy ap-copy--large"
+            class="ap-copy"
             data-test="common-now-payments-dialog-ads-amount"
           >
             {{ calculatedBtcAmount ? (calculatedBtcAmount | formatMoney:6:btc:code) : '? ' + btc.toUpperCase() }}
@@ -412,7 +412,7 @@
 
     <button
       (click)="restartWithdrawMethod()"
-      class="ap-btn ap-btn--white"
+      class="ap-btn ap-btn--primary"
     >
       Back
     </button>

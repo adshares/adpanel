@@ -15,14 +15,13 @@
     <h1
       class="
         ap-heading
-        ap-heading--primary"
+        ap-heading--h2"
     >
       Select ad units
     </h1>
     <p
       class="
-        ap-copy
-        ap-copy--large"
+        ap-copy"
     >
       Please select the size of an ad unit you want to place on your website.
       If you want to generate more than one ad unit, please click the "Create new ad unit" button on the bottom part of the site and pick the desired sizes.
@@ -47,7 +46,7 @@
             <mat-panel-title
               class="
                 ap-heading
-                ap-heading--secondary"
+                ap-heading--h3"
             >
               <div class="row justify-between align-center">
                 <div>
@@ -209,7 +208,7 @@
             <button
               class="
               ap-btn
-              ap-btn--white
+              ap-btn--primary
               ap-blue"
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
@@ -241,9 +240,8 @@
         row
         align-center
         ap-btn
-        ap-btn--white
-        ap-blue
-        ap-btn--no-border"
+        ap-btn--primary
+        ap-blue"
       (click)="createEmptyAd()"
       data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
     >
@@ -269,7 +267,7 @@
     <button
       class="
           ap-btn
-          ap-btn--white
+          ap-btn--primary
           ap-blue"
       role="link"
       (click)="onStepBack()"
@@ -284,7 +282,7 @@
         type="button"
         class="
           ap-btn
-          ap-btn--white
+          ap-btn--primary
           ap-blue
           save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
@@ -295,7 +293,7 @@
         type="submit"
         class="
           ap-btn
-          ap-btn--wide
+          ap-btn--primary
           ap-btn--blue"
         (click)="onSubmit()"
         data-test="publisher-edit-site-save-and-continue"

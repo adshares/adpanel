@@ -42,8 +42,8 @@
     }
 
     &[disabled] {
-      border: 1px solid pal(primary, disabled);
-      color: pal(primary, disabled);
+      border: 1px solid pal(primary, light);
+      color: pal(primary, light);
       cursor: not-allowed;
       box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
     }
@@ -63,6 +63,13 @@
       cursor: not-allowed;
       box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25);
     }
+  }
+
+  &--text {
+    background-color: transparent;
+    border: none;
+    color: pal(body-color);
+    text-decoration: underline;
   }
 }
 

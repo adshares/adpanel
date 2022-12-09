@@ -11,7 +11,7 @@
     <h1
       class="
         ap-heading
-        ap-heading--primary"
+        ap-heading--h2"
     >
       Basic information
     </h1>
@@ -363,7 +363,7 @@
     >
       <button
         type="button"
-        class="ap-btn ap-btn--white ap-blue"
+        class="ap-btn ap-btn--primary ap-blue"
         role="link"
         (click)="onStepBack()"
         [disabled]="changesSaving"
@@ -373,7 +373,7 @@
 
       <button
         *ngIf="isTaxonomy && (setupVersionControl.value === SETUP_VERSION.MANUAL)"
-        class="ap-btn ap-btn--wide ap-btn--blue"
+        class="ap-btn ap-btn--primary"
         data-test="publisher-edit-site-save-and-continue"
         (click)="onSubmit()"
         [disabled]="changesSaving"

@@ -157,7 +157,7 @@ export class SiteCodeDialogComponent extends HandleSubscription implements OnIni
           '<div class="ap-box ap-box--large ap-box--no-border">' +
           '<a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks" ' +
           'rel="noopener noreferrer" target="_blank">' +
-          '<div class="ap-btn ap-btn--white">Read instructions</div>' +
+          '<div class="ap-btn ap-btn--primary">Read instructions</div>' +
           '</a>' +
           '</div>' +
           'Do you want to enable this option?',
