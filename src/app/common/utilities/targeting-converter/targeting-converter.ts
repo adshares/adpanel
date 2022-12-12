@@ -38,4 +38,11 @@ export interface TargetingConverter {
    * @param targeting targeting object from backend
    */
   prepareCampaignTargetingForBackend (targeting: CampaignTargeting): void
+
+  /**
+   * Converts backend "URL" to valid URL.
+   * @param url backend (internal) "URL", which can be used internally only (e.g. for targeting)
+   * @return valid URL, which leads to existing page
+   */
+  convertBackendUrlToValidUrl(url: string): string
 }

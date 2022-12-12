@@ -32,6 +32,8 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024
   readonly faQuestionCircle = faQuestionCircle
+  readonly CRYPTOVOXELS = CryptovoxelsConverter.ID
+  readonly DECENTRALAND = DecentralandConverter.ID
   readonly SETUP_VERSION = {
     AUTOMATIC: 'auto',
     MANUAL: 'manual',
@@ -129,11 +131,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   overwriteUrl (): void {
     const vendor = this.siteBasicInfoForm.get('vendor').value
     let url, name
-    if (vendor === 'cryptovoxels') {
+    if (vendor === CryptovoxelsConverter.ID) {
       const value = this.siteBasicInfoForm.get('parcelId').value
       url = new CryptovoxelsConverter().encodeValue(value)
       name = `Cryptovoxels ${value}`
-    } else if (vendor === 'decentraland') {
+    } else if (vendor === DecentralandConverter.ID) {
       const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX').value
       const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY').value
       if (coordinateX === null || coordinateY === null) {
@@ -272,10 +274,10 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
           this.vendor = this.site.vendor
           this.updateFormGroupOnVendorChange(this.vendor)
           if (this.site.medium === 'metaverse') {
-            if (this.vendor === 'cryptovoxels') {
+            if (this.vendor === CryptovoxelsConverter.ID) {
               const value = new CryptovoxelsConverter().decodeValue(this.site.url.slice('https://'.length))
               this.siteBasicInfoForm.get('parcelId').setValue(value)
-            } else if (this.vendor === 'decentraland') {
+            } else if (this.vendor === DecentralandConverter.ID) {
               const value = new DecentralandConverter().decodeValue(this.site.url.slice('https://'.length))
               const coordinates = value.slice(1, value.length - 1).split(', ')
               this.siteBasicInfoForm.get('parcelCoordinateX').setValue(coordinates[0])
@@ -373,9 +375,9 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
     this.siteBasicInfoForm.removeControl('parcelCoordinateX')
     this.siteBasicInfoForm.removeControl('parcelCoordinateY')
 
-    if (vendor === 'cryptovoxels') {
+    if (vendor === CryptovoxelsConverter.ID) {
       this.siteBasicInfoForm.addControl('parcelId', new FormControl(null, Validators.required))
-    } else if (vendor === 'decentraland') {
+    } else if (vendor === DecentralandConverter.ID) {
       this.siteBasicInfoForm.addControl('parcelCoordinateX', new FormControl(null, Validators.required))
       this.siteBasicInfoForm.addControl('parcelCoordinateY', new FormControl(null, Validators.required))
     }

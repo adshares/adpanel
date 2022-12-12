@@ -10,6 +10,7 @@ import { CampaignTargeting } from 'models/campaign.model'
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 import { createPathObject, prepareCustomOption, SEPARATOR } from 'common/components/targeting/targeting.helpers2'
+import { PolkaCityConverter } from 'common/utilities/targeting-converter/polka-city-converter'
 
 export function prepareFilteringChoices(
   options: (TargetingOption | TargetingOptionValue)[]
@@ -114,6 +115,8 @@ export function processTargeting (medium: Medium): TargetingOption[] {
     new DecentralandConverter().convertTargetingOptions(result)
   } else if (medium.vendor === CryptovoxelsConverter.ID) {
     new CryptovoxelsConverter().convertTargetingOptions(result)
+  } else if (medium.vendor === PolkaCityConverter.ID) {
+    new PolkaCityConverter().convertTargetingOptions(result)
   }
 
   return result
@@ -208,6 +211,8 @@ export function parseTargetingForBackend(chosenTargeting: AssetTargeting, vendor
     new DecentralandConverter().prepareCampaignTargetingForBackend(parsedTargeting)
   } else if (vendor === CryptovoxelsConverter.ID) {
     new CryptovoxelsConverter().prepareCampaignTargetingForBackend(parsedTargeting)
+  } else if (vendor === PolkaCityConverter.ID) {
+    new PolkaCityConverter().prepareCampaignTargetingForBackend(parsedTargeting)
   }
 
   return parsedTargeting;
@@ -269,6 +274,8 @@ function addTargetingOptionToResult (
       new DecentralandConverter().convertSelectedTargetingOptionValues(targetingObject, result)
     } else if (targetingNeedsConversion(targetingOptions, CryptovoxelsConverter.ID)) {
       new CryptovoxelsConverter().convertSelectedTargetingOptionValues(targetingObject, result)
+    } else if (targetingNeedsConversion(targetingOptions, PolkaCityConverter.ID)) {
+      new PolkaCityConverter().convertSelectedTargetingOptionValues(targetingObject, result)
     }
   }
 }

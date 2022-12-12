@@ -13,6 +13,7 @@ import { DECENTRALAND_BUILDER } from 'models/enum/link.enum'
 import { User } from 'models/user.model'
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
 import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
+import { PolkaCityConverter } from 'common/utilities/targeting-converter/polka-city-converter'
 
 @Component({
   selector: 'app-publisher-list-item',
@@ -86,6 +87,12 @@ export class PublisherListItemComponent implements OnInit {
         if (url.length > 0) {
           url = converter.convertBackendUrlToValidUrl(url)
         }
+      } else if (PublisherListItemComponent.isPolkaCityDomain(domain)) {
+        const converter = new PolkaCityConverter()
+        presentedName = `PolkaCity ${converter.decodeValue(domain)}`
+        if (url.length > 0) {
+          url = converter.convertBackendUrlToValidUrl(url)
+        }
       }
       list[domain] = {
         domain: domain,
@@ -104,6 +111,10 @@ export class PublisherListItemComponent implements OnInit {
 
   private static isCryptovoxelsDomain(domain: string): boolean {
     return null !== domain.match(/^scene-\d+.cryptovoxels.com/)
+  }
+
+  private static isPolkaCityDomain(domain: string): boolean {
+    return 'polkacity.io' === domain
   }
 
   pageRank(rank: number): number {
