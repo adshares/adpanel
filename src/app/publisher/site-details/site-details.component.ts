@@ -62,7 +62,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData = createInitialDataSet();
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
-  displayAds: boolean;
+  isMetaverse: boolean = true;
+  editPopups: boolean = true;
+  editAds: boolean = true;
   siteLinkUrl: string
   readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
 
@@ -100,7 +102,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     this.site = cloneDeep(this.route.snapshot.data.site);
-    this.displayAds = this.site.medium !== 'metaverse';
+    this.isMetaverse = this.site.medium === 'metaverse';
+    this.editAds = !this.isMetaverse;
+    this.editPopups = !this.isMetaverse;
     this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
@@ -281,7 +285,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   openGetCodeDialog(): void {
-    if (!this.displayAds) {
+    if (this.isMetaverse) {
       this.dialog.open(SiteCodeMetaverseDialogComponent, {
         data : {
           vendor: this.site.vendor,
