@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Show placements for metaverse
+- Rename ad units to placements
+
 ## [2.2.1] - 2022-12-08
 ### Fixed
 - Handle session
