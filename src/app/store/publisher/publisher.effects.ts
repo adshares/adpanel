@@ -198,7 +198,7 @@ export class PublisherEffects {
               new LoadSite(payload.id),
             ]
           }),
-          catchError(() => observableOf(new ShowDialogOnError('Ad units cannot be updated')))
+          catchError(() => observableOf(new ShowDialogOnError('Placements cannot be updated')))
         )
       )
     ))

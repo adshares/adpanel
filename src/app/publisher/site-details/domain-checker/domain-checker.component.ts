@@ -104,7 +104,7 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
         info = 'The click-through rate is too high. Your website does not meet our quality standards.';
         break;
       case pageRankInfoEnum.LOW_CTR:
-        info = 'The click-through rate is too low. Please try placing ad units in a more visible places. You can also check if you are using the most popular ad unit sizes.';
+        info = 'The click-through rate is too low. Please try placing placements in a more visible places. You can also check if you are using the most popular placement sizes.';
         break;
       case pageRankInfoEnum.POOR_TRAFFIC:
         info = 'Poor traffic.  Your website does not meet our quality standards.';

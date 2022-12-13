@@ -343,9 +343,8 @@
       </div>
     </div>
 
-    <ng-container *ngIf="displayAds">
     <div class="col">
-      <div
+      <div *ngIf="editPopups"
         class="
           ap-box
           ad-units
@@ -411,10 +410,11 @@
             ap-copy
             ap-copy--semi"
         >
-          <span *ngIf="!!displayAdUnits.length">List of ad units</span>
-          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
+          <span *ngIf="!!displayAdUnits.length">List of placements</span>
+          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active placements</strong>
         </p>
         <button
+          *ngIf="editAds"
           class="
            ap-btn
            ap-btn--edit
@@ -429,7 +429,7 @@
             src="assets/images/edit-blue.svg"
             alt=""
           >
-          Edit ad units
+          Edit placements
         </button>
       </div>
       <div
@@ -451,6 +451,7 @@
     </div>
 
     <div
+      *ngIf="editAds"
       class="
         ap-box
         row
@@ -472,7 +473,7 @@
           src="assets/images/plus-circle--blue.svg"
           alt=""
         >
-        Create new ad unit
+        Create new placement
       </button>
     </div>
 
@@ -487,7 +488,6 @@
         </button>
       </div>
     </div>
-    </ng-container>
   </div>
 </div>
 <ng-template #loading>

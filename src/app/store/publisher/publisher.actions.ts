@@ -28,7 +28,7 @@ export const SET_LAST_EDITED_SITE = 'Last edited site set';
 export const SAVE_LAST_EDITED_SITE = 'Basic site informations saved';
 export const SAVE_LAST_EDITED_SITE_FILTERING = 'Site filtering saved';
 export const SAVE_LAST_EDITED_SITE_ONLY_ACCEPTED_BANNERS = 'Site only accepted banners saved';
-export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site ad units saved';
+export const SAVE_LAST_EDITED_SITE_AD_UNITS = 'Site placements saved';
 
 export const ADD_SITE_TO_SITES = 'Save site';
 export const ADD_SITE_TO_SITES_SUCCESS = 'Save site success';

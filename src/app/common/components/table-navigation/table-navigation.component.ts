@@ -111,7 +111,7 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
 
   adUnitsNavigation = [
     {title: 'Name', columnWidth: 'col-xs-2', keys: ['name']},
-    {title: 'Size', columnWidth: 'col-xs-2', hideArrows: true},
+    {title: 'Scope', columnWidth: 'col-xs-2', hideArrows: true},
     {title: 'Est. revenue', columnWidth: 'col-xs-1', keys: ['revenue'], defaultDesc: true},
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], defaultDesc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], defaultDesc: true},
