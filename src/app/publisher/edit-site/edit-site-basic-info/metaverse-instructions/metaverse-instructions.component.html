@@ -4,7 +4,7 @@
   <p>
     Follow the few steps below to integrate:
   </p>
-  <ol *ngIf="vendor === 'cryptovoxels'">
+  <ol *ngIf="vendor === CRYPTOVOXELS">
     <li>
       Generate and copy the Adshares code:
       <button
@@ -19,7 +19,7 @@
     <li>Add image object from the Asset Library</li>
     <li>After placing your banner, just resize it to fit as you want. The system will detect scale and automatically serve ads.</li>
   </ol>
-  <ol *ngIf="vendor === 'decentraland'">
+  <ol *ngIf="vendor === DECENTRALAND">
     <li>
       Download the smart item from
       <a
@@ -48,7 +48,7 @@
   <p>
     For more information read
     <a
-      [href]="vendor === 'cryptovoxels' ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
+      [href]="vendor === CRYPTOVOXELS ? ADD_UNIT_CRYPTOVOXELS : ADD_UNIT_DECENTRALAND"
       target="_blank"
       rel="noopener nofollow noreferrer"
     >
