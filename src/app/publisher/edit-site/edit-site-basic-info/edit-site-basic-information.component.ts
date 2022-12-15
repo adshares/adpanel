@@ -131,11 +131,11 @@ export class EditSiteBasicInformationComponent extends HandleSubscription implem
   overwriteUrl (): void {
     const vendor = this.siteBasicInfoForm.get('vendor').value
     let url, name
-    if (vendor === CryptovoxelsConverter.ID) {
+    if (CryptovoxelsConverter.ID === vendor) {
       const value = this.siteBasicInfoForm.get('parcelId').value
       url = new CryptovoxelsConverter().encodeValue(value)
       name = `Cryptovoxels ${value}`
-    } else if (vendor === DecentralandConverter.ID) {
+    } else if (DecentralandConverter.ID === vendor) {
       const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX').value
       const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY').value
       if (coordinateX === null || coordinateY === null) {
