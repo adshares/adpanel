@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import {
-  BAN_USER,
-  BanUser,
-  BanUserSuccess,
-  DELETE_USER,
-  DeleteUser,
-  DeleteUserSuccess,
   GET_LICENSE,
   GetLicenseFailure,
   GetLicenseSuccess,
@@ -25,12 +19,7 @@ import {
   LoadUsers,
   LoadUsersFailure,
   LoadUsersSuccess,
-  UNBAN_USER,
-  UnbanUser,
-  UnbanUserSuccess,
 } from './admin.actions'
-import { ShowDialogOnError, ShowSuccessSnackbar } from '../common/common.actions'
-import { SAVE_SUCCESS } from 'common/utilities/messages'
 import { AdminService } from 'admin/admin.service'
 import { of as observableOf } from 'rxjs'
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators'
@@ -113,60 +102,4 @@ export class AdminEffects {
         )
       )
     ))
-
-  BanUser$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<BanUser>(BAN_USER),
-      switchMap(action => {
-          return this.service.banUser(action.payload)
-            .pipe(
-              switchMap((userInfo) => [
-                new BanUserSuccess(userInfo),
-                new ShowSuccessSnackbar(SAVE_SUCCESS)
-              ]),
-              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
-            )
-        }
-      )
-    ))
-
-  UnbanUser$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<UnbanUser>(UNBAN_USER),
-      switchMap(action => {
-          return this.service.unbanUser(action.payload)
-            .pipe(
-              switchMap((userInfo) => [
-                new UnbanUserSuccess(userInfo),
-                new ShowSuccessSnackbar(SAVE_SUCCESS)
-              ]),
-              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
-            )
-        }
-      )
-    ))
-
-  DeleteUser$ = createEffect(() => this.actions$
-    .pipe(
-      ofType<DeleteUser>(DELETE_USER),
-      switchMap(action => {
-          return this.service.deleteUser(action.payload)
-            .pipe(
-              switchMap(() => {
-                return [
-                  new DeleteUserSuccess(action.payload),
-                  new ShowSuccessSnackbar(SAVE_SUCCESS)
-                ]
-              }),
-              catchError((response) => AdminEffects.showDialogOnErrorObservable(response))
-            )
-        }
-      )
-    ))
-
-  private static showDialogOnErrorObservable (response) {
-    return observableOf(new ShowDialogOnError(
-      `Operation failure. ${response.error.message}`
-    ))
-  }
 }

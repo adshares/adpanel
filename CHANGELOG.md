@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Removed
 - Filtering user list by confirmation status
+- Actions on users
 
 ## [2.2.2] - 2022-12-13
 ### Changed
