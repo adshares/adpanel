@@ -8,6 +8,8 @@ import { UserAdserverWallet } from 'models/user.model'
 import {
   SiteCodeCryptovoxelsDialogComponent
 } from 'publisher/dialogs/site-code-cryptovoxels-dialog/site-code-cryptovoxels-dialog.component'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
 
 @Component({
   selector: 'app-metaverse-instructions',
@@ -18,6 +20,8 @@ export class MetaverseInstructions {
   readonly ADD_UNIT_CRYPTOVOXELS = ADD_UNIT_CRYPTOVOXELS
   readonly ADD_UNIT_DECENTRALAND = ADD_UNIT_DECENTRALAND
   readonly ADD_UNIT_DECENTRALAND_SMART = ADD_UNIT_DECENTRALAND_SMART
+  readonly CRYPTOVOXELS = CryptovoxelsConverter.ID
+  readonly DECENTRALAND = DecentralandConverter.ID
   readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
   readonly serverUrl: string = environment.serverUrl
   @Input() vendor: string

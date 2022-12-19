@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.3] - 2022-12-19
+### Removed
+- Filtering user list by confirmation status
+- Actions on users
+
 ## [2.2.2] - 2022-12-13
 ### Changed
 - Show placements for metaverse
@@ -502,7 +507,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.2.2...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.2.3...develop
+[2.2.3]: https://github.com/adshares/adpanel/compare/v2.2.2...v2.2.3
 [2.2.2]: https://github.com/adshares/adpanel/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/adshares/adpanel/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/adshares/adpanel/compare/v2.1.1...v2.2.0

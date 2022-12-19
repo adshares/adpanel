@@ -10,9 +10,6 @@
     @include copy($font-weight: semi);
     display: flex;
     align-items: center;
-    &:last-child {
-      justify-content: flex-end;
-    }
   }
 
   .status-cell-width {
