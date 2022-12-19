@@ -31,8 +31,6 @@ import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/adverti
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button'
@@ -80,8 +78,6 @@ import { MatButtonModule } from '@angular/material/button'
     UserReportsComponent,
     GeneralSettingsComponent,
     PanelBlockadeComponent,
-    BanUserDialogComponent,
-    DeleteUserDialogComponent,
   ],
 })
 export class AdminModule {

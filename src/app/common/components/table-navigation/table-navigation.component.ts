@@ -53,11 +53,10 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
   ];
 
   userListNavigationItems = [
-    {title: 'Email', columnWidth: 'col-xs-5', keys: ['email']},
+    {title: 'Email', columnWidth: 'col-xs-6', keys: ['email']},
     {title: 'Wallet balance', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
     {title: 'Bonus balance', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
     {title: 'Role', columnWidth: 'col-xs-2 justify-center', hideArrows: true},
-    {title: 'Actions', columnWidth: 'col-xs-1', hideArrows: true}
   ];
 
   advertiserListNavigationItems = [
@@ -83,7 +82,7 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'C6', columnWidth: 'col-xs-1-3', keys: ['cpmChange']},
     {title: 'CPC', columnWidth: 'col-xs-1-3', keys: ['cpc']},
     {title: 'D7', columnWidth: 'col-xs-1-3', keys: ['cpcDiff']},
-    {title: 'C7', columnWidth: 'col-xs-1-3', keys: ['cpcChange']},
+    {title: 'C7', columnWidth: 'col-xs-1-3 justify-end', keys: ['cpcChange']},
   ];
 
   publisherListNavigationItems = [
@@ -106,7 +105,7 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'C5', columnWidth: 'col-xs-1-3', keys: ['revenueChange']},
     {title: 'RPM', columnWidth: 'col-xs-1-3', keys: ['rpm']},
     {title: 'D6', columnWidth: 'col-xs-1-3', keys: ['rpmDiff']},
-    {title: 'C6', columnWidth: 'col-xs-1-3', keys: ['rpmChange']},
+    {title: 'C6', columnWidth: 'col-xs-1-3 justify-end', keys: ['rpmChange']},
   ];
 
   adUnitsNavigation = [
@@ -116,21 +115,21 @@ export class TableNavigationComponent extends HandleSubscription implements OnIn
     {title: 'Clicks', columnWidth: 'col-xs-1', keys: ['clicks'], defaultDesc: true},
     {title: 'Views', columnWidth: 'col-xs-1', keys: ['impressions'], defaultDesc: true},
     {title: 'CTR', columnWidth: 'col-xs-1', keys: ['ctr'], defaultDesc: true},
-    {title: 'Avg. RPM', columnWidth: 'col-xs-1', keys: ['averageRpm'], defaultDesc: true},
+    {title: 'Avg. RPM', columnWidth: 'col-xs-1 justify-end', keys: ['averageRpm'], defaultDesc: true},
   ];
 
   classifierListNavigationItems = [
     {title: 'Ad', columnWidth: 'col-xs-7', hideArrows: true},
     {title: 'Ad data', columnWidth: 'col-xs-1', hideArrows: true},
     {title: 'Ad landing url', columnWidth: 'col-xs-2', hideArrows: true},
-    {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
+    {title: 'Action', columnWidth: 'col-xs-2 justify-end', hideArrows: true}
   ];
 
   accessTokenItems = [
     {title: 'Name', columnWidth: 'col-xs-3', hideArrows: true},
     {title: 'Scopes', columnWidth: 'col-xs-5', hideArrows: true},
     {title: 'Expires at', columnWidth: 'col-xs-2', hideArrows: true},
-    {title: 'Action', columnWidth: 'col-xs-2', hideArrows: true}
+    {title: 'Action', columnWidth: 'col-xs-2 justify-end', hideArrows: true}
   ];
 
   constructor(
