@@ -141,11 +141,11 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   private getSiteLinkUrl(): string {
     if ('metaverse' === this.site.medium) {
-      if ('decentraland' === this.site.vendor) {
+      if (DecentralandConverter.ID === this.site.vendor) {
         return 'DCL Builder' === this.site.name
           ? DECENTRALAND_BUILDER
           : new DecentralandConverter().convertBackendUrlToValidUrl(this.site.url)
-      } else if ('cryptovoxels' === this.site.vendor) {
+      } else if (CryptovoxelsConverter.ID === this.site.vendor) {
         return new CryptovoxelsConverter().convertBackendUrlToValidUrl(this.site.url)
       }
     }
