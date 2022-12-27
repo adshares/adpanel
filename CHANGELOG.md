@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Load direct link ad content during campaign load
+### Fixed
+- OAuth redirection during adserver initialization
 
 ## [2.2.3] - 2022-12-19
 ### Removed
