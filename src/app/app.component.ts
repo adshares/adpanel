@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from "@ngrx/store";
 
 import { HandleSubscription } from 'common/handle-subscription';
@@ -28,6 +28,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
     private session: SessionService,
@@ -41,7 +42,7 @@ export class AppComponent extends HandleSubscription implements OnInit {
     this.name = environment.name;
     const infoSubscription = this.store.select('state', 'common', 'info')
       .subscribe((info: Info) => {
-        if (environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
+        if (!this.isOauth() && environment.adControllerUrl && this.MODE_INITIALIZATION === info?.mode) {
           window.location.href = environment.adControllerUrl
           return
         }
@@ -67,5 +68,10 @@ export class AppComponent extends HandleSubscription implements OnInit {
 
   loadInfo(): void {
     this.store.dispatch(new LoadInfo());
+  }
+
+  isOauth(): boolean
+  {
+    return undefined !== this.route.snapshot.queryParams.redirect_uri
   }
 }
