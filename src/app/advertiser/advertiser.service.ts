@@ -1,23 +1,24 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { environment } from 'environments/environment';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { NavigationStart, Router } from '@angular/router'
+import { Store } from '@ngrx/store'
+import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers'
+import { environment } from 'environments/environment'
+import { AppState } from 'models/app-state.model'
 import {
   BannersConfig,
   Campaign,
   CampaignConversionStatistics,
   CampaignsConfig,
-  CampaignTotalsResponse
-} from 'models/campaign.model';
-import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model';
-import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions';
-import { AppState } from 'models/app-state.model';
-import { Media, Medium } from 'models/taxonomy-medium.model'
+  CampaignTotalsResponse,
+} from 'models/campaign.model'
+import { adCreativeTypes } from 'models/enum/ad.enum'
 import { campaignInitialState } from 'models/initial-state/campaign'
+import { AssetTargeting, TargetingReachResponse } from 'models/targeting-option.model'
+import { Media, Medium } from 'models/taxonomy-medium.model'
+import { forkJoin, Observable, of, Subscription } from 'rxjs'
+import { filter, switchMap } from 'rxjs/operators'
+import { ClearLastEditedCampaign } from 'store/advertiser/advertiser.actions'
 
 @Injectable()
 export class AdvertiserService {
@@ -44,7 +45,33 @@ export class AdvertiserService {
   }
 
   getCampaign(id: number): Observable<{ campaign: Campaign }> {
-    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`);
+    return this.http.get<{ campaign: Campaign }>(`${environment.apiUrl}/campaigns/${id}`).pipe(
+      switchMap(response => {
+        const directAds = {}
+        response.campaign.ads.forEach((ad, index) => {
+          if (adCreativeTypes.DIRECT === ad.creativeType) {
+            directAds[index] = this.getDirectLinkContent(ad.url)
+          }
+        })
+        return forkJoin(directAds).pipe(
+          switchMap(
+            contents => {
+              Object.keys(contents).forEach(index => {
+                response.campaign.ads[index].creativeContents = contents[index]
+              })
+              return of(response)
+            }
+          )
+        )
+      })
+    )
+  }
+
+  getDirectLinkContent(url: string): Observable<string> {
+    const options = {
+      responseType: 'text' as 'json',
+    }
+    return this.http.get<string>(url, options)
   }
 
   getCampaignConversionsStatistics(dateStart: string, dateEnd: string, campaignId?: number): Observable<CampaignConversionStatistics[]> {
