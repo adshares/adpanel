@@ -13,11 +13,17 @@ import { environment } from 'environments/environment'
 import { SetUser } from 'store/auth/auth.actions'
 import { CODE, CRYPTO } from 'common/utilities/consts'
 import {
+  faChevronDown,
+  faPlusCircle
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faUser,
   faComments,
   faEnvelope,
   faLifeRing,
   faPaperPlane,
-} from '@fortawesome/free-solid-svg-icons'
+  faCreditCard,
+} from '@fortawesome/free-regular-svg-icons'
 import { ServerOptionsService } from 'common/server-options.service'
 
 @Component({
@@ -44,6 +50,10 @@ export class HeaderComponent extends HandleSubscription implements OnInit {
   faEnvelope = faEnvelope
   faPaperPlane = faPaperPlane
   faComments = faComments
+  faUser = faUser
+  faPlusCircle = faPlusCircle
+  faChevronDown = faChevronDown
+  faCreditCard = faCreditCard
   envContext: string | null = environment.context
   actAsAdvertiser: boolean
   actAsPublisher: boolean

@@ -29,19 +29,17 @@
                ap-navigation__item
                ap-copy--uppercase
                ap-copy--semi
-               ap-copy--lineheight-reset
-          "
-          [disabled]="activeUserType === userRolesEnum.ADVERTISER"
+               ap-copy--lineheight-reset"
+          [ngClass]="{'active': activeUserType === userRolesEnum.ADVERTISER}"
           (click)="setActiveUserType(userRolesEnum.ADVERTISER)"
       >
-        <img
+        <fa-icon
             class="
             ap-icon
             ap-navigation__item--hidden
             ap-icon--prepend"
-            [src]="activeUserType === userRolesEnum.ADVERTISER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
-            alt="user"
-        />
+            [icon]="faUser"
+        ></fa-icon>
         Advertiser
       </button>
       <button
@@ -56,48 +54,46 @@
                ap-copy--uppercase
                ap-copy--semi
                ap-copy--lineheight-reset"
-          [disabled]="activeUserType === userRolesEnum.PUBLISHER"
+          [ngClass]="{'active': activeUserType === userRolesEnum.PUBLISHER}"
           (click)="setActiveUserType(userRolesEnum.PUBLISHER)"
       >
-        <img
+  
+        <fa-icon
             class="
-            ap-navigation__item--hidden
             ap-icon
+            ap-navigation__item--hidden
             ap-icon--prepend"
-            [src]="activeUserType === userRolesEnum.PUBLISHER ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
-            alt=""
-        />
+            [icon]="faUser"
+        ></fa-icon>
         Publisher
       </button>
       <button
           type="button"
           *ngIf="!session.isImpersonated() && (session.isModerator() || session.isAgency())"
-          class="ap-btn--primary
-               row
+          class="
+               ap-btn
+               ap-btn--secondary
                align-center
                ap-navigation__item
-               ap-header--userselect
                ap-copy--uppercase
                ap-copy--semi
                ap-copy--lineheight-reset"
-          [ngClass]="{'active-type': activeUserType === userType}"
+          [ngClass]="{'active': activeUserType === userType}"
           (click)="setActiveUserType(userType)"
       >
-        <img
+        <fa-icon
             class="
             ap-icon
             ap-navigation__item--hidden
             ap-icon--prepend"
-            [src]="activeUserType === userType ? 'assets/images/user.svg' : 'assets/images/user-gray.svg'"
-            alt=""
-        />
+            [icon]="faUser"
+        ></fa-icon>
         <span *ngIf="session.isModerator()">Moderator</span>
         <span *ngIf="session.isAgency()">Agency</span>
       </button>
     </div>
     
     <div class=" row align-center">
-      
       <div
           *ngIf="!session.isModerator() || session.isImpersonated()"
           class=" ap-btn ap-btn--secondary row align-center help-menu"
@@ -107,15 +103,14 @@
         <fa-icon
             [icon]="faLifeRing"
             class=" ap-icon ap-icon--prepend"
-        >
-        </fa-icon>
+        ></fa-icon>
         <span>Support</span>
-        <img
-            class=" ap-icon ap-icon--small ap-icon--append settings-menu-chevron"
+        <fa-icon
+            [icon]="faChevronDown"
+            size="xs"
+            class=" ap-icon ap-icon--append settings-menu-chevron"
             [class.up]="helpMenuOpen"
-            src="assets/images/chevron--gray.svg"
-            alt=""
-        >
+        ></fa-icon>
         <ul
             class=" settings-menu ap-copy"
             [class.open]="helpMenuOpen"
@@ -148,21 +143,23 @@
         </ul>
       </div>
       
-      
       <button
           *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
           class=" ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
           (click)="navigateToCreateNewAsset()"
           data-test="header-create-new-asset-button"
       >
-        <img
-            class=" ap-icon ap-icon--prepend"
-            src="assets/images/plus-circle.svg"
-            alt=""
-        >
+        <fa-icon
+            class="
+            ap-icon
+            ap-navigation__item--hidden
+            ap-icon--prepend"
+            [icon]="faPlusCircle"
+        ></fa-icon>
         <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
         <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
       </button>
+      
       <div
           *ngIf="!session.isModerator() || session.isImpersonated()"
           class=" row align-center relative ap-navigation__item ap-btn ap-btn--secondary"
@@ -174,11 +171,13 @@
           (mouseleave)="toggleSettingsMenu(false)"
           data-test="header-toggle-settings-menu"
       >
-        <img
-            class=" ap-navigation__item--hidden ap-icon ap-icon--prepend"
-            src="assets/images/credit-card--white.svg"
-            alt="Wallet balance"
-        >
+        <fa-icon
+            class="
+            ap-icon
+            ap-navigation__item--hidden
+            ap-icon--prepend"
+            [icon]="faCreditCard"
+        ></fa-icon>
         <div
             class="
           col
@@ -203,16 +202,16 @@
           >
         </span>
         </div>
-        <img
-            class=" ap-icon ap-icon--small ap-icon--append settings-menu-chevron"
+        <fa-icon
+            [icon]="faChevronDown"
+            size="xs"
+            class=" ap-icon ap-icon--append settings-menu-chevron"
             [class.up]="settingsMenuOpen"
-            src="assets/images/chevron--gray.svg"
-            alt=""
-        >
+        ></fa-icon>
         <ul
             class="
-          settings-menu
-          ap-copy"
+            settings-menu
+            ap-copy"
             [class.open]="settingsMenuOpen"
         >
           <li class="settings-menu__item">
@@ -221,13 +220,13 @@
                 (click)="openAddFundsDialog()"
                 data-test="add-funds-dialog-open-button"
             >
-              <img
+              <fa-icon
                   class="
-                ap-icon
-                close"
-                  src="assets/images/plus-circle.svg"
-                  alt=""
-              >
+                  ap-icon
+                  ap-navigation__item--hidden
+                  ap-icon--prepend"
+                  [icon]="faPlusCircle"
+              ></fa-icon>
               Deposit funds
             </button>
           </li>

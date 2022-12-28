@@ -4,9 +4,6 @@
   width: 100vw;
   height: $app-header-height;
 
-  & .ap-icon {
-    color: pal(primary);
-  }
 
 
   @include media(sm-down-without-sm) {
@@ -105,13 +102,19 @@
 .settings-menu,
 .choose-user-menu {
   position: absolute;
-  top: 36px;
+  top: 47px;
+  border: 1px solid pal(primary);
+  border-radius: 10px;
   background: pal(light);
   z-index: 999;
-  width: 240px;
+  width: 260px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s ease;
+
+  a {
+    color: inherit;
+  }
 
   @include media(xxl-up) {
     top: 46px;
@@ -126,14 +129,13 @@
     text-align: left;
     padding: 8px 20px;
 
-    &:first-of-type {
-      padding-bottom: 0;
+    &:hover {
+      background-color: pal(body-bg);
     }
 
-    button {
-      width: 100%;
-      min-width: 100px;
-    }
+    //button {
+    //  width: 100%;
+    //}
   }
 }
 
