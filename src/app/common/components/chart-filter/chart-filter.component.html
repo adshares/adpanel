@@ -37,7 +37,7 @@
         *ngFor="let preset of filterPresets"
         class="
             ap-btn
-            ap-btn--primary
+            ap-btn--secondary
             ap-bg-white
             ap-navy
             lowercase-to-capitalize"
@@ -79,13 +79,10 @@
           ap-form-input--datepicker--narrow
           row"
       >
-        <img
-          src="assets/images/calendar.svg"
-          alt="Select date from"
-          class="
-            ap-icon
-            ap-icon--prepend"
-        >
+        <fa-icon
+          [icon]="faCalendar"
+          class="ap-icon ap-icon--prepend"
+        ></fa-icon>
         <input
           matInput
           [matDatepicker]="dateFromPicker"
@@ -115,13 +112,10 @@
           ap-form-input--datepicker--narrow
           row"
       >
-        <img
-          src="assets/images/calendar.svg"
-          alt="Select date to"
-          class="
-            ap-icon
-            ap-icon--prepend"
-        >
+        <fa-icon
+            [icon]="faCalendar"
+            class="ap-icon ap-icon--prepend"
+        ></fa-icon>
         <input
           matInput
           [matDatepicker]="dateToPicker"
@@ -139,19 +133,16 @@
         type="button"
         class="
           ap-btn
-          ap-btn--primary
-          ap-bg-gray--light
-          ap-navy"
+          ap-btn--primary"
         [class.disabled]="!dateTo.value || !dateFrom.value"
         (click)="filterChartByDatepicker()"
         data-test="chart-filter-apply-datespan-button"
       >
         Apply
-        <img
-          class="ap-icon--append"
-          src="assets/images/chevron--right.svg"
-          alt=""
-        >
+        <fa-icon
+            [icon]="faArrowAltCircleRight"
+            class="ap-icon ap-icon--append"
+        ></fa-icon>
       </button>
     </div>
   </div>

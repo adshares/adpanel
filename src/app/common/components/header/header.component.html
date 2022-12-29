@@ -94,9 +94,26 @@
     </div>
     
     <div class=" row align-center">
+      <button
+          *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
+          class=" ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
+          (click)="navigateToCreateNewAsset()"
+          data-test="header-create-new-asset-button"
+      >
+        <fa-icon
+            class="
+            ap-icon
+            ap-navigation__item--hidden
+            ap-icon--prepend"
+            [icon]="faPlusCircle"
+        ></fa-icon>
+        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
+        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
+      </button>
+      
       <div
           *ngIf="!session.isModerator() || session.isImpersonated()"
-          class=" ap-btn ap-btn--secondary row align-center help-menu"
+          class="ap-btn ap-btn--text ap-btn-light row align-center help-menu"
           (mouseover)="toggleHelpMenu(true)"
           (mouseleave)="toggleHelpMenu(false)"
       >
@@ -143,26 +160,9 @@
         </ul>
       </div>
       
-      <button
-          *ngIf="activeUserType === userRolesEnum.ADVERTISER || activeUserType === userRolesEnum.PUBLISHER"
-          class=" ap-btn ap-btn--secondary ap-navigation__item ap-navigation__item--hidden row align-center hidden-md-down"
-          (click)="navigateToCreateNewAsset()"
-          data-test="header-create-new-asset-button"
-      >
-        <fa-icon
-            class="
-            ap-icon
-            ap-navigation__item--hidden
-            ap-icon--prepend"
-            [icon]="faPlusCircle"
-        ></fa-icon>
-        <span *ngIf="activeUserType === userRolesEnum.ADVERTISER">Create new campaign</span>
-        <span *ngIf="activeUserType === userRolesEnum.PUBLISHER">Add new site</span>
-      </button>
-      
       <div
           *ngIf="!session.isModerator() || session.isImpersonated()"
-          class=" row align-center relative ap-navigation__item ap-btn ap-btn--secondary"
+          class="ap-btn ap-btn--text ap-btn-light row align-center relative ap-navigation__item"
           [class.ap-btn--invalid]="!isTotalFundsValid"
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="!isTotalFundsValid ? 'Connection temporarily lost' : null"

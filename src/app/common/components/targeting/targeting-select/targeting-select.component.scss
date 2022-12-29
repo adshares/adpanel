@@ -63,7 +63,7 @@
     );
     @include copy(
       $color: pal(primary),
-      $font-weight: semi);
+      $font-weight: semiBold);
     border-top: none;
     cursor: pointer;
     position: relative;

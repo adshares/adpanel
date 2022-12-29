@@ -48,7 +48,7 @@
       <button
         class="
             ap-btn
-            ap-btn--bordered-light"
+            ap-btn--text"
         (click)="navigateToClassification()"
         data-test="publisher-site-navigate-to-classifier"
       >
@@ -77,7 +77,7 @@
             {{ site.name }}
             <small *ngIf="displayAds">{{ site.domain }}</small>
             <a *ngIf="siteLinkUrl" href="{{siteLinkUrl}}" target="_blank" rel="noopener nofollow noreferrer">
-              <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--small link-icon"></fa-icon>
+              <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon link-icon"></fa-icon>
             </a>
           </h1>
           <p
@@ -105,30 +105,27 @@
                 data-test="publisher-site-status"
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
-            </span>
-          <button class="ap-btn ap-btn--primary ap-status--btn"
+          </span>
+          <button class="ap-btn ap-btn--secondary ap-status--btn"
                   (click)="onSiteStatusChange()"
                   data-test="publisher-site-status-change-button"
-                  [attr.data-status]="currentSiteStatus">
+                  [ngClass]="{'ap-btn-success': currentSiteStatus === 'inactive'}">
             {{ statusButtonLabel }}
           </button>
         </div>
         <button
           class="
             ap-btn
-            ap-btn--primary
+            ap-btn-error
+            ap-btn--secondary
             ap-btn--with-icon
             btn-delete
             ap-copy--dark"
           (click)="deleteSite()"
         >
-          <img
-            class="
-              ap-icon
-              ap-icon--prepend"
-            src="/assets/images/x-circle--dark.svg"
-            alt=""
-          >
+          <fa-icon
+            [icon]="faRemove"
+            class="ap-icon ap-icon--prepend"></fa-icon>
           Remove
         </button>
       </div>
@@ -144,7 +141,7 @@
             <button
               class="
                 ap-btn
-                ap-btn--primary
+                ap-btn--secondary
                 ap-copy--dark"
               data-test="publisher-site-download-report-button"
             >
@@ -212,19 +209,13 @@
       <button
         class="
            ap-btn
-           ap-btn--primary
-           ap-btn--edit
-           ap-btn--no-border"
+           ap-btn--text"
         (click)="navigateToEditSite('basic-information')"
         data-test="publisher-site-edit-basic-info-button"
       >
-        <img
-          class="
-            ap-icon
-            ap-icon--prepend"
-          src="assets/images/edit-blue.svg"
-          alt=""
-        >
+        <fa-icon
+            [icon]="faEdit"
+            class="ap-icon ap-icon--prepend"></fa-icon>
         Edit basic info
       </button>
     </div>
@@ -234,80 +225,60 @@
         <button
           class="
            ap-btn
-           ap-btn--primary
-           ap-btn--edit
-           ap-btn--no-border"
+           ap-btn--text"
           (click)="navigateToEditSite('additional-filtering')"
           data-test="publisher-site-edit-filtering-button"
         >
-          <img
-            class="
-            ap-icon
-            ap-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt=""
-          >
+          <fa-icon
+              [icon]="faEdit"
+              class="ap-icon ap-icon--prepend"></fa-icon>
           {{(!filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners) ? 'Add exclusions' : 'Edit exclusions'}}
         </button>
       </div>
+      
       <div
         *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners"
-        class="
-        ap-box
-        ap-copy
-        row"
+        class="ap-copy row"
       >
         <div
           *ngIf="site.onlyAcceptedBanners"
           class="col-xs-12"
         >
-          <div class="ap-targeting-details__title">
-            <mat-checkbox
-              class="site-details__checkbox"
-              checked="checked"
-            >
-              Manual approval of banners
-            </mat-checkbox>
-            <button
-              class="
-               ap-btn
-               ap-btn--primary
-               ap-btn--edit
-               ap-btn--no-border"
-              (click)="navigateToClassification()"
-              data-test="publisher-site-edit-filtering-button"
-            >
-              <img
-                class="
-                  ap-icon
-                  ap-icon--prepend"
-                src="assets/images/edit-blue.svg"
-                alt=""
-              >
-              Select banners for approval
-            </button>
-          </div>
-          <div>
-            <br /><br />
-          </div>
+          <mat-checkbox
+            class="site-details__checkbox"
+            checked="checked"
+            disabled
+          >
+            Manual approval of banners
+          </mat-checkbox>
+          <button
+            class="
+             ap-btn
+             ap-btn--secondary"
+            (click)="navigateToClassification()"
+            data-test="publisher-site-edit-filtering-button"
+          >
+            <fa-icon
+                [icon]="faEdit"
+                class="ap-icon ap-icon--prepend"></fa-icon>
+            Select banners for approval
+          </button>
         </div>
+        
         <div
           *ngIf="!!filtering.requires.length"
           class="
           col-xs-12
           col-lg-6"
         >
-          <h2 class="ap-targeting-details__title
-                     ap-copy--semi">Targeting: </h2>
-          <div>
-            <app-targeting-display
-              class="app-targeting-display"
-              [items]="filtering.requires"
-              [isExclude]="false"
-              [canRemove]="false"
-              [targetingOptions]="filteringOptions"
-            ></app-targeting-display>
-          </div>
+          <h2 class="ap-copy--semi">Targeting: </h2>
+          <app-targeting-display
+            class="app-targeting-display"
+            [items]="filtering.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+            [targetingOptions]="filteringOptions"
+          ></app-targeting-display>
         </div>
 
         <div
@@ -316,180 +287,154 @@
           col-xs-12
           col-lg-6"
         >
-          <h2 class="ap-targeting-details__title
-                     ap-copy--semi">Exclusions: </h2>
-          <div>
-            <app-targeting-display
-              class="app-targeting-display"
-              [items]="filtering.excludes"
-              [isExclude]="true"
-              [canRemove]="false"
-              [targetingOptions]="filteringOptions"
-            ></app-targeting-display>
-          </div>
+          <h2 class="ap-copy--semi">Exclusions: </h2>
+          <app-targeting-display
+            class="app-targeting-display"
+            [items]="filtering.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+            [targetingOptions]="filteringOptions"
+          ></app-targeting-display>
         </div>
       </div>
     </section>
 
-
-    <div class="ap-box ap-box--large">
-      <div class="row justify-center">
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="openGetCodeDialog()"
-          data-test="publisher-get-code-button"
-        >
-          Get the ad codes
-        </button>
-      </div>
-    </div>
-
     <ng-container *ngIf="displayAds">
-    <div class="col">
+      <div class="col">
+        <div
+          class="
+            ap-box
+            ad-units
+            row
+            justify-between
+            align-center">
+          <p
+            class="
+              ap-copy
+              ap-copy--semi"
+          >
+            <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
+            <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
+          </p>
+  
+          <div class="row justify-end">
+            <button
+              class="
+             ap-btn
+             ap-btn--text
+             ap-btn--edit
+             ap-btn--no-border"
+              (click)="navigateToEditSite('pops-settings')"
+              data-test="publisher-site-edit-pops-button"
+            >
+              <fa-icon
+                  [icon]="faEdit"
+                  class="ap-icon ap-icon--prepend"></fa-icon>
+              Edit pops
+            </button>
+          </div>
+        </div>
+        <div
+          class="site-details__scrollable-table"
+          *ngIf="!!popAdUnits.length">
+          <table class="site-details__table">
+            <app-table-navigation
+              [navigationName]="'adUnitsNavigation'"
+              (sortTable)="sortTable($event)"
+              class="row ap-copy"
+            ></app-table-navigation>
+            <app-poster-units
+              *ngFor="let adUnit of popAdUnits"
+              [adUnit]="adUnit"
+            ></app-poster-units>
+          </table>
+        </div>
+      </div>
+  
+      <div class="col ap-box">
+        <div
+          class="
+            ad-units
+            row
+            justify-between
+            align-center">
+          <p
+            class="
+              ap-copy
+              ap-copy--semi"
+          >
+            <span *ngIf="!!displayAdUnits.length">List of ad units</span>
+            <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
+          </p>
+          <button
+            class="
+             ap-btn
+             ap-btn--text
+             ap-btn--edit
+             ap-btn--no-border"
+            (click)="navigateToEditSite('create-ad-units')"
+            data-test="publisher-site-edit-ad-units-button"
+          >
+            <fa-icon
+                [icon]="faEdit"
+                class="ap-icon ap-icon--prepend"></fa-icon>
+            Edit ad units
+          </button>
+        </div>
+        
+        <div
+          class="site-details__scrollable-table"
+          *ngIf="!!displayAdUnits.length"
+        >
+          <table class="site-details__table">
+            <app-table-navigation
+              [navigationName]="'adUnitsNavigation'"
+              (sortTable)="sortTable($event)"
+              class="row ap-copy"
+            ></app-table-navigation>
+            <app-poster-units
+              *ngFor="let adUnit of displayAdUnits"
+              [adUnit]="adUnit"
+              class="ap-copy"
+            ></app-poster-units>
+          </table>
+        </div>
+      </div>
+  
       <div
         class="
           ap-box
-          ad-units
           row
-          justify-between
-          align-center">
-        <p
+          justify-center"
+      >
+        <button
           class="
-            ap-copy
-            ap-copy--semi"
+            ap-btn
+            ap-btn--primary
+            ap-blue
+            ap-btn--no-border"
+          (click)="navigateToEditSite('create-ad-units')"
+          data-test="publisher-site-create-new-ad-unit"
         >
-          <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
-          <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
-        </p>
-
-        <div class="row justify-end">
+          <fa-icon
+              [icon]="faCirclePlus"
+              class="ap-icon ap-icon--prepend"></fa-icon>
+          Create new ad unit
+        </button>
+      </div>
+  
+      <div class="ap-box ap-box--large">
+        <div class="row justify-center">
           <button
-            class="
-           ap-btn
-           ap-btn--primary
-           ap-btn--edit
-           ap-btn--no-border"
-            (click)="navigateToEditSite('pops-settings')"
-            data-test="publisher-site-edit-pops-button"
+            class="ap-btn ap-btn--primary"
+            (click)="openGetCodeDialog()"
+            data-test="publisher-get-code-button"
           >
-            <img
-              class="
-            ap-icon
-            ap-icon--prepend"
-              src="assets/images/edit-blue.svg"
-              alt=""
-            >
-            Edit pops
+            Get the ad codes
           </button>
         </div>
       </div>
-      <div
-        class="site-details__scrollable-table"
-        *ngIf="!!popAdUnits.length">
-        <table class="site-details__table">
-          <app-table-navigation
-            [navigationName]="'adUnitsNavigation'"
-            (sortTable)="sortTable($event)"
-            class="row ap-copy"
-          ></app-table-navigation>
-          <app-poster-units
-            *ngFor="let adUnit of popAdUnits"
-            [adUnit]="adUnit"
-          ></app-poster-units>
-        </table>
-      </div>
-    </div>
-
-    <div class="col">
-      <div
-        class="
-          ap-box
-          ad-units
-          row
-          justify-between
-          align-center">
-        <p
-          class="
-            ap-copy
-            ap-copy--semi"
-        >
-          <span *ngIf="!!displayAdUnits.length">List of ad units</span>
-          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active ad units</strong>
-        </p>
-        <button
-          class="
-           ap-btn
-           ap-btn--primary
-           ap-btn--edit
-           ap-btn--no-border"
-          (click)="navigateToEditSite('create-ad-units')"
-          data-test="publisher-site-edit-ad-units-button"
-        >
-          <img
-            class="
-            ap-icon
-            ap-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt=""
-          >
-          Edit ad units
-        </button>
-      </div>
-      <div
-        class="site-details__scrollable-table"
-        *ngIf="!!displayAdUnits.length"
-      >
-        <table class="site-details__table">
-          <app-table-navigation
-            [navigationName]="'adUnitsNavigation'"
-            (sortTable)="sortTable($event)"
-            class="row ap-copy"
-          ></app-table-navigation>
-          <app-poster-units
-            *ngFor="let adUnit of displayAdUnits"
-            [adUnit]="adUnit"
-          ></app-poster-units>
-        </table>
-      </div>
-    </div>
-
-    <div
-      class="
-        ap-box
-        row
-        justify-center"
-    >
-      <button
-        class="
-          ap-btn
-          ap-btn--primary
-          ap-blue
-          ap-btn--no-border"
-        (click)="navigateToEditSite('create-ad-units')"
-        data-test="publisher-site-create-new-ad-unit"
-      >
-        <img
-          class="
-            ap-icon
-            ap-icon--prepend"
-          src="assets/images/plus-circle--blue.svg"
-          alt=""
-        >
-        Create new ad unit
-      </button>
-    </div>
-
-    <div class="ap-box ap-box--large">
-      <div class="row justify-center">
-        <button
-          class="ap-btn ap-btn--primary"
-          (click)="openGetCodeDialog()"
-          data-test="publisher-get-code-button"
-        >
-          Get the ad codes
-        </button>
-      </div>
-    </div>
+      
     </ng-container>
   </div>
 </div>

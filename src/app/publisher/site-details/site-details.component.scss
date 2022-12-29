@@ -4,6 +4,7 @@
   &__checkbox {
     cursor: not-allowed;
     pointer-events: none;
+    margin-right: 8px;
   }
 
   &__classification {
@@ -71,4 +72,5 @@
 
 .link-icon {
   margin-left: 4px;
+  color: pal(primary, light);
 }

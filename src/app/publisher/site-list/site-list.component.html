@@ -44,12 +44,10 @@
   </div>
 </ng-template>
 <div class="site-list__add-new-site-row">
-  <button class="site-list__add-btn"
+  <button class="ap-btn ap-btn--secondary"
           (click)="navigateToCreateSite()"
           data-test="publisher-create-new-site">
-    <img class="site-list__add-btn-icon"
-         alt=""
-         src="assets/images/plus-circle--blue.svg">
+    <fa-icon [icon]="faPlusCircle" class="ap-icon ap-icon--prepend"></fa-icon>
     Add new site
   </button>
 </div>

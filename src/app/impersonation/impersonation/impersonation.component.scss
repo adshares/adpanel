@@ -11,7 +11,7 @@
     @include copy(
       $color: pal(error),
       $font-size: 18,
-      $font-weight: semi
+      $font-weight: semiBold
     );
     display: flex;
     align-self: center;

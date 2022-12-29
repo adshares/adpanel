@@ -44,7 +44,7 @@
           <button
             class="
             ap-btn
-            ap-btn--bordered-light"
+            ap-btn--text"
           >
             Reject banner ads
           </button>
@@ -65,7 +65,7 @@
               <button
                 class="
                   ap-btn
-                  ap-btn--primary
+                  ap-btn--secondary
                   ap-copy--dark"
                 data-test="publisher-download-report-button"
               >
@@ -101,11 +101,13 @@
           </div>
         </div>
       </div>
-      <app-site-list
-        [dataLoaded]="dataLoaded"
-        [sites]="sites"
-        [sitesTotals]="sitesTotals"
-      ></app-site-list>
+      <div class="ap-box ap-copy">
+        <app-site-list
+            [dataLoaded]="dataLoaded"
+            [sites]="sites"
+            [sitesTotals]="sitesTotals"
+        ></app-site-list>
+      </div>
     </div>
 
     <div

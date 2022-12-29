@@ -30,7 +30,7 @@
 }
 
 @mixin copy(
-  $color: pal(gray),
+  $color: pal(body-color),
   $font-size: 16,
   $margin-horizontal: 0,
   $margin-vertical: 0,

@@ -40,10 +40,11 @@ $palette-colors: (
   primary: (
     base: $primary,
     dark: $primary-alt,
-    light: #809EA6
+    light: #809EA6,
   ),
   secondary:(
-    base: $secondary
+    base: $secondary,
+    light: $secondary-alt,
   ),
   primary-alt:(
     base: $primary-alt

@@ -1,19 +1,15 @@
 @import "../../../../styles";
 
 .table-nav {
-  @include container($border-color: pal(gray));
+  @include container();
+  border-bottom: 1px solid pal(gray);
   display: flex;
   justify-content: space-between;
   width: 100%;
-  border-radius: 10px;
 
   &__row {
-    @include copy($font-weight: semi);
     display: flex;
     align-items: center;
-    &:last-child {
-      justify-content: flex-end;
-    }
   }
 
   .status-cell-width {

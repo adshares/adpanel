@@ -199,7 +199,7 @@
   border-radius: 10px;
   background-color: pal(light);
   padding: 8px 7px;
-  margin-top: 2px;
+  margin-top: 8px;
 
   & .ap-box {
     border: none;
@@ -213,11 +213,11 @@
 
   &--large {
     padding: 20px;
-    margin-top: 2px;
+    margin-top: 8px;
   }
 
   &--high {
-    margin-top: 2px;
+    margin-top: 8px;
   }
 
   &--small {
@@ -312,7 +312,7 @@
 }
 
 .ap-header-bg {
-  background: pal(body-bg);
+  background: pal(primary);
 }
 
 /*
@@ -348,7 +348,7 @@
 */
 
 .ap-status {
-  @include font(14, semi);
+  @include font(14, semiBold);
   text-transform: uppercase;
   width: 100%;
   max-width: 150px;
@@ -388,7 +388,6 @@
   &--btn {
     min-width: auto;
     width: auto;
-    color: pal(gray) !important;
 
     &[data-status="active"] {
       color: pal(success);
@@ -441,7 +440,6 @@
 }
 
 .clickable-row-a {
-  color: pal(gray) !important;
   display: block;
   width: 100%;
   padding: 16px 0.5em;
@@ -527,7 +525,7 @@
   .ap-copy[data-status="suspended"],
   .ap-copy[data-status="archived"],
   .ap-copy[data-status="draft"] {
-    color: pal(error, dark);
+    color: pal(error);
   }
 }
 

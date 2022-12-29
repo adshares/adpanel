@@ -1,6 +1,21 @@
 @import '../../../../styles.scss';
 
 .ap-site-list {
+  &__item {
+    @include container();
+    border-bottom: 1px solid pal(gray);
+
+    .ap-status {
+      border-radius: 10px;
+      &[data-status="active"] {
+        background-color: pal(success, light);
+      }
+      &[data-status="inactive"] {
+        background-color: pal(secondary, light);
+      }
+    }
+  }
+
   &__sort {
     margin-left: 5px;
   }

@@ -53,7 +53,7 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
 
             bodyLines.forEach(bodyLine => {
               const value = bodyLine[0].split(': ')[1]
-              innerHtml += '<tr><td><span>' + formatNumberWithComma(adjustTooltipValueFormat(value, currencyCode)) + '</span></td></tr>'
+              innerHtml += '<tr><td><span class="ap-copy ap-copy--white">' + formatNumberWithComma(adjustTooltipValueFormat(value, currencyCode)) + '</span></td></tr>'
             })
             innerHtml += '</tbody>'
 
@@ -70,7 +70,7 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
             left: position.left + 15 + tooltipModel.caretX + 'px',
             top: position.top + window.scrollY + tooltipModel.caretY + 'px',
             textAlign: 'left',
-            fontFamily: 'Lato-Regular',
+            fontFamily: 'Montserrat-Regular',
             fontSize: 14 + 'px',
             color: '#FFFFFF',
             padding: '7px 10px',

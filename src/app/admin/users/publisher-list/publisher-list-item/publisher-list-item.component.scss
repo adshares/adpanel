@@ -56,7 +56,7 @@
     padding: 0 !important;
     @include copy(
       $color: pal(primary),
-      $font-weight: semi,
+      $font-weight: semiBold,
       $font-size: 16
     );
 

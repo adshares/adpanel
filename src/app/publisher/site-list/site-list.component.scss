@@ -22,16 +22,10 @@
   }
 
   &__totals-row {
-    @include copy($font-weight: semi);
-    @include container(
-      $padding-vertical: 10px,
-      $margin-top: 4px,
-      $margin-bottom: 2px
-    );
+    @include container();
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 10px;
 
     & td {
       box-sizing: border-box;
@@ -49,7 +43,6 @@
     @include container($padding-vertical: 10px);
     display: flex;
     justify-content: center;
-    border-radius: 10px;
   }
 
   &__add-btn {
