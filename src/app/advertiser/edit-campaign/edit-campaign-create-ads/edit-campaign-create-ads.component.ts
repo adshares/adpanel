@@ -305,23 +305,6 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     }
   }
 
-  scaleImageToMatchBanner(index: number): string {
-    const banners = Array.from(document.querySelectorAll('.banner'));
-    if (!banners[index]) {
-      return '1';
-    }
-    const image = banners[index].querySelector('img');
-    const sizes = this.adForms[index].get('creativeSize').value.split('x');
-    const bannerWidth = parseInt(sizes[0]);
-    const bannerHeight = parseInt(sizes[1]);
-    const imageWidth = image.offsetWidth;
-    const imageHeight = image.offsetHeight;
-    const heightRatio = bannerHeight / imageHeight;
-    const widthRatio = bannerWidth / imageWidth;
-
-    return heightRatio <= widthRatio ? heightRatio.toFixed(2) : widthRatio.toFixed(2);
-  }
-
   selectProperImageBannerSize(form: FormGroup, size: string): void {
     if (this.getAdSizes(adCreativeTypes.IMAGE).includes(size)) {
       form.get('creativeSize').setValue(size);
@@ -346,6 +329,10 @@ export class EditCampaignCreateAdsComponent extends HandleSubscription implement
     data.append('medium', this.campaign.basicInformation.medium);
     if (null !== this.campaign.basicInformation.vendor) {
       data.append('vendor', this.campaign.basicInformation.vendor);
+    }
+    data.append('type', form.get('type').value)
+    if (null !== form.get('creativeSize').value) {
+      data.append('scope', form.get('creativeSize').value)
     }
     const uploadBannerSubscription = this.advertiserService.uploadBanner(data).subscribe(
       event => {
