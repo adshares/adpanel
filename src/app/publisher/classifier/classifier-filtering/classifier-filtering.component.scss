@@ -3,6 +3,10 @@
 .classifier-filtering {
   width: 100%;
 
+  & > mat-expansion-panel:not(:last-child) {
+    margin-bottom: 4px;
+  }
+
   &__chosen-value:not(:last-of-type) {
     margin-right: 8px;
   }
@@ -31,6 +35,7 @@
 
   &__checkbox {
     padding-left: 16px;
+    margin-top: 4px;
   }
 
   &__hidden {

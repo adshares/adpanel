@@ -7,6 +7,10 @@
     padding: 8px;
     font-size: 18px;
   }
+
+  & .control-btn-wrapper > button:not(:last-child) {
+    margin-right: 4px;
+  }
 }
 
 .ap-ad-list {

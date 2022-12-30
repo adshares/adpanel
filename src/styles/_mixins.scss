@@ -90,20 +90,23 @@
 
 @mixin input($max-width: 320px) {
   @include font(16, medium);
-  border-radius: 2px;
-  background-color: #f8f9fc;
-  border: solid 1px pal(gray);
+  border-radius: 10px;
+  border: solid 1px pal(dark);
   padding: 12px 13px 12px 18px;
   max-width: $max-width;
+
+  &:focus {
+    border-color: pal(secondary);
+  }
 }
 
 @mixin label(
   $margin-top: 10px,
   $margin-bottom: 4px,
-  $margin-horizontal: 0
+  $margin-horizontal: 4px,
 ) {
   @include font(16, medium);
-  color: pal(gray);
+  //color: pal(gray);
   margin: $margin-top $margin-horizontal $margin-bottom;
   display: inline-block;
 }

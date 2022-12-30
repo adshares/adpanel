@@ -86,6 +86,16 @@
   &-error {
     border-color: pal(error);
     color: pal(error);
+
+    &[disabled] {
+      border-color: pal(error, light);
+      color: pal(error, light);
+    }
+  }
+
+  &-info {
+    border-color: pal(secondary);
+    color: pal(secondary);
   }
 
   &-light {

@@ -9,31 +9,23 @@
       <h1
         class="
           ap-heading
-          ap-heading-h2"
+          ap-heading--h2"
       >
         {{isGlobal ? 'Reject banners' : 'Approve banners for ' + siteName}}
       </h1>
       <div
         class="
           row
-          align-center"
+          align-center
+          control-btn-wrapper"
       >
-        <button
-          *ngIf="isSingleBanner"
-          type="button"
-          class="
-            ap-btn
-            ap-btn--primary"
-          (click)="goToGeneralClassifier()"
-        >
-          Show all
-        </button>
         <button
           *ngIf="!isSingleBanner"
           type="button"
           class="
             ap-btn
-            ap-btn--primary"
+            ap-btn-info
+            ap-btn--secondary"
           (click)="refresh()"
         >
           <fa-icon
@@ -46,65 +38,82 @@
           Refresh
         </button>
         <button
+            *ngIf="isSingleBanner"
+            type="button"
+            class="
+            ap-btn
+            ap-btn--secondary"
+            (click)="goToGeneralClassifier()"
+        >
+          Show all
+        </button>
+        <button
           type="button"
           class="
             ap-btn
-            ap-btn--primary"
+            ap-btn--secondary"
           (click)="onStepBack()"
         >
           {{isGlobal ? 'Dashboard' : 'Back to the site'}}
         </button>
       </div>
     </div>
-    <app-classifier-filtering
-      *ngIf="!isSingleBanner"
-      [sizeOptions]="adSizesOptions"
-      [siteId]="siteId"
-      [classifierLocalBanners]="classifierLocalBanners"
-      (filteringChange)="updateBannersList($event)"
-    ></app-classifier-filtering>
-    <table
-      class="
+
+    <div class="ap-box">
+      <app-classifier-filtering
+          *ngIf="!isSingleBanner"
+          [sizeOptions]="adSizesOptions"
+          [siteId]="siteId"
+          [classifierLocalBanners]="classifierLocalBanners"
+          (filteringChange)="updateBannersList($event)"
+      ></app-classifier-filtering>
+    </div>
+    
+    <div class="ap-box">
+      <table
+          class="
         col
         ap-ad-list"
-    >
-      <app-table-navigation
-        [navigationName]="'classifierListNavigation'"
-        class="
+      >
+        <app-table-navigation
+            [navigationName]="'classifierListNavigation'"
+            class="
           row
           ap-copy
           ap-copy--small"
-      ></app-table-navigation>
-      <ng-container *ngIf="!isLoading; else loading">
-        <app-classifier-list-item
-          *ngFor="let bannerClassification of bannerClassifications"
-          [bannerClassification]="bannerClassification"
-          [siteId]="siteId"
-        ></app-classifier-list-item>
-      </ng-container>
-      <tr
-        *ngIf="bannerClassifications.length === 0 && !isLoading"
-        class="ap-box row justify-center"
+        ></app-table-navigation>
+        <ng-container *ngIf="!isLoading; else loading">
+          <app-classifier-list-item
+              *ngFor="let bannerClassification of bannerClassifications"
+              [bannerClassification]="bannerClassification"
+              [siteId]="siteId"
+          ></app-classifier-list-item>
+        </ng-container>
+        <tr
+            *ngIf="bannerClassifications.length === 0 && !isLoading"
+            class="ap-box row justify-center"
+        >
+          <td class="ap-copy ap-copy--blue">
+            {{filtering.status || !!filtering.sizes ?
+              'No banners matching filters' : 'There are no banners to reject'
+            }}
+          </td>
+        </tr>
+        <ng-template #loading>
+          <div class="ap-box row justify-center">
+            <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
+          </div>
+        </ng-template>
+      </table>
+      <mat-paginator
+          class="ap-copy ap-copy--small"
+          #paginator
+          [hidePageSize]="true"
+          [length]="totalCount"
+          [pageSize]="PAGE_SIZE"
+          (page)="handlePaginationEvent($event)"
       >
-        <td class="ap-copy ap-copy--blue">
-          {{filtering.status || !!filtering.sizes ?
-            'No banners matching filters' : 'There are no banners to reject'
-          }}
-        </td>
-      </tr>
-      <ng-template #loading>
-        <div class="ap-box row justify-center">
-          <mat-spinner [diameter]="30" [strokeWidth]="4"></mat-spinner>
-        </div>
-      </ng-template>
-    </table>
-    <mat-paginator
-        #paginator
-        [hidePageSize]="true"
-        [length]="totalCount"
-        [pageSize]="PAGE_SIZE"
-        (page)="handlePaginationEvent($event)"
-    >
-    </mat-paginator>
+      </mat-paginator>
+    </div>
   </div>
 </div>

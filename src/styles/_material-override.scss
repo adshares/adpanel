@@ -220,20 +220,7 @@ mat-chip:not(.mat-basic-chip) {
   background-color: pal(primary);
 }
 
-//.material-icons {
-//  margin-right: 8px;
+
+//.mat-paginator-container {
+//  border: 1px solid pal(gray);
 //}
-
-.mat-paginator-container {
-  border: 1px solid pal(gray);
-}
-
-.classifier-filtering .mat-expansion-panel:first-of-type {
-  border: 1px solid pal(gray);
-  border-bottom: none;
-}
-
-.classifier-filtering .mat-expansion-panel:last-of-type {
-  border: 1px solid pal(gray);
-  border-top: none;
-}
