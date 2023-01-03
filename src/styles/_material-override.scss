@@ -220,6 +220,14 @@ mat-chip:not(.mat-basic-chip) {
   background-color: pal(primary);
 }
 
+.mat-select {
+  @include font($font-weight: semiBold);
+}
+
+.mat-option {
+  @include font($font-weight: semiBold);
+}
+
 
 //.mat-paginator-container {
 //  border: 1px solid pal(gray);

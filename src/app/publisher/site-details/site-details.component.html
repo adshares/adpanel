@@ -333,21 +333,23 @@
               Edit pops
             </button>
           </div>
-        </div>
-        <div
-          class="site-details__scrollable-table"
-          *ngIf="!!popAdUnits.length">
-          <table class="site-details__table">
-            <app-table-navigation
-              [navigationName]="'adUnitsNavigation'"
-              (sortTable)="sortTable($event)"
-              class="row ap-copy"
-            ></app-table-navigation>
-            <app-poster-units
-              *ngFor="let adUnit of popAdUnits"
-              [adUnit]="adUnit"
-            ></app-poster-units>
-          </table>
+  
+          <div
+              class="site-details__scrollable-table"
+              *ngIf="!!popAdUnits.length">
+            <table class="site-details__table">
+              <app-table-navigation
+                  [navigationName]="'adUnitsNavigation'"
+                  (sortTable)="sortTable($event)"
+                  class="row ap-copy"
+              ></app-table-navigation>
+              <app-poster-units
+                  *ngFor="let adUnit of popAdUnits"
+                  [adUnit]="adUnit"
+                  class="ap-copy"
+              ></app-poster-units>
+            </table>
+          </div>
         </div>
       </div>
   
