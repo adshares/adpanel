@@ -9,6 +9,7 @@
         row
         align-center
         breadcrumbs"
+      [ngClass]="{'box-margin' : !site.onlyAcceptedBanners}"
     >
       <a
         routerLink="/publisher/dashboard"
@@ -96,6 +97,7 @@
           col-xs-7
           col-md-5
           row
+          row--gap18
           justify-end
           align-center"
       >
@@ -394,28 +396,6 @@
             ></app-poster-units>
           </table>
         </div>
-      </div>
-  
-      <div
-        class="
-          ap-box
-          row
-          justify-center"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--primary
-            ap-blue
-            ap-btn--no-border"
-          (click)="navigateToEditSite('create-ad-units')"
-          data-test="publisher-site-create-new-ad-unit"
-        >
-          <fa-icon
-              [icon]="faCirclePlus"
-              class="ap-icon ap-icon--prepend"></fa-icon>
-          Create new ad unit
-        </button>
       </div>
   
       <div class="ap-box ap-box--large">

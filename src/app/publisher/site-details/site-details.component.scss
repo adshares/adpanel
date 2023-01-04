@@ -1,6 +1,11 @@
 @import '../../../styles.scss';
 
 .site-details {
+
+  .box-margin {
+    margin-bottom: 24px;
+  }
+
   &__checkbox {
     cursor: not-allowed;
     pointer-events: none;

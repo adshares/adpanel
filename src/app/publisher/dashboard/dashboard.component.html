@@ -37,26 +37,20 @@
           justify-end
           align-center"
       >
-        <a
+        <button
           routerLink="/publisher/classifier"
           data-test="publisher-navigate-to-classifier"
-        >
-          <button
-            class="
+          class="
             ap-btn
             ap-btn--text"
-          >
-            Reject banner ads
-          </button>
-        </a>
+        >
+          Reject banner ads
+        </button>
       </div>
     </div>
 
-    <div *ngIf="!!sites.length">
-      <div
-        class="
-          ap-box"
-      >
+    <ng-container *ngIf="!!sites.length">
+      <div class="ap-box">
         <div class="row">
           <div class="col-xs-3">
             <a
@@ -108,11 +102,9 @@
             [sitesTotals]="sitesTotals"
         ></app-site-list>
       </div>
-    </div>
+    </ng-container>
 
-    <div
-      *ngIf="!sites.length"
-    >
+    <ng-container *ngIf="!sites.length">
       <div
         class="
           ap-box
@@ -161,7 +153,7 @@
           </button>
         </a>
       </div>
-    </div>
+    </ng-container>
   </div>
 </section>
 <ng-template #loading>

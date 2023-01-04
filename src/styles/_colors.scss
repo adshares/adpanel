@@ -76,7 +76,8 @@ $palette-colors: (
     base: $error-bg
   ),
   warning:(
-    base: $warning
+    base: $warning,
+    light: $warning-bg,
   ),
   warning-bg:(
     base: $warning-bg

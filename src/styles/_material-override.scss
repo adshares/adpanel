@@ -228,6 +228,10 @@ mat-chip:not(.mat-basic-chip) {
   @include font($font-weight: semiBold);
 }
 
+.mat-radio-button {
+  @include font;
+}
+
 .mat-progress-spinner,
 .mat-spinner {
   & circle {

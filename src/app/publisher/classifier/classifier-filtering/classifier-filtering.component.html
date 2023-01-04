@@ -101,14 +101,16 @@
              for="landingUrl">
         Landing url
       </label>
-      <input id="landingUrl"
-             [formControl]="landingUrl"
-             type="text"
-             class="classifier-filtering__input"/>
-      <button type="submit"
-              class="ap-btn ap-btn--secondary">
-        Search
-      </button>
+      <div class="row row--gap8">
+        <input id="landingUrl"
+               [formControl]="landingUrl"
+               type="text"
+               class="classifier-filtering__input"/>
+        <button type="submit"
+                class="ap-btn ap-btn--secondary">
+          Search
+        </button>
+      </div>
     </form>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -132,20 +134,26 @@
              for="bannerId">
         Banner id
       </label>
-      <input id="bannerId"
-             [formControl]="bannerId"
-             type="text"
-             class="classifier-filtering__input"/>
-      <button type="submit"
-              class="ap-btn ap-btn--secondary">
-        Search
-      </button>
-      <button
-          class="ap-btn ap-btn--secondary ap-btn-error"
-          (click)="changeFilteringByBannerIdReset()"
-      >
-        Clear
-      </button>
+      <div class="row row--gap8">
+        <input id="bannerId"
+               [formControl]="bannerId"
+               type="text"
+               class="classifier-filtering__input"/>
+        <div class="row row--gap8">
+          <button type="submit"
+                  class="ap-btn ap-btn--secondary">
+            Search
+          </button>
+          <button
+              class="ap-btn ap-btn--secondary ap-btn-error"
+              (click)="changeFilteringByBannerIdReset()"
+          >
+            Clear
+          </button>
+  
+        </div>
+
+      </div>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
