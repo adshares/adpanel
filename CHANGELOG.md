@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Load direct link ad content during campaign load
+### Fixed
+- Set chart's date filter
 
 ## [2.2.4] - 2022-12-29
 ### Fixed
