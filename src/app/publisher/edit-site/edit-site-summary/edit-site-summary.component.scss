@@ -12,12 +12,9 @@
     max-width: 2000px;
   }
 
-  .ap-heading {
-    margin-bottom: 22px;
-  }
-
-  .ap-box {
-    margin: 8px 0;
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
 
   &__warning {
@@ -29,10 +26,14 @@
   }
 
   &__basic-info{
-    padding: 20px;
-
     .ap-heading {
       margin-bottom: 16px;
+    }
+  }
+
+  &__poster-info {
+    & > a {
+      text-decoration: none;
     }
   }
 
@@ -40,35 +41,20 @@
     margin-right: 32px;
   }
 
-  .ap-chip-box {
-    margin: 2px;
+  &__poster-unit-title {
+    margin-bottom: 12px;
   }
 
   &__poster-unit {
     text-align: center;
-    background: white;
     padding: 7px;
-    flex-basis: 16%;
     margin: 2px;
-    border-radius: 2px;
+    border-radius: 10px;
     border: 2px solid pal(gray);
-    cursor: pointer;
-    pointer-events: all;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    &__visualization {
-      color: pal(secondary);
-      @include font(14, bold);
-
-      &-box {
-        background-color: pal(gray);
-        padding: 30px 60px;
-        min-height: 150px;
-        margin-bottom: 15px;
-      }
-    }
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
   }
 
 }

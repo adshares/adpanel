@@ -1,8 +1,13 @@
 @import '../../../../styles.scss';
 
 .site-edit-additional-targeting {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
+
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
 
   @include media(xxl-up) {
     max-width: 1300px;
@@ -22,14 +27,6 @@
 }
 
 .classification-section {
-  &__title {
-    line-height: 64px;
-  }
-
-  &__info {
-    margin-bottom: 24px;
-  }
-
   &__info-create-site {
     margin-top: 16px;
     margin-bottom: 8px;
@@ -45,6 +42,3 @@
   }
 }
 
-.ap-box {
-  margin-top: 8px;
-}

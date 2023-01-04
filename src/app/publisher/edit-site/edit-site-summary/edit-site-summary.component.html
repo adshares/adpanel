@@ -21,8 +21,7 @@
     </h1>
     <p
       class="
-        ap-copy
-        ap-copy--medium"
+        ap-copy"
     >
       Please check if all settings are correct and publish the site.
       Next you need to get your code.
@@ -58,19 +57,15 @@
       >
         1. Basic information
       </h3>
-      <a
+      <button
         routerLink="../basic-information"
         data-test="publisher-edit-site-summary-navigate-to-basic-information"
+        class="
+          ap-btn
+          ap-btn--text"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--primary
-            ap-blue"
-        >
-          Edit
-        </button>
-      </a>
+        Edit
+      </button>
     </div>
 
     <div class="row">
@@ -141,19 +136,15 @@
       >
         2. Exclusions
       </h3>
-      <a
+      <button
         routerLink="../additional-filtering"
         data-test="publisher-edit-site-summary-navigate-to-additional-information"
+        class="
+          ap-btn
+          ap-btn--text"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--primary
-            ap-blue"
-        >
-          Edit
-        </button>
-      </a>
+        Edit
+      </button>
     </div>
     <div class="row" *ngIf="!site.filteringArray.excludes.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div class="row" *ngIf="!!site.filteringArray.excludes.length">
@@ -192,19 +183,15 @@
       >
         3. Pops
       </h3>
-      <a
+      <button
         routerLink="../pops-settings"
         data-test="publisher-edit-site-summary-navigate-to-pops-settings"
+        class="
+          ap-btn
+          ap-btn--text"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--primary
-            ap-blue"
-        >
-          Edit
-        </button>
-      </a>
+        Edit
+      </button>
     </div>
     <div class="row" *ngIf="!popAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div *ngIf="!!popAdUnits.length"
@@ -220,11 +207,10 @@
           class="
                   row
                   align-center
-                  justify-center
-                  site-edit-create-posters-units__poster-unit__visualization-box"
+                  justify-center"
         >
           <div
-            class="ap-copy site-edit-summary__poster-unit__visualization"
+            class="ap-copy site-edit-summary__poster-unit-title"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
           >
             {{ adUnit.name }}
@@ -232,15 +218,15 @@
         </div>
 
         <strong
-          class="ap-copy
-                 ap-copy--semi
-                 ap-copy--x-dark
-                 ap-copy--medium"
+          class="
+                  ap-copy
+                  ap-copy--semi
+                  site-edit-summary__poster-unit-title"
           data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
           {{ adUnit.size }}
         </strong>
-        <div>
+        <div class="row row--gap8 justify-center">
           <div
             class="ap-chip-box"
             *ngFor="let tag of adUnit.tags"
@@ -272,19 +258,15 @@
       >
         4. Ad units
       </h3>
-      <a
+      <button
         routerLink="../create-ad-units"
         data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
+        class="
+          ap-btn
+          ap-btn--text"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
-      </a>
+        Edit
+      </button>
     </div>
     <div class="row" *ngIf="!displayAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
     <div *ngIf="!!displayAdUnits.length"
@@ -298,13 +280,13 @@
       >
         <div
           class="
-                  row
-                  align-center
-                  justify-center
-                  site-edit-create-posters-units__poster-unit__visualization-box"
+            row
+            align-center
+            justify-center
+            site-edit-create-posters-units__poster-unit__visualization-box"
         >
           <div
-            class="ap-copy site-edit-summary__poster-unit__visualization"
+            class="ap-copy site-edit-summary__poster-unit-title"
             data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
           >
             {{ adUnit.name }}
@@ -312,15 +294,15 @@
         </div>
 
         <strong
-          class="ap-copy
-                 ap-copy--semi
-                 ap-copy--x-dark
-                 ap-copy--medium"
+          class="
+            ap-copy
+            ap-copy--semi
+            site-edit-summary__poster-unit-title"
           data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
         >
           {{ adUnit.size }}
         </strong>
-        <div>
+        <div class="row row--gap8 justify-center">
           <div
             class="ap-chip-box"
             *ngFor="let tag of adUnit.tags"
@@ -355,7 +337,7 @@
       </button>
     </a>
 
-    <div class="row">
+    <div class="row row--gap8">
       <button
         class="
             ap-btn
@@ -372,7 +354,7 @@
         [disabled]="canSubmit"
         class="
             ap-btn
-            ap-btn--blue"
+            ap-btn--primary"
         (click)="saveSite(false)"
         type="button"
         data-test="publisher-edit-site-start-site"

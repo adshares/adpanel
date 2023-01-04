@@ -198,86 +198,89 @@
 .ap-box {
   border-radius: 10px;
   background-color: pal(light);
-  padding: 8px 7px;
-  margin-top: 8px;
+  padding: 24px 36px;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.25), 4px 4px 5px rgba(0, 0, 0, 0.25);
 
-  & .ap-box {
-    border: none;
-    padding: 0;
-    margin: 0;
+  &:not(:first-child) {
+    margin-top: 24px;
   }
 
-  &--mid-size {
-    padding: 10px;
-  }
+  //& .ap-box {
+  //  border: none;
+  //  padding: 0;
+  //  margin: 0;
+  //}
+  //
+  //&--mid-size {
+  //  padding: 10px;
+  //}
+  //
+  //&--large {
+  //  padding: 20px;
+  //  margin-top: 8px;
+  //}
+  //
+  //&--high {
+  //  margin-top: 8px;
+  //}
+  //
+  //&--small {
+  //  padding: 5px 10px;
+  //}
+  //
+  //&--short-right {
+  //  padding-right: 20px;
+  //}
 
-  &--large {
-    padding: 20px;
-    margin-top: 8px;
-  }
-
-  &--high {
-    margin-top: 8px;
-  }
-
-  &--small {
-    padding: 5px 10px;
-  }
-
-  &--short-right {
-    padding-right: 20px;
-  }
-
-  &--light-green {
-    background-color: pal(success, light);
-  }
-
-  &--light-navy {
-    background-color: pal(primary);
-  }
-
-  &--light {
-    background-color: pal(gray);
-    border: solid 1px pal(gray);
-  }
-
-  &--light-border {
-    border: solid 1px pal(gray);
-  }
-
-  &--no-top-border {
-    border-top: none;
-  }
-
-  &--bordered {
-    border-width: 1px;
-  }
-
-  &--blue-border {
-    border-color: pal(secondary);
-  }
-
-  &--dashed {
-    border-style: dashed;
-  }
-
-  &--no-padding {
-    padding: 0;
-  }
-
-  &--no-margin {
-    margin: 0;
-  }
-
-  &--no-border {
-    border: none;
-  }
+  //&--light-green {
+  //  background-color: pal(success, light);
+  //}
+  //
+  //&--light-navy {
+  //  background-color: pal(primary);
+  //}
+  //
+  //&--light {
+  //  background-color: pal(gray);
+  //  border: solid 1px pal(gray);
+  //}
+  //
+  //&--light-border {
+  //  border: solid 1px pal(gray);
+  //}
+  //
+  //&--no-top-border {
+  //  border-top: none;
+  //}
+  //
+  //&--bordered {
+  //  border-width: 1px;
+  //}
+  //
+  //&--blue-border {
+  //  border-color: pal(secondary);
+  //}
+  //
+  //&--dashed {
+  //  border-style: dashed;
+  //}
+  //
+  //&--no-padding {
+  //  padding: 0;
+  //}
+  //
+  //&--no-margin {
+  //  margin: 0;
+  //}
+  //
+  //&--no-border {
+  //  border: none;
+  //}
 }
 
 .ap-chip-box {
   background-color: pal(gray);
-  color: pal(gray);
-  @include font(14, semi);
+  @include font(14, semiBold);
   padding: 7px;
   border-radius: 2px;
   display: inline-table;

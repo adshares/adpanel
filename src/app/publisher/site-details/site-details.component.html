@@ -163,10 +163,6 @@
           ></app-chart-filter>
         </div>
       </div>
-      <div
-        class="
-          ap-box"
-      >
         <div
           class="
             row
@@ -184,7 +180,6 @@
             [barChartLabels]="barChartLabels"
           ></app-chart>
         </div>
-      </div>
     </div>
     <!-- chart end-->
 
@@ -300,56 +295,54 @@
     </section>
 
     <ng-container *ngIf="displayAds">
-      <div class="col">
-        <div
+      <div
+        class="
+          ap-box
+          ad-units
+          row
+          justify-between
+          align-center">
+        <p
           class="
-            ap-box
-            ad-units
-            row
-            justify-between
-            align-center">
-          <p
+            ap-copy
+            ap-copy--semi"
+        >
+          <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
+          <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
+        </p>
+
+        <div class="row justify-end">
+          <button
             class="
-              ap-copy
-              ap-copy--semi"
+           ap-btn
+           ap-btn--text
+           ap-btn--edit
+           ap-btn--no-border"
+            (click)="navigateToEditSite('pops-settings')"
+            data-test="publisher-site-edit-pops-button"
           >
-            <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
-            <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
-          </p>
-  
-          <div class="row justify-end">
-            <button
-              class="
-             ap-btn
-             ap-btn--text
-             ap-btn--edit
-             ap-btn--no-border"
-              (click)="navigateToEditSite('pops-settings')"
-              data-test="publisher-site-edit-pops-button"
-            >
-              <fa-icon
-                  [icon]="faEdit"
-                  class="ap-icon ap-icon--prepend"></fa-icon>
-              Edit pops
-            </button>
-          </div>
-  
-          <div
-              class="site-details__scrollable-table"
-              *ngIf="!!popAdUnits.length">
-            <table class="site-details__table">
-              <app-table-navigation
-                  [navigationName]="'adUnitsNavigation'"
-                  (sortTable)="sortTable($event)"
-                  class="row ap-copy"
-              ></app-table-navigation>
-              <app-poster-units
-                  *ngFor="let adUnit of popAdUnits"
-                  [adUnit]="adUnit"
-                  class="ap-copy"
-              ></app-poster-units>
-            </table>
-          </div>
+            <fa-icon
+                [icon]="faEdit"
+                class="ap-icon ap-icon--prepend"></fa-icon>
+            Edit pops
+          </button>
+        </div>
+
+        <div
+            class="site-details__scrollable-table"
+            *ngIf="!!popAdUnits.length">
+          <table class="site-details__table">
+            <app-table-navigation
+                [navigationName]="'adUnitsNavigation'"
+                (sortTable)="sortTable($event)"
+                class="row ap-copy"
+            ></app-table-navigation>
+            <app-poster-units
+                *ngFor="let adUnit of popAdUnits"
+                [adUnit]="adUnit"
+                class="ap-copy"
+            ></app-poster-units>
+          </table>
         </div>
       </div>
   

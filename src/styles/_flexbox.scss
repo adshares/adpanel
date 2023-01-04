@@ -43,9 +43,18 @@
     flex-direction: row-reverse;
   }
 
+  &--gap8 {
+    gap: 8px
+  }
+
+  &--gap18 {
+    gap: 18px
+  }
+
   &--gap32 {
     gap: 32px
   }
+
 }
 
 .col {

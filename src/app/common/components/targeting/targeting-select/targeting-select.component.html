@@ -20,10 +20,7 @@
   role="button"
   class="targeting-select__option targeting-select__option--back"
   data-test="common-targeting-select-navigate-to-parent-button">
-  <img
-    class="targeting-select__input-icon"
-    src="/assets/images/chevron--left.svg"
-    alt="Go back">
+  <fa-icon class="ap-icon ap-icon--prepend" [icon]="faArrowLeft"></fa-icon>
   <span class="targeting-select__parent-option"
         data-test="common-targeting-select-parent-option">
     {{ parentOption.label }}
@@ -45,6 +42,7 @@
         class="targeting-select__help-icon"
       >
         <fa-icon
+          class="ap-icon ap-icon--append"
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="option.description"
           matTooltipPosition="above"
@@ -52,7 +50,7 @@
         ></fa-icon>
       </span>
       <span
-        *ngIf="option.hasOwnProperty('value')"
+        *ngIf="option.hasOwnProperty('value') && option.selected"
         (click)="toggleItem(option) || $event.stopPropagation()"
         [ngClass]="{'selected': option.selected, 'sub-selected': !option.selected && option.subSelected}"
         class="{{checkClass}}-unselected"

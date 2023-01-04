@@ -4,6 +4,15 @@
   max-width: 500px;
   margin: 0 auto;
 
+  & > .ap-heading {
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+
+  & .ap-form-input__box:not(:last-child){
+    margin-bottom: 24px;
+  }
+
   @include media(xxl-up) {
     max-width: 900px;
   }
@@ -32,10 +41,6 @@
     margin-top: 0;
   }
 
-  .ap-box {
-    margin: 16px 0 8px 0;
-  }
-
   &__language {
     &__option {
       text-transform: capitalize;
@@ -47,7 +52,7 @@
   }
 
   & .ap-copy__hint {
-    transform: translateY(-15px);
+    transform: translateY(-12px);
   }
 
 }

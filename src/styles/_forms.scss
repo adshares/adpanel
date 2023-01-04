@@ -111,8 +111,12 @@
     border: solid 1px pal(dark);
     border-radius: 10px;
     padding: 13px 13px 13px 18px;
-    max-width: 320px;
+    max-width: 210px;
     @include font(16, medium);
+
+    &:focus {
+      border-color: pal(secondary);
+    }
 
     //full input width accounts for input's padding
     &--full {
@@ -245,13 +249,12 @@ input[type=radio]:checked + label .checkbox-label {
 
 .error-msg {
   position: relative;
-  @include font(14, medium);
+  @include font(14, semiBold);
   color: pal(error);
   background-color: pal(error, light);
-  border: 1px solid pal(error);
-  border-radius: 2px;
+  border-radius: 10px;
   margin-top: 5px;
-  padding: 8px 32px 8px 8px;
+  padding: 12px 32px 12px 12px;
   min-width: 150px;
 
   &__full-width {
@@ -262,7 +265,7 @@ input[type=radio]:checked + label .checkbox-label {
     position: absolute;
     display: block;
     content: url('/assets/images/error_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 
@@ -288,7 +291,7 @@ input[type=radio]:checked + label .checkbox-label {
     position: absolute;
     display: block;
     content: url('/assets/images/confirm_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 }
@@ -304,7 +307,7 @@ input[type=radio]:checked + label .checkbox-label {
     position: absolute;
     display: block;
     content: url('/assets/images/confirm_icon.svg');
-    top: 9px;
+    top: 13px;
     right: 5px;
   }
 }

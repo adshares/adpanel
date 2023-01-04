@@ -19,7 +19,7 @@
     <div class="ap-box ap-box--large site-edit-pops-settings__info-box">
       <div
         [ngClass]="adUnitSizes.length > 4 ? 'justify-between' : 'justify-center'"
-        class="row"
+        class="row row--gap18"
       >
         <div
           class="site-edit-create-posters-units__poster-unit"
@@ -29,21 +29,21 @@
           (click)="selectAdUnit(adUnit.size)"
           data-test="publisher-edit-site-pops-settings-form-ad-unit-select"
         >
-          <div class="row align-center justify-center site-edit-create-poster-unit__poster-unit__visualization-box">
+          <div class="row align-center justify-center site-edit-create-posters-units__poster-unit__visualization-box">
             <div
-              class="ap-copy site-edit-create-posters-units_poster-unit__visualization"
+              class="ap-copy site-edit-create-posters-units__poster-unit-title"
               data-test="publisher-edit-site-pops-settings-form-ad-unit-size"
             >{{ adUnit.label }}</div>
           </div>
           <strong
-            class="site-edit-create-posters-units__poster-unit-title ap-copy ap-copy--semi ap-copy--x-dark ap-copy--medium"
+            class="site-edit-create-posters-units__poster-unit-title ap-copy ap-copy--semi"
             data-test="publisher-edit-site-pops-settings-form-ad-unit-name"
           >
             <fa-icon class="selected-icon"
                      [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"></fa-icon>
             {{ adUnit.size }}
           </strong>
-          <div>
+          <div class="row row--gap8">
             <div
               class="ap-chip-box"
               *ngFor="let tag of adUnit.tags"
@@ -65,7 +65,7 @@
       >
         Back
       </button>
-      <div class="row">
+      <div class="row row--gap8">
         <button
           *ngIf="createSiteMode"
           (click)="saveAdUnits(true)"

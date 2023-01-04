@@ -70,7 +70,7 @@
     </a>
     <span *ngIf="!link">{{billingHistoryItem.txid}}</span>
     <button *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
-            class="ap-btn ap-btn--primary ap-copy--blue"
+            class="ap-btn ap-btn--primary ap-copy--secondary"
             (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
             data-test="settings-billing-history-item-cancel-btn">
       CANCEL

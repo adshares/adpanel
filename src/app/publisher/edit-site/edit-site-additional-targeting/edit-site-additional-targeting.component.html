@@ -7,23 +7,14 @@
     homepage-view
     site-edit-additional-targeting"
 >
-
-  <section
-    class="
-      ap-box
-      site-edit-additional-targeting__checkbox-container
-      col"
-  >
-    <h1 class="mat-expansion-panel-header-title
-               ap-heading--h3
-               classification-section__title">Classification</h1>
-    <p class="
-      ap-copy
-      no-gutters
-      ap-box--no-padding
-      classification-section__info">
+  <div class="text-center site-edit-additional-targeting">
+    <h1 class="ap-heading ap-heading--h2">Classification</h1>
+    <p class="ap-copy">
       After set this setting you will be able to approve banners for this particular site.
     </p>
+  </div>
+  
+  <div class="ap-box">
     <mat-checkbox
       id="require-classified-checkbox"
       [(ngModel)]="isCheckedOnlyAcceptedBanners"
@@ -31,92 +22,89 @@
     >
       Manual approval of banners
     </mat-checkbox>
-  </section>
+  </div>
 
-  <mat-accordion
-    multi="true"
-    class="targeting-accordion"
-    data-test="publisher-edit-site-additional-targeting-accordion"
-  >
-    <div
-      *ngIf="showRequiresSection"
-      class="ap-box"
+  <div class="ap-box">
+    <mat-accordion
+        multi="true"
+        class="targeting-accordion"
+        data-test="publisher-edit-site-additional-targeting-accordion"
     >
-      <mat-expansion-panel
-        (opened)="requirePanelOpenState = true"
-        (closed)="requirePanelOpenState = false"
-        data-test="publisher-edit-site-additional-targeting-accordion-panel-required"
+      <div
+          *ngIf="showRequiresSection"
       >
-        <mat-expansion-panel-header
-          class="
+        <mat-expansion-panel
+            (opened)="requirePanelOpenState = true"
+            (closed)="requirePanelOpenState = false"
+            data-test="publisher-edit-site-additional-targeting-accordion-panel-required"
+        >
+          <mat-expansion-panel-header
+              class="
             ap-heading
             ap-heading--h3"
-        >
-          <mat-panel-title>
-            Targeting
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div class="row">
-          <div class="col-xs-6 no-gutters">
-            <p class="ap-copy"
-            >
-              In this window you can select the keywords that will help you
-              choose the ads that are related to your site and meet your requirements.
-            </p>
-
-            <div class="targeting-select-wrapper">
-              <app-targeting-select
-                *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
-                [targetingOptions]="targetingOptionsToAdd"
-                [addedItems]="addedItems"
-                (itemsChange)="updateAddedItems($event)"
-              ></app-targeting-select>
+          >
+            <mat-panel-title>
+              Targeting
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        
+          <div class="row">
+            <div class="col-xs-6 no-gutters">
+              <p class="ap-copy"
+              >
+                In this window you can select the keywords that will help you
+                choose the ads that are related to your site and meet your requirements.
+              </p>
+            
+              <div class="targeting-select-wrapper">
+                <app-targeting-select
+                    *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
+                    [targetingOptions]="targetingOptionsToAdd"
+                    [addedItems]="addedItems"
+                    (itemsChange)="updateAddedItems($event)"
+                ></app-targeting-select>
+              </div>
+            </div>
+          
+            <div class="col-xs-6">
+              <app-targeting-display
+                  [items]="addedItems"
+                  [canRemove]="true"
+                  [isExclude]="false"
+                  [targetingOptions]="targetingOptionsToAdd"
+                  (itemsChange)="updateAddedItems($event)"
+              ></app-targeting-display>
             </div>
           </div>
-
-          <div class="col-xs-6">
-            <app-targeting-display
+        </mat-expansion-panel>
+      
+        <div class="ap-targeting-display__preview">
+          <app-targeting-display
               [items]="addedItems"
               [canRemove]="true"
               [isExclude]="false"
               [targetingOptions]="targetingOptionsToAdd"
               (itemsChange)="updateAddedItems($event)"
-            ></app-targeting-display>
-          </div>
+              *ngIf="!requirePanelOpenState"
+          ></app-targeting-display>
         </div>
-      </mat-expansion-panel>
-
-      <div class="ap-targeting-display__preview">
-        <app-targeting-display
-          [items]="addedItems"
-          [canRemove]="true"
-          [isExclude]="false"
-          [targetingOptions]="targetingOptionsToAdd"
-          (itemsChange)="updateAddedItems($event)"
-          *ngIf="!requirePanelOpenState"
-        ></app-targeting-display>
       </div>
-    </div>
-
-
-    <div class="ap-box">
       <mat-expansion-panel
-        (opened)="excludePanelOpenState = true"
-        (closed)="excludePanelOpenState = false"
-        [expanded]="true"
-        data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded"
+          (opened)="excludePanelOpenState = true"
+          (closed)="excludePanelOpenState = false"
+          [expanded]="true"
+          data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded"
       >
         <mat-expansion-panel-header
-          class="
-            ap-heading
-            ap-heading--h3"
+            class="
+          ap-heading
+          ap-heading--h3"
         >
           <mat-panel-title>
             Exclusions
           </mat-panel-title>
         </mat-expansion-panel-header>
-
+      
         <div class="row">
           <div class="col-xs-6">
             <p class="ap-copy"
@@ -124,45 +112,45 @@
               Please select banner ad categories that you don’t want to display on your site.
               If you don’t exclude any categories, all available ads will be displayed on your site - e.g. adult, gambling, investment etc.
             </p>
-
+          
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
-                [targetingOptions]="targetingOptionsToExclude"
-                [addedItems]="excludedItems"
-                [checkClass]="'stopmark'"
-                (itemsChange)="updateExcludedItems($event)"
+                  *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
+                  [targetingOptions]="targetingOptionsToExclude"
+                  [addedItems]="excludedItems"
+                  [checkClass]="'stopmark'"
+                  (itemsChange)="updateExcludedItems($event)"
               ></app-targeting-select>
             </div>
           </div>
-
+        
           <div class="col-xs-6">
             <p _ngcontent-c7="" class="ap-copy--redder ap-copy--plus">
               These ads will NOT appear on your website:
             </p>
             <app-targeting-display
-              [items]="excludedItems"
-              [canRemove]="true"
-              [isExclude]="true"
-              (itemsChange)="updateExcludedItems($event)"
-              [targetingOptions]="targetingOptionsToExclude"
+                [items]="excludedItems"
+                [canRemove]="true"
+                [isExclude]="true"
+                (itemsChange)="updateExcludedItems($event)"
+                [targetingOptions]="targetingOptionsToExclude"
             ></app-targeting-display>
           </div>
         </div>
       </mat-expansion-panel>
-
+    
       <div class="ap-targeting-display__preview">
         <app-targeting-display
-          [items]="excludedItems"
-          [canRemove]="true"
-          [isExclude]="true"
-          (itemsChange)="updateExcludedItems($event)"
-          [targetingOptions]="targetingOptionsToExclude"
-          *ngIf="!excludePanelOpenState"
+            [items]="excludedItems"
+            [canRemove]="true"
+            [isExclude]="true"
+            (itemsChange)="updateExcludedItems($event)"
+            [targetingOptions]="targetingOptionsToExclude"
+            *ngIf="!excludePanelOpenState"
         ></app-targeting-display>
       </div>
-    </div>
-  </mat-accordion>
+    </mat-accordion>
+  </div>
 
   <div
     class="
@@ -182,7 +170,7 @@
       Back
     </button>
 
-    <div class="row">
+    <div class="row row--gap8">
       <button
         *ngIf="createSiteMode"
         (click)="saveSite(true)"

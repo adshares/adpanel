@@ -17,7 +17,7 @@ import {
   findOptionList,
 } from 'common/components/targeting/targeting.helpers';
 import { cloneDeep } from 'common/utilities/helpers';
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faQuestionCircle, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-targeting-select',
@@ -38,6 +38,7 @@ export class TargetingSelectComponent implements OnInit, OnChanges {
   targetingOptionsForSearch: (TargetingOption|TargetingOptionValue)[] = [];
   itemsToRemove: TargetingOptionValue[] = [];
   faQuestionCircle = faQuestionCircle;
+  faArrowLeft = faArrowLeft;
 
   backAvailable = false;
   searchTerm = '';

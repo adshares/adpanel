@@ -7,15 +7,13 @@
     homepage-view
     site-edit-basic-information"
 >
-  <div class="text-center">
-    <h1
-      class="
-        ap-heading
-        ap-heading--h2"
-    >
-      Basic information
-    </h1>
-  </div>
+  <h1
+    class="
+      ap-heading
+      ap-heading--h2"
+  >
+    Basic information
+  </h1>
 
   <form
     [formGroup]="siteBasicInfoForm"
@@ -25,12 +23,12 @@
     <div
       class="
         ap-box
-        ap-box--large
         site-edit-basic-information__info-box"
     >
       <div class="ap-form-input__box">
         <label class="ap-form-label ap-form-label--no-margin-top">Medium</label>
         <mat-select
+          disableOptionCentering="true"
           *ngIf="isTaxonomy else missingTaxonomy"
           class="ap-select"
           formControlName="medium"
@@ -77,6 +75,7 @@
         >
           Website URL
           <fa-icon
+            class="ap-icon ap-icon--append ap-copy ap-copy--small ap-copy--secondary"
             matTooltipClass="ap-mat-tooltip"
             matTooltip="
               Enter your website's URL address.
@@ -121,7 +120,7 @@
 
       <ng-container *ngIf="medium === 'metaverse'">
         <ng-template #connectWallet>
-          <div class="ap-box ap-copy">
+          <div class="ap-copy">
             Before creating a site, <a routerLink="/settings/general"> connect wallet</a>.
           </div>
         </ng-template>
@@ -131,18 +130,18 @@
         >
           <div
             *ngIf="createSiteMode"
-            class="ap-box row"
+            class="ap-form-input__box row"
           >
             <label class="ap-form-label ap-form-label--inline">Setup</label>
             <mat-button-toggle-group formControlName="setupVersionControl" aria-label="Font Style">
-              <mat-button-toggle value="{{SETUP_VERSION.AUTOMATIC}}">Automatic</mat-button-toggle>
-              <mat-button-toggle value="{{SETUP_VERSION.MANUAL}}">Manual</mat-button-toggle>
+              <mat-button-toggle value="{{SETUP_VERSION.AUTOMATIC}}" class="ap-copy">Automatic</mat-button-toggle>
+              <mat-button-toggle value="{{SETUP_VERSION.MANUAL}}" class="ap-copy">Manual</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
 
           <div
             [ngSwitch]="setupVersionControl.value"
-            class="ap-box row"
+            class="ap-form-input__box row"
           >
             <app-metaverse-instructions
               *ngSwitchCase="SETUP_VERSION.AUTOMATIC"
@@ -161,6 +160,7 @@
                   >
                     Parcel's ID
                     <fa-icon
+                      class="ap-icon ap-icon--append ap-copy ap-copy--small ap-copy--secondary"
                       matTooltipClass="ap-mat-tooltip"
                       matTooltip="
                         Enter your parcel's ID.
@@ -197,6 +197,7 @@
                   >
                     Parcel's coordinates
                     <fa-icon
+                      class="ap-icon ap-icon--append ap-copy ap-copy--small ap-copy--secondary"
                       matTooltipClass="ap-mat-tooltip"
                       matTooltip="
                         Enter your parcel's coordinates.
@@ -247,6 +248,7 @@
         >
           Website name
           <fa-icon
+            class="ap-icon ap-icon--append ap-copy ap-copy--small ap-copy--secondary"
             matTooltipClass="ap-mat-tooltip"
             matTooltip="Enter your website custom name to make the navigation easier."
             matTooltipPosition="right"
@@ -290,6 +292,7 @@
         >
           Category
           <fa-icon
+            class="ap-icon ap-icon--append ap-copy ap-copy--small ap-copy--secondary"
             matTooltipClass="ap-mat-tooltip"
             matTooltip="Choose the categories that best match your site."
             matTooltipPosition="right"
@@ -319,7 +322,7 @@
         >
           Content language
         </label>
-        <mat-form-field appearance="standard" class="col">
+        <mat-form-field class="col">
           <input matInput
                  class="
                     ap-form-input
@@ -359,7 +362,7 @@
     </div>
 
     <div
-      class="ap-box ap-box--large row justify-between"
+      class="ap-box row justify-between"
     >
       <button
         type="button"

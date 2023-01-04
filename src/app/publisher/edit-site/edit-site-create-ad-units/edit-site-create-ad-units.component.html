@@ -156,27 +156,17 @@
               data-test="publisher-edit-site-create-ad-units-form-ad-unit-select"
             >
               <div
-                class="
-                  row
-                  align-center
-                  justify-center
-                  site-edit-create-poster-unit__poster-unit__visualization-box"
+                class="ap-copy site-edit-create-posters-units__poster-unit-title"
+                data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
               >
-                <div
-                  class="ap-copy site-edit-create-posters-units_poster-unit__visualization"
-                  data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
-                >
-                  {{ adUnit.label }}
-                </div>
+                {{ adUnit.label }}
               </div>
 
               <strong
                 class="
-                  site-edit-create-posters-units__poster-unit-title
                   ap-copy
                   ap-copy--semi
-                  ap-copy--x-dark
-                  ap-copy--medium"
+                  site-edit-create-posters-units__poster-unit-title"
                 data-test="publisher-edit-site-create-ad-units-form-ad-unit-name"
               >
                 {{ adUnit.size }}
@@ -208,8 +198,7 @@
             <button
               class="
               ap-btn
-              ap-btn--primary
-              ap-blue"
+              ap-btn--secondary"
               (click)="removeAdUnit(adUnitIndex)"
               data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
             >
@@ -240,19 +229,12 @@
         row
         align-center
         ap-btn
-        ap-btn--primary
-        ap-blue"
+        ap-btn--secondary"
       (click)="createEmptyAd()"
       data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
     >
-      <img
-        src="assets/images/plus-circle--blue.svg"
-        alt="Add new"
-        class="
-          ap-icon
-          ap-icon--prepend"
-      >
-        Create new ad unit
+      <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlus"></fa-icon>
+      Create new ad unit
     </button>
   </div>
 
@@ -275,7 +257,7 @@
       Back
     </button>
 
-    <div class="row">
+    <div class="row row--gap8">
       <button
         *ngIf="createSiteMode"
         (click)="saveAdUnits(true)"

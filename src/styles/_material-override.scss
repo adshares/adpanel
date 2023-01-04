@@ -228,6 +228,24 @@ mat-chip:not(.mat-basic-chip) {
   @include font($font-weight: semiBold);
 }
 
+.mat-progress-spinner,
+.mat-spinner {
+  & circle {
+    stroke: pal(primary);
+  }
+
+  &.mat-accent {
+    & circle {
+      stroke: pal(secondary);
+    }
+  }
+}
+
+.mat-focused {
+  & input {
+    border-color: pal(secondary);
+  }
+}
 
 //.mat-paginator-container {
 //  border: 1px solid pal(gray);

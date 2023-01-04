@@ -17,7 +17,7 @@
   $margin-bottom: 0,
   $border-width: 1px
 ) {
-  border-radius: 2px;
+  border-radius: 10px;
   background-color: $background-color;
   border: $border-width solid $border-color;
   padding: $padding-vertical $padding-horizontal;

@@ -57,7 +57,7 @@ a {
 a:focus,
 a:active,
 a:hover {
-  text-decoration: none !important;
+  text-decoration: underline;
 }
 
 button:focus,
@@ -86,6 +86,7 @@ input::-webkit-inner-spin-button {
 
 a {
   cursor: pointer;
+  color: pal(primary, light);
 }
 
 table {
