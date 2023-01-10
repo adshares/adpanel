@@ -415,22 +415,22 @@
   }
 
   &[data-status='active'] {
-    background-color: pal(success);
+    background-color: pal(success, light);
   }
 
   &[data-status='inactive'] {
-    background-color: pal(secondary);
+    background-color: pal(secondary, light);
   }
 
   &[data-status='suspended'],
   &[data-status='outdated'] {
-    background-color: pal(error);
+    background-color: pal(error, light);
   }
 
   &[data-status='archived'],
   &[data-status='awaiting'],
   &[data-status='draft'] {
-    background-color: pal(gray);
+    background-color: pal(gray, light);
   }
 
   &--btn {
@@ -438,7 +438,7 @@
     width: auto;
 
     &[data-status='active'] {
-      color: pal(success);
+      color: pal(success, light);
     }
   }
 }
@@ -558,14 +558,14 @@
 
 .status-button-wrapper {
   [data-status='active'] {
-    color: pal(success);
+    color: pal(success, light);
   }
 
   .ap-copy[data-status='inactive'],
   .ap-copy[data-status='suspended'],
   .ap-copy[data-status='archived'],
   .ap-copy[data-status='draft'] {
-    color: pal(error);
+    color: pal(error, light);
   }
 }
 

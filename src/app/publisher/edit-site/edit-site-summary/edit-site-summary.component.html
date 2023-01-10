@@ -99,15 +99,9 @@
         <div class="row" *ngIf="!popAdUnits.length">
           <strong class="site-edit-summary__warning ap-copy">(none)</strong>
         </div>
-        <div
-          *ngIf="!!popAdUnits.length"
-          class="row"
-          [ngClass]="
-            popAdUnits.length > 4 ? 'justify-between' : 'justify-start'
-          "
-        >
+        <div *ngIf="!!popAdUnits.length" class="row row--gap18">
           <div
-            class="row poster-unit"
+            class="poster-unit poster-unit--selected"
             *ngFor="let adUnit of popAdUnits"
             data-test="publisher-edit-site-summary-ad-units"
           >
@@ -140,7 +134,7 @@
       </div>
     </div>
 
-    <div class="ap-box ap-box--large site-edit-summary__poster-info">
+    <div class="ap-box site-edit-summary__poster-info">
       <div class="row align-center justify-between box-title">
         <h3 class="ap-heading ap-heading--h3">4. Ad units</h3>
         <button
@@ -155,15 +149,9 @@
         <div class="row" *ngIf="!displayAdUnits.length">
           <strong class="site-edit-summary__warning ap-copy">(none)</strong>
         </div>
-        <div
-          *ngIf="!!displayAdUnits.length"
-          class="row"
-          [ngClass]="
-            displayAdUnits.length > 4 ? 'justify-between' : 'justify-start'
-          "
-        >
+        <div *ngIf="!!displayAdUnits.length" class="row row--gap18">
           <div
-            class="row poster-unit"
+            class="poster-unit poster-unit--selected"
             *ngFor="let adUnit of displayAdUnits"
             data-test="publisher-edit-site-summary-ad-units"
           >
@@ -177,7 +165,7 @@
             </div>
 
             <strong
-              class="ap-copy ap-copy--semi poster-unit-title"
+              class="ap-copy ap-copy--semi"
               data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
             >
               {{ adUnit.size }}

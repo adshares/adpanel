@@ -35,20 +35,9 @@
     margin-right: 32px;
   }
 
-  &__poster-unit-title {
-    margin-bottom: 12px;
-  }
-
-  &__poster-unit {
-    text-align: center;
-    padding: 7px;
-    margin: 2px;
-    border-radius: 10px;
-    border: 2px solid pal(gray);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
+  & .poster-unit {
+    flex: 0 1 18%;
+    max-width: 250px;
   }
 }
 
