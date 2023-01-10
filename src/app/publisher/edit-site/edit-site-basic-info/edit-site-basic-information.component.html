@@ -373,16 +373,7 @@
           (click)="onSubmit()"
           [disabled]="changesSaving"
         >
-          <span *ngIf="!changesSaving; else loading">{{
-            createSiteMode ? 'Save & continue' : 'Update'
-          }}</span>
-          <ng-template #loading>
-            <mat-spinner
-              [diameter]="20"
-              [strokeWidth]="2"
-              color="accent"
-            ></mat-spinner>
-          </ng-template>
+          <span>{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
         </button>
       </div>
     </div>
