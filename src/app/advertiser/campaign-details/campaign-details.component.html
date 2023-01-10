@@ -1,38 +1,38 @@
 <section *ngIf="dataLoaded; else loading" class="dashboard-view">
   <div class="container">
     <div
-      class="
+        class="
         row
         align-center
         breadcrumbs">
       <a
-        routerLink="/advertiser/dashboard"
-        data-test="advertiser-navigate-to-dashboard">
+          routerLink="/advertiser/dashboard"
+          data-test="advertiser-navigate-to-dashboard">
         <p
-          class="
+            class="
             ap-copy
             ap-copy--small">
           My campaigns
         </p>
       </a>
       <div
-        class="
+          class="
           ap-circle
           ap-circle--x-small
           ap-circle--navy
           breadcrumbs-divider">
       </div>
       <p
-        class="
+          class="
           ap-copy
           ap-copy--small
           ap-copy--semi">
         {{ campaign.basicInformation.name }}
       </p>
     </div>
-
+    
     <div
-      class="
+        class="
         row
         no-gutters
         justify-between
@@ -43,8 +43,8 @@
             {{ campaign.basicInformation.name }}
           </h1>
           <p
-            *ngIf="mediumLabel !== undefined"
-            class="ap-copy ap-copy--semi label"
+              *ngIf="mediumLabel !== undefined"
+              class="ap-copy ap-copy--semi label"
           >
             {{ mediumLabel }}
           </p>
@@ -66,104 +66,101 @@
           </button>
         </div>
         <button
-          class="
+            class="
             ap-btn
             ap-btn--primary
             btn-delete"
-          data-test="advertiser-campaign-delete-button"
-          (click)="cloneCampaign()">
+            data-test="advertiser-campaign-delete-button"
+            (click)="cloneCampaign()">
           <img
-            class="
+              class="
               ap-icon
               ap-icon--prepend"
-            src="/assets/images/plus-circle--blue.svg"
-            alt="">
+              src="/assets/images/plus-circle--blue.svg"
+              alt="">
           Clone campaign
         </button>
         <button
-          class="
+            class="
             ap-btn
             ap-btn--primary
             btn-delete"
-          data-test="advertiser-campaign-delete-button"
-          (click)="deleteCampaign()">
+            data-test="advertiser-campaign-delete-button"
+            (click)="deleteCampaign()">
           <img
-            class="
+              class="
               ap-icon
               ap-icon--prepend"
-            src="/assets/images/x-circle--gray.svg"
-            alt="">
+              src="/assets/images/x-circle--gray.svg"
+              alt="">
           Delete campaign
         </button>
       </div>
     </div>
-
+    
     <div
-      class="row align-center ap-alert ap-copy ap-gray"
-      *ngIf="budgetInfo"
+        class="row align-center ap-alert ap-copy ap-gray"
+        *ngIf="budgetInfo"
     >
-        <img src="assets/images/error.svg" alt="Attention">
-        {{ budgetInfo }}
+      <img src="assets/images/error.svg" alt="Attention">
+      {{ budgetInfo }}
     </div>
-
+    
     <!-- chart-->
     <div
-      class="ap-box"
+        class="ap-box"
     >
       <div
-        class="ap-box"
+          class="ap-box"
       >
         <div class="justify-between row">
           <div class="col-xs-4">
-            <a
-              (click)="downloadReport()"
-            >
-              <button
+            <button
+                (click)="downloadReport()"
                 class="
                   ap-btn
                   ap-btn--primary"
                 data-test="advertiser-campaign-download-report-button"
-              >
-                Generate a report
-              </button>
-            </a>
+            >
+              Generate a report
+            </button>
           </div>
           <div class="col-xs-4">
             <app-chart-filter-by-type
-              class="details-filters"
-              [detailsPage]="true"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
+                class="details-filters"
+                [detailsPage]="true"
+                (updateSeries)="appChartRef.updateChartDataSeries($event)"
             ></app-chart-filter-by-type>
           </div>
           <div class="col-xs-4">
             <app-chart-filter
-              class="details-filters"
-              (filter)="appChartRef.updateChartData($event)"
+                class="details-filters"
+                (filter)="appChartRef.updateChartData($event)"
             ></app-chart-filter>
           </div>
         </div>
         <div
-          class="
+            class="
             row
             align-center
             justify-center
             chart-wrapper"
         >
           <app-chart
-            class="
+              class="
               chart
               row
               align-center
               justify-center"
-            (update)="getChartData($event, campaign.id)"
-            [barChartData]="barChartData"
-            [barChartLabels]="barChartLabels"
+              (update)="getChartData($event, campaign.id)"
+              [barChartData]="barChartData"
+              [barChartLabels]="barChartLabels"
           ></app-chart>
         </div>
       </div>
     </div>
     <!-- chart end-->
-
+    
     <div class="ap-box">
       <div class="row
                   no-wrap
@@ -177,12 +174,12 @@
               Target URL
             </p>
             <a
-              [href]="campaign.basicInformation.targetUrl | testPlaceholders"
-              [title]="campaign.basicInformation.targetUrl"
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-              class="ap-copy ap-copy--semi"
-              data-test="advertiser-campaign-target-url"
+                [href]="campaign.basicInformation.targetUrl | testPlaceholders"
+                [title]="campaign.basicInformation.targetUrl"
+                rel="nofollow noopener noreferrer"
+                target="_blank"
+                class="ap-copy ap-copy--semi"
+                data-test="advertiser-campaign-target-url"
             >
               {{ campaign.basicInformation.targetUrl }}
             </a>
@@ -192,8 +189,8 @@
               Max CPM
             </p>
             <p
-              class="ap-copy--dark ap-copy--semi"
-              data-test="advertiser-campaign-max-cpm"
+                class="ap-copy--dark ap-copy--semi"
+                data-test="advertiser-campaign-max-cpm"
             >
               {{ campaign.basicInformation.maxCpm | formatMoney:2 }}
             </p>
@@ -203,8 +200,8 @@
               Budget
             </p>
             <p
-              class="ap-copy--dark ap-copy--semi"
-              data-test="advertiser-campaign-budget">
+                class="ap-copy--dark ap-copy--semi"
+                data-test="advertiser-campaign-budget">
               {{ campaign.basicInformation.budget | campaignBudgetPerDay | formatMoney:4 }}
             </p>
           </div>
@@ -214,16 +211,16 @@
             </p>
             <div class="row align-center">
               <img
-                class="ap-icon ap-icon--prepend"
-                src="/assets/images/calendar.svg"
-                alt="">
+                  class="ap-icon ap-icon--prepend"
+                  src="/assets/images/calendar.svg"
+                  alt="">
               <p
-                class="ap-copy--dark ap-copy--semi"
-                data-test="advertiser-campaign-start-date">
+                  class="ap-copy--dark ap-copy--semi"
+                  data-test="advertiser-campaign-start-date">
                 {{ campaign.basicInformation.dateStart | formatDate }}
               </p>
             </div>
-
+          
           </div>
           <div>
             <p class="ap-copy--small label">
@@ -231,14 +228,14 @@
             </p>
             <div class="row align-center">
               <img
-                class="ap-icon ap-icon--prepend"
-                src="/assets/images/calendar.svg"
-                alt=""
+                  class="ap-icon ap-icon--prepend"
+                  src="/assets/images/calendar.svg"
+                  alt=""
               >
               <p
-                *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
-                class="ap-copy--dark ap-copy--semi"
-                data-test="advertiser-campaign-end-date"
+                  *ngIf="campaign.basicInformation.dateEnd; else dateEndEmpty"
+                  class="ap-copy--dark ap-copy--semi"
+                  data-test="advertiser-campaign-end-date"
               >
                 {{ campaign.basicInformation.dateEnd | formatDate }}
               </p>
@@ -249,35 +246,35 @@
           </div>
         </div>
         <button
-          class="
+            class="
            ap-btn
            ap-btn--primary
            ap-btn--edit
            no-wrap"
-          (click)="navigateToCampaignEdition('basic-information')"
-          data-test="advertiser-campaign-edit-basic-info-button">
+            (click)="navigateToCampaignEdition('basic-information')"
+            data-test="advertiser-campaign-edit-basic-info-button">
           <img
-            class="
+              class="
             ap-icon
             ap-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt="">
+              src="assets/images/edit-blue.svg"
+              alt="">
           Edit basic info
         </button>
       </div>
     </div>
-
+    
     <section
-      *ngIf="campaign.classifications"
-      class="ap-box
+        *ngIf="campaign.classifications"
+        class="ap-box
              ap-box--high"
     >
-    <div class="row campaign-classification-wrapper">
-      <app-campaign-classification-info
-        [classifications]="campaign.classifications"
-        [extended]="true"
-      ></app-campaign-classification-info>
-    </div>
+      <div class="row campaign-classification-wrapper">
+        <app-campaign-classification-info
+            [classifications]="campaign.classifications"
+            [extended]="true"
+        ></app-campaign-classification-info>
+      </div>
     </section>
     <section class="ap-box ap-box--high">
       <div class="row justify-between align-center">
@@ -289,17 +286,17 @@
             {{ campaign.bidStrategy.name }}
           </p>
         </div>
-
+        
         <div class="row justify-end">
           <button
-            class="self-end ap-btn ap-btn--primary ap-btn--edit"
-            (click)="navigateToCampaignEdition('bid-strategy')"
-            data-test="advertiser-campaign-edit-bid-strategy-button"
+              class="self-end ap-btn ap-btn--primary ap-btn--edit"
+              (click)="navigateToCampaignEdition('bid-strategy')"
+              data-test="advertiser-campaign-edit-bid-strategy-button"
           >
             <img
-              class="ap-icon ap-icon--prepend"
-              src="assets/images/edit-blue.svg"
-              alt=""
+                class="ap-icon ap-icon--prepend"
+                src="assets/images/edit-blue.svg"
+                alt=""
             >
             Edit bid strategy
           </button>
@@ -309,14 +306,14 @@
     <section class="ap-box ap-box--high">
       <div class="row justify-end">
         <button
-          class="self-end ap-btn ap-btn--primary ap-btn--edit"
-          (click)="navigateToCampaignEdition('conversion')"
-          data-test="advertiser-campaign-edit-conversion-button"
+            class="self-end ap-btn ap-btn--primary ap-btn--edit"
+            (click)="navigateToCampaignEdition('conversion')"
+            data-test="advertiser-campaign-edit-conversion-button"
         >
           <img
-            class="ap-icon ap-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt=""
+              class="ap-icon ap-icon--prepend"
+              src="assets/images/edit-blue.svg"
+              alt=""
           >
           Edit conversions
         </button>
@@ -336,9 +333,9 @@
             Occurrences
           </div>
         </div>
-
+        
         <div *ngFor="let conversion of conversionTableItems"
-          class="row ap-box justify-between ap-copy"
+             class="row ap-box justify-between ap-copy"
         >
           <div class="col-xs-3">
             {{ conversion.name }}
@@ -355,9 +352,9 @@
         </div>
       </div>
     </section>
-
+    
     <!--Targeting details section-->
-
+    
     <section class="ap-box ap-box--high">
       <ng-container *ngIf="!isTaxonomyMissing else missingTaxonomy">
         <div class="row justify-end">
@@ -368,16 +365,16 @@
                   (click)="navigateToCampaignEdition('additional-targeting')"
                   data-test="advertiser-campaign-edit-targeting-button">
             <img
-              class="ap-icon
+                class="ap-icon
                        ap-icon--prepend"
-              src="assets/images/edit-blue.svg"
-              alt="">
+                src="assets/images/edit-blue.svg"
+                alt="">
             {{(!targeting.requires.length && !targeting.excludes.length) ? 'Add targeting' : 'Edit targeting'}}
           </button>
         </div>
         <div
-          *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
-          class="
+            *ngIf="!!targeting.requires.length || !!targeting.excludes.length"
+            class="
           ap-copy
           row">
           <div *ngIf="!!targeting.requires.length"
@@ -390,18 +387,18 @@
                        ap-copy--semi">Targeting: </h2>
             <div>
               <app-targeting-display
-                class="app-targeting-display"
-                [items]="targeting.requires"
-                [isExclude]="false"
-                [canRemove]="false"
-                [targetingOptions]="targetingOptions"
+                  class="app-targeting-display"
+                  [items]="targeting.requires"
+                  [isExclude]="false"
+                  [canRemove]="false"
+                  [targetingOptions]="targetingOptions"
               ></app-targeting-display>
             </div>
           </div>
-
+          
           <div
-            *ngIf="!!targeting.excludes.length"
-            class="
+              *ngIf="!!targeting.excludes.length"
+              class="
             col-xs-12
             col-lg-6
             ap-box--no-padding">
@@ -409,48 +406,48 @@
                        ap-copy--semi">Exclusions: </h2>
             <div>
               <app-targeting-display
-                class="app-targeting-display"
-                [items]="targeting.excludes"
-                [isExclude]="true"
-                [canRemove]="false"
-                [targetingOptions]="targetingOptions"
+                  class="app-targeting-display"
+                  [items]="targeting.excludes"
+                  [isExclude]="true"
+                  [canRemove]="false"
+                  [targetingOptions]="targetingOptions"
               ></app-targeting-display>
             </div>
           </div>
         </div>
       </ng-container>
     </section>
-
+    
     <!--Campaign list section-->
-
+    
     <section *ngIf="campaign.ads.length" class="col">
       <div
-        class="
+          class="
           ap-box
           row
           justify-between
           align-center">
         <p
-          class="
+            class="
             ap-copy
             ap-copy--semi"
         >
           List of ads
         </p>
         <button
-          class="
+            class="
             self-end
             ap-btn
             ap-btn--primary
             ap-btn--edit"
-          (click)="navigateToCampaignEdition('create-ad')"
-          data-test="advertiser-campaign-edit-targeting-button"
+            (click)="navigateToCampaignEdition('create-ad')"
+            data-test="advertiser-campaign-edit-targeting-button"
         >
           <img
-            class="ap-icon
+              class="ap-icon
                    ap-icon--prepend"
-            src="assets/images/edit-blue.svg"
-            alt="">
+              src="assets/images/edit-blue.svg"
+              alt="">
           Add new advertisement
         </button>
       </div>
@@ -458,27 +455,27 @@
                        [adList]="campaign.ads"
                        [campaign]="campaign"></app-poster-list>
     </section>
-
+    
     <div
-      class="
+        class="
         ap-box
         ap-box--no-margin">
       <div
-        class="
+          class="
           row
           justify-center">
         <button
-          class="
+            class="
             row
             align-center
             ap-btn
             ap-btn--primary
             ap-blue"
-          (click)="navigateToCampaignEdition('create-ad')">
+            (click)="navigateToCampaignEdition('create-ad')">
           <img
-            src="/assets/images/plus-circle--blue.svg"
-            alt="Add new"
-            class="
+              src="/assets/images/plus-circle--blue.svg"
+              alt="Add new"
+              class="
               ap-icon
               ap-icon--prepend"/>
           {{campaign.ads.length ? 'Add new advertisement' : 'Upload your first ad'}}

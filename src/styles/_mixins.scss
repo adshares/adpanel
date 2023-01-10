@@ -15,9 +15,10 @@
   $border-color: pal(light),
   $margin-top: 2px,
   $margin-bottom: 0,
-  $border-width: 1px
+  $border-width: 1px,
+  $border-radius: 0
 ) {
-  border-radius: 10px;
+  border-radius: $border-radius;
   background-color: $background-color;
   border: $border-width solid $border-color;
   padding: $padding-vertical $padding-horizontal;

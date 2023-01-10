@@ -15,11 +15,12 @@
         [ngClass]="{'hide-remove': !canRemove}"
         (removed)="removeItem(targetingItem.id)"
         data-test="common-targeting-display-remove-item"
+        disableRipple
       >
-        <p class="ap-copy ap-copy--x-dark ap-copy--semi">
+        <p class="ap-copy ap-copy--secondary ap-copy--semi">
           {{ targetingItem.label }}
         </p>
-          <mat-icon matChipRemove>cancel</mat-icon>
+        <fa-icon matChipRemove class="ap-icon ap-icon--append" [icon]="faClose"></fa-icon>
       </mat-chip>
     </div>
   </mat-chip-list>

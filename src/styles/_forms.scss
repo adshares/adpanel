@@ -100,7 +100,8 @@
 
   &-label {
     text-align: left;
-    margin-bottom: 9px;
+    margin-bottom: 10px;
+    margin-left: 10px;
     @include font(12, medium);
     color: pal(dark);
     display: inline-block;
@@ -112,6 +113,7 @@
     border-radius: 10px;
     padding: 13px 13px 13px 18px;
     max-width: 210px;
+    min-width:  180px;
     @include font(16, medium);
 
     &:focus {
@@ -203,13 +205,11 @@ input[type=radio]:checked + label .checkbox-label {
   width: 100%;
   cursor: pointer;
   border-radius: 10px;
-  color: pal(primary);
   @include font(14, semiBold);
   background: pal(light);
   margin: 0 auto;
-  padding: 0 35px 0 15px;
   height: 42px;
-  border: 1px solid pal(gray);
+  border: 1px solid pal(dark);
   /* needed */
   appearance: none;
   outline: none;
@@ -221,10 +221,13 @@ input[type=radio]:checked + label .checkbox-label {
     display: block;
     @include center(vertical);
     right: 15px;
+    z-index: 10;
   }
 
   .mat-select-trigger {
     height: 100%;
+    padding: 0 35px 0 15px;
+    z-index: 20;
   }
 
   .mat-select-value {

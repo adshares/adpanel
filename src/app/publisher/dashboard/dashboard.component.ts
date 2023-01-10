@@ -16,6 +16,7 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent extends HandleSubscription implements OnInit {
   barChartData = createInitialDataSet();
 
   currentChartFilterSettings: ChartFilterSettings;
+  faPlusCircle = faPlusCircle;
 
   constructor(
     private chartService: ChartService,

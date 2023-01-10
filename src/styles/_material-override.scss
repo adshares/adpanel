@@ -36,14 +36,23 @@ mat-chip:not(.mat-basic-chip) {
   transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1);
   display: inline-flex;
   padding: 7px 12px;
-  border-radius: 0 !important;
   align-items: center;
   cursor: default;
 }
 
 .mat-chip:not(.mat-basic-chip) {
-  background-color: pal(gray);
-  @include font(14, 500);
+  background-color: transparent;
+  border-radius: 10px;
+  color: pal(secondary);
+  @include font(14, semiBold);
+
+  &.mat-standard-chip::after {
+    background: transparent;
+  }
+
+  &.mat-standard-chip:active {
+    box-shadow: none;
+  }
 }
 
 .mat-chip-list-wrapper {
@@ -187,7 +196,7 @@ mat-chip:not(.mat-basic-chip) {
     border-color: rgba(0, 0, 0, 0.54) !important;
   }
 
-  .mat-expansion-panel-header-title {
+    .mat-expansion-panel-header-title {
     flex-grow: 0;
     min-width: 200px;
     display: inline-flex;
@@ -251,6 +260,10 @@ mat-chip:not(.mat-basic-chip) {
   }
 }
 
-//.mat-paginator-container {
-//  border: 1px solid pal(gray);
-//}
+.mat-button-toggle-group {
+  border-radius: 10px;
+}
+
+.mat-expansion-panel-header {
+  padding: 0 12px 0 0;
+}

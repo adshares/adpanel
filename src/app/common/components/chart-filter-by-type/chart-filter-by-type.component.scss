@@ -2,7 +2,7 @@
   margin: 4px 0 20px;
 
   .ap-select {
-    height: 30px;
+    height: 34px;
   }
 }
 .details-filters {
@@ -16,6 +16,7 @@
 .user-filters {
   max-width: 400px;
   display: flex;
+  justify-content: center;
   flex-wrap: nowrap;
 
   &__select-wrapper {

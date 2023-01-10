@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 
 import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
 import { getPathAndLabel } from 'common/components/targeting/targeting.helpers';
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-targeting-display',
@@ -22,6 +23,7 @@ export class TargetingDisplayComponent implements OnChanges {
       label: string;
     }[]
   }[];
+  faClose = faClose;
 
   ngOnChanges() {
     this.prepareItemsToDisplay();

@@ -1,17 +1,17 @@
-<tr class="poster-unit">
-  <td class="col-xs-2 poster-unit__cell"> {{ adUnit.name }}</td>
-  <td class="col-xs-2 col justify-around poster-unit__cell poster-unit__cell--start">
+<tr class="table-poster-unit">
+  <td class="col-xs-2 table-poster-unit__cell"> {{ adUnit.name }}</td>
+  <td class="col-xs-2 col justify-around table-poster-unit__cell table-poster-unit__cell--start">
     <span class="text-left ap-copy--secondary ap-copy--small" *ngIf="adUnit.type !== adUnitTypesEnum.POP"> {{ adUnit.label }} </span>
     <span class="text-left"> {{ adUnit.size }} </span>
   </td>
-  <td class="col-xs-1 poster-unit__cell"
+  <td class="col-xs-1 table-poster-unit__cell"
       [title]="(adUnit.revenue || 0) | formatMoney:4">
     {{ (adUnit.revenue || 0) | formatMoney:2 }}
   </td>
-  <td class="col-xs-1 poster-unit__cell"> {{ (adUnit.clicks || 0) }}</td>
-  <td class="col-xs-1 poster-unit__cell"> {{ (adUnit.impressions || 0) }}</td>
-  <td class="col-xs-1 poster-unit__cell"> {{ (adUnit.ctr || 0) | percent:'1.2-2' }}</td>
-  <td class="col-xs-1 poster-unit__cell"
+  <td class="col-xs-1 table-poster-unit__cell"> {{ (adUnit.clicks || 0) }}</td>
+  <td class="col-xs-1 table-poster-unit__cell"> {{ (adUnit.impressions || 0) }}</td>
+  <td class="col-xs-1 table-poster-unit__cell"> {{ (adUnit.ctr || 0) | percent:'1.2-2' }}</td>
+  <td class="col-xs-1 table-poster-unit__cell"
       [title]="(adUnit.averageRpm || 0) | formatMoney:4">
     {{ (adUnit.averageRpm || 0) | formatMoney:2 }}
   </td>

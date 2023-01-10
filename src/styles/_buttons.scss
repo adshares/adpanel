@@ -10,7 +10,7 @@
   cursor: pointer;
   color: pal(light);
   @include font(16, semiBold);
-  line-height: 1.25;
+  line-height: 1.5;
   transition: 0.3s ease;
 
   &--primary {

@@ -1,13 +1,8 @@
 @import '../../../../styles.scss';
 
 .site-edit-basic-information {
-  max-width: 500px;
-  margin: 0 auto;
-
-  & > .ap-heading {
-    margin-top: 18px;
-    margin-bottom: 18px;
-  }
+  max-width: 1200px;
+  margin: 24px auto 0;
 
   & .ap-form-input__box:not(:last-child){
     margin-bottom: 24px;

@@ -1,114 +1,85 @@
 <section
-  class="
+    class="
     ap-publisher-wrapper
     dashboard-view"
-  *ngIf="sitesLoaded; else loading"
+    *ngIf="sitesLoaded; else loading"
 >
   <div class="container">
     <div
-      class="
+        class="
         row
         no-gutters
-        justify-between"
+        justify-end"
     >
-      <div
-        class="
-          col-xs-4"
-      >
-        <h1
-          class="
-            ap-heading
-            ap-heading--h2"
-        >
-          My sites
-        </h1>
-        <p
-          class="
-            ap-copy
-            ap-copy--medium"
-        >
-          List of all sites
-        </p>
-      </div>
-      <div
-        class="
-          col-xs-8
-          row
-          justify-end
-          align-center"
-      >
-        <button
+      <button
           routerLink="/publisher/classifier"
           data-test="publisher-navigate-to-classifier"
           class="
             ap-btn
-            ap-btn--text"
-        >
-          Reject banner ads
-        </button>
-      </div>
+            ap-btn--primary"
+      >
+        Reject banner ads
+      </button>
     </div>
-
+    
     <ng-container *ngIf="!!sites.length">
       <div class="ap-box">
-        <div class="row">
-          <div class="col-xs-3">
-            <a
-              (click)="downloadReport()"
-            >
-              <button
-                class="
-                  ap-btn
-                  ap-btn--secondary
-                  ap-copy--dark"
-                data-test="publisher-download-report-button"
-              >
-                Generate a report
-              </button>
-            </a>
-          </div>
-          <div class="col-xs-6">
+        <h2 class="ap-heading ap-heading--h2 box-title">Statistics</h2>
+        <div class="box-content">
+          <div class="row justify-between ">
             <app-chart-filter-by-type
-              (updateId)="appChartRef.updateChartDataAssetId($event)"
-              (updateSeries)="appChartRef.updateChartDataSeries($event)"
+                (updateId)="appChartRef.updateChartDataAssetId($event)"
+                (updateSeries)="appChartRef.updateChartDataSeries($event)"
             ></app-chart-filter-by-type>
-          </div>
-          <div class="col-xs-3">
             <app-chart-filter
-              *ngIf="!!sites.length"
-              (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
+                *ngIf="!!sites.length"
+                (filter)="appChartRef.updateChartData($event); loadSites($event.from, $event.to)"
             ></app-chart-filter>
           </div>
-        </div>
-        <div class="dashboard__chart-wrapper">
-          <div class="dashboard__chart">
-            <app-chart
-              class="
+          <div class="dashboard__chart-wrapper">
+            <div class="dashboard__chart">
+              <app-chart
+                  class="
               chart
               row
               align-center
               justify-center"
-              (update)="getChartData($event)"
-              [barChartData]="barChartData"
-              [barChartLabels]="barChartLabels"
-            ></app-chart>
+                  (update)="getChartData($event)"
+                  [barChartData]="barChartData"
+                  [barChartLabels]="barChartLabels"
+              ></app-chart>
+            </div>
+          </div>
+          <div class="row justify-end">
+            <button
+                (click)="downloadReport()"
+                class="
+                  ap-btn
+                  ap-btn--secondary"
+                data-test="publisher-download-report-button"
+            >
+              Generate a report
+            </button>
           </div>
         </div>
       </div>
+      
       <div class="ap-box ap-copy">
-        <app-site-list
-            [dataLoaded]="dataLoaded"
-            [sites]="sites"
-            [sitesTotals]="sitesTotals"
-        ></app-site-list>
+        <h2 class="ap-heading ap-heading--h2 box-title">List of all sites</h2>
+        <div class="box-content">
+          <app-site-list
+              [dataLoaded]="dataLoaded"
+              [sites]="sites"
+              [sitesTotals]="sitesTotals"
+          ></app-site-list>
+        </div>
       </div>
-    </ng-container>
-
+</ng-container>
+    
     <ng-container *ngIf="!sites.length">
       <div
-        class="
+          class="
           ap-box
-          ap-box--large
           col
           align-center
           justify-center
@@ -116,42 +87,29 @@
           add-new-site-wrapper"
       >
         <img
-          src="/assets/images/publisher-account-illustration.svg"
-          alt="Publisher New Site Illustration">
+            src="/assets/images/publisher-account-illustration.svg"
+            alt="Publisher New Site Illustration">
         <div class="ap-customize__box-description">
           <h2
-            class="
+              class="
               ap-heading
               ap-heading--h2"
           >
             Add your first site
           </h2>
         </div>
-        <a
-          routerLink="/publisher/create-site/basic-information"
-          data-test="publisher-create-new-site"
-        >
-          <button
+        <button
+            routerLink="/publisher/create-site/basic-information"
+            data-test="publisher-create-new-site"
             class="
               row
               align-center
               ap-btn
               ap-btn--primary"
-          >
-            <img
-              src="assets/images/plus-circle--blue.svg"
-              alt="Add new"
-              class="
-                ap-icon
-                ap-icon--prepend"
-            >
-            <span
-              class="ap-heading"
-            >
-              Create now
-            </span>
-          </button>
-        </a>
+        >
+          <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlusCircle"></fa-icon>
+          Create now
+        </button>
       </div>
     </ng-container>
   </div>

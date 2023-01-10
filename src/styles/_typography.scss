@@ -125,14 +125,14 @@
   text-align: left;
 }
 
-.lowercase-to-capitalize {
-  text-transform: lowercase;
-  display: inline-block;
-
-  &:first-letter {
-    text-transform: uppercase;
-  }
-}
+//.lowercase-to-capitalize {
+//  text-transform: lowercase;
+//  display: inline-block;
+//
+//  &:first-letter {
+//    text-transform: uppercase;
+//  }
+//}
 
 .lowercase {
   text-transform: lowercase;

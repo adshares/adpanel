@@ -1,8 +1,8 @@
 @import '../../../../styles.scss';
 
 .site-edit-summary {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 24px auto 0;
 
   @include media(xxl-up) {
     max-width: 1300px;
@@ -23,12 +23,6 @@
 
   &__info-cell {
     padding-left: 0;
-  }
-
-  &__basic-info{
-    .ap-heading {
-      margin-bottom: 16px;
-    }
   }
 
   &__poster-info {

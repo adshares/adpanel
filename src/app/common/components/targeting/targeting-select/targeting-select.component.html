@@ -55,10 +55,7 @@
         [ngClass]="{'selected': option.selected, 'sub-selected': !option.selected && option.subSelected}"
         class="{{checkClass}}-unselected"
       ></span>
-      <span
-        *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')"
-        class="targeting-select__option-cross"
-      ></span>
+      <fa-icon *ngIf="option.hasOwnProperty('children') || option.hasOwnProperty('values')" class="ap-icon ap-icon--append" [icon]="faArrowRight"></fa-icon>
     </div>
     <app-targeting-custom-option-input
       *ngIf="option.allowInput"

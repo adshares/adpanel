@@ -25,10 +25,6 @@
     overflow-x: auto;
   }
 
-  .status-button-wrapper {
-    margin-right: 4px;
-  }
-
   .ap-heading--primary small {
 
     &:before {
@@ -38,7 +34,6 @@
 
   app-domain-checker {
     margin-left: 15px;
-    margin-top: 12px;
   }
 }
 
