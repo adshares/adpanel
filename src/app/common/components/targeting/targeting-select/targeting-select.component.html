@@ -31,8 +31,8 @@
   </span>
 </button>
 
-<ul *ngFor="let option of viewModel">
-  <li>
+<ul>
+  <li *ngFor="let option of viewModel">
     <div
       *ngIf="!option.allowInput"
       tabindex="0"
@@ -45,17 +45,18 @@
       data-test="common-targeting-select-option"
     >
       {{ option.label }}
-      <span *ngIf="option.description" class="targeting-select__help-icon">
+      <span *ngIf="option.description">
         <fa-icon
-          class="ap-icon ap-icon--append"
+          class="ap-icon ap-icon--append ap-copy--secondary"
           matTooltipClass="ap-mat-tooltip"
           [matTooltip]="option.description"
           matTooltipPosition="above"
           [icon]="faQuestionCircle"
         ></fa-icon>
       </span>
+
       <span
-        *ngIf="option.hasOwnProperty('value') && option.selected"
+        *ngIf="option.hasOwnProperty('value')"
         (click)="toggleItem(option) || $event.stopPropagation()"
         [ngClass]="{
           selected: option.selected,
@@ -63,6 +64,7 @@
         }"
         class="{{ checkClass }}-unselected"
       ></span>
+
       <fa-icon
         *ngIf="
           option.hasOwnProperty('children') || option.hasOwnProperty('values')
