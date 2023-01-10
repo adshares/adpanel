@@ -1,18 +1,18 @@
-.dialog{
-  &__reason-field{
+.dialog {
+  &__reason-field {
     margin-top: 10px;
   }
 }
 
-.form-container{
+.form-container {
   min-height: 215px;
 }
 
-.dialog-controls{
+.dialog-controls {
   margin-top: 5px;
 
-  &--btn{
-    &:not(:last-child){
+  &--btn {
+    &:not(:last-child) {
       margin-right: 1rem;
     }
   }

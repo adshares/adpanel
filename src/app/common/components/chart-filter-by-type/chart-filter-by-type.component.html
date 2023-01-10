@@ -2,10 +2,7 @@
   <div class="row user-filters">
     <div
       *ngIf="!detailsPage"
-      class="
-        user-filters__select-wrapper
-        col-xs-12
-        no-gutters"
+      class="user-filters__select-wrapper col-xs-12 no-gutters"
     >
       <mat-select
         class="ap-select ap-copy"
@@ -23,12 +20,7 @@
         </mat-option>
       </mat-select>
     </div>
-    <div
-      class="
-        user-filters__select-wrapper
-        col-xs-12
-        no-gutters"
-    >
+    <div class="user-filters__select-wrapper col-xs-12 no-gutters">
       <mat-select
         class="ap-select chart-filter__select--wider"
         [(value)]="currentAssetSeries"

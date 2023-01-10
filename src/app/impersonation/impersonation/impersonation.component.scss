@@ -8,11 +8,7 @@
   }
 
   &__info {
-    @include copy(
-      $color: pal(error),
-      $font-size: 18,
-      $font-weight: semiBold
-    );
+    @include copy($color: pal(error), $font-size: 18, $font-weight: semiBold);
     display: flex;
     align-self: center;
   }
@@ -20,9 +16,9 @@
 
 .action-btn {
   @include btn(
-          $color: pal(gray),
-          $background-color: pal(light),
-          $border-color: pal(gray)
+    $color: pal(gray),
+    $background-color: pal(light),
+    $border-color: pal(gray)
   );
   margin-left: 8px;
 

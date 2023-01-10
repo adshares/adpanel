@@ -96,7 +96,6 @@
 }
 
 .ap-icon {
-
   &--prepend {
     margin-right: 10px;
 
@@ -171,7 +170,6 @@
   &--standalone {
     position: initial;
   }
-
 }
 
 .ap-sort-triangle {
@@ -206,7 +204,7 @@
   }
 
   & .box-title {
-    padding: 16px ;
+    padding: 16px;
   }
 
   & .box-content {
@@ -290,39 +288,39 @@
   //}
 }
 
-  .poster-unit {
-    text-align: center;
-    background: transparent;
-    padding: 8px;
-    border-radius: 10px;
-    border: 2px solid pal(gray);
-    cursor: pointer;
-    pointer-events: all;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    justify-content: center;
-    transition: 0.3s ease;
-    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.25), 4px 4px 5px rgba(0, 0, 0, 0.25);
+.poster-unit {
+  text-align: center;
+  background: transparent;
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid pal(gray);
+  cursor: pointer;
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  transition: 0.3s ease;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.25), 4px 4px 5px rgba(0, 0, 0, 0.25);
+
+  .selected-icon {
+    color: pal(gray);
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  &:hover {
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &--selected {
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
 
     .selected-icon {
-      color: pal(gray);
-      vertical-align: middle;
-      display: inline-block;
-    }
-
-    &:hover {
-      box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
-    }
-
-    &--selected {
-      box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.25), 0 0 0 rgba(0, 0, 0, 0.25);
-
-      .selected-icon {
-        color: pal(success);
-      }
+      color: pal(success);
     }
   }
+}
 
 .ap-chip-box {
   background-color: transparent;
@@ -344,11 +342,11 @@
 */
 
 @each $color in $main_colors {
-  .ap-#{"" + $color} {
+  .ap-#{'' + $color} {
     color: pal($color);
   }
 
-  .ap-bg-#{"" + $color} {
+  .ap-bg-#{'' + $color} {
     background-color: pal($color);
   }
 }
@@ -416,22 +414,22 @@
     margin: 0 0 0 3px;
   }
 
-  &[data-status="active"] {
+  &[data-status='active'] {
     background-color: pal(success);
   }
 
-  &[data-status="inactive"] {
+  &[data-status='inactive'] {
     background-color: pal(secondary);
   }
 
-  &[data-status="suspended"],
-  &[data-status="outdated"] {
+  &[data-status='suspended'],
+  &[data-status='outdated'] {
     background-color: pal(error);
   }
 
-  &[data-status="archived"],
-  &[data-status="awaiting"],
-  &[data-status="draft"] {
+  &[data-status='archived'],
+  &[data-status='awaiting'],
+  &[data-status='draft'] {
     background-color: pal(gray);
   }
 
@@ -439,7 +437,7 @@
     min-width: auto;
     width: auto;
 
-    &[data-status="active"] {
+    &[data-status='active'] {
       color: pal(success);
     }
   }
@@ -515,7 +513,7 @@
   }
 
   .triangle {
-    content: "";
+    content: '';
     @include center(vertical);
     left: -30px;
     width: 0;
@@ -559,15 +557,14 @@
 }
 
 .status-button-wrapper {
-
-  [data-status="active"] {
+  [data-status='active'] {
     color: pal(success);
   }
 
-  .ap-copy[data-status="inactive"],
-  .ap-copy[data-status="suspended"],
-  .ap-copy[data-status="archived"],
-  .ap-copy[data-status="draft"] {
+  .ap-copy[data-status='inactive'],
+  .ap-copy[data-status='suspended'],
+  .ap-copy[data-status='archived'],
+  .ap-copy[data-status='draft'] {
     color: pal(error);
   }
 }
@@ -610,7 +607,7 @@
 
 .now_payments_logo {
   font-weight: 400;
-  font-family: "Roboto",Arial,Helvetica,sans-serif;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   color: pal(primary);
 
   > span {
@@ -621,5 +618,5 @@
 
 .ap-divider {
   margin: 0;
-  border-bottom: 1px solid pal(grey)
+  border-bottom: 1px solid pal(grey);
 }

@@ -101,11 +101,7 @@
   }
 }
 
-@mixin label(
-  $margin-top: 10px,
-  $margin-bottom: 4px,
-  $margin-horizontal: 4px,
-) {
+@mixin label($margin-top: 10px, $margin-bottom: 4px, $margin-horizontal: 4px) {
   @include font(16, medium);
   //color: pal(gray);
   margin: $margin-top $margin-horizontal $margin-bottom;

@@ -1,82 +1,90 @@
 <section class="ap-auth row align-center justify-center">
-<!--  <div class="container row ap-auth-wrapper">-->
-<!--    <div class="col col-xs-12 col-lg-6 ap-auth__poster justify-between hidden-lg">-->
-<!--      <div *ngIf="null !== loginInfo else isLoading ? loading : loginInfoTemplate"-->
-<!--           [innerHtml]="loginInfo"-->
-<!--           class="col flex-auto ap-auth__poster-content"-->
-<!--      ></div>-->
+  <!--  <div class="container row ap-auth-wrapper">-->
+  <!--    <div class="col col-xs-12 col-lg-6 ap-auth__poster justify-between hidden-lg">-->
+  <!--      <div *ngIf="null !== loginInfo else isLoading ? loading : loginInfoTemplate"-->
+  <!--           [innerHtml]="loginInfo"-->
+  <!--           class="col flex-auto ap-auth__poster-content"-->
+  <!--      ></div>-->
 
-<!--    </div>-->
+  <!--    </div>-->
 
-<!--    <div class="ap-auth__content ap-bg-white justify-between">-->
-      <div [@fadeAnimation]="getRouterOutletState(o)">
-        <router-outlet #o="outlet"></router-outlet>
-        <div class="ap-login__footer row align-center justify-between ap-copy ap-copy--small">
-          <a href="https://adshares.net?utm_source={{source}}&utm_campaign=auth" target="_blank">
-            <img
-                alt=""
-                class="ap-logo"
-                src="assets/images/logo--white.png"
-                srcset="assets/images/logo--white@2x.png 2x, assets/images/logo--white@3x.png 3x"
-            >
-          </a>
-          <a
-              class="ap-copy--white"
-              [href]="termsOfServiceLink"
-              rel="noopener noreferrer"
-              target="_blank"
-              data-test="common-terms-of-service-link"
-          >
-            Terms of Service
-          </a>
-          <a
-              class="ap-copy--white"
-              [href]="privacyPolicyLink"
-              rel="noopener noreferrer"
-              target="_blank"
-              data-test="common-privacy-policy-link"
-          >
-            Privacy Policy
-          </a>
-          <span>{{ version }}</span>
-        </div>
-      </div>
-<!--      <div class="row align-center justify-between">-->
-<!--        <p class="ap-copy ap-copy-instructions">-->
-<!--          Learn how to use our platform-->
-<!--          - <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a>-->
-<!--          / <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>-->
-<!--        </p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <img-->
-<!--    alt="bubbles"-->
-<!--    class="ap-auth-bubbles"-->
-<!--    src="assets/images/bubbles1.svg"-->
-<!--  >-->
-<!--  <img-->
-<!--    alt="bubbles"-->
-<!--    class="ap-auth-bubbles"-->
-<!--    src="assets/images/bubbles2.svg"-->
-<!--  >-->
-<!--  <img-->
-<!--    alt="bubbles"-->
-<!--    class="ap-auth-bubbles"-->
-<!--    src="assets/images/bubbles3.svg"-->
-<!--  >-->
-<!--  <img-->
-<!--    alt="wave"-->
-<!--    class="ap-auth-wave ap-auth-wave-up"-->
-<!--    src="assets/images/wave-up.png"-->
-<!--    srcset="assets/images/wave-up@2x.png 2x, assets/images/wave-up@3x.png 3x"-->
-<!--  >-->
-<!--  <img-->
-<!--    alt="waves"-->
-<!--    class="ap-auth-wave ap-auth-wave-down"-->
-<!--    src="assets/images/wave-down.png"-->
-<!--    srcset="assets/images/wave-down@2x.png 2x, assets/images/wave-down@3x.png 3x"-->
-<!--  >-->
+  <!--    <div class="ap-auth__content ap-bg-white justify-between">-->
+  <div [@fadeAnimation]="getRouterOutletState(o)">
+    <router-outlet #o="outlet"></router-outlet>
+    <div
+      class="ap-login__footer row align-center justify-between ap-copy ap-copy--small"
+    >
+      <a
+        href="https://adshares.net?utm_source={{ source }}&utm_campaign=auth"
+        target="_blank"
+      >
+        <img
+          alt=""
+          class="ap-logo"
+          src="assets/images/logo--white.png"
+          srcset="
+            assets/images/logo--white@2x.png 2x,
+            assets/images/logo--white@3x.png 3x
+          "
+        />
+      </a>
+      <a
+        class="ap-copy--white"
+        [href]="termsOfServiceLink"
+        rel="noopener noreferrer"
+        target="_blank"
+        data-test="common-terms-of-service-link"
+      >
+        Terms of Service
+      </a>
+      <a
+        class="ap-copy--white"
+        [href]="privacyPolicyLink"
+        rel="noopener noreferrer"
+        target="_blank"
+        data-test="common-privacy-policy-link"
+      >
+        Privacy Policy
+      </a>
+      <span>{{ version }}</span>
+    </div>
+  </div>
+  <!--      <div class="row align-center justify-between">-->
+  <!--        <p class="ap-copy ap-copy-instructions">-->
+  <!--          Learn how to use our platform-->
+  <!--          - <a [href]="advertiserInstructionLink" class="ap-blue" target="_blank">ADVERTISER</a>-->
+  <!--          / <a [href]="publisherInstructionLink" class="ap-blue" target="_blank">PUBLISHER</a>-->
+  <!--        </p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  <img-->
+  <!--    alt="bubbles"-->
+  <!--    class="ap-auth-bubbles"-->
+  <!--    src="assets/images/bubbles1.svg"-->
+  <!--  >-->
+  <!--  <img-->
+  <!--    alt="bubbles"-->
+  <!--    class="ap-auth-bubbles"-->
+  <!--    src="assets/images/bubbles2.svg"-->
+  <!--  >-->
+  <!--  <img-->
+  <!--    alt="bubbles"-->
+  <!--    class="ap-auth-bubbles"-->
+  <!--    src="assets/images/bubbles3.svg"-->
+  <!--  >-->
+  <!--  <img-->
+  <!--    alt="wave"-->
+  <!--    class="ap-auth-wave ap-auth-wave-up"-->
+  <!--    src="assets/images/wave-up.png"-->
+  <!--    srcset="assets/images/wave-up@2x.png 2x, assets/images/wave-up@3x.png 3x"-->
+  <!--  >-->
+  <!--  <img-->
+  <!--    alt="waves"-->
+  <!--    class="ap-auth-wave ap-auth-wave-down"-->
+  <!--    src="assets/images/wave-down.png"-->
+  <!--    srcset="assets/images/wave-down@2x.png 2x, assets/images/wave-down@3x.png 3x"-->
+  <!--  >-->
 </section>
 
 <!--<ng-template #loading>-->

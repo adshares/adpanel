@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-site-code-metaverse-dialog',
@@ -7,9 +7,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
   styleUrls: ['./site-code-metaverse-dialog.component.scss'],
 })
 export class SiteCodeMetaverseDialogComponent {
-  constructor (
+  constructor(
     public dialogRef: MatDialogRef<SiteCodeMetaverseDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 }

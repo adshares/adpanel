@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from 'agency/dashboard/dashboard.component'
-import { AgencyGuard } from './agency-guard.service'
-import { AdminComponent } from 'admin/admin.component'
-import { UsersComponent } from 'admin/users/users.component'
-import { UserListComponent } from 'admin/users/user-list/user-list.component'
-import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
-import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
-import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
+import { DashboardComponent } from 'agency/dashboard/dashboard.component';
+import { AgencyGuard } from './agency-guard.service';
+import { AdminComponent } from 'admin/admin.component';
+import { UsersComponent } from 'admin/users/users.component';
+import { UserListComponent } from 'admin/users/user-list/user-list.component';
+import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
+import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 
 const agencyRoutes: Routes = [
   {
@@ -27,7 +27,7 @@ const agencyRoutes: Routes = [
           {
             path: '',
             redirectTo: 'users',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'users',
@@ -36,36 +36,30 @@ const agencyRoutes: Routes = [
               {
                 path: '',
                 redirectTo: 'all',
-                pathMatch: 'full'
+                pathMatch: 'full',
               },
               {
                 path: 'all',
-                component: UserListComponent
+                component: UserListComponent,
               },
               {
                 path: 'advertisers',
-                component: AdvertiserListComponent
+                component: AdvertiserListComponent,
               },
               {
                 path: 'publishers',
-                component: PublisherListComponent
+                component: PublisherListComponent,
               },
-            ]
+            ],
           },
         ],
       },
     ],
   },
-]
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(agencyRoutes),
-  ],
-  exports: [
-    RouterModule,
-  ],
+  imports: [RouterModule.forRoot(agencyRoutes)],
+  exports: [RouterModule],
 })
-
-export class AgencyRoutingModule {
-}
+export class AgencyRoutingModule {}

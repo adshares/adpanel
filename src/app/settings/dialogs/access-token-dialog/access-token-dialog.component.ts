@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { faCode } from '@fortawesome/free-solid-svg-icons'
-import { HandleSubscription } from 'common/handle-subscription'
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { faCode } from '@fortawesome/free-solid-svg-icons';
+import { HandleSubscription } from 'common/handle-subscription';
 
 @Component({
   selector: 'app-site-code-dialog',
@@ -9,21 +9,21 @@ import { HandleSubscription } from 'common/handle-subscription'
   styleUrls: ['./access-token-dialog.component.scss'],
 })
 export class AccessTokenDialogComponent extends HandleSubscription {
-  faCode = faCode
-  loadingInfo: boolean = true
+  faCode = faCode;
+  loadingInfo: boolean = true;
 
-  constructor (
+  constructor(
     public dialogRef: MatDialogRef<AccessTokenDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string,
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) {
-    super()
+    super();
   }
 
-  copyCode (elementId: string): void {
-    const input = <HTMLInputElement>document.getElementById(elementId)
-    input.focus()
-    input.select()
-    document.execCommand('copy')
-    input.setSelectionRange(0, 0)
+  copyCode(elementId: string): void {
+    const input = <HTMLInputElement>document.getElementById(elementId);
+    input.focus();
+    input.select();
+    document.execCommand('copy');
+    input.setSelectionRange(0, 0);
   }
 }

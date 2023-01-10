@@ -5,7 +5,10 @@
       class="ap-icon-btn"
       (click)="handleImpersonating()"
     >
-      <fa-icon [icon]="faIconImpersonation" class="ap-icon ap-icon--large fa-lg"></fa-icon>
+      <fa-icon
+        [icon]="faIconImpersonation"
+        class="ap-icon ap-icon--large fa-lg"
+      ></fa-icon>
     </button>
     {{ user.email }}
     <fa-icon
@@ -18,35 +21,43 @@
       [icon]="faIconAdminConfirmed"
       class="ap-icon user-list-item__status"
       [class.confirmed]="user.isAdminConfirmed"
-      [title]="user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'"
+      [title]="
+        user.isEmailConfirmed ? 'Account confirmed' : 'Account unconfirmed'
+      "
     ></fa-icon>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.walletBalance | formatMoney:2:crypto:code }}
+    {{ user.adserverWallet.walletBalance | formatMoney : 2 : crypto : code }}
     <ng-container *ngIf="calculateFunds">
-      <br>
-      <small>{{ user.adserverWallet.walletBalance | calculateInCurrency:2 }}</small>
+      <br />
+      <small>{{
+        user.adserverWallet.walletBalance | calculateInCurrency : 2
+      }}</small>
     </ng-container>
   </td>
   <td class="col-xs-2 user-list-item__funds">
-    {{ user.adserverWallet.bonusBalance | formatMoney:2:crypto:code }}
+    {{ user.adserverWallet.bonusBalance | formatMoney : 2 : crypto : code }}
     <ng-container *ngIf="calculateFunds">
-      <br>
-      <small>{{ user.adserverWallet.bonusBalance | calculateInCurrency:2 }}</small>
+      <br />
+      <small>{{
+        user.adserverWallet.bonusBalance | calculateInCurrency : 2
+      }}</small>
     </ng-container>
   </td>
   <td
     class="col-xs-2 justify-center user-list-item__cell"
-    [ngClass]="{'ap-copy--red': userRole === 'Banned'}"
-    [title]="userRoleTitle">
+    [ngClass]="{ 'ap-copy--red': userRole === 'Banned' }"
+    [title]="userRoleTitle"
+  >
     {{ userRole }}
   </td>
   <td class="col-xs-1 user-list-item__cell user-list-item__cell--actions">
     <button
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            *ngIf="!user.isAdmin"
-            aria-label="Example icon-button with a menu">
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      *ngIf="!user.isAdmin"
+      aria-label="Example icon-button with a menu"
+    >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -61,7 +72,13 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isModerator && !user.isAgency  && !user.isBanned"
+        *ngIf="
+          loggedUser.isAdmin &&
+          !user.isAdmin &&
+          !user.isModerator &&
+          !user.isAgency &&
+          !user.isBanned
+        "
         class="user-list-item__btn user-list-item__btn--warning"
         (click)="handleSwitchingToModerator()"
         [disabled]="isSaving"
@@ -70,7 +87,13 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdmin && !user.isModerator && !user.isAgency && !user.isBanned"
+        *ngIf="
+          (loggedUser.isAdmin || loggedUser.isModerator) &&
+          !user.isAdmin &&
+          !user.isModerator &&
+          !user.isAgency &&
+          !user.isBanned
+        "
         class="user-list-item__btn"
         (click)="handleSwitchingToAgency()"
         [disabled]="isSaving"
@@ -79,7 +102,10 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin && user.isModerator) || ((loggedUser.isAdmin || loggedUser.isModerator) && user.isAgency)"
+        *ngIf="
+          (loggedUser.isAdmin && user.isModerator) ||
+          ((loggedUser.isAdmin || loggedUser.isModerator) && user.isAgency)
+        "
         class="user-list-item__btn user-list-item__btn--warning"
         (click)="handleSwitchingToRegular()"
         [disabled]="isSaving"
@@ -88,7 +114,9 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdvertiser"
+        *ngIf="
+          (loggedUser.isAdmin || loggedUser.isModerator) && !user.isAdvertiser
+        "
         class="user-list-item__btn"
         (click)="handleUserRightsChange('grantAdvertising')"
         [disabled]="isSaving"
@@ -97,7 +125,9 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && !user.isPublisher"
+        *ngIf="
+          (loggedUser.isAdmin || loggedUser.isModerator) && !user.isPublisher
+        "
         class="user-list-item__btn"
         (click)="handleUserRightsChange('grantPublishing')"
         [disabled]="isSaving"
@@ -106,7 +136,9 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isAdvertiser"
+        *ngIf="
+          (loggedUser.isAdmin || loggedUser.isModerator) && user.isAdvertiser
+        "
         class="user-list-item__btn"
         (click)="handleUserRightsChange('denyAdvertising')"
         [disabled]="isSaving"
@@ -115,7 +147,9 @@
       </button>
       <button
         mat-menu-item
-        *ngIf="(loggedUser.isAdmin || loggedUser.isModerator) && user.isPublisher"
+        *ngIf="
+          (loggedUser.isAdmin || loggedUser.isModerator) && user.isPublisher
+        "
         class="user-list-item__btn"
         (click)="handleUserRightsChange('denyPublishing')"
         [disabled]="isSaving"
@@ -125,7 +159,7 @@
       <button
         mat-menu-item
         class="user-list-item__btn user-list-item__btn--danger"
-        *ngIf="(loggedUser.isAdmin && !user.isAdmin) && !user.isBanned"
+        *ngIf="loggedUser.isAdmin && !user.isAdmin && !user.isBanned"
         (click)="showBanConfirmationDialog()"
       >
         Ban user
@@ -133,7 +167,7 @@
       <button
         mat-menu-item
         class="user-list-item__btn user-list-item__btn--danger"
-        *ngIf="(loggedUser.isAdmin && !user.isAdmin) && user.isBanned"
+        *ngIf="loggedUser.isAdmin && !user.isAdmin && user.isBanned"
         (click)="showUnbanConfirmationDialog()"
       >
         Unban user

@@ -1,98 +1,118 @@
 <app-edit-site-navigation
-    [currentStep]="2"
-    [medium]="site.medium"
+  [currentStep]="2"
+  [medium]="site.medium"
 ></app-edit-site-navigation>
-<section class="homepage-view site-edit-pops-settings site-edit-create-posters-units">
+<section
+  class="homepage-view site-edit-pops-settings site-edit-create-posters-units"
+>
   <form
-      [formGroup]="popsSettingsForm"
-      class="ap-form"
-      data-test="publisher-edit-site-pops-settings-form"
+    [formGroup]="popsSettingsForm"
+    class="ap-form"
+    data-test="publisher-edit-site-pops-settings-form"
   >
     <div class="ap-box site-edit-pops-settings__info-box">
       <div class="box-title">
         <h1 class="ap-heading ap-heading--h2">Pops settings</h1>
         <p class="ap-copy box-subtitle">
-          Pops ads are advertisements that show up in a new browser window.<br/>
-          If you want to make extra profit, please activate pop-up or pop-under ads for your site below.
+          Pops ads are advertisements that show up in a new browser window.<br />
+          If you want to make extra profit, please activate pop-up or pop-under
+          ads for your site below.
         </p>
       </div>
-      
+
       <div
-          [ngClass]="adUnitSizes.length > 4 ? 'justify-between' : 'justify-center'"
-          class="row row--gap18 box-content"
+        [ngClass]="
+          adUnitSizes.length > 4 ? 'justify-between' : 'justify-center'
+        "
+        class="row row--gap18 box-content"
       >
         <div
-            class="poster-unit"
-            [ngClass]="{'poster-unit--selected': popsSettingsForm.get(adUnit.size).get('selected').value }"
-            *ngFor="let adUnit of adUnitSizes"
-            role="button"
-            (click)="selectAdUnit(adUnit.size)"
-            data-test="publisher-edit-site-pops-settings-form-ad-unit-select"
+          class="poster-unit"
+          [ngClass]="{
+            'poster-unit--selected': popsSettingsForm
+              .get(adUnit.size)
+              .get('selected').value
+          }"
+          *ngFor="let adUnit of adUnitSizes"
+          role="button"
+          (click)="selectAdUnit(adUnit.size)"
+          data-test="publisher-edit-site-pops-settings-form-ad-unit-select"
         >
           <div class="row align-center justify-center">
             <div
-                class="ap-copy"
-                data-test="publisher-edit-site-pops-settings-form-ad-unit-size"
-            >{{ adUnit.label }}</div>
+              class="ap-copy"
+              data-test="publisher-edit-site-pops-settings-form-ad-unit-size"
+            >
+              {{ adUnit.label }}
+            </div>
           </div>
           <strong
-              class="ap-copy ap-copy--semi"
-              data-test="publisher-edit-site-pops-settings-form-ad-unit-name"
+            class="ap-copy ap-copy--semi"
+            data-test="publisher-edit-site-pops-settings-form-ad-unit-name"
           >
             <fa-icon
-                class="selected-icon"
-                [icon]="popsSettingsForm.get(adUnit.size).get('selected').value ? faCheck : faTimes"
+              class="selected-icon"
+              [icon]="
+                popsSettingsForm.get(adUnit.size).get('selected').value
+                  ? faCheck
+                  : faTimes
+              "
             ></fa-icon>
             {{ adUnit.size }}
           </strong>
           <div class="row row--gap8">
             <div
-                class="ap-chip-box"
-                *ngFor="let tag of adUnit.tags"
-                data-test="publisher-edit-site-pops-settings-form-ad-unit-tag"
-            >{{ tag }}</div>
+              class="ap-chip-box"
+              *ngFor="let tag of adUnit.tags"
+              data-test="publisher-edit-site-pops-settings-form-ad-unit-tag"
+            >
+              {{ tag }}
+            </div>
           </div>
         </div>
-        <div
-            *ngIf="0 === adUnitSizes.length"
-            class="ap-copy"
-        >
+        <div *ngIf="0 === adUnitSizes.length" class="ap-copy">
           Pops are not available for current medium
         </div>
       </div>
     </div>
-    
+
     <div class="ap-box ap-box--large row justify-between">
-      <button class="ap-btn ap-btn--secondary"
-              role="link"
-              (click)="onStepBack()"
+      <button
+        class="ap-btn ap-btn--secondary"
+        role="link"
+        (click)="onStepBack()"
       >
         Back
       </button>
       <div class="row row--gap8">
         <button
-            *ngIf="createSiteMode"
-            (click)="saveAdUnits(true)"
-            type="button"
-            class="ap-btn ap-btn--primary"
-            data-test="publisher-edit-site-save-as-draft"
+          *ngIf="createSiteMode"
+          (click)="saveAdUnits(true)"
+          type="button"
+          class="ap-btn ap-btn--primary"
+          data-test="publisher-edit-site-save-as-draft"
         >
           Save as draft
         </button>
         <button
-            type="submit"
-            class="ap-btn ap-btn--primary"
-            data-test="publisher-edit-site-save-and-continue"
-            [disabled]="changesSaved"
-            (click)="onSubmit()"
+          type="submit"
+          class="ap-btn ap-btn--primary"
+          data-test="publisher-edit-site-save-and-continue"
+          [disabled]="changesSaved"
+          (click)="onSubmit()"
         >
-          <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
+          <span *ngIf="!changesSaved; else loading">{{
+            createSiteMode ? 'Save & continue' : 'Update'
+          }}</span>
           <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+            <mat-spinner
+              [diameter]="20"
+              [strokeWidth]="2"
+              color="accent"
+            ></mat-spinner>
           </ng-template>
         </button>
       </div>
     </div>
-  
   </form>
 </section>

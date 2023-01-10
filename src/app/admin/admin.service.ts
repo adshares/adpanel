@@ -6,27 +6,33 @@ import {
   AdvertiserInfo,
   PublisherInfo,
   UserBanDetails,
-  UserInfo
-} from 'models/settings.model'
+  UserInfo,
+} from 'models/settings.model';
 import { environment } from 'environments/environment';
-import { buildUrl } from 'common/utilities/helpers'
+import { buildUrl } from 'common/utilities/helpers';
 
 @Injectable()
 export class AdminService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
-
-  getUsers(nextPage?: string, searchPhrase?: string, filters: string[] = [], orderBy?: string, direction?: string): Observable<UserInfo[]> {
-    const url = (
-      nextPage && (environment.serverUrl.search(/^https:/) >= 0 && nextPage.replace(/^http:/, 'https:'))
-      || nextPage
-    ) || `${environment.serverUrl}/admin/users`;
+  getUsers(
+    nextPage?: string,
+    searchPhrase?: string,
+    filters: string[] = [],
+    orderBy?: string,
+    direction?: string
+  ): Observable<UserInfo[]> {
+    const url =
+      (nextPage &&
+        environment.serverUrl.search(/^https:/) >= 0 &&
+        nextPage.replace(/^http:/, 'https:')) ||
+      nextPage ||
+      `${environment.serverUrl}/admin/users`;
     const params = [];
     if (searchPhrase) {
       params.push('q=' + encodeURIComponent(searchPhrase));
     }
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       params.push('f[]=' + encodeURIComponent(filter));
     });
     if (orderBy) {
@@ -38,7 +44,12 @@ export class AdminService {
     return this.http.get<UserInfo[]>(buildUrl(url, params));
   }
 
-  getAdvertisers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<AdvertiserInfo[]> {
+  getAdvertisers(
+    groupBy?: string,
+    interval?: string,
+    searchPhrase?: string,
+    minDailyViews?: number
+  ): Observable<AdvertiserInfo[]> {
     const params = [];
     if (groupBy) {
       params.push('g=' + encodeURIComponent(groupBy));
@@ -52,10 +63,17 @@ export class AdminService {
     if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<AdvertiserInfo[]>(buildUrl(`${environment.serverUrl}/admin/advertisers`, params));
+    return this.http.get<AdvertiserInfo[]>(
+      buildUrl(`${environment.serverUrl}/admin/advertisers`, params)
+    );
   }
 
-  getPublishers(groupBy?: string, interval?: string, searchPhrase?: string, minDailyViews?: number): Observable<PublisherInfo[]> {
+  getPublishers(
+    groupBy?: string,
+    interval?: string,
+    searchPhrase?: string,
+    minDailyViews?: number
+  ): Observable<PublisherInfo[]> {
     const params = [];
     if (groupBy) {
       params.push('g=' + encodeURIComponent(groupBy));
@@ -69,35 +87,56 @@ export class AdminService {
     if (minDailyViews !== null) {
       params.push('l=' + minDailyViews);
     }
-    return this.http.get<PublisherInfo[]>(buildUrl(`${environment.serverUrl}/admin/publishers`, params));
+    return this.http.get<PublisherInfo[]>(
+      buildUrl(`${environment.serverUrl}/admin/publishers`, params)
+    );
   }
 
   confirmUser(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/confirm`, {})
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${id}/confirm`,
+      {}
+    );
   }
 
   switchToModerator(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToModerator`, {})
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${id}/switchToModerator`,
+      {}
+    );
   }
 
   switchToAgency(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToAgency`, {})
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${id}/switchToAgency`,
+      {}
+    );
   }
 
   switchToRegular(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/switchToRegular`, {})
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${id}/switchToRegular`,
+      {}
+    );
   }
 
   changeUserRights(id: number, operation: string): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${id}/${operation}`, {})
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${id}/${operation}`,
+      {}
+    );
   }
 
   impersonateUser(id: number): Observable<string> {
-    return this.http.get<string>(`${environment.serverUrl}/admin/impersonation/${id}`)
+    return this.http.get<string>(
+      `${environment.serverUrl}/admin/impersonation/${id}`
+    );
   }
 
   getAdminSettings(): Observable<AdminSettingsResponse> {
-    return this.http.get<AdminSettingsResponse>(`${environment.serverUrl}/admin/settings`);
+    return this.http.get<AdminSettingsResponse>(
+      `${environment.serverUrl}/admin/settings`
+    );
   }
 
   getLicense(): Observable<any> {
@@ -105,14 +144,23 @@ export class AdminService {
   }
 
   banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {
-    return this.http.post<UserInfo>(`${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`, { reason: userBanDetails.reason })
+    return this.http.post<UserInfo>(
+      `${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`,
+      { reason: userBanDetails.reason }
+    );
   }
 
   unbanUser(id: number): Observable<UserInfo> {
-    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/unban`, {})
+    return this.http.post<any>(
+      `${environment.serverUrl}/admin/users/${id}/unban`,
+      {}
+    );
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.post<any>(`${environment.serverUrl}/admin/users/${id}/delete`, {})
+    return this.http.post<any>(
+      `${environment.serverUrl}/admin/users/${id}/delete`,
+      {}
+    );
   }
 }

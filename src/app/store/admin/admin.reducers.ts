@@ -9,7 +9,7 @@ import {
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
   UNBAN_USER_SUCCESS,
-} from './admin.actions'
+} from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
 const initialState: AdminState = {
@@ -28,66 +28,68 @@ export function adminReducers(state = initialState, action: actions) {
     case LOAD_USERS_SUCCESS:
       return {
         ...state,
-        users: action.payload
+        users: action.payload,
       };
     case LOAD_ADVERTISERS_SUCCESS:
       return {
         ...state,
-        advertisers: action.payload
+        advertisers: action.payload,
       };
     case LOAD_PUBLISHERS_SUCCESS:
       return {
         ...state,
-        publishers: action.payload
+        publishers: action.payload,
       };
     case GET_LICENSE_SUCCESS:
       if (action.payload.status !== 1) {
         return {
           ...state,
           license: action.payload,
-          panelBlockade: true
+          panelBlockade: true,
         };
       }
       return {
         ...state,
         license: action.payload,
-        panelBlockade: false
+        panelBlockade: false,
       };
 
     case GET_LICENSE_FAILURE:
       return {
         ...state,
         license: null,
-        panelBlockade: false
+        panelBlockade: false,
       };
     case LOAD_ADMIN_SETTINGS_SUCCESS:
       return {
         ...state,
-        settings: action.payload.settings
+        settings: action.payload.settings,
       };
     case BAN_USER_SUCCESS:
     case UNBAN_USER_SUCCESS:
-      const data = [...state.users.data]
-      const index = data.findIndex(user => user.id === action.payload.id)
-      data[index] = action.payload
+      const data = [...state.users.data];
+      const index = data.findIndex((user) => user.id === action.payload.id);
+      data[index] = action.payload;
 
       return {
         ...state,
         users: {
           ...state.users,
           data: data,
-        }
+        },
       };
 
     case DELETE_USER_SUCCESS:
-      const updatedListOfUsers = state.users.data.filter(user => user.id !== action.payload)
+      const updatedListOfUsers = state.users.data.filter(
+        (user) => user.id !== action.payload
+      );
       return {
         ...state,
         users: {
           ...state.users,
-          data: [...updatedListOfUsers]
-        }
-      }
+          data: [...updatedListOfUsers],
+        },
+      };
     default:
       return state;
   }

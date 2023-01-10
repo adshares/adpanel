@@ -4,7 +4,7 @@
   max-width: 1200px;
   margin: 24px auto 0;
 
-  & .ap-form-input__box:not(:last-child){
+  & .ap-form-input__box:not(:last-child) {
     margin-bottom: 24px;
   }
 
@@ -49,7 +49,6 @@
   & .ap-copy__hint {
     transform: translateY(-12px);
   }
-
 }
 
 .ap-form-input:disabled {

@@ -1,42 +1,52 @@
 <tr class="ref-link-list-item row justify-between">
   <td class="ref-link-settings__token">
     <a
-      href="{{getRefLinkUrl()}}"
+      href="{{ getRefLinkUrl() }}"
       target="_blank"
       rel="noopener nofollow noreferrer"
       title="Open referral link"
     >
       {{ refLink.token }}
-      <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--large"></fa-icon>
+      <fa-icon
+        [icon]="faExternalLinkSquareAlt"
+        class="ap-icon ap-icon--large"
+      ></fa-icon>
     </a>
-    <small *ngIf="refLink.validUntil">Valid until: {{ refLink.validUntil | formatDate:dateFormat }}</small>
+    <small *ngIf="refLink.validUntil"
+      >Valid until: {{ refLink.validUntil | formatDate : dateFormat }}</small
+    >
   </td>
   <td class="ref-link-settings__refund" *ngIf="refundEnabled">
-    {{ refundCommission | percent:'1.0-2' }} / {{ bonusCommission | percent:'1.0-2' }}
-    <div *ngIf="refLink.bonus">Bonus: {{ refLink.bonus | formatMoney:2 }}</div>
-    <small *ngIf="refLink.refundValidUntil">Valid until: {{ refLink.refundValidUntil | formatDate:dateFormat }}</small>
+    {{ refundCommission | percent : '1.0-2' }} /
+    {{ bonusCommission | percent : '1.0-2' }}
+    <div *ngIf="refLink.bonus">
+      Bonus: {{ refLink.bonus | formatMoney : 2 }}
+    </div>
+    <small *ngIf="refLink.refundValidUntil"
+      >Valid until:
+      {{ refLink.refundValidUntil | formatDate : dateFormat }}</small
+    >
   </td>
   <td class="ref-link-settings__comment">
-    <em>{{ refLink.comment || "-" }}</em>
+    <em>{{ refLink.comment || '-' }}</em>
   </td>
   <td class="ref-link-settings__usage">
     {{ refLink.usageCount }}
     <small *ngIf="refLink.singleUse">(single use)</small>
   </td>
   <td class="ref-link-settings__refunded" *ngIf="refundEnabled">
-    {{ refLink.refunded | formatMoney:4:crypto:code }}
+    {{ refLink.refunded | formatMoney : 4 : crypto : code }}
   </td>
   <td class="ref-link-settings__actions col justify-between">
-    <button
-      class="ap-btn ap-btn--x-small ap-btn--blue"
-      (click)="copyUrl()"
-    >Copy URL
+    <button class="ap-btn ap-btn--x-small ap-btn--blue" (click)="copyUrl()">
+      Copy URL
     </button>
     <button
       *ngIf="!refLink.used"
       class="ap-btn ap-btn--x-small ap-btn--danger"
       (click)="delete()"
-    >Delete
+    >
+      Delete
     </button>
   </td>
 </tr>

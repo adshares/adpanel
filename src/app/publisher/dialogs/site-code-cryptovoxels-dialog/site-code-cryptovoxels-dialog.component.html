@@ -1,33 +1,21 @@
 <mat-dialog-content class="text-center mat-dialog-content fill-height">
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="ap-heading ap-heading--h2"
-  >
-    Ad code
-  </h1>
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--h2">Ad code</h1>
 
   <div>
-    <p
-      class="ap-copy"
-    >
-      This code is intended for Cryptovoxels only.
-      Please copy the code and place it in creator.
+    <p class="ap-copy">
+      This code is intended for Cryptovoxels only. Please copy the code and
+      place it in creator.
     </p>
 
-    <div
-      *ngIf="loaded; else loadingSpinner"
-    >
-      <div
-        *ngIf="null !== code"
-      >
+    <div *ngIf="loaded; else loadingSpinner">
+      <div *ngIf="null !== code">
         <div class="row align-center">
           <label
             class="ap-copy ap-copy--bold col text-left"
             for="code-container-common"
-          >Paste this code in creator</label>
+            >Paste this code in creator</label
+          >
 
           <button
             class="code-copy-btn"
@@ -48,9 +36,10 @@
       <div
         *ngIf="null === code"
         class="row align-center ap-alert ap-copy ap-gray"
-        >
-          <img src="assets/images/error.svg" alt="Attention">
-          An error occurred. Make sure that you confirmed an account and connected the wallet.
+      >
+        <img src="assets/images/error.svg" alt="Attention" />
+        An error occurred. Make sure that you confirmed an account and connected
+        the wallet.
       </div>
     </div>
   </div>

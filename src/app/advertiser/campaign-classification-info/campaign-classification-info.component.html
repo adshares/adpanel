@@ -1,6 +1,6 @@
 <mat-chip-list
   *ngFor="let classification of classifications"
-  class="campaign-classification-info {{extended ? 'extended' : 'compact'}}"
+  class="campaign-classification-info {{ extended ? 'extended' : 'compact' }}"
 >
   <div class="row">
     <div class="ap-copy campaign-classification-info__status">
@@ -12,12 +12,14 @@
       >
         <fa-icon [icon]="icon(classification)"></fa-icon>
         <ng-container *ngIf="extended">
-          {{status(classification)}}
+          {{ status(classification) }}
         </ng-container>
       </span>
     </div>
     <ng-container *ngIf="extended && keywords(classification).length">
-      <div class="ap-copy campaign-classification-info__label">| categories:</div>
+      <div class="ap-copy campaign-classification-info__label">
+        | categories:
+      </div>
       <mat-chip
         *ngFor="let keyword of keywords(classification)"
         [matTooltip]="keyword.description"

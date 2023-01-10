@@ -5,8 +5,9 @@ import { fadeAnimation } from 'common/animations/fade.animation';
   selector: 'app-advertiser',
   templateUrl: './advertiser.component.html',
   styleUrls: ['./advertiser.component.scss'],
-  animations: [fadeAnimation]
+  animations: [fadeAnimation],
 })
 export class AdvertiserComponent {
-  getRouterOutletState = (outlet) => outlet.isActivated ? outlet.activatedRoute : '';
+  getRouterOutletState = (outlet) =>
+    outlet.isActivated ? outlet.activatedRoute : '';
 }

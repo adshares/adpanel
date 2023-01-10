@@ -7,10 +7,13 @@ import {
   ClearLastEditedSite,
   SaveSiteFiltering,
   SaveSiteOnlyAcceptedBanners,
-  UpdateSite
+  UpdateSite,
 } from 'store/publisher/publisher.actions';
 import { AppState } from 'models/app-state.model';
-import { TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
+import {
+  TargetingOption,
+  TargetingOptionValue,
+} from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
@@ -22,9 +25,12 @@ import { siteStatusEnum } from 'models/enum/site.enum';
 @Component({
   selector: 'app-edit-site-additional-targeting',
   templateUrl: './edit-site-additional-targeting.component.html',
-  styleUrls: ['./edit-site-additional-targeting.component.scss']
+  styleUrls: ['./edit-site-additional-targeting.component.scss'],
 })
-export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
+export class EditSiteAdditionalTargetingComponent
+  extends HandleSubscription
+  implements OnInit
+{
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;
@@ -49,8 +55,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
 
   ngOnInit(): void {
     this.createSiteMode = !!this.router.url.match('/create-site/');
-    this.targetingOptionsToAdd = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
-    this.targetingOptionsToExclude = cloneDeep(this.route.parent.snapshot.data.filteringOptions);
+    this.targetingOptionsToAdd = cloneDeep(
+      this.route.parent.snapshot.data.filteringOptions
+    );
+    this.targetingOptionsToExclude = cloneDeep(
+      this.route.parent.snapshot.data.filteringOptions
+    );
     this.getSiteFromStore();
   }
 
@@ -72,12 +82,18 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       this.store.dispatch(new ClearLastEditedSite());
       this.router.navigate(['/publisher', 'site', siteId]);
     } else {
-      this.router.navigate(['/publisher', 'create-site', this.getPreviousPath()])
+      this.router.navigate([
+        '/publisher',
+        'create-site',
+        this.getPreviousPath(),
+      ]);
     }
   }
 
-  private getPreviousPath (): string {
-    return this.site.medium !== 'metaverse' ? 'create-ad-units' : 'basic-information'
+  private getPreviousPath(): string {
+    return this.site.medium !== 'metaverse'
+      ? 'create-ad-units'
+      : 'basic-information';
   }
 
   get siteToSave(): Site {
@@ -86,12 +102,12 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
       excludes: [...this.excludedItems],
     };
 
-    const { adUnits, ...reducedSite } = this.site
+    const { adUnits, ...reducedSite } = this.site;
     return {
       ...reducedSite,
       filtering: parseTargetingForBackend(filtering),
       onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
-    }
+    };
   }
 
   updateSite(): void {
@@ -112,24 +128,26 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         ...this.site,
         onlyAcceptedBanners: this.isCheckedOnlyAcceptedBanners,
         status: siteStatusEnum.DRAFT,
-        filteringArray: chosenTargeting
+        filteringArray: chosenTargeting,
       };
       this.store.dispatch(new AddSiteToSites(this.site));
     } else {
       this.store.dispatch(new SaveSiteFiltering(chosenTargeting));
-      this.store.dispatch(new SaveSiteOnlyAcceptedBanners(this.isCheckedOnlyAcceptedBanners));
-      this.router.navigate(
-        ['/publisher', 'create-site', 'summary']
+      this.store.dispatch(
+        new SaveSiteOnlyAcceptedBanners(this.isCheckedOnlyAcceptedBanners)
       );
+      this.router.navigate(['/publisher', 'create-site', 'summary']);
     }
   }
 
   getSiteFromStore(): void {
-    const lastSiteSubscription = this.store.select('state', 'publisher', 'lastEditedSite')
+    const lastSiteSubscription = this.store
+      .select('state', 'publisher', 'lastEditedSite')
       .pipe(first())
       .subscribe((lastEditedSite: Site) => {
         this.site = lastEditedSite;
-        const siteUrlFilled = this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
+        const siteUrlFilled =
+          this.assetHelpers.redirectIfNameNotFilled(lastEditedSite);
 
         if (!siteUrlFilled) {
           this.changesSaved = true;
@@ -141,9 +159,11 @@ export class EditSiteAdditionalTargetingComponent extends HandleSubscription imp
         this.excludedItems = [...filtering.excludes];
 
         if (this.createSiteMode) {
-          this.isCheckedOnlyAcceptedBanners = !!this.route.snapshot.data.siteOptions.acceptBannersManually
+          this.isCheckedOnlyAcceptedBanners =
+            !!this.route.snapshot.data.siteOptions.acceptBannersManually;
         } else {
-          this.isCheckedOnlyAcceptedBanners = lastEditedSite.onlyAcceptedBanners
+          this.isCheckedOnlyAcceptedBanners =
+            lastEditedSite.onlyAcceptedBanners;
         }
       });
     this.subscriptions.push(lastSiteSubscription);

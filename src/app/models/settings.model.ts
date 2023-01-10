@@ -1,5 +1,5 @@
-import { Moment } from 'moment'
-import { UserAdserverWallet } from 'models/user.model'
+import { Moment } from 'moment';
+import { UserAdserverWallet } from 'models/user.model';
 
 interface BillingHistoryItem {
   amount: number;
@@ -230,9 +230,9 @@ interface PaginatorResponse<T> {
   lastPage: number;
   lastPageUrl: string;
   links: {
-    active: boolean,
-    label: string,
-    url: string,
+    active: boolean;
+    label: string;
+    url: string;
   }[];
   nextPageUrl: string | null;
   path: string;
@@ -277,8 +277,8 @@ interface WalletToken {
   token: string;
   message: string;
   gateways: {
-    bsc: WalletGateway
-  }
+    bsc: WalletGateway;
+  };
 }
 
 interface UserBanDetails {
@@ -320,4 +320,4 @@ export {
   WalletGateway,
   WalletToken,
   UserBanDetails,
-}
+};

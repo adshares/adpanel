@@ -26,33 +26,41 @@ export class AdListItemComponent {
     private advertiserService: AdvertiserService,
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private router: Router) {
-  }
+    private router: Router
+  ) {}
 
   changeAdStatus(active: boolean): void {
-    const previousStatus = this.ad.status
-    this.ad.status =
-      active ? this.adStatusesEnum.ACTIVE : this.adStatusesEnum.INACTIVE;
+    const previousStatus = this.ad.status;
+    this.ad.status = active
+      ? this.adStatusesEnum.ACTIVE
+      : this.adStatusesEnum.INACTIVE;
 
-    this.advertiserService.updateAdStatus(this.campaign.id, this.ad.id, this.ad.status).subscribe(
-      () => {
-        this.store.dispatch(new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS));
-      },
-      (err: HttpErrorResponse) => {
-        this.ad.status = previousStatus;
-        if (err.status !== HTTP_INTERNAL_SERVER_ERROR) {
-          this.dialog.open(ErrorResponseDialogComponent, {
-            data: {
-              title: `Error during status change`,
-              message: `Change is not available at this moment. Please, try again later.`,
-            }
-          });
+    this.advertiserService
+      .updateAdStatus(this.campaign.id, this.ad.id, this.ad.status)
+      .subscribe(
+        () => {
+          this.store.dispatch(new ShowSuccessSnackbar(STATUS_SAVE_SUCCESS));
+        },
+        (err: HttpErrorResponse) => {
+          this.ad.status = previousStatus;
+          if (err.status !== HTTP_INTERNAL_SERVER_ERROR) {
+            this.dialog.open(ErrorResponseDialogComponent, {
+              data: {
+                title: `Error during status change`,
+                message: `Change is not available at this moment. Please, try again later.`,
+              },
+            });
+          }
         }
-      }
-    );
+      );
   }
 
   navigateToAdEdition(): void {
-    this.router.navigate(['/advertiser', 'edit-campaign', this.campaign.id, 'create-ad']);
+    this.router.navigate([
+      '/advertiser',
+      'edit-campaign',
+      this.campaign.id,
+      'create-ad',
+    ]);
   }
 }

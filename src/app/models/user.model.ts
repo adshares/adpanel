@@ -20,7 +20,7 @@ interface ExchangeRate {
 }
 
 interface User {
-  id: number
+  id: number;
   email: string;
   hasPassword: boolean;
   isAdvertiser: boolean;
@@ -29,8 +29,8 @@ interface User {
   isModerator: boolean;
   isAgency: boolean;
   isEmailConfirmed: boolean;
-  isAdminConfirmed: boolean,
-  isConfirmed: boolean,
+  isAdminConfirmed: boolean;
+  isConfirmed: boolean;
   isSubscribed: boolean;
   password: string;
   apiToken?: string;
@@ -51,4 +51,10 @@ interface LocalStorageUser extends User {
   expiration: number;
 }
 
-export { OAuthAuthorizeResponse, UserAdserverWallet, User, LocalStorageUser, ExchangeRate }
+export {
+  OAuthAuthorizeResponse,
+  UserAdserverWallet,
+  User,
+  LocalStorageUser,
+  ExchangeRate,
+};

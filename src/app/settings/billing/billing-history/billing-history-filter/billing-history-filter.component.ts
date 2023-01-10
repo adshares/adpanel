@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { HandleSubscription } from 'common/handle-subscription';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import * as moment from 'moment';
-import { enumToObjectArray } from "common/utilities/helpers";
+import { enumToObjectArray } from 'common/utilities/helpers';
 import { BillingHistoryFilter } from 'models/settings.model';
 import { billingHistoryItemTypeEnum } from 'models/enum/billing-history.enum';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
@@ -14,9 +20,12 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-billing-history-filter',
   templateUrl: './billing-history-filter.component.html',
   styleUrls: ['./billing-history-filter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BillingHistoryFilterComponent extends HandleSubscription implements OnInit {
+export class BillingHistoryFilterComponent
+  extends HandleSubscription
+  implements OnInit
+{
   @Output() filter: EventEmitter<BillingHistoryFilter> = new EventEmitter();
   @Output('closed') closedStream: EventEmitter<boolean>;
   @Output('opened') openedStream: EventEmitter<boolean>;
@@ -36,15 +45,18 @@ export class BillingHistoryFilterComponent extends HandleSubscription implements
   constructor(private store: Store<AppState>) {
     super();
 
-    this.transactionTypes = BillingHistoryFilterComponent.prepareTransactionTypes();
+    this.transactionTypes =
+      BillingHistoryFilterComponent.prepareTransactionTypes();
   }
 
   private static prepareTransactionTypes(): any[] {
     let types = enumToObjectArray(billingHistoryItemTypeEnum);
-    types.shift();// remove UNKNOWN type
+    types.shift(); // remove UNKNOWN type
 
     types = types.map(function (item) {
-      item.name = item.name.charAt(0).toUpperCase() + item.name.slice(1).replace('_', ' ');
+      item.name =
+        item.name.charAt(0).toUpperCase() +
+        item.name.slice(1).replace('_', ' ');
       item.checked = false;
 
       return item;
@@ -54,7 +66,8 @@ export class BillingHistoryFilterComponent extends HandleSubscription implements
   }
 
   ngOnInit() {
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
+    const chartFilterSubscription = this.store
+      .select('state', 'common', 'chartFilterSettings')
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.currentChartFilterSettings = chartFilterSettings;
       });
@@ -89,13 +102,16 @@ export class BillingHistoryFilterComponent extends HandleSubscription implements
   }
 
   onCheckboxChange($event, id: number): void {
-    this.transactionTypes.find((element) => element.id === id).checked = $event.checked;
+    this.transactionTypes.find((element) => element.id === id).checked =
+      $event.checked;
     this.isCheckedAll = false;
   }
 
   onCheckboxAllChange($event): void {
     this.isCheckedAll = $event.checked;
-    this.transactionTypes.forEach((element) => element.checked = this.isCheckedAll);
+    this.transactionTypes.forEach(
+      (element) => (element.checked = this.isCheckedAll)
+    );
   }
 
   showDatepicker() {
@@ -111,6 +127,6 @@ export class BillingHistoryFilterComponent extends HandleSubscription implements
   setCalendarStatus(status) {
     setTimeout(() => {
       this.calendarOpened = status;
-    }, 500)
+    }, 500);
   }
 }

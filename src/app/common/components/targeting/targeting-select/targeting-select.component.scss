@@ -26,16 +26,13 @@
   }
 
   &__option {
-    @include copy(
-      $color: pal(primary),
-      $font-weight: semiBold
-    );
+    @include copy($color: pal(primary), $font-weight: semiBold);
     @include container(
       $border-color: pal(gray),
       $padding-vertical: 8px,
       $padding-horizontal: 15px,
       $margin-top: 4px,
-      $border-radius: 10px,
+      $border-radius: 10px
     );
     cursor: pointer;
     position: relative;
@@ -59,6 +56,6 @@
   }
 
   &__parent-option {
-    @include copy($font-size: 14)
+    @include copy($font-size: 14);
   }
 }

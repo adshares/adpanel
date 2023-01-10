@@ -1,26 +1,19 @@
 <section class="preferences auto-withdraw">
-  <div
-    class="
-      ap-box
-      ap-box--large"
-  >
-    <h2 class="auto-withdraw__title">
-      Auto withdrawal settings
-    </h2>
+  <div class="ap-box ap-box--large">
+    <h2 class="auto-withdraw__title">Auto withdrawal settings</h2>
 
-    <div
-      class="error-msg"
-      *ngIf="isImpersonated"
-    >
+    <div class="error-msg" *ngIf="isImpersonated">
       You cannot change user preferences during impersonation.
     </div>
 
     <div class="auto-withdraw__content-container" *ngIf="!isImpersonated">
       <span class="warning-msg" *ngIf="!isAutoWithdrawalAvailable">
-        To enable automatic withdrawals, you must first connect your account to ADS or BSC wallet.
+        To enable automatic withdrawals, you must first connect your account to
+        ADS or BSC wallet.
       </span>
       <span class="warning-msg" *ngIf="isAutoWithdrawalAvailable">
-        Automatic withdrawals applies to all incoming funds, including deposits. This setting is not recommended for advertisers.
+        Automatic withdrawals applies to all incoming funds, including deposits.
+        This setting is not recommended for advertisers.
       </span>
       <form
         [formGroup]="autoWithdrawalForm"
@@ -36,15 +29,11 @@
             Automatic withdrawal
           </mat-checkbox>
         </div>
-        <div
-          class="ap-form-input__box"
-          *ngIf="showAutoWithdrawalForm"
-        >
-          <label
-            for="limit"
-            class="ap-form-label"
-          >
-            The threshold at which the funds will be withdrawn ({{currencyCode}})
+        <div class="ap-form-input__box" *ngIf="showAutoWithdrawalForm">
+          <label for="limit" class="ap-form-label">
+            The threshold at which the funds will be withdrawn ({{
+              currencyCode
+            }})
           </label>
           <input
             id="limit"
@@ -53,23 +42,23 @@
             name="limit"
             formControlName="limit"
             class="ap-form-input admin-param__input"
-          >
+          />
           <span
             class="input-valid"
             *ngIf="autoWithdrawalForm.get('limit').valid"
           ></span>
           <span
             class="error-msg"
-            *ngIf="autoWithdrawalForm.hasError('required', ['limit']) && autoWithdrawalFormSubmitted"
+            *ngIf="
+              autoWithdrawalForm.hasError('required', ['limit']) &&
+              autoWithdrawalFormSubmitted
+            "
           >
-              Threshold is required!
-            </span>
-          <span
-            class="error-msg"
-            *ngIf="errorWithdrawalSave"
-          >
-              {{errorWithdrawalSave}}
-            </span>
+            Threshold is required!
+          </span>
+          <span class="error-msg" *ngIf="errorWithdrawalSave">
+            {{ errorWithdrawalSave }}
+          </span>
         </div>
         <button
           class="ap-btn ap-btn--blue"

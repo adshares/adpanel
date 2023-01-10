@@ -1,23 +1,21 @@
-<div class="targeting-custom-option__form"
-     role="form"
-     [ngClass]="{'targeting-custom-option__form--input-hidden': !inputShown}"
-     (click)="showInput()"
+<div
+  class="targeting-custom-option__form"
+  role="form"
+  [ngClass]="{ 'targeting-custom-option__form--input-hidden': !inputShown }"
+  (click)="showInput()"
 >
-  <label class="
-        targeting-custom-option__label
-        align-center
-        ap-copy
-        ap-copy--x-dark
-        ap-copy--semi"
-         [ngClass]="{'targeting-custom-option__label--input-shown': inputShown}"
+  <label
+    class="targeting-custom-option__label align-center ap-copy ap-copy--x-dark ap-copy--semi"
+    [ngClass]="{ 'targeting-custom-option__label--input-shown': inputShown }"
   >
-    {{option.label}}
+    {{ option.label }}
   </label>
 
-  <button *ngIf="!inputShown"
-          class="targeting-custom-option__btn
-                 targeting-custom-option__btn--show"
-          title="Click to show option input">
+  <button
+    *ngIf="!inputShown"
+    class="targeting-custom-option__btn targeting-custom-option__btn--show"
+    title="Click to show option input"
+  >
     <mat-icon>add_circle_outline</mat-icon>
   </button>
 
@@ -27,40 +25,42 @@
   >
     <mat-form-field>
       <mat-chip-list #chipList>
-        <mat-chip *ngFor="let option of customOptionsArray"
-                  [selectable]="true"
-                  [removable]="true"
-                  (removed)="remove(option)">
-          {{option.label}}
+        <mat-chip
+          *ngFor="let option of customOptionsArray"
+          [selectable]="true"
+          [removable]="true"
+          (removed)="remove(option)"
+        >
+          {{ option.label }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-        <input #input
-               [matChipInputFor]="chipList"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="true"
-               (matChipInputTokenEnd)="add($event)"
-               (keyup.enter)="saveCustomTargetingOptions()">
+        <input
+          #input
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="add($event)"
+          (keyup.enter)="saveCustomTargetingOptions()"
+        />
       </mat-chip-list>
     </mat-form-field>
 
-    <button class="targeting-custom-option__btn
-                   targeting-custom-option__btn--add"
-            title="Add custom option"
-            (click)="saveCustomTargetingOptions()">
+    <button
+      class="targeting-custom-option__btn targeting-custom-option__btn--add"
+      title="Add custom option"
+      (click)="saveCustomTargetingOptions()"
+    >
       <mat-icon class="material-icons">add_circle_outline</mat-icon>
     </button>
   </div>
 
   <div
-    *ngIf="inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES"
+    *ngIf="
+      inputShown && option.valueType === TargetingOptionType.PARCEL_COORDINATES
+    "
     class="col"
   >
-    <label
-      for="coordinate-x"
-      class="ap-form-label"
-    >
-      Coordinate X
-    </label>
+    <label for="coordinate-x" class="ap-form-label"> Coordinate X </label>
     <input
       #input
       id="coordinate-x"
@@ -69,13 +69,8 @@
       type="number"
       step="1"
       required
-    >
-    <label
-      for="coordinate-y"
-      class="ap-form-label"
-    >
-      Coordinate Y
-    </label>
+    />
+    <label for="coordinate-y" class="ap-form-label"> Coordinate Y </label>
     <input
       #inputCoordinationY
       id="coordinate-y"
@@ -85,19 +80,25 @@
       step="1"
       (keyup.enter)="saveCustomParcel(input.value, inputCoordinationY.value)"
       required
-    >
+    />
     <span
-      *ngIf="saveRequested && !(input.validity.valid && inputCoordinationY.validity.valid)"
+      *ngIf="
+        saveRequested &&
+        !(input.validity.valid && inputCoordinationY.validity.valid)
+      "
       class="error-msg"
     >
       Both coordinates must be set.
     </span>
-    <div
-       class="ap-box ap-box--small ap-box--no-border row justify-end"
-    >
+    <div class="ap-box ap-box--small ap-box--no-border row justify-end">
       <button
         class="ap-btn ap-btn--primary"
-        (click)="(saveRequested = true) && input.validity.valid && inputCoordinationY.validity.valid && saveCustomParcel(input.value, inputCoordinationY.value)"
+        (click)="
+          (saveRequested = true) &&
+            input.validity.valid &&
+            inputCoordinationY.validity.valid &&
+            saveCustomParcel(input.value, inputCoordinationY.value)
+        "
       >
         Add
       </button>

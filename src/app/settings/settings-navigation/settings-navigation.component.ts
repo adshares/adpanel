@@ -1,11 +1,11 @@
-import { Component } from '@angular/core'
-import { SessionService } from 'app/session.service'
-import { LocalStorageUser, UserAdserverWallet } from 'models/user.model'
-import { Store } from '@ngrx/store'
-import { AppState } from 'models/app-state.model'
-import { HandleSubscription } from 'common/handle-subscription'
-import { CODE, CRYPTO } from 'common/utilities/consts'
-import { ServerOptionsService } from 'common/server-options.service'
+import { Component } from '@angular/core';
+import { SessionService } from 'app/session.service';
+import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'models/app-state.model';
+import { HandleSubscription } from 'common/handle-subscription';
+import { CODE, CRYPTO } from 'common/utilities/consts';
+import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
   selector: 'app-settings-navigation',
@@ -13,20 +13,20 @@ import { ServerOptionsService } from 'common/server-options.service'
   styleUrls: ['./settings-navigation.component.scss'],
 })
 export class SettingsNavigationComponent extends HandleSubscription {
-  crypto: string = CRYPTO
-  code: string = CODE
-  calculateFunds: boolean
-  wallet: UserAdserverWallet
-  totalFunds: number
-  user: LocalStorageUser
-  settings = []
+  crypto: string = CRYPTO;
+  code: string = CODE;
+  calculateFunds: boolean;
+  wallet: UserAdserverWallet;
+  totalFunds: number;
+  user: LocalStorageUser;
+  settings = [];
 
-  constructor (
+  constructor(
     private serverOptionsService: ServerOptionsService,
     private session: SessionService,
-    private store: Store<AppState>,
+    private store: Store<AppState>
   ) {
-    super()
+    super();
 
     if (session.isModerator()) {
       this.settings.push({
@@ -39,7 +39,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
           { name: 'Advertisers', icon: 'assets/images/user-gray.svg' },
           { name: 'Reports', icon: 'assets/images/user-gray.svg' },
         ],
-      })
+      });
     }
 
     if (session.isAgency()) {
@@ -52,7 +52,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
           { name: 'Publishers', icon: 'assets/images/user-gray.svg' },
           { name: 'Reports', icon: 'assets/images/user-gray.svg' },
         ],
-      })
+      });
     }
 
     this.settings.push({
@@ -66,7 +66,7 @@ export class SettingsNavigationComponent extends HandleSubscription {
         { name: 'Access tokens', icon: 'assets/images/preferences.svg' },
         { name: 'Newsletter', icon: 'assets/images/preferences.svg' },
       ],
-    })
+    });
 
     if (!session.isModerator()) {
       this.settings.push({
@@ -77,27 +77,26 @@ export class SettingsNavigationComponent extends HandleSubscription {
           { name: 'Your wallet', icon: 'assets/images/wallet--gray.svg' },
           { name: 'Billing history', icon: 'assets/images/history.svg' },
         ],
-      })
+      });
       this.settings.push({
         title: 'Reports',
         description: '',
         link: '/settings/reports',
-        values: [
-          { name: 'Reports', icon: 'assets/images/chevron--gray.svg' },
-        ],
-      })
+        values: [{ name: 'Reports', icon: 'assets/images/chevron--gray.svg' }],
+      });
     }
   }
 
-  ngOnInit (): void {
-    const options = this.serverOptionsService.getOptions()
-    this.calculateFunds = options.displayCurrency !== options.appCurrency
+  ngOnInit(): void {
+    const options = this.serverOptionsService.getOptions();
+    this.calculateFunds = options.displayCurrency !== options.appCurrency;
 
-    this.user = this.session.getUser()
-    const userDataStateSubscription = this.store.select('state', 'user', 'data',
-      'adserverWallet', 'totalFunds').subscribe((totalFunds: number) => {
-      this.totalFunds = totalFunds
-    })
-    this.subscriptions.push(userDataStateSubscription)
+    this.user = this.session.getUser();
+    const userDataStateSubscription = this.store
+      .select('state', 'user', 'data', 'adserverWallet', 'totalFunds')
+      .subscribe((totalFunds: number) => {
+        this.totalFunds = totalFunds;
+      });
+    this.subscriptions.push(userDataStateSubscription);
   }
 }

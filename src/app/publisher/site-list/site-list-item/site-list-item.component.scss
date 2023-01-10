@@ -7,10 +7,10 @@
 
     .ap-status {
       border-radius: 10px;
-      &[data-status="active"] {
+      &[data-status='active'] {
         background-color: pal(success, light);
       }
-      &[data-status="inactive"] {
+      &[data-status='inactive'] {
         background-color: pal(secondary, light);
       }
     }

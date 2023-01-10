@@ -1,34 +1,12 @@
 <section
-  class="
-    ap-advertiser-wrapper
-    dashboard-view"
+  class="ap-advertiser-wrapper dashboard-view"
   *ngIf="campaignsLoaded; else loading"
 >
   <div class="container">
-    <div
-      class="
-        row
-        no-gutters
-        justify-between"
-    >
-      <div
-        class="
-          col-xs-12
-          col-md-3"
-      >
-        <h1
-          class="
-            ap-heading
-            ap-heading--h2"
-        >
-          My campaigns
-        </h1>
-        <p
-          class="
-            ap-copy"
-        >
-          List of all campaigns
-        </p>
+    <div class="row no-gutters justify-between">
+      <div class="col-xs-12 col-md-3">
+        <h1 class="ap-heading ap-heading--h2">My campaigns</h1>
+        <p class="ap-copy">List of all campaigns</p>
       </div>
     </div>
 
@@ -36,14 +14,9 @@
       <div class="ap-box">
         <div class="row">
           <div class="col-xs-3">
-            <a
-              (click)="downloadReport()"
-            >
+            <a (click)="downloadReport()">
               <button
-                class="
-                  ap-btn
-                  ap-btn--primary
-                  ap-copy--dark"
+                class="ap-btn ap-btn--primary ap-copy--dark"
                 data-test="advertiser-download-report-button"
               >
                 Generate a report
@@ -59,25 +32,18 @@
           <div class="col-xs-3">
             <app-chart-filter
               *ngIf="!!campaigns.length"
-              (filter)="appChartRef.updateChartData($event); loadCampaigns($event.from, $event.to)"
+              (filter)="
+                appChartRef.updateChartData($event);
+                loadCampaigns($event.from, $event.to)
+              "
             ></app-chart-filter>
           </div>
         </div>
         <div
-          class="
-            dashboard__chart-wrapper
-            row
-            align-center
-            justify-center
-            chart-wrapper"
+          class="dashboard__chart-wrapper row align-center justify-center chart-wrapper"
         >
           <app-chart
-            class="
-              dashboard__chart
-              chart
-              row
-              align-center
-              justify-center"
+            class="dashboard__chart chart row align-center justify-center"
             (update)="getChartData($event)"
             [barChartData]="barChartData"
             [barChartLabels]="barChartLabels"
@@ -93,50 +59,26 @@
 
     <div *ngIf="!campaigns.length">
       <div
-        class="
-          ap-box
-          ap-box--large
-          col
-          align-center
-          justify-center
-          text-center
-          create-new-campaign-wrapper"
+        class="ap-box ap-box--large col align-center justify-center text-center create-new-campaign-wrapper"
       >
         <img
           src="/assets/images/advertiser-account-illustration.svg"
-          alt="Advertiser Account Illustration">
+          alt="Advertiser Account Illustration"
+        />
         <div class="ap-customize__box-description">
-          <h2
-            class="
-              ap-heading
-              ap-heading--h2"
-          >
-            Create your first campaign
-          </h2>
+          <h2 class="ap-heading ap-heading--h2">Create your first campaign</h2>
         </div>
         <a
           routerLink="/advertiser/create-campaign/basic-information"
           data-test="advertiser-create-new-campaign"
         >
-          <button
-            class="
-              row
-              align-center
-              ap-btn
-              ap-btn--primary"
-          >
+          <button class="row align-center ap-btn ap-btn--primary">
             <img
               src="assets/images/plus-circle--blue.svg"
               alt="Add new"
-              class="
-                ap-icon
-                ap-icon--prepend"
-            >
-            <span
-              class="ap-heading"
-            >
-              Create now
-            </span>
+              class="ap-icon ap-icon--prepend"
+            />
+            <span class="ap-heading"> Create now </span>
           </button>
         </a>
       </div>

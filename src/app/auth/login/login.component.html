@@ -3,101 +3,89 @@
     <mat-spinner [diameter]="16" [strokeWidth]="2"></mat-spinner>
   </ng-template>
   <div class="ap-login__header">
-    <h2
-        class="
-        ap-heading
-        ap-heading--h2
-        ap-heading--h3"
-    >
-      Hello!
-    </h2>
-    <p
-        class="
-        ap-copy
-        ap-copy--white"
-    >
-      Please log in to your account.
-    </p>
+    <h2 class="ap-heading ap-heading--h2 ap-heading--h3">Hello!</h2>
+    <p class="ap-copy ap-copy--white">Please log in to your account.</p>
   </div>
-  
+
   <div class="ap-login__content">
     <form
-        (ngSubmit)="login()"
-        [formGroup]="loginForm"
-        class="ap-form"
-        data-test="auth-login-form"
+      (ngSubmit)="login()"
+      [formGroup]="loginForm"
+      class="ap-form"
+      data-test="auth-login-form"
     >
-      <div
-          *ngIf="criteriaError && loginFormSubmitted"
-          class="error-msg"
-      >
+      <div *ngIf="criteriaError && loginFormSubmitted" class="error-msg">
         Password or email is invalid.
       </div>
       <div class="ap-form-input__box">
-        <label
-            class="ap-form-label"
-            for="email"
-        >
-          Email address
-        </label>
+        <label class="ap-form-label" for="email"> Email address </label>
         <input
-            class="ap-form-input ap-form-input--full"
-            data-test="auth-login-form-email"
-            formControlName="email"
-            id="email"
-            name="email"
-            type="email"
-        >
+          class="ap-form-input ap-form-input--full"
+          data-test="auth-login-form-email"
+          formControlName="email"
+          id="email"
+          name="email"
+          type="email"
+        />
         <span
-            *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
-            class="input-valid"
+          *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
+          class="input-valid"
         ></span>
         <span
-            *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
-            class="error-msg"
+          *ngIf="
+            loginForm.hasError('required', ['email']) && loginFormSubmitted
+          "
+          class="error-msg"
         >
           Email required!
         </span>
         <span
-            *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
-            class="error-msg"
+          *ngIf="
+            !loginForm.hasError('required', ['email']) &&
+            loginFormSubmitted &&
+            loginForm.hasError('email', ['email']) &&
+            loginFormSubmitted
+          "
+          class="error-msg"
         >
           Invalid email!
         </span>
       </div>
-      
+
       <div class="ap-form-input__box">
-        <label
-            class="ap-form-label"
-            for="password"
-        >
-          Password
-        </label>
+        <label class="ap-form-label" for="password"> Password </label>
         <input
-            class="ap-form-input ap-form-input--full"
-            data-test="auth-login-form-password"
-            formControlName="password"
-            id="password"
-            name="password"
-            type="password"
-        >
+          class="ap-form-input ap-form-input--full"
+          data-test="auth-login-form-password"
+          formControlName="password"
+          id="password"
+          name="password"
+          type="password"
+        />
         <span
-            *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
-            class="input-valid"
+          *ngIf="
+            loginForm.get('password').valid && loginForm.get('password').touched
+          "
+          class="input-valid"
         ></span>
         <span
-            *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted"
-            class="error-msg">
-            Minimum 8 signs required!
+          *ngIf="
+            loginForm.hasError('minlength', ['password']) && loginFormSubmitted
+          "
+          class="error-msg"
+        >
+          Minimum 8 signs required!
         </span>
         <span
-            *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
-            class="error-msg"
+          *ngIf="
+            loginForm.hasError('required', ['password']) && loginFormSubmitted
+          "
+          class="error-msg"
         >
           Password required
         </span>
       </div>
-      
+
       <div class="row align-center justify-end">
         <!--
                   <div
@@ -126,97 +114,98 @@
                   </div>
         -->
         <a
-            class="ap-copy"
-            data-test="auth-redirect-to-forgotten-password"
-            routerLink="/auth/forgotten-password"
+          class="ap-copy"
+          data-test="auth-redirect-to-forgotten-password"
+          routerLink="/auth/forgotten-password"
         >
           Forgot password?
         </a>
       </div>
-      
+
       <button
-          class="ap-btn ap-btn--primary ap-form-submit-btn"
-          data-test="auth-login-form-submit-button"
+        class="ap-btn ap-btn--primary ap-form-submit-btn"
+        data-test="auth-login-form-submit-button"
       >
-        <ng-container *ngIf="!isLoggingIn ; else loading">Log In</ng-container>
+        <ng-container *ngIf="!isLoggingIn; else loading">Log In</ng-container>
       </button>
     </form>
-    
+
     <div class="login-buttons">
       <p class="ap-copy">or login with</p>
       <div class="row row--gap32 justify-between">
         <button
-            *ngIf="adsWalletAvailable"
-            class="ap-btn ap-btn--secondary alt-login-btn"
-            (click)="initWalletLogin('ADS')"
-            [disabled]="isAdsLoggingIn"
+          *ngIf="adsWalletAvailable"
+          class="ap-btn ap-btn--secondary alt-login-btn"
+          (click)="initWalletLogin('ADS')"
+          [disabled]="isAdsLoggingIn"
         >
-          <img src="/assets/images/ads.svg" alt="ADS">
+          <img src="/assets/images/ads.svg" alt="ADS" />
           <ng-container *ngIf="!isAdsLoggingIn; else loading">
             ADS Wallet
           </ng-container>
         </button>
         <a
-            *ngIf="!adsWalletAvailable"
-            class="ap-btn ap-btn--danger"
-            href="{{ADSHARES_WALLET}}"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
+          *ngIf="!adsWalletAvailable"
+          class="ap-btn ap-btn--danger"
+          href="{{ ADSHARES_WALLET }}"
+          rel="noopener noreferrer nofollow"
+          target="_blank"
         >
           Install ADS Wallet first!
         </a>
         <button
-            *ngIf="ethereumAvailable"
-            class="ap-btn alt-login-btn ap-btn--secondary"
-            (click)="initWalletLogin('BSC')"
-            [disabled]="isBscLoggingIn"
+          *ngIf="ethereumAvailable"
+          class="ap-btn alt-login-btn ap-btn--secondary"
+          (click)="initWalletLogin('BSC')"
+          [disabled]="isBscLoggingIn"
         >
-          <img src="/assets/images/metamask.svg" alt="MetaMask">
+          <img src="/assets/images/metamask.svg" alt="MetaMask" />
           <ng-container *ngIf="!isBscLoggingIn; else loading">
             MetaMask
           </ng-container>
         </button>
         <a
-            *ngIf="!ethereumAvailable"
-            class="ap-btn ap-btn--danger"
-            href="{{METAMASK_WALLET}}"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
+          *ngIf="!ethereumAvailable"
+          class="ap-btn ap-btn--danger"
+          href="{{ METAMASK_WALLET }}"
+          rel="noopener noreferrer nofollow"
+          target="_blank"
         >
           Install Metamask first!
         </a>
-        <br/>
-        <div class="error-msg" *ngIf="walletLoginError">{{walletLoginError}}</div>
+        <br />
+        <div class="error-msg" *ngIf="walletLoginError">
+          {{ walletLoginError }}
+        </div>
       </div>
     </div>
-    
+
     <p class="ap-copy" *ngIf="registrationMode !== 'private'">
       Don't have an account?
       <a
-          *ngIf="registrationMode === 'public'"
-          class="ap-blue"
-          data-test="auth-redirect-to-registration"
-          routerLink="/auth/register"
+        *ngIf="registrationMode === 'public'"
+        class="ap-blue"
+        data-test="auth-redirect-to-registration"
+        routerLink="/auth/register"
       >
         Register
       </a>
       <a
-          *ngIf="registrationMode === 'restricted' && advertiserApplyFormUrl"
-          class="ap-blue block-link"
-          data-test="auth-redirect-to-registration"
-          [href]="advertiserApplyFormUrl"
+        *ngIf="registrationMode === 'restricted' && advertiserApplyFormUrl"
+        class="ap-blue block-link"
+        data-test="auth-redirect-to-registration"
+        [href]="advertiserApplyFormUrl"
       >
         Apply as Advertiser
       </a>
       <a
-          *ngIf="registrationMode === 'restricted' && publisherApplyFormUrl"
-          class="ap-blue block-link"
-          data-test="auth-redirect-to-registration"
-          [href]="publisherApplyFormUrl"
+        *ngIf="registrationMode === 'restricted' && publisherApplyFormUrl"
+        class="ap-blue block-link"
+        data-test="auth-redirect-to-registration"
+        [href]="publisherApplyFormUrl"
       >
         Apply as Publisher
       </a>
     </p>
-  
   </div>
 </div>

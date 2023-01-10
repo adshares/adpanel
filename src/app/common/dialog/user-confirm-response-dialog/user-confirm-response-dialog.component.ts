@@ -25,18 +25,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./user-confirm-response-dialog.component.scss'],
 })
 export class UserConfirmResponseDialogComponent {
-
   title = 'Confirm';
   message = 'Do You confirm?';
 
   constructor(
     public dialogRef: MatDialogRef<UserConfirmResponseDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit() {
-    this.message = (this.data && this.data.message) ? this.data.message : this.message;
-    this.title = (this.data && this.data.title) ? this.data.title : this.title;
+    this.message =
+      this.data && this.data.message ? this.data.message : this.message;
+    this.title = this.data && this.data.title ? this.data.title : this.title;
   }
 }

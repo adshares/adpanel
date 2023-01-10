@@ -32,10 +32,10 @@ import { PublisherListComponent } from 'admin/users/publisher-list/publisher-lis
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { BanUserDialogComponent } from './dialog/ban-user-dialog/ban-user-dialog.component';
-import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component'
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatButtonModule } from '@angular/material/button'
+import { DeleteUserDialogComponent } from './dialog/delete-user-dialog/delete-user-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -62,11 +62,7 @@ import { MatButtonModule } from '@angular/material/button'
     MatMenuModule,
     MatButtonModule,
   ],
-  providers: [
-    AdminGuard,
-    ClickToADSPipe,
-    ImpersonationService,
-  ],
+  providers: [AdminGuard, ClickToADSPipe, ImpersonationService],
   declarations: [
     AdminComponent,
     DashboardComponent,
@@ -84,5 +80,4 @@ import { MatButtonModule } from '@angular/material/button'
     DeleteUserDialogComponent,
   ],
 })
-export class AdminModule {
-}
+export class AdminModule {}

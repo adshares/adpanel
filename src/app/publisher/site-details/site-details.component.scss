@@ -1,7 +1,6 @@
 @import '../../../styles.scss';
 
 .site-details {
-
   .box-margin {
     margin-bottom: 24px;
   }
@@ -26,9 +25,8 @@
   }
 
   .ap-heading--primary small {
-
     &:before {
-      content: " - ";
+      content: ' - ';
     }
   }
 

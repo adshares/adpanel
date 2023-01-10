@@ -1,7 +1,7 @@
 type Entry = {
-  key: string
-  value: string
-}
+  key: string;
+  value: string;
+};
 
 interface TargetingOption {
   id?: string;
@@ -20,7 +20,7 @@ const TargetingOptionType = {
   GROUP: 'group',
   STRING: 'string',
   PARCEL_COORDINATES: 'parcel_coordinates',
-}
+};
 
 interface TargetingOptionValue {
   id: string;

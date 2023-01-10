@@ -3,10 +3,8 @@
   <td class="col-xs-5">{{ scopes }}</td>
   <td class="col-xs-2">{{ accessToken.expiresAt | formatDate }}</td>
   <td class="col-xs-2 justify-end">
-    <button
-      class="ap-btn ap-btn--x-small ap-btn--danger"
-      (click)="onDelete()"
-    >
+    <button class="ap-btn ap-btn--x-small ap-btn--danger" (click)="onDelete()">
       Delete
     </button>
+  </td>
 </tr>

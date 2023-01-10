@@ -6,9 +6,9 @@ import { User } from 'models/user.model';
 import { AppState } from 'models/app-state.model';
 import { advChartSeriesEnum, pubChartSeriesEnum } from 'models/enum/chart.enum';
 import { HandleSubscription } from 'common/handle-subscription';
-import { Site } from "models/site.model";
-import { Router } from "@angular/router";
-import { seriesType } from "models/chart/chart-filter-settings.model";
+import { Site } from 'models/site.model';
+import { Router } from '@angular/router';
+import { seriesType } from 'models/chart/chart-filter-settings.model';
 
 interface AssetInfo {
   id: number;
@@ -20,7 +20,10 @@ interface AssetInfo {
   templateUrl: './chart-filter-by-type.component.html',
   styleUrls: ['./chart-filter-by-type.component.scss'],
 })
-export class ChartFilterByTypeComponent extends HandleSubscription implements OnInit {
+export class ChartFilterByTypeComponent
+  extends HandleSubscription
+  implements OnInit
+{
   @Output() updateId: EventEmitter<number> = new EventEmitter();
   @Output() updateSeries: EventEmitter<seriesType> = new EventEmitter();
   @Input() detailsPage: boolean;
@@ -35,9 +38,10 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   }
 
   ngOnInit(): void {
-    const userDataSubscription = this.store.select('state', 'user', 'data')
+    const userDataSubscription = this.store
+      .select('state', 'user', 'data')
       .pipe(first())
-      .subscribe(userData => {
+      .subscribe((userData) => {
         this.userData = userData;
         this.setInitialDataByUserType();
       });
@@ -47,26 +51,24 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   setInitialDataByUserType(): void {
     if (this.isAdvertiserFilter()) {
       this.setChartSeriesArray(advChartSeriesEnum);
-      const userCampaignsSubscription = this.store.select('state', 'advertiser', 'campaigns')
+      const userCampaignsSubscription = this.store
+        .select('state', 'advertiser', 'campaigns')
         .subscribe((campaigns) => {
-          this.assetsInfo = campaigns.map(
-            campaign => {
-              return {id: campaign.id, name: campaign.basicInformation.name}
-            }
-          );
-          this.assetsInfo.unshift({id: 0, name: 'All Campaigns'});
+          this.assetsInfo = campaigns.map((campaign) => {
+            return { id: campaign.id, name: campaign.basicInformation.name };
+          });
+          this.assetsInfo.unshift({ id: 0, name: 'All Campaigns' });
         });
       this.subscriptions.push(userCampaignsSubscription);
     } else if (this.isPublisherFilter()) {
       this.setChartSeriesArray(pubChartSeriesEnum);
-      const userSiteSubscription = this.store.select('state', 'publisher', 'sites')
+      const userSiteSubscription = this.store
+        .select('state', 'publisher', 'sites')
         .subscribe((sites: Site[]) => {
-          this.assetsInfo = sites.map(
-            site => {
-              return {id: site.id, name: site.name}
-            }
-          );
-          this.assetsInfo.unshift({id: 0, name: 'All Sites'});
+          this.assetsInfo = sites.map((site) => {
+            return { id: site.id, name: site.name };
+          });
+          this.assetsInfo.unshift({ id: 0, name: 'All Sites' });
         });
       this.subscriptions.push(userSiteSubscription);
     } else {
@@ -76,19 +78,19 @@ export class ChartFilterByTypeComponent extends HandleSubscription implements On
   }
 
   private isAdvertiserFilter(): boolean {
-    return null !== this.router.url.match('/advertiser/')
+    return null !== this.router.url.match('/advertiser/');
   }
 
   private isPublisherFilter(): boolean {
-    return null !== this.router.url.match('/publisher/')
+    return null !== this.router.url.match('/publisher/');
   }
 
   setChartSeriesArray(seriesEnum): void {
-    this.chartSeries = Object.entries(seriesEnum).map(dataArr => {
+    this.chartSeries = Object.entries(seriesEnum).map((dataArr) => {
       return {
         label: dataArr[1],
         value: dataArr[0],
-      }
+      };
     });
   }
 

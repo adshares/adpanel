@@ -17,9 +17,12 @@ import { cloneDeep } from 'common/utilities/helpers';
 @Component({
   selector: 'app-edit-campaign-summary',
   templateUrl: './edit-campaign-summary.component.html',
-  styleUrls: ['./edit-campaign-summary.component.scss']
+  styleUrls: ['./edit-campaign-summary.component.scss'],
 })
-export class EditCampaignSummaryComponent extends HandleSubscription implements OnInit {
+export class EditCampaignSummaryComponent
+  extends HandleSubscription
+  implements OnInit
+{
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
@@ -27,24 +30,31 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
   constructor(
     private store: Store<AppState>,
     private advertiserService: AdvertiserService,
-    private assetHelpers: AssetHelpersService,
+    private assetHelpers: AssetHelpersService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    const lastCampaignSubscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const lastCampaignSubscription = this.store
+      .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
-      .subscribe(campaign => {
+      .subscribe((campaign) => {
         this.assetHelpers.redirectIfNameNotFilled(campaign);
         this.campaign = campaign;
-        const targetingSubscription = this.advertiserService.getMedium(campaign.basicInformation.medium, campaign.basicInformation.vendor)
+        const targetingSubscription = this.advertiserService
+          .getMedium(
+            campaign.basicInformation.medium,
+            campaign.basicInformation.vendor
+          )
           .pipe(take(1))
-          .subscribe(medium => {
-            this.targetingOptionsToAdd = processTargeting(medium)
-            this.targetingOptionsToExclude = cloneDeep(this.targetingOptionsToAdd)
-          })
-        this.subscriptions.push(targetingSubscription)
+          .subscribe((medium) => {
+            this.targetingOptionsToAdd = processTargeting(medium);
+            this.targetingOptionsToExclude = cloneDeep(
+              this.targetingOptionsToAdd
+            );
+          });
+        this.subscriptions.push(targetingSubscription);
       });
     this.subscriptions.push(lastCampaignSubscription);
   }
@@ -53,17 +63,17 @@ export class EditCampaignSummaryComponent extends HandleSubscription implements 
     if (!isDraft) {
       this.campaign = {
         ...this.campaign,
-        ads: this.campaign.ads.map(ad => {
+        ads: this.campaign.ads.map((ad) => {
           return {
             ...ad,
-            status: adStatusesEnum.ACTIVE
-          }
+            status: adStatusesEnum.ACTIVE,
+          };
         }),
         basicInformation: {
           ...this.campaign.basicInformation,
           status: campaignStatusesEnum.ACTIVE,
-        }
-      }
+        },
+      };
     }
     this.store.dispatch(new AddCampaignToCampaigns(this.campaign));
   }

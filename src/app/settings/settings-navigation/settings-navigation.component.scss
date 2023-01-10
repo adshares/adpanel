@@ -23,7 +23,7 @@
 
   &__account-status {
     @include copy(
-        pal(light),
+      pal(light),
       $font-size: 26,
       $font-weight: bold,
       $margin-vertical: 0px
@@ -31,7 +31,7 @@
 
     &--in-currency {
       @include copy(
-          pal(light),
+        pal(light),
         $font-size: 20,
         $font-weight: normal,
         $margin-vertical: 10px

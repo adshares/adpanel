@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 $fonts: (
   //heavy: 'Lato-Black',
@@ -16,7 +16,7 @@ $fonts: (
   semiBold: 'Montserrat-SemiBold',
   bold: 'Montserrat-Bold',
   extraBold: 'Montserrat-ExtraBold',
-  black: 'Montserrat-Black',
+  black: 'Montserrat-Black'
 );
 
 @mixin font-face($font-name) {

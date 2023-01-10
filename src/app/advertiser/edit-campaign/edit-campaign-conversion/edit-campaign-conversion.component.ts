@@ -7,31 +7,47 @@ import { Action, Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 
 import { AppState } from 'models/app-state.model';
-import { Campaign, CampaignConversion, CampaignConversionItem, CampaignsConfig } from 'models/campaign.model';
+import {
+  Campaign,
+  CampaignConversion,
+  CampaignConversionItem,
+  CampaignsConfig,
+} from 'models/campaign.model';
 import { campaignConversionItemInitialState } from 'models/initial-state/campaign';
 import {
-  ClearLastEditedCampaign, LoadCampaignsConfig,
+  ClearLastEditedCampaign,
+  LoadCampaignsConfig,
   SaveConversion,
   UPDATE_CAMPAIGN_FAILURE,
-  UPDATE_CAMPAIGN_SUCCESS
+  UPDATE_CAMPAIGN_SUCCESS,
 } from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
-import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
-import { adsToClicks, clicksToAds, formatMoney } from 'common/utilities/helpers';
+import {
+  ShowDialogOnError,
+  ShowSuccessSnackbar,
+} from 'store/common/common.actions';
+import {
+  adsToClicks,
+  clicksToAds,
+  formatMoney,
+} from 'common/utilities/helpers';
 import { campaignConversionClick } from 'models/enum/campaign.enum';
-import { CustomValidators } from "common/utilities/forms";
-import { ServerOptionsService } from 'common/server-options.service'
+import { CustomValidators } from 'common/utilities/forms';
+import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
   selector: 'app-edit-campaign-conversion',
   templateUrl: './edit-campaign-conversion.component.html',
-  styleUrls: ['./edit-campaign-conversion.component.scss']
+  styleUrls: ['./edit-campaign-conversion.component.scss'],
 })
-export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
+export class EditCampaignConversionComponent
+  extends HandleSubscription
+  implements OnInit
+{
   currencyCode: string;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';
@@ -61,9 +77,9 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   ];
 
   readonly clickConversionTypes = [
-    {value: campaignConversionClick.NONE, label: 'Default'},
-    {value: campaignConversionClick.BASIC, label: 'Basic link'},
-    {value: campaignConversionClick.ADVANCED, label: 'Advanced link'},
+    { value: campaignConversionClick.NONE, label: 'Default' },
+    { value: campaignConversionClick.BASIC, label: 'Basic link' },
+    { value: campaignConversionClick.ADVANCED, label: 'Advanced link' },
   ];
 
   conversionItemForms: FormGroup[] = [];
@@ -82,7 +98,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     private advertiserService: AdvertiserService,
     private serverOptionsService: ServerOptionsService,
     private dialog: MatDialog,
-    action$: Actions,
+    action$: Actions
   ) {
     super();
     this.action$ = action$;
@@ -93,11 +109,15 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   get conversionItemFormsAdvanced(): FormGroup[] {
-    return this.conversionItemForms.filter(form => form.get('isAdvanced').value);
+    return this.conversionItemForms.filter(
+      (form) => form.get('isAdvanced').value
+    );
   }
 
   get conversionItemFormsBasic(): FormGroup[] {
-    return this.conversionItemForms.filter(form => !form.get('isAdvanced').value);
+    return this.conversionItemForms.filter(
+      (form) => !form.get('isAdvanced').value
+    );
   }
 
   updateCampaignConversion(): void {
@@ -117,29 +137,24 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     this.store.dispatch(new SaveConversion(this.campaign));
 
     this.action$
-      .pipe(
-        ofType(
-          UPDATE_CAMPAIGN_SUCCESS,
-          UPDATE_CAMPAIGN_FAILURE
-        ),
-        first()
-      )
+      .pipe(ofType(UPDATE_CAMPAIGN_SUCCESS, UPDATE_CAMPAIGN_FAILURE), first())
       .subscribe((action: Action) => {
         this.submitted = false;
         if (action.type === UPDATE_CAMPAIGN_SUCCESS) {
-          this.conversionItemForms.forEach(item => item.markAsPristine());
-          this.conversionItemForms.forEach(item => item.markAsUntouched());
-          this.advertiserService.getCampaign(this.campaign.id)
+          this.conversionItemForms.forEach((item) => item.markAsPristine());
+          this.conversionItemForms.forEach((item) => item.markAsUntouched());
+          this.advertiserService
+            .getCampaign(this.campaign.id)
             .pipe(first())
             .subscribe(
               (data) => {
                 this.campaign = data.campaign;
-                this.adjustConversionData(this.campaign.conversions)
+                this.adjustConversionData(this.campaign.conversions);
               },
               (error) => {
-                this.store.dispatch(new ShowDialogOnError(error.code))
+                this.store.dispatch(new ShowDialogOnError(error.code));
               }
-            )
+            );
         }
       });
   }
@@ -150,25 +165,33 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   get isFormValid(): boolean {
     this.validateAdvancedValueControl();
-    return this.conversionItemForms.every(item => item.valid);
+    return this.conversionItemForms.every((item) => item.valid);
   }
 
   validateAdvancedValueControl() {
-    const elementsWithError = this.conversionItemForms
-      .filter(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === false && !el.controls.value.value);
-    const validElements = this.conversionItemForms
-      .filter(el => el.controls.isAdvanced.value && !!el.controls.isValueMutable.value === true && el.controls.value.status === 'INVALID');
+    const elementsWithError = this.conversionItemForms.filter(
+      (el) =>
+        el.controls.isAdvanced.value &&
+        !!el.controls.isValueMutable.value === false &&
+        !el.controls.value.value
+    );
+    const validElements = this.conversionItemForms.filter(
+      (el) =>
+        el.controls.isAdvanced.value &&
+        !!el.controls.isValueMutable.value === true &&
+        el.controls.value.status === 'INVALID'
+    );
 
     if (elementsWithError) {
-      elementsWithError.forEach(el => {
-        el.controls.value.setErrors({'required': true})
-      })
+      elementsWithError.forEach((el) => {
+        el.controls.value.setErrors({ required: true });
+      });
     }
 
     if (validElements) {
-      validElements.forEach(el => {
-        el.controls.value.setErrors(null)
-      })
+      validElements.forEach((el) => {
+        el.controls.value.setErrors(null);
+      });
     }
   }
 
@@ -176,7 +199,9 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     const itemUuid = item.uuid;
     const itemIsAdvanced = item.isAdvanced;
 
-    const valueValidators = [CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpa))];
+    const valueValidators = [
+      CustomValidators.minOrZero(clicksToAds(this.campaignsConfig.minCpa)),
+    ];
     if (!itemIsAdvanced) {
       valueValidators.push(Validators.required);
     }
@@ -185,10 +210,16 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       uuid: new FormControl(itemUuid),
       name: new FormControl(item.name, Validators.required),
       type: new FormControl(item.eventType, Validators.required),
-      isAdvanced: new FormControl({value: itemIsAdvanced, disabled: true}),
-      isInBudget: new FormControl({value: item.isInBudget, disabled: !itemIsAdvanced}),
+      isAdvanced: new FormControl({ value: itemIsAdvanced, disabled: true }),
+      isInBudget: new FormControl({
+        value: item.isInBudget,
+        disabled: !itemIsAdvanced,
+      }),
       isValueMutable: new FormControl(item.isValueMutable || false),
-      isRepeatable: new FormControl({value: item.isRepeatable || false, disabled: !itemIsAdvanced}),
+      isRepeatable: new FormControl({
+        value: item.isRepeatable || false,
+        disabled: !itemIsAdvanced,
+      }),
       value: new FormControl(item.value, valueValidators),
       link: new FormControl(item.link),
     });
@@ -201,9 +232,13 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       return <CampaignConversion>{
         uuid: form.get('uuid').value,
         name: form.get('name').value,
-        limitType: form.get('isInBudget').value ? this.BUDGET_TYPE_IN : this.BUDGET_TYPE_OUT,
+        limitType: form.get('isInBudget').value
+          ? this.BUDGET_TYPE_IN
+          : this.BUDGET_TYPE_OUT,
         eventType: form.get('type').value,
-        type: form.get('isAdvanced').value ? this.TYPE_ADVANCED : this.TYPE_BASIC,
+        type: form.get('isAdvanced').value
+          ? this.TYPE_ADVANCED
+          : this.TYPE_BASIC,
         value: value !== null ? adsToClicks(parseFloat(value)) : null,
         isValueMutable: form.get('isValueMutable').value,
         isRepeatable: form.get('isRepeatable').value,
@@ -213,7 +248,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   adjustConversionData(conversions) {
     this.conversionItemForms = [];
-    conversions.forEach(conversion => {
+    conversions.forEach((conversion) => {
       const item = {
         uuid: conversion.uuid,
         name: conversion.name,
@@ -222,7 +257,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         isInBudget: conversion.limitType !== this.BUDGET_TYPE_OUT,
         isValueMutable: conversion.isValueMutable,
         isRepeatable: conversion.isRepeatable,
-        value: conversion.value !== null ? formatMoney(conversion.value, 11, true, '.', '') : null,
+        value:
+          conversion.value !== null
+            ? formatMoney(conversion.value, 11, true, '.', '')
+            : null,
         link: conversion.link,
       };
       this.addConversion(item);
@@ -230,16 +268,18 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
   }
 
   getFormDataFromStore(): void {
-    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency
+    this.currencyCode = this.serverOptionsService.getOptions().displayCurrency;
     this.store.dispatch(new LoadCampaignsConfig());
 
-    const subscription = this.store.select('state', 'advertiser', 'lastEditedCampaign')
+    const subscription = this.store
+      .select('state', 'advertiser', 'lastEditedCampaign')
       .pipe(first())
       .subscribe((lastEditedCampaign: Campaign) => {
         this.campaign = lastEditedCampaign;
       });
 
-    const configSubscription = this.store.select('state', 'advertiser', 'campaignsConfig')
+    const configSubscription = this.store
+      .select('state', 'advertiser', 'campaignsConfig')
       .subscribe((config: CampaignsConfig) => {
         this.campaignsConfig = config;
         this.adjustConversionData(this.campaign.conversions);
@@ -263,7 +303,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
         data: {
           title: 'Maximum conversion count reached',
           message: `You are not able to add more than ${this.CONVERSION_COUNT_MAXIMAL} conversions.`,
-        }
+        },
       });
 
       return;
@@ -282,7 +322,10 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
     let listIndexTemporary = -1;
 
     for (; mainListIndex < this.conversionItemForms.length; mainListIndex++) {
-      if (this.conversionItemForms[mainListIndex].get('isAdvanced').value === isAdvancedList) {
+      if (
+        this.conversionItemForms[mainListIndex].get('isAdvanced').value ===
+        isAdvancedList
+      ) {
         listIndexTemporary++;
       }
 
@@ -305,7 +348,7 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
       data: {
         isAdvanced: isAdvanced,
         link: link,
-      }
+      },
     });
   }
 
@@ -316,11 +359,11 @@ export class EditCampaignConversionComponent extends HandleSubscription implemen
 
   copyToClipboard(content: string) {
     document.addEventListener('copy', (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', (content));
+      e.clipboardData.setData('text/plain', content);
       e.preventDefault();
       document.removeEventListener('copy', null);
     });
     document.execCommand('copy');
-    this.store.dispatch(new ShowSuccessSnackbar('Copied!'))
+    this.store.dispatch(new ShowSuccessSnackbar('Copied!'));
   }
 }

@@ -1,15 +1,10 @@
 <section>
-  <h1
-    class="
-      ap-heading
-      ap-heading--h2"
-  >
-    Create new referral link
-  </h1>
+  <h1 class="ap-heading ap-heading--h2">Create new referral link</h1>
 
   <div>
     <p class="ap-copy" *ngIf="refundEnabled">
-      Your refund commission rate: {{ defaultRefundCommission | percent:'1.0-2' }}<br />
+      Your refund commission rate:
+      {{ defaultRefundCommission | percent : '1.0-2' }}<br />
       Set Friends’ commission bonus rate
     </p>
     <form
@@ -19,12 +14,19 @@
       (ngSubmit)="onSubmit()"
     >
       <div class="commission" *ngIf="refundEnabled">
-        <span class="ap-copy">You Receive:  {{ refundCommission | percent:'1.0-2' }}</span>
-        <span class="ap-copy" >Friends Receive: {{ bonusCommission | percent:'1.0-2' }}</span>
+        <span class="ap-copy"
+          >You Receive: {{ refundCommission | percent : '1.0-2' }}</span
+        >
+        <span class="ap-copy"
+          >Friends Receive: {{ bonusCommission | percent : '1.0-2' }}</span
+        >
       </div>
 
       <div>
-        <div class="commission-select justify-between ap-copy" *ngIf="refundEnabled">
+        <div
+          class="commission-select justify-between ap-copy"
+          *ngIf="refundEnabled"
+        >
           <label
             *ngFor="let option of [1, 0.75, 0.5, 0.25, 0]"
             [for]="'keptRefund' + option"
@@ -35,16 +37,17 @@
               [value]="option"
               type="radio"
               name="keptRefund"
-              formControlName="keptRefund">
-            {{ getBonusCommission(option) | percent:'1.0-2' }}
+              formControlName="keptRefund"
+            />
+            {{ getBonusCommission(option) | percent : '1.0-2' }}
           </label>
         </div>
         <div class="row justify-between" *ngIf="refundEnabled">
-          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('refund')">
-            <label
-              for="refund"
-              class="ap-form-label"
-            >
+          <div
+            class="ap-form-input__box ap-form-input__inline"
+            *ngIf="form.get('refund')"
+          >
+            <label for="refund" class="ap-form-label">
               Custom refund commission rate
             </label>
             <input
@@ -56,7 +59,7 @@
               step="1"
               name="refund"
               formControlName="refund"
-            >
+            />
             <span
               class="error-msg"
               *ngIf="form.hasError('custom', ['refund']) && formSubmitted"
@@ -73,7 +76,8 @@
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="ap-icon ap-icon--prepend">
+                class="ap-icon ap-icon--prepend"
+              />
               <input
                 [formControl]="refundValidUntilControl"
                 [matDatepicker]="refundValidUntilPicker"
@@ -81,24 +85,26 @@
                 matInput
                 type="text"
                 autocomplete="off"
-              >
+              />
               <mat-datepicker #refundValidUntilPicker></mat-datepicker>
             </mat-form-field>
             <span
               class="error-msg"
-              *ngIf="form.hasError('custom', ['refundValidUntil']) && formSubmitted"
+              *ngIf="
+                form.hasError('custom', ['refundValidUntil']) && formSubmitted
+              "
             >
               {{ form.getError('custom', ['refundValidUntil']) }}
             </span>
           </div>
         </div>
         <div class="row justify-between">
-          <div class="ap-form-input__box ap-form-input__inline" *ngIf="form.get('bonus')">
-            <label
-              for="refund"
-              class="ap-form-label"
-            >
-              Additional bonus ({{currencyCode}})
+          <div
+            class="ap-form-input__box ap-form-input__inline"
+            *ngIf="form.get('bonus')"
+          >
+            <label for="refund" class="ap-form-label">
+              Additional bonus ({{ currencyCode }})
             </label>
             <input
               id="bonus"
@@ -108,7 +114,7 @@
               step="0.01"
               name="bonus"
               formControlName="bonus"
-            >
+            />
             <span
               class="error-msg"
               *ngIf="form.hasError('custom', ['bonus']) && formSubmitted"
@@ -125,7 +131,8 @@
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="ap-icon ap-icon--prepend">
+                class="ap-icon ap-icon--prepend"
+              />
               <input
                 [formControl]="validUntilControl"
                 [matDatepicker]="validUntilPicker"
@@ -133,7 +140,7 @@
                 matInput
                 type="text"
                 autocomplete="off"
-              >
+              />
               <mat-datepicker #validUntilPicker></mat-datepicker>
             </mat-form-field>
             <span
@@ -146,29 +153,24 @@
         </div>
         <ng-container *ngIf="chooseUserRole">
           <div
-            *ngIf="form.get('userRoles') else loading"
+            *ngIf="form.get('userRoles'); else loading"
             class="ap-form-input__box"
           >
-            <label class="ap-form-label">
-              User roles
-            </label>
+            <label class="ap-form-label"> User roles </label>
             <mat-radio-group
               aria-label="Select user roles"
               formControlName="userRoles"
             >
               <mat-radio-button value="advertiser">Advertiser</mat-radio-button>
               <mat-radio-button value="publisher">Publisher</mat-radio-button>
-              <mat-radio-button value="advertiser,publisher">Both</mat-radio-button>
+              <mat-radio-button value="advertiser,publisher"
+                >Both</mat-radio-button
+              >
             </mat-radio-group>
           </div>
         </ng-container>
         <div class="ap-form-input__box">
-          <label
-            for="token"
-            class="ap-form-label"
-          >
-            Referral token
-          </label>
+          <label for="token" class="ap-form-label"> Referral token </label>
           <input
             id="token"
             class="ap-form-input ap-form-input--full"
@@ -176,22 +178,23 @@
             name="token"
             formControlName="token"
             placeholder="Leave blank to get random token"
-          >
-          <span
-            *ngIf="form.get('token').valid"
-            class="input-valid"
-          ></span>
+          />
+          <span *ngIf="form.get('token').valid" class="input-valid"></span>
           <span
             class="error-msg"
             *ngIf="form.hasError('minlength', ['token']) && formSubmitted"
           >
-              The token must be at least {{ form.getError('minlength', ['token']).requiredLength }} characters
-            </span>
+            The token must be at least
+            {{ form.getError('minlength', ['token']).requiredLength }}
+            characters
+          </span>
           <span
             class="error-msg"
             *ngIf="form.hasError('maxlength', ['token']) && formSubmitted"
           >
-            The token may not be greater than {{ form.getError('maxlength', ['token']).requiredLength }} characters.
+            The token may not be greater than
+            {{ form.getError('maxlength', ['token']).requiredLength }}
+            characters.
           </span>
           <span
             class="error-msg"
@@ -201,19 +204,14 @@
           </span>
         </div>
         <div class="ap-form-input__box">
-          <label
-            for="comment"
-            class="ap-form-label"
-          >
-            Note
-          </label>
+          <label for="comment" class="ap-form-label"> Note </label>
           <input
             id="comment"
             class="ap-form-input ap-form-input--full"
             type="text"
             name="comment"
             formControlName="comment"
-          >
+          />
         </div>
 
         <div class="form-footer">
@@ -227,9 +225,7 @@
           <button
             *ngIf="!showLoader; else loading"
             type="submit"
-            class="
-                ap-btn
-                ap-btn--blue"
+            class="ap-btn ap-btn--blue"
           >
             Generate link
           </button>

@@ -1,34 +1,31 @@
-<article *ngIf="impersonationToken"
-         class="impersonation-bar__container">
+<article *ngIf="impersonationToken" class="impersonation-bar__container">
   <div class="impersonation-bar__info">
     <mat-icon> info</mat-icon>
-    <strong>This is impersonation mode ({{userLabel}})</strong>
+    <strong>This is impersonation mode ({{ userLabel }})</strong>
   </div>
   <div class="impersonation-controllers">
     <button
-            class="action-btn action-btn--danger"
-            *ngIf="!userIsBanned"
-            (click)="showBanConfirmationDialog()"
+      class="action-btn action-btn--danger"
+      *ngIf="!userIsBanned"
+      (click)="showBanConfirmationDialog()"
     >
       Ban user
     </button>
     <button
-            class="action-btn action-btn--danger"
-            *ngIf="userIsBanned"
-            (click)="showUnbanConfirmationDialog()"
+      class="action-btn action-btn--danger"
+      *ngIf="userIsBanned"
+      (click)="showUnbanConfirmationDialog()"
     >
       Unban user
     </button>
     <button
-            class="action-btn action-btn--danger"
-            (click)="showDeleteConfirmationDialog()"
+      class="action-btn action-btn--danger"
+      (click)="showDeleteConfirmationDialog()"
     >
       Delete user
     </button>
-    <button class="action-btn"
-            (click)="dropImpersonation()">
+    <button class="action-btn" (click)="dropImpersonation()">
       Drop impersonation mode
     </button>
   </div>
 </article>
-

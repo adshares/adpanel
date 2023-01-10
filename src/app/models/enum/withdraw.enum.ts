@@ -3,5 +3,5 @@ export enum withdrawPeriodsEnum {
   WEEK,
   MONTH,
   QUARTER,
-  YEAR
+  YEAR,
 }

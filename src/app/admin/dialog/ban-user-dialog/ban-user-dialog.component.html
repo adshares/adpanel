@@ -1,16 +1,13 @@
 <mat-dialog-content class="mat-dialog-content">
   <section>
-    <h1 class="ap-heading ap-heading--h2">
-      Do you want ban this user?
-    </h1>
-    <p class="ap-copy ap-copy--bold">{{user.email}}</p>
-    <p *ngIf="user.banReason" class="ap-copy ap-multiline dialog__reason-field">Previous reason: {{user.banReason}}</p>
+    <h1 class="ap-heading ap-heading--h2">Do you want ban this user?</h1>
+    <p class="ap-copy ap-copy--bold">{{ user.email }}</p>
+    <p *ngIf="user.banReason" class="ap-copy ap-multiline dialog__reason-field">
+      Previous reason: {{ user.banReason }}
+    </p>
     <div class="col form-container" [formGroup]="form">
       <div class="ap-form-input__box">
-        <label
-          for="reason"
-          class="ap-form-label"
-        >
+        <label for="reason" class="ap-form-label">
           Reason of ban
           <fa-icon
             matTooltipClass="ap-mat-tooltip"
@@ -29,10 +26,17 @@
           rows="6"
         ></textarea>
         <span
-          *ngIf="(form.get('reason').touched && form.get('reason').invalid) || (form.get('reason').dirty && form.get('reason').invalid)"
+          *ngIf="
+            (form.get('reason').touched && form.get('reason').invalid) ||
+            (form.get('reason').dirty && form.get('reason').invalid)
+          "
           class="error-msg"
         >
-          {{form.get('reason').value ? 'Max length 255 characters' : 'Reason is required'}}
+          {{
+            form.get('reason').value
+              ? 'Max length 255 characters'
+              : 'Reason is required'
+          }}
         </span>
       </div>
     </div>
@@ -52,5 +56,4 @@
       </button>
     </div>
   </section>
-
 </mat-dialog-content>

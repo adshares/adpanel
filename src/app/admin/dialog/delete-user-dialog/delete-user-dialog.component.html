@@ -1,17 +1,12 @@
 <mat-dialog-content class="mat-dialog-content">
   <section>
-    <h1 class="ap-heading ap-heading--h2">
-      Do you want delete this user?
-    </h1>
-    <p class="ap-copy ap-copy--bold">{{user}}</p>
-      <div class="dialog-checkbox__wrapper">
-        <mat-checkbox
-          [checked]="isDeletionConfirm"
-          (change)="confirmDeletion()"
-        >
-          This operation is irreversible! Confirm the deletion
-        </mat-checkbox>
-      </div>
+    <h1 class="ap-heading ap-heading--h2">Do you want delete this user?</h1>
+    <p class="ap-copy ap-copy--bold">{{ user }}</p>
+    <div class="dialog-checkbox__wrapper">
+      <mat-checkbox [checked]="isDeletionConfirm" (change)="confirmDeletion()">
+        This operation is irreversible! Confirm the deletion
+      </mat-checkbox>
+    </div>
     <div class="row justify-end dialog-controls">
       <button
         class="ap-btn ap-btn--primary dialog-controls--btn"
@@ -28,5 +23,4 @@
       </button>
     </div>
   </section>
-
 </mat-dialog-content>

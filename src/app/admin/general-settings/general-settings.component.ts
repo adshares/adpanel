@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { fadeAnimation } from 'common/animations/fade.animation'
+import { Component } from '@angular/core';
+import { fadeAnimation } from 'common/animations/fade.animation';
 
 @Component({
   selector: 'app-general-settings',
@@ -7,5 +7,4 @@ import { fadeAnimation } from 'common/animations/fade.animation'
   styleUrls: ['./general-settings.component.scss'],
   animations: [fadeAnimation],
 })
-export class GeneralSettingsComponent {
-}
+export class GeneralSettingsComponent {}

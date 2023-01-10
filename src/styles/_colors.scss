@@ -1,21 +1,21 @@
 :root {
-  --primary: #003D4D;
-  --secondary: #96DFEF;
-  --primary-alt: #002F36;
-  --secondary-alt: #BFF7FF;
-  --body-bg: #DFDFDF;
+  --primary: #003d4d;
+  --secondary: #96dfef;
+  --primary-alt: #002f36;
+  --secondary-alt: #bff7ff;
+  --body-bg: #dfdfdf;
   --body-color: #000000;
   --dark: #000000;
-  --light: #FFFFFF;
-  --gray: #BFBFBF;
-  --error: #FF414D;
-  --error-bg: #FFA0A6;
-  --warning: #FFB400;
-  --warning-bg: #F8E7BF;
-  --success: #19AD42;
-  --success-bg: #8DEBC8;
-  --info: #003D4D;
-  --info-bg: #96DFEF;
+  --light: #ffffff;
+  --gray: #bfbfbf;
+  --error: #ff414d;
+  --error-bg: #ffa0a6;
+  --warning: #ffb400;
+  --warning-bg: #f8e7bf;
+  --success: #19ad42;
+  --success-bg: #8debc8;
+  --info: #003d4d;
+  --info-bg: #96dfef;
 }
 
 $primary: var(--primary);
@@ -40,60 +40,60 @@ $palette-colors: (
   primary: (
     base: $primary,
     dark: $primary-alt,
-    light: #809EA6,
+    light: #809ea6,
   ),
-  secondary:(
+  secondary: (
     base: $secondary,
     light: $secondary-alt,
   ),
-  primary-alt:(
-    base: $primary-alt
+  primary-alt: (
+    base: $primary-alt,
   ),
-  secondary-alt:(
-    base: $secondary-alt
+  secondary-alt: (
+    base: $secondary-alt,
   ),
-  body-bg:(
-    base: $body-bg
+  body-bg: (
+    base: $body-bg,
   ),
-  body-color:(
-    base: $body-color
+  body-color: (
+    base: $body-color,
   ),
-  dark:(
-    base: $dark
+  dark: (
+    base: $dark,
   ),
-  light:(
-    base: $light
+  light: (
+    base: $light,
   ),
-  gray:(
-    base: $gray
+  gray: (
+    base: $gray,
   ),
-  error:(
+  error: (
     base: $error,
     dark: #a0000a,
     light: $error-bg,
   ),
-  error-bg:(
-    base: $error-bg
+  error-bg: (
+    base: $error-bg,
   ),
-  warning:(
+  warning: (
     base: $warning,
     light: $warning-bg,
   ),
-  warning-bg:(
-    base: $warning-bg
+  warning-bg: (
+    base: $warning-bg,
   ),
-  success:(
+  success: (
     base: $success,
     light: $success-bg,
   ),
-  success-bg:(
-    base: $success-bg
+  success-bg: (
+    base: $success-bg,
   ),
-  info:(
-    base: $info
+  info: (
+    base: $info,
   ),
-  info-bg:(
-    base: $info-bg
+  info-bg: (
+    base: $info-bg,
   ),
 );
 
