@@ -3,15 +3,14 @@
   *ngIf="campaignsLoaded; else loading"
 >
   <div class="container">
-    <div class="row no-gutters justify-between">
-      <div class="col-xs-12 col-md-3">
-        <h1 class="ap-heading ap-heading--h2">My campaigns</h1>
-        <p class="ap-copy">List of all campaigns</p>
-      </div>
-    </div>
-
     <div *ngIf="!!campaigns.length">
       <div class="ap-box">
+        <!--        <div class="row no-gutters justify-between box-title">-->
+        <!--          <div class="col-xs-12 col-md-3">-->
+        <h1 class="ap-heading ap-heading--h2 box-title">My campaigns</h1>
+        <!--            <p class="ap-copy">List of all campaigns</p>-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="row">
           <div class="col-xs-3">
             <a (click)="downloadReport()">

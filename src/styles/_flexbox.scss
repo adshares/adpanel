@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 .container {
-  padding: 0 16px;
+  //padding: 0 16px;
 
   @include media(md-up) {
     padding: 0 60px;
