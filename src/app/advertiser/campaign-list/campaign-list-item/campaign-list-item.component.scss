@@ -1,6 +1,15 @@
 @import '../../../../styles.scss';
 
 .ap-campaign-list {
+  &__item {
+    @include container();
+    border-bottom: 1px solid pal(gray);
+
+    .ap-status {
+      border-radius: 10px;
+    }
+  }
+
   &__item-campaign-details {
     &:focus,
     &:hover {
@@ -10,6 +19,8 @@
   }
 
   &__status-cell {
+    position: relative;
+    padding-right: 30px;
     @include status-cell;
     flex-flow: row;
   }
@@ -19,6 +30,7 @@
   }
 
   &__classification {
-    padding-left: 10px;
+    position: absolute;
+    right: 0;
   }
 }

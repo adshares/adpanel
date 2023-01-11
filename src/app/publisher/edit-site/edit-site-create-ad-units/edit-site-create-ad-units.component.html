@@ -173,10 +173,14 @@
               >
                 <div class="col">
                   <button
-                    class="ap-btn ap-btn--secondary"
+                    class="ap-btn ap-btn--secondary ap-btn-error"
                     (click)="removeAdUnit(adUnitIndex)"
                     data-test="publisher-edit-site-create-ad-units-form-remove-ad-unit"
                   >
+                    <fa-icon
+                      [icon]="faTrash"
+                      class="ap-icon ap-icon--prepend"
+                    ></fa-icon>
                     Delete ad unit
                   </button>
                   <span
@@ -215,7 +219,7 @@
         *ngIf="createSiteMode"
         (click)="saveAdUnits(true)"
         type="button"
-        class="ap-btn ap-btn--primary"
+        class="ap-btn ap-btn--secondary"
         data-test="publisher-edit-site-save-as-draft"
       >
         Save as draft

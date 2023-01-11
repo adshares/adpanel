@@ -42,7 +42,7 @@ import {
   faExternalLinkSquareAlt,
   faRemove,
   faEdit,
-  faCirclePlus,
+  faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
 import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
@@ -78,7 +78,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faRemove = faRemove;
   faEdit = faEdit;
-  faCirclePlus = faCirclePlus;
+  faArrowLeft = faArrowLeft;
 
   constructor(
     private route: ActivatedRoute,

@@ -223,16 +223,7 @@
     <ng-container *ngIf="displayAds">
       <div class="ap-box">
         <div class="box-title row justify-between align-center">
-          <h2 class="ap-heading ap-heading--h2" *ngIf="!!popAdUnits.length">
-            List of enabled pops
-          </h2>
-          <h2
-            class="ap-heading ap-heading--h2 ad-units-warning"
-            *ngIf="!popAdUnits.length"
-          >
-            Pops disabled
-          </h2>
-
+          <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
           <button
             class="ap-btn ap-btn--text"
             (click)="navigateToEditSite('pops-settings')"
@@ -241,6 +232,12 @@
             <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
             Edit pops
           </button>
+        </div>
+
+        <div *ngIf="!popAdUnits.length" class="box-content">
+          <span class="ap-copy ap-copy--semi ad-units-warning"
+            >Pops disabled</span
+          >
         </div>
 
         <div
@@ -300,16 +297,29 @@
             ></app-poster-units>
           </table>
         </div>
+        <div class="box-content row justify-center">
+          <button
+            class="ap-btn ap-btn--secondary"
+            (click)="openGetCodeDialog()"
+            data-test="publisher-get-code-button"
+          >
+            Get the ad codes
+          </button>
+        </div>
       </div>
 
       <div class="ap-box">
         <div class="box-content row justify-center">
           <button
+            routerLink="/publisher/dashboard"
             class="ap-btn ap-btn--primary"
-            (click)="openGetCodeDialog()"
             data-test="publisher-get-code-button"
           >
-            Get the ad codes
+            <fa-icon
+              [icon]="faArrowLeft"
+              class="ap-icon ap-icon--prepend"
+            ></fa-icon>
+            Dashboard
           </button>
         </div>
       </div>

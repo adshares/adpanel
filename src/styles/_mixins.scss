@@ -46,12 +46,12 @@
 }
 
 @mixin status-cell() {
-  width: 100px;
+  width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 
   @include media(lg-up) {
-    width: 150px;
+    //width: 150px;
   }
 }
 
