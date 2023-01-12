@@ -78,7 +78,6 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   editPopups: boolean = true;
   editAds: boolean = true;
   siteLinkUrl: string;
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faRemove = faRemove;
   faEdit = faEdit;

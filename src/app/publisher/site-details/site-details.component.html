@@ -42,7 +42,9 @@
               data-test="publisher-site-url"
             >
               {{ site.name }}
-              <small *ngIf="displayAds">{{ site.domain }}</small>
+              <span class="ap-copy ap-copy--small" *ngIf="!isMetaverse">
+                {{ site.domain }}
+              </span>
               <a
                 *ngIf="siteLinkUrl"
                 href="{{ siteLinkUrl }}"
@@ -224,7 +226,7 @@
       </div>
     </div>
 
-    <ng-container *ngIf="displayAds">
+    <ng-container *ngIf="editAds">
       <div class="ap-box">
         <div class="box-title row justify-between align-center">
           <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
@@ -311,23 +313,23 @@
           </button>
         </div>
       </div>
-
-      <div class="ap-box">
-        <div class="box-content row justify-center">
-          <button
-            routerLink="/publisher/dashboard"
-            class="ap-btn ap-btn--primary"
-            data-test="publisher-get-code-button"
-          >
-            <fa-icon
-              [icon]="faArrowLeft"
-              class="ap-icon ap-icon--prepend"
-            ></fa-icon>
-            Dashboard
-          </button>
-        </div>
-      </div>
     </ng-container>
+
+    <div class="ap-box">
+      <div class="box-content row justify-center">
+        <button
+          routerLink="/publisher/dashboard"
+          class="ap-btn ap-btn--primary"
+          data-test="publisher-get-code-button"
+        >
+          <fa-icon
+            [icon]="faArrowLeft"
+            class="ap-icon ap-icon--prepend"
+          ></fa-icon>
+          Dashboard
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 <ng-template #loading>
