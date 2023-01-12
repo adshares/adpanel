@@ -1,4 +1,4 @@
-<tr class="ap-box ap-box--no-padding row align-center">
+<tr class="row align-center ap-posters-list__item">
   <td class="col-xs-1 row ap-copy align-center">
     <div class="text-center" [attr.data-status]="ad.status">
       <mat-slide-toggle
@@ -64,7 +64,7 @@
     {{ ad.averageCpc || 0 | formatMoney : 2 }}
   </td>
   <td
-    class="col-xs-1 row clickable-row clickable-area align-center justify-center ap-posters-list-item__nav-item"
+    class="col-xs-1 row clickable-row clickable-area align-center justify-center ap-posters-list__nav-item"
     (click)="navigateToAdEdition()"
     role="link"
   >

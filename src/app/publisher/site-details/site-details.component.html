@@ -176,9 +176,11 @@
           !!filtering.excludes.length ||
           site.onlyAcceptedBanners
         "
-        class="ap-copy row box-content"
       >
-        <div *ngIf="site.onlyAcceptedBanners" class="col-xs-12">
+        <div
+          *ngIf="site.onlyAcceptedBanners"
+          class="ap-copy row align-center box-content"
+        >
           <mat-checkbox
             class="site-details__checkbox"
             checked="checked"
@@ -198,25 +200,27 @@
       </div>
 
       <div *ngIf="!!filtering.requires.length" class="box-content">
-        <h2 class="ap-copy--semi">Targeting:</h2>
-        <app-targeting-display
-          class="app-targeting-display"
-          [items]="filtering.requires"
-          [isExclude]="false"
-          [canRemove]="false"
-          [targetingOptions]="filteringOptions"
-        ></app-targeting-display>
+        <h3 class="ap-heading ap-heading--h3">Targeting:</h3>
+        <div class="targeting-display-wrapper">
+          <app-targeting-display
+            [items]="filtering.requires"
+            [isExclude]="false"
+            [canRemove]="false"
+            [targetingOptions]="filteringOptions"
+          ></app-targeting-display>
+        </div>
       </div>
 
       <div *ngIf="!!filtering.excludes.length" class="box-content">
-        <h2 class="ap-copy--semi">Exclusions:</h2>
-        <app-targeting-display
-          class="app-targeting-display"
-          [items]="filtering.excludes"
-          [isExclude]="true"
-          [canRemove]="false"
-          [targetingOptions]="filteringOptions"
-        ></app-targeting-display>
+        <h3 class="ap-heading ap-heading--h3">Exclusions:</h3>
+        <div class="targeting-display-wrapper">
+          <app-targeting-display
+            [items]="filtering.excludes"
+            [isExclude]="true"
+            [canRemove]="false"
+            [targetingOptions]="filteringOptions"
+          ></app-targeting-display>
+        </div>
       </div>
     </div>
 

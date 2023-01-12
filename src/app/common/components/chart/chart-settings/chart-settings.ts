@@ -136,11 +136,11 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
     },
     datasets: {
       bar: {
-        backgroundColor: '#55a8fd',
+        backgroundColor: '#96dfef',
         barPercentage: 0.2,
-        borderColor: '#55a8fd',
-        hoverBackgroundColor: '#4ba3fd',
-        hoverBorderColor: '#55a8fd',
+        borderColor: '#96dfef',
+        hoverBackgroundColor: '#96dfef',
+        hoverBorderColor: '#96dfef',
       },
     },
   };

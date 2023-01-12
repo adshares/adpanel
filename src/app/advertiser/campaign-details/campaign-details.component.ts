@@ -40,6 +40,13 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
+import {
+  faPlusCircle,
+  faTrash,
+  faEdit,
+  faArrowLeft,
+} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-campaign-details',
@@ -74,6 +81,11 @@ export class CampaignDetailsComponent
   isDefaultBidStrategy: boolean = false;
   isTaxonomyMissing = false;
   mediumLabel: string;
+  faPlusCircle = faPlusCircle;
+  faTrash = faTrash;
+  faEdit = faEdit;
+  faCalendar = faCalendar;
+  faArrowLeft = faArrowLeft;
 
   constructor(
     private route: ActivatedRoute,

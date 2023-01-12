@@ -44,12 +44,8 @@
   margin-right: 10px;
 }
 
-.app-targeting-display {
-  display: flex;
-
-  &:not(:first-of-type) {
-    margin-top: 20px;
-  }
+.targeting-display-wrapper {
+  margin-top: 16px;
 }
 
 .status-toggle-wrapper {

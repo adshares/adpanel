@@ -1,14 +1,5 @@
 @import '../../../styles.scss';
 
-.campaign-classification-wrapper {
-  margin-right: 20px;
-  margin-top: 2px;
-
-  .campaign-classification-info {
-    margin-left: 10px;
-  }
-}
-
 .campaign-basic-information {
   > div:not(:last-of-type) {
     margin-right: 32px;
@@ -27,14 +18,15 @@
   }
 }
 
-.label {
-  margin-bottom: 5px;
-}
-
 .campaign-details {
+  margin: 24px auto;
   &__scrollable-table {
     overflow: hidden;
     overflow-x: auto;
+  }
+
+  & .targeting-display-wrapper {
+    margin-top: 16px;
   }
 }
 
@@ -85,9 +77,4 @@
   .ap-box {
     min-height: 42px;
   }
-}
-
-.btn-delete {
-  margin-left: 10px;
-  margin-top: 2px;
 }

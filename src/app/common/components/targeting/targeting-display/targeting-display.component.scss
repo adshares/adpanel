@@ -2,12 +2,9 @@
 
 .app-targeting-display {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 4px;
-
-  &__chip-list:not(:last-of-type) {
-    margin-bottom: 8px;
-  }
 }
 
 .hide-remove {
