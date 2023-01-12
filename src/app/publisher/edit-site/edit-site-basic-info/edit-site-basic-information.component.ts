@@ -44,6 +44,8 @@ export class EditSiteBasicInformationComponent
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;
   readonly faQuestionCircle = faQuestionCircle;
+  readonly CRYPTOVOXELS = CryptovoxelsConverter.ID;
+  readonly DECENTRALAND = DecentralandConverter.ID;
   readonly SETUP_VERSION = {
     AUTOMATIC: 'auto',
     MANUAL: 'manual',
@@ -154,11 +156,11 @@ export class EditSiteBasicInformationComponent
   overwriteUrl(): void {
     const vendor = this.siteBasicInfoForm.get('vendor').value;
     let url, name;
-    if (vendor === 'cryptovoxels') {
+    if (CryptovoxelsConverter.ID === vendor) {
       const value = this.siteBasicInfoForm.get('parcelId').value;
       url = new CryptovoxelsConverter().encodeValue(value);
       name = `Cryptovoxels ${value}`;
-    } else if (vendor === 'decentraland') {
+    } else if (DecentralandConverter.ID === vendor) {
       const coordinateX = this.siteBasicInfoForm.get('parcelCoordinateX').value;
       const coordinateY = this.siteBasicInfoForm.get('parcelCoordinateY').value;
       if (coordinateX === null || coordinateY === null) {
@@ -321,12 +323,12 @@ export class EditSiteBasicInformationComponent
           this.vendor = this.site.vendor;
           this.updateFormGroupOnVendorChange(this.vendor);
           if (this.site.medium === 'metaverse') {
-            if (this.vendor === 'cryptovoxels') {
+            if (CryptovoxelsConverter.ID === this.vendor) {
               const value = new CryptovoxelsConverter().decodeValue(
                 this.site.url.slice('https://'.length)
               );
               this.siteBasicInfoForm.get('parcelId').setValue(value);
-            } else if (this.vendor === 'decentraland') {
+            } else if (DecentralandConverter.ID === this.vendor) {
               const value = new DecentralandConverter().decodeValue(
                 this.site.url.slice('https://'.length)
               );
@@ -451,12 +453,12 @@ export class EditSiteBasicInformationComponent
     this.siteBasicInfoForm.removeControl('parcelCoordinateX');
     this.siteBasicInfoForm.removeControl('parcelCoordinateY');
 
-    if (vendor === 'cryptovoxels') {
+    if (CryptovoxelsConverter.ID === vendor) {
       this.siteBasicInfoForm.addControl(
         'parcelId',
         new FormControl(null, Validators.required)
       );
-    } else if (vendor === 'decentraland') {
+    } else if (DecentralandConverter.ID === vendor) {
       this.siteBasicInfoForm.addControl(
         'parcelCoordinateX',
         new FormControl(null, Validators.required)

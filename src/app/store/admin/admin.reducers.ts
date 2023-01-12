@@ -1,14 +1,11 @@
 import {
   actions,
-  BAN_USER_SUCCESS,
-  DELETE_USER_SUCCESS,
   GET_LICENSE_FAILURE,
   GET_LICENSE_SUCCESS,
   LOAD_ADMIN_SETTINGS_SUCCESS,
   LOAD_ADVERTISERS_SUCCESS,
   LOAD_PUBLISHERS_SUCCESS,
   LOAD_USERS_SUCCESS,
-  UNBAN_USER_SUCCESS,
 } from './admin.actions';
 import { AdminState } from 'models/app-state.model';
 
@@ -65,31 +62,7 @@ export function adminReducers(state = initialState, action: actions) {
         ...state,
         settings: action.payload.settings,
       };
-    case BAN_USER_SUCCESS:
-    case UNBAN_USER_SUCCESS:
-      const data = [...state.users.data];
-      const index = data.findIndex((user) => user.id === action.payload.id);
-      data[index] = action.payload;
 
-      return {
-        ...state,
-        users: {
-          ...state.users,
-          data: data,
-        },
-      };
-
-    case DELETE_USER_SUCCESS:
-      const updatedListOfUsers = state.users.data.filter(
-        (user) => user.id !== action.payload
-      );
-      return {
-        ...state,
-        users: {
-          ...state.users,
-          data: [...updatedListOfUsers],
-        },
-      };
     default:
       return state;
   }

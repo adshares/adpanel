@@ -16,31 +16,6 @@
         </label>
       </div>
       <div class="user-list__filters">
-        <label>Filter by status:</label>
-        <mat-checkbox
-          (change)="
-            onParamChange(
-              'onlyEmailUnconfirmed',
-              !queryParams.onlyEmailUnconfirmed
-            )
-          "
-          [checked]="queryParams.onlyEmailUnconfirmed"
-          class="user-list__checkbox"
-        >
-          Unconfirmed email
-        </mat-checkbox>
-        <mat-checkbox
-          (change)="
-            onParamChange(
-              'onlyAdminUnconfirmed',
-              !queryParams.onlyAdminUnconfirmed
-            )
-          "
-          [checked]="queryParams.onlyAdminUnconfirmed"
-          class="user-list__checkbox"
-        >
-          Unconfirmed account
-        </mat-checkbox>
         <label>Filter by type:</label>
         <mat-checkbox
           (change)="onParamChange('selectedType', type)"
@@ -51,7 +26,8 @@
           {{ type }}
         </mat-checkbox>
       </div>
-      <button class="ap-btn ap-btn--danger" (click)="onResetButtonClick()">
+      <button
+        class="ap-btn ap-btn--danger" (click)="onResetButtonClick()">
         Reset filters
       </button>
     </div>

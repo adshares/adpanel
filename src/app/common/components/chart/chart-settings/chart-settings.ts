@@ -66,7 +66,7 @@ export const chartOptions = (currencyCode: string): ChartOptions<'bar'> => {
             bodyLines.forEach((bodyLine) => {
               const value = bodyLine[0].split(': ')[1];
               innerHtml +=
-                '<tr><td><span class="ap-copy ap-copy--white">' +
+                '<tr><td><span>' +
                 formatNumberWithComma(
                   adjustTooltipValueFormat(value, currencyCode)
                 ) +

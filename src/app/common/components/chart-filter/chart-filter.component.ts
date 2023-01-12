@@ -92,22 +92,20 @@ export class ChartFilterComponent extends HandleSubscription implements OnInit {
     this.filterChart(this.dateFrom, this.dateTo, true);
   }
 
-  updateCurrentDaysSpan() {
+  updateCurrentDaysSpan(): void {
+    const momentFrom = moment(this.currentChartFilterSettings.currentFrom);
+    const momentTo = moment(this.currentChartFilterSettings.currentTo);
+
     const isCurrent =
-      moment(new Date()).format(DATE_FORMAT) ===
-      moment(this.currentChartFilterSettings.currentTo).format(DATE_FORMAT);
-    this.currentDaysSpan = moment(
-      this.currentChartFilterSettings.currentTo
-    ).diff(moment(this.currentChartFilterSettings.currentFrom), 'days');
-    this.currentFilterPreset = this.filterPresets.find((p) => {
-      return p.id === this.currentDaysSpan && isCurrent;
-    });
-    this.currentFromFilter = moment(
-      this.currentChartFilterSettings.currentFrom
-    ).format(DATE_FORMAT);
-    this.currentToFilter = moment(
-      this.currentChartFilterSettings.currentTo
-    ).format(DATE_FORMAT);
+      moment(new Date()).format(DATE_FORMAT) === momentTo.format(DATE_FORMAT);
+    this.currentDaysSpan = momentTo.diff(momentFrom, 'days');
+    this.currentFilterPreset = this.filterPresets.find(
+      (p) => p.id === this.currentDaysSpan && isCurrent
+    );
+    this.currentFromFilter = momentFrom.format(DATE_FORMAT);
+    this.currentToFilter = momentTo.format(DATE_FORMAT);
+    this.dateFrom.setValue(momentFrom);
+    this.dateTo.setValue(momentTo);
   }
 
   showDatepicker() {

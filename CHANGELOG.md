@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Load direct link ad content during campaign load
+### Fixed
+- Set chart's date filter
+
+## [2.2.4] - 2022-12-29
+### Fixed
+- OAuth redirection during adserver initialization
+
+## [2.2.3] - 2022-12-19
+### Removed
+- Filtering user list by confirmation status
+- Actions on users
+
+## [2.2.2] - 2022-12-13
+### Changed
+- Show placements for metaverse
+- Rename ad units to placements
+
+## [2.2.1] - 2022-12-08
+### Fixed
+- Handle session
+
+## [2.2.0] - 2022-12-07
 ### Added
 - Deleting referral links
 - Referral links pagination
@@ -491,7 +515,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Publisher features (Sites & AdUnits)
 
 
-[Unreleased]: https://github.com/adshares/adpanel/compare/v2.1.1...develop
+[Unreleased]: https://github.com/adshares/adpanel/compare/v2.2.4...develop
+[2.2.4]: https://github.com/adshares/adpanel/compare/v2.2.3...v2.2.4
+[2.2.3]: https://github.com/adshares/adpanel/compare/v2.2.2...v2.2.3
+[2.2.2]: https://github.com/adshares/adpanel/compare/v2.2.1...v2.2.2
+[2.2.1]: https://github.com/adshares/adpanel/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/adshares/adpanel/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/adshares/adpanel/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/adshares/adpanel/compare/v1.18.8...v2.1.0
 [1.18.8]: https://github.com/adshares/adpanel/compare/v1.18.7...v1.18.8

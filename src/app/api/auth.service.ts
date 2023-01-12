@@ -58,7 +58,8 @@ export class ApiAuthService {
 
   oauthAuthorize(url: string): Observable<OAuthAuthorizeResponse> {
     return this.http.get<OAuthAuthorizeResponse>(
-      buildUrl(url, ['no_redirect=true'])
+      buildUrl(url, ['no_redirect=true']),
+      { withCredentials: true }
     );
   }
 }

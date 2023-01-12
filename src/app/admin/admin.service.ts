@@ -5,7 +5,6 @@ import {
   AdminSettingsResponse,
   AdvertiserInfo,
   PublisherInfo,
-  UserBanDetails,
   UserInfo,
 } from 'models/settings.model';
 import { environment } from 'environments/environment';
@@ -92,41 +91,6 @@ export class AdminService {
     );
   }
 
-  confirmUser(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${id}/confirm`,
-      {}
-    );
-  }
-
-  switchToModerator(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${id}/switchToModerator`,
-      {}
-    );
-  }
-
-  switchToAgency(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${id}/switchToAgency`,
-      {}
-    );
-  }
-
-  switchToRegular(id: number): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${id}/switchToRegular`,
-      {}
-    );
-  }
-
-  changeUserRights(id: number, operation: string): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${id}/${operation}`,
-      {}
-    );
-  }
-
   impersonateUser(id: number): Observable<string> {
     return this.http.get<string>(
       `${environment.serverUrl}/admin/impersonation/${id}`
@@ -141,26 +105,5 @@ export class AdminService {
 
   getLicense(): Observable<any> {
     return this.http.get<any>(`${environment.serverUrl}/admin/license`);
-  }
-
-  banUser(userBanDetails: UserBanDetails): Observable<UserInfo> {
-    return this.http.post<UserInfo>(
-      `${environment.serverUrl}/admin/users/${userBanDetails.id}/ban`,
-      { reason: userBanDetails.reason }
-    );
-  }
-
-  unbanUser(id: number): Observable<UserInfo> {
-    return this.http.post<any>(
-      `${environment.serverUrl}/admin/users/${id}/unban`,
-      {}
-    );
-  }
-
-  deleteUser(id: number): Observable<any> {
-    return this.http.post<any>(
-      `${environment.serverUrl}/admin/users/${id}/delete`,
-      {}
-    );
   }
 }

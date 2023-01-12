@@ -8,7 +8,7 @@
   }
 
   &__info {
-    @include copy($color: pal(error), $font-size: 18, $font-weight: semiBold);
+    @include copy($color: pal(error), $font-size: 18, $font-weight: semi);
     display: flex;
     align-self: center;
   }
@@ -22,23 +22,23 @@
   );
   margin-left: 8px;
 
-  &[disabled] {
-    border-color: pal(primary);
-    color: pal(primary);
-  }
-
-  &--success {
-    border-color: pal(success);
-    color: pal(success);
-  }
-
-  &--warning {
-    border-color: pal(warning);
-    color: pal(warning);
-  }
-
-  &--danger {
-    border-color: pal(error);
-    color: pal(error);
-  }
+  //&[disabled] {
+  //  border-color: lighten(pal(navy, light), 30%);
+  //  color: lighten(pal(navy, light), 30%);
+  //}
+  //
+  //&--success {
+  //  border-color: pal(green, dark);
+  //  color: pal(green, dark);
+  //}
+  //
+  //&--warning {
+  //  border-color: pal(orange, dark);
+  //  color: pal(orange, dark);
+  //}
+  //
+  //&--danger {
+  //  border-color: pal(red, dark);
+  //  color: pal(red, dark);
+  //}
 }

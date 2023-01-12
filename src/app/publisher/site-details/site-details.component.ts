@@ -73,12 +73,15 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   barChartData = createInitialDataSet();
   currentChartFilterSettings: ChartFilterSettings;
   mediumLabel: string;
-  displayAds: boolean;
+  faArrowLeft = faArrowLeft;
+  isMetaverse: boolean = true;
+  editPopups: boolean = true;
+  editAds: boolean = true;
   siteLinkUrl: string;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   faRemove = faRemove;
   faEdit = faEdit;
-  faArrowLeft = faArrowLeft;
 
   constructor(
     private route: ActivatedRoute,
@@ -118,7 +121,9 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   ngOnInit(): void {
     this.site = cloneDeep(this.route.snapshot.data.site);
-    this.displayAds = this.site.medium !== 'metaverse';
+    this.isMetaverse = this.site.medium === 'metaverse';
+    this.editAds = !this.isMetaverse;
+    this.editPopups = !this.isMetaverse;
     this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
@@ -171,13 +176,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
 
   private getSiteLinkUrl(): string {
     if ('metaverse' === this.site.medium) {
-      if ('decentraland' === this.site.vendor) {
+      if (DecentralandConverter.ID === this.site.vendor) {
         return 'DCL Builder' === this.site.name
           ? DECENTRALAND_BUILDER
           : new DecentralandConverter().convertBackendUrlToValidUrl(
               this.site.url
             );
-      } else if ('cryptovoxels' === this.site.vendor) {
+      } else if (CryptovoxelsConverter.ID === this.site.vendor) {
         return new CryptovoxelsConverter().convertBackendUrlToValidUrl(
           this.site.url
         );
@@ -343,7 +348,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   openGetCodeDialog(): void {
-    if (!this.displayAds) {
+    if (this.isMetaverse) {
       this.dialog.open(SiteCodeMetaverseDialogComponent, {
         data: {
           vendor: this.site.vendor,

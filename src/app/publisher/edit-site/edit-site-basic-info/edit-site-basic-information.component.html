@@ -64,11 +64,11 @@
               matTooltipClass="ap-mat-tooltip"
               matTooltip="
               Enter your website's URL address.
-              Ad units will be displayed only under the specified domain."
-              matTooltipPosition="right"
-              [icon]="faQuestionCircle"
-            ></fa-icon>
-          </label>
+              Ads will be displayed only under the specified domain."
+            matTooltipPosition="right"
+            [icon]="faQuestionCircle"
+          ></fa-icon>
+        </label>
 
           <input
             formControlName="url"
@@ -127,8 +127,8 @@
           <ng-container *ngIf="isConnectedWallet; else connectWallet">
             <div
               *ngIf="createSiteMode"
-              class="ap-form-input__box row align-baseline"
-            >
+              class="ap-form-input__box row align-baseline">
+            
               <label class="ap-form-label ap-form-label--inline">Setup</label>
               <mat-button-toggle-group
                 formControlName="setupVersionControl"
@@ -159,7 +159,7 @@
               <ng-container *ngSwitchCase="SETUP_VERSION.MANUAL">
                 <ng-container [ngSwitch]="vendor">
                   <div
-                    *ngSwitchCase="'cryptovoxels'"
+                    *ngSwitchCase="CRYPTOVOXELS"
                     class="ap-form-input__box"
                   >
                     <label for="parcelId" class="ap-form-label">
@@ -169,7 +169,7 @@
                         matTooltipClass="ap-mat-tooltip"
                         matTooltip="
                         Enter your parcel's ID.
-                        Ad units will be displayed only on specified parcel."
+                        Ads will be displayed only on specified parcel."
                         matTooltipPosition="right"
                         [icon]="faQuestionCircle"
                       ></fa-icon>
@@ -190,7 +190,7 @@
                   </div>
 
                   <div
-                    *ngSwitchCase="'decentraland'"
+                    *ngSwitchCase="DECENTRALAND"
                     class="ap-form-input__box ap-form-input__box__full"
                   >
                     <label for="parcelCoordinateX" class="ap-form-label">
@@ -200,7 +200,7 @@
                         matTooltipClass="ap-mat-tooltip"
                         matTooltip="
                         Enter your parcel's coordinates.
-                        Ad units will be displayed only on specified parcel."
+                        Ads will be displayed only on specified parcel."
                         matTooltipPosition="right"
                         [icon]="faQuestionCircle"
                       ></fa-icon>
@@ -373,7 +373,8 @@
           (click)="onSubmit()"
           [disabled]="changesSaving"
         >
-          <span>{{ createSiteMode ? 'Save & continue' : 'Update' }}</span>
+          <span>{{ createSiteMode ? 'Save & continue' : 'Update'
+        }}</span>
         </button>
       </div>
     </div>

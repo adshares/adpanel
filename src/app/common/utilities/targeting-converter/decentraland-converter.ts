@@ -108,6 +108,6 @@ export class DecentralandConverter implements TargetingConverter {
       .slice(1, decodedValue.length - 1)
       .split(', ');
 
-    return `https://play.decentraland.org/?position=${coordinates[0]}%2C${coordinates[1]}&realm=dg`;
+    return `https://play.decentraland.org/?position=${coordinates[0]}%2C${coordinates[1]}`;
   }
 }

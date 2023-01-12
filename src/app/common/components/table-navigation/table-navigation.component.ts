@@ -147,7 +147,7 @@ export class TableNavigationComponent
   ];
 
   userListNavigationItems = [
-    { title: 'Email', columnWidth: 'col-xs-5', keys: ['email'] },
+    { title: 'Email', columnWidth: 'col-xs-6', keys: ['email'] },
     {
       title: 'Wallet balance',
       columnWidth: 'col-xs-2 justify-center',
@@ -159,7 +159,6 @@ export class TableNavigationComponent
       hideArrows: true,
     },
     { title: 'Role', columnWidth: 'col-xs-2 justify-center', hideArrows: true },
-    { title: 'Actions', columnWidth: 'col-xs-1', hideArrows: true },
   ];
 
   advertiserListNavigationItems = [
@@ -213,7 +212,7 @@ export class TableNavigationComponent
 
   adUnitsNavigation = [
     { title: 'Name', columnWidth: 'col-xs-2', keys: ['name'] },
-    { title: 'Size', columnWidth: 'col-xs-2', hideArrows: true },
+    { title: 'Scope', columnWidth: 'col-xs-2', hideArrows: true },
     {
       title: 'Est. revenue',
       columnWidth: 'col-xs-1',

@@ -5,7 +5,6 @@ export interface ChartFilterSettings {
   currentFrom: string;
   currentFrequency: string;
   currentAssetId: number;
-  currentBannerId: number;
   currentSeries?: seriesType;
   type?: string;
 }

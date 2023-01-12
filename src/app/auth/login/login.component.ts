@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,7 +30,6 @@ import {
 export class LoginComponent extends HandleSubscription implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET;
   readonly METAMASK_WALLET = METAMASK_WALLET;
-  @Input('source') source;
   registrationMode: string;
   loginForm: FormGroup;
 
@@ -59,7 +58,6 @@ export class LoginComponent extends HandleSubscription implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.source);
     const loginPlaceholdersSubscription = this.store
       .select('state', 'common', 'placeholders')
       .subscribe((placeholders) => {

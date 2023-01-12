@@ -6,11 +6,6 @@ import { SessionService } from '../../session.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { User } from 'models/user.model';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component';
-import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component';
-import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions';
 
 @Component({
   selector: 'app-impersonation',
@@ -31,8 +26,7 @@ export class ImpersonationComponent
     private router: Router,
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
-    private store: Store<AppState>,
-    private dialog: MatDialog
+    private store: Store<AppState>
   ) {
     super();
   }
@@ -64,50 +58,5 @@ export class ImpersonationComponent
       accountType = SessionService.ACCOUNT_TYPE_AGENCY;
     }
     this.sessionService.setAccountTypeChoice(accountType);
-  }
-
-  showBanConfirmationDialog() {
-    this.dialog
-      .open(BanUserDialogComponent, {
-        autoFocus: false,
-        data: this.userEmail,
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.dropImpersonation();
-          this.store.dispatch(new BanUser({ id: this.userId, reason: result }));
-        }
-      });
-  }
-
-  showUnbanConfirmationDialog() {
-    this.dialog
-      .open(UserConfirmResponseDialogComponent, {
-        data: {
-          message: `Do you want unban user ${this.userEmail}?`,
-        },
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.dropImpersonation();
-          this.store.dispatch(new UnbanUser(this.userId));
-        }
-      });
-  }
-
-  showDeleteConfirmationDialog() {
-    this.dialog
-      .open(DeleteUserDialogComponent, {
-        data: this.userEmail,
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.dropImpersonation();
-          this.store.dispatch(new DeleteUser(this.userId));
-        }
-      });
   }
 }

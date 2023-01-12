@@ -10,8 +10,6 @@ import { LoadUsers } from 'store/admin/admin.actions';
 
 export interface UsersQueryParams {
   selectedType: 'Advertisers' | 'Publishers' | 'All';
-  onlyEmailUnconfirmed: boolean;
-  onlyAdminUnconfirmed: boolean;
   userSearch: string | null;
   sort?: string[];
   order?: 'desc' | 'asc';
@@ -37,8 +35,6 @@ export interface UsersQueryParams {
 export class UserListComponent extends BaseListComponent implements OnInit {
   readonly defaultParams: UsersQueryParams = {
     selectedType: 'All',
-    onlyEmailUnconfirmed: false,
-    onlyAdminUnconfirmed: false,
     userSearch: null,
   };
   localStorageName = 'usersQueryParams';
@@ -57,12 +53,6 @@ export class UserListComponent extends BaseListComponent implements OnInit {
     this.isLoading = true;
     const filters = [];
     this.page = 1;
-    if (this.queryParams.onlyEmailUnconfirmed) {
-      filters.push('email-unconfirmed');
-    }
-    if (this.queryParams.onlyAdminUnconfirmed) {
-      filters.push('admin-unconfirmed');
-    }
     if (this.queryParams.selectedType) {
       filters.push(this.queryParams.selectedType.toLowerCase());
     }

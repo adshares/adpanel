@@ -14,12 +14,6 @@ import { SessionService } from '../../../../session.service';
 import { HandleSubscription } from 'common/handle-subscription';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 import { User } from 'models/user.model';
-import { ShowDialogOnError } from 'store/common/common.actions';
-import { MatDialog } from '@angular/material/dialog';
-import { BanUserDialogComponent } from 'admin/dialog/ban-user-dialog/ban-user-dialog.component';
-import { DeleteUserDialogComponent } from 'admin/dialog/delete-user-dialog/delete-user-dialog.component';
-import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
-import { BanUser, DeleteUser, UnbanUser } from 'store/admin/admin.actions';
 import { ServerOptionsService } from 'common/server-options.service';
 
 @Component({
@@ -39,7 +33,6 @@ export class UserListItemComponent
   code: string = CODE;
   calculateFunds: boolean;
   faIconImpersonation = faUserSecret;
-  isSaving: boolean = false;
 
   constructor(
     private adminService: AdminService,
@@ -47,8 +40,7 @@ export class UserListItemComponent
     private store: Store<AppState>,
     private impersonationService: ImpersonationService,
     private sessionService: SessionService,
-    private router: Router,
-    private dialog: MatDialog
+    private router: Router
   ) {
     super();
   }
@@ -57,74 +49,6 @@ export class UserListItemComponent
     this.loggedUser = this.sessionService.getUser();
     const options = this.serverOptionsService.getOptions();
     this.calculateFunds = options.displayCurrency !== options.appCurrency;
-  }
-
-  handleConfirmation(): void {
-    this.isSaving = true;
-    this.adminService.confirmUser(this.user.id).subscribe(
-      (user) => {
-        this.user = {
-          ...this.user,
-          ...user,
-        };
-        this.isSaving = false;
-      },
-      () => {
-        this.isSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      }
-    );
-  }
-
-  handleSwitchingToModerator(): void {
-    this.isSaving = true;
-    this.adminService.switchToModerator(this.user.id).subscribe(
-      (user) => {
-        this.user = {
-          ...this.user,
-          ...user,
-        };
-        this.isSaving = false;
-      },
-      () => {
-        this.isSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      }
-    );
-  }
-
-  handleSwitchingToAgency(): void {
-    this.isSaving = true;
-    this.adminService.switchToAgency(this.user.id).subscribe(
-      (user) => {
-        this.user = {
-          ...this.user,
-          ...user,
-        };
-        this.isSaving = false;
-      },
-      () => {
-        this.isSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      }
-    );
-  }
-
-  handleSwitchingToRegular(): void {
-    this.isSaving = true;
-    this.adminService.switchToRegular(this.user.id).subscribe(
-      (user) => {
-        this.user = {
-          ...this.user,
-          ...user,
-        };
-        this.isSaving = false;
-      },
-      () => {
-        this.isSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      }
-    );
   }
 
   handleImpersonating(): void {
@@ -142,23 +66,6 @@ export class UserListItemComponent
         );
       }
     });
-  }
-
-  handleUserRightsChange(operation: string): void {
-    this.isSaving = true;
-    this.adminService.changeUserRights(this.user.id, operation).subscribe(
-      (user) => {
-        this.user = {
-          ...this.user,
-          ...user,
-        };
-        this.isSaving = false;
-      },
-      () => {
-        this.isSaving = false;
-        this.store.dispatch(new ShowDialogOnError(''));
-      }
-    );
   }
 
   get canImpersonate(): boolean {
@@ -203,49 +110,5 @@ export class UserListItemComponent
     } else {
       return 'User has no advertiser nor publisher role';
     }
-  }
-
-  showBanConfirmationDialog() {
-    this.dialog
-      .open(BanUserDialogComponent, {
-        autoFocus: false,
-        data: this.user,
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.store.dispatch(
-            new BanUser({ id: this.user.id, reason: result })
-          );
-        }
-      });
-  }
-
-  showUnbanConfirmationDialog() {
-    this.dialog
-      .open(UserConfirmResponseDialogComponent, {
-        data: {
-          message: `Do you want unban user ${this.user.email}?`,
-        },
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.store.dispatch(new UnbanUser(this.user.id));
-        }
-      });
-  }
-
-  showDeleteConfirmationDialog() {
-    this.dialog
-      .open(DeleteUserDialogComponent, {
-        data: this.user.email,
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.store.dispatch(new DeleteUser(this.user.id));
-        }
-      });
   }
 }

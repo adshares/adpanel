@@ -11,6 +11,5 @@ export const chartFilterSettingsInitialState: ChartFilterSettings = {
   currentFrom: moment().subtract(30, 'days').format(),
   currentFrequency: 'day',
   currentAssetId: 0,
-  currentBannerId: 0,
   currentSeries: chartSeriesInitialState,
 };

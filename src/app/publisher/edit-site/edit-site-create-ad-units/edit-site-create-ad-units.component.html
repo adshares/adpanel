@@ -5,11 +5,11 @@
 <section class="homepage-view site-edit-create-posters-units">
   <div class="ap-box">
     <div class="box-title">
-      <h1 class="ap-heading ap-heading--h2">Select ad units</h1>
+      <h1 class="ap-heading ap-heading--h2">Select placements</h1>
       <p class="ap-copy box-subtitle">
-        Please select the size of an ad unit you want to place on your website.
-        If you want to generate more than one ad unit, please click the "Create
-        new ad unit" button on the bottom part of the site and pick the desired
+        Please select the size of a placement you want to place on your website.
+        If you want to generate more than one placement, please click the "Create
+        new placement" button on the bottom part of the site and pick the desired
         sizes.
       </p>
     </div>
@@ -50,7 +50,7 @@
                       (adUnitsSubmitted || !createSiteMode) &&
                       !adUnitPanelsStatus[adUnitIndex] &&
                       (adUnitForm.get('name').hasError('required') ||
-                        !adUnitForm.get('size').value)
+                      !adUnitForm.get('size').value)
                     "
                   >
                     !
@@ -61,7 +61,7 @@
 
             <div class="row justify-between">
               <div class="ap-form-input__box">
-                <label for="name" class="ap-form-label"> Ad unit name </label>
+                <label for="name" class="ap-form-label"> Placement name </label>
                 <input
                   id="name"
                   class="ap-form-input"
@@ -83,7 +83,7 @@
                     adUnitForm.get('name').hasError('required')
                   "
                 >
-                  Ad unit name required!
+                  Placement name required!
                 </span>
               </div>
 
@@ -160,11 +160,11 @@
               <div
                 *ngIf="
                   !adUnitForm.get('size').value && adUnitForm.get('saved').value
-                "
-                class="row"
+                
+                "class="row"
               >
                 <span class="error-msg">
-                  The original size of this ad unit is deprecated and won't be
+                  The original size of this placement is deprecated and won't be
                   supported
                 </span>
               </div>
@@ -181,13 +181,13 @@
                       [icon]="faTrash"
                       class="ap-icon ap-icon--prepend"
                     ></fa-icon>
-                    Delete ad unit
+                    Delete placement
                   </button>
                   <span
                     class="error-msg"
                     *ngIf="adUnitsSubmitted && !adUnitForm.get('size').value"
                   >
-                    Ad unit size required!
+                    Placement size required!
                   </span>
                 </div>
               </div>
@@ -204,7 +204,7 @@
         data-test="publisher-edit-site-create-ad-units-create-new-ad-unit"
       >
         <fa-icon class="ap-icon ap-icon--prepend" [icon]="faPlus"></fa-icon>
-        Create new ad unit
+        Create new placement
       </button>
     </div>
   </div>

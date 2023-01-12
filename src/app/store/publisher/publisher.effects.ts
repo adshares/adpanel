@@ -207,7 +207,7 @@ export class PublisherEffects {
             ];
           }),
           catchError(() =>
-            observableOf(new ShowDialogOnError('Ad units cannot be updated'))
+            observableOf(new ShowDialogOnError('Placements cannot be updated'))
           )
         )
       )

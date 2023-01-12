@@ -1,6 +1,6 @@
 <div class="ap-copy instruction">
   <p>Follow the few steps below to integrate:</p>
-  <ol *ngIf="vendor === 'cryptovoxels'">
+  <ol *ngIf="vendor === CRYPTOVOXELS">
     <li>
       Generate and copy the Adshares code:
       <button
@@ -18,7 +18,7 @@
       will detect scale and automatically serve ads.
     </li>
   </ol>
-  <ol *ngIf="vendor === 'decentraland'">
+  <ol *ngIf="vendor === DECENTRALAND">
     <li>
       Download the smart item from
       <a
@@ -59,7 +59,7 @@
     For more information read
     <a
       [href]="
-        vendor === 'cryptovoxels'
+        vendor === CRYPTOVOXELS
           ? ADD_UNIT_CRYPTOVOXELS
           : ADD_UNIT_DECENTRALAND
       "
