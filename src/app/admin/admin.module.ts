@@ -31,9 +31,9 @@ import { AdvertiserListItemComponent } from 'admin/users/advertiser-list/adverti
 import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
 import { PublisherListItemComponent } from 'admin/users/publisher-list/publisher-list-item/publisher-list-item.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatButtonModule } from '@angular/material/button'
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -60,11 +60,7 @@ import { MatButtonModule } from '@angular/material/button'
     MatMenuModule,
     MatButtonModule,
   ],
-  providers: [
-    AdminGuard,
-    ClickToADSPipe,
-    ImpersonationService,
-  ],
+  providers: [AdminGuard, ClickToADSPipe, ImpersonationService],
   declarations: [
     AdminComponent,
     DashboardComponent,
@@ -80,5 +76,4 @@ import { MatButtonModule } from '@angular/material/button'
     PanelBlockadeComponent,
   ],
 })
-export class AdminModule {
-}
+export class AdminModule {}

@@ -2,33 +2,15 @@
   [currentStep]="5"
   [medium]="site.medium"
 ></app-edit-site-navigation>
-<section
-  class="
-    homepage-view
-    site-edit-summary"
->
-  <div
-    class="
-      text-center
-      site-edit-summary"
-  >
-    <h1
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Summary
-    </h1>
-    <p
-      class="
-        ap-copy
-        ap-copy--medium"
-    >
-      Please check if all settings are correct and publish the site.
-      Next you need to get your code.
-      Once you click the "Add site" button you will be redirected to the main dashboard.
-      Please click the site you have just added, then the "Get code" button, copy the code for each of the placements and place it on your website.
-      If you have any doubts please
+<section class="homepage-view site-edit-summary">
+  <div class="text-center site-edit-summary">
+    <h1 class="ap-heading ap-heading--primary">Summary</h1>
+    <p class="ap-copy ap-copy--medium">
+      Please check if all settings are correct and publish the site. Next you
+      need to get your code. Once you click the "Add site" button you will be
+      redirected to the main dashboard. Please click the site you have just
+      added, then the "Get code" button, copy the code for each of the
+      placements and place it on your website. If you have any doubts please
       <a
         href="https://github.com/adshares/adserver/wiki/How-to-use-Advertising-Ecosystem#how-to-use-the-adserver--instruction-for-publishers"
         rel="noopener noreferrer"
@@ -39,81 +21,34 @@
     </p>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      site-edit-summary__basic-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        1. Basic information
-      </h3>
+  <div class="ap-box ap-box--large site-edit-summary__basic-info">
+    <div class="row align-center justify-between">
+      <h3 class="ap-heading ap-heading--secondary">1. Basic information</h3>
       <a
         routerLink="../basic-information"
         data-test="publisher-edit-site-summary-navigate-to-basic-information"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
+        <button class="ap-btn ap-btn--white ap-blue">Edit</button>
       </a>
     </div>
 
     <div class="row">
-      <div class="col
-                  site-edit-summary__basic-info-element">
-        <p
-          class="
-          ap-copy
-          ap-copy--light"
-        >
-          Website name
-        </p>
+      <div class="col site-edit-summary__basic-info-element">
+        <p class="ap-copy ap-copy--light">Website name</p>
 
         <p
-          class="
-          ap-copy
-          ap-copy--semi
-          ap-copy--medium
-          ap-copy--x-dark"
+          class="ap-copy ap-copy--semi ap-copy--medium ap-copy--x-dark"
           data-test="publisher-site-url"
         >
           {{ site.name }}
         </p>
       </div>
 
-      <div
-        class="
-          col-xs-4
-          col"
-      >
-        <p
-          class="ap-copy
-          ap-copy--light"
-        >
-          Content language
-        </p>
+      <div class="col-xs-4 col">
+        <p class="ap-copy ap-copy--light">Content language</p>
 
         <p
-          class="
-            ap-copy
-            ap-copy--semi
-            ap-copy--medium
-            ap-copy--x-dark"
+          class="ap-copy ap-copy--semi ap-copy--medium ap-copy--x-dark"
           data-test="publisher-site-language"
         >
           {{ site.primaryLanguage }}
@@ -122,46 +57,21 @@
     </div>
   </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      site-edit-summary__targeting-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        2. Exclusions
-      </h3>
+  <div class="ap-box ap-box--large site-edit-summary__targeting-info">
+    <div class="row align-center justify-between">
+      <h3 class="ap-heading ap-heading--secondary">2. Exclusions</h3>
       <a
         routerLink="../additional-filtering"
         data-test="publisher-edit-site-summary-navigate-to-additional-information"
       >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
-        >
-          Edit
-        </button>
+        <button class="ap-btn ap-btn--white ap-blue">Edit</button>
       </a>
     </div>
-    <div class="row" *ngIf="!site.filteringArray.excludes.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
+    <div class="row" *ngIf="!site.filteringArray.excludes.length">
+      <strong class="site-edit-summary__warning ap-copy">(none)</strong>
+    </div>
     <div class="row" *ngIf="!!site.filteringArray.excludes.length">
-      <div
-        class="
-          col-xs-5
-          site-edit-summary__info-cell"
-      >
+      <div class="col-xs-5 site-edit-summary__info-cell">
         <app-targeting-display
           [items]="site.filteringArray.excludes"
           [isExclude]="true"
@@ -173,195 +83,126 @@
   </div>
 
   <ng-container *ngIf="displayAds">
-  <div
-    class="
-      ap-box
-      ap-box--large
-      site-edit-summary__poster-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        3. Pops
-      </h3>
-      <a
-        routerLink="../pops-settings"
-        data-test="publisher-edit-site-summary-navigate-to-pops-settings"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
+    <div class="ap-box ap-box--large site-edit-summary__poster-info">
+      <div class="row align-center justify-between">
+        <h3 class="ap-heading ap-heading--secondary">3. Pops</h3>
+        <a
+          routerLink="../pops-settings"
+          data-test="publisher-edit-site-summary-navigate-to-pops-settings"
         >
-          Edit
-        </button>
-      </a>
-    </div>
-    <div class="row" *ngIf="!popAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
-    <div *ngIf="!!popAdUnits.length"
-         class="row"
-         [ngClass]="popAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
-
+          <button class="ap-btn ap-btn--white ap-blue">Edit</button>
+        </a>
+      </div>
+      <div class="row" *ngIf="!popAdUnits.length">
+        <strong class="site-edit-summary__warning ap-copy">(none)</strong>
+      </div>
       <div
-        class="row site-edit-summary__poster-unit"
-        *ngFor="let adUnit of popAdUnits"
-        data-test="publisher-edit-site-summary-ad-units"
+        *ngIf="!!popAdUnits.length"
+        class="row"
+        [ngClass]="popAdUnits.length > 4 ? 'justify-between' : 'justify-start'"
       >
         <div
-          class="
-                  row
-                  align-center
-                  justify-center
-                  site-edit-create-posters-units__poster-unit__visualization-box"
+          class="row site-edit-summary__poster-unit"
+          *ngFor="let adUnit of popAdUnits"
+          data-test="publisher-edit-site-summary-ad-units"
         >
           <div
-            class="ap-copy site-edit-summary__poster-unit__visualization"
-            data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+            class="row align-center justify-center site-edit-create-posters-units__poster-unit__visualization-box"
           >
-            {{ adUnit.name }}
+            <div
+              class="ap-copy site-edit-summary__poster-unit__visualization"
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+            >
+              {{ adUnit.name }}
+            </div>
           </div>
-        </div>
 
-        <strong
-          class="ap-copy
-                 ap-copy--semi
-                 ap-copy--x-dark
-                 ap-copy--medium"
-          data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
-        >
-          {{ adUnit.size }}
-        </strong>
-        <div>
-          <div
-            class="ap-chip-box"
-            *ngFor="let tag of adUnit.tags"
-            data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+          <strong
+            class="ap-copy ap-copy--semi ap-copy--x-dark ap-copy--medium"
+            data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
           >
-            {{ tag }}
+            {{ adUnit.size }}
+          </strong>
+          <div>
+            <div
+              class="ap-chip-box"
+              *ngFor="let tag of adUnit.tags"
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+            >
+              {{ tag }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      site-edit-summary__poster-info"
-  >
-    <div
-      class="
-        row
-        align-center
-        justify-between"
-    >
-      <h3
-        class="
-          ap-heading
-          ap-heading--secondary"
-      >
-        4. Placements
-      </h3>
-      <a
-        routerLink="../create-ad-units"
-        data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
-      >
-        <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-blue"
+    <div class="ap-box ap-box--large site-edit-summary__poster-info">
+      <div class="row align-center justify-between">
+        <h3 class="ap-heading ap-heading--secondary">4. Placements</h3>
+        <a
+          routerLink="../create-ad-units"
+          data-test="publisher-edit-site-summary-navigate-to-create-ad-units"
         >
-          Edit
-        </button>
-      </a>
-    </div>
-    <div class="row" *ngIf="!displayAdUnits.length"><strong class="site-edit-summary__warning ap-copy">(none)</strong></div>
-    <div *ngIf="!!displayAdUnits.length"
-         class="row"
-         [ngClass]="displayAdUnits.length > 4 ? 'justify-between' : 'justify-start'">
-
+          <button class="ap-btn ap-btn--white ap-blue">Edit</button>
+        </a>
+      </div>
+      <div class="row" *ngIf="!displayAdUnits.length">
+        <strong class="site-edit-summary__warning ap-copy">(none)</strong>
+      </div>
       <div
-        class="row site-edit-summary__poster-unit"
-        *ngFor="let adUnit of displayAdUnits"
-        data-test="publisher-edit-site-summary-ad-units"
+        *ngIf="!!displayAdUnits.length"
+        class="row"
+        [ngClass]="
+          displayAdUnits.length > 4 ? 'justify-between' : 'justify-start'
+        "
       >
         <div
-          class="
-                  row
-                  align-center
-                  justify-center
-                  site-edit-create-posters-units__poster-unit__visualization-box"
+          class="row site-edit-summary__poster-unit"
+          *ngFor="let adUnit of displayAdUnits"
+          data-test="publisher-edit-site-summary-ad-units"
         >
           <div
-            class="ap-copy site-edit-summary__poster-unit__visualization"
-            data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+            class="row align-center justify-center site-edit-create-posters-units__poster-unit__visualization-box"
           >
-            {{ adUnit.name }}
+            <div
+              class="ap-copy site-edit-summary__poster-unit__visualization"
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-size"
+            >
+              {{ adUnit.name }}
+            </div>
           </div>
-        </div>
 
-        <strong
-          class="ap-copy
-                 ap-copy--semi
-                 ap-copy--x-dark
-                 ap-copy--medium"
-          data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
-        >
-          {{ adUnit.size }}
-        </strong>
-        <div>
-          <div
-            class="ap-chip-box"
-            *ngFor="let tag of adUnit.tags"
-            data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+          <strong
+            class="ap-copy ap-copy--semi ap-copy--x-dark ap-copy--medium"
+            data-test="publisher-edit-site-create-poster-units-form-poster-unit-name"
           >
-            {{ tag }}
+            {{ adUnit.size }}
+          </strong>
+          <div>
+            <div
+              class="ap-chip-box"
+              *ngFor="let tag of adUnit.tags"
+              data-test="publisher-edit-site-create-ad-units-form-ad-unit-tag"
+            >
+              {{ tag }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </ng-container>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      row
-      justify-between"
-  >
+  <div class="ap-box ap-box--large row justify-between">
     <a
       routerLink="../additional-filtering"
       data-test="publisher-edit-site-navigate-back"
     >
-      <button
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue"
-      >
-        Back
-      </button>
+      <button class="ap-btn ap-btn--white ap-blue">Back</button>
     </a>
 
     <div class="row">
       <button
-        class="
-            ap-btn
-            ap-btn--white
-            ap-blue
-            save-as-draft"
+        class="ap-btn ap-btn--white ap-blue save-as-draft"
         type="button"
         (click)="saveSite(true)"
         data-test="publisher-edit-site-save-as-draft"
@@ -370,9 +211,7 @@
       </button>
       <button
         [disabled]="canSubmit"
-        class="
-            ap-btn
-            ap-btn--blue"
+        class="ap-btn ap-btn--blue"
         (click)="saveSite(false)"
         type="button"
         data-test="publisher-edit-site-start-site"

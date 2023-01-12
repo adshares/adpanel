@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -7,11 +7,9 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./billing.component.scss'],
 })
 export class BillingComponent {
-
   nowPaymentsSuccess: boolean = false;
 
-  constructor(private route: ActivatedRoute) {
-  }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     const route = this.route.snapshot.firstChild;

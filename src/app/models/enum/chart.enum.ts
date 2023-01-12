@@ -26,5 +26,5 @@ export enum advChartSeriesEnum {
 export enum filterPresetsEnum {
   'Today' = 0,
   'Last 7 days' = 6,
-  'Last 30 days' = 30
+  'Last 30 days' = 30,
 }

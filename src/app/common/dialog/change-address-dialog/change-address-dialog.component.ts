@@ -13,9 +13,12 @@ import { appSettings } from 'app-settings';
 @Component({
   selector: 'app-change-address-dialog',
   templateUrl: './change-address-dialog.component.html',
-  styleUrls: ['./change-address-dialog.component.scss']
+  styleUrls: ['./change-address-dialog.component.scss'],
 })
-export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
+export class ChangeAddressDialogComponent
+  extends HandleSubscription
+  implements OnInit
+{
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
   isConfirmed = false;
@@ -33,7 +36,8 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store.select('state', 'user', 'data',)
+    const userSubscription = this.store
+      .select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.adsharesAddress = '';
         this.isConfirmed = user.isConfirmed;
@@ -45,8 +49,8 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.changeWithdrawAddressForm = new FormGroup({
       address: new FormControl('', [
         Validators.required,
-        Validators.pattern(appSettings.ADDRESS_REGEXP)
-      ])
+        Validators.pattern(appSettings.ADDRESS_REGEXP),
+      ]),
     });
   }
 
@@ -68,7 +72,9 @@ export class ChangeAddressDialogComponent extends HandleSubscription implements 
     this.subscriptions.push(changeWithdrawAddressSubscription);
 
     const userData = JSON.parse(localStorage.getItem('adshUser'));
-    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {adsharesAddress: address});
+    const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
+      adsharesAddress: address,
+    });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
     this.store.dispatch(new UpdateUserAddress(address));

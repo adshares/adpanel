@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AdUnit } from 'models/site.model';
-import { adUnitTypesEnum } from "models/enum/ad.enum";
+import { adUnitTypesEnum } from 'models/enum/ad.enum';
 
 @Component({
   selector: 'app-poster-units',

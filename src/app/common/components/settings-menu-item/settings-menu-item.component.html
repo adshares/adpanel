@@ -1,38 +1,24 @@
-<li class="settings-menu-item"
-    routerLinkActive="active">
-  <a
-    [routerLink]="menuItem.link"
-    data-test="settings-category-link"
-  >
-    <h3
-      class="
-          ap-copy--large
-          ap-copy--x-dark"
-    >
+<li class="settings-menu-item" routerLinkActive="active">
+  <a [routerLink]="menuItem.link" data-test="settings-category-link">
+    <h3 class="ap-copy--large ap-copy--x-dark">
       {{ menuItem.title }}
     </h3>
   </a>
   <p class="ap-copy">
     {{ menuItem.description }}
   </p>
-  <ul
-    class="settings-menu-item__submenu"
-  >
-    <li *ngFor="let subMenuItems of menuItem.values"
-        class="settings-menu-item__submenu-item"
+  <ul class="settings-menu-item__submenu">
+    <li
+      *ngFor="let subMenuItems of menuItem.values"
+      class="settings-menu-item__submenu-item"
     >
-      <a
-        [routerLink]="menuItem.link"
-        data-test="settings-category-link-direct"
-      >
+      <a [routerLink]="menuItem.link" data-test="settings-category-link-direct">
         <div class="row align-center" routerLinkActive="active">
           <img
             alt=""
-            class="
-                ap-icon
-                ap-icon--prepend"
+            class="ap-icon ap-icon--prepend"
             [src]="subMenuItems.icon"
-          >
+          />
           <span class="ap-copy">{{ subMenuItems.name }}</span>
         </div>
       </a>

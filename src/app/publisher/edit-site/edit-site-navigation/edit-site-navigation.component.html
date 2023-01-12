@@ -1,33 +1,19 @@
-<section
-  class="
-    ap-edit-asset__navigation
-    row
-    align-center"
->
-  <div
-    class="
-      container
-      row
-      align-center
-      justify-center"
-  >
+<section class="ap-edit-asset__navigation row align-center">
+  <div class="container row align-center justify-center">
+    <div
+      *ngFor="let step of steps"
+      class="ap-edit-asset__navigation-step row align-center"
+    >
       <div
-        *ngFor="let step of steps"
-        class="
-          ap-edit-asset__navigation-step
-          row
-          align-center"
-      >
-        <div
-          class="ap-circle"
-          [class.inactive]="currentStep < step.id"
-          [class.active]="currentStep === step.id"
-          [class.done]="currentStep > step.id">
-        </div>
-        <p class="ap-copy">
-          {{ step.name }}
-        </p>
-        <div class="ap-step-link-indicator"></div>
-      </div>
+        class="ap-circle"
+        [class.inactive]="currentStep < step.id"
+        [class.active]="currentStep === step.id"
+        [class.done]="currentStep > step.id"
+      ></div>
+      <p class="ap-copy">
+        {{ step.name }}
+      </p>
+      <div class="ap-step-link-indicator"></div>
+    </div>
   </div>
 </section>

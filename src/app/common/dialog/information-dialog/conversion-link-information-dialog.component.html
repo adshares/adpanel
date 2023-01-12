@@ -1,36 +1,24 @@
-<mat-dialog-content class="text-center information-dialog ">
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="
-      ap-heading
-      ap-heading--primary"
-  >
-    Conversion link
-  </h1>
-  <div *ngIf="link"
-       class="information-dialog__box">
-    <span class="ap-copy--bold information-dialog__info">{{link}}</span>
-    <i matTooltipClass="ap-mat-tooltip"
-       matTooltip="Copy link"
-       matTooltipPosition="above"
-       role="button"
-       tabindex="0"
-       (click)="copyToClipboard(link)"
-       class="material-icons information-dialog__copy-icon information-dialog__copy-icon"
+<mat-dialog-content class="text-center information-dialog">
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--primary">Conversion link</h1>
+  <div *ngIf="link" class="information-dialog__box">
+    <span class="ap-copy--bold information-dialog__info">{{ link }}</span>
+    <i
+      matTooltipClass="ap-mat-tooltip"
+      matTooltip="Copy link"
+      matTooltipPosition="above"
+      role="button"
+      tabindex="0"
+      (click)="copyToClipboard(link)"
+      class="material-icons information-dialog__copy-icon information-dialog__copy-icon"
     >
       file_copy
     </i>
   </div>
-  <p
-    *ngIf="isAdvanced"
-     class="ap-copy"
-  >
-    The link above is a conversion address, that must be used to execute a conversion.
-    Please, place it on your site (e.g. as a src attribute of an img element).
-    Before you proceed further, please
+  <p *ngIf="isAdvanced" class="ap-copy">
+    The link above is a conversion address, that must be used to execute a
+    conversion. Please, place it on your site (e.g. as a src attribute of an img
+    element). Before you proceed further, please
     <a
       href="https://github.com/adshares/adserver/wiki/Conversions"
       rel="noopener noreferrer"
@@ -40,11 +28,9 @@
     </a>
     .
   </p>
-  <p
-    *ngIf="!isAdvanced"
-     class="ap-copy"
-  >
-    The link above is a conversion address, that must be used to execute a conversion.
-    Please, place it on your site (e.g. as a src attribute of an img element).
+  <p *ngIf="!isAdvanced" class="ap-copy">
+    The link above is a conversion address, that must be used to execute a
+    conversion. Please, place it on your site (e.g. as a src attribute of an img
+    element).
   </p>
 </mat-dialog-content>

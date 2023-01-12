@@ -1,48 +1,23 @@
 <mat-dialog-content class="text-center mat-dialog-content fill-height">
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="
-      ap-heading
-      ap-heading--primary"
-  >
-    Ad codes
-  </h1>
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--primary">Ad codes</h1>
 
   <div>
-    <p
-      class="
-        ap-copy
-        ap-copy--large"
-    >
-      This code should only be used on websites that comply with our program policies.
-      Please copy the code and place it on your site.
+    <p class="ap-copy ap-copy--large">
+      This code should only be used on websites that comply with our program
+      policies. Please copy the code and place it on your site.
     </p>
 
     <div *ngIf="isUserConfirmed">
       <mat-accordion>
-        <mat-expansion-panel
-          expanded="false"
-        >
+        <mat-expansion-panel expanded="false">
           <mat-expansion-panel-header>
-            <mat-panel-title
-              class="
-                ap-heading
-                ap-heading--secondary
-                text-left"
-            >
-              <mat-icon>
-                filter_list
-              </mat-icon>
+            <mat-panel-title class="ap-heading ap-heading--secondary text-left">
+              <mat-icon> filter_list </mat-icon>
               Customize ad codes
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <form
-            id="code-form"
-            [formGroup]="codeForm"
-          >
+          <form id="code-form" [formGroup]="codeForm">
             <div class="row justify-start align-center ad-codes">
               <div class="col-xs-7">
                 <mat-checkbox
@@ -53,25 +28,22 @@
                 </mat-checkbox>
               </div>
               <div class="col-xs-5">
-                <a href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
-                   rel="noopener noreferrer"
-                   target="_blank"
+                <a
+                  href="https://github.com/adshares/adserver/wiki/Serve-ad-zone-JS-code-locally-to-circumvent-adblocks"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <div
-                    class="
-                      ap-btn
-                      ap-btn--white
-                      ap-btn--tiny
-                      align-with-checkbox"
-                  >read more</div>
+                    class="ap-btn ap-btn--white ap-btn--tiny align-with-checkbox"
+                  >
+                    read more
+                  </div>
                 </a>
               </div>
             </div>
             <div class="row justify-start align-center ad-codes">
               <div class="col-xs-7">
-                <mat-checkbox
-                  formControlName="isMinCpm"
-                >
+                <mat-checkbox formControlName="isMinCpm">
                   Display ads with a CPM rate higher than
                 </mat-checkbox>
                 <input
@@ -79,60 +51,53 @@
                   formControlName="minCpm"
                   class="ap-form-input input-in-text input-in-text--amount justify-center"
                 />
-                <span class="ap-info-box mat-checkbox-label align-with-checkbox">{{ currencyCode }} only</span>
-
-                <div
-                  *ngIf="!codeForm.get('minCpm').valid"
-                  class="row"
+                <span class="ap-info-box mat-checkbox-label align-with-checkbox"
+                  >{{ currencyCode }} only</span
                 >
-                  <span
-                    class="error-msg error-msg-in-text"
-                  >Value must be greater than 0.0001 {{ currencyCode }}</span>
+
+                <div *ngIf="!codeForm.get('minCpm').valid" class="row">
+                  <span class="error-msg error-msg-in-text"
+                    >Value must be greater than 0.0001 {{ currencyCode }}</span
+                  >
                 </div>
               </div>
               <div class="col-xs-5">
-                <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-                   rel="noopener noreferrer"
-                   target="_blank"
+                <a
+                  href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <div
-                    class="
-                      ap-btn
-                      ap-btn--white
-                      ap-btn--tiny
-                      align-with-checkbox"
-                  >read more</div>
+                    class="ap-btn ap-btn--white ap-btn--tiny align-with-checkbox"
+                  >
+                    read more
+                  </div>
                 </a>
               </div>
             </div>
             <div class="row justify-start align-center ad-codes">
               <div class="col-xs-7">
-                <mat-checkbox
-                  formControlName="isAdBlock"
-                >
+                <mat-checkbox formControlName="isAdBlock">
                   Display ads in browsers with active ad blockers only
                 </mat-checkbox>
               </div>
               <div class="col-xs-5">
-                <a href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
-                   rel="noopener noreferrer"
-                   target="_blank"
+                <a
+                  href="https://github.com/adshares/adserver/wiki/List-of-available-Adzone-options"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <div
-                    class="
-                      ap-btn
-                      ap-btn--white
-                      ap-btn--tiny
-                      align-with-checkbox"
-                  >read more</div>
+                    class="ap-btn ap-btn--white ap-btn--tiny align-with-checkbox"
+                  >
+                    read more
+                  </div>
                 </a>
               </div>
             </div>
             <div class="row justify-start align-center ad-codes">
               <div class="col-xs-7">
-                <mat-checkbox
-                  formControlName="isFallback"
-                >
+                <mat-checkbox formControlName="isFallback">
                   Enable custom fallback for
                 </mat-checkbox>
                 <input
@@ -144,31 +109,31 @@
                   formControlName="fallbackRate"
                   class="ap-form-input input-in-text input-in-text--amount justify-center"
                 />
-                <span class="ap-info-box mat-checkbox-label align-with-checkbox">% of ad views</span>
-                <div class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2">
+                <span class="ap-info-box mat-checkbox-label align-with-checkbox"
+                  >% of ad views</span
+                >
+                <div
+                  class="mat-checkbox-label align-with-checkbox align-with-checkbox-label-vertically2"
+                >
                   E.g. display other ad networks' ads
                 </div>
-                <div
-                  *ngIf="!codeForm.get('fallbackRate').valid"
-                  class="row"
-                >
-                <span
-                  class="error-msg error-msg-in-text"
-                >Value must be between 0% and 100%</span>
-              </div>
+                <div *ngIf="!codeForm.get('fallbackRate').valid" class="row">
+                  <span class="error-msg error-msg-in-text"
+                    >Value must be between 0% and 100%</span
+                  >
+                </div>
               </div>
               <div class="col-xs-5">
-                <a href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
-                   rel="noopener noreferrer"
-                   target="_blank"
+                <a
+                  href="https://github.com/adshares/adserver/wiki/How-to-setup-fallback-backfill-code"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <div
-                    class="
-                      ap-btn
-                      ap-btn--white
-                      ap-btn--tiny
-                      align-with-checkbox"
-                  >read more</div>
+                    class="ap-btn ap-btn--white ap-btn--tiny align-with-checkbox"
+                  >
+                    read more
+                  </div>
                 </a>
               </div>
             </div>
@@ -203,26 +168,29 @@
 
               <div class="row">
                 <span
-                  *ngIf="!codeForm.get('popCount').valid || !codeForm.get('popInterval').valid || !codeForm.get('popBurst').valid"
+                  *ngIf="
+                    !codeForm.get('popCount').valid ||
+                    !codeForm.get('popInterval').valid ||
+                    !codeForm.get('popBurst').valid
+                  "
                   class="error-msg"
-                >Value must be greater than 0</span>
+                  >Value must be greater than 0</span
+                >
               </div>
             </div>
           </form>
         </mat-expansion-panel>
       </mat-accordion>
 
-      <div
-        *ngIf="!loadingInfo; else loading"
-      >
-        <div
-          *ngIf="null !== codes"
-        >
+      <div *ngIf="!loadingInfo; else loading">
+        <div *ngIf="null !== codes">
           <div class="row code-row align-center">
             <label
               class="ap-copy ap-copy--bold col text-left"
               for="code-container-common"
-            >Paste this code in HEAD tag on your website (one time only)</label>
+              >Paste this code in HEAD tag on your website (one time
+              only)</label
+            >
 
             <button
               class="code-copy-btn"
@@ -235,12 +203,7 @@
 
           <textarea
             id="code-container-common"
-            class="
-              code-container
-              ap-box
-              ap-box--large
-              ap-box--light-border
-              ap-copy"
+            class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
             [ngModel]="codes.common"
           ></textarea>
 
@@ -250,13 +213,13 @@
             </span>
           </div>
 
-          <div
-            *ngFor="let pop of codes.pops; let indexPop = index">
+          <div *ngFor="let pop of codes.pops; let indexPop = index">
             <div class="row code-row align-center">
               <label
                 class="ap-copy ap-copy--bold col text-left"
                 for="{{ 'code-container-pop' + indexPop }}"
-              >{{ pop.label }}</label>
+                >{{ pop.label }}</label
+              >
 
               <button
                 class="code-copy-btn"
@@ -269,23 +232,18 @@
 
             <textarea
               id="{{ 'code-container-pop' + indexPop }}"
-              class="
-                code-container
-                ap-box
-                ap-box--large
-                ap-box--light-border
-                ap-copy"
+              class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
               [ngModel]="pop.code"
             ></textarea>
           </div>
 
-          <div
-            *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
+          <div *ngFor="let adUnit of codes.adUnits; let indexAdUnits = index">
             <div class="row code-row align-center">
               <label
                 class="ap-copy ap-copy--bold col text-left"
                 for="{{ 'code-container-ad-unit' + indexAdUnits }}"
-              >{{ adUnit.label }}</label>
+                >{{ adUnit.label }}</label
+              >
 
               <button
                 class="code-copy-btn"
@@ -298,12 +256,7 @@
 
             <textarea
               id="{{ 'code-container-ad-unit' + indexAdUnits }}"
-              class="
-                code-container
-                ap-box
-                ap-box--large
-                ap-box--light-border
-                ap-copy"
+              class="code-container ap-box ap-box--large ap-box--light-border ap-copy"
               [ngModel]="adUnit.code"
             ></textarea>
           </div>
@@ -311,28 +264,19 @@
 
         <div
           *ngIf="null === codes"
-          class="
-            row
-            align-center
-            ap-alert
-            ap-copy
-            ap-gray"
-          >
-            <img src="assets/images/error.svg" alt="Attention">
-            An error occurred. Make sure that you confirmed an e-mail and review the options.
+          class="row align-center ap-alert ap-copy ap-gray"
+        >
+          <img src="assets/images/error.svg" alt="Attention" />
+          An error occurred. Make sure that you confirmed an e-mail and review
+          the options.
         </div>
       </div>
     </div>
     <div
       *ngIf="!isUserConfirmed"
-      class="
-        row
-        align-center
-        ap-alert
-        ap-copy
-        ap-gray"
+      class="row align-center ap-alert ap-copy ap-gray"
     >
-      <img src="assets/images/error.svg" alt="Attention">
+      <img src="assets/images/error.svg" alt="Attention" />
       Confirm account to get the codes.
     </div>
   </div>

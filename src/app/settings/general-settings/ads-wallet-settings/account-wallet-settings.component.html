@@ -1,28 +1,29 @@
 <section class="account-wallet-settings">
   <div class="ap-box ap-box--large">
     <div class="col">
-      <h2 class="ap-heading ap-heading--primary">
-        Account Wallet
-      </h2>
+      <h2 class="ap-heading ap-heading--primary">Account Wallet</h2>
       <p class="ap-copy ap-copy--large">
         Here you can set up a connection with a cryptocurrency wallet.
       </p>
 
-      <div
-        class="error-msg"
-        *ngIf="isImpersonated"
-      >
+      <div class="error-msg" *ngIf="isImpersonated">
         You cannot change user preferences during impersonation.
       </div>
 
       <form class="ap-form" *ngIf="!isImpersonated">
         <ng-template #loading>
-          <mat-spinner [diameter]="16" [strokeWidth]="2" color="accent"></mat-spinner>
+          <mat-spinner
+            [diameter]="16"
+            [strokeWidth]="2"
+            color="accent"
+          ></mat-spinner>
         </ng-template>
         <div class="row align-start change-form">
           <div class="ap-form-input__box">
             <label for="walletAddress" class="ap-form-label">
-              Wallet address<ng-container *ngIf="wallet.walletNetwork"> ({{ wallet.walletNetwork }})</ng-container>
+              Wallet address<ng-container *ngIf="wallet.walletNetwork">
+                ({{ wallet.walletNetwork }})</ng-container
+              >
             </label>
             <input
               id="walletAddress"
@@ -31,7 +32,7 @@
               name="walletAddress"
               readonly
               [value]="wallet.walletAddress"
-            >
+            />
           </div>
 
           <button
@@ -40,12 +41,14 @@
             (click)="initConnectToWallet('ADS')"
             [disabled]="isSubmitted"
           >
-            <ng-container *ngIf="!isSubmitted; else loading">Connect to ADS Wallet</ng-container>
+            <ng-container *ngIf="!isSubmitted; else loading"
+              >Connect to ADS Wallet</ng-container
+            >
           </button>
           <a
             *ngIf="!adsWalletAvailable"
             class="ap-btn ap-btn--danger"
-            href="{{ADSHARES_WALLET}}"
+            href="{{ ADSHARES_WALLET }}"
             rel="noopener noreferrer nofollow"
             target="_blank"
           >
@@ -57,12 +60,14 @@
             (click)="initConnectToWallet('BSC')"
             [disabled]="isSubmitted"
           >
-            <ng-container *ngIf="!isSubmitted; else loading">Connect to BSC Wallet</ng-container>
+            <ng-container *ngIf="!isSubmitted; else loading"
+              >Connect to BSC Wallet</ng-container
+            >
           </button>
           <a
             *ngIf="!ethereumAvailable"
             class="ap-btn ap-btn--danger"
-            href="{{METAMASK_WALLET}}"
+            href="{{ METAMASK_WALLET }}"
             rel="noopener noreferrer nofollow"
             target="_blank"
           >
@@ -70,11 +75,8 @@
           </a>
         </div>
         <div class="row align-start change-form">
-          <span
-            class="error-msg"
-            *ngIf="connectError"
-          >
-            {{connectError}}
+          <span class="error-msg" *ngIf="connectError">
+            {{ connectError }}
           </span>
         </div>
       </form>

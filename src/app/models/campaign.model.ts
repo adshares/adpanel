@@ -16,7 +16,7 @@ interface CampaignsConfig {
 type CampaignTargeting = {
   requires: object;
   excludes: object;
-}
+};
 
 interface Campaign {
   id?: number;
@@ -141,24 +141,24 @@ interface AdPreview {
 }
 
 interface CampaignTotalsResponse {
-  total: CampaignTotals,
-  data: CampaignTotals[]
+  total: CampaignTotals;
+  data: CampaignTotals[];
 }
 
 interface BidStrategy {
-  uuid: string,
-  name: string,
-  details: BidStrategyDetail[],
+  uuid: string;
+  name: string;
+  details: BidStrategyDetail[];
 }
 
 interface BidStrategyDetail {
-  category: string,
-  rank: number,
+  category: string;
+  rank: number;
 }
 
 interface BidStrategyRequest {
-  name: string,
-  details: BidStrategyDetail[],
+  name: string;
+  details: BidStrategyDetail[];
 }
 
 interface BidStrategyUuidDefaultResponse {
@@ -184,4 +184,4 @@ export {
   BidStrategyDetail,
   BidStrategyRequest,
   BidStrategyUuidDefaultResponse,
-}
+};

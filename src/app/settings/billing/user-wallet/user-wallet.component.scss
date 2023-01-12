@@ -1,6 +1,5 @@
-@import "../../../../styles/mixins";
-@import "../../../../styles/colors";
-
+@import '../../../../styles/mixins';
+@import '../../../../styles/colors';
 
 .user-wallet {
   margin-bottom: 8px;
@@ -9,9 +8,7 @@
   flex-wrap: wrap;
 
   &__wallet-box {
-    @include container(20px, 20px,
-    $border-color: pal(gray, nearly-white)
-    );
+    @include container(20px, 20px, $border-color: pal(gray, nearly-white));
     min-width: 450px;
     flex: 1;
     &--with-margin {
@@ -27,7 +24,7 @@
 
   &__title,
   &__funds {
-    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32)
+    @include copy($color: pal(navy, base), $font-weight: bold, $font-size: 32);
   }
 
   &__funds-in-currency {

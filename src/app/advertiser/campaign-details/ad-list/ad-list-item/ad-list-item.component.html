@@ -1,49 +1,26 @@
-<tr
-  class="
-       ap-box ap-box--no-padding
-       row
-       align-center"
->
-  <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
-  >
-    <div
-      class="text-center"
-      [attr.data-status]="ad.status"
-    >
+<tr class="ap-box ap-box--no-padding row align-center">
+  <td class="col-xs-1 row ap-copy align-center">
+    <div class="text-center" [attr.data-status]="ad.status">
       <mat-slide-toggle
         color="primary"
         [checked]="ad.status === adStatusesEnum.ACTIVE"
         [disabled]="ad.status === adStatusesEnum.REJECTED"
         (change)="changeAdStatus($event.checked)"
         matTooltipClass="ap-mat-tooltip"
-        [matTooltip]="ad.status === adStatusesEnum.REJECTED ? 'Banner was rejected by the classifier.' : null"
+        [matTooltip]="
+          ad.status === adStatusesEnum.REJECTED
+            ? 'Banner was rejected by the classifier.'
+            : null
+        "
         matTooltipPosition="right"
         data-test="advertiser-ad-change-ad-status-toggle"
       ></mat-slide-toggle>
     </div>
   </td>
-  <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
-    data-test="advertiser-ad-name"
-  >
+  <td class="col-xs-1 row ap-copy align-center" data-test="advertiser-ad-name">
     {{ ad.name }}
   </td>
-  <td
-    #appBannerPreviewContainer
-    class="
-      col-xs-3
-      row
-      align-center"
-  >
+  <td #appBannerPreviewContainer class="col-xs-3 row align-center">
     <app-banner-preview
       [banner]="ad"
       [landingUrl]="campaign.basicInformation.targetUrl"
@@ -51,82 +28,46 @@
     ></app-banner-preview>
   </td>
   <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
+    class="col-xs-1 row ap-copy align-center"
     data-test="advertiser-ad-cost"
-    [title]=" (ad.cost || 0) | formatMoney:4"
+    [title]="ad.cost || 0 | formatMoney : 4"
   >
-    {{ (ad.cost || 0) | formatMoney:2}}
+    {{ ad.cost || 0 | formatMoney : 2 }}
   </td>
   <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
-    data-test="advertiser-ad-clicks">
-    {{ ad.clicks || 0}}
+    class="col-xs-1 row ap-copy align-center"
+    data-test="advertiser-ad-clicks"
+  >
+    {{ ad.clicks || 0 }}
   </td>
   <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
+    class="col-xs-1 row ap-copy align-center"
     data-test="advertiser-ad-impressions"
   >
     {{ ad.impressions || 0 }}
   </td>
-  <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
-    data-test="advertiser-ad-ctr"
-  >
-    {{ (ad.ctr || 0) | percent:'1.2-2' }}
+  <td class="col-xs-1 row ap-copy align-center" data-test="advertiser-ad-ctr">
+    {{ ad.ctr || 0 | percent : '1.2-2' }}
   </td>
   <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
+    class="col-xs-1 row ap-copy align-center"
     data-test="advertiser-ad-average-cpm"
-    [title]="(ad.averageCpm || 0) | formatMoney:4"
+    [title]="ad.averageCpm || 0 | formatMoney : 4"
   >
-    {{ (ad.averageCpm || 0) | formatMoney:2}}
+    {{ ad.averageCpm || 0 | formatMoney : 2 }}
   </td>
   <td
-    class="
-         col-xs-1
-         row
-         ap-copy
-         align-center"
+    class="col-xs-1 row ap-copy align-center"
     data-test="advertiser-ad-average-cpc"
-    [title]="(ad.averageCpc || 0) | formatMoney:4"
+    [title]="ad.averageCpc || 0 | formatMoney : 4"
   >
-    {{ (ad.averageCpc || 0) | formatMoney:2}}
+    {{ ad.averageCpc || 0 | formatMoney : 2 }}
   </td>
   <td
-    class="
-          col-xs-1
-          row
-          clickable-row
-          clickable-area
-          align-center
-          justify-center
-          ap-posters-list-item__nav-item"
+    class="col-xs-1 row clickable-row clickable-area align-center justify-center ap-posters-list-item__nav-item"
     (click)="navigateToAdEdition()"
     role="link"
   >
-    <img
-      src="/assets/images/chevron--right.svg"
-      alt="Edit banners"
-    >
+    <img src="/assets/images/chevron--right.svg" alt="Edit banners" />
   </td>
 </tr>

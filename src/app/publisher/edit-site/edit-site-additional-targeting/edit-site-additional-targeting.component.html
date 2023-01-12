@@ -2,27 +2,20 @@
   [currentStep]="4"
   [medium]="site.medium"
 ></app-edit-site-navigation>
-<section
-  class="
-    homepage-view
-    site-edit-additional-targeting"
->
-
+<section class="homepage-view site-edit-additional-targeting">
   <section
-    class="
-      ap-box
-      site-edit-additional-targeting__checkbox-container
-      col"
+    class="ap-box site-edit-additional-targeting__checkbox-container col"
   >
-    <h1 class="mat-expansion-panel-header-title
-               ap-heading--secondary
-               classification-section__title">Classification</h1>
-    <p class="
-      ap-copy
-      no-gutters
-      ap-box--no-padding
-      classification-section__info">
-      After set this setting you will be able to approve banners for this particular site.
+    <h1
+      class="mat-expansion-panel-header-title ap-heading--secondary classification-section__title"
+    >
+      Classification
+    </h1>
+    <p
+      class="ap-copy no-gutters ap-box--no-padding classification-section__info"
+    >
+      After set this setting you will be able to approve banners for this
+      particular site.
     </p>
     <mat-checkbox
       id="require-classified-checkbox"
@@ -38,36 +31,29 @@
     class="targeting-accordion"
     data-test="publisher-edit-site-additional-targeting-accordion"
   >
-    <div
-      *ngIf="showRequiresSection"
-      class="ap-box"
-    >
+    <div *ngIf="showRequiresSection" class="ap-box">
       <mat-expansion-panel
         (opened)="requirePanelOpenState = true"
         (closed)="requirePanelOpenState = false"
         data-test="publisher-edit-site-additional-targeting-accordion-panel-required"
       >
-        <mat-expansion-panel-header
-          class="
-            ap-heading
-            ap-heading--secondary"
-        >
-          <mat-panel-title>
-            Targeting
-          </mat-panel-title>
+        <mat-expansion-panel-header class="ap-heading ap-heading--secondary">
+          <mat-panel-title> Targeting </mat-panel-title>
         </mat-expansion-panel-header>
 
         <div class="row">
           <div class="col-xs-6 no-gutters">
-            <p class="ap-copy"
-            >
+            <p class="ap-copy">
               In this window you can select the keywords that will help you
-              choose the ads that are related to your site and meet your requirements.
+              choose the ads that are related to your site and meet your
+              requirements.
             </p>
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                *ngIf="targetingOptionsToAdd && targetingOptionsToAdd.length > 0"
+                *ngIf="
+                  targetingOptionsToAdd && targetingOptionsToAdd.length > 0
+                "
                 [targetingOptions]="targetingOptionsToAdd"
                 [addedItems]="addedItems"
                 (itemsChange)="updateAddedItems($event)"
@@ -99,7 +85,6 @@
       </div>
     </div>
 
-
     <div class="ap-box">
       <mat-expansion-panel
         (opened)="excludePanelOpenState = true"
@@ -107,27 +92,25 @@
         [expanded]="true"
         data-test="publisher-edit-site-additional-targeting-accordion-panel-excluded"
       >
-        <mat-expansion-panel-header
-          class="
-            ap-heading
-            ap-heading--secondary"
-        >
-          <mat-panel-title>
-            Exclusions
-          </mat-panel-title>
+        <mat-expansion-panel-header class="ap-heading ap-heading--secondary">
+          <mat-panel-title> Exclusions </mat-panel-title>
         </mat-expansion-panel-header>
 
         <div class="row">
           <div class="col-xs-6">
-            <p class="ap-copy"
-            >
-              Please select banner ad categories that you don’t want to display on your site.
-              If you don’t exclude any categories, all available ads will be displayed on your site - e.g. adult, gambling, investment etc.
+            <p class="ap-copy">
+              Please select banner ad categories that you don’t want to display
+              on your site. If you don’t exclude any categories, all available
+              ads will be displayed on your site - e.g. adult, gambling,
+              investment etc.
             </p>
 
             <div class="targeting-select-wrapper">
               <app-targeting-select
-                *ngIf="targetingOptionsToExclude && targetingOptionsToExclude.length > 0"
+                *ngIf="
+                  targetingOptionsToExclude &&
+                  targetingOptionsToExclude.length > 0
+                "
                 [targetingOptions]="targetingOptionsToExclude"
                 [addedItems]="excludedItems"
                 [checkClass]="'stopmark'"
@@ -164,18 +147,9 @@
     </div>
   </mat-accordion>
 
-  <div
-    class="
-      ap-box
-      ap-box--large
-      row
-      justify-between"
-  >
+  <div class="ap-box ap-box--large row justify-between">
     <button
-      class="
-          ap-btn
-          ap-btn--white
-          ap-blue"
+      class="ap-btn ap-btn--white ap-blue"
       role="link"
       (click)="onStepBack()"
     >
@@ -187,26 +161,25 @@
         *ngIf="createSiteMode"
         (click)="saveSite(true)"
         [disabled]="changesSaved"
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue
-          save-as-draft"
+        class="ap-btn ap-btn--white ap-blue save-as-draft"
         data-test="publisher-edit-site-save-as-draft"
       >
         Save as draft
       </button>
       <button
         (click)="onSubmit()"
-        class="
-          ap-btn
-          ap-btn--wide
-          ap-btn--blue"
+        class="ap-btn ap-btn--wide ap-btn--blue"
         data-test="publisher-edit-site-save-and-continue"
       >
-        <span *ngIf="!changesSaved; else loading">{{createSiteMode ? "Save & continue" : "Update" }}</span>
+        <span *ngIf="!changesSaved; else loading">{{
+          createSiteMode ? 'Save & continue' : 'Update'
+        }}</span>
         <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          <mat-spinner
+            [diameter]="20"
+            [strokeWidth]="2"
+            color="accent"
+          ></mat-spinner>
         </ng-template>
       </button>
     </div>

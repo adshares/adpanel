@@ -54,11 +54,7 @@
     min-height: 40px;
     overflow: visible !important;
     padding: 0 !important;
-    @include copy(
-      $color: pal(navy, base),
-      $font-weight: semi,
-      $font-size: 16
-    );
+    @include copy($color: pal(navy, base), $font-weight: semi, $font-size: 16);
 
     > div {
       overflow: hidden;

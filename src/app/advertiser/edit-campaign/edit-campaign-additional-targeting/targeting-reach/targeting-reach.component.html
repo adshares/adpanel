@@ -10,13 +10,17 @@
     </div>
     <div *ngIf="reach && !autoCpm" class="ap-copy targeting-reach--info">
       <span *ngIf="nextStepCpm && nextStepImpressions">
-        To reach {{ nextStepImpressions | number }} impressions increase CPM to {{ nextStepCpm | formatMoney:2 }}
+        To reach {{ nextStepImpressions | number }} impressions increase CPM to
+        {{ nextStepCpm | formatMoney : 2 }}
       </span>
       <span *ngIf="!nextStepCpm || !nextStepImpressions">
         Increase CPM to reach even more!
       </span>
     </div>
-    <div *ngIf="!reach" class="ap-copy targeting-reach--info targeting-reach--error">
+    <div
+      *ngIf="!reach"
+      class="ap-copy targeting-reach--info targeting-reach--error"
+    >
       Please check your targeting settings.
     </div>
   </div>

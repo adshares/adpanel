@@ -1,9 +1,7 @@
 <section class="ref-link-settings">
   <div class="ap-box ap-box--large">
     <div class="col">
-      <h2 class="ap-heading ap-heading--primary">
-        Referral links
-      </h2>
+      <h2 class="ap-heading ap-heading--primary">Referral links</h2>
       <div class="row justify-end">
         <button
           [disabled]="isImpersonated"
@@ -19,32 +17,30 @@
       </div>
 
       <div class="ref-link-settings-table__scrollable">
-        <table
-          class="
-          billing-table
-          ap-copy"
-        >
+        <table class="billing-table ap-copy">
           <thead class="ref-link-settings-table__head">
-          <tr class="row justify-between">
-            <th class="ref-link-settings__token" scope="col">
-              Referral token
-            </th>
-            <th class="ref-link-settings__refund" scope="col" *ngIf="refundEnabled">
-              You Receive/Friends Receive
-            </th>
-            <th class="ref-link-settings__comment" scope="col">
-              Note
-            </th>
-            <th class="ref-link-settings__usage" scope="col">
-              Friends
-            </th>
-            <th class="ref-link-settings__refunded" scope="col" *ngIf="refundEnabled">
-              You Earned
-            </th>
-            <th class="ref-link-settings__actions" scope="col">
-              Action
-            </th>
-          </tr>
+            <tr class="row justify-between">
+              <th class="ref-link-settings__token" scope="col">
+                Referral token
+              </th>
+              <th
+                class="ref-link-settings__refund"
+                scope="col"
+                *ngIf="refundEnabled"
+              >
+                You Receive/Friends Receive
+              </th>
+              <th class="ref-link-settings__comment" scope="col">Note</th>
+              <th class="ref-link-settings__usage" scope="col">Friends</th>
+              <th
+                class="ref-link-settings__refunded"
+                scope="col"
+                *ngIf="refundEnabled"
+              >
+                You Earned
+              </th>
+              <th class="ref-link-settings__actions" scope="col">Action</th>
+            </tr>
           </thead>
           <tbody *ngIf="!isLoading; else loading">
             <app-ref-link-list-item

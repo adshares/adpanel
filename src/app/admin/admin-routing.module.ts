@@ -4,15 +4,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
-import { AccountSettingsComponent } from "settings/general-settings/account-settings/account-settings.component";
-import { GeneralSettingsComponent } from "admin/general-settings/general-settings.component";
-import { UsersComponent } from "admin/users/users.component";
-import { MediaResolver } from 'common/resolvers/media.resolver'
-import { UserListComponent } from 'admin/users/user-list/user-list.component'
-import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component'
-import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component'
-import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service'
-import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver'
+import { AccountSettingsComponent } from 'settings/general-settings/account-settings/account-settings.component';
+import { GeneralSettingsComponent } from 'admin/general-settings/general-settings.component';
+import { UsersComponent } from 'admin/users/users.component';
+import { MediaResolver } from 'common/resolvers/media.resolver';
+import { UserListComponent } from 'admin/users/user-list/user-list.component';
+import { AdvertiserListComponent } from 'admin/users/advertiser-list/advertiser-list.component';
+import { PublisherListComponent } from 'admin/users/publisher-list/publisher-list.component';
+import { AccessTokenScopesResolver } from 'common/resolvers/access-token-scopes-resolver.service';
+import { ServerOptionsResolver } from 'common/resolvers/server-options.resolver';
 
 const adminRoutes: Routes = [
   {
@@ -23,7 +23,7 @@ const adminRoutes: Routes = [
       options: ServerOptionsResolver,
     },
     children: [
-      {path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general'},
+      { path: '', pathMatch: 'full', redirectTo: '/admin/dashboard/general' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -31,7 +31,7 @@ const adminRoutes: Routes = [
           {
             path: '',
             redirectTo: 'users',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'users',
@@ -40,28 +40,28 @@ const adminRoutes: Routes = [
               {
                 path: '',
                 redirectTo: 'all',
-                pathMatch: 'full'
+                pathMatch: 'full',
               },
               {
                 path: 'all',
-                component: UserListComponent
+                component: UserListComponent,
               },
               {
                 path: 'advertisers',
-                component: AdvertiserListComponent
+                component: AdvertiserListComponent,
               },
               {
                 path: 'publishers',
-                component: PublisherListComponent
+                component: PublisherListComponent,
               },
-            ]
+            ],
           },
           {
             path: 'general',
             component: GeneralSettingsComponent,
             resolve: {
               media: MediaResolver,
-            }
+            },
           },
           {
             path: 'account',
@@ -70,19 +70,14 @@ const adminRoutes: Routes = [
               scopes: AccessTokenScopesResolver,
             },
           },
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(adminRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(adminRoutes)],
+  exports: [RouterModule],
 })
-export class AdminRoutingModule {
-}
+export class AdminRoutingModule {}

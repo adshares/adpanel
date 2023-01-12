@@ -5,11 +5,9 @@ import { ApiUsersService } from './users.service';
 
 @Injectable()
 export class ApiService {
-
   constructor(
     public auth: ApiAuthService,
     public config: ApiConfigService,
-    public users: ApiUsersService,
-  ) {
-  }
+    public users: ApiUsersService
+  ) {}
 }

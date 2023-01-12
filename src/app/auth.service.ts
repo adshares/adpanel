@@ -11,14 +11,12 @@ import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthService {
-
   constructor(
     private router: Router,
     private api: ApiService,
     private session: SessionService,
     private store: Store<AppState>
-  ) {
-  }
+  ) {}
 
   logout() {
     this.store.dispatch(new authActions.UserLogOutSuccess());

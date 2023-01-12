@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { environment } from 'environments/environment'
+import { Component } from '@angular/core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'info-page',
@@ -10,8 +10,7 @@ export class InfoPageComponent {
   source: string;
   version: string;
 
-  constructor(
-  ) {
+  constructor() {
     this.source = environment.name.toLowerCase().replace(/\s+/, '-');
     this.version = environment.version;
   }

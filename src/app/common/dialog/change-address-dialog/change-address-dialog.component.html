@@ -1,33 +1,10 @@
-<mat-dialog-content
-  class="
-    text-center
-    mat-dialog-content--narrow"
->
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="
-      ap-heading
-      ap-heading--primary"
-  >
-    Change address
-  </h1>
+<mat-dialog-content class="text-center mat-dialog-content--narrow">
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--primary">Change address</h1>
 
-  <p
-    class="
-      ap-copy
-      ap-copy--large
-      dialog-description"
-  >
-  </p>
+  <p class="ap-copy ap-copy--large dialog-description"></p>
 
-  <div
-    class="
-      add-funds-content
-      dialog-main-content"
-  >
+  <div class="add-funds-content dialog-main-content">
     <form
       [formGroup]="changeWithdrawAddressForm"
       (ngSubmit)="changeWithdrawAddress()"
@@ -35,79 +12,63 @@
       data-test="common-change-withdraw-address-form"
     >
       <div class="ap-form-input__box">
-        <label
-          for="user-address"
-          class="ap-form-label"
-        >
+        <label for="user-address" class="ap-form-label">
           Your wallet address
         </label>
         <input
           id="user-address"
-          class="
-            ap-form-input
-            ap-form-input--full"
+          class="ap-form-input ap-form-input--full"
           name="user-address"
           [value]="adsharesAddress"
           disabled
           data-test="common-change-withdraw-address-form-address"
-        >
+        />
         <span class="input-valid"></span>
       </div>
 
       <div class="ap-form-input__box">
-        <label
-          for="address"
-          class="ap-form-label"
-        >
-          New address
-        </label>
+        <label for="address" class="ap-form-label"> New address </label>
         <input
           id="address"
-          class="
-            ap-form-input
-            ap-form-input--full"
+          class="ap-form-input ap-form-input--full"
           type="url"
           name="address"
           formControlName="address"
           data-test="common-change-withdraw-address-form-address-new"
-        >
+        />
         <span
           *ngIf="changeWithdrawAddressForm.get('address').valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
-          *ngIf="!changeWithdrawAddressForm.get('address').valid && changeAddressFormSubmitted"
+          *ngIf="
+            !changeWithdrawAddressForm.get('address').valid &&
+            changeAddressFormSubmitted
+          "
         >
           Please provide a valid address.
         </span>
       </div>
 
-      <div
-        class="
-          row
-          justify-center"
-      >
+      <div class="row justify-center">
         <button
-          class="
-            ap-btn
-            ap-btn--blue"
+          class="ap-btn ap-btn--blue"
           data-test="common-change-withdraw-address-form-submit-button"
           *ngIf="isConfirmed"
         >
-          <span *ngIf="!isFormBeingSubmitted ; else loading">
-              Save
-            </span>
+          <span *ngIf="!isFormBeingSubmitted; else loading"> Save </span>
           <ng-template #loading>
-            <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+            <mat-spinner
+              [diameter]="20"
+              [strokeWidth]="2"
+              color="accent"
+            ></mat-spinner>
           </ng-template>
         </button>
 
         <div
-          class="
-            confirm-account-error-block
-            error-msg
-            col-xs-12"
+          class="confirm-account-error-block error-msg col-xs-12"
           *ngIf="!isConfirmed"
         >
           Confirm account to change address

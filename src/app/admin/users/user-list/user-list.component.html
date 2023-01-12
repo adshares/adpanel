@@ -1,14 +1,10 @@
 <section class="user-list">
-  <div
-    class="
-      row
-      justify-between
-      align-center"
-  >
+  <div class="row justify-between align-center">
     <div class="user-list__search-container row justify-between">
       <div>
         <mat-icon> search</mat-icon>
-        <label>Search for users:
+        <label
+          >Search for users:
           <input
             [(ngModel)]="queryParams.userSearch"
             (ngModelChange)="onParamChange('userSearch', $event)"
@@ -16,38 +12,45 @@
             data-test="admin-user-search-input"
             id="search"
             placeholder="Search by email or domain"
-          >
+          />
         </label>
       </div>
       <div class="user-list__filters">
         <label>Filter by type:</label>
-        <mat-checkbox (change)="onParamChange('selectedType', type)"
-                      *ngFor="let type of userTypes"
-                      [checked]="type === queryParams.selectedType"
-                      class="user-list__checkbox">
-          {{type}}
+        <mat-checkbox
+          (change)="onParamChange('selectedType', type)"
+          *ngFor="let type of userTypes"
+          [checked]="type === queryParams.selectedType"
+          class="user-list__checkbox"
+        >
+          {{ type }}
         </mat-checkbox>
       </div>
-      <button class="ap-btn ap-btn--tiny ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
+      <button
+        class="ap-btn ap-btn--tiny ap-btn--danger"
+        (click)="onResetButtonClick()"
+      >
+        Reset filters
+      </button>
     </div>
   </div>
 
-  <table class="user-list__items" [ngClass]="{'user-list__no-actions' : !showActions}">
+  <table
+    class="user-list__items"
+    [ngClass]="{ 'user-list__no-actions': !showActions }"
+  >
     <app-table-navigation
       (sortTable)="sortTable($event, true)"
       [navigationName]="'userListNavigation'"
     ></app-table-navigation>
-    <tbody *ngIf="!isLoading; else loading"
-           class="col user-list__table-body">
-
-    <app-user-list-item
-      *ngFor="let user of list.data"
-      [user]="user"
-    ></app-user-list-item>
-    <tr *ngIf="!list.data.length"
-        class="user-list__loader-container">
-      NO RESULTS
-    </tr>
+    <tbody *ngIf="!isLoading; else loading" class="col user-list__table-body">
+      <app-user-list-item
+        *ngFor="let user of list.data"
+        [user]="user"
+      ></app-user-list-item>
+      <tr *ngIf="!list.data.length" class="user-list__loader-container">
+        NO RESULTS
+      </tr>
     </tbody>
     <ng-template #loading>
       <tr>

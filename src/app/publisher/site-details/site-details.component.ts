@@ -9,11 +9,19 @@ import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep, createInitialDataSet, enumToArray, sortArrayByKeys } from 'common/utilities/helpers'
+import {
+  cloneDeep,
+  createInitialDataSet,
+  enumToArray,
+  sortArrayByKeys,
+} from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
-import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter'
+import {
+  LoadSiteTotals,
+  UpdateSiteStatus,
+} from 'store/publisher/publisher.actions';
+import { DecentralandConverter } from 'common/utilities/targeting-converter/decentraland-converter';
 
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,12 +37,10 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import {
-  SiteCodeMetaverseDialogComponent
-} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
+import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
 import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
-import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
-import { DECENTRALAND_BUILDER } from 'models/enum/link.enum'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
+import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 
 @Component({
   selector: 'app-site-details',
@@ -65,8 +71,8 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   isMetaverse: boolean = true;
   editPopups: boolean = true;
   editAds: boolean = true;
-  siteLinkUrl: string
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  siteLinkUrl: string;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,24 +86,28 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   get popAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => {
+    return this.site.adUnits.filter((adUnit) => {
       return adUnit.type === adUnitTypesEnum.POP;
     });
   }
 
   get displayAdUnits(): AdUnit[] {
-    return this.site.adUnits.filter(adUnit => {
+    return this.site.adUnits.filter((adUnit) => {
       return adUnit.type === adUnitTypesEnum.DISPLAY;
     });
   }
 
   get canActivateSite(): boolean {
-    return (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase()) ||
-      (this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase());
+    return (
+      this.currentSiteStatus ===
+        this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase() ||
+      this.currentSiteStatus ===
+        this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase()
+    );
   }
 
   get statusButtonLabel(): string {
-    return this.canActivateSite ? 'Activate' : 'Deactivate'
+    return this.canActivateSite ? 'Activate' : 'Deactivate';
   }
 
   ngOnInit(): void {
@@ -108,35 +118,51 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     this.prepareMediumLabel(this.site);
     this.currentSiteStatus = siteStatusEnum[this.site.status].toLowerCase();
     this.filteringOptions = this.route.snapshot.data.filteringOptions;
-    this.language = this.route.snapshot.data.languagesList.find(lang => lang.code === this.site.primaryLanguage);
-    this.siteLinkUrl = this.getSiteLinkUrl()
+    this.language = this.route.snapshot.data.languagesList.find(
+      (lang) => lang.code === this.site.primaryLanguage
+    );
+    this.siteLinkUrl = this.getSiteLinkUrl();
 
-    this.store.select('state', 'common', 'chartFilterSettings')
+    this.store
+      .select('state', 'common', 'chartFilterSettings')
       .pipe(take(1))
       .subscribe((chartFilterSettings: ChartFilterSettings) => {
         this.getChartData(chartFilterSettings, this.site.id);
       });
 
-    const chartFilterSubscription = this.store.select('state', 'common', 'chartFilterSettings')
-      .subscribe((chartFilterSettings: ChartFilterSettings) => this.currentChartFilterSettings = chartFilterSettings);
+    const chartFilterSubscription = this.store
+      .select('state', 'common', 'chartFilterSettings')
+      .subscribe(
+        (chartFilterSettings: ChartFilterSettings) =>
+          (this.currentChartFilterSettings = chartFilterSettings)
+      );
 
-    const sitesSubscription = this.store.select('state', 'publisher', 'sites')
+    const sitesSubscription = this.store
+      .select('state', 'publisher', 'sites')
       .subscribe((sites: Site[]) => {
-        this.site = cloneDeep(sites.find(el => el.id === this.site.id));
+        this.site = cloneDeep(sites.find((el) => el.id === this.site.id));
         this.getFiltering();
       });
 
-    const dataLoadedSubscription = this.store.select('state', 'publisher', 'dataLoaded')
-      .subscribe((dataLoaded: boolean) => this.dataLoaded = dataLoaded);
+    const dataLoadedSubscription = this.store
+      .select('state', 'publisher', 'dataLoaded')
+      .subscribe((dataLoaded: boolean) => (this.dataLoaded = dataLoaded));
 
-    const refreshSubscription = timer(appSettings.AUTOMATIC_REFRESH_INTERVAL, appSettings.AUTOMATIC_REFRESH_INTERVAL)
-      .subscribe(() => {
-        if (this.currentChartFilterSettings && this.site && this.site.id) {
-          this.getChartData(this.currentChartFilterSettings, this.site.id, false);
-        }
-      });
+    const refreshSubscription = timer(
+      appSettings.AUTOMATIC_REFRESH_INTERVAL,
+      appSettings.AUTOMATIC_REFRESH_INTERVAL
+    ).subscribe(() => {
+      if (this.currentChartFilterSettings && this.site && this.site.id) {
+        this.getChartData(this.currentChartFilterSettings, this.site.id, false);
+      }
+    });
 
-    this.subscriptions.push(chartFilterSubscription, sitesSubscription, dataLoadedSubscription, refreshSubscription);
+    this.subscriptions.push(
+      chartFilterSubscription,
+      sitesSubscription,
+      dataLoadedSubscription,
+      refreshSubscription
+    );
   }
 
   private getSiteLinkUrl(): string {
@@ -144,59 +170,69 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       if (DecentralandConverter.ID === this.site.vendor) {
         return 'DCL Builder' === this.site.name
           ? DECENTRALAND_BUILDER
-          : new DecentralandConverter().convertBackendUrlToValidUrl(this.site.url)
+          : new DecentralandConverter().convertBackendUrlToValidUrl(
+              this.site.url
+            );
       } else if (CryptovoxelsConverter.ID === this.site.vendor) {
-        return new CryptovoxelsConverter().convertBackendUrlToValidUrl(this.site.url)
+        return new CryptovoxelsConverter().convertBackendUrlToValidUrl(
+          this.site.url
+        );
       }
     }
-    return this.site.url
+    return this.site.url;
   }
 
-  private prepareMediumLabel (site: Site): void {
-    const medium = this.route.snapshot.data.media[site.medium]
+  private prepareMediumLabel(site: Site): void {
+    const medium = this.route.snapshot.data.media[site.medium];
     if (medium) {
       if (site.vendor === null) {
-        this.mediumLabel = `${medium} ads`
-        return
+        this.mediumLabel = `${medium} ads`;
+        return;
       }
-      this.publisherService.getMediumVendors(site.medium).subscribe(vendors => {
-        const vendor = vendors[site.vendor]
-        this.mediumLabel = vendor ? `${medium} ads in ${vendor}` : `${medium} ads`
-      })
+      this.publisherService
+        .getMediumVendors(site.medium)
+        .subscribe((vendors) => {
+          const vendor = vendors[site.vendor];
+          this.mediumLabel = vendor
+            ? `${medium} ads in ${vendor}`
+            : `${medium} ads`;
+        });
     }
   }
 
   sortTable(event: TableSortEvent): void {
-    this.site.adUnits = sortArrayByKeys(this.site.adUnits, event.keys, event.sortDesc);
+    this.site.adUnits = sortArrayByKeys(
+      this.site.adUnits,
+      event.keys,
+      event.sortDesc
+    );
   }
 
   deleteSite(): void {
     const dialogRef = this.dialog.open(UserConfirmResponseDialogComponent, {
       data: {
         message: 'Are you sure you want to delete this site?',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.publisherService.deleteSite(this.site.id).subscribe(
+          () => {
+            this.router.navigate(['/publisher', 'dashboard']);
+          },
+          (err) => {
+            if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
+              this.dialog.open(ErrorResponseDialogComponent, {
+                data: {
+                  title: `Site cannot be deleted`,
+                  message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
+                },
+              });
+            }
+          }
+        );
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.publisherService.deleteSite(this.site.id)
-            .subscribe(
-              () => {
-                this.router.navigate(['/publisher', 'dashboard']);
-              },
-              (err) => {
-                if (err.status !== codes.HTTP_INTERNAL_SERVER_ERROR) {
-                  this.dialog.open(ErrorResponseDialogComponent, {
-                    data: {
-                      title: `Site cannot be deleted`,
-                      message: `Given site (${this.site.id}) cannot be deleted at this moment. Please try again, later`,
-                    }
-                  });
-                }
-              }
-            );
-        }
-      }
-    );
   }
 
   getFiltering(): void {
@@ -205,11 +241,22 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
       excludes: this.site.filtering.excludes || [],
     };
 
-    if (this.filtering.requires.length || this.filtering.excludes.length || !this.site) return;
-    if (Array.isArray(this.site.filtering.requires) && Array.isArray(this.site.filtering.excludes)) {
+    if (
+      this.filtering.requires.length ||
+      this.filtering.excludes.length ||
+      !this.site
+    )
+      return;
+    if (
+      Array.isArray(this.site.filtering.requires) &&
+      Array.isArray(this.site.filtering.excludes)
+    ) {
       this.filtering = this.site.filtering as AssetTargeting;
     } else {
-      this.filtering = parseTargetingOptionsToArray(this.site.filtering, this.filteringOptions);
+      this.filtering = parseTargetingOptionsToArray(
+        this.site.filtering,
+        this.filteringOptions
+      );
     }
   }
 
@@ -228,7 +275,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         siteId
       )
       .pipe(take(1))
-      .subscribe(data => {
+      .subscribe((data) => {
         this.barChartData[0].data = data.values;
         this.barChartData[0].label = chartFilterSettings.currentSeries.label;
         this.barChartLabels = mapDatesToChartLabels(data.timestamps);
@@ -237,11 +284,13 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
         this.barChartDifferenceInPercentage = data.differenceInPercentage;
       });
 
-    this.store.dispatch(new LoadSiteTotals({
-      from: chartFilterSettings.currentFrom,
-      to: chartFilterSettings.currentTo,
-      id: siteId
-    }));
+    this.store.dispatch(
+      new LoadSiteTotals({
+        from: chartFilterSettings.currentFrom,
+        to: chartFilterSettings.currentTo,
+        id: siteId,
+      })
+    );
   }
 
   navigateToEditSite(path: string): void {
@@ -249,9 +298,7 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
   }
 
   navigateToClassification(): void {
-    this.router.navigate(
-      ['/publisher', 'site', this.site.id, 'classifier'],
-    );
+    this.router.navigate(['/publisher', 'site', this.site.id, 'classifier']);
   }
 
   onSiteStatusChange(): void {
@@ -262,41 +309,48 @@ export class SiteDetailsComponent extends HandleSubscription implements OnInit {
     }
     this.site = {
       ...this.site,
-      status: this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus)
+      status: this.siteStatusEnumArray.findIndex(
+        (el) => el === this.currentSiteStatus
+      ),
     };
-    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: this.site.status}));
+    this.store.dispatch(
+      new UpdateSiteStatus({ id: this.site.id, status: this.site.status })
+    );
   }
 
   downloadReport(): void {
     this.store.dispatch(
-      new RequestReport(
-        {
-          type: reportType.SITES,
-          dateStart: this.currentChartFilterSettings.currentFrom,
-          dateEnd: this.currentChartFilterSettings.currentTo,
-          id: this.site.id,
-        }
-      )
+      new RequestReport({
+        type: reportType.SITES,
+        dateStart: this.currentChartFilterSettings.currentFrom,
+        dateEnd: this.currentChartFilterSettings.currentTo,
+        id: this.site.id,
+      })
     );
   }
 
   private hasSitePops(): boolean {
-    return -1 !== this.site.adUnits.findIndex(adUnit => adUnitTypesEnum.POP === adUnit.type);
+    return (
+      -1 !==
+      this.site.adUnits.findIndex(
+        (adUnit) => adUnitTypesEnum.POP === adUnit.type
+      )
+    );
   }
 
   openGetCodeDialog(): void {
     if (this.isMetaverse) {
       this.dialog.open(SiteCodeMetaverseDialogComponent, {
-        data : {
+        data: {
           vendor: this.site.vendor,
         },
       });
-      return
+      return;
     }
 
     this.dialog.open(SiteCodeDialogComponent, {
-      data : {
-        siteId : this.site.id,
+      data: {
+        siteId: this.site.id,
         hasSitePops: this.hasSitePops(),
       },
     });

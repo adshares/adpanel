@@ -1,27 +1,28 @@
 <section class="settings-navigation">
-  <div *ngIf="(!user.isAdmin && !user.isModerator)"
-       class="settings-navigation__totals-funds">
-    <h6 class="settings-navigation__title"
+  <div
+    *ngIf="!user.isAdmin && !user.isModerator"
+    class="settings-navigation__totals-funds"
+  >
+    <h6 class="settings-navigation__title">Total balance:</h6>
+    <span
+      *ngIf="calculateFunds"
+      class="settings-navigation__account-status--in-currency"
+      data-test="user-total-funds"
     >
-      Total balance:
-    </h6>
-    <span *ngIf="calculateFunds"
-          class="settings-navigation__account-status--in-currency"
-          data-test="user-total-funds"
+      {{ totalFunds | calculateInCurrency : 2 }}
+    </span>
+    <span
+      class="settings-navigation__account-status"
+      data-test="user-total-funds"
     >
-        {{ totalFunds | calculateInCurrency:2 }}
-      </span>
-    <span class="settings-navigation__account-status"
-          data-test="user-total-funds"
-    >
-        {{ totalFunds | formatMoney:2:crypto:code }}
-      </span>
+      {{ totalFunds | formatMoney : 2 : crypto : code }}
+    </span>
   </div>
-  <ul class="settings-navigation__category"
-      routerLinkActive="active">
+  <ul class="settings-navigation__category" routerLinkActive="active">
     <app-settings-menu-item
       *ngFor="let settingsItem of settings"
-      [menuItem]="settingsItem">
+      [menuItem]="settingsItem"
+    >
     </app-settings-menu-item>
   </ul>
 </section>

@@ -1,25 +1,19 @@
 <mat-dialog-content class="text-center dialog">
-  <div
-    (click)="dialogRef.close()"
-    class="ap-dialog-close"
-  ></div>
-  <h1
-    class="ap-heading ap-heading--primary"
-  >
+  <div (click)="dialogRef.close()" class="ap-dialog-close"></div>
+  <h1 class="ap-heading ap-heading--primary">
     {{ title }}
   </h1>
 
   <p
     class="ap-copy ap-copy--large ap-customize-subheading ap-success ap-success--large ap-multiline"
     [innerHTML]="message"
-  >
-  </p>
+  ></p>
 
   <div class="dialog__controls">
     <button
       class="ap-btn ap-btn--white ap-copy--dark"
       mat-button
-      [mat-dialog-close]=false
+      [mat-dialog-close]="false"
     >
       No
     </button>
@@ -27,7 +21,7 @@
     <button
       class="dialog__confirm-btn ap-btn ap-btn--blue ap-copy--white"
       mat-button
-      [mat-dialog-close]=true
+      [mat-dialog-close]="true"
       cdkFocusInitial
     >
       Yes

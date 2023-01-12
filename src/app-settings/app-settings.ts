@@ -2,7 +2,9 @@ import { environment } from 'environments/environment';
 
 export const appSettings = {
   // ADS Operator URL
-  ADS_OPERATOR_URL: environment.production ? 'https://operator.adshares.net' : 'https://operator1.e11.click',
+  ADS_OPERATOR_URL: environment.production
+    ? 'https://operator.adshares.net'
+    : 'https://operator1.e11.click',
   // milliseconds of transitioning effect between views
   ROUTER_TRANSITION_DURATION: 200,
   // seconds of how long remembered user auth token will be stored
@@ -22,5 +24,5 @@ export const appSettings = {
   // url validation regexp
   TARGET_URL_REGEXP: `(?:(?:https?|ftp|http):\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9_]-*)*[a-z\u00a1-\uffff0-9_]+)(?:\\.(?:[a-z\u00a1-\uffff0-9_]-*)*[a-z\u00a1-\uffff0-9_]+)*(?:\\.(?:[a-z\u00a1-\uffff]{2,}))\\.?)(?::\\d{2,5})?(?:[\\/?#]\\S*)?`,
   // user types available for admin filtering
-  USER_TYPES: ['Advertisers', 'Publishers', 'All']
+  USER_TYPES: ['Advertisers', 'Publishers', 'All'],
 };

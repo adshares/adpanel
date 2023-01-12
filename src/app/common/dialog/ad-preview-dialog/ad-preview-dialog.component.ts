@@ -16,9 +16,8 @@ export class AdPreviewDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<AdPreviewDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AdPreview,
-  ) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: AdPreview
+  ) {}
 
   ngOnInit(): void {
     this.type = this.data.type;

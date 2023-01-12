@@ -13,7 +13,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
-import { NGX_MAT_DATE_FORMATS, NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import {
+  NGX_MAT_DATE_FORMATS,
+  NgxMatDatetimePickerModule,
+} from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppCommonModule } from 'common/common.module';
@@ -43,7 +46,6 @@ import { CampaignClassificationInfoComponent } from 'advertiser/campaign-classif
 import { EditCampaignNavigationComponent } from 'advertiser/edit-campaign/edit-campaign-navigation/edit-campaign-navigation.component';
 import { TargetingReach } from 'advertiser/edit-campaign/edit-campaign-additional-targeting/targeting-reach/targeting-reach.component';
 import { MapToIterablePipe } from 'common/pipes/map-to-iterable.pipe';
-
 
 const matModules = [
   MatCheckboxModule,
@@ -99,7 +101,7 @@ const advertiserComponents = [
     BannersConfigResolver,
     CampaignResolver,
     CampaignsConfigResolver,
-    {provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS},
+    { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_AND_TIME_PICKER_FORMATS },
   ],
 
   declarations: [
@@ -107,7 +109,6 @@ const advertiserComponents = [
     MapToIterablePipe,
     ...advertiserComponents,
     ...editCampaignComponents,
-  ]
+  ],
 })
-export class AdvertiserModule {
-}
+export class AdvertiserModule {}

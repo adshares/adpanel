@@ -17,22 +17,23 @@ export class ReportsListComponent extends HandleSubscription implements OnInit {
   reportsListPublisher: ReportsListItem[] = [];
   reportListLoaded: boolean = false;
 
-  constructor(
-    private service: CommonService,
-  ) {
+  constructor(private service: CommonService) {
     super();
   }
 
   ngOnInit(): void {
-    const subscription = timer(0, this.REFRESH_PERIOD).subscribe(
-      () => this.service.getReportsList().pipe(take(1)).subscribe(
-        response => {
-          this.reportsListAdvertiser = response.advertiser || [];
-          this.reportsListPublisher = response.publisher || [];
-          this.reportListLoaded = true;
-        },
-        () => this.reportListLoaded = true,
-      )
+    const subscription = timer(0, this.REFRESH_PERIOD).subscribe(() =>
+      this.service
+        .getReportsList()
+        .pipe(take(1))
+        .subscribe(
+          (response) => {
+            this.reportsListAdvertiser = response.advertiser || [];
+            this.reportsListPublisher = response.publisher || [];
+            this.reportListLoaded = true;
+          },
+          () => (this.reportListLoaded = true)
+        )
     );
 
     this.subscriptions.push(subscription);

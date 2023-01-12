@@ -3,8 +3,8 @@
 @include mat.core();
 
 $app-primary: mat.define-palette(mat.$blue-palette, A200);
-$app-accent:  mat.define-palette(mat.$green-palette, 300);
-$app-theme:   mat.define-light-theme($app-primary, $app-accent);
+$app-accent: mat.define-palette(mat.$green-palette, 300);
+$app-theme: mat.define-light-theme($app-primary, $app-accent);
 
 // Include the default theme styles.
 @include mat.all-component-themes($app-theme);

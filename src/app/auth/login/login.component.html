@@ -1,26 +1,10 @@
-<div
-  class="
-    col
-    ap-login-wrapper"
->
+<div class="col ap-login-wrapper">
   <div *ngIf="loginForm">
     <ng-template #loading>
       <mat-spinner [diameter]="16" [strokeWidth]="2"></mat-spinner>
     </ng-template>
-    <h2
-      class="
-          ap-heading
-          ap-heading--primary"
-    >
-      Hello!
-    </h2>
-    <p
-      class="
-          ap-copy
-          ap-copy--large"
-    >
-      Please log in to your account.
-    </p>
+    <h2 class="ap-heading ap-heading--primary">Hello!</h2>
+    <p class="ap-copy ap-copy--large">Please log in to your account.</p>
 
     <div class="login-buttons row justify-between">
       <button
@@ -29,7 +13,7 @@
         (click)="initWalletLogin('ADS')"
         [disabled]="isAdsLoggingIn"
       >
-        <img src="/assets/images/ads.svg" alt="ADS">
+        <img src="/assets/images/ads.svg" alt="ADS" />
         <ng-container *ngIf="!isAdsLoggingIn; else loading">
           Log in with ADS Wallet
         </ng-container>
@@ -37,7 +21,7 @@
       <a
         *ngIf="!adsWalletAvailable"
         class="ap-btn ap-btn--danger"
-        href="{{ADSHARES_WALLET}}"
+        href="{{ ADSHARES_WALLET }}"
         rel="noopener noreferrer nofollow"
         target="_blank"
       >
@@ -49,21 +33,24 @@
         (click)="initWalletLogin('BSC')"
         [disabled]="isBscLoggingIn"
       >
-        <img src="/assets/images/metamask.svg" alt="MetaMask">
+        <img src="/assets/images/metamask.svg" alt="MetaMask" />
         <ng-container *ngIf="!isBscLoggingIn; else loading">
-          Log in with MetaMask</ng-container>
+          Log in with MetaMask</ng-container
+        >
       </button>
       <a
         *ngIf="!ethereumAvailable"
         class="ap-btn ap-btn--danger"
-        href="{{METAMASK_WALLET}}"
+        href="{{ METAMASK_WALLET }}"
         rel="noopener noreferrer nofollow"
         target="_blank"
       >
         Install Metamask first!
       </a>
       <br />
-      <div class="error-msg" *ngIf="walletLoginError">{{walletLoginError}}</div>
+      <div class="error-msg" *ngIf="walletLoginError">
+        {{ walletLoginError }}
+      </div>
     </div>
 
     <form
@@ -72,19 +59,11 @@
       class="ap-form"
       data-test="auth-login-form"
     >
-      <div
-        *ngIf="criteriaError && loginFormSubmitted"
-        class="error-msg"
-      >
+      <div *ngIf="criteriaError && loginFormSubmitted" class="error-msg">
         Password or email is invalid.
       </div>
       <div class="ap-form-input__box">
-        <label
-          class="ap-form-label"
-          for="email"
-        >
-          Email address
-        </label>
+        <label class="ap-form-label" for="email"> Email address </label>
         <input
           class="ap-form-input"
           data-test="auth-login-form-email"
@@ -92,32 +71,34 @@
           id="email"
           name="email"
           type="email"
-        >
+        />
         <span
           *ngIf="loginForm.get('email').valid && loginForm.get('email').touched"
           class="input-valid"
         ></span>
         <span
-          *ngIf="loginForm.hasError('required', ['email']) && loginFormSubmitted"
+          *ngIf="
+            loginForm.hasError('required', ['email']) && loginFormSubmitted
+          "
           class="error-msg"
         >
-            Email required!
-          </span>
+          Email required!
+        </span>
         <span
-          *ngIf="!loginForm.hasError('required', ['email']) && loginFormSubmitted && loginForm.hasError('email', ['email']) && loginFormSubmitted"
+          *ngIf="
+            !loginForm.hasError('required', ['email']) &&
+            loginFormSubmitted &&
+            loginForm.hasError('email', ['email']) &&
+            loginFormSubmitted
+          "
           class="error-msg"
         >
-            Invalid email!
-          </span>
+          Invalid email!
+        </span>
       </div>
 
       <div class="ap-form-input__box">
-        <label
-          class="ap-form-label"
-          for="password"
-        >
-          Password
-        </label>
+        <label class="ap-form-label" for="password"> Password </label>
         <input
           class="ap-form-input"
           data-test="auth-login-form-password"
@@ -125,31 +106,32 @@
           id="password"
           name="password"
           type="password"
-        >
+        />
         <span
-          *ngIf="loginForm.get('password').valid && loginForm.get('password').touched"
+          *ngIf="
+            loginForm.get('password').valid && loginForm.get('password').touched
+          "
           class="input-valid"
         ></span>
         <span
-          *ngIf="loginForm.hasError('minlength', ['password']) && loginFormSubmitted"
-          class="error-msg">
-              Minimum 8 signs required!
-          </span>
-        <span
-          *ngIf="loginForm.hasError('required', ['password']) && loginFormSubmitted"
+          *ngIf="
+            loginForm.hasError('minlength', ['password']) && loginFormSubmitted
+          "
           class="error-msg"
         >
-            Password required
-          </span>
+          Minimum 8 signs required!
+        </span>
+        <span
+          *ngIf="
+            loginForm.hasError('required', ['password']) && loginFormSubmitted
+          "
+          class="error-msg"
+        >
+          Password required
+        </span>
       </div>
 
-      <div
-        class="
-            row
-            align-center
-            justify-between
-            ap-login__remember"
-      >
+      <div class="row align-center justify-between ap-login__remember">
         <!--
                   <div
                     class="
@@ -186,14 +168,10 @@
       </div>
 
       <button
-        class="
-            ap-btn
-            ap-btn--wide
-            ap-btn--blue
-            ap-form-submit-btn"
+        class="ap-btn ap-btn--wide ap-btn--blue ap-form-submit-btn"
         data-test="auth-login-form-submit-button"
       >
-        <ng-container *ngIf="!isLoggingIn ; else loading">Log In</ng-container>
+        <ng-container *ngIf="!isLoggingIn; else loading">Log In</ng-container>
       </button>
     </form>
   </div>

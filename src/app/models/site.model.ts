@@ -68,8 +68,8 @@ interface AdUnitMetaData {
 }
 
 interface SiteLanguage {
-  name: string,
-  code: string,
+  name: string;
+  code: string;
 }
 
 interface SiteCodes {
@@ -83,4 +83,13 @@ interface SiteCodeItem {
   code: string;
 }
 
-export { Site, SiteRank, AdUnit, AdUnitMetaData, SitesTotals, SiteLanguage, SiteCodes, SiteCodeItem };
+export {
+  Site,
+  SiteRank,
+  AdUnit,
+  AdUnitMetaData,
+  SitesTotals,
+  SiteLanguage,
+  SiteCodes,
+  SiteCodeItem,
+};

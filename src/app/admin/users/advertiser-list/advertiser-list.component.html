@@ -1,14 +1,10 @@
 <section class="advertiser-list">
-  <div
-    class="
-      row
-      justify-between
-      align-center"
-  >
+  <div class="row justify-between align-center">
     <div class="advertiser-list__search-container row justify-between">
       <div>
         <mat-icon> search</mat-icon>
-        <label>Search for advertiser:
+        <label
+          >Search for advertiser:
           <input
             [(ngModel)]="queryParams.searchPhrase"
             (ngModelChange)="onParamChange('searchPhrase', $event)"
@@ -16,54 +12,70 @@
             data-test="admin-user-search-input"
             id="search"
             placeholder="Search by email or target url"
-          >
+          />
         </label>
       </div>
       <div class="advertiser-list__filters">
         <label>Group by:</label>
-        <mat-checkbox (change)="onParamChange('groupBy','campaign')"
-                      [checked]="'campaign' === queryParams.groupBy"
-                      class="advertiser-list__checkbox">
+        <mat-checkbox
+          (change)="onParamChange('groupBy', 'campaign')"
+          [checked]="'campaign' === queryParams.groupBy"
+          class="advertiser-list__checkbox"
+        >
           campaign
         </mat-checkbox>
-        <mat-checkbox (change)="onParamChange('groupBy','user')"
-                      [checked]="'user' === queryParams.groupBy"
-                      class="advertiser-list__checkbox">
+        <mat-checkbox
+          (change)="onParamChange('groupBy', 'user')"
+          [checked]="'user' === queryParams.groupBy"
+          class="advertiser-list__checkbox"
+        >
           user
         </mat-checkbox>
       </div>
       <div class="advertiser-list__filters">
         <label>Interval:</label>
-        <mat-checkbox (change)="onParamChange('interval','week')"
-                      [checked]="'week' === queryParams.interval"
-                      class="advertiser-list__checkbox">
+        <mat-checkbox
+          (change)="onParamChange('interval', 'week')"
+          [checked]="'week' === queryParams.interval"
+          class="advertiser-list__checkbox"
+        >
           week
         </mat-checkbox>
-        <mat-checkbox (change)="onParamChange('interval', 'day')"
-                      [checked]="'day' === queryParams.interval"
-                      class="advertiser-list__checkbox">
+        <mat-checkbox
+          (change)="onParamChange('interval', 'day')"
+          [checked]="'day' === queryParams.interval"
+          class="advertiser-list__checkbox"
+        >
           day
         </mat-checkbox>
-        <mat-checkbox (change)="onParamChange('interval', 'hour')"
-                      [checked]="'hour' === queryParams.interval"
-                      class="publisher-list__checkbox">
+        <mat-checkbox
+          (change)="onParamChange('interval', 'hour')"
+          [checked]="'hour' === queryParams.interval"
+          class="publisher-list__checkbox"
+        >
           hour
         </mat-checkbox>
       </div>
       <div class="advertiser-list__filters">
-        <label>Min daily views:
-        <input
-          [(ngModel)]="queryParams.minDailyViews"
-          (ngModelChange)="onParamChange('minDailyViews', $event)"
-          type="number"
-          min="0"
-          step="1"
-          class="advertiser-list__input"
-          id="minViews"
-        >
-      </label>
+        <label
+          >Min daily views:
+          <input
+            [(ngModel)]="queryParams.minDailyViews"
+            (ngModelChange)="onParamChange('minDailyViews', $event)"
+            type="number"
+            min="0"
+            step="1"
+            class="advertiser-list__input"
+            id="minViews"
+          />
+        </label>
       </div>
-      <button class="ap-btn ap-btn--tiny ap-btn--danger" (click)="onResetButtonClick()">Reset filters</button>
+      <button
+        class="ap-btn ap-btn--tiny ap-btn--danger"
+        (click)="onResetButtonClick()"
+      >
+        Reset filters
+      </button>
     </div>
   </div>
 
@@ -72,16 +84,20 @@
       (sortTable)="sortTable($event)"
       navigationName="advertiserListNavigationItems"
     ></app-table-navigation>
-    <tbody *ngIf="!isLoading; else loading"
-           class="col advertiser-list__table-body">
+    <tbody
+      *ngIf="!isLoading; else loading"
+      class="col advertiser-list__table-body"
+    >
       <app-advertiser-list-item
         *ngFor="let advertiser of filteredList"
         [advertiser]="advertiser"
       ></app-advertiser-list-item>
-    <tr *ngIf="!filteredList.length"
-        class="advertiser-list__loader-container">
-      NO RESULTS
-    </tr>
+      <tr
+        *ngIf="!filteredList.length"
+        class="advertiser-list__loader-container"
+      >
+        NO RESULTS
+      </tr>
     </tbody>
     <ng-template #loading>
       <tr>

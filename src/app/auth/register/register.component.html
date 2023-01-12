@@ -1,9 +1,6 @@
 <div
   *ngIf="!isLoading; else loading"
-  class="
-    col
-    ap__registration
-    ap__registration-wrapper"
+  class="col ap__registration ap__registration-wrapper"
 >
   <p
     class="error-msg error-msg--irremovable"
@@ -17,30 +14,18 @@
   >
     Referral link is already used
   </p>
-  <div
-    *ngIf="registrationEnabled"
-    class="ap__registration-form"
-  >
-    <h2
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Create Account
-    </h2>
+  <div *ngIf="registrationEnabled" class="ap__registration-form">
+    <h2 class="ap-heading ap-heading--primary">Create Account</h2>
     <p class="ap-copy ap-box ap-box--blue-border">
       To create an account using ADS Wallet or MetaMask, just
       <a
         class="ap-blue"
         routerLink="/auth/login"
         data-test="auth-redirect-to-login"
-      >log in</a>.
+        >log in</a
+      >.
     </p>
-    <p
-      class="
-        ap-copy
-        ap-copy--large"
-    >
+    <p class="ap-copy ap-copy--large">
       We need your basic information to create your account.
     </p>
     <form
@@ -50,12 +35,7 @@
       data-test="auth-registration-form"
     >
       <div class="ap-form-input__box">
-        <label
-          for="email"
-          class="ap-form-label"
-        >
-          Email address
-        </label>
+        <label for="email" class="ap-form-label"> Email address </label>
         <input
           id="email"
           class="ap-form-input"
@@ -66,11 +46,8 @@
           #email="ngModel"
           required
           data-test="auth-registration-form-email"
-        >
-        <span
-          *ngIf="email.valid"
-          class="input-valid"
-        ></span>
+        />
+        <span *ngIf="email.valid" class="input-valid"></span>
         <span
           class="error-msg"
           *ngIf="email.hasError('email') && email.touched"
@@ -86,12 +63,7 @@
       </div>
 
       <div class="ap-form-input__box">
-        <label
-          for="password"
-          class="ap-form-label"
-        >
-          Password
-        </label>
+        <label for="password" class="ap-form-label"> Password </label>
         <input
           id="password"
           class="ap-form-input"
@@ -102,12 +74,12 @@
           minlength="8"
           required
           data-test="auth-registration-form-password"
-        >
+        />
+        <span *ngIf="password.valid" class="input-valid"></span>
         <span
-          *ngIf="password.valid"
-          class="input-valid"
-        ></span>
-        <span class="error-msg" *ngIf="password.hasError('minlength') && password.touched">
+          class="error-msg"
+          *ngIf="password.hasError('minlength') && password.touched"
+        >
           Minimum 8 signs required!
         </span>
         <span
@@ -119,10 +91,7 @@
       </div>
 
       <div class="ap-form-input__box">
-        <label
-          for="confirmPassword"
-          class="ap-form-label"
-        >
+        <label for="confirmPassword" class="ap-form-label">
           Confirm password
         </label>
         <input
@@ -134,29 +103,23 @@
           #confirmPassword="ngModel"
           required
           data-test="auth-registration-form-confirm-password"
-        >
+        />
         <span
           *ngIf="confirmPassword.value === password.value && password.valid"
           class="input-valid"
         ></span>
         <span
           class="error-msg"
-          *ngIf="confirmPassword.value !== password.value && confirmPassword.touched"
+          *ngIf="
+            confirmPassword.value !== password.value && confirmPassword.touched
+          "
         >
           Passwords don't match!
         </span>
       </div>
 
-      <div
-        class="
-          ap-form-input__box
-          ap__registration-consent"
-      >
-        <p
-          class="
-            ap-copy
-            ap-copy--small"
-        >
+      <div class="ap-form-input__box ap__registration-consent">
+        <p class="ap-copy ap-copy--small">
           <input
             id="acceptTerms"
             name="acceptTerms"
@@ -165,32 +128,30 @@
             #acceptTerms="ngModel"
             required
             data-test="auth-registration-form-accept-terms-checkbox"
+          />
+          <label for="acceptTerms">
+            <span class="checkbox-label"></span>
+            I agree to Adshares'
+            <a
+              class="ap-blue"
+              [href]="termsOfServiceLink"
+              rel="noopener noreferrer"
+              target="_blank"
+              data-test="common-terms-of-service-link"
+            >
+              Terms of Service
+            </a>
+            and
+            <a
+              class="ap-blue"
+              [href]="privacyPolicyLink"
+              rel="noopener noreferrer"
+              target="_blank"
+              data-test="common-privacy-policy-link"
+            >
+              Privacy Policy.
+            </a></label
           >
-          <label
-            for="acceptTerms"
-          >
-            <span
-              class="checkbox-label"></span>
-          I agree to Adshares'
-          <a
-            class="ap-blue"
-            [href]="termsOfServiceLink"
-            rel="noopener noreferrer"
-            target="_blank"
-            data-test="common-terms-of-service-link"
-          >
-            Terms of Service
-          </a>
-          and
-          <a
-            class="ap-blue"
-            [href]="privacyPolicyLink"
-            rel="noopener noreferrer"
-            target="_blank"
-            data-test="common-privacy-policy-link"
-          >
-            Privacy Policy.
-          </a></label>
         </p>
         <span
           class="error-msg"
@@ -201,23 +162,15 @@
       </div>
 
       <button
-        class="
-          ap-btn
-          ap-btn--wide
-          ap-btn--blue
-          ap-form-submit-btn"
+        class="ap-btn ap-btn--wide ap-btn--blue ap-form-submit-btn"
         data-test="auth-registration-form-submit-button"
       >
-        <span *ngIf="!isRegistering ; else loading">
-          Register
-        </span>
+        <span *ngIf="!isRegistering; else loading"> Register </span>
       </button>
     </form>
   </div>
   <div class="ap__registration-login-info">
-    <p
-      class="ap-copy"
-    >
+    <p class="ap-copy">
       Maybe you already have an account?
       <a
         class="ap-blue"
@@ -232,4 +185,3 @@
 <ng-template #loading>
   <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
 </ng-template>
-

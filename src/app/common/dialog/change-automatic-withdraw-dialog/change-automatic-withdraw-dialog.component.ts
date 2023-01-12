@@ -16,9 +16,12 @@ import * as authActions from 'store/auth/auth.actions';
 @Component({
   selector: 'app-change-automatic-withdraw-dialog',
   templateUrl: './change-automatic-withdraw-dialog.component.html',
-  styleUrls: ['./change-automatic-withdraw-dialog.component.scss']
+  styleUrls: ['./change-automatic-withdraw-dialog.component.scss'],
 })
-export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
+export class ChangeAutomaticWithdrawDialogComponent
+  extends HandleSubscription
+  implements OnInit
+{
   automaticWithdrawForm: FormGroup;
   periods = enumToArray(withdrawPeriodsEnum);
   periodsEnum = withdrawPeriodsEnum;
@@ -41,7 +44,8 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   ngOnInit() {
     this.createForm();
 
-    const userSubscription = this.store.select('state', 'user', 'data')
+    const userSubscription = this.store
+      .select('state', 'user', 'data')
       .subscribe((user: User) => {
         this.isConfirmed = user.isConfirmed;
       });
@@ -52,7 +56,7 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
   createForm() {
     this.automaticWithdrawForm = new FormGroup({
       period: new FormControl(),
-      amount: new FormControl()
+      amount: new FormControl(),
     });
   }
 
@@ -68,7 +72,8 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
     const period = this.automaticWithdrawForm.value.period;
     const amount = this.automaticWithdrawForm.value.amount;
 
-    const automaticWithdrawSubscription = this.settingsService.changeAutomaticWithdraw(period, amount)
+    const automaticWithdrawSubscription = this.settingsService
+      .changeAutomaticWithdraw(period, amount)
       .subscribe(() => this.dialogRef.close());
 
     this.subscriptions.push(automaticWithdrawSubscription);
@@ -77,12 +82,16 @@ export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription i
 
     const newLocalStorageUser: LocalStorageUser = Object.assign({}, userData, {
       autoWithdrawPeriod: period,
-      autoWithdrawAmount: amount
+      autoWithdrawAmount: amount,
     });
 
     localStorage.setItem('adshUser', JSON.stringify(newLocalStorageUser));
 
-    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawPeriod(period));
-    this.store.dispatch(new authActions.UpdateUserAutomaticWithdrawAmount(amount));
+    this.store.dispatch(
+      new authActions.UpdateUserAutomaticWithdrawPeriod(period)
+    );
+    this.store.dispatch(
+      new authActions.UpdateUserAutomaticWithdrawAmount(amount)
+    );
   }
 }

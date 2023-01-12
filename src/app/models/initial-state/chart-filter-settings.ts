@@ -3,7 +3,7 @@ import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 
 export const chartSeriesInitialState = {
   label: 'View',
-  value: 'view'
+  value: 'view',
 };
 
 export const chartFilterSettingsInitialState: ChartFilterSettings = {

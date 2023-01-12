@@ -1,25 +1,23 @@
 <tr class="billing-table-row row justify-between">
   <td class="billing-table-row__status-cell">
     <div
-      class="
-        ap-box
-        ap-box--x-small
-        billing-table-row__status
-        text-center"
+      class="ap-box ap-box--x-small billing-table-row__status text-center"
       attr.data-status="{{ status }}"
     >
-      <span *ngIf="billingHistoryItem.status === statusEnum.RESERVED"
-         matTooltipClass="ap-mat-tooltip"
-         matTooltip="The amount reserved for the ongoing campaign. After every hour the status is changed to “processing”."
-         matTooltipPosition="above"
-         class="billing-table-row__tooltip-placeholder"
+      <span
+        *ngIf="billingHistoryItem.status === statusEnum.RESERVED"
+        matTooltipClass="ap-mat-tooltip"
+        matTooltip="The amount reserved for the ongoing campaign. After every hour the status is changed to “processing”."
+        matTooltipPosition="above"
+        class="billing-table-row__tooltip-placeholder"
       >
       </span>
-      <span *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
-         matTooltipClass="ap-mat-tooltip"
-         matTooltip="Confirm the transaction via email. If the transaction has not been confirmed within one hour, please cancel it and send another transfer."
-         matTooltipPosition="above"
-         class="billing-table-row__tooltip-placeholder"
+      <span
+        *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
+        matTooltipClass="ap-mat-tooltip"
+        matTooltip="Confirm the transaction via email. If the transaction has not been confirmed within one hour, please cancel it and send another transfer."
+        matTooltipPosition="above"
+        class="billing-table-row__tooltip-placeholder"
       >
       </span>
       <span data-test="settings-billing-history-item-status">
@@ -27,54 +25,61 @@
       </span>
     </div>
   </td>
-  <td class="col-xs-1" title="{{type}}">
-    <span class="billing-table-row__type--icon "
-          data-test="settings-billing-history-item-type">
-      <i *ngIf="showBonusIcon"
-         class="material-icons billing-table-row__bonus"> star_rate </i>
-      <fa-icon class="billing-table-row__type billing-table-row__type--{{typeClass || type}}"
-               [icon]="icon"> </fa-icon>
+  <td class="col-xs-1" title="{{ type }}">
+    <span
+      class="billing-table-row__type--icon"
+      data-test="settings-billing-history-item-type"
+    >
+      <i *ngIf="showBonusIcon" class="material-icons billing-table-row__bonus">
+        star_rate
+      </i>
+      <fa-icon
+        class="billing-table-row__type billing-table-row__type--{{
+          typeClass || type
+        }}"
+        [icon]="icon"
+      >
+      </fa-icon>
     </span>
   </td>
-  <td class="col-xs-2 billing-table-row__amount"
-      data-test="settings-billing-history-item-amount">
-    {{ billingHistoryItem.amount | formatMoney:11:'':'none' }}
+  <td
+    class="col-xs-2 billing-table-row__amount"
+    data-test="settings-billing-history-item-amount"
+  >
+    {{ billingHistoryItem.amount | formatMoney : 11 : '' : 'none' }}
   </td>
   <td class="col-xs-2">
     <img
-      class="
-      ap-icon
-      ap-icon--prepend"
+      class="ap-icon ap-icon--prepend"
       src="assets/images/calendar.svg"
       alt="Calendar Icon"
-    >
+    />
     <span
-      class="
-      ap-copy
-      ap-copy--x-dark"
+      class="ap-copy ap-copy--x-dark"
       data-test="settings-billing-history-item-date"
     >
       {{ billingHistoryItemDate }}
     </span>
   </td>
-  <td class="col-xs-2"
-      [ngClass]="{'billing-table-row__link': !!link}">
-    <a *ngIf="link"
-       [title]="link"
-       rel="noopener noreferrer"
-       target="_blank"
-       href="{{ link }}"
-       data-test="settings-billing-history-item-link"
+  <td class="col-xs-2" [ngClass]="{ 'billing-table-row__link': !!link }">
+    <a
+      *ngIf="link"
+      [title]="link"
+      rel="noopener noreferrer"
+      target="_blank"
+      href="{{ link }}"
+      data-test="settings-billing-history-item-link"
     >
-      {{billingHistoryItem.txid}}
+      {{ billingHistoryItem.txid }}
     </a>
-    <span *ngIf="!link">{{billingHistoryItem.txid}}</span>
-    <button *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
-            class="ap-btn ap-btn--white ap-copy--blue"
-            (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
-            data-test="settings-billing-history-item-cancel-btn">
+    <span *ngIf="!link">{{ billingHistoryItem.txid }}</span>
+    <button
+      *ngIf="billingHistoryItem.status === statusEnum.UNCONFIRMED"
+      class="ap-btn ap-btn--white ap-copy--blue"
+      (click)="cancelAwaitingTransaction(billingHistoryItem.id)"
+      data-test="settings-billing-history-item-cancel-btn"
+    >
       CANCEL
     </button>
   </td>
 </tr>
-

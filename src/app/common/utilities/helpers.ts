@@ -4,7 +4,6 @@ import { Campaign, CampaignsConfig } from 'models/campaign.model';
 import { User } from 'models/user.model';
 import { ChartDataset } from 'chart.js';
 
-
 function adsToClicks(amount: any): number {
   if (typeof amount === 'number') {
     amount = amount.toFixed(12);
@@ -33,7 +32,7 @@ function calcCampaignBudgetPerDay(budgetPerHour: number): number {
  * @param budgetPerDay budget/day in ADS
  */
 function calcCampaignBudgetPerHour(budgetPerDay: number): number {
-  return Math.floor(budgetPerDay * 1e11 / 24) / 1e11;
+  return Math.floor((budgetPerDay * 1e11) / 24) / 1e11;
 }
 
 function cloneDeep(target) {
@@ -42,7 +41,7 @@ function cloneDeep(target) {
 
 function cutDirectAdSizeAnchor(url: string): string {
   const index = url.lastIndexOf('#');
-  return -1 === index ? url: url.substring(0, index);
+  return -1 === index ? url : url.substring(0, index);
 }
 
 function enumToArray(enumInput) {
@@ -62,7 +61,10 @@ function enumToObjectArray(enumInput) {
 
   for (let enumMember in enumInput) {
     if (typeof enumInput[enumMember] === 'number') {
-      enumNameArrayObject.push({id: enumInput[enumMember], name: enumMember.toLowerCase()});
+      enumNameArrayObject.push({
+        id: enumInput[enumMember],
+        name: enumMember.toLowerCase(),
+      });
     }
   }
 
@@ -80,7 +82,7 @@ function formatMoney(
   const p = Math.max(precision, 2);
   const d = decimal;
   const t = thousand;
-  let v = ((value || '0') + '');
+  let v = (value || '0') + '';
 
   let s = '';
   if (value < 0) {
@@ -92,10 +94,7 @@ function formatMoney(
   const l = v.length - 11;
   let a = v.substr(0, l) || '0';
   const j = a.length > 3 ? a.length % 3 : 0;
-  let b = Math.round(
-    parseInt((v + '0').substr(l, p + 1)) / 10
-    ).toString()
-  ;
+  let b = Math.round(parseInt((v + '0').substr(l, p + 1)) / 10).toString();
   if (b.length > p) {
     b = '0';
     a = (parseInt(a) + 1).toString();
@@ -115,12 +114,12 @@ function formatMoney(
 }
 
 function isUnixTimePastNow(unixTime): boolean {
-  const nowUnix = (+new Date) / 1000 | 0;
+  const nowUnix = (+new Date() / 1000) | 0;
   return unixTime < nowUnix;
 }
 
 function createInitialDataSet(): ChartDataset<any>[] {
-  return [{data: [], label: ''}];
+  return [{ data: [], label: '' }];
 }
 
 function sortArrayByKeys<assetItem>(
@@ -152,45 +151,63 @@ function sortArrayByKeys<assetItem>(
 }
 
 function findValueByPathArray(object, pathArray) {
-  return pathArray.length === 1 ? (object[pathArray[0]] || 0) :
-    pathArray.reduce((obj, partialPath) => obj[partialPath], object)
+  return pathArray.length === 1
+    ? object[pathArray[0]] || 0
+    : pathArray.reduce((obj, partialPath) => obj[partialPath], object);
 }
 
 const adjustCampaignStatus = (campaignInfo, currentDate): number => {
-  if (campaignInfo.dateEnd === null || campaignInfo.status !== campaignStatusesEnum.ACTIVE) {
-    return campaignInfo.status
+  if (
+    campaignInfo.dateEnd === null ||
+    campaignInfo.status !== campaignStatusesEnum.ACTIVE
+  ) {
+    return campaignInfo.status;
   } else if (currentDate > moment(campaignInfo.dateEnd)) {
-    return campaignStatusesEnum.OUTDATED
+    return campaignStatusesEnum.OUTDATED;
   } else if (currentDate < moment(campaignInfo.dateStart)) {
-    return campaignStatusesEnum.AWAITING
+    return campaignStatusesEnum.AWAITING;
   } else {
-    return campaignInfo.status
+    return campaignInfo.status;
   }
 };
 
-const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: User): string[] => {
+const validCampaignBudget = (
+  config: CampaignsConfig,
+  campaign: Campaign,
+  user: User
+): string[] => {
   let accountError = false;
   let budgetError = false;
   let cpmError = false;
   let cpaError = false;
-  const isOutdated = campaign.basicInformation.dateEnd && (moment(new Date()) > moment(campaign.basicInformation.dateEnd));
-  const isDirectDeal = checkDirectedDeal(campaign)
+  const isOutdated =
+    campaign.basicInformation.dateEnd &&
+    moment(new Date()) > moment(campaign.basicInformation.dateEnd);
+  const isDirectDeal = checkDirectedDeal(campaign);
 
   const currency = user.exchangeRate ? user.exchangeRate.currency : '';
   const rate = user.exchangeRate ? user.exchangeRate.value : 1;
 
   if (campaign.basicInformation.budget < config.minBudget) {
     budgetError = true;
-  } else if (user.adserverWallet.totalFunds < campaign.basicInformation.budget / rate) {
+  } else if (
+    user.adserverWallet.totalFunds <
+    campaign.basicInformation.budget / rate
+  ) {
     accountError = true;
-  } else if (isDirectDeal && user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate) {
+  } else if (
+    isDirectDeal &&
+    user.adserverWallet.walletBalance < campaign.basicInformation.budget / rate
+  ) {
     accountError = true;
   }
 
   const maxCpm = campaign.basicInformation.maxCpm;
-  const maxCpa = campaign.conversions ?
-    campaign.conversions.map(el => el.value).reduce((max, val) => Math.max(max, val), 0) :
-    0;
+  const maxCpa = campaign.conversions
+    ? campaign.conversions
+        .map((el) => el.value)
+        .reduce((max, val) => Math.max(max, val), 0)
+    : 0;
 
   if (maxCpm == 0 && maxCpa == 0) {
     cpmError = true;
@@ -203,20 +220,28 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
     cpaError = true;
   }
 
-  const campaignBudget = `${formatMoney(campaign.basicInformation.budget, 2)} ${currency}`;
-  const minBudget = `${formatMoney(calcCampaignBudgetPerDay(config.minBudget), 2)} ${currency}`;
+  const campaignBudget = `${formatMoney(
+    campaign.basicInformation.budget,
+    2
+  )} ${currency}`;
+  const minBudget = `${formatMoney(
+    calcCampaignBudgetPerDay(config.minBudget),
+    2
+  )} ${currency}`;
   const minCpm = `${formatMoney(config.minCpm, 2)} ${currency}`;
   const minCpa = `${formatMoney(config.minCpa, 2)} ${currency}`;
 
   let errors = [];
   if (budgetError) {
-    errors.push(`The daily budget of the campaign must be set to a minimum of ${minBudget}.`);
+    errors.push(
+      `The daily budget of the campaign must be set to a minimum of ${minBudget}.`
+    );
   }
 
   if (accountError) {
     let error = `You need to have at least ${campaignBudget} in your account`;
     if (isDirectDeal) {
-      error += ', excluding bonuses'
+      error += ', excluding bonuses';
     }
     errors.push(`${error}.`);
   }
@@ -236,20 +261,26 @@ const validCampaignBudget = (config: CampaignsConfig, campaign: Campaign, user: 
     } else {
       error += 'The';
     }
-    errors.push(`${error} conversion value must be set to a minimum of ${minCpa}.`);
+    errors.push(
+      `${error} conversion value must be set to a minimum of ${minCpa}.`
+    );
   }
 
   if (isOutdated) {
-    errors.push('The campaign is outdated. Unset end date or change to a future date.');
+    errors.push(
+      'The campaign is outdated. Unset end date or change to a future date.'
+    );
   }
 
   return errors;
 };
 
 function downloadReport(data: any): void {
-  const fileName = data.headers.get('content-disposition').split('filename=')[1] || 'report.xlsx';
+  const fileName =
+    data.headers.get('content-disposition').split('filename=')[1] ||
+    'report.xlsx';
   const type = data.headers.get('content-type');
-  const blob = new Blob([data.body], {type});
+  const blob = new Blob([data.body], { type });
   const link = document.createElement('a');
   link.setAttribute('download', fileName);
   link.setAttribute('href', URL.createObjectURL(blob));
@@ -263,7 +294,7 @@ function mapToIterable(dict: Object): any[] {
 
   for (const key in dict) {
     if (dict.hasOwnProperty(key)) {
-      a.push({key: key, value: dict[key]});
+      a.push({ key: key, value: dict[key] });
     }
   }
 
@@ -271,30 +302,35 @@ function mapToIterable(dict: Object): any[] {
 }
 
 function buildUrl(url: string, params: string[]): string {
-  return `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${params.join("&")}`
+  return `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${params.join('&')}`;
 }
 
-function formatNumberWithComma (value) {
-  return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatNumberWithComma(value) {
+  return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-function checkDirectedDeal (campaign) {
-  let isDirectDeal = false
-  if (campaign.basicInformation.medium === 'metaverse' && campaign.targeting.requires.site?.domain) {
-    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(domain => domain.startsWith('scene'))
-    if(isTargetingForParcel){
+function checkDirectedDeal(campaign) {
+  let isDirectDeal = false;
+  if (
+    campaign.basicInformation.medium === 'metaverse' &&
+    campaign.targeting.requires.site?.domain
+  ) {
+    const isTargetingForParcel = campaign.targeting.requires.site.domain.find(
+      (domain) => domain.startsWith('scene')
+    );
+    if (isTargetingForParcel) {
       isDirectDeal = true;
     }
   }
-  return isDirectDeal
+  return isDirectDeal;
 }
 
 function currencySymbolByCode(code: string): string {
   switch (code) {
     case 'USD':
-      return '$'
+      return '$';
     default:
-      return code
+      return code;
   }
 }
 
@@ -317,5 +353,5 @@ export {
   downloadReport,
   mapToIterable,
   buildUrl,
-  formatNumberWithComma
+  formatNumberWithComma,
 };

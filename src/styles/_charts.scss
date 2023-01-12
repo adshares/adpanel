@@ -39,7 +39,7 @@
   background: pal(navy, light);
 
   :before {
-    content: "";
+    content: '';
     position: absolute;
     @include center(vertical);
     left: -6px;
@@ -48,7 +48,6 @@
     border-style: solid;
     border-width: 6px 6px 6px 0;
     border-color: transparent pal(navy, light) transparent transparent;
-
   }
 
   & > table {

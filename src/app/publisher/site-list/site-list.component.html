@@ -6,35 +6,31 @@
       (sortTable)="sortTable($event)"
     ></app-table-navigation>
     <tbody *ngIf="dataLoaded; else loading">
-    <app-site-list-item
-      *ngFor="let site of sites"
-      [site]="site"
-      [siteStatuses]="siteStatuses"
-    ></app-site-list-item>
-    <tr class="site-list__totals-row">
-      <td class="site-list__totals-status"></td>
-      <td class="col-xs-3 site-list__totals-title">
-        Total - All sites
-      </td>
-      <td class="col-xs-1"
-          [title]="sitesTotals.revenue | formatMoney:4">
-        {{ sitesTotals.revenue | formatMoney:2 }}
-      </td>
-      <td class="col-xs-1">
-        {{ sitesTotals.clicks }}
-      </td>
-      <td class="col-xs-1">
-        {{ sitesTotals.impressions | formatNumberWithComa }}
-      </td>
-      <td class="col-xs-1">
-        {{ sitesTotals.ctr | percent:'1.2-2' }}
-      </td>
-      <td class="col-xs-1"
-          [title]="sitesTotals.averageRpm | formatMoney:4">
-        {{ sitesTotals.averageRpm | formatMoney:2 }}
-      </td>
-      <td class="col-xs-1"></td>
-    </tr>
+      <app-site-list-item
+        *ngFor="let site of sites"
+        [site]="site"
+        [siteStatuses]="siteStatuses"
+      ></app-site-list-item>
+      <tr class="site-list__totals-row">
+        <td class="site-list__totals-status"></td>
+        <td class="col-xs-3 site-list__totals-title">Total - All sites</td>
+        <td class="col-xs-1" [title]="sitesTotals.revenue | formatMoney : 4">
+          {{ sitesTotals.revenue | formatMoney : 2 }}
+        </td>
+        <td class="col-xs-1">
+          {{ sitesTotals.clicks }}
+        </td>
+        <td class="col-xs-1">
+          {{ sitesTotals.impressions | formatNumberWithComa }}
+        </td>
+        <td class="col-xs-1">
+          {{ sitesTotals.ctr | percent : '1.2-2' }}
+        </td>
+        <td class="col-xs-1" [title]="sitesTotals.averageRpm | formatMoney : 4">
+          {{ sitesTotals.averageRpm | formatMoney : 2 }}
+        </td>
+        <td class="col-xs-1"></td>
+      </tr>
     </tbody>
   </table>
 </article>
@@ -44,12 +40,16 @@
   </div>
 </ng-template>
 <div class="site-list__add-new-site-row">
-  <button class="site-list__add-btn"
-          (click)="navigateToCreateSite()"
-          data-test="publisher-create-new-site">
-    <img class="site-list__add-btn-icon"
-         alt=""
-         src="assets/images/plus-circle--blue.svg">
+  <button
+    class="site-list__add-btn"
+    (click)="navigateToCreateSite()"
+    data-test="publisher-create-new-site"
+  >
+    <img
+      class="site-list__add-btn-icon"
+      alt=""
+      src="assets/images/plus-circle--blue.svg"
+    />
     Add new site
   </button>
 </div>

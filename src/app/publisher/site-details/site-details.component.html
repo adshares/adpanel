@@ -1,54 +1,26 @@
 <div *ngIf="dataLoaded; else loading" class="dashboard-view">
-  <div
-    class="
-      site-details
-      container"
-  >
-    <div
-      class="
-        row
-        align-center
-        breadcrumbs"
-    >
+  <div class="site-details container">
+    <div class="row align-center breadcrumbs">
       <a
         routerLink="/publisher/dashboard"
         data-test="publisher-navigate-to-dashboard"
       >
-        <p
-          class="
-            ap-copy
-            ap-copy--small"
-        >
-          My sites
-        </p>
+        <p class="ap-copy ap-copy--small">My sites</p>
       </a>
       <div
-        class="
-          ap-circle
-          ap-circle--x-small
-          ap-circle--navy
-          breadcrumbs-divider"
-      >
-      </div>
+        class="ap-circle ap-circle--x-small ap-circle--navy breadcrumbs-divider"
+      ></div>
       <p
-        class="
-          ap-copy
-          ap-copy--small
-          ap-copy--x-dark
-          ap-copy--semi"
+        class="ap-copy ap-copy--small ap-copy--x-dark ap-copy--semi"
         data-test="publisher-site-url"
       >
         {{ site.name }}
       </p>
     </div>
 
-    <div class="row justify-end"
-         *ngIf="site.onlyAcceptedBanners"
-    >
+    <div class="row justify-end" *ngIf="site.onlyAcceptedBanners">
       <button
-        class="
-            ap-btn
-            ap-btn--bordered-light"
+        class="ap-btn ap-btn--bordered-light"
         (click)="navigateToClassification()"
         data-test="publisher-site-navigate-to-classifier"
       >
@@ -56,19 +28,8 @@
       </button>
     </div>
 
-    <div
-      class="
-        row
-        no-gutters
-        justify-between
-        align-center"
-    >
-      <div
-        class="
-          row
-          col-xs-5
-          col-md-7"
-      >
+    <div class="row no-gutters justify-between align-center">
+      <div class="row col-xs-5 col-md-7">
         <div class="col">
           <h1
             class="ap-heading ap-heading--primary"
@@ -76,59 +37,52 @@
           >
             {{ site.name }}
             <small *ngIf="displayAds">{{ site.domain }}</small>
-            <a *ngIf="siteLinkUrl" href="{{siteLinkUrl}}" target="_blank" rel="noopener nofollow noreferrer">
-              <fa-icon [icon]="faExternalLinkSquareAlt" class="ap-icon ap-icon--small link-icon"></fa-icon>
+            <a
+              *ngIf="siteLinkUrl"
+              href="{{ siteLinkUrl }}"
+              target="_blank"
+              rel="noopener nofollow noreferrer"
+            >
+              <fa-icon
+                [icon]="faExternalLinkSquareAlt"
+                class="ap-icon ap-icon--small link-icon"
+              ></fa-icon>
             </a>
           </h1>
-          <p
-            *ngIf="mediumLabel !== undefined"
-            class="ap-copy ap-copy--semi"
-          >
+          <p *ngIf="mediumLabel !== undefined" class="ap-copy ap-copy--semi">
             {{ mediumLabel }}
           </p>
         </div>
-        <app-domain-checker
-          [siteId]="site.id"
-        ></app-domain-checker>
+        <app-domain-checker [siteId]="site.id"></app-domain-checker>
       </div>
-      <div
-        class="
-          col-xs-7
-          col-md-5
-          row
-          justify-end
-          align-center"
-      >
+      <div class="col-xs-7 col-md-5 row justify-end align-center">
         <div class="row status-button-wrapper">
           <span class="ap-copy">This site is </span>
-          <span class="ap-copy lowercase-to-capitalize"
-                data-test="publisher-site-status"
-                [attr.data-status]="currentSiteStatus">
-              {{ currentSiteStatus }}
-            </span>
-          <button class="ap-btn ap-btn--white ap-status--btn"
-                  (click)="onSiteStatusChange()"
-                  data-test="publisher-site-status-change-button"
-                  [attr.data-status]="currentSiteStatus">
+          <span
+            class="ap-copy lowercase-to-capitalize"
+            data-test="publisher-site-status"
+            [attr.data-status]="currentSiteStatus"
+          >
+            {{ currentSiteStatus }}
+          </span>
+          <button
+            class="ap-btn ap-btn--white ap-status--btn"
+            (click)="onSiteStatusChange()"
+            data-test="publisher-site-status-change-button"
+            [attr.data-status]="currentSiteStatus"
+          >
             {{ statusButtonLabel }}
           </button>
         </div>
         <button
-          class="
-            ap-btn
-            ap-btn--white
-            ap-btn--with-icon
-            btn-delete
-            ap-copy--dark"
+          class="ap-btn ap-btn--white ap-btn--with-icon btn-delete ap-copy--dark"
           (click)="deleteSite()"
         >
           <img
-            class="
-              ap-icon
-              ap-icon--prepend"
+            class="ap-icon ap-icon--prepend"
             src="/assets/images/x-circle--dark.svg"
             alt=""
-          >
+          />
           Remove
         </button>
       </div>
@@ -138,14 +92,9 @@
     <div class="ap-box">
       <div class="row">
         <div class="col-xs-4">
-          <a
-            (click)="downloadReport()"
-          >
+          <a (click)="downloadReport()">
             <button
-              class="
-                ap-btn
-                ap-btn--white
-                ap-copy--dark"
+              class="ap-btn ap-btn--white ap-copy--dark"
               data-test="publisher-site-download-report-button"
             >
               Generate a report
@@ -166,22 +115,10 @@
           ></app-chart-filter>
         </div>
       </div>
-      <div
-        class="
-          ap-box"
-      >
-        <div
-          class="
-            row
-            align-center
-            chart-wrapper"
-        >
+      <div class="ap-box">
+        <div class="row align-center chart-wrapper">
           <app-chart
-            class="
-              chart
-              row
-              align-center
-              justify-center"
+            class="chart row align-center justify-center"
             (update)="getChartData($event, site.id)"
             [barChartData]="barChartData"
             [barChartLabels]="barChartLabels"
@@ -191,39 +128,23 @@
     </div>
     <!-- chart end-->
 
-    <div
-      class="
-          ap-box
-          ap-box--high
-          row
-          justify-between
-          align-center"
-    >
-      <p
-        *ngIf="language !== undefined"
-        class="ap-copy ap-copy--semi"
-      >
+    <div class="ap-box ap-box--high row justify-between align-center">
+      <p *ngIf="language !== undefined" class="ap-copy ap-copy--semi">
         Site language:
-        <span
-          class="lowercase">
+        <span class="lowercase">
           {{ language.name }}
         </span>
       </p>
       <button
-        class="
-           ap-btn
-           ap-btn--edit
-           ap-btn--no-border"
+        class="ap-btn ap-btn--edit ap-btn--no-border"
         (click)="navigateToEditSite('basic-information')"
         data-test="publisher-site-edit-basic-info-button"
       >
         <img
-          class="
-            ap-icon
-            ap-icon--prepend"
+          class="ap-icon ap-icon--prepend"
           src="assets/images/edit-blue.svg"
           alt=""
-        >
+        />
         Edit basic info
       </button>
     </div>
@@ -231,72 +152,56 @@
     <section class="ap-box ap-box--high">
       <div class="row justify-end">
         <button
-          class="
-           ap-btn
-           ap-btn--edit
-           ap-btn--no-border"
+          class="ap-btn ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('additional-filtering')"
           data-test="publisher-site-edit-filtering-button"
         >
           <img
-            class="
-            ap-icon
-            ap-icon--prepend"
+            class="ap-icon ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
-          >
-          {{(!filtering.requires.length && !filtering.excludes.length && !site.onlyAcceptedBanners) ? 'Add exclusions' : 'Edit exclusions'}}
+          />
+          {{
+            !filtering.requires.length &&
+            !filtering.excludes.length &&
+            !site.onlyAcceptedBanners
+              ? 'Add exclusions'
+              : 'Edit exclusions'
+          }}
         </button>
       </div>
       <div
-        *ngIf="!!filtering.requires.length || !!filtering.excludes.length || site.onlyAcceptedBanners"
-        class="
-        ap-box
-        ap-copy
-        row"
+        *ngIf="
+          !!filtering.requires.length ||
+          !!filtering.excludes.length ||
+          site.onlyAcceptedBanners
+        "
+        class="ap-box ap-copy row"
       >
-        <div
-          *ngIf="site.onlyAcceptedBanners"
-          class="col-xs-12"
-        >
+        <div *ngIf="site.onlyAcceptedBanners" class="col-xs-12">
           <div class="ap-targeting-details__title">
-            <mat-checkbox
-              class="site-details__checkbox"
-              checked="checked"
-            >
+            <mat-checkbox class="site-details__checkbox" checked="checked">
               Manual approval of banners
             </mat-checkbox>
             <button
-              class="
-               ap-btn
-               ap-btn--edit
-               ap-btn--no-border"
+              class="ap-btn ap-btn--edit ap-btn--no-border"
               (click)="navigateToClassification()"
               data-test="publisher-site-edit-filtering-button"
             >
               <img
-                class="
-                  ap-icon
-                  ap-icon--prepend"
+                class="ap-icon ap-icon--prepend"
                 src="assets/images/edit-blue.svg"
                 alt=""
-              >
+              />
               Select banners for approval
             </button>
           </div>
-          <div>
-            <br /><br />
-          </div>
+          <div><br /><br /></div>
         </div>
-        <div
-          *ngIf="!!filtering.requires.length"
-          class="
-          col-xs-12
-          col-lg-6"
-        >
-          <h2 class="ap-targeting-details__title
-                     ap-copy--large
-                     ap-copy--semi">Targeting: </h2>
+        <div *ngIf="!!filtering.requires.length" class="col-xs-12 col-lg-6">
+          <h2 class="ap-targeting-details__title ap-copy--large ap-copy--semi">
+            Targeting:
+          </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -308,15 +213,10 @@
           </div>
         </div>
 
-        <div
-          *ngIf="!!filtering.excludes.length"
-          class="
-          col-xs-12
-          col-lg-6"
-        >
-          <h2 class="ap-targeting-details__title
-                     ap-copy--large
-                     ap-copy--semi">Exclusions: </h2>
+        <div *ngIf="!!filtering.excludes.length" class="col-xs-12 col-lg-6">
+          <h2 class="ap-targeting-details__title ap-copy--large ap-copy--semi">
+            Exclusions:
+          </h2>
           <div>
             <app-targeting-display
               class="app-targeting-display"
@@ -329,7 +229,6 @@
         </div>
       </div>
     </section>
-
 
     <div class="ap-box ap-box--large">
       <div class="row justify-center">
@@ -344,45 +243,33 @@
     </div>
 
     <div class="col">
-      <div *ngIf="editPopups"
-        class="
-          ap-box
-          ad-units
-          row
-          justify-between
-          align-center">
-        <p
-          class="
-            ap-copy
-            ap-copy--semi"
-        >
+      <div
+        *ngIf="editPopups"
+        class="ap-box ad-units row justify-between align-center"
+      >
+        <p class="ap-copy ap-copy--semi">
           <span *ngIf="!!popAdUnits.length">List of enabled pops</span>
-          <strong class="ad-units-warning" *ngIf="!popAdUnits.length">Pops disabled</strong>
+          <strong class="ad-units-warning" *ngIf="!popAdUnits.length"
+            >Pops disabled</strong
+          >
         </p>
 
         <div class="row justify-end">
           <button
-            class="
-           ap-btn
-           ap-btn--edit
-           ap-btn--no-border"
+            class="ap-btn ap-btn--edit ap-btn--no-border"
             (click)="navigateToEditSite('pops-settings')"
             data-test="publisher-site-edit-pops-button"
           >
             <img
-              class="
-            ap-icon
-            ap-icon--prepend"
+              class="ap-icon ap-icon--prepend"
               src="assets/images/edit-blue.svg"
               alt=""
-            >
+            />
             Edit pops
           </button>
         </div>
       </div>
-      <div
-        class="site-details__scrollable-table"
-        *ngIf="!!popAdUnits.length">
+      <div class="site-details__scrollable-table" *ngIf="!!popAdUnits.length">
         <table class="site-details__table">
           <app-table-navigation
             [navigationName]="'adUnitsNavigation'"
@@ -398,37 +285,24 @@
     </div>
 
     <div class="col">
-      <div
-        class="
-          ap-box
-          ad-units
-          row
-          justify-between
-          align-center">
-        <p
-          class="
-            ap-copy
-            ap-copy--semi"
-        >
+      <div class="ap-box ad-units row justify-between align-center">
+        <p class="ap-copy ap-copy--semi">
           <span *ngIf="!!displayAdUnits.length">List of placements</span>
-          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length">No active placements</strong>
+          <strong class="ad-units-warning" *ngIf="!displayAdUnits.length"
+            >No active placements</strong
+          >
         </p>
         <button
           *ngIf="editAds"
-          class="
-           ap-btn
-           ap-btn--edit
-           ap-btn--no-border"
+          class="ap-btn ap-btn--edit ap-btn--no-border"
           (click)="navigateToEditSite('create-ad-units')"
           data-test="publisher-site-edit-ad-units-button"
         >
           <img
-            class="
-            ap-icon
-            ap-icon--prepend"
+            class="ap-icon ap-icon--prepend"
             src="assets/images/edit-blue.svg"
             alt=""
-          >
+          />
           Edit placements
         </button>
       </div>
@@ -450,29 +324,17 @@
       </div>
     </div>
 
-    <div
-      *ngIf="editAds"
-      class="
-        ap-box
-        row
-        justify-center"
-    >
+    <div *ngIf="editAds" class="ap-box row justify-center">
       <button
-        class="
-          ap-btn
-          ap-btn--white
-          ap-blue
-          ap-btn--no-border"
+        class="ap-btn ap-btn--white ap-blue ap-btn--no-border"
         (click)="navigateToEditSite('create-ad-units')"
         data-test="publisher-site-create-new-ad-unit"
       >
         <img
-          class="
-            ap-icon
-            ap-icon--prepend"
+          class="ap-icon ap-icon--prepend"
           src="assets/images/plus-circle--blue.svg"
           alt=""
-        >
+        />
         Create new placement
       </button>
     </div>

@@ -1,4 +1,4 @@
-import { NgxMatDateFormats } from '@angular-material-components/datetime-picker'
+import { NgxMatDateFormats } from '@angular-material-components/datetime-picker';
 
 export const DATE_FORMAT = 'DD-MM-YYYY';
 export const TIME_FORMAT = 'HH:mm';
@@ -25,14 +25,14 @@ export const DATE_PICKER_FORMATS = {
 
 export const DATE_AND_TIME_PICKER_FORMATS: NgxMatDateFormats = {
   parse: {
-    dateInput: DATE_AND_TIME_FORMAT
+    dateInput: DATE_AND_TIME_FORMAT,
   },
   display: {
     dateInput: DATE_AND_TIME_FORMAT,
     monthYearLabel: MONTH_AND_YEAR_FORMAT,
     dateA11yLabel: DATE_A11_LABEL_FORMAT,
-    monthYearA11yLabel: MONTH_A11_LABEL_FORMAT
-  }
+    monthYearA11yLabel: MONTH_A11_LABEL_FORMAT,
+  },
 };
 
 export const CRYPTO = 'crypto';

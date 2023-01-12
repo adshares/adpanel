@@ -1,18 +1,10 @@
 <app-edit-asset-navigation></app-edit-asset-navigation>
 <section
   *ngIf="campaignBasicInfoForm"
-  class="
-    homepage-view
-    campaign-edit-basic-information"
+  class="homepage-view campaign-edit-basic-information"
 >
   <div class="text-center">
-    <h1
-      class="
-        ap-heading
-        ap-heading--primary"
-    >
-      Basic information
-    </h1>
+    <h1 class="ap-heading ap-heading--primary">Basic information</h1>
   </div>
 
   <form
@@ -21,15 +13,11 @@
     class="ap-form"
     data-test="advertiser-edit-campaign-basic-information-form"
   >
-    <div
-      class="
-        ap-box
-        ap-box--large"
-    >
+    <div class="ap-box ap-box--large">
       <div class="ap-form-input__box">
         <label class="ap-form-label">Medium</label>
         <mat-select
-          *ngIf="isTaxonomy else missingTaxonomy"
+          *ngIf="isTaxonomy; else missingTaxonomy"
           class="ap-select"
           formControlName="medium"
           (selectionChange)="onMediumChange($event.value)"
@@ -44,10 +32,7 @@
           </mat-option>
         </mat-select>
       </div>
-      <div
-        *ngIf="vendors.length > 0"
-        class="ap-form-input__box"
-      >
+      <div *ngIf="vendors.length > 0" class="ap-form-input__box">
         <label class="ap-form-label">Vendor</label>
         <mat-select
           class="ap-select"
@@ -64,21 +49,14 @@
         </mat-select>
       </div>
       <div class="ap-form-input__box">
-        <label
-          for="campaignName"
-          class="ap-form-label"
-        >
-          Campaign name
-        </label>
+        <label for="campaignName" class="ap-form-label"> Campaign name </label>
         <input
           id="campaignName"
-          class="
-            ap-form-input
-            ap-form-input--full"
+          class="ap-form-input ap-form-input--full"
           name="campaignName"
           formControlName="name"
           data-test="advertiser-edit-campaign-basic-information-form-name"
-        >
+        />
         <span
           *ngIf="campaignBasicInfoForm.get('name').valid"
           class="input-valid"
@@ -87,36 +65,35 @@
           class="error-msg"
           *ngIf="
             campaignBasicInfoForm.hasError('required', ['name']) &&
-            campaignBasicInformationSubmitted"
+            campaignBasicInformationSubmitted
+          "
         >
           Campaign name required!
         </span>
       </div>
 
       <div class="ap-form-input__box">
-        <label
-          for="campaignTargetURL"
-          class="ap-form-label"
-        >
+        <label for="campaignTargetURL" class="ap-form-label">
           Target URL
         </label>
         <input
           id="campaignTargetURL"
-          class="
-            ap-form-input
-            ap-form-input--full"
+          class="ap-form-input ap-form-input--full"
           type="text"
           name="campaignTargetURL"
           formControlName="targetUrl"
           data-test="advertiser-edit-campaign-basic-information-form-target-url"
-        >
+        />
         <span
-          *ngIf="
-            campaignBasicInfoForm.get('targetUrl').valid"
-          class="input-valid"></span>
+          *ngIf="campaignBasicInfoForm.get('targetUrl').valid"
+          class="input-valid"
+        ></span>
         <span
           class="error-msg"
-          *ngIf="!campaignBasicInfoForm.get('targetUrl').valid && campaignBasicInformationSubmitted"
+          *ngIf="
+            !campaignBasicInfoForm.get('targetUrl').valid &&
+            campaignBasicInformationSubmitted
+          "
         >
           Please provide a valid URL.
         </span>
@@ -125,36 +102,22 @@
       <app-placeholders-accordion></app-placeholders-accordion>
 
       <div class="ap-form-input__box">
-        <div
-          class="
-            row
-            no-gutters"
-        >
-
-          <div
-            class="
-              col
-              col-xs-5"
-          >
+        <div class="row no-gutters">
+          <div class="col col-xs-5">
             <div class="relative">
-              <label
-                for="campaign-budget-per-day"
-                class="ap-form-label"
-              >
-                Budget ({{currencyCode}}/day)
+              <label for="campaign-budget-per-day" class="ap-form-label">
+                Budget ({{ currencyCode }}/day)
               </label>
               <input
                 id="campaign-budget-per-day"
-                class="
-                  ap-form-input
-                  input-budget"
+                class="ap-form-input input-budget"
                 type="number"
                 step="0.01"
                 name="campaignBudgetPerDay"
                 [formControl]="budgetPerDay"
                 (focus)="onFocus('campaign-budget-per-day')"
                 data-test="advertiser-edit-campaign-basic-information-form-budget-per-day"
-              >
+              />
               <span
                 *ngIf="campaignBasicInfoForm.get('budget').valid"
                 class="input-valid"
@@ -164,7 +127,8 @@
               class="error-msg"
               *ngIf="
                 budgetPerDay.hasError('required') &&
-                campaignBasicInformationSubmitted"
+                campaignBasicInformationSubmitted
+              "
             >
               Budget required
             </span>
@@ -172,42 +136,34 @@
               class="error-msg"
               *ngIf="
                 budgetPerDay.hasError('min') &&
-                campaignBasicInformationSubmitted"
+                campaignBasicInformationSubmitted
+              "
             >
-              Allowed minimum is {{this.campaignsConfig.minBudget|budgetPerDay|formatMoney:2:''}}
+              Allowed minimum is
+              {{
+                this.campaignsConfig.minBudget
+                  | budgetPerDay
+                  | formatMoney : 2 : ''
+              }}
             </span>
           </div>
           <!-- divider -->
-          <div
-            class="
-              col
-              col-xs-2"
-          >
-          </div>
-          <div
-            class="
-              col
-              col-xs-5"
-          >
+          <div class="col col-xs-2"></div>
+          <div class="col col-xs-5">
             <div class="relative">
-              <label
-                for="campaign-budget"
-                class="ap-form-label"
-              >
-                Budget ({{currencyCode}}/hour)
+              <label for="campaign-budget" class="ap-form-label">
+                Budget ({{ currencyCode }}/hour)
               </label>
               <input
                 id="campaign-budget"
-                class="
-                  ap-form-input
-                  input-budget"
+                class="ap-form-input input-budget"
                 type="number"
                 step="0.0001"
                 name="campaignBudget"
                 formControlName="budget"
                 (focus)="onFocus('campaign-budget')"
                 data-test="advertiser-edit-campaign-basic-information-form-budget"
-              >
+              />
               <span
                 *ngIf="campaignBasicInfoForm.get('budget').valid"
                 class="input-valid"
@@ -217,7 +173,8 @@
               class="error-msg"
               *ngIf="
                 campaignBasicInfoForm.hasError('required', ['budget']) &&
-                campaignBasicInformationSubmitted"
+                campaignBasicInformationSubmitted
+              "
             >
               Budget required
             </span>
@@ -225,45 +182,31 @@
               class="error-msg"
               *ngIf="
                 campaignBasicInfoForm.hasError('min', ['budget']) &&
-                campaignBasicInformationSubmitted"
+                campaignBasicInformationSubmitted
+              "
             >
-              Allowed minimum is {{this.campaignsConfig.minBudget|formatMoney:2:''}}
+              Allowed minimum is
+              {{ this.campaignsConfig.minBudget | formatMoney : 2 : '' }}
             </span>
           </div>
         </div>
       </div>
 
       <div class="ap-form-input__box">
-        <div
-          class="
-            row
-            justify-between
-            no-gutters"
-        >
-          <div
-            class="
-              col
-              col-xs-5
-              col-xxl-3"
-          >
+        <div class="row justify-between no-gutters">
+          <div class="col col-xs-5 col-xxl-3">
             <label class="ap-form-label">Start date</label>
             <mat-form-field
               (click)="dateStartPicker.open()"
-              class="
-                ap-form-input
-                ap-form-input--narrow
-                row"
+              class="ap-form-input ap-form-input--narrow row"
             >
               <img
                 src="/assets/images/calendar.svg"
                 alt="Calendar"
-                class="ap-icon">
+                class="ap-icon"
+              />
               <input
-                class="
-                ap-form-input
-                ap-form-input--narrow
-                ap-form-input--date
-                row"
+                class="ap-form-input ap-form-input--narrow ap-form-input--date row"
                 [ngxMatDatetimePicker]="dateStartPicker"
                 [formControl]="dateStart"
                 [min]="today"
@@ -271,45 +214,41 @@
                 type="text"
                 required
                 data-test="advertiser-edit-campaign-basic-information-form-start-date"
-              >
-              <ngx-mat-datetime-picker #dateStartPicker></ngx-mat-datetime-picker>
+              />
+              <ngx-mat-datetime-picker
+                #dateStartPicker
+              ></ngx-mat-datetime-picker>
             </mat-form-field>
 
             <span
               class="error-msg"
-              *ngIf="dateStart.hasError('required') && campaignBasicInformationSubmitted"
+              *ngIf="
+                dateStart.hasError('required') &&
+                campaignBasicInformationSubmitted
+              "
             >
               Start date required
             </span>
           </div>
-          <div
-            class="
-              col
-              col-xs-5
-              col-xxl-3"
-          >
-            <label class="ap-form-label">
-              End date (optional)
-            </label>
+          <div class="col col-xs-5 col-xxl-3">
+            <label class="ap-form-label"> End date (optional) </label>
             <mat-form-field
-                    (click)="dateEndPicker.open()"
-                    class="ap-form-input
-                                   ap-form-input--narrow
-                                   row">
+              (click)="dateEndPicker.open()"
+              class="ap-form-input ap-form-input--narrow row"
+            >
               <img
-                   src="/assets/images/calendar.svg"
-                   alt="Calendar"
-                   class="ap-icon">
-              <input class="ap-form-input
-                       ap-form-input--narrow
-                       ap-form-input--date
-                       row"
-                     [ngxMatDatetimePicker]="dateEndPicker"
-                     matInput
-                     [min]="dateStart.value"
-                     [formControl]="dateEnd"
-                     data-test="advertiser-edit-campaign-basic-information-form-end-date"
-              >
+                src="/assets/images/calendar.svg"
+                alt="Calendar"
+                class="ap-icon"
+              />
+              <input
+                class="ap-form-input ap-form-input--narrow ap-form-input--date row"
+                [ngxMatDatetimePicker]="dateEndPicker"
+                matInput
+                [min]="dateStart.value"
+                [formControl]="dateEnd"
+                data-test="advertiser-edit-campaign-basic-information-form-end-date"
+              />
               <ngx-mat-datetime-picker #dateEndPicker></ngx-mat-datetime-picker>
             </mat-form-field>
           </div>
@@ -319,15 +258,13 @@
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title class="ap-form-label">
-              Advanced
-            </mat-panel-title>
+            <mat-panel-title class="ap-form-label"> Advanced </mat-panel-title>
           </mat-expansion-panel-header>
 
           <div class="ap-form-input__box advanced-settings">
             <div class="row no-gutters">
               <label class="ap-form-label">
-                Max CPM ({{currencyCode}})
+                Max CPM ({{ currencyCode }})
               </label>
               <mat-checkbox
                 [checked]="isAutoCpm"
@@ -337,53 +274,47 @@
                 auto
               </mat-checkbox>
             </div>
-            <div
-                    *ngIf="!isAutoCpm"
-                    class="row no-gutters"
-            >
+            <div *ngIf="!isAutoCpm" class="row no-gutters">
               <div class="col">
                 <div class="col relative">
                   <input
-                          id="campaign-max-cpm"
-                          class="ap-form-input input-budget"
-                          type="number"
-                          step="0.01"
-                          name="campaignMaxCpm"
-                          formControlName="maxCpm"
-                          data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
-                  >
+                    id="campaign-max-cpm"
+                    class="ap-form-input input-budget"
+                    type="number"
+                    step="0.01"
+                    name="campaignMaxCpm"
+                    formControlName="maxCpm"
+                    data-test="advertiser-edit-campaign-basic-information-form-max-cpm"
+                  />
                   <span
-                          *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
-                          class="input-valid"
+                    *ngIf="campaignBasicInfoForm.get('maxCpm').valid"
+                    class="input-valid"
                   ></span>
                 </div>
                 <span
-                        class="error-msg"
-                        *ngIf="
-                        campaignBasicInfoForm.hasError('min', ['maxCpm']) &&
-                        campaignBasicInformationSubmitted"
+                  class="error-msg"
+                  *ngIf="
+                    campaignBasicInfoForm.hasError('min', ['maxCpm']) &&
+                    campaignBasicInformationSubmitted
+                  "
                 >
-                  Allowed minimum is {{this.campaignsConfig.minCpm|formatMoney:2:''}}
+                  Allowed minimum is
+                  {{ this.campaignsConfig.minCpm | formatMoney : 2 : '' }}
                 </span>
               </div>
             </div>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
-
     </div>
-    <div
-      class="ap-box
-             ap-box--large
-             row
-             justify-between">
-      <button type="button"
-              class="ap-btn
-                     ap-btn--white
-                     ap-blue"
-              (click)="onStepBack()"
-              [disabled]="campaignBasicInformationSubmitted || changesSaved"
-              data-test="advertiser-navigate-to-dashboard">
+    <div class="ap-box ap-box--large row justify-between">
+      <button
+        type="button"
+        class="ap-btn ap-btn--white ap-blue"
+        (click)="onStepBack()"
+        [disabled]="campaignBasicInformationSubmitted || changesSaved"
+        data-test="advertiser-navigate-to-dashboard"
+      >
         {{ createCampaignMode ? 'Back to dashboard' : 'Back' }}
       </button>
       <button
@@ -392,10 +323,14 @@
         data-test="advertiser-edit-campaign-save-and-continue"
       >
         <span *ngIf="!changesSaved; else loading">
-        {{ createCampaignMode ? 'Save & continue' : 'Update' }}
+          {{ createCampaignMode ? 'Save & continue' : 'Update' }}
         </span>
         <ng-template #loading>
-          <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+          <mat-spinner
+            [diameter]="20"
+            [strokeWidth]="2"
+            color="accent"
+          ></mat-spinner>
         </ng-template>
       </button>
     </div>

@@ -5,15 +5,18 @@ import { PublisherService } from 'publisher/publisher.service';
 import { timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { SiteRank } from 'models/site.model';
-import { pageRankInfoEnum } from 'models/enum/site.enum'
+import { pageRankInfoEnum } from 'models/enum/site.enum';
 
 @Component({
   selector: 'app-domain-checker',
   templateUrl: './domain-checker.component.html',
   styleUrls: ['./domain-checker.component.scss'],
 })
-export class DomainCheckerComponent extends HandleSubscription implements OnInit {
-  private static readonly UPDATE_INTERVAL = 300000;//5 * 60 * 1000 = 5 minutes
+export class DomainCheckerComponent
+  extends HandleSubscription
+  implements OnInit
+{
+  private static readonly UPDATE_INTERVAL = 300000; //5 * 60 * 1000 = 5 minutes
   @Input() siteId: number;
   faQuestionCircle = faQuestionCircle;
 
@@ -27,11 +30,17 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   }
 
   ngOnInit(): void {
-    const domainCheckSubscription = timer(0, DomainCheckerComponent.UPDATE_INTERVAL)
+    const domainCheckSubscription = timer(
+      0,
+      DomainCheckerComponent.UPDATE_INTERVAL
+    )
       .pipe(switchMap(() => this.publisherService.getSiteRank(this.siteId)))
       .subscribe(
         (response: SiteRank) => {
-          this.updateMessage(response.rank || 0, response.info || pageRankInfoEnum.UNKNOWN);
+          this.updateMessage(
+            response.rank || 0,
+            response.info || pageRankInfoEnum.UNKNOWN
+          );
         },
         () => this.updateMessage(0, pageRankInfoEnum.UNKNOWN)
       );
@@ -40,7 +49,8 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   }
 
   updateMessage(pageRank: number, pageRankInfo: string): void {
-    this.inVerification = 0 === pageRank && pageRankInfoEnum.UNKNOWN === pageRankInfo;
+    this.inVerification =
+      0 === pageRank && pageRankInfoEnum.UNKNOWN === pageRankInfo;
     this.isBanned = !this.inVerification && pageRank <= 0;
     this.pageRank = Math.round(pageRank * 10);
     this.pageRankInfo = this.tooltipPageRankInfo(pageRankInfo);
@@ -70,14 +80,17 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
   }
 
   cpmMessage(): string {
-    return this.inVerification ? 'in verification' : (this.isBanned ? 'banned' : `approved`);
+    return this.inVerification
+      ? 'in verification'
+      : this.isBanned
+      ? 'banned'
+      : `approved`;
   }
 
   cpaTooltip(): string {
-    return this.inVerification || this.pageRank != 0 ?
-      'Your site has been approved for CPA campaigns.' :
-      'CPA campaigns have been excluded from your site. ' + this.pageRankInfo;
-
+    return this.inVerification || this.pageRank != 0
+      ? 'Your site has been approved for CPA campaigns.'
+      : 'CPA campaigns have been excluded from your site. ' + this.pageRankInfo;
   }
 
   cpmTooltip(): string {
@@ -86,34 +99,41 @@ export class DomainCheckerComponent extends HandleSubscription implements OnInit
     }
 
     if (this.isBanned) {
-      return 'CPM campaigns have been excluded from your site. ' + this.pageRankInfo;
+      return (
+        'CPM campaigns have been excluded from your site. ' + this.pageRankInfo
+      );
     }
 
     return 'Your site has been approved for CPM campaigns.';
   }
 
   tooltipPageRankInfo(pageRankInfo: string): string {
-
     let info = '';
 
     switch (pageRankInfo) {
       case pageRankInfoEnum.HIGH_IVR:
-        info = 'The invalid view rate is too high. Your website does not meet our quality standards.';
+        info =
+          'The invalid view rate is too high. Your website does not meet our quality standards.';
         break;
       case pageRankInfoEnum.HIGH_CTR:
-        info = 'The click-through rate is too high. Your website does not meet our quality standards.';
+        info =
+          'The click-through rate is too high. Your website does not meet our quality standards.';
         break;
       case pageRankInfoEnum.LOW_CTR:
-        info = 'The click-through rate is too low. Please try placing placements in a more visible places. You can also check if you are using the most popular placement sizes.';
+        info =
+          'The click-through rate is too low. Please try placing placements in a more visible places. You can also check if you are using the most popular placement sizes.';
         break;
       case pageRankInfoEnum.POOR_TRAFFIC:
-        info = 'Poor traffic.  Your website does not meet our quality standards.';
+        info =
+          'Poor traffic.  Your website does not meet our quality standards.';
         break;
       case pageRankInfoEnum.POOR_CONTENT:
-        info = 'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';
+        info =
+          'Please make sure to have quality content on your site. We don’t allow sites that have no other content than ads.';
         break;
       case pageRankInfoEnum.SUSPICIOUS_DOMAIN:
-        info = 'We don’t allow newly created domains and domains that are not present in public indexes.';
+        info =
+          'We don’t allow newly created domains and domains that are not present in public indexes.';
         break;
       case pageRankInfoEnum.NOT_WORKING:
         info = 'The site is not responding or reports an error.';
