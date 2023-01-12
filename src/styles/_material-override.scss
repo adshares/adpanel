@@ -114,8 +114,7 @@ mat-chip:not(.mat-basic-chip) {
   visibility: hidden !important;
 }
 
-.mat-expansion-panel:not(.mat-expanded)
-  .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
   background: transparent !important;
 }
 
@@ -267,4 +266,45 @@ mat-chip:not(.mat-basic-chip) {
 
 .mat-expansion-panel-header {
   padding: 0 12px 0 0;
+}
+
+.mat-slide-toggle {
+
+  & &-bar {
+    width: 32px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid pal(primary);
+    border-radius: 13px;
+  }
+
+  & &-thumb-container {
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+  }
+
+  & &-thumb {
+    width: inherit;
+    height: inherit;
+    background-color: pal(primary);
+    box-shadow: none;
+  }
+
+  &.mat-primary.mat-checked &-bar {
+    background-color: pal(primary);
+  }
+
+  &.mat-primary.mat-checked &-thumb-container {
+    transform: translate3d(16px, -50%, 0);
+    left: -2px;
+  }
+
+  &.mat-primary.mat-checked &-thumb {
+    background-color: pal(light);
+  }
+
+
 }

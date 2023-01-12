@@ -42,7 +42,7 @@
               data-test="publisher-site-url"
             >
               {{ site.name }}
-              <span class="ap-copy ap-copy--small" *ngIf="!isMetaverse">
+              <span class="ap-copy" *ngIf="!isMetaverse">
                 {{ site.domain }}
               </span>
               <a
@@ -226,94 +226,94 @@
       </div>
     </div>
 
-    <ng-container *ngIf="editAds">
-      <div class="ap-box">
-        <div class="box-title row justify-between align-center">
-          <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
-          <button
-            class="ap-btn ap-btn--text"
-            (click)="navigateToEditSite('pops-settings')"
-            data-test="publisher-site-edit-pops-button"
-          >
-            <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
-            Edit pops
-          </button>
-        </div>
-
-        <div *ngIf="!popAdUnits.length" class="box-content">
-          <span class="ap-copy ap-copy--semi ad-units-warning"
-            >Pops disabled</span
-          >
-        </div>
-
-        <div
-          class="box-content site-details__scrollable-table"
-          *ngIf="!!popAdUnits.length"
+    <div *ngIf="editPopups" class="ap-box">
+      <div class="box-title row justify-between align-center">
+        <h2 class="ap-heading ap-heading--h2">List of enabled pops</h2>
+        <button
+          class="ap-btn ap-btn--text"
+          (click)="navigateToEditSite('pops-settings')"
+          data-test="publisher-site-edit-pops-button"
         >
-          <table class="site-details__table">
-            <app-table-navigation
-              [navigationName]="'adUnitsNavigation'"
-              (sortTable)="sortTable($event)"
-              class="row ap-copy"
-            ></app-table-navigation>
-            <app-poster-units
-              *ngFor="let adUnit of popAdUnits"
-              [adUnit]="adUnit"
-              class="ap-copy"
-            ></app-poster-units>
-          </table>
-        </div>
+          <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
+          Edit pops
+        </button>
       </div>
 
-      <div class="col ap-box">
-        <div class="row justify-between align-center box-title">
-          <h2 class="ap-heading ap-heading--h2" *ngIf="!!displayAdUnits.length">
-            List of ad units
-          </h2>
-          <h2
-            class="ap-heading ap-heading--h2 ad-units-warning"
-            *ngIf="!displayAdUnits.length"
-          >
-            No active ad units
-          </h2>
-          <button
-            class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
-            (click)="navigateToEditSite('create-ad-units')"
-            data-test="publisher-site-edit-ad-units-button"
-          >
-            <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
-            Edit ad units
-          </button>
-        </div>
-
-        <div
-          class="box-content site-details__scrollable-table"
-          *ngIf="!!displayAdUnits.length"
+      <div *ngIf="!popAdUnits.length" class="box-content">
+        <span class="ap-copy ap-copy--semi ad-units-warning"
+          >Pops disabled</span
         >
-          <table class="site-details__table">
-            <app-table-navigation
-              [navigationName]="'adUnitsNavigation'"
-              (sortTable)="sortTable($event)"
-              class="row ap-copy"
-            ></app-table-navigation>
-            <app-poster-units
-              *ngFor="let adUnit of displayAdUnits"
-              [adUnit]="adUnit"
-              class="ap-copy"
-            ></app-poster-units>
-          </table>
-        </div>
-        <div class="box-content row justify-center">
-          <button
-            class="ap-btn ap-btn--secondary"
-            (click)="openGetCodeDialog()"
-            data-test="publisher-get-code-button"
-          >
-            Get the ad codes
-          </button>
-        </div>
       </div>
-    </ng-container>
+
+      <div
+        class="box-content site-details__scrollable-table"
+        *ngIf="!!popAdUnits.length"
+      >
+        <table class="site-details__table">
+          <app-table-navigation
+            [navigationName]="'adUnitsNavigation'"
+            (sortTable)="sortTable($event)"
+            class="row ap-copy"
+          ></app-table-navigation>
+          <app-poster-units
+            *ngFor="let adUnit of popAdUnits"
+            [adUnit]="adUnit"
+            class="ap-copy"
+          ></app-poster-units>
+        </table>
+      </div>
+    </div>
+
+    <div class="col ap-box">
+      <div class="row justify-between align-center box-title">
+        <h2 class="ap-heading ap-heading--h2">List of ad units</h2>
+        <button
+          *ngIf="editAds"
+          class="ap-btn ap-btn--text ap-btn--edit ap-btn--no-border"
+          (click)="navigateToEditSite('create-ad-units')"
+          data-test="publisher-site-edit-ad-units-button"
+        >
+          <fa-icon [icon]="faEdit" class="ap-icon ap-icon--prepend"></fa-icon>
+          Edit ad units
+        </button>
+      </div>
+
+      <div class="box-content">
+        <p
+          class="ap-copy ap-copy--semi ad-units-warning"
+          *ngIf="!displayAdUnits.length"
+        >
+          No active ad units
+        </p>
+      </div>
+
+      <div
+        class="box-content site-details__scrollable-table"
+        *ngIf="!!displayAdUnits.length"
+      >
+        <table class="site-details__table">
+          <app-table-navigation
+            [navigationName]="'adUnitsNavigation'"
+            (sortTable)="sortTable($event)"
+            class="row ap-copy"
+          ></app-table-navigation>
+          <app-poster-units
+            *ngFor="let adUnit of displayAdUnits"
+            [adUnit]="adUnit"
+            class="ap-copy"
+          ></app-poster-units>
+        </table>
+      </div>
+      <div class="box-content row justify-center">
+        <button
+          class="ap-btn ap-btn--secondary"
+          (click)="openGetCodeDialog()"
+          data-test="publisher-get-code-button"
+        >
+          Get the ad codes
+        </button>
+      </div>
+    </div>
 
     <div class="ap-box">
       <div class="box-content row justify-center">
