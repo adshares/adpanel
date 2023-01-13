@@ -305,6 +305,30 @@ mat-chip:not(.mat-basic-chip) {
   &.mat-primary.mat-checked &-thumb {
     background-color: pal(light);
   }
-
-
 }
+
+.ap-form-input-accordion {
+
+  & .mat-expansion-panel {
+    border: 1px solid pal(primary);
+    border-radius: 10px;
+  }
+
+  & .mat-expansion-panel-header-title {
+    padding: 13px;
+  }
+
+  & .mat-expansion-panel-content {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+  & p:not(:last-child) {
+    margin-bottom: 12px;
+  }
+
+  code {
+    font-family: monospace;
+  }
+}
+
