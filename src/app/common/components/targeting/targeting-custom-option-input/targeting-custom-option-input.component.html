@@ -5,7 +5,7 @@
   (click)="showInput()"
 >
   <label
-    class="targeting-custom-option__label align-center ap-copy ap-copy--x-dark ap-copy--semi"
+    class="targeting-custom-option__label align-center ap-copy ap-copy--semi"
     [ngClass]="{ 'targeting-custom-option__label--input-shown': inputShown }"
   >
     {{ option.label }}
@@ -13,45 +13,48 @@
 
   <button
     *ngIf="!inputShown"
-    class="targeting-custom-option__btn targeting-custom-option__btn--show"
+    class="ap-icon-btn"
     title="Click to show option input"
   >
-    <mat-icon>add_circle_outline</mat-icon>
+    <fa-icon [icon]="faPlus"></fa-icon>
   </button>
 
   <div
     *ngIf="inputShown && option.valueType === TargetingOptionType.STRING"
-    class="row justify-around align-center targeting-custom-option__chip-list-wrapper"
+    class="col row--gap8 custom-input-wrapper"
   >
-    <mat-form-field>
-      <mat-chip-list #chipList>
-        <mat-chip
-          *ngFor="let option of customOptionsArray"
-          [selectable]="true"
-          [removable]="true"
-          (removed)="remove(option)"
-        >
-          {{ option.label }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input
-          #input
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="true"
-          (matChipInputTokenEnd)="add($event)"
-          (keyup.enter)="saveCustomTargetingOptions()"
-        />
-      </mat-chip-list>
-    </mat-form-field>
+    <mat-chip-list #chipList>
+      <mat-chip
+        *ngFor="let option of customOptionsArray"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="remove(option)"
+      >
+        {{ option.label }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <!--    <mat-form-field >-->
+    <div class="row row--gap18">
+      <input
+        class="ap-form-input ap-form-input--full"
+        #input
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)"
+        (keyup.enter)="saveCustomTargetingOptions()"
+      />
+      <!--    </mat-form-field>-->
 
-    <button
-      class="targeting-custom-option__btn targeting-custom-option__btn--add"
-      title="Add custom option"
-      (click)="saveCustomTargetingOptions()"
-    >
-      <mat-icon class="material-icons">add_circle_outline</mat-icon>
-    </button>
+      <button
+        class="ap-icon-btn"
+        title="Add custom option"
+        (click)="saveCustomTargetingOptions()"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon>
+      </button>
+    </div>
   </div>
 
   <div

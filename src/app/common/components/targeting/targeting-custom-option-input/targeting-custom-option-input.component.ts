@@ -14,6 +14,7 @@ import {
   TargetingOptionValue,
 } from 'models/targeting-option.model';
 import { prepareCustomOption } from 'common/components/targeting/targeting.helpers2';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-targeting-custom-option-input',
@@ -33,6 +34,7 @@ export class TargetingCustomOptionInputComponent {
   inputShown = false;
   customOptionsArray: TargetingOptionValue[] = [];
   saveRequested = false;
+  faPlus = faPlus;
 
   showInput(): void {
     if (this.inputShown) {
