@@ -13,6 +13,7 @@ import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
 import { HandleSubscription } from 'common/handle-subscription';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-edit-campaign-summary',
@@ -26,6 +27,7 @@ export class EditCampaignSummaryComponent
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];
+  faEdit = faEdit;
 
   constructor(
     private store: Store<AppState>,
@@ -57,6 +59,7 @@ export class EditCampaignSummaryComponent
         this.subscriptions.push(targetingSubscription);
       });
     this.subscriptions.push(lastCampaignSubscription);
+    console.log(this.campaign);
   }
 
   saveCampaign(isDraft): void {

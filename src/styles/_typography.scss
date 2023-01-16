@@ -65,7 +65,10 @@
     color: pal(secondary) !important;
   }
 
-  &--red {
+  //&--red {
+  //  color: pal(error) !important;
+  //}
+  &--error {
     color: pal(error) !important;
   }
 
@@ -111,11 +114,44 @@
 }
 
 .ap-alert {
-  padding: 18px 7px;
-  background: pal(error, light);
-  justify-content: center;
+  position: relative;
+  @include font(14, semiBold);
   border-radius: 10px;
+  margin-top: 5px;
+  padding: 12px 32px 12px 12px;
+  min-width: 150px;
+
+  &__full-width {
+    width: 100%;
+  }
+
+  &--error {
+    color: pal(error);
+    background-color: pal(error, light);
+  }
+
+  &--success {
+    color: pal(success);
+    background-color: pal(success, light);
+  }
+
+  &--warningr {
+    color: pal(warning);
+    background-color: pal(warning, light);
+  }
+
+  &--info {
+    color: pal(primary);
+    background-color: pal(info-bg);
+  }
 }
+
+//.ap-alert {
+//  padding: 18px 7px;
+//  background: pal(error, light);
+//  justify-content: center;
+//  border-radius: 10px;
+//}
 
 .text-center {
   text-align: center;
