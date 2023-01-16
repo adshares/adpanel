@@ -32,6 +32,7 @@ import { ADSHARES_UNITS, WIKI_HTML_AD } from 'models/enum/link.enum';
 import { Format } from 'models/taxonomy-medium.model';
 import { SessionService } from '../../../session.service';
 import { ShowDialogOnError } from 'store/common/common.actions';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 interface UploadingFile {
   name: string;
@@ -84,6 +85,7 @@ export class EditCampaignCreateAdsComponent
   campaign: Campaign = null;
   isEditMode: boolean;
   formats: Format[];
+  faPlus = faPlus;
 
   constructor(
     private advertiserService: AdvertiserService,

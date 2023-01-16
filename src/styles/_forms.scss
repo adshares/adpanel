@@ -209,7 +209,7 @@ input[type='radio']:checked + label .checkbox-label {
   @include font(14, semiBold);
   background: pal(light);
   margin: 0 auto;
-  height: 42px;
+  //height: 42px;
   border: 1px solid pal(dark);
   /* needed */
   appearance: none;
@@ -227,7 +227,7 @@ input[type='radio']:checked + label .checkbox-label {
 
   .mat-select-trigger {
     height: 100%;
-    padding: 0 35px 0 15px;
+    padding: 13px 35px 13px 15px;
     z-index: 20;
   }
 

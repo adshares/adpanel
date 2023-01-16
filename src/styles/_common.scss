@@ -214,78 +214,6 @@
   & .box-subtitle {
     margin-top: 4px;
   }
-
-  //& .ap-box {
-  //  border: none;
-  //  padding: 0;
-  //  margin: 0;
-  //}
-  //
-  //&--mid-size {
-  //  padding: 10px;
-  //}
-  //
-  //&--large {
-  //  padding: 20px;
-  //  margin-top: 8px;
-  //}
-  //
-  //&--high {
-  //  margin-top: 8px;
-  //}
-  //
-  //&--small {
-  //  padding: 5px 10px;
-  //}
-  //
-  //&--short-right {
-  //  padding-right: 20px;
-  //}
-
-  //&--light-green {
-  //  background-color: pal(success, light);
-  //}
-  //
-  //&--light-navy {
-  //  background-color: pal(primary);
-  //}
-  //
-  //&--light {
-  //  background-color: pal(gray);
-  //  border: solid 1px pal(gray);
-  //}
-  //
-  //&--light-border {
-  //  border: solid 1px pal(gray);
-  //}
-  //
-  //&--no-top-border {
-  //  border-top: none;
-  //}
-  //
-  //&--bordered {
-  //  border-width: 1px;
-  //}
-  //
-  //&--blue-border {
-  //  border-color: pal(secondary);
-  //}
-  //
-  //&--dashed {
-  //  border-style: dashed;
-  //}
-  //
-  //&--no-padding {
-  //  padding: 0;
-  //}
-  //
-  //&--no-margin {
-  //  margin: 0;
-  //}
-  //
-  //&--no-border {
-  //  border: none;
-  //}
 }
 
 .poster-unit {
@@ -378,18 +306,6 @@
 /*
  router animations
  */
-
-//router-outlet ~ * {
-//  position: absolute;
-//  width: 100%;
-//  min-height: 100%
-//}
-//
-//.settings-outlet router-outlet ~ * {
-//  position: initial;
-//  min-height: calc(100vh - 80px);
-//  height: calc(100vh - 80px);
-//}
 
 /*
   status
@@ -525,15 +441,6 @@
 }
 
 // targeting
-
-//.ap-targeting-details {
-//  &__title {
-//    transform: translateY(-32px);
-//    z-index: 1;
-//    position: absolute;
-//    font-size: 16px;
-//  }
-//}
 
 .break-word {
   word-wrap: break-word;

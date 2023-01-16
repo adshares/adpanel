@@ -1,8 +1,8 @@
 @import '../../../../styles.scss';
 
 .campaign-edit-create-bnr {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 24px auto;
 
   @include media(xxl-up) {
     max-width: 1400px;
@@ -12,77 +12,70 @@
     max-width: 2000px;
   }
 
-  &--narrow {
-    max-width: 500px;
-    margin: 0 auto;
+  & .file-box {
+    position: relative;
+
+    &--upload {
+      height: 99px;
+    }
+
+    .file-box__image-preview {
+      background-color: pal(gray);
+    }
+
+    .file-box__file-info {
+      line-height: 22px;
+      font-size: 16px;
+      font-weight: 600;
+      color: pal(dark);
+    }
+
+    .file-box__file-sub-info {
+      @extend .ap-copy;
+      line-height: 24px;
+      color: pal(secondary);
+      font-weight: inherit;
+
+      &--secondary {
+        color: pal(gray);
+      }
+    }
+
+    .file-box__action-button {
+      position: absolute;
+      right: 26px;
+      top: 29px;
+
+      &--cancel {
+        top: 18px;
+      }
+    }
+
+    .progress-bar {
+      margin: 12px 0 4px;
+    }
+  }
+
+  & .placeholders-box {
+    margin-top: 24px;
   }
 
   .ap-box {
-    margin: 8px 0;
-
-    &__preview {
-      iframe {
-        background-color: pal(gray);
-        margin: 16px auto 16px;
-        max-width: 100%;
-      }
-    }
+    //margin: 8px 0;
+    //
+    //&__preview {
+    //  iframe {
+    //    background-color: pal(gray);
+    //    margin: 16px auto 16px;
+    //    max-width: 100%;
+    //  }
+    //}
 
     .file-select-input {
       width: 0;
     }
 
-    &.file-box {
-      height: 78px;
-      padding: 17px 10px;
-      position: relative;
-      border-radius: 2px;
-      border: 1px solid pal(gray);
 
-      &--upload {
-        height: 99px;
-      }
-
-      .file-box__image-preview {
-        background-color: pal(gray);
-      }
-
-      &--grey-background {
-        background-color: pal(gray);
-      }
-
-      .file-box__file-info {
-        line-height: 22px;
-        font-size: 16px;
-        font-weight: 600;
-        color: pal(dark);
-      }
-
-      .file-box__file-sub-info {
-        @extend .ap-copy;
-        line-height: 24px;
-        color: pal(secondary);
-        font-weight: inherit;
-
-        &--secondary {
-          color: pal(gray);
-        }
-      }
-
-      .file-box__action-button {
-        position: absolute;
-        right: 26px;
-        top: 29px;
-
-        &--cancel {
-          top: 18px;
-        }
-      }
-
-      .progress-bar {
-        margin: 12px 0 4px;
-      }
-    }
   }
 
   .image-poster {
@@ -104,6 +97,12 @@
 }
 
 .drag-and-drop-box {
+  width: 100%;
+  margin: 16px auto 0;
+  border: 1px dashed pal(gray);
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
   img {
     margin: 32px;
   }
@@ -126,7 +125,6 @@
 }
 
 .ap-form-input__box {
-  margin-right: 15px;
 
   input#creative-contents {
     width: 100%;

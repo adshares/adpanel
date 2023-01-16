@@ -190,35 +190,41 @@
     </div>
   </ng-container>
 
-  <div class="ap-box ap-box--large row justify-between">
-    <button class="ap-btn ap-btn--secondary" role="link" (click)="onStepBack()">
-      Back
-    </button>
-    <div class="row row--gap8">
+  <div class="ap-box">
+    <div class="box-content row justify-between">
       <button
-        *ngIf="createCampaignMode"
-        (click)="saveCampaignTargetingAndCpm(true)"
         class="ap-btn ap-btn--secondary"
-        data-test="advertiser-edit-campaign-save-as-draft"
+        role="link"
+        (click)="onStepBack()"
       >
-        Save as draft
+        Back
       </button>
-      <button
-        (click)="onSubmit()"
-        class="ap-btn ap-btn--primary"
-        data-test="advertiser-edit-campaign-save-and-continue"
-      >
-        <span *ngIf="!changesSaved; else loading">{{
-          createCampaignMode ? 'Save & continue' : 'Update'
-        }}</span>
-        <ng-template #loading>
-          <mat-spinner
-            [diameter]="20"
-            [strokeWidth]="2"
-            color="accent"
-          ></mat-spinner>
-        </ng-template>
-      </button>
+      <div class="row row--gap8">
+        <button
+          *ngIf="createCampaignMode"
+          (click)="saveCampaignTargetingAndCpm(true)"
+          class="ap-btn ap-btn--secondary"
+          data-test="advertiser-edit-campaign-save-as-draft"
+        >
+          Save as draft
+        </button>
+        <button
+          (click)="onSubmit()"
+          class="ap-btn ap-btn--primary"
+          data-test="advertiser-edit-campaign-save-and-continue"
+        >
+          <span *ngIf="!changesSaved; else loading">{{
+            createCampaignMode ? 'Save & continue' : 'Update'
+          }}</span>
+          <ng-template #loading>
+            <mat-spinner
+              [diameter]="20"
+              [strokeWidth]="2"
+              color="accent"
+            ></mat-spinner>
+          </ng-template>
+        </button>
+      </div>
     </div>
   </div>
 </section>
