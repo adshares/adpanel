@@ -24,11 +24,12 @@
         <mat-select #statusSelect
                     [value]=" "
                     (selectionChange)="onSiteStatusChange($event.value)"
+                    [disabled]="siteStatusEnum.PENDING === site.status || siteStatusEnum.REJECTED === site.status"
                     data-test="publisher-site-status-select"
         >
           <mat-option
             *ngFor="let option of siteStatuses"
-            [ngClass]="{'hidden': option.value === siteStatusEnum[siteStatusEnum.DRAFT].toLowerCase()}"
+            [ngClass]="{'hidden': siteStatusEnum.DRAFT === option.value || siteStatusEnum.PENDING === option.value || siteStatusEnum.REJECTED === option.value}"
             [value]="option.value"
             data-test="publisher-site-status-select-option"
           >

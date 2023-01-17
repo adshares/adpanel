@@ -2,6 +2,8 @@ export enum siteStatusEnum {
   DRAFT,
   INACTIVE,
   ACTIVE,
+  PENDING,
+  REJECTED,
 }
 
 export enum pageRankInfoEnum {
