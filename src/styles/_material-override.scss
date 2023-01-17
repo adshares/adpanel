@@ -279,6 +279,8 @@ mat-chip:not(.mat-basic-chip) {
 }
 
 .ap-form-input-accordion {
+  width: 100%;
+
 
   & .mat-expansion-panel {
     border: 1px solid pal(primary);

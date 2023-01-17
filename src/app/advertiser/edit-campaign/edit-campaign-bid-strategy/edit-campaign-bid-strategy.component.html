@@ -1,28 +1,33 @@
 <section class="homepage-view campaign-edit-bid-strategy">
-  <div class="text-center">
-    <h1 class="ap-heading ap-heading--h2">Bid strategy</h1>
-    <p class="ap-copy ap-copy--medium">
-      Here you can edit bid strategy for the campaign.
-    </p>
+  <div class="ap-box">
+    <div class="box-title">
+      <h2 class="ap-heading ap-heading--h2">Bid strategy</h2>
+      <p class="ap-copy box-subtitle">
+        Here you can edit bid strategy for the campaign.
+      </p>
+    </div>
   </div>
 
-  <div class="ap-box ap-box--large">
-    <h3 class="ap-heading ap-heading--h3">
-      Select bid strategy for {{ campaign.basicInformation.name }} campaign
-    </h3>
-    <div class="ap-copy">
-      Here you can select bid strategy for the campaign. You can preview all
-      your bid strategies below. There is also an explanation what a bid
-      strategy is.
+  <div class="ap-box">
+    <div class="box-title">
+      <h2 class="ap-heading ap-heading--h2">
+        Select bid strategy for {{ campaign.basicInformation.name }} campaign
+      </h2>
+      <p class="ap-copy box-subtitle">
+        Here you can select bid strategy for the campaign. You can preview all
+        your bid strategies below. There is also an explanation what a bid
+        strategy is.
+      </p>
     </div>
 
     <div
       *ngIf="!isLoading && bidStrategies.length > 0"
-      class="row align-center space-top"
+      class="row align-center box-content"
     >
-      <mat-form-field>
-        <mat-label>Select bid strategy</mat-label>
+      <div class="ap-form-input__box bid-strategy__select">
+        <label class="ap-form-label">Select bid strategy</label>
         <mat-select
+          class="ap-select"
           [(value)]="bidStrategyUuidSelected"
           (selectionChange)="onBidStrategySelect()"
         >
@@ -33,22 +38,24 @@
             {{ bidStrategy.name }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </div>
     </div>
     <div *ngIf="isLoading" class="loading-wrapper">
       <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
     </div>
+
+    <div class="box-content">
+      <app-bid-strategy-settings
+        [medium]="campaign.basicInformation.medium"
+        [vendor]="campaign.basicInformation.vendor"
+      ></app-bid-strategy-settings>
+    </div>
   </div>
 
-  <app-bid-strategy-settings
-    [medium]="campaign.basicInformation.medium"
-    [vendor]="campaign.basicInformation.vendor"
-  ></app-bid-strategy-settings>
-
-  <div class="ap-box ap-box--large row justify-between">
+  <div class="ap-box row justify-between">
     <button
       type="button"
-      class="ap-btn ap-btn--primary ap-blue"
+      class="ap-btn ap-btn--primary"
       (click)="onStepBack()"
       [disabled]="submitted"
       data-test="advertiser-navigate-to-dashboard"

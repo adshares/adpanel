@@ -1,6 +1,6 @@
-<article class="ap-box ap-box--large ap-copy">
+<article class="ap-copy">
   <section>
-    <h1 class="ap-heading ap-heading--h3">Bid strategies settings</h1>
+    <h3 class="ap-heading ap-heading--h3">Bid strategies settings</h3>
     <p class="ap-copy">
       Set bid strategies for campaigns. First, select an existing strategy or
       add a new one. Then set the name of strategy and ranks for categories.
@@ -17,8 +17,8 @@
     </p>
   </section>
 
-  <div *ngIf="isAdmin" class="ap-box ap-box-narrow">
-    <div class="ap-form-input__box">
+  <ng-container class="ap-box-narrow">
+    <div class="ap-form-input__box" *ngIf="isAdmin">
       <label class="ap-form-label">Medium</label>
       <mat-select
         *ngIf="isTaxonomy; else missingTaxonomy"
@@ -43,147 +43,157 @@
         </mat-option>
       </mat-select>
     </div>
-  </div>
+  </ng-container>
 
   <ng-container
     *ngIf="!bidStrategiesOptionsAreMissing; else missingBidStrategiesOptions"
   >
-    <div *ngIf="!isLoading && bidStrategies.length > 0">
-      <div class="row bid-strategy__row align-center space-top">
-        <mat-form-field>
-          <mat-label>Select bid strategy</mat-label>
-          <mat-select
-            [(value)]="bidStrategyUuidSelected"
-            (selectionChange)="onBidStrategySelect()"
-          >
-            <mat-option
-              *ngFor="let bidStrategy of bidStrategies"
-              [value]="bidStrategy.uuid"
+    <div class="col row--gap18 space-top">
+      <div *ngIf="!isLoading && bidStrategies.length > 0">
+        <div class="row row--gap18 bid-strategy__row align-end">
+          <div class="ap-form-input__box bid-strategy__select">
+            <label class="ap-form-label">Select bid strategy</label>
+            <mat-select
+              class="ap-select"
+              [(value)]="bidStrategyUuidSelected"
+              (selectionChange)="onBidStrategySelect()"
             >
-              {{ bidStrategy.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="appended">
-          <button class="ap-btn ap-btn--primary" (click)="addNewBidStrategy()">
-            <img
-              class="ap-icon ap-icon--prepend"
-              src="assets/images/plus-circle.svg"
-              alt="Add new bid strategy"
-            />
+              <mat-option
+                *ngFor="let bidStrategy of bidStrategies"
+                [value]="bidStrategy.uuid"
+              >
+                {{ bidStrategy.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <button
+            class="ap-btn ap-btn--secondary"
+            (click)="addNewBidStrategy()"
+          >
+            <fa-icon [icon]="faPlus" class="ap-icon ap-icon--prepend"></fa-icon>
             Add new bid strategy
           </button>
-        </div>
-        <button
-          *ngIf="isAdmin"
-          class="ap-btn ap-btn--primary appended"
-          (click)="setDefaultBidStrategy()"
-        >
-          Set as default
-        </button>
-        <button
-          class="ap-btn ap-btn--primary appended"
-          (click)="deleteBidStrategy()"
-        >
-          Delete
-        </button>
-      </div>
-
-      <div class="row">
-        <button
-          (click)="downloadSpreadsheet()"
-          class="ap-btn ap-btn--blue bid-strategy__spreadsheet-button"
-        >
-          <span *ngIf="!isDownloadInProgress; else loading">Download</span>
-        </button>
-
-        <label
-          class="ap-btn ap-btn--blue bid-strategy__spreadsheet-button appended"
-          for="fileSelect"
-        >
-          <span *ngIf="!isUploadInProgress; else loading">Upload</span>
-        </label>
-        <input
-          (change)="uploadSpreadsheet($event)"
-          class="file-select-input"
-          type="file"
-          id="fileSelect"
-        />
-      </div>
-    </div>
-
-    <div *ngIf="!isLoading" class="space-top">
-      <mat-form-field>
-        <mat-label>Bid strategy name</mat-label>
-        <input
-          id="name"
-          name="name"
-          [(ngModel)]="bidStrategyNameSelected"
-          #name="ngModel"
-          matInput
-          type="text"
-          maxlength="255"
-          minlength="1"
-          placeholder=""
-          required="required"
-          class="ap-form-input ap-form-input--full"
-        />
-      </mat-form-field>
-
-      <button
-        (click)="saveOrUpdate()"
-        [disabled]="name.invalid"
-        class="ap-btn ap-btn--blue appended"
-      >
-        Save bid strategy
-      </button>
-
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title class="ap-copy ap-copy--medium">
-            <div class="row justify-between align-center">Categories</div>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div
-          *ngFor="let entry of entries"
-          class="row align-center bid-strategy__row"
-        >
-          <div class="col-xs-6">{{ entry.label }}</div>
-          <div class="col-xs-6" data-id="{{ entry.key }}">
-            <input
-              [(ngModel)]="entry.value"
-              type="number"
-              min="0"
-              max="100"
-              step="1"
-              class="bid-strategy__input"
-            />
-            <button
-              *ngFor="let predefinedRank of PREDEFINED_RANKS"
-              (click)="entry.value = predefinedRank"
-              class="bid-strategy__rank-button"
-            >
-              {{ predefinedRank }}
-            </button>
-          </div>
-        </div>
-
-        <div class="row space-top justify-end">
-          <button (click)="saveOrUpdate()" class="ap-btn ap-btn--blue">
-            Save bid strategy
+          <button
+            *ngIf="isAdmin"
+            class="ap-btn ap-btn--secondary"
+            (click)="setDefaultBidStrategy()"
+          >
+            Set as default
+          </button>
+          <button
+            class="ap-btn ap-btn--secondary ap-btn-error"
+            (click)="deleteBidStrategy()"
+          >
+            Delete
           </button>
         </div>
-      </mat-expansion-panel>
+
+        <div class="row row--gap18">
+          <button (click)="downloadSpreadsheet()" class="ap-btn ap-btn--text">
+            <span *ngIf="!isDownloadInProgress; else loading">
+              <fa-icon
+                [icon]="faDownload"
+                class="ap-icon ap-icon--prepend"
+              ></fa-icon>
+              Download
+            </span>
+          </button>
+
+          <label class="ap-btn ap-btn--text" for="fileSelect">
+            <span *ngIf="!isUploadInProgress; else loading">
+              <fa-icon
+                [icon]="faUpload"
+                class="ap-icon ap-icon--prepend"
+              ></fa-icon>
+              Upload
+            </span>
+          </label>
+          <input
+            (change)="uploadSpreadsheet($event)"
+            class="file-select-input"
+            type="file"
+            id="fileSelect"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading" class="row row--gap18 align-end">
+        <div class="ap-form-input__box">
+          <label class="ap-form-label">Bid strategy name</label>
+          <input
+            id="name"
+            name="name"
+            [(ngModel)]="bidStrategyNameSelected"
+            #name="ngModel"
+            matInput
+            type="text"
+            maxlength="255"
+            minlength="1"
+            placeholder=""
+            required="required"
+            class="ap-form-input"
+          />
+        </div>
+
+        <button
+          (click)="saveOrUpdate()"
+          [disabled]="name.invalid"
+          class="ap-btn ap-btn--text"
+        >
+          <fa-icon [icon]="faSave" class="ap-icon ap-icon--prepend"></fa-icon>
+          Save bid strategy
+        </button>
+      </div>
+
+      <div class="ap-form-input-accordion">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="ap-copy ap-copy--semi">
+              Categories
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div
+            *ngFor="let entry of entries"
+            class="row align-center bid-strategy__row"
+          >
+            <div class="col-xs-6">{{ entry.label }}</div>
+            <div class="col-xs-6" data-id="{{ entry.key }}">
+              <input
+                [(ngModel)]="entry.value"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                class="bid-strategy__input"
+              />
+              <button
+                *ngFor="let predefinedRank of PREDEFINED_RANKS"
+                (click)="entry.value = predefinedRank"
+                class="bid-strategy__rank-button"
+              >
+                {{ predefinedRank }}
+              </button>
+            </div>
+          </div>
+
+          <div class="row justify-end">
+            <button (click)="saveOrUpdate()" class="ap-btn ap-btn--blue">
+              Save bid strategy
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </div>
     </div>
 
     <div *ngIf="isLoading" class="loading-wrapper">
-      <mat-spinner [diameter]="60" [strokeWidth]="8"></mat-spinner>
+      <mat-spinner [diameter]="60" [strokeWidth]="4"></mat-spinner>
     </div>
   </ng-container>
 </article>
+
 <ng-template #loading>
-  <mat-spinner [diameter]="20" [strokeWidth]="2" color="accent"></mat-spinner>
+  <mat-spinner [diameter]="20" [strokeWidth]="2"></mat-spinner>
 </ng-template>
 <ng-template #missingBidStrategiesOptions>
   <div class="error-msg">
