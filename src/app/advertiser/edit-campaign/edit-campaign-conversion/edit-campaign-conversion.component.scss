@@ -1,18 +1,8 @@
 @import '../../../../styles.scss';
 
-@keyframes shake {
-  from {
-    transform: rotate(25deg);
-  }
-
-  to {
-    transform: rotate(-25deg);
-  }
-}
-
 .campaign-edit-conversion {
-  max-width: 1300px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 24px auto;
 
   @include media(xxl-up) {
     max-width: 1300px;
@@ -22,54 +12,15 @@
     max-width: 2000px;
   }
 
-  .ap-box {
-    margin: 10px 0;
-  }
-
   .ap-form-input {
     overflow: hidden;
-  }
-
-  &__btn {
-    border: none;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 26px;
-    color: pal(secondary);
-    padding: 8px 30px;
-    margin: -8px -30px;
-
-    & .material-icons {
-      margin: 0;
-      font-size: inherit;
-    }
-
-    &-add {
-      margin-left: 24px;
-    }
-
-    &:focus,
-    &:hover {
-      color: pal(secondary);
-    }
+    max-width: none;
+    min-width: auto;
+    width: 100%;
   }
 
   .description-type {
-    margin: 18px auto;
-    max-width: 850px;
-    text-align: center;
-
-    i {
-      vertical-align: middle;
-    }
-  }
-
-  &__list {
-    display: flex;
-    flex-direction: column;
+    margin: 18px auto 0;
   }
 
   &__select {
@@ -77,9 +28,8 @@
   }
 
   .cell {
-    max-height: 46px;
-    height: 46px;
     flex-wrap: nowrap;
+    align-self: center;
   }
 
   &__value-input {
@@ -87,25 +37,14 @@
     margin-left: 10px;
   }
 
-  .input-disabled {
-    pointer-events: none;
-  }
-
   &__copy-icon {
     cursor: pointer;
-    color: pal(gray);
+    color: pal(secondary);
     outline: none;
 
     &:hover,
     &:focus {
       color: pal(gray);
     }
-  }
-}
-
-.shake {
-  &:focus,
-  &:hover {
-    animation: shake 0.25s linear infinite alternate;
   }
 }

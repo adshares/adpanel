@@ -281,7 +281,6 @@ mat-chip:not(.mat-basic-chip) {
 .ap-form-input-accordion {
   width: 100%;
 
-
   & .mat-expansion-panel {
     border: 1px solid pal(primary);
     border-radius: 10px;
@@ -303,5 +302,16 @@ mat-chip:not(.mat-basic-chip) {
   code {
     font-family: monospace;
   }
+}
+
+.mat-tab-label-content {
+  @include copy($font-weight: semiBold);
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: pal(primary);
+}
+.mat-tab-body-content {
+  padding: 8px;
 }
 

@@ -148,6 +148,11 @@
     &--narrow {
       padding: 0 13px 0 18px;
     }
+
+    &[disabled] {
+      border-color: pal(gray);
+      color: pal(gray);
+    }
   }
 
   &-search-option {

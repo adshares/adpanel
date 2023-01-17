@@ -52,15 +52,17 @@
     </div>
   </div>
 
-  <div class="ap-box row justify-between">
-    <button
-      type="button"
-      class="ap-btn ap-btn--primary"
-      (click)="onStepBack()"
-      [disabled]="submitted"
-      data-test="advertiser-navigate-to-dashboard"
-    >
-      Back
-    </button>
+  <div class="ap-box">
+    <div class="box-content row justify-between">
+      <button
+        type="button"
+        class="ap-btn ap-btn--secondary"
+        (click)="onStepBack()"
+        [disabled]="submitted"
+        data-test="advertiser-navigate-to-dashboard"
+      >
+        Back
+      </button>
+    </div>
   </div>
 </section>

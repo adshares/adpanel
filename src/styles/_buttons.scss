@@ -127,4 +127,20 @@
   &:hover {
     background-color: pal(primary, light);
   }
+
+  &--secondary {
+    color: pal(secondary);
+
+    &:hover {
+      background-color: pal(secondary, light);
+    }
+  }
+
+  &--error {
+    color: pal(error);
+
+    &:hover {
+      background-color: pal(error, light);
+    }
+  }
 }
