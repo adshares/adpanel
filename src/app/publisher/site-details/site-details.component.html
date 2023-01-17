@@ -106,6 +106,13 @@
                 [attr.data-status]="currentSiteStatus">
               {{ currentSiteStatus }}
             <fa-icon
+              *ngIf="siteStatusEnum.PENDING === site.status"
+              [icon]="faQuestionCircle"
+              matTooltip="Site is pending approval of support team"
+              matTooltipClass="ap-mat-tooltip"
+              matTooltipPosition="right"
+            ></fa-icon>
+            <fa-icon
               *ngIf="siteStatusEnum.REJECTED === site.status && site.rejectReason"
               [icon]="faQuestionCircle"
               [matTooltip]="site.rejectReason"
