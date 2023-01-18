@@ -9,7 +9,7 @@ import { AppState } from 'models/app-state.model';
 import { ClearLastEditedCampaign, SaveCampaignTargeting } from 'store/advertiser/advertiser.actions';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
 import { CampaignsConfig } from 'models/campaign.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-edit-campaign',
@@ -17,7 +17,7 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./edit-campaign.component.scss'],
   animations: [fadeAnimation],
 })
-export class EditCampaignComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class EditCampaignComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
   isEditMode: boolean;
   campaignsConfig: CampaignsConfig;

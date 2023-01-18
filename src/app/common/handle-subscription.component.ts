@@ -2,10 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'HandleSubscription',
   template: '',
 })
-export abstract class HandleSubscription implements OnDestroy {
+export abstract class HandleSubscriptionComponent implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   ngOnDestroy(): void {

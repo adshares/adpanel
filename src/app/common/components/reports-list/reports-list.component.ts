@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CommonService } from 'common/common.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ReportsListItem } from 'models/settings.model';
 
 @Component({
@@ -10,7 +10,7 @@ import { ReportsListItem } from 'models/settings.model';
   templateUrl: './reports-list.component.html',
   styleUrls: ['./reports-list.component.scss'],
 })
-export class ReportsListComponent extends HandleSubscription implements OnInit {
+export class ReportsListComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly REFRESH_PERIOD = 2000;
 
   reportsListAdvertiser: ReportsListItem[] = [];

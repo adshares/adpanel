@@ -17,7 +17,7 @@ import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
 import { campaignStatusesEnum } from 'models/enum/campaign.enum';
 import { cloneDeep, createInitialDataSet, validCampaignBudget } from 'common/utilities/helpers';
 import { parseTargetingOptionsToArray, processTargeting } from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
 import {
@@ -39,7 +39,7 @@ import { reportType } from 'models/enum/user.enum';
   templateUrl: './campaign-details.component.html',
   styleUrls: ['./campaign-details.component.scss'],
 })
-export class CampaignDetailsComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class CampaignDetailsComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   campaignsConfig: CampaignsConfig;
   dataLoaded: boolean = false;

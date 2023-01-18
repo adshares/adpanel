@@ -17,7 +17,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Campaign } from 'models/campaign.model';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
 
@@ -26,7 +26,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './edit-campaign-additional-targeting.component.html',
   styleUrls: ['./edit-campaign-additional-targeting.component.scss'],
 })
-export class EditCampaignAdditionalTargetingComponent extends HandleSubscription implements OnInit {
+export class EditCampaignAdditionalTargetingComponent extends HandleSubscriptionComponent implements OnInit {
   currencyCode: string;
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;

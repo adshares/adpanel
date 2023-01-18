@@ -15,7 +15,7 @@ import {
   AddSiteToSites,
   UpdateSiteUnits,
 } from 'store/publisher/publisher.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { adUnitTypesEnum } from 'models/enum/ad.enum';
 import { first } from 'rxjs/operators';
@@ -25,7 +25,7 @@ import { first } from 'rxjs/operators';
   templateUrl: './edit-site-create-ad-units.component.html',
   styleUrls: ['./edit-site-create-ad-units.component.scss'],
 })
-export class EditSiteCreateAdUnitsComponent extends HandleSubscription implements OnInit {
+export class EditSiteCreateAdUnitsComponent extends HandleSubscriptionComponent implements OnInit {
   adUnitForms: FormGroup[] = [];
   adSizesOptions: string[] = [];
   adUnitSizes: AdUnitMetaData[];

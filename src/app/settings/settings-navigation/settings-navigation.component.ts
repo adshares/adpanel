@@ -3,7 +3,7 @@ import { SessionService } from 'app/session.service';
 import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CODE, CRYPTO } from 'common/utilities/consts';
 import { ServerOptionsService } from 'common/server-options.service';
 
@@ -12,7 +12,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './settings-navigation.component.html',
   styleUrls: ['./settings-navigation.component.scss'],
 })
-export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
+export class SettingsNavigationComponent extends HandleSubscriptionComponent implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
   calculateFunds: boolean;

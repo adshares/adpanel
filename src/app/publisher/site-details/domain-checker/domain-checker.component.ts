@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
 import { timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { pageRankInfoEnum } from 'models/enum/site.enum';
   templateUrl: './domain-checker.component.html',
   styleUrls: ['./domain-checker.component.scss'],
 })
-export class DomainCheckerComponent extends HandleSubscription implements OnInit {
+export class DomainCheckerComponent extends HandleSubscriptionComponent implements OnInit {
   private static readonly UPDATE_INTERVAL = 300000; //5 * 60 * 1000 = 5 minutes
   @Input() siteId: number;
   faQuestionCircle = faQuestionCircle;

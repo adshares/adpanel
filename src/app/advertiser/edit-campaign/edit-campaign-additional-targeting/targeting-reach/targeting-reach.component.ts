@@ -4,7 +4,7 @@ import { AssetTargeting } from 'models/targeting-option.model';
 import { AdvertiserService } from 'advertiser/advertiser.service';
 import { Subject, Subscription } from 'rxjs';
 import { take, debounceTime } from 'rxjs/operators';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { mapToIterable } from 'common/utilities/helpers';
 
 @Component({
@@ -12,7 +12,7 @@ import { mapToIterable } from 'common/utilities/helpers';
   templateUrl: './targeting-reach.component.html',
   styleUrls: ['./targeting-reach.component.scss'],
 })
-export class TargetingReachComponent extends HandleSubscription implements OnChanges {
+export class TargetingReachComponent extends HandleSubscriptionComponent implements OnChanges {
   @Input() ads: Ad[];
   @Input() autoCpm: boolean = false;
   @Input() cpm: number = 0;

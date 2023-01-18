@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import * as moment from 'moment';
@@ -16,7 +16,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./billing-history-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BillingHistoryFilterComponent extends HandleSubscription implements OnInit {
+export class BillingHistoryFilterComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() filter: EventEmitter<BillingHistoryFilter> = new EventEmitter();
   @Output('closed') closedStream: EventEmitter<boolean>;
   @Output('opened') openedStream: EventEmitter<boolean>;

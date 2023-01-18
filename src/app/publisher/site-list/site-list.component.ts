@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
 import { enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
@@ -12,7 +12,7 @@ import { TableNavigationComponent } from 'common/components/table-navigation/tab
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.scss'],
 })
-export class SiteListComponent extends HandleSubscription implements OnChanges {
+export class SiteListComponent extends HandleSubscriptionComponent implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() sites: Site[];
   @Input() sitesTotals: SitesTotals;

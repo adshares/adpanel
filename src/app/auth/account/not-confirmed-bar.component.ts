@@ -8,14 +8,14 @@ import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-d
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-account-not-confirmed-bar',
   templateUrl: './not-confirmed-bar.component.html',
   styleUrls: ['./not-confirmed-bar.component.scss'],
 })
-export class AccountNotConfirmedBarComponent extends HandleSubscription implements OnInit {
+export class AccountNotConfirmedBarComponent extends HandleSubscriptionComponent implements OnInit {
   user: User;
   display: boolean;
   isEmailConfirmed: boolean = true;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SettingsService } from 'settings/settings.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialo
   templateUrl: './preferences.component.html',
   styleUrls: ['./preferences.component.scss'],
 })
-export class PreferencesComponent extends HandleSubscription implements OnInit {
+export class PreferencesComponent extends HandleSubscriptionComponent implements OnInit {
   changeEmailForm: FormGroup;
   changeEmailFormSubmitted = false;
   changePasswordForm: FormGroup;

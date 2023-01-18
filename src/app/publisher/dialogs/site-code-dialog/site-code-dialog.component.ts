@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { take, debounceTime } from 'rxjs/operators';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserConfirmResponseDialogComponent } from 'common/dialog/user-confirm-response-dialog/user-confirm-response-dialog.component';
@@ -17,7 +17,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './site-code-dialog.component.html',
   styleUrls: ['./site-code-dialog.component.scss'],
 })
-export class SiteCodeDialogComponent extends HandleSubscription implements OnInit {
+export class SiteCodeDialogComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly MINIMAL_DELAY_BETWEEN_CODE_REQUESTS = 500;
   faCode = faCode;
 

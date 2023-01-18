@@ -10,7 +10,7 @@ import { AssetHelpersService } from 'common/asset-helpers.service';
 import { processTargeting } from 'common/components/targeting/targeting.helpers';
 import { adStatusesEnum } from 'models/enum/ad.enum';
 import { AddCampaignToCampaigns } from 'store/advertiser/advertiser.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { TargetingOption } from 'models/targeting-option.model';
 import { cloneDeep } from 'common/utilities/helpers';
 
@@ -19,7 +19,7 @@ import { cloneDeep } from 'common/utilities/helpers';
   templateUrl: './edit-campaign-summary.component.html',
   styleUrls: ['./edit-campaign-summary.component.scss'],
 })
-export class EditCampaignSummaryComponent extends HandleSubscription implements OnInit {
+export class EditCampaignSummaryComponent extends HandleSubscriptionComponent implements OnInit {
   campaign: Campaign;
   targetingOptionsToAdd: TargetingOption[] = [];
   targetingOptionsToExclude: TargetingOption[] = [];

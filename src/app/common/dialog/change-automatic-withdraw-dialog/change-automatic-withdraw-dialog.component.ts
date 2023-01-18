@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { SettingsService } from 'settings/settings.service';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { enumToArray } from 'common/utilities/helpers';
 import { withdrawPeriodsEnum } from 'models/enum/withdraw.enum';
 import { appSettings } from 'app-settings';
@@ -18,7 +18,7 @@ import * as authActions from 'store/auth/auth.actions';
   templateUrl: './change-automatic-withdraw-dialog.component.html',
   styleUrls: ['./change-automatic-withdraw-dialog.component.scss'],
 })
-export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscription implements OnInit {
+export class ChangeAutomaticWithdrawDialogComponent extends HandleSubscriptionComponent implements OnInit {
   automaticWithdrawForm: FormGroup;
   periods = enumToArray(withdrawPeriodsEnum);
   periodsEnum = withdrawPeriodsEnum;

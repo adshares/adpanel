@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { PublisherService } from 'publisher/publisher.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { PublisherService } from 'publisher/publisher.service';
   templateUrl: './site-code-cryptovoxels-dialog.component.html',
   styleUrls: ['./site-code-cryptovoxels-dialog.component.scss'],
 })
-export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscription implements OnInit {
+export class SiteCodeCryptovoxelsDialogComponent extends HandleSubscriptionComponent implements OnInit {
   readonly faCode = faCode;
   code: string | null = null;
   loaded: boolean = false;

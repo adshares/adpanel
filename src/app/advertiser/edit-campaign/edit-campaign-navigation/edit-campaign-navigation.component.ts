@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-edit-asset-navigation',
   templateUrl: './edit-campaign-navigation.component.html',
   styleUrls: ['./edit-campaign-navigation.component.scss'],
 })
-export class EditCampaignNavigationComponent extends HandleSubscription implements OnInit {
+export class EditCampaignNavigationComponent extends HandleSubscriptionComponent implements OnInit {
   steps = [
     { id: 1, name: 'Basic information' },
     { id: 2, name: 'Targeting' },

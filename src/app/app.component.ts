@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { fadeAnimation } from 'common/animations/fade.animation';
 
 import { AuthService } from 'app/auth.service';
@@ -21,7 +21,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['./app.component.scss'],
   animations: [fadeAnimation],
 })
-export class AppComponent extends HandleSubscription implements OnInit {
+export class AppComponent extends HandleSubscriptionComponent implements OnInit {
   private readonly MODE_INITIALIZATION = 'initialization';
   name: string = null;
   info: Info = null;

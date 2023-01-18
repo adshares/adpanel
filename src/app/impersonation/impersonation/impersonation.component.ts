@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImpersonationService } from '../impersonation.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SessionService } from '../../session.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
@@ -12,7 +12,7 @@ import { User } from 'models/user.model';
   templateUrl: './impersonation.component.html',
   styleUrls: ['./impersonation.component.scss'],
 })
-export class ImpersonationComponent extends HandleSubscription implements OnInit {
+export class ImpersonationComponent extends HandleSubscriptionComponent implements OnInit {
   impersonationToken: boolean = false;
   userLabel: string;
   userEmail: string;

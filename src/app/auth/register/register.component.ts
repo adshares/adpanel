@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiService } from 'app/api/api.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { User } from 'models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_NOT_FOUND } from 'common/utilities/codes';
@@ -22,7 +22,7 @@ import { Info } from 'models/info.model';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends HandleSubscription {
+export class RegisterComponent extends HandleSubscriptionComponent {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   isLoading = true;

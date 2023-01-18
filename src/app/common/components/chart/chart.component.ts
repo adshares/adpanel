@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 import { chartOptions } from './chart-settings/chart-settings';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { ChartDataset, ChartOptions } from 'chart.js';
 import * as commonActions from 'store/common/common.actions';
@@ -16,7 +16,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent extends HandleSubscription implements OnInit, OnDestroy, OnChanges {
+export class ChartComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() chartSpan: string;
   @Input() barChartData: ChartDataset<'bar'>[];
   @Input() barChartLabels: string[];

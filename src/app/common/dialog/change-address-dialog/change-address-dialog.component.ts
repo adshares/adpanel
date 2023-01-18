@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SettingsService } from 'settings/settings.service';
 import { LocalStorageUser, User } from 'models/user.model';
 import { UpdateUserAddress } from 'store/auth/auth.actions';
@@ -15,7 +15,7 @@ import { appSettings } from 'app-settings';
   templateUrl: './change-address-dialog.component.html',
   styleUrls: ['./change-address-dialog.component.scss'],
 })
-export class ChangeAddressDialogComponent extends HandleSubscription implements OnInit {
+export class ChangeAddressDialogComponent extends HandleSubscriptionComponent implements OnInit {
   isFormBeingSubmitted = false;
   changeAddressFormSubmitted = false;
   isConfirmed = false;

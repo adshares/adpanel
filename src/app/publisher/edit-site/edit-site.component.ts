@@ -8,7 +8,7 @@ import { AppState } from 'models/app-state.model';
 import * as publisherActions from 'store/publisher/publisher.actions';
 import { parseTargetingOptionsToArray } from 'common/components/targeting/targeting.helpers';
 import { Site } from 'models/site.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-edit-site',
@@ -16,7 +16,7 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./edit-site.component.scss'],
   animations: [fadeAnimation],
 })
-export class EditSiteComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class EditSiteComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
   isEditMode: boolean;
 

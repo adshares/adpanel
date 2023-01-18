@@ -3,7 +3,7 @@ import AdsWallet from '@adshares/ads-connector';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { UserAdserverWallet } from 'models/user.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { ADSHARES_WALLET, METAMASK_WALLET } from 'models/enum/link.enum';
@@ -18,7 +18,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './account-wallet-settings.component.html',
   styleUrls: ['./account-wallet-settings.component.scss'],
 })
-export class AccountWalletSettingsComponent extends HandleSubscription implements OnInit {
+export class AccountWalletSettingsComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET;
   readonly METAMASK_WALLET = METAMASK_WALLET;
   wallet: UserAdserverWallet;

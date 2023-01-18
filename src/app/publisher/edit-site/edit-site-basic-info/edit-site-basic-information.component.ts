@@ -18,7 +18,7 @@ import { Entry, TargetingOptionValue } from 'models/targeting-option.model';
 import { User } from 'models/user.model';
 import { PublisherService } from 'publisher/publisher.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { SessionService } from '../../../session.service';
 
@@ -27,7 +27,7 @@ import { SessionService } from '../../../session.service';
   templateUrl: './edit-site-basic-information.component.html',
   styleUrls: ['./edit-site-basic-information.component.scss'],
 })
-export class EditSiteBasicInformationComponent extends HandleSubscription implements OnInit {
+export class EditSiteBasicInformationComponent extends HandleSubscriptionComponent implements OnInit {
   private static readonly WEBSITE_NAME_LENGTH_MAX: number = 64;
   private static readonly WEBSITE_DOMAIN_LENGTH_MAX: number = 255;
   private static readonly WEBSITE_URL_LENGTH_MAX: number = 1024;

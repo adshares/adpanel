@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { forkJoin as observableForkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { BidStrategy, BidStrategyDetail, BidStrategyRequest } from 'models/campaign.model';
 import { Entry, TargetingOption, TargetingOptionValue } from 'models/targeting-option.model';
@@ -25,7 +25,7 @@ interface BidStrategyComponentEntry {
   templateUrl: './bid-strategy-settings.component.html',
   styleUrls: ['./bid-strategy-settings.component.scss'],
 })
-export class BidStrategySettingsComponent extends HandleSubscription implements OnInit {
+export class BidStrategySettingsComponent extends HandleSubscriptionComponent implements OnInit {
   @Input() medium: string;
   @Input() vendor: string | null;
   readonly PREDEFINED_RANKS = [100, 80, 60, 40, 20, 0];

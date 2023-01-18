@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../../../../session.service';
 import { SettingsService } from 'settings/settings.service';
@@ -14,7 +14,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './ref-link-editor.component.html',
   styleUrls: ['./ref-link-editor.component.scss'],
 })
-export class RefLinkEditorComponent extends HandleSubscription implements OnInit {
+export class RefLinkEditorComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() public refLinkSaved = new EventEmitter<RefLink>();
   currencyCode: string;
   refundEnabled: boolean;

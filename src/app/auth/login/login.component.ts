@@ -6,7 +6,7 @@ import { ApiService } from 'app/api/api.service';
 import { SessionService } from 'app/session.service';
 import { LocalStorageUser, User } from 'models/user.model';
 import { AccountChooseDialogComponent } from 'common/dialog/account-choose-dialog/account-choose-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { appSettings } from 'app-settings';
 import { isUnixTimePastNow } from 'common/utilities/helpers';
 import { Store } from '@ngrx/store';
@@ -24,7 +24,7 @@ import { HTTP_FORBIDDEN, HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/cod
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent extends HandleSubscription implements OnInit {
+export class LoginComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADSHARES_WALLET = ADSHARES_WALLET;
   readonly METAMASK_WALLET = METAMASK_WALLET;
   registrationMode: string;

@@ -7,7 +7,7 @@ import { ADVERTISER_INSTRUCTION_LINK, PUBLISHER_INSTRUCTION_LINK } from 'models/
 import { take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +15,7 @@ import { HandleSubscription } from 'common/handle-subscription';
   styleUrls: ['./auth.component.scss'],
   animations: [fadeAnimation],
 })
-export class AuthComponent extends HandleSubscription {
+export class AuthComponent extends HandleSubscriptionComponent {
   getRouterOutletState = outlet => (outlet.isActivated ? outlet.activatedRoute : '');
 
   advertiserInstructionLink = ADVERTISER_INSTRUCTION_LINK;

@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SettingsService } from 'settings/settings.service';
 import { AppState } from 'models/app-state.model';
 import { User, UserAdserverWallet } from 'models/user.model';
@@ -26,7 +26,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './withdraw-funds-dialog.component.html',
   styleUrls: ['./withdraw-funds-dialog.component.scss'],
 })
-export class WithdrawFundsDialogComponent extends HandleSubscription implements OnInit {
+export class WithdrawFundsDialogComponent extends HandleSubscriptionComponent implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
   btc: string = CRYPTO_BTC;

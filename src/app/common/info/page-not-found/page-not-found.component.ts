@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AppState } from 'models/app-state.model';
 import { Info } from 'models/info.model';
 
@@ -10,7 +10,7 @@ import { Info } from 'models/info.model';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
 })
-export class PageNotFoundComponent extends HandleSubscription implements OnInit {
+export class PageNotFoundComponent extends HandleSubscriptionComponent implements OnInit {
   supportEmail: string;
 
   constructor(private store: Store<AppState>) {

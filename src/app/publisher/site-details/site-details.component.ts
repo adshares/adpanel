@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { ChartService } from 'common/chart.service';
 import { PublisherService } from 'publisher/publisher.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
@@ -39,7 +39,7 @@ import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
   templateUrl: './site-details.component.html',
   styleUrls: ['./site-details.component.scss'],
 })
-export class SiteDetailsComponent extends HandleSubscription implements OnInit {
+export class SiteDetailsComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
   dataLoaded: boolean = false;
   site: Site;

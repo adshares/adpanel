@@ -1,14 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-site-code-dialog',
   templateUrl: './access-token-dialog.component.html',
   styleUrls: ['./access-token-dialog.component.scss'],
 })
-export class AccessTokenDialogComponent extends HandleSubscription {
+export class AccessTokenDialogComponent extends HandleSubscriptionComponent {
   faCode = faCode;
   loadingInfo: boolean = true;
 

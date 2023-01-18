@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ServerOptionsService } from 'common/server-options.service';
 import { CRYPTO, CRYPTO_BTC } from 'common/utilities/consts';
 import {
@@ -21,7 +21,7 @@ function removeDecimalPart(value: number | string) {
 @Pipe({
   name: 'formatMoney',
 })
-export class AdsharesTokenPipe extends HandleSubscription implements PipeTransform {
+export class AdsharesTokenPipe extends HandleSubscriptionComponent implements PipeTransform {
   private readonly appCurrencyCode: string;
   private readonly currencyCode: string;
 
@@ -60,7 +60,7 @@ export class AdsharesTokenPipe extends HandleSubscription implements PipeTransfo
 @Pipe({
   name: 'calculateInCurrency',
 })
-export class CalculateInCurrency extends HandleSubscription implements PipeTransform {
+export class CalculateInCurrency extends HandleSubscriptionComponent implements PipeTransform {
   private rate: ExchangeRate = null;
 
   constructor(private store: Store<AppState>) {

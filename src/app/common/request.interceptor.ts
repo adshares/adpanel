@@ -17,12 +17,12 @@ import { LocalStorageUser } from 'models/user.model';
 import { SessionService } from 'app/session.service';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { environment } from 'environments/environment';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ImpersonationService } from '../impersonation/impersonation.service';
 import { HTTP_INTERNAL_SERVER_ERROR, HTTP_UNAUTHORIZED } from 'common/utilities/codes';
 
 @Injectable()
-export class RequestInterceptor extends HandleSubscription implements HttpInterceptor {
+export class RequestInterceptor extends HandleSubscriptionComponent implements HttpInterceptor {
   openedErrorDialogs: number = 0;
   maxOpenedErrorDialogs: number = 1;
 

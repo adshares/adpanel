@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings, FilterPreset, TimespanFilter } from 'models/chart/chart-filter-settings.model';
 import * as moment from 'moment';
@@ -15,7 +15,7 @@ import { DATE_FORMAT } from 'common/utilities/consts';
   styleUrls: ['./chart-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChartFilterComponent extends HandleSubscription implements OnInit {
+export class ChartFilterComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() filter: EventEmitter<TimespanFilter> = new EventEmitter();
   @Output('closed') closedStream: EventEmitter<boolean>;
   @Output('opened') openedStream: EventEmitter<boolean>;

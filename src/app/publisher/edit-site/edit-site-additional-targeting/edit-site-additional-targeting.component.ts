@@ -16,7 +16,7 @@ import { PublisherService } from 'publisher/publisher.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { Site } from 'models/site.model';
 import { parseTargetingForBackend } from 'common/components/targeting/targeting.helpers';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { siteStatusEnum } from 'models/enum/site.enum';
 
 @Component({
@@ -24,7 +24,7 @@ import { siteStatusEnum } from 'models/enum/site.enum';
   templateUrl: './edit-site-additional-targeting.component.html',
   styleUrls: ['./edit-site-additional-targeting.component.scss'],
 })
-export class EditSiteAdditionalTargetingComponent extends HandleSubscription implements OnInit {
+export class EditSiteAdditionalTargetingComponent extends HandleSubscriptionComponent implements OnInit {
   excludePanelOpenState: boolean;
   requirePanelOpenState: boolean;
   site: Site;

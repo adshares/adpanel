@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { ChartComponent } from 'common/components/chart/chart.component';
 import { mapDatesToChartLabels } from 'common/components/chart/chart-settings/chart-settings.helpers';
 import { ChartService } from 'common/chart.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Campaign, CampaignTotals } from 'models/campaign.model';
 import { AppState } from 'models/app-state.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
@@ -21,7 +21,7 @@ import { reportType } from 'models/enum/user.enum';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent extends HandleSubscription implements OnInit {
+export class DashboardComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild(ChartComponent) appChartRef: ChartComponent;
 
   campaigns: Campaign[];

@@ -15,7 +15,7 @@ import { AdvertiserService } from 'advertiser/advertiser.service';
 import { AssetHelpersService } from 'common/asset-helpers.service';
 import { adCreativeTypes, adStatusesEnum, fileTypes, validHtmlTypes, validModelTypes } from 'models/enum/ad.enum';
 import { WarningDialogComponent } from 'common/dialog/warning-dialog/warning-dialog.component';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { HTTP_REQUEST_ENTITY_TOO_LARGE } from 'common/utilities/codes';
 import { cloneDeep, cutDirectAdSizeAnchor } from 'common/utilities/helpers';
 import { Ad, Campaign } from 'models/campaign.model';
@@ -47,7 +47,7 @@ interface UploadingFile {
   templateUrl: './edit-campaign-create-ads.component.html',
   styleUrls: ['./edit-campaign-create-ads.component.scss'],
 })
-export class EditCampaignCreateAdsComponent extends HandleSubscription implements OnInit {
+export class EditCampaignCreateAdsComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADSHARES_UNITS = ADSHARES_UNITS;
   readonly WIKI_HTML_AD = WIKI_HTML_AD;
   readonly adCreativeTypes = adCreativeTypes;

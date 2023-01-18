@@ -23,7 +23,7 @@ import {
   mapToIterable,
 } from 'common/utilities/helpers';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { CustomValidators } from 'common/utilities/forms';
 import { ServerOptionsService } from 'common/server-options.service';
 
@@ -32,7 +32,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './edit-campaign-basic-information.component.html',
   styleUrls: ['./edit-campaign-basic-information.component.scss'],
 })
-export class EditCampaignBasicInformationComponent extends HandleSubscription implements OnInit, OnDestroy {
+export class EditCampaignBasicInformationComponent extends HandleSubscriptionComponent implements OnInit, OnDestroy {
   currencyCode: string;
   campaignsConfig: CampaignsConfig;
   campaignBasicInfoForm: FormGroup;

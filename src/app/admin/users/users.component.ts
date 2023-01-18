@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent extends HandleSubscription {
+export class UsersComponent extends HandleSubscriptionComponent {
   constructor() {
     super();
   }

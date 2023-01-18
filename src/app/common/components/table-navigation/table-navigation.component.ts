@@ -2,14 +2,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { TableColumnMetaData, TableSortEvent } from 'models/table.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 
 @Component({
   selector: 'app-table-navigation',
   templateUrl: './table-navigation.component.html',
   styleUrls: ['./table-navigation.component.scss'],
 })
-export class TableNavigationComponent extends HandleSubscription implements OnInit {
+export class TableNavigationComponent extends HandleSubscriptionComponent implements OnInit {
   @Output() sortTable: EventEmitter<TableSortEvent> = new EventEmitter();
   @Input() navigationName: string;
   navigationItems: TableColumnMetaData[] = [];

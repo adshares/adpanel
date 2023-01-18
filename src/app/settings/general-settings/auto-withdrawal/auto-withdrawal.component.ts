@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { SessionService } from 'app/session.service';
 import { AppState } from 'models/app-state.model';
 import { Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './auto-withdrawal.component.html',
   styleUrls: ['./auto-withdrawal.component.scss'],
 })
-export class AutoWithdrawalComponent extends HandleSubscription implements OnInit {
+export class AutoWithdrawalComponent extends HandleSubscriptionComponent implements OnInit {
   wallet: UserAdserverWallet;
   currencyCode: string;
   isImpersonated: boolean = false;

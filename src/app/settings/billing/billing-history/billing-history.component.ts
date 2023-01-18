@@ -13,7 +13,7 @@ import {
   GetBillingHistory,
   WITHDRAW_FUNDS_SUCCESS,
 } from 'store/settings/settings.actions';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { ServerOptionsService } from 'common/server-options.service';
@@ -23,7 +23,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './billing-history.component.html',
   styleUrls: ['./billing-history.component.scss'],
 })
-export class BillingHistoryComponent extends HandleSubscription implements OnInit {
+export class BillingHistoryComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
   emptyBillingHistory: BillingHistory = {
     limit: 10,

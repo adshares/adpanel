@@ -15,7 +15,7 @@ import {
 } from 'store/advertiser/advertiser.actions';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { BidStrategyService } from 'common/bid-strategy.service';
 import { SAVE_SUCCESS } from 'common/utilities/messages';
 
@@ -24,7 +24,7 @@ import { SAVE_SUCCESS } from 'common/utilities/messages';
   templateUrl: './edit-campaign-bid-strategy.component.html',
   styleUrls: ['./edit-campaign-bid-strategy.component.scss'],
 })
-export class EditCampaignBidStrategyComponent extends HandleSubscription implements OnInit {
+export class EditCampaignBidStrategyComponent extends HandleSubscriptionComponent implements OnInit {
   campaignsConfig: CampaignsConfig;
   campaign: Campaign;
   submitted: boolean = false;

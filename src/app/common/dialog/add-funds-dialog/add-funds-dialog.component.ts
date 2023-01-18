@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import {
   Country,
   DepositInfo,
@@ -28,7 +28,7 @@ import { GET_ADS_FAQ } from 'models/enum/link.enum';
   templateUrl: './add-funds-dialog.component.html',
   styleUrls: ['./add-funds-dialog.component.scss'],
 })
-export class AddFundsDialogComponent extends HandleSubscription implements OnInit {
+export class AddFundsDialogComponent extends HandleSubscriptionComponent implements OnInit {
   readonly ADS_TOKEN_CODE = 'ADS';
   abi: any = [
     {

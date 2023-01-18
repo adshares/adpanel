@@ -1,4 +1,4 @@
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Store } from '@ngrx/store';
 import { AppState } from 'models/app-state.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { TableSortEvent } from 'models/table.model';
 import { take } from 'rxjs/operators';
 
-export abstract class BaseListComponent extends HandleSubscription {
+export abstract class BaseListComponent extends HandleSubscriptionComponent {
   private _list;
   private _filteredList;
   private _queryParams;

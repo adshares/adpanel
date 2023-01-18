@@ -18,7 +18,7 @@ import {
 } from 'store/advertiser/advertiser.actions';
 
 import { AdvertiserService } from 'advertiser/advertiser.service';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { ConfirmResponseDialogComponent } from 'common/dialog/confirm-response-dialog/confirm-response-dialog.component';
 import { ConversionLinkInformationDialogComponent } from 'common/dialog/information-dialog/conversion-link-information-dialog.component';
 import { ShowDialogOnError, ShowSuccessSnackbar } from 'store/common/common.actions';
@@ -32,7 +32,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './edit-campaign-conversion.component.html',
   styleUrls: ['./edit-campaign-conversion.component.scss'],
 })
-export class EditCampaignConversionComponent extends HandleSubscription implements OnInit {
+export class EditCampaignConversionComponent extends HandleSubscriptionComponent implements OnInit {
   currencyCode: string;
   readonly TYPE_ADVANCED: string = 'advanced';
   readonly TYPE_BASIC: string = 'basic';

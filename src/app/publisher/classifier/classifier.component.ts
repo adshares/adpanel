@@ -12,7 +12,7 @@ import {
 import { HTTP_INTERNAL_SERVER_ERROR } from 'common/utilities/codes';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site } from 'models/site.model';
 
 @Component({
@@ -20,7 +20,7 @@ import { Site } from 'models/site.model';
   templateUrl: './classifier.component.html',
   styleUrls: ['./classifier.component.scss'],
 })
-export class ClassifierComponent extends HandleSubscription implements OnInit {
+export class ClassifierComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
 
   readonly PAGE_SIZE: number = 20;

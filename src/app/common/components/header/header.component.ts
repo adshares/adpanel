@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { HandleSubscription } from 'common/handle-subscription';
+import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { AddFundsDialogComponent } from 'common/dialog/add-funds-dialog/add-funds-dialog.component';
 import { userRolesEnum } from 'models/enum/user.enum';
 import { AuthService } from 'app/auth.service';
@@ -20,7 +20,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent extends HandleSubscription implements OnInit {
+export class HeaderComponent extends HandleSubscriptionComponent implements OnInit {
   supportEmail;
   supportTelegram;
   supportChat;
