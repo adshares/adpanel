@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Set chart's date filter
 - Sites' order on dashboard after status change
+- Set conversion's mutable value
 
 ## [2.2.4] - 2022-12-29
 ### Fixed
