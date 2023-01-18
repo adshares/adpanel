@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'app/session.service';
 import { LocalStorageUser, UserAdserverWallet } from 'models/user.model';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { ServerOptionsService } from 'common/server-options.service';
   templateUrl: './settings-navigation.component.html',
   styleUrls: ['./settings-navigation.component.scss'],
 })
-export class SettingsNavigationComponent extends HandleSubscription {
+export class SettingsNavigationComponent extends HandleSubscription implements OnInit {
   crypto: string = CRYPTO;
   code: string = CODE;
   calculateFunds: boolean;
