@@ -34,7 +34,7 @@
             {{ campaign.basicInformation.targetUrl }}
           </a>
         </div>
-        <div *ngIf="campaign.basicInformation.maxCpm != null">
+        <div *ngIf="campaign.basicInformation.maxCpm !== null">
           <p class="ap-copy--small label">Max CPM</p>
           <p class="ap-copy--dark ap-copy--semi" data-test="advertiser-campaign-max-cpm">
             {{ campaign.basicInformation.maxCpm | formatMoney : 2 }}
