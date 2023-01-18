@@ -86,7 +86,7 @@
                 <div class="row no-wrap cell">
                   <mat-slide-toggle
                     class="row align-self-center"
-                    id="isMutable"
+                    [id]="'isMutable' + conversionItemFormIndex"
                     formControlName="isValueMutable"
                     data-test="advertiser-conversion-item-is-value-mutable">
                   </mat-slide-toggle>
@@ -241,7 +241,7 @@
                 <div class="row no-wrap cell">
                   <mat-slide-toggle
                     class="row align-self-center"
-                    id="isMutableAdv"
+                    [id]="'isMutableAdv' + conversionItemFormIndex"
                     formControlName="isValueMutable"
                     data-test="advertiser-conversion-item-is-value-mutable">
                   </mat-slide-toggle>

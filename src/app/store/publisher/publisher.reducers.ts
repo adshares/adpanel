@@ -179,15 +179,14 @@ export function publisherReducers(state = initialState, action: PublisherActions
       const siteIndex = state.sites.findIndex(site => site.id === action.payload.id);
       const oldSites = [...state.sites];
       const oldSite = oldSites.splice(siteIndex, 1)[0];
+      const updatedSite = {
+        ...oldSite,
+        ...action.payload,
+      };
+      oldSites.splice(siteIndex, 0, updatedSite);
       return {
         ...state,
-        sites: [
-          ...oldSites,
-          {
-            ...oldSite,
-            ...action.payload,
-          },
-        ],
+        sites: [...oldSites],
       };
 
     case AuthActions.USER_LOG_IN_SUCCESS:

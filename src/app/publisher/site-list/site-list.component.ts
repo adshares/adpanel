@@ -2,7 +2,7 @@ import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/
 import { Router } from '@angular/router';
 import { HandleSubscriptionComponent } from 'common/handle-subscription.component';
 import { Site, SitesTotals } from 'models/site.model';
-import { enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { enumToObjectArray, sortArrayByKeys } from 'common/utilities/helpers';
 import { TableSortEvent } from 'models/table.model';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { TableNavigationComponent } from 'common/components/table-navigation/table-navigation.component';
@@ -27,9 +27,10 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
   }
 
   private static addLabelsToStatuses() {
-    return enumToArray(siteStatusEnum).map(item => {
+    return enumToObjectArray(siteStatusEnum).map(item => {
+      const name = item.name;
       let label;
-      switch (item) {
+      switch (name) {
         case 'active':
           label = 'Activate';
           break;
@@ -37,12 +38,12 @@ export class SiteListComponent extends HandleSubscriptionComponent implements On
           label = 'Deactivate';
           break;
         default:
-          label = item;
+          label = name.charAt(0).toUpperCase() + name.slice(1);
           break;
       }
 
       return {
-        value: item,
+        value: item.id,
         label: label,
       };
     });

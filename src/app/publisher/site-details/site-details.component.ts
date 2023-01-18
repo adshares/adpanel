@@ -9,7 +9,7 @@ import { AppState } from 'models/app-state.model';
 import { AdUnit, Site, SiteLanguage } from 'models/site.model';
 import { ChartFilterSettings } from 'models/chart/chart-filter-settings.model';
 import { AssetTargeting, TargetingOption } from 'models/targeting-option.model';
-import { cloneDeep, createInitialDataSet, enumToArray, sortArrayByKeys } from 'common/utilities/helpers';
+import { cloneDeep, createInitialDataSet, sortArrayByKeys } from 'common/utilities/helpers';
 import { siteStatusEnum } from 'models/enum/site.enum';
 import { ErrorResponseDialogComponent } from 'common/dialog/error-response-dialog/error-response-dialog.component';
 import { LoadSiteTotals, UpdateSiteStatus } from 'store/publisher/publisher.actions';
@@ -29,10 +29,12 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
-import { faExternalLinkSquareAlt } from '@fortawesome/free-solid-svg-icons';
-import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
-import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
+import {
+  SiteCodeMetaverseDialogComponent
+} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
+import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
+import { DECENTRALAND_BUILDER } from 'models/enum/link.enum'
 
 @Component({
   selector: 'app-site-details',
@@ -44,7 +46,6 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   dataLoaded: boolean = false;
   site: Site;
   siteStatusEnum = siteStatusEnum;
-  siteStatusEnumArray = enumToArray(siteStatusEnum);
   language: SiteLanguage;
 
   filtering: AssetTargeting = {
@@ -63,8 +64,9 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   isMetaverse: boolean = true;
   editPopups: boolean = true;
   editAds: boolean = true;
-  siteLinkUrl: string;
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
+  siteLinkUrl: string
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  readonly faQuestionCircle = faQuestionCircle;
 
   constructor(
     private route: ActivatedRoute,
@@ -90,10 +92,8 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   }
 
   get canActivateSite(): boolean {
-    return (
-      this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.DRAFT].toLowerCase() ||
-      this.currentSiteStatus === this.siteStatusEnum[this.siteStatusEnum.INACTIVE].toLowerCase()
-    );
+    return siteStatusEnum.DRAFT === this.site.status ||
+      siteStatusEnum.INACTIVE === this.site.status;
   }
 
   get statusButtonLabel(): string {
@@ -257,16 +257,19 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   }
 
   onSiteStatusChange(): void {
+    let status;
     if (this.canActivateSite) {
       this.currentSiteStatus = 'active';
+      status = siteStatusEnum.ACTIVE;
     } else {
       this.currentSiteStatus = 'inactive';
+      status = siteStatusEnum.INACTIVE;
     }
     this.site = {
       ...this.site,
-      status: this.siteStatusEnumArray.findIndex(el => el === this.currentSiteStatus),
+      status: status,
     };
-    this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: this.site.status }));
+    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: status}));
   }
 
   downloadReport(): void {
