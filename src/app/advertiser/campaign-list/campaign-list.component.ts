@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Campaign, CampaignTotals } from 'models/campaign.model';
@@ -11,7 +11,7 @@ import { TableNavigationComponent } from 'common/components/table-navigation/tab
   templateUrl: './campaign-list.component.html',
   styleUrls: ['./campaign-list.component.scss'],
 })
-export class CampaignListComponent {
+export class CampaignListComponent implements OnChanges {
   @Input() dataLoaded: boolean;
   @Input() campaigns: Campaign[];
   @Input() campaignsTotals: CampaignTotals;
