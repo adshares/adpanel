@@ -29,12 +29,10 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RequestReport } from 'store/common/common.actions';
 import { reportType } from 'models/enum/user.enum';
-import {
-  SiteCodeMetaverseDialogComponent
-} from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component'
+import { SiteCodeMetaverseDialogComponent } from 'publisher/dialogs/site-code-metaverse-dialog/site-code-metaverse-dialog.component';
 import { faExternalLinkSquareAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
-import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter'
-import { DECENTRALAND_BUILDER } from 'models/enum/link.enum'
+import { CryptovoxelsConverter } from 'common/utilities/targeting-converter/cryptovoxels-converter';
+import { DECENTRALAND_BUILDER } from 'models/enum/link.enum';
 
 @Component({
   selector: 'app-site-details',
@@ -64,8 +62,8 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   isMetaverse: boolean = true;
   editPopups: boolean = true;
   editAds: boolean = true;
-  siteLinkUrl: string
-  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt
+  siteLinkUrl: string;
+  readonly faExternalLinkSquareAlt = faExternalLinkSquareAlt;
   readonly faQuestionCircle = faQuestionCircle;
 
   constructor(
@@ -92,8 +90,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
   }
 
   get canActivateSite(): boolean {
-    return siteStatusEnum.DRAFT === this.site.status ||
-      siteStatusEnum.INACTIVE === this.site.status;
+    return siteStatusEnum.DRAFT === this.site.status || siteStatusEnum.INACTIVE === this.site.status;
   }
 
   get statusButtonLabel(): string {
@@ -269,7 +266,7 @@ export class SiteDetailsComponent extends HandleSubscriptionComponent implements
       ...this.site,
       status: status,
     };
-    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: status}));
+    this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: status }));
   }
 
   downloadReport(): void {

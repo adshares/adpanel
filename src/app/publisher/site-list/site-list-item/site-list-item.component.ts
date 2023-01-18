@@ -9,7 +9,7 @@ import { Site } from 'models/site.model';
 @Component({
   selector: 'app-site-list-item',
   templateUrl: './site-list-item.component.html',
-  styleUrls: ['./site-list-item.component.scss']
+  styleUrls: ['./site-list-item.component.scss'],
 })
 export class SiteListItemComponent implements OnInit {
   @Input() site: Site;
@@ -17,9 +17,7 @@ export class SiteListItemComponent implements OnInit {
   siteStatusEnum = siteStatusEnum;
   currentSiteStatus: string;
 
-  constructor(private router: Router,
-              private store: Store<AppState>) {
-  }
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.setStatusLabel();
@@ -31,7 +29,7 @@ export class SiteListItemComponent implements OnInit {
       status: status,
     };
     this.setStatusLabel();
-    this.store.dispatch(new UpdateSiteStatus({id: this.site.id, status: status}));
+    this.store.dispatch(new UpdateSiteStatus({ id: this.site.id, status: status }));
   }
 
   private setStatusLabel(): void {

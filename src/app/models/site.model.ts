@@ -25,7 +25,7 @@ interface Site {
   ctr?: number;
   revenue?: number;
   code?: string;
-  rejectReason?: string|null;
+  rejectReason?: string | null;
 }
 
 interface SiteRank {

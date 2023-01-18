@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test adshares",
     "dev": "ng serve adshares --configuration=dev",
-    "format": "prettier --write --config ./.prettierrc src/**/*{.ts,.js,.json,.scss,.html}",
+    "format": "ng lint --fix",
     "lint": "ng lint"
   },
   "private": true,
