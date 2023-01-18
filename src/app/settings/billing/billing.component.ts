@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './billing.component.html',
   styleUrls: ['./billing.component.scss'],
 })
-export class BillingComponent {
+export class BillingComponent implements OnInit {
   nowPaymentsSuccess: boolean = false;
 
   constructor(private route: ActivatedRoute) {}
