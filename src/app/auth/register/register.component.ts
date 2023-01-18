@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,7 +22,7 @@ import { Info } from 'models/info.model';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends HandleSubscriptionComponent {
+export class RegisterComponent extends HandleSubscriptionComponent implements OnInit {
   @ViewChild('registrationForm') registrationForm: NgForm;
 
   isLoading = true;
